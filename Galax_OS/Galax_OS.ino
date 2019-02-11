@@ -459,6 +459,7 @@ void TinyBasic () {
             Serial1.write(0xff);
             Serial1.write(0xff);
             Serial1.write(0xff);
+            
           }
           SelectLine = 0
         }
