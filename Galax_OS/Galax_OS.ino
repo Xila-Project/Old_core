@@ -48,6 +48,8 @@
 
 #include "RTClib.h"
 
+#include <PS2Keyboard.h>
+
 #define SoundSpeed 340000
 
 RTC_DS1307 RTC;
@@ -73,6 +75,10 @@ byte NextTypeInst = 0;
 char NextCharInst[14] = "";
 String NextStrnInst;
 
+const int KBDPin = 8;
+const int KBCPin = 3;
+PS2Keyboard Keyboard;
+
 String User;
 
 void setup() {
@@ -81,7 +87,7 @@ void setup() {
   Serial1.begin(115200); //Nextion UART
 
   RTC.begin();
-test
+
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
@@ -248,7 +254,7 @@ void Read_Instruction() {
 
   switch (NextTypeInst) {
     case 1:
-      Serial.println("Command");
+      Serial.println(F("Command"));
       //*->Command//
       if (NextStrnInst == "Ready") Ready();
       else if (NextStrnInst == "GetPswd") GetPassword(StringCommonVariable);
@@ -299,7 +305,9 @@ void Read_Instruction() {
       else if (NextStrnInst == "Resume") Music_Player(IntegerCommonVariable[1], "");
       else if (NextStrnInst == "Tone") tone(IntegerCommonVariable[2], IntegerCommonVariable[1]);
       else if (NextStrnInst == "NoTone") tone(IntegerCommonVariable[2], IntegerCommonVariable[1]);
-      else if (NextTypeInst == "FGSave") Save(StringCommonVariable, "FG");
+      else if (NextStrnInst == "FGSave") Save(StringCommonVariable, "FG");
+      else if (NextStrnInst == "TinyBasic") TinyBasic();
+      else Serial.print(F("Unknow Command"));
       break;
 
     case 2:
@@ -380,6 +388,121 @@ void Read_Instruction() {
   }
 }
 
+void TinyBasic () {
+  Serial.println(F("|| > Tiny Basic"));
+  Keyboard.begin(KBDPin, KBCPin, PS2Keymap_French);
+  String Line[16];
+  int SelectLine = 1;
+  char Entry;
+
+  for (int i = 0; i < 17; i++) {
+    Line[i] = "";
+  }
+
+  IntegerCommonVariable[1] = freeRam;
+  Line[1] = "          ==== Galax OS EE Tiny Basic 0.1 ====";
+  Line[2] = "Arduino Mega 2560 - 4K RAM";
+  Line[3] = String(IntegerCommonVariable[1], HEX) + " Bytes Free";
+
+  Serial1.print("LINE1_TXT.txt=");
+  Serial1.write(0x22);
+  Serial1.print(Line[1]);
+  Serial1.write(0x22);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+
+  Serial1.print("LINE2_TXT.txt=");
+  Serial1.write(0x22);
+  Serial1.print(Line[2]);
+  Serial1.write(0x22);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+
+  Serial1.print("LINE3_TXT.txt=");
+  Serial1.write(0x22);
+  Serial1.print(Line[3]);
+  Serial1.write(0x22);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+
+  SelectLine = 4;
+
+  Serial1.print("SELECTLINE_VAR.val=");
+  Serial1.print(SelectLine);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial.println(F("|| > Listen to Keyboard"));
+  while (!Serial1.available()) {
+    if (Keyboard.available()) {
+      Entry = Keyboard.read();
+      Serial.print(Entry);
+      if (Entry == PS2_ENTER) {
+        if (SelectLine > 15) {
+          for (int i = 1; i < 16; i++) {
+            Line[i] = Line[i + 1];
+          }
+          Line[16] = "";
+        }
+        if (Line[SelectLine] == "CLEAR") {
+          for (int i = 1; i < 17; i++) {
+            Line[i] = "";
+            Serial1.print("LINE");
+            Serial1.print(i);
+            Serial1.print("_TXT.txt=");
+            Serial1.write(0x22);
+            Serial1.print(Line[i]);
+            Serial1.write(0x22);
+            Serial1.write(0xff);
+            Serial1.write(0xff);
+            Serial1.write(0xff);
+          }
+          SelectLine = 0
+        }
+        else if (Line[SelectLine] == "ESCAPE") {
+          Serial1.print("page Desk");
+          Serial1.write(0xff);
+          Serial1.write(0xff);
+          Serial1.write(0xff);
+        }
+        else {
+          TinyBasic_Execution(Line[SelectLine]);
+        }
+
+        SelectLine += 1;
+
+      }
+      else if (Entry == PS2_ESC) {
+        Serial1.print("page Desk");
+        Serial1.write(0xff);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
+      }
+      else if (Entry == PS2_DELETE) {
+        Line[SelectLine] = Line[SelectLine].substring(0, Line[SelectLine].length() - 1);
+      }
+      else {
+        Line[SelectLine] += Entry;
+      }
+      Serial1.print("LINE");
+      Serial1.print(SelectLine);
+      Serial1.print("_TXT.txt=");
+      Serial1.write(0x22);
+      Serial1.print(Line[SelectLine]);
+      Serial1.write(0x22);
+      Serial1.write(0xff);
+      Serial1.write(0xff);
+      Serial1.write(0xff);
+    }
+  }
+}
+
+void TinyBasic_Execution(String Command) {
+
+}
 
 void Pictureader (String Filename) {
 
@@ -604,7 +727,7 @@ void Fandf(File Directory) {
       if (Item.isDirectory()) {
         Serial1.print("ITEM");
         Serial1.print(i);
-        Serial1.print("_BUT.pic=11");
+        Serial1.print("_BUT.pic=12");
         Serial1.write(0xff);
         Serial1.write(0xff);
         Serial1.write(0xff);
@@ -612,7 +735,7 @@ void Fandf(File Directory) {
       else {
         Serial1.print("ITEM");
         Serial1.print(i);
-        Serial1.print("_BUT.pic=10");
+        Serial1.print("_BUT.pic=11");
         Serial1.write(0xff);
         Serial1.write(0xff);
         Serial1.write(0xff);
