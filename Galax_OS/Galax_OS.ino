@@ -48,6 +48,8 @@
 
 #include "RTClib.h"
 
+#include <PS2Keyboard.h>
+
 #define SoundSpeed 340000
 
 RTC_DS1307 RTC;
@@ -73,6 +75,10 @@ byte NextTypeInst = 0;
 char NextCharInst[14] = "";
 String NextStrnInst;
 
+const int KBDPin = 8;
+const int KBCPin = 3;
+PS2Keyboard Keyboard;
+
 String User;
 
 void setup() {
@@ -81,7 +87,7 @@ void setup() {
   Serial1.begin(115200); //Nextion UART
 
   RTC.begin();
-test
+
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
@@ -300,6 +306,7 @@ void Read_Instruction() {
       else if (NextStrnInst == "Tone") tone(IntegerCommonVariable[2], IntegerCommonVariable[1]);
       else if (NextStrnInst == "NoTone") tone(IntegerCommonVariable[2], IntegerCommonVariable[1]);
       else if (NextTypeInst == "FGSave") Save(StringCommonVariable, "FG");
+      else if (NextTypeInst == "TinyBasic") TinyBasic();
       break;
 
     case 2:
@@ -380,6 +387,43 @@ void Read_Instruction() {
   }
 }
 
+void TinyBasic () {
+  Keyboard.begin(KBDPin, KBCPin, PS2Keymap_French);
+  String Line[16];
+  Int SelectLine;
+  
+  if (PS2Keyboard.available()) {
+    char c = Keyboard.read();
+    if (c == PS2_ENTER) {
+      Serial.println();
+    } else if (c == PS2_TAB) {
+      Serial.print("[Tab]");
+    } else if (c == PS2_ESC) {
+      Serial.print("[ESC]");
+    } else if (c == PS2_PAGEDOWN) {
+      Serial.print("[PgDn]");
+    } else if (c == PS2_PAGEUP) {
+      Serial.print("[PgUp]");
+    } else if (c == PS2_LEFTARROW) {
+      Serial.print("[Left]");
+    } else if (c == PS2_RIGHTARROW) {
+      Serial.print("[Right]");
+    } else if (c == PS2_UPARROW) {
+      Serial.print("[Up]");
+    } else if (c == PS2_DOWNARROW) {
+      Serial.print("[Down]");
+    } else if (c == PS2_DELETE) {
+      Serial.print("[Del]");
+    } else {
+      Line[SelectLine] =
+      Serial1.print
+      Serial1.write(0xff);
+      Serial1.write(0xff);
+      Serial1.write(0xff);
+      Serial.print(c);
+    }
+  }
+}
 
 void Pictureader (String Filename) {
 
