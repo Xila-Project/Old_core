@@ -420,6 +420,20 @@ void NextionSerial(String Item, int Type, String StringData, int IntegerData) {
 
     Serial1.print("page ");
     Serial1.print(Item);
+
+    case 4://Picture
+
+    Serial1.print(Item);
+    Serial1.print(".pic=");
+    Serial1.write(0x22);
+    Serial1.print(IntegerData);
+    Serial1.write(0x22);
+
+    case 5://Timer enable
+
+    Serial1.print(Item);
+    Serial1.print(".en=");
+    Serial1.print(IntegerData);
   }
 
   Serial1.write(0xff);
@@ -859,13 +873,7 @@ void Fandf(File Directory) {
   if (Directory.isDirectory()) {
     Directory.rewindDirectory();
 
-    Serial1.print("PATH_TXT.txt=");
-    Serial1.write(0x22);
-    Serial1.print(Path);
-    Serial1.write(0x22);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
+    NextionSerial("PATH_TXT", 0, Path, 0);
 
     for (int i = 1; i < 19; i++) {
       File Item = Directory.openNextFile();
@@ -873,31 +881,15 @@ void Fandf(File Directory) {
         Serial.println(F("|| No more item                                                               ||"));
         break;
       }
-      Serial1.print("ITEM");
-      Serial1.print(i);
-      Serial1.print("_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print(Item.name());
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+
+      NextionSerial("ITEM"+i+"_TXT", 0, Item.name(), 0);
+
       Serial.println(Item.name());
       if (Item.isDirectory()) {
-        Serial1.print("ITEM");
-        Serial1.print(i);
-        Serial1.print("_BUT.pic=12");
-        Serial1.write(0xff);
-        Serial1.write(0xff);
-        Serial1.write(0xff);
+        NextionSerial("ITEM"+i+"_BUT", 4, "", 12);
       }
       else {
-        Serial1.print("ITEM");
-        Serial1.print(i);
-        Serial1.print("_BUT.pic=11");
-        Serial1.write(0xff);
-        Serial1.write(0xff);
-        Serial1.write(0xff);
+        NextionSerial("ITEM"+i+"_BUT", 4, "", 11);
       }
       Item.close();
     }
@@ -917,25 +909,15 @@ void Fandf(File Directory) {
 
     }
     Directory.close();
-    Serial.println("Extension :");
+    Serial.println(F("Extension :"));
     Serial.print(Extension);
 
     if (Extension == "WAV") Music_Player(0, StringFileName);
     if (Extension == "BMP") Pictureader(StringFileName);
     if (Extension == "GPF") {}
     if (Extension == "FPF") {
-      Serial1.print("page Func Generator");
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-
-      Serial1.print("page Func Generator");
-      Serial1.write(0x22);
-      Serial1.print(StringFileName);
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("Func Generator", 4, "", 0);
+      NextionSerial("FGFN_TXT", 0, StringFileName, 0);
 
       Temp = SD.open(Path);
 
@@ -979,10 +961,7 @@ void Fandf(File Directory) {
 
 void Fileditor() {
   Serial.println(F("|| Open Fileditor                                                             ||"));
-  Serial1.print("page Fileditor");
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+  NextionSerial("Fileditor", 3, "", 0);
   Temp = SD.open(Path);
   for (int i = 1; i < 14; i++) {
     Serial.println(F("|| Ligne :                                                                    ||"));
@@ -1017,24 +996,11 @@ void Fileditor() {
 
 void Music_Player(int Time, String Filename) {
   if (Filename != "") {
-    Serial1.print("page Music Player");
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-
-    Serial1.print("FILENAME_TXT.txt=");
-    Serial1.write(0x22);
-    Serial1.print(Filename);
-    Serial1.write(0x22);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
+    NextionSerial("Music Player", 3, "", 0);
+    NextionSerial("FILENAME_TXT", 0, Filename, 0);
   }
-  Serial1.print("TIMER_TIM.en=");
-  Serial1.print(1);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+
+  NextionSerial("TIMER_TIM", 5, "", 1);
   char Temporary[Path.length() + 1];
   Path.toCharArray(Temporary, sizeof(Temporary));
   Audio.play(Temporary, Time);
@@ -1042,10 +1008,7 @@ void Music_Player(int Time, String Filename) {
 
 void Ready() {
   Serial.println(F("|| > Ready.                                                                   ||"));
-  Serial1.print("page Logon");
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+  NextionSerial("Logon", 3, "", 0);
 }
 
 void GetPassword(String Username) {
@@ -1069,13 +1032,7 @@ void GetPassword(String Username) {
   }
   else {
     Serial.println(F("Wrong Username"));
-    Serial1.print("WRONG_TXT.txt=");
-    Serial1.write(0x22);
-    Serial1.print("Wrong Username !");
-    Serial1.write(0x22);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
+    NextionSerial("WRONG_TXT", 0, "Wrong Username !", 0);
   }
 }
 
@@ -1096,13 +1053,7 @@ void Analog_Write(int Pin, int DutyCycle)  {
 
 void Analog_Read() {
   for (int i = 0; i < 16; i++) {
-    Serial1.print("A");
-    Serial1.print(i);
-    Serial1.print("VAL_TXT.val=");
-    Serial1.print(map(analogRead(i), 0, 1023, 0, 5000));
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
+    NextionSerial("A"+i+"VAL_TXT", 1, "", map(analogRead(i), 0, 1023, 0, 5000));
   }
   loop();
 }
@@ -1239,11 +1190,7 @@ void UltraSonic(int USTrig, int USEcho) {
       int Distance = Time * SoundSpeed;
       Serial.println("|| > Distance :");
       Serial.print(Distance);
-      Serial1.print("DISTVAL_NUM.val=");
-      Serial1.print(Distance);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("DISTVAL_NUM", 1, "", Distance);
       delay(100);
     }
   }
@@ -1263,50 +1210,19 @@ void CardInformation() {
   uint32_t VolumeSize;
   switch (Card.type()) {
     case SD_CARD_TYPE_SD1:
-      Serial1.print("CTVAL_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print("SD1");
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("CTVAL_TXT", 0, "SD1", 0);
       break;
     case SD_CARD_TYPE_SD2:
-      Serial1.print("CTVAL_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print("SD2");
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("CTVAL_TXT", 0, "SD2", 0);
       break;
     case SD_CARD_TYPE_SDHC:
-      Serial1.print("CTVAL_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print("SDHC");
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("CTVAL_TXT", 0, "SDHC", 0);
       break;
     default:
-      Serial1.print("CTVAL_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print("Unknow");
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+      NextionSerial("CTVAL_TXT", 0, "Unknow", 0);
   }
 
-  Serial1.print("MPVAL_TXT.txt=");
-  Serial1.write(0x22);
-  Serial1.print("FAT");
-  Serial1.print(CardVolume.fatType(), DEC);
-  Serial1.write(0x22);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+  NextionSerial("MPVAL_TXT", 0, "FAT"+CardVolume.fatType(), 0);
 
   VolumeSize = CardVolume.blocksPerCluster();
   VolumeSize *= CardVolume.clusterCount();
@@ -1314,14 +1230,7 @@ void CardInformation() {
   VolumeSize /= 1024;
   VolumeSize /= 1024;
 
-  Serial1.print("SIZEVAL_TXT.txt=");
-  Serial1.write(0x22);
-  Serial1.print(VolumeSize);
-  Serial1.print("MB");
-  Serial1.write(0x22);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+  NextionSerial("SIZEVAL_TXT", 0, String(VolumeSize, DEC)+"MB", 0);
 }
 
 void Piano(int Note) {
