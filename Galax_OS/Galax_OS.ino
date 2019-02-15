@@ -35,6 +35,7 @@
 
 
 //Password Path : /USERS/%USERNAME%/PASSWORD.GSF//
+//Keyboard Set : /USERS/%USERNAME%/SETTINGS/KEYBOARD.GSF//
 
 #include <SD.h>
 
@@ -52,6 +53,7 @@
 
 #define SoundSpeed 340000
 
+
 RTC_DS1307 RTC;
 
 TMRpcm Audio;
@@ -62,7 +64,7 @@ String Path;
 
 byte RX1Data[15];
 byte VariableSelection = 0;
-int IntegerCommonVariable[4] = {0, 0, 0, 0};
+int IntegerCommonVariable[26];
 String StringCommonVariable = "";
 
 unsigned int  C = 262;
@@ -82,6 +84,10 @@ PS2Keyboard Keyboard;
 String User;
 
 void setup() {
+
+  for(int i = 0; i < 27; i++) {
+    IntegerCommonVariable[i] = 0;
+  }
   //Serial Initialisation//
   Serial.begin(38400);
   Serial1.begin(115200); //Nextion UART
@@ -388,6 +394,40 @@ void Read_Instruction() {
   }
 }
 
+void NextionSerial(String Item, int Type, String StringData, int IntegerData) {
+  switch (Type) {
+    case 0: //.txt for Text & Scrolling Text, QRCode, Button, DualStateButton //
+
+    Serial1.print(Item);
+    Serial1.print(".txt=");
+    Serial1.write(0x22);
+    Serial1.print(StringData);
+    Serial1.write(0x22);
+
+    case 1://.val for Number,Progress Bar & Slider, Variable//
+
+    Serial1.print(Item);
+    Serial1.print(".val=");
+    Serial1.print(IntegerData);
+
+    case 2://.tim for Timer//
+
+    Serial1.print(Item);
+    Serial1.print(".tim=");
+    Serial1.print(IntegerData);
+
+    case 3://Page//
+
+    Serial1.print("page ");
+    Serial1.print(Item);
+  }
+
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+  Serial1.write(0xff);
+
+}
+
 void TinyBasic () {
   Serial.println(F("|| > Tiny Basic"));
   Keyboard.begin(KBDPin, KBCPin, PS2Keymap_French);
@@ -401,8 +441,7 @@ void TinyBasic () {
 
   IntegerCommonVariable[1] = freeRam;
   Line[1] = "          ==== Galax OS EE Tiny Basic 0.1 ====";
-  Line[2] = "Arduino Mega 2560 - 4K RAM";
-  Line[3] = String(IntegerCommonVariable[1], HEX) + " Bytes Free";
+  Line[2] = "Arduino Mega 2560 - ATmega2560-16AU - 8K RAM";
 
   Serial1.print("LINE1_TXT.txt=");
   Serial1.write(0x22);
@@ -420,15 +459,7 @@ void TinyBasic () {
   Serial1.write(0xff);
   Serial1.write(0xff);
 
-  Serial1.print("LINE3_TXT.txt=");
-  Serial1.write(0x22);
-  Serial1.print(Line[3]);
-  Serial1.write(0x22);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-
-  SelectLine = 4;
+  SelectLine = 3;
 
   Serial1.print("SELECTLINE_VAR.val=");
   Serial1.print(SelectLine);
@@ -443,8 +474,18 @@ void TinyBasic () {
       if (Entry == PS2_ENTER) {
         if (SelectLine > 15) {
           for (int i = 1; i < 16; i++) {
+            Serial1.print("LINE");
+            Serial1.print(i);
+            Serial1.print("_TXT.txt=");
+            Serial1.write(0x22);
+            Serial1.print(Line[i]);
+            Serial1.write(0x22);
+            Serial1.write(0xff);
+            Serial1.write(0xff);
+            Serial1.write(0xff);
             Line[i] = Line[i + 1];
           }
+          SelectLine--;
           Line[16] = "";
         }
         if (Line[SelectLine] == "CLEAR") {
@@ -459,9 +500,9 @@ void TinyBasic () {
             Serial1.write(0xff);
             Serial1.write(0xff);
             Serial1.write(0xff);
-            
+
           }
-          SelectLine = 0
+          SelectLine = 0;
         }
         else if (Line[SelectLine] == "ESCAPE") {
           Serial1.print("page Desk");
@@ -470,10 +511,19 @@ void TinyBasic () {
           Serial1.write(0xff);
         }
         else {
-          TinyBasic_Execution(Line[SelectLine]);
+          Line[SelectLine + 1] = TinyBasic_RE(Line[SelectLine]);
         }
 
         SelectLine += 1;
+        Serial1.print("LINE");
+        Serial1.print(SelectLine);
+        Serial1.print("_TXT.txt=");
+        Serial1.write(0x22);
+        Serial1.print(Line[SelectLine]);
+        Serial1.write(0x22);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
 
       }
       else if (Entry == PS2_ESC) {
@@ -484,28 +534,137 @@ void TinyBasic () {
       }
       else if (Entry == PS2_DELETE) {
         Line[SelectLine] = Line[SelectLine].substring(0, Line[SelectLine].length() - 1);
+        Serial1.print("LINE");
+        Serial1.print(SelectLine);
+        Serial1.print("_TXT.txt=");
+        Serial1.write(0x22);
+        Serial1.print(Line[SelectLine]);
+        Serial1.write(0x22);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
       }
       else {
         Line[SelectLine] += Entry;
+        Serial1.print("LINE");
+        Serial1.print(SelectLine);
+        Serial1.print("_TXT.txt=");
+        Serial1.write(0x22);
+        Serial1.print(Line[SelectLine]);
+        Serial1.write(0x22);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
+        Serial1.write(0xff);
       }
-      Serial1.print("LINE");
-      Serial1.print(SelectLine);
-      Serial1.print("_TXT.txt=");
-      Serial1.write(0x22);
-      Serial1.print(Line[SelectLine]);
-      Serial1.write(0x22);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
-      Serial1.write(0xff);
+
     }
   }
 }
 
-void TinyBasic_Execution(String Command) {
+String TinyBasic_RE(String CopyLine) {
+   char Command[sizeof(CopyLine)+1];
+   String Keyword = "";
+   String Argument[3] = {"", "", ""};
+   int IntegerArgument[3] = {0, 0, 0};
+   char TypeArgument[4] = {'\0', '\0', '\0'};
+   byte i = 0;
+   byte AmountArguments = 0;
 
+   //Read
+   for(int ii = 0; ii < 4; i++) {
+     if(Command[i] == '\0') break;
+     if(ii == 0) {
+       while(Command[i] != 47) {
+         Keyword += Command[i];
+         i++;
+       }
+       i++;
+     }
+     else {
+       AmountArguments++;
+       if (Command[i] == 39) {
+         TypeArgument[ii] == '$';
+         i++;
+         while(Command[i] != 39) {
+           Argument[ii] += Command[i];
+           i++;
+         }
+       }
+       else if(isDigit(Command[i])) {
+         TypeArgument[ii] == '#';
+         while(isDigit(Command[i])) {
+           Argument[ii] += Command[i];
+           i++;
+         }
+         IntegerArgument[ii] = int(Argument[ii].toInt());
+       }
+       else if (isUpperCase(Command[i])) {
+         TypeArgument[ii] = Command[i];
+         i++;
+       }
+       else {
+         TypeArgument[ii] == '|';
+         Argument[ii] = Command[i];
+         i++;
+       }
+     }
+   }
+
+   String ToPrint;
+
+   Serial.println(Keyword);
+   Serial.println(Argument[1]);
+   Serial.println(Argument[2]);
+   Serial.println(Argument[3]);
+   Serial.println(AmountArguments);
+   //Execute
+   if(Keyword == "PRINT") {
+
+     if(AmountArguments == 1) {
+       if(TypeArgument[1] == '$' | TypeArgument[i] == '#') {
+         ToPrint = Argument[1];
+       }
+       else if(isUpperCase(TypeArgument[1])) {
+         ToPrint = IntegerCommonVariable[TypeArgument[1] - 64];
+       }
+       else {
+         ToPrint = F("Invalid Argument");
+       }
+     }
+     else if(AmountArguments > 2) {
+       if(TypeArgument[1] == '$' & TypeArgument[3] == '$') {
+        ToPrint = Argument[1] + Argument[3];
+       }
+       else {
+         if(isUpperCase(TypeArgument[1])) {
+           IntegerArgument[1] = IntegerCommonVariable[TypeArgument[1]-64];
+         }
+         if(isUpperCase(TypeArgument[3])) {
+           IntegerArgument[3] = IntegerCommonVariable[TypeArgument[3]-64];
+         }
+         if(Argument[2] == "+") {
+           IntegerArgument[2] = IntegerArgument[1] + IntegerArgument[3];
+         }
+         else if(Argument[2] == "-") {
+          IntegerArgument[2] = IntegerArgument[1] - IntegerArgument[3];
+         }
+         else if(Argument[2] == "*") {
+          IntegerArgument[2] = IntegerArgument[1] * IntegerArgument[3];
+         }
+         else if(Argument[2] == "/") {
+          IntegerArgument[2] = IntegerArgument[1] / IntegerArgument[3];
+         }
+         ToPrint = String(IntegerArgument[2], DEC);
+       }
+     }
+     else {
+       ToPrint = F("Error : No Arguments");
+     }
+   }
+   return ToPrint;
 }
 
-void Pictureader (String Filename) {
+void Pictureader(String Filename) {
 
   Serial1.print("page Pictviewer");
   Serial1.write(0xff);
@@ -671,7 +830,6 @@ void Pictureader (String Filename) {
   }
 }
 
-
 void SetHour(int Hour, int Minute) {
   DateTime now = RTC.now();
 
@@ -683,7 +841,7 @@ void SetDate(int Day, int Month, int Year) {
   //RTC.adjust(Year, Month, Day, now.hour(), now.minute(), now.second());
 }
 
-void Save (String Filename, String Application) {
+void Save(String Filename, String Application) {
   if (Application == "FG") {
     Path = "/USERS/" + User;
     Path += "/FUNCGENE/";
@@ -888,7 +1046,6 @@ void Ready() {
   Serial1.write(0xff);
   Serial1.write(0xff);
   Serial1.write(0xff);
-
 }
 
 void GetPassword(String Username) {
@@ -897,22 +1054,16 @@ void GetPassword(String Username) {
   Temp = SD.open(Path);
   if (Temp) {
     User = Username;
-    Serial1.print("TEMP_VAR.txt=");
-    Serial1.write(0x22);
     while (Temp.available()) {
       if (Temp.peek() >= 31) {
         Serial.print(Temp.peek());
-        Serial1.write(Temp.read());
+        StringCommonVariable = Temp.read();
       }
       else {
         Temp.read();
       }
     }
-
-    Serial1.write(0x22);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
-    Serial1.write(0xff);
+    NextionSerial("TEMP_VAR", 0, StringCommonVariable, 0);
     Temp.close();
     loop();
   }
@@ -928,13 +1079,10 @@ void GetPassword(String Username) {
   }
 }
 
-void Logon()  {
+void Logon() {
   Serial.println(F("|| > Good Pin Code                                                            ||"));
   Serial.println(F("|| > Loading Session ...                                                      ||"));
-  Serial1.print("page Desk");
-  Serial1.write(0xff);
-  Serial1.write(0xff);
-  Serial1.write(0xff);
+  NextionSerial("Desk", 3, "", 0);
   Serial.println(F("|| > Page Desk                                                                ||"));
   Serial.println(F("|| > Initialization SD Card ...                                               ||"));
   loop();
