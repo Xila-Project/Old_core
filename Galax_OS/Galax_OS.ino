@@ -562,9 +562,12 @@ void Periodic (int Tch0, int Tch1, byte Type) {
           return;
         }
       }
+<<<<<<< HEAD
       if (Type == 2) {
 
       }
+=======
+>>>>>>> cd6702748e6086fd95d1ccd9041e29c39be11b30
     }
     return;
   }
