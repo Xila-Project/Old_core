@@ -67,7 +67,7 @@
 #define LIGHT_SPEED 299792458000
 
 /*
-#define ERROR_FILE_NOT_FOUND 62
+  #define ERROR_FILE_NOT_FOUND 62
 */
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 94
 #define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 12
@@ -88,7 +88,7 @@ const int SDPin = 53;
 File Temp;
 String Path;
 
-int IntegerCommonVariable[26];
+int IntegerCommonVariable[12];
 String StringCommonVariable[3] = {"", ""};
 
 unsigned int CFrequency = 262;
@@ -114,8 +114,8 @@ bool MIDIInEnable = false;
 
 bool KBEnable = false;
 
-byte TBApp[7] = {255,255,255,255,255,255,255};
-byte TBIcon[7] = {10,10,10,10,10,10,10};
+byte TBApp[7] = {255, 255, 255, 255, 255, 255, 255};
+byte TBIcon[7] = {10, 10, 10, 10, 10, 10, 10};
 
 byte LastPage = 0;
 byte CurrentPage = 0;
@@ -155,7 +155,7 @@ void setup() {
     Serial.println(F("|| > Initialization failed !                                                  ||"));
   }
   else {
-  Serial.println(F("|| > Initialization done !                                                    ||"));
+    Serial.println(F("|| > Initialization done !                                                    ||"));
   }
 }
 
@@ -254,6 +254,9 @@ void serialEvent1() {
 
       else if (NextStrnInst == "USRF") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
 
+      else if (NextStrnInst == "Periodic_Main") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
+      else if (NextStrnInst == "Periodic_Data") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
+
       else if (NextStrnInst == "ClckRfrs") Clock_Refresh();
       else if (NextStrnInst == "Clock") Clock();
       else if (NextStrnInst == "SetHour") SetHour(IntegerCommonVariable[0], IntegerCommonVariable[1]);
@@ -266,19 +269,58 @@ void serialEvent1() {
       else if (NextStrnInst == "SetPsswrd") SetPassword(StringCommonVariable[1], StringCommonVariable[2]);
       else if (NextStrnInst == "SetUsrnm") SetUsername(StringCommonVariable[1], StringCommonVariable[2]);
 
-      else if (NextStrnInst == "SetKBDP") {KBDPin = IntegerCommonVariable[0]; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP2") {KBCPin = 2; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP3") {KBCPin = 3; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP18") {KBCPin = 18; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP19") {KBCPin = 19; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP20") {KBCPin = 20; SetKeyboard();}
-      else if (NextStrnInst == "SetKBCP21") {KBCPin = 21; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL1") {KBLayout = 1; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL33") {KBLayout = 33; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL34") {KBLayout = 34; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL39") {KBLayout = 39; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL44") {KBLayout = 44; SetKeyboard();}
-      else if (NextStrnInst == "SetKBL49") {KBLayout = 49; SetKeyboard();}
+      else if (NextStrnInst == "SetKBDP") {
+        KBDPin = IntegerCommonVariable[0];
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP2") {
+        KBCPin = 2;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP3") {
+        KBCPin = 3;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP18") {
+        KBCPin = 18;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP19") {
+        KBCPin = 19;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP20") {
+        KBCPin = 20;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBCP21") {
+        KBCPin = 21;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL1") {
+        KBLayout = 1;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL33") {
+        KBLayout = 33;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL34") {
+        KBLayout = 34;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL39") {
+        KBLayout = 39;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL44") {
+        KBLayout = 44;
+        SetKeyboard();
+      }
+      else if (NextStrnInst == "SetKBL49") {
+        KBLayout = 49;
+        SetKeyboard();
+      }
 
       else if (NextStrnInst == "EnMIDIOut") MIDIOutEnable = true;
       else if (NextStrnInst == "DiMIDIOut") MIDIOutEnable = false;
@@ -324,6 +366,8 @@ void serialEvent1() {
       else if (NextStrnInst == "TinyBasic") TinyBasic();
 
       else if (NextStrnInst == "KB47") KBA(47);
+
+      else if (NextStrnInst == "CardInfo") CardInformation();
 
       else Serial.print(F("Unknow Command"));
       break;
@@ -423,9 +467,11 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
       break;
 
     case 6: //page PID//
-
+      byte PID;
+      PID = IntegerData;
       Serial1.print(F("page "));
-      Serial1.print(IntegerData);
+      Serial1.print(PID);
+      break;
 
     case 7://click
 
@@ -433,6 +479,7 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
       Serial1.print(Item);
       Serial1.write(0x2C);
       Serial1.print(IntegerData);
+      break;
 
   }
 
@@ -442,16 +489,131 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
   return;
 }
 
+void Nexiton_Upload() {
+  Serial1.print(F("  DRAKJHSUYDGBNCJHGJKSHBDNÿÿÿ"));
+  Serial1.print(F("  connectÿÿÿ"));
+  Serial1.print(F("  ÿÿconnectÿÿÿ"));
+  Serial1.print(F("whmi-wri filesize,115200,res0ÿÿÿ"));
+}
+
+void Periodic (int Tch0, int Tch1, byte Type) {
+  int Round;
+  string Temporary;
+  float Column;
+  float Line;
+  String Item = "";
+  String Data = "";
+
+  Column = Tch0;
+  Column -= 5;
+  Column *= 18;
+  Column /= 468;
+  Column += 0.5;
+
+  Column = round(Column);
+
+  Line = Tch0;
+  Line -= 28;
+  Line *= 9;
+  Line /= 234;
+  Line += 0.5;
+
+  Line = round(Line);
+
+  Path = "/SOFTWARE/" + String(Column, DEC) + "/" + String(Line, DEC) + ".CSV";
+  Temp.open(Path);
+
+  if (Temp) {
+    while (Temp.available()) {
+      while (Temp.peek() != 59) {
+        Item += Temp.read();
+      }
+      while (!isAlphaNumeric(Temp.peek())) {
+        Temp.read();
+      }
+      while (Temp.peek() != 13 || Temp.peek() != 10) {
+        Data += Temp.read();
+      }
+      while (!isAlphaNumeric(Temp.peek())) {
+        Temp.read();
+      }
+      if (Type == 1) {
+        if (Item == "Name") {
+          Temporary = "Name : " + Data;
+          NextionSerial(F("NAME_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Number") {
+          Temporary = "Number : " + Data;
+          NextionSerial(F("NUMBER_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Mass") {
+          Temporary = "Mass : " + Data + " u";
+          NextionSerial(F("MASS_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Category") {
+          Temporary = "Category : " + Data;
+          NextionSerial(F("CATEGORY_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Symbol") {
+          Temporary = "Symbol : " + Data;
+          NextionSerial(F("SYMBOL_TXT"), 0, Temporary, 0);
+        }
+        else {
+          return;
+        }
+      }
+    }
+    return;
+  }
+}
+
+void Periodic_Data (String Atom) {
+  String Item = "";
+  String Data = "";
+  Path = "/SOFTWARE/" + Atom + ".CSV";
+  Temp.open(Path);
+  if (Temp) {
+    while (Temp.available()) {
+      while (Temp.peek() != 59) {
+        Item += Temp.read();
+      }
+      while (!isAlphaNumeric(Temp.peek())) {
+        Temp.read();
+      }
+
+      while (Temp.peek() != 13 || Temp.peek() != 10) {
+        Data += Temp.read();
+      }
+    }
+    if (Item == "Name") {
+      NextionSerial(F("NAMEVAL_TXT"), 0, Data, 0);
+    }
+    else if (Item == "Number") {
+      NextionSerial(F("NUMBERVAL_TXT"), 0, Data, 0);
+    }
+    else if (Item == "Mass") {
+      NextionSerial(F("MASSVAL_TXT"), 0, Data, 0);
+    }
+    else if (Item == "Category") {
+      NextionSerial(F("CVAL_TXT"), 0, Data, 0);
+    }
+    else {
+      return;
+    }
+  }
+  return;
+}
+
 void MDI () {
   Serial.println("MDI");
   int Frequency;
   int Duration;
   Temp = SD.open(Path);
-  if(!Temp) {
+  if (!Temp) {
     Serial.println("Can't open file");
     return;
   }
-  while(Temp.available()) {
+  while (Temp.available()) {
     Frequency = Temp.read();
     Frequency *= 256;
     Frequency += Temp.read();
@@ -463,21 +625,21 @@ void MDI () {
 
     tone(SpeakerPin, Frequency);
     delay(Duration);
+    noTone(SpeakerPin);
   }
   Temp.close();
-  noTone(SpeakerPin);
   return;
 }
 
 int LoadSystemFile() {
   Temp = SD.open("/GALAXOS.GSF");
   StringCommonVariable[1] = "";
-  if(Temp) {
+  if (Temp) {
     while (Temp.available() && Temp.peek() != 10 && Temp.peek() != 13) {
       StringCommonVariable[1] += Temp.read();
     }
     Serial.print(StringCommonVariable[1]);
-    if(StringCommonVariable[1] != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12") {
+    if (StringCommonVariable[1] != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12") {
       Serial.print("Error :");
       Serial.println(ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED);
       return ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED;
@@ -503,7 +665,7 @@ int LoadUserFile() {
   Path = "/USERS/" + User + "/STTNGS/TASKBAR.GSF";
   Temp = SD.open(Path);
   byte i = 0;
-  while(Temp.available()) {
+  while (Temp.available()) {
     TBApp[i] = Temp.read();
     Temp.read();
     //if(Temp.read() != 124) Serial.print(ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED);
@@ -526,7 +688,7 @@ int LoadUserFile() {
 void SetKeyboard() {
   Path = "/USER/" + User + "/STTNGS/KEYBOARD.GSF";
   Temp = SD.open(Path, FILE_WRITE);
-  if(Temp) {
+  if (Temp) {
     Temp.write(KBCPin);
     Temp.write(0x7C);
     Temp.write(KBDPin);
@@ -573,7 +735,7 @@ void TinyBasic () {
   Line[1] = "          ==== Galax OS EE Tiny Basic 0.1 ====";
   Line[2] = "Arduino Mega 2560 - ATmega2560-16AU - 8K RAM";
 
-  Serial1.print("LINE1_TXT.txt=");
+  Serial1.print(F("LINE1_TXT.txt="));
   Serial1.write(0x22);
   Serial1.print(Line[1]);
   Serial1.write(0x22);
@@ -581,7 +743,7 @@ void TinyBasic () {
   Serial1.write(0xff);
   Serial1.write(0xff);
 
-  Serial1.print("LINE2_TXT.txt=");
+  Serial1.print(F("LINE2_TXT.txt="));
   Serial1.write(0x22);
   Serial1.print(Line[2]);
   Serial1.write(0x22);
@@ -597,10 +759,12 @@ void TinyBasic () {
   Serial1.write(0xff);
   Serial1.write(0xff);
   Serial.println(F("|| > Listen to Keyboard"));
+
   while (!Serial1.available()) {
     if (Keyboard.available()) {
       Entry = Keyboard.read();
       Serial.print(Entry);
+
       if (Entry == PS2_ENTER) {
         if (SelectLine > 15) {
           for (int i = 1; i < 16; i++) {
@@ -618,6 +782,7 @@ void TinyBasic () {
           SelectLine--;
           Line[16] = "";
         }
+
         if (Line[SelectLine] == "CLEAR") {
           for (int i = 1; i < 17; i++) {
             Line[i] = "";
@@ -706,7 +871,7 @@ void KBA(byte Application) {
   }
   switch (Application) {
     case 48:
-      while(!Serial1.available()) {
+      while (!Serial1.available()) {
         if (Keyboard.available()) {
           char Entry = Keyboard.read();
           if (Entry == PS2_ENTER) NextionSerial(F("b210"), 7, "", 1);
@@ -892,11 +1057,11 @@ void Hibernate () {
   NextionSerial("ussp", 1, "", 1);
   NextionSerial("sleep", 1, "", 1);
   /*power_spi_disable();
-  power_timer0_disable();
-  poser_timer1_disable();
-  power_timer2_disable();
-  power_twi_disable();
-  set_sleep_mode(SLEEP_MODE_IDLE);*/
+    power_timer0_disable();
+    poser_timer1_disable();
+    power_timer2_disable();
+    power_twi_disable();
+    set_sleep_mode(SLEEP_MODE_IDLE);*/
 }
 
 void Shutdown () {
@@ -954,11 +1119,6 @@ void Fandf(File Directory) {
 
       Serial.println(ItemFile.name());
       if (ItemFile.isDirectory()) {
-        Serial1.print("ITEM");
-        Serial1.print(i);
-        Serial1.print("_BUT.");
-
-
         Serial1.print("ITEM");
         Serial1.print(i);
         Serial1.print("_BUT.pic=11");
@@ -1120,7 +1280,7 @@ int CheckPassword(String Username, String PTC) {
     return WRONG_USERNAME;
   }
 
-  if(PTC == Password) {
+  if (PTC == Password) {
     Serial.print(F("Good Password"));
     LoadUserFile();
   }
@@ -1316,24 +1476,32 @@ int freeRam() {
 }
 
 void CardInformation() {
+  string Temporary = "";
   SdVolume CardVolume;
   Sd2Card Card;
   uint32_t VolumeSize;
+
   switch (Card.type()) {
     case SD_CARD_TYPE_SD1:
-      NextionSerial(F("CTVAL_TXT"), 0, F("SD1"), 0);
+      Temporary = "Card Type : SD1";
+      NextionSerial(F("CT_TXT"), 0, Temporary, 0);
       break;
     case SD_CARD_TYPE_SD2:
-      NextionSerial(F("CTVAL_TXT"), 0, F("SD2"), 0);
+      Temporary = "Card Type : SD2";
+      NextionSerial(F("CT_TXT"), 0, Temporary, 0);
       break;
     case SD_CARD_TYPE_SDHC:
-      NextionSerial(F("CTVAL_TXT"), 0, F("SDHC"), 0);
+      Temporary = "Card Type : SDHC";
+      NextionSerial(F("CT_TXT"), 0, Temporary, 0);
       break;
     default:
-      NextionSerial(F("CTVAL_TXT"), 0, F("Unknow"), 0);
+      Temporary = "Card Type : Unknow";
+      NextionSerial(F("CT_TXT"), 0, Temporary, 0);
+      break;
   }
 
-  NextionSerial(F("MPVAL_TXT"), 0, "FAT" + CardVolume.fatType(), 0);
+  Temporary = "Main Partition : FAT" + CardVolume.fatType();
+  NextionSerial(F("MP_TXT"), 0, Temporary, 0);
 
   VolumeSize = CardVolume.blocksPerCluster();
   VolumeSize *= CardVolume.clusterCount();
@@ -1341,17 +1509,21 @@ void CardInformation() {
   VolumeSize /= 1024;
   VolumeSize /= 1024;
 
-  NextionSerial(F("SIZEVAL_TXT"), 0, String(VolumeSize, DEC) + "MB", 0);
+  Temporary = "Size :" + String(VolumeSize, DEC) + " MB";
+  NextionSerial(F("SIZE_TXT"), 0, Temporary, 0);
 
   return;
 }
 
 void Piano(int Frequency, int Note) {
+  string Temporary = "";
   unsigned long Duration = 200;
   Frequency += CFrequency;
   Note += CMIDI;
-  NextionSerial(F("FREQUENCY_NUM"), 1, "", Frequency);
-  NextionSerial(F("MIDICODE_NUM"), 1, "", Note);
+  Temporary = "Frequency : " + String(Frequency, DEC);
+  NextionSerial(F("FREQUENCY_TXT"), 1, "", Temporary);
+  Temporary = "MIDI Code : " + String(Note, DEC);
+  NextionSerial(F("MIDICODE_TXT"), 1, "", Temporary);
   tone(SpeakerPin, Frequency, Duration);
   if (MIDIOutEnable == true) {
     Serial.write(144);
@@ -1367,13 +1539,13 @@ void Piano(int Frequency, int Note) {
 
 void SetPassword(String PTC, String NewPassword) {
   if (PTC == Password) {
-  Serial.println(F("|| > Set The New Password In The SD Card ...                                 ||"));
-  Serial.println(Password);
-  SD.remove("/GALAXOS/USER/PASSWORD.GSF");
-  Temp = SD.open("/GALAXOS/USER/PASSWORD.GSF", FILE_WRITE);
-  Temp.println(Password);
-  Temp.close();
-  Serial.println(F("|| > Done.                                                                   ||"));
+    Serial.println(F("|| > Set The New Password In The SD Card ...                                 ||"));
+    Serial.println(Password);
+    SD.remove("/GALAXOS/USER/PASSWORD.GSF");
+    Temp = SD.open("/GALAXOS/USER/PASSWORD.GSF", FILE_WRITE);
+    Temp.println(Password);
+    Temp.close();
+    Serial.println(F("|| > Done.                                                                   ||"));
   }
   else {
     return;
@@ -1382,15 +1554,15 @@ void SetPassword(String PTC, String NewPassword) {
 }
 
 void SetUsername(String PTC, String Username) {
-  if(PTC == Password) {
-  Serial.println(F("|| > Set The New Username In The SD Card ...                                 ||"));
-  Serial.println(Username);
+  if (PTC == Password) {
+    Serial.println(F("|| > Set The New Username In The SD Card ...                                 ||"));
+    Serial.println(Username);
   }
   return;
 }
 
 void Arduino_UART(int Serial, int Baudrate, String TXData) {
-  switch(Serial) {
+  switch (Serial) {
     case 2:
       Serial2.begin(Baudrate);
       Serial2.print(TXData);
