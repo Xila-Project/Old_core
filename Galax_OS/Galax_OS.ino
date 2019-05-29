@@ -489,7 +489,7 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
   return;
 }
 
-void Nexiton_Upload() {
+void Nexiton_Update() {
   Serial1.print(F("  DRAKJHSUYDGBNCJHGJKSHBDNÿÿÿ"));
   Serial1.print(F("  connectÿÿÿ"));
   Serial1.print(F("  ÿÿconnectÿÿÿ"));
@@ -563,7 +563,73 @@ void Periodic (int Tch0, int Tch1, byte Type) {
         }
       }
       if (Type == 2) {
-
+        if (Item == "Name") {
+          Temporary = "Name : " + Data;
+          NextionSerial(F("NAME_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Number") {
+          Temporary = "Number : " + Data;
+          NextionSerial(F("NUMBER_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Mass") {
+          Temporary = "Mass : " + Data + " u";
+          NextionSerial(F("MASS_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Category") {
+          Temporary = "Category : " + Data;
+          NextionSerial(F("CATEGORY_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Symbol") {
+          Temporary = "Symbol : " + Data;
+          NextionSerial(F("SYMBOL_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Category") {
+          Temporary = "Symbol : " + Data;
+          NextionSerial(F("SYMBOL_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Protons") {
+          Temporary = "Protons : " + Data;
+          NextionSerial(F("PROTONS_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Neutrons") {
+          Temporary = "Neutrons : " + Data;
+          NextionSerial(F("NEUTRONS_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Electrons") {
+          Temporary = "Electron Configuration : " + Data;
+          NextionSerial(F("ELECTRONS_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Electronegativity") {
+          Temporary = "Electronegativity : " + Data;
+          NextionSerial(F("ELECTRO_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Phase At STP") {
+          Temporary = "Phase At STP : " + Data;
+          NextionSerial(F("PHASE_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Fusion Point") {
+          Temporary = "Fusion Point : " + Data;
+          NextionSerial(F("FUSION_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Boiling Point") {
+          Temporary = "Boiling Point : " + Data;
+          NextionSerial(F("BOILING_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Discover") {
+          Temporary = "Discover : " + Data;
+          NextionSerial(F("DISCOVER_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Density") {
+          Temporary = "Density : " + Data;
+          NextionSerial(F("DENSITY_TXT"), 0, Temporary, 0);
+        }
+        else if (Item == "Ionization") {
+          Temporary = "Iozination : " + Data;
+          NextionSerial(F("IONIZATION_TXT"), 0, Temporary, 0);
+        }
+        else {
+          return;
+        }
       }
     }
     return;
