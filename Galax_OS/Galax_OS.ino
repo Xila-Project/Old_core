@@ -254,8 +254,8 @@ void serialEvent1() {
 
       else if (NextStrnInst == "USRF") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
 
-      else if (NextStrnInst == "Periodic_Main") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
-      else if (NextStrnInst == "Periodic_Data") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
+      else if (NextStrnInst == "Periodic_Main") Periodic(IntegerCommonVariable[0], IntegerCommonVariable[1]), 1);
+      else if (NextStrnInst == "Periodic_Data") Periodic(IntegerCommonVariable[0], IntegerCommonVariable[1]), 2);
 
       else if (NextStrnInst == "ClckRfrs") Clock_Refresh();
       else if (NextStrnInst == "Clock") Clock();
