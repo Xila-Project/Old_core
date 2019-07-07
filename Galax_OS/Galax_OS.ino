@@ -9,21 +9,21 @@
 //||                                                                            ||
 //||                                                                            ||
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
-//Versions : //
-//0.001 : Make The Loading, Logon, Desk and Menu (Main + Shutdown)//
-//0.002 : Make Setup + About//
-//0.003 : Make The Link Between Arduino And Nextion//
-//0.004 : Make Ultrasonic Range Finder//
-//0.005 : Create Analog Read + Analog Write//
-//0.006 : Setup Panel Improve + Clock Improve + Communication Improve//
-//0.007 : Integrate SD Card + Make F&F//
-//0.008 : Piano + Panel_SetPassword//
-//0.009 : Make Fileditor//
-//0.010 : Digital Write + Digital Read//
-//0.011 : Login + Redesign some windows + Change Edition Name From  "Portable Edition" to "Embeded Edition" + Add Music Player//
-//!0.012 : Add Function Generator and Save Form + Midi Feature on piano + NextionSerial Function + concat ReadInstructionFunction and Serialread to serialEvent1 + Personalisation of Taskbar + Add tiles to piano + Modified How Galax OS Load + Personalisation of Taskbar//
-//!0.013 : Add Pictureader//
+//|| Version : - Alix ANNERAUD (c) 2019                                         ||
+//||Versions :
+//||0.001 : Make The Loading, Logon, Desk and Menu (Main + Shutdown)
+//||0.002 : Make Setup + About//
+//||0.003 : Make The Link Between Arduino And Nextion//
+//||0.004 : Make Ultrasonic Range Finder//
+//||0.005 : Create Analog Read + Analog Write//
+//||0.006 : Setup Panel Improve + Clock Improve + Communication Improve//
+//||0.007 : Integrate SD Card + Make F&F//
+//||0.008 : Piano + Panel_SetPassword//
+//||0.009 : Make Fileditor//
+//||0.010 : Digital Write + Digital Read//
+//||0.011 : Login + Redesign some windows + Change Edition Name From  "Portable Edition" to "Embeded Edition" + Add Music Player//
+//||0.012 : Add Function Generator and Save Form + Midi Feature on piano + NextionSerial Function + concat ReadInstructionFunction and Serialread to serialEvent1 + Personalisation of Taskbar + Add tiles to piano + Modified How Galax OS Load + Personalisation of Taskbar//
+//||0.013 : Add Pictureader//
 
 //Nextion Wiring//
 //Blue -> 19    //
@@ -46,22 +46,18 @@
 //GND -> GND    //
 
 
-//Password Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
-//Keyboard Set : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
+//Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
+//Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
 #include <SD.h>
-
 #include <pcmConfig.h>
 #include <pcmRF.h>
 #include <TMRpcm.h>
-
 #include <Wire.h>
-
 #include <SPI.h>
-
 #include "RTClib.h"
-
 #include <PS2Keyboard.h>
+#include <Arduino_FreeRTOS.h>
 
 #define SOUND_SPEED 343000
 #define LIGHT_SPEED 299792458000
@@ -120,6 +116,43 @@ byte TBIcon[7] = {10, 10, 10, 10, 10, 10, 10};
 byte LastPage = 0;
 byte CurrentPage = 0;
 
+byte MAC[] = {
+  0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAdress IP(192,168,0,254);
+EthernetClient Client;
+char server[30] = "*";
+char path[60] = "";
+char url[90] = "";
+
+struct cacheStruct {
+  uint8_t    pagePtr, lastPage;                 // Pointers to current and last page indexed
+  uint16_t  index[PAGEINDEXSIZE];               // File page index pointers
+  uint8_t   pageState[PAGEINDEXSIZE];           // Initial tag state for page e.g. in a <strong>
+};
+
+cacheStruct textContent = {
+  0, 0, false };
+
+struct linkStruct {
+  uint8_t    linkPtr, lastLink;                  // Pointers to current and last link indexed
+  uint16_t   index[LINKINDEXSIZE];               // Link
+};
+linkStruct pageLinks = {
+  0, 0 };
+
+LCD tftLCD = LCD (320, 240);                      // LCD object instance
+
+uint16_t lowestRAM = 2000;                        // Keeps tabs for low memoery alerts
+
+uint8_t command = 6;                              // Initial browser command to display the homepage                         // Input joystick positions
+uint8_t generalBuffer[55];
+
+//================================================
+// CPU hard reset
+//================================================
+void (* resetFunc) (void) = 0;                    //declare reset function at address 0
+
+
 void setup() {
 
   for (int i = 0; i < 27; i++) {
@@ -145,18 +178,23 @@ void setup() {
   Serial.println(F("||      Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes      ||"));
   Serial.println(F("||               Galax OS Portable Edition - Alix ANNERAUD - 0.03             ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
-  Serial.println(F("|| > Serial Initialization ...                                                ||"));
-  Serial.println(F("|| > Bootup The System ...                                                    ||"));
-  Serial.println(F("|| > Waiting for Display ...                                                  ||"));
+  Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
+  Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
 
   Audio.speakerPin = SpeakerPin;
 
   if (!SD.begin(SDPin)) {
-    Serial.println(F("|| > Initialization failed !                                                  ||"));
+    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
   }
   else {
-    Serial.println(F("|| > Initialization done !                                                    ||"));
+    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
+  Serial.println(F("|| > Loading Task ...                                                         ||"));
+
+  Serial.println(F("|| > Waiting for Display ...                                                  ||"));
+
+
+
 }
 
 void loop() {
@@ -254,8 +292,8 @@ void serialEvent1() {
 
       else if (NextStrnInst == "USRF") UltraSonic(IntegerCommonVariable[0], IntegerCommonVariable[1]);
 
-      else if (NextStrnInst == "Periodic_Main") Periodic(IntegerCommonVariable[0], IntegerCommonVariable[1]), 1);
-      else if (NextStrnInst == "Periodic_Data") Periodic(IntegerCommonVariable[0], IntegerCommonVariable[1]), 2);
+      else if (NextStrnInst == "Periodic_Main") Periodic_Main(IntegerCommonVariable[0], IntegerCommonVariable[1], 1);
+      else if (NextStrnInst == "Periodic_Data") Periodic_Main(IntegerCommonVariable[0], IntegerCommonVariable[1], 2);
 
       else if (NextStrnInst == "ClckRfrs") Clock_Refresh();
       else if (NextStrnInst == "Clock") Clock();
@@ -369,6 +407,8 @@ void serialEvent1() {
 
       else if (NextStrnInst == "CardInfo") CardInformation();
 
+      else if (NextStrnInst == "iGOSConnect") iGOS_Connect();
+
       else Serial.print(F("Unknow Command"));
       break;
 
@@ -391,7 +431,7 @@ void serialEvent1() {
       break;
 
     case 6:
-      Serial.println("File&dFolder Search");
+      Serial.println("Files&dFolders Search");
       //Files&Folder Search//
       if (NextStrnInst == "/") {
         Path = "/";
@@ -489,6 +529,41 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
   return;
 }
 
+void iGOS_Connect() {
+  NextionSerial(F("CONNECT_BUT"), 0, F("Connecting ..."), 0);
+  NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ..."), 0);
+  if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ... No Ethernet Shield was detected. Please plug it and retry."), 0);
+      NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
+      return;
+  }
+  if (Ethernet.linkStatus() == LinkOFF) {
+    NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ... No cable ethernet is connected. Please plug it and retry."), 0);
+    NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
+    return;
+  }
+  NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Getting IP adress with DHCP ...", 0);
+  if (Ethernet.begin(mac) == 0) {
+    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Getting IP adress with DHCP ...     Trying fixed IP adress ...", 0);
+    Ethernet.begin(mac, ip);
+  }
+  NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Trying to connect to : www.google.com ...", 0);
+  if (Client.connect("www.google.com", 80)) {
+    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Trying to connect to : www.google.com ...      YEAH ! You're now connected to the Internet !", 0);
+  }
+  else {
+    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Try to connect to www.google.com ...     Can't connect to : www.google.com, please check your DNS and retry.", 0);
+    NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
+    return;
+  }
+  delay(1000);
+  NextionSerial("iGOS", 3, "", 0);
+}
+
+void iGOS(byte Type) {
+  switch
+}
+
 void Nexiton_Update() {
   Serial1.print(F("  DRAKJHSUYDGBNCJHGJKSHBDNÿÿÿ"));
   Serial1.print(F("  connectÿÿÿ"));
@@ -496,9 +571,9 @@ void Nexiton_Update() {
   Serial1.print(F("whmi-wri filesize,115200,res0ÿÿÿ"));
 }
 
-void Periodic (int Tch0, int Tch1, byte Type) {
+void Periodic_Main (int Tch0, int Tch1, byte Type) {
   int Round;
-  string Temporary;
+  String Temporary;
   float Column;
   float Line;
   String Item = "";
@@ -634,43 +709,6 @@ void Periodic (int Tch0, int Tch1, byte Type) {
     }
     return;
   }
-}
-
-void Periodic_Data (String Atom) {
-  String Item = "";
-  String Data = "";
-  Path = "/SOFTWARE/" + Atom + ".CSV";
-  Temp.open(Path);
-  if (Temp) {
-    while (Temp.available()) {
-      while (Temp.peek() != 59) {
-        Item += Temp.read();
-      }
-      while (!isAlphaNumeric(Temp.peek())) {
-        Temp.read();
-      }
-
-      while (Temp.peek() != 13 || Temp.peek() != 10) {
-        Data += Temp.read();
-      }
-    }
-    if (Item == "Name") {
-      NextionSerial(F("NAMEVAL_TXT"), 0, Data, 0);
-    }
-    else if (Item == "Number") {
-      NextionSerial(F("NUMBERVAL_TXT"), 0, Data, 0);
-    }
-    else if (Item == "Mass") {
-      NextionSerial(F("MASSVAL_TXT"), 0, Data, 0);
-    }
-    else if (Item == "Category") {
-      NextionSerial(F("CVAL_TXT"), 0, Data, 0);
-    }
-    else {
-      return;
-    }
-  }
-  return;
 }
 
 void MDI () {
