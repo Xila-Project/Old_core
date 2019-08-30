@@ -407,11 +407,11 @@ void serialEvent1() {
 
       else if (NextStrnInst == "CardInfo") CardInformation();
 
-      else if (NextStrnInst == "iGOSConnect") iGOS_Connect();
+      /*else if (NextStrnInst == "iGOSConnect") iGOS_Connect();
       else if (NextStrnInst == "iGOSUp") iGOS(1);
       else if (NextStrnInst == "iGOSDown") iGOS(2);
       else if (NextStrnInst == "iGOSRight") iGOS(3);
-      else if (NextStrnInst == "iGOSLeft") iGOS(4);
+      else if (NextStrnInst == "iGOSLeft") iGOS(4);*/
 
 
       else Serial.print(F("Unknow Command"));
@@ -534,168 +534,6 @@ void NextionSerial(String Item, byte Type, String StringData, int IntegerData) {
   return;
 }
 
-void iGOS_Connect() {
-  NextionSerial(F("CONNECT_BUT"), 0, F("Connecting ..."), 0);
-  NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ..."), 0);
-  if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-      NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ... No Ethernet Shield was detected. Please plug it and retry."), 0);
-      NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
-      return;
-  }
-  if (Ethernet.linkStatus() == LinkOFF) {
-    NextionSerial(F("INTRO_TXT"), 0, F("Initialize Ethernet Shield ... No cable ethernet is connected. Please plug it and retry."), 0);
-    NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
-    return;
-  }
-  NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Getting IP adress with DHCP ...", 0);
-  if (Ethernet.begin(mac) == 0) {
-    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Getting IP adress with DHCP ...     Trying fixed IP adress ...", 0);
-    Ethernet.begin(mac, ip);
-  }
-  NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Trying to connect to : www.google.com ...", 0);
-  if (Client.connect("www.google.com", 80)) {
-    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Trying to connect to : www.google.com ...      YEAH ! You're now connected to the Internet !", 0);
-  }
-  else {
-    NextionSerial("INTRO_TXT", 0, "Initialize Ethernet Shield ...      Try to connect to www.google.com ...     Can't connect to : www.google.com, please check your DNS and retry.", 0);
-    NextionSerial(F("CONNECT_BUT"), 0, F("Connect"), 0);
-    return;
-  }
-  delay(1000);
-  NextionSerial("iGOS", 3, "", 0);
-}
-
-void iGOS(byte Type) {
-  switch (Type) {
-
-    case 1:
-
-      Serial.print (F("\n>> Command 1: "));
-      if (textContent.pagePtr > 0) {
-        textContent.pagePtr--;
-        Type = 6;
-        pageLinks.lastLink = 0;
-        Serial.print (F("Page up to page "));
-        Serial.println (textContent.pagePtr);
-         pageLinks.linkPtr = 0;
-      }
-      else { // Can't got up any further
-        Type = 10;
-        Serial.println(F("Cancelled"));
-      }
-      break;
-
-    case 2:
-
-      Serial.print (F("\n>> Command 2: "));
-      if (textContent.pagePtr < textContent.lastPage) {
-        textContent.pagePtr++;
-      }
-      else {
-        textContent.pagePtr = 0;  // Reset to top
-      }
-      Type = 6;
-      pageLinks.linkPtr = 0;
-      pageLinks.lastLink = 0;
-      Serial.print (F("Page down to page "));
-      Serial.println (textContent.pagePtr);
-      break;
-
-    case 3:
-
-      Serial.print (F("\n>> Command 3: Next link: "));
-      if (pageLinks.linkPtr < pageLinks.lastLink) {
-        pageLinks.linkPtr++;
-        Type = 6;
-        Serial.print (F("Increased link to "));
-        Serial.println (pageLinks.linkPtr);
-      }
-      else {
-        pageLinks.linkPtr = 0;
-        Type = 6;
-        Serial.print (F("Reset link to "));
-        Serial.println (pageLinks.linkPtr);
-      }
-      break;
-
-      case 4:
-
-        Serial.print (F("\n>> Command 4: Previous link: "));
-        if (pageLinks.linkPtr > 0) {
-          pageLinks.linkPtr--;
-          command = 6;
-          Serial.print (F("Decreased link to "));
-          Serial.println (pageLinks.linkPtr);
-        }
-        else  {
-          pageLinks.linkPtr = pageLinks.lastLink;
-          command = 6;
-          Serial.print (F("Reset link to "));
-          Serial.println (pageLinks.linkPtr);
-        }
-        break;
-
-      case 5:
-
-        Temp.flush();
-        Temp.close ();                  // Close read only cache file
-        splitURL (url);
-        if (cacheURL (server, path)) {  // Download and cache URL
-          pageLinks.lastLink = 0;
-          pageLinks.linkPtr = 0;
-          command = 6;
-          //      printCache();
-        }
-        else {
-          file.close ();
-          client.stop();
-          tftLCD.println(F("\nDownload & caching failed"));
-          memcpy (server, "*\0", 2);
-          memcpy (path, '\0', 1);
-          memcpy (url, '\0', 1);
-          pageLinks.lastLink = 0;
-          openCacheFile (true);
-          command = 6;
-          Serial.println("Download & caching failed");
-          break;
-        }
-        if (!openCacheFile(true)) {             // Re-open read only cache file
-          tftLCD.println (F("Cache open failed"));
-          memcpy (server, "*\0", 2);
-        }
-        else {
-          pageLinks.lastLink = 0;
-          Type = 6;
-        }
-        break;
-
-      case 6: //display the cached page
-
-        Serial.print (F("\n>> Command 6: Display cached page: "));
-        Serial.println (textContent.pagePtr);
-        if (!displayPage()) {
-          tftLCD.println(F("\nDisplay cache failed"));
-          Serial.println(F("\nDisplay cache failed"));
-        }
-        Type = 10;
-        Temp.sync();
-        break;
-
-      case 7: //debug, print cached file to serial.
-        Serial.print (F("\n>> Command 7: Print raw cached page: "));
-        printCache();
-        command = 10;
-        break;
-
-      case 11: //reboot the arduino if it failed
-        tftLCD.println (F("Press button to reset"));
-        while (digitalRead (A2) != 0) ;
-        resetFunc();
-
-      default:
-        ;
-  }
-}
 
 void Nexiton_Update() {
   Serial1.print(F("  DRAKJHSUYDGBNCJHGJKSHBDNÿÿÿ"));
