@@ -71,6 +71,10 @@ byte Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
 
 int Public_Integer_Variable[12];
 
+unsigned int CFrequency = 262;
+
+int Speaker_Pin = 12;
+
 char* Wifi_SSID     = "Avrupa";
 char* WiFi_Password = "0235745484";
 
@@ -119,14 +123,9 @@ void setup() {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
 
-  xTaskCreatePinnedToCore(
-    Nextion_Serial_Receive
-    ,  "Nextion_Serial_Receive"   // A name just for humans
-    ,  4096  // This stack size can be checked & adjusted by reading the Stack Highwater
-    ,  NULL
-    ,  2  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
-    ,  NULL
-    ,  1);
+  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion_Serial_Receive", 4096, 2, NULL, 1);
+  xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital_Player", 1024, 2, NULL, 1);
+
 
   Serial.println(F("|| > Loading Task ...                                                         ||"));
 
@@ -140,7 +139,8 @@ void loop() {
   vTaskDelete(NULL);
 }
 
-void Nextion_Serial_Receive (void *pvParameters) {
+
+void Nextion_Serial_Receive(void *pvParameters) {
   (void) pvParameters;
   for (;;)
   {
@@ -191,7 +191,7 @@ void Nextion_Serial_Receive (void *pvParameters) {
         RX_Data_String += RX_Data_Char[i];
         i++;
       }
-      RX_Data_String.toCharArray(RX_Data_Char, RX_Data_String.length()+1);
+      RX_Data_String.toCharArray(RX_Data_Char, RX_Data_String.length() + 1);
 
       Serial.print("RX Data Char :");
       Serial.println(RX_Data_Char);
@@ -211,7 +211,7 @@ void Nextion_Serial_Receive (void *pvParameters) {
           else if (RX_Data_String == "Logon") Logon();
           else if (RX_Data_String == "Menu") Open_Menu();
           else if (RX_Data_String == "Desk") Open_Desk();
-          
+
           else if (NextStrnInst == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
           else if (NextStrnInst == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
           else if (NextStrnInst == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
@@ -238,7 +238,9 @@ void Nextion_Serial_Receive (void *pvParameters) {
           Public_String_Variable[Selected_Variable] = RX_Data_String;
           break;
         case 6:
-          Serial.println("Files&dFolders Search");
+          Serial.println("Files&dFolders");
+          Temporary_Path = "/" + RX_Data_String;
+          Files_And_Folders();
           break;
         default:
           Serial.println(F("|| > Unrecognized Type Of Command                                            ||"));
@@ -250,22 +252,94 @@ void Nextion_Serial_Receive (void *pvParameters) {
   }
 }
 
+void Musical_Digital_Player() {
+  ledcAttachPin(Speaker_Pin, 0);
+  int Frequency;
+  int Duration;
+  Temporary_File = SD.open(Temporary_File);
+  if (!Temporary_File) {
+    return;
+  }
+  while (Temporary_File.available()) {
+    Frequency = Temporary_File.read();
+    Frequency *= 256;
+    Frequency += Temporary_File.read();
+    Frequency += CFrequency;
+    Duration = Temporary_File.read();
+    Duration *= 256;
+    Duration += Temporary_File.read();
+    ledcWriteTone(0, Frequency);
+    vTaskDelay(pdMS_TO_TICKS(Duration));
+  }
+  ledcWriteTone(0, 0);
+}
+
+void Files_And_Folders() {
+  Temporary_File = SD.open(Temporary_Path);
+  String Item_Name = "";
+  if (Temporary_File.isDirectory()) {
+    for (int i = 1; i < 19; i++) { //Clear Items
+      Item_Name = "ITEM" + i + "_TXT";
+      Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, "", 0);
+      Item_Name = "ITEM" + i + "_BUT";
+      Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, "", 15);
+    }
+    Temporary_File.rewindDirectory();
+    for (int i = 1; i < 19; i++) {
+      File Item = Temporary_File.openNextFile();
+      if (! Item) break;
+      Item_Name = "ITEM" + i + "_TXT";
+      Nextion_Serial_Transmit(Item_Name; ATTRIBUTE_TXT, Item.name(), 0);
+      Item_Name = "ITEM" + i + "_BUT";
+      if (Item.isDirectory()) {
+        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 17);
+      }
+      else {
+        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 16);
+      }
+      Item.close();
+    }
+  }
+  else {
+    Item_Name = Temporary_File.name();
+    String Item_Name_Char[14];
+    Item_Name.toCharArray(Item_Name_Char, 14);
+    for (int i = 1; i < 15; i++) {
+      if (CharFileName[i] == '.') {
+        Item_Name = String(Item_Name_Char[i + 1]) + String(Item_Name_Char[i + 2]) + String(Item_Name_Char[i + 3]);
+      }
+    }
+    if (Extension == "WAV") {}
+    else if (Extension == "BMP") {}
+    else if (Extension == "GPF") {}
+    else if (Extension == "FPF") {}
+    else {
+      //Fileditor();
+    }
+  }
+  Temporary_File.close();
+}
+
+void Error_Reporting() {
+
+}
+
 void Open_Menu() {
   Nextion_Serial_Transmit(F("Menu_P1"), COMMAND_PAGE_NAME, F(""), 0);
   Nextion_Serial_Transmit(F("USERNAME_TXT"), ATTRIBUTE_TXT, Username, 0);
 }
 
 void Open_Desk() {
-    Nextion_Serial_Transmit(F("Desk"), COMMAND_PAGE_NAME, "", 0);
-    vTaskDelay(100);
-    Nextion_Serial_Transmit(F("ITEM1_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[0]);
-    Nextion_Serial_Transmit(F("ITEM2_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[1]);
-    Nextion_Serial_Transmit(F("ITEM3_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[2]);
-    Nextion_Serial_Transmit(F("ITEM4_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[3]);
-    Nextion_Serial_Transmit(F("ITEM5_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[4]);
-    Nextion_Serial_Transmit(F("ITEM6_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[5]);
-    Nextion_Serial_Transmit(F("ITEM7_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[6]);
-    return;
+  Nextion_Serial_Transmit(F("Desk"), COMMAND_PAGE_NAME, "", 0);
+  vTaskDelay(100);
+  Nextion_Serial_Transmit(F("ITEM1_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[0]);
+  Nextion_Serial_Transmit(F("ITEM2_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[1]);
+  Nextion_Serial_Transmit(F("ITEM3_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[2]);
+  Nextion_Serial_Transmit(F("ITEM4_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[3]);
+  Nextion_Serial_Transmit(F("ITEM5_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[4]);
+  Nextion_Serial_Transmit(F("ITEM6_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[5]);
+  Nextion_Serial_Transmit(F("ITEM7_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[6]);
+  return;
 }
 
 void Logon() {
@@ -349,7 +423,7 @@ void Load_User_Files() {
   Nextion_Serial_Transmit(F("LOAD_TIM"), ATTRIBUTE_TIM, "", 50);
 }
 
-void Nextion_Serial_Transmit (String Component, byte Type, String Nextion_Serial_Transmit_String, int Nextion_Serial_Transmit_Integer) {
+void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String, int Nextion_Serial_Transmit_Integer) {
   switch (Type) {
     case 0: //.txt for Text & Scrolling Text, QRCode, Button, DualStateButton //
       Nextion_Serial.print(Component);
