@@ -9,21 +9,8 @@
 //||                                                                            ||
 //||                                                                            ||
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+//|| For ESP-32 based MPUs                                                      ||
 //|| Version : - Alix ANNERAUD (c) 2019                                         ||
-//||Versions :
-//||0.001 : Make The Loading, Logon, Desk and Menu (Main + Shutdown)
-//||0.002 : Make Setup + About//
-//||0.003 : Make The Link Between Arduino And Nextion//
-//||0.004 : Make Ultrasonic Range Finder//
-//||0.005 : Create Analog Read + Analog Write//
-//||0.006 : Setup Panel Improve + Clock Improve + Communication Improve//
-//||0.007 : Integrate SD Card + Make F&F//
-//||0.008 : Piano + Panel_SetPassword//
-//||0.009 : Make Fileditor//
-//||0.010 : Digital Write + Digital Read//
-//||0.011 : Login + Redesign some windows + Change Edition Name From  "Portable Edition" to "Embeded Edition" + Add Music Player//
-//||0.012 : Add Function Generator and Save Form + Midi Feature on piano + NextionSerial Function + concat ReadInstructionFunction and Serialread to serialEvent1 + Personalisation of Taskbar + Add tiles to piano + Modified How Galax OS Load + Personalisation of Taskbar//
-//||0.013 : Add Pictureader//
 
 //Nextion Wiring//
 //Red -> 5v     //
@@ -46,6 +33,9 @@
 #include <SD.h>
 #include <Wire.h>
 #include "WiFi.h"
+
+#define SOUND_SPEED
+#define LIGHT_SPEED
 
 #define ATTRIBUTE_TXT 0
 #define ATTRIBUTE_VAL 1
@@ -95,7 +85,7 @@ uint16_t Low_RAM_Threshold = 2000;
 //--------------------------------------------------------------------------------//
 xTaskHandle Nextion_Serial_Transmit_Handle;
 xTaskHandle Musical_Digital_Player_Handle;
-xTaskHandle Ressource_Monitor;
+xTaskHandle Ressource_Monitor_Handle;
 
 void Nextion_Serial_Receive( void *pvParameters );
 void Musical_Digital_Player( void *pvParameters );
@@ -132,13 +122,42 @@ void setup() {
   xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion_Serial_Receive", 4096, NULL, 2, &Nextion_Serial_Transmit_Handle, 1);
   xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital_Player", 4096, NULL, 2, &Musical_Digital_Player_Handle, 0);
   vTaskSuspend(Musical_Digital_Player_Handle);
-  xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor, 1);
+  xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);
   Serial.println(F("|| > Loading Task ...                                                         ||"));
   Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 }
 
 void loop() {
   vTaskDelete(NULL);
+}
+
+void UltraSonic(int USTrig, int USEcho) {
+  Serial.println(F("|| > Open UltraSonic Rangefinder App                                         ||"));
+  Serial.println(USTrig);
+  Serial.println(USEcho);
+  pinMode(USTrig, OUTPUT);
+  pinMode(USEcho, INPUT);
+  digitalWrite(USTrig, LOW);
+  while (Nextion_Serial.available() == 0)  {
+    digitalWrite(USTrig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(USTrig, LOW);
+    unsigned long Duration = pulseIn(USEcho, HIGH);
+    if (Duration > 30000) {
+      Serial.println(F("|| > Onde perdue                                         ||"));
+    }
+    else {
+      Duration /= 2;
+      float Time = Duration / 1000000;
+      //int Distance = Time * SOUND_SPEED;
+      Serial.print("|| > Distance :");
+      Serial.println(Distance);
+      Nextion_Serial_Transmit(F("DISTVAL_NUM"), ATTRIBUTE_VAL, "", Distance);
+      vTaskDelay(100);
+    }
+  }
+  Serial.println(F("|| > Close UltraSonic Rangefinder App                                        ||"));
+  return;
 }
 
 void Piano(int Frequency, int Note) {
@@ -246,30 +265,30 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
           else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
 
-          else if (NextStrnInst == "CLow") Piano(0, 0);
-          else if (NextStrnInst == "C#Low") Piano(16, 1);
-          else if (NextStrnInst == "DLow") Piano(32, 2);
-          else if (NextStrnInst == "D#Low") Piano(50, 3);
-          else if (NextStrnInst == "ELow") Piano(68, 4);
-          else if (NextStrnInst == "FLow") Piano(88, 5);
-          else if (NextStrnInst == "F#Low") Piano(108, 6);
-          else if (NextStrnInst == "GLow") Piano(130, 7);
-          else if (NextStrnInst == "G#Low") Piano(154, 8);
-          else if (NextStrnInst == "ALow") Piano(178, 9);
-          else if (NextStrnInst == "A#Low") Piano(205, 10);
-          else if (NextStrnInst == "BLow") Piano(232, 11);
-          else if (NextStrnInst == "CHigh") Piano(262, 12);
-          else if (NextStrnInst == "C#High") Piano(293, 13);
-          else if (NextStrnInst == "DHigh") Piano(326, 14);
-          else if (NextStrnInst == "D#High") Piano(361, 15);
-          else if (NextStrnInst == "EHigh") Piano(398, 16);
-          else if (NextStrnInst == "FHigh") Piano(437, 17);
-          else if (NextStrnInst == "F#High") Piano(478, 18);
-          else if (NextStrnInst == "GHigh") Piano(522, 19);
-          else if (NextStrnInst == "G#High") Piano(569, 20);
-          else if (NextStrnInst == "AHigh") Piano(618, 21);
-          else if (NextStrnInst == "A#High") Piano(670, 22);
-          else if (NextStrnInst == "BHigh") Piano(726, 23);
+          else if (RX_Data_String == "CLow") Piano(0, 0);
+          else if (RX_Data_String == "C#Low") Piano(16, 1);
+          else if (RX_Data_String == "DLow") Piano(32, 2);
+          else if (RX_Data_String == "D#Low") Piano(50, 3);
+          else if (RX_Data_String == "ELow") Piano(68, 4);
+          else if (RX_Data_String == "FLow") Piano(88, 5);
+          else if (RX_Data_String == "F#Low") Piano(108, 6);
+          else if (RX_Data_String == "GLow") Piano(130, 7);
+          else if (RX_Data_String == "G#Low") Piano(154, 8);
+          else if (RX_Data_String == "ALow") Piano(178, 9);
+          else if (RX_Data_String == "A#Low") Piano(205, 10);
+          else if (RX_Data_String == "BLow") Piano(232, 11);
+          else if (RX_Data_String == "CHigh") Piano(262, 12);
+          else if (RX_Data_String == "C#High") Piano(293, 13);
+          else if (RX_Data_String == "DHigh") Piano(326, 14);
+          else if (RX_Data_String == "D#High") Piano(361, 15);
+          else if (RX_Data_String == "EHigh") Piano(398, 16);
+          else if (RX_Data_String == "FHigh") Piano(437, 17);
+          else if (RX_Data_String == "F#High") Piano(478, 18);
+          else if (RX_Data_String == "GHigh") Piano(522, 19);
+          else if (RX_Data_String == "G#High") Piano(569, 20);
+          else if (RX_Data_String == "AHigh") Piano(618, 21);
+          else if (RX_Data_String == "A#High") Piano(670, 22);
+          else if (RX_Data_String == "BHigh") Piano(726, 23);
 
           else {
             Serial.println(F("Unknow Command"));
@@ -328,6 +347,134 @@ void Musical_Digital_Player( void *pvParameters ) {
   vTaskSuspend(Musical_Digital_Player_Handle);
 }
 
+void Pictureader(String Filename) {
+  Nextion_Serial_Transmit("Pictviewer", COMMAND_PAGE_NAME, "", 0);
+  Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Filename, 0);
+  int Width; //largeur
+  int Heigh; //hauteur
+  int Size;
+  unsigned long Data_offset;
+  int Encoding;
+  int Array_size;
+  int Red;
+  int Green;
+  int Blue;
+  int Color;
+  Serial.print(F("Open path :"));
+  Serial.println(Path);
+  Temporary_File = SD.open(Temporary_Path);
+  if (Temporary_File) {
+    Temporary_File.seek(0);
+    //Read the header
+    if (Temporary_File.read() == 66 && Temporary_File.read() == 77) {
+      Serial.println(F("It's a Bitmap File"));
+      Temporary_File.seek(2);
+      Size = int(Temporary_File.read()); //in bytes
+      Serial.print("Size :")
+      Serial.println(Size);
+      Nextion_Serial_Transmit("SIZE_NUM.val", ATTRIBUTE_VAL, "", Size);
+      Temporary_File.seek(10);
+      Data_offset = long(Temporary_File.read());
+      Serial.print("Data Offset :")
+      Serial.println(Data_offset);
+      Temporary_File.seek(18);
+      Width = int(Temporary_File.read());
+      Serial.print("Width :")
+      Serial.println(Width);
+      NextionSerial("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
+      Temporary_File.seek(22);
+      Heigh = long(Temporary_File.read());
+      NextionSerial("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
+      Serial.print("Heigh :")
+      Serial.println(Heigh);
+      Temporary_File.seek(28);
+      Encoding = int(Temporary_File.read());
+      Serial.print("Encoding :")
+      Serial.println(Encoding);
+      Heigh += 24;
+      Width += 10;
+      Temporary_File.seek(Data_offset);
+      Serial.println(Temporary_File.position());
+      if (Encoding == 16) {
+        //Draw picture
+        Serial.println(F("16 bit encoding"));
+        for (int y = Heigh; y > 24; y--) {
+          for (int x = 10; x < Width; x++) {
+            Serial.println(Temporary_File.peek());
+            Blue = int(Temporary_File.read());
+            Serial.println(Temporary_File.peek());
+            Green = int(Temporary_File.read());
+            Serial.println(Temporary_File.peek());
+            Red = int(Temporary_File.read());
+            Red = Red << 11;
+            Green = Green << 6;
+            Color = Red | Green;
+            Color = Color | Blue;
+            Nextion_Serial.print("fill ");
+            Nextion_Serial.print(x);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(y);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(1);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(1);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(Color);
+            Nextion_Serial.write(0xff);
+            Nextion_Serial.write(0xff);
+            Nextion_Serial.write(0xff);
+          }
+        }
+      }
+      else if (Encoding == 24) {
+        Serial.println(F("24 bit encoding"));
+        for (int y = Heigh; y > 24; y--) {
+          for (int x = 10; x < Width; x++) {
+            Serial.println(Temporary_File.peek());
+            Blue = int(Temporary_File.read());
+            Serial.println(Temporary_File.peek());
+            Green = int(Temporary_File.read());
+            Serial.println(Temporary_File.peek());
+            Red = int(Temporary_File.read());
+            Red = Red << 11;
+            Green = Green << 6;
+            Color = Red | Green;
+            Color = Color | Blue;
+            Serial.println(Color);
+            Nextion_Serial.print("fill ");
+            Nextion_Serial.print(x);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(y);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(1);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(1);
+            Nextion_Serial.write(0x2c);
+            Nextion_Serial.print(map(Color, 0, 16777215, 0, 65535));
+            Nextion_Serial.write(0xff);
+            Nextion_Serial.write(0xff);
+            Nextion_Serial.write(0xff);
+          }
+          Temporary_File.read();
+          Temporary_File.read();
+        }
+      }
+
+      else {
+        Serial.println(F("The 32 bit encoding isn't be supported now"));
+      }
+
+    }
+    else {
+      Serial.println(F("It isn't a bitmap file"));
+    }
+  }
+  else {
+    Serial.println(F("The File Doesn't Exist or isn't readable"));
+  }
+}
+
+
 void Files_And_Folders() {
   Temporary_File = SD.open(Temporary_Path);
   String Item_Name = "";
@@ -368,7 +515,9 @@ void Files_And_Folders() {
       }
     }
     if (Item_Name == "WAV") {}
-    else if (Item_Name == "BMP") {}
+    else if (Item_Name == "BMP") {
+      Pictureader();
+    }
     else if (Item_Name == "GPF") {}
     else if (Item_Name == "FPF") {}
     else if (Item_Name == "GMF") vTaskResume(Musical_Digital_Player_Handle);
@@ -378,6 +527,41 @@ void Files_And_Folders() {
   }
   Temporary_File.close();
 }
+
+/*
+void Function_Generator(int Frequency, int Pin, double Offset, double Width) {
+  unsigned long cycle_time;
+  unsigned long raising_edge;
+  unsigned long falling_edge;
+  unsigned long prev_micros;
+
+  pinMode(Pin, OUTPUT);
+
+// calculate arguments
+freq = 1;
+width = 0.5;
+offset = 0.0;
+
+cycle_time = 1000000 / freq;
+raising_edge = (unsigned long)(offset * cycle_time) % cycle_time;
+falling_edge = (unsigned long)((offset + width) * cycle_time) % cycle_time;
+
+prev_micros = micros();
+
+// do pinout shifting
+while(1) {
+  if (width + offset < 1) {
+    // raising edge should appear earlier
+    while (TIME_CMP(micros(), prev_micros + raising_edge, cycle_time)); setHigh();
+    while (TIME_CMP(micros(), prev_micros + falling_edge, cycle_time)); setLow();
+  } else {
+    // falling edge should appear earlier
+    while (TIME_CMP(micros(), prev_micros + falling_edge, cycle_time)); setLow();
+    while (TIME_CMP(micros(), prev_micros + raising_edge, cycle_time)); setHigh();
+  }
+  prev_micros += cycle_time;
+}
+}*/
 
 void Periodic_Main (byte Type) {
 
@@ -404,7 +588,7 @@ void Error_Reporting() {
 
 void Warning_Reporting() {
 }
-
+/*
 void iGOS (byte Type) {
   switch (Type) {
     case 0:
@@ -548,7 +732,7 @@ void iGOS (byte Type) {
    break;
  }
 }
-
+*/
 void Open_Menu() {
   Nextion_Serial_Transmit(F("Menu_P1"), COMMAND_PAGE_NAME, F(""), 0);
   Nextion_Serial_Transmit(F("USERNAME_TXT"), ATTRIBUTE_TXT, Username, 0);
@@ -582,7 +766,7 @@ void WiFi_Connect() {
   }
 }
 
-void Ressource_Monitor ( void *pvParameters) {
+void Ressource_Monitor ( void *pvParameters ) {
   (void) pvParameters;
   for (;;) {
     vTaskDelay(100);
