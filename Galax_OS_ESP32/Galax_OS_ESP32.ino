@@ -47,6 +47,17 @@
 #define COMMAND_PAGE_ID 6
 #define COMMAND_CLICK_ID 7
 
+#define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 94
+#define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 12
+#define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 13
+#define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 63
+#define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 64
+#define ERROR_WRONG_PASSWORD 50
+
+#define INFORMATION
+
+#define WARNING
+
 HardwareSerial Nextion_Serial(2);
 
 WiFiClient client;
@@ -582,12 +593,50 @@ void Periodic_Main (byte Type) {
   Seiral.println(Line);
 }
 
-void Error_Reporting() {
+void USB_Serial_Transmit(String USB_Serial_Transmit_String) {
+  byte Lines = 0;
+  //Faire size
+  Serial.println("|| >");
+  for {int i = 0} {
+    for(int i = 1; i < 74; i++) {
+      Serial.write(USB_Serial_Transmit_String.)
+    }
+  }
+
 
 }
 
-void Warning_Reporting() {
+void Reporting (byte Type, byte Type, string Infromations) {
+  switch (Type) {
+    case 0 : //Infroamtions
+
+    case 1 : //Warning
+      switch (Type) {
+
+      }
+    case 2 : //Error
+      switch (Type) {
+        case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
+
+        case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
+
+        case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
+
+        case ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING :
+
+        case ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED :
+
+        case ERROR_WRONG_PASSWORD :
+
+        case ERROR_WRONG_USERNAME :
+          Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
+              Serial.println(F("Wrong Username !"));
+
+      }
+
+  }
 }
+
 /*
 void iGOS (byte Type) {
   switch (Type) {
