@@ -29,6 +29,7 @@
 //Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
+#include <Arduino.h>
 #include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
@@ -73,8 +74,8 @@ unsigned int C_Frequency = 262;
 
 int Speaker_Pin = 25;
 
-char* WiFi_SSID     = "Avrupa";
-char* WiFi_Password = "0235745484";
+/*char* WiFi_SSID     = "Avrupa";
+char* WiFi_Password = "0235745484";*/
 
 char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
