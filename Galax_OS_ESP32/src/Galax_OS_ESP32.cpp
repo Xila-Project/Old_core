@@ -34,6 +34,7 @@
 #include <SD.h>
 #include <Wire.h>
 #include "WiFi.h"
+#include "galaxos.h"
 
 #define SOUND_SPEED
 #define LIGHT_SPEED
@@ -91,6 +92,8 @@ String Temporary_Path = "NULL";
 File Temporary_File;
 
 uint16_t Low_RAM_Threshold = 2000;
+
+bool MIDIOutEnable = false;
 
 //--------------------------------------------------------------------------------//
 //                                        Define Tasks                            //
@@ -161,8 +164,8 @@ void UltraSonic(int USTrig, int USEcho) {
     else {
       Duration /= 2;
       float Time = Duration / 1000000;
-      //int Distance = Time * SOUND_SPEED;
-      Serial.print("|| > Distance :");
+      int Distance = Time*SOUND_SPEED;
+      Serial.print(F("|| > Distance :"));
       Serial.println(Distance);
       Nextion_Serial_Transmit(F("DISTVAL_NUM"), ATTRIBUTE_VAL, "", Distance);
       vTaskDelay(100);
@@ -179,9 +182,9 @@ void Piano(int Frequency, int Note) {
   Frequency += C_Frequency;
   Note += C_MIDI;
   Temporary = "Frequency : " + String(Frequency, DEC);
-  NextionSerial(F("FREQUENCY_TXT"), 1, "", Temporary);
+  Nextion_Serial_Transmit(F("FREQUENCY_TXT"), 1, Temporary, 0);
   Temporary = "MIDI Code : " + String(Note, DEC);
-  NextionSerial(F("MIDICODE_TXT"), 1, "", Temporary);
+  Nextion_Serial_Transmit(F("MIDICODE_TXT"), 1, Temporary, 0);
   if (MIDIOutEnable == true) {
     Serial.write(144);
     Serial.write(Note);
@@ -348,7 +351,7 @@ void Musical_Digital_Player( void *pvParameters ) {
     Frequency = Temporary_File.read();
     Frequency *= 256;
     Frequency += Temporary_File.read();
-    Frequency += CFrequency;
+    Frequency += C_Frequency;
     Duration = Temporary_File.read();
     Duration *= 256;
     Duration += Temporary_File.read();
@@ -359,7 +362,7 @@ void Musical_Digital_Player( void *pvParameters ) {
   vTaskSuspend(Musical_Digital_Player_Handle);
 }
 
-void Pictureader(String Filename) {
+void Pictureader() {
   Nextion_Serial_Transmit("Pictviewer", COMMAND_PAGE_NAME, "", 0);
   Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Filename, 0);
   int Width; //largeur
@@ -373,7 +376,7 @@ void Pictureader(String Filename) {
   int Blue;
   int Color;
   Serial.print(F("Open path :"));
-  Serial.println(Path);
+  Serial.println(Temporary_Path);
   Temporary_File = SD.open(Temporary_Path);
   if (Temporary_File) {
     Temporary_File.seek(0);
@@ -382,26 +385,26 @@ void Pictureader(String Filename) {
       Serial.println(F("It's a Bitmap File"));
       Temporary_File.seek(2);
       Size = int(Temporary_File.read()); //in bytes
-      Serial.print("Size :")
+      Serial.print("Size :");
       Serial.println(Size);
       Nextion_Serial_Transmit("SIZE_NUM.val", ATTRIBUTE_VAL, "", Size);
       Temporary_File.seek(10);
       Data_offset = long(Temporary_File.read());
-      Serial.print("Data Offset :")
+      Serial.print("Data Offset :");
       Serial.println(Data_offset);
       Temporary_File.seek(18);
       Width = int(Temporary_File.read());
-      Serial.print("Width :")
+      Serial.print("Width :");
       Serial.println(Width);
-      NextionSerial("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
+      Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
       Temporary_File.seek(22);
       Heigh = long(Temporary_File.read());
       NextionSerial("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
-      Serial.print("Heigh :")
+      Serial.print("Heigh :");
       Serial.println(Heigh);
       Temporary_File.seek(28);
       Encoding = int(Temporary_File.read());
-      Serial.print("Encoding :")
+      Serial.print("Encoding :");
       Serial.println(Encoding);
       Heigh += 24;
       Width += 10;
@@ -584,13 +587,13 @@ void Periodic_Main (byte Type) {
   Column -= 6;
   Column /= 26;
   Column = round(Column);
-  Serial.print("Column : ")
+  Serial.print("Column : ");
   Serial.println(Column);
-  Line = [Public_Integer_Variable[1];
+  Line = Public_Integer_Variable[1];
   Line -= 29;
   Line /= 26;
   Line = round(Line);
-  Serial.print("Line : ")
+  Serial.print("Line : ");
   Seiral.println(Line);
 }
 
@@ -600,14 +603,12 @@ void USB_Serial_Transmit(String USB_Serial_Transmit_String) {
   Serial.println("|| >");
   for {int i = 0} {
     for(int i = 1; i < 74; i++) {
-      Serial.write(USB_Serial_Transmit_String.)
+      Serial.write(USB_Serial_Transmit_String);
     }
   }
-
-
 }
 
-void Reporting (byte Type, byte Type, string Infromations) {
+void Reporting (byte Type, byte Type, String Infromations) {
   switch (Type) {
     case 0 : //Infroamtions
 
@@ -618,8 +619,6 @@ void Reporting (byte Type, byte Type, string Infromations) {
     case 2 : //Error
       switch (Type) {
         case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
-
-        case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
 
         case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
 
@@ -811,7 +810,7 @@ void WiFi_Connect() {
   if (WiFi.status() == WL_CONNECTED) {
     Serial.println("Connected to WiFi");
   }
-  else () {
+  else {
     Serial.println("Can't Connect to WiFi");
   }
 }
