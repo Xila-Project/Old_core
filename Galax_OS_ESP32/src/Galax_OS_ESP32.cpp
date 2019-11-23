@@ -29,15 +29,14 @@
 //Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
-#include <Arduino.h>
 #include <SPI.h>
 #include <SD.h>
 #include <Wire.h>
 #include "WiFi.h"
 #include "galaxos.h"
 
-#define SOUND_SPEED
-#define LIGHT_SPEED
+#define SOUND_SPEED_AIR 343
+#define LIGHT_SPEED_AIR 299792458
 
 #define ATTRIBUTE_TXT 0
 #define ATTRIBUTE_VAL 1
@@ -49,16 +48,17 @@
 #define COMMAND_PAGE_ID 6
 #define COMMAND_CLICK_ID 7
 
-#define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 94
-#define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 12
-#define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 13
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 63
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 64
+#define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
+#define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 49361
+#define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
+#define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
+#define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
 #define ERROR_WRONG_PASSWORD 50
+#define ERROR_WRONG_USERNAME
 
-#define INFORMATION
+#define INFORMATION 22
 
-#define WARNING
+#define WARNING 14
 
 HardwareSerial Nextion_Serial(2);
 
@@ -75,8 +75,8 @@ unsigned int C_Frequency = 262;
 
 int Speaker_Pin = 25;
 
-/*char* WiFi_SSID     = "Avrupa";
-char* WiFi_Password = "0235745484";*/
+char* WiFi_SSID     = "Avrupa";
+char* WiFi_Password = "0235745484";
 
 char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
@@ -87,9 +87,11 @@ String Password = "NULL";
 
 String Public_String_Variable[3] = {"", "", ""};
 
-String Temporary_Path = "NULL";
+String Temporary_File_Path = "NULL";
 
 File Temporary_File;
+
+String Temporary_File_Name = "NULL";
 
 uint16_t Low_RAM_Threshold = 2000;
 
@@ -164,7 +166,7 @@ void UltraSonic(int USTrig, int USEcho) {
     else {
       Duration /= 2;
       float Time = Duration / 1000000;
-      int Distance = Time*SOUND_SPEED;
+      int Distance = Time*SOUND_SPEED_AIR;
       Serial.print(F("|| > Distance :"));
       Serial.println(Distance);
       Nextion_Serial_Transmit(F("DISTVAL_NUM"), ATTRIBUTE_VAL, "", Distance);
@@ -325,7 +327,7 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           break;
         case 6:
           Serial.println("Files&dFolders");
-          Temporary_Path = "/" + RX_Data_String;
+          Temporary_File_Path = "/" + RX_Data_String;
           Files_And_Folders();
           break;
         default:
@@ -343,7 +345,7 @@ void Musical_Digital_Player( void *pvParameters ) {
   ledcAttachPin(Speaker_Pin, 0);
   int Frequency;
   int Duration;
-  Temporary_File = SD.open(Temporary_Path);
+  Temporary_File = SD.open(Temporary_File_Path);
   if (!Temporary_File) {
     return;
   }
@@ -364,20 +366,20 @@ void Musical_Digital_Player( void *pvParameters ) {
 
 void Pictureader() {
   Nextion_Serial_Transmit("Pictviewer", COMMAND_PAGE_NAME, "", 0);
-  Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Filename, 0);
+  Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Temporary_File_Name, 0);
   int Width; //largeur
   int Heigh; //hauteur
   int Size;
   unsigned long Data_offset;
   int Encoding;
-  int Array_size;
+  int Array_Size;
   int Red;
   int Green;
   int Blue;
   int Color;
   Serial.print(F("Open path :"));
-  Serial.println(Temporary_Path);
-  Temporary_File = SD.open(Temporary_Path);
+  Serial.println(Temporary_File_Path);
+  Temporary_File = SD.open(Temporary_File_Path);
   if (Temporary_File) {
     Temporary_File.seek(0);
     //Read the header
@@ -399,7 +401,7 @@ void Pictureader() {
       Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
       Temporary_File.seek(22);
       Heigh = long(Temporary_File.read());
-      NextionSerial("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
+      Nextion_Serial("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
       Serial.print("Heigh :");
       Serial.println(Heigh);
       Temporary_File.seek(28);
@@ -491,7 +493,7 @@ void Pictureader() {
 
 
 void Files_And_Folders() {
-  Temporary_File = SD.open(Temporary_Path);
+  Temporary_File = SD.open(Temporary_File_Path);
   String Item_Name = "";
   if (Temporary_File.isDirectory()) {
     for (int i = 1; i < 19; i++) { //Clear Items
@@ -594,21 +596,23 @@ void Periodic_Main (byte Type) {
   Line /= 26;
   Line = round(Line);
   Serial.print("Line : ");
-  Seiral.println(Line);
+  Serial.println(Line);
 }
 
-void USB_Serial_Transmit(String USB_Serial_Transmit_String) {
-  byte Lines = 0;
-  //Faire size
+void USB_Serial_Transmit(char USB_Serial_Transmit_String[]) {
+  int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
   Serial.println("|| >");
-  for {int i = 0} {
-    for(int i = 1; i < 74; i++) {
-      Serial.write(USB_Serial_Transmit_String);
+  while(i =< USB_Serial_Transmit_String_Lenght) {
+    for(int ii = 1; ii < 74; ii++) {
+      Serial.write(USB_Serial_Transmit_String[i]);
+      ii++;
+      i++;
     }
+    Serial.print("\n");
   }
 }
 
-void Reporting (byte Type, byte Type, String Infromations) {
+void Reporting (byte Type, String Infromations) {
   switch (Type) {
     case 0 : //Infroamtions
 
@@ -619,19 +623,19 @@ void Reporting (byte Type, byte Type, String Infromations) {
     case 2 : //Error
       switch (Type) {
         case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
-
+          break;
         case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
-
+          break;
         case ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING :
-
+          break;
         case ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED :
-
+          break;
         case ERROR_WRONG_PASSWORD :
-
+          break;
         case ERROR_WRONG_USERNAME :
           Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
-              Serial.println(F("Wrong Username !"));
-
+          Serial.println(F("Wrong Username !"));
+          break;
       }
 
   }
@@ -899,7 +903,7 @@ void Load_User_Files() {
   }
   WiFi_Connect();
   Temporary_File.close();
-  Temporary_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
+  Temporary_File_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
   vTaskResume(Musical_Digital_Player_Handle);
   Nextion_Serial_Transmit(F("LOAD_TIM"), ATTRIBUTE_TIM, "", 50);
 }

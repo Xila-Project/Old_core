@@ -2,7 +2,6 @@
 #define GALAXOS_H_INCLUDED
 
 #include <Arduino.h>
-#include <string>
 
 void Files_And_Folders();
 void Load_System_Files();
