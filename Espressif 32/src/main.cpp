@@ -33,80 +33,7 @@
 #include <SD.h>
 #include <Wire.h>
 #include "WiFi.h"
-#include "galaxos.h"
-
-#define SOUND_SPEED_AIR 343
-#define LIGHT_SPEED_AIR 299792458
-
-#define ATTRIBUTE_TXT 0
-#define ATTRIBUTE_VAL 1
-#define ATTRIBUTE_TIM 2
-#define ATTRIBUTE_PIC 4
-#define ATTRIBUTE_EN 5
-
-#define COMMAND_PAGE_NAME 3
-#define COMMAND_PAGE_ID 6
-#define COMMAND_CLICK_ID 7
-
-#define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
-#define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 49361
-#define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
-#define ERROR_WRONG_PASSWORD 50
-#define ERROR_WRONG_USERNAME
-
-#define INFORMATION 22
-
-#define WARNING 14
-
-HardwareSerial Nextion_Serial(2);
-
-WiFiClient client;
-
-byte Taskbar_Items_PID[7] = {255, 255, 255, 255, 255, 255, 255};
-byte Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
-
-byte C_MIDI = 60;
-
-int Public_Integer_Variable[12];
-
-unsigned int C_Frequency = 262;
-
-int Speaker_Pin = 25;
-
-char* WiFi_SSID     = "Avrupa";
-char* WiFi_Password = "0235745484";
-
-char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
-char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
-char url[90] = "";                           // What IS a reasonable maximum URL length?
-
-String Username = "NULL";
-String Password = "NULL";
-
-String Public_String_Variable[3] = {"", "", ""};
-
-String Temporary_File_Path = "NULL";
-
-File Temporary_File;
-
-String Temporary_File_Name = "NULL";
-
-uint16_t Low_RAM_Threshold = 2000;
-
-bool MIDIOutEnable = false;
-
-//--------------------------------------------------------------------------------//
-//                                        Define Tasks                            //
-//--------------------------------------------------------------------------------//
-xTaskHandle Nextion_Serial_Transmit_Handle;
-xTaskHandle Musical_Digital_Player_Handle;
-xTaskHandle Ressource_Monitor_Handle;
-
-void Nextion_Serial_Receive( void *pvParameters );
-void Musical_Digital_Player( void *pvParameters );
-void Ressource_Monitor( void *pvParameters );
+#include "main.h"
 
 void setup() {
   //Serial Initialisation//
@@ -146,6 +73,10 @@ void setup() {
 
 void loop() {
   vTaskDelete(NULL);
+}
+
+class Galax_OS {
+
 }
 
 void UltraSonic(int USTrig, int USEcho) {
@@ -401,7 +332,7 @@ void Pictureader() {
       Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
       Temporary_File.seek(22);
       Heigh = long(Temporary_File.read());
-      Nextion_Serial("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
+      Nextion_Serial_Transmit("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
       Serial.print("Heigh :");
       Serial.println(Heigh);
       Temporary_File.seek(28);
@@ -602,7 +533,8 @@ void Periodic_Main (byte Type) {
 void USB_Serial_Transmit(char USB_Serial_Transmit_String[]) {
   int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
   Serial.println("|| >");
-  while(i =< USB_Serial_Transmit_String_Lenght) {
+  int i = 0;
+  while(i <= USB_Serial_Transmit_String_Lenght) {
     for(int ii = 1; ii < 74; ii++) {
       Serial.write(USB_Serial_Transmit_String[i]);
       ii++;
@@ -612,32 +544,22 @@ void USB_Serial_Transmit(char USB_Serial_Transmit_String[]) {
   }
 }
 
-void Reporting (byte Type, String Infromations) {
+void Event_Handler (byte Type, String Infromations) {
   switch (Type) {
-    case 0 : //Infroamtions
-
-    case 1 : //Warning
-      switch (Type) {
-
-      }
-    case 2 : //Error
-      switch (Type) {
-        case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
-          break;
-        case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
-          break;
-        case ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING :
-          break;
-        case ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED :
-          break;
-        case ERROR_WRONG_PASSWORD :
-          break;
-        case ERROR_WRONG_USERNAME :
-          Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
-          Serial.println(F("Wrong Username !"));
-          break;
-      }
-
+    case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
+    break;
+    case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
+    break;
+    case ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING :
+    break;
+    case ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED :
+    break;
+    case WARNING_WRONG_PASSWORD :
+    break;
+    case WARNING_WRONG_USERNAME :
+    Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
+    Serial.println(F("Wrong Username !"));
+    break;
   }
 }
 
@@ -788,7 +710,7 @@ void iGOS (byte Type) {
 */
 void Open_Menu() {
   Nextion_Serial_Transmit(F("Menu_P1"), COMMAND_PAGE_NAME, F(""), 0);
-  Nextion_Serial_Transmit(F("USERNAME_TXT"), ATTRIBUTE_TXT, Username, 0);
+  Nextion_Serial_Transmit(F("USERNAME_TXT"), ATTRIBUTE_TXT, String(Username), 0);
 }
 
 void Open_Desk() {
