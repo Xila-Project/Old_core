@@ -1,7 +1,7 @@
-#ifndef GALAXOS_H_INCLUDED
-#define GALAXOS_H_INCLUDED
+#ifndef MAIN_H_INCLUDED
+#define MAIN_H_INCLUDED
 
-#include <Arduino.h>
+#include "Arduino.h"
 #include <string>
 
 //----------------------------------------------------------------------------//
@@ -26,11 +26,17 @@
 #define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
+#define ERROR_THE_FILE_DOESNT_EXIST 7018
 
 #define INFORMATION 17723
 
 #define WARNING_WRONG_PASSWORD 28362
-#define WARNING_WRONG_USERNAME 54114  
+#define WARNING_WRONG_USERNAME 54114
+
+#define STYLE_LEFT_ALIGNMENT 0
+#define STYLE_CENTER_ALIGNMENT 1
+#define STYLE_RIGHT_ALIGNMENT 2
+#define STYLE_JUSTIFIED_ALIGNMENT 3
 
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
@@ -72,8 +78,8 @@ uint16_t Low_RAM_Threshold = 2000;
 
 bool MIDIOutEnable = false;
 
-char Username[16] = "NULL";
-char Password[16] = "NULL";
+String Username = "NULL";
+String Password = "NULL";
 
 //----------------------------------------------------------------------------//
 //                                        Define Tasks                        //
@@ -84,7 +90,7 @@ xTaskHandle Ressource_Monitor_Handle;
 //----------------------------------------------------------------------------//
 //                            Define Function                                 //
 //----------------------------------------------------------------------------//
-void Event_Handler(byte Type, String Informations = "");
+void Event_Handler(byte Type, String Informations);
 void Files_And_Folders();
 void Load_System_Files();
 void Load_User_Files();
@@ -99,7 +105,7 @@ void Piano(int Frequency, int Note);
 void Pictureader();
 void Ressource_Monitor( void *pvParameters );
 void UltraSonic(int USTrig, int USEcho);
-void USB_Serial_Transmit(char USB_Serial_Transmit_String[]);
+void USB_Serial_Transmit(const char* USB_Serial_Transmit_String);
 void WiFi_Connect();
 
 #endif

@@ -51,6 +51,7 @@ void setup() {
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
+  USB_Serial_Transmit("Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes");
   Serial.println(F("||      Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes      ||"));
   Serial.println(F("||               Galax OS Portable Edition - Alix ANNERAUD - 0.03             ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
@@ -73,10 +74,6 @@ void setup() {
 
 void loop() {
   vTaskDelete(NULL);
-}
-
-class Galax_OS {
-
 }
 
 void UltraSonic(int USTrig, int USEcho) {
@@ -176,9 +173,9 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           }
       }
       i = 3;
-      Serial.print("RX_Data_Char[1] :");
+      Serial.print(F("RX_Data_Char[1] :"));
       Serial.println(RX_Data_Char[1], DEC);
-      Serial.print("RX_Data_Char[2] :");
+      Serial.print(F("RX_Data_Char[2] :"));
       Serial.println(RX_Data_Char[2], DEC);
       while (RX_Data_Char[i] != 255 && i < 47) {
         RX_Data_String += RX_Data_Char[i];
@@ -186,9 +183,9 @@ void Nextion_Serial_Receive( void *pvParameters ) {
       }
       RX_Data_String.toCharArray(RX_Data_Char, RX_Data_String.length() + 1);
 
-      Serial.print("RX Data Char :");
+      Serial.print(F("RX Data Char :"));
       Serial.println(RX_Data_Char);
-      Serial.print("RX Data String :");
+      Serial.print(F("RX Data String :"));
       Serial.println(RX_Data_String);
 
       Serial.println(F("|| > Execute Incoming Data On UART 1 - Step 4                                 ||"));
@@ -253,12 +250,12 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           //3 -> String Variable
           Serial.print(F("Selected Variable :"));
           Serial.println(Selected_Variable);
-          Serial.println("String");
+          Serial.println(F("String"));
           Public_String_Variable[Selected_Variable] = RX_Data_String;
           break;
         case 6:
-          Serial.println("Files&dFolders");
-          Temporary_File_Path = "/" + RX_Data_String;
+          Serial.println(F("Files&dFolders"));
+          Temporary_File_Path = RX_Data_String;
           Files_And_Folders();
           break;
         default:
@@ -295,70 +292,73 @@ void Musical_Digital_Player( void *pvParameters ) {
   vTaskSuspend(Musical_Digital_Player_Handle);
 }
 
-void Pictureader() {
+void Pictviewer() {
   Nextion_Serial_Transmit("Pictviewer", COMMAND_PAGE_NAME, "", 0);
   Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Temporary_File_Name, 0);
-  int Width; //largeur
-  int Heigh; //hauteur
-  int Size;
+  unsigned int Width;
+  unsigned int Height;
+  unsigned int Size;
   unsigned long Data_offset;
-  int Encoding;
-  int Array_Size;
-  int Red;
-  int Green;
-  int Blue;
-  int Color;
+  unsigned int Encoding;
+  unsigned int Array_Size;
+  byte Red;
+  byte Green;
+  byte Blue;
+  unsigned int Color;
+  unsigned int x, y;
   Serial.print(F("Open path :"));
   Serial.println(Temporary_File_Path);
   Temporary_File = SD.open(Temporary_File_Path);
   if (Temporary_File) {
-    Temporary_File.seek(0);
     //Read the header
+    Temporary_File.seek(0);
     if (Temporary_File.read() == 66 && Temporary_File.read() == 77) {
       Serial.println(F("It's a Bitmap File"));
       Temporary_File.seek(2);
       Size = int(Temporary_File.read()); //in bytes
-      Serial.print("Size :");
+      Serial.print(F("Size :"));
       Serial.println(Size);
       Nextion_Serial_Transmit("SIZE_NUM.val", ATTRIBUTE_VAL, "", Size);
       Temporary_File.seek(10);
       Data_offset = long(Temporary_File.read());
-      Serial.print("Data Offset :");
+      Serial.print(F("Data Offset :"));
       Serial.println(Data_offset);
       Temporary_File.seek(18);
       Width = int(Temporary_File.read());
-      Serial.print("Width :");
+      Serial.print(F("Width :"));
       Serial.println(Width);
       Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
       Temporary_File.seek(22);
-      Heigh = long(Temporary_File.read());
+      Height = long(Temporary_File.read());
       Nextion_Serial_Transmit("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
-      Serial.print("Heigh :");
-      Serial.println(Heigh);
+      Serial.print(F("Heigh :"));
+      Serial.println(Height);
       Temporary_File.seek(28);
       Encoding = int(Temporary_File.read());
-      Serial.print("Encoding :");
+      Serial.print(F("Encoding :"));
       Serial.println(Encoding);
-      Heigh += 24;
+      Height += 24;
       Width += 10;
       Temporary_File.seek(Data_offset);
       Serial.println(Temporary_File.position());
       if (Encoding == 16) {
         //Draw picture
         Serial.println(F("16 bit encoding"));
-        for (int y = Heigh; y > 24; y--) {
+        for (int y = Height; y > 24; y--) {
           for (int x = 10; x < Width; x++) {
             Serial.println(Temporary_File.peek());
-            Blue = int(Temporary_File.read());
+            Blue = Temporary_File.read();
             Serial.println(Temporary_File.peek());
-            Green = int(Temporary_File.read());
+            Green = Temporary_File.read();
             Serial.println(Temporary_File.peek());
-            Red = int(Temporary_File.read());
-            Red = Red << 11;
-            Green = Green << 6;
-            Color = Red | Green;
+            Red = Temporary_File.read();
+            Color = Red;
+            Color = Color << 5;
+            Color = Color | Green;
+            Color = Color << 6;
             Color = Color | Blue;
-            Nextion_Serial.print("fill ");
+            Serial.println(Color);
+            Nextion_Serial.print(F("fill "));
             Nextion_Serial.print(x);
             Nextion_Serial.write(0x2c);
             Nextion_Serial.print(y);
@@ -376,7 +376,7 @@ void Pictureader() {
       }
       else if (Encoding == 24) {
         Serial.println(F("24 bit encoding"));
-        for (int y = Heigh; y > 24; y--) {
+        for (int y = Height; y > 24; y--) {
           for (int x = 10; x < Width; x++) {
             Serial.println(Temporary_File.peek());
             Blue = int(Temporary_File.read());
@@ -389,7 +389,7 @@ void Pictureader() {
             Color = Red | Green;
             Color = Color | Blue;
             Serial.println(Color);
-            Nextion_Serial.print("fill ");
+            Nextion_Serial.print(F("fill "));
             Nextion_Serial.print(x);
             Nextion_Serial.write(0x2c);
             Nextion_Serial.print(y);
@@ -456,15 +456,18 @@ void Files_And_Folders() {
   else {
     Item_Name = Temporary_File.name();
     char Item_Name_Char[14];
+
     Item_Name.toCharArray(Item_Name_Char, 14);
+
     for (byte i = 1; i < 15; i++) {
       if (Item_Name_Char[i] == '.') {
         Item_Name = String(Item_Name_Char[i + 1]) + String(Item_Name_Char[i + 2]) + String(Item_Name_Char[i + 3]);
       }
     }
+    Temporary_File.close();
     if (Item_Name == "WAV") {}
     else if (Item_Name == "BMP") {
-      Pictureader();
+      Pictviewer();
     }
     else if (Item_Name == "GPF") {}
     else if (Item_Name == "FPF") {}
@@ -473,7 +476,7 @@ void Files_And_Folders() {
       //Fileditor();
     }
   }
-  Temporary_File.close();
+
 }
 
 /*
@@ -520,31 +523,55 @@ void Periodic_Main (byte Type) {
   Column -= 6;
   Column /= 26;
   Column = round(Column);
-  Serial.print("Column : ");
+  Serial.print(F("Column : "));
   Serial.println(Column);
   Line = Public_Integer_Variable[1];
   Line -= 29;
   Line /= 26;
   Line = round(Line);
-  Serial.print("Line : ");
+  Serial.print(F("Line : "));
   Serial.println(Line);
 }
 
-void USB_Serial_Transmit(char USB_Serial_Transmit_String[]) {
-  int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
-  Serial.println("|| >");
-  int i = 0;
-  while(i <= USB_Serial_Transmit_String_Lenght) {
-    for(int ii = 1; ii < 74; ii++) {
-      Serial.write(USB_Serial_Transmit_String[i]);
-      ii++;
-      i++;
+void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment) {
+  unsigned int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
+  byte Lines = USB_Serial_Transmit_String_Lenght;
+  Lines = Lines / 72;
+  if(USB_Serial_Transmit_String_Lenght % 72 != 0) Lines++;
+  if(Lines == 1) {
+    switch (Alignment) {
+      case STYLE_LEFT_ALIGMENT :
+        Serial.print(F("|| > "));
+        for(byte i = 1; i <= USB_Serial_Transmit_String_Lenght; i++) {   
+          Serial.print(USB_Serial_Transmit_String[i]);
+        }
+        for(byte i = 1; i <= 72 - USB_Serial_Transmit_String_Lenght i++) {   
+          Serial.print(" ");
+        }
+        Serial.print(F(" ||"));
+        Serial.print(F("\r"));
+        Serial.print(F("\n"));
+        break;     
+      case STYLE_CENTER_ALIGNMENT :
+        //not coded now
+        break;
+      case STYLE_RIGHT_ALIGNMENT :
+        //not coded now
+        break;
+      case STYLE_JUSTIFIED_ALIGNMENT :
+        //not coded now
+        break;
+      default:
+        break;
+      
     }
-    Serial.print("\n");
+  }
+  else {
+    //not coded now
   }
 }
 
-void Event_Handler (byte Type, String Infromations) {
+void Event_Handler (int Type, String Infromations) {
   switch (Type) {
     case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
     break;
@@ -557,9 +584,9 @@ void Event_Handler (byte Type, String Infromations) {
     case WARNING_WRONG_PASSWORD :
     break;
     case WARNING_WRONG_USERNAME :
-    Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
-    Serial.println(F("Wrong Username !"));
-    break;
+      Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
+      Serial.println(F("Wrong Username !"));
+      break;
   }
 }
 
@@ -734,10 +761,10 @@ void WiFi_Connect() {
     i++;
   }
   if (WiFi.status() == WL_CONNECTED) {
-    Serial.println("Connected to WiFi");
+    Serial.println(F("Connected to WiFi"));
   }
   else {
-    Serial.println("Can't Connect to WiFi");
+    Serial.println(F("Can't Connect to WiFi"));
   }
 }
 
@@ -761,6 +788,7 @@ void Logon() {
       }
     }
     Temporary_File.close();
+    Temporary_File_Path = "NULL";
   }
   else {
     Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
@@ -794,12 +822,12 @@ void Load_System_Files() {
     }
     Serial.print(Temporary_String);
     if (Temporary_String != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12") {
-      Serial.println("Error : ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED");
+      Serial.println(F("Error : ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED"));
       return;
     }
   }
   else {
-    Serial.println("Error : ERROR_SOME_SYSTEM_FILES_ARE_MISSING");
+    Serial.println(F("Error : ERROR_SOME_SYSTEM_FILES_ARE_MISSING"));
     return;
   }
   Temporary_String = "";
@@ -823,7 +851,6 @@ void Load_User_Files() {
     Temporary_File.read();
     i++;
   }
-  WiFi_Connect();
   Temporary_File.close();
   Temporary_File_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
   vTaskResume(Musical_Digital_Player_Handle);
