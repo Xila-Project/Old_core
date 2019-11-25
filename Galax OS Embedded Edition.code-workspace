@@ -2,10 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"name": "Galax_OS_ESP32",
-			"path": "Galax_OS_ESP32"
 		}
 	],
 	"settings": {}
