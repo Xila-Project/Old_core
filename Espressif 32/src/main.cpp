@@ -26,6 +26,7 @@
 //3.3 v -> 3.3 v//
 //GND -> GND    //
 
+//Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
 //Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
@@ -153,7 +154,6 @@ void Nextion_Serial_Receive( void *pvParameters ) {
 
       switch (RX_Data_Char[2]) {
         case 0x2A : Type = 1; break;
-        case 0x2F : Type = 6; break;
         default :
           if (isUpperCase(RX_Data_Char[2])) {
             Selected_Variable = RX_Data_Char[2];
