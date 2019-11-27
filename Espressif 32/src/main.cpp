@@ -52,7 +52,7 @@ void setup() {
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
-  USB_Serial_Transmit("Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes");
+  USB_Serial_Transmit("Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes", STYLE_LEFT_ALIGNMENT);
   Serial.println(F("||      Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes      ||"));
   Serial.println(F("||               Galax OS Portable Edition - Alix ANNERAUD - 0.03             ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
@@ -152,6 +152,12 @@ void Nextion_Serial_Receive( void *pvParameters ) {
         i++;
       }
 
+      if (RX_Data_Char[1] == 0x66) {
+        Last_Page = Current_Page;
+        Current_Page = RX_Data_Char[2];
+        return;
+      }
+
       switch (RX_Data_Char[2]) {
         case 0x2A : Type = 1; break;
         default :
@@ -201,6 +207,8 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           else if (RX_Data_String == "Logon") Logon();
           else if (RX_Data_String == "Menu") Open_Menu();
           else if (RX_Data_String == "Desk") Open_Desk();
+
+          else if (RX_Data_String == "F&F") Files_And_Folders();
 
           else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
           else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
@@ -253,15 +261,9 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           Serial.println(F("String"));
           Public_String_Variable[Selected_Variable] = RX_Data_String;
           break;
-        case 6:
-          Serial.println(F("Files&dFolders"));
-          Temporary_File_Path = RX_Data_String;
-          Files_And_Folders();
-          break;
         default:
           Serial.println(F("|| > Unrecognized Type Of Command                                            ||"));
           break;
-
       }
     }
     vTaskDelay(100);
@@ -305,7 +307,6 @@ void Pictviewer() {
   byte Green;
   byte Blue;
   unsigned int Color;
-  unsigned int x, y;
   Serial.print(F("Open path :"));
   Serial.println(Temporary_File_Path);
   Temporary_File = SD.open(Temporary_File_Path);
@@ -330,8 +331,8 @@ void Pictviewer() {
       Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
       Temporary_File.seek(22);
       Height = long(Temporary_File.read());
-      Nextion_Serial_Transmit("HEIGH_NUM", ATTRIBUTE_VAL, "", Heigh);
-      Serial.print(F("Heigh :"));
+      Nextion_Serial_Transmit("HEIGHT_NUM", ATTRIBUTE_VAL, "", Height);
+      Serial.print(F("Height :"));
       Serial.println(Height);
       Temporary_File.seek(28);
       Encoding = int(Temporary_File.read());
@@ -350,13 +351,9 @@ void Pictviewer() {
             Blue = Temporary_File.read();
             Serial.println(Temporary_File.peek());
             Green = Temporary_File.read();
-            Serial.println(Temporary_File.peek());
-            Red = Temporary_File.read();
             Color = Red;
-            Color = Color << 5;
+            Color = Color << 8;
             Color = Color | Green;
-            Color = Color << 6;
-            Color = Color | Blue;
             Serial.println(Color);
             Nextion_Serial.print(F("fill "));
             Nextion_Serial.print(x);
@@ -379,14 +376,14 @@ void Pictviewer() {
         for (int y = Height; y > 24; y--) {
           for (int x = 10; x < Width; x++) {
             Serial.println(Temporary_File.peek());
-            Blue = int(Temporary_File.read());
+            Blue = Temporary_File.read();
             Serial.println(Temporary_File.peek());
-            Green = int(Temporary_File.read());
+            Green = Temporary_File.read();
             Serial.println(Temporary_File.peek());
-            Red = int(Temporary_File.read());
-            Red = Red << 11;
-            Green = Green << 6;
-            Color = Red | Green;
+            Red = Temporary_File.read();
+            Color = Red << 6;
+            Color = Color | Green;
+            Color = Color << 5;
             Color = Color | Blue;
             Serial.println(Color);
             Nextion_Serial.print(F("fill "));
@@ -424,36 +421,38 @@ void Pictviewer() {
 
 
 void Files_And_Folders() {
+  Temporary_File_Path = Public_String_Variable[1];
   Temporary_File = SD.open(Temporary_File_Path);
   String Item_Name = "";
-  if (Temporary_File.isDirectory()) {
-    for (int i = 1; i < 19; i++) { //Clear Items
-      Item_Name = "ITEM" + String(i);
-      Item_Name += "_TXT";
-      Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, "", 0);
-      Item_Name = "ITEM" + String(i);
-      Item_Name += "_BUT";
-      Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, "", 15);
-    }
-    Temporary_File.rewindDirectory();
-    for (byte i = 1; i < 19; i++) {
-      File Item = Temporary_File.openNextFile();
-      if (!Item) break;
-      Item_Name = "ITEM" + String(i);
-      Item_Name += "_TXT";
-      Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, Item.name(), 0);
-      Item_Name = "ITEM" + String(i);
-      Item_Name += "_BUT";
-      if (Item.isDirectory()) {
-        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 17);
+  if (SD.exists(Temporary_File_Path)) {
+    if (Temporary_File.isDirectory()) {
+      for (int i = 1; i < 19; i++) { //Clear Items
+        Item_Name = "ITEM" + String(i);
+        Item_Name += "_TXT";
+        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, "", 0);
+        Item_Name = "ITEM" + String(i);
+        Item_Name += "_BUT";
+        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, "", 15);
       }
-      else {
-        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 16);
+      Temporary_File.rewindDirectory();
+      for (byte i = 1; i < 19; i++) {
+        File Item = Temporary_File.openNextFile();
+        if (!Item) break;
+        Item_Name = "ITEM" + String(i);
+        Item_Name += "_TXT";
+        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, Item.name(), 0);
+        Item_Name = "ITEM" + String(i);
+        Item_Name += "_BUT";
+        if (Item.isDirectory()) {
+          Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 17);
+        }
+        else {
+          Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 16);
+        }
+        Item.close();
       }
-      Item.close();
     }
-  }
-  else {
+    else {
     Item_Name = Temporary_File.name();
     char Item_Name_Char[14];
 
@@ -476,7 +475,10 @@ void Files_And_Folders() {
       //Fileditor();
     }
   }
-
+  }
+  else {
+    
+  }
 }
 
 /*
@@ -540,12 +542,12 @@ void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment)
   if(USB_Serial_Transmit_String_Lenght % 72 != 0) Lines++;
   if(Lines == 1) {
     switch (Alignment) {
-      case STYLE_LEFT_ALIGMENT :
+      case STYLE_LEFT_ALIGNMENT :
         Serial.print(F("|| > "));
         for(byte i = 1; i <= USB_Serial_Transmit_String_Lenght; i++) {   
           Serial.print(USB_Serial_Transmit_String[i]);
         }
-        for(byte i = 1; i <= 72 - USB_Serial_Transmit_String_Lenght i++) {   
+        for(byte i = 1; i <= 72 - USB_Serial_Transmit_String_Lenght; i++) {   
           Serial.print(" ");
         }
         Serial.print(F(" ||"));
@@ -573,16 +575,29 @@ void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment)
 
 void Event_Handler (int Type, String Infromations) {
   switch (Type) {
+    Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
     case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
-    break;
+      Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
+      Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Failled to initialize the SD Card !"), 0);
+      break;
     case ERROR_SOME_SYSTEM_FILES_ARE_MISSING :
-    break;
+      Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
+      Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Some system files are missing !"), 0);
+      break;
     case ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING :
-    break;
+      Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
+      Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Some settings files are missing !"), 0);
+      break;
     case ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED :
-    break;
+      Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
+      Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Some user settings files are corrupted !"), 0);
+      break;
+    case ERROR_THE_FILE_DO_NOT_EXIST :
+      Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
+      Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("The file doesn't exist !"), 0);
+      break;
     case WARNING_WRONG_PASSWORD :
-    break;
+      break;
     case WARNING_WRONG_USERNAME :
       Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
       Serial.println(F("Wrong Username !"));

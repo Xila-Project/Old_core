@@ -26,7 +26,7 @@
 #define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
-#define ERROR_THE_FILE_DOESNT_EXIST 7018
+#define ERROR_THE_FILE_DO_NOT_EXIST 7018
 
 #define INFORMATION 17723
 
@@ -52,11 +52,14 @@ byte Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
 
 byte C_MIDI = 60;
 
+byte Current_Page;
+byte Last_Page;
+
 int Public_Integer_Variable[12];
 
 unsigned int C_Frequency = 262;
 
-int Speaker_Pin = 25;
+byte Speaker_Pin = 25;
 
 const char* WiFi_SSID     = "Avrupa";
 const char* WiFi_Password = "0235745484";
@@ -106,7 +109,7 @@ void Piano(int Frequency, int Note);
 void Pictureader();
 void Ressource_Monitor( void *pvParameters );
 void UltraSonic(int USTrig, int USEcho);
-void USB_Serial_Transmit(const char* USB_Serial_Transmit_String);
+void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment);
 void WiFi_Connect();
 
 #endif
