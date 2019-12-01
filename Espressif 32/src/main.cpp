@@ -141,7 +141,7 @@ void Nextion_Serial_Receive( void *pvParameters ) {
 
       String RX_Data_String = "";
 
-      char RX_Data_Char[50];
+      char RX_Data_Char[80];
 
       byte Selected_Variable = 0;
       byte Type = 0;
@@ -183,7 +183,7 @@ void Nextion_Serial_Receive( void *pvParameters ) {
       Serial.println(RX_Data_Char[1], DEC);
       Serial.print(F("RX_Data_Char[2] :"));
       Serial.println(RX_Data_Char[2], DEC);
-      while (RX_Data_Char[i] != 255 && i < 47) {
+      while (RX_Data_Char[i] != 255 && i < 80) {
         RX_Data_String += RX_Data_Char[i];
         i++;
       }
@@ -208,8 +208,13 @@ void Nextion_Serial_Receive( void *pvParameters ) {
           else if (RX_Data_String == "Menu") Open_Menu();
           else if (RX_Data_String == "Desk") Open_Desk();
 
-          else if (RX_Data_String == "F&F") Files_And_Folders();
+          else if (RX_Data_String == "OK") Event_Handler_Replay
 
+          else if (RX_Data_String == "F&F") Files_And_Folders();
+          else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();
+          
+
+          
           else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
           else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
           else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
@@ -419,7 +424,6 @@ void Pictviewer() {
   }
 }
 
-
 void Files_And_Folders() {
   Temporary_File_Path = Public_String_Variable[1];
   Temporary_File = SD.open(Temporary_File_Path);
@@ -573,7 +577,15 @@ void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment)
   }
 }
 
-void Event_Handler (int Type, String Infromations) {
+void Event_Handler_Reply(byte Reply) {
+  switch (Reply) {
+    case 0 :
+      
+  }
+  
+}
+
+void Event_Handler_Request(int Type, String Infromations) {
   switch (Type) {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
     case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
@@ -601,6 +613,11 @@ void Event_Handler (int Type, String Infromations) {
     case WARNING_WRONG_USERNAME :
       Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
       Serial.println(F("Wrong Username !"));
+      break;
+    case WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM :
+      Nextion_Serial_Transmit(F(""))
+      break;
+    default:
       break;
   }
 }

@@ -32,6 +32,7 @@
 
 #define WARNING_WRONG_PASSWORD 28362
 #define WARNING_WRONG_USERNAME 54114
+#define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
 
 #define STYLE_LEFT_ALIGNMENT 0
 #define STYLE_CENTER_ALIGNMENT 1
@@ -68,8 +69,6 @@ char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY O
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
 char url[90] = "";                           // What IS a reasonable maximum URL length?
 
-
-
 String Public_String_Variable[3] = {"", "", ""};
 
 String Temporary_File_Path = "NULL";
@@ -94,7 +93,8 @@ xTaskHandle Ressource_Monitor_Handle;
 //----------------------------------------------------------------------------//
 //                            Define Function                                 //
 //----------------------------------------------------------------------------//
-void Event_Handler(byte Type, String Informations);
+void Event_Handler_Request(byte Type, String Informations);
+void Event_Handler_Reply(byte Reply);
 void Files_And_Folders();
 void Load_System_Files();
 void Load_User_Files();
