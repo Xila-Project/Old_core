@@ -39,50 +39,28 @@
 #define STYLE_RIGHT_ALIGNMENT 2
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
-
+#define MAXIMUM_POINTERS 26
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
 //----------------------------------------------------------------------------//
 
 HardwareSerial Nextion_Serial(2);
 
-WiFiClient client;
-
-byte Taskbar_Items_PID[7] = {255, 255, 255, 255, 255, 255, 255};
-byte Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
-
-byte C_MIDI = 60;
-
-byte Current_Page;
-byte Last_Page;
-
-int Public_Integer_Variable[12];
-
-unsigned int C_Frequency = 262;
-
-byte Speaker_Pin = 25;
-
-const char* WiFi_SSID     = "Avrupa";
-const char* WiFi_Password = "0235745484";
+int *Pointers_Global_Dynamic_Variable[MAXIMUM_POINTERS];
 
 char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
 char url[90] = "";                           // What IS a reasonable maximum URL length?
 
-String Public_String_Variable[3] = {"", "", ""};
+File Temporary_File;
 
 String Temporary_File_Path = "NULL";
 
-File Temporary_File;
-
 String Temporary_File_Name = "NULL";
-
-uint16_t Low_RAM_Threshold = 2000;
 
 bool MIDIOutEnable = false;
 
-String Username = "NULL";
-String Password = "NULL";
+
 
 //----------------------------------------------------------------------------//
 //                                        Define Tasks                        //
@@ -93,23 +71,14 @@ xTaskHandle Ressource_Monitor_Handle;
 //----------------------------------------------------------------------------//
 //                            Define Function                                 //
 //----------------------------------------------------------------------------//
-void Event_Handler_Request(byte Type, String Informations);
-void Event_Handler_Reply(byte Reply);
+
 void Files_And_Folders();
-void Load_System_Files();
-void Load_User_Files();
-void Logon();
-void Musical_Digital_Player( void *pvParameters );
-void Nextion_Serial_Receive( void *pvParameters );
-void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String = "", int Nextion_Serial_Transmit_Integer = 0);
-void Open_Desk();
-void Open_Menu();
+
 void Periodic_Main (byte Type);
 void Piano(int Frequency, int Note);
 void Pictureader();
-void Ressource_Monitor( void *pvParameters );
+
 void UltraSonic(int USTrig, int USEcho);
-void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment);
-void WiFi_Connect();
+
 
 #endif
