@@ -27,8 +27,39 @@
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
 #define ERROR_THE_FILE_DO_NOT_EXIST 7018
+#define ERROR_CANNOT_CREATE_SYSTEM_QUEUE 17496
+#define ERROR_NEXTION_INVALID_INTRUCTION 0
+#define ERROR_NEXTION_INVALID_COMPONENT_ID 2
+#define ERROR_NEXTION_INVALID_PAGE_ID 3
+#define ERROR_NEXTION_INVALID_PICTURE_ID 4
+#define ERROR_NEXTION_INVALID_FONT_ID 5
+#define ERROR_NEXTION_INVALID_FILE_OPERATION 6
+#define ERROR_NEXTION_INVALID_BAUD_RATE_SETTING 17
+#define ERROR_NEXTION_INVALID_WAVEFORM_ID_OR_CHANNEL 18
+#define ERROR_NEXTION_INVALID_VARIABLE_NAME_OR_ATTRIBUTE 26
+#define ERROR_NEXTION_INVALID_VARIABLE_OPERATION 27
+#define ERROR_NEXTION_FAIL_TO_ASSIGN 28
+#define ERROR_NEXTION_FAIL_EEPROM_OPERATION 29
+#define ERROR_NEXTION_INVALID_QUANTITY_OF_PARAMETERS 30
+#define ERROR_NEXTION_IO_OPERATION_FAILED 31
+#define ERROR_NEXTION_INVALID_ESCAPE_CHARACTER 32
+#define ERROR_NEXTION_TOO_LONG_VARIABLE_NAME 35
+#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 36
 
-#define INFORMATION 17723
+#define INFORMATION_NEXTION_STARTUP 0 //same as invalid instruction, only at startup
+#define INFORMATION_NEXTION_INTRUCTION_SUCCESSFUL 1
+#define INFORMATION_NEXTION_TOUCH_EVENT 101
+#define INFORMATION_NEXTION_CURRENT_PAGE_NUMBER 102
+#define INFORMATION_NEXTION_TOYCH_COORDINATE_AWAKE 103
+#define INFORMATION_NEXTION_TOUCH_COOORDINATE_SLEEP 104
+#define INFORMATION_NEXTION_STRING_DATA_ENCLOSED 112
+#define INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED 113
+#define INFORMATION_NEXTION_AUTO_ENTERED_SLEEP_MODE 134
+#define INFORMATION_NEXTION_AUTO_WAKE_FROM_SLEEP_MODE 135
+#define INFORMATION_NEXTION_READY 136
+#define INFORMATION_NEXTION_START_UPGRADE_FROM_SD 137
+#define INFORMATION_NEXTION_TRANSPARENT_DATA_FINISHED 253
+#define INFORMATION_NEXTION_TRANSPARENT_DATA_READY 254
 
 #define WARNING_WRONG_PASSWORD 28362
 #define WARNING_WRONG_USERNAME 54114
@@ -39,7 +70,15 @@
 #define STYLE_RIGHT_ALIGNMENT 2
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
-#define MAXIMUM_POINTERS 26
+#define CODE_INTRUCTION 42
+#define CODE_VARIABLE_BYTE 66 //1 byte
+#define CODE_VARIABLE_CHAR 67 //1 byte
+#define CODE_VARIABLE_INTEGER 73 //2 byte
+#define CODE_VARIABLE_FLOAT 70 //4 byte
+#define CODE_VARIABLE_LONG 76 //4 byte
+#define CODE_VARIABLE_STRING 83
+#define CODE_VARIABLE_UNSIGNED_INTEGER 105 //2 byte
+#define CODE_VARIABLE_UNSIGNED_LONG 108 //4 byte
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
 //----------------------------------------------------------------------------//
@@ -68,6 +107,8 @@ bool MIDIOutEnable = false;
 xTaskHandle Nextion_Serial_Transmit_Handle;
 xTaskHandle Musical_Digital_Player_Handle;
 xTaskHandle Ressource_Monitor_Handle;
+
+QueueHandle_t Nextion_Serial_Queue;
 //----------------------------------------------------------------------------//
 //                            Define Function                                 //
 //----------------------------------------------------------------------------//
@@ -79,6 +120,66 @@ void Piano(int Frequency, int Note);
 void Pictureader();
 
 void UltraSonic(int USTrig, int USEcho);
+
+
+
+class Galax_OS{
+    private:
+
+        static uint8_t Taskbar_Items_PID[7];
+        static uint8_t Taskbar_Items_Icon[7];
+
+        static uint8_t Current_Page;
+        static uint8_t Last_Page;
+
+        static const char* WiFi_SSID     = "Avrupa";
+        static const char* WiFi_Password = "0235745484";
+
+        static uint8_t C_MIDI;
+
+        static uint16_t C_Frequency;
+
+        static uint8_t Speaker_Pin = 25;
+
+        static String Username = "NULL";
+        static String Password = "NULL";
+
+        uint16_t Low_RAM_Threshold = 2000;
+
+        static String Temporary_String;
+
+    public:
+
+        GalaxOS();
+
+        static void Set_Byte(char Tag, byte Data);
+        static byte Get_Byte(char Tag);
+
+        static void Set_String(char Tag);
+
+        static void Get_String(char Tag);
+
+        static void WiFi_Connect();
+
+        static void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment);
+
+        static void Open_Desk();
+        static void Open_Menu();
+
+        static void Musical_Digital_Player( void *pvParameters );
+        static void Nextion_Serial_Receive( void *pvParameters );
+        static void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String = "", int Nextion_Serial_Transmit_Integer = 0);
+
+        static void Load_System_Files();
+        static void Load_User_Files();
+        static void Logon();
+        
+        static void Ressource_Monitor( void *pvParameters );
+
+        static void Event_Handler_Request(byte Type, String Informations);
+        static void Event_Handler_Reply(byte Reply);
+};
+
 
 
 #endif
