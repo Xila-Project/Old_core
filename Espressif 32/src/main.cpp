@@ -104,11 +104,11 @@ void GalaxOS::Start() {
     }
 }
 
-void GalaxOS::Set_String(char Tag) {
+void GalaxOS::Set(char const& Tag, String const& String_To_Set) { //string
   Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_WRITE);
   if (Temporary_File) {
-    Temporary_File.print(Temporary_String);
-    Temporary_File.close;
+    Temporary_File.print(String_To_Set);
+    Temporary_File.close();
     return;
   }
   else {
@@ -117,13 +117,13 @@ void GalaxOS::Set_String(char Tag) {
   }
 }
 
-void GalaxOS::Get_String(char Tag) {
+void GalaxOS::Get(char const& Tag, String& String_To_Get) { //string
   Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_READ);
   if (Temporary_File)  {
     while (Temporary_File.available()) {
-      Temporary_String += Temporary_File.read();
+      String_To_Get += Temporary_File.read();
     }
-    Temporary_File.close;
+    Temporary_File.close();
     return;
   }
   else {
@@ -132,11 +132,38 @@ void GalaxOS::Get_String(char Tag) {
   }
 }
 
-void GalaxOS::Set_Byte(char Tag, byte Data) {
+
+void GalaxOS::Set(char const& Tag, char const& Char_To_Set) { //char
+  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
+  if (Temporary_File) {
+    Temporary_File.write(Char_To_Set)
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+}
+
+void GalaxOS::Get(char const& Tag, char& Char_To_Get) { //char
+  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_READ);
+  if (Temporary_File) {
+    Char_To_Get = Temporary_File.read();
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+} 
+
+void GalaxOS::Set(char const& Tag, byte const& Byte_To_Set) { //byte
   Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_WRITE);
   if (Temporary_File) {
     Temporary_File.write(Data);
-    Temporary_File.close;
+    Temporary_File.close();
     return;
   }
   else {
@@ -145,29 +172,94 @@ void GalaxOS::Set_Byte(char Tag, byte Data) {
   }
 }
 
-byte GalaxOS::Get_Byte(char Tag) {
+void GalaxOS::Get(char const& Tag, byte const& Byte_To_Get) { //byte
   Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_READ);
   if (Temporary_File) {
-    byte Data;
-    Data = Temporary_File.read();
-    Temporary_File.close;
-    return Data;
+    Byte_To_Get = Temporary_File.read();
+    Temporary_File.close();
+    return;
   }
   else {
     //error
     return;
   }
 }
+
+void GalaxOS::Set(char const& Tag, int const& Integer_To_Set) { //integer
+  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  if (Temporary_File) {
+    byte Split_Integer[2] = {0, 0};
+    Split_Integer[0] = (Integer_To_Set >> 8) & 0xFF;
+    Temporary_File.write(Split_Integer[0]);
+    Split_Integer[1] = Integer_To_Set & 0xFF;
+    Temporary_File.write(Split_Integer[1]);
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+}
+
+void GalaxOS::Get(char const& Tag, int& Integer_To_Get) { //integer
+  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  if(Temporary_File) {
+    Integer_To_Get |= Temporary_File.read() << 8;
+    Integer_To_Get |= Temporary_File.read();
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+}
+
+void GalaxOS::Set(char const& Tag, float const& Float_To_Set) { //float
+  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
+  if (Temporary_File) {
+    byte Split_Float[4] = {0, 0, 0, 0};
+    Float_To_Set[0] = (Integer_To_Set >> 24) & 0xFF;
+    Float_To_Set[1] = (Integer_To_Set >> 16) & 0xFF;
+    Float_To_Set[2] = (Integer_To_Set >> 8) & 0xFF;
+    Float_To_Set[3] = Integer_To_Set & 0xFF;
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+}
+
+void GalaxOS::Get(char const& Tag, int& Float_To_Get) { //float
+  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
+  if(Temporary_File) {
+    Float_To_Get |= Temporary_File.read() << 24;
+    Float_To_Get |= Temporary_File.read() << 16;
+    Float_To_Get |= Temporary_File.read() << 8;
+    Float_To_Get |= Temporary_File.read();
+    Temporary_File.close();
+    return;
+  }
+  else {
+    //error
+    return;
+  }
+}
+
+
 
 void GalaxOS::Core( void *pvParameters ) {
     //to do : check notify
   (void) pvParameters;
   for(;;) {
     if (notification) {
-      byte First_Return_Code = 0;
+      char First_Return_Code = 0;
       xQueueReceive(Nextion_Serial_Queue, &First_Byte, portMAX_DELAY);
-      byte Second_Return_Code = 0;
-      xQueueReceive(Nextion_Serial_Queue, &Second_Return_Code, portMAXDELAY);
+      char Second_Return_Code = 0;
+      xQueueReceive(Nextion_Serial_Queue, &Second_Return_Code, portMAX_DELAY);
       switch(First_Return_Code) {
         case ERROR_NEXTION_INVALID_INTRUCTION :
           Serial.println(F("Invalid Intruction !"));
@@ -190,20 +282,155 @@ void GalaxOS::Core( void *pvParameters ) {
           break;
         case INFORMATION_NEXTION_STRING_DATA_ENCLOSED :
           switch (Second_Return_Code) {
-            case CODE_INTRUCTION : //* - command
+            case CODE_COMMAND : //* - command
               String Command = "";
-              while()
+              char Temporary_Current_Char;
+              char Temporary_Forward_Char;
+              while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
+                xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
+                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+                if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  break;
+                }
+                Command += Temporary_Current_Char;
+              }
+              if (RX_Data_String == "LoadSystem") Load_System_Files();
+              else if (RX_Data_String == "LoadUser") Load_User_Files();
+              else if (RX_Data_String == "Logon") Logon();
+              else if (RX_Data_String == "Menu") Open_Menu();
+              else if (RX_Data_String == "Desk") Open_Desk();
+              //event handler
+              else if (RX_Data_String == "OK") Event_Handler_Replay
+              //file&folder
+              else if (RX_Data_String == "F&F") Files_And_Folders();
+              else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
+              //taskbar item
+              else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
+              else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
+              else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
+              else if (RX_Data_String == "TBItem4") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[3]);
+              else if (RX_Data_String == "TBItem5") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[4]);
+              else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
+              else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
+              //piano
+              else if (RX_Data_String == "CLow") Piano(0, 0);
+              else if (RX_Data_String == "C#Low") Piano(16, 1);
+              else if (RX_Data_String == "DLow") Piano(32, 2);
+              else if (RX_Data_String == "D#Low") Piano(50, 3);
+              else if (RX_Data_String == "ELow") Piano(68, 4);
+              else if (RX_Data_String == "FLow") Piano(88, 5);
+              else if (RX_Data_String == "F#Low") Piano(108, 6);
+              else if (RX_Data_String == "GLow") Piano(130, 7);
+              else if (RX_Data_String == "G#Low") Piano(154, 8);
+              else if (RX_Data_String == "ALow") Piano(178, 9);
+              else if (RX_Data_String == "A#Low") Piano(205, 10);
+              else if (RX_Data_String == "BLow") Piano(232, 11);
+              else if (RX_Data_String == "CHigh") Piano(262, 12);
+              else if (RX_Data_String == "C#High") Piano(293, 13);
+              else if (RX_Data_String == "DHigh") Piano(326, 14);
+              else if (RX_Data_String == "D#High") Piano(361, 15);
+              else if (RX_Data_String == "EHigh") Piano(398, 16);
+              else if (RX_Data_String == "FHigh") Piano(437, 17);
+              else if (RX_Data_String == "F#High") Piano(478, 18);
+              else if (RX_Data_String == "GHigh") Piano(522, 19);
+              else if (RX_Data_String == "G#High") Piano(569, 20);
+              else if (RX_Data_String == "AHigh") Piano(618, 21);
+              else if (RX_Data_String == "A#High") Piano(670, 22);
+              else if (RX_Data_String == "BHigh") Piano(726, 23);
+              else {
+                Serial.println(F("Unknow Command"));
+              }
+              break;
+            case CODE_COMMAND_NEW : //#
+              String Command = "";
+              char Temporary_Current_Char;
+              char Temporary_Forward_Char;
+              while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
+                xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
+                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+                if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  break;
+                }
+                Command += Temporary_Current_Char;
+              }
+              if (RX_Data_String == "LoadSystem") Load_System_Files();
+              else if (RX_Data_String == "LoadUser") Load_User_Files();
+              else if (RX_Data_String == "Logon") Logon();
+              else if (RX_Data_String == "Menu") Open_Menu();
+              else if (RX_Data_String == "Desk") Open_Desk();
+              //event handler
+              else if (RX_Data_String == "OK") Event_Handler_Replay
+              //file&folder
+              else if (RX_Data_String == "F&F") Files_And_Folders();
+              else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
+              //taskbar item
+              else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
+              else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
+              else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
+              else if (RX_Data_String == "TBItem4") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[3]);
+              else if (RX_Data_String == "TBItem5") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[4]);
+              else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
+              else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
+              //piano
+              else if (RX_Data_String == "CLow") Piano(0, 0);
+              else if (RX_Data_String == "C#Low") Piano(16, 1);
+              else if (RX_Data_String == "DLow") Piano(32, 2);
+              else if (RX_Data_String == "D#Low") Piano(50, 3);
+              else if (RX_Data_String == "ELow") Piano(68, 4);
+              else if (RX_Data_String == "FLow") Piano(88, 5);
+              else if (RX_Data_String == "F#Low") Piano(108, 6);
+              else if (RX_Data_String == "GLow") Piano(130, 7);
+              else if (RX_Data_String == "G#Low") Piano(154, 8);
+              else if (RX_Data_String == "ALow") Piano(178, 9);
+              else if (RX_Data_String == "A#Low") Piano(205, 10);
+              else if (RX_Data_String == "BLow") Piano(232, 11);
+              else if (RX_Data_String == "CHigh") Piano(262, 12);
+              else if (RX_Data_String == "C#High") Piano(293, 13);
+              else if (RX_Data_String == "DHigh") Piano(326, 14);
+              else if (RX_Data_String == "D#High") Piano(361, 15);
+              else if (RX_Data_String == "EHigh") Piano(398, 16);
+              else if (RX_Data_String == "FHigh") Piano(437, 17);
+              else if (RX_Data_String == "F#High") Piano(478, 18);
+              else if (RX_Data_String == "GHigh") Piano(522, 19);
+              else if (RX_Data_String == "G#High") Piano(569, 20);
+              else if (RX_Data_String == "AHigh") Piano(618, 21);
+              else if (RX_Data_String == "A#High") Piano(670, 22);
+              else if (RX_Data_String == "BHigh") Piano(726, 23);
+              else {
+                Serial.println(F("Unknow Command"));
+              }
               break;
             case CODE_VARIABLE_STRING : //S - string
+              String Received_String = "";
+              char Tag;
+              char Temporary_Current_Char;
+              char Temporary_Forward_Char;
+              xQueueReceive(Nextion_Serial_Queue, & )
+              while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
+                xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
+                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+                if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                  break;
+                }
+                Received_String += Temporary_Current_Char;
+              }
               break;
             case CODE_VARIABLE_CHAR : //C - string
               break;
+            
           }
           break;
         case INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED :
+
           break;
         case 0xFF :
-          xQueueReceive(Nextion_Serial_Queue, &NULL, portMAX_DELAY);
+          xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
           break;
         default:
           Serial.print("Unknow error code :");
@@ -381,6 +608,7 @@ void GalaxOS::Event_Handler_Request(int Type, String Infromations) {
   switch (Type) {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
     case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
+      Nextion_Serial.print(F("TITLE_TXT.txt=")); Nextion_Serial.print(F("A"))
       Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
       Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Failled to initialize the SD Card !"), 0);
       break;
@@ -418,12 +646,14 @@ void GalaxOS::Event_Handler_Request(int Type, String Infromations) {
 void GalaxOS::Event_Handler_Reply(byte Reply) {
   switch (Reply) {
     case 0 :
-      
+      break;
+    default:
+      break;
   }
   
 }
 
-void GalaxOS::USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment) {
+void GalaxOS::USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte const* Alignment) {
   unsigned int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
   byte Lines = USB_Serial_Transmit_String_Lenght;
   Lines = Lines / 72;
@@ -492,8 +722,15 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
     if (Nextion_Serial.available()) {
       
       while (Nextion_Serial.available()) {
-        Nextion_Serial_Receive_Char = char(Nextion_Serial.read());
-        xQueueSend(Nextion_Serial_Queue, &Nextion_Serial_Receive_Char, port 
+        if(uxQueueSpacesAvailable(Nextion_Serial_Queue) != 0) {
+          Nextion_Serial_Receive_Char = char(Nextion_Serial.read());
+          xQueueSend(Nextion_Serial_Queue, &Nextion_Serial_Receive_Char, portMAX_DELAY);
+        }
+        else {
+          //error : full queue
+          Serial.println(f("The queue is full !"));
+          vTaskDekay(1000);
+        }
       }
       
       Serial.println(F("|| > Incoming Data On UART 1                                                  ||"));
@@ -558,55 +795,7 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
           //1 -> Command
           Serial.println(F("Command"));
           //System Feature
-          if (RX_Data_String == "LoadSystem") Load_System_Files();
-          else if (RX_Data_String == "LoadUser") Load_User_Files();
-          else if (RX_Data_String == "Logon") Logon();
-          else if (RX_Data_String == "Menu") Open_Menu();
-          else if (RX_Data_String == "Desk") Open_Desk();
-
-          else if (RX_Data_String == "OK") Event_Handler_Replay
-
-          else if (RX_Data_String == "F&F") Files_And_Folders();
-          else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();
           
-
-          
-          else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
-          else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
-          else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
-          else if (RX_Data_String == "TBItem4") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[3]);
-          else if (RX_Data_String == "TBItem5") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[4]);
-          else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
-          else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
-
-          else if (RX_Data_String == "CLow") Piano(0, 0);
-          else if (RX_Data_String == "C#Low") Piano(16, 1);
-          else if (RX_Data_String == "DLow") Piano(32, 2);
-          else if (RX_Data_String == "D#Low") Piano(50, 3);
-          else if (RX_Data_String == "ELow") Piano(68, 4);
-          else if (RX_Data_String == "FLow") Piano(88, 5);
-          else if (RX_Data_String == "F#Low") Piano(108, 6);
-          else if (RX_Data_String == "GLow") Piano(130, 7);
-          else if (RX_Data_String == "G#Low") Piano(154, 8);
-          else if (RX_Data_String == "ALow") Piano(178, 9);
-          else if (RX_Data_String == "A#Low") Piano(205, 10);
-          else if (RX_Data_String == "BLow") Piano(232, 11);
-          else if (RX_Data_String == "CHigh") Piano(262, 12);
-          else if (RX_Data_String == "C#High") Piano(293, 13);
-          else if (RX_Data_String == "DHigh") Piano(326, 14);
-          else if (RX_Data_String == "D#High") Piano(361, 15);
-          else if (RX_Data_String == "EHigh") Piano(398, 16);
-          else if (RX_Data_String == "FHigh") Piano(437, 17);
-          else if (RX_Data_String == "F#High") Piano(478, 18);
-          else if (RX_Data_String == "GHigh") Piano(522, 19);
-          else if (RX_Data_String == "G#High") Piano(569, 20);
-          else if (RX_Data_String == "AHigh") Piano(618, 21);
-          else if (RX_Data_String == "A#High") Piano(670, 22);
-          else if (RX_Data_String == "BHigh") Piano(726, 23);
-
-          else {
-            Serial.println(F("Unknow Command"));
-          }
           break;
         case 2:
           //2 -> Integer Variable

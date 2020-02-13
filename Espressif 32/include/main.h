@@ -70,7 +70,8 @@
 #define STYLE_RIGHT_ALIGNMENT 2
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
-#define CODE_INTRUCTION 42
+#define CODE_COMMAND 42
+#define CODE_COMMAND_NEW 35
 #define CODE_VARIABLE_BYTE 66 //1 byte
 #define CODE_VARIABLE_CHAR 67 //1 byte
 #define CODE_VARIABLE_INTEGER 73 //2 byte
@@ -85,8 +86,6 @@
 
 HardwareSerial Nextion_Serial(2);
 
-int *Pointers_Global_Dynamic_Variable[MAXIMUM_POINTERS];
-
 char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
 char url[90] = "";                           // What IS a reasonable maximum URL length?
@@ -98,8 +97,6 @@ String Temporary_File_Path = "NULL";
 String Temporary_File_Name = "NULL";
 
 bool MIDIOutEnable = false;
-
-
 
 //----------------------------------------------------------------------------//
 //                                        Define Tasks                        //
@@ -152,12 +149,20 @@ class Galax_OS{
 
         GalaxOS();
 
-        static void Set_Byte(char Tag, byte Data);
-        static byte Get_Byte(char Tag);
+        static void Set(char const& Tag, String const& String_To_Set);
+        static void Get(char const& Tag, String& String_To_Get);
 
-        static void Set_String(char Tag);
+        static void Set(char const& Tag, String const& Char_To_Set);
+        static void Get(char const& Tag, String& Char_To_Get);
 
-        static void Get_String(char Tag);
+        static void Set(char const& Tag, String const& Byte_To_Set);
+        static void Get(char const& Tag, String& Byte_To_Get);
+
+        static void Set(char const& Tag, String const& Integer_To_Set);
+        static void Get(char const& Tag, String& Integer_To_Get);
+
+        static void Set(char const& Tag, String const& Float_To_Set);
+        static void Get(char const& Tag, String& Float_To_Get);
 
         static void WiFi_Connect();
 
@@ -178,6 +183,7 @@ class Galax_OS{
 
         static void Event_Handler_Request(byte Type, String Informations);
         static void Event_Handler_Reply(byte Reply);
+
 };
 
 
