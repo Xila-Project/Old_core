@@ -90,11 +90,14 @@ char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY O
 char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
 char url[90] = "";                           // What IS a reasonable maximum URL length?
 
+const char* WiFi_SSID     = "Avrupa";
+const char* WiFi_Password = "0235745484";
+
 File Temporary_File;
 
-String Temporary_File_Path = "NULL";
+String Temporary_File_Path = "\0";
 
-String Temporary_File_Name = "NULL";
+String Temporary_File_Name = "\0";
 
 bool MIDIOutEnable = false;
 
@@ -120,23 +123,20 @@ void UltraSonic(int USTrig, int USEcho);
 
 
 
-class Galax_OS{
+class GalaxOS{
     private:
 
-        static uint8_t Taskbar_Items_PID[7];
-        static uint8_t Taskbar_Items_Icon[7];
+        static byte Taskbar_Items_PID[7];
+        static byte Taskbar_Items_Icon[7];
 
-        static uint8_t Current_Page;
-        static uint8_t Last_Page;
+        static byte Current_Page;
+        static byte Last_Page;
 
-        static const char* WiFi_SSID     = "Avrupa";
-        static const char* WiFi_Password = "0235745484";
+        static byte C_MIDI;
 
-        static uint8_t C_MIDI;
+        static int C_Frequency;
 
-        static uint16_t C_Frequency;
-
-        static uint8_t Speaker_Pin = 25;
+        static byte Speaker_Pin = 25;
 
         static String Username = "NULL";
         static String Password = "NULL";
@@ -149,20 +149,22 @@ class Galax_OS{
 
         GalaxOS();
 
+        static void Start();
+
         static void Set(char const& Tag, String const& String_To_Set);
         static void Get(char const& Tag, String& String_To_Get);
 
-        static void Set(char const& Tag, String const& Char_To_Set);
-        static void Get(char const& Tag, String& Char_To_Get);
+        static void Set(char const& Tag, char const& Char_To_Set);
+        static void Get(char const& Tag, char& Char_To_Get);
 
-        static void Set(char const& Tag, String const& Byte_To_Set);
-        static void Get(char const& Tag, String& Byte_To_Get);
+        static void Set(char const& Tag, byte const& Byte_To_Set);
+        static void Get(char const& Tag, byte& Byte_To_Get);
 
-        static void Set(char const& Tag, String const& Integer_To_Set);
-        static void Get(char const& Tag, String& Integer_To_Get);
+        static void Set(char const& Tag, int const& Integer_To_Set);
+        static void Get(char const& Tag, int& Integer_To_Get);
 
-        static void Set(char const& Tag, String const& Float_To_Set);
-        static void Get(char const& Tag, String& Float_To_Get);
+        static void Set(char const& Tag, float const& Float_To_Set);
+        static void Get(char const& Tag, float& Float_To_Get);
 
         static void WiFi_Connect();
 

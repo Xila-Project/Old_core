@@ -35,12 +35,16 @@
 #include <Wire.h>
 #include "WiFi.h"
 #include "main.h"
-#include "galaxos.h"
 
 GalaxOS GalaxOS;
 
+byte GalaxOS::C_MIDI = 0;
+int GalaxOS::C_Frequency = 0;
+int GalaxOS::Taskbar_Items_PID[7];
+int GalaxOS::Taskbar_Items_Icon[7];
+
 void setup() {
-  GalaxOS.begin();
+  GalaxOS::Start();
 }
 
 void loop() {
@@ -60,6 +64,8 @@ GalaxOS::GalaxOS() {
 
     String Username = "\0";
     String Password = "\0";
+
+    Speaker_Pin = 25;
 }
 
 void GalaxOS::Start() {
@@ -172,7 +178,7 @@ void GalaxOS::Set(char const& Tag, byte const& Byte_To_Set) { //byte
   }
 }
 
-void GalaxOS::Get(char const& Tag, byte const& Byte_To_Get) { //byte
+void GalaxOS::Get(char const& Tag, byte Byte_To_Get) { //byte
   Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_READ);
   if (Temporary_File) {
     Byte_To_Get = Temporary_File.read();
@@ -233,7 +239,7 @@ void GalaxOS::Set(char const& Tag, float const& Float_To_Set) { //float
   }
 }
 
-void GalaxOS::Get(char const& Tag, int& Float_To_Get) { //float
+void GalaxOS::Get(char const& Tag, float& Float_To_Get) { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
   if(Temporary_File) {
     Float_To_Get |= Temporary_File.read() << 24;
@@ -307,13 +313,41 @@ void GalaxOS::Core( void *pvParameters ) {
               else if (RX_Data_String == "F&F") Files_And_Folders();
               else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
               //taskbar item
-              else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
-              else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
-              else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
-              else if (RX_Data_String == "TBItem4") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[3]);
-              else if (RX_Data_String == "TBItem5") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[4]);
-              else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
-              else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
+              else if (RX_Data_String == "TBItem1") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[0]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem2") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[1]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem3") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[2]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem4") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[3]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem5") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[4]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem6") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[5]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem7") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[6]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
               //piano
               else if (RX_Data_String == "CLow") Piano(0, 0);
               else if (RX_Data_String == "C#Low") Piano(16, 1);
@@ -368,13 +402,41 @@ void GalaxOS::Core( void *pvParameters ) {
               else if (RX_Data_String == "F&F") Files_And_Folders();
               else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
               //taskbar item
-              else if (RX_Data_String == "TBItem1") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[0]);
-              else if (RX_Data_String == "TBItem2") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[1]);
-              else if (RX_Data_String == "TBItem3") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[2]);
-              else if (RX_Data_String == "TBItem4") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[3]);
-              else if (RX_Data_String == "TBItem5") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[4]);
-              else if (RX_Data_String == "TBItem6") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[5]);
-              else if (RX_Data_String == "TBItem7") Nextion_Serial_Transmit("", 6, "", Taskbar_Items_PID[6]);
+              else if (RX_Data_String == "TBItem1") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[0]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem2") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[1]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem3") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[2]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem4") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[3]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem5") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[4]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem6") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[5]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
+              else if (RX_Data_String == "TBItem7") {
+                Nextion_Serial.print(F("page "));
+                Nextion_Serial.print(Taskbar_Items_PID[6]);
+                Nextion_Serial.print(F("ÿÿÿ"));
+              }
               //piano
               else if (RX_Data_String == "CLow") Piano(0, 0);
               else if (RX_Data_String == "C#Low") Piano(16, 1);
@@ -444,20 +506,36 @@ void GalaxOS::Core( void *pvParameters ) {
 }
 
 void GalaxOS::Open_Menu() {
-  Nextion_Serial_Transmit(F("Menu_P1"), COMMAND_PAGE_NAME, F(""), 0);
-  Nextion_Serial_Transmit(F("USERNAME_TXT"), ATTRIBUTE_TXT, String(Username), 0);
+  Nextion_Serial.print(F("page Menu_P1ÿÿÿ"));
+  Nextion_Serial.print(F("USERNAME_TXT.txt=\""));
+  Nextion_Serial.print(Username);
+  Nextion_Serial.print(F("\"ÿÿÿ"));
 }
 
 void GalaxOS::Open_Desk() {
-  Nextion_Serial_Transmit(F("Desk"), COMMAND_PAGE_NAME, "", 0);
+  Nextion_Serial.print(F("page Deskÿÿÿ"));
   vTaskDelay(100);
-  Nextion_Serial_Transmit(F("ITEM1_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[0]);
-  Nextion_Serial_Transmit(F("ITEM2_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[1]);
-  Nextion_Serial_Transmit(F("ITEM3_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[2]);
-  Nextion_Serial_Transmit(F("ITEM4_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[3]);
-  Nextion_Serial_Transmit(F("ITEM5_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[4]);
-  Nextion_Serial_Transmit(F("ITEM6_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[5]);
-  Nextion_Serial_Transmit(F("ITEM7_PIC"), ATTRIBUTE_PIC, "", Taskbar_Items_Icon[6]);
+  Nextion_Serial.print(F("ITEM1_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[0]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM2_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[1]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM3_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[2]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM4_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[3]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM5_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[4]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM6_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[5]);
+  Nextion_Serial.print(F("ÿÿÿ"));
+  Nextion_Serial.print(F("ITEM7_PIC.pic="));
+  Nextion_Serial.print(GalaxOS::Taskbar_Items_Icon[6]);
+  Nextion_Serial.print(F("ÿÿÿ"));
   return;
 }
 
@@ -486,7 +564,7 @@ void GalaxOS::Logon() {
     Temporary_File_Path = "NULL";
   }
   else {
-    Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Username !"), 0);
+    Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Username !\"ÿÿÿ"));
     Serial.println(F("Wrong Username !"));
     return;
   }
@@ -499,7 +577,7 @@ void GalaxOS::Logon() {
     return;
   }
   else {
-    Nextion_Serial_Transmit(F("WRONG_TXT"), ATTRIBUTE_TXT, F("Wrong Password !"), 0);
+    Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Password !\"ÿÿÿ"));
     Serial.println(F("Wrong Password !"));
     Password = "";
     return;
@@ -527,14 +605,14 @@ void GalaxOS::Load_System_Files() {
   }
   Temporary_String = "";
   return;
-
-  Nextion_Serial_Transmit(F("LOAD_TXT"), ATTRIBUTE_TXT, F("Loading System Files ..."), 0);
-  Nextion_Serial_Transmit(F("LOAD_TIM"), ATTRIBUTE_TIM, F(""), 50);
+  
+  Nextion_Serial.print(F("LOAD_TXT.txt=\"Loading System Files ...\"ÿÿÿ"));
+  Nextion_Serial.print(F("LOAD_TIM.tim=50ÿÿÿ"));
 }
 
 void GalaxOS::Load_User_Files() {
   Serial.print(F("Load User Files ..."));
-  Nextion_Serial_Transmit("Load_User", COMMAND_PAGE_NAME, "", 0);
+  Nextion_Serial.print(F("page Load_User"));
   Temporary_File = SD.open("/USERS/" + Username + "/STTNGS/TASKBAR.GSF", FILE_READ);
   byte i = 0;
   while (Temporary_File.available()) {
@@ -549,9 +627,9 @@ void GalaxOS::Load_User_Files() {
   Temporary_File.close();
   Temporary_File_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
   vTaskResume(Musical_Digital_Player_Handle);
-  Nextion_Serial_Transmit(F("LOAD_TIM"), ATTRIBUTE_TIM, "", 50);
+  Nextion_Serial.print(F("LOAD_TIM.tim=50ÿÿÿ"));
 }
-
+//NST not used anymore to save ram
 void GalaxOS::Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String, int Nextion_Serial_Transmit_Integer) {
   switch (Type) {
     case ATTRIBUTE_TXT: //.txt for Text & Scrolling Text, QRCode, Button, DualStateButton //
@@ -635,7 +713,6 @@ void GalaxOS::Event_Handler_Request(int Type, String Infromations) {
       Serial.println(F("Wrong Username !"));
       break;
     case WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM :
-      Nextion_Serial_Transmit(F(""))
       break;
     default:
       break;
@@ -856,7 +933,9 @@ void UltraSonic(int USTrig, int USEcho) {
       int Distance = Time*SOUND_SPEED_AIR;
       Serial.print(F("|| > Distance :"));
       Serial.println(Distance);
-      Nextion_Serial_Transmit(F("DISTVAL_NUM"), ATTRIBUTE_VAL, "", Distance);
+      Nextion_Serial.print(F("DISTVAL_NUM.val="));
+      Nextion_Serial.print(Distance);
+      Nextion_Serial.print(F("ÿÿÿ"));
       vTaskDelay(100);
     }
   }
@@ -868,12 +947,16 @@ void Piano(int Frequency, int Note) {
   ledcAttachPin(Speaker_Pin, 0);
   String Temporary = "";
   unsigned long Duration = 200;
-  Frequency += C_Frequency;
-  Note += C_MIDI;
+  Frequency += GalaxOS::C_Frequency;
+  Note += GalaxOS::C_MIDI;
   Temporary = "Frequency : " + String(Frequency, DEC);
-  Nextion_Serial_Transmit(F("FREQUENCY_TXT"), 1, Temporary, 0);
+  Nextion_Serial.print(F("FREQUENCY_TXT.txt=\""));
+  Nextion_Serial.print(Temporary);
+  Nextion_Serial.print(F("ÿÿÿ"));
   Temporary = "MIDI Code : " + String(Note, DEC);
-  Nextion_Serial_Transmit(F("MIDICODE_TXT"), 1, Temporary, 0);
+  Nextion_Serial.print(F("MIDICODE_TXT.txt=\""));
+  Nextion_Serial.print(Temporary);
+  Nextion_Serial.print(F("ÿÿÿ"));
   if (MIDIOutEnable == true) {
     Serial.write(144);
     Serial.write(Note);
@@ -890,8 +973,10 @@ void Piano(int Frequency, int Note) {
 }
 
 void Pictviewer() {
-  Nextion_Serial_Transmit("Pictviewer", COMMAND_PAGE_NAME, "", 0);
-  Nextion_Serial_Transmit("FILENAME_TXT", ATTRIBUTE_TXT, Temporary_File_Name, 0);
+  Nextion_Serial.print(F("page Pictviewerÿÿÿ"));
+  Nextion_Serial.print(F("FILENAME_TXT.txt=\""));
+  Nextion_Serial.print(Temporary_File_Name);
+  Nextion_Serial.print(F("\"ÿÿÿ"));
   unsigned int Width;
   unsigned int Height;
   unsigned int Size;
@@ -914,7 +999,9 @@ void Pictviewer() {
       Size = int(Temporary_File.read()); //in bytes
       Serial.print(F("Size :"));
       Serial.println(Size);
-      Nextion_Serial_Transmit("SIZE_NUM.val", ATTRIBUTE_VAL, "", Size);
+      Nextion_Serial.print(F("SIEZ_NUM.val="));
+      Nextion_Serial.print(Size);
+      Nextion_Serial.print(F("ÿÿÿ"));
       Temporary_File.seek(10);
       Data_offset = long(Temporary_File.read());
       Serial.print(F("Data Offset :"));
@@ -923,10 +1010,14 @@ void Pictviewer() {
       Width = int(Temporary_File.read());
       Serial.print(F("Width :"));
       Serial.println(Width);
-      Nextion_Serial_Transmit("WIDTH_NUM", ATTRIBUTE_VAL, "", Width);
+      Nextion_Serial.print(F("WIDTH_NUM.val="));
+      Nextion_Serial.print(Width);
+      Nextion_Serial.print(F("ÿÿÿ"));
       Temporary_File.seek(22);
       Height = long(Temporary_File.read());
-      Nextion_Serial_Transmit("HEIGHT_NUM", ATTRIBUTE_VAL, "", Height);
+      Nextion_Serial.print(F("HEIGH_NUM.val="));
+      Nextion_Serial.print(Height);
+      Nextion_Serial.print(F("ÿÿÿ"));
       Serial.print(F("Height :"));
       Serial.println(Height);
       Temporary_File.seek(28);
@@ -1015,7 +1106,7 @@ void Pictviewer() {
 }
 
 void Files_And_Folders() {
-  Temporary_File_Path = Public_String_Variable[1];
+  GalaxOS::Get('A', Temporary_File_Path);
   Temporary_File = SD.open(Temporary_File_Path);
   String Item_Name = "";
   if (SD.exists(Temporary_File_Path)) {
@@ -1023,10 +1114,12 @@ void Files_And_Folders() {
       for (int i = 1; i < 19; i++) { //Clear Items
         Item_Name = "ITEM" + String(i);
         Item_Name += "_TXT";
-        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, "", 0);
+        Nextion_Serial.print(Item_Name);
+        Nextion_Serial.print(F(".txt=\"\"ÿÿÿ"));
         Item_Name = "ITEM" + String(i);
         Item_Name += "_BUT";
-        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, "", 15);
+        Nextion_Serial.print(Item_Name);
+        Nextion_Serial.print(F(".pic=15ÿÿÿ"));
       }
       Temporary_File.rewindDirectory();
       for (byte i = 1; i < 19; i++) {
@@ -1034,14 +1127,19 @@ void Files_And_Folders() {
         if (!Item) break;
         Item_Name = "ITEM" + String(i);
         Item_Name += "_TXT";
-        Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_TXT, Item.name(), 0);
+        Nextion_Serial.print(Item_Name);
+        Nextion_Serial.print(F(".txt=\""));
+        Nextion_Serial.print(Item.name());
+        Nextion_Serial.print(F("\"ÿÿÿ"));
         Item_Name = "ITEM" + String(i);
         Item_Name += "_BUT";
         if (Item.isDirectory()) {
-          Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 17);
+          Nextion_Serial.print(Item_Name);
+          Nextion_Serial.print(F(".pic=17ÿÿÿ"));
         }
         else {
-          Nextion_Serial_Transmit(Item_Name, ATTRIBUTE_PIC, F(""), 16);
+          Nextion_Serial.print(Item_Name);
+          Nextion_Serial.print(F(".pic=16ÿÿÿ"));
         }
         Item.close();
       }
@@ -1115,13 +1213,14 @@ void Periodic_Main (byte Type) {
   float Column;
   float Line;
 
-  Column = Public_Integer_Variable[0];
+  GalaxOS::Get('A', Column);
   Column -= 6;
   Column /= 26;
   Column = round(Column);
   Serial.print(F("Column : "));
   Serial.println(Column);
-  Line = Public_Integer_Variable[1];
+  
+  GalaxOS::Get('B', Line);
   Line -= 29;
   Line /= 26;
   Line = round(Line);
@@ -1131,7 +1230,7 @@ void Periodic_Main (byte Type) {
 
 
 
-
+!
 
 
 /*
