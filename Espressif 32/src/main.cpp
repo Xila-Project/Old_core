@@ -38,11 +38,6 @@
 
 GalaxOS GalaxOS;
 
-byte GalaxOS::C_MIDI = 0;
-int GalaxOS::C_Frequency = 0;
-int GalaxOS::Taskbar_Items_PID[7];
-int GalaxOS::Taskbar_Items_Icon[7];
-
 void setup() {
   GalaxOS::Start();
 }
@@ -51,21 +46,24 @@ void loop() {
   vTaskDelete(NULL);
 }
 
+
 GalaxOS::GalaxOS() {
-    Taskbar_Items_PID[7] = {255, 255, 255, 255, 255, 255, 255};
-    Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
+    GalaxOS::Taskbar_Items_PID[7] = {255, 255, 255, 255, 255, 255, 255};
+    GalaxOS::Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
 
-    Current_Page = NULL;
-    Last_Page = NULL;
+    GalaxOS::Current_Page = 0;
+    GalaxOS::Last_Page = 0;
 
-    C_MIDI = 60;
+    GalaxOS::Low_RAM_Threshold = 2000;
 
-    C_Frequency = 262;
+    GalaxOS::C_MIDI = 60;
 
-    String Username = "\0";
-    String Password = "\0";
+    GalaxOS::C_Frequency = 262;
 
-    Speaker_Pin = 25;
+    GalaxOS::Username = "\0";
+    GalaxOS::Password = "\0";
+
+    GalaxOS::Speaker_Pin = 25;
 }
 
 void GalaxOS::Start() {
@@ -82,7 +80,6 @@ void GalaxOS::Start() {
     Serial.println(F("||                                                                            ||"));
     Serial.println(F("||                                                                            ||"));
     Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
-    USB_Serial_Transmit("Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes", STYLE_LEFT_ALIGNMENT);
     Serial.println(F("||      Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes      ||"));
     Serial.println(F("||               Galax OS Portable Edition - Alix ANNERAUD - 0.03             ||"));
     Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
@@ -96,7 +93,7 @@ void GalaxOS::Start() {
         Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
     }
     xTaskCreatePinnedToCore(GalaxOS::Nextion_Serial_Receive, "Nextion_Serial_Receive", 1028, NULL, 2, &Nextion_Serial_Transmit_Handle, 1);
-    xTaksCreatePinnedToCore(GalaxOS.core, "GalaxOS Core", 4096, NULL, 2, &GalaxOS_Core_Handle, 1);
+    xTaskCreatePinnedToCore(GalaxOS::Core, "GalaxOS Core", 4096, NULL, 2, &GalaxOS_Core_Handle, 1);
     xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital_Player", 4096, NULL, 2, &Musical_Digital_Player_Handle, 1);
     vTaskSuspend(Musical_Digital_Player_Handle);
     xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);
@@ -104,7 +101,7 @@ void GalaxOS::Start() {
     Serial.println(F("|| > Loading Task ...                                                         ||"));
     Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 
-    Nextion_Serial_Queue xQueueCreate(100, sizeof(char));
+    Nextion_Serial_Queue = xQueueCreate(100, sizeof(char));
     if (Nextion_Serial_Queue == NULL) {
       //FATAL ERROR
     }
@@ -142,7 +139,7 @@ void GalaxOS::Get(char const& Tag, String& String_To_Get) { //string
 void GalaxOS::Set(char const& Tag, char const& Char_To_Set) { //char
   Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
   if (Temporary_File) {
-    Temporary_File.write(Char_To_Set)
+    Temporary_File.write(Char_To_Set);
     Temporary_File.close();
     return;
   }
@@ -168,7 +165,7 @@ void GalaxOS::Get(char const& Tag, char& Char_To_Get) { //char
 void GalaxOS::Set(char const& Tag, byte const& Byte_To_Set) { //byte
   Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_WRITE);
   if (Temporary_File) {
-    Temporary_File.write(Data);
+    Temporary_File.write(Byte_To_Set);
     Temporary_File.close();
     return;
   }
@@ -178,7 +175,7 @@ void GalaxOS::Set(char const& Tag, byte const& Byte_To_Set) { //byte
   }
 }
 
-void GalaxOS::Get(char const& Tag, byte Byte_To_Get) { //byte
+void GalaxOS::Get(char const& Tag, byte& Byte_To_Get) { //byte
   Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_READ);
   if (Temporary_File) {
     Byte_To_Get = Temporary_File.read();
@@ -226,10 +223,10 @@ void GalaxOS::Set(char const& Tag, float const& Float_To_Set) { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
   if (Temporary_File) {
     byte Split_Float[4] = {0, 0, 0, 0};
-    Float_To_Set[0] = (Integer_To_Set >> 24) & 0xFF;
-    Float_To_Set[1] = (Integer_To_Set >> 16) & 0xFF;
-    Float_To_Set[2] = (Integer_To_Set >> 8) & 0xFF;
-    Float_To_Set[3] = Integer_To_Set & 0xFF;
+    Split_Float[0] = (Float_To_Set >> 24) & 0xFF;
+    Split_Float[1] = (Float_To_Set >> 16) & 0xFF;
+    Split_Float[2] = (Float_To_Set >> 8) & 0xFF;
+    Split_Float[3] = Float_To_Set & 0xFF;
     Temporary_File.close();
     return;
   }
@@ -261,40 +258,42 @@ void GalaxOS::Core( void *pvParameters ) {
     //to do : check notify
   (void) pvParameters;
   for(;;) {
-    if (notification) {
-      char First_Return_Code = 0;
-      xQueueReceive(Nextion_Serial_Queue, &First_Byte, portMAX_DELAY);
-      char Second_Return_Code = 0;
-      xQueueReceive(Nextion_Serial_Queue, &Second_Return_Code, portMAX_DELAY);
-      switch(First_Return_Code) {
-        case ERROR_NEXTION_INVALID_INTRUCTION :
-          Serial.println(F("Invalid Intruction !"));
-          break;
-        case ERROR_NEXTION_INVALID_COMPONENT_ID :
-          Serial.println("Invalid Component ID !");
-          break;
-        case ERROR_NEXTION_INVALID_PAGE_ID :
-          Serial.println("Invalid Page ID !");
-          break;
-        case ERROR_NEXTION_INVALID_PICTURE_ID :
-          Serial.println("Invalid Picture ID !");
-          break;
-        case ERROR_NEXTION_INVALID_FONT_ID :
-          Serial.println("Invalid Font ID !");
-          break;
-        case INFORMATION_NEXTION_CURRENT_PAGE_NUMBER :
-          Last_Page = Current_Page;
-          Current_Page = Second_Return_Code;
-          break;
-        case INFORMATION_NEXTION_STRING_DATA_ENCLOSED :
-          switch (Second_Return_Code) {
-            case CODE_COMMAND : //* - command
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+    char First_Return_Code = 0;
+    xQueueReceive(Nextion_Serial_Queue, &First_Byte, portMAX_DELAY);
+    char Second_Return_Code = 0;
+    char Temporary_Current_Char;
+    char Temporary_Forward_Char;
+    char Temporary_Backward_Char;
+
+    xQueueReceive(Nextion_Serial_Queue, &Second_Return_Code, portMAX_DELAY);
+    switch(First_Return_Code) {
+      case ERROR_NEXTION_INVALID_INTRUCTION :
+        Serial.println(F("Invalid Intruction !"));
+        break;
+      case ERROR_NEXTION_INVALID_COMPONENT_ID :
+        Serial.println("Invalid Component ID !");
+        break;
+      case ERROR_NEXTION_INVALID_PAGE_ID :
+        Serial.println("Invalid Page ID !");
+        break;
+      case ERROR_NEXTION_INVALID_PICTURE_ID :
+        Serial.println("Invalid Picture ID !");
+        break;
+      case ERROR_NEXTION_INVALID_FONT_ID :
+        Serial.println("Invalid Font ID !");
+        break;
+      case INFORMATION_NEXTION_CURRENT_PAGE_NUMBER :
+        GalaxOS::Last_Page = GalaxOS::Current_Page;
+        GalaxOS::Current_Page = GalaxOS::Second_Return_Code;
+        break;
+      case INFORMATION_NEXTION_STRING_DATA_ENCLOSED :
+        switch (Second_Return_Code) {
+          case CODE_COMMAND : //* - command
               String Command = "";
-              char Temporary_Current_Char;
-              char Temporary_Forward_Char;
               while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
                 xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
-                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+                xQueuePeek(&Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
                 if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
                   xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
                   xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
@@ -302,192 +301,116 @@ void GalaxOS::Core( void *pvParameters ) {
                 }
                 Command += Temporary_Current_Char;
               }
-              if (RX_Data_String == "LoadSystem") Load_System_Files();
-              else if (RX_Data_String == "LoadUser") Load_User_Files();
-              else if (RX_Data_String == "Logon") Logon();
-              else if (RX_Data_String == "Menu") Open_Menu();
-              else if (RX_Data_String == "Desk") Open_Desk();
+              if (Command == "LoadSystem") Load_System_Files();
+              else if (Command == "LoadUser") Load_User_Files();
+              else if (Command == "Logon") Logon();
+              else if (Command == "Menu") Open_Menu();
+              else if (Command == "Desk") Open_Desk();
               //event handler
-              else if (RX_Data_String == "OK") Event_Handler_Replay
+              else if (Command == "OK") Event_Handler_Replay
               //file&folder
-              else if (RX_Data_String == "F&F") Files_And_Folders();
-              else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
+              else if (Command == "F&F") Files_And_Folders();
+              else if (Command == "F&F_RDelete") Event_Handler_Request();   
               //taskbar item
-              else if (RX_Data_String == "TBItem1") {
+              else if (Command == "TBItem1") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[0]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem2") {
+              else if (Command == "TBItem2") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[1]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem3") {
+              else if (Command == "TBItem3") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[2]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem4") {
+              else if (Command == "TBItem4") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[3]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem5") {
+              else if (Command == "TBItem5") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[4]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem6") {
+              else if (Command == "TBItem6") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[5]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
-              else if (RX_Data_String == "TBItem7") {
+              else if (Command == "TBItem7") {
                 Nextion_Serial.print(F("page "));
                 Nextion_Serial.print(Taskbar_Items_PID[6]);
                 Nextion_Serial.print(F("ÿÿÿ"));
               }
               //piano
-              else if (RX_Data_String == "CLow") Piano(0, 0);
-              else if (RX_Data_String == "C#Low") Piano(16, 1);
-              else if (RX_Data_String == "DLow") Piano(32, 2);
-              else if (RX_Data_String == "D#Low") Piano(50, 3);
-              else if (RX_Data_String == "ELow") Piano(68, 4);
-              else if (RX_Data_String == "FLow") Piano(88, 5);
-              else if (RX_Data_String == "F#Low") Piano(108, 6);
-              else if (RX_Data_String == "GLow") Piano(130, 7);
-              else if (RX_Data_String == "G#Low") Piano(154, 8);
-              else if (RX_Data_String == "ALow") Piano(178, 9);
-              else if (RX_Data_String == "A#Low") Piano(205, 10);
-              else if (RX_Data_String == "BLow") Piano(232, 11);
-              else if (RX_Data_String == "CHigh") Piano(262, 12);
-              else if (RX_Data_String == "C#High") Piano(293, 13);
-              else if (RX_Data_String == "DHigh") Piano(326, 14);
-              else if (RX_Data_String == "D#High") Piano(361, 15);
-              else if (RX_Data_String == "EHigh") Piano(398, 16);
-              else if (RX_Data_String == "FHigh") Piano(437, 17);
-              else if (RX_Data_String == "F#High") Piano(478, 18);
-              else if (RX_Data_String == "GHigh") Piano(522, 19);
-              else if (RX_Data_String == "G#High") Piano(569, 20);
-              else if (RX_Data_String == "AHigh") Piano(618, 21);
-              else if (RX_Data_String == "A#High") Piano(670, 22);
-              else if (RX_Data_String == "BHigh") Piano(726, 23);
+              else if (Command == "CLow") Piano(0, 0);
+              else if (Command == "C#Low") Piano(16, 1);
+              else if (Command == "DLow") Piano(32, 2);
+              else if (Command == "D#Low") Piano(50, 3);
+              else if (Command == "ELow") Piano(68, 4);
+              else if (Command == "FLow") Piano(88, 5);
+              else if (Command == "F#Low") Piano(108, 6);
+              else if (Command == "GLow") Piano(130, 7);
+              else if (Command == "G#Low") Piano(154, 8);
+              else if (Command == "ALow") Piano(178, 9);
+              else if (Command == "A#Low") Piano(205, 10);
+              else if (Command == "BLow") Piano(232, 11);
+              else if (Command == "CHigh") Piano(262, 12);
+              else if (Command == "C#High") Piano(293, 13);
+              else if (Command == "DHigh") Piano(326, 14);
+              else if (Command == "D#High") Piano(361, 15);
+              else if (Command == "EHigh") Piano(398, 16);
+              else if (Command == "FHigh") Piano(437, 17);
+              else if (Command == "F#High") Piano(478, 18);
+              else if (Command == "GHigh") Piano(522, 19);
+              else if (Command == "G#High") Piano(569, 20);
+              else if (Command == "AHigh") Piano(618, 21);
+              else if (Command == "A#High") Piano(670, 22);
+              else if (Command == "BHigh") Piano(726, 23);
               else {
                 Serial.println(F("Unknow Command"));
               }
               break;
-            case CODE_COMMAND_NEW : //#
-              String Command = "";
-              char Temporary_Current_Char;
-              char Temporary_Forward_Char;
-              while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
-                xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
-                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
-                if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
-                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-                  break;
-                }
-                Command += Temporary_Current_Char;
-              }
-              if (RX_Data_String == "LoadSystem") Load_System_Files();
-              else if (RX_Data_String == "LoadUser") Load_User_Files();
-              else if (RX_Data_String == "Logon") Logon();
-              else if (RX_Data_String == "Menu") Open_Menu();
-              else if (RX_Data_String == "Desk") Open_Desk();
-              //event handler
-              else if (RX_Data_String == "OK") Event_Handler_Replay
-              //file&folder
-              else if (RX_Data_String == "F&F") Files_And_Folders();
-              else if (RX_Data_String == "F&F_RDelete") Event_Handler_Request();   
-              //taskbar item
-              else if (RX_Data_String == "TBItem1") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[0]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem2") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[1]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem3") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[2]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem4") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[3]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem5") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[4]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem6") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[5]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              else if (RX_Data_String == "TBItem7") {
-                Nextion_Serial.print(F("page "));
-                Nextion_Serial.print(Taskbar_Items_PID[6]);
-                Nextion_Serial.print(F("ÿÿÿ"));
-              }
-              //piano
-              else if (RX_Data_String == "CLow") Piano(0, 0);
-              else if (RX_Data_String == "C#Low") Piano(16, 1);
-              else if (RX_Data_String == "DLow") Piano(32, 2);
-              else if (RX_Data_String == "D#Low") Piano(50, 3);
-              else if (RX_Data_String == "ELow") Piano(68, 4);
-              else if (RX_Data_String == "FLow") Piano(88, 5);
-              else if (RX_Data_String == "F#Low") Piano(108, 6);
-              else if (RX_Data_String == "GLow") Piano(130, 7);
-              else if (RX_Data_String == "G#Low") Piano(154, 8);
-              else if (RX_Data_String == "ALow") Piano(178, 9);
-              else if (RX_Data_String == "A#Low") Piano(205, 10);
-              else if (RX_Data_String == "BLow") Piano(232, 11);
-              else if (RX_Data_String == "CHigh") Piano(262, 12);
-              else if (RX_Data_String == "C#High") Piano(293, 13);
-              else if (RX_Data_String == "DHigh") Piano(326, 14);
-              else if (RX_Data_String == "D#High") Piano(361, 15);
-              else if (RX_Data_String == "EHigh") Piano(398, 16);
-              else if (RX_Data_String == "FHigh") Piano(437, 17);
-              else if (RX_Data_String == "F#High") Piano(478, 18);
-              else if (RX_Data_String == "GHigh") Piano(522, 19);
-              else if (RX_Data_String == "G#High") Piano(569, 20);
-              else if (RX_Data_String == "AHigh") Piano(618, 21);
-              else if (RX_Data_String == "A#High") Piano(670, 22);
-              else if (RX_Data_String == "BHigh") Piano(726, 23);
-              else {
-                Serial.println(F("Unknow Command"));
-              }
+          case CODE_VARIABLE_STRING : //S - string
+            String Temporary_String = "";
+            char Temporary_Tag;
+            char Temporary_Current_Char;
+            char Temporary_Forward_Char;
+            xQueueReceive(&Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
+            while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
+              xQueueReceive(&Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
+              xQueuePeek(&Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+              if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
+                xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
+                xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
               break;
-            case CODE_VARIABLE_STRING : //S - string
-              String Received_String = "";
-              char Tag;
-              char Temporary_Current_Char;
-              char Temporary_Forward_Char;
-              xQueueReceive(Nextion_Serial_Queue, & )
-              while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
-                xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
-                xQueuePeek(Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
-                if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
-                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-                  xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-                  break;
-                }
-                Received_String += Temporary_Current_Char;
               }
-              break;
-            case CODE_VARIABLE_CHAR : //C - string
-              break;
-            
-          }
-          break;
+              Temporary_String += Temporary_Current_Char;
+            }
+            GalaxOS::Set(&Temporary_Tag, &Temporary_String);
+            break;
+          case CODE_VARIABLE_CHAR : //C - Char
+            char Temporary_Tag;
+            char Temporary_Char;
+            xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
+            xQueueReceive(Nextion_Serial_Queue, &Temporary_Char, portMAX_DELAY);
+            GalaxOS::Set(&Temporary_Tag, &Temporary_Char);
+            break;
+          case CODE_VARIABLE_BYTE : //B - Byte
+            char Temporary_Tag;
+            byte Temporary_Byte;
+            xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
+            xQueueReceive(Nextion_Serial_Queue, &Temporary_Byte, portMAX_DELAY);
+            GalaxOS::Set(&Temporary_Tag, &Temporary_Byte);
+            break;
+
+          default:
+            break;
         case INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED :
 
           break;
@@ -499,9 +422,6 @@ void GalaxOS::Core( void *pvParameters ) {
           Serial.println(First_Return_Code);
           break;
       }
-      
-
-    }
   }
 }
 
@@ -548,8 +468,8 @@ void GalaxOS::Ressource_Monitor ( void *pvParameters ) {
   }
 }
 
-void GalaxOS::Logon() {
-  Temporary_File = SD.open("/USERS/" + Public_String_Variable[1] + "/STTNGS/PASSWORD.GSF");
+void GalaxOS::Check_Credential(String const& Username_To_Check, String const& Password_To_Check) {
+  Temporary_File = SD.open("/USERS/" + Username_To_Check + "/STTNGS/PASSWORD.GSF");
   Password = "";
   if (Temporary_File) {
     while (Temporary_File.available()) {
@@ -797,7 +717,7 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
   for (;;)
   {
     if (Nextion_Serial.available()) {
-      
+      Serial.println(F("|| > Incoming Data On UART 1                                                  ||"));
       while (Nextion_Serial.available()) {
         if(uxQueueSpacesAvailable(Nextion_Serial_Queue) != 0) {
           Nextion_Serial_Receive_Char = char(Nextion_Serial.read());
@@ -809,62 +729,7 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
           vTaskDekay(1000);
         }
       }
-      
-      Serial.println(F("|| > Incoming Data On UART 1                                                  ||"));
-
-      String RX_Data_String = "";
-
-      char RX_Data_Char[80];
-
-      byte Selected_Variable = 0;
-      byte Type = 0;
-      byte i = 1;
-
-  
-
-      if (RX_Data_Char[1] == 0x66) {
-        Last_Page = Current_Page;
-        Current_Page = RX_Data_Char[2];
-        return;
-      }
-
-      switch (RX_Data_Char[2]) {
-        case 0x2A : Type = 1; break;
-        default :
-          if (isUpperCase(RX_Data_Char[2])) {
-            Selected_Variable = RX_Data_Char[2];
-            Selected_Variable -= 65;
-            Type = 0;
-            return;
-          }
-          else if (isLowerCase(RX_Data_Char[2])) {
-            Selected_Variable = RX_Data_Char[2];
-            Selected_Variable -= 96;
-            Type = 3;
-            break;
-          }
-          else {
-            Type = 0;
-            break;
-          }
-      }
-      i = 3;
-      Serial.print(F("RX_Data_Char[1] :"));
-      Serial.println(RX_Data_Char[1], DEC);
-      Serial.print(F("RX_Data_Char[2] :"));
-      Serial.println(RX_Data_Char[2], DEC);
-      while (RX_Data_Char[i] != 255 && i < 80) {
-        RX_Data_String += RX_Data_Char[i];
-        i++;
-      }
-      RX_Data_String.toCharArray(RX_Data_Char, RX_Data_String.length() + 1);
-
-      Serial.print(F("RX Data Char :"));
-      Serial.println(RX_Data_Char);
-      Serial.print(F("RX Data String :"));
-      Serial.println(RX_Data_String);
-
-      Serial.println(F("|| > Execute Incoming Data On UART 1 - Step 4                                 ||"));
+      xNotifyGive(GalaxOS_Core_Handle);
       switch (Type) {
         case 0:
           break;
@@ -886,7 +751,7 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
           Serial.print(F("Selected Variable :"));
           Serial.println(Selected_Variable);
           Serial.println(F("String"));
-          Public_String_Variable[Selected_Variable] = RX_Data_String;
+          Public_String_Variable[Selected_Variable] = Command;
           break;
         default:
           Serial.println(F("|| > Unrecognized Type Of Command                                            ||"));
@@ -912,10 +777,11 @@ void GalaxOS::WiFi_Connect() {
   }
 }
 
-void UltraSonic(int USTrig, int USEcho) {
+void UltraSonic() {
   Serial.println(F("|| > Open UltraSonic Rangefinder App                                         ||"));
   Serial.println(USTrig);
   Serial.println(USEcho);
+  
   pinMode(USTrig, OUTPUT);
   pinMode(USEcho, INPUT);
   digitalWrite(USTrig, LOW);

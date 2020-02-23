@@ -107,6 +107,7 @@ bool MIDIOutEnable = false;
 xTaskHandle Nextion_Serial_Transmit_Handle;
 xTaskHandle Musical_Digital_Player_Handle;
 xTaskHandle Ressource_Monitor_Handle;
+xTaskHandle GalaxOS_Core_Handle;
 
 QueueHandle_t Nextion_Serial_Queue;
 //----------------------------------------------------------------------------//
@@ -124,7 +125,8 @@ void UltraSonic(int USTrig, int USEcho);
 
 
 class GalaxOS{
-    private:
+    
+    public:
 
         static byte Taskbar_Items_PID[7];
         static byte Taskbar_Items_Icon[7];
@@ -136,16 +138,14 @@ class GalaxOS{
 
         static int C_Frequency;
 
-        static byte Speaker_Pin = 25;
+        static byte Speaker_Pin;
 
-        static String Username = "NULL";
-        static String Password = "NULL";
+        static String Username;
+        static String Password;
 
-        uint16_t Low_RAM_Threshold = 2000;
+        static int Low_RAM_Threshold;
 
         static String Temporary_String;
-
-    public:
 
         GalaxOS();
 
@@ -180,6 +180,8 @@ class GalaxOS{
         static void Load_System_Files();
         static void Load_User_Files();
         static void Logon();
+
+        static void Core( void *pvParameters );
         
         static void Ressource_Monitor( void *pvParameters );
 
