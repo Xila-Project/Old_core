@@ -48,8 +48,10 @@ void loop() {
 
 
 GalaxOS::GalaxOS() {
-    GalaxOS::Taskbar_Items_PID[7] = {255, 255, 255, 255, 255, 255, 255};
-    GalaxOS::Taskbar_Items_Icon[7] = {10, 10, 10, 10, 10, 10, 10};
+    for(int i; i < 6; i++) {
+      Taskbar_Items_PID[i] = 255;
+      Taskbar_Items_Icon[i] = 10;
+    }
 
     GalaxOS::Current_Page = 0;
     GalaxOS::Last_Page = 0;
@@ -221,12 +223,13 @@ void GalaxOS::Get(char const& Tag, int& Integer_To_Get) { //integer
 
 void GalaxOS::Set(char const& Tag, float const& Float_To_Set) { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
+  float Temporary_Float = Float_To_Set;
   if (Temporary_File) {
     byte Split_Float[4] = {0, 0, 0, 0};
-    Split_Float[0] = (Float_To_Set >> 24) & 0xFF;
-    Split_Float[1] = (Float_To_Set >> 16) & 0xFF;
-    Split_Float[2] = (Float_To_Set >> 8) & 0xFF;
-    Split_Float[3] = Float_To_Set & 0xFF;
+    Split_Float[0] = (byte)(Temporary_Float >> 24);
+    Split_Float[1] = (byte)(Temporary_Float >> 16);
+    Split_Float[2] = (byte)(Temporary_Float >> 8);
+    Split_Float[3] = (byte)Temporary_Float;
     Temporary_File.close();
     return;
   }
@@ -252,20 +255,17 @@ void GalaxOS::Get(char const& Tag, float& Float_To_Get) { //float
   }
 }
 
-
-
 void GalaxOS::Core( void *pvParameters ) {
     //to do : check notify
   (void) pvParameters;
   for(;;) {
     ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
     char First_Return_Code = 0;
-    xQueueReceive(Nextion_Serial_Queue, &First_Byte, portMAX_DELAY);
     char Second_Return_Code = 0;
     char Temporary_Current_Char;
     char Temporary_Forward_Char;
     char Temporary_Backward_Char;
-
+    xQueueReceive(Nextion_Serial_Queue, &First_Return_Code, portMAX_DELAY);
     xQueueReceive(Nextion_Serial_Queue, &Second_Return_Code, portMAX_DELAY);
     switch(First_Return_Code) {
       case ERROR_NEXTION_INVALID_INTRUCTION :
@@ -285,15 +285,16 @@ void GalaxOS::Core( void *pvParameters ) {
         break;
       case INFORMATION_NEXTION_CURRENT_PAGE_NUMBER :
         GalaxOS::Last_Page = GalaxOS::Current_Page;
-        GalaxOS::Current_Page = GalaxOS::Second_Return_Code;
+        GalaxOS::Current_Page = Second_Return_Code;
         break;
       case INFORMATION_NEXTION_STRING_DATA_ENCLOSED :
         switch (Second_Return_Code) {
+          char Temporary_Tag;
           case CODE_COMMAND : //* - command
               String Command = "";
               while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
                 xQueueReceive(Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
-                xQueuePeek(&Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+                xQueuePeek(&Nextion_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
                 if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
                   xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
                   xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
@@ -303,14 +304,13 @@ void GalaxOS::Core( void *pvParameters ) {
               }
               if (Command == "LoadSystem") Load_System_Files();
               else if (Command == "LoadUser") Load_User_Files();
-              else if (Command == "Logon") Logon();
               else if (Command == "Menu") Open_Menu();
               else if (Command == "Desk") Open_Desk();
               //event handler
-              else if (Command == "OK") Event_Handler_Replay
+              //else if (Command == "OK") Event_Handler_Replay
               //file&folder
               else if (Command == "F&F") Files_And_Folders();
-              else if (Command == "F&F_RDelete") Event_Handler_Request();   
+              //else if (Command == "F&F_RDelete") Event_Handler_Request();   
               //taskbar item
               else if (Command == "TBItem1") {
                 Nextion_Serial.print(F("page "));
@@ -376,15 +376,14 @@ void GalaxOS::Core( void *pvParameters ) {
                 Serial.println(F("Unknow Command"));
               }
               break;
-          case CODE_VARIABLE_STRING : //S - string
+          case CODE_VARIABLE_STRING: //S - string
             String Temporary_String = "";
-            char Temporary_Tag;
             char Temporary_Current_Char;
             char Temporary_Forward_Char;
             xQueueReceive(&Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
             while(uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0) {
               xQueueReceive(&Nextion_Serial_Queue, &Temporary_Current_Char, portMAX_DELAY);
-              xQueuePeek(&Nexiton_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
+              xQueuePeek(&Nextion_Serial_Queue, &Temporary_Forward_Char, portMAX_DELAY);
               if(Temporary_Forward_Char == 255 && Temporary_Current_Char == 255) {
                 xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
                 xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
@@ -394,34 +393,32 @@ void GalaxOS::Core( void *pvParameters ) {
             }
             GalaxOS::Set(&Temporary_Tag, &Temporary_String);
             break;
-          case CODE_VARIABLE_CHAR : //C - Char
-            char Temporary_Tag;
+          case CODE_VARIABLE_CHAR: //C - Char
             char Temporary_Char;
             xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
             xQueueReceive(Nextion_Serial_Queue, &Temporary_Char, portMAX_DELAY);
             GalaxOS::Set(&Temporary_Tag, &Temporary_Char);
             break;
-          case CODE_VARIABLE_BYTE : //B - Byte
-            char Temporary_Tag;
+          case CODE_VARIABLE_BYTE: //B - Byte
             byte Temporary_Byte;
             xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
             xQueueReceive(Nextion_Serial_Queue, &Temporary_Byte, portMAX_DELAY);
             GalaxOS::Set(&Temporary_Tag, &Temporary_Byte);
             break;
-
           default:
             break;
         case INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED :
 
           break;
-        case 0xFF :
+        case 0xFF:
           xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
           break;
-        default:
-          Serial.print("Unknow error code :");
-          Serial.println(First_Return_Code);
-          break;
-      }
+      default:
+        Serial.print("Unknow code :");
+        Serial.println(First_Return_Code);
+        break;  
+    }
+    }
   }
 }
 
@@ -461,16 +458,16 @@ void GalaxOS::Open_Desk() {
 
 
 
-void GalaxOS::Ressource_Monitor ( void *pvParameters ) {
+void GalaxOS::Ressource_Monitor( void *pvParameters ) {
   (void) pvParameters;
   for (;;) {
     vTaskDelay(100);
   }
 }
 
-void GalaxOS::Check_Credential(String const& Username_To_Check, String const& Password_To_Check) {
-  Temporary_File = SD.open("/USERS/" + Username_To_Check + "/STTNGS/PASSWORD.GSF");
-  Password = "";
+byte GalaxOS::Check_Credentials(String const& Username_To_Check, String const& Password_To_Check) {
+  Temporary_File = SD.open("/USERS/" + Username_To_Check + "/STTNGS/PASSWORD.GSF", FILE_READ);
+  String Temporary_Password = "";
   if (Temporary_File) {
     while (Temporary_File.available()) {
       if (isAlphaNumeric(Temporary_File.peek())) {
@@ -481,12 +478,10 @@ void GalaxOS::Check_Credential(String const& Username_To_Check, String const& Pa
       }
     }
     Temporary_File.close();
-    Temporary_File_Path = "NULL";
   }
   else {
-    Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Username !\"ÿÿÿ"));
     Serial.println(F("Wrong Username !"));
-    return;
+    return 0;
   }
   Serial.println(Password);
   if (Password == Public_String_Variable[2]) {
@@ -532,10 +527,15 @@ void GalaxOS::Load_System_Files() {
 
 void GalaxOS::Load_User_Files() {
   Serial.print(F("Load User Files ..."));
-  Nextion_Serial.print(F("page Load_User"));
-  Temporary_File = SD.open("/USERS/" + Username + "/STTNGS/TASKBAR.GSF", FILE_READ);
-  byte i = 0;
-  while (Temporary_File.available()) {
+  String Temporary_Username;
+  String Temporary_Password;
+  GalaxOS::Get('A', &Temporary_Username);
+  GalaxOS::Get('B', &Temporary_Password);
+  if(GalaxOS::Check_Credentials(Username, Password) == 1) {
+    Nextion_Serial.print(F("page Load_User"));
+    Temporary_File = SD.open("/USERS/" + Username + "/STTNGS/TASKBAR.GSF", FILE_READ);
+    byte i = 0;
+    while (Temporary_File.available()) {
     Taskbar_Items_PID[i] = Temporary_File.read();
     Temporary_File.read();
     //if(Temporary_File.read() != 124) Serial.print(ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED);
@@ -548,6 +548,11 @@ void GalaxOS::Load_User_Files() {
   Temporary_File_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
   vTaskResume(Musical_Digital_Player_Handle);
   Nextion_Serial.print(F("LOAD_TIM.tim=50ÿÿÿ"));
+  }
+  else {
+    //error : wrong username or password
+        Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Credentials !\"ÿÿÿ"));
+  }
 }
 //NST not used anymore to save ram
 void GalaxOS::Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String, int Nextion_Serial_Transmit_Integer) {
@@ -606,7 +611,7 @@ void GalaxOS::Event_Handler_Request(int Type, String Infromations) {
   switch (Type) {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
     case ERROR_FAILLED_TO_INTIALIZE_SD_CARD :
-      Nextion_Serial.print(F("TITLE_TXT.txt=")); Nextion_Serial.print(F("A"))
+      Nextion_Serial.print(F("TITLE_TXT.txt=")); Nextion_Serial.print(F("A"));
       Nextion_Serial_Transmit(F("TITLE_TXT"), ATTRIBUTE_TXT, F("Error !"), 0);
       Nextion_Serial_Transmit(F("MESSAGE_TXT"), ATTRIBUTE_TXT, F("Failled to initialize the SD Card !"), 0);
       break;
@@ -650,7 +655,7 @@ void GalaxOS::Event_Handler_Reply(byte Reply) {
   
 }
 
-void GalaxOS::USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte const* Alignment) {
+void GalaxOS::USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte Alignment) {
   unsigned int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
   byte Lines = USB_Serial_Transmit_String_Lenght;
   Lines = Lines / 72;
@@ -720,43 +725,16 @@ void GalaxOS::Nextion_Serial_Receive( void *pvParameters ) { //to do : rewrite t
       Serial.println(F("|| > Incoming Data On UART 1                                                  ||"));
       while (Nextion_Serial.available()) {
         if(uxQueueSpacesAvailable(Nextion_Serial_Queue) != 0) {
-          Nextion_Serial_Receive_Char = char(Nextion_Serial.read());
+          char Nextion_Serial_Receive_Char = Nextion_Serial.read();
           xQueueSend(Nextion_Serial_Queue, &Nextion_Serial_Receive_Char, portMAX_DELAY);
         }
         else {
           //error : full queue
-          Serial.println(f("The queue is full !"));
-          vTaskDekay(1000);
+          Serial.println(F("The queue is full !"));
+          vTaskDelay(1000);
         }
       }
-      xNotifyGive(GalaxOS_Core_Handle);
-      switch (Type) {
-        case 0:
-          break;
-        case 1:
-          //1 -> Command
-          Serial.println(F("Command"));
-          //System Feature
-          
-          break;
-        case 2:
-          //2 -> Integer Variable
-          Serial.print(F("Selected Variable :"));
-          Serial.println(Selected_Variable);
-          Serial.println(F("Integer (Byte)"));
-          Public_Integer_Variable[Selected_Variable] = RX_Data_Char[3];
-          break;
-        case 3:
-          //3 -> String Variable
-          Serial.print(F("Selected Variable :"));
-          Serial.println(Selected_Variable);
-          Serial.println(F("String"));
-          Public_String_Variable[Selected_Variable] = Command;
-          break;
-        default:
-          Serial.println(F("|| > Unrecognized Type Of Command                                            ||"));
-          break;
-      }
+      xTaskNotifyGive(GalaxOS_Core_Handle);
     }
     vTaskDelay(100);
   }
@@ -778,6 +756,8 @@ void GalaxOS::WiFi_Connect() {
 }
 
 void UltraSonic() {
+  byte USTrig;
+  byte USEcho;
   Serial.println(F("|| > Open UltraSonic Rangefinder App                                         ||"));
   Serial.println(USTrig);
   Serial.println(USEcho);
@@ -810,7 +790,7 @@ void UltraSonic() {
 }
 
 void Piano(int Frequency, int Note) {
-  ledcAttachPin(Speaker_Pin, 0);
+  ledcAttachPin(GalaxOS::Speaker_Pin, 0);
   String Temporary = "";
   unsigned long Duration = 200;
   Frequency += GalaxOS::C_Frequency;
@@ -1093,11 +1073,6 @@ void Periodic_Main (byte Type) {
   Serial.print(F("Line : "));
   Serial.println(Line);
 }
-
-
-
-!
-
 
 /*
 void iGOS (byte Type) {

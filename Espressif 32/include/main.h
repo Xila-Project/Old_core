@@ -168,10 +168,11 @@ class GalaxOS{
 
         static void WiFi_Connect();
 
-        static void USB_Serial_Transmit(const char* USB_Serial_Transmit_String, byte Alignment);
+        static void USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte Alignment);
 
         static void Open_Desk();
         static void Open_Menu();
+
 
         static void Musical_Digital_Player( void *pvParameters );
         static void Nextion_Serial_Receive( void *pvParameters );
@@ -179,13 +180,14 @@ class GalaxOS{
 
         static void Load_System_Files();
         static void Load_User_Files();
-        static void Logon();
+
+        static byte Check_Credentials(String const& Username_To_Check, String const& Password_To_Check);
 
         static void Core( void *pvParameters );
         
         static void Ressource_Monitor( void *pvParameters );
 
-        static void Event_Handler_Request(byte Type, String Informations);
+        static void Event_Handler_Request(int Type, String Infromations);
         static void Event_Handler_Reply(byte Reply);
 
 };
