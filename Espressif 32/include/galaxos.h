@@ -1,8 +1,9 @@
-#ifndef MAIN_H_INCLUDED
-#define MAIN_H_INCLUDED
+#ifndef GALAXOS_H_INCLUDED
+#define GALAXOS_H_INCLUDED
 
 #include "Arduino.h"
-#include <string>
+#include "software.h"
+#include "igos.h"
 
 //----------------------------------------------------------------------------//
 //                                        Define Const                        //
@@ -61,8 +62,10 @@
 #define INFORMATION_NEXTION_TRANSPARENT_DATA_FINISHED 253
 #define INFORMATION_NEXTION_TRANSPARENT_DATA_READY 254
 
-#define WARNING_WRONG_PASSWORD 28362
-#define WARNING_WRONG_USERNAME 54114
+#define INFORMATION_GOOD_CREDENTIALS 39548
+
+#define WARNING_WRONG_PASSWORD 28364
+#define WARNING_WRONG_USERNAME 54112
 #define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
 
 #define STYLE_LEFT_ALIGNMENT 0
@@ -71,6 +74,8 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 #define CODE_COMMAND 42
+#define CODE_CONSTRUCT 99
+#define CODE_DESTRUCT 100
 #define CODE_COMMAND_NEW 35
 #define CODE_VARIABLE_BYTE 66 //1 byte
 #define CODE_VARIABLE_CHAR 67 //1 byte
@@ -80,15 +85,12 @@
 #define CODE_VARIABLE_STRING 83
 #define CODE_VARIABLE_UNSIGNED_INTEGER 105 //2 byte
 #define CODE_VARIABLE_UNSIGNED_LONG 108 //4 byte
+
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
 //----------------------------------------------------------------------------//
 
 HardwareSerial Nextion_Serial(2);
-
-char server[30] = "*";                         // THERE HAS TO BE A BETTER WAY OF SPLITTING A URL
-char path[60] = "";                            // INTO PARTS USING VARIABLES - JUST TO PASS THE HTTP REQUEST
-char url[90] = "";                           // What IS a reasonable maximum URL length?
 
 const char* WiFi_SSID     = "Avrupa";
 const char* WiFi_Password = "0235745484";
@@ -100,6 +102,8 @@ String Temporary_File_Path = "\0";
 String Temporary_File_Name = "\0";
 
 bool MIDIOutEnable = false;
+
+
 
 //----------------------------------------------------------------------------//
 //                                        Define Tasks                        //
@@ -114,6 +118,123 @@ QueueHandle_t Nextion_Serial_Queue;
 //                            Define Function                                 //
 //----------------------------------------------------------------------------//
 
+class GalaxOS_Class
+{
+    private:
+    
+        byte Taskbar_Items_PID[7];
+        byte Taskbar_Items_Icon[7];
+
+        byte Current_Page;
+        byte Last_Page;
+
+        byte C_MIDI;
+
+        int C_Frequency;
+
+        byte Speaker_Pin;
+
+        String Username;
+        String Password;
+
+        int Low_RAM_Threshold;
+
+        String Temporary_String;
+
+        GalaxOS_Software_Class *Software_Pointer[4];
+
+        Ultrasonic_Class *Ultrasonic_Pointer;
+
+        iGOS_Class *iGOS_Pointer;
+
+        union Temporary_Split_Integer_Union
+        {
+            int Integer;
+            byte Byte[2];
+        } Temporary_Split_Integer;
+
+        union Temporary_Split_Float_Union
+        {
+            float Float;
+            byte Byte[4];
+        } Temporary_Split_Float;
+
+
+    public:
+
+        GalaxOS_Class();
+
+        ~GalaxOS_Class();
+
+        byte Get_Speaker_Pin();
+        int Get_C_Frequency();
+        byte Get_C_MIDI();
+
+        void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class const& Software_Pointer_To_Set);
+
+        void Start();
+
+        void Set(char const& Tag, String const& String_To_Set);
+        void Get(char const& Tag, String& String_To_Get);
+
+        void Set(char const& Tag, char const& Char_To_Set);
+        void Get(char const& Tag, char& Char_To_Get);
+
+        void Set(char const& Tag, byte const& Byte_To_Set);
+        void Get(char const& Tag, byte& Byte_To_Get);
+
+        void Set(char const& Tag, int const& Integer_To_Set);
+        void Get(char const& Tag, int& Integer_To_Get);
+
+        void Set(char const& Tag, float const& Float_To_Set);
+        void Get(char const& Tag, float& Float_To_Get);
+
+        void WiFi_Connect();
+
+        void USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte Alignment);
+
+        void Open_Desk();
+        void Open_Menu();
+         
+        void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String = "", int Nextion_Serial_Transmit_Integer = 0);
+
+        void Load_System_Files();
+        void Load_User_Files();
+
+        byte Check_Credentials(String const& Username_To_Check, String const& Password_To_Check);   
+
+        void Event_Handler_Request(int Type, String Infromations);
+        void Event_Handler_Reply(byte Reply);
+        
+        friend void Core ( void *pvParameters );
+        friend void Nextion_Serial_Receive( void *pvParameters );
+        friend void Ressource_Monitor ( void *pvParameters );
+};
+
+
+
+class Ultrasonic_Class //Application It self;
+{
+    private:
+        byte Trig_Pin;
+        byte Echo_Pin;
+
+    public:
+        Ultrasonic_Class();
+        ~Ultrasonic_Class();
+        void Set_Trig_Pin(byte const& Trig_Pin);
+        void Set_Echo_Pin(byte const& Echo_Pin);
+        void Read();
+};
+
+
+
+void Musical_Digital_Player( void *pvParameters );
+//GalaxOS class's method (FreeRTOS seems to not support class/struct)
+void Nextion_Serial_Receive( void *pvParameters );
+void Core( void *pvParameters );
+void Ressource_Monitor( void *pvParameters );
+
 void Files_And_Folders();
 
 void Periodic_Main (byte Type);
@@ -122,76 +243,7 @@ void Pictureader();
 
 void UltraSonic(int USTrig, int USEcho);
 
-
-
-class GalaxOS{
-    
-    public:
-
-        static byte Taskbar_Items_PID[7];
-        static byte Taskbar_Items_Icon[7];
-
-        static byte Current_Page;
-        static byte Last_Page;
-
-        static byte C_MIDI;
-
-        static int C_Frequency;
-
-        static byte Speaker_Pin;
-
-        static String Username;
-        static String Password;
-
-        static int Low_RAM_Threshold;
-
-        static String Temporary_String;
-
-        GalaxOS();
-
-        static void Start();
-
-        static void Set(char const& Tag, String const& String_To_Set);
-        static void Get(char const& Tag, String& String_To_Get);
-
-        static void Set(char const& Tag, char const& Char_To_Set);
-        static void Get(char const& Tag, char& Char_To_Get);
-
-        static void Set(char const& Tag, byte const& Byte_To_Set);
-        static void Get(char const& Tag, byte& Byte_To_Get);
-
-        static void Set(char const& Tag, int const& Integer_To_Set);
-        static void Get(char const& Tag, int& Integer_To_Get);
-
-        static void Set(char const& Tag, float const& Float_To_Set);
-        static void Get(char const& Tag, float& Float_To_Get);
-
-        static void WiFi_Connect();
-
-        static void USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte Alignment);
-
-        static void Open_Desk();
-        static void Open_Menu();
-
-
-        static void Musical_Digital_Player( void *pvParameters );
-        static void Nextion_Serial_Receive( void *pvParameters );
-        static void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String = "", int Nextion_Serial_Transmit_Integer = 0);
-
-        static void Load_System_Files();
-        static void Load_User_Files();
-
-        static byte Check_Credentials(String const& Username_To_Check, String const& Password_To_Check);
-
-        static void Core( void *pvParameters );
-        
-        static void Ressource_Monitor( void *pvParameters );
-
-        static void Event_Handler_Request(int Type, String Infromations);
-        static void Event_Handler_Reply(byte Reply);
-
-};
-
-
+GalaxOS_Class GalaxOS;
+Ultrasonic_Class Ultrasonic;
 
 #endif
