@@ -17,7 +17,7 @@ GalaxOS_Software_Class::GalaxOS_Software_Class(String const& Software_Name, byte
 
 GalaxOS_Software_Class::~GalaxOS_Software_Class() //destroyer
 {
-    Number_Of_Software--;
+  Number_Of_Software--;
 }
 
 void GalaxOS_Software_Class::Set_Function_Pointer(byte const& Function_Pointer_ID, void (*Function_Pointer_To_Set)())

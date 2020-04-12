@@ -92,8 +92,9 @@
 
 HardwareSerial Nextion_Serial(2);
 
-const char* WiFi_SSID     = "Avrupa";
-const char* WiFi_Password = "0235745484";
+WiFiClient client;
+
+
 
 File Temporary_File;
 
@@ -159,6 +160,8 @@ class GalaxOS_Class
             byte Byte[4];
         } Temporary_Split_Float;
 
+        const char* WiFi_SSID     = "Avrupa";
+        const char* WiFi_Password = "0235745484";
 
     public:
 
@@ -205,6 +208,7 @@ class GalaxOS_Class
 
         void Event_Handler_Request(int Type, String Infromations);
         void Event_Handler_Reply(byte Reply);
+
         
         friend void Core ( void *pvParameters );
         friend void Nextion_Serial_Receive( void *pvParameters );
@@ -229,11 +233,13 @@ class Ultrasonic_Class //Application It self;
 
 
 
-void Musical_Digital_Player( void *pvParameters );
+
 //GalaxOS class's method (FreeRTOS seems to not support class/struct)
 void Nextion_Serial_Receive( void *pvParameters );
 void Core( void *pvParameters );
 void Ressource_Monitor( void *pvParameters );
+
+void Musical_Digital_Player( void *pvParameters );
 
 void Files_And_Folders();
 
