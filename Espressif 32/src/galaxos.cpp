@@ -935,7 +935,7 @@ Ultrasonic_Class::~Ultrasonic_Class()
 
 void Ultrasonic_Class::Set_Trig_Pin(byte const &Trig_Pin)
 {
-  GalaxOS.Get('A', *Trig_Pin);
+  GalaxOS.Get('A', Trig_Pin);
   pinMode(Trig_Pin, OUTPUT);
 }
 

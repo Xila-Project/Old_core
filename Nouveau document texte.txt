@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Hack a day</title>
+</head>
+<body>
+
+<img src="Logo.bmp" align="left">
+<pre>
+   __ __         __            ___           
+  / // /__ _____/ /__  ___ _  / _ \___ ___ __
+ / _  / _ `/ __/  '_/ / _ `/ / // / _ `/ // /
+/_//_/\_,_/\__/_/\_\  \_,_/ /____/\_,_/\_, / 
+retro edition                         /___/ 
+</pre>
+
+<b>Now optimized for embedded devices!!</b><br />
+
+<table>
+<tr>
+<td><a href="about.html">About</a></td>
+<td><a href="http://hackaday.com/tag/retro-edition/">Successes</a></td>
+<td><a href="retro.html">Retrocomputing guide</a></td>
+<td><a href="mailto:tips@hackaday.com?Subject=Low-fi edition submission">Email Hackaday</a></td>
+</tr>
+</table>
+
+<hr>			<h2><a href="http://hackaday.com/2006/07/15/usb-wifi-external-antenna/" rel="bookmark" title="Permanent Link to USB WiFi external&nbsp;antenna">USB WiFi external&nbsp;antenna</a></h2>
+				posted Jul 15th 2006 11:00am by <a href="http://hackaday.com/author/eliotphillips/" title="Posts by Eliot" rel="author">Eliot</a><br/>
+				filed under: <a href="http://hackaday.com/category/wireless-hacks/" title="View all posts in wireless hacks" rel="category tag">wireless hacks</a> <br/>
+
+							<p><img alt="usb wifi antenna" src="http://img.engadget.com/common/images/3060000000059345.JPG?0.3051977209208153" align="texttop" border="0" height="325" hspace="4" vspace="4" width="400" /><br /> 
+<p>[ronobvious] purchased a Ralink based USB WiFi adapter for use with Aircrack-ng. It worked well so he decided to <a href="http://ronobvious.livejournal.com/296.html">add an external antenna connector</a>. The connector from Linx Technologies that he chose is really what makes this installation clean. It&#8217;s a card-edge design so you just slip it over the end and solder the pin and ground leg. He&#8217;s got a link to <a href="http://www.oberkommando.org/asus_wl-167g/">Tobias Hain&#8217;s similar mod</a> and Tobias has a link to a <a href="http://www.xp11.com/g54/g54.htm">another antenna project</a> as well.</p>
+			<h2><a href="http://hackaday.com/2009/12/15/make-magazine-open-source-hardware-2009/" rel="bookmark" title="Permanent Link to Make Magazine &#8211; Open Source Hardware&nbsp;2009">Make Magazine &#8211; Open Source Hardware&nbsp;2009</a></h2>
+				posted Dec 15th 2009 7:28am by <a href="http://hackaday.com/author/jahmez/" title="Posts by James Munns" rel="author">James Munns</a><br/>
+				filed under: <a href="http://hackaday.com/category/misc-hacks/" title="View all posts in misc hacks" rel="category tag">misc hacks</a>, <a href="http://hackaday.com/category/news/" title="View all posts in news" rel="category tag">news</a> <br/>
+
+							<p><img class="alignnone size-full wp-image-19280" title="opensourcehardware2009" src="http://hackadaycom.files.wordpress.com/2009/12/opensourcehardware2009.jpg" alt="" width="470" height="293" /></p>
+<p>Former HaD&#8217;er [Phillip Torrone] has written an extensive collection of <a href="http://blog.makezine.com/archive/2009/12/open_source_hardware_2009_-_the_def.html">Open Source Hardware</a> projects for <a href="http://www.makezine.com/">Make Magazine</a>. This impressive list covers over 125 projects and kits, broken into 19 categories including <a href="http://blog.makezine.com/archive/2009/12/3d_printing_and_fabrication_open_so.html">3d Printing</a>, <a href="http://blog.makezine.com/archive/2009/12/music_open_source_hardware_2009_-_t.html">Music</a>, <a href="http://blog.makezine.com/archive/2009/12/robotics_open_source_hardware_2009.html">Robotics</a>, and <a href="http://blog.makezine.com/archive/2009/12/wireless_and_gps_and_wireless_open.html">Wireless systems</a>. A number of these projects have been either extensively detailed or mentioned on HaD, so there is bound to be something for everyone here.</p>
+<p>[Phillip] is not only detailing these projects for people new to the Open Source Hardware movement, but is also calling for new and unheard of projects to be listed in places like this, as well as central locations such as the <a href="http://en.wikipedia.org/wiki/Open_source_hardware">OSH Wikipedia page</a>. We are sure that a number of HaD readers will be answer this challenge.</p>
+<p>Thanks again to [Phillip] for sharing this with us.</p>
+			<h2><a href="http://hackaday.com/2010/01/29/our-thoughts-on-the-ipad/" rel="bookmark" title="Permanent Link to Our thoughts on the&nbsp;iPad">Our thoughts on the&nbsp;iPad</a></h2>
+				posted Jan 29th 2010 3:00pm by <a href="http://hackaday.com/author/calebkraft/" title="Posts by Caleb Kraft" rel="author">Caleb Kraft</a><br/>
+				filed under: <a href="http://hackaday.com/category/macs-hacks/" title="View all posts in macs hacks" rel="category tag">macs hacks</a>, <a href="http://hackaday.com/category/news/" title="View all posts in news" rel="category tag">news</a> <br/>
+
+							<p>The <a href="http://www.mahalo.com/ipad">iPad</a>, <a href="http://www.mahalo.com/apple-event-summary">announced earlier this 

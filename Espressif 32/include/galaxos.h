@@ -116,8 +116,23 @@ xTaskHandle GalaxOS_Core_Handle;
 
 QueueHandle_t Nextion_Serial_Queue;
 //----------------------------------------------------------------------------//
-//                            Define Function                                 //
+//                            Define Class                                    //
 //----------------------------------------------------------------------------//
+
+class Ultrasonic_Class //Application It self;
+{
+    private:
+        byte Trig_Pin;
+        byte Echo_Pin;
+
+    public:
+        Ultrasonic_Class();
+        ~Ultrasonic_Class();
+        void Set_Trig_Pin(byte const& Trig_Pin);
+        void Set_Echo_Pin(byte const& Echo_Pin);
+        void Read();
+};
+
 
 class GalaxOS_Class
 {
@@ -143,10 +158,9 @@ class GalaxOS_Class
         String Temporary_String;
 
         GalaxOS_Software_Class *Software_Pointer[4];
-
         Ultrasonic_Class *Ultrasonic_Pointer;
-
         iGOS_Class *iGOS_Pointer;
+
 
         union Temporary_Split_Integer_Union
         {
@@ -162,6 +176,8 @@ class GalaxOS_Class
 
         const char* WiFi_SSID     = "Avrupa";
         const char* WiFi_Password = "0235745484";
+
+        uint16_t Cursor_X, Cursor_Y;
 
     public:
 
@@ -192,6 +208,11 @@ class GalaxOS_Class
         void Set(char const& Tag, float const& Float_To_Set);
         void Get(char const& Tag, float& Float_To_Get);
 
+        //Nextion Screen Cursor for dynamic rendering
+        uint16_t Get_Cursor_X();
+        uint16_t Get_Cursor_Y();
+        uint16_t Set_Cursor(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate);
+
         void WiFi_Connect();
 
         void USB_Serial_Transmit(char const* USB_Serial_Transmit_String, byte Alignment);
@@ -217,19 +238,6 @@ class GalaxOS_Class
 
 
 
-class Ultrasonic_Class //Application It self;
-{
-    private:
-        byte Trig_Pin;
-        byte Echo_Pin;
-
-    public:
-        Ultrasonic_Class();
-        ~Ultrasonic_Class();
-        void Set_Trig_Pin(byte const& Trig_Pin);
-        void Set_Echo_Pin(byte const& Echo_Pin);
-        void Read();
-};
 
 
 
@@ -250,6 +258,5 @@ void Pictureader();
 void UltraSonic(int USTrig, int USEcho);
 
 GalaxOS_Class GalaxOS;
-Ultrasonic_Class Ultrasonic;
 
 #endif

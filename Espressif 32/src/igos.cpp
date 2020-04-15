@@ -22,9 +22,8 @@ iGOS_Class::~iGOS_Class()
 {
 }
 
-byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
+byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
 {
-// HTML parser states
 #define sLEADIN 0
 #define sHEADER 1
 #define sTEXT 2
@@ -56,6 +55,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
   uint32_t fileLength = 0;
   uint8_t cleanChar = 0;
   uint32_t startTime = 0;
+  uint32_t HTTP_Return_Code = 0;
 
   //================================================
   // Open URL
@@ -110,22 +110,22 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
   Serial.println(F("\nParsing..."));
   startTime = millis();
   {
-    memcpy(generalBuffer, "HTTP/1.1 \0", 10);
+    memcpy(generalBuffer, "HTTP/1.1 \0", 10); //looking for the HTTP return code
     outputChar = findUntil(generalBuffer, true);
     if (outputChar == 2)
     {
-      fileLength = client.parseInt();
+      HTTP_Return_Code = client.parseInt();
       Serial.print(F("Result: "));
-      Serial.println(fileLength);
-      if (fileLength >= 300)
+      Serial.println(HTTP_Return_Code);
+      if (HTTP_Return_Code >= 300) //if the HTTP isn't between 200 and 226, it's an error and stop parsing
       {
-        displayPage();
+        displayPage(); //display current
         return 0;
       }
     }
-    memcpy(generalBuffer, "-Length: \0", 10);
+    memcpy(generalBuffer, "-Length: \0", 10); //looking for the content length
     outputChar = findUntil(generalBuffer, true);
-    Serial.print("\n");
+    Serial.print("\n"); //new line
     Serial.println(outputChar);
     if (outputChar == 2)
     {
@@ -140,7 +140,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         Serial.println(fileLength);
       }
     }
-    else if (outputChar == 1)
+    else if (outputChar == 1) //cannot find the file lenght, stop
     {
       Serial.println(F("\nStopped by <, no file length found"));
       fileLength = 0;
@@ -150,9 +150,12 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       Serial.println(F("\nTimeout finding file length"));
       fileLength = 0;
     }
-    memcpy(generalBuffer, "<body\0", 7);
+
+    //to do : write code to find header
+
+    memcpy(generalBuffer, "<body\0", 7); //search the first marker
     outputChar = findUntil(generalBuffer, false);
-    if (outputChar = 0)
+    if (outputChar == 0) //cannot find the body
     {
       Serial.println(F("\nTimeout finding <body>\nShould probably stop now"));
     }
@@ -171,15 +174,14 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     c = 0;
     if (client.available())
     {
-      //      freeRam();
       c = client.read();
       downloadCount++;
     }
-    else if (!inputWait())
+    else if (!inputWait()) //wait 5 second to see if client.available() still true
     {
       client.stop();
       Serial.println(F(" DONE"));
-      Temporary_File.sync();
+      Temporary_File.flush();
       return 0;
     }
     nextState = localState;
@@ -317,11 +319,13 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
           metaState = sTEXT;
         }
         outputChar = hashOut(tagHash);
-        if (c != '>')
-          if (tagHash == 65)
+        if (c != '>') {
+          if (tagHash == 65) {
             nextState = sSTUFF; // Is actually an <a tag
+          }
           else
             nextState = sENDTAG; // Tag not supported
+        }
         tagHash = 0;
 
         Serial.print(" Next state: ");
@@ -426,26 +430,26 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     {
       uint32_t speed = 0;
 
-      tftLCD.setCursor(0, 7);
+      /*tftLCD.setCursor(0, 7);
       tftLCD.print(downloadCount);
       tftLCD.print(F(" bytes downloaded @ "));
       speed = downloadCount / ((millis() - startTime) / 1000);
       tftLCD.print(speed);
-      tftLCD.println(F(" bytes/sec       "));
+      tftLCD.println(F(" bytes/sec       "));*/
 
       if (fileLength > 0)
       {
         uint32_t percent = 0;
-        tftLCD.print(fileLength);
+        /*tftLCD.print(fileLength);
         tftLCD.println(F(" bytes file size   "));
         percent = downloadCount * 100 / fileLength;
         //        tftLCD.print (percent);
         //         tftLCD.println (F("% downloaded"));
-        tftLCD.fillRect(0, 0, percent * tftLCD.WIDTH / 100, 8, GREEN);
+        tftLCD.fillRect(0, 0, percent * tftLCD.WIDTH / 100, 8, GREEN);*/
       }
 
-      tftLCD.print(count);
-      tftLCD.println(F(" bytes stored   "));
+      /*tftLCD.print(count);
+      tftLCD.println(F(" bytes stored   "));*/
     }
 
     // Handle tags with pre breaks
@@ -552,9 +556,9 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
   client.flush();
   client.stop();
 
-  tftLCD.println();
+  /* tftLCD.println();
   tftLCD.print(count);
-  tftLCD.print(F(" bytes"));
+  tftLCD.print(F(" bytes")); */
 
   Temporary_File.close();
 
@@ -587,29 +591,28 @@ void iGOS_Class::Get_Page()
     Serial.println(path);
     Load_Page();
   }
-  else
-  {               // Something stuffed up
-    command = 10; // Command = 5;
-    Temporary_File.sync();
+  else // Something stuffed up
+  {
+    Temporary_File.flush();
     Serial.println("No URL");
+    return;
   }
 }
 
 void iGOS_Class::Page_Up()
 {
-  Serial.print(F("\n>> Command 1: "));
+  Serial.print(F("\n>> Page Up : "));
   if (textContent.pagePtr > 0)
   {
     textContent.pagePtr--;
-    command = 6;
     pageLinks.lastLink = 0;
     Serial.print(F("Page up to page "));
     Serial.println(textContent.pagePtr);
     pageLinks.linkPtr = 0;
+    displayPage();
   }
   else
   { // Can't got up any further
-    command = 10;
     Serial.println(F("Cancelled"));
   }
   return;
@@ -617,7 +620,7 @@ void iGOS_Class::Page_Up()
 
 void iGOS_Class::Page_Down()
 {
-  Serial.print(F("\n>> Command 2: "));
+  Serial.print(F("\n>> Page Down : "));
   if (textContent.pagePtr < textContent.lastPage)
   {
     textContent.pagePtr++;
@@ -626,93 +629,86 @@ void iGOS_Class::Page_Down()
   {
     textContent.pagePtr = 0; // Reset to top
   }
-  command = 6;
   pageLinks.linkPtr = 0;
   pageLinks.lastLink = 0;
   Serial.print(F("Page down to page "));
   Serial.println(textContent.pagePtr);
+  displayPage();
   return;
 }
 
 void iGOS_Class::Next_Link()
 {
-  Serial.print(F("\n>> Command 3: Next link: "));
+  Serial.print(F("\n>> Next Link : "));
   if (pageLinks.linkPtr < pageLinks.lastLink)
   {
     pageLinks.linkPtr++;
-    command = 6;
     Serial.print(F("Increased link to "));
     Serial.println(pageLinks.linkPtr);
   }
   else
   {
     pageLinks.linkPtr = 0;
-    command = 6;
     Serial.print(F("Reset link to "));
     Serial.println(pageLinks.linkPtr);
   }
+  displayPage();
   return;
 }
 
 void iGOS_Class::Previous_Link()
 {
-  Serial.print(F("\n>> Command 4: Previous link: "));
+  Serial.print(F("\n>> Previous link : "));
   if (pageLinks.linkPtr > 0)
   {
     pageLinks.linkPtr--;
-    command = 6;
     Serial.print(F("Decreased link to "));
     Serial.println(pageLinks.linkPtr);
   }
   else
   {
     pageLinks.linkPtr = pageLinks.lastLink;
-    command = 6;
     Serial.print(F("Reset link to "));
     Serial.println(pageLinks.linkPtr);
   }
+  displayPage();
   return;
 }
 
 void iGOS_Class::Load_Page()
 {
-  Serial.println(F("\n>> Command 5: Load & cache URL"));
-  Temporary_File.sync();
+  Serial.println(F("\n>> Load & cache URL"));
+  Temporary_File.flush();
   Temporary_File.close(); // Close read only cache file
   splitURL(url);
   if (cacheURL(server, path)) // Download and cache URL
   {
     pageLinks.lastLink = 0;
     pageLinks.linkPtr = 0;
-    command = 6;
     //printCache();
   }
   else
   {
     Temporary_File.close();
     client.stop();
-    tftLCD.println(F("\nDownload & caching failed"));
     memcpy(server, "*\0", 2);
     memcpy(path, '\0', 1);
     memcpy(url, '\0', 1);
     pageLinks.lastLink = 0;
     openCacheFile(true);
-    command = 6;
     Serial.println("Download & caching failed");
-    //      tftLCD.println (F("Press button to continue"));
-    //     while (digitalRead (A2) != 0) ;
-    //     command = 11;
-    break;
+    //error handle
   }
   if (!openCacheFile(true)) // Re-open read only cache file
   {
-    tftLCD.println(F("Cache open failed"));
+    Serial.println(F("Cache open failed"));
+    //error handle
     memcpy(server, "*\0", 2);
   }
   else
   {
     pageLinks.lastLink = 0;
-    command = 6;
+    displayPage();
   }
   return;
 }
@@ -818,9 +814,7 @@ uint8_t iGOS_Class::printCache()
       Serial.println(c);
     }
   }
-
   Serial.println(F("\nDone"));
-
   freeRam();
 }
 
@@ -832,39 +826,51 @@ byte iGOS_Class::displayPage()
   uint16_t filePtr = textContent.index[textContent.pagePtr]; // Pointer into cached file
   uint8_t c = 1;                                             // Input character
   uint16_t count = 0;                                        // Character count for page index building
-  uint16_t colourStack = WHITE;                              // One level stack to remember colour state
-  boolean invisiblePrint = false;                            // Turn off output (for URLs, etc)
-  uint8_t currentLink = 0;                                   // Curretly highlightd link of the page
-  boolean buildingIndex = (pageLinks.lastLink == 0);         // True if this page's URL haven't been index yet
+  uint16_t Last_Color = 65535;                               // Two level stack to remember colour state
+  uint16_t Current_Color = 65535;
 
-  // Draw header
-  tftLCD.fillRect(0, 0, tftLCD.WIDTH, 8, GREY);
-  tftLCD.setCursor(0, 0);
-  tftLCD.setBGColour(GREY);
-  tftLCD.setTextColour(BLACK);
+  boolean invisiblePrint = false;                    // Turn off output (for URLs, etc)
+  uint8_t currentLink = 0;                           // Curretly highlightd link of the page
+  boolean buildingIndex = (pageLinks.lastLink == 0); // True if this page's URL haven't been index yet
+  uint16_t Cursor_Y;
+  uint16_t Cursor_X;
+  String Text_To_Print;
+  uint16_t Text_Char_Count;
+
+  Nextion_Serial.println(F("fill 2,52,476,218,33808ÿÿÿ"));
+
+  //Draw header
   if (server[0] == '*')
-    tftLCD.println(F("Home page"));
+  {
+    Nextion_Serial.print(F("iGOS_TXT.txt=\"Home Page\"ÿÿÿ"));
+  }
   else
-    tftLCD.println(url);
-
+  {
+    Nextion_Serial.print(F("PATH.txt=\""));
+    Nextion_Serial.print(url);
+    Nextion_Serial.print(F("\"ÿÿÿ"));
+  }
   if (!Temporary_File.seek(filePtr))
   {
-    tftLCD.println(F("Seek failture"));
+    //error handle
+    Serial.println(F("Seek failture"));
     return 0;
   }
-
   freeRam();
   Serial.print(F("SD File position is: "));
   Serial.println(Temporary_File.position());
+
   if (buildingIndex)
+  {
     Serial.println(F("Building link index"));
+  }
 
-  tftLCD.setCursor(0, 1);
-  tftLCD.setBGColour(BLACK);
-  tftLCD.setTextColour(WHITE);
+  Cursor_X = 2;
+  Cursor_Y = 52;
+  Text_To_Print = "";
 
-  // Loop through cache file
-  while ((filePtr <= Temporary_File.size()) && (tftLCD.getCursorY() < tftLCD.HEIGHT - 1) && (c != 0))
+  // Loop through cache fizle
+  while ((filePtr <= Temporary_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
   {
     c = Temporary_File.read();
     filePtr++;
@@ -875,16 +881,62 @@ byte iGOS_Class::displayPage()
     {
       if (!invisiblePrint)
       { // Print only if in visible mode (supresses URLs)
-        tftLCD.write(c);
+        Text_To_Print += String(c);
+        ++Text_Char_Count;
+        if (Text_Char_Count > 58)
+        { //print if auto return to line (exceed 58 char)
 
-        Serial.write(c);
+          Nextion_Serial.print(F("xstr "));
+          Nextion_Serial.print(Cursor_X); //X coordinate to render the text
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(476); // Width of the text
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(14); // Heigh of the text
+          Nextion_Serial.print(F(","));
+          if (Current_Color == 65534) //Bold enable
+          {
+            Nextion_Serial.print(1); //Default font
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(65535); //font color
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(33808); //default grey color
+          }
+          else if (Current_Color == 65533) //Highlighted
+          {
+            Nextion_Serial.print(0); //Default font
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(65535); //font color
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(16904); //default grey color
+          }
+          else
+          {
+            Nextion_Serial.print(0); //Default font
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(Current_Color); //font color
+            Nextion_Serial.print(F(","));
+            Nextion_Serial.print(33808); //default grey color
+          }
+
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(0); //Left horizontal alignement
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(1); //Center vertical aligment
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(1); //Solid color background fill
+          Nextion_Serial.print(F(",\""));
+          Nextion_Serial.print(Text_To_Print);
+          Nextion_Serial.print(F("\"ÿÿÿ"));
+
+          Cursor_Y += 14; //new line
+          Text_Char_Count = 0;
+          Text_To_Print = "";
+        }
       }
       else
       {
-
-        //  Serial.print (F("_"));
-
-        ;
       }
     }
 
@@ -894,33 +946,85 @@ byte iGOS_Class::displayPage()
       switch (c)
       {
       case TAG_CR:
-      case 10:
-        // Fill the rest of the current line with black to erase the previous contents
-        tftLCD.fillRect(tftLCD.getCursorX(), tftLCD.getCursorY(), tftLCD.WIDTH - tftLCD.getCursorX(), 8, BLACK);
-        tftLCD.write(10);
 
+      case 10: // Print the caracters in the buffer and fill the rest of the current line with black to erase the previous contents
+        Nextion_Serial.print(F("xstr "));
+        Nextion_Serial.print(Cursor_X); //X coordinate to render the text
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(476); // Width of the text
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(14); // Heigh of the text
+        Nextion_Serial.print(F(","));
+        if (Current_Color == 65534) //Bold enable
+        {
+          Nextion_Serial.print(1); //Default font
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(65535); //font color
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(33808); //default grey color
+        }
+        else if (Current_Color == 65533) //Highlighted
+        {
+          Nextion_Serial.print(0); //Default font
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(65535); //font color
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(16904); //default grey color
+        }
+        else
+        {
+          Nextion_Serial.print(0); //Default font
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(Current_Color); //font color
+          Nextion_Serial.print(F(","));
+          Nextion_Serial.print(33808); //default grey color
+        }
+
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(0); //Left horizontal alignement
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(1); //Center vertical aligment
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(1); //Solid color background fill
+        Nextion_Serial.print(F(",\""));
+        Nextion_Serial.print(Text_To_Print);
+        Nextion_Serial.print(F("\"ÿÿÿ"));
+
+        Text_Char_Count = 0;
+        Text_To_Print = "";
+
+        Nextion_Serial.print(F("fill "));
+        Nextion_Serial.print(Cursor_X); //X coordinate to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(Cursor_Y); //Y coordinate to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(462 - Cursor_X); // Width to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(14); // Heigh to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(33808); //Infill Color : Light grey
+        Nextion_Serial.print(F("ÿÿÿ"));
+        Cursor_Y += 14;
         Serial.println();
-
         invisiblePrint = false;
         break;
-      case 13:
-        // Only doing a CR/LF on ASCII 10
+
+      case 13: // Only doing a CR/LF on ASCII 10
         break;
 
-        // Start of a header tag
-      case TAG_HEADING1:
-        colourStack = tftLCD.getTextColour(); // Store the colour state
-        tftLCD.setTextColour(COL_HEADING);
+      case TAG_HEADING1:            // Start of a header tag
+        Last_Color = Current_Color; // Store the colour state
+        Current_Color = 64896;      // Set heading color : Yellow
         break;
 
-        // Start of a bold tag
-      case TAG_BOLD1:
-        colourStack = tftLCD.getTextColour();
-        tftLCD.setTextColour(COL_BOLD);
+      case TAG_BOLD1: // Start of a bold tag
+        Last_Color = Current_Color;
+        Current_Color = 65534; // Almost white, code for bold text
         break;
 
-        // Start of an anchor tag. The actual URL follows
-      case TAG_LINK1:
+      case TAG_LINK1:          // Start of an anchor tag. The actual URL follows
         invisiblePrint = true; // Turn off printing while the URL is loading
         if ((buildingIndex) && (currentLink < LINKINDEXSIZE))
         {
@@ -929,56 +1033,76 @@ byte iGOS_Class::displayPage()
         }
         break;
 
-        // End of the URL part. Start of the anchor texyt
-      case TAG_LINK2:
-        colourStack = tftLCD.getTextColour();
-        if (currentLink == pageLinks.linkPtr)
-        { // Print inverse colours for the active link
-          tftLCD.setTextColour(BLACK);
-          tftLCD.setBGColour(COL_LINK);
+      case TAG_LINK2: // End of the URL part. Start of the anchor text
+        Last_Color = Current_Color;
+        if (currentLink == pageLinks.linkPtr) // Print inverse colors for the active link
+        {
+          Current_Color == 65533;
         }
         else
-          tftLCD.setTextColour(COL_LINK);
+        {
+          Current_Color = 1300; // Link color : blue
+        }
         invisiblePrint = false; // Turn on printing again
         break;
 
-        // End of the anchor tag
-      case TAG_LINK3:
+      case TAG_LINK3: // End of the anchor tag
         if (currentLink < LINKINDEXSIZE)
+        {
           currentLink++; // Removed && buildingLink
-        tftLCD.setTextColour(colourStack);
-        tftLCD.setBGColour(BLACK);
-        colourStack = WHITE;
+        }
+        Current_Color = Last_Color;
+        Last_Color = 65535;
         break;
 
         // End of header or bold tags
       case TAG_HEADING2:
+
       case TAG_BOLD2:
-        tftLCD.setTextColour(colourStack);
+        Current_Color = Last_Color;
         break;
 
         // List entry tag
       case TAG_LIST:
-        tftLCD.write(127);
+        //tftLCD.write(127); print del char ???
         break;
 
         // Horizontal rule tag
       case TAG_HR:
-        tftLCD.fillRect(8, tftLCD.getCursorY(), tftLCD.WIDTH - 16, 1, GREY);
-
-        Serial.println(F("------"));
-        Serial.println(tftLCD.getCursorX());
-        Serial.println(tftLCD.getCursorY());
+        Nextion_Serial.print(F("fill "));
+        Nextion_Serial.print(Cursor_X + 20); //X coordinate to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(Cursor_Y + 6); //Y coordinate to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(402 - Cursor_X); // Width to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(2); // Heigh to fill
+        Nextion_Serial.print(F(","));
+        Nextion_Serial.print(65535); //Infill Color : Light grey
+        Nextion_Serial.print(F("ÿÿÿ"));
+        Cursor_Y += 14;
 
       default:
         break;
       }
     }
   }
-  tftLCD.println();
+  Cursor_Y += 14;
 
-  // Fill the rest of the screen under the last line with black
-  tftLCD.fillRect(0, tftLCD.getCursorY(), tftLCD.WIDTH, tftLCD.HEIGHT - tftLCD.getCursorY() - 8, BLACK);
+
+
+  // Fill the rest of the screen under the last line with grey
+  Nextion_Serial.print(F("fill "));
+  Nextion_Serial.print(Cursor_X); //X coordinate to fill
+  Nextion_Serial.print(F(","));
+  Nextion_Serial.print(Cursor_Y); //Y coordinate to fill
+  Nextion_Serial.print(F(","));
+  Nextion_Serial.print(462 - Cursor_X); // Width to fill
+  Nextion_Serial.print(F(","));
+  Nextion_Serial.print(14); // Heigh to fill
+  Nextion_Serial.print(F(","));
+  Nextion_Serial.print(33808); //Infill Color : Light grey
+  Nextion_Serial.print(F("ÿÿÿ"));
 
   Serial.print(F("\nCurrent page: "));
   Serial.println(textContent.pagePtr);
@@ -1014,8 +1138,9 @@ byte iGOS_Class::displayPage()
   {
     pageLinks.lastLink--;
   }
-  displayPageIndex();
-  displayLinkIndex();
+
+  //displayPageIndex();
+  //displayLinkIndex();
 
   Serial.print(F("Char count:\t"));
   Serial.println(count);
@@ -1026,7 +1151,7 @@ byte iGOS_Class::displayPage()
   Serial.print(F("======"));
 
   // Draw RAM use and page position in header
-  tftLCD.setCursor(43, 0);
+  /*tftLCD.setCursor(43, 0);
   tftLCD.setBGColour(GREY);
   tftLCD.setTextColour(BLACK);
   tftLCD.print(lowestRAM);
@@ -1034,13 +1159,13 @@ byte iGOS_Class::displayPage()
   tftLCD.print(F(" p"));
   tftLCD.print(textContent.pagePtr + 1);
   tftLCD.print(F("/"));
-  tftLCD.println(textContent.lastPage + 1);
+  tftLCD.println(textContent.lastPage + 1);*/
   return 1;
 }
 
 char iGOS_Class::lowerCase(char c)
 {
-  if((c > 64) && (c < 91))
+  if ((c > 64) && (c < 91))
   {
     return c += 32;
   }
@@ -1254,13 +1379,13 @@ uint8_t iGOS_Class::openCacheFile(boolean readOnly)
   }
   Serial.print(F("Opening cache... "));
   Serial.println(cacheFile);
-  if(readOnly)
+  if (readOnly)
   {
     Temporary_File = SD.open(cacheFile, FILE_READ);
   }
   else
   {
-  Temporary_File = SD.open(cacheFile, FILE_WRITE);
+    Temporary_File = SD.open(cacheFile, FILE_WRITE);
   }
   if (!Temporary_File)
   {
@@ -1271,7 +1396,8 @@ uint8_t iGOS_Class::openCacheFile(boolean readOnly)
   return 1;
 }
 
-void freeRam() {
+void freeRam()
+{
   Serial.print(F("Free Heap :"));
   Serial.print(ESP.getFreeHeap());
   Serial.println();
