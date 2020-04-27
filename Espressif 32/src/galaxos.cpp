@@ -10,7 +10,7 @@
 //||                                                                            ||
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 //|| For ESP-32 based MPUs                                                      ||
-//|| Version : - Alix ANNERAUD (c) 2019                                         ||
+//|| Version : - Alix ANNERAUD (c) 2020                                         ||
 
 //Nextion Wiring//
 //Red -> 5v     //
@@ -27,18 +27,19 @@
 //GND -> GND    //
 
 //Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
-//Password Settings Path : /USERS/%USERNA"ME%/STTNGS/PASSWORD.GSF//
+//Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
-#include <SPI.h>
-#include <SD.h>
-#include <Wire.h>
-#include "WiFi.h"
+#include "Arduino.h"
 #include "galaxos.h"
-#include "software.h"
+#include "WiFi.h"
+#include "object.h"
+
 
 GalaxOS_Class::GalaxOS_Class() //builder
 {
+  strcpy(WiFi_SSID, "Avrupa");
+  strcpy(WiFi_Password, "0749230994");
   for (int i = 0; i < 30; i++)
   {
     Software_Pointer[i] = NULL;
@@ -63,15 +64,53 @@ GalaxOS_Class::GalaxOS_Class() //builder
   GalaxOS.Password = "\0";
 
   GalaxOS.Speaker_Pin = 25;
+
+  iGOS_Pointer = NULL;
+  Ultrasonic_Pointer = NULL;
+  Software_Pointer[0] = NULL;
+  Software_Pointer[1] = NULL;
+  Software_Pointer[2] = NULL;
+  Software_Pointer[3] = NULL;
 }
 
 GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
 
-void GalaxOS_Class::Set_Software_Pointer(byte const &Software_Pointer_ID, GalaxOS_Software_Class const &Software_Pointer_To_Set)
+void GalaxOS_Class::Open_Software(uint8_t const &Software_ID)
 {
-  Software_Pointer[Software_Pointer_ID] = Software_Pointer_To_Set;
+  switch (Software_ID)
+  {
+  case SOFTWARE_IGOS_ID:
+    if (iGOS_Pointer == NULL)
+    {
+      iGOS_Pointer = new iGOS_Class;
+    }
+    break;
+  default:
+    break;
+  }
+}
+
+void GalaxOS_Class::Close_Software(uint8_t const &Software_ID)
+{
+  switch (Software_ID)
+  {
+  case SOFTWARE_IGOS_ID:
+    if (iGOS_Pointer != NULL)
+    {
+      delete iGOS_Pointer;
+      iGOS_Pointer = NULL;
+    }
+    break;
+  default:
+    break;
+  }
+}
+
+void GalaxOS_Class::Set_Software_Pointer(byte const &Software_Pointer_ID, GalaxOS_Software_Class &Software_Pointer_To_Set)
+{
+  Software_Pointer[Software_Pointer_ID] = &Software_Pointer_To_Set;
 }
 
 byte GalaxOS_Class::Get_Speaker_Pin()
@@ -104,8 +143,8 @@ void GalaxOS_Class::Start()
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
-  Serial.println(F("||      Flash : 253.952 Bytes - EEPROM : 4.000 Bytes - RAM : 8.192 Bytes      ||"));
-  Serial.println(F("||               Galax OS Portable Edition - Alix ANNERAUD - 0.03             ||"));
+  Serial.println(F("||     Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : 327,680 Bytes     ||"));
+  Serial.println(F("||               Galax OS Embedded Edition - Alix ANNERAUD - Dev              ||"));
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
   Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
   Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
@@ -118,25 +157,63 @@ void GalaxOS_Class::Start()
   {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
-  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "GOS NSR", 1028, NULL, 2, &Nextion_Serial_Transmit_Handle, 1);
-  xTaskCreatePinnedToCore(Core, "GOS Core", 4096, NULL, 2, &GalaxOS_Core_Handle, 1);
-  xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital_Player", 4096, NULL, 2, &Musical_Digital_Player_Handle, 1);
-  vTaskSuspend(Musical_Digital_Player_Handle);
+  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "GOS NSR", 4096, NULL, 2, &Nextion_Serial_Receive_Handle, 1);
+  //xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital", 4096, NULL, 2, &Musical_Digital_Player_Handle, 1);
+  //vTaskSuspend(GalaxOS.Musical_Digital_Player_Handle);
   xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);
 
   Serial.println(F("|| > Loading Task ...                                                         ||"));
   Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 
-  Nextion_Serial_Queue = xQueueCreate(100, sizeof(char));
-  if (Nextion_Serial_Queue == NULL)
+  GalaxOS.Nextion_Serial_Queue = xQueueCreate(100, sizeof(char));
+  if (GalaxOS.Nextion_Serial_Queue == NULL)
   {
-    //FATAL ERROR
+    //error handle
+  }
+  //WiFi_Connect();
+}
+
+void GalaxOS_Class::Set_Variable(char const& Tag, long const& Long_To_Set)
+{ //float
+  Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+  GalaxOS.Temporary_Split_Long.Long = Long_To_Set;
+  if (Temporary_File)
+  {
+    Temporary_File.write(GalaxOS.Temporary_Split_Long.Byte, 4);
+    Temporary_File.close();
+    return;
+  }
+  else
+  {
+    //error
+    return;
   }
 }
 
-void GalaxOS_Class::Set(char const &Tag, String const &String_To_Set)
+void GalaxOS_Class::Get_Variable(char const& Tag, long& Long_To_Get)
+{ //float
+  Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+  if (Temporary_File)
+  {
+    GalaxOS.Temporary_Split_Long.Byte[0] = Temporary_File.read();
+    GalaxOS.Temporary_Split_Long.Byte[1] = Temporary_File.read();
+    GalaxOS.Temporary_Split_Long.Byte[2] = Temporary_File.read();
+    GalaxOS.Temporary_Split_Long.Byte[3] = Temporary_File.read();
+    Temporary_File.close();
+    return;
+  }
+  else
+  {
+    //error
+    return;
+  }
+}
+
+
+
+void GalaxOS_Class::Set_Variable(char const& Tag, String const& String_To_Set)
 { //string
-  Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     Temporary_File.print(String_To_Set);
@@ -150,14 +227,14 @@ void GalaxOS_Class::Set(char const &Tag, String const &String_To_Set)
   }
 }
 
-void GalaxOS_Class::Get(char const &Tag, String &String_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, String& String_To_Get)
 { //string
-  Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_READ);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_READ);
   if (Temporary_File)
   {
     while (Temporary_File.available())
     {
-      String_To_Get += Temporary_File.read();
+      String_To_Get += String((char)Temporary_File.read());
     }
     Temporary_File.close();
     return;
@@ -169,9 +246,9 @@ void GalaxOS_Class::Get(char const &Tag, String &String_To_Get)
   }
 }
 
-void GalaxOS_Class::Set(char const &Tag, char const &Char_To_Set)
+void GalaxOS_Class::Set_Variable(char const& Tag, char const& Char_To_Set)
 { //char
-  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     Temporary_File.write(Char_To_Set);
@@ -185,9 +262,9 @@ void GalaxOS_Class::Set(char const &Tag, char const &Char_To_Set)
   }
 }
 
-void GalaxOS_Class::Get(char const &Tag, char &Char_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, char& Char_To_Get)
 { //char
-  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_READ);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
   if (Temporary_File)
   {
     Char_To_Get = Temporary_File.read();
@@ -201,9 +278,9 @@ void GalaxOS_Class::Get(char const &Tag, char &Char_To_Get)
   }
 }
 
-void GalaxOS_Class::Set(char const &Tag, byte const &Byte_To_Set)
+void GalaxOS_Class::Set_Variable(char const& Tag, byte const& Byte_To_Set)
 { //byte
-  Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     Temporary_File.write(Byte_To_Set);
@@ -217,9 +294,9 @@ void GalaxOS_Class::Set(char const &Tag, byte const &Byte_To_Set)
   }
 }
 
-void GalaxOS_Class::Get(char const &Tag, byte &Byte_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, byte& Byte_To_Get)
 { //byte
-  Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + Tag, FILE_READ);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/BYTE/" + String(Tag), FILE_READ);
   if (Temporary_File)
   {
     Byte_To_Get = Temporary_File.read();
@@ -233,9 +310,9 @@ void GalaxOS_Class::Get(char const &Tag, byte &Byte_To_Get)
   }
 }
 
-void GalaxOS_Class::Set(char const &Tag, int const &Integer_To_Set)
+void GalaxOS_Class::Set_Variable(char const& Tag, int const& Integer_To_Set)
 { //integer
-  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     byte Split_Integer[2] = {0, 0};
@@ -253,9 +330,9 @@ void GalaxOS_Class::Set(char const &Tag, int const &Integer_To_Set)
   }
 }
 
-void GalaxOS_Class::Get(char const &Tag, int &Integer_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, int& Integer_To_Get)
 { //integer
-  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     Integer_To_Get |= Temporary_File.read() << 8;
@@ -270,9 +347,9 @@ void GalaxOS_Class::Get(char const &Tag, int &Integer_To_Get)
   }
 }
 
-void GalaxOS_Class::Set(char const &Tag, float const &Float_To_Set)
+void GalaxOS_Class::Set_Variable(char const& Tag, float const& Float_To_Set)
 { //float
-  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
   GalaxOS.Temporary_Split_Float.Float = Float_To_Set;
   if (Temporary_File)
   {
@@ -287,9 +364,9 @@ void GalaxOS_Class::Set(char const &Tag, float const &Float_To_Set)
   }
 }
 
-void GalaxOS_Class::Get(char const &Tag, float &Float_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, float& Float_To_Get)
 { //float
-  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + Tag, FILE_WRITE);
+  Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
     GalaxOS.Temporary_Split_Float.Byte[0] = Temporary_File.read();
@@ -303,245 +380,6 @@ void GalaxOS_Class::Get(char const &Tag, float &Float_To_Get)
   {
     //error
     return;
-  }
-}
-
-void Core(void *pvParameters)
-{
-  (void)pvParameters;
-  for (;;)
-  {
-    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-    char Return_Code[3] = {0, 0};
-    char Temporary_Char[4];
-    xQueueReceive(Nextion_Serial_Queue, &Return_Code[1], portMAX_DELAY);
-    xQueueReceive(Nextion_Serial_Queue, &Return_Code[2], portMAX_DELAY);
-    String Command = "";
-    String Temporary_String = "";
-    switch (Return_Code[1])
-    {
-    case ERROR_NEXTION_INVALID_INTRUCTION:
-      Serial.println(F("Invalid Intruction !"));
-      break;
-    case ERROR_NEXTION_INVALID_COMPONENT_ID:
-      Serial.println(F("Invalid Component ID !"));
-      break;
-    case ERROR_NEXTION_INVALID_PAGE_ID:
-      Serial.println(F("Invalid Page ID !"));
-      break;
-    case ERROR_NEXTION_INVALID_PICTURE_ID:
-      Serial.println(F("Invalid Picture ID !"));
-      break;
-    case ERROR_NEXTION_INVALID_FONT_ID:
-      Serial.println(F("Invalid Font ID !"));
-      break;
-    case INFORMATION_NEXTION_CURRENT_PAGE_NUMBER:
-      GalaxOS.Last_Page = GalaxOS.Current_Page;
-      GalaxOS.Current_Page = Return_Code[2];
-      break;
-    case INFORMATION_NEXTION_STRING_DATA_ENCLOSED:
-      switch (Return_Code[2])
-      {
-        char Temporary_Tag;
-      case CODE_COMMAND: //* - command
-        while (uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0)
-        {
-          xQueueReceive(Nextion_Serial_Queue, &Temporary_Char[2], portMAX_DELAY);
-          xQueuePeek(&Nextion_Serial_Queue, &Temporary_Char[3], portMAX_DELAY);
-          if (Temporary_Char[2] == 255 && Temporary_Char[3] == 255)
-          {
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            break;
-          }
-          Command += Temporary_Char[3];
-        }
-        Serial.println(Command);
-        if (Command == "LoadSystem")
-          GalaxOS.Load_System_Files();
-        else if (Command == "LoadUser")
-          GalaxOS.Load_User_Files();
-        else if (Command == "Menu")
-          GalaxOS.Open_Menu();
-        else if (Command == "Desk")
-          GalaxOS.Open_Desk();
-        //event handler
-        //else if (Command == "OK") Event_Handler_Replay
-        //file&folder
-        else if (Command == "F&F")
-          Files_And_Folders();
-        //else if (Command == "F&F_RDelete") Event_Handler_Request();
-        //taskbar item
-        else if (Command == "TBItem1")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[0]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem2")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[1]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem3")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[2]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem4")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[3]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem5")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[4]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem6")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[5]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        else if (Command == "TBItem7")
-        {
-          Nextion_Serial.print(F("page "));
-          Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
-          Nextion_Serial.print(F("ÿÿÿ"));
-        }
-        //piano
-        else if (Command == "CLow")
-          Piano(0, 0);
-        else if (Command == "C#Low")
-          Piano(16, 1);
-        else if (Command == "DLow")
-          Piano(32, 2);
-        else if (Command == "D#Low")
-          Piano(50, 3);
-        else if (Command == "ELow")
-          Piano(68, 4);
-        else if (Command == "FLow")
-          Piano(88, 5);
-        else if (Command == "F#Low")
-          Piano(108, 6);
-        else if (Command == "GLow")
-          Piano(130, 7);
-        else if (Command == "G#Low")
-          Piano(154, 8);
-        else if (Command == "ALow")
-          Piano(178, 9);
-        else if (Command == "A#Low")
-          Piano(205, 10);
-        else if (Command == "BLow")
-          Piano(232, 11);
-        else if (Command == "CHigh")
-          Piano(262, 12);
-        else if (Command == "C#High")
-          Piano(293, 13);
-        else if (Command == "DHigh")
-          Piano(326, 14);
-        else if (Command == "D#High")
-          Piano(361, 15);
-        else if (Command == "EHigh")
-          Piano(398, 16);
-        else if (Command == "FHigh")
-          Piano(437, 17);
-        else if (Command == "F#High")
-          Piano(478, 18);
-        else if (Command == "GHigh")
-          Piano(522, 19);
-        else if (Command == "G#High")
-          Piano(569, 20);
-        else if (Command == "AHigh")
-          Piano(618, 21);
-        else if (Command == "A#High")
-          Piano(670, 22);
-        else if (Command == "BHigh")
-          Piano(726, 23);
-        else
-        {
-          Serial.println(F("Unknow Command"));
-        }
-        break;
-      case CODE_CONSTRUCT:
-        while (uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0)
-        {
-          xQueueReceive(Nextion_Serial_Queue, &Temporary_Char[2], portMAX_DELAY);
-          xQueuePeek(&Nextion_Serial_Queue, &Temporary_Char[3], portMAX_DELAY);
-          if (Temporary_Char[2] == 255 && Temporary_Char[3] == 255)
-          {
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            break;
-          }
-          Command += Temporary_Char[3];
-        }
-        if (Command == "ULTRASON")
-          GalaxOS.Ultrasonic_Pointer = new Ultrasonic_Class;
-        break;
-      case CODE_DESTRUCT:
-        while (uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0)
-        {
-          xQueueReceive(Nextion_Serial_Queue, &Temporary_Char[2], portMAX_DELAY);
-          xQueuePeek(&Nextion_Serial_Queue, &Temporary_Char[3], portMAX_DELAY);
-          if (Temporary_Char[2] == 255 && Temporary_Char[3] == 255)
-          {
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            break;
-          }
-          Command += Temporary_Char[3];
-        }
-        if (Command == "ULTRASON")
-          delete GalaxOS.Ultrasonic_Pointer;
-        break;
-      case CODE_VARIABLE_STRING: //S - string
-        xQueueReceive(&Nextion_Serial_Queue, &Temporary_Char[1], portMAX_DELAY);
-        while (uxQueueMessagesWaiting(Nextion_Serial_Queue) != 0)
-        {
-          xQueueReceive(&Nextion_Serial_Queue, &Temporary_Char[2], portMAX_DELAY);
-          xQueuePeek(&Nextion_Serial_Queue, &Temporary_Char[3], portMAX_DELAY);
-          if (Temporary_Char[3] == 255 && Temporary_Char[2] == 255)
-          {
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-            break;
-          }
-          Temporary_String += Temporary_Char[2];
-        }
-        GalaxOS.Set(Temporary_Char[1], Temporary_String);
-        break;
-      case CODE_VARIABLE_CHAR: //C - Char
-        xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
-        xQueueReceive(Nextion_Serial_Queue, &Temporary_Char[2], portMAX_DELAY);
-        GalaxOS.Set(Temporary_Tag, Temporary_Char[2]);
-        break;
-      case CODE_VARIABLE_BYTE: //B - Byte
-        byte Temporary_Byte;
-        xQueueReceive(Nextion_Serial_Queue, &Temporary_Tag, portMAX_DELAY);
-        xQueueReceive(Nextion_Serial_Queue, &Temporary_Byte, portMAX_DELAY);
-        GalaxOS.Set(Temporary_Tag, Temporary_Byte);
-        break;
-      default:
-
-        break;
-      }
-
-    case INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED:
-      break;
-    case 0xFF:
-      xQueueReceive(Nextion_Serial_Queue, NULL, portMAX_DELAY);
-      break;
-    default:
-      Serial.print("Unknow code :");
-      Serial.println(Return_Code[1]);
-      break;
-    }
   }
 }
 
@@ -581,8 +419,8 @@ void GalaxOS_Class::Open_Desk()
   return;
 }
 
-void Print_Free_Heap() {
-
+void Print_Free_Heap()
+{
 }
 
 void Ressource_Monitor(void *pvParameters)
@@ -592,15 +430,15 @@ void Ressource_Monitor(void *pvParameters)
   {
     if (ESP.getFreeHeap() < 2000)
     {
-      Serial.println("Low Memory !")
+      Serial.println("Low Memory !");
     }
     vTaskDelay(1000);
   }
 }
 
-byte GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String const &Password_To_Check)
+uint16_t GalaxOS_Class::Check_Credentials(String const& Username_To_Check, String const& Password_To_Check)
 {
-  Temporary_File = SD.open("/USERS/" + Username_To_Check + "/STTNGS/PASSWORD.GSF", FILE_READ);
+  Temporary_File = SD.open("/USERS/" +  String(Username_To_Check) + "/STTNGS/PASSWORD.GSF", FILE_READ);
   String Temporary_Password = "";
   if (Temporary_File)
   {
@@ -608,7 +446,7 @@ byte GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String co
     {
       if (isAlphaNumeric(Temporary_File.peek()))
       {
-        Password += char(Temporary_File.read());
+        Password += String(Temporary_File.read());
       }
       else
       {
@@ -623,7 +461,7 @@ byte GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String co
     Temporary_File.close();
     return WARNING_WRONG_USERNAME;
   }
-  if (Password == Temporary_Password)
+  if (Temporary_Password == Temporary_Password)
   {
     Serial.println(F("Good Password"));
     GalaxOS.Username = Username_To_Check;
@@ -673,9 +511,9 @@ void GalaxOS_Class::Load_User_Files()
   Serial.print(F("Load User Files ..."));
   String Temporary_Username;
   String Temporary_Password;
-  GalaxOS.Get('A', Temporary_Username);
-  GalaxOS.Get('B', Temporary_Password);
-  if (GalaxOS.Check_Credentials(Username, Password) == 1)
+  GalaxOS.Get_Variable('A', Temporary_Username);
+  GalaxOS.Get_Variable('B', Temporary_Password);
+  if (GalaxOS.Check_Credentials(Temporary_Username, Temporary_Password) == INFORMATION_GOOD_CREDENTIALS)
   {
     Nextion_Serial.print(F("page Load_User"));
     Temporary_File = SD.open("/USERS/" + Username + "/STTNGS/TASKBAR.GSF", FILE_READ);
@@ -691,7 +529,6 @@ void GalaxOS_Class::Load_User_Files()
       i++;
     }
     Temporary_File.close();
-    Temporary_File_Path = "/GALAXOS/SOUNDS/STARTUP.GMF";
     vTaskResume(Musical_Digital_Player_Handle);
     Nextion_Serial.print(F("LOAD_TIM.tim=50ÿÿÿ"));
   }
@@ -756,7 +593,7 @@ void GalaxOS_Class::Nextion_Serial_Transmit(String Component, byte Type, String 
   return;
 }
 
-void GalaxOS_Class::Event_Handler_Request(int Type, String Infromations)
+void GalaxOS_Class::Event_Handler_Request(const uint16_t &Type)
 {
   switch (Type)
   {
@@ -796,7 +633,7 @@ void GalaxOS_Class::Event_Handler_Request(int Type, String Infromations)
   }
 }
 
-void GalaxOS_Class::Event_Handler_Reply(byte Reply)
+void GalaxOS_Class::Event_Handler_Reply(const byte &Reply)
 {
   switch (Reply)
   {
@@ -858,51 +695,326 @@ void Musical_Digital_Player(void *pvParameters)
   int Frequency;
   int Duration;
   Temporary_File = SD.open(Temporary_File_Path);
-  if (!Temporary_File)
+  if (Temporary_File)
   {
-    return;
+    while (Temporary_File.available())
+    {
+      Frequency = Temporary_File.read();
+      Frequency *= 256;
+      Frequency += Temporary_File.read();
+      Frequency += GalaxOS.Get_C_Frequency();
+      Duration = Temporary_File.read();
+      Duration *= 256;
+      Duration += Temporary_File.read();
+      ledcWriteTone(0, Frequency);
+      vTaskDelay(pdMS_TO_TICKS(Duration));
+    }
   }
-  while (Temporary_File.available())
+  else
   {
-    Frequency = Temporary_File.read();
-    Frequency *= 256;
-    Frequency += Temporary_File.read();
-    Frequency += GalaxOS.Get_C_Frequency();
-    Duration = Temporary_File.read();
-    Duration *= 256;
-    Duration += Temporary_File.read();
-    ledcWriteTone(0, Frequency);
-    vTaskDelay(pdMS_TO_TICKS(Duration));
+    //error handle
   }
   ledcWriteTone(0, 0);
-  vTaskSuspend(Musical_Digital_Player_Handle);
+  vTaskSuspend(GalaxOS.Musical_Digital_Player_Handle);
 }
 
 void Nextion_Serial_Receive(void *pvParameters)
 {
+  static char Tag;
+  uint8_t Return_Code = 0;
+  uint8_t Temporary_Byte_Array[7] = {0};
+  String Temporary_String = String("");
+
   (void)pvParameters;
   for (;;)
   {
     if (Nextion_Serial.available())
     {
-      Serial.println(F("|| > Incoming Data On UART 1                                                  ||"));
-      while (Nextion_Serial.available())
+      Return_Code = Nextion_Serial.read();
+      Serial.print(F("|| R_C : "));
+      Serial.print(Return_Code);
+      switch (Return_Code)
       {
-        if (uxQueueSpacesAvailable(Nextion_Serial_Queue) != 0)
+      case INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED:
+        Serial.print(F(" | Tag : "));
+        Serial.print(Tag);
+        Serial.print(F(" | Raw :"));
+        Serial.write(Temporary_Byte_Array[4]);
+        Serial.write(Temporary_Byte_Array[3]);
+        Serial.write(Temporary_Byte_Array[2]);
+        Serial.write(Temporary_Byte_Array[1]);
+
+        if (7 == Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 7))
         {
-          char Nextion_Serial_Receive_Char = Nextion_Serial.read();
-          xQueueSend(Nextion_Serial_Queue, &Nextion_Serial_Receive_Char, portMAX_DELAY);
+          if (Temporary_Byte_Array[4] == 0xFF && Temporary_Byte_Array[5] == 0xFF && Temporary_Byte_Array[6] == 0xFF)
+          {
+            long Temporary_Long = ((long)Temporary_Byte_Array[4] << 24) | ((long)Temporary_Byte_Array[3] << 16) | (Temporary_Byte_Array[2] << 8) | (Temporary_Byte_Array[1]);
+            if (Tag != 0x00)
+            {
+              Serial.print(F(" | Long : "));
+              Serial.println(Temporary_Long);            
+              GalaxOS.Set_Variable(Tag, Temporary_Long);
+              Tag = '\0';
+            }
+            else
+            {
+              Serial.println(F("Error : Cannot Set Variable Because Tag is NULL."));
+              //error handle
+            }
+          }
+        }
+        break;
+      case INFORMATION_NEXTION_STRING_DATA_ENCLOSED:
+        Temporary_String = String("");
+        Temporary_Byte_Array[0] = Nextion_Serial.read();
+        Serial.print(F(" | Type : "));
+        Serial.print(Temporary_Byte_Array[0]);
+        if (Temporary_Byte_Array[0] != CODE_COMMAND && Temporary_Byte_Array[0] != CODE_COMMAND_NEW) //not a command, therefore a variable
+        {
+          Temporary_Byte_Array[1] = Nextion_Serial.read(); //tag or ID
+          Serial.print(F(" | Tag : "));
+          Serial.print(Temporary_Byte_Array[1]);
+          switch (Temporary_Byte_Array[0])
+          {
+          case CODE_VARIABLE_CHAR:
+            Tag = (char)Temporary_Byte_Array[1];
+            GalaxOS.Set_Variable(Tag, (char)Nextion_Serial.read());
+            Tag = '\0';
+            break;
+          case CODE_VARIABLE_STRING:
+            Tag = (char)Temporary_Byte_Array[1];
+            break;
+          case CODE_VARIABLE_LONG:
+            Tag = (char)Temporary_Byte_Array[1];
+            break;
+          case CODE_VARIABLE_UNSIGNED_LONG:
+            Tag = (char)Temporary_Byte_Array[1];
+            break;
+          case CODE_SOFTWARE_OPEN:
+            GalaxOS.Open_Software(Temporary_Byte_Array[1]);
+            break;
+          case CODE_SOFTWARE_CLOSE:
+            GalaxOS.Close_Software(Temporary_Byte_Array[1]);
+            break;
+          default:
+            //error handle
+            break;
+          }
+        }
+        Temporary_Byte_Array[3] = 0; //counter for 0xFF ending code
+        while (Nextion_Serial.available())
+        {
+          Temporary_Byte_Array[2] = Nextion_Serial.read();
+          if (Temporary_Byte_Array[2] == 255)
+          {
+            ++Temporary_Byte_Array[3];
+            if (Temporary_Byte_Array[3] >= 3)
+            {       
+              Serial.println(F(" ||"));
+              break;
+            }
+          }
+          else
+          {
+            Temporary_String += (char)Temporary_Byte_Array[2];
+            Serial.print((char)Temporary_Byte_Array[2]);
+          }
+        }
+        if (Temporary_Byte_Array[0] == CODE_VARIABLE_STRING)
+        {
+          GalaxOS.Set_Variable(Tag, Temporary_String);
+          Temporary_String = String("");
+          Tag = '\0';
+        }
+        else if (Temporary_Byte_Array[0] == CODE_COMMAND || Temporary_Byte_Array[0] == CODE_COMMAND_NEW)
+        {
+          if (Temporary_String == "LoadSystem")
+          {
+            GalaxOS.Load_System_Files();
+          }
+          else if (Temporary_String == "Logon")
+            GalaxOS.Load_User_Files();
+          else if (Temporary_String == "Menu")
+            GalaxOS.Open_Menu();
+          else if (Temporary_String == "Desk")
+            GalaxOS.Open_Desk();
+          //event handler
+          //else if (Temporary_String == "OK") Event_Handler_Replay
+          //file&folder
+          else if (Temporary_String == "F&F")
+            Files_And_Folders();
+          //else if (Temporary_String == "F&F_RDelete") Event_Handler_Request();
+          //taskbar item
+          else if (Temporary_String == "TBItem1")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[0]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem2")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[1]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem3")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[2]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem4")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[3]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem5")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[4]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem6")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[5]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          else if (Temporary_String == "TBItem7")
+          {
+            Nextion_Serial.print(F("page "));
+            Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
+            Nextion_Serial.print(F("ÿÿÿ"));
+          }
+          //piano
+          else if (Temporary_String == "CLow")
+            Piano(0, 0);
+          else if (Temporary_String == "C#Low")
+            Piano(16, 1);
+          else if (Temporary_String == "DLow")
+            Piano(32, 2);
+          else if (Temporary_String == "D#Low")
+            Piano(50, 3);
+          else if (Temporary_String == "ELow")
+            Piano(68, 4);
+          else if (Temporary_String == "FLow")
+            Piano(88, 5);
+          else if (Temporary_String == "F#Low")
+            Piano(108, 6);
+          else if (Temporary_String == "GLow")
+            Piano(130, 7);
+          else if (Temporary_String == "G#Low")
+            Piano(154, 8);
+          else if (Temporary_String == "ALow")
+            Piano(178, 9);
+          else if (Temporary_String == "A#Low")
+            Piano(205, 10);
+          else if (Temporary_String == "BLow")
+            Piano(232, 11);
+          else if (Temporary_String == "CHigh")
+            Piano(262, 12);
+          else if (Temporary_String == "C#High")
+            Piano(293, 13);
+          else if (Temporary_String == "DHigh")
+            Piano(326, 14);
+          else if (Temporary_String == "D#High")
+            Piano(361, 15);
+          else if (Temporary_String == "EHigh")
+            Piano(398, 16);
+          else if (Temporary_String == "FHigh")
+            Piano(437, 17);
+          else if (Temporary_String == "F#High")
+            Piano(478, 18);
+          else if (Temporary_String == "GHigh")
+            Piano(522, 19);
+          else if (Temporary_String == "G#High")
+            Piano(569, 20);
+          else if (Temporary_String == "AHigh")
+            Piano(618, 21);
+          else if (Temporary_String == "A#High")
+            Piano(670, 22);
+          else if (Temporary_String == "BHigh")
+          {
+            Piano(726, 23);
+          }
+          else if (Temporary_String == "NextLink")
+          {
+            GalaxOS.iGOS_Pointer->Next_Link();
+          }
+          else if (Temporary_String == "PrevLink")
+          {
+            GalaxOS.iGOS_Pointer->Previous_Link();
+          }
+          else if (Temporary_String == "PageUp")
+          {
+            GalaxOS.iGOS_Pointer->Page_Up();
+          }
+          else if (Temporary_String == "PageDown")
+          {
+            GalaxOS.iGOS_Pointer->Page_Down();
+          }
+          else if (Temporary_String == "GoLink")
+          {
+            GalaxOS.iGOS_Pointer->Get_Page();
+          }
+          else if (Temporary_String == "GoURL")
+          {
+            //to do
+          }
+          else if (Temporary_String == "Open_iGOS")
+          {
+            GalaxOS.Open_Software(SOFTWARE_IGOS_ID);
+          }
+          else if (Temporary_String == "Close_iGOS")
+          {
+            GalaxOS.Close_Software(SOFTWARE_IGOS_ID);
+          }
+          else
+          {
+            Serial.println(F("Unknow Temporary_String"));
+            //handle error
+          }
+        }
+        break;
+
+      default:
+        if (Return_Code == INFORMATION_NEXTION_CURRENT_PAGE_NUMBER)
+        {
+          if (4 == Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 4))
+          {
+            if (Temporary_Byte_Array[1] == 0xFF && Temporary_Byte_Array[2] == 0xFF && Temporary_Byte_Array[3] == 0xFF)
+            {
+              Serial.print(F(" | Current Page : "));
+              Serial.print(Temporary_Byte_Array[0]);
+
+              GalaxOS.Last_Page = GalaxOS.Current_Page;
+              GalaxOS.Current_Page = Temporary_Byte_Array[0];
+            }
+          }
         }
         else
         {
-          //error : full queue
-          Serial.println(F("The queue is full !"));
-          vTaskDelay(1000);
+          Temporary_Byte_Array[3] = 0; //counter for 0xFF ending code
+          while (Nextion_Serial.available())
+          {
+            Temporary_Byte_Array[2] = Nextion_Serial.read();
+            if (Temporary_Byte_Array[2] == 0xFF)
+            {
+              Temporary_Byte_Array[3]++;
+              if (Temporary_Byte_Array[3] >= 3)
+              {
+                break;
+              }
+            }
+          }
+          GalaxOS.Event_Handler_Request((int)Temporary_Byte_Array[0]);
         }
+        Serial.println(F(" ||"));
+        vTaskDelay(100);
+        break;
       }
-      xTaskNotifyGive(GalaxOS_Core_Handle);
     }
-    vTaskDelay(100);
   }
 }
 
@@ -933,15 +1045,15 @@ Ultrasonic_Class::~Ultrasonic_Class()
 {
 }
 
-void Ultrasonic_Class::Set_Trig_Pin(byte const &Trig_Pin)
+void Ultrasonic_Class::Get_Trig_Pin()
 {
-  GalaxOS.Get('A', Trig_Pin);
+  GalaxOS.Get_Variable('A', Trig_Pin);
   pinMode(Trig_Pin, OUTPUT);
 }
 
-void Ultrasonic_Class::Set_Echo_Pin(byte const &Echo_Pin)
+void Ultrasonic_Class::Get_Echo_Pin()
 {
-  GalaxOS.Get('B', Echo_Pin);
+  GalaxOS.Get_Variable('B', Echo_Pin);
   pinMode(Echo_Pin, INPUT);
 }
 
@@ -988,7 +1100,7 @@ void Piano(int Frequency, int Note)
   Nextion_Serial.print(F("MIDICODE_TXT.txt=\""));
   Nextion_Serial.print(Temporary);
   Nextion_Serial.print(F("ÿÿÿ"));
-  if (MIDIOutEnable == true)
+  if (GalaxOS.MIDIOutEnable == true)
   {
     Serial.write(144);
     Serial.write(Note);
@@ -1075,7 +1187,7 @@ void Pictviewer()
             Blue = Temporary_File.read();
             Serial.println(Temporary_File.peek());
             Green = Temporary_File.read();
-            Color = Red;
+            Color = Blue;
             Color = Color << 8;
             Color = Color | Green;
             Serial.println(Color);
@@ -1150,10 +1262,10 @@ void Pictviewer()
 
 void Files_And_Folders()
 {
-  GalaxOS.Get('A', Temporary_File_Path);
+  GalaxOS.Get_Variable('A', Temporary_File_Path);
   Temporary_File = SD.open(Temporary_File_Path);
   String Item_Name = "";
-  if (SD.exists(Temporary_File_Path))
+  if (Temporary_File)
   {
     if (Temporary_File.isDirectory())
     {
@@ -1224,7 +1336,7 @@ void Files_And_Folders()
       {
       }
       else if (Item_Name == "GMF")
-        vTaskResume(Musical_Digital_Player_Handle);
+        vTaskResume(GalaxOS.Musical_Digital_Player_Handle);
       else
       {
         //Fileditor();
@@ -1278,163 +1390,17 @@ void Periodic_Main(byte Type)
   float Column;
   float Line;
 
-  GalaxOS.Get('A', Column);
+  GalaxOS.Get_Variable('A', Column);
   Column -= 6;
   Column /= 26;
   Column = round(Column);
   Serial.print(F("Column : "));
   Serial.println(Column);
 
-  GalaxOS.Get('B', Line);
+  GalaxOS.Get_Variable('B', Line);
   Line -= 29;
   Line /= 26;
   Line = round(Line);
   Serial.print(F("Line : "));
   Serial.println(Line);
 }
-
-/*
-void iGOS (byte Type) {
-  switch (Type) {
-    case 0:
-
- case 1:
- //================================================
- // Page up - then re-display
- //================================================
-   Serial.print (F("\n>> Command 1: "));
-   if (textContent.pagePtr > 0) {
-     textContent.pagePtr--;
-     Type = 6;
-     pageLinks.lastLink = 0;
-     Serial.print (F("Page up to page "));
-     Serial.println (textContent.pagePtr);
-     pageLinks.linkPtr = 0;
-   }
-   else { // Can't got up any further
-     Type = 10;
-     Serial.println(F("Cancelled"));
-   }
-   break;
- case 2:
-    //================================================
-    // Page down - then re-display
-    //================================================
-   Serial.print (F("\n>> Command 2: "));
-   if (textContent.pagePtr < textContent.lastPage) {
-     textContent.pagePtr++;
-   }
-   else {
-          textContent.pagePtr = 0;  // Reset to top
-   }
-   Type = 6;
-   pageLinks.linkPtr = 0;
-   pageLinks.lastLink = 0;
-   Serial.print (F("Page down to page "));
-   Serial.println (textContent.pagePtr);
-   break;
-
-
- case 3:
-    //================================================
-    // Next link - then re-display to update link highlight
-    //================================================
-   Serial.print (F("\n>> Command 3: Next link: "));
-   if (pageLinks.linkPtr < pageLinks.lastLink) {
-     pageLinks.linkPtr++;
-     Type = 6;
-     Serial.print (F("Increased link to "));
-     Serial.println (pageLinks.linkPtr);
-   }
-   else
-   {
-     pageLinks.linkPtr = 0;
-     Type = 6;
-     Serial.print (F("Reset link to "));
-     Serial.println (pageLinks.linkPtr);
-   }
-   break;
-   //================================================
-   // Prev link - then re-display to update link highlight
-   //================================================
- case 4:
-   Serial.print (F("\n>> Command 4: Previous link: "));
-   if (pageLinks.linkPtr > 0) {
-     pageLinks.linkPtr--;
-     Type = 6;
-     Serial.print (F("Decreased link to "));
-     Serial.println (pageLinks.linkPtr);
-   }
-   else  {
-     pageLinks.linkPtr = pageLinks.lastLink;
-     Type = 6;
-     Serial.print (F("Reset link to "));
-     Serial.println (pageLinks.linkPtr);
-   }
-   break;
- case 5:
-   //================================================
-   // Download, parse and cache url
-   //================================================
-   Serial.println (F("\n>> Command 5: Load & cache URL"));
-   Temporary_File.sync();
-   Temporary_File.close ();                  // Close read only cache file
-   splitURL (url);
-   if (cacheURL (server, path)) {  // Download and cache URL
-     pageLinks.lastLink = 0;
-     pageLinks.linkPtr = 0;
-     Type = 6;
-   }
-   else {
-     Temporary_File.close ();
-     client.stop();
-     tftLCD.println(F("\nDownload & caching failed"));
-     memcpy (server, "*\0", 2);
-     memcpy (path, '\0', 1);
-     memcpy (url, '\0', 1);
-     pageLinks.lastLink = 0;
-     openCacheFile (true);
-     Type = 6;
-     Serial.println("Download & caching failed");
-     break;
-   }
-   if (!openCacheFile(true)) {             // Re-open read only cache file
-     tftLCD.println (F("Cache open failed"));
-     memcpy (server, "*\0", 2);
-   }
-   else {
-     pageLinks.lastLink = 0;
-     Type = 6;
-   }
-   break;
-
-   //================================================
-   // Display current page from cached file
-   //================================================
- case 6:
-
-   Serial.print (F("\n>> Command 6: Display cached page: "));
-   Serial.println (textContent.pagePtr);
-   if (!displayPage()) {
-     tftLCD.println(F("\nDisplay cache failed"));
-     Serial.println(F("\nDisplay cache failed"));
-   }
-   Type = 10;
-   Temporary_File.sync();
-   break;
-
-   //================================================
-   // Print cache file to serial - debug only
-   //================================================
- case 7:
-   Serial.print (F("\n>> Command 7: Print raw cached page: "));
-   Type = 10;
-   break;
- case 11:
-   tftLCD.println (F("Press button to reset"));
-   resetFunc();
- default:
-   break;
- }
-}
-*/

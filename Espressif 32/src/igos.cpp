@@ -1,8 +1,18 @@
-#include "Arduino.h"
 #include "igos.h"
+#include "WiFiClient.h"
+#include "object.h"
+
+uint8_t iGOS_Class::Number_Instance = 0;
 
 iGOS_Class::iGOS_Class()
 {
+  if (Number_Instance > 0) //Check if there's 2 iGOS Launched
+  { 
+    delete this;
+    //error handle
+  }
+    
+  ++Number_Instance;
   memset(&server[0], 0, 30);
   memset(&path[0], 0, 60);
   memset(&url[0], 0, 90);
@@ -16,29 +26,36 @@ iGOS_Class::iGOS_Class()
   textContent = {0, 0, false};
 
   lowestRAM = 2000;
+
 }
 
 iGOS_Class::~iGOS_Class()
 {
+  --Number_Instance;
+}
+
+uint8_t iGOS_Class::Get_Number_Instance()
+{
+  return Number_Instance;
 }
 
 byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
 {
-#define sLEADIN 0
-#define sHEADER 1
-#define sTEXT 2
-#define sPRE 3
-#define sTAG 4
-#define sAMP 5
-#define sANCHOR 6
-#define sSTUFF 7
-#define sHREF 8
-#define sURL 9
-#define sENDTAG 10
-#define sQUIET 11
-#define sSCRIPT 12
-#define sFOOTER 99
-#define URL_SIZE = 130
+  #define sLEADIN 0
+  #define sHEADER 1
+  #define sTEXT 2
+  #define sPRE 3
+  #define sTAG 4
+  #define sAMP 5
+  #define sANCHOR 6
+  #define sSTUFF 7
+  #define sHREF 8
+  #define sURL 9
+  #define sENDTAG 10
+  #define sQUIET 11
+  #define sSCRIPT 12
+  #define sFOOTER 99
+  #define URL_SIZE = 130
 
   uint16_t count = 0;         // Output char count
   uint32_t downloadCount = 0; // Download char count
@@ -63,7 +80,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
   Nextion_Serial.println(F("fill 2,54,443,216,33808ÿÿÿ")); //clear screen
 
   Serial.print(F("\nOpening cache... "));
-  Serial.print(CACHEFILE);
+
   if (!openCacheFile(false))
   { // Re-open read only cache file
     //error handle
@@ -76,6 +93,11 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
   Serial.println(URLserver);
   Serial.println(URLpath);
 
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    //error handle : not connected
+  }
+
   if (URLserver[0] == '*') // Should never get an * here
   {
     Serial.println(F("Invalid URL !"));
@@ -86,13 +108,13 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
   {
     freeRam();
   }
-  if (client.connect(URLserver, 80)) // Connect to server and request HTML
+  if (WiFi_Client.connect(URLserver, 80)) // Connect to server and request HTML
   {
-    client.print(F("GET "));
-    client.print(URLpath);
-    client.print(F(" HTTP/1.1\nHost: "));
-    client.println(URLserver);
-    client.println(F("User-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\nConnection: close\n\n"));
+    WiFi_Client.print(F("GET "));
+    WiFi_Client.print(URLpath);
+    WiFi_Client.print(F(" HTTP/1.1\nHost: "));
+    WiFi_Client.println(URLserver);
+    WiFi_Client.println(F("User-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\nConnection: close\n\n"));
   }
   else
   {
@@ -114,7 +136,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
     outputChar = findUntil(generalBuffer, true);
     if (outputChar == 2)
     {
-      HTTP_Return_Code = client.parseInt();
+      HTTP_Return_Code = WiFi_Client.parseInt();
       Serial.print(F("Result: "));
       Serial.println(HTTP_Return_Code);
       if (HTTP_Return_Code >= 300) //if the HTTP isn't between 200 and 226, it's an error and stop parsing
@@ -129,7 +151,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
     Serial.println(outputChar);
     if (outputChar == 2)
     {
-      fileLength = client.parseInt();
+      fileLength = WiFi_Client.parseInt();
       if (fileLength < 10)
       {
         fileLength = 0;
@@ -164,7 +186,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
       localState = sENDTAG;
     }
   }
-  c = client.read();
+  c = WiFi_Client.read();
 
   //================================================
   // Loading loop
@@ -172,14 +194,14 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
   while (metaState < sFOOTER)
   {
     c = 0;
-    if (client.available())
+    if (WiFi_Client.available())
     {
-      c = client.read();
+      c = WiFi_Client.read();
       downloadCount++;
     }
-    else if (!inputWait()) //wait 5 second to see if client.available() still true
+    else if (!inputWait()) //wait 5 second to see if WiFi_Client.available() still true
     {
-      client.stop();
+      WiFi_Client.stop();
       Serial.println(F(" DONE"));
       Temporary_File.flush();
       return 0;
@@ -189,7 +211,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
     if (metaState > sLEADIN)
     {
       Serial.print(F("|\n"));
-      Serial.print(client.available());
+      Serial.print(WiFi_Client.available());
       Serial.print(F("\t"));
       Serial.print(count);
       Serial.print(F("\tmS "));
@@ -428,28 +450,22 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
 
     if ((cleanChar == 10) || (cleanChar == '\t'))
     {
-      uint32_t speed = 0;
-
-      /*tftLCD.setCursor(0, 7);
-      tftLCD.print(downloadCount);
-      tftLCD.print(F(" bytes downloaded @ "));
-      speed = downloadCount / ((millis() - startTime) / 1000);
-      tftLCD.print(speed);
-      tftLCD.println(F(" bytes/sec       "));*/
-
+      uint32_t speed = downloadCount / ((millis() - startTime) / 1000);
+      Serial.print(downloadCount);
+      Serial.print(F(" bytes downloaded @ "));
+      Serial.print(speed);
+      Serial.println(" bytes / sec");  
       if (fileLength > 0)
       {
-        uint32_t percent = 0;
-        /*tftLCD.print(fileLength);
-        tftLCD.println(F(" bytes file size   "));
-        percent = downloadCount * 100 / fileLength;
-        //        tftLCD.print (percent);
-        //         tftLCD.println (F("% downloaded"));
-        tftLCD.fillRect(0, 0, percent * tftLCD.WIDTH / 100, 8, GREEN);*/
+        uint32_t percent = downloadCount * 100 / fileLength;        
+        Serial.print(fileLength);
+        Serial.println(F(" bytes file size"));
+        Serial.print (percent);
+        Serial.println (F("% downloaded"));
       }
 
-      /*tftLCD.print(count);
-      tftLCD.println(F(" bytes stored   "));*/
+      Serial.print(count);
+      Serial.println(F(" bytes stored"));
     }
 
     // Handle tags with pre breaks
@@ -553,8 +569,8 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
   } // Loading loop
 
   Temporary_File.print('\0');
-  client.flush();
-  client.stop();
+  WiFi_Client.flush();
+  WiFi_Client.stop();
 
   /* tftLCD.println();
   tftLCD.print(count);
@@ -571,7 +587,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) // HTML parser states
 
 void iGOS_Class::Get_Page()
 {
-  Serial.print(F("\n>> Button Clicked: "));
+  Serial.print(F("\n>> Get Page :"));
   buildURL(pageLinks.index[pageLinks.linkPtr]); // Get URL from page index
   Serial.print(F("Built url: "));
   Serial.println(url);
@@ -690,7 +706,7 @@ void iGOS_Class::Load_Page()
   else
   {
     Temporary_File.close();
-    client.stop();
+    WiFi_Client.stop();
     memcpy(server, "*\0", 2);
     memcpy(path, '\0', 1);
     memcpy(url, '\0', 1);
@@ -816,6 +832,7 @@ uint8_t iGOS_Class::printCache()
   }
   Serial.println(F("\nDone"));
   freeRam();
+  return 1; //no sense here, just for returning something
 }
 
 byte iGOS_Class::displayPage()
@@ -868,6 +885,7 @@ byte iGOS_Class::displayPage()
   Cursor_X = 2;
   Cursor_Y = 52;
   Text_To_Print = "";
+  Text_Char_Count = 0;
 
   // Loop through cache fizle
   while ((filePtr <= Temporary_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
@@ -1037,7 +1055,7 @@ byte iGOS_Class::displayPage()
         Last_Color = Current_Color;
         if (currentLink == pageLinks.linkPtr) // Print inverse colors for the active link
         {
-          Current_Color == 65533;
+          Current_Color = 65533;
         }
         else
         {
@@ -1190,33 +1208,33 @@ uint16_t iGOS_Class::hashOut(uint16_t hash)
   return output;
 }
 
-byte iGOS_Class::findUntil(uint8_t *string, boolean terminate)
+byte iGOS_Class::findUntil(uint8_t *String_To_Find, boolean terminate)
 {
-  char currentChar = 0;
+  uint8_t currentChar = 0;
   long timeOut = millis() + 5000;
   char c = 0;
   Serial.print(F("\nLooking for: "));
 
-  for (byte i = 0; string[i] != 0; i++)
+  for (byte i = 0; String_To_Find[i] != 0; i++)
   {
-    Serial.write(string[i]);
+    Serial.write(String_To_Find[i]);
   }
   Serial.println('\n');
 
   while (millis() < timeOut)
   {
-    if (client.available())
+    if (WiFi_Client.available())
     {
       timeOut = millis() + 5000;
-      c = client.read();
+      c = WiFi_Client.read();
       if (terminate && (c == '<'))
       {
         return 1; // Pre-empted match
       }
       Serial.write(c);
-      if (c == string[currentChar])
+      if (c == String_To_Find[currentChar])
       {
-        if (string[++currentChar] == 0)
+        if (String_To_Find[++currentChar] == 0)
         {
           Serial.println(F("[FOUND]"));
           return 2; // Found
@@ -1236,13 +1254,13 @@ boolean iGOS_Class::inputWait()
   byte wait = 0;
   long timeOut = millis() + 9000; // Allow 5 seconds of no data
   Serial.println();
-  while ((millis() < timeOut) && (!client.available()))
+  while ((millis() < timeOut) && (!WiFi_Client.available()))
   {
     Serial.print(" ");
     Serial.print(wait * 100);
     delay(++wait * 100);
   }
-  if ((!client.available()) && (!client.connected()))
+  if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
   {
     return 0;
   }
@@ -1268,7 +1286,8 @@ void iGOS_Class::storeURL(char *local_url)
   }
   while (local_url[i] > 0)
   {
-    local_url[i++] = local_url[i + j];
+    i++;
+    local_url[i] = local_url[i + j];
   }
   Serial.print(local_url);
   Serial.print(F("|"));
@@ -1396,7 +1415,7 @@ uint8_t iGOS_Class::openCacheFile(boolean readOnly)
   return 1;
 }
 
-void freeRam()
+void iGOS_Class::freeRam()
 {
   Serial.print(F("Free Heap :"));
   Serial.print(ESP.getFreeHeap());

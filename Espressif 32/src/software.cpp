@@ -1,9 +1,8 @@
-#include "Arduino.h"
 #include "software.h"
 
-GalaxOS_Software_Class::GalaxOS_Software_Class(String const& Software_Name, byte const& First_Page_To_Set, byte const& Last_Page_To_Set) //builder
+GalaxOS_Software_Class::GalaxOS_Software_Class(String const& Software_Name, byte const& First_Page_To_Set, byte const& Last_Page_To_Set) //constructor
 { 
-  Number_Of_Software++;
+  Number_Instance++;
   for (byte i = 0; i < 20; i++)
   {
     Name[i] = 32;
@@ -15,9 +14,9 @@ GalaxOS_Software_Class::GalaxOS_Software_Class(String const& Software_Name, byte
     
 }
 
-GalaxOS_Software_Class::~GalaxOS_Software_Class() //destroyer
+GalaxOS_Software_Class::~GalaxOS_Software_Class() //desctructor
 {
-  Number_Of_Software--;
+  Number_Instance--;
 }
 
 void GalaxOS_Software_Class::Set_Function_Pointer(byte const& Function_Pointer_ID, void (*Function_Pointer_To_Set)())

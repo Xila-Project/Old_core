@@ -10,7 +10,7 @@ private:
     byte First_Page_ID;
     byte Last_Page_ID;
     void (*Function_Pointer[16])();
-    static byte Number_Of_Software;
+    static byte Number_Instance;
 
 public:
     GalaxOS_Software_Class(String const &Software_Name, byte const &First_Page_To_Set, byte const &Last_Page_To_Set);

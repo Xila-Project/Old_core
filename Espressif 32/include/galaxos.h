@@ -2,8 +2,8 @@
 #define GALAXOS_H_INCLUDED
 
 #include "Arduino.h"
-#include "software.h"
 #include "igos.h"
+#include "software.h"
 
 //----------------------------------------------------------------------------//
 //                                        Define Const                        //
@@ -74,47 +74,33 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 #define CODE_COMMAND 42
-#define CODE_CONSTRUCT 99
-#define CODE_DESTRUCT 100
+#define CODE_SOFTWARE_OPEN 111
+#define CODE_SOFTWARE_CLOSE 99
 #define CODE_COMMAND_NEW 35
 #define CODE_VARIABLE_BYTE 66 //1 byte
-#define CODE_VARIABLE_CHAR 67 //1 byte
+#define CODE_VARIABLE_CHAR 67 //unsigned 1 byte
 #define CODE_VARIABLE_INTEGER 73 //2 byte
-#define CODE_VARIABLE_FLOAT 70 //4 byte
+#define CODE_VARIABLE_UNSIGNED_INTEGER 105 //unsigned 2 byte
+#define CODE_VARIABLE_FLOAT 70 //4 byte float
 #define CODE_VARIABLE_LONG 76 //4 byte
+#define CODE_VARIABLE_UNSIGNED_LONG 108 //unsigned 4 byte
 #define CODE_VARIABLE_STRING 83
-#define CODE_VARIABLE_UNSIGNED_INTEGER 105 //2 byte
-#define CODE_VARIABLE_UNSIGNED_LONG 108 //4 byte
+
+#define SOFTWARE_IGOS_ID 25 //random number
+
 
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
 //----------------------------------------------------------------------------//
-
-HardwareSerial Nextion_Serial(2);
-
-WiFiClient client;
-
-
-
-File Temporary_File;
-
-String Temporary_File_Path = "\0";
-
-String Temporary_File_Name = "\0";
-
-bool MIDIOutEnable = false;
 
 
 
 //----------------------------------------------------------------------------//
 //                                        Define Tasks                        //
 //----------------------------------------------------------------------------//
-xTaskHandle Nextion_Serial_Transmit_Handle;
-xTaskHandle Musical_Digital_Player_Handle;
-xTaskHandle Ressource_Monitor_Handle;
-xTaskHandle GalaxOS_Core_Handle;
 
-QueueHandle_t Nextion_Serial_Queue;
+
+
 //----------------------------------------------------------------------------//
 //                            Define Class                                    //
 //----------------------------------------------------------------------------//
@@ -128,8 +114,8 @@ class Ultrasonic_Class //Application It self;
     public:
         Ultrasonic_Class();
         ~Ultrasonic_Class();
-        void Set_Trig_Pin(byte const& Trig_Pin);
-        void Set_Echo_Pin(byte const& Echo_Pin);
+        void Get_Trig_Pin();
+        void Get_Echo_Pin();
         void Read();
 };
 
@@ -157,10 +143,9 @@ class GalaxOS_Class
 
         String Temporary_String;
 
+        iGOS_Class *iGOS_Pointer;
         GalaxOS_Software_Class *Software_Pointer[4];
         Ultrasonic_Class *Ultrasonic_Pointer;
-        iGOS_Class *iGOS_Pointer;
-
 
         union Temporary_Split_Integer_Union
         {
@@ -174,10 +159,21 @@ class GalaxOS_Class
             byte Byte[4];
         } Temporary_Split_Float;
 
-        const char* WiFi_SSID     = "Avrupa";
-        const char* WiFi_Password = "0235745484";
+        union Temporary_Split_Long_Union
+        {
+            long Long;
+            byte Byte[4];
+        } Temporary_Split_Long;
+        
+        char WiFi_SSID[20];
+        char WiFi_Password[20];
 
-        uint16_t Cursor_X, Cursor_Y;
+        xTaskHandle Nextion_Serial_Receive_Handle;
+ 
+        xTaskHandle Ressource_Monitor_Handle;
+        xTaskHandle GalaxOS_Core_Handle;
+
+        QueueHandle_t Nextion_Serial_Queue;
 
     public:
 
@@ -185,33 +181,36 @@ class GalaxOS_Class
 
         ~GalaxOS_Class();
 
+        void Open_Software(uint8_t const& Software_ID);
+        void Close_Software(uint8_t const& Software_ID);
+
         byte Get_Speaker_Pin();
         int Get_C_Frequency();
         byte Get_C_MIDI();
 
-        void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class const& Software_Pointer_To_Set);
+        void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class& Software_Pointer_To_Set);
 
         void Start();
 
-        void Set(char const& Tag, String const& String_To_Set);
-        void Get(char const& Tag, String& String_To_Get);
+        void Set_Variable(char const& Tag, String const& String_To_Set);
+        void Get_Variable(char const& Tag, String& String_To_Get);
 
-        void Set(char const& Tag, char const& Char_To_Set);
-        void Get(char const& Tag, char& Char_To_Get);
+        void Set_Variable(char const& Tag, char const& Char_To_Set);
+        void Get_Variable(char const& Tag, char& Char_To_Get);
 
-        void Set(char const& Tag, byte const& Byte_To_Set);
-        void Get(char const& Tag, byte& Byte_To_Get);
+        void Set_Variable(char const& Tag, byte const& Byte_To_Set);
+        void Get_Variable(char const& Tag, byte& Byte_To_Get);
 
-        void Set(char const& Tag, int const& Integer_To_Set);
-        void Get(char const& Tag, int& Integer_To_Get);
+        void Set_Variable(char const& Tag, int const& Integer_To_Set);
+        void Get_Variable(char const& Tag, int& Integer_To_Get); 
 
-        void Set(char const& Tag, float const& Float_To_Set);
-        void Get(char const& Tag, float& Float_To_Get);
+        void Set_Variable(char const& Tag, long const& Long_To_Set);
+        void Get_Variable(char const& Tag, long& Long_To_Get);
+
+        void Set_Variable(char const& Tag, float const& Float_To_Set);
+        void Get_Variable(char const& Tag, float& Float_To_Get);
 
         //Nextion Screen Cursor for dynamic rendering
-        uint16_t Get_Cursor_X();
-        uint16_t Get_Cursor_Y();
-        uint16_t Set_Cursor(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate);
 
         void WiFi_Connect();
 
@@ -225,15 +224,18 @@ class GalaxOS_Class
         void Load_System_Files();
         void Load_User_Files();
 
-        byte Check_Credentials(String const& Username_To_Check, String const& Password_To_Check);   
+        uint16_t Check_Credentials(String const& Username_To_Check, String const& Password_To_Check);   
 
-        void Event_Handler_Request(int Type, String Infromations);
-        void Event_Handler_Reply(byte Reply);
-
+        void Event_Handler_Request(const uint16_t& Type);
+        void Event_Handler_Reply(const byte& Reply);
         
-        friend void Core ( void *pvParameters );
+        //friend void Core ( void *pvParameters );
         friend void Nextion_Serial_Receive( void *pvParameters );
         friend void Ressource_Monitor ( void *pvParameters );
+    
+        xTaskHandle Musical_Digital_Player_Handle;
+
+        bool MIDIOutEnable = false;
 };
 
 
@@ -244,7 +246,6 @@ class GalaxOS_Class
 
 //GalaxOS class's method (FreeRTOS seems to not support class/struct)
 void Nextion_Serial_Receive( void *pvParameters );
-void Core( void *pvParameters );
 void Ressource_Monitor( void *pvParameters );
 
 void Musical_Digital_Player( void *pvParameters );
@@ -257,6 +258,6 @@ void Pictureader();
 
 void UltraSonic(int USTrig, int USEcho);
 
-GalaxOS_Class GalaxOS;
+
 
 #endif
