@@ -1,5 +1,5 @@
-#include "galaxos.h"
-#include "object.h"
+#include "galaxos.hpp"
+#include "object.hpp"
 
 void setup() {
     GalaxOS.Start();

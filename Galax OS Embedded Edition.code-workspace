@@ -8,5 +8,10 @@
 			"path": "Espressif 32"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"*.tcc": "cpp",
+			"fstream": "cpp"
+		}
+	}
 }

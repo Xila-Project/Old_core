@@ -2,8 +2,9 @@
 #define GALAXOS_H_INCLUDED
 
 #include "Arduino.h"
-#include "igos.h"
-#include "software.h"
+
+#include "igos.hpp"
+#include "software.hpp"
 
 //----------------------------------------------------------------------------//
 //                                        Define Const                        //
@@ -37,6 +38,7 @@
 #define ERROR_NEXTION_INVALID_FILE_OPERATION 6
 #define ERROR_NEXTION_INVALID_BAUD_RATE_SETTING 17
 #define ERROR_NEXTION_INVALID_WAVEFORM_ID_OR_CHANNEL 18
+#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 24
 #define ERROR_NEXTION_INVALID_VARIABLE_NAME_OR_ATTRIBUTE 26
 #define ERROR_NEXTION_INVALID_VARIABLE_OPERATION 27
 #define ERROR_NEXTION_FAIL_TO_ASSIGN 28
@@ -123,6 +125,8 @@ class Ultrasonic_Class //Application It self;
 class GalaxOS_Class
 {
     private:
+
+        File Temporary_File;
     
         byte Taskbar_Items_PID[7];
         byte Taskbar_Items_Icon[7];
@@ -165,15 +169,13 @@ class GalaxOS_Class
             byte Byte[4];
         } Temporary_Split_Long;
         
-        char WiFi_SSID[20];
-        char WiFi_Password[20];
+        const char* WiFi_SSID     = "Avrupa";
+        const char* WiFi_Password = "0749230994";
 
         xTaskHandle Nextion_Serial_Receive_Handle;
  
         xTaskHandle Ressource_Monitor_Handle;
         xTaskHandle GalaxOS_Core_Handle;
-
-        QueueHandle_t Nextion_Serial_Queue;
 
     public:
 
@@ -189,6 +191,7 @@ class GalaxOS_Class
         byte Get_C_MIDI();
 
         void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class& Software_Pointer_To_Set);
+        iGOS_Class * Get_Software_Pointer();
 
         void Start();
 

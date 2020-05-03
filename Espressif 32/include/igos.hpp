@@ -2,11 +2,10 @@
 #define IGOS_H_INCLUDED
 
 #include "Arduino.h"
+#include <SD.h>
 
 //highest header file, will be replace by a separate one 
 
-#define CACHEFILE "/SOFTWARE/CACHE.GDF" // Cached HTML filename
-#define HOMEPAGE "/SOFTWARE/HOMEPAGE.GDF"   // First load homepage name
 #define PAGEINDEXSIZE 10      // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20      // Must small - each link uses 2 bytes
 #define TIMEOUT 5000          // Timeout on ethernet reads
@@ -119,9 +118,11 @@ static const uint16_t tag_codes[] PROGMEM = {
 class iGOS_Class
 {
 private:
-    char server[30] = "*";
-    char path[60] = "";
-    char url[90] = "";
+    char Server[30];
+    char Path[60];
+    char URL[90];
+
+    File Temporary_File;
 
     struct cacheStruct
     {
@@ -142,26 +143,20 @@ private:
 
     uint16_t lowestRAM; // Keeps tabs for low memoery alerts
 
-    //uint8_t command;                              // Initial browser command to display the homepage
-
     uint8_t generalBuffer[55];
 
     static uint8_t Number_Instance;
 
     void (*resetFunc)(void) = 0; //declare reset function at adress 0
 
-public:
-    iGOS_Class();
-    ~iGOS_Class();
-
-    uint8_t Get_Number_Instance();
-
-    void Get_Page();      //command 0
+    void Get_Page_From_Index();      //command 0
     void Page_Up();       //command 1
     void Page_Down();     //command 2
     void Next_Link();     //command 3
     void Previous_Link(); //command 4
     void Load_Page();     // command 5
+    void Go_URL(); //new feature
+    void Go_Home();
 
     void buildURL(uint16_t pointer);
 
@@ -184,7 +179,25 @@ public:
 
     byte findUntil(uint8_t *string, boolean);
 
+    uint16_t Socket_Method;
+
     uint8_t printCache();
+
+public:
+
+    iGOS_Class();
+    ~iGOS_Class();
+
+    uint8_t Get_Number_Instance();
+
+    void Set_Socket_Method(uint16_t const& Socket_Method_To_Set);
+    void Set_Socket_Method(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
+    
+    xTaskHandle Socket_Handle;
+
+    friend void iGOS_Socket( void *pvParameters );
 };
+
+void iGOS_Socket( void *pvParameters );
 
 #endif

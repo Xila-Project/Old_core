@@ -1,4 +1,4 @@
-#include "software.h"
+#include "software.hpp"
 
 GalaxOS_Software_Class::GalaxOS_Software_Class(String const& Software_Name, byte const& First_Page_To_Set, byte const& Last_Page_To_Set) //constructor
 { 
