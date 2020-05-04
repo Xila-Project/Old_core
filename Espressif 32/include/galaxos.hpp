@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 
+#include "galaxos.hpp"
 #include "igos.hpp"
 #include "software.hpp"
 
@@ -38,7 +39,6 @@
 #define ERROR_NEXTION_INVALID_FILE_OPERATION 6
 #define ERROR_NEXTION_INVALID_BAUD_RATE_SETTING 17
 #define ERROR_NEXTION_INVALID_WAVEFORM_ID_OR_CHANNEL 18
-#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 24
 #define ERROR_NEXTION_INVALID_VARIABLE_NAME_OR_ATTRIBUTE 26
 #define ERROR_NEXTION_INVALID_VARIABLE_OPERATION 27
 #define ERROR_NEXTION_FAIL_TO_ASSIGN 28
@@ -47,7 +47,7 @@
 #define ERROR_NEXTION_IO_OPERATION_FAILED 31
 #define ERROR_NEXTION_INVALID_ESCAPE_CHARACTER 32
 #define ERROR_NEXTION_TOO_LONG_VARIABLE_NAME 35
-#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 36
+#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 24
 
 #define INFORMATION_NEXTION_STARTUP 0 //same as invalid instruction, only at startup
 #define INFORMATION_NEXTION_INTRUCTION_SUCCESSFUL 1
@@ -191,7 +191,7 @@ class GalaxOS_Class
         byte Get_C_MIDI();
 
         void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class& Software_Pointer_To_Set);
-        iGOS_Class * Get_Software_Pointer();
+        iGOS_Class *Get_Software_Pointer();
 
         void Start();
 

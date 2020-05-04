@@ -79,6 +79,11 @@ GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
 
+iGOS_Class *GalaxOS_Class::Get_Software_Pointer()
+{
+  return iGOS_Pointer;
+}
+
 void GalaxOS_Class::Open_Software(uint8_t const &Software_ID)
 {
   switch (Software_ID)
@@ -160,7 +165,7 @@ void GalaxOS_Class::Start()
   {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
-  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "GOS NSR", 2048, NULL, 2, &Nextion_Serial_Receive_Handle, 1);
+  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "GOS NSR", 4096, NULL, 2, &Nextion_Serial_Receive_Handle, 1);
   //xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital", 4096, NULL, 2, &Musical_Digital_Player_Handle, 1);
   //vTaskSuspend(GalaxOS.Musical_Digital_Player_Handle);
   xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);

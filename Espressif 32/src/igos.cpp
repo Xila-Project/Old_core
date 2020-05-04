@@ -28,7 +28,7 @@ iGOS_Class::iGOS_Class()
 
   lowestRAM = 2000;
 
-  xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 2048, NULL, 2, &Socket_Handle, 1);
+  xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 4096, NULL, 2, &Socket_Handle, 1);
 }
 
 iGOS_Class::~iGOS_Class()
@@ -57,7 +57,7 @@ void iGOS_Socket(void *pvParameters)
   {
     switch(iGOS_Pointer->Socket_Method)
     {
-      case '/0':
+      case 0 :
         Serial.println(F("iGOS Socket : Nothing to do ..."));
         break;
       case 20044 : //NL
@@ -87,7 +87,7 @@ void iGOS_Socket(void *pvParameters)
         break;
 
     }
-    iGOS_Pointer->Socket_Method = '/0';
+    iGOS_Pointer->Socket_Method = 0; //work done, reset the selector
     vTaskSuspend(NULL);
   }
 }
@@ -978,7 +978,7 @@ byte iGOS_Class::displayPage()
   String Text_To_Print;
   uint16_t Text_Char_Count;
 
-  Nextion_Serial.println(F("fill 2,50,462,218,33808\xFF\xFF\xFF"));
+  Nextion_Serial.println(F("fill 2,50,460,222,33808\xFF\xFF\xFF"));
 
   //Draw header
   if (Server[0] == '*')
@@ -1008,7 +1008,7 @@ byte iGOS_Class::displayPage()
   }
 
   Cursor_X = 2;
-  Cursor_Y = 52;
+  Cursor_Y = 50;
   Text_To_Print = "";
   Text_Char_Count = 0;
 
@@ -1020,14 +1020,13 @@ byte iGOS_Class::displayPage()
     count++;
 
     // Print only visible ASCII characters
-    Serial.print((char)c);
-
     if (c > 31)
     {
       if (!invisiblePrint)
       { // Print only if in visible mode (supresses URLs)
         Text_To_Print += (char)c;
         ++Text_Char_Count;
+
         if (Text_Char_Count > 58)
         { //print if auto return to line (exceed 58 char)
 
@@ -1036,7 +1035,7 @@ byte iGOS_Class::displayPage()
           Nextion_Serial.print(F(","));
           Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
           Nextion_Serial.print(F(","));
-          Nextion_Serial.print(476); // Width of the text
+          Nextion_Serial.print(460); // Width of the text
           Nextion_Serial.print(F(","));
           Nextion_Serial.print(14); // Heigh of the text
           Nextion_Serial.print(F(","));
@@ -1067,7 +1066,6 @@ byte iGOS_Class::displayPage()
             Nextion_Serial.print(F(","));
             Nextion_Serial.print(33808); //default grey color
           }
-          Serial.println(Text_To_Print);
           Nextion_Serial.print(F(","));
           Nextion_Serial.print(0); //Left horizontal alignement
           Nextion_Serial.print(F(","));
@@ -1083,9 +1081,6 @@ byte iGOS_Class::displayPage()
           Text_To_Print = "";
         }
       }
-      else
-      {
-      }
     }
 
     // Handle display codes
@@ -1096,13 +1091,12 @@ byte iGOS_Class::displayPage()
       case TAG_CR:
 
       case 10: // Print the caracters in the buffer and fill the rest of the current line with black to erase the previous contents
-        Serial.println(F("New Line !"));
         Nextion_Serial.print(F("xstr "));
         Nextion_Serial.print(Cursor_X); //X coordinate to render the text
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
         Nextion_Serial.print(F(","));
-        Nextion_Serial.print(476); // Width of the text
+        Nextion_Serial.print(460); // Width of the text
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(14); // Heigh of the text
         Nextion_Serial.print(F(","));
@@ -1133,7 +1127,6 @@ byte iGOS_Class::displayPage()
           Nextion_Serial.print(F(","));
           Nextion_Serial.print(33808); //default grey color
         }
-
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(0); //Left horizontal alignement
         Nextion_Serial.print(F(","));
@@ -1147,6 +1140,7 @@ byte iGOS_Class::displayPage()
         Text_Char_Count = 0;
         Text_To_Print = "";
 
+        /*
         Nextion_Serial.print(F("fill "));
         Nextion_Serial.print(Cursor_X); //X coordinate to fill
         Nextion_Serial.print(F(","));
@@ -1157,10 +1151,11 @@ byte iGOS_Class::displayPage()
         Nextion_Serial.print(14); // Heigh to fill
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(33808); //Infill Color : Light grey
-        Nextion_Serial.print(F("\xFF\xFF\xFF"));
+        Nextion_Serial.print(F("\xFF\xFF\xFF"));*/
         Cursor_Y += 14;
 
         invisiblePrint = false;
+        Serial.println(F("IP : off"));
         break;
 
       case 13: // Only doing a CR/LF on ASCII 10
@@ -1178,6 +1173,7 @@ byte iGOS_Class::displayPage()
 
       case TAG_LINK1:          // Start of an anchor tag. The actual URL follows
         invisiblePrint = true; // Turn off printing while the URL is loading
+        Serial.println(F("IP : on"));
         if ((buildingIndex) && (currentLink < LINKINDEXSIZE))
         {
           pageLinks.index[currentLink] = filePtr;
@@ -1196,6 +1192,7 @@ byte iGOS_Class::displayPage()
           Current_Color = 1300; // Link color : blue
         }
         invisiblePrint = false; // Turn on printing again
+        Serial.println(F("IP : off"));
         break;
 
       case TAG_LINK3: // End of the anchor tag
