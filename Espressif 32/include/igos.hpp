@@ -122,7 +122,7 @@ private:
     char Path[60];
     char URL[90];
 
-    File Temporary_File;
+    File Cache_File;
 
     struct cacheStruct
     {
@@ -149,7 +149,7 @@ private:
 
     void (*resetFunc)(void) = 0; //declare reset function at adress 0
 
-    void Get_Page_From_Index();      //command 0
+    void Go_Link();      //command 0
     void Page_Up();       //command 1
     void Page_Down();     //command 2
     void Next_Link();     //command 3
@@ -158,30 +158,26 @@ private:
     void Go_URL(); //new feature
     void Go_Home();
 
-    void buildURL(uint16_t pointer);
+    void Build_URL(uint16_t pointer);
 
-    byte cacheURL(char *URLserver, char *URLpath);
-    void storeURL(char *local_url);
+    byte Cache_URL(char *URLserver, char *URLpath);
+    void Store_URL(char *local_url);
 
-    byte displayPage(); //display parced page on Nextion
+    byte Display_Page(); //display parced page on Nextion
 
     void displayPageIndex(); //debug : display page index
     void displayLinkIndex(); //debug : display linkindex
 
-    void freeRam();
-
     char lowerCase(char c);
-    uint16_t hashOut(uint16_t hash); // Consumes data from Ethernet until the given string is found, or time runs out
-    boolean inputWait();             //delays until ethernet data is available
-    void splitURL(char *localURL);   //split a URL into server / path
+    uint16_t Hash_Out(uint16_t hash); // Consumes data from Ethernet until the given string is found, or time runs out
 
-    uint8_t openCacheFile(boolean readOnly); //open cache file
+    void Split_URL(char *localURL);   //split a URL into server / path
 
-    byte findUntil(uint8_t *string, boolean);
+    byte Find_Until(uint8_t *string, boolean);
 
     uint16_t Socket_Method;
 
-    uint8_t printCache();
+    xTaskHandle Socket_Handle;
 
 public:
 
@@ -190,11 +186,9 @@ public:
 
     uint8_t Get_Number_Instance();
 
-    void Set_Socket_Method(uint16_t const& Socket_Method_To_Set);
-    void Set_Socket_Method(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
+    void Execute(uint16_t const& Socket_Method_To_Set);
+    void Execute(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
     
-    xTaskHandle Socket_Handle;
-
     friend void iGOS_Socket( void *pvParameters );
 };
 

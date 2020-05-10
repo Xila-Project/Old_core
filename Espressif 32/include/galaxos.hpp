@@ -76,8 +76,8 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 #define CODE_COMMAND 42
-#define CODE_SOFTWARE_OPEN 111
-#define CODE_SOFTWARE_CLOSE 99
+#define CODE_SOFTWARE_OPEN 111 //o
+#define CODE_SOFTWARE_CLOSE 99 //c
 #define CODE_COMMAND_NEW 35
 #define CODE_VARIABLE_BYTE 66 //1 byte
 #define CODE_VARIABLE_CHAR 67 //unsigned 1 byte
@@ -88,7 +88,9 @@
 #define CODE_VARIABLE_UNSIGNED_LONG 108 //unsigned 4 byte
 #define CODE_VARIABLE_STRING 83
 
-#define SOFTWARE_IGOS_ID 25 //random number
+#define SOFTWARE_IGOS_ID 73 //random number
+
+#define IGOS_ICON 10
 
 
 //----------------------------------------------------------------------------//
@@ -193,6 +195,8 @@ class GalaxOS_Class
         void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class& Software_Pointer_To_Set);
         iGOS_Class *Get_Software_Pointer();
 
+        void Synchronise_Time();
+
         void Start();
 
         void Set_Variable(char const& Tag, String const& String_To_Set);
@@ -231,6 +235,8 @@ class GalaxOS_Class
 
         void Event_Handler_Request(const uint16_t& Type);
         void Event_Handler_Reply(const byte& Reply);
+
+        void Nextion_Upload_Firmware(String const &Path);
         
         //friend void Core ( void *pvParameters );
         friend void Nextion_Serial_Receive( void *pvParameters );

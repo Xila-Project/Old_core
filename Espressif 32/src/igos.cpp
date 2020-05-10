@@ -9,11 +9,11 @@ uint8_t iGOS_Class::Number_Instance = 0;
 iGOS_Class::iGOS_Class()
 {
   if (Number_Instance > 0) //Check if there's 2 iGOS Launched
-  { 
+  {
     delete this;
     //error handle
   }
-    
+
   ++Number_Instance;
 
   memset(Server, 0, 30);
@@ -28,7 +28,7 @@ iGOS_Class::iGOS_Class()
 
   lowestRAM = 2000;
 
-  xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 4096, NULL, 2, &Socket_Handle, 1);
+  xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 8192, NULL, 2, &Socket_Handle, 1);
 }
 
 iGOS_Class::~iGOS_Class()
@@ -37,15 +37,16 @@ iGOS_Class::~iGOS_Class()
   vTaskDelete(Socket_Handle);
 }
 
-void iGOS_Class::Set_Socket_Method(uint16_t const& Socket_Method_To_Set)
+void iGOS_Class::Execute(uint16_t const &Socket_Method_To_Set)
 {
   Socket_Method = Socket_Method_To_Set;
   return;
 }
 
-void iGOS_Class::Set_Socket_Method(char const& Socket_Method_Char1, char const& Socket_Method_Char2)
+void iGOS_Class::Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2)
 {
   Socket_Method = ((uint16_t)Socket_Method_Char1 << 8) | (uint16_t)Socket_Method_Char2;
+  vTaskResume(Socket_Handle);
   return;
 }
 
@@ -55,37 +56,36 @@ void iGOS_Socket(void *pvParameters)
   (void)pvParameters;
   for (;;)
   {
-    switch(iGOS_Pointer->Socket_Method)
+    switch (iGOS_Pointer->Socket_Method)
     {
-      case 0 :
-        Serial.println(F("iGOS Socket : Nothing to do ..."));
-        break;
-      case 20044 : //NL
-        iGOS_Pointer->Next_Link();
-        break;
-      case 20556 : //PL
-        iGOS_Pointer->Previous_Link();
-        break;
-      case 20565 : //PU
-        iGOS_Pointer->Page_Up();
-        break;
-      case 20548 : //PD
-        iGOS_Pointer->Page_Down();
-        break;
-      case 18252 : //GL
-        iGOS_Pointer->Go_URL();
-        break;
-      case 18261 : //GU
-        iGOS_Pointer->Get_Page_From_Index();
-        break;
-      case 18511 : //HO
-        iGOS_Pointer->Go_Home();
-        break;
-      default :
-        Serial.println(F("Unknow Socket Method ! "));
-        //error handle
-        break;
-
+    case 0:
+      Serial.println(F("iGOS Socket : Nothing to do ..."));
+      break;
+    case 20044: //NL
+      iGOS_Pointer->Next_Link();
+      break;
+    case 20556: //PL
+      iGOS_Pointer->Previous_Link();
+      break;
+    case 20565: //PU
+      iGOS_Pointer->Page_Up();
+      break;
+    case 20548: //PD
+      iGOS_Pointer->Page_Down();
+      break;
+    case 18252: //GL
+      iGOS_Pointer->Go_Link();
+      break;
+    case 18261: //GU
+      iGOS_Pointer->Go_URL();
+      break;
+    case 18511: //HO
+      iGOS_Pointer->Go_Home();
+      break;
+    default:
+      Serial.println(F("Unknow Socket Method ! "));
+      //error handle
+      break;
     }
     iGOS_Pointer->Socket_Method = 0; //work done, reset the selector
     vTaskSuspend(NULL);
@@ -107,15 +107,11 @@ void iGOS_Class::Go_Home()
   Server[1] = '\0';
   URL[0] = '*';
   URL[1] = '\0';
-  if (!openCacheFile(true))
-  {
-    Serial.println(F("Cannot open Home cache file !"));
-  }
-  if (!displayPage())
+  if (!Display_Page())
   {
     Serial.println(F("Display Cache Failed !"));
   }
-  Temporary_File.flush();
+  Cache_File.flush();
   return;
 }
 
@@ -124,62 +120,49 @@ void iGOS_Class::Go_URL()
   String Temporary_String;
   GalaxOS.Get_Variable('U', Temporary_String);
   Temporary_String.toCharArray(URL, 90);
-  splitURL(URL);
-  if (cacheURL(Server, Path))
+  Split_URL(URL);
+  if (Cache_URL(Server, Path))
   {
+    Serial.println(F("Succed to cache URL"));
     pageLinks.lastLink = 0;
     pageLinks.linkPtr = 0;
   }
   else
   {
-    Temporary_File.close();
+    Cache_File.close();
     WiFi_Client.stop();
     Serial.println(F("Download & Caching Failed !"));
     memcpy(Server, "*\0", 2);
     memcpy(Path, '\0', 1);
     memcpy(URL, '\0', 1);
     pageLinks.lastLink = 0;
-    openCacheFile(true);
     return;
   }
-  if (!openCacheFile(true))
+  if (!Display_Page())
   {
-    Serial.println(F("Cache open failed !"));
-    memcpy(Server, "*\0", 2);
+    Serial.println(F("Display Cache Failed !"));
   }
-  else
-  {
-    pageLinks.lastLink = 0;
-    if (!displayPage())
-    {
-      Serial.println(F("Display Cache Failed !"));
-      Temporary_File.flush();
-      return;
-    }
-
-  }
-
-  
 }
 
-byte iGOS_Class::cacheURL(char *URLserver, char *URLpath) 
+
+byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
 {
-  // HTML parser states
-  #define sLEADIN 0
-  #define sHEADER 1
-  #define sTEXT 2
-  #define sPRE 3
-  #define sTAG 4
-  #define sAMP 5
-  #define sANCHOR 6
-  #define sSTUFF 7
-  #define sHREF 8
-  #define sURL 9
-  #define sENDTAG 10
-  #define sQUIET 11
-  #define sSCRIPT 12
-  #define sFOOTER 99
-  #define URL_SIZE = 130
+// HTML parser states
+#define sLEADIN 0
+#define sHEADER 1
+#define sTEXT 2
+#define sPRE 3
+#define sTAG 4
+#define sAMP 5
+#define sANCHOR 6
+#define sSTUFF 7
+#define sHREF 8
+#define sURL 9
+#define sENDTAG 10
+#define sQUIET 11
+#define sSCRIPT 12
+#define sFOOTER 99
+#define URL_SIZE = 130
 
   uint16_t count = 0;         // Output char count
   uint32_t downloadCount = 0; // Download char count
@@ -201,13 +184,13 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
   //================================================
   // Open URL
   //================================================
-  Nextion_Serial.println(F("fill 2,54,443,216,33808\xFF\xFF\xFF")); //clear screen
+  Nextion_Serial.println(F("fill 2,54,443,216,16904\xFF\xFF\xFF")); //clear screen
 
   Serial.print(F("\nOpening cache... "));
 
-  if (!openCacheFile(false))
-  { // Re-open read only cache file
-    //error handle
+  Cache_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  if (!Cache_File)
+  {
     Serial.println(F("Cache open failed !"));
     return 0;
   }
@@ -228,17 +211,17 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     //error handle
     return 0;
   }
-  else
-  {
-    freeRam();
-  }
+
   if (WiFi_Client.connect(URLserver, 80)) // Connect to server and request HTML
   {
     WiFi_Client.print(F("GET "));
     WiFi_Client.print(URLpath);
-    WiFi_Client.print(F(" HTTP/1.1\nHost: "));
-    WiFi_Client.println(URLserver);
-    WiFi_Client.println(F("User-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\nConnection: close\n\n"));
+    WiFi_Client.print(F(" HTTP/1.1\r\n"));
+
+    WiFi_Client.print(F("Host: "));
+    WiFi_Client.print(URLserver);
+
+    WiFi_Client.print(F("\r\nUser-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\r\nConnection: close\r\n\r\n"));
   }
   else
   {
@@ -247,17 +230,24 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     return 0;
   }
   vTaskDelay(pdMS_TO_TICKS(500)); // Give the Ethernet shield a mo to get going
-  if (!inputWait())
+
+  byte Wait = 0;
+  while ((Wait < 100) && (!WiFi_Client.available())) //wait 5 sec unti timeout
   {
-    Serial.println(F("\nEthernet timeout"));
+    vTaskDelay(pdMS_TO_TICKS(50));
+  }
+  if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
+  {
     //error handle
+    Serial.println(F("\nWiFi timeout"));
     return 0;
   }
+
   Serial.println(F("\nParsing..."));
   startTime = millis();
   {
     memcpy(generalBuffer, "HTTP/1.1 \0", 10); //looking for the HTTP return code
-    outputChar = findUntil(generalBuffer, true);
+    outputChar = Find_Until(generalBuffer, true);
     if (outputChar == 2)
     {
       HTTP_Return_Code = WiFi_Client.parseInt();
@@ -265,12 +255,12 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       Serial.println(HTTP_Return_Code);
       if (HTTP_Return_Code >= 300) //if the HTTP isn't between 200 and 226, it's an error and stop parsing
       {
-        displayPage(); //display current
+        Display_Page(); //display current
         return 0;
       }
     }
     memcpy(generalBuffer, "-Length: \0", 10); //looking for the content length
-    outputChar = findUntil(generalBuffer, true);
+    outputChar = Find_Until(generalBuffer, true);
     Serial.print("\n"); //new line
     Serial.println(outputChar);
     if (outputChar == 2)
@@ -300,7 +290,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     //to do : write code to find header
 
     memcpy(generalBuffer, "<body\0", 7); //search the first marker
-    outputChar = findUntil(generalBuffer, false);
+    outputChar = Find_Until(generalBuffer, false);
     if (outputChar == 0) //cannot find the body
     {
       Serial.println(F("\nTimeout finding <body>\nShould probably stop now"));
@@ -323,37 +313,25 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       c = WiFi_Client.read();
       downloadCount++;
     }
-    else if (!inputWait()) //wait 5 second to see if WiFi_Client.available() still true
+    else
     {
-      WiFi_Client.stop();
-      Serial.println(F(" DONE"));
-      Temporary_File.flush();
-      return 0;
+      Wait = 0;
+      while ((Wait < 100) && (!WiFi_Client.available())) //wait 5 sec unti timeout
+      {
+        vTaskDelay(pdMS_TO_TICKS(50));
+      }
+      if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
+      {
+        //error handle
+        Serial.println(F("\nWiFi timeout"));
+        WiFi_Client.stop();
+        Cache_File.flush();
+        return 0;
+      }
     }
+
     nextState = localState;
     outputChar = c;
-    if (metaState > sLEADIN)
-    {
-      Serial.print(F("|\n"));
-      Serial.print(WiFi_Client.available());
-      Serial.print(F("\t"));
-      Serial.print(count);
-      Serial.print(F("\tmS "));
-      Serial.print(metaState);
-      Serial.print(F("\tlS "));
-      Serial.print(localState);
-      Serial.print(F("\t"));
-      if (lastChar > 31)
-        Serial.write(lastChar);
-      else
-        Serial.print(lastChar, DEC);
-      Serial.print(F("\t"));
-      if (c > 31)
-        Serial.write(c);
-      else
-        Serial.print(c, DEC);
-      Serial.print(F("\t|"));
-    }
 
     //================================================
     // State is sAMP &amp;                           4
@@ -370,12 +348,10 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     {
       if (c == ';')
       { // End condition
-        Serial.print(" OutputChar = ");
-        Serial.println(hashOut(ampHash), DEC);
 
         if (metaState != sANCHOR)
         {
-          outputChar = hashOut(ampHash);
+          outputChar = Hash_Out(ampHash);
 
           if (outputChar == 0)
           {
@@ -419,9 +395,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       if ((c == '>') || (c == ' ') || (c == '\t'))
       { // End condition
 
-        Serial.print(" end tag ");
-        Serial.print(tagHash);
-
+     
         nextState = sTEXT;
 
         if (tagHash == BODYTAGEND)
@@ -433,7 +407,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         if ((tagHash == SCRIPTTAGEND) || (tagHash == STYLETAGEND))
         {
 
-          Serial.print(F(" SCRIPT/STYLE TAG end"));
+
 
           nextState = sTEXT;
           localState = sTEXT;
@@ -443,7 +417,6 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         if ((tagHash == SCRIPTTAG) || (tagHash == STYLETAG))
         {
 
-          Serial.print(F(" SCRIPT/STYLE TAG start "));
 
           if (c == '>')
             localState = sTEXT;
@@ -464,18 +437,19 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
           nextState = sTEXT;
           metaState = sTEXT;
         }
-        outputChar = hashOut(tagHash);
-        if (c != '>') {
-          if (tagHash == 65) {
+        outputChar = Hash_Out(tagHash);
+        if (c != '>')
+        {
+          if (tagHash == 65)
+          {
             nextState = sSTUFF; // Is actually an <a tag
           }
           else
+          {
             nextState = sENDTAG; // Tag not supported
+          }
         }
         tagHash = 0;
-
-        Serial.print(" Next state: ");
-        Serial.print(nextState);
       }
       else
       {
@@ -532,10 +506,8 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       { // End condition
         url[i++] = 0;
         nextState = sENDTAG;
-        storeURL(url);
-        Temporary_File.write(TAG_LINK2);
-
-        Serial.print(TAG_LINK2);
+        Store_URL(url);
+        Cache_File.write(TAG_LINK2);
       }
       else
       {
@@ -544,9 +516,7 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         if (i > 130)
         {
           nextState = sENDTAG;
-          Temporary_File.write(TAG_LINK2);
-
-          Serial.print(TAG_LINK2);
+          Cache_File.write(TAG_LINK2);
         }
       }
       outputChar = 0;
@@ -574,30 +544,23 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
 
     if ((cleanChar == 10) || (cleanChar == '\t'))
     {
-      uint32_t speed = downloadCount / ((millis() - startTime) / 1000);
-      Serial.print(downloadCount);
-      Serial.print(F(" bytes downloaded @ "));
-      Serial.print(speed);
-      Serial.println(" bytes / sec");  
+      //uint32_t speed = downloadCount / ((millis() - startTime) / 1000); deleted because make esp32 crash (divide by zero)
+
       if (fileLength > 0)
       {
-        uint32_t percent = downloadCount * 100 / fileLength;        
-        Serial.print(fileLength);
-        Serial.println(F(" bytes file size"));
-        Serial.print (percent);
-        Serial.println (F("% downloaded"));
+        //uint8_t Percent = uint8_t(downloadCount * 100 / fileLength);
+        //Serial.println(Percent);
+        /*Nextion_Serial.print(F("LOAD_BAR.val="));
+        Nextion_Serial.print(Percent);
+        Nextion_Serial.print(F("\xFF\xFF\xFF"));*/
       }
-
-      Serial.print(count);
-      Serial.println(F(" bytes stored"));
     }
 
     // Handle tags with pre breaks
     if ((outputChar & PRE_BREAK))
     {
-      Temporary_File.write(10);
+      Cache_File.write(10);
       count++;
-      Serial.write('%');
     }
 
     // Write \n and \r verbatim inside PRE tag
@@ -621,8 +584,6 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         if (lastChar != TAG_CR)
         {
           cleanChar = ' ';
-          Serial.print(cleanChar);
-          Serial.print(F(" Set ' '"));
         }
         else
         {
@@ -633,12 +594,6 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
         if ((lastChar == ' ') || (lastChar == '>') || (lastChar == TAG_CR) || (cleanChar < 32))
         {
           cleanChar = 0;
-          /* (DEBUG1)
-            Serial.print (F(" set 0\t"));
-            Serial.print (lastChar);
-            Serial.print (F("\t"));
-            Serial.print (outputChar, DEC);
-            #endif*/
         }
     }
 
@@ -653,25 +608,19 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
       if ((cleanChar == TAG_CR) && !(outputChar & PRE_BREAK))
       {
 
-        Serial.print('@');
-
-        Temporary_File.write(10);
+        Cache_File.write(10);
       }
       else if (cleanChar > 31)
       {
         if (metaState != sQUIET)
         {
-          Temporary_File.write(cleanChar);
-
-          Serial.write(cleanChar);
+          Cache_File.write(cleanChar);
         }
       }
       else
       {
-        Temporary_File.write(cleanChar);
+        Cache_File.write(cleanChar);
         count++;
-
-        Serial.print(cleanChar, DEC);
       }
       lastChar = cleanChar;
     }
@@ -681,10 +630,8 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     // Handle tags with pre breaks
     if ((outputChar & POST_BREAK) && (lastChar != TAG_CR))
     {
-      Temporary_File.write(10);
+      Cache_File.write(10);
       count++;
-
-      Serial.print('#');
 
       lastChar = TAG_CR;
     }
@@ -692,30 +639,29 @@ byte iGOS_Class::cacheURL(char *URLserver, char *URLpath)
     localState = nextState;
   } // Loading loop
 
-  Temporary_File.print('\0');
-  WiFi_Client.flush();
+  Serial.println(F("Finish parsing"));
+
+  Cache_File.print('\0');
+  //WiFi_Client.flush();
   WiFi_Client.stop();
 
-  /* tftLCD.println();
-  tftLCD.print(count);
-  tftLCD.print(F(" bytes")); */
-
-  Temporary_File.flush();
+  Cache_File.flush();
 
   Serial.print(F("\nCount: "));
   Serial.println(count, DEC);
-  freeRam();
 
-  return count;
+  //Nextion_Serial.print(F("LOAD_BAR.val=0\xFF\xFF\xFF"));
+
+  return 1;
 }
 
-void iGOS_Class::Get_Page_From_Index()
+void iGOS_Class::Go_Link()
 {
-  Serial.println(F("\n>> Get Page :"));
-  buildURL(pageLinks.index[pageLinks.linkPtr]); // Get URL from page index
+  Serial.println(F("\n>> Go Link :"));
+  Build_URL(pageLinks.index[pageLinks.linkPtr]); // Get URL from page index
   Serial.print(F("Built url: "));
   Serial.println(URL);
-  splitURL(URL);
+  Split_URL(URL);
   Serial.print(F("Split url: "));
   Serial.print(Server);
   Serial.print(F(" + "));
@@ -733,7 +679,7 @@ void iGOS_Class::Get_Page_From_Index()
   }
   else // Something stuffed up
   {
-    Temporary_File.flush();
+    Cache_File.flush();
     Serial.println("No URL");
     return;
   }
@@ -749,7 +695,7 @@ void iGOS_Class::Page_Up()
     Serial.print(F("Page up to page "));
     Serial.println(textContent.pagePtr);
     pageLinks.linkPtr = 0;
-    displayPage();
+    Display_Page();
   }
   else
   { // Can't got up any further
@@ -773,7 +719,7 @@ void iGOS_Class::Page_Down()
   pageLinks.lastLink = 0;
   Serial.print(F("Page down to page "));
   Serial.println(textContent.pagePtr);
-  displayPage();
+  Display_Page();
   return;
 }
 
@@ -792,7 +738,7 @@ void iGOS_Class::Next_Link()
     Serial.print(F("Reset link to "));
     Serial.println(pageLinks.linkPtr);
   }
-  displayPage();
+  Display_Page();
   return;
 }
 
@@ -811,68 +757,60 @@ void iGOS_Class::Previous_Link()
     Serial.print(F("Reset link to "));
     Serial.println(pageLinks.linkPtr);
   }
-  displayPage();
+  Display_Page();
   return;
 }
 
 void iGOS_Class::Load_Page()
 {
-  Serial.println(F("\n|| Load & cache URL"));
-  Temporary_File.flush();
-  Temporary_File.close(); // Close read only cache file
-  splitURL(URL);
-  if (cacheURL(Server, Path)) // Download and cache URL
+  Serial.println(F("\n|| Cache & display URL"));
+  Cache_File.flush();
+  Cache_File.close(); // Close read only cache file
+  Split_URL(URL);
+  if (Cache_URL(Server, Path)) // Download and cache URL
   {
+    Serial.println(F("Succed to cache URL"));
     pageLinks.lastLink = 0;
     pageLinks.linkPtr = 0;
-    //printCache();
   }
   else
   {
-    Temporary_File.close();
+    Cache_File.close();
     WiFi_Client.stop();
     memcpy(Server, "*\0", 2);
     memcpy(Path, '\0', 1);
     memcpy(URL, '\0', 1);
     pageLinks.lastLink = 0;
-    openCacheFile(true);
-    Serial.println("Download & caching failed");
+
+    Serial.println(F("Download & caching failed"));
     //error handle
   }
-  if (!openCacheFile(true)) // Re-open read only cache file
-  {
-    Serial.println(F("Cache open failed"));
-    //error handle
-    memcpy(Server, "*\0", 2);
-  }
-  else
-  {
-    pageLinks.lastLink = 0;
-    displayPage();
-  }
+
+  pageLinks.lastLink = 0;
+  Display_Page();
+
   return;
 }
 
-void iGOS_Class::buildURL(uint16_t pointer)
+void iGOS_Class::Build_URL(uint16_t pointer)
 {
   byte i = 0;
   char c = 0;
-  uint16_t oldPos = Temporary_File.position();
+  uint16_t oldPos = Cache_File.position();
 
-  if (!Temporary_File.seek(pointer))
+  if (!Cache_File.seek(pointer))
   {
     Serial.println(F("Seek failure"));
     return;
   }
-  c = Temporary_File.read();
+  c = Cache_File.read();
   while (c != TAG_LINK2)
   {
     URL[i++] = c;
-    c = Temporary_File.read();
+    c = Cache_File.read();
   }
   URL[i] = 0;
-  Temporary_File.seek(oldPos);
-  freeRam();
+  Cache_File.seek(oldPos);
 }
 
 void iGOS_Class::displayLinkIndex()
@@ -891,18 +829,17 @@ void iGOS_Class::displayLinkIndex()
     Serial.print(F("\t"));
     Serial.print(pageLinks.index[i]);
     Serial.print(F("\t"));
-    Temporary_File.seek(pageLinks.index[i]);
+    Cache_File.seek(pageLinks.index[i]);
     byte c = 0, j = 0;
-    c = Temporary_File.read();
+    c = Cache_File.read();
     while ((c != TAG_LINK2) && (j++ < 100))
     {
       Serial.write(c);
-      c = Temporary_File.read();
+      c = Cache_File.read();
     }
     Serial.println();
   }
   Serial.println();
-  freeRam();
 }
 
 void iGOS_Class::displayPageIndex()
@@ -921,46 +858,11 @@ void iGOS_Class::displayPageIndex()
     Serial.println(textContent.index[i]);
   }
   Serial.println();
-  freeRam();
 }
 
-uint8_t iGOS_Class::printCache()
+byte iGOS_Class::Display_Page()
 {
-  int16_t c;
-  uint16_t count = 0;
-
-  if (!Temporary_File)
-  {
-    Serial.println(F(" failed, not open"));
-    return 0;
-  }
-  Temporary_File.seek(0);
-
-  Serial.print(F("\nFile size: "));
-  Serial.println(Temporary_File.size());
-
-  while ((c = Temporary_File.read()) > 0)
-  {
-    Serial.print(count++);
-    Serial.print(F("\t"));
-    if (c > 31)
-    {
-      Serial.write((char)c);
-      Serial.println();
-    }
-    else
-    {
-      Serial.print("*");
-      Serial.println(c);
-    }
-  }
-  Serial.println(F("\nDone"));
-  freeRam();
-  return 1; //no sense here, just for returning something
-}
-
-byte iGOS_Class::displayPage()
-{
+  Serial.println();
   Serial.print(F("Display cached page :"));
   Serial.println(textContent.pagePtr);
 
@@ -978,44 +880,114 @@ byte iGOS_Class::displayPage()
   String Text_To_Print;
   uint16_t Text_Char_Count;
 
-  Nextion_Serial.println(F("fill 2,50,460,222,33808\xFF\xFF\xFF"));
+  Nextion_Serial.println(F("fill 0,50,464,222,16904\xFF\xFF\xFF"));
 
   //Draw header
+  Nextion_Serial.print(F("URL_TXT.txt=\""));
   if (Server[0] == '*')
   {
-    Serial.println(F("Home Page"));
-    Nextion_Serial.print(F("PATH_TXT.txt=\"Home Page\"\xFF\xFF\xFF"));
+    Nextion_Serial.print(F("Home Page"));
+    Cache_File = SD.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
   {
-    Nextion_Serial.print(F("PATH.txt=\""));
     Nextion_Serial.print(URL);
-    Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+    Cache_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
   }
-  if (!Temporary_File.seek(filePtr))
+  Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+  if (!Cache_File)
+  {
+    Serial.println(F("Failed to open cache !"));
+    memcpy(Server, "*\0", 2);
+    return 0;
+  }
+
+  if (!Cache_File.seek(filePtr))
   {
     //error handle
     Serial.println(F("Seek failture"));
     return 0;
   }
-  freeRam();
+
   Serial.print(F("SD File position is: "));
-  Serial.println(Temporary_File.position());
+  Serial.println(Cache_File.position());
 
   if (buildingIndex)
   {
     Serial.println(F("Building link index"));
   }
 
-  Cursor_X = 2;
   Cursor_Y = 50;
   Text_To_Print = "";
   Text_Char_Count = 0;
 
   // Loop through cache fizle
-  while ((filePtr <= Temporary_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
+  while ((filePtr <= Cache_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
   {
-    c = Temporary_File.read();
+    if (Text_Char_Count >= 55) //print if auto return to line (max 56 normal)
+    {
+      Nextion_Serial.print(F("xstr "));
+      Nextion_Serial.print(4); //X coordinate to render the text
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(456); // Width of the text
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(14); // Heigh of the text
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(0); //Bold font
+      Nextion_Serial.print(F(","));
+      switch (Current_Color)
+      {
+      case 65534: //Bold style
+        Serial.print(F("B:"));
+        Nextion_Serial.print(57344); //red
+        Current_Color = Last_Color;
+        break;
+
+      case 65533: //Highlight style
+        Serial.print(F("H:"));
+        Nextion_Serial.print(34308); //green
+        Current_Color = Last_Color;
+        Last_Color = 65535;
+        break;
+
+      case 65532: //Link style
+        Serial.print(F("L:"));
+        Nextion_Serial.print(1300); //blue
+        Current_Color = Last_Color;
+        Last_Color = 65535;
+        break;
+
+      case 65531: //Heading style
+        Serial.print(F("H1:"));
+        Nextion_Serial.print(64896); //yellow
+        Current_Color = Last_Color;
+        break;
+
+      default:
+        Serial.print(F("N:"));
+        Nextion_Serial.print(Current_Color); //font color
+        break;
+      }
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(16904); //default grey color
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(0); //Left horizontal alignement
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(1); //Center vertical aligment
+      Nextion_Serial.print(F(","));
+      Nextion_Serial.print(1); //Solid color background fill
+      Nextion_Serial.print(F(",\""));
+      Nextion_Serial.print(Text_To_Print);
+      Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+
+      Cursor_Y += 14; //new line
+      Text_Char_Count = 0;
+      Text_To_Print = "";
+    }
+
+    c = Cache_File.read();
     filePtr++;
     count++;
 
@@ -1026,60 +998,6 @@ byte iGOS_Class::displayPage()
       { // Print only if in visible mode (supresses URLs)
         Text_To_Print += (char)c;
         ++Text_Char_Count;
-
-        if (Text_Char_Count > 58)
-        { //print if auto return to line (exceed 58 char)
-
-          Nextion_Serial.print(F("xstr "));
-          Nextion_Serial.print(Cursor_X); //X coordinate to render the text
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(460); // Width of the text
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(14); // Heigh of the text
-          Nextion_Serial.print(F(","));
-          if (Current_Color == 65534) //Bold enable
-          {
-            Serial.print(F("B:"));
-            Nextion_Serial.print(1); //Bold font
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(65535); //font color
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(33808); //default grey color
-          }
-          else if (Current_Color == 65533) //Highlighted
-          {
-            Serial.print(F("H:"));
-            Nextion_Serial.print(0); //Default font
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(65535); //font color
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(16904); //default grey color
-          }
-          else
-          {
-            Serial.print(F("N:"));
-            Nextion_Serial.print(0); //Default font
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(Current_Color); //font color
-            Nextion_Serial.print(F(","));
-            Nextion_Serial.print(33808); //default grey color
-          }
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(0); //Left horizontal alignement
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(1); //Center vertical aligment
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(1); //Solid color background fill
-          Nextion_Serial.print(F(",\""));
-          Nextion_Serial.print(Text_To_Print);
-          Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
-
-          Cursor_Y += 14; //new line
-          Text_Char_Count = 0;
-          Text_To_Print = "";
-        }
       }
     }
 
@@ -1090,72 +1008,10 @@ byte iGOS_Class::displayPage()
       {
       case TAG_CR:
 
-      case 10: // Print the caracters in the buffer and fill the rest of the current line with black to erase the previous contents
-        Nextion_Serial.print(F("xstr "));
-        Nextion_Serial.print(Cursor_X); //X coordinate to render the text
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(460); // Width of the text
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(14); // Heigh of the text
-        Nextion_Serial.print(F(","));
-        if (Current_Color == 65534) //Bold enable
-        {
-          Serial.print(F("B:"));
-          Nextion_Serial.print(1); //Bold font
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(65535); //font color
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(33808); //default grey color
-        }
-        else if (Current_Color == 65533) //Highlighted
-        {
-          Serial.print(F("H:"));
-          Nextion_Serial.print(0); //Default font
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(65535); //font color
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(16904); //default grey color
-        }
-        else
-        {
-          Serial.print(F("N:"));
-          Nextion_Serial.print(0); //Default font
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(Current_Color); //font color
-          Nextion_Serial.print(F(","));
-          Nextion_Serial.print(33808); //default grey color
-        }
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(0); //Left horizontal alignement
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(1); //Center vertical aligment
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(1); //Solid color background fill
-        Nextion_Serial.print(F(",\""));
-        Nextion_Serial.print(Text_To_Print);
-        Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
-
-        Text_Char_Count = 0;
-        Text_To_Print = "";
-
-        /*
-        Nextion_Serial.print(F("fill "));
-        Nextion_Serial.print(Cursor_X); //X coordinate to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(Cursor_Y); //Y coordinate to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(462 - Cursor_X); // Width to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(14); // Heigh to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(33808); //Infill Color : Light grey
-        Nextion_Serial.print(F("\xFF\xFF\xFF"));*/
-        Cursor_Y += 14;
-
+      case 10: // Print rest of buffer and return to line
+        Text_Char_Count = 65535;
         invisiblePrint = false;
-        Serial.println(F("IP : off"));
+  
         break;
 
       case 13: // Only doing a CR/LF on ASCII 10
@@ -1163,7 +1019,7 @@ byte iGOS_Class::displayPage()
 
       case TAG_HEADING1:            // Start of a header tag
         Last_Color = Current_Color; // Store the colour state
-        Current_Color = 64896;      // Set heading color : Yellow
+        Current_Color = 65531;
         break;
 
       case TAG_BOLD1: // Start of a bold tag
@@ -1173,7 +1029,7 @@ byte iGOS_Class::displayPage()
 
       case TAG_LINK1:          // Start of an anchor tag. The actual URL follows
         invisiblePrint = true; // Turn off printing while the URL is loading
-        Serial.println(F("IP : on"));
+        
         if ((buildingIndex) && (currentLink < LINKINDEXSIZE))
         {
           pageLinks.index[currentLink] = filePtr;
@@ -1189,10 +1045,10 @@ byte iGOS_Class::displayPage()
         }
         else
         {
-          Current_Color = 1300; // Link color : blue
+          Current_Color = 65532; // Link color : blue
         }
         invisiblePrint = false; // Turn on printing again
-        Serial.println(F("IP : off"));
+  
         break;
 
       case TAG_LINK3: // End of the anchor tag
@@ -1200,15 +1056,15 @@ byte iGOS_Class::displayPage()
         {
           currentLink++; // Removed && buildingLink
         }
-        Current_Color = Last_Color;
-        Last_Color = 65535;
+        Text_Char_Count = 65535;
         break;
 
-        // End of header or bold tags
-      case TAG_HEADING2:
+      case TAG_HEADING2: // End of header or bold tags
+        Text_Char_Count = 65535;
+        break;
 
       case TAG_BOLD2:
-        Current_Color = Last_Color;
+        Text_Char_Count = 65535;
         break;
 
         // List entry tag
@@ -1219,39 +1075,24 @@ byte iGOS_Class::displayPage()
         // Horizontal rule tag
       case TAG_HR:
         Nextion_Serial.print(F("fill "));
-        Nextion_Serial.print(Cursor_X + 20); //X coordinate to fill
+        Nextion_Serial.print(32); //X coordinate to fill
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(Cursor_Y + 6); //Y coordinate to fill
         Nextion_Serial.print(F(","));
-        Nextion_Serial.print(402 - Cursor_X); // Width to fill
+        Nextion_Serial.print(400); // Width to fill
         Nextion_Serial.print(F(","));
         Nextion_Serial.print(2); // Heigh to fill
         Nextion_Serial.print(F(","));
-        Nextion_Serial.print(65535); //Infill Color : Light grey
+        Nextion_Serial.print(65535); //Infill Color : white
         Nextion_Serial.print(F("\xFF\xFF\xFF"));
         Cursor_Y += 14;
+        break;
 
       default:
         break;
       }
     }
   }
-  Cursor_Y += 14;
-
-
-
-  // Fill the rest of the screen under the last line with grey
-  Nextion_Serial.print(F("fill "));
-  Nextion_Serial.print(Cursor_X); //X coordinate to fill
-  Nextion_Serial.print(F(","));
-  Nextion_Serial.print(Cursor_Y); //Y coordinate to fill
-  Nextion_Serial.print(F(","));
-  Nextion_Serial.print(462 - Cursor_X); // Width to fill
-  Nextion_Serial.print(F(","));
-  Nextion_Serial.print(14); // Heigh to fill
-  Nextion_Serial.print(F(","));
-  Nextion_Serial.print(33808); //Infill Color : Light grey
-  Nextion_Serial.print(F("\xFF\xFF\xFF"));
 
   Serial.print(F("\nCurrent page: "));
   Serial.println(textContent.pagePtr);
@@ -1271,12 +1112,12 @@ byte iGOS_Class::displayPage()
   {
     Serial.println(F("pagePtr < PAGEINDEXSIZE"));
   }
-  if (filePtr++ < Temporary_File.size())
+  if (filePtr++ < Cache_File.size())
   {
     Serial.println(F("filePtr++ < SDFile.size"));
   }
   // Update page index
-  if ((textContent.pagePtr == textContent.lastPage) && (textContent.pagePtr < PAGEINDEXSIZE) && (filePtr++ < Temporary_File.size()))
+  if ((textContent.pagePtr == textContent.lastPage) && (textContent.pagePtr < PAGEINDEXSIZE) && (filePtr++ < Cache_File.size()))
   {
     textContent.lastPage++;
     textContent.index[textContent.lastPage] = filePtr - 2; //textContent.index[textContent.lastPage] + count;
@@ -1296,7 +1137,9 @@ byte iGOS_Class::displayPage()
   Serial.print(F("filePtr:\t"));
   Serial.println(filePtr);
   Serial.print(F("SD size:\t"));
-  Serial.println(Temporary_File.size());
+  Serial.println(Cache_File.size());
+
+  Cache_File.flush();
 
   // Draw RAM use and page position in header
   /*tftLCD.setCursor(43, 0);
@@ -1323,7 +1166,7 @@ char iGOS_Class::lowerCase(char c)
   }
 }
 
-uint16_t iGOS_Class::hashOut(uint16_t hash)
+uint16_t iGOS_Class::Hash_Out(uint16_t hash)
 {
   uint16_t output = 0;
 
@@ -1338,7 +1181,7 @@ uint16_t iGOS_Class::hashOut(uint16_t hash)
   return output;
 }
 
-byte iGOS_Class::findUntil(uint8_t *String_To_Find, boolean terminate)
+byte iGOS_Class::Find_Until(uint8_t *String_To_Find, boolean terminate)
 {
   uint8_t currentChar = 0;
   long timeOut = millis() + 5000;
@@ -1379,28 +1222,7 @@ byte iGOS_Class::findUntil(uint8_t *String_To_Find, boolean terminate)
   return 0; // Timeout
 }
 
-boolean iGOS_Class::inputWait()
-{
-  byte wait = 0;
-  long timeOut = millis() + 9000; // Allow 5 seconds of no data
-  Serial.println();
-  while ((millis() < timeOut) && (!WiFi_Client.available()))
-  {
-    Serial.print(" ");
-    Serial.print(wait * 100);
-    delay(++wait * 100);
-  }
-  if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
-  {
-    return 0;
-  }
-  else
-  {
-    return 1;
-  }
-}
-
-void iGOS_Class::storeURL(char *local_url)
+void iGOS_Class::Store_URL(char *local_url)
 {
   byte i = 0;
   byte j = 0;
@@ -1419,13 +1241,10 @@ void iGOS_Class::storeURL(char *local_url)
     i++;
     local_url[i] = local_url[i + j];
   }
-  Serial.print(local_url);
-  Serial.print(F("|"));
-  Temporary_File.print(local_url);
-  freeRam();
+  Cache_File.print(local_url);
 }
 
-void iGOS_Class::splitURL(char *localURL)
+void iGOS_Class::Split_URL(char *localURL)
 {
   byte i = 0;
   byte urlIndex = 0;
@@ -1516,51 +1335,4 @@ void iGOS_Class::splitURL(char *localURL)
   Serial.print(F("URL: "));
   Serial.println(Server);
   Serial.println(Path);
-  freeRam();
-}
-
-uint8_t iGOS_Class::openCacheFile(boolean readOnly)
-{
-  if (Server[0] == '*')
-  {
-    Serial.print(F("Opening Home File"));
-    if (readOnly)
-    {
-      Serial.println(F(" Read Only ... "));
-      Temporary_File = SD.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
-    }
-    else
-    {
-      Serial.println(F(" Write Only ... "));
-      Temporary_File = SD.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_WRITE);
-    }
-  }
-  else
-  {
-    Serial.print(F("Opening Cache File"));
-    if (readOnly)
-    {
-      Serial.println(F(" Read Only ... "));
-      Temporary_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
-    }
-    else
-    {
-      Serial.println(F(" Write Only ... "));
-      Temporary_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
-    }
-  }
-  if (!Temporary_File)
-  {
-    Serial.println(F("Failed on open"));
-    //error to handle
-    return 0;
-  }
-  return 1;
-}
-
-void iGOS_Class::freeRam()
-{
-  Serial.print(F("Free Heap :"));
-  Serial.print(ESP.getFreeHeap());
-  Serial.println();
 }
