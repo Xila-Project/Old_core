@@ -26,8 +26,6 @@ iGOS_Class::iGOS_Class()
 
   textContent = {0, 0, false};
 
-  lowestRAM = 2000;
-
   xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 8192, NULL, 2, &Socket_Handle, 1);
 }
 
@@ -40,6 +38,7 @@ iGOS_Class::~iGOS_Class()
 void iGOS_Class::Execute(uint16_t const &Socket_Method_To_Set)
 {
   Socket_Method = Socket_Method_To_Set;
+  vTaskResume(Socket_Handle);
   return;
 }
 
@@ -374,7 +373,7 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
       }
     }
 
-    //================================================
+    //==============================f==================
     // State is sTAG                                 3
     //================================================
     if (c == '<')
@@ -940,33 +939,28 @@ byte iGOS_Class::Display_Page()
       switch (Current_Color)
       {
       case 65534: //Bold style
-        Serial.print(F("B:"));
         Nextion_Serial.print(57344); //red
         Current_Color = Last_Color;
         break;
 
       case 65533: //Highlight style
-        Serial.print(F("H:"));
         Nextion_Serial.print(34308); //green
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65532: //Link style
-        Serial.print(F("L:"));
         Nextion_Serial.print(1300); //blue
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65531: //Heading style
-        Serial.print(F("H1:"));
         Nextion_Serial.print(64896); //yellow
         Current_Color = Last_Color;
         break;
 
       default:
-        Serial.print(F("N:"));
         Nextion_Serial.print(Current_Color); //font color
         break;
       }

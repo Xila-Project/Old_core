@@ -2,10 +2,12 @@
 #define GALAXOS_H_INCLUDED
 
 #include "Arduino.h"
+#include "time.h"
 
 #include "galaxos.hpp"
 #include "igos.hpp"
 #include "software.hpp"
+
 
 //----------------------------------------------------------------------------//
 //                                        Define Const                        //
@@ -149,9 +151,18 @@ class GalaxOS_Class
 
         String Temporary_String;
 
-        iGOS_Class *iGOS_Pointer;
-        GalaxOS_Software_Class *Software_Pointer[4];
+        iGOS_Class *iGOS_Pointer; 
+        Periodic_Class *Periodic_Pointer;
         Ultrasonic_Class *Ultrasonic_Pointer;
+        Calculator_Class *Calculator_Pointer;
+        Paint_Class *Paint_Pointer;
+        Piano_Class *Piano_Pointer;
+        File_&_Folder_Class *F&H_Pointer;
+        Music_Player_Class *Music_Player_Pointer;
+        Pong_Class *Pong_Class;
+        
+
+        GalaxOS_Software_Class *Software_Pointer[4];
 
         union Temporary_Split_Integer_Union
         {
@@ -170,9 +181,11 @@ class GalaxOS_Class
             long Long;
             byte Byte[4];
         } Temporary_Split_Long;
+
+        struct tm Time;
         
-        const char* WiFi_SSID     = "Avrupa";
-        const char* WiFi_Password = "0749230994";
+        char WiFi_SSID[20];
+        char WiFi_Password[20];
 
         xTaskHandle Nextion_Serial_Receive_Handle;
  
@@ -216,6 +229,14 @@ class GalaxOS_Class
 
         void Set_Variable(char const& Tag, float const& Float_To_Set);
         void Get_Variable(char const& Tag, float& Float_To_Get);
+
+        void Registry_Get_Key(String const& Path, String const& Key_Name, String& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, uint8_t& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, int8_t& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, uint16_t& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, int16_t& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, uint32_t& Key_To_Get);
+        void Registry_Get_Key(String const& Path, String const& Key_Name, int32_t& Key_To_Get);
 
         //Nextion Screen Cursor for dynamic rendering
 

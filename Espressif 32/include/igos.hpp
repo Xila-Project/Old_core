@@ -118,6 +118,7 @@ static const uint16_t tag_codes[] PROGMEM = {
 class iGOS_Class
 {
 private:
+
     char Server[30];
     char Path[60];
     char URL[90];
@@ -140,8 +141,6 @@ private:
     };
 
     linkStruct pageLinks;
-
-    uint16_t lowestRAM; // Keeps tabs for low memoery alerts
 
     uint8_t generalBuffer[55];
 
@@ -192,6 +191,6 @@ public:
     friend void iGOS_Socket( void *pvParameters );
 };
 
-void iGOS_Socket( void *pvParameters );
+void iGOS_Socket(void *pvParameters);
 
 #endif

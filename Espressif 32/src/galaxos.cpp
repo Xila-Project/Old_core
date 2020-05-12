@@ -31,9 +31,12 @@
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
 #include "Arduino.h"
+#include "mbedtls/sha256.h"
+
 #include "galaxos.hpp"
 #include "WiFi.h"
 #include "object.hpp"
+
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -256,7 +259,12 @@ void GalaxOS_Class::Start()
   Username = "ALIX";
   Password = "ALIX";
 
+  strcpy(WiFi_SSID, "Avrupa");
+  strcpy(WiFi_Password, "0749230994");
+
+  
   WiFi_Connect();
+  Synchronise_Time();
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
@@ -1027,6 +1035,7 @@ void Nextion_Serial_Receive(void *pvParameters)
             Temporary_Byte_Array[3]++;
             if (Temporary_Byte_Array[3] >= 3)
             {
+             
               break;
             }
           }
@@ -1041,7 +1050,24 @@ void Nextion_Serial_Receive(void *pvParameters)
 
 void GalaxOS_Class::Synchronise_Time()
 {
-
+  char NTP_Server[20] = "pool.ntp.org";
+  const long GMT_Offset = 3600;
+  const long Daylight_Offset = 3600;
+  if (WiFi.status() != WL_CONNECTED)
+  {
+    //error handle
+    return;
+  }
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  if(!getLocalTime(&Time))
+  {
+    //error handle
+    Serial.println(F("Failed to get time"));
+    return;
+  }
+  Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
 }
 
 void GalaxOS_Class::WiFi_Connect()
@@ -1421,23 +1447,3 @@ while(1) {
 }
 }*/
 
-void Periodic_Main(byte Type)
-{
-
-  float Column;
-  float Line;
-
-  GalaxOS.Get_Variable('A', Column);
-  Column -= 6;
-  Column /= 26;
-  Column = round(Column);
-  Serial.print(F("Column : "));
-  Serial.println(Column);
-
-  GalaxOS.Get_Variable('B', Line);
-  Line -= 29;
-  Line /= 26;
-  Line = round(Line);
-  Serial.print(F("Line : "));
-  Serial.println(Line);
-}
