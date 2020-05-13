@@ -7,6 +7,8 @@
 #include "galaxos.hpp"
 #include "igos.hpp"
 #include "software.hpp"
+#include "periodic.hpp"
+#include "file_manager.hpp"
 
 
 //----------------------------------------------------------------------------//
@@ -153,11 +155,13 @@ class GalaxOS_Class
 
         iGOS_Class *iGOS_Pointer; 
         Periodic_Class *Periodic_Pointer;
+        File_Manager_Class *File_Manager_Pointer;
+
         Ultrasonic_Class *Ultrasonic_Pointer;
         Calculator_Class *Calculator_Pointer;
         Paint_Class *Paint_Pointer;
         Piano_Class *Piano_Pointer;
-        File_&_Folder_Class *F&H_Pointer;
+        
         Music_Player_Class *Music_Player_Pointer;
         Pong_Class *Pong_Class;
         
@@ -198,6 +202,8 @@ class GalaxOS_Class
 
         ~GalaxOS_Class();
 
+        void Update_From_SD();
+
         void Open_Software(uint8_t const& Software_ID);
         void Close_Software(uint8_t const& Software_ID);
 
@@ -206,7 +212,10 @@ class GalaxOS_Class
         byte Get_C_MIDI();
 
         void Set_Software_Pointer(byte const& Software_Pointer_ID, GalaxOS_Software_Class& Software_Pointer_To_Set);
+        
         iGOS_Class *Get_Software_Pointer();
+        Periodic_Class *Get_Software_Pointer();
+        File_Manager *Get_Software_Pointer();
 
         void Synchronise_Time();
 

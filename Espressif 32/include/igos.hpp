@@ -2,6 +2,7 @@
 #define IGOS_H_INCLUDED
 
 #include "Arduino.h"
+#include "WiFiClient.h"
 #include <SD.h>
 
 //highest header file, will be replace by a separate one 
@@ -145,6 +146,8 @@ private:
     uint8_t generalBuffer[55];
 
     static uint8_t Number_Instance;
+
+    WiFiClient WiFi_Client;
 
     void (*resetFunc)(void) = 0; //declare reset function at adress 0
 

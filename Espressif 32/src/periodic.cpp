@@ -1,10 +1,9 @@
 #include "periodic.hpp"
-#include "Arduino.h"
-#include "galaxos.hpp"
+#include "object.hpp"
 
 uint8_t Periodic_Class::Number_Instance = 0;
 
-Periodic_Class::Periodic_Class(GalaxOS_Class const &GalaxOS_Pointer_To_Set)
+Periodic_Class::Periodic_Class()
 {
     if (Number_Instance > 0)
     {
@@ -13,8 +12,6 @@ Periodic_Class::Periodic_Class(GalaxOS_Class const &GalaxOS_Pointer_To_Set)
     }
 
     ++Number_Instance;
-
-    GalaxOS_Pointer = GalaxOS_Pointer_To_Set;
 
     xTaskCreatePinnedToCore(Periodic_Socket, "Periodic", 4096, NULL, 2, &Socket_Handle, 1);
 }
@@ -28,21 +25,21 @@ Periodic_Class::~Periodic_Class()
 void Periodic_Socket(void *pvParamters)
 {
     Periodic_Class *Periodic_Pointer = GalaxOS.Get_Software_Pointer();
-    (void)pvParameters;
+    (void)pvParamters;
     for (;;)
     {
-        switch (iGOS_Pointer->Socket_Method)
+        switch (Periodic_Pointer->Socket_Method)
         {
-        case 0:
-            Serial.println(F("iGOS Socket : Nothing to do ..."));
+        case 0: //Idle state
+            Serial.println(F("Periodic Socket : Nothing to do ..."));
             break;
-        case: //GM
+        case 18253: //GM
 
             break;
-        case: //GL
+        case 18252: //GL
 
             break;
-        case: //GD
+        case 18244: //GD
 
             break;
         default:
@@ -69,18 +66,20 @@ void Periodic_Class::Execute(char const &Socket_Method_Char1, char const &Socket
 
 void Periodic_Class::Get_Main_Data()
 {
-    uint32_t Column, Line;
+    long X, Y;
+    float Column, Line;
 
-    GalaxOS_Pointer->Get_Variable('X', Column);
-    GalaxOS_Pointer->Get_Variable('Y', Line);
-
-    Column -= 6;
+    GalaxOS_Pointer->Get_Variable('X', X);
+    GalaxOS_Pointer->Get_Variable('Y', Y);
+    Column = (float)X;
+    Column += 8;
     Column /= 26;
-    Column = round(Y);
-
-    Line -= 29;
+    Column = round(Column);
+    Line = (float)Y;
+    Line -= 16;
     Line /= 26;
     Line = round(Line);
+    Current_Atom = ((uint16_t)Column * 10) + (uint16_t)Line;
 }
 
 void Periodic_Class::Get_Data()

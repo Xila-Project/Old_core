@@ -1,5 +1,3 @@
-#include "WiFiClient.h"
-
 #include "igos.hpp"
 #include "galaxos.hpp"
 #include "object.hpp"
@@ -39,14 +37,12 @@ void iGOS_Class::Execute(uint16_t const &Socket_Method_To_Set)
 {
   Socket_Method = Socket_Method_To_Set;
   vTaskResume(Socket_Handle);
-  return;
 }
 
 void iGOS_Class::Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2)
 {
   Socket_Method = ((uint16_t)Socket_Method_Char1 << 8) | (uint16_t)Socket_Method_Char2;
   vTaskResume(Socket_Handle);
-  return;
 }
 
 void iGOS_Socket(void *pvParameters)

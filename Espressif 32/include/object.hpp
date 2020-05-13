@@ -7,10 +7,6 @@
 #include "galaxos.hpp"
 
 extern HardwareSerial Nextion_Serial;
-extern WiFiClient WiFi_Client;
 extern GalaxOS_Class GalaxOS;
-
-extern String Temporary_File_Path;
-extern String Temporary_File_Name;
 
 #endif

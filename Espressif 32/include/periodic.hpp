@@ -3,8 +3,11 @@
 
 #include "Arduino.h"
 
-class Periodic_Class {
+class Periodic_Class
+{
     private:
+
+        
 
         static uint8_t Number_Instance;
 
@@ -12,13 +15,15 @@ class Periodic_Class {
 
         xTaskHandle Socket_Handle;
 
+        uint16_t Current_Atom;
+
         void Periodic_Class::Get_Main_Data();
         void Periodic_Class::Get_Data();
         void Periodic_Class::Get_List();
 
     public:
 
-        Periodic_Class(GalaxOS_Class const& GalaxOS_Pointer_To_Set);
+        Periodic_Class();
         ~Periodic_Class();
 
         void Execute(uint16_t const& Socket_Method_To_Set);

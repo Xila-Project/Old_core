@@ -87,6 +87,16 @@ iGOS_Class *GalaxOS_Class::Get_Software_Pointer()
   return iGOS_Pointer;
 }
 
+Periodic_Class *GalaxOS_Class::Get_Software_Pointer()
+{
+  return Periodic_Pointer;
+}
+
+File_Manager_Class *GalaxOS_Class::Get_Software_Pointer()
+{
+  return File_Manager_Pointer;
+}
+
 void GalaxOS_Class::Nextion_Upload_Firmware(String const &Path)
 {
   if (!SD.exists(Path))
@@ -1146,36 +1156,6 @@ void Ultrasonic_Class::Read()
   }
 }
 
-void Piano(int Frequency, int Note)
-{
-  ledcAttachPin(GalaxOS.Get_Speaker_Pin(), 0);
-  String Temporary = "";
-  unsigned long Duration = 200;
-  Frequency += GalaxOS.Get_C_Frequency();
-  Note += GalaxOS.Get_C_MIDI();
-  Temporary = "Frequency : " + String(Frequency, DEC);
-  Nextion_Serial.print(F("FREQUENCY_TXT.txt=\""));
-  Nextion_Serial.print(Temporary);
-  Nextion_Serial.print(F("\xFF\xFF\xFF"));
-  Temporary = "MIDI Code : " + String(Note, DEC);
-  Nextion_Serial.print(F("MIDICODE_TXT.txt=\""));
-  Nextion_Serial.print(Temporary);
-  Nextion_Serial.print(F("\xFF\xFF\xFF"));
-  if (GalaxOS.MIDIOutEnable == true)
-  {
-    Serial.write(144);
-    Serial.write(Note);
-    Serial.write(128);
-    delay(Duration);
-    Serial.write(128);
-    Serial.write(Note);
-    Serial.write(128);
-  }
-  ledcWriteTone(0, Frequency);
-  vTaskDelay(pdMS_TO_TICKS(Duration));
-  ledcWriteTone(0, 0);
-  return;
-}
 
 void Pictviewer()
 {
@@ -1320,130 +1300,3 @@ void Pictviewer()
     Serial.println(F("The File Doesn't Exist or isn't readable"));
   }*/
 }
-
-void Files_And_Folders()
-{
-  /*GalaxOS.Get_Variable('A', Temporary_File_Path);
-  Temporary_File = SD.open(Temporary_File_Path);
-  String Item_Name = "";
-  if (Temporary_File)
-  {
-    if (Temporary_File.isDirectory())
-    {
-      for (int i = 1; i < 19; i++)
-      { //Clear Items
-        Item_Name = "ITEM" + String(i);
-        Item_Name += "_TXT";
-        Nextion_Serial.print(Item_Name);
-        Nextion_Serial.print(F(".txt=\"\"\xFF\xFF\xFF"));
-        Item_Name = "ITEM" + String(i);
-        Item_Name += "_BUT";
-        Nextion_Serial.print(Item_Name);
-        Nextion_Serial.print(F(".pic=15\xFF\xFF\xFF"));
-      }
-      Temporary_File.rewindDirectory();
-      for (byte i = 1; i < 19; i++)
-      {
-        File Item = Temporary_File.openNextFile();
-        if (!Item)
-          break;
-        Item_Name = "ITEM" + String(i);
-        Item_Name += "_TXT";
-        Nextion_Serial.print(Item_Name);
-        Nextion_Serial.print(F(".txt=\""));
-        Nextion_Serial.print(Item.name());
-        Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
-        Item_Name = "ITEM" + String(i);
-        Item_Name += "_BUT";
-        if (Item.isDirectory())
-        {
-          Nextion_Serial.print(Item_Name);
-          Nextion_Serial.print(F(".pic=17\xFF\xFF\xFF"));
-        }
-        else
-        {
-          Nextion_Serial.print(Item_Name);
-          Nextion_Serial.print(F(".pic=16\xFF\xFF\xFF"));
-        }
-        Item.close();
-      }
-    }
-    else
-    {
-      Item_Name = Temporary_File.name();
-      char Item_Name_Char[14];
-
-      Item_Name.toCharArray(Item_Name_Char, 14);
-
-      for (byte i = 1; i < 15; i++)
-      {
-        if (Item_Name_Char[i] == '.')
-        {
-          Item_Name = String(Item_Name_Char[i + 1]) + String(Item_Name_Char[i + 2]) + String(Item_Name_Char[i + 3]);
-        }
-      }
-      Temporary_File.close();
-      if (Item_Name == "WAV")
-      {
-      }
-      else if (Item_Name == "BMP")
-      {
-        Pictviewer();
-      }
-      else if (Item_Name == "GPF")
-      {
-      }
-      else if (Item_Name == "FPF")
-      {
-      }
-      else if (Item_Name == "GMF")
-      {
-        //vTaskResume(GalaxOS.Musical_Digital_Player_Handle);
-      }
-      else
-      {
-        //Fileditor();
-      }
-    }
-  }
-  else
-  {
-  }*/
-}
-
-/*
-void Function_Generator(int Frequency, int Pin, double Offset, double Width)
-{
-  unsigned long cycle_time;
-  unsigned long raising_edge;
-  unsigned long falling_edge;
-  unsigned long prev_micros;
-
-  pinMode(Pin, OUTPUT);
-
-// calculate arguments
-freq = 1;
-width = 0.5;
-offset = 0.0;
-
-cycle_time = 1000000 / freq;
-raising_edge = (unsigned long)(offset * cycle_time) % cycle_time;
-falling_edge = (unsigned long)((offset + width) * cycle_time) % cycle_time;
-
-prev_micros = micros();
-
-// do pinout shifting
-while(1) {
-  if (width + offset < 1) {
-    // raising edge should appear earlier
-    while (TIME_CMP(micros(), prev_micros + raising_edge, cycle_time)); setHigh();
-    while (TIME_CMP(micros(), prev_micros + falling_edge, cycle_time)); setLow();
-  } else {
-    // falling edge should appear earlier
-    while (TIME_CMP(micros(), prev_micros + falling_edge, cycle_time)); setLow();
-    while (TIME_CMP(micros(), prev_micros + raising_edge, cycle_time)); setHigh();
-  }
-  prev_micros += cycle_time;
-}
-}*/
-
