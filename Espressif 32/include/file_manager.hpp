@@ -18,6 +18,8 @@ private:
 
     void Display_Path();
 
+    void Delete();
+
 public:
     File_Manager_Class();
     ~File_Manager_Class();

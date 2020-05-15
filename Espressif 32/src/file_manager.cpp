@@ -110,6 +110,29 @@ void File_Manager_Class::Display_Path()
     }
 }
 
+void File_Manager_Class::Delete()
+{
+    String Temporary_File_Path = "";
+    switch (GalaxOS.Event_Handler(WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM))
+    {
+        case 0:
+
+            break;
+        case 'Y': 
+            SD.rmdir();
+            break;
+        case 'N' :
+            return;
+            break;
+
+        case 'C':
+            return;
+            break;
+        default:
+            break;
+    }
+}
+
 void File_Manager_Class::Execute(uint16_t const &Socket_Method_To_Set)
 {
     Socket_Method = Socket_Method_To_Set;

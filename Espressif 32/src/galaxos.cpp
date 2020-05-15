@@ -82,6 +82,16 @@ GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
 
+String& GalaxOS_Class::Registry_Get_Key(String const& Path, String const& Key_Name)
+{
+  
+  uint8_t SHA_[32];
+  mbedtls_md_context_t CTX;
+
+
+
+}
+
 iGOS_Class *GalaxOS_Class::Get_Software_Pointer()
 {
   return iGOS_Pointer;
@@ -95,6 +105,11 @@ Periodic_Class *GalaxOS_Class::Get_Software_Pointer()
 File_Manager_Class *GalaxOS_Class::Get_Software_Pointer()
 {
   return File_Manager_Pointer;
+}
+
+Calculator_Class *GalaxOS_Class::Get_Software_Pointer()
+{
+  return Calculator_Pointer;
 }
 
 void GalaxOS_Class::Nextion_Upload_Firmware(String const &Path)
@@ -280,10 +295,9 @@ void GalaxOS_Class::Start()
 void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
 { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
-  GalaxOS.Temporary_Split_Long.Long = Long_To_Set;
   if (Temporary_File)
   {
-    Temporary_File.write(GalaxOS.Temporary_Split_Long.Byte, 4);
+    Temporary_File.write(, );
     Temporary_File.close();
     return;
   }
@@ -297,12 +311,10 @@ void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
 void GalaxOS_Class::Get_Variable(char const &Tag, long &Long_To_Get)
 { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+  uint8_t Temproary_Byte[4];
   if (Temporary_File)
   {
-    GalaxOS.Temporary_Split_Long.Byte[0] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Long.Byte[1] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Long.Byte[2] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Long.Byte[3] = Temporary_File.read();
+    Long_To_Get = ((float)Temporary_File.read() << 24) | ((float) Temporary_File.read() << 16) | ((float)Temporary_File.read() << 8) | (float)Temporary_File.read();
     Temporary_File.close();
     return;
   }
@@ -659,8 +671,29 @@ void GalaxOS_Class::Nextion_Serial_Transmit(String Component, byte Type, String 
   return;
 }
 
-void GalaxOS_Class::Event_Handler_Request(const uint16_t &Type)
+uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
 {
+  Nextion_Serial.print(F("page Event/xFF/xFF/xFF"));
+  Registry_Get_Key("/GALAXOS/EVENT/" + String(Type), "");
+
+  byte i = 0;
+  while(Event_Reply == 0 && i < 100)
+  {
+    vTaskDelay(pdMS_TO_TICKS(50));
+    i++;
+  }
+  if (i > 100)
+  {
+    Nextion_Serial.print(F("page "));
+    Nextion_Serial.print(Last_Page);
+    Nextion_Serial.print(F("/xFF/xFF/xFF"));
+    return 0;
+  }
+  return Event_Reply;
+}
+  
+
+/*
   switch (Type)
   {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
@@ -697,18 +730,7 @@ void GalaxOS_Class::Event_Handler_Request(const uint16_t &Type)
   default:
     break;
   }
-}
-
-void GalaxOS_Class::Event_Handler_Reply(const byte &Reply)
-{
-  switch (Reply)
-  {
-  case 0:
-    break;
-  default:
-    break;
-  }
-}
+}*/
 
 void GalaxOS_Class::USB_Serial_Transmit(char const *USB_Serial_Transmit_String, byte Alignment)
 {
@@ -950,66 +972,66 @@ void Nextion_Serial_Receive(void *pvParameters)
             Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
             Nextion_Serial.print(F("\xFF\xFF\xFF"));
           }
-          else if (Temporary_String == "Close_iGOS")
-          {
-            GalaxOS.Close_Software(SOFTWARE_IGOS_ID);
-          }
           else
           {
             switch (GalaxOS.Current_Page)
             {
+            case 20: //Event
+              GalaxOS.Event_Reply = uint8_t(Temporary_String.charAt(1));
+              break;
             case 27: //iGOS
               GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
               break;
             case 38: //Piano
+              GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
               if (Temporary_String == "CLow")
               {
                 Piano(0, 0);
               }
               else if (Temporary_String == "C#Low")
-                Piano(16, 1);
+                
               else if (Temporary_String == "DLow")
-                Piano(32, 2);
+                Play_Note(32, 2);
               else if (Temporary_String == "D#Low")
-                Piano(50, 3);
+                Play_Note(50, 3);
               else if (Temporary_String == "ELow")
-                Piano(68, 4);
+                Play_Note(68, 4);
               else if (Temporary_String == "FLow")
-                Piano(88, 5);
+                Play_Note(88, 5);
               else if (Temporary_String == "F#Low")
-                Piano(108, 6);
+                Play_Note(108, 6);
               else if (Temporary_String == "GLow")
-                Piano(130, 7);
+                Play_Note(130, 7);
               else if (Temporary_String == "G#Low")
-                Piano(154, 8);
+                Play_Note(154, 8);
               else if (Temporary_String == "ALow")
-                Piano(178, 9);
+                Play_Note(178, 9);
               else if (Temporary_String == "A#Low")
-                Piano(205, 10);
+                Play_Note(205, 10);
               else if (Temporary_String == "BLow")
-                Piano(232, 11);
+                Play_Note(232, 11);
               else if (Temporary_String == "CHigh")
-                Piano(262, 12);
+                Play_Note(262, 12);
               else if (Temporary_String == "C#High")
-                Piano(293, 13);
+                Play_Note(293, 13);
               else if (Temporary_String == "DHigh")
-                Piano(326, 14);
+                Play_Note(326, 14);
               else if (Temporary_String == "D#High")
-                Piano(361, 15);
+                Play_Note(361, 15);
               else if (Temporary_String == "EHigh")
-                Piano(398, 16);
+                Play_Note(398, 16);
               else if (Temporary_String == "FHigh")
-                Piano(437, 17);
+                Play_Note(437, 17);
               else if (Temporary_String == "F#High")
-                Piano(478, 18);
+                Play_Note(478, 18);
               else if (Temporary_String == "GHigh")
-                Piano(522, 19);
+                Play_Note(522, 19);
               else if (Temporary_String == "G#High")
-                Piano(569, 20);
+                Play_Note(569, 20);
               else if (Temporary_String == "AHigh")
-                Piano(618, 21);
+                Play_Note(618, 21);
               else if (Temporary_String == "A#High")
-                Piano(670, 22);
+                Play_Note(670, 22);
               else if (Temporary_String == "BHigh")
               {
                 Piano(726, 23);

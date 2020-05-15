@@ -11,7 +11,7 @@ private:
 
     uint16_t Socket_Method;
 
-    void Play_Note();
+    void Play_Note(uint32_t Frequency, uint8_t Note);
 
 public:
     Piano_Class();
@@ -22,8 +22,7 @@ public:
     void Execute(uint16_t const& Socket_Method_To_Set);
     void Execute(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
     
-    xTaskHandle Socket_Handle;
-
+    friend void Piano_Socket(void *pvParameters);
 };
 
 void Piano_Socket(void *pvParameters);
