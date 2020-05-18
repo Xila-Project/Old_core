@@ -7,8 +7,6 @@ class Calculator_Class
 {
 private:
 
-    float Number
-
     static uint8_t Number_Instance;
 
     uint16_t Socket_Method;

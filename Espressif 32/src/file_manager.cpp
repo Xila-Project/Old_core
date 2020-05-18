@@ -23,8 +23,8 @@ File_Manager_Class::~File_Manager_Class()
 
 void File_Manager_Class::Display_Path()
 {
-    GalaxOS.Get_Variable('P', Temporary_File_Path);
-    Temporary_File = SD.open(Temporary_File_Path);
+    GalaxOS.Get_Variable('P', Current_File_Path);
+    Temporary_File = SD.open(Current_File_Path);
     String Item_Name = "";
     if (Temporary_File)
     {
@@ -70,44 +70,29 @@ void File_Manager_Class::Display_Path()
         }
         else
         {
-            Item_Name = Temporary_File.name();
-            char Item_Name_Char[14];
-
-            Item_Name.toCharArray(Item_Name_Char, 14);
-
-            for (byte i = 1; i < 15; i++)
-            {
-                if (Item_Name_Char[i] == '.')
-                {
-                    Item_Name = String(Item_Name_Char[i + 1]) + String(Item_Name_Char[i + 2]) + String(Item_Name_Char[i + 3]);
-                }
-            }
+            GalaxOS.Open_File(Current_File_Path);
             Temporary_File.close();
-            if (Item_Name == "WAV")
-            {
-            }
-            else if (Item_Name == "BMP")
-            {
-            }
-            else if (Item_Name == "GPF")
-            {
-            }
-            else if (Item_Name == "FPF")
-            {
-            }
-            else if (Item_Name == "GMF")
-            {
-                //vTaskResume(GalaxOS.Musical_Digital_Player_Handle);
-            }
-            else
-            {
-                //Fileditor();
-            }
+            Go_Parent();
+        
         }
     }
     else
     {
+        //error handle
     }
+}
+
+void File_Manager_Class::Go_Parent() //Set Current_File_Path to the parent folder
+{
+    byte ii = 0;
+    for (byte i = Current_File_Path.length(); i >= 0; i--)
+    {
+        if (Current_File_Path.charAt(i) == 0x2F) //try to find the last 
+        {
+            ++ii;
+        }
+    }
+    Display_Path();
 }
 
 void File_Manager_Class::Delete()
@@ -119,7 +104,7 @@ void File_Manager_Class::Delete()
 
             break;
         case 'Y': 
-            SD.rmdir();
+            //fs.rmdir();
             break;
         case 'N' :
             return;

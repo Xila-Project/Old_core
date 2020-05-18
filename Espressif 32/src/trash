@@ -1,0 +1,52 @@
+              if (Temporary_String == "CLow")
+              {
+                Piano(0, 0);
+              }
+              else if (Temporary_String == "C#Low")
+                
+              else if (Temporary_String == "DLow")
+                Play_Note(32, 2);
+              else if (Temporary_String == "D#Low")
+                Play_Note(50, 3);
+              else if (Temporary_String == "ELow")
+                Play_Note(68, 4);
+              else if (Temporary_String == "FLow")
+                Play_Note(88, 5);
+              else if (Temporary_String == "F#Low")
+                Play_Note(108, 6);
+              else if (Temporary_String == "GLow")
+                Play_Note(130, 7);
+              else if (Temporary_String == "G#Low")
+                Play_Note(154, 8);
+              else if (Temporary_String == "ALow")
+                Play_Note(178, 9);
+              else if (Temporary_String == "A#Low")
+                Play_Note(205, 10);
+              else if (Temporary_String == "BLow")
+                Play_Note(232, 11);
+              else if (Temporary_String == "CHigh")
+                Play_Note(262, 12);
+              else if (Temporary_String == "C#High")
+                Play_Note(293, 13);
+              else if (Temporary_String == "DHigh")
+                Play_Note(326, 14);
+              else if (Temporary_String == "D#High")
+                Play_Note(361, 15);
+              else if (Temporary_String == "EHigh")
+                Play_Note(398, 16);
+              else if (Temporary_String == "FHigh")
+                Play_Note(437, 17);
+              else if (Temporary_String == "F#High")
+                Play_Note(478, 18);
+              else if (Temporary_String == "GHigh")
+                Play_Note(522, 19);
+              else if (Temporary_String == "G#High")
+                Play_Note(569, 20);
+              else if (Temporary_String == "AHigh")
+                Play_Note(618, 21);
+              else if (Temporary_String == "A#High")
+                Play_Note(670, 22);
+              else if (Temporary_String == "BHigh")
+              {
+                Piano(726, 23);
+              }

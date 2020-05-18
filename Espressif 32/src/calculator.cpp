@@ -1,14 +1,16 @@
 #include "calculator.hpp"
+#include "object.hpp"
+
+uint8_t Calculator_Class::Number_Instance = 0;
 
 Calculator_Class::Calculator_Class()
 {
     if(Number_Instance > 0) {
         delete this;
+        return;
     }
 
     ++Number_Instance;
-
-
 }
 
 Calculator_Class::~Calculator_Class()
@@ -30,17 +32,20 @@ void Calculator_Class::Execute(char const &Socket_Method_Char1, char const &Sock
 
 void Calculator_Socket(void *pvParameters)
 {
-    Calculator_Class *Calculator_Pointer = GalaxOS.Get_Software_Pointer();
+    Calculator_Class *Calculator_Pointer;
+    GalaxOS.Get_Software_Pointer(Calculator_Pointer);
     for(;;)
     {
         switch (Calculator_Pointer->Socket_Method)
         {
-        case :
+        case 0:
             
             break;
         
         default:
             break;
         }
+        Calculator_Pointer->Socket_Method = 0;
+        vTaskSuspend(NULL);
     }
 }

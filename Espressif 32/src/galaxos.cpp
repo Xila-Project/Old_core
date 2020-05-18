@@ -31,12 +31,11 @@
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
 #include "Arduino.h"
-#include "mbedtls/sha256.h"
+#include "mbedtls/md.h"
 
 #include "galaxos.hpp"
 #include "WiFi.h"
 #include "object.hpp"
-
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -82,34 +81,71 @@ GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
 
-String& GalaxOS_Class::Registry_Get_Key(String const& Path, String const& Key_Name)
+void GalaxOS_Class::Open_File(String const &File_Path_To_Open)
 {
-  
-  uint8_t SHA_[32];
-  mbedtls_md_context_t CTX;
+  File Temporary_Local_File = SD.open(File_Path_To_Open);
+  if (!Temporary_Local_File)
+  {
+    //error handle
+    return;
+  }
+  String File_Name = Temporary_Local_File.name();
+  uint8_t i;
+  for (i = 1; i < 14; i++) //extract extension
+  {
+    if (File_Name.charAt(i) == '.')
+    {
+      break;
+    }
+  }
+  char Extension[3] = {File_Name.charAt(i + 1), File_Name.charAt(i + 2), File_Name.charAt(i + 3)};
+  if (strcmp(Extension, "WAV"))
+  {
+  }
+  else if (strcmp(Extension, "BMP"))
+  {
+  }
 
-
-
+  else if (strcmp(Extension, "GPF"))
+  {
+  }
+  else if (strcmp(Extension, "FPF"))
+  {
+  }
+  else
+  {
+    //error handle : unknow extension
+  }
 }
 
-iGOS_Class *GalaxOS_Class::Get_Software_Pointer()
+String &GalaxOS_Class::Registry_Get_Key(String const &Path, String const &Key_Name)
 {
-  return iGOS_Pointer;
+
+  uint8_t Crypted_Array[32];
+  mbedtls_md_context_t Context;
+  mbedtls_md_type_t md_type = MBEDTLS_MD_SHA224;
+  char *Key = "SecretKey";
+  char *Payload = "Hello HMAC SHA 256 !";
 }
 
-Periodic_Class *GalaxOS_Class::Get_Software_Pointer()
+void GalaxOS_Class::Get_Software_Pointer(iGOS_Class *&Software_Pointer_To_Set)
 {
-  return Periodic_Pointer;
+  Software_Pointer_To_Set = iGOS_Pointer;
 }
 
-File_Manager_Class *GalaxOS_Class::Get_Software_Pointer()
+void GalaxOS_Class::Get_Software_Pointer(Periodic_Class *&Software_Pointer_To_Set)
 {
-  return File_Manager_Pointer;
+  Software_Pointer_To_Set = Periodic_Pointer;
 }
 
-Calculator_Class *GalaxOS_Class::Get_Software_Pointer()
+void GalaxOS_Class::Get_Software_Pointer(File_Manager_Class *&Software_Pointer_To_Set)
 {
-  return Calculator_Pointer;
+  Software_Pointer_To_Set = File_Manager_Pointer;
+}
+
+void GalaxOS_Class::Get_Software_Pointer(Calculator_Class *&Software_Pointer_To_Set)
+{
+  Software_Pointer_To_Set = Calculator_Pointer;
 }
 
 void GalaxOS_Class::Nextion_Upload_Firmware(String const &Path)
@@ -199,8 +235,20 @@ void GalaxOS_Class::Open_Software(uint8_t const &Software_ID)
     {
       iGOS_Pointer = new iGOS_Class;
     }
-    Nextion_Serial.print(F("page iGOS\xFF\xFF\xFF"));
+    else
+    {
+      iGOS_Pointer->Execute('R', 'E');
+    }
     break;
+  case SOFTWARE_FILE_MANAGER_ID:
+    if (File_Manager_Pointer == NULL)
+    {
+      File_Manager_Pointer = new File_Manager_Class;
+    }
+    else
+    {
+      File_Manager_Pointer->Execute('R', 'E');
+    }
   default:
     break;
   }
@@ -263,7 +311,7 @@ void GalaxOS_Class::Start()
   Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
   Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
   //Audio.speakerPin = SpeakerPin;
-  if (!SD.begin())
+  if (!SD_MMC.begin())
   {
     Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
   }
@@ -280,41 +328,99 @@ void GalaxOS_Class::Start()
   Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 
   //bypass for dev purpose
-  Nextion_Serial.print(F("page Desk\xFF\xFF\xFF"));
   Username = "ALIX";
   Password = "ALIX";
+  Open_Desk();
 
   strcpy(WiFi_SSID, "Avrupa");
   strcpy(WiFi_Password, "0749230994");
 
-  
+  float Test_Float = 123456789;
+  Set_Variable('T', Test_Float);
+  Serial.println(Test_Float);
+  Get_Variable('T', Test_Float);
+  Serial.println(Test_Float);
+
   WiFi_Connect();
   Synchronise_Time();
+}
+
+void GalaxOS_Class::Data_File_Get_Key(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get)
+{
+  File Temporary_Local_File = SD_MMC.open(Path);
+  uint32_t Temporary_Local_File_Position = 0;
+  if (!Temporary_Local_File)
+  {
+    //error handle : cannot open file
+    return;
+  }
+  long Timeout = millis() + 5000;
+  char Temporary_Char = 0;
+  if (!Temporary_Local_File.find(Key_Name))
+  {
+    //error handle : cannot keyname
+    return;
+  }
+  if (!Temporary_Local_File.seek(Temporary_Local_File.position() - strlen(Key_Name) - 1))
+  {
+    //error handle
+    return;
+  }
+  if (Temporary_Local_File.read() == 0x0A)
+  {
+    //error handle
+    return;
+  }
+  if (!Temporary_Local_File.seek(Temporary_Local_File.position() + strlen(Key_Name)))
+  {
+    //error handle
+    return;
+  }
+  if (Temporary_Local_File.read() != ';')
+  {
+    //error
+    return;
+  }
+  while (Temporary_Local_File.available())
+  {
+    Temporary_Char = Temporary_Local_File.read();
+
+    if (Temporary_Char == 0x0D)
+    {
+
+      break;
+    }
+    else
+    {
+      Key_Value_To_Get += (char)Temporary_Char;
+    }
+  }
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
 { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+  uint8_t Split_Long[] = {(uint8_t)Long_To_Set, (uint8_t)Long_To_Set >> 8, (uint8_t)Long_To_Set >> 16, (uint8_t)Long_To_Set >> 24};
   if (Temporary_File)
   {
-    Temporary_File.write(, );
+    if (Temporary_File.write(Split_Long, 4) != 4)
+    {
+      //error handle
+    }
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, long &Long_To_Get)
 { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
-  uint8_t Temproary_Byte[4];
   if (Temporary_File)
   {
-    Long_To_Get = ((float)Temporary_File.read() << 24) | ((float) Temporary_File.read() << 16) | ((float)Temporary_File.read() << 8) | (float)Temporary_File.read();
+    Long_To_Get = ((long)Temporary_File.read() << 24) | ((long)Temporary_File.read() << 16) | ((long)Temporary_File.read() << 8) | (long)Temporary_File.read();
     Temporary_File.close();
     return;
   }
@@ -416,12 +522,10 @@ void GalaxOS_Class::Get_Variable(char const &Tag, byte &Byte_To_Get)
   {
     Byte_To_Get = Temporary_File.read();
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
@@ -430,18 +534,16 @@ void GalaxOS_Class::Set_Variable(char const &Tag, int const &Integer_To_Set)
   Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    byte Split_Integer[2] = {0, 0};
-    Split_Integer[0] = (Integer_To_Set >> 8) & 0xFF;
-    Temporary_File.write(Split_Integer[0]);
-    Split_Integer[1] = Integer_To_Set & 0xFF;
-    Temporary_File.write(Split_Integer[1]);
+    uint8_t Split_Integer[] = {(uint8_t)Integer_To_Set << 8, (uint8_t)Integer_To_Set};
+    if (Temporary_File.write(Split_Integer, 2) != 2)
+    {
+      //error handle
+    }
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
@@ -450,32 +552,30 @@ void GalaxOS_Class::Get_Variable(char const &Tag, int &Integer_To_Get)
   Temporary_File = SD.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    Integer_To_Get |= Temporary_File.read() << 8;
-    Integer_To_Get |= Temporary_File.read();
+    Integer_To_Get = ((int)Temporary_File.read() << 8) | (int)Temporary_File.read();
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, float const &Float_To_Set)
 { //float
   Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
-  GalaxOS.Temporary_Split_Float.Float = Float_To_Set;
+  uint8_t Split_Float[] = {(uint8_t)Float_To_Set, (uint8_t)Float_To_Set >> 8, (uint8_t)Float_To_Set >> 16, (uint8_t)Float_To_Set >> 24};
   if (Temporary_File)
   {
-    Temporary_File.write(GalaxOS.Temporary_Split_Float.Byte, 4);
+    if (Temporary_File.write(Split_Float, 4) != 4)
+    {
+      //error handle
+    }
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
@@ -484,17 +584,12 @@ void GalaxOS_Class::Get_Variable(char const &Tag, float &Float_To_Get)
   Temporary_File = SD.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    GalaxOS.Temporary_Split_Float.Byte[0] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Float.Byte[1] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Float.Byte[2] = Temporary_File.read();
-    GalaxOS.Temporary_Split_Float.Byte[3] = Temporary_File.read();
+    Float_To_Get = ((float)Temporary_File.read() << 24) | ((float)Temporary_File.read() << 16) | ((float)Temporary_File.read() << 8) | (float)Temporary_File.read();
     Temporary_File.close();
-    return;
   }
   else
   {
     //error
-    return;
   }
 }
 
@@ -509,11 +604,20 @@ void GalaxOS_Class::Open_Menu()
 void GalaxOS_Class::Open_Desk()
 {
   Nextion_Serial.print(F("page Desk\xFF\xFF\xFF"));
-  return;
-}
+  uint8_t Minimized_Application_Icon;
+  for (uint8_t Slot = 1; Slot < 6; Slot++)
+  {
+    if (iGOS_Pointer != NULL)
+    {
+      Slot++;
+    }
 
-void Print_Free_Heap()
-{
+    Nextion_Serial.print(F("SLOT"));
+    Nextion_Serial.print(Slot);
+    Nextion_Serial.print(F("_PIC.pic="));
+    Nextion_Serial.print(Minimized_Application_Icon);
+    Nextion_Serial.print(F("\xFF\xFF\xFF"));
+  }
 }
 
 void Ressource_Monitor(void *pvParameters)
@@ -674,10 +778,9 @@ void GalaxOS_Class::Nextion_Serial_Transmit(String Component, byte Type, String 
 uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
 {
   Nextion_Serial.print(F("page Event/xFF/xFF/xFF"));
-  Registry_Get_Key("/GALAXOS/EVENT/" + String(Type), "");
 
   byte i = 0;
-  while(Event_Reply == 0 && i < 100)
+  while (Event_Reply == 0 && i < 100)
   {
     vTaskDelay(pdMS_TO_TICKS(50));
     i++;
@@ -691,7 +794,6 @@ uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
   }
   return Event_Reply;
 }
-  
 
 /*
   switch (Type)
@@ -983,59 +1085,7 @@ void Nextion_Serial_Receive(void *pvParameters)
               GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
               break;
             case 38: //Piano
-              GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
-              if (Temporary_String == "CLow")
-              {
-                Piano(0, 0);
-              }
-              else if (Temporary_String == "C#Low")
-                
-              else if (Temporary_String == "DLow")
-                Play_Note(32, 2);
-              else if (Temporary_String == "D#Low")
-                Play_Note(50, 3);
-              else if (Temporary_String == "ELow")
-                Play_Note(68, 4);
-              else if (Temporary_String == "FLow")
-                Play_Note(88, 5);
-              else if (Temporary_String == "F#Low")
-                Play_Note(108, 6);
-              else if (Temporary_String == "GLow")
-                Play_Note(130, 7);
-              else if (Temporary_String == "G#Low")
-                Play_Note(154, 8);
-              else if (Temporary_String == "ALow")
-                Play_Note(178, 9);
-              else if (Temporary_String == "A#Low")
-                Play_Note(205, 10);
-              else if (Temporary_String == "BLow")
-                Play_Note(232, 11);
-              else if (Temporary_String == "CHigh")
-                Play_Note(262, 12);
-              else if (Temporary_String == "C#High")
-                Play_Note(293, 13);
-              else if (Temporary_String == "DHigh")
-                Play_Note(326, 14);
-              else if (Temporary_String == "D#High")
-                Play_Note(361, 15);
-              else if (Temporary_String == "EHigh")
-                Play_Note(398, 16);
-              else if (Temporary_String == "FHigh")
-                Play_Note(437, 17);
-              else if (Temporary_String == "F#High")
-                Play_Note(478, 18);
-              else if (Temporary_String == "GHigh")
-                Play_Note(522, 19);
-              else if (Temporary_String == "G#High")
-                Play_Note(569, 20);
-              else if (Temporary_String == "AHigh")
-                Play_Note(618, 21);
-              else if (Temporary_String == "A#High")
-                Play_Note(670, 22);
-              else if (Temporary_String == "BHigh")
-              {
-                Piano(726, 23);
-              }
+              GalaxOS.Piano_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
               break;
             default:
               Serial.println(F("Unknow Page ID"));
@@ -1067,7 +1117,7 @@ void Nextion_Serial_Receive(void *pvParameters)
             Temporary_Byte_Array[3]++;
             if (Temporary_Byte_Array[3] >= 3)
             {
-             
+
               break;
             }
           }
@@ -1091,7 +1141,7 @@ void GalaxOS_Class::Synchronise_Time()
     return;
   }
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-  if(!getLocalTime(&Time))
+  if (!getLocalTime(&Time))
   {
     //error handle
     Serial.println(F("Failed to get time"));
@@ -1129,55 +1179,6 @@ void GalaxOS_Class::WiFi_Connect()
     Serial.println(F("Can't Connect to WiFi"));
   }
 }
-
-Ultrasonic_Class::Ultrasonic_Class()
-{
-}
-
-Ultrasonic_Class::~Ultrasonic_Class()
-{
-}
-
-void Ultrasonic_Class::Get_Trig_Pin()
-{
-  GalaxOS.Get_Variable('A', Trig_Pin);
-  pinMode(Trig_Pin, OUTPUT);
-}
-
-void Ultrasonic_Class::Get_Echo_Pin()
-{
-  GalaxOS.Get_Variable('B', Echo_Pin);
-  pinMode(Echo_Pin, INPUT);
-}
-
-void Ultrasonic_Class::Read()
-{
-  digitalWrite(Trig_Pin, LOW);
-  while (Nextion_Serial.available() == 0)
-  {
-    digitalWrite(Trig_Pin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(Trig_Pin, LOW);
-    unsigned long Duration = pulseIn(Echo_Pin, HIGH);
-    if (Duration > 30000)
-    {
-      Serial.println(F("|| > Onde perdue                                         ||"));
-    }
-    else
-    {
-      Duration /= 2;
-      float Time = Duration / 1000000;
-      int Distance = Time * SOUND_SPEED_AIR;
-      Serial.print(F("|| > Distance :"));
-      Serial.println(Distance);
-      Nextion_Serial.print(F("DISTVAL_NUM.val="));
-      Nextion_Serial.print(Distance);
-      Nextion_Serial.print(F("\xFF\xFF\xFF"));
-      vTaskDelay(100);
-    }
-  }
-}
-
 
 void Pictviewer()
 {

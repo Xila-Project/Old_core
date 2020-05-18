@@ -1,8 +1,8 @@
 #ifndef OBJECT_H_INCLUDED
 #define OBJECT_H_INCLUDED
 
-#include <SD.h>
-#include <SPI.h>
+#include "SD_MMC.h"
+#include "FS.h"
 #include "WiFi.h"
 #include "galaxos.hpp"
 

@@ -52,6 +52,7 @@
 #define ERROR_NEXTION_INVALID_ESCAPE_CHARACTER 32
 #define ERROR_NEXTION_TOO_LONG_VARIABLE_NAME 35
 #define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 24
+#define ERROR_CANNOT_WRITE_DATA_TO_DISK_RAM 8942
 
 #define INFORMATION_NEXTION_STARTUP 0 //same as invalid instruction, only at startup
 #define INFORMATION_NEXTION_INTRUCTION_SUCCESSFUL 1
@@ -92,7 +93,8 @@
 #define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
 #define CODE_VARIABLE_STRING 83
 
-#define SOFTWARE_IGOS_ID 73 //random number
+#define SOFTWARE_IGOS_ID 73 //random number for ID
+#define SOFTWARE_FILE_MANAGER_ID 45 
 
 #define IGOS_ICON 10
 
@@ -175,10 +177,10 @@ public:
 
     void Set_Software_Pointer(byte const &Software_Pointer_ID, GalaxOS_Software_Class &Software_Pointer_To_Set);
 
-    iGOS_Class *Get_Software_Pointer();
-    Periodic_Class *Get_Software_Pointer();
-    File_Manager_Class *Get_Software_Pointer();
-    Calculator_Class *Get_Software_Pointer();
+    void Get_Software_Pointer(iGOS_Class*& Software_Pointer_To_Set);
+    void Get_Software_Pointer(Periodic_Class*& Software_Pointer_To_Set);
+    void Get_Software_Pointer(File_Manager_Class*& Software_Pointer_To_Set);
+    void Get_Software_Pointer(Calculator_Class*& Software_Pointer_To_Set);
 
     void Synchronise_Time();
 
@@ -202,15 +204,16 @@ public:
     void Set_Variable(char const &Tag, float const &Float_To_Set);
     void Get_Variable(char const &Tag, float &Float_To_Get);
 
-    String &Registry_Get_Key(String const &Path, String const &Key_Name);
-    uint8_t &Registry_Get_Key(String const &Path, String const &Key_Name);
-    int8_t &Registry_Get_Key(String const &Path, String const &Key_Name);
-    uint16_t &Registry_Get_Key(String const &Path, String const &Key_Name);
-    int16_t &Registry_Get_Key(String const &Path, String const &Key_Name);
-    uint32_t &Registry_Get_Key(String const &Path, String const &Key_Name);
-    int32_t &Registry_Get_Key(String const &Path, String const &Key_Name);
+    void Data_File_Get_Key(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
 
-    //Nextion Screen Cursor for dynamic rendering
+    void Registry_Get_Key(String const &Key_Name);
+    void Registry_Get_Key(String const &Key_Name);
+    void Registry_Get_Key(String const &Key_Name);
+    void Registry_Get_Key(String const &Key_Name);
+    void Registry_Get_Key(String const &Key_Name);
+    void Registry_Get_Key(String const &Key_Name);
+
+    void Open_File(String const& File_Path_To_Open);
 
     void WiFi_Connect();
 

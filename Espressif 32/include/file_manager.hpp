@@ -14,11 +14,13 @@ private:
 
     File Temporary_File;
 
-    String Temporary_File_Path;
+    String Current_File_Path;
 
     void Display_Path();
 
     void Delete();
+
+    void Go_Parent();
 
 public:
     File_Manager_Class();

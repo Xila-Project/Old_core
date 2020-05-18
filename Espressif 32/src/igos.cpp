@@ -25,6 +25,8 @@ iGOS_Class::iGOS_Class()
   textContent = {0, 0, false};
 
   xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 8192, NULL, 2, &Socket_Handle, 1);
+
+  Nextion_Serial.print(F("page iGOS/xFF/xFF/xFF"));
 }
 
 iGOS_Class::~iGOS_Class()
