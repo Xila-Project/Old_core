@@ -13,6 +13,24 @@ private:
 
     xTaskHandle Socket_Handle;
 
+    float Result;
+
+    float Number[5];
+
+    char Operator[4];
+
+    uint8_t Current_Number;
+
+    void Add_Number(uint8_t const& Number_To_Add);
+    void Set_Operator(char const& Operator_To_Set);
+
+    void Clear();
+    void Clear_Last_Number();
+
+    void Compute();
+
+    void Display();
+
 public:
     Calculator_Class();
     ~Calculator_Class();

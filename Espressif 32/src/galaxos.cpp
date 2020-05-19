@@ -14,16 +14,16 @@
 
 //Nextion Wiring//
 //Red -> 5v     //
-//Blue -> P16    //
-//Yellow -> P17  //
-//Black -> GND  //
+//Blue -> P16   //
+//Yellow -> P17 //
+//Black -> GND  // 
 
 //   SD Card    //
-//MISO -> P19    //
-//MOSI -> P23    //0
-//SCK -> P18     //
+//MISO -> P19   //
+//MOSI -> P23   //
+//SCK -> P18    //
 //CS -> P5      //
-//3.3 v -> 3.3 v//
+//3.3 v -> 3.3  //
 //GND -> GND    //
 
 //Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
@@ -354,6 +354,7 @@ void GalaxOS_Class::Data_File_Get_Key(String const &Path, char (&Key_Name)[], St
     //error handle : cannot open file
     return;
   }
+  Temporary_File.seek(0);
   long Timeout = millis() + 5000;
   char Temporary_Char = 0;
   if (!Temporary_Local_File.find(Key_Name))

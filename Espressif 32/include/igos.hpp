@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include "WiFiClient.h"
+#include <HTTPClient.h>
 #include <SD.h>
 
 //highest header file, will be replace by a separate one 
