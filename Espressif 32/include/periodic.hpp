@@ -17,9 +17,9 @@ class Periodic_Class
 
         uint16_t Current_Atom;
 
-        void Periodic_Class::Get_Main_Data();
-        void Periodic_Class::Get_Data();
-        void Periodic_Class::Get_List();
+        void Get_Main_Data();
+        void Get_Data();
+        void Get_List();
 
     public:
 

@@ -1,2 +1,67 @@
-# GalaxOS-EE
-GalaxOS Embeded Edition
+# Galax OS Embedded Edition (EE)
+
+## Introduction
+
+GalaxOS is not really an operating, but an user interface developped on ESP32 (before on Atmel Mega 2560) which has mutiple purposes. It's a huge project for a beginner in C++ like me (be lenient with me when you read the code).
+The code has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources.
+
+### Inpired By
+
+- [Skewworks](https://www.skewworks.com "Skewworks") : [GadgetOS (ex-PyxisOS)](https://www.skewworks.com/pyxis "GadgetOS (ex-PyxisOS)")
+
+## Features
+
+Here's features which are already implemented :
+
+- File manager (explorer, create, move, delete ...)
+- Account manager.
+- Internet Browser (Only HTTP1.1, it sound silly, but it's a proof of concept !)
+- Multimeter.
+- Oscilloscope.
+- Function generator.
+- Manage IOs of ESP32.
+- Basic pong game.
+- Periodic Table.
+- Picture viewer (currently only support bitmap).
+- Ultrasonic meter.
+- Clock (NTP Time).
+- Music Player (with ULP processor).
+- Calculator
+- Control Parameter (edit configuration registry, stored in comma-separated value file ".GCF").
+- PS2 Keyboard support.
+- Multitasking (each opennend app can be minimized and reoppened in his last state).
+
+
+## Roadmap
+
+- Add SSL/TLS support to the Internet Browser.
+- Add external video support (bitluni's VGA ?).
+- Get rid of proprietary Nextion Display (Retro-ingenering ? Gamebuino 3 ?)
+- Comment proprely the code
+- Implement TinyBasic or/and MicroPython intepreter.
+- Use ULP to save time during sleep period.
+- Add rea
+
+
+## Hardware
+
+Here's main hadware needed to run GalaxOS :
+
+- NodeMCU-32S (but all esp32 will work fine).
+- Nextion 4.3" Resistive Touch Display (NX4827T043_11)
+- SD Card Reader (in 4-bit MMC SD)
+
+Additionnaly can be added for more features :
+
+- Old school PS2 keyboard
+- Ultrasonic meter HC-SR04
+
+## Credit
+
+Here's credit of the sources that I borrow code :
+
+- [PIP Internet Browser, Chris ANDERSON](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser, Chris ANDERSON") (Creative Commons Attribution 4.0 Licence :  http://creativecommons.org/licenses/by/4.0/).
+- [Bitluni's ULP Sound Sketch](https://github.com/bitluni/ULPSoundESP32 "- Bitluni's ULP Sound Sketch")
+
+This software is under [M.I.T. licence](https://mit-license.org/ "M.I.T. licence").
+Alix ANNERAUD - [alixfaitgrr.fr](https://alixfaitgrr.fr "alixfaitgrr.fr") - 2020
