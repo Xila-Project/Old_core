@@ -2,6 +2,7 @@
 #define FILE_MANAGER_HPP_INCLUDED
 
 #include "Arduino.h"
+#include "galaxos.hpp"
 
 class File_Manager_Class
 {
@@ -29,7 +30,7 @@ public:
     void Execute(uint16_t const &Socket_Method_To_Set);
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
 
-    friend void File_Manager_Socket(void *Parameters);
+    friend void File_Manager_Socket(void *pvParameters);
 };
 
 void File_Manager_Socket(void *pvParameters);

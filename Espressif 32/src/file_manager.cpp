@@ -1,5 +1,5 @@
 #include "file_manager.hpp"
-#include "object.hpp"
+#include "galaxos.hpp"
 
 uint8_t File_Manager_Class::Number_Instance = 0;
 
@@ -19,6 +19,7 @@ File_Manager_Class::File_Manager_Class()
 File_Manager_Class::~File_Manager_Class()
 {
     vTaskDelete(Socket_Handle);
+    --Number_Instance;
 }
 
 void File_Manager_Class::Display_Path()
@@ -132,7 +133,8 @@ void File_Manager_Class::Execute(char const &Socket_Method_Char1, char const &So
 
 void File_Manager_Socket(void *pvParameters)
 {
-    File_Manager_Class *File_Manager_Pointer = GalaxOS.Get_Software_Pointer();
+    File_Manager_Class *File_Manager_Pointer;
+    GalaxOS.Get_Software_Pointer(File_Manager_Pointer);
     (void)pvParameters;
     for (;;)
     {

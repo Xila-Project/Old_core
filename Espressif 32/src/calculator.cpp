@@ -1,5 +1,5 @@
 #include "calculator.hpp"
-#include "object.hpp"
+#include "galaxos.hpp"
 
 uint8_t Calculator_Class::Number_Instance = 0;
 

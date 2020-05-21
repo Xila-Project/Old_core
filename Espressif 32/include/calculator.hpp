@@ -12,7 +12,7 @@ private:
     uint16_t Socket_Method;
 
     xTaskHandle Socket_Handle;
-
+    
     float Result;
 
     float Number[5];
