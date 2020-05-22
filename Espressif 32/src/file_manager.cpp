@@ -1,5 +1,5 @@
-#include "file_manager.hpp"
-#include "galaxos.hpp"
+#include "File_Manager.hpp"
+#include "GalaxOS.hpp"
 
 uint8_t File_Manager_Class::Number_Instance = 0;
 
@@ -25,7 +25,7 @@ File_Manager_Class::~File_Manager_Class()
 void File_Manager_Class::Display_Path()
 {
     GalaxOS.Get_Variable('P', Current_File_Path);
-    Temporary_File = SD.open(Current_File_Path);
+    Temporary_File = SD_MMC.open(Current_File_Path);
     String Item_Name = "";
     if (Temporary_File)
     {

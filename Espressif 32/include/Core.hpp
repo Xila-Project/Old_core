@@ -6,15 +6,17 @@
 #include "FS.h"
 #include "time.h"
 
-#include "galaxos.hpp"
-#include "igos.hpp"
-#include "software.hpp"
-#include "periodic.hpp"
-#include "file_manager.hpp"
-#include "calculator.hpp"
-#include "piano.hpp"
-#include "ultrasonic.hpp"
-#include "signal_generator.hpp"
+#include "GalaxOS.hpp"
+#include "Igos.hpp"
+#include "Software.hpp"
+#include "Periodic.hpp"
+#include "File_Manager.hpp"
+#include "Calculator.hpp"
+#include "Piano.hpp"
+#include "Ultrasonic.hpp"
+#include "Signal_Generator.hpp"
+#include "Paint.hpp"
+#include "Display.hpp"
 
 //----------------------------------------------------------------------------//
 //                                        Define Const                        //
@@ -39,39 +41,8 @@
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
 #define ERROR_THE_FILE_DO_NOT_EXIST 7018
 #define ERROR_CANNOT_CREATE_SYSTEM_QUEUE 17496
-#define ERROR_NEXTION_INVALID_INTRUCTION 0
-#define ERROR_NEXTION_INVALID_COMPONENT_ID 2
-#define ERROR_NEXTION_INVALID_PAGE_ID 3
-#define ERROR_NEXTION_INVALID_PICTURE_ID 4
-#define ERROR_NEXTION_INVALID_FONT_ID 5
-#define ERROR_NEXTION_INVALID_FILE_OPERATION 6
-#define ERROR_NEXTION_INVALID_BAUD_RATE_SETTING 17
-#define ERROR_NEXTION_INVALID_WAVEFORM_ID_OR_CHANNEL 18
-#define ERROR_NEXTION_INVALID_VARIABLE_NAME_OR_ATTRIBUTE 26
-#define ERROR_NEXTION_INVALID_VARIABLE_OPERATION 27
-#define ERROR_NEXTION_FAIL_TO_ASSIGN 28
-#define ERROR_NEXTION_FAIL_EEPROM_OPERATION 29
-#define ERROR_NEXTION_INVALID_QUANTITY_OF_PARAMETERS 30
-#define ERROR_NEXTION_IO_OPERATION_FAILED 31
-#define ERROR_NEXTION_INVALID_ESCAPE_CHARACTER 32
-#define ERROR_NEXTION_TOO_LONG_VARIABLE_NAME 35
-#define ERROR_NEXTION_SERIAL_BUFFER_OVERFLOW 24
-#define ERROR_CANNOT_WRITE_DATA_TO_DISK_RAM 8942
 
-#define INFORMATION_NEXTION_STARTUP 0 //same as invalid instruction, only at startup
-#define INFORMATION_NEXTION_INTRUCTION_SUCCESSFUL 1
-#define INFORMATION_NEXTION_TOUCH_EVENT 101
-#define INFORMATION_NEXTION_CURRENT_PAGE_NUMBER 102
-#define INFORMATION_NEXTION_TOYCH_COORDINATE_AWAKE 103
-#define INFORMATION_NEXTION_TOUCH_COOORDINATE_SLEEP 104
-#define INFORMATION_NEXTION_STRING_DATA_ENCLOSED 112
-#define INFORMATION_NEXTION_NUMERIC_DATA_ENCLOSED 113
-#define INFORMATION_NEXTION_AUTO_ENTERED_SLEEP_MODE 134
-#define INFORMATION_NEXTION_AUTO_WAKE_FROM_SLEEP_MODE 135
-#define INFORMATION_NEXTION_READY 136
-#define INFORMATION_NEXTION_START_UPGRADE_FROM_SD 137
-#define INFORMATION_NEXTION_TRANSPARENT_DATA_FINISHED 253
-#define INFORMATION_NEXTION_TRANSPARENT_DATA_READY 254
+#define ERROR_CANNOT_WRITE_DATA_TO_DISK_RAM 8942
 
 #define INFORMATION_GOOD_CREDENTIALS 39548
 
@@ -139,6 +110,8 @@ private:
 
     String Temporary_String;
 
+    Nextion_Display_Class Display;
+    
     iGOS_Class *iGOS_Pointer;
     Periodic_Class *Periodic_Pointer;
     File_Manager_Class *File_Manager_Pointer;
@@ -165,6 +138,7 @@ private:
     xTaskHandle GalaxOS_Core_Handle;
 
 public:
+
     GalaxOS_Class();
 
     ~GalaxOS_Class();
