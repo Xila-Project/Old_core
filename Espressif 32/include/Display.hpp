@@ -15,9 +15,9 @@
 #define DISPLAY_GRAY 33840
 #define DISPLAY_WHITE 65535
 
-#define NEXTION_ERROR_INVALID_INTRUCTION 0x00
-#define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02
-#define NEXTION_ERROR_INVALID_PAGE_ID 0x03
+#define NEXTION_ERROR_INVALID_INSTRUCTION 0x00 //4 byte
+#define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02 //4 byte
+#define NEXTION_ERROR_INVALID_PAGE_ID 0x03 
 #define NEXTION_ERROR_INVALID_PICTURE_ID 0x04
 #define NEXTION_ERROR_INVALID_FONT_ID 0x05
 #define NEXTION_ERROR_INVALID_FILE_OPERATION 0x06
@@ -34,7 +34,7 @@
 #define NEXTION_ERROR_TOO_LONG_VARIABLE_NAME 0x23
 #define NEXTION_ERROR_SERIAL_BUFFER_OVERFLOW 0x24
 
-#define NEXTION_INFORMATION_STARTUP 0x00 //same as invalid instruction, only at startup
+#define NEXTION_INFORMATION_STARTUP 0x07 //custom
 #define NEXTION_INFORMATION_INTRUCTION_SUCCESSFUL 0x01
 #define NEXTION_INFORMATION_TOUCH_EVENT 0x65
 #define NEXTION_INFORMATION_CURRENT_PAGE_NUMBER 0x66
@@ -57,8 +57,9 @@ class Nextion_Display_Class
 
         xTaskHandle Nextion_Serial_Handle;
 
-        inline void Instruction_End();
-        inline void Argument_Separator();
+        void (*Callback_Function_String_Data)(String);
+        void (*Callback_Function_Numeric_Data)(uint32_t);
+        void (*Callback_Function_Event)(uint16_t);
 
         static uint8_t Number_Instance;      
 
@@ -68,12 +69,21 @@ class Nextion_Display_Class
 
         uint16_t Adress;
 
+        uint8_t Current_Page;
+        uint8_t Last_Page;
+        
+        inline void Instruction_End();
+        inline void Argument_Separator();
+
     public:
 
+        //Class setup
         Nextion_Display_Class(uint32_t const& Baud_Rate = 921600, uint8_t const& RX_Pin = 16, uint8_t const& TX_Pin = 17);
         ~Nextion_Display_Class();
         
-        void Set_Function_Data_String( void(*Function_Pointer)(String)):
+        void Set_Callback_Function_String_Data(void(*Function_Pointer)(String));
+        void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t)));
+        void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t)));
 
         // Basic Geometrical Drawing
         void Draw_Pixel(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Color);
@@ -102,20 +112,29 @@ class Nextion_Display_Class
         void Set_Text(const __FlashStringHelper* Object_Name, const __FlashStringHelper* Value);
         void Set_Text(const __FlashStringHelper* Object_Name, String const& Value); 
         void Set_Text(String const& Object_Name, String const& Value);
-        void Set_Value(const __FlashStringHelper* Object_Name, uint32_t Value);
-        void Set_Channel(const __FlashStringHelper* Object_Name, uint8_t Channel);
-        void Set_Grid_Width(const __FlashStringHelper* Object_Name, uint16_t Width);
-        void Set_Grid_Heigh(const __FlashStringHelper* Object_Name, uint16_t Heigh);
-        void Set_Data_Scalling(const __FlashStringHelper* Object_Name, uint16_t Scale);
-        //
+        void Set_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value);
+        void Set_Channel(const __FlashStringHelper* Object_Name, uint8_t const& Channel);
+        void Set_Grid_Width(const __FlashStringHelper* Object_Name, uint16_t const& Width);
+        void Set_Grid_Heigh(const __FlashStringHelper* Object_Name, uint16_t const& Heigh);
+        void Set_Data_Scalling(const __FlashStringHelper* Object_Name, uint16_t const& Scale);
+        void Set_Picture(const __FlashStringHelper* Object_Name, uint8_t const& Picture_ID);
+        void Set_Picture(String const& Object_Name, uint8_t const& Picture_ID);
+        void Set_Time(const __FlashStringHelper* Object_Name, uint16_t const& Time);
+        void Set_Trigger(const __FlashStringHelper* Object_Name, bool const& Enable);
+        
+        // Set System Global Variable
+        void Set_Current_Page(uint8_t const& Page_ID);
+        void Set_Current_Page(const __FlashStringHelper* Page_Name);
+        uint8_t& Get_Current_Page();
 
-        void Set_Current_Page();
-        uint8_t Get_Current_Page();
         void Set_Backlight(uint8_t const& Brightness, bool const& Save);
         uint8_t Get_Backlight();
+
         void Set_Baud_Rate(uint32_t const& Baudrate, bool const& Save);
         void Set_Font_Spacing(uint16_t const& X_Spacing, uint16_t const& Y_Spacing);
+        
         void Set_Draw_Color(uint16_t const& Color);
+        void Set_Drawing(bool const& Enable);
 
         void Set_Random_Generator(uint32_t const& Minimum, uint32_t const& Maximum);
 
@@ -124,8 +143,6 @@ class Nextion_Display_Class
 
         void Set_Adress(uint16_t Adress);
         uint16_t Get_Adress();
-
-        void Delay(uint16_t Delay_Time);
 
         uint16_t Get_Free_Buffer();
 
@@ -141,15 +158,13 @@ class Nextion_Display_Class
         void Start_Sending_Realtime_Coordinate();
         void Stop_Sending_Realtime_Coordinate();
 
-        void Enable_Drawing();
-        void Disable_Drawing();
-
         void Send_Custom_Instruction(const __FlashStringHelper* Instruction);
         void Send_Custom_Instruction(String const& Intruction);
 
-        void Go_Page(const __FlashStringHelper* Page_Name);
+        //Command
         void Clear(uint16_t const& Color);
         void Refresh(uint16_t const& Component_ID);
+        void Delay(uint16_t Delay_Time);
         void Click(uint16_t const& Component_ID, uint8_t const& Event_Type);
         void Start_Waveform();
         void Stop_Waveform();
@@ -163,6 +178,7 @@ class Nextion_Display_Class
         void Enable_Touch_Event(const __FlashStringHelper* Object_Name);
         void Stop_Execution();
         void Resume_Execution();
+        void Refresh_Current_Page();
        
         void Reboot();
         uint8_t Update(String const& File_Path);

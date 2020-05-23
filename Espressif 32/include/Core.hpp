@@ -22,6 +22,10 @@
 //                                        Define Const                        //
 //----------------------------------------------------------------------------//
 
+#define PAGE_SPLASH_A 0
+#define PAGE_SPLASH_B 1
+#define PAGE_ARDUINO_HOME 2
+
 #define SOUND_SPEED_AIR 343
 
 #define ATTRIBUTE_TXT 0
@@ -120,12 +124,14 @@ private:
     Paint_Class *Paint_Pointer;
     Piano_Class *Piano_Pointer;
     Signal_Generator_Class *Signal_Generator_Pointer;
-    Music_Player_Class *Music_Player_Pointer;
-    Pong_Class *Pong_Class;
+    //Music_Player_Class *Music_Player_Pointer;
+    //Pong_Class *Pong_Class;
 
     uint8_t Event_Reply;
 
     GalaxOS_Software_Class *Software_Pointer[4];
+
+    char Tag;
 
     struct tm Time;
 
@@ -147,6 +153,13 @@ public:
 
     void Open_Software(uint8_t const &Software_ID);
     void Close_Software(uint8_t const &Software_ID);
+
+    void Incomming_String_Data_From_Display(String const& Received_Data);
+    void Incomming_Numeric_Data_From_Display(uint32_t const& Received_Data);
+    void Incomming_Event_From_Display(uint16_t);
+
+    void Horizontal_Seperator();
+    //void Print(const __FlashStringHelper* String_To_Print);
 
     byte Get_Speaker_Pin();
     int Get_C_Frequency();

@@ -16,7 +16,7 @@
 //Red -> 5v     //
 //Blue -> P16   //
 //Yellow -> P17 //
-//Black -> GND  // 
+//Black -> GND  //
 
 //   SD Card    //
 //MISO -> P19   //
@@ -74,10 +74,161 @@ GalaxOS_Class::GalaxOS_Class() //builder
   Software_Pointer[1] = NULL;
   Software_Pointer[2] = NULL;
   Software_Pointer[3] = NULL;
+
+  Tag = 0x00;
 }
 
 GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
+}
+
+void GalaxOS_Class::Incomming_String_Data_From_Display(String const &Received_Data)
+{
+  Temporary_Byte_Array[0] = Display_Pointer->Nextion_Serial.read();
+  Serial.print(F(" | Type : "));
+  Serial.print(Temporary_Byte_Array[0]);
+  if (Temporary_Byte_Array[0] != CODE_COMMAND && Temporary_Byte_Array[0] != CODE_COMMAND_NEW) //not a command, therefore a variable
+  {
+    Temporary_Byte_Array[1] = Display_Pointer->Nextion_Serial.read(); //tag or ID
+    Serial.print(F(" | Tag : "));
+    Serial.print(Temporary_Byte_Array[1]);
+    switch (Temporary_Byte_Array[0])
+    {
+    case CODE_VARIABLE_CHAR:
+      Tag = (char)Temporary_Byte_Array[1];
+      GalaxOS.Set_Variable(Tag, (char)Display_Pointer->Nextion_Serial.read());
+      Tag = '\0';
+      break;
+    case CODE_VARIABLE_STRING:
+      Tag = (char)Temporary_Byte_Array[1];
+      break;
+    case CODE_VARIABLE_LONG:
+      Tag = (char)Temporary_Byte_Array[1];
+      break;
+    case CODE_VARIABLE_UNSIGNED_LONG:
+      Tag = (char)Temporary_Byte_Array[1];
+      break;
+    case CODE_SOFTWARE_OPEN:
+      GalaxOS.Open_Software(Temporary_Byte_Array[1]);
+      break;
+    case CODE_SOFTWARE_CLOSE:
+      GalaxOS.Close_Software(Temporary_Byte_Array[1]);
+      break;
+    default:
+      //error handle
+      break;
+    }
+  }
+  Temporary_Byte_Array[3] = 0; //counter for 0xFF ending code
+
+  if (Temporary_Byte_Array[0] == CODE_VARIABLE_STRING)
+  {
+    GalaxOS.Set_Variable(Tag, Temporary_String);
+    Temporary_String = String("");
+    Tag = '\0';
+  }
+  else if (Temporary_Byte_Array[0] == CODE_COMMAND || Temporary_Byte_Array[0] == CODE_COMMAND_NEW)
+  {
+    if (Temporary_String == "LoadSystem")
+    {
+      GalaxOS.Load_System_Files();
+    }
+    else if (Temporary_String == "Login")
+      GalaxOS.Load_User_Files();
+    else if (Temporary_String == "OpenMenu")
+      GalaxOS.Open_Menu();
+    else if (Temporary_String == "OpenDesk")
+      GalaxOS.Open_Desk();
+    else if (Temporary_String == "F&F")
+      Files_And_Folders();
+    //else if (Temporary_String == "F&F_RDelete") Event_Handler_Request();
+    //taskbar item
+    else if (Temporary_String == "TBItem1")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[0]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem2")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[1]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem3")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[2]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem4")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[3]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem5")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[4]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem6")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[5]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else if (Temporary_String == "TBItem7")
+    {
+      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
+      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    }
+    else
+    {
+      switch (GalaxOS.Current_Page)
+      {
+      case 20: //Event
+        GalaxOS.Event_Reply = uint8_t(Temporary_String.charAt(1));
+        break;
+      case 27: //iGOS
+        GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
+        break;
+      case 38: //Piano
+        GalaxOS.Piano_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
+        break;
+      default:
+        Serial.println(F("Unknow Page ID"));
+        break;
+      }
+    }
+  }
+}
+
+void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data)
+{
+                  Serial.print(F(" | Tag : "));
+                Serial.print(Tag);
+                Serial.print(F(" | Raw :"));
+                Serial.write(Temporary_Byte_Array[4]);
+                Serial.write(Temporary_Byte_Array[3]);
+                Serial.write(Temporary_Byte_Array[2]);
+                Serial.write(Temporary_Byte_Array[1]);
+
+  if (Tag != 0x00)
+  {
+    Serial.print(F(" | Long : "));
+    Serial.println(Received_Data);
+
+    GalaxOS.Set_Variable(Tag, Received_Data);
+    Tag = '\0';
+  }
+  else
+  {
+    Serial.println(F("Error : Cannot Set Variable Because Tag is NULL."));
+    //error handle
+  }
 }
 
 void GalaxOS_Class::Open_File(String const &File_Path_To_Open)
@@ -206,11 +357,16 @@ byte GalaxOS_Class::Get_C_MIDI()
   return C_MIDI;
 }
 
+void GalaxOS_Class::Horizontal_Seperator()
+{
+  Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
+
+}
+
 void GalaxOS_Class::Start()
 {
-  Serial.begin(921600);                             //PC Debug UART
-
-  Serial.println(F("\r||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
+  Serial.begin(921600); //PC Debug UART
+  Horizontal_Seperator();
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
   Serial.println(F("||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||"));
@@ -220,10 +376,10 @@ void GalaxOS_Class::Start()
   Serial.println(F("||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||"));
   Serial.println(F("||                                                                            ||"));
   Serial.println(F("||                                                                            ||"));
-  Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
+  Horizontal_Seperator();
   Serial.println(F("||     Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : 327,680 Bytes     ||"));
   Serial.println(F("||               Galax OS Embedded Edition - Alix ANNERAUD - Dev              ||"));
-  Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
+  Horizontal_Seperator();
   Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
   Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
   //Audio.speakerPin = SpeakerPin;
@@ -261,8 +417,7 @@ void GalaxOS_Class::Start()
   Synchronise_Time();
 }
 
-
-void GalaxOS_Class::Data_File_Get_Key(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String &Key_Value_To_Get)
+void GalaxOS_Class::Data_File_Get_Key(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get)
 {
   File Temporary_Local_File = SD_MMC.open(Path);
   uint32_t Temporary_Local_File_Position = 0;
@@ -566,28 +721,23 @@ void GalaxOS_Class::Get_Variable(char const &Tag, float &Float_To_Get)
 
 void GalaxOS_Class::Open_Menu()
 {
-  Nextion_Serial.print(F("page Menu_P1\xFF\xFF\xFF"));
-  Nextion_Serial.print(F("USERNAME_TXT.txt=\""));
-  Nextion_Serial.print(Username);
-  Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+  Display.Set_Current_Page(F(Menu_P1));
+  Display.Set_Text(F("USERNAME_TXT"), Username);
 }
 
 void GalaxOS_Class::Open_Desk()
 {
-  Nextion_Serial.print(F("page Desk\xFF\xFF\xFF"));
+  Display.Set_Current_Page(F("Desk"));
   uint8_t Minimized_Application_Icon;
+  String Temporary_String = "SLOTX_PIC";
   for (uint8_t Slot = 1; Slot < 6; Slot++)
   {
     if (iGOS_Pointer != NULL)
     {
       Slot++;
     }
-
-    Nextion_Serial.print(F("SLOT"));
-    Nextion_Serial.print(Slot);
-    Nextion_Serial.print(F("_PIC.pic="));
-    Nextion_Serial.print(Minimized_Application_Icon);
-    Nextion_Serial.print(F("\xFF\xFF\xFF"));
+    Temporary_String.setCharAt(4, char(Slot));
+    Display.Set_Picture(Temporary_String, Minimized_Application_Icon);
   }
 }
 
@@ -632,13 +782,13 @@ uint16_t GalaxOS_Class::Check_Credentials(String const &Username_To_Check, Strin
   if (Temporary_Password == Temporary_Password)
   {
     Serial.println(F("Good Password"));
-    GalaxOS.Username = Username_To_Check;
-    GalaxOS.Password = Password_To_Check;
+    Username = Username_To_Check;
+    Password = Password_To_Check;
     return INFORMATION_GOOD_CREDENTIALS;
   }
   else
   {
-    Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Password !\"\xFF\xFF\xFF"));
+    Display.Set_Text(F("WRONG_TXT"), F("WRONG PASSWORD"));
     Serial.println(F("Wrong Password !"));
     return WARNING_WRONG_PASSWORD;
   }
@@ -670,8 +820,8 @@ void GalaxOS_Class::Load_System_Files()
   Temporary_String = "";
   return;
 
-  Nextion_Serial.print(F("LOAD_TXT.txt=\"Loading System Files ...\"\xFF\xFF\xFF"));
-  Nextion_Serial.print(F("LOAD_TIM.tim=50\xFF\xFF\xFF"));
+  Display.Set_Text(F("LOAD_TIM"), F("Loading System Files ..."));
+  Display.Set_Time(F("LOAD_TIM"), 50);
 }
 
 void GalaxOS_Class::Load_User_Files()
@@ -683,73 +833,17 @@ void GalaxOS_Class::Load_User_Files()
   Get_Variable('P', Temporary_Password);
   if (Check_Credentials(Temporary_Username, Temporary_Password) == INFORMATION_GOOD_CREDENTIALS)
   {
-    Nextion_Serial.print(F("page Load_User\xFF\xFF\xFF"));
+    Display.Set_Current_Page(F("Load_User"));
   }
   else
   {
     //error : wrong username or password
-    Nextion_Serial.print(F("WRONG_TXT.txt=\"Wrong Credentials !\"\xFF\xFF\xFF"));
   }
-}
-
-void GalaxOS_Class::Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String, int Nextion_Serial_Transmit_Integer) //not used anymore in order to save ram
-{
-  switch (Type)
-  {
-  case ATTRIBUTE_TXT: //.txt for Text & Scrolling Text, QRCode, Button, DualStateButton //
-    Nextion_Serial.print(Component);
-    Nextion_Serial.print(F(".txt="));
-    Nextion_Serial.write(0x22);
-    Nextion_Serial.print(Nextion_Serial_Transmit_String);
-    Nextion_Serial.write(0x22);
-    break;
-  case ATTRIBUTE_VAL: //.val for Number,Progress Bar & Slider, Variable//
-    Nextion_Serial.print(Component);
-    Nextion_Serial.print(F(".val="));
-    Nextion_Serial.print(Nextion_Serial_Transmit_Integer);
-    break;
-  case ATTRIBUTE_TIM: //.tim for Timer//
-    Nextion_Serial.print(Component);
-    Nextion_Serial.print(F(".tim="));
-    Nextion_Serial.print(Nextion_Serial_Transmit_Integer);
-    break;
-  case COMMAND_PAGE_NAME: //Change page to page specified name.//
-    Nextion_Serial.print(F("page "));
-    Nextion_Serial.print(Component);
-    break;
-  case ATTRIBUTE_PIC: //.PIC
-    Nextion_Serial.print(Component);
-    Nextion_Serial.print(F(".pic="));
-    Nextion_Serial.print(Nextion_Serial_Transmit_Integer);
-    break;
-  case ATTRIBUTE_EN: //Timer enable
-    Nextion_Serial.print(Component);
-    Nextion_Serial.print(F(".en="));
-    Nextion_Serial.print(Nextion_Serial_Transmit_Integer);
-    break;
-  case COMMAND_PAGE_ID: //page PID//
-    byte PID;
-    PID = Nextion_Serial_Transmit_Integer;
-    Nextion_Serial.print(F("page "));
-    Nextion_Serial.print(PID);
-    break;
-  case COMMAND_CLICK_ID: //click
-    Nextion_Serial.print(F("click "));
-    Nextion_Serial.print(Component);
-    Nextion_Serial.write(0x2C);
-    Nextion_Serial.print(Nextion_Serial_Transmit_Integer);
-    break;
-  }
-  Nextion_Serial.write(0xFF);
-  Nextion_Serial.write(0xFF);
-  Nextion_Serial.write(0xFF);
-  return;
 }
 
 uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
 {
-  Nextion_Serial.print(F("page Event/xFF/xFF/xFF"));
-
+  Display.Set_Current_Page(F("Event"));
   byte i = 0;
   while (Event_Reply == 0 && i < 100)
   {
@@ -758,9 +852,7 @@ uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
   }
   if (i > 100)
   {
-    Nextion_Serial.print(F("page "));
-    Nextion_Serial.print(Last_Page);
-    Nextion_Serial.print(F("/xFF/xFF/xFF"));
+    Display.Set_Current_Page(Last_Page);
     return 0;
   }
   return Event_Reply;

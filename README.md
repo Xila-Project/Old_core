@@ -1,13 +1,15 @@
-# Galax OS Embedded Edition (EE)
+# Galax OS Embedded Edition
 
 ## Introduction
 
-GalaxOS is not really an operating, but an user interface developped on ESP32 (before on Atmel Mega 2560) which has mutiple purposes. It's a huge project for a beginner in C++ like me (be lenient with me when you read the code).
-The code has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources.
+GalaxOS cannot be consider as an operating system, it's more an user interface developped on ESP32 (before on Atmel Mega 2560) which has mutiple purposes. It's a huge project for a beginner in C++ like me (be lenient with me when you read the code).
+The code has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources. I hope you would like it !
 
 ### Inpired By
 
 - [Skewworks](https://www.skewworks.com "Skewworks") : [GadgetOS (ex-PyxisOS)](https://www.skewworks.com/pyxis "GadgetOS (ex-PyxisOS)")
+
+- [Benjamin Heckendorn](https://www.benheck.com/ "Benjamin Heckendorn") : [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer");
 
 ## Features
 
@@ -31,16 +33,16 @@ Here's features which are already implemented :
 - PS2 Keyboard support.
 - Multitasking (each opennend app can be minimized and reoppened in his last state).
 
-
 ## Roadmap
 
+- Release a alpha version !
 - Add SSL/TLS support to the Internet Browser.
+- Add support for external app (Multi partitionning ?)
 - Add external video support (bitluni's VGA ?).
 - Get rid of proprietary Nextion Display (Retro-ingenering ? Gamebuino 3 ?)
 - Comment proprely the code
 - Implement TinyBasic or/and MicroPython intepreter.
 - Use ULP to save time during sleep period.
-- Add rea
 
 
 ## Hardware
@@ -62,6 +64,8 @@ Here's credit of the sources that I borrow code :
 
 - [PIP Internet Browser, Chris ANDERSON](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser, Chris ANDERSON") (Creative Commons Attribution 4.0 Licence :  http://creativecommons.org/licenses/by/4.0/).
 - [Bitluni's ULP Sound Sketch](https://github.com/bitluni/ULPSoundESP32 "- Bitluni's ULP Sound Sketch")
+
+## About
 
 This software is under [M.I.T. licence](https://mit-license.org/ "M.I.T. licence").
 Alix ANNERAUD - [alixfaitgrr.fr](https://alixfaitgrr.fr "alixfaitgrr.fr") - 2020
