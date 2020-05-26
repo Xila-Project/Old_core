@@ -25,6 +25,10 @@
 #define PAGE_SPLASH_A 0
 #define PAGE_SPLASH_B 1
 #define PAGE_ARDUINO_HOME 2
+#define PAGE_DESK 19
+#define PAGE_EVENT 20
+#define PAGE_IGOS 27
+#define PAGE_PIANO 38
 
 #define SOUND_SPEED_AIR 343
 
@@ -38,6 +42,14 @@
 #define COMMAND_PAGE_ID 6
 #define COMMAND_CLICK_ID 7
 
+#define INFORMATION_GOOD_CREDENTIALS 39548
+
+#define QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE 3565
+
+#define WARNING_WRONG_PASSWORD 28364
+#define WARNING_WRONG_USERNAME 54112
+#define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
+
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
 #define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 49361
 #define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
@@ -45,14 +57,12 @@
 #define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
 #define ERROR_THE_FILE_DO_NOT_EXIST 7018
 #define ERROR_CANNOT_CREATE_SYSTEM_QUEUE 17496
-
+#define ERROR_UNEXPECTED_RETURN_COMMAND 46201
 #define ERROR_CANNOT_WRITE_DATA_TO_DISK_RAM 8942
-
-#define INFORMATION_GOOD_CREDENTIALS 39548
-
-#define WARNING_WRONG_PASSWORD 28364
-#define WARNING_WRONG_USERNAME 54112
-#define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
+#define ERROR_INVALID_SOFTWARE_ID 4562
+#define ERROR_CANNOT_OPEN_REGISTRY_FILE 684
+#define ERROR_REGISTRY_FILE_DOES_NOT_EXIST 8404
+#define ERROR_TO_MUCH_OPENNED_SOFTWARE 7519
 
 #define STYLE_LEFT_ALIGNMENT 0
 #define STYLE_CENTER_ALIGNMENT 1
@@ -76,6 +86,7 @@
 #define SOFTWARE_FILE_MANAGER_ID 45 
 
 #define IGOS_ICON 10
+
 
 //----------------------------------------------------------------------------//
 //                                        Define  Communication               //
@@ -146,18 +157,24 @@ private:
 public:
 
     GalaxOS_Class();
-
     ~GalaxOS_Class();
 
-    void Update_From_SD();
+    
+    void Start();
+    void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
+    void Restore_System_Sate();
 
-    void Open_Software(uint8_t const &Software_ID);
-    void Close_Software(uint8_t const &Software_ID);
+    void Open_Software(uint8_t const& Software_ID); //Only for pre-programmed software
+    void Open_Software(String const& Path); //From SD (compiled file)
+    void Open_Software(const __FlashStringHelper *Path); //From SD (compiled file)
+    void Close_Software(uint8_t const& Software_ID); //Only for pre-programmed software
 
-    void Incomming_String_Data_From_Display(String const& Received_Data);
+    //Interrupt method
+    void Incomming_String_Data_From_Display(String& Received_Data);
     void Incomming_Numeric_Data_From_Display(uint32_t const& Received_Data);
     void Incomming_Event_From_Display(uint16_t);
 
+    //Serial
     void Horizontal_Seperator();
     //void Print(const __FlashStringHelper* String_To_Print);
 
@@ -175,28 +192,24 @@ public:
 
     void Synchronise_Time();
 
-    void Start();
 
-    void Set_Variable(char const &Tag, String const &String_To_Set);
-    void Get_Variable(char const &Tag, String &String_To_Get);
 
-    void Set_Variable(char const &Tag, char const &Char_To_Set);
-    void Get_Variable(char const &Tag, char &Char_To_Get);
+    void Set_Variable(char const &Tag, String const& String_To_Set);
+    void Get_Variable(char const &Tag, String& String_To_Get);
 
-    void Set_Variable(char const &Tag, byte const &Byte_To_Set);
-    void Get_Variable(char const &Tag, byte &Byte_To_Get);
+    void Set_Variable(char const &Tag, uint8_t const& Byte_To_Set);
+    void Get_Variable(char const &Tag, uint8_t& Byte_To_Get);
 
-    void Set_Variable(char const &Tag, int const &Integer_To_Set);
+    void Set_Variable(char const &Tag, uint16_t const& Integer_To_Set);
     void Get_Variable(char const &Tag, int &Integer_To_Get);
 
-    void Set_Variable(char const &Tag, long const &Long_To_Set);
-    void Get_Variable(char const &Tag, long &Long_To_Get);
+    void Set_Variable(char const &Tag, uint32_t const& Long_To_Set);
+    void Get_Variable(char const &Tag, uint32_t& Long_To_Get);
 
-    void Set_Variable(char const &Tag, float const &Float_To_Set);
-    void Get_Variable(char const &Tag, float &Float_To_Get);
+    void Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
+    void Registry_Read(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String &Key_Value_To_Get);
+    void Registry_Write(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Get);
 
-    void Data_File_Get_Key(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
-    void Data_File_Get_Key(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String &Key_Value_To_Get);
 
     void Open_File(String const& File_Path_To_Open);
 
@@ -207,20 +220,21 @@ public:
     void Open_Desk();
     void Open_Menu();
 
-    void Nextion_Serial_Transmit(String Component, byte Type, String Nextion_Serial_Transmit_String = "", int Nextion_Serial_Transmit_Integer = 0);
-
     void Load_System_Files();
     void Load_User_Files();
 
     uint16_t Check_Credentials(String const &Username_To_Check, String const &Password_To_Check);
 
-    uint8_t Event_Handler(const uint16_t &Type);
+    //services
+    void Desk_Execute(uint16_t const& Command);
+
+    uint8_t Event_Handler(uint16_t const& Type, String const& Extra_Informations);
+    friend void Ressource_Monitor(void *pvParameters);
+
 
     void Nextion_Upload_Firmware(String const &Path);
 
-    //friend void Core ( void *pvParameters );
-    friend void Nextion_Serial_Receive(void *pvParameters);
-    friend void Ressource_Monitor(void *pvParameters);
+
 
     xTaskHandle Musical_Digital_Player_Handle;
 
@@ -228,7 +242,6 @@ public:
 };
 
 //GalaxOS class's method (FreeRTOS seems to not support class/struct)
-void Nextion_Serial_Receive(void *pvParameters);
 void Ressource_Monitor(void *pvParameters);
 
 void Musical_Digital_Player(void *pvParameters);

@@ -82,74 +82,54 @@ GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
 
-void GalaxOS_Class::Incomming_String_Data_From_Display(String const &Received_Data)
+void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
 {
-  Temporary_Byte_Array[0] = Display_Pointer->Nextion_Serial.read();
-  Serial.print(F(" | Type : "));
-  Serial.print(Temporary_Byte_Array[0]);
-  if (Temporary_Byte_Array[0] != CODE_COMMAND && Temporary_Byte_Array[0] != CODE_COMMAND_NEW) //not a command, therefore a variable
+  uint8_t Temporary_Return_Code = Received_Data.charAt(0);
+  Received_Data.remove(0, 1);
+  switch (Temporary_Return_Code)
   {
-    Temporary_Byte_Array[1] = Display_Pointer->Nextion_Serial.read(); //tag or ID
-    Serial.print(F(" | Tag : "));
-    Serial.print(Temporary_Byte_Array[1]);
-    switch (Temporary_Byte_Array[0])
+  case CODE_COMMAND:
+  case CODE_COMMAND_NEW:
+    switch (Display.Get_Current_Page())
     {
-    case CODE_VARIABLE_CHAR:
-      Tag = (char)Temporary_Byte_Array[1];
-      GalaxOS.Set_Variable(Tag, (char)Display_Pointer->Nextion_Serial.read());
-      Tag = '\0';
+    case PAGE_DESK:
+      Desk_Execute(Received_Data.charAt(0));
       break;
-    case CODE_VARIABLE_STRING:
-      Tag = (char)Temporary_Byte_Array[1];
+    case PAGE_EVENT: //Event
+      GalaxOS.Event_Reply = uint8_t(Received_Data.charAt(0));
       break;
-    case CODE_VARIABLE_LONG:
-      Tag = (char)Temporary_Byte_Array[1];
+    case PAGE_IGOS: //iGOS
+      GalaxOS.iGOS_Pointer->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
       break;
-    case CODE_VARIABLE_UNSIGNED_LONG:
-      Tag = (char)Temporary_Byte_Array[1];
-      break;
-    case CODE_SOFTWARE_OPEN:
-      GalaxOS.Open_Software(Temporary_Byte_Array[1]);
-      break;
-    case CODE_SOFTWARE_CLOSE:
-      GalaxOS.Close_Software(Temporary_Byte_Array[1]);
+    case PAGE_PIANO: //Piano
+      GalaxOS.Piano_Pointer->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
       break;
     default:
-      //error handle
+      Event_Handler(ERROR_UNEXPECTED_RETURN_COMMAND);
       break;
     }
-  }
-  Temporary_Byte_Array[3] = 0; //counter for 0xFF ending code
-
-  if (Temporary_Byte_Array[0] == CODE_VARIABLE_STRING)
-  {
-    GalaxOS.Set_Variable(Tag, Temporary_String);
-    Temporary_String = String("");
-    Tag = '\0';
-  }
-  else if (Temporary_Byte_Array[0] == CODE_COMMAND || Temporary_Byte_Array[0] == CODE_COMMAND_NEW)
-  {
-    if (Temporary_String == "LoadSystem")
+    /*
+    if (Received_Data == "LoadSystem")
     {
       GalaxOS.Load_System_Files();
     }
-    else if (Temporary_String == "Login")
+    else if (Received_Data == "Login")
       GalaxOS.Load_User_Files();
-    else if (Temporary_String == "OpenMenu")
+    else if (Received_Data == "OpenMenu")
       GalaxOS.Open_Menu();
-    else if (Temporary_String == "OpenDesk")
+    else if (Received_Data == "OpenDesk")
       GalaxOS.Open_Desk();
-    else if (Temporary_String == "F&F")
+    else if (Received_Data == "F&F")
       Files_And_Folders();
     //else if (Temporary_String == "F&F_RDelete") Event_Handler_Request();
     //taskbar item
-    else if (Temporary_String == "TBItem1")
+    else if (Received_Data == "TBItem1")
     {
-      Display_Pointer->Nextion_Serial.print(F("page "));
+      Display->Nextion_Serial.print(F("page "));
       Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[0]);
       Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
     }
-    else if (Temporary_String == "TBItem2")
+    else if (Received_Data == "TBItem2")
     {
       Display_Pointer->Nextion_Serial.print(F("page "));
       Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[1]);
@@ -184,45 +164,49 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String const &Received_Da
       Display_Pointer->Nextion_Serial.print(F("page "));
       Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
       Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else
-    {
-      switch (GalaxOS.Current_Page)
-      {
-      case 20: //Event
-        GalaxOS.Event_Reply = uint8_t(Temporary_String.charAt(1));
-        break;
-      case 27: //iGOS
-        GalaxOS.iGOS_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
-        break;
-      case 38: //Piano
-        GalaxOS.Piano_Pointer->Execute(Temporary_String.charAt(0), Temporary_String.charAt(1));
-        break;
-      default:
-        Serial.println(F("Unknow Page ID"));
-        break;
-      }
-    }
+    }*/
+    break;
+  case CODE_VARIABLE_CHAR:
+    GalaxOS.Set_Variable(Received_Data.charAt(0), Received_Data.charAt(1));
+    Tag = '\0';
+    break;
+  case CODE_VARIABLE_STRING:
+    Tag = (char)Received_Data.charAt(0);
+    Received_Data.remove(0, 1);
+    Set_Variable(Tag, Received_Data);
+    Tag = '\0';
+    break;
+  case CODE_VARIABLE_LONG:
+    Tag = Received_Data.charAt(0);
+    break;
+  case CODE_VARIABLE_UNSIGNED_LONG:
+    Tag = Received_Data.charAt(0);
+    break;
+  case CODE_SOFTWARE_OPEN:
+    GalaxOS.Open_Software(Received_Data.charAt(0));
+    break;
+  case CODE_SOFTWARE_CLOSE:
+    GalaxOS.Close_Software(Received_Data.charAt(0));
+    break;
+  default:
+    //error handle
+    break;
   }
 }
 
-void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data)
+void GalaxOS_Class::Incomming_Numeric_Data_From_Display(long const &Received_Data)
 {
-                  Serial.print(F(" | Tag : "));
-                Serial.print(Tag);
-                Serial.print(F(" | Raw :"));
-                Serial.write(Temporary_Byte_Array[4]);
-                Serial.write(Temporary_Byte_Array[3]);
-                Serial.write(Temporary_Byte_Array[2]);
-                Serial.write(Temporary_Byte_Array[1]);
+  Serial.print(F(" | Tag : "));
+  Serial.print(Tag);
+  Serial.print(F(" | Raw :"));
+  Serial.write(Temporary_Byte_Array[4]);
+  Serial.write(Temporary_Byte_Array[3]);
+  Serial.write(Temporary_Byte_Array[2]);
+  Serial.write(Temporary_Byte_Array[1]);
 
   if (Tag != 0x00)
   {
-    Serial.print(F(" | Long : "));
-    Serial.println(Received_Data);
-
-    GalaxOS.Set_Variable(Tag, Received_Data);
-    Tag = '\0';
+    Set_Variable(Tag, Received_Data);
   }
   else
   {
@@ -360,7 +344,6 @@ byte GalaxOS_Class::Get_C_MIDI()
 void GalaxOS_Class::Horizontal_Seperator()
 {
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
-
 }
 
 void GalaxOS_Class::Start()
@@ -417,13 +400,38 @@ void GalaxOS_Class::Start()
   Synchronise_Time();
 }
 
-void GalaxOS_Class::Data_File_Get_Key(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get)
+void GalaxOS_Class::Save_System_State()
+{
+  if(SD_MMC.exists("/GOSCUSA.GSF"))
+  {
+    if(SD_MMC.remove("/GOSCUSA.GSF"))
+    {
+      //event handler
+      return;
+    }
+  }
+  if(!Event_Handler(QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE))
+  {
+    return;
+  }
+  Registry_Write(F("/GOSCUSA.GSF", F("Username"), Username);
+  Registry_Write(F("/GOSCUSA.GSF", F("Password"), Password);
+  //etc save all variables
+
+}
+
+void GalaxOS_Class::Registry_Read(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get)
 {
   File Temporary_Local_File = SD_MMC.open(Path);
   uint32_t Temporary_Local_File_Position = 0;
+  if (!SD_MMC.exists(Path))
+  {
+    Event_Handler(ERROR_REGISTRY_FILE_DOES_NOT_EXIST);
+    return;
+  }
   if (!Temporary_Local_File)
   {
-    //error handle : cannot open file
+    Event_Handler(ERROR_CANNOT_OPEN_REGISTRY_FILE);
     return;
   }
   Temporary_File.seek(0);
@@ -470,7 +478,7 @@ void GalaxOS_Class::Data_File_Get_Key(const __FlashStringHelper *Path, const __F
   }
 }
 
-void GalaxOS_Class::Data_File_Get_Key(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get)
+void GalaxOS_Class::Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get)
 {
   File Temporary_Local_File = SD_MMC.open(Path);
   uint32_t Temporary_Local_File_Position = 0;
@@ -841,10 +849,11 @@ void GalaxOS_Class::Load_User_Files()
   }
 }
 
-uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID)
+uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID, String const &Extra_Informations = "");
 {
   Display.Set_Current_Page(F("Event"));
-  byte i = 0;
+  Registry_Read()
+      byte i = 0;
   while (Event_Reply == 0 && i < 100)
   {
     vTaskDelay(pdMS_TO_TICKS(50));
