@@ -51,19 +51,20 @@ Here's main hadware needed to run GalaxOS :
 
 - NodeMCU-32S (but all esp32 will work fine).
 - Nextion 4.3" Resistive Touch Display (NX4827T043_11)
-- SD Card Reader (in 4-bit MMC SD)
+- SD Card Reader (4-bit MMC SD)
 
 Additionnaly can be added for more features :
 
 - Old school PS2 keyboard
-- Ultrasonic meter HC-SR04
+- Ultrasonic sensor HC-SR04
 
 ## Credit
 
-Here's credit of the sources that I borrow code :
+Here's credit of the sources where I borrow/use code :
 
 - [PIP Internet Browser, Chris ANDERSON](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser, Chris ANDERSON") (Creative Commons Attribution 4.0 Licence :  http://creativecommons.org/licenses/by/4.0/).
-- [Bitluni's ULP Sound Sketch](https://github.com/bitluni/ULPSoundESP32 "- Bitluni's ULP Sound Sketch")
+- [ULP Sound, Bitluni](https://github.com/bitluni/ULPSoundESP32 "ULP Sound, Bitluni")
+- [PS2KBDLIB, Michalhol](https://github.com/bitluni/ULPSoundESP32 "PS2KBDLIB, Michalhol") (M.I.T. Licence :  https://mit-license.org/)
 
 ## About
 

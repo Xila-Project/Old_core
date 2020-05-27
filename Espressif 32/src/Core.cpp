@@ -26,15 +26,17 @@
 //3.3 v -> 3.3  //
 //GND -> GND    //
 
+
+
 //Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
 //Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
 
 #include "Arduino.h"
 
-#include "core.hpp"
+#include "Core.hpp"
 #include "WiFi.h"
-#include "galaxos.hpp"
+#include "GalaxOS.hpp"
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -96,7 +98,7 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
       Desk_Execute(Received_Data.charAt(0));
       break;
     case PAGE_EVENT: //Event
-      GalaxOS.Event_Reply = uint8_t(Received_Data.charAt(0));
+      Event_Reply = uint8_t(Received_Data.charAt(0));
       break;
     case PAGE_IGOS: //iGOS
       GalaxOS.iGOS_Pointer->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
@@ -167,7 +169,7 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
     }*/
     break;
   case CODE_VARIABLE_CHAR:
-    GalaxOS.Set_Variable(Received_Data.charAt(0), Received_Data.charAt(1));
+    Set_Variable(Received_Data.charAt(0), uint8_t(Received_Data.charAt(1)));
     Tag = '\0';
     break;
   case CODE_VARIABLE_STRING:
@@ -183,10 +185,10 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
     Tag = Received_Data.charAt(0);
     break;
   case CODE_SOFTWARE_OPEN:
-    GalaxOS.Open_Software(Received_Data.charAt(0));
+    Open_Software(Received_Data.charAt(0));
     break;
   case CODE_SOFTWARE_CLOSE:
-    GalaxOS.Close_Software(Received_Data.charAt(0));
+    Close_Software(Received_Data.charAt(0));
     break;
   default:
     //error handle
@@ -194,16 +196,8 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
   }
 }
 
-void GalaxOS_Class::Incomming_Numeric_Data_From_Display(long const &Received_Data)
+void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data)
 {
-  Serial.print(F(" | Tag : "));
-  Serial.print(Tag);
-  Serial.print(F(" | Raw :"));
-  Serial.write(Temporary_Byte_Array[4]);
-  Serial.write(Temporary_Byte_Array[3]);
-  Serial.write(Temporary_Byte_Array[2]);
-  Serial.write(Temporary_Byte_Array[1]);
-
   if (Tag != 0x00)
   {
     Set_Variable(Tag, Received_Data);
@@ -361,7 +355,7 @@ void GalaxOS_Class::Start()
   Serial.println(F("||                                                                            ||"));
   Horizontal_Seperator();
   Serial.println(F("||     Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : 327,680 Bytes     ||"));
-  Serial.println(F("||               Galax OS Embedded Edition - Alix ANNERAUD - Dev              ||"));
+  Serial.println(F("||             Galax OS Embedded Edition - Alix ANNERAUD - Alpha              ||"));
   Horizontal_Seperator();
   Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
   Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
@@ -380,6 +374,12 @@ void GalaxOS_Class::Start()
   xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);
 
   Serial.println(F("|| > Loading Task ...                                                         ||"));
+  Serial.println(F("|| > Check existing of file last state ...                                    ||"));
+  if (SD_MMC.exists("/GOSCUSA.GSF"))
+  {
+    Restore_System_State();
+  }
+
   Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 
   //bypass for dev purpose
@@ -390,7 +390,7 @@ void GalaxOS_Class::Start()
   strcpy(WiFi_SSID, "Avrupa");
   strcpy(WiFi_Password, "0749230994");
 
-  float Test_Float = 123456789;
+  uint32_t Test_Float = 123456789;
   Set_Variable('T', Test_Float);
   Serial.println(Test_Float);
   Get_Variable('T', Test_Float);
@@ -402,22 +402,35 @@ void GalaxOS_Class::Start()
 
 void GalaxOS_Class::Save_System_State()
 {
-  if(SD_MMC.exists("/GOSCUSA.GSF"))
+  if (SD_MMC.exists("/GOSCUSA.GSF"))
   {
-    if(SD_MMC.remove("/GOSCUSA.GSF"))
+    if (SD_MMC.remove("/GOSCUSA.GSF"))
     {
       //event handler
       return;
     }
   }
-  if(!Event_Handler(QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE))
+  if (!Event_Handler(QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE))
   {
     return;
   }
-  Registry_Write(F("/GOSCUSA.GSF", F("Username"), Username);
-  Registry_Write(F("/GOSCUSA.GSF", F("Password"), Password);
+  Registry_Write(F("/GOSCUSA.GSF"), F("Username"), Username);
+  Registry_Write(F("/GOSCUSA.GSF"), F("Password"), Password);
   //etc save all variables
+}
 
+void GalaxOS_Class::Restore_System_State()
+{
+  Display.Set_Current_Page(PAGE_DESK);
+  if (!SD_MMC.exists("/GOSCUSA.GSF"))
+  {
+    return;
+  }
+
+  Registry_Read(F("/GOSCUSA.GSF"), F("Username"), Username);
+  Registry_Read(F("/GOSCUSA.GSF"), F("Username"), Password);
+
+  ESP.restart();
 }
 
 void GalaxOS_Class::Registry_Read(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get)
@@ -426,12 +439,12 @@ void GalaxOS_Class::Registry_Read(const __FlashStringHelper *Path, const __Flash
   uint32_t Temporary_Local_File_Position = 0;
   if (!SD_MMC.exists(Path))
   {
-    Event_Handler(ERROR_REGISTRY_FILE_DOES_NOT_EXIST);
+    Event_Handler(ERROR_SOME_SYSTEM_FILES_ARE_MISSING);
     return;
   }
   if (!Temporary_Local_File)
   {
-    Event_Handler(ERROR_CANNOT_OPEN_REGISTRY_FILE);
+    Event_Handler(ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED);
     return;
   }
   Temporary_File.seek(0);
@@ -531,13 +544,13 @@ void GalaxOS_Class::Registry_Read(String const &Path, char (&Key_Name)[], String
   }
 }
 
-void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
+void GalaxOS_Class::Set_Variable(char const& Tag, uint32_t const& Number_To_Set)
 { //float
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
-  uint8_t Split_Long[] = {(uint8_t)Long_To_Set, (uint8_t)Long_To_Set >> 8, (uint8_t)Long_To_Set >> 16, (uint8_t)Long_To_Set >> 24};
+  uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24};
   if (Temporary_File)
   {
-    if (Temporary_File.write(Split_Long, 4) != 4)
+    if (Temporary_File.write(Split_Number, 4) != 4)
     {
       //error handle
     }
@@ -549,12 +562,12 @@ void GalaxOS_Class::Set_Variable(char const &Tag, long const &Long_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, long &Long_To_Get)
+void GalaxOS_Class::Get_Variable(char const& Tag, uint32_t& Number_To_Set)
 { //float
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    Long_To_Get = ((long)Temporary_File.read() << 24) | ((long)Temporary_File.read() << 16) | ((long)Temporary_File.read() << 8) | (long)Temporary_File.read();
+    Number_To_Set = ((uint32_t)Temporary_File.read() << 24) | ((uint32_t)Temporary_File.read() << 16) | ((uint32_t)Temporary_File.read() << 8) | (uint32_t)Temporary_File.read();
     Temporary_File.close();
     return;
   }
@@ -601,12 +614,13 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
   }
 }
 
-void GalaxOS_Class::Set_Variable(char const &Tag, char const &Char_To_Set)
+void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const& Number_To_Set)
 { //char
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
+  Temporary_File.seek(0);
   if (Temporary_File)
   {
-    Temporary_File.write(Char_To_Set);
+    Temporary_File.write(Number_To_Set);
     Temporary_File.close();
     return;
   }
@@ -617,12 +631,12 @@ void GalaxOS_Class::Set_Variable(char const &Tag, char const &Char_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, char &Char_To_Get)
+void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t& Number_To_Set)
 { //char
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
   if (Temporary_File)
   {
-    Char_To_Get = Temporary_File.read();
+    Number_To_Set = Temporary_File.read();
     Temporary_File.close();
     return;
   }
@@ -633,42 +647,13 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char &Char_To_Get)
   }
 }
 
-void GalaxOS_Class::Set_Variable(char const &Tag, byte const &Byte_To_Set)
-{ //byte
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/BYTE/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
-  {
-    Temporary_File.write(Byte_To_Set);
-    Temporary_File.close();
-    return;
-  }
-  else
-  {
-    //error
-    return;
-  }
-}
 
-void GalaxOS_Class::Get_Variable(char const &Tag, byte &Byte_To_Get)
-{ //byte
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/BYTE/" + String(Tag), FILE_READ);
-  if (Temporary_File)
-  {
-    Byte_To_Get = Temporary_File.read();
-    Temporary_File.close();
-  }
-  else
-  {
-    //error
-  }
-}
-
-void GalaxOS_Class::Set_Variable(char const &Tag, int const &Integer_To_Set)
+void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const& Number_To_Set)
 { //integer
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    uint8_t Split_Integer[] = {(uint8_t)Integer_To_Set << 8, (uint8_t)Integer_To_Set};
+    uint8_t Split_Integer[] = {(uint8_t)Number_To_Set << 8, (uint8_t)Number_To_Set};
     if (Temporary_File.write(Split_Integer, 2) != 2)
     {
       //error handle
@@ -681,44 +666,12 @@ void GalaxOS_Class::Set_Variable(char const &Tag, int const &Integer_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, int &Integer_To_Get)
+void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t& Number_To_Set)
 { //integer
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
   {
-    Integer_To_Get = ((int)Temporary_File.read() << 8) | (int)Temporary_File.read();
-    Temporary_File.close();
-  }
-  else
-  {
-    //error
-  }
-}
-
-void GalaxOS_Class::Set_Variable(char const &Tag, float const &Float_To_Set)
-{ //float
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
-  uint8_t Split_Float[] = {(uint8_t)Float_To_Set, (uint8_t)Float_To_Set >> 8, (uint8_t)Float_To_Set >> 16, (uint8_t)Float_To_Set >> 24};
-  if (Temporary_File)
-  {
-    if (Temporary_File.write(Split_Float, 4) != 4)
-    {
-      //error handle
-    }
-    Temporary_File.close();
-  }
-  else
-  {
-    //error
-  }
-}
-
-void GalaxOS_Class::Get_Variable(char const &Tag, float &Float_To_Get)
-{ //float
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/FLOAT/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
-  {
-    Float_To_Get = ((float)Temporary_File.read() << 24) | ((float)Temporary_File.read() << 16) | ((float)Temporary_File.read() << 8) | (float)Temporary_File.read();
+    Number_To_Set = ((uint16_t)Temporary_File.read() << 8) | (uint16_t)Temporary_File.read();
     Temporary_File.close();
   }
   else
@@ -849,7 +802,7 @@ void GalaxOS_Class::Load_User_Files()
   }
 }
 
-uint8_t GalaxOS_Class::Event_Handler(const uint16_t &Event_ID, String const &Extra_Informations = "");
+uint8_t GalaxOS_Class::Event_Handler(uint16_t const& Type, String const& Extra_Informations = "")
 {
   Display.Set_Current_Page(F("Event"));
   Registry_Read()
@@ -1004,7 +957,7 @@ void GalaxOS_Class::Synchronise_Time()
 
 void GalaxOS_Class::WiFi_Connect()
 {
-  if (!WiFi.setHostname("GOS ESP32"))
+  if (!WiFi.setHostname("ESP32"))
   {
     Serial.println("Cannot set a custom hostname !");
     //error handle

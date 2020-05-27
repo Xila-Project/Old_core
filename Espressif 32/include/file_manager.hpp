@@ -2,7 +2,8 @@
 #define FILE_MANAGER_HPP_INCLUDED
 
 #include "Arduino.h"
-#include "galaxos.hpp"
+
+#include "GalaxOS.hpp"
 
 class File_Manager_Class
 {

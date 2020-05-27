@@ -1,5 +1,4 @@
 #include "File_Manager.hpp"
-#include "GalaxOS.hpp"
 
 uint8_t File_Manager_Class::Number_Instance = 0;
 
@@ -27,44 +26,33 @@ void File_Manager_Class::Display_Path()
     GalaxOS.Get_Variable('P', Current_File_Path);
     Temporary_File = SD_MMC.open(Current_File_Path);
     String Item_Name = "";
+    String Temporary_String;
     if (Temporary_File)
     {
         if (Temporary_File.isDirectory())
         {
             for (int i = 1; i < 19; i++)
             { //Clear Items
-                Item_Name = "ITEM" + String(i);
-                Item_Name += "_TXT";
-                Nextion_Serial.print(Item_Name);
-                Nextion_Serial.print(F(".txt=\"\"\xFF\xFF\xFF"));
-                Item_Name = "ITEM" + String(i);
-                Item_Name += "_BUT";
-                Nextion_Serial.print(Item_Name);
-                Nextion_Serial.print(F(".pic=15\xFF\xFF\xFF"));
+
+                GalaxOS.Display.Set_Text("ITEM" + String(i) + "_TXT", "");
+                GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 15);
             }
             Temporary_File.rewindDirectory();
             for (byte i = 1; i < 19; i++)
             {
                 File Item = Temporary_File.openNextFile();
                 if (!Item)
+                {
                     break;
-                Item_Name = "ITEM" + String(i);
-                Item_Name += "_TXT";
-                Nextion_Serial.print(Item_Name);
-                Nextion_Serial.print(F(".txt=\""));
-                Nextion_Serial.print(Item.name());
-                Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
-                Item_Name = "ITEM" + String(i);
-                Item_Name += "_BUT";
+                }
+                GalaxOS.Display.Set_Text("ITEM" + String(i) + "_TXT", Item.name());
                 if (Item.isDirectory())
                 {
-                    Nextion_Serial.print(Item_Name);
-                    Nextion_Serial.print(F(".pic=17\xFF\xFF\xFF"));
+                    GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 17);
                 }
                 else
                 {
-                    Nextion_Serial.print(Item_Name);
-                    Nextion_Serial.print(F(".pic=16\xFF\xFF\xFF"));
+                    GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 16);
                 }
                 Item.close();
             }
@@ -74,7 +62,6 @@ void File_Manager_Class::Display_Path()
             GalaxOS.Open_File(Current_File_Path);
             Temporary_File.close();
             Go_Parent();
-        
         }
     }
     else
@@ -88,7 +75,7 @@ void File_Manager_Class::Go_Parent() //Set Current_File_Path to the parent folde
     byte ii = 0;
     for (byte i = Current_File_Path.length(); i >= 0; i--)
     {
-        if (Current_File_Path.charAt(i) == 0x2F) //try to find the last 
+        if (Current_File_Path.charAt(i) == 0x2F) //try to find the last
         {
             ++ii;
         }
@@ -101,21 +88,21 @@ void File_Manager_Class::Delete()
     String Temporary_File_Path = "";
     switch (GalaxOS.Event_Handler(WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM))
     {
-        case 0:
+    case 0:
 
-            break;
-        case 'Y': 
-            //fs.rmdir();
-            break;
-        case 'N' :
-            return;
-            break;
+        break;
+    case 'Y':
+        //fs.rmdir();
+        break;
+    case 'N':
+        return;
+        break;
 
-        case 'C':
-            return;
-            break;
-        default:
-            break;
+    case 'C':
+        return;
+        break;
+    default:
+        break;
     }
 }
 

@@ -1,5 +1,4 @@
-#include "ultrasonic.hpp"
-#include "object.hpp"
+#include "Ultrasonic.hpp"
 
 uint8_t Ultrasonic_Class::Number_Instance = 0;
 

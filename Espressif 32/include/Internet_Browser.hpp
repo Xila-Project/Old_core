@@ -1,5 +1,5 @@
-#ifndef IGOS_H_INCLUDED
-#define IGOS_H_INCLUDED
+#ifndef INTERNET_BROWSER_H_INCLUDED
+#define INTERNET_BROWSER_H_INCLUDED
 
 #include "Arduino.h"
 #include "WiFiClient.h"

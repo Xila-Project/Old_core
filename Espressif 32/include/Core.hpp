@@ -1,13 +1,26 @@
-#ifndef CORE_H_INCLUDED
-#define CORE_H_INCLUDED
+#ifndef GALAXOS_CORE_H_INCLUDED
+#define GALAXOS_CORE_H_INCLUDED
+
+//----------------------------------------------------------------------------//
+//                          Include Necessary Libraries                       //
+//----------------------------------------------------------------------------//
 
 #include "Arduino.h"
 #include "SD_MMC.h"
 #include "FS.h"
 #include "time.h"
 
-#include "GalaxOS.hpp"
-#include "Igos.hpp"
+//----------------------------------------------------------------------------//
+//                          Include All Project File                          //
+//----------------------------------------------------------------------------//
+
+// Core file
+#include "GalaxOS.hpp" //Main file part, included in main sketch
+// Driver files
+#include "Display.hpp" // Nextion display driver (maybe create a library for each driver)
+#include "Keyboard.hpp" // PS2 keyboard driver
+// Software file
+#include "Internet_Browser.hpp"
 #include "Software.hpp"
 #include "Periodic.hpp"
 #include "File_Manager.hpp"
@@ -16,12 +29,12 @@
 #include "Ultrasonic.hpp"
 #include "Signal_Generator.hpp"
 #include "Paint.hpp"
-#include "Display.hpp"
 
 //----------------------------------------------------------------------------//
-//                                        Define Const                        //
+//                                Define Const                                //
 //----------------------------------------------------------------------------//
 
+// Page ID Index
 #define PAGE_SPLASH_A 0
 #define PAGE_SPLASH_B 1
 #define PAGE_ARDUINO_HOME 2
@@ -30,26 +43,20 @@
 #define PAGE_IGOS 27
 #define PAGE_PIANO 38
 
-#define SOUND_SPEED_AIR 343
+// Event Index (used to interract with the event handler)
 
-#define ATTRIBUTE_TXT 0
-#define ATTRIBUTE_VAL 1
-#define ATTRIBUTE_TIM 2
-#define ATTRIBUTE_PIC 4
-#define ATTRIBUTE_EN 5
-
-#define COMMAND_PAGE_NAME 3
-#define COMMAND_PAGE_ID 6
-#define COMMAND_CLICK_ID 7
-
+// Informations
 #define INFORMATION_GOOD_CREDENTIALS 39548
 
+// Questions
 #define QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE 3565
 
+// Warnings
 #define WARNING_WRONG_PASSWORD 28364
 #define WARNING_WRONG_USERNAME 54112
 #define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
 
+// Errors
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
 #define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 49361
 #define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
@@ -64,11 +71,13 @@
 #define ERROR_REGISTRY_FILE_DOES_NOT_EXIST 8404
 #define ERROR_TO_MUCH_OPENNED_SOFTWARE 7519
 
+// Alignement
 #define STYLE_LEFT_ALIGNMENT 0
 #define STYLE_CENTER_ALIGNMENT 1
 #define STYLE_RIGHT_ALIGNMENT 2
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
+// Nextion command
 #define CODE_COMMAND 42
 #define CODE_SOFTWARE_OPEN 111 //o
 #define CODE_SOFTWARE_CLOSE 99 //c
@@ -82,24 +91,15 @@
 #define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
 #define CODE_VARIABLE_STRING 83
 
+// Software ID
 #define SOFTWARE_IGOS_ID 73 //random number for ID
 #define SOFTWARE_FILE_MANAGER_ID 45 
 
 #define IGOS_ICON 10
 
-
 //----------------------------------------------------------------------------//
-//                                        Define  Communication               //
+//                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-//                                        Define Tasks                        //
-//----------------------------------------------------------------------------//
-
-//----------------------------------------------------------------------------//
-//                            Define Class                                    //
-//----------------------------------------------------------------------------//
-
 
 class GalaxOS_Class
 {
@@ -124,17 +124,15 @@ private:
     int Low_RAM_Threshold;
 
     String Temporary_String;
-
-    Nextion_Display_Class Display;
     
-    iGOS_Class *iGOS_Pointer;
-    Periodic_Class *Periodic_Pointer;
-    File_Manager_Class *File_Manager_Pointer;
-    Ultrasonic_Class *Ultrasonic_Pointer;
-    Calculator_Class *Calculator_Pointer;
-    Paint_Class *Paint_Pointer;
-    Piano_Class *Piano_Pointer;
-    Signal_Generator_Class *Signal_Generator_Pointer;
+    iGOS_Class* iGOS_Pointer;
+    Periodic_Class* Periodic_Pointer;
+    File_Manager_Class* File_Manager_Pointer;
+    Ultrasonic_Class* Ultrasonic_Pointer;
+    Calculator_Class* Calculator_Pointer;
+    Paint_Class* Paint_Pointer;
+    Piano_Class* Piano_Pointer;
+    Signal_Generator_Class* Signal_Generator_Pointer;
     //Music_Player_Class *Music_Player_Pointer;
     //Pong_Class *Pong_Class;
 
@@ -158,11 +156,12 @@ public:
 
     GalaxOS_Class();
     ~GalaxOS_Class();
+        
+    Nextion_Display_Class Display;
 
-    
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
-    void Restore_System_Sate();
+    void Restore_System_State();
 
     void Open_Software(uint8_t const& Software_ID); //Only for pre-programmed software
     void Open_Software(String const& Path); //From SD (compiled file)
@@ -192,23 +191,24 @@ public:
 
     void Synchronise_Time();
 
-
-
     void Set_Variable(char const &Tag, String const& String_To_Set);
     void Get_Variable(char const &Tag, String& String_To_Get);
 
-    void Set_Variable(char const &Tag, uint8_t const& Byte_To_Set);
-    void Get_Variable(char const &Tag, uint8_t& Byte_To_Get);
+    void Set_Variable(char const &Tag, uint8_t const& Number_To_Set);
+    void Get_Variable(char const &Tag, uint8_t& Number_To_Set);
 
-    void Set_Variable(char const &Tag, uint16_t const& Integer_To_Set);
-    void Get_Variable(char const &Tag, int &Integer_To_Get);
+    void Set_Variable(char const &Tag, uint16_t const& Number_To_Set);
+    void Get_Variable(char const &Tag, uint16_t& Number_To_Set);
 
-    void Set_Variable(char const &Tag, uint32_t const& Long_To_Set);
-    void Get_Variable(char const &Tag, uint32_t& Long_To_Get);
+    void Set_Variable(char const& Tag, uint32_t const& Number_To_Set);
+    void Get_Variable(char const& Tag, uint32_t& Number_To_Set);
 
     void Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
     void Registry_Read(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String &Key_Value_To_Get);
     void Registry_Write(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Get);
+    void Registry_Add(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
+    void Registry_Modify(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
+    void Registry_Delete(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name);
 
 
     void Open_File(String const& File_Path_To_Open);
@@ -228,17 +228,10 @@ public:
     //services
     void Desk_Execute(uint16_t const& Command);
 
-    uint8_t Event_Handler(uint16_t const& Type, String const& Extra_Informations);
+    uint8_t Event_Handler(uint16_t const& Type, String const& Extra_Informations = "");
     friend void Ressource_Monitor(void *pvParameters);
 
-
     void Nextion_Upload_Firmware(String const &Path);
-
-
-
-    xTaskHandle Musical_Digital_Player_Handle;
-
-    bool MIDIOutEnable = false;
 };
 
 //GalaxOS class's method (FreeRTOS seems to not support class/struct)

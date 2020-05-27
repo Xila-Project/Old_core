@@ -186,7 +186,7 @@ void Calculator_Class::Clear_Last_Number()
 
 void Calculator_Class::Display()
 {
-    Nextion_Serial.print(F("NUMBER_TXT.txt=\""));
+    String Temporary_String = "";
     for (uint8_t i = 0; i < 6; i++)
     {
         if (Number[i] == 0)
@@ -195,14 +195,15 @@ void Calculator_Class::Display()
         }
         else
         {
-            Nextion_Serial.print(Number[i]);
+           Temporary_String += Number[i];
         }
-        Nextion_Serial.print(F(" "));
+        Temporary_String += " ";
+
         if (Operator[i] != 0 && i < 5)
         {
-            Nextion_Serial.print(Operator[i]);
+            Temporary_String += Operator[i];
         }
     }
-    Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+    GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
 }
 
