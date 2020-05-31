@@ -368,11 +368,7 @@ void GalaxOS_Class::Start()
   {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
-  xTaskCreatePinnedToCore(Nextion_Serial_Receive, "GOS NSR", 4096, NULL, 2, &Nextion_Serial_Receive_Handle, 0);
-  //xTaskCreatePinnedToCore(Musical_Digital_Player, "Musical_Digital", 4096, NULL, 2, &Musical_Digital_Player_Handle, 1);
-  //vTaskSuspend(GalaxOS.Musical_Digital_Player_Handle);
-  xTaskCreatePinnedToCore(Ressource_Monitor, "Ressource_Monitor", 2048, NULL, 2, &Ressource_Monitor_Handle, 1);
-
+ 
   Serial.println(F("|| > Loading Task ...                                                         ||"));
   Serial.println(F("|| > Check existing of file last state ...                                    ||"));
   if (SD_MMC.exists("/GOSCUSA.GSF"))

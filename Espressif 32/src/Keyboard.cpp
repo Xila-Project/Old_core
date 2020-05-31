@@ -1,15 +1,15 @@
 #include "Keyboard.hpp"
 
-Keyboard* Keyboard::keyboard0Ptr;
-Keyboard* Keyboard::keyboard1Ptr;
-Keyboard* Keyboard::keyboard2Ptr;
-Keyboard* Keyboard::keyboard3Ptr;
-Keyboard* Keyboard::keyboard4Ptr;
-Keyboard* Keyboard::keyboard5Ptr;
-Keyboard* Keyboard::keyboard6Ptr;
-Keyboard* Keyboard::keyboard7Ptr;
+Keyboard_Class* Keyboard_Class::keyboard0Ptr;
+Keyboard_Class* Keyboard_Class::keyboard1Ptr;
+Keyboard_Class* Keyboard_Class::keyboard2Ptr;
+Keyboard_Class* Keyboard_Class::keyboard3Ptr;
+Keyboard_Class* Keyboard_Class::keyboard4Ptr;
+Keyboard_Class* Keyboard_Class::keyboard5Ptr;
+Keyboard_Class* Keyboard_Class::keyboard6Ptr;
+Keyboard_Class* Keyboard_Class::keyboard7Ptr;
 
-const char Keyboard::chrsNS[]={
+const char Keyboard_Class::chrsNS[]={
     0,    249,  0,    245,  243,  241,  242,  252,  0,    250,  248,  246,  244,  '\t', '`',  0,
     0,    0,    0,    0,    0,    'q',  '1',  0,    0,    0,    'z',   's',  'a',  'w',  '2',  0,
     0,    'c',  'x',  'd',  'e',  '4',  '3',  0,    0,    ' ',  'v',  'f',  't',  'r',  '5',  0,
@@ -20,7 +20,7 @@ const char Keyboard::chrsNS[]={
     '0',  '.',  '2',  '5',  '6',  '8',  '\033',0,   251,  '+',  '3',  '-',  '*',  '9',  0,    0,
     0,    0,    0,    247,  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0};
 
-const char Keyboard::chrsSH[]={
+const char Keyboard_Class::chrsSH[]={
     0,    249,  0,    245,  243,  241,  242,  252,  0,    250,  248,  246,  244,  '\t', '~',  0,
     0,    0,    0,    0,    0,    'Q',  '!',  0,    0,    0,    'Z',  'S',  'A',  'W',  '@',  0,
     0,    'C',  'X',  'D',  'E',  '$',  '#',  0,    0,    ' ',  'V',  'F',  'T',  'R',  '%',  0,
@@ -31,11 +31,11 @@ const char Keyboard::chrsSH[]={
     '0',  '.',  '2',  '5',  '6',  '8',  '\033',0,   0,    '+',  '3',  '-',  '*',  '9',  0,    0,
     0,    0,    0,    247,  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0};
 
-uint8_t Keyboard::getModifiers() {
+uint8_t Keyboard_Class::getModifiers() {
     return modifs;
 }
 
-void Keyboard::send(uint8_t x) {
+void Keyboard_Class::send(uint8_t x) {
     bool d=true;
     dirOUT=true;
     for(uint8_t i=0;i<8;i++) {
@@ -49,7 +49,8 @@ void Keyboard::send(uint8_t x) {
     digitalWrite(dataPin,LOW);
     delayMicroseconds(1);
     digitalWrite(clkPin,HIGH);
-    for(uint8_t i=0;i<10;i++) {
+    for(uint8_t i=0;i<10;i++)
+    {
         while(digitalRead(clkPin));
         while(!digitalRead(clkPin));
         digitalWrite(dataPin,shift&1);
@@ -61,31 +62,31 @@ void Keyboard::send(uint8_t x) {
     dirOUT=false;
 }
 
-uint8_t Keyboard::available() {
+uint8_t Keyboard_Class::available() {
     return toChar-fromChar;
 }
 
-unsigned char Keyboard::read() {
+unsigned char Keyboard_Class::read() {
     if(fromChar>=toChar)return '\0';
     return charBuffer[fromChar++];
 }
 
-uint8_t Keyboard::availableRaw() {
+uint8_t Keyboard_Class::availableRaw() {
     return toRaw-fromRaw;
 }
 
-unsigned char Keyboard::readRaw() {
+unsigned char Keyboard_Class::readRaw() {
     if(fromRaw>=toRaw)return '\0';
     return keyScancodeBuffer[fromRaw++];
 }
 
-void Keyboard::waitACK() {
+void Keyboard_Class::waitACK() {
     while(!ACK);
     ACK=false;
 }
 
 
-void Keyboard::tryUpdateLEDs() {
+void Keyboard_Class::tryUpdateLEDs() {
     if(!updLEDs)return;
     updLEDs=false;
     kstate=0;
@@ -94,7 +95,7 @@ void Keyboard::tryUpdateLEDs() {
     send(scrlk|(numlk<<1)|(cpslk<<2));
 }
 
-void Keyboard::bufferWriteScancode(uint8_t scc) {
+void Keyboard_Class::bufferWriteScancode(uint8_t scc) {
     if(toRaw + 1 >= sizeof(keyScancodeBuffer)) {
         toRaw = 0;
         fromRaw = 0;
@@ -102,7 +103,7 @@ void Keyboard::bufferWriteScancode(uint8_t scc) {
     keyScancodeBuffer[toRaw++]=scc;
 }
 
-void Keyboard::bufferWriteChar(char ch) {
+void Keyboard_Class::bufferWriteChar(char ch) {
     if(toChar + 1 >= sizeof(charBuffer)) {
         toChar = 0;
         fromChar = 0;
@@ -110,12 +111,12 @@ void Keyboard::bufferWriteChar(char ch) {
     charBuffer[toChar++]=ch;
 }
 
-void Keyboard::setLeds(uint8_t d) {
+void Keyboard_Class::setLeds(uint8_t d) {
     send(0xed);
     send(d&7);
 }
 
-void Keyboard::interruptHandler() {
+void Keyboard_Class::interruptHandler() {
     if(dirOUT)
     {
         return;
@@ -323,14 +324,14 @@ void Keyboard::interruptHandler() {
     }
 }
 
-void Keyboard::clearBuffers() {
+void Keyboard_Class::clearBuffers() {
     toRaw = 0;
     fromRaw = 0;
     toChar = 0;
     fromChar = 0;
 }
 
-void Keyboard::begin() {
+void Keyboard_Class::begin() {
     pinMode(dataPin,OUTPUT_OPEN_DRAIN);
     pinMode(clkPin,OUTPUT_OPEN_DRAIN);
     digitalWrite(dataPin,true);
@@ -369,7 +370,7 @@ void Keyboard::begin() {
     }
 }
 
-Keyboard::Keyboard(uint8_t dataPin, uint8_t clkPin)
+Keyboard_Class::Keyboard_Class(uint8_t dataPin, uint8_t clkPin)
     :dataPin(dataPin),
     clkPin(clkPin),
     shift(0),
@@ -391,31 +392,31 @@ Keyboard::Keyboard(uint8_t dataPin, uint8_t clkPin)
 
 {}
 
-void Keyboard::kbdInterrupt0() {
+void Keyboard_Class::kbdInterrupt0() {
     keyboard0Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt1() {
+void Keyboard_Class::kbdInterrupt1() {
     keyboard1Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt2() {
+void Keyboard_Class::kbdInterrupt2() {
     keyboard2Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt3() {
+void Keyboard_Class::kbdInterrupt3() {
     keyboard3Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt4() {
+void Keyboard_Class::kbdInterrupt4() {
    keyboard4Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt5() {
+void Keyboard_Class::kbdInterrupt5() {
     keyboard5Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt6() {
+void Keyboard_Class::kbdInterrupt6() {
     keyboard6Ptr->interruptHandler();
 }
-void Keyboard::kbdInterrupt7() {
+void Keyboard_Class::kbdInterrupt7() {
     keyboard7Ptr->interruptHandler();
 }
 
-Keyboard::~Keyboard() {
+Keyboard_Class::~Keyboard_Class() {
     detachInterrupt(clkPin);
 }

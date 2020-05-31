@@ -71,11 +71,15 @@ class Nextion_Display_Class
 
         uint8_t Current_Page;
         uint8_t Last_Page;
+
+        
         
         inline void Instruction_End();
         inline void Argument_Separator();
 
     public:
+
+        static Nextion_Display_Class* Display_Pointer;
 
         //Class setup
         Nextion_Display_Class(uint32_t const& Baud_Rate = 921600, uint8_t const& RX_Pin = 16, uint8_t const& TX_Pin = 17);

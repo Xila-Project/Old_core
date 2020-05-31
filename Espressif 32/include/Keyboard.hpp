@@ -11,17 +11,17 @@
 #define ALT 12
 #define CTRL 48
 
-class Keyboard
+class Keyboard_Class
 {
     private:
-        static Keyboard* keyboard0Ptr;
-        static Keyboard* keyboard1Ptr;
-        static Keyboard* keyboard2Ptr;
-        static Keyboard* keyboard3Ptr;
-        static Keyboard* keyboard4Ptr;
-        static Keyboard* keyboard5Ptr;
-        static Keyboard* keyboard6Ptr;
-        static Keyboard* keyboard7Ptr;
+        static Keyboard_Class* keyboard0Ptr;
+        static Keyboard_Class* keyboard1Ptr;
+        static Keyboard_Class* keyboard2Ptr;
+        static Keyboard_Class* keyboard3Ptr;
+        static Keyboard_Class* keyboard4Ptr;
+        static Keyboard_Class* keyboard5Ptr;
+        static Keyboard_Class* keyboard6Ptr;
+        static Keyboard_Class* keyboard7Ptr;
 
         int clkPin;
         int dataPin;
@@ -73,8 +73,8 @@ class Keyboard
 
     public:
         
-        Keyboard(uint8_t, uint8_t);
-        ~Keyboard();
+        Keyboard_Class(uint8_t, uint8_t);
+        ~Keyboard_Class();
         
         void begin();
         void interruptHandler();

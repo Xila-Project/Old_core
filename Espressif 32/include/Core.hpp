@@ -19,6 +19,7 @@
 // Driver files
 #include "Display.hpp" // Nextion display driver (maybe create a library for each driver)
 #include "Keyboard.hpp" // PS2 keyboard driver
+#include "Sound.hpp"
 // Software file
 #include "Internet_Browser.hpp"
 #include "Software.hpp"
@@ -158,6 +159,8 @@ public:
     ~GalaxOS_Class();
         
     Nextion_Display_Class Display;
+    Sound_Class Sound;
+    Keyboard_Class Keyboard;
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
