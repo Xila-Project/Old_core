@@ -35,10 +35,11 @@ Here's features which are already implemented :
 
 ## Roadmap
 
-- Release a alpha version !
+- Release a version !
+- 
 - Add SSL/TLS support to the Internet Browser.
-- Add support for external app (Multi partitionning ?)
-- Add external video support (bitluni's VGA ?).
+- Add support for external app (Tinybasic ? / Python ? / Multi partitionning with binaries ?)
+- Add external video support (bitluni's VGA ? / FabGL ?).
 - Get rid of proprietary Nextion Display (Retro-ingenering ? Gamebuino 3 ?)
 - Comment proprely the code
 - Implement TinyBasic or/and MicroPython intepreter.
