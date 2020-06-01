@@ -1,4 +1,4 @@
-#include "igos.hpp"
+#include "Internet_Browser.hpp"
 #include "galaxos.hpp"
 
 uint8_t iGOS_Class::Number_Instance = 0;
@@ -25,7 +25,7 @@ iGOS_Class::iGOS_Class()
 
   xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 8192, NULL, 2, &Socket_Handle, 1);
 
-  Nextion_Serial.print(F("page iGOS/xFF/xFF/xFF"));
+  GalaxOS.Display.Set_Current_Page(F("iGOS"));
 }
 
 iGOS_Class::~iGOS_Class()
@@ -49,7 +49,7 @@ void iGOS_Class::Execute(char const &Socket_Method_Char1, char const &Socket_Met
 void iGOS_Socket(void *pvParameters)
 {
   iGOS_Class *iGOS_Pointer;
-  GalaxOS.Get_Software_Pointer(iGOS_Pointer);  
+  GalaxOS.Get_Software_Pointer(iGOS_Pointer);
   (void)pvParameters;
   for (;;)
   {
@@ -141,7 +141,6 @@ void iGOS_Class::Go_URL()
   }
 }
 
-
 byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
 {
 // HTML parser states
@@ -181,11 +180,11 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
   //================================================
   // Open URL
   //================================================
-  Nextion_Serial.println(F("fill 2,54,443,216,16904\xFF\xFF\xFF")); //clear screen
+  GalaxOS.Display.Draw_Rectangle(2, 54, 443, 216, 16904, false);
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  Cache_File = SD_MMC.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
   if (!Cache_File)
   {
     Serial.println(F("Cache open failed !"));
@@ -210,7 +209,7 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
     return 0;
   }
 
-  if(WiFi_Client.connect(URLserver, 80))
+  if (WiFi_Client.connect(URLserver, 80))
   {
     WiFi_Client.print(F("GET "));
     WiFi_Client.print(URLpath);
@@ -220,7 +219,6 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
     WiFi_Client.print(URLserver);
 
     WiFi_Client.print(F("\r\nUser-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\r\nConnection: close\r\n\r\n"));
-
   }
   else
   {
@@ -245,16 +243,17 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
   Serial.println(F("\nParsing..."));
   startTime = millis();
 
-  if(HTTP_Return_Code != HTTP_CODE_OK || HTTP_Return_Code != HTTP_CODE_MOVED_PERMANENTLY)
+  if (HTTP_Return_Code != HTTP_CODE_OK || HTTP_Return_Code != HTTP_CODE_MOVED_PERMANENTLY)
   {
-    if(HTTP_Return_Code < 0)
+    if (HTTP_Return_Code < 0)
     {
       //error handle : unable to connect
       Serial.println(F("Unable to connect !"));
     }
-    else {
-    //error handle : bad http code returned
-    Serial.println(F("Bad http code returned !"));
+    else
+    {
+      //error handle : bad http code returned
+      Serial.println(F("Bad http code returned !"));
     }
     return 0;
   }
@@ -409,7 +408,6 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
       if ((c == '>') || (c == ' ') || (c == '\t'))
       { // End condition
 
-     
         nextState = sTEXT;
 
         if (tagHash == BODYTAGEND)
@@ -421,8 +419,6 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
         if ((tagHash == SCRIPTTAGEND) || (tagHash == STYLETAGEND))
         {
 
-
-
           nextState = sTEXT;
           localState = sTEXT;
           metaState = sTEXT;
@@ -430,7 +426,6 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
         }
         if ((tagHash == SCRIPTTAG) || (tagHash == STYLETAG))
         {
-
 
           if (c == '>')
             localState = sTEXT;
@@ -894,21 +889,21 @@ byte iGOS_Class::Display_Page()
   String Text_To_Print;
   uint16_t Text_Char_Count;
 
-  Nextion_Serial.println(F("fill 0,50,464,222,16904\xFF\xFF\xFF"));
+  GalaxOS.Display.Draw_Rectangle(0, 50, 464, 222, 16904, false);
 
   //Draw header
-  Nextion_Serial.print(F("URL_TXT.txt=\""));
+
   if (Server[0] == '*')
   {
-    Nextion_Serial.print(F("Home Page"));
-    Cache_File = SD.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
+    GalaxOS.Display.Set_Text("URL_TXT", "Home Page");
+    Cache_File = SD_MMC.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
   {
-    Nextion_Serial.print(URL);
-    Cache_File = SD.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
+    GalaxOS.Display.Set_Text("URL_TXT", URL);
+    Cache_File = SD_MMC.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
   }
-  Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
+
   if (!Cache_File)
   {
     Serial.println(F("Failed to open cache !"));
@@ -940,56 +935,36 @@ byte iGOS_Class::Display_Page()
   {
     if (Text_Char_Count >= 55) //print if auto return to line (max 56 normal)
     {
-      Nextion_Serial.print(F("xstr "));
-      Nextion_Serial.print(4); //X coordinate to render the text
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(Cursor_Y); //Y coordinate to render the text
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(456); // Width of the text
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(14); // Heigh of the text
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(0); //Bold font
-      Nextion_Serial.print(F(","));
       switch (Current_Color)
       {
-      case 65534: //Bold style
-        Nextion_Serial.print(57344); //red
+      case 65534:                    //Bold style
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 57344, 16904, 0, 1, 1, Text_To_Print);
+
         Current_Color = Last_Color;
         break;
 
-      case 65533: //Highlight style
-        Nextion_Serial.print(34308); //green
-        Current_Color = Last_Color;
-        Last_Color = 65535;
-        break;
+      case 65533:                    //Highlight style
+                GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
 
-      case 65532: //Link style
-        Nextion_Serial.print(1300); //blue
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
-      case 65531: //Heading style
-        Nextion_Serial.print(64896); //yellow
+      case 65532:                   //Link style
+              GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
+        Current_Color = Last_Color;
+        Last_Color = 65535;
+        break;
+
+      case 65531:                    //Heading style
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
 
       default:
-        Nextion_Serial.print(Current_Color); //font color
+              GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(16904); //default grey color
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(0); //Left horizontal alignement
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(1); //Center vertical aligment
-      Nextion_Serial.print(F(","));
-      Nextion_Serial.print(1); //Solid color background fill
-      Nextion_Serial.print(F(",\""));
-      Nextion_Serial.print(Text_To_Print);
-      Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
 
       Cursor_Y += 14; //new line
       Text_Char_Count = 0;
@@ -1020,7 +995,7 @@ byte iGOS_Class::Display_Page()
       case 10: // Print rest of buffer and return to line
         Text_Char_Count = 65535;
         invisiblePrint = false;
-  
+
         break;
 
       case 13: // Only doing a CR/LF on ASCII 10
@@ -1038,7 +1013,7 @@ byte iGOS_Class::Display_Page()
 
       case TAG_LINK1:          // Start of an anchor tag. The actual URL follows
         invisiblePrint = true; // Turn off printing while the URL is loading
-        
+
         if ((buildingIndex) && (currentLink < LINKINDEXSIZE))
         {
           pageLinks.index[currentLink] = filePtr;
@@ -1057,7 +1032,7 @@ byte iGOS_Class::Display_Page()
           Current_Color = 65532; // Link color : blue
         }
         invisiblePrint = false; // Turn on printing again
-  
+
         break;
 
       case TAG_LINK3: // End of the anchor tag
@@ -1083,17 +1058,7 @@ byte iGOS_Class::Display_Page()
 
         // Horizontal rule tag
       case TAG_HR:
-        Nextion_Serial.print(F("fill "));
-        Nextion_Serial.print(32); //X coordinate to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(Cursor_Y + 6); //Y coordinate to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(400); // Width to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(2); // Heigh to fill
-        Nextion_Serial.print(F(","));
-        Nextion_Serial.print(65535); //Infill Color : white
-        Nextion_Serial.print(F("\xFF\xFF\xFF"));
+        GalaxOS.Display.Draw_Rectangle(32, Cursor_Y + 6, 400, 2, 65535, false);
         Cursor_Y += 14;
         break;
 

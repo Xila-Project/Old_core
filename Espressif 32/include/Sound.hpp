@@ -48,7 +48,7 @@ public:
     Sound_Class();
     ~Sound_Class();
 
-    static Sound_Class* Current_Instance_Pointer;
+    static Sound_Class* Sound_Pointer;
 
     void Set_Volume(uint8_t Volume_To_Set);
     void Play(File& File_To_Play);

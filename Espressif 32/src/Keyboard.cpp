@@ -1,13 +1,6 @@
 #include "Keyboard.hpp"
 
-Keyboard_Class* Keyboard_Class::keyboard0Ptr;
-Keyboard_Class* Keyboard_Class::keyboard1Ptr;
-Keyboard_Class* Keyboard_Class::keyboard2Ptr;
-Keyboard_Class* Keyboard_Class::keyboard3Ptr;
-Keyboard_Class* Keyboard_Class::keyboard4Ptr;
-Keyboard_Class* Keyboard_Class::keyboard5Ptr;
-Keyboard_Class* Keyboard_Class::keyboard6Ptr;
-Keyboard_Class* Keyboard_Class::keyboard7Ptr;
+Keyboard_Class* Keyboard_Class::Keyboard_Pointer;
 
 const char Keyboard_Class::chrsNS[]={
     0,    249,  0,    245,  243,  241,  242,  252,  0,    250,  248,  246,  244,  '\t', '`',  0,
@@ -336,37 +329,9 @@ void Keyboard_Class::begin() {
     pinMode(clkPin,OUTPUT_OPEN_DRAIN);
     digitalWrite(dataPin,true);
     digitalWrite(clkPin,true);
-    if (keyboard0Ptr==nullptr) {
-        keyboard0Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt0, FALLING);
-    }
-    else if (keyboard1Ptr==nullptr) {
-        keyboard1Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt1, FALLING);
-    }
-    else if (keyboard2Ptr==nullptr) {
-        keyboard2Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt2, FALLING);
-    }
-    else if (keyboard3Ptr==nullptr) {
-        keyboard3Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt3, FALLING);
-    }
-    else if (keyboard4Ptr==nullptr) {
-        keyboard4Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt4, FALLING);
-    }
-    else if (keyboard5Ptr==nullptr) {
-        keyboard5Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt5, FALLING);
-    }
-    else if (keyboard6Ptr==nullptr) {
-        keyboard6Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt6, FALLING);
-    }
-    else if (keyboard7Ptr==nullptr) {
-        keyboard7Ptr = this;
-        attachInterrupt(digitalPinToInterrupt(clkPin), kbdInterrupt7, FALLING);
+    if (Keyboard_Pointer == nullptr) {
+        Keyboard_Pointer = this;
+        attachInterrupt(digitalPinToInterrupt(clkPin), Keyboard_Interrupt, FALLING);
     }
 }
 
@@ -392,29 +357,8 @@ Keyboard_Class::Keyboard_Class(uint8_t dataPin, uint8_t clkPin)
 
 {}
 
-void Keyboard_Class::kbdInterrupt0() {
-    keyboard0Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt1() {
-    keyboard1Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt2() {
-    keyboard2Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt3() {
-    keyboard3Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt4() {
-   keyboard4Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt5() {
-    keyboard5Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt6() {
-    keyboard6Ptr->interruptHandler();
-}
-void Keyboard_Class::kbdInterrupt7() {
-    keyboard7Ptr->interruptHandler();
+void Keyboard_Class::Keyboard_Interrupt() {
+    Keyboard_Pointer->interruptHandler();
 }
 
 Keyboard_Class::~Keyboard_Class() {

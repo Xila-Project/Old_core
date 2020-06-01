@@ -160,7 +160,7 @@ public:
         
     Nextion_Display_Class Display;
     Sound_Class Sound;
-    Keyboard_Class Keyboard;
+    Keyboard_Class Keyboard(2,12);
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
@@ -207,14 +207,14 @@ public:
     void Get_Variable(char const& Tag, uint32_t& Number_To_Set);
 
     void Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
-    void Registry_Read(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String &Key_Value_To_Get);
+    void Registry_Read(File& Registry_File, String& Key_Name, String& Key_Value_To_Get);
     void Registry_Write(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Get);
     void Registry_Add(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
     void Registry_Modify(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
     void Registry_Delete(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name);
 
 
-    void Open_File(String const& File_Path_To_Open);
+    void Open_File(File& File_To_Open);
 
     void WiFi_Connect();
 

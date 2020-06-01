@@ -14,14 +14,7 @@
 class Keyboard_Class
 {
     private:
-        static Keyboard_Class* keyboard0Ptr;
-        static Keyboard_Class* keyboard1Ptr;
-        static Keyboard_Class* keyboard2Ptr;
-        static Keyboard_Class* keyboard3Ptr;
-        static Keyboard_Class* keyboard4Ptr;
-        static Keyboard_Class* keyboard5Ptr;
-        static Keyboard_Class* keyboard6Ptr;
-        static Keyboard_Class* keyboard7Ptr;
+        static Keyboard_Class* Keyboard_Pointer;
 
         int clkPin;
         int dataPin;
@@ -60,14 +53,8 @@ class Keyboard_Class
         void setLeds(uint8_t);
         void send(uint8_t);
 
-        static void kbdInterrupt0();
-        static void kbdInterrupt1();
-        static void kbdInterrupt2();
-        static void kbdInterrupt3();
-        static void kbdInterrupt4();
-        static void kbdInterrupt5();
-        static void kbdInterrupt6();
-        static void kbdInterrupt7();
+        static void Keyboard_Interrupt();
+
         void bufferWriteScancode(uint8_t);
         void bufferWriteChar(char);
 

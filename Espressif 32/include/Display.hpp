@@ -100,7 +100,7 @@ class Nextion_Display_Class
         void Draw_Picture(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Picture_ID);
         void Draw_Crop_Picture(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint16_t const& Picture_ID);
         void Draw_Advanced_Crop_Picture(uint16_t const& X_Destination, uint16_t const& Y_Destination, uint16_t const& Width, uint16_t const& Height, uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Picture_ID);
-        void Draw_Text(uint16_t const& X_Coordinarte, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint8_t const& Font_ID, uint8_t const& Text_Color, uint16_t Backgroud, uint8_t const& Horizontal_Alignment, uint8_t const& Vertical_Alignment, uint16_t const& Background_Type, const __FlashStringHelper* Text);
+        void Draw_Text(uint16_t const& X_Coordinarte, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint8_t const& Font_ID, uint8_t const& Text_Color, uint16_t Backgroud, uint8_t const& Horizontal_Alignment, uint8_t const& Vertical_Alignment, uint16_t const& Background_Type, String const& Text);
 
         //void Print(String const& Text_To_Print);
         //void Print(const __FlashStringHelper* Text_To_Print);

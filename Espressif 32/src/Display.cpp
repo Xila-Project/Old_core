@@ -39,7 +39,7 @@ void Nextion_Display_Class::Set_Callback_Function_Event(void(*Function_Pointer(u
 
 void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
 {
-    if (Display_Pointer == NULL)
+    if (Nextion_Display_Class::Display_Pointer == NULL)
     {
         vTaskDelete(NULL);
     }
@@ -50,27 +50,27 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     (void)pvParameters;
     for (;;)
     {
-        if (Display_Pointer->Nextion_Serial.available())
+        if (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
         {
-            Return_Code = Display_Pointer->Nextion_Serial.read();
+            Return_Code = Nextion_Display_Class::Display_Pointer->Nextion_Serial.read();
             Serial.print(F("|| R_C : "));
             Serial.print(Return_Code);
             switch (Return_Code)
             {
             case NEXTION_INFORMATION_NUMERIC_DATA_ENCLOSED:
 
-                if (7 == Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 7))
+                if (7 == Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 7))
                 {
                     if (Temporary_Byte_Array[4] == 0xFF && Temporary_Byte_Array[5] == 0xFF && Temporary_Byte_Array[6] == 0xFF)
                     {
                         uint32_t Temporary_Long = ((uint32_t)Temporary_Byte_Array[4] << 24) | ((uint32_t)Temporary_Byte_Array[3] << 16) | ((uint32_t)Temporary_Byte_Array[2] << 8) | (Temporary_Byte_Array[1]);
-                        (Display_Pointer->Callback_Function_Numeric_Data(Temporary_Long));
+                        (Nextion_Display_Class::Display_Pointer->Callback_Function_Numeric_Data(Temporary_Long));
                     }
                 }
                 break;
             case NEXTION_INFORMATION_STRING_DATA_ENCLOSED:
                 Temporary_String = String("");
-                while (Display_Pointer->Nextion_Serial.available())
+                while (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
                 {
                     Temporary_Byte_Array[0] = Display_Pointer->Nextion_Serial.read();
                     if (Temporary_Byte_Array[0] == 255)
@@ -86,46 +86,46 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                         Temporary_String += (char)Temporary_Byte_Array[2];
                     }
                 }
-                if (Display_Pointer->Callback_Function_String_Data != NULL)
+                if (Nextion_Display_Class::Display_Pointer->Callback_Function_String_Data != NULL)
                 {
-                    (Display_Pointer->Callback_Function_String_Data(Temporary_String));
+                    (Nextion_Display_Class::Display_Pointer->Callback_Function_String_Data(Temporary_String));
                 }
                 break;
 
             case NEXTION_INFORMATION_CURRENT_PAGE_NUMBER:
-                if (4 == Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 4))
+                if (4 == Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 4))
                 {
                     if (Temporary_Byte_Array[1] == 0xFF && Temporary_Byte_Array[2] == 0xFF && Temporary_Byte_Array[3] == 0xFF)
                     {
-                        Display_Pointer->Last_Page = Display_Pointer->Current_Page;
-                        Display_Pointer->Current_Page = Temporary_Byte_Array[0];
+                        Nextion_Display_Class::Display_Pointer->Last_Page = Nextion_Display_Class::Display_Pointer->Current_Page;
+                        Nextion_Display_Class::Display_Pointer->Current_Page = Temporary_Byte_Array[0];
                     }
                 }
                 break;
 
             case NEXTION_ERROR_INVALID_INSTRUCTION:
-                switch (Display_Pointer->Nextion_Serial.read()) //Distinguish Invalid instruction && startup
+                switch (Nextion_Display_Class::Display_Pointer->Nextion_Serial.read()) //Distinguish Invalid instruction && startup
                 {
                 case 0x00: // Startup_Instruction
-                    Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 5);
+                    Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 5);
                     if (Temporary_Byte_Array[0] == 0x00 && Temporary_Byte_Array[1] == 0x00)
                     {
                         if (Temporary_Byte_Array[2] == 0xFF && Temporary_Byte_Array[3] == 0xFF && Temporary_Byte_Array[4] == 0xFF)
                         {
-                            if (Display_Pointer->Callback_Function_Event != NULL)
+                            if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                             {
-                                Display_Pointer->Callback_Function_Event(NEXTION_INFORMATION_STARTUP);
+                                Nextion_Display_Class::Display_Pointer->Callback_Function_Event(NEXTION_INFORMATION_STARTUP);
                             }
                         }
                     }
 
                 case 0xFF: //Invalid Instruction
-                    Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 3);
+                    Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 3);
                     if (Temporary_Byte_Array[0] == 0xFF && Temporary_Byte_Array[1] == 0xFF && Temporary_Byte_Array[2] == 0xFF)
                     {
-                        if (Display_Pointer->Callback_Function_Event != NULL)
+                        if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                         {
-                            Display_Pointer->Callback_Function_Event(NEXTION_ERROR_INVALID_INSTRUCTION);
+                            Nextion_Display_Class::Display_Pointer->Callback_Function_Event(NEXTION_ERROR_INVALID_INSTRUCTION);
                         }
                     }
                 }
@@ -133,9 +133,9 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
             default:
 
                 Temporary_Byte_Array[1] = 0;                        //counter for 0xFF ending code
-                while (Display_Pointer->Nextion_Serial.available()) //Purge until the end of the intruction
+                while (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available()) //Purge until the end of the intruction
                 {
-                    Temporary_Byte_Array[0] = Display_Pointer->Nextion_Serial.read();
+                    Temporary_Byte_Array[0] = Nextion_Display_Class::Display_Pointer->Nextion_Serial.read();
                     if (Temporary_Byte_Array[0] == 0xFF)
                     {
                         Temporary_Byte_Array[1]++;
@@ -145,7 +145,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                         }
                     }
                 }
-                Display_Pointer->Callback_Function_Event(Return_Code);
+                Nextion_Display_Class::Display_Pointer->Callback_Function_Event(Return_Code);
                 break;
             }
         }
@@ -158,19 +158,19 @@ void Nextion_Display_Class::Refresh_Current_Page()
     Get(F("dp"));
 }
 
-uint8_t& Nextion_Display_Class::Get_Current_Page()
+uint8_t &Nextion_Display_Class::Get_Current_Page()
 {
     return Current_Page;
 }
 
-void Nextion_Display_Class::Set_Current_Page(uint8_t const& Page_ID)
+void Nextion_Display_Class::Set_Current_Page(uint8_t const &Page_ID)
 {
     Nextion_Serial.print(F("page "));
     Nextion_Serial.print(Page_ID);
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Current_Page(const __FlashStringHelper* Page_Name)
+void Nextion_Display_Class::Set_Current_Page(const __FlashStringHelper *Page_Name)
 {
     Nextion_Serial.print(F("page "));
     Nextion_Serial.print(Page_Name);
@@ -209,9 +209,9 @@ void Nextion_Display_Class::Set_Background_Color(const __FlashStringHelper *Obje
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Time(const __FlashStringHelper* Object_Name, uint16_t const& Time)
+void Nextion_Display_Class::Set_Time(const __FlashStringHelper *Object_Name, uint16_t const &Time)
 {
-    if(Time < 50)
+    if (Time < 50)
     {
         return;
     }
@@ -221,7 +221,7 @@ void Nextion_Display_Class::Set_Time(const __FlashStringHelper* Object_Name, uin
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Picture(const __FlashStringHelper* Object_Name, uint8_t const& Picture_ID)
+void Nextion_Display_Class::Set_Picture(const __FlashStringHelper *Object_Name, uint8_t const &Picture_ID)
 {
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".pic="));
@@ -229,7 +229,7 @@ void Nextion_Display_Class::Set_Picture(const __FlashStringHelper* Object_Name, 
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Picture(String const& Object_Name, uint8_t const& Picture_ID)
+void Nextion_Display_Class::Set_Picture(String const &Object_Name, uint8_t const &Picture_ID)
 {
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".pic="));
@@ -276,7 +276,7 @@ void Nextion_Display_Class::Set_Font(const __FlashStringHelper *Object_Name, uin
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Data_Scalling(const __FlashStringHelper* Object_Name, uint16_t const& Scale)
+void Nextion_Display_Class::Set_Data_Scalling(const __FlashStringHelper *Object_Name, uint16_t const &Scale)
 {
     if (Scale < 10 || Scale > 1000)
     {
@@ -300,6 +300,33 @@ void Nextion_Display_Class::Draw_Crop_Picture(uint16_t const &X_Coordinate, uint
     Nextion_Serial.print(Height);
     Argument_Separator();
     Nextion_Serial.print(Picture_ID);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint8_t const &Font_ID, uint8_t const &Text_Color, uint16_t Backgroud, uint8_t const &Horizontal_Alignment, uint8_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text)
+{
+    Nextion_Serial.print(F("xstr "));
+    Nextion_Serial.print(X_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Y_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Width);
+    Argument_Separator();
+    Nextion_Serial.print(Height);
+    Argument_Separator();
+    Nextion_Serial.print(Font_ID);
+    Argument_Separator();
+    Nextion_Serial.print(Text_Color);
+    Argument_Separator();
+    Nextion_Serial.print(Backgroud);
+    Argument_Separator();
+    Nextion_Serial.print(Horizontal_Alignment);
+    Argument_Separator();
+    Nextion_Serial.print(Vertical_Alignment);
+    Argument_Separator();
+    Nextion_Serial.print(Background_Type);
+    Argument_Separator();
+    Nextion_Serial.print(Text);
     Instruction_End();
 }
 
@@ -483,7 +510,7 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
     Serial.println(F("Succefully transmited file"));
 }
 
-void Nextion_Display_Class::Get(const __FlashStringHelper* Object_Name)
+void Nextion_Display_Class::Get(const __FlashStringHelper *Object_Name)
 {
     Nextion_Serial.print(F("get "));
     Nextion_Serial.print(Object_Name);

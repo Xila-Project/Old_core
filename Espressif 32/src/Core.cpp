@@ -45,6 +45,7 @@ GalaxOS_Class::GalaxOS_Class() //builder
 {
   //strcpy(WiFi_SSID, "Avrupa");
   //strcpy(WiFi_Password, "0749230994");
+  
   for (int i = 0; i < 4; i++)
   {
     Software_Pointer[i] = NULL;
@@ -429,43 +430,32 @@ void GalaxOS_Class::Restore_System_State()
   ESP.restart();
 }
 
-void GalaxOS_Class::Registry_Read(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get)
+void GalaxOS_Class::Registry_Read(File& Registry_File, const char* Key_Name, String& Key_Value_To_Get)
 {
-  File Temporary_Local_File = SD_MMC.open(Path);
+  File Temporary_Local_File = Registry_File;
   uint32_t Temporary_Local_File_Position = 0;
-  if (!SD_MMC.exists(Path))
-  {
-    Event_Handler(ERROR_SOME_SYSTEM_FILES_ARE_MISSING);
-    return;
-  }
+
   if (!Temporary_Local_File)
   {
     Event_Handler(ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED);
     return;
   }
   Temporary_File.seek(0);
-  long Timeout = millis() + 5000;
+
   char Temporary_Char = 0;
+  
   if (!Temporary_Local_File.find(Key_Name))
   {
     //error handle : cannot keyname
     return;
   }
-  if (!Temporary_Local_File.seek(Temporary_Local_File.position() - strlen_P(Key_Name) - 1))
-  {
-    //error handle
-    return;
-  }
+  Temporary_Local_File.seek(Temporary_Local_File.position() - strlen(Key_Name) - 1);
   if (Temporary_Local_File.read() == 0x0A)
   {
     //error handle
     return;
   }
-  if (!Temporary_Local_File.seek(Temporary_Local_File.position() + strlen_P(Key_Name)))
-  {
-    //error handle
-    return;
-  }
+  Temporary_Local_File.seek(Temporary_Local_File.position() + strlen(Key_Name));
   if (Temporary_Local_File.read() != ';')
   {
     //error
@@ -800,8 +790,12 @@ void GalaxOS_Class::Load_User_Files()
 
 uint8_t GalaxOS_Class::Event_Handler(uint16_t const& Type, String const& Extra_Informations = "")
 {
+  #define EVENT_CANCEL 0
+  #define EVENT_YES 1
+
   Display.Set_Current_Page(F("Event"));
-  Registry_Read()
+  uint8_t Event_Type;
+  Registry_Read(SD_MMC.open(), String(Type), Event_Type);
       byte i = 0;
   while (Event_Reply == 0 && i < 100)
   {

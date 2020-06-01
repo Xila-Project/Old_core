@@ -19,6 +19,6 @@
 // Michalhol : Keyboard Library (https://github.com/michalhol/ps2kbdlib)      //
 
 
-extern GalaxOS_Class GalaxOS;
+GalaxOS_Class GalaxOS;
 
 #endif
