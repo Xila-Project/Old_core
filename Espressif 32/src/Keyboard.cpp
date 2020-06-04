@@ -109,7 +109,7 @@ void Keyboard_Class::setLeds(uint8_t d) {
     send(d&7);
 }
 
-void Keyboard_Class::interruptHandler() {
+void Keyboard_Class:: () {
     if(dirOUT)
     {
         return;
@@ -335,9 +335,9 @@ void Keyboard_Class::begin() {
     }
 }
 
-Keyboard_Class::Keyboard_Class(uint8_t dataPin, uint8_t clkPin)
-    :dataPin(dataPin),
-    clkPin(clkPin),
+Keyboard_Class::Keyboard_Class(uint8_t Data_Pin, uint8_t Clock_Pin)
+    :dataPin(Data_Pin),
+    clkPin(Clock_Pin),
     shift(0),
     modifs(0),
     cpslk(false),

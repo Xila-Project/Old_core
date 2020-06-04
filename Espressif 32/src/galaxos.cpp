@@ -1,3 +1,3 @@
 #include "GalaxOS.hpp"
 
-GalaxOS_Class GalaxOS;
+extern GalaxOS_Class GalaxOS;

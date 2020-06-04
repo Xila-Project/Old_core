@@ -1,17 +1,17 @@
 #include "Internet_Browser.hpp"
 #include "galaxos.hpp"
 
-uint8_t iGOS_Class::Number_Instance = 0;
+iGOS_Class *iGOS_Class::Software_Pointer = NULL;
 
-iGOS_Class::iGOS_Class()
+iGOS_Class::iGOS_Class() : GalaxOS_Software_Class("Internet Browser", 27, 27)
 {
-  if (Number_Instance > 0) //Check if there's 2 iGOS Launched
+  if (Software_Pointer != NULL)
   {
     delete this;
-    //error handle
+    Software_Pointer->Maximize();
   }
 
-  ++Number_Instance;
+  Software_Pointer = this;
 
   memset(Server, 0, 30);
   memset(Path, 0, 60);
@@ -34,64 +34,46 @@ iGOS_Class::~iGOS_Class()
   vTaskDelete(Socket_Handle);
 }
 
-void iGOS_Class::Execute(uint16_t const &Socket_Method_To_Set)
-{
-  Socket_Method = Socket_Method_To_Set;
-  vTaskResume(Socket_Handle);
-}
-
-void iGOS_Class::Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2)
-{
-  Socket_Method = ((uint16_t)Socket_Method_Char1 << 8) | (uint16_t)Socket_Method_Char2;
-  vTaskResume(Socket_Handle);
-}
-
 void iGOS_Socket(void *pvParameters)
 {
-  iGOS_Class *iGOS_Pointer;
-  GalaxOS.Get_Software_Pointer(iGOS_Pointer);
+  iGOS_Class* Internet_Browser_Pointer = 
   (void)pvParameters;
   for (;;)
   {
-    switch (iGOS_Pointer->Socket_Method)
+    switch (iGOS_Class::Software_Pointer->Get_Socket_Method())
     {
     case 0:
       Serial.println(F("iGOS Socket : Nothing to do ..."));
       break;
     case 20044: //NL
-      iGOS_Pointer->Next_Link();
+      iGOS_Class::Software_Pointer->Next_Link();
       break;
     case 20556: //PL
-      iGOS_Pointer->Previous_Link();
+      iGOS_Class::Software_Pointer->Previous_Link();
       break;
     case 20565: //PU
-      iGOS_Pointer->Page_Up();
+      iGOS_Class::Software_Pointer->Page_Up();
       break;
     case 20548: //PD
-      iGOS_Pointer->Page_Down();
+      iGOS_Class::Software_Pointer->Page_Down();
       break;
     case 18252: //GL
-      iGOS_Pointer->Go_Link();
+      iGOS_Class::Software_Pointer->Go_Link();
       break;
     case 18261: //GU
-      iGOS_Pointer->Go_URL();
+      iGOS_Class::Software_Pointer->Go_URL();
       break;
     case 18511: //HO
-      iGOS_Pointer->Go_Home();
+      iGOS_Class::Software_Pointer->Go_Home();
       break;
     default:
       Serial.println(F("Unknow Socket Method ! "));
       //error handle
       break;
     }
-    iGOS_Pointer->Socket_Method = 0; //work done, reset the selector
+    iGOS_Class::Software_Pointer->Set_Socket_Method(0); //work done, reset the selector
     vTaskSuspend(NULL);
   }
-}
-
-uint8_t iGOS_Class::Get_Number_Instance()
-{
-  return Number_Instance;
 }
 
 void iGOS_Class::Go_Home()
@@ -937,32 +919,32 @@ byte iGOS_Class::Display_Page()
     {
       switch (Current_Color)
       {
-      case 65534:                    //Bold style
+      case 65534: //Bold style
         GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 57344, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
         break;
 
-      case 65533:                    //Highlight style
-                GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
+      case 65533: //Highlight style
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
-      case 65532:                   //Link style
-              GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
+      case 65532: //Link style
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
-      case 65531:                    //Heading style
+      case 65531: //Heading style
         GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
 
       default:
-              GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
 

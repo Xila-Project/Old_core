@@ -35,6 +35,9 @@
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
+//
+#define MAXIMUM_SOFTWARE 15
+
 // Page ID Index
 #define PAGE_SPLASH_A 0
 #define PAGE_SPLASH_B 1
@@ -126,7 +129,12 @@ private:
 
     String Temporary_String;
     
-    iGOS_Class* iGOS_Pointer;
+    uint8_t Current_Software;
+    GalaxOS_Software_Class* Running_Software[6];
+    Software_Header_Class* Software_Handle[15];
+
+
+    /*iGOS_Class* iGOS_Pointer;
     Periodic_Class* Periodic_Pointer;
     File_Manager_Class* File_Manager_Pointer;
     Ultrasonic_Class* Ultrasonic_Pointer;
@@ -135,7 +143,7 @@ private:
     Piano_Class* Piano_Pointer;
     Signal_Generator_Class* Signal_Generator_Pointer;
     //Music_Player_Class *Music_Player_Pointer;
-    //Pong_Class *Pong_Class;
+    //Pong_Class *Pong_Class;*/
 
     uint8_t Event_Reply;
 
@@ -160,7 +168,9 @@ public:
         
     Nextion_Display_Class Display;
     Sound_Class Sound;
-    Keyboard_Class Keyboard(2,12);
+    Keyboard_Class Keyboard;
+
+    void Add_Software(const char* Software_Name);
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
@@ -206,8 +216,8 @@ public:
     void Set_Variable(char const& Tag, uint32_t const& Number_To_Set);
     void Get_Variable(char const& Tag, uint32_t& Number_To_Set);
 
-    void Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get);
     void Registry_Read(File& Registry_File, String& Key_Name, String& Key_Value_To_Get);
+    void Registry_Read(File& Registry_File, uint16_t const& Entry_Number, Strin g& Key_Value_To_Get);    
     void Registry_Write(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Get);
     void Registry_Add(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
     void Registry_Modify(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);

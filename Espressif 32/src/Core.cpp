@@ -26,8 +26,6 @@
 //3.3 v -> 3.3  //
 //GND -> GND    //
 
-
-
 //Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
 //Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
 //Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
@@ -37,6 +35,7 @@
 #include "Core.hpp"
 #include "WiFi.h"
 #include "GalaxOS.hpp"
+#include "Software.hpp"
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -45,7 +44,7 @@ GalaxOS_Class::GalaxOS_Class() //builder
 {
   //strcpy(WiFi_SSID, "Avrupa");
   //strcpy(WiFi_Password, "0749230994");
-  
+
   for (int i = 0; i < 4; i++)
   {
     Software_Pointer[i] = NULL;
@@ -68,6 +67,8 @@ GalaxOS_Class::GalaxOS_Class() //builder
 
   Username = "\0";
   Password = "\0";
+
+  Keyboard(2, 6);
 
   Speaker_Pin = 25;
 
@@ -210,15 +211,14 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t const &Received
   }
 }
 
-void GalaxOS_Class::Open_File(String const &File_Path_To_Open)
+void GalaxOS_Class::Open_File(File &File_To_Open)
 {
-  File Temporary_Local_File = SD_MMC.open(File_Path_To_Open);
-  if (!Temporary_Local_File)
+  if (!File_To_Open)
   {
     //error handle
     return;
   }
-  String File_Name = Temporary_Local_File.name();
+  String File_Name = File_To_Open.name();
   uint8_t i;
   for (i = 1; i < 14; i++) //extract extension
   {
@@ -369,7 +369,7 @@ void GalaxOS_Class::Start()
   {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
- 
+
   Serial.println(F("|| > Loading Task ...                                                         ||"));
   Serial.println(F("|| > Check existing of file last state ...                                    ||"));
   if (SD_MMC.exists("/GOSCUSA.GSF"))
@@ -379,7 +379,7 @@ void GalaxOS_Class::Start()
 
   Serial.println(F("|| > Waiting for Display ...                                                  ||"));
 
-  //bypass for dev purpose
+  //bypass & test for dev purpose
   Username = "ALIX";
   Password = "ALIX";
   Open_Desk();
@@ -392,6 +392,13 @@ void GalaxOS_Class::Start()
   Serial.println(Test_Float);
   Get_Variable('T', Test_Float);
   Serial.println(Test_Float);
+  //------------------------
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    Software_Handle[i] = NULL;
+  }
+  
+  Current_Software = 0; //default : galaxos ui
 
   WiFi_Connect();
   Synchronise_Time();
@@ -416,6 +423,23 @@ void GalaxOS_Class::Save_System_State()
   //etc save all variables
 }
 
+void GalaxOS_Class::Load_Application()
+{
+  
+}
+
+void GalaxOS_Class::Add_Software(const char *Software_Name)
+{
+  for (uint8_t i = 0; i < 16; i++)
+  {
+    if (Software_Handle[i] == NULL)
+    {
+      Software_Handle[i] = new Software_Handle_Class();
+      break;
+    }
+  }
+}
+
 void GalaxOS_Class::Restore_System_State()
 {
   Display.Set_Current_Page(PAGE_DESK);
@@ -430,7 +454,7 @@ void GalaxOS_Class::Restore_System_State()
   ESP.restart();
 }
 
-void GalaxOS_Class::Registry_Read(File& Registry_File, const char* Key_Name, String& Key_Value_To_Get)
+void GalaxOS_Class::Registry_Read(File &Registry_File, const char *Key_Name, String &Key_Value_To_Get)
 {
   File Temporary_Local_File = Registry_File;
   uint32_t Temporary_Local_File_Position = 0;
@@ -443,7 +467,7 @@ void GalaxOS_Class::Registry_Read(File& Registry_File, const char* Key_Name, Str
   Temporary_File.seek(0);
 
   char Temporary_Char = 0;
-  
+
   if (!Temporary_Local_File.find(Key_Name))
   {
     //error handle : cannot keyname
@@ -530,7 +554,7 @@ void GalaxOS_Class::Registry_Read(String const &Path, char (&Key_Name)[], String
   }
 }
 
-void GalaxOS_Class::Set_Variable(char const& Tag, uint32_t const& Number_To_Set)
+void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t const &Number_To_Set)
 { //float
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
   uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24};
@@ -548,7 +572,7 @@ void GalaxOS_Class::Set_Variable(char const& Tag, uint32_t const& Number_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const& Tag, uint32_t& Number_To_Set)
+void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t &Number_To_Set)
 { //float
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
@@ -600,7 +624,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
   }
 }
 
-void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const& Number_To_Set)
+void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const &Number_To_Set)
 { //char
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
   Temporary_File.seek(0);
@@ -617,7 +641,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const& Number_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t& Number_To_Set)
+void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t &Number_To_Set)
 { //char
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
   if (Temporary_File)
@@ -633,8 +657,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t& Number_To_Set)
   }
 }
 
-
-void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const& Number_To_Set)
+void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const &Number_To_Set)
 { //integer
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
@@ -652,7 +675,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const& Number_To_Set)
   }
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t& Number_To_Set)
+void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
 { //integer
   Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
   if (Temporary_File)
@@ -788,15 +811,15 @@ void GalaxOS_Class::Load_User_Files()
   }
 }
 
-uint8_t GalaxOS_Class::Event_Handler(uint16_t const& Type, String const& Extra_Informations = "")
+uint8_t GalaxOS_Class::Event_Handler(uint16_t const &Type, String const &Extra_Informations = "")
 {
-  #define EVENT_CANCEL 0
-  #define EVENT_YES 1
+#define EVENT_CANCEL 0
+#define EVENT_YES 1
 
   Display.Set_Current_Page(F("Event"));
   uint8_t Event_Type;
   Registry_Read(SD_MMC.open(), String(Type), Event_Type);
-      byte i = 0;
+  byte i = 0;
   while (Event_Reply == 0 && i < 100)
   {
     vTaskDelay(pdMS_TO_TICKS(50));

@@ -60,7 +60,7 @@ class Keyboard_Class
 
     public:
         
-        Keyboard_Class(uint8_t, uint8_t);
+        Keyboard_Class(uint8_t Data_Pin, uint8_t Clock_Pin);
         ~Keyboard_Class();
         
         void begin();

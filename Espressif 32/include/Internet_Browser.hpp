@@ -2,14 +2,16 @@
 #define INTERNET_BROWSER_H_INCLUDED
 
 #include "Arduino.h"
+#include "Software.hpp"
+
 #include "WiFiClient.h"
 #include <HTTPClient.h>
 
-//highest header file, will be replace by a separate one 
+//highest header file, will be replace by a separate one
 
-#define PAGEINDEXSIZE 10      // Must small - each page uses 3 bytes
-#define LINKINDEXSIZE 20      // Must small - each link uses 2 bytes
-#define TIMEOUT 5000          // Timeout on ethernet reads
+#define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
+#define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
+#define TIMEOUT 5000     // Timeout on ethernet reads
 
 // Render colour presets : not used with nextion
 #define COL_TEXT 0xFFFF    // White
@@ -114,12 +116,9 @@ static const uint16_t tag_codes[] PROGMEM = {
     388, 60    // Less than
 };
 
-
-
-class iGOS_Class
+class iGOS_Class : public GalaxOS_Software_Class
 {
 private:
-
     char Server[30];
     char Path[60];
     char URL[90];
@@ -151,15 +150,6 @@ private:
 
     void (*resetFunc)(void) = 0; //declare reset function at adress 0
 
-    void Go_Link();      //command 0
-    void Page_Up();       //command 1
-    void Page_Down();     //command 2
-    void Next_Link();     //command 3
-    void Previous_Link(); //command 4
-    void Load_Page();     // command 5
-    void Go_URL(); //new feature
-    void Go_Home();
-
     void Build_URL(uint16_t pointer);
 
     byte Cache_URL(char *URLserver, char *URLpath);
@@ -173,25 +163,29 @@ private:
     char lowerCase(char c);
     uint16_t Hash_Out(uint16_t hash); // Consumes data from Ethernet until the given string is found, or time runs out
 
-    void Split_URL(char *localURL);   //split a URL into server / path
+    void Split_URL(char *localURL); //split a URL into server / path
 
     byte Find_Until(uint8_t *string, boolean);
 
-    uint16_t Socket_Method;
-
-    xTaskHandle Socket_Handle;
+    static iGOS_Class* Internet_Browser_Pointer;
 
 public:
-
     iGOS_Class();
     ~iGOS_Class();
 
-    uint8_t Get_Number_Instance();
+    void Go_Link();       //command 0
+    void Page_Up();       //command 1
+    void Page_Down();     //command 2
+    void Next_Link();     //command 3
+    void Previous_Link(); //command 4
+    void Load_Page();     // command 5
+    void Go_URL();        //new feature
+    void Go_Home();
 
-    void Execute(uint16_t const& Socket_Method_To_Set);
-    void Execute(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
-    
-    friend void iGOS_Socket( void *pvParameters );
+    void Execute(uint16_t const &Socket_Method_To_Set);
+    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
+
+    friend void iGOS_Socket(void *pvParameters);
 };
 
 void iGOS_Socket(void *pvParameters);
