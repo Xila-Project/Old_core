@@ -40,7 +40,7 @@
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
 
-GalaxOS_Class::GalaxOS_Class() //builder
+GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 {
   //strcpy(WiFi_SSID, "Avrupa");
   //strcpy(WiFi_Password, "0749230994");
@@ -50,41 +50,155 @@ GalaxOS_Class::GalaxOS_Class() //builder
     Software_Pointer[i] = NULL;
   }
 
-  for (int i = 0; i < 6; i++)
-  {
-    Taskbar_Items_PID[i] = 255;
-    Taskbar_Items_Icon[i] = 10;
-  }
-
-  Current_Page = 0;
-  Last_Page = 0;
-
   Low_RAM_Threshold = 2000;
 
   C_MIDI = 60;
 
   C_Frequency = 262;
 
-  Username = "\0";
-  Password = "\0";
-
-  Keyboard(2, 6);
-
-  Speaker_Pin = 25;
-
-  iGOS_Pointer = NULL;
-  Ultrasonic_Pointer = NULL;
-  Software_Pointer[0] = NULL;
-  Software_Pointer[1] = NULL;
-  Software_Pointer[2] = NULL;
-  Software_Pointer[3] = NULL;
+  memset(Current_Username, 0, sizeof(Current_Username));
 
   Tag = 0x00;
+
+  memset(Software_Pointer, NULL, 6);
 }
 
 GalaxOS_Class::~GalaxOS_Class() //detroyer
 {
 }
+
+// Used to initialise the core
+
+void GalaxOS_Class::Start()
+{
+  Serial.begin(921600); //PC Debug UART
+  Horizontal_Separator();
+  Print_Line();
+  Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
+  Serial.println(F("||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||"));
+  Serial.println(F("||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||"));
+  Serial.println(F("||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||"));
+  Serial.println(F("||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||"));
+  Serial.println(F("||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||"));
+  Print_Line();
+  Print_Line();
+  Horizontal_Separator();
+  Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + String(ESP.getFreeHeap()) + "/327680 Bytes");
+  Print_Line("Galax OS Embedded Edition - Alix ANNERAUD - Alpha");
+  Horizontal_Separator();
+  Print_Line("Starting Galax OS ...", 0);
+  
+  // Initialize SD Card
+  Print_Line("Mount The SD Card ...", 0);
+
+  if (!SD_MMC.begin() || SD_MMC.cardType() == CARD_NONE)
+  {
+    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
+  }
+  else
+  {
+    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
+  }
+  File Temporary_File;
+
+  // Load Task
+  Print_Line("Loading Task ...");
+  //xTaskCreatePinnedToCore() //core class : used to check system state, direct infos to right
+
+  // Check if the system state was saved
+  Print_Line("Check existing of file last state ...");
+  if (SD_MMC.exists("/GALAXOS/GOSCUSA.GSF"))
+  {
+    Restore_System_State();
+  }
+
+  // Load display configuration
+  Display.Set_Backlight(100, false);
+  Print_Line("Intialize display ...");
+
+  // A bypass & test for dev purpose
+
+  uint32_t Test_Float = 123456789;
+  Set_Variable('T', Test_Float);
+  Serial.println(Test_Float);
+  Get_Variable('T', Test_Float);
+  Serial.println(Test_Float);
+
+  // Load network configuration
+  Print_Line("Load Network Configuration ...");
+  Temporary_File = SD_MMC.open("/GALAXOS/REGISTRY/NETWORK.GRF");
+  if (!Temporary_File)
+  {
+    //error handle
+  }
+  DynamicJsonDocument Network_Registry(256);
+  deserializeJson(Network_Registry, Temporary_File);
+  WiFi.setHostname(Network_Registry["Host Name"]); // Set hostname
+  const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
+  char SSID[32], Password[32];
+  for (uint8_t i = 1; i < Number_WiFi_AP; i++)
+  {
+    strcpy(SSID, Network_Registry["SSID" + String(i)]);
+    strcpy(Password, Network_Registry["Password" + String(i)]);
+    WiFi.begin(SSID, Password);
+    while (WiFi.status() != WL_CONNECTED && i < 50)
+    {
+      vTaskDelay(pdMS_TO_TICKS(100));
+      i++;
+    }
+    if (WiFi.status() == WL_CONNECTED)
+    {
+      break;
+    }
+  }
+  delete Network_Registry;
+  Temporary_File.close();
+
+  // Set Regional Parameters
+
+  Temporary_File = SD_MMC.open(F("/GALAXOS/REGISTRY/REGIONAL.GRF"));
+  if(!Temporary_File)
+  {
+    //error 
+  }
+  Synchronise_Time();
+  Temporary_File.close();
+
+  // Load software (including Shell UI)
+  Temporary_File = SD_MMC.open("/GALAXOS/REGISTRY/SOFTWARE.GRF");
+  if(!Temporary_File)
+  {
+    return;
+  }
+  DynamicJsonDocument Software_Registry(256);
+  deserializeJson(Software_Registry, Temporary_File);
+
+
+
+  Open_Software("Shell");
+}
+
+void GalaxOS_Class::Save_System_State()
+{
+  if (SD_MMC.exists("/GALAXOS/GOSCUSA.GSF"))
+  {
+    if (SD_MMC.remove("/GALAXOS/GOSCUSA.GSF"))
+    {
+      //event handler
+    }
+  }
+  DynamicJsonDocument System_Save_Registry(256);
+
+  System_Save_Registry["Current Username"] = Current_Username;  
+  
+
+  File Temporary_File = SD_MMC.open("/GALAXOS/GOSCUSA.GSF");
+  serializeJson(System_Save_Registry, Temporary_File);
+  Temporary_File.close();
+
+}
+
+// Callback function for screen
 
 void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
 {
@@ -94,81 +208,18 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
   {
   case CODE_COMMAND:
   case CODE_COMMAND_NEW:
-    switch (Display.Get_Current_Page())
+    if (Received_Data == "Close")
     {
-    case PAGE_DESK:
-      Desk_Execute(Received_Data.charAt(0));
-      break;
-    case PAGE_EVENT: //Event
-      Event_Reply = uint8_t(Received_Data.charAt(0));
-      break;
-    case PAGE_IGOS: //iGOS
-      GalaxOS.iGOS_Pointer->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
-      break;
-    case PAGE_PIANO: //Piano
-      GalaxOS.Piano_Pointer->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
-      break;
-    default:
-      Event_Handler(ERROR_UNEXPECTED_RETURN_COMMAND);
-      break;
+      Close_Software();
     }
-    /*
-    if (Received_Data == "LoadSystem")
+    else if (Received_Data == "Minimize")
     {
-      GalaxOS.Load_System_Files();
+      Software_Pointer[0]->Minimize();
     }
-    else if (Received_Data == "Login")
-      GalaxOS.Load_User_Files();
-    else if (Received_Data == "OpenMenu")
-      GalaxOS.Open_Menu();
-    else if (Received_Data == "OpenDesk")
-      GalaxOS.Open_Desk();
-    else if (Received_Data == "F&F")
-      Files_And_Folders();
-    //else if (Temporary_String == "F&F_RDelete") Event_Handler_Request();
-    //taskbar item
-    else if (Received_Data == "TBItem1")
+    else
     {
-      Display->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[0]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
+      Software_Pointer[0]->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
     }
-    else if (Received_Data == "TBItem2")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[1]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else if (Temporary_String == "TBItem3")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[2]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else if (Temporary_String == "TBItem4")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[3]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else if (Temporary_String == "TBItem5")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[4]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else if (Temporary_String == "TBItem6")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[5]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }
-    else if (Temporary_String == "TBItem7")
-    {
-      Display_Pointer->Nextion_Serial.print(F("page "));
-      Display_Pointer->Nextion_Serial.print(GalaxOS.Taskbar_Items_PID[6]);
-      Display_Pointer->Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    }*/
     break;
   case CODE_VARIABLE_CHAR:
     Set_Variable(Received_Data.charAt(0), uint8_t(Received_Data.charAt(1)));
@@ -185,12 +236,6 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
     break;
   case CODE_VARIABLE_UNSIGNED_LONG:
     Tag = Received_Data.charAt(0);
-    break;
-  case CODE_SOFTWARE_OPEN:
-    Open_Software(Received_Data.charAt(0));
-    break;
-  case CODE_SOFTWARE_CLOSE:
-    Close_Software(Received_Data.charAt(0));
     break;
   default:
     //error handle
@@ -211,25 +256,64 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t const &Received
   }
 }
 
+// File openning handling
+
 void GalaxOS_Class::Open_File(File &File_To_Open)
 {
   if (!File_To_Open)
   {
     //error handle
+    File_To_Open.close();
     return;
   }
-  String File_Name = File_To_Open.name();
-  uint8_t i;
-  for (i = 1; i < 14; i++) //extract extension
+  else if (File_To_Open.isDirectory())
   {
-    if (File_Name.charAt(i) == '.')
+    //error : directory not a file
+    File_To_Open.close();
+    return;
+  }
+
+  char File_Name[14];
+  strcpy(File_Name, File_To_Open.name());
+  uint8_t i = 1;
+  for (; i < 14; i++) //extract extension
+  {
+    if (File_Name[i] == '.')
     {
       break;
     }
   }
-  char Extension[3] = {File_Name.charAt(i + 1), File_Name.charAt(i + 2), File_Name.charAt(i + 3)};
-  if (strcmp(Extension, "WAV"))
+  char Extension[] = {File_Name[i + 1], File_Name[i + 2], File_Name[i + 3]};
+  //pre-defined
+  if (strcmp(Extension, "GEF"))
   {
+    if (File_To_Open.size() == 0)
+    {
+      //error : empty file
+      File_To_Open.close();
+      return;
+    }
+    if (Update.begin(File_To_Open.size()))
+    {
+      if (Update.writeStream(File_To_Open) != File_To_Open.size())
+      {
+        //error : update perform partialy
+        File_To_Open.close();
+        return;
+      }
+      if (Update.end() && Update.isFinished())
+      {
+        //info : update completed
+      }
+      else
+      {
+        //error : update went wrong
+      }
+    }
+    else
+    {
+      //error : not enought space to perform OTA
+    }
   }
   else if (strcmp(Extension, "BMP"))
   {
@@ -243,316 +327,165 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
   }
   else
   {
+    if (Registry_Read(SD_MMC.open(F("/GALAXOS/SOFTWARE/EXTEMANA.O"))))
+    {
+    }
     //error handle : unknow extension
   }
+  File_To_Open.close();
 }
 
-void GalaxOS_Class::Get_Software_Pointer(iGOS_Class *&Software_Pointer_To_Set)
-{
-  Software_Pointer_To_Set = iGOS_Pointer;
-}
+// Software management
 
-void GalaxOS_Class::Get_Software_Pointer(Periodic_Class *&Software_Pointer_To_Set)
+void GalaxOS_Class::Open_Software(const char *Software_Name)
 {
-  Software_Pointer_To_Set = Periodic_Pointer;
-}
-
-void GalaxOS_Class::Get_Software_Pointer(File_Manager_Class *&Software_Pointer_To_Set)
-{
-  Software_Pointer_To_Set = File_Manager_Pointer;
-}
-
-void GalaxOS_Class::Get_Software_Pointer(Calculator_Class *&Software_Pointer_To_Set)
-{
-  Software_Pointer_To_Set = Calculator_Pointer;
-}
-
-void GalaxOS_Class::Get_Software_Pointer(Signal_Generator_Class *&Software_Pointer_To_Set)
-{
-  Software_Pointer_To_Set = Signal_Generator_Pointer;
-}
-
-void GalaxOS_Class::Open_Software(uint8_t const &Software_ID)
-{
-  switch (Software_ID)
+  for (uint8_t i = 0; i < 6; i++)
   {
-  case SOFTWARE_IGOS_ID:
-    if (iGOS_Pointer == NULL)
+    if (Software_Pointer[i] == NULL)
     {
-      iGOS_Pointer = new iGOS_Class;
+      Software_Pointer[i] = Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer();
+      Software_Pointer[i]->Handle_Pointer = Get_Software_Handle_Pointer(Software_Name);
+      Software_Pointer[i]->Maximize();
     }
-    else
-    {
-      iGOS_Pointer->Execute('R', 'E');
-    }
-    break;
-  case SOFTWARE_FILE_MANAGER_ID:
-    if (File_Manager_Pointer == NULL)
-    {
-      File_Manager_Pointer = new File_Manager_Class;
-    }
-    else
-    {
-      File_Manager_Pointer->Execute('R', 'E');
-    }
-  default:
-    break;
+  }
+
+  Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer();
+}
+
+void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
+{
+  if (Software_Name == NULL) //by default delete current running software
+  {
+    Software_Pointer[0]->Minimize();
+    vTaskDelete(Software_Pointer[0]->Task_Handle);
+    delete Software_Pointer[0];
+    Software_Pointer[0] = NULL;
+  }
+  else
+  {
+    Get_Software_Pointer(Software_Name)->Minimize();
+    vTaskDelete(Get_Software_Pointer(Software_Name)->Task_Handle);
+    delete Get_Software_Pointer(Software_Name);
+
+    Get_Software_Pointer(Software_Name) = NULL;
   }
 }
 
-void GalaxOS_Class::Close_Software(uint8_t const &Software_ID)
+Software_Class *GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
 {
-  switch (Software_ID)
+  for (byte i = 0; 1 < 6; i++)
   {
-  case SOFTWARE_IGOS_ID:
-    if (iGOS_Pointer != NULL)
+    if (i > 6)
     {
-      delete iGOS_Pointer;
-      iGOS_Pointer = NULL;
+      return NULL; //nothing find
     }
-    break;
-  default:
-    break;
+    if (Software_Pointer[i]->Handle_Pointer == NULL)
+    {
+      continue;
+    }
+    else if (strcmp(Software_Pointer[i]->Handle_Pointer->Name, Software_Name))
+    {
+      return Software_Pointer[i];
+    }
   }
 }
 
-void GalaxOS_Class::Set_Software_Pointer(byte const &Software_Pointer_ID, GalaxOS_Software_Class &Software_Pointer_To_Set)
+Software_Handle_Class *GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
 {
-  Software_Pointer[Software_Pointer_ID] = &Software_Pointer_To_Set;
+  for (byte i = 0; i <= MAXIMUM_SOFTWARE; i++)
+  {
+    if (i >= MAXIMUM_SOFTWARE)
+    {
+      return NULL;
+    }
+    if (Software_Handle[i] == NULL)
+    {
+      continue;
+    }
+    if (strcmp(Software_Handle[i]->Name, Software_Name))
+    {
+      return Software_Handle[i];
+    }
+  }
 }
 
-byte GalaxOS_Class::Get_Speaker_Pin()
+void GalaxOS_Class::Set_Load_Function(const char *Software_Name, Software_Handle_Class *(*Load_Function_To_Set)())
 {
-  return Speaker_Pin;
+  Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer = Load_Function_To_Set;
 }
 
-int GalaxOS_Class::Get_C_Frequency()
-{
-  return C_Frequency;
-}
+// Serial communication with commputerà
 
-byte GalaxOS_Class::Get_C_MIDI()
-{
-  return C_MIDI;
-}
-
-void GalaxOS_Class::Horizontal_Seperator()
+void GalaxOS_Class::Horizontal_Separator()
 {
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
 }
 
-void GalaxOS_Class::Start()
+void GalaxOS_Class::Print_Line(const char* Text_To_Print = NULL, uint8_t Alignement = 1)
 {
-  Serial.begin(921600); //PC Debug UART
-  Horizontal_Seperator();
-  Serial.println(F("||                                                                            ||"));
-  Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
-  Serial.println(F("||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||"));
-  Serial.println(F("||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||"));
-  Serial.println(F("||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||"));
-  Serial.println(F("||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||"));
-  Serial.println(F("||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||"));
-  Serial.println(F("||                                                                            ||"));
-  Serial.println(F("||                                                                            ||"));
-  Horizontal_Seperator();
-  Serial.println(F("||     Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : 327,680 Bytes     ||"));
-  Serial.println(F("||             Galax OS Embedded Edition - Alix ANNERAUD - Alpha              ||"));
-  Horizontal_Seperator();
-  Serial.println(F("|| > Starting Galax OS ...                                                    ||"));
-  Serial.println(F("|| > Mount The SD Card ...                                                    ||"));
-  //Audio.speakerPin = SpeakerPin;
-  if (!SD_MMC.begin())
+  Serial.print(F("||"));
+
+  if (Text_To_Print == NULL) //print blank line
   {
-    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
-  }
-  else
-  {
-    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
-  }
-
-  Serial.println(F("|| > Loading Task ...                                                         ||"));
-  Serial.println(F("|| > Check existing of file last state ...                                    ||"));
-  if (SD_MMC.exists("/GOSCUSA.GSF"))
-  {
-    Restore_System_State();
-  }
-
-  Serial.println(F("|| > Waiting for Display ...                                                  ||"));
-
-  //bypass & test for dev purpose
-  Username = "ALIX";
-  Password = "ALIX";
-  Open_Desk();
-
-  strcpy(WiFi_SSID, "Avrupa");
-  strcpy(WiFi_Password, "0749230994");
-
-  uint32_t Test_Float = 123456789;
-  Set_Variable('T', Test_Float);
-  Serial.println(Test_Float);
-  Get_Variable('T', Test_Float);
-  Serial.println(Test_Float);
-  //------------------------
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-    Software_Handle[i] = NULL;
-  }
-  
-  Current_Software = 0; //default : galaxos ui
-
-  WiFi_Connect();
-  Synchronise_Time();
-}
-
-void GalaxOS_Class::Save_System_State()
-{
-  if (SD_MMC.exists("/GOSCUSA.GSF"))
-  {
-    if (SD_MMC.remove("/GOSCUSA.GSF"))
+    for (uint8_t i = 0; i < 64; i++)
     {
-      //event handler
-      return;
+      Serial.print(F(" "));
     }
+    Serial.println("||");
   }
-  if (!Event_Handler(QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE))
+  else if (sizeof(Text_To_Print) > 64)
   {
     return;
   }
-  Registry_Write(F("/GOSCUSA.GSF"), F("Username"), Username);
-  Registry_Write(F("/GOSCUSA.GSF"), F("Password"), Password);
-  //etc save all variables
-}
-
-void GalaxOS_Class::Load_Application()
-{
-  
-}
-
-void GalaxOS_Class::Add_Software(const char *Software_Name)
-{
-  for (uint8_t i = 0; i < 16; i++)
+  uint8_t Remaining_Spaces = sizeof(Text_To_Print);
+  switch (Alignement)
   {
-    if (Software_Handle[i] == NULL)
-    {
-      Software_Handle[i] = new Software_Handle_Class();
-      break;
-    }
+  case 0: //left
+    Serial.print(F(" "));
+    Serial.print(Text_To_Print);
+    Remaining_Spaces = 64 - Remaining_Spaces;
+    break;
+  case 1: //centered
+
+  default:
+    break;
   }
+  for (uint8_t i = 0; i < Remaining_Spaces; i++)
+  {
+    Serial.println(F(" "));
+  }
+    Serial.println("||");
 }
+
+// --------------------------
 
 void GalaxOS_Class::Restore_System_State()
 {
   Display.Set_Current_Page(PAGE_DESK);
-  if (!SD_MMC.exists("/GOSCUSA.GSF"))
+
+
+
+  if (!SD_MMC.exists("/GALAXOS/GOSCUSA.GSF"))
+  {
+    return;
+  }
+  File Temporary_File = SD_MMC.open("/GALAXOS/GOSCUSA.GSF");
+  DynamicJsonDocument Temporary_Json_Document(256);
+  //ReadBufferingStream Buffering_Stream(SD_MMC.open("/"), 64); dont work, i don't know why
+
+  if (deserializeJson(Temporary_Json_Document, Temporary_File) == true)
   {
     return;
   }
 
-  Registry_Read(F("/GOSCUSA.GSF"), F("Username"), Username);
-  Registry_Read(F("/GOSCUSA.GSF"), F("Username"), Password);
+  Current_Username = Temporary_Json_Document["Current Username"];
 
+  Temporary_File.close();
   ESP.restart();
 }
 
-void GalaxOS_Class::Registry_Read(File &Registry_File, const char *Key_Name, String &Key_Value_To_Get)
-{
-  File Temporary_Local_File = Registry_File;
-  uint32_t Temporary_Local_File_Position = 0;
-
-  if (!Temporary_Local_File)
-  {
-    Event_Handler(ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED);
-    return;
-  }
-  Temporary_File.seek(0);
-
-  char Temporary_Char = 0;
-
-  if (!Temporary_Local_File.find(Key_Name))
-  {
-    //error handle : cannot keyname
-    return;
-  }
-  Temporary_Local_File.seek(Temporary_Local_File.position() - strlen(Key_Name) - 1);
-  if (Temporary_Local_File.read() == 0x0A)
-  {
-    //error handle
-    return;
-  }
-  Temporary_Local_File.seek(Temporary_Local_File.position() + strlen(Key_Name));
-  if (Temporary_Local_File.read() != ';')
-  {
-    //error
-    return;
-  }
-  while (Temporary_Local_File.available())
-  {
-    Temporary_Char = Temporary_Local_File.read();
-
-    if (Temporary_Char == 0x0D)
-    {
-
-      break;
-    }
-    else
-    {
-      Key_Value_To_Get += (char)Temporary_Char;
-    }
-  }
-}
-
-void GalaxOS_Class::Registry_Read(String const &Path, char (&Key_Name)[], String &Key_Value_To_Get)
-{
-  File Temporary_Local_File = SD_MMC.open(Path);
-  uint32_t Temporary_Local_File_Position = 0;
-  if (!Temporary_Local_File)
-  {
-    //error handle : cannot open file
-    return;
-  }
-  Temporary_File.seek(0);
-  long Timeout = millis() + 5000;
-  char Temporary_Char = 0;
-  if (!Temporary_Local_File.find(Key_Name))
-  {
-    //error handle : cannot keyname
-    return;
-  }
-  if (!Temporary_Local_File.seek(Temporary_Local_File.position() - strlen(Key_Name) - 1))
-  {
-    //error handle
-    return;
-  }
-  if (Temporary_Local_File.read() == 0x0A)
-  {
-    //error handle
-    return;
-  }
-  if (!Temporary_Local_File.seek(Temporary_Local_File.position() + strlen(Key_Name)))
-  {
-    //error handle
-    return;
-  }
-  if (Temporary_Local_File.read() != ';')
-  {
-    //error
-    return;
-  }
-  while (Temporary_Local_File.available())
-  {
-    Temporary_Char = Temporary_Local_File.read();
-
-    if (Temporary_Char == 0x0D)
-    {
-
-      break;
-    }
-    else
-    {
-      Key_Value_To_Get += (char)Temporary_Char;
-    }
-  }
-}
+//---------------------------------------------------------------------------\\
+//                                    Memory                                  
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t const &Number_To_Set)
 { //float
@@ -570,6 +503,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t const &Number_To_Set)
   {
     //error
   }
+  Temporary_File.close();
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t &Number_To_Set)
@@ -584,6 +518,41 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t &Number_To_Set)
   else
   {
     //error
+    return;
+  }
+}
+
+void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set)
+{
+  SD_MMC.remove("/GALAXOS/MEMORY/CHAR/" + String(Tag));
+  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
+  if (Temporary_File)
+  {
+    if (Temporary_File.write((uint8_t *)String_To_Set, sizeof(String_To_Set)) != sizeof(String_To_Set))
+    {
+      //error handle
+    }
+    Temporary_File.close();
+  }
+  else
+  {
+    //error
+  }
+}
+
+void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set)
+{ //float
+  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+  if (Temporary_File)
+  {
+    Temporary_File.readBytes(String_To_Set, sizeof(String_To_Set));
+    Temporary_File.close();
+    return;
+  }
+  else
+  {
+    //error
+    Temporary_File.close();
     return;
   }
 }
@@ -689,28 +658,6 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
   }
 }
 
-void GalaxOS_Class::Open_Menu()
-{
-  Display.Set_Current_Page(F(Menu_P1));
-  Display.Set_Text(F("USERNAME_TXT"), Username);
-}
-
-void GalaxOS_Class::Open_Desk()
-{
-  Display.Set_Current_Page(F("Desk"));
-  uint8_t Minimized_Application_Icon;
-  String Temporary_String = "SLOTX_PIC";
-  for (uint8_t Slot = 1; Slot < 6; Slot++)
-  {
-    if (iGOS_Pointer != NULL)
-    {
-      Slot++;
-    }
-    Temporary_String.setCharAt(4, char(Slot));
-    Display.Set_Picture(Temporary_String, Minimized_Application_Icon);
-  }
-}
-
 void Ressource_Monitor(void *pvParameters)
 {
   (void)pvParameters;
@@ -724,7 +671,7 @@ void Ressource_Monitor(void *pvParameters)
   }
 }
 
-uint16_t GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String const &Password_To_Check)
+uint16_t &GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   Temporary_File = SD_MMC.open("/USERS/" + String(Username_To_Check) + "/STTNGS/PASSWORD.GSF", FILE_READ);
   String Temporary_Password = "";
@@ -734,7 +681,7 @@ uint16_t GalaxOS_Class::Check_Credentials(String const &Username_To_Check, Strin
     {
       if (isAlphaNumeric(Temporary_File.peek()))
       {
-        Password += String(Temporary_File.read());
+        Temporary_Password += String(Temporary_File.read());
       }
       else
       {
@@ -752,8 +699,8 @@ uint16_t GalaxOS_Class::Check_Credentials(String const &Username_To_Check, Strin
   if (Temporary_Password == Temporary_Password)
   {
     Serial.println(F("Good Password"));
-    Username = Username_To_Check;
-    Password = Password_To_Check;
+    strcpy(Username, Username_To_Check);
+
     return INFORMATION_GOOD_CREDENTIALS;
   }
   else
@@ -788,7 +735,14 @@ void GalaxOS_Class::Load_System_Files()
     return;
   }
   Temporary_String = "";
-  return;
+
+  //Load software from registry
+  String Software_Name;
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+
+    Registry_Read(SD_MMC.open("/GALAXOS/REGISTRY/SOFTWARE/LIST.GCF"), (const char)i, Software_Name)
+  }
 
   Display.Set_Text(F("LOAD_TIM"), F("Loading System Files ..."));
   Display.Set_Time(F("LOAD_TIM"), 50);
@@ -815,7 +769,6 @@ uint8_t GalaxOS_Class::Event_Handler(uint16_t const &Type, String const &Extra_I
 {
 #define EVENT_CANCEL 0
 #define EVENT_YES 1
-
   Display.Set_Current_Page(F("Event"));
   uint8_t Event_Type;
   Registry_Read(SD_MMC.open(), String(Type), Event_Type);
@@ -966,34 +919,6 @@ void GalaxOS_Class::Synchronise_Time()
   Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
   vTaskDelay(pdMS_TO_TICKS(1000));
   Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
-}
-
-void GalaxOS_Class::WiFi_Connect()
-{
-  if (!WiFi.setHostname("ESP32"))
-  {
-    Serial.println("Cannot set a custom hostname !");
-    //error handle
-  }
-  WiFi.begin(WiFi_SSID, WiFi_Password);
-  byte i = 0;
-  while (WiFi.status() != WL_CONNECTED && i < 10)
-  {
-    vTaskDelay(pdMS_TO_TICKS(500));
-    i++;
-  }
-  if (WiFi.status() == WL_CONNECTED)
-  {
-    Serial.print(F("Connected to WiFi :"));
-  }
-  else if (WiFi.status() == WL_IDLE_STATUS)
-  {
-    //error handle
-  }
-  else
-  {
-    Serial.println(F("Can't Connect to WiFi"));
-  }
 }
 
 void Pictviewer()

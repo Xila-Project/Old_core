@@ -11,7 +11,8 @@
 	"settings": {
 		"files.associations": {
 			"*.tcc": "cpp",
-			"fstream": "cpp"
+			"fstream": "cpp",
+			"cstring": "cpp"
 		}
 	}
 }

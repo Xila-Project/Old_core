@@ -14,10 +14,10 @@
 #define TIMEOUT 5000     // Timeout on ethernet reads
 
 // Render colour presets : not used with nextion
-#define COL_TEXT 0xFFFF    // White
-#define COL_HEADING 0xFFE0 // Yellow
-#define COL_BOLD 0x07E0    // Green  0xF800 //0xFC30  // Red-ish
-#define COL_LINK 0x1B1F    // Blue-ish
+#define COLOR_TEXT 0xFFFF    // White
+#define COLOR_HEADING 0xFFE0 // Yellow
+#define COLOR_BOLD 0x07E0    // Green  0xF800 //0xFC30  // Red-ish
+#define COLOR_LINK 0x1B1F    // Blue-ish
 
 // Specific hash -> tag mappings
 #define BODYTAG 1069      // <body>
@@ -71,7 +71,7 @@
 // Hash -> tag & flag mappings
 #define NUMTAGS 76
 
-static const uint16_t tag_codes[] PROGMEM = {
+static const uint16_t tag_codes[] = {
     161, TAG_HEADING1 | PRE_BREAK,        // <h1>
     162, TAG_HEADING1 | PRE_BREAK,        // <h2>
     163, TAG_HEADING1 | PRE_BREAK,        // <h3>
@@ -116,9 +116,10 @@ static const uint16_t tag_codes[] PROGMEM = {
     388, 60    // Less than
 };
 
-class iGOS_Class : public GalaxOS_Software_Class
+class Internet_Browser_Class : public Software_Class
 {
 private:
+
     char Server[30];
     char Path[60];
     char URL[90];
@@ -148,9 +149,7 @@ private:
 
     WiFiClient WiFi_Client;
 
-    void (*resetFunc)(void) = 0; //declare reset function at adress 0
-
-    void Build_URL(uint16_t pointer);
+    void Build_URL(uint16_t pointer); // combine splitted url into full one
 
     byte Cache_URL(char *URLserver, char *URLpath);
     void Store_URL(char *local_url);
@@ -167,27 +166,29 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    static iGOS_Class* Internet_Browser_Pointer;
+    static Internet_Browser_Class *Instance_Pointer;
+
+    static Software_Class *Load();
 
 public:
-    iGOS_Class();
-    ~iGOS_Class();
+    Internet_Browser_Class(Software_Handle_Class* Task_Handle_To_Set);
+    ~Internet_Browser_Class();
 
-    void Go_Link();       //command 0
-    void Page_Up();       //command 1
-    void Page_Down();     //command 2
-    void Next_Link();     //command 3
-    void Previous_Link(); //command 4
-    void Load_Page();     // command 5
-    void Go_URL();        //new feature
+    void Go_Link();
+    void Page_Up();
+    void Page_Down();
+    void Next_Link();
+    void Previous_Link();
+    void Load_Page();
+    void Go_URL();
     void Go_Home();
 
     void Execute(uint16_t const &Socket_Method_To_Set);
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
-
-    friend void iGOS_Socket(void *pvParameters);
+    
+    friend void Internet_Browser_Task(void *pvParameters);
 };
 
-void iGOS_Socket(void *pvParameters);
+void Internet_Browser_Task(void *pvParameters);
 
 #endif

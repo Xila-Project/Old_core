@@ -9,20 +9,21 @@
 #include "SD_MMC.h"
 #include "FS.h"
 #include "time.h"
+#include "Update.h"
+#include <ArduinoJson.h> //used to store
 
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
 
-// Core file
+// Hub file
 #include "GalaxOS.hpp" //Main file part, included in main sketch
 // Driver files
-#include "Display.hpp" // Nextion display driver (maybe create a library for each driver)
+#include "Display.hpp"  // Nextion display driver (maybe create a library for each driver)
 #include "Keyboard.hpp" // PS2 keyboard driver
 #include "Sound.hpp"
 // Software file
 #include "Internet_Browser.hpp"
-#include "Software.hpp"
 #include "Periodic.hpp"
 #include "File_Manager.hpp"
 #include "Calculator.hpp"
@@ -46,6 +47,7 @@
 #define PAGE_EVENT 20
 #define PAGE_IGOS 27
 #define PAGE_PIANO 38
+#define PAGE_MENU_1
 
 // Event Index (used to interract with the event handler)
 
@@ -83,8 +85,6 @@
 
 // Nextion command
 #define CODE_COMMAND 42
-#define CODE_SOFTWARE_OPEN 111 //o
-#define CODE_SOFTWARE_CLOSE 99 //c
 #define CODE_COMMAND_NEW 35
 #define CODE_VARIABLE_BYTE 66              //1 byte
 #define CODE_VARIABLE_CHAR 67              //unsigned 1 byte
@@ -95,11 +95,15 @@
 #define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
 #define CODE_VARIABLE_STRING 83
 
-// Software ID
-#define SOFTWARE_IGOS_ID 73 //random number for ID
-#define SOFTWARE_FILE_MANAGER_ID 45 
+// System's path
+#define SYSTEM_PATH "/GALAXOS/"
+#define REGISTRY_PATH "REGISTRY/""
 
-#define IGOS_ICON 10
+
+// GRF : Galax'OS Registry File
+// GEF : Galax'OS Executable File
+// GSF : Galax'OS Sound File
+
 
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
@@ -107,47 +111,27 @@
 
 class GalaxOS_Class
 {
-private:
-    File Temporary_File;
-
-    byte Taskbar_Items_PID[7];
-    byte Taskbar_Items_Icon[7];
-
-    byte Current_Page;
-    byte Last_Page;
+protected:
+    //System attribute
+    //File Temporary_File;
 
     byte C_MIDI;
 
     int C_Frequency;
 
-    byte Speaker_Pin;
-
-    String Username;
-    String Password;
-
     int Low_RAM_Threshold;
 
+    //User attribute
+    char *Current_Username;
+
     String Temporary_String;
-    
-    uint8_t Current_Software;
-    GalaxOS_Software_Class* Running_Software[6];
-    Software_Header_Class* Software_Handle[15];
 
-
-    /*iGOS_Class* iGOS_Pointer;
-    Periodic_Class* Periodic_Pointer;
-    File_Manager_Class* File_Manager_Pointer;
-    Ultrasonic_Class* Ultrasonic_Pointer;
-    Calculator_Class* Calculator_Pointer;
-    Paint_Class* Paint_Pointer;
-    Piano_Class* Piano_Pointer;
-    Signal_Generator_Class* Signal_Generator_Pointer;
-    //Music_Player_Class *Music_Player_Pointer;
-    //Pong_Class *Pong_Class;*/
+    Software_Class *Open_Software[6];
+    Software_Handle_Class *Software_Handle[MAXIMUM_SOFTWARE];
 
     uint8_t Event_Reply;
 
-    GalaxOS_Software_Class *Software_Pointer[4];
+    Software_Class *Software_Pointer[6]; //current running software
 
     char Tag;
 
@@ -161,98 +145,93 @@ private:
     xTaskHandle Ressource_Monitor_Handle;
     xTaskHandle GalaxOS_Core_Handle;
 
-public:
+    //Software management
 
+    Software_Class *Get_Software_Pointer(const char *Software_Name);
+    Software_Handle_Class *Get_Software_Handle_Pointer(const char *Software_Name);
+
+    void Open_Software(const char* Software_Name);
+    void Close_Software(const char* Software_Name);
+
+public:
     GalaxOS_Class();
     ~GalaxOS_Class();
-        
+
     Nextion_Display_Class Display;
     Sound_Class Sound;
     Keyboard_Class Keyboard;
-
-    void Add_Software(const char* Software_Name);
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
     void Restore_System_State();
 
-    void Open_Software(uint8_t const& Software_ID); //Only for pre-programmed software
-    void Open_Software(String const& Path); //From SD (compiled file)
-    void Open_Software(const __FlashStringHelper *Path); //From SD (compiled file)
-    void Close_Software(uint8_t const& Software_ID); //Only for pre-programmed software
+    void Synchronise_Time();
 
-    //Interrupt method
-    void Incomming_String_Data_From_Display(String& Received_Data);
-    void Incomming_Numeric_Data_From_Display(uint32_t const& Received_Data);
+    // Software Management
+
+    void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
+
+    // Display callback function
+    void Incomming_String_Data_From_Display(String &Received_Data);
+    void Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data);
     void Incomming_Event_From_Display(uint16_t);
 
-    //Serial
+    // Serial communication
     void Horizontal_Seperator();
-    //void Print(const __FlashStringHelper* String_To_Print);
+    void Print_Line(const char *Text_To_Print, uint8_t Alignement);
 
+    //
     byte Get_Speaker_Pin();
     int Get_C_Frequency();
     byte Get_C_MIDI();
 
-    void Set_Software_Pointer(byte const &Software_Pointer_ID, GalaxOS_Software_Class &Software_Pointer_To_Set);
+    //
+    void Set_Variable(char const &Tag, String const &String_To_Set);
+    void Get_Variable(char const &Tag, String &String_To_Get);
 
-    void Get_Software_Pointer(iGOS_Class*& Software_Pointer_To_Set);
-    void Get_Software_Pointer(Periodic_Class*& Software_Pointer_To_Set);
-    void Get_Software_Pointer(File_Manager_Class*& Software_Pointer_To_Set);
-    void Get_Software_Pointer(Calculator_Class*& Software_Pointer_To_Set);
-    void Get_Software_Pointer(Signal_Generator_Class*& Software_Pointer_To_Set);
+    void Set_Variable(char const &Tag, const char *String_To_Set);
+    void Get_Variable(char const &Tag, char *String_To_Get);
 
-    void Synchronise_Time();
+    void Set_Variable(char const &Tag, uint8_t const &Number_To_Set);
+    void Get_Variable(char const &Tag, uint8_t &Number_To_Set);
 
-    void Set_Variable(char const &Tag, String const& String_To_Set);
-    void Get_Variable(char const &Tag, String& String_To_Get);
+    void Set_Variable(char const &Tag, uint16_t const &Number_To_Set);
+    void Get_Variable(char const &Tag, uint16_t &Number_To_Set);
 
-    void Set_Variable(char const &Tag, uint8_t const& Number_To_Set);
-    void Get_Variable(char const &Tag, uint8_t& Number_To_Set);
+    void Set_Variable(char const &Tag, uint32_t const &Number_To_Set);
+    void Get_Variable(char const &Tag, uint32_t &Number_To_Set);
 
-    void Set_Variable(char const &Tag, uint16_t const& Number_To_Set);
-    void Get_Variable(char const &Tag, uint16_t& Number_To_Set);
+    char *Get_Current_Username()
+    {
+        return Current_Username;
+    }
 
-    void Set_Variable(char const& Tag, uint32_t const& Number_To_Set);
-    void Get_Variable(char const& Tag, uint32_t& Number_To_Set);
+    void Registry_Find(File &Registry_File, const char *Key_Name, char *Key_Value_To_Get, uint16_t const &Column = 0);
+    char *Registry_Read(File &Registry_File, uint16_t const &Line_Number, uint16_t const &Column_Number);
+    void Registry_Write(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get);
+    void Registry_Add(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
+    void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
+    void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);
 
-    void Registry_Read(File& Registry_File, String& Key_Name, String& Key_Value_To_Get);
-    void Registry_Read(File& Registry_File, uint16_t const& Entry_Number, Strin g& Key_Value_To_Get);    
-    void Registry_Write(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Get);
-    void Registry_Add(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
-    void Registry_Modify(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name, String& Key_Value_To_Set);
-    void Registry_Delete(const __FlashStringHelper* Path, const __FlashStringHelper* Key_Name);
-
-
-    void Open_File(File& File_To_Open);
-
-    void WiFi_Connect();
-
-    void USB_Serial_Transmit(char const *USB_Serial_Transmit_String, byte Alignment);
-
-    void Open_Desk();
-    void Open_Menu();
+    void Open_File(File &File_To_Open);
 
     void Load_System_Files();
     void Load_User_Files();
 
-    uint16_t Check_Credentials(String const &Username_To_Check, String const &Password_To_Check);
+    uint16_t Check_Credentials(const char *Username_To_Check, const char *Password_To_Check);
 
     //services
-    void Desk_Execute(uint16_t const& Command);
+    void Desk_Execute(uint16_t const &Command);
 
-    uint8_t Event_Handler(uint16_t const& Type, String const& Extra_Informations = "");
+    uint8_t Event_Handler(uint16_t const &Type, String const &Extra_Informations = "");
     friend void Ressource_Monitor(void *pvParameters);
+    friend class Shell_Class;
 
     void Nextion_Upload_Firmware(String const &Path);
 };
 
 //GalaxOS class's method (FreeRTOS seems to not support class/struct)
 void Ressource_Monitor(void *pvParameters);
-
-void Musical_Digital_Player(void *pvParameters);
-
-void Files_And_Folders();
 
 void Periodic_Main(byte Type);
 void Piano(int Frequency, int Note);

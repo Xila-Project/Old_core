@@ -1,4 +1,4 @@
-#include "galaxos.hpp"
+#include "GalaxOS.hpp"
 
 void setup() {
 }

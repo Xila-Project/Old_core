@@ -1,17 +1,19 @@
 #include "Internet_Browser.hpp"
-#include "galaxos.hpp"
+#include "GalaxOS.hpp"
 
-iGOS_Class *iGOS_Class::Software_Pointer = NULL;
+Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
-iGOS_Class::iGOS_Class() : GalaxOS_Software_Class("Internet Browser", 27, 27)
+Software_Class *Internet_Browser_Class::Load()
 {
-  if (Software_Pointer != NULL)
+  if (Internet_Browser_Class::Instance_Pointer != NULL)
   {
-    delete this;
-    Software_Pointer->Maximize();
+    return NULL;
   }
+  return new Internet_Browser_Class;
+}
 
-  Software_Pointer = this;
+Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Task_Handle_To_Set) : Software_Class(Task_Handle_To_Set, 5)
+{
 
   memset(Server, 0, 30);
   memset(Path, 0, 60);
@@ -23,60 +25,70 @@ iGOS_Class::iGOS_Class() : GalaxOS_Software_Class("Internet Browser", 27, 27)
 
   textContent = {0, 0, false};
 
-  xTaskCreatePinnedToCore(iGOS_Socket, "iGOS", 8192, NULL, 2, &Socket_Handle, 1);
-
-  GalaxOS.Display.Set_Current_Page(F("iGOS"));
+  xTaskCreatePinnedToCore(Internet_Browser_Task, "iGOS", 8192, NULL, 2, &Task_Handle, 1);
 }
 
-iGOS_Class::~iGOS_Class()
+Internet_Browser_Class::~Internet_Browser_Class()
 {
   --Number_Instance;
-  vTaskDelete(Socket_Handle);
+  vTaskDelete(Task_Handle);
 }
 
-void iGOS_Socket(void *pvParameters)
+void Internet_Browser_Task(void *pvParameters)
 {
-  iGOS_Class* Internet_Browser_Pointer = 
   (void)pvParameters;
   for (;;)
   {
-    switch (iGOS_Class::Software_Pointer->Get_Socket_Method())
+    while (Internet_Browser_Class::Instance_Pointer->Read_Position == Internet_Browser_Class::Instance_Pointer->Write_Position)
+    {
+      vTaskDelay(pdMS_TO_TICKS(20));
+    }
+    switch (Internet_Browser_Class::Instance_Pointer->Task_Method_Array[Internet_Browser_Class::Instance_Pointer->Read_Position])
     {
     case 0:
-      Serial.println(F("iGOS Socket : Nothing to do ..."));
+      //Idle : nothing to do
       break;
-    case 20044: //NL
-      iGOS_Class::Software_Pointer->Next_Link();
+    case 0x004D: // NULL + M : Maximize
+      //do something when
       break;
-    case 20556: //PL
-      iGOS_Class::Software_Pointer->Previous_Link();
+    case 0x006D: // NULL + m : Minimize
+      vTaskSuspend(NULL); 
       break;
-    case 20565: //PU
-      iGOS_Class::Software_Pointer->Page_Up();
+    case 0x0043: // NULL + C : Close
+      vTaskDelete(NULL);
       break;
-    case 20548: //PD
-      iGOS_Class::Software_Pointer->Page_Down();
+    case 0x4E4C: //NL
+      Internet_Browser_Class::Instance_Pointer->Next_Link();
       break;
-    case 18252: //GL
-      iGOS_Class::Software_Pointer->Go_Link();
+    case 0x5044: //PD
+      Internet_Browser_Class::Instance_Pointer->Page_Down();
       break;
-    case 18261: //GU
-      iGOS_Class::Software_Pointer->Go_URL();
+    case 0x504C: //PL
+      Internet_Browser_Class::Instance_Pointer->Previous_Link();
       break;
-    case 18511: //HO
-      iGOS_Class::Software_Pointer->Go_Home();
+    case 0x5055: //PU
+      Internet_Browser_Class::Instance_Pointer->Page_Up();
+      break;
+    case 0x474C: //GL
+      Internet_Browser_Class::Instance_Pointer->Go_Link();
+      break;
+    case 0x4755: //GU
+      Internet_Browser_Class::Instance_Pointer->Go_URL();
+      break;
+    case 0x484F: //HO
+      Internet_Browser_Class::Instance_Pointer->Go_Home();
       break;
     default:
       Serial.println(F("Unknow Socket Method ! "));
       //error handle
       break;
     }
-    iGOS_Class::Software_Pointer->Set_Socket_Method(0); //work done, reset the selector
-    vTaskSuspend(NULL);
+    Internet_Browser_Class::Instance_Pointer->Task_Method_Array[Internet_Browser_Class::Instance_Pointer->Read_Position] = 0; //work done, reset the selector
+    Internet_Browser_Class::Instance_Pointer->Read_Position++;
   }
 }
 
-void iGOS_Class::Go_Home()
+void Internet_Browser_Class::Go_Home()
 {
   Serial.println(F("Go Home"));
   memset(Server, 0, 30);
@@ -94,11 +106,10 @@ void iGOS_Class::Go_Home()
   return;
 }
 
-void iGOS_Class::Go_URL()
+void Internet_Browser_Class::Go_URL()
 {
   String Temporary_String;
-  GalaxOS.Get_Variable('U', Temporary_String);
-  Temporary_String.toCharArray(URL, 90);
+  GalaxOS.Get_Variable('U', URL);
   Split_URL(URL);
   if (Cache_URL(Server, Path))
   {
@@ -123,7 +134,7 @@ void iGOS_Class::Go_URL()
   }
 }
 
-byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
+byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 {
 // HTML parser states
 #define sLEADIN 0
@@ -646,7 +657,7 @@ byte iGOS_Class::Cache_URL(char *URLserver, char *URLpath)
   return 1;
 }
 
-void iGOS_Class::Go_Link()
+void Internet_Browser_Class::Go_Link()
 {
   Serial.println(F("\n>> Go Link :"));
   Build_URL(pageLinks.index[pageLinks.linkPtr]); // Get URL from page index
@@ -676,7 +687,7 @@ void iGOS_Class::Go_Link()
   }
 }
 
-void iGOS_Class::Page_Up()
+void Internet_Browser_Class::Page_Up()
 {
   Serial.print(F("\n>> Page Up : "));
   if (textContent.pagePtr > 0)
@@ -695,7 +706,7 @@ void iGOS_Class::Page_Up()
   return;
 }
 
-void iGOS_Class::Page_Down()
+void Internet_Browser_Class::Page_Down()
 {
   Serial.print(F("\n>> Page Down : "));
   if (textContent.pagePtr < textContent.lastPage)
@@ -714,7 +725,7 @@ void iGOS_Class::Page_Down()
   return;
 }
 
-void iGOS_Class::Next_Link()
+void Internet_Browser_Class::Next_Link()
 {
   Serial.print(F("\n>> Next Link : "));
   if (pageLinks.linkPtr < pageLinks.lastLink)
@@ -733,7 +744,7 @@ void iGOS_Class::Next_Link()
   return;
 }
 
-void iGOS_Class::Previous_Link()
+void Internet_Browser_Class::Previous_Link()
 {
   Serial.print(F("\n>> Previous link : "));
   if (pageLinks.linkPtr > 0)
@@ -752,7 +763,7 @@ void iGOS_Class::Previous_Link()
   return;
 }
 
-void iGOS_Class::Load_Page()
+void Internet_Browser_Class::Load_Page()
 {
   Serial.println(F("\n|| Cache & display URL"));
   Cache_File.flush();
@@ -783,7 +794,7 @@ void iGOS_Class::Load_Page()
   return;
 }
 
-void iGOS_Class::Build_URL(uint16_t pointer)
+void Internet_Browser_Class::Build_URL(uint16_t pointer)
 {
   byte i = 0;
   char c = 0;
@@ -804,7 +815,7 @@ void iGOS_Class::Build_URL(uint16_t pointer)
   Cache_File.seek(oldPos);
 }
 
-void iGOS_Class::displayLinkIndex()
+void Internet_Browser_Class::displayLinkIndex()
 {
   Serial.print(F("\nLink index:"));
   Serial.print(F("\nlinkPtr:\t"));
@@ -833,7 +844,7 @@ void iGOS_Class::displayLinkIndex()
   Serial.println();
 }
 
-void iGOS_Class::displayPageIndex()
+void Internet_Browser_Class::displayPageIndex()
 {
   Serial.print(F("\nPage index:"));
   Serial.print(F("\npagePtr:\t"));
@@ -851,7 +862,7 @@ void iGOS_Class::displayPageIndex()
   Serial.println();
 }
 
-byte iGOS_Class::Display_Page()
+byte Internet_Browser_Class::Display_Page()
 {
   Serial.println();
   Serial.print(F("Display cached page :"));
@@ -1110,7 +1121,7 @@ byte iGOS_Class::Display_Page()
   return 1;
 }
 
-char iGOS_Class::lowerCase(char c)
+char Internet_Browser_Class::lowerCase(char c)
 {
   if ((c > 64) && (c < 91))
   {
@@ -1122,7 +1133,7 @@ char iGOS_Class::lowerCase(char c)
   }
 }
 
-uint16_t iGOS_Class::Hash_Out(uint16_t hash)
+uint16_t Internet_Browser_Class::Hash_Out(uint16_t hash)
 {
   uint16_t output = 0;
 
@@ -1137,7 +1148,7 @@ uint16_t iGOS_Class::Hash_Out(uint16_t hash)
   return output;
 }
 
-byte iGOS_Class::Find_Until(uint8_t *String_To_Find, boolean terminate)
+byte Internet_Browser_Class::Find_Until(uint8_t *String_To_Find, boolean terminate)
 {
   uint8_t currentChar = 0;
   long timeOut = millis() + 5000;
@@ -1178,7 +1189,7 @@ byte iGOS_Class::Find_Until(uint8_t *String_To_Find, boolean terminate)
   return 0; // Timeout
 }
 
-void iGOS_Class::Store_URL(char *local_url)
+void Internet_Browser_Class::Store_URL(char *local_url)
 {
   byte i = 0;
   byte j = 0;
@@ -1200,7 +1211,7 @@ void iGOS_Class::Store_URL(char *local_url)
   Cache_File.print(local_url);
 }
 
-void iGOS_Class::Split_URL(char *localURL)
+void Internet_Browser_Class::Split_URL(char *localURL)
 {
   byte i = 0;
   byte urlIndex = 0;
