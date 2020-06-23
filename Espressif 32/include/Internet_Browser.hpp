@@ -144,9 +144,6 @@ private:
     linkStruct pageLinks;
 
     uint8_t generalBuffer[55];
-
-    static uint8_t Number_Instance;
-
     WiFiClient WiFi_Client;
 
     void Build_URL(uint16_t pointer); // combine splitted url into full one
@@ -166,9 +163,9 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    static Internet_Browser_Class *Instance_Pointer;
+    static Software_Class *Load(Software_Handle_Class*);
 
-    static Software_Class *Load();
+    static Internet_Browser_Class* Instance_Pointer;
 
 public:
     Internet_Browser_Class(Software_Handle_Class* Task_Handle_To_Set);
@@ -182,9 +179,6 @@ public:
     void Load_Page();
     void Go_URL();
     void Go_Home();
-
-    void Execute(uint16_t const &Socket_Method_To_Set);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
     
     friend void Internet_Browser_Task(void *pvParameters);
 };

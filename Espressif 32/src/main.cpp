@@ -1,8 +1,11 @@
 #include "GalaxOS.hpp"
 
-void setup() {
+void setup()
+{
+
 }
 
-void loop() {
+void loop()
+{
     vTaskDelete(NULL);
 }

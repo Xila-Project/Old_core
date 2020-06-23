@@ -173,8 +173,7 @@ void GalaxOS_Class::Start()
   DynamicJsonDocument Software_Registry(256);
   deserializeJson(Software_Registry, Temporary_File);
 
-
-
+  delete Software_Registry;
   Open_Software("Shell");
 }
 

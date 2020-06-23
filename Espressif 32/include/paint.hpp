@@ -4,12 +4,21 @@
 #include "Arduino.h"
 #include "GalaxOS.hpp"
 
-class Paint_Class
+class Paint_Class : public Software_Class
 {
-    private:
+protected:
+    Software_Class *Load(Software_Handle_Class *);
 
-    public:
+    static Paint_Class* Instance_Pointer;
 
+    static const uint8_t Page_Paint = 25;
+public:
+    Paint_Class(Software_Handle_Class *);
+    ~Paint_Class();
+
+    friend void Paint_Task(void*);
 };
+
+void Paint_Task(void*);
 
 #endif

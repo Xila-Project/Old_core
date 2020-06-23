@@ -12,7 +12,7 @@
 class Software_Class //Software class, with used by the core to communicate
 {
 protected:
-    Software_Class(Software_Handle_Class *Task_Handle_To_Set, uint8_t &Task_Queue_Size);
+    Software_Class(Software_Handle_Class* Task_Handle_To_Set, uint8_t& Task_Queue_Size);
     ~Software_Class(); //call when soft is closed
 
     TaskHandle_t Task_Handle;
@@ -29,7 +29,7 @@ protected:
     void Maximize(); //show
     void Minimize(); //hide
 
-    void Open_File();
+    void Open_File(File& File_To_Set);
 
     void Execute(uint16_t const &);
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);

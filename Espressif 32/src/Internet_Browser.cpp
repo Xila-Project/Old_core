@@ -3,16 +3,16 @@
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
-Software_Class *Internet_Browser_Class::Load()
+Software_Class *Internet_Browser_Class::Load(Software_Handle_Class* Software_Handle_To_Set)
 {
-  if (Internet_Browser_Class::Instance_Pointer != NULL)
+  if (Instance_Pointer != NULL)
   {
-    return NULL;
+    return Instance_Pointer;
   }
-  return new Internet_Browser_Class;
+  return new Internet_Browser_Class(Software_Handle_To_Set);
 }
 
-Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Task_Handle_To_Set) : Software_Class(Task_Handle_To_Set, 5)
+Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 5)
 {
 
   memset(Server, 0, 30);
@@ -30,14 +30,13 @@ Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Task_Handl
 
 Internet_Browser_Class::~Internet_Browser_Class()
 {
-  --Number_Instance;
   vTaskDelete(Task_Handle);
 }
 
 void Internet_Browser_Task(void *pvParameters)
 {
   (void)pvParameters;
-  for (;;)
+  while (1)
   {
     while (Internet_Browser_Class::Instance_Pointer->Read_Position == Internet_Browser_Class::Instance_Pointer->Write_Position)
     {
