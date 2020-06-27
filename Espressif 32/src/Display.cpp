@@ -417,6 +417,43 @@ void Nextion_Display_Class::Calibrate()
     Instruction_End();
 }
 
+void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value = NULL, uint32_t const& Quantity = NULL, uint8_t Array = NULL)
+{
+    Nextion_Serial.print(F("add"));
+    if (Quantity == NULL)
+    {
+        Nextion_Serial.print(Component_ID);
+        Argument_Separator();
+        Nextion_Serial.print(Channel);
+        Argument_Separator();
+        Nextion_Serial.print(Value);
+    }
+    else
+    {
+        Nextion_Serial.print(F("t "));
+        Nextion_Serial.print(Component_ID);
+        Argument_Separator();
+        Nextion_Serial.print(Channel);
+        Argument_Separator();
+        Nextion_Serial.print(Quantity);
+        vTaskDelay(pdMS_TO_TICKS(10)); //wait display to prepare transparent mode
+        for(uint16_t i = 0; i < Quantity; i++)
+        {
+            Nextion_Serial.write(Array[i]);
+        }
+    }
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Clear_Waveform(uint16_t const& Component_ID, uint8_t const& Channel)
+{
+    Nextion_Serial.print(F("cle "));
+    Serial.print(Component_ID);
+    Argument_Separator();
+    Serial.print(Channel);
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Reboot()
 {
     Nextion_Serial.print(F("rest"));

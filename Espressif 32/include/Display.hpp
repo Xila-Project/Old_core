@@ -170,10 +170,10 @@ class Nextion_Display_Class
         void Refresh(uint16_t const& Component_ID);
         void Delay(uint16_t Delay_Time);
         void Click(uint16_t const& Component_ID, uint8_t const& Event_Type);
-        void Start_Waveform();
-        void Stop_Waveform();
-        void Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Chanel, uint32_t const& Value, uint32_t const& Quantity);
-        void Clear_Waveform();
+        void Start_Waveform_Refresh();
+        void Stop_Waveform_Refresh();
+        void Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value, uint32_t const& Quantity, uint8_t* Array);
+        void Clear_Waveform(uint16_t const& Component_ID, uint8_t const& Channel);
         void Get(const __FlashStringHelper* Object_Name);
         void Calibrate();
         void Show(const __FlashStringHelper* Object_Name);

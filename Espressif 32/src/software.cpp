@@ -17,7 +17,7 @@ Software_Class::Software_Class(Software_Handle_Class* Task_Handle_To_Set, uint8_
 
 }
 
-Software_Class::~Software_Class() // DEstructor : close
+Software_Class::~Software_Class() // Destructor : close
 {
   if (Instance_Pointer != this)
   {

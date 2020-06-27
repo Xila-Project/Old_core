@@ -12,7 +12,10 @@
 		"files.associations": {
 			"*.tcc": "cpp",
 			"fstream": "cpp",
-			"cstring": "cpp"
+			"cstring": "cpp",
+			"algorithm": "cpp",
+			"array": "cpp",
+			"string": "cpp"
 		}
 	}
 }

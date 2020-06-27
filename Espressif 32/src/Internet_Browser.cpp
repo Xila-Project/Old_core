@@ -84,6 +84,7 @@ void Internet_Browser_Task(void *pvParameters)
     }
     Internet_Browser_Class::Instance_Pointer->Task_Method_Array[Internet_Browser_Class::Instance_Pointer->Read_Position] = 0; //work done, reset the selector
     Internet_Browser_Class::Instance_Pointer->Read_Position++;
+    vTaskDelay(pdMS_TO_TICKS(10));
   }
 }
 
@@ -258,7 +259,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       HTTP_Return_Code = WiFi_Client.parseInt();
       Serial.print(F("Result: "));
       Serial.println(HTTP_Return_Code);
-      if (HTTP_Return_Code >= 300) //if the HTTP isn't between 200 and 226, it's an error and stop parsing
+      if (HTTP_Return_Code >= 300) // stop parsing if http code isn't between 200 and 300
       {
         Display_Page(); //display current
         return 0;
