@@ -9,17 +9,44 @@ Oscilloscope_Class::Oscilloscope_Class(Software_Handle_Class *Software_Handle_To
 
     Instance_Pointer = this;
 
-    xTaskCreatePinnedToCore(Oscilloscope_Task, "Oscilloscope", 2 * 1024, NULL, 1, &Task_Handle, 0);
-    xTaskCreatePinnedToCore(Sampling_Task, "Sampling Task", 3 * 1024, NULL, 2, NUL, )
+    xTaskCreatePinnedToCore(Oscilloscope_Task, "Oscilloscope", 2 * 1024, NULL, 2, &Task_Handle, 0);
+    xTaskCreatePinnedToCore(SigmaDelta_Task, "SigmaDelta", 2 * 1024, NULL, 2, NULL, &SigmaDelta_Handle, 0);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()
 {
     Execute(0x0043);
+    vTaskDelete(SigmaDelta_Handle);
+    vTaskDelete(Task_Handle);
+    Instance_Pointer == NULL;
 }
 
-void Sampling_Task(void *pvParameters)
+Software_Class *Oscilloscope_Class::Load(Software_Handle_Class* Software_Handle_To_Set)
 {
+  if (Instance_Pointer != NULL)
+  {
+    return Instance_Pointer;
+  }
+  return new Internet_Browser_Class(Software_Handle_To_Set);
+}
+
+void SigmaDelta_Task(void *pvParameters)
+{
+    sigmaDeltaSetup(0, 312500);
+    sigmaDeltaAttachPin(5, 0);
+    sigmaDeltaWrite(0, 0);
+    while (1)
+    {
+        static uint8_t i = 0;
+        sigmaDeltaWrite(0, i++);
+        delayMicroseconds(50);
+    }
+    vTaskDelete(NULL);
+}
+
+void Oscilloscope_Task(void *pvParameters)
+{
+    (void)pvParameters;
     while (1)
     {
         if (INSTANCE_POINTER->trig_mode != INSTANCE_POINTER->TRIG_SCAN)
@@ -53,7 +80,7 @@ void Sampling_Task(void *pvParameters)
                     }
                 }
                 oad = ad;
-
+                INSTANCE_POINTER->Refresh_User_Interface();
                 if (INSTANCE_POINTER->trig_mode == INSTANCE_POINTER->TRIG_SCAN)
                 {
                     break;
@@ -94,104 +121,94 @@ void Sampling_Task(void *pvParameters)
             }
             else if (INSTANCE_POINTER->rate == 2) // full speed, dual channel
             {
-                for (int i = 0; i < SAMPLES; i++)
+                for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
-                    INSTANCE_POINTER->data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-                    INSTANCE_POINTER->data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+                    INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
+                    INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
                 }
             }
-            else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
+            else if (INSTANCE_POINTER->rate >= 3 && INSTANCE_POINTER->rate <= 5) // .5ms, 1ms or 2ms sampling
             {
-                const unsigned long r_[] = {5000 / DOTS_DIV, 10000 / DOTS_DIV, 20000 / DOTS_DIV};
+                const unsigned long r_[] = {5000 / INSTANCE_POINTER->DOTS_DIV, 10000 / INSTANCE_POINTER->DOTS_DIV, 20000 / INSTANCE_POINTER->DOTS_DIV};
                 unsigned long st = micros();
-                unsigned long r = r_[rate - 3];
-                for (int i = 0; i < SAMPLES; i++)
+                unsigned long r = r_[INSTANCE_POINTER->rate - 3];
+                for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
                     while ((st - micros()) < r)
                     {
                         ;
                     }
                     st += r;
-                    data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-                    data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+                    INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
+                    INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
                 }
             }
-            ClearAndDrawGraph();
-            CheckSW();
-            DrawGrid();
-            DrawText();
+            INSTANCE_POINTER->Refresh_Waveform();
+            INSTANCE_POINTER->Refresh_User_Interface();
         }
-        else if (Start)
-        {   // 5ms - 500ms sampling
+        else if (INSTANCE_POINTER->Start)
+        { // 5ms - 500ms sampling
             // copy currently showing data to another
-            if (sample == 0)
+            if (INSTANCE_POINTER->sample == 0)
             {
-                for (int i = 0; i < SAMPLES; i++)
+                for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
-                    data[2][i] = data[0][i];
-                    data[3][i] = data[1][i];
+                    INSTANCE_POINTER->data[2][i] = INSTANCE_POINTER->data[0][i];
+                    INSTANCE_POINTER->data[3][i] = INSTANCE_POINTER->data[1][i];
                 }
             }
             else
             {
-                for (int i = 0; i < SAMPLES; i++)
+                for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
-                    data[0][i] = data[2][i];
-                    data[1][i] = data[3][i];
+                    INSTANCE_POINTER->data[0][i] = INSTANCE_POINTER->data[2][i];
+                    INSTANCE_POINTER->data[1][i] = INSTANCE_POINTER->data[3][i];
                 }
             }
 
-            const unsigned long r_[] = {50000 / DOTS_DIV, 100000 / DOTS_DIV, 200000 / DOTS_DIV,
-                                        500000 / DOTS_DIV, 1000000 / DOTS_DIV, 2000000 / DOTS_DIV,
-                                        5000000 / DOTS_DIV, 10000000 / DOTS_DIV};
+            const unsigned long r_[] = {50000 / INSTANCE_POINTER->DOTS_DIV, 100000 / INSTANCE_POINTER->DOTS_DIV, 200000 / INSTANCE_POINTER->DOTS_DIV,
+                                        500000 / INSTANCE_POINTER->DOTS_DIV, 1000000 / INSTANCE_POINTER->DOTS_DIV, 2000000 / INSTANCE_POINTER->DOTS_DIV,
+                                        5000000 / INSTANCE_POINTER->DOTS_DIV, 10000000 / INSTANCE_POINTER->DOTS_DIV};
             unsigned long st = micros();
-            for (int i = 0; i < SAMPLES; i++)
+            for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
             {
-                while ((st - micros()) < r_[rate - 6])
+                while ((st - micros()) < r_[INSTANCE_POINTER->rate - 6])
                 {
-                    CheckSW();
-                    if (rate < 6)
+                    INSTANCE_POINTER->Refresh_User_Interface();
+                    if (INSTANCE_POINTER->rate < 6)
                     {
                         break;
                     }
                 }
-                if (rate < 6) // sampling rate has been changed
+                if (INSTANCE_POINTER->rate < 6) // sampling rate has been changed
                 {
                     break;
                 }
-                st += r_[rate - 6];
+                st += r_[INSTANCE_POINTER->rate - 6];
                 if (st - micros() > r_[rate - 6]) // sampling rate has been changed to shorter interval
                 {
                     st = micros();
                 }
-                if (!Start)
+                if (!INSTANCE_POINTER->Start)
                 {
                     i--;
                     continue;
                 }
-                data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-                data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
-                ClearAndDrawDot(i);
+                data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
+                data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
             }
-            DrawGrid();
-            DrawText();
+            INSTANCE_POINTER->Refresh_Waveform();
         }
         else
         {
-            CheckSW();
+            INSTANCE_POINTER->Refresh_User_Interface();
         }
     }
 }
 
-
-void Oscilloscope_Task(void *pvParameters)
+void Oscilloscope_Class::Refresh_User_Interface()
 {
-    (void)pvParameters;
-
-    ledcSetup(0, 50, 13);
-    ledcAttachPin(2, 0);
-
-    for (;;)
+    while (1)
     {
         while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
         {
@@ -340,34 +357,9 @@ void Oscilloscope_Task(void *pvParameters)
         INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position] = 0; //work done, reset the selector
         INSTANCE_POINTER->Read_Position++;
     }
-    // LedC
 
-    for (;;)
-    {
 
-        //Oscilloscope_Class::Instance_Pointer->ledcAnalogWrite(0, amplitude);
 
-        uint32_t duty = (8191 / 255) * min(INSTANCE_POINTER->amplitude, 255);
-        ledcWrite(0, duty);
-
-        INSTANCE_POINTER->amplitude = INSTANCE_POINTER->amplitude + INSTANCE_POINTER->amplitudeStep;
-        if (INSTANCE_POINTER->amplitude <= 0 || INSTANCE_POINTER->amplitude >= 255)
-        {
-            INSTANCE_POINTER->amplitudeStep = -INSTANCE_POINTER->amplitudeStep;
-        }
-        vTaskDelay(pdMS_TO_TICKS(30));
-    }
-
-    // SigmaDelta
-    sigmaDeltaSetup(0, 312500);
-    sigmaDeltaAttachPin(5, 0);
-    sigmaDeltaWrite(0, 0);
-    for (;;)
-    {
-        static uint8_t i = 0;
-        sigmaDeltaWrite(0, i++);
-        delayMicroseconds(50);
-    }
 
     while (1)
     {
@@ -443,7 +435,7 @@ void Oscilloscope_Task(void *pvParameters)
                     INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 0][i] = 0;
                 }
             }
-            else if (rate == 2) // full speed, dual channel
+            else if (INSTANCE_POINTER->rate == 2) // full speed, dual channel
             {
                 for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
@@ -451,11 +443,11 @@ void Oscilloscope_Task(void *pvParameters)
                     INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
                 }
             }
-            else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
+            else if (INSTANCE_POINTER->rate >= 3 && INSTANCE_POINTER->rate <= 5) // .5ms, 1ms or 2ms sampling
             {
-                const unsigned long r_[] = {5000 / INSTANCE_POINTER->DOTS_DIV, 10000 / DOTS_DIV, 20000 / DOTS_DIV};
+                const unsigned long r_[] = {5000 / INSTANCE_POINTER->DOTS_DIV, 10000 / INSTANCE_POINTER->DOTS_DIV, 20000 / INSTANCE_POINTER->DOTS_DIV};
                 unsigned long st = micros();
-                unsigned long r = r_[rate - 3];
+                unsigned long r = r_[INSTANCE_POINTER->rate - 3];
                 for (int i = 0; i < INSTANCE_POINTER->SAMPLES; i++)
                 {
                     while ((st - micros()) < r)
@@ -468,11 +460,7 @@ void Oscilloscope_Task(void *pvParameters)
                 }
             }
             INSTANCE_POINTER->Update_Waveform();
-
-            ClearAndDrawGraph(); //Update screen
-            CheckSW();           // Check UI
-            DrawGrid();          // Update screen
-            DrawText();          // Update screen
+            INSTANCE_POINTER->Update_User_Interface();
         }
         else if (INSTANCE_POINTER->Start)
         { // 5ms - 500ms sampling
@@ -502,7 +490,7 @@ void Oscilloscope_Task(void *pvParameters)
             {
                 while ((st - micros()) < r_[rate - 6])
                 {
-                    CheckSW(); // check UI
+                    INSTANCE_POINTER->Update_User_Interface(); // check UI
                     if (rate < 6)
                     {
                         break;
@@ -565,13 +553,7 @@ long Oscilloscope_Class::adRead(short ch, short mode, int off)
     return a;
 }
 
-void Oscilloscope_Class::ledcAnalogWrite(uint8_t channel, uint32_t value, uint32_t valueMax = 255)
-{
-    uint32_t duty = (8191 / valueMax) * min(value, valueMax);
-    ledcWrite(channel, duty);
-}
-
-void Oscilloscope_Class::Update_Waveform()
+void Oscilloscope_Class::Refresh_Waveform()
 {
     int clear = 0;
 
@@ -588,4 +570,3 @@ void Oscilloscope_Class::Update_Waveform()
         GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, NULL, SAMPLES, data[sample + 1]);
     }
 }
-

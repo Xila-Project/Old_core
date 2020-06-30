@@ -2,38 +2,40 @@
 #define FILE_MANAGER_HPP_INCLUDED
 
 #include "Arduino.h"
-
+#include <FS.h>
 #include "GalaxOS.hpp"
 
-class File_Manager_Class
+
+class File_Manager_Class : public Software_Class
 {
-private:
-    static uint8_t Number_Instance;
+protected:
 
-    uint16_t Socket_Method;
-
-    xTaskHandle Socket_Handle;
+    static File_Manager_Class* Instance_Pointer;
 
     File Temporary_File;
 
-    String Current_File_Path;
+    uint8_t Mode;
+
+    char* Current_File_Path;
 
     void Display_Path();
 
+    void New();
     void Delete();
+    void Rename();
 
     void Go_Parent();
 
-public:
-    File_Manager_Class();
+
+
+    File_Manager_Class(Software_Handle_Class*);
     ~File_Manager_Class();
 
-    void Execute(uint16_t const &Socket_Method_To_Set);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
+    Software_Class* Load(Software_Handle_Class*);
 
-    friend void File_Manager_Socket(void *pvParameters);
+    friend void File_Manager_Task(void *);
 };
 
-void File_Manager_Socket(void *pvParameters);
+void File_Manager_Task(void *);
 
 #endif

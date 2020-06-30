@@ -25,12 +25,14 @@ Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Software_H
 
   textContent = {0, 0, false};
 
-  xTaskCreatePinnedToCore(Internet_Browser_Task, "iGOS", 8192, NULL, 2, &Task_Handle, 1);
+  xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, 2, &Task_Handle, 1);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
 {
+  Execute(0x0043);
   vTaskDelete(Task_Handle);
+  Instance_Pointer == NULL;
 }
 
 void Internet_Browser_Task(void *pvParameters)
@@ -104,7 +106,7 @@ void Internet_Browser_Class::Go_Home()
   }
   Cache_File.flush();
   return;
-}
+} fej sl
 
 void Internet_Browser_Class::Go_URL()
 {

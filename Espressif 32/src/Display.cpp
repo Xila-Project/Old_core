@@ -417,7 +417,7 @@ void Nextion_Display_Class::Calibrate()
     Instruction_End();
 }
 
-void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value = NULL, uint32_t const& Quantity = NULL, uint8_t Array = NULL)
+void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value = NULL, uint32_t const& Quantity = NULL, uint8_t* Array = NULL)
 {
     Nextion_Serial.print(F("add"));
     if (Quantity == NULL)

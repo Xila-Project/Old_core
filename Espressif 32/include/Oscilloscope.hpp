@@ -1,4 +1,3 @@
-#include "Software.hpp"
 #include "GalaxOS.hpp"
 
 // Code reused from "M5Stack ESP32 Oscilloscope"
@@ -8,6 +7,8 @@ class Oscilloscope_Class : public Software_Class
 {
 protected:
     static Oscilloscope_Class *Instance_Pointer;
+
+    TaskHandle_t SigmaDelta_Handle;
 
     const uint8_t Waveform_ID = 9;
 
@@ -73,27 +74,24 @@ protected:
     short Start = 1;
     short menu = 19;
 
-    short data[4][SAMPLES]; // keep twice of the number of channels to make it a double buffer
+    short data[4][320]; // keep twice of the number of channels to make it a double buffer
     
     short sample = 0;       // index for double buffer
     int amplitude = 0;
     int amplitudeStep = 5;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
-#define CH1COLOR YELLOW
-#define CH2COLOR CYAN
-#define GREY 0x7BEF
 
     inline long adRead(short, short, int);
 
-    void ledcAnalogWrite(uint8_t, uint32_t, uint32_t);
+    void Refresh_Waveform();
+    void Refresh_User_Interface();
 
-    void Update_Waveform();
+    Software_Class* Load(Software_Handle_Class*);
 
-    friend void Oscilloscope_Task(void *);
-    friend void Sampling_Task(void *);
+    friend void Oscilloscope_Task(void *); //main task
+    friend void SigmaDelta_Task(void *); // used to generate sigmadelta signal
 };
 
 void Oscilloscope_Task(void *);
-
-void Sampling_Task(void *);
+void SigmaDelta_Task(void *);
