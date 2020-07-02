@@ -105,8 +105,7 @@ void Internet_Browser_Class::Go_Home()
     Serial.println(F("Display Cache Failed !"));
   }
   Cache_File.flush();
-  return;
-} fej sl
+}
 
 void Internet_Browser_Class::Go_URL()
 {

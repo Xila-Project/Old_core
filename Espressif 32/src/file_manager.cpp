@@ -137,7 +137,7 @@ void File_Manager_Class::Delete()
 void File_Manager_Task(void *pvParameters)
 {
     (void)pvParameters;
-    for (;;)
+    while (1)
     {
         while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Poisiton)
         {

@@ -1,43 +1,33 @@
-#include "calculator.hpp"
-#include "galaxos.hpp"
+#include "Calculator.hpp"
 
-uint8_t Calculator_Class::Number_Instance = 0;
+Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
+
+#define INSTANCE_POINTER Calculator_Class:Instance_Pointer
 
 Calculator_Class::Calculator_Class()
 {
-    if (Number_Instance > 0)
+    if (Instance_Pointer != NULL)
     {
-        delete this;
-        return;
+        delete Instance_Pointer;
     }
-
-    ++Number_Instance;
+    
+    xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, Task_Handle, 1);
 }
 
 Calculator_Class::~Calculator_Class()
 {
-    --Number_Instance;
+    Instance_Pointer == NULL;
 }
 
-void Calculator_Class::Execute(uint16_t const &Socket_Method_To_Set)
+void Calculator_Task(void *pvParameters)
 {
-    Socket_Method = Socket_Method_To_Set;
-    vTaskResume(Socket_Handle);
-}
-
-void Calculator_Class::Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2)
-{
-    Socket_Method = ((uint16_t)Socket_Method_Char1 << 8) | (uint16_t)Socket_Method_Char2;
-    vTaskResume(Socket_Handle);
-}
-
-void Calculator_Socket(void *pvParameters)
-{
-    Calculator_Class *Calculator_Pointer;
-    GalaxOS.Get_Software_Pointer(Calculator_Pointer);
-    for (;;)
+    while (1)
     {
-        switch (Calculator_Pointer->Socket_Method)
+        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
+        {
+            vTaskDelay(pdMS_TO_TICKS(20));
+        }
+        switch (INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position])
         {
         case 0:
 
@@ -113,13 +103,13 @@ void Calculator_Socket(void *pvParameters)
             pow(Calculator_Pointer->Number[Calculator_Pointer->Current_Number], 2);
             break;
 
-        
 
         default:
             break;
         }
-        Calculator_Pointer->Socket_Method = 0;
-        vTaskSuspend(NULL);
+        INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position];
+        INSTANCE_POINTER->Read_Position++;
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 
@@ -155,6 +145,19 @@ void Calculator_Class::Compute()
             case '/':
                 Number[0] /= Number[i];
                 break;
+            case '^':
+                pow(Number[0], Number[i]);
+            case 'S':
+                sin(Number[i]);
+            case 'C':
+                cos(Number[i]);
+            case 'T':
+                tan(Number[i]);
+            case 's':
+                asin();
+                break;
+            case 'c':
+                acos(Number[i]);
             default:
                 break;
             }
@@ -166,17 +169,10 @@ void Calculator_Class::Compute()
 void Calculator_Class::Clear()
 {
     Current_Number = 0;
-    Number[0] = 0;
-    Number[1] = 0;
-    Number[2] = 0;
-    Number[3] = 0;
-    Number[4] = 0;
-    Number[5] = 0;
-    Operator[0] = 0;
-    Operator[1] = 0;
-    Operator[2] = 0;
-    Operator[3] = 0;
-    Operator[4] = 0;
+    memset(Number[1], NULL, sizeof(Number[1]));
+    memset(Number[2], NULL, sizeof(Number[2]));
+    memset(Operator, NULL, sizeof(Operator));
+
 }
 
 void Calculator_Class::Clear_Last_Number()

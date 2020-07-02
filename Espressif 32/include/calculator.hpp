@@ -2,22 +2,22 @@
 #define CALCULATOR_HPP_INCLUDED
 
 #include "Arduino.h"
+#include "Software.hpp"
 
-class Calculator_Class
+class Calculator_Class : public Software_Class
 {
 private:
 
-    static uint8_t Number_Instance;
-
-    uint16_t Socket_Method;
-
-    xTaskHandle Socket_Handle;
+    static Calculator_Class* Instance_Pointer;
     
     float Result;
 
-    float Number[5];
+    float Number[2][5];
 
-    char Operator[4];
+
+    uint8_t Operator[4];
+
+    
 
     uint8_t Current_Number;
 
@@ -35,12 +35,9 @@ public:
     Calculator_Class();
     ~Calculator_Class();
 
-    void Execute(uint16_t const &Socket_Method_To_Set);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
-
-    friend void Calculator_Socket(void *pvParameters);
+    friend void Calculator_Task(void *pvParameters);
 };
 
-void Calculator_Socket(void *pvParamters);
+void Calculator_Task(void *pvParamters);
 
 #endif
