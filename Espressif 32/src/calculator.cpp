@@ -2,7 +2,7 @@
 
 Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
 
-#define INSTANCE_POINTER Calculator_Class:Instance_Pointer
+#define INSTANCE_POINTER Calculator_Class::Instance_Pointer
 
 Calculator_Class::Calculator_Class()
 {
@@ -11,7 +11,7 @@ Calculator_Class::Calculator_Class()
         delete Instance_Pointer;
     }
     
-    xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, Task_Handle, 1);
+    xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, &Task_Handle, 1);
 }
 
 Calculator_Class::~Calculator_Class()
@@ -33,74 +33,74 @@ void Calculator_Task(void *pvParameters)
 
             break;
         case 0x4230: //B0
-            Calculator_Pointer->Add_Number(0);
+            INSTANCE_POINTER->Add_Number(0);
             break;
 
         case 0x4231: //B1
-            Calculator_Pointer->Add_Number(1);
+            INSTANCE_POINTER->Add_Number(1);
             break;
 
         case 0x4232: //B2
-            Calculator_Pointer->Add_Number(2);
+            INSTANCE_POINTER->Add_Number(2);
             break;
 
         case 0x4233: //B3
-            Calculator_Pointer->Add_Number(3);
+            INSTANCE_POINTER->Add_Number(3);
             break;
 
         case 0x4234: //B4
-            Calculator_Pointer->Add_Number(4);
+            INSTANCE_POINTER->Add_Number(4);
             break;
 
         case 0x4235: //B5
-            Calculator_Pointer->Add_Number(5);
+            INSTANCE_POINTER->Add_Number(5);
             break;
 
         case 0x4236: //B6
-            Calculator_Pointer->Add_Number(6);
+            INSTANCE_POINTER->Add_Number(6);
             break;
 
         case 0x4237: //B7
-            Calculator_Pointer->Add_Number(7);
+            INSTANCE_POINTER->Add_Number(7);
             break;
 
         case 0x4238: //B8
-            Calculator_Pointer->Add_Number(8);
+            INSTANCE_POINTER->Add_Number(8);
             break;
 
         case 0x4239: //B9
-            Calculator_Pointer->Add_Number(9);
+            INSTANCE_POINTER->Add_Number(9);
             break;
 
         case 0x423D: //B=
-            Calculator_Pointer->Compute();
+            INSTANCE_POINTER->Compute();
 
         case 0x4243: //BC
-            Calculator_Pointer->Clear();
+            INSTANCE_POINTER->Clear();
             break;
 
         case 0x4244: //BD
-            Calculator_Pointer->Clear_Last_Number();
+            INSTANCE_POINTER->Clear_Last_Number();
             break;
 
         case 0x422B: //B+
-            Calculator_Pointer->Set_Operator('+');
+            INSTANCE_POINTER->Set_Operator('+');
             break;
 
         case 0x422D: //B-
-            Calculator_Pointer->Set_Operator('-');
+            INSTANCE_POINTER->Set_Operator('-');
             break;
 
         case 0x422A: //B*
-            Calculator_Pointer->Set_Operator('*');
+            INSTANCE_POINTER->Set_Operator('*');
             break;
 
         case 0x422F: //B/
-            Calculator_Pointer->Set_Operator('/');
+            INSTANCE_POINTER->Set_Operator('/');
             break;
 
         case 0x42B2: //B²
-            pow(Calculator_Pointer->Number[Calculator_Pointer->Current_Number], 2);
+            pow(INSTANCE_POINTER->Number[INSTANCE_POINTER->Current_Number], 2);
             break;
 
 
