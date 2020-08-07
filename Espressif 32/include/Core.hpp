@@ -16,21 +16,10 @@
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
 
-// Hub file
-#include "GalaxOS.hpp" //Main file part, included in main sketch
 // Driver files
 #include "Display.hpp"  // Nextion display driver (maybe create a library for each driver)
 #include "Keyboard.hpp" // PS2 keyboard driver
 #include "Sound.hpp"
-// Software file
-#include "Internet_Browser.hpp"
-#include "Periodic.hpp"
-#include "File_Manager.hpp"
-#include "Calculator.hpp"
-#include "Piano.hpp"
-#include "Ultrasonic.hpp"
-#include "Signal_Generator.hpp"
-#include "Paint.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -93,11 +82,11 @@
 #define CODE_VARIABLE_FLOAT 70             //4 byte float
 #define CODE_VARIABLE_LONG 76              //4 byte
 #define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
-#define CODE_VARIABLE_STRING 83
+#define CODE_VARIABLE_STRING à
 
 // System's path
 #define SYSTEM_PATH "/GALAXOS/"
-#define REGISTRY_PATH "REGISTRY/""
+#define REGISTRY_PATH "REGISTRY/"
 
 
 // GRF : Galax'OS Registry File
@@ -108,6 +97,9 @@
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
+
+class Software_Class;
+class Software_Handle_Class;
 
 class GalaxOS_Class
 {

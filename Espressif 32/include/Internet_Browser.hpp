@@ -1,8 +1,7 @@
 #ifndef INTERNET_BROWSER_H_INCLUDED
 #define INTERNET_BROWSER_H_INCLUDED
 
-#include "Arduino.h"
-#include "Software.hpp"
+#include "GalaxOS.hpp"
 
 #include "WiFiClient.h"
 #include <HTTPClient.h>

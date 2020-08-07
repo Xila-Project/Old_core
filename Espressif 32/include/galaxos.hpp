@@ -3,9 +3,7 @@
 
 #include "Arduino.h"
 #include "Core.hpp"
-#include "FS.h"
-#include "SD_MMC.h"
-#include "HardwareSerial.h"
+#include "Software.hpp"
 
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 //      _____       ___   _           ___  __    __       _____   _____       //
@@ -18,7 +16,6 @@
 //||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 // Michalhol : Keyboard Library (https://github.com/michalhol/ps2kbdlib)      //
 
-
-GalaxOS_Class GalaxOS;
+extern GalaxOS_Class GalaxOS;
 
 #endif

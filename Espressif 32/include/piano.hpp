@@ -1,7 +1,6 @@
-#include "Arduino.h"
+#include "GalaxOS.hpp"
 
-
-class Piano_Class
+class Piano_Class : public Software_Class
 {
 private:
 

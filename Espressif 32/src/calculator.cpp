@@ -16,7 +16,7 @@ Calculator_Class::Calculator_Class()
 
 Calculator_Class::~Calculator_Class()
 {
-    Instance_Pointer == NULL;
+    Instance_Pointer = NULL;
 }
 
 void Calculator_Task(void *pvParameters)
@@ -169,9 +169,9 @@ void Calculator_Class::Compute()
 void Calculator_Class::Clear()
 {
     Current_Number = 0;
-    memset(Number[1], NULL, sizeof(Number[1]));
-    memset(Number[2], NULL, sizeof(Number[2]));
-    memset(Operator, NULL, sizeof(Operator));
+    memset(Number[1], 0, sizeof(Number[1]));
+    memset(Number[2], 0, sizeof(Number[2]));
+    memset(Operator, 0, sizeof(Operator));
 
 }
 
@@ -191,7 +191,7 @@ void Calculator_Class::Display()
         }
         else
         {
-           Temporary_String += Number[i];
+           Temporary_String += StNumber[i];
         }
         Temporary_String += " ";
 

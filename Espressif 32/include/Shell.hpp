@@ -1,5 +1,4 @@
 #include "GalaxOS.hpp"
-#include "Software.hpp"
 
 class Shell_Class : public Software_Class
 {

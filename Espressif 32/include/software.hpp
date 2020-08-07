@@ -2,14 +2,16 @@
 #define SOTFWARE_H_INCLUDED
 
 #include "Arduino.h"
-#include "GalaxOS.hpp"
-#include "SD_MMC.h"
+
+class GalaxOS_Class;
+class Shell_Class;
+class Software_Handle_Class;
 
 #define SOFTWARE_TYPE_LOADED 0
 #define SOFTWARE_TYPE_COMPILED 1
 #define SOFTWARE_TYPE_INTERPRETED 2
 
-class Software_Class //Software class, with used by the core to communicate
+class Software_Class //Software class, used by the core in order to communicate with the software
 {
 protected:
     Software_Class(Software_Handle_Class* Task_Handle_To_Set, uint8_t& Task_Queue_Size);
@@ -39,7 +41,7 @@ protected:
     friend class Shell_Class;
 };
 
-class Software_Handle_Class //Software-descriptor class, used internaly to load the software
+class Software_Handle_Class //Software "descriptor" class, used interaly to load the software
 {
 protected:
     uint8_t Icon;

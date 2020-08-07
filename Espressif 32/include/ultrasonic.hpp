@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "GalaxOS.hpp"
 
 #define SOUND_SPEED_AIR 343

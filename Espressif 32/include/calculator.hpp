@@ -1,8 +1,8 @@
 #ifndef CALCULATOR_HPP_INCLUDED
 #define CALCULATOR_HPP_INCLUDED
 
+#include "GalaxOS.hpp"
 #include "Arduino.h"
-#include "Software.hpp"
 
 class Calculator_Class : public Software_Class
 {

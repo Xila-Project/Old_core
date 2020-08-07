@@ -1,10 +1,9 @@
 #ifndef SIGNAL_GENERATOR_INCLUDED
 #define SIGNAL_GENERATOR_INCLUDED
 
-#include "Arduino.h"
-#include "galaxos.hpp"
+#include "GalaxOS.hpp"
 
-class Signal_Generator_Class
+class Signal_Generator_Class : public Software_Class
 {
 private:
     static uint8_t Number_Instance;

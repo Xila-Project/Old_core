@@ -33,9 +33,9 @@
 #include "Arduino.h"
 
 #include "Core.hpp"
-#include "WiFi.h"
-#include "GalaxOS.hpp"
-#include "Software.hpp"
+
+GalaxOS_Class GalaxOS;
+
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -719,7 +719,7 @@ void GalaxOS_Class::Load_System_Files()
   {
     while (Temporary_File.available() && Temporary_File.peek() != 10 && Temporary_File.peek() != 13)
     {
-      Temporary_String += String(Temporary_File.read());
+      Temporary_String += St*ring(Temporary_File.read());
     }
     if (Temporary_String != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12")
     {

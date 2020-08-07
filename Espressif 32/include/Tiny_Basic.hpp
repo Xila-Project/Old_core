@@ -1,11 +1,13 @@
 #ifndef TINYBASIC_H_INCLUDED
 #define TINYBASIC_H_INCLUDED
 
-class TinyBasic_Class
+#include "GalaxOS.hpp"
+
+class TinyBasic_Class : public Software_Class
 {
     private:
 
-    const static unsigned char keywords[] PROGMEM =
+    const static unsigned char keywords[] =
     {
     'L','I','S','T'+0x80,
     'L','O','A','D'+0x80,

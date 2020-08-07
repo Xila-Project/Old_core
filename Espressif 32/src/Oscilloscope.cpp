@@ -1,5 +1,7 @@
 #include "Oscilloscope.hpp"
 
+extern GalaxOS_Class GalaxOS;
+
 #define INSTANCE_POINTER Oscilloscope_Class::Instance_Pointer
 
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
