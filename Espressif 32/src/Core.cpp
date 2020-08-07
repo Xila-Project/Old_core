@@ -140,6 +140,7 @@ void GalaxOS_Class::Start()
   {
     strcpy(SSID, Network_Registry["SSID" + String(i)]);
     strcpy(Password, Network_Registry["Password" + String(i)]);
+    WiFi.setAutoConnect(false);
     WiFi.begin(SSID, Password);
     while (WiFi.status() != WL_CONNECTED && i < 50)
     {
@@ -336,7 +337,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 // Software management
 
-void GalaxOS_Class::Open_Software(const char *Software_Name)
+void GalaxOS_Class::Open_Software(const char* Software_Name)
 {
   for (uint8_t i = 0; i < 6; i++)
   {
@@ -366,7 +367,7 @@ void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
     vTaskDelete(Get_Software_Pointer(Software_Name)->Task_Handle);
     delete Get_Software_Pointer(Software_Name);
 
-    Get_Software_Pointer(Software_Name) = NULL;
+    Set_Software_Pointer(Software_Name) = NULL;
   }
 }
 
@@ -575,67 +576,46 @@ void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set)
 
 void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
 { //string
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_READ);
-  if (Temporary_File)
+  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_READ);
+  if (RAM_File)
   {
-    while (Temporary_File.available())
-    {
-      String_To_Get += String((char)Temporary_File.read());
-    }
-    Temporary_File.close();
-    return;
+    String_To_Get += RAM_File.readString();
   }
-  else
-  {
-    //error
-    return;
-  }
+  RAM_File.close();
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const &Number_To_Set)
 { //char
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
-  Temporary_File.seek(0);
-  if (Temporary_File)
+  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
+  RAM_File.seek(0);
+  if (RAM_File)
   {
-    Temporary_File.write(Number_To_Set);
-    Temporary_File.close();
-    return;
+    RAM_File.write(Number_To_Set);
   }
-  else
-  {
-    //error
-    return;
-  }
+  RAM_File.close();
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t &Number_To_Set)
 { //char
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
-  if (Temporary_File)
+  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
+  if (RAM_File)
   {
-    Number_To_Set = Temporary_File.read();
-    Temporary_File.close();
-    return;
+    Number_To_Set = RAM_File.read();
   }
-  else
-  {
-    //error
-    return;
-  }
+  RAM_File.close();
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const &Number_To_Set)
 { //integer
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
+  if (RAM_File)
   {
     uint8_t Split_Integer[] = {(uint8_t)Number_To_Set << 8, (uint8_t)Number_To_Set};
     if (Temporary_File.write(Split_Integer, 2) != 2)
     {
       //error handle
     }
-    Temporary_File.close();
+    RAM_File.close();
   }
   else
   {
@@ -645,11 +625,11 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const &Number_To_Set)
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
 { //integer
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
+  if (RAM_File)
   {
-    Number_To_Set = ((uint16_t)Temporary_File.read() << 8) | (uint16_t)Temporary_File.read();
-    Temporary_File.close();
+    Number_To_Set = ((uint16_t)RAM_File.read() << 8) | (uint16_t)RAM_File.read();
+    RAM_File.close();
   }
   else
   {
@@ -670,41 +650,29 @@ void Ressource_Monitor(void *pvParameters)
   }
 }
 
-uint16_t &GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+uint16_t GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-  Temporary_File = SD_MMC.open("/USERS/" + String(Username_To_Check) + "/STTNGS/PASSWORD.GSF", FILE_READ);
-  String Temporary_Password = "";
+  File Temporary_File = SD_MMC.open("/USERS/" + String(Username_To_Check) + "/STTNGS/PASSWORD.GSF", FILE_READ);
+  char Temporary_Password[Temporary_File.size()];
   if (Temporary_File)
   {
-    while (Temporary_File.available())
-    {
-      if (isAlphaNumeric(Temporary_File.peek()))
-      {
-        Temporary_Password += String(Temporary_File.read());
-      }
-      else
-      {
-        Temporary_File.read();
-      }
-    }
-    Temporary_File.close();
+    Temporary_File.readString().toCharArray(Temporary_Password, Temporary_File.size());  
   }
   else
   {
     Serial.println(F("Wrong Username !"));
-    Temporary_File.close();
     return WARNING_WRONG_USERNAME;
   }
-  if (Temporary_Password == Temporary_Password)
+  Temporary_File.close();
+  if (strcmp(Temporary_Password, Password_To_Check))
   {
     Serial.println(F("Good Password"));
-    strcpy(Username, Username_To_Check);
+    strcpy(Current_Username, Username_To_Check);
 
     return INFORMATION_GOOD_CREDENTIALS;
   }
   else
   {
-    Display.Set_Text(F("WRONG_TXT"), F("WRONG PASSWORD"));
     Serial.println(F("Wrong Password !"));
     return WARNING_WRONG_PASSWORD;
   }
@@ -713,13 +681,13 @@ uint16_t &GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const 
 void GalaxOS_Class::Load_System_Files()
 {
   Serial.println(F("Load System Files ..."));
-  Temporary_File = SD_MMC.open("/GALAXOS.GSF");
+  File Temporary_File = SD_MMC.open("/GALAXOS.GSF");
   String Temporary_String = "";
   if (Temporary_File)
   {
     while (Temporary_File.available() && Temporary_File.peek() != 10 && Temporary_File.peek() != 13)
     {
-      Temporary_String += St*ring(Temporary_File.read());
+      Temporary_String += String(Temporary_File.read());
     }
     if (Temporary_String != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12")
     {

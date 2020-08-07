@@ -14,7 +14,7 @@ class Software_Handle_Class;
 class Software_Class //Software class, used by the core in order to communicate with the software
 {
 protected:
-    Software_Class(Software_Handle_Class* Task_Handle_To_Set, uint8_t& Task_Queue_Size);
+    Software_Class(Software_Handle_Class*, uint8_t&);
     ~Software_Class(); //call when soft is closed
 
     TaskHandle_t Task_Handle;

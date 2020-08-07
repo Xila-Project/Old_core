@@ -11,10 +11,13 @@
 #include "time.h"
 #include "Update.h"
 #include <ArduinoJson.h> //used to store
+#include "WiFi.h"
 
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
+
+#include "Software.hpp"
 
 // Driver files
 #include "Display.hpp"  // Nextion display driver (maybe create a library for each driver)
@@ -82,7 +85,7 @@
 #define CODE_VARIABLE_FLOAT 70             //4 byte float
 #define CODE_VARIABLE_LONG 76              //4 byte
 #define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
-#define CODE_VARIABLE_STRING à
+#define CODE_VARIABLE_STRING 0x53
 
 // System's path
 #define SYSTEM_PATH "/GALAXOS/"
@@ -98,13 +101,11 @@
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
 
-class Software_Class;
-class Software_Handle_Class;
-
 class GalaxOS_Class
 {
 protected:
     //System attribute
+    File RAM_File;
     //File Temporary_File;
 
     byte C_MIDI;
@@ -132,7 +133,7 @@ protected:
     char WiFi_SSID[20];
     char WiFi_Password[20];
 
-    xTaskHandle Nextion_Serial_Receive_Handle;
+    xTaskHandle Nextion_Serial_Receive_Handl*e;
 
     xTaskHandle Ressource_Monitor_Handle;
     xTaskHandle GalaxOS_Core_Handle;
@@ -141,9 +142,10 @@ protected:
 
     Software_Class *Get_Software_Pointer(const char *Software_Name);
     Software_Handle_Class *Get_Software_Handle_Pointer(const char *Software_Name);
+    void Set_Software_Pointer(const char*, Software_Pointer, Software_);
 
-    void Open_Software(const char* Software_Name);
-    void Close_Software(const char* Software_Name);
+    void Open_Software(const char*);
+    void Close_Software();
 
 public:
     GalaxOS_Class();
@@ -168,7 +170,7 @@ public:
     void Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data);
     void Incomming_Event_From_Display(uint16_t);
 
-    // Serial communication
+    // Serial communication macro
     void Horizontal_Seperator();
     void Print_Line(const char *Text_To_Print, uint8_t Alignement);
 

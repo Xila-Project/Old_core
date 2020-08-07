@@ -12,7 +12,7 @@ private:
     
     float Result;
 
-    float Number[2][5];
+    float Number[5];
 
 
     uint8_t Operator[4];
@@ -32,7 +32,7 @@ private:
     void Display();
 
 public:
-    Calculator_Class();
+    Calculator_Class(Software_Handle_Class*);
     ~Calculator_Class();
 
     friend void Calculator_Task(void *pvParameters);

@@ -102,9 +102,9 @@ void File_Manager_Class::New()
 {
     for (uint8_t i = 1; i < 10; i++)
     {
-        if (!SD_MMC.exists(Current_File_Path + "/NEWFILE" + String(i) + ".TXT"))
+        if (!SD_MMC.exists(Current_File_Path + "/NEWFILE" + char(i) + ".TXT"))
         {
-            SD_MMC.open(Current_File_Path + "/NEWFILE" + String(i) + ".TXT");
+            SD_MMC.open(Current_File_Path + "/NEWFILE" + char(i) + ".TXT", FILE_WRITE);
             break;
         }
     }
@@ -139,7 +139,7 @@ void File_Manager_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Poisiton)
+        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
         {
             vTaskDelay(pdMS_TO_TICKS(20));
         }

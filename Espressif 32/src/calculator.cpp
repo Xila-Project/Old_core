@@ -4,7 +4,7 @@ Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
 
 #define INSTANCE_POINTER Calculator_Class::Instance_Pointer
 
-Calculator_Class::Calculator_Class()
+Calculator_Class::Calculator_Class(Software_Handle_Class* Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 8)
 {
     if (Instance_Pointer != NULL)
     {
@@ -63,7 +63,6 @@ void Calculator_Task(void *pvParameters)
         case 0x4237: //B7
             INSTANCE_POINTER->Add_Number(7);
             break;
-
         case 0x4238: //B8
             INSTANCE_POINTER->Add_Number(8);
             break;
@@ -134,30 +133,36 @@ void Calculator_Class::Compute()
             switch (Operator[i - 1])
             {
             case '+':
-                Number[0] += Number[i];
+                Result += Number[i];
                 break;
             case '-':
-                Number[0] -= Number[i];
+                Result -= Number[i];
                 break;
             case '*':
-                Number[0] *= Number[i];
+                Result *= Number[i];
                 break;
             case '/':
-                Number[0] /= Number[i];
+                Result /= Number[i];
                 break;
             case '^':
                 pow(Number[0], Number[i]);
+                break;
             case 'S':
-                sin(Number[i]);
+                Result = sin(Number[i]);
+                break;
             case 'C':
-                cos(Number[i]);
+                Result = cos(Number[i]);
+                break;
             case 'T':
-                tan(Number[i]);
+                Result = tan(Number[i]);
+                break;
             case 's':
-                asin();
+                asin(Number[i]);
                 break;
             case 'c':
-                acos(Number[i]);
+                Result = acos(Number[i]);
+            case 't':
+                Result = atan(Number[i]);
             default:
                 break;
             }
@@ -169,8 +174,7 @@ void Calculator_Class::Compute()
 void Calculator_Class::Clear()
 {
     Current_Number = 0;
-    memset(Number[1], 0, sizeof(Number[1]));
-    memset(Number[2], 0, sizeof(Number[2]));
+    memset(Number, 0, sizeof(Number));
     memset(Operator, 0, sizeof(Operator));
 
 }
@@ -191,7 +195,7 @@ void Calculator_Class::Display()
         }
         else
         {
-           Temporary_String += StNumber[i];
+           Temporary_String += Number[i];
         }
         Temporary_String += " ";
 
