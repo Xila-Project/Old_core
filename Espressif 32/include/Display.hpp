@@ -6,6 +6,8 @@
 #include "FS.h"
 #include "SD_MMC.h"
 
+#define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
+
 #define DISPLAY_BLACK 0
 #define DISPLAY_BLUE 31
 #define DISPLAY_BROWN 48192

@@ -361,7 +361,7 @@ void Nextion_Display_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t c
     Instruction_End();
 }
 
-void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color)
+void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const& Color)
 {
     Draw_Rectangle(X_Coordinate, Y_Coordinate, 1, 1, Color);
 }

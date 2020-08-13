@@ -109,7 +109,7 @@ void Keyboard_Class::setLeds(uint8_t d) {
     send(d&7);
 }
 
-void Keyboard_Class:: () {
+void Keyboard_Class::() {
     if(dirOUT)
     {
         return;

@@ -105,7 +105,8 @@ class GalaxOS_Class
 {
 protected:
     //System attribute
-    File RAM_File;
+    File Virtual_Memory_File;
+    SemaphoreHandle_t Virtual_Memory_Semaphore;
     //File Temporary_File;
 
     byte C_MIDI;
@@ -119,8 +120,8 @@ protected:
 
     String Temporary_String;
 
-    Software_Class *Open_Software[6];
-    Software_Handle_Class *Software_Handle[MAXIMUM_SOFTWARE];
+    Software_Class *Open_Software_Pointer[6];
+    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
     uint8_t Event_Reply;
 
@@ -133,19 +134,20 @@ protected:
     char WiFi_SSID[20];
     char WiFi_Password[20];
 
-    xTaskHandle Nextion_Serial_Receive_Handl*e;
+    xTaskHandle Nextion_Serial_Receive_Handle;
 
     xTaskHandle Ressource_Monitor_Handle;
     xTaskHandle GalaxOS_Core_Handle;
 
     //Software management
 
-    Software_Class *Get_Software_Pointer(const char *Software_Name);
+    Software_Class *Get_Software_Pointer(const char *);
     Software_Handle_Class *Get_Software_Handle_Pointer(const char *Software_Name);
-    void Set_Software_Pointer(const char*, Software_Pointer, Software_);
+    void Set_Software_Pointer(const char*, Software_Class *);
+    void Set_Software_Handle_Pointer(const char*, Software_Handle_Class *);
 
     void Open_Software(const char*);
-    void Close_Software();
+    void Close_Software(const char*);
 
 public:
     GalaxOS_Class();
@@ -171,7 +173,7 @@ public:
     void Incomming_Event_From_Display(uint16_t);
 
     // Serial communication macro
-    void Horizontal_Seperator();
+    void Horizontal_Separator();
     void Print_Line(const char *Text_To_Print, uint8_t Alignement);
 
     //

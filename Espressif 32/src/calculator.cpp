@@ -14,23 +14,17 @@ Calculator_Class::Calculator_Class(Software_Handle_Class* Software_Handle_To_Set
     xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, &Task_Handle, 1);
 }
 
-Calculator_Class::~Calculator_Class()
+Calculator_Class::~Calculator_Class() : ~Software_Class()
 {
-    Instance_Pointer = NULL;
 }
 
 void Calculator_Task(void *pvParameters)
 {
     while (1)
     {
-        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
+        switch (INSTANCE_POINTER->Get_Command())
         {
-            vTaskDelay(pdMS_TO_TICKS(20));
-        }
-        switch (INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position])
-        {
-        case 0:
-
+        case 0: //idle
             break;
         case 0x4230: //B0
             INSTANCE_POINTER->Add_Number(0);
@@ -106,9 +100,7 @@ void Calculator_Task(void *pvParameters)
         default:
             break;
         }
-        INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position];
-        INSTANCE_POINTER->Read_Position++;
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 

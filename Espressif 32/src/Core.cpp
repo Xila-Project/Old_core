@@ -36,7 +36,6 @@
 
 GalaxOS_Class GalaxOS;
 
-
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
 
@@ -83,11 +82,22 @@ void GalaxOS_Class::Start()
   Print_Line();
   Print_Line();
   Horizontal_Separator();
-  Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + String(ESP.getFreeHeap()) + "/327680 Bytes");
-  Print_Line("Galax OS Embedded Edition - Alix ANNERAUD - Alpha");
+  Print_Line(F("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + String(ESP.getFreeHeap()) + "/327680 Bytes"));
+  Print_Line(F("Galax OS Embedded Edition - Alix ANNERAUD - Alpha"));
   Horizontal_Separator();
-  Print_Line("Starting Galax OS ...", 0);
-  
+  Print_Line(F("Starting Galax OS ..."), 0);
+  // Initialize Virtual Memory
+  Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
+
+  if (Virtual_Memory_Semaphore == NULL)
+  {
+    //error handle
+  }
+  else
+  {
+    xSemaphoreGive(Virtual_Memory_Semaphore);
+  }
+
   // Initialize SD Card
   Print_Line("Mount The SD Card ...", 0);
 
@@ -133,7 +143,7 @@ void GalaxOS_Class::Start()
   }
   DynamicJsonDocument Network_Registry(256);
   deserializeJson(Network_Registry, Temporary_File);
-  WiFi.setHostname(Network_Registry["Host Name"]); // Set hostname
+  WiFi.setHostname(Network_Registry["Host Name"]);                   // Set hostname
   const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
   char SSID[32], Password[32];
   for (uint8_t i = 1; i < Number_WiFi_AP; i++)
@@ -158,16 +168,16 @@ void GalaxOS_Class::Start()
   // Set Regional Parameters
 
   Temporary_File = SD_MMC.open(F("/GALAXOS/REGISTRY/REGIONAL.GRF"));
-  if(!Temporary_File)
+  if (!Temporary_File)
   {
-    //error 
+    //error
   }
   Synchronise_Time();
   Temporary_File.close();
 
   // Load software (including Shell UI)
   Temporary_File = SD_MMC.open("/GALAXOS/REGISTRY/SOFTWARE.GRF");
-  if(!Temporary_File)
+  if (!Temporary_File)
   {
     return;
   }
@@ -189,13 +199,11 @@ void GalaxOS_Class::Save_System_State()
   }
   DynamicJsonDocument System_Save_Registry(256);
 
-  System_Save_Registry["Current Username"] = Current_Username;  
-  
+  System_Save_Registry["Current Username"] = Current_Username;
 
   File Temporary_File = SD_MMC.open("/GALAXOS/GOSCUSA.GSF");
   serializeJson(System_Save_Registry, Temporary_File);
   Temporary_File.close();
-
 }
 
 // Callback function for screen
@@ -337,7 +345,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 // Software management
 
-void GalaxOS_Class::Open_Software(const char* Software_Name)
+void GalaxOS_Class::Open_Software(const char *Software_Name)
 {
   for (uint8_t i = 0; i < 6; i++)
   {
@@ -367,7 +375,7 @@ void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
     vTaskDelete(Get_Software_Pointer(Software_Name)->Task_Handle);
     delete Get_Software_Pointer(Software_Name);
 
-    Set_Software_Pointer(Software_Name) = NULL;
+    Set_Software_Pointer(Software_Name, NULL);
   }
 }
 
@@ -409,7 +417,7 @@ Software_Handle_Class *GalaxOS_Class::Get_Software_Handle_Pointer(const char *So
   }
 }
 
-void GalaxOS_Class::Set_Load_Function(const char *Software_Name, Software_Handle_Class *(*Load_Function_To_Set)())
+void GalaxOS_Class::Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)())
 {
   Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer = Load_Function_To_Set;
 }
@@ -421,7 +429,7 @@ void GalaxOS_Class::Horizontal_Separator()
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
 }
 
-void GalaxOS_Class::Print_Line(const char* Text_To_Print = NULL, uint8_t Alignement = 1)
+void GalaxOS_Class::Print_Line(const char *Text_To_Print = NULL, uint8_t Alignement = 1)
 {
   Serial.print(F("||"));
 
@@ -454,7 +462,7 @@ void GalaxOS_Class::Print_Line(const char* Text_To_Print = NULL, uint8_t Alignem
   {
     Serial.println(F(" "));
   }
-    Serial.println("||");
+  Serial.println("||");
 }
 
 // --------------------------
@@ -462,8 +470,6 @@ void GalaxOS_Class::Print_Line(const char* Text_To_Print = NULL, uint8_t Alignem
 void GalaxOS_Class::Restore_System_State()
 {
   Display.Set_Current_Page(PAGE_DESK);
-
-
 
   if (!SD_MMC.exists("/GALAXOS/GOSCUSA.GSF"))
   {
@@ -484,157 +490,139 @@ void GalaxOS_Class::Restore_System_State()
   ESP.restart();
 }
 
-//---------------------------------------------------------------------------\\
-//                                    Memory                                  
+//---------------------------------------------------------------------------//
+//                                Virtual Memory Management                  //
+//---------------------------------------------------------------------------//
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t const &Number_To_Set)
-{ //float
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
+{ // 32 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + Tag, FILE_WRITE);
   uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24};
-  if (Temporary_File)
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    if (Temporary_File.write(Split_Number, 4) != 4)
-    {
-      //error handle
-    }
-    Temporary_File.close();
+    Virtual_Memory_File.write(Split_Number, 4);
   }
-  else
-  {
-    //error
-  }
-  Temporary_File.close();
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t &Number_To_Set)
-{ //float
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+{ // 32 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    Number_To_Set = ((uint32_t)Temporary_File.read() << 24) | ((uint32_t)Temporary_File.read() << 16) | ((uint32_t)Temporary_File.read() << 8) | (uint32_t)Temporary_File.read();
-    Temporary_File.close();
-    return;
+    Number_To_Set = Virtual_Memory_File.parseFloat();
   }
-  else
-  {
-    //error
-    return;
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set)
-{
-  SD_MMC.remove("/GALAXOS/MEMORY/CHAR/" + String(Tag));
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+{ // char
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    if (Temporary_File.write((uint8_t *)String_To_Set, sizeof(String_To_Set)) != sizeof(String_To_Set))
-    {
-      //error handle
-    }
-    Temporary_File.close();
+    Virtual_Memory_File.write((uint8_t *)String_To_Set, sizeof(String_To_Set)) != sizeof(String_To_Set);
   }
-  else
-  {
-    //error
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set)
-{ //float
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+{ //char
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    Temporary_File.readBytes(String_To_Set, sizeof(String_To_Set));
-    Temporary_File.close();
-    return;
+    Virtual_Memory_File.readBytes(String_To_Set, sizeof(String_To_Set));
   }
-  else
-  {
-    //error
-    Temporary_File.close();
-    return;
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set)
 { //string
-  SD_MMC.remove("/GALAXOS/MEMORY/STRING/" + String(Tag));
-  Temporary_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_WRITE);
-  if (Temporary_File)
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    Temporary_File.print(String_To_Set);
-    Temporary_File.close();
-    return;
+    Virtual_Memory_File.print(String_To_Set);
   }
-  else
-  {
-    //error
-    return;
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
 { //string
-  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + String(Tag), FILE_READ);
-  if (RAM_File)
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_READ);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    String_To_Get += RAM_File.readString();
+    String_To_Get = Virtual_Memory_File.readString();
   }
-  RAM_File.close();
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const &Number_To_Set)
-{ //char
-  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_WRITE);
-  RAM_File.seek(0);
-  if (RAM_File)
+{ // 8 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    RAM_File.write(Number_To_Set);
+    Virtual_Memory_File.write(Number_To_Set);
   }
-  RAM_File.close();
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t &Number_To_Set)
-{ //char
-  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + String(Tag), FILE_READ);
-  if (RAM_File)
+{ // 8 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_READ);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    Number_To_Set = RAM_File.read();
+    Number_To_Set = Virtual_Memory_File.read();
   }
-  RAM_File.close();
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const &Number_To_Set)
-{ //integer
-  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
-  if (RAM_File)
+{ // 16 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  if (Virtual_Memory_File)
   {
-    uint8_t Split_Integer[] = {(uint8_t)Number_To_Set << 8, (uint8_t)Number_To_Set};
-    if (Temporary_File.write(Split_Integer, 2) != 2)
-    {
-      //error handle
-    }
-    RAM_File.close();
+    uint8_t Split_Integer[] = {uint8_t(Number_To_Set << 8), uint8_t(Number_To_Set)};
+    Virtual_Memory_File.write(Split_Integer, 2);
   }
-  else
-  {
-    //error
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
-{ //integer
-  RAM_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + String(Tag), FILE_WRITE);
-  if (RAM_File)
+{ // 16 bit
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/INTEGER/" + Tag, FILE_WRITE);
+  Virtual_Memory_File.seek(0);
+  if (Virtual_Memory_File)
   {
-    Number_To_Set = ((uint16_t)RAM_File.read() << 8) | (uint16_t)RAM_File.read();
-    RAM_File.close();
+    Number_To_Set = Virtual_Memory_File.parseInt();
   }
-  else
-  {
-    //error
-  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 void Ressource_Monitor(void *pvParameters)
@@ -656,7 +644,7 @@ uint16_t GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const c
   char Temporary_Password[Temporary_File.size()];
   if (Temporary_File)
   {
-    Temporary_File.readString().toCharArray(Temporary_Password, Temporary_File.size());  
+    Temporary_File.readString().toCharArray(Temporary_Password, Temporary_File.size());
   }
   else
   {

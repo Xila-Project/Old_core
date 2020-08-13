@@ -3,16 +3,16 @@
 
 #include "GalaxOS.hpp"
 
-class Signal_Generator_Class : public Software_Class
+#define INSTANCE_POINTER Signal_Generator_Class::Instance_Pointer
+
+class Signal_Generator_Class : protected Software_Class
 {
-private:
+protected:
     static uint8_t Number_Instance;
 
     uint16_t Socket_Method;
 
     xTaskHandle Socket_Handle;
-
-public:
 
     Signal_Generator_Class();
     ~Signal_Generator_Class();

@@ -36,6 +36,8 @@ protected:
     void Execute(uint16_t const &);
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
 
+    uint16_t Get_Command();
+
     friend class GalaxOS_Class;
     friend class Software_Handle_Class;
     friend class Shell_Class;

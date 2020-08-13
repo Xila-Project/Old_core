@@ -1,5 +1,4 @@
 #include "Internet_Browser.hpp"
-#include "GalaxOS.hpp"
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
@@ -28,11 +27,8 @@ Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Software_H
   xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, 2, &Task_Handle, 1);
 }
 
-Internet_Browser_Class::~Internet_Browser_Class()
+Internet_Browser_Class::~Internet_Browser_Class() : ~Software_Class()
 {
-  Execute(0x0043);
-  vTaskDelete(Task_Handle);
-  Instance_Pointer == NULL;
 }
 
 void Internet_Browser_Task(void *pvParameters)

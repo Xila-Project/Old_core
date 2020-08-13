@@ -4,17 +4,16 @@
 
 Software_Class *Software_Class::Instance_Pointer = NULL;
 
-Software_Class::Software_Class(Software_Handle_Class* Task_Handle_To_Set, uint8_t& Task_Queue_Size) //constructor
+Software_Class::Software_Class(Software_Handle_Class *Task_Handle_To_Set, uint8_t &Task_Queue_Size) //constructor
 {
   Task_Handle = NULL;
   Handle_Pointer = Task_Handle_To_Set;
 
   Task_Method_Array = new uint16_t[Task_Queue_Size];
   memset(Task_Method_Array, NULL, sizeof(Task_Method_Array));
-  
+
   Write_Position = 0;
   Read_Position = 0;
-
 }
 
 Software_Class::~Software_Class() // Destructor : close
@@ -29,14 +28,22 @@ Software_Class::~Software_Class() // Destructor : close
   delete Task_Method_Array;
 }
 
+uint16_t Software_Class::Get_Command()
+{
+  if (Read_Position == Write_Position)
+  {
+    return 0; //idle state
+  }
+  return Task_Method_Array[Read_Position++];
+}
+
 void Software_Class::Execute(uint16_t const &Method_To_Execute)
 {
   while (Write_Position == Read_Position - 1) // wait if write is too close from the read
   {
     vTaskDelay(pdMS_TO_TICKS(10));
   }
-  Task_Method_Array[Write_Position] = Method_To_Execute;
-  Write_Position++;
+  Task_Method_Array[Write_Position++] = Method_To_Execute;
 }
 
 void Software_Class::Execute(char const &Task_Method_Char1, char const &Task_Method_Char2)
@@ -69,7 +76,7 @@ Software_Handle_Class::~Software_Handle_Class()
 {
 }
 
-Software_Class* Software_Handle_Class::Default_Load_Function()
+Software_Class *Software_Handle_Class::Default_Load_Function()
 {
   if (SD_MMC.exists("/SOFTWARE/" + String(Name) + "/" + String(Name) + ".GEF")) //looking for executable
   {
