@@ -1,55 +1,3 @@
-/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||                                                                            ||
-||      _____       ___   _           ___  __    __       _____   _____       ||
-||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||
-||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||
-||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||
-||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||
-||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||
-||                                                                            ||
-||                                                                            ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|| For ESP-32 based MPUs                                                      ||
-|| Version : 0.1 - Alix ANNERAUD - MIT Licence - 2016/2020                    ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||                                    Wiring :                                ||
-||  - Display (Nextion) :                                                     ||
-|| Red -> 5v                                                                  ||
-|| Blue -> P16                                                                ||
-|| Yellow -> P17                                                              ||
-|| Black -> GND                                                               ||
-||  - SD Card (SDIO Mode) :                                                   ||
-|| Clock -> 14                                                                ||
-|| Command -> 15                                                              ||
-|| Data 0 -> 2                                                                ||
-|| Data 1 -> 4                                                                ||
-|| Data 2 -> 12                                                               ||
-|| Data 3 -> 13                                                               ||
-|| VCC -> 3.3v                                                                ||
-|| GND -> GND                                                                 ||
-||  - SD Card (SPI Mode) :                                                    ||
-|| MISO -> 19                                                                 ||
-|| MOSI -> 23                                                                 ||
-|| SCK -> 18                                                                  ||
-|| CS -> 5                                                                    ||
-|| VCC -> 3.3v                                                                ||
-|| GND -> GND                                                                 ||
-||  - Debbugger (ESP-Prog)                                                    ||
-|| MTCK -> 13                                                                 ||
-|| MTMS -> 14                                                                 ||
-|| MTDI -> 12                                                                 ||
-|| MTDO -> 15                                                                 ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||                                  Main Path :                               ||
-|| Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF
-|| Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF              
-|| Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF            
-||
-|| Global Virtual Memory : /GALAXOS/MEMORY/
-|| Local Virtual Memoryu : /SOFTWARE/%SOFTWARENAME%/MEMORY/
-||
-|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
-
 #include "Arduino.h"
 
 #include "Core.hpp"
@@ -109,18 +57,37 @@ void GalaxOS_Class::Start()
   // Initialize SD Card
   Print_Line("Mount The SD Card ...", 0);
 
-  #if SD_MODE == 0
-  if (!SD_MMC.begin() || SD_MMC.cardType() == CARD_NONE)
+#if SD_MODE == 0
+  if (!Drive.begin() || Drive.cardType() == CARD_NONE)
   {
+    pinMode(14, INPUT_PULLUP);
+    //pinMode(15, INPUT_PULLUP);
+    pinMode(2, INPUT_PULLUP); 
+    pinMode(4, INPUT_PULLUP); 
+    pinMode(12, INPUT_PULLUP);
+    pinMode(13, INPUT_PULLUP);
     Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
   }
   else
   {
     Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
   }
-  #else
-  
-  #endif
+#else
+  if (!Drive.begin() || Drive.cardType() == CARD_NONE)
+  {
+    pinMode(14, INPUT_PULLUP);
+    //pinMode(15, INPUT_PULLUP);
+    pinMode(2, INPUT_PULLUP); 
+    pinMode(4, INPUT_PULLUP); 
+    pinMode(12, INPUT_PULLUP);
+    pinMode(13, INPUT_PULLUP);
+    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
+  }
+  else
+  {
+    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
+  }
+#endif
 
   File Temporary_File;
 
@@ -143,7 +110,6 @@ void GalaxOS_Class::Start()
   Get_Variable('T', Test_Float);
   Serial.println(Test_Float);
 
-
   // Load Task
   Verbose_Print("Loading Task ...");
 
@@ -160,8 +126,6 @@ void GalaxOS_Class::Start()
   Display.Set_Backlight(100, false);
 
   Verbose_Println("Initialize display ...");
-
-
 
   // Load network configuration
   Print_Line("Load Network Configuration ...");
@@ -524,9 +488,9 @@ void GalaxOS_Class::Restore_System_State()
 //---------------------------------------------------------------------------//
 
 // 64-bit var
-void GalaxOS_Class::Set_Variable(uint8_t const& Tag, uint64_t& Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint64_t &Number_To_Set)
 {
-    xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive.open(GLOBAL_VIRTUAL_MEMORY_FILE, FILE_WRITE);
   Virtual_Memory_File.seek(Tag * 8);
   uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24, (uint8_t)Number_To_Set >> 32, (uint8_t)Number_To_Set >> 48, (uint8_t)Number_To_Set >> 56, (uint8_t)Number_To_Set >> 64};
@@ -538,7 +502,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const& Tag, uint64_t& Number_To_Set)
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Set_Variable(uint8_t const& Tag, uint32_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set)
 { // 32 bit
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive.open("/GALAXOS/MEMORY/VARIABLE.GSF", FILE_WRITE);

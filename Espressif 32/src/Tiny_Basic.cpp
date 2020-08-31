@@ -37,20 +37,13 @@ TinyBasic_Class::~TinyBasic_Class()
 void TinyBasic_Task(void *pvParameters)
 {
   (void)pvParameters;
-  Serial.begin(CONSOLE_BAUD); // opens serial port
-  Serial.println();
   printmsg(initmsg);
 
   GalaxOS.Display.Draw_Fill(2, 20, 476, 250, COLOR_DARK_GREY);
 
   // Initialize SD Card
 
-  pinMode(14, INPUT_PULLUP); // change this to 53 on a mega
-  //pinMode(15, INPUT_PULLUP); // change this to 53 on a mega
-  pinMode(2, INPUT_PULLUP);  // change this to 53 on a mega
-  pinMode(4, INPUT_PULLUP);  // change this to 53 on a mega
-  pinMode(12, INPUT_PULLUP); // change this to 53 on a mega
-  pinMode(13, INPUT_PULLUP); // change this to 53 on a mega
+  
 
   if (!SD_MMC.begin())
   {

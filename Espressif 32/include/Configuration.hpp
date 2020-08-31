@@ -14,7 +14,7 @@
 
 #define DEBUG_MODE 0
 
-#if DEBUG_MODE == 1
+#if DEBUG_MODE == 0
 #define SD_MODE 0 // use by default (=0) the SD I/O mode, not suitable for debbug 
 #else
 #define SD_MODE 1
