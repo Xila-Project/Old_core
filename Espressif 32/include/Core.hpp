@@ -1,13 +1,21 @@
 #ifndef GALAXOS_CORE_H_INCLUDED
 #define GALAXOS_CORE_H_INCLUDED
 
+#include "Configuration.hpp"
+
 //----------------------------------------------------------------------------//
 //                          Include Necessary Libraries                       //
 //----------------------------------------------------------------------------//
 
 #include "Arduino.h"
+
+#if SD_MODE == 0
 #include "SD_MMC.h"
 #include "FS.h"
+#else
+#include <SD.h>
+#endif
+
 #include "time.h"
 #include "Update.h"
 #include <ArduinoJson.h> //used to store
@@ -16,6 +24,8 @@
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
+
+// Other part of the core
 
 #include "Software.hpp"
 
@@ -28,7 +38,7 @@
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
-//
+// 
 #define MAXIMUM_SOFTWARE 15
 
 // Page ID Index
@@ -39,7 +49,13 @@
 #define PAGE_EVENT 20
 #define PAGE_IGOS 27
 #define PAGE_PIANO 38
-#define PAGE_MENU_1
+#define PAGE_MENU_1 
+
+// Color
+
+#define COLOR_DARK_GREY 16904
+#define COLOR_LIGHT_GREY 33808
+#define COLOR_WHITE 65535
 
 // Event Index (used to interract with the event handler)
 
@@ -90,7 +106,7 @@
 // System's path
 #define SYSTEM_PATH "/GALAXOS/"
 #define REGISTRY_PATH "REGISTRY/"
-
+#define GLOBAL_VIRTUAL_MEMORY_FILE "/GALAXOS/MEMORY/VARIABLE.GSF"
 
 // GRF : Galax'OS Registry File
 // GEF : Galax'OS Executable File
@@ -104,10 +120,11 @@
 class GalaxOS_Class
 {
 protected:
-    //System attribute
+    // Virtual Memory File
+
     File Virtual_Memory_File;
     SemaphoreHandle_t Virtual_Memory_Semaphore;
-    //File Temporary_File;
+
 
     byte C_MIDI;
 
@@ -150,12 +167,24 @@ protected:
     void Close_Software(const char*);
 
 public:
+
     GalaxOS_Class();
     ~GalaxOS_Class();
 
+    // Drivers
+    //Display
     Nextion_Display_Class Display;
+    //Sound
     Sound_Class Sound;
+    // Input
     Keyboard_Class Keyboard;
+    // Disk
+    #if SD_MODE == 0
+        fs::SDMMCFS Drive;
+    #else
+        fs::SDFS Drive;
+    #endif
+
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
@@ -217,7 +246,7 @@ public:
     uint16_t Check_Credentials(const char *Username_To_Check, const char *Password_To_Check);
 
     //services
-    void Desk_Execute(uint16_t const &Command);
+    void Desk_Execute(uint16_t const& Command);
 
     uint8_t Event_Handler(uint16_t const &Type, String const &Extra_Informations = "");
     friend void Ressource_Monitor(void *pvParameters);

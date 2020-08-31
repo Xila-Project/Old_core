@@ -1,34 +1,54 @@
-//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//||                                                                            ||
-//||      _____       ___   _           ___  __    __       _____   _____       ||
-//||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||
-//||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||
-//||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||
-//||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||
-//||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||
-//||                                                                            ||
-//||                                                                            ||
-//||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-//|| For ESP-32 based MPUs                                                      ||
-//|| Version : - Alix ANNERAUD (c) 2020                                         ||
-
-//Nextion Wiring//
-//Red -> 5v     //
-//Blue -> P16   //
-//Yellow -> P17 //
-//Black -> GND  //
-
-//   SD Card    //
-//MISO -> P19   //
-//MOSI -> P23   //
-//SCK -> P18    //
-//CS -> P5      //
-//3.3 v -> 3.3  //
-//GND -> GND    //
-
-//Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF//
-//Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF//
-//Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF//
+/*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                                                            ||
+||      _____       ___   _           ___  __    __       _____   _____       ||
+||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||
+||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||
+||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||
+||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||
+||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||
+||                                                                            ||
+||                                                                            ||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+|| For ESP-32 based MPUs                                                      ||
+|| Version : 0.1 - Alix ANNERAUD - MIT Licence - 2016/2020                    ||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                    Wiring :                                ||
+||  - Display (Nextion) :                                                     ||
+|| Red -> 5v                                                                  ||
+|| Blue -> P16                                                                ||
+|| Yellow -> P17                                                              ||
+|| Black -> GND                                                               ||
+||  - SD Card (SDIO Mode) :                                                   ||
+|| Clock -> 14                                                                ||
+|| Command -> 15                                                              ||
+|| Data 0 -> 2                                                                ||
+|| Data 1 -> 4                                                                ||
+|| Data 2 -> 12                                                               ||
+|| Data 3 -> 13                                                               ||
+|| VCC -> 3.3v                                                                ||
+|| GND -> GND                                                                 ||
+||  - SD Card (SPI Mode) :                                                    ||
+|| MISO -> 19                                                                 ||
+|| MOSI -> 23                                                                 ||
+|| SCK -> 18                                                                  ||
+|| CS -> 5                                                                    ||
+|| VCC -> 3.3v                                                                ||
+|| GND -> GND                                                                 ||
+||  - Debbugger (ESP-Prog)                                                    ||
+|| MTCK -> 13                                                                 ||
+|| MTMS -> 14                                                                 ||
+|| MTDI -> 12                                                                 ||
+|| MTDO -> 15                                                                 ||
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+||                                  Main Path :                               ||
+|| Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF
+|| Password Settings Path : /USERS/%USERNAME%/STTNGS/PASSWORD.GSF              
+|| Keyboard Settings Path : /USERS/%USERNAME%/STTNGS/KEYBOARD.GSF            
+||
+|| Global Virtual Memory : /GALAXOS/MEMORY/
+|| Local Virtual Memoryu : /SOFTWARE/%SOFTWARENAME%/MEMORY/
+||
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 #include "Arduino.h"
 
@@ -86,6 +106,24 @@ void GalaxOS_Class::Start()
   Print_Line(F("Galax OS Embedded Edition - Alix ANNERAUD - Alpha"));
   Horizontal_Separator();
   Print_Line(F("Starting Galax OS ..."), 0);
+  // Initialize SD Card
+  Print_Line("Mount The SD Card ...", 0);
+
+  #if SD_MODE == 0
+  if (!SD_MMC.begin() || SD_MMC.cardType() == CARD_NONE)
+  {
+    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
+  }
+  else
+  {
+    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
+  }
+  #else
+  
+  #endif
+
+  File Temporary_File;
+
   // Initialize Virtual Memory
   Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
 
@@ -98,22 +136,18 @@ void GalaxOS_Class::Start()
     xSemaphoreGive(Virtual_Memory_Semaphore);
   }
 
-  // Initialize SD Card
-  Print_Line("Mount The SD Card ...", 0);
+  //Testing Virtual Memory
+  uint32_t Test_Float = 123456789;
+  Set_Variable('T', Test_Float);
+  Serial.println(Test_Float);
+  Get_Variable('T', Test_Float);
+  Serial.println(Test_Float);
 
-  if (!SD_MMC.begin() || SD_MMC.cardType() == CARD_NONE)
-  {
-    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
-  }
-  else
-  {
-    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
-  }
-  File Temporary_File;
 
   // Load Task
-  Print_Line("Loading Task ...");
-  //xTaskCreatePinnedToCore() //core class : used to check system state, direct infos to right
+  Verbose_Print("Loading Task ...");
+
+  //xTaskCreatePinnedToCore() //core class : used to execute api call in "root" mode
 
   // Check if the system state was saved
   Print_Line("Check existing of file last state ...");
@@ -124,15 +158,10 @@ void GalaxOS_Class::Start()
 
   // Load display configuration
   Display.Set_Backlight(100, false);
-  Print_Line("Intialize display ...");
 
-  // A bypass & test for dev purpose
+  Verbose_Println("Initialize display ...");
 
-  uint32_t Test_Float = 123456789;
-  Set_Variable('T', Test_Float);
-  Serial.println(Test_Float);
-  Get_Variable('T', Test_Float);
-  Serial.println(Test_Float);
+
 
   // Load network configuration
   Print_Line("Load Network Configuration ...");
@@ -494,10 +523,26 @@ void GalaxOS_Class::Restore_System_State()
 //                                Virtual Memory Management                  //
 //---------------------------------------------------------------------------//
 
-void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t const &Number_To_Set)
+// 64-bit var
+void GalaxOS_Class::Set_Variable(uint8_t const& Tag, uint64_t& Number_To_Set)
+{
+    xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  Virtual_Memory_File = Drive.open(GLOBAL_VIRTUAL_MEMORY_FILE, FILE_WRITE);
+  Virtual_Memory_File.seek(Tag * 8);
+  uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24, (uint8_t)Number_To_Set >> 32, (uint8_t)Number_To_Set >> 48, (uint8_t)Number_To_Set >> 56, (uint8_t)Number_To_Set >> 64};
+  if (Virtual_Memory_File)
+  {
+    Virtual_Memory_File.write(Split_Number, 8);
+  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
+}
+
+void GalaxOS_Class::Set_Variable(uint8_t const& Tag, uint32_t const &Number_To_Set)
 { // 32 bit
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = SD_MMC.open("/GALAXOS/MEMORY/LONG/" + Tag, FILE_WRITE);
+  Virtual_Memory_File = Drive.open("/GALAXOS/MEMORY/VARIABLE.GSF", FILE_WRITE);
+  Virtual_Memory_File.seek(Tag * 8);
   uint8_t Split_Number[] = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24};
   Virtual_Memory_File.seek(0);
   if (Virtual_Memory_File)
