@@ -28,9 +28,6 @@
 
 #define INSTANCE_POINTER TinyBasic_Class::Instance_Pointer
 
-class TinyBasic_Class : public Software_Class
-{
-private:
 ////////////////////////////////////////////////////////////////////////////////
 // Feature option configuration - comment out to minimize dependencies
 
@@ -78,7 +75,15 @@ private:
 #define TFT_CS 15   // TFT Display Chip Select
 #define TFT_DC 33   // TFT Display Data/Command Select
 
-    const static unsigned char keywords[] PROGMEM = {
+#define PROG_RAM (PROG_MAX - FILEIO_RAM - TONE_RAM)
+
+class TinyBasic_Class : public Software_Class
+{
+protected:
+
+
+    static TinyBasic_Class *Instance_Pointer;
+    const unsigned char keywords[] PROGMEM = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
         'N', 'E', 'W' + 0x80,
@@ -120,8 +125,8 @@ private:
         0};
 
     boolean inhibitOutput = false;
-    static boolean runAfterLoad = false;
-    static boolean triggerRun = false;
+    boolean runAfterLoad = false;
+    boolean triggerRun = false;
 
 ////////////////////////////////////////////////////////////////////////////////
 // ASCII Characters
@@ -139,16 +144,17 @@ private:
 #define CTRLX 0x18
 
     typedef short unsigned LINENUM;
+
 #define ECHO_CHARS 1
 
-    static unsigned char program[PROG_RAM];
-    static unsigned char *txtpos, *list_line, *tmptxtpos;
-    static unsigned char expression_error;
-    static unsigned char *tempsp;
+    unsigned char program[PROG_RAM];
+    unsigned char *txtpos, *list_line, *tmptxtpos;
+    unsigned char expression_error;
+    unsigned char *tempsp;
 
     TaskHandle_t TinyBasic_Socket_Handle;
 
-    static TinyBasic_Class *TinyBasic_Pointer;
+    static TinyBasic_Class *Instance_Pointer;
 
     // This is calibration data for the raw touch data to the screen coordinates
 #define TS_MINX 3800
@@ -157,15 +163,12 @@ private:
 #define TS_MAXY 3750
 #define PENRADIUS 3
 
-
-// EEPROM
-
+    // EEPROM
 
     int eepos = 0;
 
 #define TONE_RAM (40) /* I/O buffer */
 
-#define PROG_RAM (PROG_MAX - FILEIO_RAM - TONE_RAM)
 
 
     // Stream files source : these will select, at runtime, where IO happens through for load/save
@@ -175,8 +178,8 @@ private:
         kStreamEEProm,
         kStreamFile
     };
-    static unsigned char inStream;
-    static unsigned char outStream;
+    unsigned char inStream = kStreamSerial;
+    unsigned char outStream = kStreamSerial;
 
     /***********************************************************/
     // Keyword table and constants - the last character has 0x80 added to it
@@ -245,7 +248,13 @@ private:
         unsigned char *txtpos;
     };
 
-    static const unsigned char func_tab[];
+    const unsigned char func_tab[]  = {
+    'P', 'E', 'E', 'K' + 0x80,
+    'A', 'B', 'S' + 0x80,
+    'A', 'R', 'E', 'A', 'D' + 0x80,
+    'D', 'R', 'E', 'A', 'D' + 0x80,
+    'R', 'N', 'D' + 0x80,
+    0};
 
 #define FUNC_PEEK 0
 #define FUNC_ABS 1
@@ -254,7 +263,9 @@ private:
 #define FUNC_RND 4
 #define FUNC_UNKNOWN 5
 
-    const static unsigned char to_tab[];
+    const static unsigned char to_tab[]  = {
+    'T', 'O' + 0x80,
+    0};
 
     const static unsigned char step_tab[] = {
         'S', 'T', 'E', 'P' + 0x80,
@@ -292,86 +303,84 @@ private:
 #define STACK_SIZE (sizeof(struct stack_for_frame) * 5)
 #define VAR_SIZE sizeof(short int) // Size of variables in bytes
 
-    static unsigned char *stack_limit;
-    static unsigned char *program_start;
-    static unsigned char *program_end;
-    static unsigned char *variables_begin;
-    static unsigned char *current_line;
-    static unsigned char *sp;
+    unsigned char *stack_limit;
+    unsigned char *program_start;
+    unsigned char *program_end;
+    unsigned char *variables_begin;
+    unsigned char *current_line;
+    unsigned char *sp;
 
 #define STACK_GOSUB_FLAG 'G'
 #define STACK_FOR_FLAG 'F'
 
-    static unsigned char table_index;
-    static LINENUM linenum;
+    unsigned char table_index;
+    LINENUM linenum;
 
-    static const unsigned char okmsg[] PROGMEM = "OK";
-    static const unsigned char whatmsg[] PROGMEM = "What? ";
-    static const unsigned char howmsg[] PROGMEM = "How?";
-    static const unsigned char sorrymsg[] PROGMEM = "Sorry!";
-    static const unsigned char initmsg[] PROGMEM = "TinyBasic ESP32 " TBE_VERSION;
-    static const unsigned char memorymsg[] PROGMEM = " bytes free.";
-#ifdef ENABLE_EEPROM
-    static const unsigned char eeprommsg[] PROGMEM = " EEProm bytes total.";
-    static const unsigned char eepromamsg[] PROGMEM = " EEProm bytes available.";
-#endif
-    static const unsigned char breakmsg[] PROGMEM = "break!";
-    static const unsigned char unimplimentedmsg[] PROGMEM = "Unimplemented";
-    static const unsigned char backspacemsg[] PROGMEM = "\b \b";
-    static const unsigned char indentmsg[] PROGMEM = "    ";
-    static const unsigned char sderrormsg[] PROGMEM = "SD card error.";
-    static const unsigned char sdfilemsg[] PROGMEM = "SD file error.";
-    static const unsigned char dirextmsg[] PROGMEM = "(dir)";
-    static const unsigned char slashmsg[] PROGMEM = "/";
-    static const unsigned char spacemsg[] PROGMEM = " ";
+    const unsigned char TinyBasic_Class::okmsg[] = "OK";
+    const unsigned char TinyBasic_Class::whatmsg[] = "What? ";
+    const unsigned char TinyBasic_Class::howmsg[] = "How?";
+    const unsigned char TinyBasic_Class::sorrymsg[] = "Sorry!";
+    const unsigned char TinyBasic_Class::initmsg[] = "TinyBasic ESP32 " TBE_VERSION;
+    const unsigned char TinyBasic_Class::memorymsg[] = " bytes free.";
+    const unsigned char TinyBasic_Class::eeprommsg[] = " EEProm bytes total.";
+    const unsigned char TinyBasic_Class::eepromamsg[] = " EEProm bytes available.";
+    const unsigned char TinyBasic_Class::breakmsg[] = "break!";
+    const unsigned char TinyBasic_Class::unimplimentedmsg[] = "Unimplemented";
+    const unsigned char TinyBasic_Class::backspacemsg[] = "\b \b";
+    const unsigned char TinyBasic_Class::indentmsg[] = "    ";
+    const unsigned char TinyBasic_Class::sderrormsg[] = "SD card error.";
+    const unsigned char TinyBasic_Class::sdfilemsg[] = "SD file error.";
+    const unsigned char TinyBasic_Class::dirextmsg[] = "(dir)";
+    const unsigned char TinyBasic_Class::slashmsg[] = "/";
+    const unsigned char TinyBasic_Class::spacemsg[] = " ";
 
     File fp;
 
-public:
-    TinyBasic_Class(Software_Handle_Class*);
+    String Command;
+
+    TinyBasic_Class(Software_Handle_Class *);
     ~TinyBasic_Class();
 
     void cmd_Files(void);
     unsigned char *filenameWord(void);
     static boolean sd_is_initialized = false;
 
-    static int
-    inchar(void);
-    static void outchar(unsigned char c);
-    static void line_terminator(void);
-    static short int expression(void);
-    static unsigned char breakcheck(void);
+    int inchar(void);
+    void outchar(unsigned char c);
+    void line_terminator(void);
+    short int expression(void);
+    unsigned char breakcheck(void);
 
-    static void ignore_blanks(void);
-    static void scantable(const unsigned char *table);
-    static void pushb(unsigned char b);
-    static unsigned char popb();
+    void ignore_blanks(void);
+    void scantable(const unsigned char *table);
+    void pushb(unsigned char b);
+    unsigned char popb();
     void printnum(int num);
     void printUnum(unsigned int num);
-    static unsigned short testnum(void);
-    static unsigned char print_quoted_string(void);
+    unsigned short testnum(void);
+    unsigned char print_quoted_string(void);
     void printmsgNoNL(const unsigned char *msg);
     void printmsg(const unsigned char *msg);
-    static void getln(char prompt);
-    static unsigned char *findline(void);
-    static void toUppercaseBuffer(void);
+    void getln(char prompt);
+    unsigned char *findline(void);
+    void toUppercaseBuffer(void);
     void printline();
-    static short int expr4(void);
-    static short int expr3(void);
-    static short int expr2(void);
-    static short int expression(void);
+    short int expr4(void);
+    short int expr3(void);
+    short int expr2(void);
+    short int expression(void);
 
-    static int isValidFnChar(char c);
+    int isValidFnChar(char c);
     unsigned char *filenameWord(void);
-    static void line_terminator(void);
-    static unsigned char breakcheck(void);
-    static int inchar();
-    static void outchar(unsigned char c);
-    static int initSD(void);
+    void line_terminator(void);
+    unsigned char breakcheck(void);
+    int inchar();
+    void outchar(unsigned char c);
+    int initSD(void);
 
     friend void TinyBasic_Task(void *pvParameters);
 };
 
-void TinyBasic_Task(void*);
+void TinyBasic_Task(void *);
 
 #endif

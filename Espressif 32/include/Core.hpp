@@ -92,16 +92,13 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 // Nextion command
-#define CODE_COMMAND 42
-#define CODE_COMMAND_NEW 35
-#define CODE_VARIABLE_BYTE 66              //1 byte
-#define CODE_VARIABLE_CHAR 67              //unsigned 1 byte
-#define CODE_VARIABLE_INTEGER 73           //2 byte
-#define CODE_VARIABLE_UNSIGNED_INTEGER 105 //unsigned 2 byte
-#define CODE_VARIABLE_FLOAT 70             //4 byte float
-#define CODE_VARIABLE_LONG 76              //4 byte
-#define CODE_VARIABLE_UNSIGNED_LONG 108    //unsigned 4 byte
-#define CODE_VARIABLE_STRING 0x53
+#define CODE_COMMAND 42                     // * : Command
+#define CODE_COMMAND_NEW 35                 // # : Command
+#define CODE_VARIABLE_BYTE 66               // B : 1 byte
+#define CODE_VARIABLE_INTEGER 73            // I : 2 bytes
+#define CODE_VARIABLE_LONG 76               // L : 4 bytes
+#define CODE_VARIABLE_LONG_LONG 108         // l : 8 bytes
+#define CODE_VARIABLE_STRING 0x53           // S : String (undefined size)
 
 // System's path
 #define SYSTEM_PATH "/GALAXOS/"
@@ -123,6 +120,7 @@ protected:
     // Virtual Memory File
 
     File Virtual_Memory_File;
+    uint8_t Split_Number[8];
     SemaphoreHandle_t Virtual_Memory_Semaphore;
 
 
@@ -172,9 +170,9 @@ public:
     ~GalaxOS_Class();
 
     // Drivers
-    //Display
+    // Display
     Nextion_Display_Class Display;
-    //Sound
+    // Sound
     Sound_Class Sound;
     // Input
     Keyboard_Class Keyboard;
@@ -184,6 +182,8 @@ public:
     #else
         fs::SDFS Drive;
     #endif
+    // WiFi
+
 
 
     void Start();
@@ -225,6 +225,9 @@ public:
 
     void Set_Variable(char const &Tag, uint32_t const &Number_To_Set);
     void Get_Variable(char const &Tag, uint32_t &Number_To_Set);
+
+    void Set_Variable(char const &Tag, uint64_t const &Number_To_Set);
+    void Get_Variable(char const &Tag, uint64_t &Number_To_Set);
 
     char *Get_Current_Username()
     {

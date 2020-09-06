@@ -11,7 +11,7 @@ class Software_Handle_Class;
 #define SOFTWARE_TYPE_COMPILED 1
 #define SOFTWARE_TYPE_INTERPRETED 2
 
-class Software_Class //Software class, used by the core in order to communicate with the software
+class Software_Class // Software class, used by the core in order to communicate with the software
 {
 protected:
     Software_Class(Software_Handle_Class*, uint8_t&);
@@ -22,9 +22,9 @@ protected:
     uint16_t *Task_Method_Array;
     uint8_t Write_Position, Read_Position;
 
-    Software_Handle_Class *Handle_Pointer;
+    Software_Handle_Class* Handle_Pointer;
 
-    static Software_Class *Instance_Pointer;
+    static Software_Class* Instance_Pointer;
 
     //API used by the core
 

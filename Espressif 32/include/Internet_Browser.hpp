@@ -8,6 +8,8 @@
 
 //highest header file, will be replace by a separate one
 
+#define INSTANCE_POINTER Internet_Browser_Class::Instance_Pointer
+
 #define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
 #define TIMEOUT 5000     // Timeout on ethernet reads

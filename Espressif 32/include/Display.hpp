@@ -116,7 +116,7 @@ class Nextion_Display_Class
         void Set_Input_Type(const __FlashStringHelper* Object_Name, uint8_t const& Input_Type);
         void Set_Wordwrap(const __FlashStringHelper* Object_Name, bool const& Wordwrap);
         void Set_Text(const __FlashStringHelper* Object_Name, const __FlashStringHelper* Value);
-        void Set_Text(const __FlashStringHelper* Object_Name, String const& Value); 
+        void Set_Text(const __FlashStringHelper* Object_Name, String const& Value, uint8_t const& Insert); 
         void Set_Text(String const& Object_Name, String const& Value);
         void Set_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value);
         void Set_Channel(const __FlashStringHelper* Object_Name, uint8_t const& Channel);

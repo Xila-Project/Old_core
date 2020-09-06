@@ -1,4 +1,5 @@
 #include "Internet_Browser.hpp"
+#include "galaxos.hpp"
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
@@ -36,7 +37,7 @@ void Internet_Browser_Task(void *pvParameters)
   (void)pvParameters;
   while (1)
   {
-    while (Internet_Browser_Class::Instance_Pointer->Read_Position == Internet_Browser_Class::Instance_Pointer->Write_Position)
+    while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
     {
       vTaskDelay(pdMS_TO_TICKS(20));
     }
@@ -174,7 +175,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = SD_MMC.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
   if (!Cache_File)
   {
     Serial.println(F("Cache open failed !"));
@@ -886,12 +887,12 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     GalaxOS.Display.Set_Text("URL_TXT", "Home Page");
-    Cache_File = SD_MMC.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
+    Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
   {
     GalaxOS.Display.Set_Text("URL_TXT", URL);
-    Cache_File = SD_MMC.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
+    Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
   }
 
   if (!Cache_File)

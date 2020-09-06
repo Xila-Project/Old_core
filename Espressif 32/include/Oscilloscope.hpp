@@ -27,14 +27,14 @@ protected:
     const int ad_ch0 = 35; // Analog 35 pin for channel 0
     const int ad_ch1 = 36; // Analog 36 pin for channel 1
 
-    const long VREF[] = {250, 500, 1250, 2500, 5000};
-    const int MILLIVOL_per_dot[] = {33, 17, 6, 3, 2};
+    const long VREF[5] = {250, 500, 1250, 2500, 5000};
+    const int MILLIVOL_per_dot[5] = {33, 17, 6, 3, 2};
     
     // channel mode
     const int MODE_ON = 0;
     const int MODE_INV = 1;
     const int MODE_OFF = 2;
-    const char *Modes[] = {"Normal", "Inverted", "Off"};
+    const char *Modes[3] = {"Normal", "Inverted", "Off"};
     short ch0_mode = MODE_ON;
     short ch1_mode = MODE_OFF;
 
@@ -42,7 +42,7 @@ protected:
     const int TRIG_AUTO = 0;
     const int TRIG_NORM = 1;
     const int TRIG_SCAN = 2;
-    const char *TRIG_Modes[] = {"Automatic", "Normal", "Scan"};
+    const char *TRIG_Modes[3] = {"Automatic", "Normal", "Scan"};
     const int TRIG_E_UP = 0;
     const int TRIG_E_DN = 1;
 
@@ -50,13 +50,13 @@ protected:
 #define RATE_MIN 0
 #define RATE_MAX 13
 
-    const char *Rates[] = {"F1-1", "F1-2", "F2", "5ms", "10ms", "20ms", "50ms", "0.1s", "0.2s", "0.5s", "1s", "2s", "5s", "10s"};
+    const char *Rates[14] = {"F1-1", "F1-2", "F2", "5ms", "10ms", "20ms", "50ms", "0.1s", "0.2s", "0.5s", "1s", "2s", "5s", "10s"};
     short rate = 3;
 
     // Voltage range
 #define RANGE_MIN 0
 #define RANGE_MAX 4
-    const char *Ranges[] = {"1", "0.5", "0.2", "0.1", "0.05"};
+    const char *Ranges[5] = {"1", "0.5", "0.2", "0.1", "0.05"};
     int range0 = RANGE_MIN;
     short range1 = RANGE_MIN;
 

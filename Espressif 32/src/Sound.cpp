@@ -6,7 +6,7 @@
 #include <soc/rtc.h>
 #include <math.h>
 
-Sound_Class::Sound_Class *Current_Instance_Pointer = NULL;
+Sound_Class::Sound_Class *Instance_Pointer = NULL;
 
 Sound_Class::Sound_Class()
 {
@@ -29,14 +29,14 @@ void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
     Volume = Volume_To_Set;
 }
 
-int8_t Sound_Class::Get_Volume()
+uint8_t Sound_Class::Get_Volume()
 {
     return Volume;
 }
 
 void Sound_Class::Get_Informations()
 {
-    File_Music.seek(8);
+    Music_File.seek(8);
     char Temporary_Array[] = {'W', 'A', 'V', 'E'};
     for (byte i = 0; i < 4 i++)
     {
@@ -70,7 +70,7 @@ void Sound_Class::Get_Informations()
     }
     
     File_Music.seek(36);
-    Temporary_Array =  {'d','a','t','a'};
+    strcpy(Temporary_Array, "data");
     for (byte i = 0; i < 4 i++)
     {
         if (File_Music.read() != Temporary_Array[i])
@@ -87,11 +87,20 @@ void Sound_Class::Get_Informations()
             return;
         }
     }
-    File_Music.seek(File_Music.posi)
-    File_Music.
     File_Music.seek(44);
 
 
+
+}
+
+
+void Sound_Class::Tone(uint16_t const& Frequency, uint32_t const& Duration)
+{
+
+}
+
+void Sound_Class::Mute()
+{
 
 }
 
@@ -177,7 +186,7 @@ void Sound_Class::Start_ULP()
 
     size_t load_addr = 0;
     size_t size = sizeof(mono) / sizeof(ulp_insn_t);
-    ulp_process_macros_and_load(load_addr, ULP_Sound, &size);
+    ulp_process_macros_and_load(load_addr, Sound_Program, &size);
     //  this is how to get the opcodes
     //  for(int i = 0; i < size; i++)
     //    Serial.println(RTC_SLOW_MEM[i], HEX);
@@ -204,14 +213,14 @@ void Sound_Class::Start_ULP()
     xTaskCreatePinnedToCore(Fill_Samples, "Sound Driver", 1024 * 3, NULL, 2, Sound_Socket_Handle, 1);
 }
 
-void Sound_Class::Stop_ULP()
+void Sound_Class::Mute()
 {
     const ulp_insn_t Stop_Program[] = {I_HALT};
     ulp_process_macros_and_load(0, Stop_Program, sizeof(Stop_Program) / sizeof(ulp_insn_t));
     vTaskDelete(Sound_Socket_Handle);
 }
 
-void Sound_Socket(void *pvParameters)
+void Sound_Task(void *pvParameters)
 {
     (void)pvParameters;
     uint16_t Location = 0;
@@ -221,32 +230,32 @@ void Sound_Socket(void *pvParameters)
     Sound_Class->Music_File.read((byte *)Buffer, 3036);
     while (1)
     {
-        Current_Sample = RTC_SLOW_MEM[Sound_Class::Current_Instance_Pointer->Index_Adress] & 0xffff;
+        Current_Sample = RTC_SLOW_MEM[INSTANCE_POINTER->Index_Adress] & 0xffff;
         Current_Word = Current_Sample >> 1;
 
-        while (Sound_Class::Current_Instance_Pointer->lastFilledWord != Current_Word)
+        while (INSTANCE_POINTER->lastFilledWord != Current_Word)
         {
-            unsigned int w = (uint8_t)(int)Buffer[Location++] + Sound_Class::Current_Instance_Pointer->Volume;
-            w |= (uint8_t)(int)Buffer[Location++] + Sound_Class::Current_Instance_Pointer->Volume) << 8;
-            RTC_SLOW_MEM[Sound_Class::Current_Instance_Pointer->bufferStart + Sound_Class::Current_Instance_Pointer->lastFilledWord] = w;
-            Sound_Class::Current_Instance_Pointer->lastFilledWord++;
-            if (Sound_Class::Current_Instance_Pointer->lastFilledWord == Sound_Class::Current_Instance_Pointer->totalSampleWords)
+            unsigned int w = (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume;
+            w |= (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume) << 8;
+            RTC_SLOW_MEM[INSTANCE_POINTER->bufferStart + INSTANCE_POINTER->lastFilledWord] = w;
+            INSTANCE_POINTER->lastFilledWord++;
+            if (INSTANCE_POINTER->lastFilledWord == INSTANCE_POINTER->totalSampleWords)
             {
-                Remaining_Samples = Sound_Class::Current_Instance_Pointer->Music_File.available();
+                Remaining_Samples = INSTANCE_POINTER->Music_File.available();
                 if (Remaining_Samples < 3036)
                 {
-                    Sound_Class::Current_Instance_Pointer->Music_File.read((byte *)Buffer, Remaining_Samples);
+                    INSTANCE_POINTER->Music_File.read((byte *)Buffer, Remaining_Samples);
                     for (, Remaining_Samples < 3036, i++)
                     {
                     }
-                    vTaskDelay(pdMS_TO_TICKS(5)) : Sound_Class::Current_Instance_Pointer->Music_File.close();
-                    Sound_Class::Current_Instance_Pointer->ULP_Stop();
+                    vTaskDelay(pdMS_TO_TICKS(5)) : INSTANCE_POINTER->Music_File.close();
+                    INSTANCE_POINTER->ULP_Stop();
                 }
                 else
                 {
                     Sound_Class->Music_File.read((byte *)Buffer, 3036);
                 }
-                Sound_Class::Current_Instance_Pointer->lastFilledWord = 0;
+                INSTANCE_POINTER->lastFilledWord = 0;
             }
         }
         vTaskDelay(pdMS_TO_TICKS(20));

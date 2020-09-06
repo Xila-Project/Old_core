@@ -4,9 +4,11 @@
 #include "Arduino.h"
 #include <FS.h>
 
+#define INSTANCE_POINTER Sound_Class::Instance_Pointer
+
 class Sound_Class
 {
-private:
+protected:
     const int opcodeCount = 17;
     const int dacTableStart1 = 2048 - 512;
     const int dacTableStart2 = dacTableStart1 - 512;
@@ -23,14 +25,14 @@ private:
     uint32_t Sample_Count;
     uint32_t Sample_Rate;
 
-    File File_Music;
+    File Music_File;
 
     byte Stereo, Byte_Per_Sample;
 
     uint32_t Size;
 
     TaskHandle_t Sound_Socket_Handle;
-    Sound_Class* Current_Instance_Pointer;    
+    Sound_Class* Instance_Pointer;    
 
     int8_t Volume;
 
@@ -43,6 +45,8 @@ private:
 
     void Start_ULP();
     void Stop_ULP();
+    
+    friend void Sound_Task(void*);
 
 public:
     Sound_Class();
@@ -50,10 +54,14 @@ public:
 
     static Sound_Class* Sound_Pointer;
 
-    void Set_Volume(uint8_t Volume_To_Set);
-    void Play(File& File_To_Play);
+    void Set_Volume(uint8_t);
+    uint8_t Get_Volume();
+    void Play(File&);
+    void Mute();
+    void Tone(uint16_t const&, uint32_t const&);
+
 };
 
-void Fill_Samples(void *pvParameters); //method of the class externalized due to the non-support of method in freertos
+void Sound_Task(void*); //method of the class externalized due to the non-support of method in freertos
 
 #endif
