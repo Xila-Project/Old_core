@@ -258,13 +258,6 @@ public:
     void Nextion_Upload_Firmware(String const &Path);
 };
 
-//GalaxOS class's method (FreeRTOS seems to not support class/struct)
+//GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
 void Ressource_Monitor(void *pvParameters);
-
-void Periodic_Main(byte Type);
-void Piano(int Frequency, int Note);
-void Pictureader();
-
-void UltraSonic(int USTrig, int USEcho);
-
 #endif

@@ -59,11 +59,8 @@
 //#define PROG_MAX 32768 - 1
 #define PROG_MAX 65535
 
-#ifdef ENABLE_FILEIO
 #define FILEIO_RAM (1030) /* buffer */
-#else
-#define FILEIO_RAM (0)
-#endif
+
 
 #define TBE_VERSION "0.15"
 
@@ -75,15 +72,14 @@
 #define TFT_CS 15   // TFT Display Chip Select
 #define TFT_DC 33   // TFT Display Data/Command Select
 
+#define TONE_RAM (40) /* I/O buffer */
 #define PROG_RAM (PROG_MAX - FILEIO_RAM - TONE_RAM)
 
 class TinyBasic_Class : public Software_Class
 {
 protected:
-
-
     static TinyBasic_Class *Instance_Pointer;
-    const unsigned char keywords[] PROGMEM = {
+    const unsigned char keywords[250] PROGMEM = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
         'N', 'E', 'W' + 0x80,
@@ -167,8 +163,6 @@ protected:
 
     int eepos = 0;
 
-#define TONE_RAM (40) /* I/O buffer */
-
 
 
     // Stream files source : these will select, at runtime, where IO happens through for load/save
@@ -248,13 +242,13 @@ protected:
         unsigned char *txtpos;
     };
 
-    const unsigned char func_tab[]  = {
-    'P', 'E', 'E', 'K' + 0x80,
-    'A', 'B', 'S' + 0x80,
-    'A', 'R', 'E', 'A', 'D' + 0x80,
-    'D', 'R', 'E', 'A', 'D' + 0x80,
-    'R', 'N', 'D' + 0x80,
-    0};
+    const unsigned char func_tab[26] = {
+        'P', 'E', 'E', 'K' + 0x80,
+        'A', 'B', 'S' + 0x80,
+        'A', 'R', 'E', 'A', 'D' + 0x80,
+        'D', 'R', 'E', 'A', 'D' + 0x80,
+        'R', 'N', 'D' + 0x80,
+        0};
 
 #define FUNC_PEEK 0
 #define FUNC_ABS 1
@@ -263,15 +257,15 @@ protected:
 #define FUNC_RND 4
 #define FUNC_UNKNOWN 5
 
-    const static unsigned char to_tab[]  = {
-    'T', 'O' + 0x80,
-    0};
+    const unsigned char to_tab[4] = {
+        'T', 'O' + 0x80,
+        0};
 
-    const static unsigned char step_tab[] = {
+    const unsigned char step_tab[5] = {
         'S', 'T', 'E', 'P' + 0x80,
         0};
 
-    const static unsigned char relop_tab[] = {
+    const unsigned char relop_tab[19] = {
         '>', '=' + 0x80,
         '<', '>' + 0x80,
         '>' + 0x80,
@@ -290,7 +284,7 @@ protected:
 #define RELOP_NE_BANG 6
 #define RELOP_UNKNOWN 7
 
-    const static unsigned char highlow_tab[] = {
+    const unsigned char highlow_tab[12] = {
         'H', 'I', 'G', 'H' + 0x80,
         'H', 'I' + 0x80,
         'L', 'O', 'W' + 0x80,
@@ -316,23 +310,23 @@ protected:
     unsigned char table_index;
     LINENUM linenum;
 
-    const unsigned char TinyBasic_Class::okmsg[] = "OK";
-    const unsigned char TinyBasic_Class::whatmsg[] = "What? ";
-    const unsigned char TinyBasic_Class::howmsg[] = "How?";
-    const unsigned char TinyBasic_Class::sorrymsg[] = "Sorry!";
-    const unsigned char TinyBasic_Class::initmsg[] = "TinyBasic ESP32 " TBE_VERSION;
-    const unsigned char TinyBasic_Class::memorymsg[] = " bytes free.";
-    const unsigned char TinyBasic_Class::eeprommsg[] = " EEProm bytes total.";
-    const unsigned char TinyBasic_Class::eepromamsg[] = " EEProm bytes available.";
-    const unsigned char TinyBasic_Class::breakmsg[] = "break!";
-    const unsigned char TinyBasic_Class::unimplimentedmsg[] = "Unimplemented";
-    const unsigned char TinyBasic_Class::backspacemsg[] = "\b \b";
-    const unsigned char TinyBasic_Class::indentmsg[] = "    ";
-    const unsigned char TinyBasic_Class::sderrormsg[] = "SD card error.";
-    const unsigned char TinyBasic_Class::sdfilemsg[] = "SD file error.";
-    const unsigned char TinyBasic_Class::dirextmsg[] = "(dir)";
-    const unsigned char TinyBasic_Class::slashmsg[] = "/";
-    const unsigned char TinyBasic_Class::spacemsg[] = " ";
+    const unsigned char TinyBasic_Class::okmsg[3] = "OK";
+    const unsigned char TinyBasic_Class::whatmsg[7] = "What? ";
+    const unsigned char TinyBasic_Class::howmsg[5] = "How?";
+    const unsigned char TinyBasic_Class::sorrymsg[8] = "Sorry!";
+    const unsigned char TinyBasic_Class::initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
+    const unsigned char TinyBasic_Class::memorymsg[13] = " bytes free.";
+    const unsigned char TinyBasic_Class::eeprommsg[21] = " EEProm bytes total.";
+    const unsigned char TinyBasic_Class::eepromamsg[25] = " EEProm bytes available.";
+    const unsigned char TinyBasic_Class::breakmsg[7] = "break!";
+    const unsigned char TinyBasic_Class::unimplimentedmsg[14] = "Unimplemented";
+    const unsigned char TinyBasic_Class::backspacemsg[4] = "\b \b";
+    const unsigned char TinyBasic_Class::indentmsg[5] = "    ";
+    const unsigned char TinyBasic_Class::sderrormsg[15] = "SD card error.";
+    const unsigned char TinyBasic_Class::sdfilemsg[15] = "SD file error.";
+    const unsigned char TinyBasic_Class::dirextmsg[6] = "(dir)";
+    const unsigned char TinyBasic_Class::slashmsg[2] = "/";
+    const unsigned char TinyBasic_Class::spacemsg[2] = " ";
 
     File fp;
 
@@ -343,7 +337,7 @@ protected:
 
     void cmd_Files(void);
     unsigned char *filenameWord(void);
-    static boolean sd_is_initialized = false;
+    boolean sd_is_initialized = false;
 
     int inchar(void);
     void outchar(unsigned char c);

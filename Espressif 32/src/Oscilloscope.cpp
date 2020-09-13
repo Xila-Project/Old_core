@@ -6,13 +6,13 @@ extern GalaxOS_Class GalaxOS;
 
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
-Oscilloscope_Class::Oscilloscope_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 5)
+Oscilloscope_Class::Oscilloscope_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 6)
 {
 
     Instance_Pointer = this;
 
     xTaskCreatePinnedToCore(Oscilloscope_Task, "Oscilloscope", 2 * 1024, NULL, 2, &Task_Handle, 0);
-    xTaskCreatePinnedToCore(SigmaDelta_Task, "SigmaDelta", 2 * 1024, NULL, 2, NULL, &SigmaDelta_Handle, 0);
+    xTaskCreatePinnedToCore(SigmaDelta_Task, "SigmaDelta", 2 * 1024, NULL, 2, &SigmaDelta_Handle, 0);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()
@@ -29,7 +29,7 @@ Software_Class *Oscilloscope_Class::Load(Software_Handle_Class* Software_Handle_
   {
     return Instance_Pointer;
   }
-  return new Internet_Browser_Class(Software_Handle_To_Set);
+  return new Oscilloscope_Class(Software_Handle_To_Set);
 }
 
 void SigmaDelta_Task(void *pvParameters)
@@ -187,7 +187,7 @@ void Oscilloscope_Task(void *pvParameters)
                     break;
                 }
                 st += r_[INSTANCE_POINTER->rate - 6];
-                if (st - micros() > r_[rate - 6]) // sampling rate has been changed to shorter interval
+                if (st - micros() > r_[INSTANCE_POINTER->rate - 6]) // sampling rate has been changed to shorter interval
                 {
                     st = micros();
                 }
@@ -196,8 +196,8 @@ void Oscilloscope_Task(void *pvParameters)
                     i--;
                     continue;
                 }
-                data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
-                data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
+                INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
+                INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
             }
             INSTANCE_POINTER->Refresh_Waveform();
         }
@@ -212,11 +212,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
 {
     while (1)
     {
-        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
-        {
-            vTaskDelay(pdMS_TO_TICKS(20));
-        }
-        switch (INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position])
+        switch (Get_Command())
         {
         case 0x0000:
             // idle state
@@ -356,8 +352,6 @@ void Oscilloscope_Class::Refresh_User_Interface()
         default:
             break;
         }
-        INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read_Position] = 0; //work done, reset the selector
-        INSTANCE_POINTER->Read_Position++;
     }
 
 
@@ -461,8 +455,8 @@ void Oscilloscope_Class::Refresh_User_Interface()
                     INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
                 }
             }
-            INSTANCE_POINTER->Update_Waveform();
-            INSTANCE_POINTER->Update_User_Interface();
+            INSTANCE_POINTER->Refresh_Waveform();
+            INSTANCE_POINTER->Refresh_User_Interface();
         }
         else if (INSTANCE_POINTER->Start)
         { // 5ms - 500ms sampling
@@ -492,7 +486,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
             {
                 while ((st - micros()) < r_[rate - 6])
                 {
-                    INSTANCE_POINTER->Update_User_Interface(); // check UI
+                    INSTANCE_POINTER->Refresh_User_Interface(); // check UI
                     if (rate < 6)
                     {
                         break;
@@ -519,11 +513,6 @@ void Oscilloscope_Class::Refresh_User_Interface()
             DrawGrid(); //refresh screen
             DrawText(); // refresh screen
         }
-        else
-        {
-            CheckSW(); //refresh screen
-        }
-        M5.update(); // refresh screen
     }
 }
 

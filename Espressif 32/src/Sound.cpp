@@ -8,14 +8,16 @@
 
 Sound_Class::Sound_Class *Instance_Pointer = NULL;
 
+
+
 Sound_Class::Sound_Class()
 {
-    if (Current_Instance_Pointer != NULL)
+    if (Instance_Pointer != NULL)
     {
-        delete this return;
+        delete this;
     }
 
-    Current_Instance_Pointer = this;
+    INSTANCE_POINTER = this;
 
     Volume = 0;
 }
@@ -34,13 +36,13 @@ uint8_t Sound_Class::Get_Volume()
     return Volume;
 }
 
-void Sound_Class::Get_Informations()
+void Sound_Class::Get_Metadata()
 {
     Music_File.seek(8);
     char Temporary_Array[] = {'W', 'A', 'V', 'E'};
     for (byte i = 0; i < 4 i++)
     {
-        if (File_Music.read() != Temporary_Array[i])
+        if (Music_File.read() != Temporary_Array[i])
         {
             return;
         }
@@ -48,60 +50,52 @@ void Sound_Class::Get_Informations()
 
     // Looking for the byte rate
 
-    File_Music.seek(22);
+    Music_File.seek(22);
     Stereo = Music_File.read();
-    File_Music.seek(24);
+    Music_File.seek(24);
     Sample_Rate = Music_File.read();
     Sample_Rate |= Music_File.read() << 8;
     Serial.println(F("SR :"));
     Serial.println(Sampling_Rate);
 
-    File_Music.seek(34);
+    Music_File.seek(34);
     Byte_Rate = File_Music.read();
     Byte_Rate = File_Music.read() << 8;
 
-    if(Stereo == 2)
+    if (Stereo == 2)
     {
-
     }
     else
     {
-        
     }
-    
+
     File_Music.seek(36);
     strcpy(Temporary_Array, "data");
     for (byte i = 0; i < 4 i++)
     {
         if (File_Music.read() != Temporary_Array[i])
         {
-            if(sFile.read() != Temporary_Array[i])
+            if (sFile.read() != Temporary_Array[i])
             {
                 File_Music.seek(40);
                 Size = File_Music.read();
                 Size |= (File_Music.read() << 8) + 2;
 
-                for()
+                for ()
             }
 
             return;
         }
     }
     File_Music.seek(44);
-
-
-
 }
 
-
-void Sound_Class::Tone(uint16_t const& Frequency, uint32_t const& Duration)
+void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
 {
-
 }
 
 void Sound_Class::Mute()
 {
-
 }
 
 void Sound_Class::Play(File &File_To_Play)
@@ -249,11 +243,11 @@ void Sound_Task(void *pvParameters)
                     {
                     }
                     vTaskDelay(pdMS_TO_TICKS(5)) : INSTANCE_POINTER->Music_File.close();
-                    INSTANCE_POINTER->ULP_Stop();
+                    INSTANCE_POINTER->Mute();
                 }
                 else
                 {
-                    Sound_Class->Music_File.read((byte *)Buffer, 3036);
+                    INSTANCE_POINTER->Music_File.read((byte *)Buffer, 3036);
                 }
                 INSTANCE_POINTER->lastFilledWord = 0;
             }

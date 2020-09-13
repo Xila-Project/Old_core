@@ -9,7 +9,7 @@ private:
 
 public:
     
-    Shell_Class();
+    Shell_Class(Software_Handle_Class*);
     ~Shell_Class();
 
     void Load();

@@ -7,7 +7,7 @@ GalaxOS_Class GalaxOS;
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
 
-GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
+GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) : SD_MMC()//builder
 {
   //strcpy(WiFi_SSID, "Avrupa");
   //strcpy(WiFi_Password, "0749230994");
@@ -344,10 +344,8 @@ void GalaxOS_Class::Start()
 
   void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
   {
-    if (Software_Name == NULL) //by default delete current running software
+    if (Software_Name == NULL && Software_Pointer[0] != NULL) //by default delete current running software
     {
-      Software_Pointer[0]->Minimize();
-      vTaskDelete(Software_Pointer[0]->Task_Handle);
       delete Software_Pointer[0];
       Software_Pointer[0] = NULL;
     }

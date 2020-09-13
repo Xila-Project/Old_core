@@ -22,7 +22,7 @@ Shell_Class::~Shell_Class() : ~Software_Class()
 
 Software_Class *Shell_Class::Load()
 {
-    return new Shell_Class;
+    return new Shell_Class();
 }
 
 void Shell_Task(void *pvParameters)

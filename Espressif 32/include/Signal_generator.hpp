@@ -19,10 +19,10 @@ protected:
 
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
 
-    friend void Signal_Generator_Socket(void *pvParameters);
+    friend void Signal_Generator_Socket(void*);
 
 };
 
-void Signal_Generator_Socket(void *pvParameters);
+void Signal_Generator_Socket(void*);
 
 #endif

@@ -12,7 +12,7 @@ protected:
 
     static const uint8_t Page_Paint = 25;
 public:
-    Paint_Class(Software_Handle_Class *);
+    Paint_Class(Software_Handle_Class*);
     ~Paint_Class();
 
     friend void Paint_Task(void*);

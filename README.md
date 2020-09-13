@@ -29,14 +29,13 @@ Here's features which are already implemented :
 - Clock (NTP Time).
 - Music Player (with ULP processor).
 - Calculator
-- Control Parameter (edit configuration registry, stored in comma-separated value file ".GCF").
+- Control Parameter (edit configuration registry, stored in json file ".GCF").
 - PS2 Keyboard support.
 - Multitasking (each opennend app can be minimized and reoppened in his last state).
 
 ## Roadmap
 
-- Release a version !
-- 
+- Release a "stable" version.
 - Add SSL/TLS support to the Internet Browser.
 - Add support for external app (Tinybasic ? / Python ? / Multi partitionning with binaries ?)
 - Add external video support (bitluni's VGA ? / FabGL ?).
@@ -52,7 +51,7 @@ Here's main hadware needed to run GalaxOS :
 
 - NodeMCU-32S (but all esp32 will work fine).
 - Nextion 4.3" Resistive Touch Display (NX4827T043_11)
-- SD Card Reader (4-bit MMC SD)
+- SD Card Reader (4-bit MMC SD or SPI SD)
 
 Additionnaly can be added for more features :
 

@@ -19,12 +19,11 @@ protected:
 
     TaskHandle_t Task_Handle;
 
-    uint16_t *Task_Method_Array;
-    uint8_t Write_Position, Read_Position;
-
     Software_Handle_Class* Handle_Pointer;
 
     static Software_Class* Instance_Pointer;
+
+    QueueHandle_t Command_Queue_Handle;
 
     //API used by the core
 
@@ -34,9 +33,9 @@ protected:
     void Open_File(File& File_To_Set);
 
     void Execute(uint16_t const &);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
+    void Execute(char const &, char const &);
 
-    uint16_t Get_Command();
+    uint16_t& Get_Command();
 
     friend class GalaxOS_Class;
     friend class Software_Handle_Class;

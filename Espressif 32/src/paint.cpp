@@ -13,13 +13,12 @@ Software_Class *Paint_Class::Load(Software_Handle_Class *Software_Handle_To_Set)
     return new Paint_Class(Software_Handle_To_Set);
 }
 
-Paint_Class::Paint_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 5)
+
+Paint_Class::Paint_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 6)
 {
-
     xTaskCreatePinnedToCore(Paint_Task, "Paint Task", 8192, NULL, 2, &Task_Handle, 1);
+
 }
-
-
 
 Paint_Class::~Paint_Class() : ~Software_Class()
 {
@@ -29,13 +28,9 @@ Paint_Class::~Paint_Class() : ~Software_Class()
 void Paint_Task(void* pvParameters)
 {
     (void)pvParameters;
-    for (;;)
+    while (1)
     {
-        while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
-        {
-            vTaskDelay(pdMS_TO_TICKS(20));
-        }
-        switch (INSTANCE_POINTER->Task_Method_Array[INSTANCE_POINTER->Read])
+        switch (Get_Command())
         {
             case 0:
                 break;

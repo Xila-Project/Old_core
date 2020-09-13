@@ -1634,7 +1634,10 @@ int TinyBasic_Class::inchar()
     while (1)
     {
       if (Serial.available())
+      {
+
         return Serial.read();
+      }
     }
   }
 
