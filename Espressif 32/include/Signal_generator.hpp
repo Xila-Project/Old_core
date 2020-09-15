@@ -14,7 +14,7 @@ protected:
 
     xTaskHandle Socket_Handle;
 
-    Signal_Generator_Class();
+    Signal_Generator_Class(Software_Handle_Class*);
     ~Signal_Generator_Class();
 
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);

@@ -30,7 +30,7 @@ void Paint_Task(void* pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (Get_Command())
+        switch (INSTANCE_POINTER->Get_Command())
         {
             case 0:
                 break;

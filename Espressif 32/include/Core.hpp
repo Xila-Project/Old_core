@@ -120,7 +120,7 @@ protected:
     // Virtual Memory File
 
     File Virtual_Memory_File;
-    uint8_t Split_Number[8];
+    char Split_Number[8];
     SemaphoreHandle_t Virtual_Memory_Semaphore;
 
 
@@ -162,7 +162,7 @@ protected:
     void Set_Software_Handle_Pointer(const char*, Software_Handle_Class *);
 
     void Open_Software(const char*);
-    void Close_Software(const char*);
+    void Close_Software(const char* = NULL);
 
 public:
 
@@ -178,9 +178,9 @@ public:
     Keyboard_Class Keyboard;
     // Disk
     #if SD_MODE == 0
-        fs::SDMMCFS Drive;
+        fs::SDMMCFS* Drive;
     #else
-        fs::SDFS Drive;
+        fs::SDFS* Drive;
     #endif
     // WiFi
 
@@ -197,13 +197,14 @@ public:
     void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
 
     // Display callback function
-    void Incomming_String_Data_From_Display(String &Received_Data);
-    void Incomming_Numeric_Data_From_Display(uint32_t const &Received_Data);
+    void Incomming_String_Data_From_Display(String&);
+    void Incomming_Numeric_Data_From_Display(uint64_t const&);
     void Incomming_Event_From_Display(uint16_t);
 
     // Serial communication macro
     void Horizontal_Separator();
-    void Print_Line(const char *Text_To_Print, uint8_t Alignement);
+    void Print_Line(const char* = NULL, uint8_t const& = 0);
+    void Print_Line(const __FlashStringHelper* = NULL, uint8_t const& = 0);
 
     //
     byte Get_Speaker_Pin();
@@ -246,13 +247,15 @@ public:
     void Load_System_Files();
     void Load_User_Files();
 
-    uint16_t Check_Credentials(const char *Username_To_Check, const char *Password_To_Check);
+    uint16_t Check_Credentials(const char*, const char*);
+    uint16_t Login(const char*, const char*);
 
     //services
     void Desk_Execute(uint16_t const& Command);
 
     uint8_t Event_Handler(uint16_t const &Type, String const &Extra_Informations = "");
     friend void Ressource_Monitor(void *pvParameters);
+    
     friend class Shell_Class;
 
     void Nextion_Upload_Firmware(String const &Path);

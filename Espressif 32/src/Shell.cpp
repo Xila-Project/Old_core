@@ -2,12 +2,7 @@
 
 Shell_Class *Instance_Pointer = NULL;
 
-void Shell_Class::Load()
-{
-    return;
-}
-
-Shell_Class::Shell_Class(Software_Handle_Class *Software_Handle_Pointer) : Software_Class()
+Shell_Class::Shell_Class(Software_Handle_Class *Software_Handle_Pointer) : Software_Class(Software_Handle_Pointer, 6)
 {
 
     if (Instance_Pointer != NULL)
@@ -20,12 +15,12 @@ Shell_Class::~Shell_Class() : ~Software_Class()
 {
 }
 
-Software_Class *Shell_Class::Load()
+Software_Class* Shell_Class::Load(Software_Handle_Class* Software_Handle_Pointer)
 {
-    return new Shell_Class();
+    return new Shell_Class(Software_Handle_Pointer);
 }
 
-void Shell_Task(void *pvParameters)
+void Shell_Task(void* pvParameters)
 {
     (void)pvParameters;
     while (1)

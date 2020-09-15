@@ -4,7 +4,7 @@
 
 Software_Class *Software_Class::Instance_Pointer = NULL;
 
-Software_Class::Software_Class(Software_Handle_Class *Task_Handle_To_Set, uint8_t &Task_Queue_Size) //constructor
+Software_Class::Software_Class(Software_Handle_Class *Task_Handle_To_Set, uint8_t Task_Queue_Size) //constructor
 {
   Task_Handle = NULL;
   xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
@@ -42,7 +42,7 @@ void Software_Class::Execute(char const &Task_Method_Char1, char const &Task_Met
 void Software_Class::Maximize()
 {
   vTaskResume(Task_Handle);
-  Execute(0x004D)
+  Execute(0x004D);
 }
 
 void Software_Class::Minimize()

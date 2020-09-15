@@ -4,7 +4,7 @@ uint8_t Number_Instance = 0;
 
 Nextion_Display_Class *Nextion_Display_Class::Display_Pointer;
 
-Nextion_Display_Class::Nextion_Display_Class(uint32_t const &Baud_Rate, uint8_t const &RX_Pin, uint8_t const &TX_Pin)
+Nextion_Display_Class::Nextion_Display_Class(uint32_t const &Baud_Rate, uint8_t const& RX_Pin, uint8_t const& TX_Pin) : Nextion_Serial(1)
 {
     ++Number_Instance;
     if (Number_Instance > 1)

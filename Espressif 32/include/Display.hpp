@@ -8,14 +8,7 @@
 
 #define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
 
-#define DISPLAY_BLACK 0
-#define DISPLAY_BLUE 31
-#define DISPLAY_BROWN 48192
-#define DISPLAY_GREEN 2016
-#define DISPLAY_YELLOW 65504
-#define DISPLAY_RED 63488
-#define DISPLAY_GRAY 33840
-#define DISPLAY_WHITE 65535
+
 
 #define NEXTION_ERROR_INVALID_INSTRUCTION 0x00 //4 byte
 #define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02 //4 byte
@@ -80,6 +73,21 @@ class Nextion_Display_Class
         inline void Argument_Separator();
 
     public:
+
+        #define DISPLAY_BLACK 0
+#define DISPLAY_BLUE 31
+#define DISPLAY_BROWN 48192
+#define DISPLAY_GREEN 2016
+#define DISPLAY_YELLOW 65504
+#define DISPLAY_RED 63488
+#define DISPLAY_GRAY 33840
+#define DISPLAY_WHITE 65535
+
+        enum Color {
+            Black,
+            Dark_Grey,
+            
+        };
 
         static Nextion_Display_Class* Display_Pointer;
 

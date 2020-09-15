@@ -6,27 +6,28 @@ private:
     const byte Page_Desk = 19;
     const byte Page_Menu = 31;
 
-
 public:
     
     Shell_Class(Software_Handle_Class*);
     ~Shell_Class();
-
-    void Load();
     
     static Shell_Class *Instance_Pointer;
+
+    Software_Class* Load(Software_Handle_Class*);
 
     void Maximize();
     void Minimize();
 
-    void Execute(uint16_t const &Socket_Method_To_Set);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
+    void Execute(uint16_t const&);
+    void Execute(char const&, char const&);
 
     void Login();
 
     void Open_Desk();
     void Open_Menu();
     void Open_Item();
+
+    friend void Shell_Task(void*);
 };
 
-void Shell_Task(void *pvParameters);
+void Shell_Task(void*);
