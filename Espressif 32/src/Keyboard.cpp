@@ -355,7 +355,9 @@ Keyboard_Class::Keyboard_Class(uint8_t Data_Pin, uint8_t Clock_Pin)
     ACK(false),
     updLEDs(false)
 
-{}
+{
+    toChar = 0;
+}
 
 void Keyboard_Class::Keyboard_Interrupt() {
     Keyboard_Pointer->interruptHandler();

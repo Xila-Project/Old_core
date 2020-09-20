@@ -38,32 +38,33 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 
 GalaxOS_Class::~GalaxOS_Class() // Detroyer
 {
-  
-}  
+}
 
 // Used to initialise the core
 
 void GalaxOS_Class::Start()
 {
+
   Serial.begin(921600); //PC Debug UART
+  Remaining_Spaces = 0;
   Horizontal_Separator();
   Print_Line();
-  Serial.println(F("||      _____       ___   _           ___  __    __       _____   _____       ||"));
-  Serial.println(F("||     |  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|      ||"));
-  Serial.println(F("||     | |        / /| | | |        / /| |  | || |       | | | | | |___       ||"));
-  Serial.println(F("||     | |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |      ||"));
-  Serial.println(F("||     | |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |      ||"));
-  Serial.println(F("||     |_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|      ||"));
+  Print_Line(" _____       ___   _           ___  __    __       _____   _____ ", STYLE_CENTER_ALIGNMENT);
+  Print_Line("|  ___|     /   | | |         /   | | |  | |      |  _  | |  ___|", STYLE_CENTER_ALIGNMENT);
+  Print_Line("| |        / /| | | |        / /| |  | || |       | | | | | |___ ", STYLE_CENTER_ALIGNMENT);
+  Print_Line("| |  _    / /_| | | |       / /_| |   |  |        | | | | |___  |", STYLE_CENTER_ALIGNMENT);
+  Print_Line("| |_| |  / ___  | | |___   / ___  |  | || |       | |_| |  ___| |", STYLE_CENTER_ALIGNMENT);
+  Print_Line("|_____| /_/   |_| |_____| /_/   |_| |_|  |_|      |_____| |_____|", STYLE_CENTER_ALIGNMENT);
   Print_Line();
   Print_Line();
   Horizontal_Separator();
-  Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + String(ESP.getFreeHeap()) + "/327680 Bytes", 0);
-  Print_Line(F("Galax OS Embedded Edition - Alix ANNERAUD - Alpha"), 0);
+  //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
+  Print_Line(F("Galax OS Embedded Edition - Alix ANNERAUD - Alpha"));
   Horizontal_Separator();
   Print_Line(F("Starting Galax OS ..."), 0);
   // Initialize SD Card
   Print_Line(F("Mount The SD Card ..."), 0);
-  
+
 #if SD_MODE == 0
   pinMode(14, INPUT_PULLUP);
   //pinMode(15, INPUT_PULLUP);
@@ -71,20 +72,19 @@ void GalaxOS_Class::Start()
   pinMode(4, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
   pinMode(13, INPUT_PULLUP);
-  //delete &SD_MMC;
+  delete &SD_MMC;
 #else
 
-  //delete &SD;
+  delete &SD;
 #endif
 
   if (!Drive->begin() || Drive->cardType() == CARD_NONE)
   {
-
-    Serial.println(F("|| > Warning : The SD Card isn't mounted.                                     ||"));
+    Print_Line(F("> Warning : The SD Card isn't mouted."), STYLE_LEFT_ALIGNMENT);
   }
   else
   {
-    Serial.println(F("|| > The SD Card is mounted.                                                  ||"));
+    Print_Line(F("> The SD Card is mounted."));
   }
   File Temporary_File;
 
@@ -101,15 +101,15 @@ void GalaxOS_Class::Start()
   }
 
   //Testing Virtual Memory
+
+  Verbose_Print_Line(F("> Testing Virtual Memory ..."));
   uint64_t Test_Long_Long = 249548639455789;
   Set_Variable('T', Test_Long_Long);
   Test_Long_Long = 0;
   Get_Variable('T', Test_Long_Long);
-  
-  
-  
+
   uint32_t Test_Float = 123456789;
-    Set_Variable('T', Test_Float);
+  Set_Variable('T', Test_Float);
   Serial.println(Test_Float);
   Test_Float = 0;
   Get_Variable('T', Test_Float);
@@ -127,70 +127,80 @@ void GalaxOS_Class::Start()
   Get_Variable('T', Test_Byte);
   Serial.println(Test_Byte);
 
-
+  if (Test_Long_Long != 249548639455789 || Test_Float != 123456789 || Test_Integer != 1543 || Test_Byte != 128)
+  {
+    Verbose_Print("> Waring : Test failed for uint64_t");
+  }
 
   // Load Task
-  Verbose_Print("Loading Task ...");
+  Verbose_Print("> Loading Task ...");
 
   //xTaskCreatePinnedToCore() //core class : used to execute api call in "root" mode
 
   // Check if the system state was saved
-  Print_Line(F("Check existing of file last state ..."), 0);
+  Verbose_Print("> Check existing of file last state ...");
   if (Drive->exists("/GALAXOS/GOSCUSA.GSF"))
   {
     Restore_System_State();
   }
 
   // Load display configuration
-  Display.Set_Backlight(100, false);
 
-
-
-  Verbose_Println("Initialize display ...");
+  {
+    Verbose_Print_Line("> Load display registry ...");
+    Temporary_File = Drive->open(Display_Registry_Path);
+    DynamicJsonDocument Display_Registry(256);
+    deserializeJson(Display_Registry, Temporary_File);
+    Display.Set_Backlight(Display_Registry["Backlight"] | 100, false);
+  }
 
   // Load network configuration
-  Print_Line(F("Load Network Configuration ..."));
-  Temporary_File = Drive->open("/GALAXOS/REGISTRY/NETWORK.GRF");
-  if (!Temporary_File)
   {
-    //error handle
-  }
-  DynamicJsonDocument Network_Registry(256);
-  deserializeJson(Network_Registry, Temporary_File);
-  WiFi.setHostname(Network_Registry["Host Name"]);                   // Set hostname
-  const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
-  char SSID[32], Password[32];
-  for (uint8_t i = 1; i < Number_WiFi_AP; i++)
-  {
-    strcpy(SSID, Network_Registry["SSID" + String(i)]);
-    strcpy(Password, Network_Registry["Password" + String(i)]);
-    WiFi.setAutoConnect(false);
-    WiFi.begin(SSID, Password);
-    while (WiFi.status() != WL_CONNECTED && i < 50)
+    Verbose_Print_Line("> Load network registry ...");
+    Temporary_File = Drive->open(Network_Registry_Path);
+    if (!Temporary_File)
     {
-      vTaskDelay(pdMS_TO_TICKS(100));
-      i++;
+      //error handle
     }
-    if (WiFi.status() == WL_CONNECTED)
+    DynamicJsonDocument Network_Registry(256);
+    deserializeJson(Network_Registry, Temporary_File);
+    WiFi.setHostname(Network_Registry["Host Name"]);                   // Set hostname
+    const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
+    char SSID[32], Password[32];
+    for (uint8_t i = 1; i < Number_WiFi_AP; i++)
     {
-      break;
+      strcpy(SSID, Network_Registry["SSID" + String(i)]);
+      strcpy(Password, Network_Registry["Password" + String(i)]);
+      WiFi.setAutoConnect(false);
+      WiFi.begin(SSID, Password);
+      while (WiFi.status() != WL_CONNECTED && i < 50)
+      {
+        vTaskDelay(pdMS_TO_TICKS(100));
+        i++;
+      }
+      if (WiFi.status() == WL_CONNECTED)
+      {
+        break;
+      }
     }
+    Temporary_File.close();
   }
-  delete Network_Registry;
-  Temporary_File.close();
 
   // Set Regional Parameters
-
-  Temporary_File = Drive->open(F("/GALAXOS/REGISTRY/REGIONAL.GRF"));
-  if (!Temporary_File)
   {
-    //error
+    Verbose_Print_Line("> Load regional registry ...");
+    Temporary_File = Drive->open(Regional_Registry_Path);
+    if (!Temporary_File)
+    {
+      //error
+    }
+    Synchronise_Time();
+    Temporary_File.close();
   }
-  Synchronise_Time();
-  Temporary_File.close();
 
   // Load software (including Shell UI)
-  Temporary_File = Drive->open("/GALAXOS/REGISTRY/SOFTWARE.GRF");
+  Verbose_Print_Line("> Load software registry ...");
+  Temporary_File = Drive->open(Software_Registry_Path);
   if (!Temporary_File)
   {
     return;
@@ -198,9 +208,11 @@ void GalaxOS_Class::Start()
   DynamicJsonDocument Software_Registry(256);
   deserializeJson(Software_Registry, Temporary_File);
 
-  delete Software_Registry;
+  // to do
 
   // When every thing is loaded : open shell (with privilège -> friend class) in order to login
+  Display.Set_Time(F("LOAD_TIM"), 50);
+
   Open_Software("Shell");
 }
 
@@ -224,7 +236,7 @@ void GalaxOS_Class::Save_System_State()
 
 // Callback function for screen
 
-void GalaxOS_Class::Incomming_String_Data_From_Display(String& Received_Data)
+void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
 {
   uint8_t Temporary_Return_Code = Received_Data.charAt(0);
   Received_Data.remove(0, 1);
@@ -260,7 +272,7 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String& Received_Data)
   }
 }
 
-void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint64_t const& Received_Data)
+void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint64_t const &Received_Data)
 {
   if (Tag != NULL)
   {
@@ -274,8 +286,7 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint64_t const& Received
   }
 }
 
-// File openning handling
-
+// Open file handler
 void GalaxOS_Class::Open_File(File &File_To_Open)
 {
   if (!File_To_Open)
@@ -290,7 +301,6 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
     File_To_Open.close();
     return;
   }
-
   char File_Name[14];
   strcpy(File_Name, File_To_Open.name());
   uint8_t i = 1;
@@ -303,7 +313,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
   }
   char Extension[] = {File_Name[i + 1], File_Name[i + 2], File_Name[i + 3]};
   //pre-defined
-  if (strcmp(Extension, "GEF"))
+  if (strcmp(Extension, "GEF")) // executable file : load it into FFS
   {
     if (File_To_Open.size() == 0)
     {
@@ -345,8 +355,12 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
   }
   else
   {
-    if (Registry_Read(Drive->open(F("/GALAXOS/SOFTWARE/EXTEMANA.O"))))
+    if (Drive->open(F("/GALAXOS/REGISTRY/EXTENSIO.GCF")))
     {
+      DynamicJsonDocument Extension_Registry(256);
+      File Temporary_File = Drive->open(Extension_Registry_Path);
+      deserializeJson(Extension_Registry, Temporary_File);
+      Software_Pointer[Get_Software_Pointer(Extension_Registry[Extension])]->Open_File(File_To_Open);
     }
     //error handle : unknow extension
   }
@@ -357,20 +371,21 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 void GalaxOS_Class::Open_Software(const char *Software_Name)
 {
-  for (uint8_t i = 0; i < 6; i++)
+  if (Get_Software_Handle_Pointer(Software_Name) != NULL)
   {
-    if (Software_Pointer[i] == NULL)
+    uint8_t Software_Handle_Slot = Get_Software_Handle_Pointer(Software_Name);
+    for (uint8_t i = 0; i < 6; i++)
     {
-      Software_Pointer[i] = Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer();
-      Software_Pointer[i]->Handle_Pointer = Get_Software_Handle_Pointer(Software_Name);
-      Software_Pointer[i]->Maximize();
+      if (Software_Pointer[i] == NULL)
+      {
+        Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer();
+        Software_Pointer[i]->Handle_Pointer = Software_Handle_Pointer[Software_Handle_Slot];
+      }
     }
   }
-
-  Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer();
 }
 
-void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
+void GalaxOS_Class::Close_Software(const char *Software_Name)
 {
   if (Software_Name == NULL && Software_Pointer[0] != NULL) //by default delete current running software
   {
@@ -379,21 +394,19 @@ void GalaxOS_Class::Close_Software(const char *Software_Name = NULL)
   }
   else
   {
-    Get_Software_Pointer(Software_Name)->Minimize();
-    vTaskDelete(Get_Software_Pointer(Software_Name)->Task_Handle);
-    delete Get_Software_Pointer(Software_Name);
-
-    Set_Software_Pointer(Software_Name, NULL);
+    uint8_t Software_Pointer_Slot = Get_Software_Pointer(Software_Name);
+    delete Software_Pointer[Software_Pointer_Slot];
+    Software_Pointer[Software_Pointer_Slot] = NULL;
   }
 }
 
-Software_Class *GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
+uint8_t &GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
 {
-  for (byte i = 0; 1 < 6; i++)
+  for (uint8_t i = 0; 1 < 6; i++)
   {
     if (i > 6)
     {
-      return NULL; //nothing find
+      return 0; //nothing find
     }
     if (Software_Pointer[i]->Handle_Pointer == NULL)
     {
@@ -401,12 +414,12 @@ Software_Class *GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
     }
     else if (strcmp(Software_Pointer[i]->Handle_Pointer->Name, Software_Name))
     {
-      return Software_Pointer[i];
+      return i;
     }
   }
 }
 
-Software_Handle_Class *GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
+uint8_t &GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
 {
   for (byte i = 0; i <= MAXIMUM_SOFTWARE; i++)
   {
@@ -414,20 +427,20 @@ Software_Handle_Class *GalaxOS_Class::Get_Software_Handle_Pointer(const char *So
     {
       return NULL;
     }
-    if (Software_Handle[i] == NULL)
+    if (Software_Handle_Pointer[i] == NULL)
     {
       continue;
     }
-    if (strcmp(Software_Handle[i]->Name, Software_Name))
+    if (strcmp(Software_Handle_Pointer[i]->Name, Software_Name))
     {
-      return Software_Handle[i];
+      return Software_Handle_Pointer[i];
     }
   }
 }
 
 void GalaxOS_Class::Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)())
 {
-  Get_Software_Handle_Pointer(Software_Name)->Load_Function_Pointer = Load_Function_To_Set;
+  Software_Handle_Pointer[Get_Software_Handle_Pointer(Software_Name)]->Load_Function_Pointer = Load_Function_To_Set;
 }
 
 // Serial communication with commputerà
@@ -437,7 +450,7 @@ void GalaxOS_Class::Horizontal_Separator()
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
 }
 
-void GalaxOS_Class::Print_Line(const __FlashStringHelper* Text_To_Print = NULL, uint8_t const& Alignement = 0)
+void GalaxOS_Class::Print_Line(const __FlashStringHelper *Text_To_Print, uint8_t const &Alignement)
 {
   Serial.print(F("||"));
   Serial.print(F(" "));
@@ -445,26 +458,32 @@ void GalaxOS_Class::Print_Line(const __FlashStringHelper* Text_To_Print = NULL, 
   Serial.println(F("||"));
 }
 
-void GalaxOS_Class::Print_Line(const char *Text_To_Print = NULL, uint8_t const& Alignement = 0)
+void GalaxOS_Class::Print_Line(const char *Text_To_Print, uint8_t const &Alignement)
 {
   Serial.print(F("||"));
 
-
   if (sizeof(Text_To_Print) > 64)
   {
+    //unsupported now
     return;
   }
-  uint8_t Remaining_Spaces = sizeof(Text_To_Print);
+  Remaining_Spaces = 64 - sizeof(Text_To_Print);
   switch (Alignement)
   {
   case 0: //left
     Serial.print(F(" "));
     Serial.print(Text_To_Print);
-    Remaining_Spaces = 64 - Remaining_Spaces;
     break;
   case 1: //centered
-
+    Serial.print(F(" "));
+    for (uint8_t i = 0; i < Remaining_Spaces / 2; i++)
+    {
+      Serial.println(F(" "));
+    }
+    Serial.print(Text_To_Print);
+    Remaining_Spaces /= 2;
   default:
+
     break;
   }
   for (uint8_t i = 0; i < Remaining_Spaces; i++)
@@ -509,7 +528,7 @@ void GalaxOS_Class::Restore_System_State()
 //---------------------------------------------------------------------------//
 
 // Char array
-void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, const char *String_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
@@ -522,7 +541,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set)
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, char *String_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
@@ -536,7 +555,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set)
 }
 
 // String
-void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, String const &String_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_WRITE);
@@ -549,7 +568,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set)
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, String &String_To_Get)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_READ);
@@ -566,27 +585,34 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get)
 void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint64_t const &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE, FILE_WRITE);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   Virtual_Memory_File.seek(Tag << 1);
-  Split_Number = {(char)Number_To_Set, (char)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24, (uint8_t)Number_To_Set >> 32, (uint8_t)Number_To_Set >> 48, (uint8_t)Number_To_Set >> 56, (uint8_t)Number_To_Set >> 64};
+  Split_Number[0] = (uint8_t)Number_To_Set;
+  Split_Number[1] = (uint8_t)Number_To_Set << 8;
+  Split_Number[2] = (uint8_t)Number_To_Set << 16;
+  Split_Number[3] = (uint8_t)Number_To_Set << 24;
+  Split_Number[4] = (uint8_t)Number_To_Set << 32;
+  Split_Number[5] = (uint8_t)Number_To_Set << 40;
+  Split_Number[6] = (uint8_t)Number_To_Set << 48;
+  Split_Number[7] = (uint8_t)Number_To_Set << 56;
   if (Virtual_Memory_File)
   {
-    Virtual_Memory_File.write((uint8_t)Split_Number, 8);
+    Virtual_Memory_File.write(Split_Number, 8);
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint64_t &Number_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint64_t &Number_To_Get)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_READ);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
   Virtual_Memory_File.seek(Tag << 1);
   if (Virtual_Memory_File)
   {
-    Virtual_Memory_File.readBytes(Split_Number, 8);
+    Virtual_Memory_File.readBytes((char *)Split_Number, 8);
   }
-  Number_To_Get = (uint64_t)Split_Number << 56 | (uint64_t)Split_Number << 48 | (uint64_t)Split_Number << 32 | (uint64_t)Split_Number << 24 | (uint64_t)Split_Number << 16 | (uint64_t)Split_Number << 8 | (uint64_t)Split_Number;
+  Number_To_Get = (uint64_t)Split_Number << 56 | (uint64_t)Split_Number << 48 | (uint64_t)Split_Number << 40 | (uint64_t)Split_Number << 32 | (uint64_t)Split_Number << 24 | (uint64_t)Split_Number << 16 | (uint64_t)Split_Number << 8 | (uint64_t)Split_Number;
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
@@ -595,21 +621,24 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint64_t &Number_To_Get)
 void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE, FILE_WRITE);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   Virtual_Memory_File.seek(Tag << 1);
-  Split_Number = {(uint8_t)Number_To_Set, (uint8_t)Number_To_Set >> 8, (uint8_t)Number_To_Set >> 16, (uint8_t)Number_To_Set >> 24};
+  Split_Number[0] = (uint8_t)Number_To_Set;
+  Split_Number[1] = (uint8_t)Number_To_Set << 8;
+  Split_Number[2] = (uint8_t)Number_To_Set << 16;
+  Split_Number[3] = (uint8_t)Number_To_Set << 24;
   if (Virtual_Memory_File)
   {
-    Virtual_Memory_File.write((uint8_t)Split_Number, 4);
+    Virtual_Memory_File.write(Split_Number, 4);
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t& Number_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_READ);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
   Virtual_Memory_File.seek(Tag << 1);
   if (Virtual_Memory_File)
   {
@@ -620,23 +649,24 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t& Number_To_Get)
 }
 
 // 16 bit variable
-void GalaxOS_Class::Set_Variable(char const &Tag, uint16_t const& Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t const &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_WRITE);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   if (Virtual_Memory_File)
   {
-    uint8_t Split_Integer[] = {uint8_t(Number_To_Set << 8), uint8_t(Number_To_Set)};
-    Virtual_Memory_File.write(Split_Integer, 2);
+    Split_Number[0] = (char)Number_To_Set;
+    Split_Number[1] = (char)Number_To_Set << 8;
+    Virtual_Memory_File.write(Split_Number, 2);
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_WRITE);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   Virtual_Memory_File.seek(0);
   if (Virtual_Memory_File)
   {
@@ -647,10 +677,10 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint16_t &Number_To_Set)
 }
 
 // 8 bit variable
-void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t const &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_WRITE);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   Virtual_Memory_File.seek(0);
   if (Virtual_Memory_File)
   {
@@ -660,10 +690,10 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint8_t const &Number_To_Set)
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint8_t &Number_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint8_t &Number_To_Set)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(GLOBAL_VIRTUAL_MEMORY_FILE + Tag, FILE_READ);
+  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
   Virtual_Memory_File.seek(0);
   if (Virtual_Memory_File)
   {
@@ -714,7 +744,7 @@ uint16_t GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const c
   }
 }
 
-uint16_t GalaxOS_Class::Login(const char* Username_To_Check, const char* Password_To_Check)
+uint16_t GalaxOS_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == INFORMATION_GOOD_CREDENTIALS)
   {
@@ -725,43 +755,6 @@ uint16_t GalaxOS_Class::Login(const char* Username_To_Check, const char* Passwor
   {
     return Check_Credentials(Username_To_Check, Password_To_Check);
   }
-}
-
-void GalaxOS_Class::Load_System_Files()
-{
-  Serial.println(F("Load System Files ..."));
-  File Temporary_File = Drive->open("/GALAXOS.GSF");
-  String Temporary_String = "";
-  if (Temporary_File)
-  {
-    while (Temporary_File.available() && Temporary_File.peek() != 10 && Temporary_File.peek() != 13)
-    {
-      Temporary_String += String(Temporary_File.read());
-    }
-    if (Temporary_String != "Galax OS Embeded Edition For Arduino Mega 2560 Version Alpha 0.12")
-    {
-      //error handle
-      Serial.println(F("Error : ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED"));
-      return;
-    }
-  }
-  else
-  {
-    Serial.println(F("Error : ERROR_SOME_SYSTEM_FILES_ARE_MISSING"));
-    return;
-  }
-  Temporary_String = "";
-
-  //Load software from registry
-  String Software_Name;
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-
-    Registry_Read(Drive->open("/GALAXOS/REGISTRY/SOFTWARE/LIST.GCF"), (const char)i, Software_Name)
-  }
-
-  Display.Set_Text(F("LOAD_TIM"), F("Loading System Files ..."));
-  Display.Set_Time(F("LOAD_TIM"), 50);
 }
 
 void GalaxOS_Class::Load_User_Files()
@@ -781,29 +774,9 @@ void GalaxOS_Class::Load_User_Files()
   }
 }
 
-uint8_t GalaxOS_Class::Event_Handler(uint16_t const &Type, String const &Extra_Informations = "")
+uint8_t GalaxOS_Class::Event_Handler(uint8_t const &Type)
 {
-#define EVENT_CANCEL 0
-#define EVENT_YES 1
-  Display.Set_Current_Page(F("Event"));
-  uint8_t Event_Type;
-  Registry_Read(Drive->open(), String(Type), Event_Type);
-  byte i = 0;
-  while (Event_Reply == 0 && i < 100)
-  {
-    vTaskDelay(pdMS_TO_TICKS(50));
-    i++;
-  }
-  if (i > 100)
-  {
-    Display.Set_Current_Page(Last_Page);
-    return 0;
-  }
-  return Event_Reply;
-}
-
-/*
-  switch (Type)
+  /*  switch (Type)
   {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
   case ERROR_FAILLED_TO_INTIALIZE_SD_CARD:
@@ -838,81 +811,33 @@ uint8_t GalaxOS_Class::Event_Handler(uint16_t const &Type, String const &Extra_I
     break;
   default:
     break;
-  }
-}*/
-
-void GalaxOS_Class::USB_Serial_Transmit(char const *USB_Serial_Transmit_String, byte Alignment)
-{
-  unsigned int USB_Serial_Transmit_String_Lenght = strlen(USB_Serial_Transmit_String);
-  byte Lines = USB_Serial_Transmit_String_Lenght;
-  Lines = Lines / 72;
-  if (USB_Serial_Transmit_String_Lenght % 72 != 0)
-    Lines++;
-  if (Lines == 1)
-  {
-    switch (Alignment)
-    {
-    case STYLE_LEFT_ALIGNMENT:
-      Serial.print(F("|| > "));
-      for (byte i = 1; i <= USB_Serial_Transmit_String_Lenght; i++)
-      {
-        Serial.print(USB_Serial_Transmit_String[i]);
-      }
-      for (byte i = 1; i <= 72 - USB_Serial_Transmit_String_Lenght; i++)
-      {
-        Serial.print(" ");
-      }
-      Serial.print(F(" ||"));
-      Serial.print(F("\r"));
-      Serial.print(F("\n"));
-      break;
-    case STYLE_CENTER_ALIGNMENT:
-      //not coded now
-      break;
-    case STYLE_RIGHT_ALIGNMENT:
-      //not coded now
-      break;
-    case STYLE_JUSTIFIED_ALIGNMENT:
-      //not coded now
-      break;
-    default:
-      break;
-    }
-  }
-  else
-  {
-    //not coded now
-  }
+  }*/
 }
 
-void Musical_Digital_Player(void *pvParameters)
+uint8_t GalaxOS_Class::Event_Handler(uint16_t const &Type, String const &Extra_Informations = "")
 {
-  /*Serial.print(F("Musical Digital Player ..."));
-  ledcAttachPin(GalaxOS.Get_Speaker_Pin(), 0);
-  int Frequency;
-  int Duration;
-  Temporary_File = Drive->open(Temporary_File_Path);
-  if (Temporary_File)
+#define EVENT_CANCEL 0
+#define EVENT_YES 1
+
+  Display.Set_Current_Page(F("Event"));
+
+  DynamicJsonDocument Event_Registry(256);
+  deserializeJson(Event_Registry, Drive->open("/GALAXOS/REGISTRY/ERROR.GRF"));
+
+  Display.Set_Text(F("MESSAGE_TXT"), Event_Registry[Type]);
+  byte i = 0;
+
+  while (Event_Reply == 0 && i < 100)
   {
-    while (Temporary_File.available())
-    {
-      Frequency = Temporary_File.read();
-      Frequency *= 256;
-      Frequency += Temporary_File.read();
-      Frequency += GalaxOS.Get_C_Frequency();
-      Duration = Temporary_File.read();
-      Duration *= 256;
-      Duration += Temporary_File.read();
-      ledcWriteTone(0, Frequency);
-      vTaskDelay(pdMS_TO_TICKS(Duration));
-    }
+    vTaskDelay(pdMS_TO_TICKS(50));
+    i++;
   }
-  else
+  if (i > 100)
   {
-    //error handle
+    Display.Set_Current_Page(Last_Page);
+    return 0;
   }
-  ledcWriteTone(0, 0);
-  vTaskSuspend(GalaxOS.Musical_Digital_Player_Handle);*/
+  return Event_Reply;
 }
 
 void GalaxOS_Class::Synchronise_Time()

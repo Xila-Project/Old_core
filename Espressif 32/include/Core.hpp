@@ -38,7 +38,7 @@
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
-// 
+//
 #define MAXIMUM_SOFTWARE 15
 
 // Page ID Index
@@ -49,7 +49,7 @@
 #define PAGE_EVENT 20
 #define PAGE_IGOS 27
 #define PAGE_PIANO 38
-#define PAGE_MENU_1 
+#define PAGE_MENU_1
 
 // Color
 
@@ -92,23 +92,13 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 // Nextion command
-#define CODE_COMMAND 42                     // * : Command
-#define CODE_COMMAND_NEW 35                 // # : Command
-#define CODE_VARIABLE_BYTE 66               // B : 1 byte
-#define CODE_VARIABLE_INTEGER 73            // I : 2 bytes
-#define CODE_VARIABLE_LONG 76               // L : 4 bytes
-#define CODE_VARIABLE_LONG_LONG 108         // l : 8 bytes
-#define CODE_VARIABLE_STRING 0x53           // S : String (undefined size)
-
-// System's path
-#define SYSTEM_PATH "/GALAXOS/"
-#define REGISTRY_PATH "REGISTRY/"
-#define GLOBAL_VIRTUAL_MEMORY_FILE "/GALAXOS/MEMORY/VARIABLE.GSF"
-
-// GRF : Galax'OS Registry File
-// GEF : Galax'OS Executable File
-// GSF : Galax'OS Sound File
-
+#define CODE_COMMAND 42             // * : Command
+#define CODE_COMMAND_NEW 35         // # : Command
+#define CODE_VARIABLE_BYTE 66       // B : 1 byte
+#define CODE_VARIABLE_INTEGER 73    // I : 2 bytes
+#define CODE_VARIABLE_LONG 76       // L : 4 bytes
+#define CODE_VARIABLE_LONG_LONG 108 // l : 8 bytes
+#define CODE_VARIABLE_STRING 0x53   // S : String (undefined size)
 
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
@@ -117,12 +107,23 @@
 class GalaxOS_Class
 {
 protected:
+    // System extension :
+    // GRF : Galax'OS Registry File
+    // GEF : Galax'OS Executable File
+    // GSF : Galax'OS Sound File
+    const char System_Path[9] = "/GALAXOS";
+    const char Extension_Registry_Path[31] = "/GALAXOS/REGISTRY/EXTENSIO.GRF";
+    const char Display_Registry_Path[30] = "/GALAXOS/REGISTRY/DISPLAY.GRF";
+    const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
+    const char Regional_Registry_Path[31] = "/GALAXOS/REGISTRY/REGIONAL.GRF";
+    const char Software_Registry_Path[] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
+    const char Virtual_Global_Memory_File[29] = "/GALAXOS/MEMORY/VARIABLE.GSF";
+    
     // Virtual Memory File
 
     File Virtual_Memory_File;
-    char Split_Number[8];
+    uint8_t Split_Number[8];
     SemaphoreHandle_t Virtual_Memory_Semaphore;
-
 
     byte C_MIDI;
 
@@ -154,18 +155,19 @@ protected:
     xTaskHandle Ressource_Monitor_Handle;
     xTaskHandle GalaxOS_Core_Handle;
 
+    // Serial print
+
+    uint8_t Remaining_Spaces;
+
     //Software management
 
-    Software_Class *Get_Software_Pointer(const char *);
-    Software_Handle_Class *Get_Software_Handle_Pointer(const char *Software_Name);
-    void Set_Software_Pointer(const char*, Software_Class *);
-    void Set_Software_Handle_Pointer(const char*, Software_Handle_Class *);
+    uint8_t &Get_Software_Pointer(const char *);
+    uint8_t &Get_Software_Handle_Pointer(const char *Software_Name);
 
-    void Open_Software(const char*);
-    void Close_Software(const char* = NULL);
+    void Open_Software(const char *);
+    void Close_Software(const char * = NULL);
 
 public:
-
     GalaxOS_Class();
     ~GalaxOS_Class();
 
@@ -176,15 +178,13 @@ public:
     Sound_Class Sound;
     // Input
     Keyboard_Class Keyboard;
-    // Disk
-    #if SD_MODE == 0
-        fs::SDMMCFS* Drive;
-    #else
-        fs::SDFS* Drive;
-    #endif
+// Disk
+#if SD_MODE == 0
+    fs::SDMMCFS *Drive;
+#else
+    fs::SDFS *Drive;
+#endif
     // WiFi
-
-
 
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
@@ -197,14 +197,14 @@ public:
     void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
 
     // Display callback function
-    void Incomming_String_Data_From_Display(String&);
-    void Incomming_Numeric_Data_From_Display(uint64_t const&);
+    void Incomming_String_Data_From_Display(String &);
+    void Incomming_Numeric_Data_From_Display(uint64_t const &);
     void Incomming_Event_From_Display(uint16_t);
 
     // Serial communication macro
     void Horizontal_Separator();
-    void Print_Line(const char* = NULL, uint8_t const& = 0);
-    void Print_Line(const __FlashStringHelper* = NULL, uint8_t const& = 0);
+    void Print_Line(const char * = NULL, uint8_t const & = 0);
+    void Print_Line(const __FlashStringHelper *, uint8_t const & = 0);
 
     //
     byte Get_Speaker_Pin();
@@ -212,23 +212,23 @@ public:
     byte Get_C_MIDI();
 
     //
-    void Set_Variable(char const &Tag, String const &String_To_Set);
-    void Get_Variable(char const &Tag, String &String_To_Get);
+    void Set_Variable(uint8_t const &, String const &);
+    void Get_Variable(uint8_t const &, String &);
 
-    void Set_Variable(char const &Tag, const char *String_To_Set);
-    void Get_Variable(char const &Tag, char *String_To_Get);
+    void Set_Variable(uint8_t const &, const char *);
+    void Get_Variable(uint8_t const &, char *);
 
-    void Set_Variable(char const &Tag, uint8_t const &Number_To_Set);
-    void Get_Variable(char const &Tag, uint8_t &Number_To_Set);
+    void Set_Variable(uint8_t const &, uint8_t const &);
+    void Get_Variable(uint8_t const &, uint8_t &);
 
-    void Set_Variable(char const &Tag, uint16_t const &Number_To_Set);
-    void Get_Variable(char const &Tag, uint16_t &Number_To_Set);
+    void Set_Variable(uint8_t const &, uint16_t const &);
+    void Get_Variable(uint8_t const &, uint16_t &);
 
-    void Set_Variable(char const &Tag, uint32_t const &Number_To_Set);
-    void Get_Variable(char const &Tag, uint32_t &Number_To_Set);
+    void Set_Variable(uint8_t const &, uint32_t const &);
+    void Get_Variable(uint8_t const &, uint32_t &);
 
-    void Set_Variable(char const &Tag, uint64_t const &Number_To_Set);
-    void Get_Variable(char const &Tag, uint64_t &Number_To_Set);
+    void Set_Variable(uint8_t const &, uint64_t const &);
+    void Get_Variable(uint8_t const &, uint64_t &);
 
     char *Get_Current_Username()
     {
@@ -247,15 +247,15 @@ public:
     void Load_System_Files();
     void Load_User_Files();
 
-    uint16_t Check_Credentials(const char*, const char*);
-    uint16_t Login(const char*, const char*);
+    uint16_t Check_Credentials(const char *, const char *);
+    uint16_t Login(const char *, const char *);
 
     //services
-    void Desk_Execute(uint16_t const& Command);
+    void Desk_Execute(uint16_t const &Command);
 
     uint8_t Event_Handler(uint16_t const &Type, String const &Extra_Informations = "");
     friend void Ressource_Monitor(void *pvParameters);
-    
+
     friend class Shell_Class;
 
     void Nextion_Upload_Firmware(String const &Path);

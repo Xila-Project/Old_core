@@ -37,11 +37,7 @@ void Internet_Browser_Task(void *pvParameters)
   (void)pvParameters;
   while (1)
   {
-    while (INSTANCE_POINTER->Read_Position == INSTANCE_POINTER->Write_Position)
-    {
-      vTaskDelay(pdMS_TO_TICKS(20));
-    }
-    switch (Internet_Browser_Class::Instance_Pointer->Task_Method_Array[Internet_Browser_Class::Instance_Pointer->Read_Position])
+    switch (INSTANCE_POINTER->Get_Command())
     {
     case 0:
       //Idle : nothing to do

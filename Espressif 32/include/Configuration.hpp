@@ -8,8 +8,8 @@
 #define Verbose_Print(t)
 #define Verbose_Println(t) 
 #else
-#define Verbose_Print(t) Serial.println(F(t))
-#define Verbose_Println(t) Serial.println(F(t))
+#define Verbose_Print(t) Serial.print(F(t))
+#define Verbose_Print_Line(t) GalaxOS.Print_Line(F(t))
 #endif
 
 #define DEBUG_MODE 0

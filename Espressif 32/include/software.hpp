@@ -2,6 +2,7 @@
 #define SOTFWARE_H_INCLUDED
 
 #include "Arduino.h"
+#include "FS.h"
 
 class GalaxOS_Class;
 class Shell_Class;
