@@ -1,12 +1,12 @@
 #include "GalaxOS.hpp"
 
+#define INSTANCE_POINTER Shell_Class::Instance_Pointer
+
 class Shell_Class : public Software_Class
 {
-private:
+protected:
     const byte Page_Desk = 19;
     const byte Page_Menu = 31;
-
-public:
     
     Shell_Class(Software_Handle_Class*);
     ~Shell_Class();
@@ -26,6 +26,7 @@ public:
     void Open_Desk();
     void Open_Menu();
     void Open_Item();
+    void Open_Login();
 
     friend void Shell_Task(void*);
 };

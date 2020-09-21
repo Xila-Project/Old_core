@@ -92,13 +92,18 @@
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 // Nextion command
-#define CODE_COMMAND 42             // * : Command
-#define CODE_COMMAND_NEW 35         // # : Command
-#define CODE_VARIABLE_BYTE 66       // B : 1 byte
-#define CODE_VARIABLE_INTEGER 73    // I : 2 bytes
-#define CODE_VARIABLE_LONG 76       // L : 4 bytes
-#define CODE_VARIABLE_LONG_LONG 108 // l : 8 bytes
-#define CODE_VARIABLE_STRING 0x53   // S : String (undefined size)
+#define CODE_COMMAND 0x2A             // * : Command
+#define CODE_COMMAND_NEW 0x43         // # : Command
+#define CODE_VARIABLE_BYTE_LOCAL 0x62       // b : 1 byte
+#define CODE_VARIABLE_BYTE_GLOBAL 0x42      // B : 1 byte
+#define CODE_VARIABLE_INTEGER_LOCAL 0x69    // i : 2 bytes
+#define CODE_VARIABLE_INTEGER_GLOBAL 0x49   // I : 2 bytes
+#define CODE_VARIABLE_LONG_GLOBAL 0x4C      // L : 4 bytes
+#define CODE_VARIABLE_LONG_LOCAL 0x6C       // l : 4 bytes
+#define CODE_VARIABLE_LONG_LONG_GLOBAL 0x48 // H : 8 bytes
+#define CODE_VARIABLE_LONG_LONG_LOCAL 0x68  // h : 8 bytes
+#define CODE_VARIABLE_STRING_GLOBAL 0x53    // S : String (undefined size)
+#define CODE_VARIABLE_STRING_LOCAL 0x73     // s : String 
 
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
@@ -116,8 +121,9 @@ protected:
     const char Display_Registry_Path[30] = "/GALAXOS/REGISTRY/DISPLAY.GRF";
     const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
     const char Regional_Registry_Path[31] = "/GALAXOS/REGISTRY/REGIONAL.GRF";
-    const char Software_Registry_Path[] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
-    const char Virtual_Global_Memory_File[29] = "/GALAXOS/MEMORY/VARIABLE.GSF";
+    const char Software_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
+
+    const char Virtual_Global_Memory_File[36] = "/GALAXOS/MEMORY/GLOBAL/VARIABLE.GSF";
     
     // Virtual Memory File
 
@@ -186,6 +192,7 @@ public:
 #endif
     // WiFi
 
+    // System state
     void Start();
     void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
     void Restore_System_State();
@@ -197,8 +204,8 @@ public:
     void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
 
     // Display callback function
-    void Incomming_String_Data_From_Display(String &);
-    void Incomming_Numeric_Data_From_Display(uint64_t const &);
+    void Incomming_String_Data_From_Display(String);
+    void Incomming_Numeric_Data_From_Display(uint32_t);
     void Incomming_Event_From_Display(uint16_t);
 
     // Serial communication macro
@@ -212,23 +219,23 @@ public:
     byte Get_C_MIDI();
 
     //
-    void Set_Variable(uint8_t const &, String const &);
-    void Get_Variable(uint8_t const &, String &);
+    void Set_Variable(uint8_t const &, String const &, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, String &, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, const char *);
-    void Get_Variable(uint8_t const &, char *);
+    void Set_Variable(uint8_t const &, const char *, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, char *, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint8_t const &);
-    void Get_Variable(uint8_t const &, uint8_t &);
+    void Set_Variable(uint8_t const &, uint8_t const &, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint8_t &, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint16_t const &);
-    void Get_Variable(uint8_t const &, uint16_t &);
+    void Set_Variable(uint8_t const &, uint16_t const &, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint16_t &, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint32_t const &);
-    void Get_Variable(uint8_t const &, uint32_t &);
+    void Set_Variable(uint8_t const &, uint32_t const &, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint32_t &, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint64_t const &);
-    void Get_Variable(uint8_t const &, uint64_t &);
+    void Set_Variable(uint8_t const &, uint64_t const &, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint64_t &, Software_Handle_Class* = NULL);
 
     char *Get_Current_Username()
     {

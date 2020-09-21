@@ -27,12 +27,12 @@ void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Po
     Callback_Function_String_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t)))
+void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t)))
 {
     Callback_Function_Numeric_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Event(void(*Function_Pointer(uint16_t)))
+void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t)))
 {
     Callback_Function_Event = Function_Pointer;
 }
@@ -72,7 +72,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 Temporary_String = String("");
                 while (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
                 {
-                    Temporary_Byte_Array[0] = Display_Pointer->Nextion_Serial.read();
+                    Temporary_Byte_Array[0] = DISPLAY_POINTER->Nextion_Serial.read();
                     if (Temporary_Byte_Array[0] == 255)
                     {
                         ++Temporary_Byte_Array[1];

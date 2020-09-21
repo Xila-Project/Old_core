@@ -433,7 +433,7 @@ uint8_t &GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
     }
     if (strcmp(Software_Handle_Pointer[i]->Name, Software_Name))
     {
-      return Software_Handle_Pointer[i];
+      return i;
     }
   }
 }
@@ -528,65 +528,111 @@ void GalaxOS_Class::Restore_System_State()
 //---------------------------------------------------------------------------//
 
 // Char array
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, const char *String_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, const char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
-  Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File.write((uint8_t *)String_To_Set, sizeof(String_To_Set)) != sizeof(String_To_Set);
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String_To_Set);
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String_To_Set);
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, char *String_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/CHAR/" + Tag, FILE_WRITE);
-  Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File.readBytes(String_To_Set, sizeof(String_To_Set));
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readBytes(String_To_Set, sizeof(String_To_Set));
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readBytes(String_To_Set, sizeof(String_To_Set));
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 // String
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, String const &String_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, String const &String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_WRITE);
-  Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File.print(String_To_Set);
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String_To_Set);
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String_To_Set);
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, String &String_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, String &String_To_Get, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/STRING/" + Tag, FILE_READ);
-  Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL) // global scope
   {
-    String_To_Get = Virtual_Memory_File.readString();
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      String_To_Get = Virtual_Memory_File.readString();
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      String_To_Get = Virtual_Memory_File.readString();
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 // 64-bit var
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint64_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint64_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
-  Virtual_Memory_File.seek(Tag << 1);
   Split_Number[0] = (uint8_t)Number_To_Set;
   Split_Number[1] = (uint8_t)Number_To_Set << 8;
   Split_Number[2] = (uint8_t)Number_To_Set << 16;
@@ -595,22 +641,48 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint64_t const &Number_To_S
   Split_Number[5] = (uint8_t)Number_To_Set << 40;
   Split_Number[6] = (uint8_t)Number_To_Set << 48;
   Split_Number[7] = (uint8_t)Number_To_Set << 56;
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Virtual_Memory_File.write(Split_Number, 8);
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.write(Split_Number, 8);
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.write(Split_Number, 8);
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint64_t &Number_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint64_t &Number_To_Get, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
-  Virtual_Memory_File.seek(Tag << 1);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Virtual_Memory_File.readBytes((char *)Split_Number, 8);
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readBytes((char *)Split_Number, 8);
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readBytes((char *)Split_Number, 8);
+    }
   }
   Number_To_Get = (uint64_t)Split_Number << 56 | (uint64_t)Split_Number << 48 | (uint64_t)Split_Number << 40 | (uint64_t)Split_Number << 32 | (uint64_t)Split_Number << 24 | (uint64_t)Split_Number << 16 | (uint64_t)Split_Number << 8 | (uint64_t)Split_Number;
   Virtual_Memory_File.close();
@@ -618,79 +690,129 @@ void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint64_t &Number_To_Get)
 }
 
 // 32-bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
-  Virtual_Memory_File.seek(Tag << 1);
   Split_Number[0] = (uint8_t)Number_To_Set;
   Split_Number[1] = (uint8_t)Number_To_Set << 8;
   Split_Number[2] = (uint8_t)Number_To_Set << 16;
   Split_Number[3] = (uint8_t)Number_To_Set << 24;
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Virtual_Memory_File.write(Split_Number, 4);
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.write(Split_Number, 4);
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.write(Split_Number, 4);
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
-  Virtual_Memory_File.seek(Tag << 1);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Number_To_Get = Virtual_Memory_File.parseFloat();
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Number_To_Get = Virtual_Memory_File.parseFloat();
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File.seek(Tag << 1);
+    if (Virtual_Memory_File)
+    {
+      Number_To_Get = Virtual_Memory_File.parseFloat();
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 // 16 bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Split_Number[0] = (char)Number_To_Set;
-    Split_Number[1] = (char)Number_To_Set << 8;
-    Virtual_Memory_File.write(Split_Number, 2);
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
+    if (Virtual_Memory_File)
+    {
+      Split_Number[0] = (char)Number_To_Set;
+      Split_Number[1] = (char)Number_To_Set << 8;
+      Virtual_Memory_File.write(Split_Number, 2);
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    if (Virtual_Memory_File)
+    {
+      Split_Number[0] = (char)Number_To_Set;
+      Split_Number[1] = (char)Number_To_Set << 8;
+      Virtual_Memory_File.write(Split_Number, 2);
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t &Number_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
-  Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
-  Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
+  if (Software_Handle_Targeted == NULL)
   {
-    Number_To_Set = Virtual_Memory_File.parseInt();
+    Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Number_To_Set = Virtual_Memory_File.parseInt();
+    }
+  }
+  else
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Number_To_Set = Virtual_Memory_File.parseInt();
+    }
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
 // 8 bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t const &Number_To_Set)
+void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_WRITE);
   Virtual_Memory_File.seek(0);
-  if (Virtual_Memory_File)
-  {
-    Virtual_Memory_File.write(Number_To_Set);
-  }
+  if (Software_Handle)
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.write(Number_To_Set);
+    }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint8_t &Number_To_Set)
+void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint8_t &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
@@ -772,6 +894,11 @@ void GalaxOS_Class::Load_User_Files()
   {
     //error : wrong username or password
   }
+}
+
+void GalaxOS_Class::Login(String const &Username, String const &Password)
+{
+  if (Check_Credentials(Username, Password_To_Log))
 }
 
 uint8_t GalaxOS_Class::Event_Handler(uint8_t const &Type)

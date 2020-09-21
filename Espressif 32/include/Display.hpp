@@ -95,9 +95,9 @@ class Nextion_Display_Class
         Nextion_Display_Class(uint32_t const& Baud_Rate = 921600, uint8_t const& RX_Pin = 16, uint8_t const& TX_Pin = 17);
         ~Nextion_Display_Class();
         
-        void Set_Callback_Function_String_Data(void(*Function_Pointer)(String));
-        void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t)));
-        void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t)));
+        void Set_Callback_Function_String_Data(void(*Function_Pointer)(String&));
+        void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t&)));
+        void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t&)));
 
         // Basic Geometrical Drawing
         void Draw_Pixel(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Color);
