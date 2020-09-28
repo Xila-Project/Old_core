@@ -24,6 +24,35 @@ const char Keyboard_Class::chrsSH[]={
     '0',  '.',  '2',  '5',  '6',  '8',  '\033',0,   0,    '+',  '3',  '-',  '*',  '9',  0,    0,
     0,    0,    0,    247,  0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,    0};
 
+
+Keyboard_Class::Keyboard_Class(uint8_t Data_Pin, uint8_t Clock_Pin)
+    :clkPin(Clock_Pin),
+    dataPin(Data_Pin),
+    shift(0),
+    modifs(0),
+    cpslk(false),
+    scrlk(false),
+    numlk(false),
+    dirOUT(false),
+    kstate(0),
+    skipCount(0),
+    rc(0),
+    CHARS(0x90),
+    fromRaw(0),
+    toRaw(0),
+    fromChar(0),
+    toChar(0),
+    ACK(false),
+    updLEDs(false)
+
+{
+    
+}
+
+Keyboard_Class::~Keyboard_Class() {
+    detachInterrupt(clkPin);
+}
+
 uint8_t Keyboard_Class::getModifiers() {
     return modifs;
 }
@@ -335,34 +364,9 @@ void Keyboard_Class::begin() {
     }
 }
 
-Keyboard_Class::Keyboard_Class(uint8_t Data_Pin, uint8_t Clock_Pin)
-    :dataPin(Data_Pin),
-    clkPin(Clock_Pin),
-    shift(0),
-    modifs(0),
-    cpslk(false),
-    scrlk(false),
-    numlk(false),
-    dirOUT(false),
-    kstate(0),
-    skipCount(0),
-    rc(0),
-    CHARS(0x90),
-    fromChar(0),
-    toChar(0),
-    fromRaw(0),
-    toRaw(0),
-    ACK(false),
-    updLEDs(false)
 
-{
-    toChar = 0;
-}
 
 void Keyboard_Class::Keyboard_Interrupt() {
     Keyboard_Pointer->interruptHandler();
 }
 
-Keyboard_Class::~Keyboard_Class() {
-    detachInterrupt(clkPin);
-}

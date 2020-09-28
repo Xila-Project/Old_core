@@ -16,8 +16,7 @@ class Keyboard_Class
     private:
         static Keyboard_Class* Keyboard_Pointer;
 
-        int clkPin;
-        int dataPin;
+        int clkPin, dataPin;
 
         volatile uint16_t shift;
         volatile uint16_t modifs;
@@ -34,8 +33,8 @@ class Keyboard_Class
         const uint8_t CHARS;
         
         volatile uint8_t keyScancodeBuffer[256];
-        volatile uint16_t fromRaw;
-        volatile uint16_t toRaw;
+        volatile uint16_t fromRaw = 0;
+        volatile uint16_t toRaw = 0;
 
         volatile char charBuffer[256];
         volatile uint16_t fromChar;

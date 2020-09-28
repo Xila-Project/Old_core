@@ -8,11 +8,9 @@
 
 #define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
 
-
-
-#define NEXTION_ERROR_INVALID_INSTRUCTION 0x00 //4 byte
+#define NEXTION_ERROR_INVALID_INSTRUCTION 0x00  //4 byte
 #define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02 //4 byte
-#define NEXTION_ERROR_INVALID_PAGE_ID 0x03 
+#define NEXTION_ERROR_INVALID_PAGE_ID 0x03
 #define NEXTION_ERROR_INVALID_PICTURE_ID 0x04
 #define NEXTION_ERROR_INVALID_FONT_ID 0x05
 #define NEXTION_ERROR_INVALID_FILE_OPERATION 0x06
@@ -46,162 +44,151 @@
 
 class Nextion_Display_Class
 {
-    private:
+protected:
+    HardwareSerial Nextion_Serial;
 
-        HardwareSerial Nextion_Serial;
+    xTaskHandle Nextion_Serial_Handle;
 
-        xTaskHandle Nextion_Serial_Handle;
+    void (*Callback_Function_String_Data)(String);
+    void (*Callback_Function_Numeric_Data)(uint32_t);
+    void (*Callback_Function_Event)(uint16_t);
 
-        void (*Callback_Function_String_Data)(String);
-        void (*Callback_Function_Numeric_Data)(uint32_t);
-        void (*Callback_Function_Event)(uint16_t);
+    static uint8_t Number_Instance;
 
-        static uint8_t Number_Instance;      
+    uint16_t Cursor_X, Cursor_Y;
 
-        uint16_t Cursor_X, Cursor_Y;
+    File Temporary_File;
 
-        File Temporary_File;
+    uint16_t Adress;
 
-        uint16_t Adress;
+    inline void Instruction_End();
+    inline void Argument_Separator();
 
-        uint8_t Current_Page;
-        uint8_t Last_Page;
+public:
 
-        
-        
-        inline void Instruction_End();
-        inline void Argument_Separator();
+    enum Color
+    {
+        Black = 0,
+        Blue = 31,
+        Green = 2016,
+        Yellow = 65504,
+        Red = 63488,
+        White = 65535
+    };
 
-    public:
+    uint8_t Page_History[5];
 
-        #define DISPLAY_BLACK 0
-#define DISPLAY_BLUE 31
-#define DISPLAY_BROWN 48192
-#define DISPLAY_GREEN 2016
-#define DISPLAY_YELLOW 65504
-#define DISPLAY_RED 63488
-#define DISPLAY_GRAY 33840
-#define DISPLAY_WHITE 65535
+    static Nextion_Display_Class *Display_Pointer;
 
-        enum Color {
-            Black,
-            Dark_Grey,
-            
-        };
+    //Class setup
+    Nextion_Display_Class(uint32_t const &Baud_Rate = 921600, uint8_t const &RX_Pin = 16, uint8_t const &TX_Pin = 17);
+    ~Nextion_Display_Class();
 
-        static Nextion_Display_Class* Display_Pointer;
+    void Set_Callback_Function_String_Data(void (*Function_Pointer)(String &));
+    void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t &)));
+    void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t &)));
 
-        //Class setup
-        Nextion_Display_Class(uint32_t const& Baud_Rate = 921600, uint8_t const& RX_Pin = 16, uint8_t const& TX_Pin = 17);
-        ~Nextion_Display_Class();
-        
-        void Set_Callback_Function_String_Data(void(*Function_Pointer)(String&));
-        void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t&)));
-        void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t&)));
+    // Basic Geometrical Drawing
+    void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
+    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow);
+    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow);
+    void Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color);
+    void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
 
-        // Basic Geometrical Drawing
-        void Draw_Pixel(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Color);
-        void Draw_Rectangle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint16_t const& Color, bool const& Hollow);
-        void Draw_Circle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Radius, uint16_t const&, uint16_t const& Color, bool const& Hollow);
-        void Draw_Fill(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint16_t const& Color);
-        void Draw_Line(uint16_t const& X_Start, uint16_t const& Y_Start, uint16_t const& X_End, uint16_t const& Y_End, uint16_t const& Color);
-        
-        // Advanced Drawing
-        void Draw_Picture(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Picture_ID);
-        void Draw_Crop_Picture(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint16_t const& Picture_ID);
-        void Draw_Advanced_Crop_Picture(uint16_t const& X_Destination, uint16_t const& Y_Destination, uint16_t const& Width, uint16_t const& Height, uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Picture_ID);
-        void Draw_Text(uint16_t const& X_Coordinarte, uint16_t const& Y_Coordinate, uint16_t const& Width, uint16_t const& Height, uint8_t const& Font_ID, uint8_t const& Text_Color, uint16_t Backgroud, uint8_t const& Horizontal_Alignment, uint8_t const& Vertical_Alignment, uint16_t const& Background_Type, String const& Text);
+    // Advanced Drawing
+    void Draw_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
+    void Draw_Crop_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Picture_ID);
+    void Draw_Advanced_Crop_Picture(uint16_t const &X_Destination, uint16_t const &Y_Destination, uint16_t const &Width, uint16_t const &Height, uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
+    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint8_t const &Font_ID, uint8_t const &Text_Color, uint16_t Backgroud, uint8_t const &Horizontal_Alignment, uint8_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text);
 
-        //void Print(String const& Text_To_Print);
-        //void Print(const __FlashStringHelper* Text_To_Print);
-        
-        // Set Object Attributes
-        void Set_Font(const __FlashStringHelper* Object_Name, uint8_t const& Font_ID);
-        void Set_Background_Color(const __FlashStringHelper* Object_Name, uint16_t const& Color, int8_t Type);
-        void Set_Font_Color(const __FlashStringHelper* Object_Name, uint16_t const& Color, int8_t Type);
-        void Set_Horizontal_Alignment(const __FlashStringHelper* Object_Name, uint8_t const& Horizontal_Alignment);
-        void Set_Vertical_Alignment(const __FlashStringHelper* Object_Name, uint8_t const& Set_Vertical_Alignment);
-        void Set_Input_Type(const __FlashStringHelper* Object_Name, uint8_t const& Input_Type);
-        void Set_Wordwrap(const __FlashStringHelper* Object_Name, bool const& Wordwrap);
-        void Set_Text(const __FlashStringHelper* Object_Name, const __FlashStringHelper* Value);
-        void Set_Text(const __FlashStringHelper* Object_Name, String const& Value, uint8_t const& Insert); 
-        void Set_Text(String const& Object_Name, String const& Value);
-        void Set_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value);
-        void Set_Channel(const __FlashStringHelper* Object_Name, uint8_t const& Channel);
-        void Set_Grid_Width(const __FlashStringHelper* Object_Name, uint16_t const& Width);
-        void Set_Grid_Heigh(const __FlashStringHelper* Object_Name, uint16_t const& Heigh);
-        void Set_Data_Scalling(const __FlashStringHelper* Object_Name, uint16_t const& Scale);
-        void Set_Picture(const __FlashStringHelper* Object_Name, uint8_t const& Picture_ID);
-        void Set_Picture(String const& Object_Name, uint8_t const& Picture_ID);
-        void Set_Time(const __FlashStringHelper* Object_Name, uint16_t const& Time);
-        void Set_Trigger(const __FlashStringHelper* Object_Name, bool const& Enable);
-        
-        // Set System Global Variable
-        void Set_Current_Page(uint8_t const& Page_ID);
-        void Set_Current_Page(const __FlashStringHelper* Page_Name);
-        uint8_t& Get_Current_Page();
+    //void Print(String const& Text_To_Print);
+    //void Print(const __FlashStringHelper* Text_To_Print);
 
-        void Set_Backlight(uint8_t const& Brightness, bool const& Save);
-        uint8_t Get_Backlight();
+    // Set Object Attributes
+    void Set_Font(const __FlashStringHelper *Object_Name, uint8_t const &Font_ID);
+    void Set_Background_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type);
+    void Set_Font_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type);
+    void Set_Horizontal_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Horizontal_Alignment);
+    void Set_Vertical_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Set_Vertical_Alignment);
+    void Set_Input_Type(const __FlashStringHelper *Object_Name, uint8_t const &Input_Type);
+    void Set_Wordwrap(const __FlashStringHelper *Object_Name, bool const &Wordwrap);
+    void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
+    void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
+    void Set_Text(String const &Object_Name, String const &Value);
+    void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
+    void Set_Channel(const __FlashStringHelper *Object_Name, uint8_t const &Channel);
+    void Set_Grid_Width(const __FlashStringHelper *Object_Name, uint16_t const &Width);
+    void Set_Grid_Heigh(const __FlashStringHelper *Object_Name, uint16_t const &Heigh);
+    void Set_Data_Scalling(const __FlashStringHelper *Object_Name, uint16_t const &Scale);
+    void Set_Picture(const __FlashStringHelper *Object_Name, uint8_t const &Picture_ID);
+    void Set_Picture(String const &Object_Name, uint8_t const &Picture_ID);
+    void Set_Time(const __FlashStringHelper *Object_Name, uint16_t const &Time);
+    void Set_Trigger(const __FlashStringHelper *Object_Name, bool const &Enable);
 
-        void Set_Baud_Rate(uint32_t const& Baudrate, bool const& Save);
-        void Set_Font_Spacing(uint16_t const& X_Spacing, uint16_t const& Y_Spacing);
-        
-        void Set_Draw_Color(uint16_t const& Color);
-        void Set_Drawing(bool const& Enable);
+    // Set System Global Variable
+    void Set_Current_Page(uint8_t const &Page_ID);
+    void Set_Current_Page(const __FlashStringHelper *Page_Name);
+    uint8_t &Get_Current_Page();
 
-        void Set_Random_Generator(uint32_t const& Minimum, uint32_t const& Maximum);
+    void Set_Backlight(uint8_t const &Brightness, bool const &Save);
+    uint8_t Get_Backlight();
 
-        void Set_Standby_Timer(uint16_t const& Timer_Value, uint8_t Type_Timer);
-        void Set_Autowake(bool const& State);
+    void Set_Baud_Rate(uint32_t const &Baudrate, bool const &Save);
+    void Set_Font_Spacing(uint16_t const &X_Spacing, uint16_t const &Y_Spacing);
 
-        void Set_Adress(uint16_t Adress);
-        uint16_t Get_Adress();
+    void Set_Draw_Color(uint16_t const &Color);
+    void Set_Drawing(bool const &Enable);
 
-        uint16_t Get_Free_Buffer();
+    void Set_Random_Generator(uint32_t const &Minimum, uint32_t const &Maximum);
 
-        void Sleep();
-        void Wake_Up();
+    void Set_Standby_Timer(uint16_t const &Timer_Value, uint8_t Type_Timer);
+    void Set_Autowake(bool const &State);
 
-        void Set_Debugging(uint8_t Level);
+    void Set_Adress(uint16_t Adress);
+    uint16_t Get_Adress();
 
-        void Set_Globbal_Variable(uint8_t Selected_Variable, uint32_t Value);
-        void Set_Protocol(uint8_t const& Protocol_Mode);
-        void Set_Wake_Up_Page(uint8_t Page_ID);
+    uint16_t Get_Free_Buffer();
 
-        void Start_Sending_Realtime_Coordinate();
-        void Stop_Sending_Realtime_Coordinate();
+    void Sleep();
+    void Wake_Up();
 
-        void Send_Custom_Instruction(const __FlashStringHelper* Instruction);
-        void Send_Custom_Instruction(String const& Intruction);
+    void Set_Debugging(uint8_t Level);
 
-        //Command
-        void Clear(uint16_t const& Color);
-        void Refresh(uint16_t const& Component_ID);
-        void Delay(uint16_t Delay_Time);
-        void Click(uint16_t const& Component_ID, uint8_t const& Event_Type);
-        void Start_Waveform_Refresh();
-        void Stop_Waveform_Refresh();
-        void Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value, uint32_t const& Quantity, uint8_t* Array);
-        void Clear_Waveform(uint16_t const& Component_ID, uint8_t const& Channel);
-        void Get(const __FlashStringHelper* Object_Name);
-        void Calibrate();
-        void Show(const __FlashStringHelper* Object_Name);
-        void Hide(const __FlashStringHelper* Object_Name);
-        void Disable_Touch_Event(const __FlashStringHelper* Object_Name);
-        void Enable_Touch_Event(const __FlashStringHelper* Object_Name);
-        void Stop_Execution();
-        void Resume_Execution();
-        void Refresh_Current_Page();
-       
-        void Reboot();
-        uint8_t Update(String const& File_Path);
+    void Set_Globbal_Variable(uint8_t Selected_Variable, uint32_t Value);
+    void Set_Protocol(uint8_t const &Protocol_Mode);
+    void Set_Wake_Up_Page(uint8_t Page_ID);
 
-        friend void Nextion_Serial_Receive(void *pvParameters);
+    void Start_Sending_Realtime_Coordinate();
+    void Stop_Sending_Realtime_Coordinate();
 
+    void Send_Custom_Instruction(const __FlashStringHelper *Instruction);
+    void Send_Custom_Instruction(String const &Intruction);
+
+    //Command
+    void Clear(uint16_t const &Color);
+    void Refresh(uint16_t const &Component_ID);
+    void Delay(uint16_t Delay_Time);
+    void Click(uint16_t const &Component_ID, uint8_t const &Event_Type);
+    void Start_Waveform_Refresh();
+    void Stop_Waveform_Refresh();
+    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t const &Value, uint32_t const &Quantity, uint8_t *Array);
+    void Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel);
+    void Get(const __FlashStringHelper *Object_Name);
+    void Calibrate();
+    void Show(const __FlashStringHelper *Object_Name);
+    void Hide(const __FlashStringHelper *Object_Name);
+    void Disable_Touch_Event(const __FlashStringHelper *Object_Name);
+    void Enable_Touch_Event(const __FlashStringHelper *Object_Name);
+    void Stop_Execution();
+    void Resume_Execution();
+    void Refresh_Current_Page();
+
+    void Reboot();
+    uint8_t Update(String const &File_Path);
+
+    friend void Nextion_Serial_Receive(void *pvParameters);
 };
 
 void Nextion_Serial_Receive(void *pvParameters);
-
 
 #endif

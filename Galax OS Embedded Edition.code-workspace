@@ -15,7 +15,9 @@
 			"cstring": "cpp",
 			"algorithm": "cpp",
 			"array": "cpp",
-			"string": "cpp"
+			"string": "cpp",
+			"cstdint": "cpp",
+			"random": "cpp"
 		}
 	}
 }

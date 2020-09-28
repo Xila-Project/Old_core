@@ -22,17 +22,17 @@ Nextion_Display_Class::~Nextion_Display_Class()
     vTaskDelete(Nextion_Serial_Handle);
 }
 
-void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(String))
+void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(String&))
 {
     Callback_Function_String_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t)))
+void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t&)))
 {
     Callback_Function_Numeric_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t)))
+void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t&)))
 {
     Callback_Function_Event = Function_Pointer;
 }
@@ -97,8 +97,12 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 {
                     if (Temporary_Byte_Array[1] == 0xFF && Temporary_Byte_Array[2] == 0xFF && Temporary_Byte_Array[3] == 0xFF)
                     {
-                        Nextion_Display_Class::Display_Pointer->Last_Page = Nextion_Display_Class::Display_Pointer->Current_Page;
-                        Nextion_Display_Class::Display_Pointer->Current_Page = Temporary_Byte_Array[0];
+                        
+                        DISPLAY_POINTER->Page_History[5] = DISPLAY_POINTER->Page_History[4];
+                        DISPLAY_POINTER->Page_History[3] = DISPLAY_POINTER->Page_History[2];
+                        DISPLAY_POINTER->Page_History[2] = DISPLAY_POINTER->Page_History[1];
+                        DISPLAY_POINTER->Page_History[1] = DISPLAY_POINTER->Page_History[0];    
+                        DISPLAY_POINTER->Page_History[0] = Temporary_Byte_Array[0];
                     }
                 }
                 break;
@@ -160,7 +164,7 @@ void Nextion_Display_Class::Refresh_Current_Page()
 
 uint8_t &Nextion_Display_Class::Get_Current_Page()
 {
-    return Current_Page;
+    return Page_History[0];
 }
 
 void Nextion_Display_Class::Set_Current_Page(uint8_t const &Page_ID)

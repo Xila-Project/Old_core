@@ -20,7 +20,7 @@ Paint_Class::Paint_Class(Software_Handle_Class *Software_Handle_To_Set) : Softwa
 
 }
 
-Paint_Class::~Paint_Class() : ~Software_Class()
+Paint_Class::~Paint_Class()
 {
 
 }

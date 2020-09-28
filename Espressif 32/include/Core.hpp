@@ -57,18 +57,9 @@
 #define COLOR_LIGHT_GREY 33808
 #define COLOR_WHITE 65535
 
-// Event Index (used to interract with the event handler)
+// Event constant (used to interract with the event handler)
 
-// Informations
-#define INFORMATION_GOOD_CREDENTIALS 39548
-
-// Questions
-#define QUESTION_DO_YOU_WANT_TO_CLOSE_ALL_RUNNING_SOFTWARE 3565
-
-// Warnings
-#define WARNING_WRONG_PASSWORD 28364
-#define WARNING_WRONG_USERNAME 54112
-#define WARNING_DO_YO_REALLY_WANT_TO_DELETE_THIS_ITEM 43345
+typedef uint16_t GalaxOS_Event;
 
 // Errors
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
@@ -104,6 +95,8 @@
 #define CODE_VARIABLE_LONG_LONG_LOCAL 0x68  // h : 8 bytes
 #define CODE_VARIABLE_STRING_GLOBAL 0x53    // S : String (undefined size)
 #define CODE_VARIABLE_STRING_LOCAL 0x73     // s : String 
+
+
 
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
@@ -167,13 +160,61 @@ protected:
 
     //Software management
 
-    uint8_t &Get_Software_Pointer(const char *);
-    uint8_t &Get_Software_Handle_Pointer(const char *Software_Name);
+    uint8_t Get_Software_Pointer(const char *);
+    uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
     void Open_Software(const char *);
     void Close_Software(const char * = NULL);
 
 public:
+
+    enum Information
+    {
+        Good_Credentials,
+        Wrong_Credentials,
+    };
+
+    enum Question
+    {
+        Close_All_Running_Software,
+        Delete_File,
+    };
+
+    enum Answer
+    {
+        Yes,
+        Cancel,
+        Apply,
+        No,
+        Default,
+    };
+
+    enum Warning
+    {
+        Failed_To_Initialize_SD_Card,
+        Corrupted_System_File,
+        Invalid_Software_ID,
+        Low_RAM,
+    };
+    
+    enum Error
+    {
+
+    };
+
+    enum Color
+    {
+        Black,
+        White,
+        Grey,
+        Light_Grey,
+        Dark_Grey,
+        Red = 57344,
+        Blue = 1300,
+        Green = 34308,
+        Yellow = 64896
+    };
+
     GalaxOS_Class();
     ~GalaxOS_Class();
 
@@ -204,9 +245,9 @@ public:
     void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
 
     // Display callback function
-    void Incomming_String_Data_From_Display(String);
-    void Incomming_Numeric_Data_From_Display(uint32_t);
-    void Incomming_Event_From_Display(uint16_t);
+    void Incomming_String_Data_From_Display(String&);
+    void Incomming_Numeric_Data_From_Display(uint32_t&);
+    void Incomming_Event_From_Display(uint16_t&);
 
     // Serial communication macro
     void Horizontal_Separator();
@@ -219,23 +260,23 @@ public:
     byte Get_C_MIDI();
 
     //
-    void Set_Variable(uint8_t const &, String const &, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, String &, Software_Handle_Class* = NULL);
+    void Set_Variable(char const&, String const&, uint16_t = 0, Software_Handle_Class* = NULL);
+    void Get_Variable(char const&, String&, uint16_t = 0, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, const char *, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, char *, Software_Handle_Class* = NULL);
+    /*void Set_Variable(uint8_t const &, const char *, uint16_t const&, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, char *, uint16_t const&, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint8_t const &, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint8_t &, Software_Handle_Class* = NULL);
+    void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint16_t const &, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint16_t &, Software_Handle_Class* = NULL);
+    void Set_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
-    void Set_Variable(uint8_t const &, uint32_t const &, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint32_t &, Software_Handle_Class* = NULL);
+    void Set_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
+    void Get_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);*/
 
-    void Set_Variable(uint8_t const &, uint64_t const &, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint64_t &, Software_Handle_Class* = NULL);
+    void Set_Variable(char const&, uint32_t*, uint16_t = 0, Software_Handle_Class* = NULL);
+    void Get_Variable(char const&, uint32_t*, uint16_t = 0, Software_Handle_Class* = NULL);
 
     char *Get_Current_Username()
     {
@@ -254,13 +295,13 @@ public:
     void Load_System_Files();
     void Load_User_Files();
 
-    uint16_t Check_Credentials(const char *, const char *);
-    uint16_t Login(const char *, const char *);
+    GalaxOS_Event Check_Credentials(String const&, String const&);
+    GalaxOS_Event Login(String const&, String const&);
 
     //services
     void Desk_Execute(uint16_t const &Command);
 
-    uint8_t Event_Handler(uint16_t const &Type, String const &Extra_Informations = "");
+    GalaxOS_Event Event_Handler(GalaxOS_Event const&);
     friend void Ressource_Monitor(void *pvParameters);
 
     friend class Shell_Class;
