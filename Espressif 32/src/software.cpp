@@ -20,6 +20,7 @@ Software_Class::~Software_Class() // Destructor : close
   Execute(0x0043); // Wait until last Close
   Instance_Pointer == NULL;
   vQueueDelete(Command_Queue_Handle);
+  vTaskDelete(Task_Handle);
 }
 
 uint16_t& Software_Class::Get_Command()
@@ -39,15 +40,21 @@ void Software_Class::Execute(char const &Task_Method_Char1, char const &Task_Met
   Execute(((uint16_t)Task_Method_Char1 << 8) | (uint16_t)Task_Method_Char2);
 }
 
+void Software_Class::Close()
+{
+  vTaskResume(Task_Handle);
+  Execute(Command::Close);
+}
+
 void Software_Class::Maximize()
 {
   vTaskResume(Task_Handle);
-  Execute(0x004D);
+  Execute(Command::Maximize);
 }
 
 void Software_Class::Minimize()
 {
-  Execute(0x006D);
+  Execute(Command::Minimize);
 }
 
 // Software handle
@@ -64,7 +71,7 @@ Software_Handle_Class::~Software_Handle_Class()
 {
 }
 
-Software_Class *Software_Handle_Class::Default_Load_Function()
+Software_Class *Software_Handle_Class::Default_Load_Function(Software_Handle_Class* Software_Handle_To_Set)
 {
   /*if (GalaxOS.Drive.exists("/SOFTWARE/" + String(Name) + "/" + String(Name) + ".GEF")) //looking for executable
   {

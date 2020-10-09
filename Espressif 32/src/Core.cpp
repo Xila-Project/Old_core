@@ -9,6 +9,13 @@ char WiFi_Password[] = "0749230994";*/
 
 GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 {
+  if (Instance_Pointer != NULL)
+  {
+    // something went wrong
+    ESP.restart();
+  }
+  Instance_Pointer = this;
+
   //strcpy(WiFi_SSID, "Avrupa");
   //strcpy(WiFi_Password, "0749230994");
 
@@ -17,23 +24,20 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 #else
   Drive = &SD;
 #endif
-
-  for (int i = 0; i < 4; i++)
-  {
-    Software_Pointer[i] = NULL;
-  }
-
   Low_RAM_Threshold = 2000;
 
   C_MIDI = 60;
 
   C_Frequency = 262;
 
-  memset(Current_Username, 0, sizeof(Current_Username));
+  Current_Username = new char[8];
+  memset(Current_Username, 255, sizeof(Current_Username));
 
   Tag = 0x00;
 
-  memset(Software_Pointer, NULL, 6);
+  memset(Open_Software_Pointer, NULL, 6);
+
+  Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
 
 GalaxOS_Class::~GalaxOS_Class() // Detroyer
@@ -111,15 +115,15 @@ void GalaxOS_Class::Start()
   Serial.println(Test_Float);
 
   uint16_t Test_Integer = 1543;
-  Set_Variable('T', (uint32_t*)&Test_Integer);
+  Set_Variable('T', (uint32_t *)&Test_Integer);
   Serial.println(Test_Integer);
-  Get_Variable('T', (uint32_t*)&Test_Integer);
+  Get_Variable('T', (uint32_t *)&Test_Integer);
   Serial.println(Test_Integer);
 
   uint8_t Test_Byte = 128;
-  Set_Variable('T', (uint32_t*)&Test_Byte);
+  Set_Variable('T', (uint32_t *)&Test_Byte);
   Serial.println(Test_Byte);
-  Get_Variable('T', (uint32_t*)&Test_Byte);
+  Get_Variable('T', (uint32_t *)&Test_Byte);
   Serial.println(Test_Byte);
 
   String Test_String = "test";
@@ -211,15 +215,34 @@ void GalaxOS_Class::Start()
 
   // to do
 
+  // Create core task
+
+  xTaskCreatePinnedToCore(Core_Task, "Core Task", 6 * 1024, NULL, 0, &Core_Task_Handle, 0);
+
   // When every thing is loaded : open shell (with privilège -> friend class) in order to login
   Display.Set_Time(F("LOAD_TIM"), 50);
 
   Open_Software("Shell");
 }
 
+// Main task for the core
+void Core_Task(void *pvParameters)
+{
+  (void)pvParameters;
+  //Core_Instruction *Core_Instruction_Pointer;
+  while (1)
+  {
+    vTaskSuspend(NULL);
+    /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
+    Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
+    xSemaphoreGive(Core_Instruction_Pointer->Executed);
+    vTaskDelay(pdMS_TO_TICKS(5));*/
+  }
+}
+
 void GalaxOS_Class::Save_System_State()
 {
-  if (Drive->exists("/GALAXOS/GOSCUSA.GSF"))
+  if (Drive->exists("/GALAXOS/GOSeCUSA.GSF"))
   {
     if (Drive->remove("/GALAXOS/GOSCUSA.GSF"))
     {
@@ -243,37 +266,32 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
   Received_Data.remove(0, 1);
   switch (Temporary_Return_Code)
   {
-  case CODE_COMMAND:
-  case CODE_COMMAND_NEW:
-    if (Received_Data == "Close")
-    {
-      Close_Software();
-    }
-    else if (Received_Data == "Minimize")
-    {
-      Software_Pointer[0]->Minimize();
-    }
-    else
-    {
-      Software_Pointer[0]->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
-    }
+  case Code::Close:
+    Close_Software();
     break;
-  case CODE_VARIABLE_STRING_LOCAL:
+  case Code::Minimize:
+    Minimize_Software();
+    break;
+  case Code::Command:
+  case Code::Command_New:
+    Open_Software_Pointer[0]->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
+    break;
+  case Code::Variable_String_Local:
     Tag = (char)Received_Data.charAt(0);
     Received_Data.remove(0, 1);
     Set_Variable(Tag, Received_Data, 0, Open_Software_Pointer[0]->Handle_Pointer);
     Tag = '\0';
     break;
-  case CODE_VARIABLE_STRING_GLOBAL:
+  case Code::Variable_String_Global:
     Tag = (char)Received_Data.charAt(0);
     Received_Data.remove(0, 1);
     Set_Variable(Tag, Received_Data);
     Tag = '\0';
     break;
-  case CODE_VARIABLE_LONG_LOCAL:
+  case Code::Variable_Long_Local:
     Tag = (char)Received_Data.charAt(0);
     break;
-  case CODE_VARIABLE_LONG_GLOBAL:
+  case Code::Variable_Long_Global:
     Tag = (char)Received_Data.charAt(0);
     break;
   default:
@@ -282,7 +300,7 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
   }
 }
 
-void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t& Received_Data)
+void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 {
   if (Tag != 0)
   {
@@ -296,7 +314,6 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t& Received_Data)
   }
 }
 
-// Open file handler
 void GalaxOS_Class::Open_File(File &File_To_Open)
 {
   if (!File_To_Open)
@@ -370,7 +387,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
       DynamicJsonDocument Extension_Registry(256);
       File Temporary_File = Drive->open(Extension_Registry_Path);
       deserializeJson(Extension_Registry, Temporary_File);
-      Software_Pointer[Get_Software_Pointer(Extension_Registry[Extension])]->Open_File(File_To_Open);
+      Open_Software_Pointer[Get_Software_Pointer(Extension_Registry[Extension])]->Open_File(File_To_Open);
     }
     //error handle : unknow extension
   }
@@ -381,33 +398,81 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 void GalaxOS_Class::Open_Software(const char *Software_Name)
 {
-  if (Get_Software_Handle_Pointer(Software_Name) != NULL)
+  uint8_t Software_Handle_Slot = Get_Software_Handle_Pointer(Software_Name);
+  if (Software_Handle_Slot == 255)
   {
-    uint8_t Software_Handle_Slot = Get_Software_Handle_Pointer(Software_Name);
-    for (uint8_t i = 0; i < 6; i++)
+    return; // error : no matching software found
+  }
+  for (uint8_t i = 0; i < 6; i++)
+  {
+    if (Software_Handler_Pointer[Software_Handle_Slot] == Open_Software_Pointer[i]->Handle_Pointer)
     {
-      if (Software_Pointer[i] == NULL)
-      {
-        Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer();
-        Software_Pointer[i]->Handle_Pointer = Software_Handle_Pointer[Software_Handle_Slot];
-      }
+      Maximize_Software(i);
+      return;
+    }
+  }
+  for (uint8_t i = 0; i < 6; i++)
+  {
+    if (Open_Software_Pointer[i] == NULL)
+    {
+      Open_Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer(Software_Handle_Pointer[Software_Handle_Slot]);
     }
   }
 }
 
-void GalaxOS_Class::Close_Software(const char *Software_Name)
+void GalaxOS_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
 {
-  if (Software_Name == NULL && Software_Pointer[0] != NULL) //by default delete current running software
+  if (Software_Handle_To_Close == NULL) //by default delete current running software
   {
-    delete Software_Pointer[0];
-    Software_Pointer[0] = NULL;
+    Open_Software_Pointer[0]->Close();
+    Open_Software_Pointer[0] = NULL;
   }
   else
   {
-    uint8_t Software_Pointer_Slot = Get_Software_Pointer(Software_Name);
-    delete Software_Pointer[Software_Pointer_Slot];
-    Software_Pointer[Software_Pointer_Slot] = NULL;
+    for (uint8_t i = 2; i <= 7; i++)
+    {
+      if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
+      {
+        Open_Software_Pointer[i]->Close();
+        Open_Software_Pointer[i] = NULL;
+      }
+    }
   }
+  Maximize(1);
+}
+
+void GalaxOS_Class::Minimize_Software()
+{
+  Open_Software_Pointer[0]->Minimize();
+  for (uint8_t i = 2; i <= 7; i++)
+  {
+    if (Open_Software_Pointer[i] == NULL)
+    {
+      Open_Software_Pointer[i] == Open_Software_Pointer[0];
+      Open_Software_Pointer[0] == NULL;
+      break;
+    }
+  }
+  Maximize(1);
+}
+
+void GalaxOS_Class::Maximize_Software(uint8_t Slot)
+{
+  if (Open_Software_Pointer[Slot] == NULL) // Error : no software to maximize
+  {
+    return;
+  }
+  if (strcmp(Open_Software_Pointer[0]->Handle_Pointer->Name, "Shell")) // Shell
+  {
+    Open_Software_Pointer[1] == Open_Software_Pointer[0];
+  }
+  else if (Open_Software_Pointer != NULL)
+  {
+    Minimize();
+  }
+  Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
+  Open_Software_Pointer[Slot];
+  Open_Software_Pointer[0]->Maxmize();
 }
 
 uint8_t GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
@@ -639,6 +704,57 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get, uint16_
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
+// char array
+void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+{
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  if (Software_Handle_Targeted == NULL) // global scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String(String_To_Set));
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.print(String(String_To_Set));
+    }
+  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
+}
+
+void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+{
+  xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
+  if (Software_Handle_Targeted == NULL) // global scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readString().toCharArray(String_To_Get, Size);
+    }
+  }
+  else // local scope
+  {
+    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File.seek(0);
+    if (Virtual_Memory_File)
+    {
+      Virtual_Memory_File.readString().toCharArray(String_To_Get, Size);
+    }
+  }
+  Virtual_Memory_File.close();
+  xSemaphoreGive(Virtual_Memory_Semaphore);
+}
+
 // 32-bit var
 void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
@@ -856,7 +972,7 @@ void Ressource_Monitor(void *pvParameters)
 }*/
 
 // Account management
-GalaxOS_Event GalaxOS_Class::Check_Credentials(String const& Username_To_Check, String const& Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String const &Password_To_Check)
 {
   File Temporary_File = Drive->open("/GALAXOS/REGISTRY/ACCOUNT.GCF", FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -876,13 +992,13 @@ GalaxOS_Event GalaxOS_Class::Check_Credentials(String const& Username_To_Check, 
   }
 }
 
-GalaxOS_Event GalaxOS_Class::Login(String const& Username_To_Check, String const& Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Login(String const &Username_To_Check, String const &Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
-    
+
     Load_User_Files();
-    return Wrong_Credentials;
+    return Good_Credentials;
   }
   else
   {
@@ -892,23 +1008,19 @@ GalaxOS_Event GalaxOS_Class::Login(String const& Username_To_Check, String const
 
 void GalaxOS_Class::Load_User_Files()
 {
-  Serial.print(F("Load User Files ..."));
-  String Temporary_Username;
-  String Temporary_Password;
-  Get_Variable('U', Temporary_Username);
-  Get_Variable('P', Temporary_Password);
-  if (Check_Credentials(Temporary_Username, Temporary_Password) == INFORMATION_GOOD_CREDENTIALS)
+  Verbose_Print("> Load user files ...");
+  if (Current_Username[0] == 255) // if not logged
   {
-    Display.Set_Current_Page(F("Load_User"));
+    Event_Handler(Not_Logged);
+    return;
   }
-  else
+  if (!Drive->exists(Users_Path + String(Current_Username)))
   {
-    //error : wrong username or password
+    Event_Handler(Corrupted_User_File);
   }
 }
 
-
-  /*  switch (Type)
+/*  switch (Type)
   {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
   case ERROR_FAILLED_TO_INTIALIZE_SD_CARD:
@@ -944,7 +1056,6 @@ void GalaxOS_Class::Load_User_Files()
   default:
     break;
   }*/
-
 
 GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Type)
 {

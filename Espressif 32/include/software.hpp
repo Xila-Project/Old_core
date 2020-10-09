@@ -15,8 +15,8 @@ class Software_Handle_Class;
 class Software_Class // Software class, used by the core in order to communicate with the software
 {
 protected:
+
     Software_Class(Software_Handle_Class*, uint8_t);
-    ~Software_Class(); //call when soft is closed
 
     TaskHandle_t Task_Handle;
 
@@ -28,8 +28,9 @@ protected:
 
     //API used by the core
 
-    void Maximize(); //show
-    void Minimize(); //hide
+    void Close(); // Close
+    void Maximize(); // Show
+    void Minimize(); // Hide
 
     void Open_File(File& File_To_Set);
 
@@ -48,9 +49,9 @@ class Software_Handle_Class //Software "descriptor" class, used interaly to load
 protected:
     uint8_t Icon;
     char *Name;                                 //used to identify the software,
-    Software_Class *(*Load_Function_Pointer)(); //function called by the core to load software and return loaded software (construct class, open executable etc...)
+    Software_Class *(*Load_Function_Pointer)(Software_Handle_Class*); //function called by the core to load software and return loaded software (construct class, open executable etc...)
 
-    Software_Class *Default_Load_Function();
+    Software_Class *Default_Load_Function(Software_Handle_Class*);
 
     //char* Get_Name();
 

@@ -26,7 +26,7 @@
 //----------------------------------------------------------------------------//
 
 // Other part of the core
-
+#include "Instruction.hpp"
 #include "Software.hpp"
 
 // Driver files
@@ -83,8 +83,8 @@ typedef uint16_t GalaxOS_Event;
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
 // Nextion command
-#define CODE_COMMAND 0x2A             // * : Command
-#define CODE_COMMAND_NEW 0x43         // # : Command
+#define CODE_COMMAND 0x2A                   // * : Command
+#define CODE_COMMAND_NEW 0x43               // # : Command
 #define CODE_VARIABLE_BYTE_LOCAL 0x62       // b : 1 byte
 #define CODE_VARIABLE_BYTE_GLOBAL 0x42      // B : 1 byte
 #define CODE_VARIABLE_INTEGER_LOCAL 0x69    // i : 2 bytes
@@ -94,9 +94,7 @@ typedef uint16_t GalaxOS_Event;
 #define CODE_VARIABLE_LONG_LONG_GLOBAL 0x48 // H : 8 bytes
 #define CODE_VARIABLE_LONG_LONG_LOCAL 0x68  // h : 8 bytes
 #define CODE_VARIABLE_STRING_GLOBAL 0x53    // S : String (undefined size)
-#define CODE_VARIABLE_STRING_LOCAL 0x73     // s : String 
-
-
+#define CODE_VARIABLE_STRING_LOCAL 0x73     // s : String
 
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
@@ -105,11 +103,14 @@ typedef uint16_t GalaxOS_Event;
 class GalaxOS_Class
 {
 protected:
+    static GalaxOS_Class *Instance_Pointer;
+
     // System extension :
     // GRF : Galax'OS Registry File
     // GEF : Galax'OS Executable File
     // GSF : Galax'OS Sound File
-    const char System_Path[9] = "/GALAXOS";
+    const char Users_Path[8] = "/USERS/";
+    const char System_Path[10] = "/GALAXOS/";
     const char Extension_Registry_Path[31] = "/GALAXOS/REGISTRY/EXTENSIO.GRF";
     const char Display_Registry_Path[30] = "/GALAXOS/REGISTRY/DISPLAY.GRF";
     const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
@@ -117,7 +118,7 @@ protected:
     const char Software_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
 
     const char Virtual_Global_Memory_File[36] = "/GALAXOS/MEMORY/GLOBAL/VARIABLE.GSF";
-    
+
     // Virtual Memory File
 
     File Virtual_Memory_File;
@@ -140,8 +141,6 @@ protected:
 
     uint8_t Event_Reply;
 
-    Software_Class *Software_Pointer[6]; //current running software
-
     char Tag;
 
     struct tm Time;
@@ -149,10 +148,10 @@ protected:
     char WiFi_SSID[20];
     char WiFi_Password[20];
 
-    xTaskHandle Nextion_Serial_Receive_Handle;
-
     xTaskHandle Ressource_Monitor_Handle;
-    xTaskHandle GalaxOS_Core_Handle;
+    xTaskHandle Core_Task_Handle;
+
+    QueueHandle_t Core_Instruction_Queue_Handle;
 
     // Serial print
 
@@ -164,9 +163,14 @@ protected:
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
     void Open_Software(const char *);
-    void Close_Software(const char * = NULL);
+    void Close_Software(Software_Handle_Class * = NULL);
+    void Minimize_Software();
+    void Maximize_Software(uint8_t);
 
 public:
+
+    // Core A.P.I.s (system calls)
+    void Open_File(File&);
 
     enum Information
     {
@@ -191,15 +195,17 @@ public:
 
     enum Warning
     {
+
+        Low_RAM,
+    };
+
+    enum Error
+    {
+        Not_Logged,
+        Corrupted_User_File,
         Failed_To_Initialize_SD_Card,
         Corrupted_System_File,
         Invalid_Software_ID,
-        Low_RAM,
-    };
-    
-    enum Error
-    {
-
     };
 
     enum Color
@@ -244,10 +250,23 @@ public:
 
     void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
 
-    // Display callback function
-    void Incomming_String_Data_From_Display(String&);
-    void Incomming_Numeric_Data_From_Display(uint32_t&);
-    void Incomming_Event_From_Display(uint16_t&);
+    // Display callback functions
+
+    enum Code {
+        Close = 0x43,
+        Maximize = 0x4D,
+        Minimize = 0x6D,
+        Command = 0x2A,
+        Command_New = 0x23,
+        Variable_String_Local = 0x0073,
+        Variable_String_Global = 0x0053,
+        Variable_Long_Local = 0x6C,
+        Variable_Long_Global = 0x4C,
+    };
+
+    void Incomming_String_Data_From_Display(String &);
+    void Incomming_Numeric_Data_From_Display(uint32_t &);
+    void Incomming_Event_From_Display(uint16_t &);
 
     // Serial communication macro
     void Horizontal_Separator();
@@ -259,14 +278,14 @@ public:
     int Get_C_Frequency();
     byte Get_C_MIDI();
 
-    //
-    void Set_Variable(char const&, String const&, uint16_t = 0, Software_Handle_Class* = NULL);
-    void Get_Variable(char const&, String&, uint16_t = 0, Software_Handle_Class* = NULL);
+    // Virtual Memory
+    void Set_Variable(char const &, String const &, uint16_t = 0, Software_Handle_Class * = NULL);
+    void Get_Variable(char const &, String &, uint16_t = 0, Software_Handle_Class * = NULL);
 
-    /*void Set_Variable(uint8_t const &, const char *, uint16_t const&, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, char *, uint16_t const&, Software_Handle_Class* = NULL);
+    void Set_Variable(uint8_t const &, const char *, uint16_t, Software_Handle_Class * = NULL);
+    void Get_Variable(uint8_t const &, char *, uint16_t, Software_Handle_Class * = NULL);
 
-    void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
+    /*void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
     void Get_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
     void Set_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
@@ -275,40 +294,41 @@ public:
     void Set_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
     void Get_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);*/
 
-    void Set_Variable(char const&, uint32_t*, uint16_t = 0, Software_Handle_Class* = NULL);
-    void Get_Variable(char const&, uint32_t*, uint16_t = 0, Software_Handle_Class* = NULL);
+    void Set_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
+    void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
 
     char *Get_Current_Username()
     {
         return Current_Username;
     }
 
-    void Registry_Find(File &Registry_File, const char *Key_Name, char *Key_Value_To_Get, uint16_t const &Column = 0);
+    /*void Registry_Find(File &Registry_File, const char *Key_Name, char *Key_Value_To_Get, uint16_t const &Column = 0);
     char *Registry_Read(File &Registry_File, uint16_t const &Line_Number, uint16_t const &Column_Number);
     void Registry_Write(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get);
     void Registry_Add(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
     void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
-    void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);
-
-    void Open_File(File &File_To_Open);
+    void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
     void Load_System_Files();
     void Load_User_Files();
 
-    GalaxOS_Event Check_Credentials(String const&, String const&);
-    GalaxOS_Event Login(String const&, String const&);
+    GalaxOS_Event Check_Credentials(String const &, String const &);
+    GalaxOS_Event Login(String const &, String const &);
 
     //services
     void Desk_Execute(uint16_t const &Command);
 
-    GalaxOS_Event Event_Handler(GalaxOS_Event const&);
-    friend void Ressource_Monitor(void *pvParameters);
-
-    friend class Shell_Class;
+    GalaxOS_Event Event_Handler(GalaxOS_Event const &);
 
     void Nextion_Upload_Firmware(String const &Path);
+
+    friend class Shell_Class;
+    friend void Core_Task(void *);
+    friend void Ressource_Monitor(void *pvParameters);
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
 void Ressource_Monitor(void *pvParameters);
+void Core_Task(void *);
+
 #endif

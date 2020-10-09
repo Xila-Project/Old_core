@@ -310,23 +310,23 @@ protected:
     unsigned char table_index;
     LINENUM linenum;
 
-    const unsigned char TinyBasic_Class::okmsg[3] = "OK";
-    const unsigned char TinyBasic_Class::whatmsg[7] = "What? ";
-    const unsigned char TinyBasic_Class::howmsg[5] = "How?";
-    const unsigned char TinyBasic_Class::sorrymsg[8] = "Sorry!";
-    const unsigned char TinyBasic_Class::initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
-    const unsigned char TinyBasic_Class::memorymsg[13] = " bytes free.";
-    const unsigned char TinyBasic_Class::eeprommsg[21] = " EEProm bytes total.";
-    const unsigned char TinyBasic_Class::eepromamsg[25] = " EEProm bytes available.";
-    const unsigned char TinyBasic_Class::breakmsg[7] = "break!";
-    const unsigned char TinyBasic_Class::unimplimentedmsg[14] = "Unimplemented";
-    const unsigned char TinyBasic_Class::backspacemsg[4] = "\b \b";
-    const unsigned char TinyBasic_Class::indentmsg[5] = "    ";
-    const unsigned char TinyBasic_Class::sderrormsg[15] = "SD card error.";
-    const unsigned char TinyBasic_Class::sdfilemsg[15] = "SD file error.";
-    const unsigned char TinyBasic_Class::dirextmsg[6] = "(dir)";
-    const unsigned char TinyBasic_Class::slashmsg[2] = "/";
-    const unsigned char TinyBasic_Class::spacemsg[2] = " ";
+    const unsigned char okmsg[3] = "OK";
+    const unsigned char whatmsg[7] = "What? ";
+    const unsigned char howmsg[5] = "How?";
+    const unsigned char sorrymsg[8] = "Sorry!";
+    const unsigned char initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
+    const unsigned char memorymsg[13] = " bytes free.";
+    const unsigned char eeprommsg[21] = " EEProm bytes total.";
+    const unsigned char eepromamsg[25] = " EEProm bytes available.";
+    const unsigned char breakmsg[7] = "break!";
+    const unsigned char unimplimentedmsg[14] = "Unimplemented";
+    const unsigned char backspacemsg[4] = "\b \b";
+    const unsigned char indentmsg[5] = "    ";
+    const unsigned char sderrormsg[15] = "SD card error.";
+    const unsigned char sdfilemsg[15] = "SD file error.";
+    const unsigned char dirextmsg[6] = "(dir)";
+    const unsigned char slashmsg[2] = "/";
+    const unsigned char spacemsg[2] = " ";
 
     File fp;
 

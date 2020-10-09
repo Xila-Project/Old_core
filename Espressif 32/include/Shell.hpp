@@ -8,8 +8,6 @@
 class Shell_Class : public Software_Class
 {
 protected:
-    const byte Page_Desk = 19;
-    const byte Page_Menu = 31;
     
     File Temporary_File;
 
@@ -23,12 +21,6 @@ protected:
     static Shell_Class *Instance_Pointer;
 
     Software_Class* Load(Software_Handle_Class*);
-
-    void Maximize();
-    void Minimize();
-
-    void Execute(uint16_t const&);
-    void Execute(char const&, char const&);
 
     void Login();
 
@@ -44,6 +36,9 @@ protected:
     void Rename(char*);
     void Delete(char*);
     void Go_Parent();
+
+    void Open_From_Dock(uint8_t);
+    void Open_From_Menu();
 
     friend void Shell_Task(void*);
 };
