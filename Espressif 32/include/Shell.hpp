@@ -8,19 +8,20 @@
 class Shell_Class : public Software_Class
 {
 protected:
-    
+
+
+
     File Temporary_File;
 
     uint8_t Mode;
-    char* Current_Path;
+    String Current_Path;
 
-
-    Shell_Class(Software_Handle_Class*);
+    Shell_Class();
     ~Shell_Class();
-    
+
     static Shell_Class *Instance_Pointer;
 
-    Software_Class* Load(Software_Handle_Class*);
+    static Software_Handle_Class* Handle_Pointer;
 
     void Login();
 
@@ -31,18 +32,23 @@ protected:
 
     void Display_Path();
 
-    void Make_Directory(char*);
-    void Make_File(char*);
-    void Rename(char*);
-    void Delete(char*);
+    void Make_Directory(char *);
+    void Make_File(char *);
+    void Rename(char *);
+    void Delete(char *);
     void Go_Parent();
 
     void Open_From_Dock(uint8_t);
     void Open_From_Menu();
 
-    friend void Shell_Task(void*);
+    friend void Shell_Task(void *);
+
+public:
+    static Software_Class* Load();
 };
 
-void Shell_Task(void*);
+void Shell_Task(void *);
+
+Software_Handle_Class Shell_Handle("Shell", 12, Shell_Class::Load);
 
 #endif

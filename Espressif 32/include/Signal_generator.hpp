@@ -19,10 +19,15 @@ protected:
 
     void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
 
+
     friend void Signal_Generator_Socket(void*);
 
+public:
+    static Software_Class* Load();
 };
 
 void Signal_Generator_Socket(void*);
+
+Software_Handle_Class Signal_Generator_Handle("Signal Generator", 12, Signal_Generator_Class::Load)
 
 #endif

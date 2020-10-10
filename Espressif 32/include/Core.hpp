@@ -100,6 +100,7 @@ typedef uint16_t GalaxOS_Event;
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
 
+
 class GalaxOS_Class
 {
 protected:
@@ -169,7 +170,7 @@ protected:
 
 public:
 
-    // Core A.P.I.s (system calls)
+    // Core APIs (system calls)
     void Open_File(File&);
 
     enum Information

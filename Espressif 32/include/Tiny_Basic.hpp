@@ -61,7 +61,6 @@
 
 #define FILEIO_RAM (1030) /* buffer */
 
-
 #define TBE_VERSION "0.15"
 
 #define SCK_PIN 5   // SPI
@@ -75,10 +74,28 @@
 #define TONE_RAM (40) /* I/O buffer */
 #define PROG_RAM (PROG_MAX - FILEIO_RAM - TONE_RAM)
 
+struct stack_for_frame
+{
+    char frame_type;
+    char for_var;
+    short int terminal;
+    short int step;
+    unsigned char *current_line;
+    unsigned char *txtpos;
+};
+
+struct stack_gosub_frame
+{
+    char frame_type;
+    unsigned char *current_line;
+    unsigned char *txtpos;
+};
+
 class TinyBasic_Class : public Software_Class
 {
 protected:
     static TinyBasic_Class *Instance_Pointer;
+
     const unsigned char keywords[250] PROGMEM = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
@@ -150,8 +167,6 @@ protected:
 
     TaskHandle_t TinyBasic_Socket_Handle;
 
-    static TinyBasic_Class *Instance_Pointer;
-
     // This is calibration data for the raw touch data to the screen coordinates
 #define TS_MINX 3800
 #define TS_MAXX 100
@@ -162,8 +177,6 @@ protected:
     // EEPROM
 
     int eepos = 0;
-
-
 
     // Stream files source : these will select, at runtime, where IO happens through for load/save
     enum
@@ -223,23 +236,6 @@ protected:
         ENABLE_WIFI,
         KW_WIFI,
         KW_DEFAULT /* always the final one*/
-    };
-
-    struct stack_for_frame
-    {
-        char frame_type;
-        char for_var;
-        short int terminal;
-        short int step;
-        unsigned char *current_line;
-        unsigned char *txtpos;
-    };
-
-    struct stack_gosub_frame
-    {
-        char frame_type;
-        unsigned char *current_line;
-        unsigned char *txtpos;
     };
 
     const unsigned char func_tab[26] = {
@@ -332,17 +328,15 @@ protected:
 
     String Command;
 
-    TinyBasic_Class(Software_Handle_Class *);
+    TinyBasic_Class();
     ~TinyBasic_Class();
 
     void cmd_Files(void);
-    unsigned char *filenameWord(void);
     boolean sd_is_initialized = false;
 
     int inchar(void);
     void outchar(unsigned char c);
     void line_terminator(void);
-    short int expression(void);
     unsigned char breakcheck(void);
 
     void ignore_blanks(void);
@@ -366,15 +360,16 @@ protected:
 
     int isValidFnChar(char c);
     unsigned char *filenameWord(void);
-    void line_terminator(void);
-    unsigned char breakcheck(void);
-    int inchar();
-    void outchar(unsigned char c);
     int initSD(void);
 
     friend void TinyBasic_Task(void *pvParameters);
+
+public:
+    static Software_Class *Load();
 };
 
 void TinyBasic_Task(void *);
+
+Software_Handle_Class TinyBasic_Handle("Tiny Basic", 12, TinyBasic_Class::Load);
 
 #endif

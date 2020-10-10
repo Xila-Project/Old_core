@@ -4,6 +4,8 @@
 
 GalaxOS_Class GalaxOS;
 
+extern Software_Handle_Class Shell_Handle;
+
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
 
@@ -76,7 +78,7 @@ void GalaxOS_Class::Start()
   pinMode(4, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
   pinMode(13, INPUT_PULLUP);
-  delete &SD_MMC;
+  //delete &SD_MMC;
 #else
 
   delete &SD;
@@ -204,7 +206,9 @@ void GalaxOS_Class::Start()
   }
 
   // Load software (including Shell UI)
-  Verbose_Print_Line("> Load software registry ...");
+  Verbose_Print_Line("> Load software ...");
+  Software_Handle_Pointer[0] = &Shell_Handle;
+  
   Temporary_File = Drive->open(Software_Registry_Path);
   if (!Temporary_File)
   {
@@ -314,7 +318,7 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
   }
 }
 
-void GalaxOS_Class::Open_File(File &File_To_Open)
+void GalaxOS_Class::Open_File(File& File_To_Open)
 {
   if (!File_To_Open)
   {
@@ -405,7 +409,7 @@ void GalaxOS_Class::Open_Software(const char *Software_Name)
   }
   for (uint8_t i = 0; i < 6; i++)
   {
-    if (Software_Handler_Pointer[Software_Handle_Slot] == Open_Software_Pointer[i]->Handle_Pointer)
+    if (Software_Handle_Pointer[Software_Handle_Slot] == Open_Software_Pointer[i]->Handle_Pointer)
     {
       Maximize_Software(i);
       return;
@@ -415,7 +419,7 @@ void GalaxOS_Class::Open_Software(const char *Software_Name)
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-      Open_Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer(Software_Handle_Pointer[Software_Handle_Slot]);
+      Open_Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer();
     }
   }
 }

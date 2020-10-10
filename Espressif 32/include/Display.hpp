@@ -49,9 +49,9 @@ protected:
 
     xTaskHandle Nextion_Serial_Handle;
 
-    void (*Callback_Function_String_Data)(String);
-    void (*Callback_Function_Numeric_Data)(uint32_t);
-    void (*Callback_Function_Event)(uint16_t);
+    void (*Callback_Function_String_Data)(String&);
+    void (*Callback_Function_Numeric_Data)(uint32_t&);
+    void (*Callback_Function_Event)(uint16_t&);
 
     static uint8_t Number_Instance;
 

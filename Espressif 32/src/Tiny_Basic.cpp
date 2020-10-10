@@ -5,18 +5,23 @@
 
 TinyBasic_Class *TinyBasic_Class::Instance_Pointer = NULL;
 
-TinyBasic_Class::TinyBasic_Class(Software_Handle_Class *Software_Hanlde_To_Set) : Software_Class(Software_Hanlde_To_Set, 5)
+Software_Class* TinyBasic_Class::Load()
 {
-  Instance_Pointer = this;
+  if (Instance_Pointer == NULL)
+  {
+    Instance_Pointer = new TinyBasic_Class;
+  }
+  return Instance_Pointer;
+}
 
+TinyBasic_Class::TinyBasic_Class() : Software_Class(5)
+{
   xTaskCreatePinnedToCore(TinyBasic_Task, "TinyBasic", 2 * 6 * 1024, NULL, 2, &Task_Handle, 0);
 }
 
 TinyBasic_Class::~TinyBasic_Class()
 {
-  Execute(0x0043);
-  vTaskDelete(Task_Handle);
-  Instance_Pointer == NULL;
+  Instance_Pointer = NULL;
 }
 
 void TinyBasic_Task(void *pvParameters)
@@ -26,7 +31,7 @@ void TinyBasic_Task(void *pvParameters)
   GalaxOS.Display.Draw_Fill(2, 20, 476, 250, COLOR_DARK_GREY);
 
   // Initialize SD Card
-  if (!GalaxOS.Drive.begin())
+  if (!GalaxOS.Drive->begin())
   {
     // failed
     INSTANCE_POINTER->printmsg(INSTANCE_POINTER->sderrormsg);
@@ -35,10 +40,10 @@ void TinyBasic_Task(void *pvParameters)
   {
     INSTANCE_POINTER->sd_is_initialized = true;
   }
-  if (GalaxOS.Drive.exists(AUTORUN_FILE))
+  if (GalaxOS.Drive->exists(AUTORUN_FILE))
   {
     INSTANCE_POINTER->program_end = INSTANCE_POINTER->program_start;
-    INSTANCE_POINTER->fp = GalaxOS.Drive.open(AUTORUN_FILE);
+    INSTANCE_POINTER->fp = GalaxOS.Drive->open(AUTORUN_FILE);
     INSTANCE_POINTER->inStream = INSTANCE_POINTER->kStreamFile;
     INSTANCE_POINTER->inhibitOutput = true;
     INSTANCE_POINTER->runAfterLoad = true;
@@ -865,7 +870,7 @@ void TinyBasic_Task(void *pvParameters)
           goto qwhat;
 
         // check if file exists
-        if (!GalaxOS.Drive.exists((char *)filename))
+        if (!GalaxOS.Drive->exists((char *)filename))
         {
           // file is missing
           INSTANCE_POINTER->printmsg(INSTANCE_POINTER->sdfilemsg);
@@ -873,7 +878,7 @@ void TinyBasic_Task(void *pvParameters)
         else
         {
           // file exists so open it
-          INSTANCE_POINTER->fp = GalaxOS.Drive.open((const char *)filename);
+          INSTANCE_POINTER->fp = GalaxOS.Drive->open((const char *)filename);
           INSTANCE_POINTER->inStream = INSTANCE_POINTER->kStreamFile;
           INSTANCE_POINTER->inhibitOutput = true;
         }
@@ -896,13 +901,13 @@ void TinyBasic_Task(void *pvParameters)
       Serial.println((char *)filename);
 
       // remove the old file if it exists
-      if (GalaxOS.Drive.exists((char *)filename))
+      if (GalaxOS.Drive->exists((char *)filename))
       {
-        GalaxOS.Drive.remove((char *)filename);
+        GalaxOS.Drive->remove((char *)filename);
       }
 
       // open the file, switch over to file output
-      INSTANCE_POINTER->fp = GalaxOS.Drive.open((const char *)filename, FILE_WRITE);
+      INSTANCE_POINTER->fp = GalaxOS.Drive->open((const char *)filename, FILE_WRITE);
 
       if (INSTANCE_POINTER->fp == (File)NULL)
       {
@@ -943,9 +948,9 @@ void TinyBasic_Task(void *pvParameters)
         Serial.println((char *)filename);
 
         // remove the file if it exists
-        if (GalaxOS.Drive.exists((char *)filename))
+        if (GalaxOS.Drive->exists((char *)filename))
         {
-          GalaxOS.Drive.remove((char *)filename);
+          GalaxOS.Drive->remove((char *)filename);
         }
         goto warmstart;
       }
@@ -1548,7 +1553,7 @@ int TinyBasic_Class::isValidFnChar(char c)
 
 //****************************************************************************************//
 
-unsigned char *TinyBasic_Class::filenameWord(void)
+unsigned char *TinyBasic_Class::filenameWord()
 {
   // SDL - I wasn't sure if this functionality existed above, so I figured i'd put it here
   unsigned char *ret = txtpos;
@@ -1677,7 +1682,7 @@ void TinyBasic_Class::outchar(unsigned char c)
 
 void TinyBasic_Class::cmd_Files(void)
 {
-  File dir = GalaxOS.Drive.open("/");
+  File dir = GalaxOS.Drive->open("/");
   dir.seek(0);
 
   while (true)

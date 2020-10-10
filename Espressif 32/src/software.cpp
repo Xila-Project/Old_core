@@ -4,11 +4,10 @@
 
 Software_Class *Software_Class::Instance_Pointer = NULL;
 
-Software_Class::Software_Class(Software_Handle_Class *Task_Handle_To_Set, uint8_t Task_Queue_Size) //constructor
+Software_Class::Software_Class(uint8_t Task_Queue_Size) //constructor
 {
   Task_Handle = NULL;
   xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
-  Handle_Pointer = Task_Handle_To_Set;
 }
 
 Software_Class::~Software_Class() // Destructor : close
@@ -23,7 +22,7 @@ Software_Class::~Software_Class() // Destructor : close
   vTaskDelete(Task_Handle);
 }
 
-uint16_t& Software_Class::Get_Command()
+uint16_t Software_Class::Get_Command()
 {
   uint16_t Command_Buffer;
   xQueueReceive(Command_Queue_Handle, &Command_Buffer, portMAX_DELAY);
@@ -43,39 +42,38 @@ void Software_Class::Execute(char const &Task_Method_Char1, char const &Task_Met
 void Software_Class::Close()
 {
   vTaskResume(Task_Handle);
-  Execute(Command::Close);
+  Execute(Code::Close);
 }
 
 void Software_Class::Maximize()
 {
   vTaskResume(Task_Handle);
-  Execute(Command::Maximize);
+  Execute(Code::Maximize);
 }
 
 void Software_Class::Minimize()
 {
-  Execute(Command::Minimize);
+  Execute(Code::Minimize);
+}
+
+Software_Class* Software_Class::Load() // just an example
+{
+  if (Instance_Pointer == NULL)
+  {
+    Instance_Pointer = new Software_Class(6);
+  }
+  return Instance_Pointer;
 }
 
 // Software handle
 
-Software_Handle_Class::Software_Handle_Class(char const *Software_Name, uint8_t &Icon_ID)
+Software_Handle_Class::Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class* (*Load_Function_Pointer_To_Set)())
 {
-  Name = new char[sizeof(Software_Name)];
   strcpy(Name, Software_Name);
   Icon = Icon_ID;
-  Load_Function_Pointer = &Default_Load_Function;
+  Load_Function_Pointer = Load_Function_Pointer_To_Set;
 }
 
 Software_Handle_Class::~Software_Handle_Class()
 {
-}
-
-Software_Class *Software_Handle_Class::Default_Load_Function(Software_Handle_Class* Software_Handle_To_Set)
-{
-  /*if (GalaxOS.Drive.exists("/SOFTWARE/" + String(Name) + "/" + String(Name) + ".GEF")) //looking for executable
-  {
-    GalaxOS.Drive.Open_File(SD_MMC.open("/SOFTWARE/" + String(Name) + "/" + String(Name) + ".GEF"));
-  }*/
-  return NULL; //return null pointer because it's an external executable
 }

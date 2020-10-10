@@ -27,12 +27,12 @@ void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Po
     Callback_Function_String_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t&)))
+void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t &)))
 {
     Callback_Function_Numeric_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t&)))
+void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t &)))
 {
     Callback_Function_Event = Function_Pointer;
 }

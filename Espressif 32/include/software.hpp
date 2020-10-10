@@ -16,13 +16,22 @@ class Software_Class // Software class, used by the core in order to communicate
 {
 protected:
 
-    Software_Class(Software_Handle_Class*, uint8_t);
+    enum Code // System code used by the core to communicate
+    {
+        Close = 0x0043,
+        Maximize = 0x004D,
+        Minimize = 0x006D
+    };
 
+    Software_Class(uint8_t);
+   
     TaskHandle_t Task_Handle;
 
-    Software_Handle_Class* Handle_Pointer;
+    static Software_Class* Load();
 
     static Software_Class* Instance_Pointer;
+
+    static Software_Handle_Class* Handle_Pointer;
 
     QueueHandle_t Command_Queue_Handle;
 
@@ -37,7 +46,7 @@ protected:
     void Execute(uint16_t const &);
     void Execute(char const &, char const &);
 
-    uint16_t& Get_Command();
+    uint16_t Get_Command();
 
     friend class GalaxOS_Class;
     friend class Software_Handle_Class;
@@ -48,19 +57,21 @@ class Software_Handle_Class //Software "descriptor" class, used interaly to load
 {
 protected:
     uint8_t Icon;
-    char *Name;                                 //used to identify the software,
-    Software_Class *(*Load_Function_Pointer)(Software_Handle_Class*); //function called by the core to load software and return loaded software (construct class, open executable etc...)
+    char Name[24];                                 //used to identify the software,
+    
+    Software_Class* (*Load_Function_Pointer)(); //function called by the core to load software and return loaded software (construct class, open executable etc...)
 
-    Software_Class *Default_Load_Function(Software_Handle_Class*);
+    //Software_Class* Load_Function(Software_Handle_Class*);
 
     //char* Get_Name();
-
-    Software_Handle_Class(char const *Software_Name, uint8_t &Icon_ID);
-    ~Software_Handle_Class();
 
     friend class GalaxOS_Class;
     friend class Software_Class;
     friend class Shell_Class;
+
+public:
+    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class* (*Load_Function_Pointer_To_Set)());
+    ~Software_Handle_Class();
 };
 
 #endif
