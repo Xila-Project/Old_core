@@ -27,12 +27,12 @@ void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Po
     Callback_Function_String_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer(uint32_t &)))
+void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t&))
 {
     Callback_Function_Numeric_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer(uint16_t &)))
+void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t&))
 {
     Callback_Function_Event = Function_Pointer;
 }
@@ -46,7 +46,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     uint8_t Return_Code = 0;
     uint8_t Temporary_Byte_Array[] = {0, 0, 0, 0, 0, 0, 0};
     String Temporary_String = String("");
-
+    uint8_t Event_Code = 0;
     (void)pvParameters;
     for (;;)
     {
@@ -118,7 +118,8 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                         {
                             if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                             {
-                                Nextion_Display_Class::Display_Pointer->Callback_Function_Event(NEXTION_INFORMATION_STARTUP);
+                                Event_Code = NEXTION_INFORMATION_STARTUP;   
+                                Nextion_Display_Class::Display_Pointer->Callback_Function_Event(Event_Code);
                             }
                         }
                     }
@@ -129,7 +130,8 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                     {
                         if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                         {
-                            Nextion_Display_Class::Display_Pointer->Callback_Function_Event(NEXTION_ERROR_INVALID_INSTRUCTION);
+                            Event_Code = NEXTION_ERROR_INVALID_INSTRUCTION;
+                            Nextion_Display_Class::Display_Pointer->Callback_Function_Event(Event_Code);
                         }
                     }
                 }
@@ -370,7 +372,7 @@ void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t co
     Draw_Rectangle(X_Coordinate, Y_Coordinate, 1, 1, Color);
 }
 
-void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow = false)
+void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow = false)
 {
     if (Hollow)
     {
@@ -421,16 +423,16 @@ void Nextion_Display_Class::Calibrate()
     Instruction_End();
 }
 
-void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t const& Value = NULL, uint32_t const& Quantity = NULL, uint8_t* Array = NULL)
+void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t* Data, uint32_t const& Quantity)
 {
     Nextion_Serial.print(F("add"));
-    if (Quantity == NULL)
+    if (Quantity == 0)
     {
         Nextion_Serial.print(Component_ID);
         Argument_Separator();
         Nextion_Serial.print(Channel);
         Argument_Separator();
-        Nextion_Serial.print(Value);
+        Nextion_Serial.print(Data[0]);
     }
     else
     {
@@ -443,7 +445,7 @@ void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uin
         vTaskDelay(pdMS_TO_TICKS(10)); //wait display to prepare transparent mode
         for(uint16_t i = 0; i < Quantity; i++)
         {
-            Nextion_Serial.write(Array[i]);
+            Nextion_Serial.write(Data[i]);
         }
     }
     Instruction_End();
@@ -546,7 +548,7 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
     if (Nextion_Serial.read() != 0x05)
     {
         //error handle
-        return;
+        return NEXTION_ERROR_UPDATE_FAILED;
     }
     Serial.println(F("Succefully transmited file"));
 }

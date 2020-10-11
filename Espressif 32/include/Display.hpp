@@ -8,6 +8,13 @@
 
 #define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
 
+enum Display_Error
+{
+    Invalid_Instruciton = 0x00,
+    Invalid_Component_ID = 0x02,
+    Invalid_Page_ID = 0x03
+};
+
 #define NEXTION_ERROR_INVALID_INSTRUCTION 0x00  //4 byte
 #define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02 //4 byte
 #define NEXTION_ERROR_INVALID_PAGE_ID 0x03
@@ -26,6 +33,7 @@
 #define NEXTION_ERROR_INVALID_ESCAPE_CHARACTER 0x20
 #define NEXTION_ERROR_TOO_LONG_VARIABLE_NAME 0x23
 #define NEXTION_ERROR_SERIAL_BUFFER_OVERFLOW 0x24
+#define NEXTION_ERROR_UPDATE_FAILED 0x25
 
 #define NEXTION_INFORMATION_STARTUP 0x07 //custom
 #define NEXTION_INFORMATION_INTRUCTION_SUCCESSFUL 0x01
@@ -51,7 +59,7 @@ protected:
 
     void (*Callback_Function_String_Data)(String&);
     void (*Callback_Function_Numeric_Data)(uint32_t&);
-    void (*Callback_Function_Event)(uint16_t&);
+    void (*Callback_Function_Event)(uint8_t&);
 
     static uint8_t Number_Instance;
 
@@ -85,13 +93,13 @@ public:
     ~Nextion_Display_Class();
 
     void Set_Callback_Function_String_Data(void (*Function_Pointer)(String &));
-    void Set_Callback_Function_Numeric_Data(void(*Function_Pointer(uint32_t &)));
-    void Set_Callback_Function_Event(void(*Function_Pointer(uint16_t &)));
+    void Set_Callback_Function_Numeric_Data(void(*Function_Pointer)(uint32_t &));
+    void Set_Callback_Function_Event(void(*Function_Pointer)(uint8_t &));
 
     // Basic Geometrical Drawing
     void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
-    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow);
-    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow);
+    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow);
+    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow = false);
     void Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color);
     void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
 
@@ -171,7 +179,7 @@ public:
     void Click(uint16_t const &Component_ID, uint8_t const &Event_Type);
     void Start_Waveform_Refresh();
     void Stop_Waveform_Refresh();
-    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t const &Value, uint32_t const &Quantity, uint8_t *Array);
+    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t* Data, uint32_t const &Quantity = 0);
     void Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel);
     void Get(const __FlashStringHelper *Object_Name);
     void Calibrate();

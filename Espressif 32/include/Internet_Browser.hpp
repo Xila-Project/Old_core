@@ -120,7 +120,6 @@ static const uint16_t tag_codes[] = {
 class Internet_Browser_Class : public Software_Class
 {
 private:
-
     char Server[30];
     char Path[60];
     char URL[90];
@@ -164,13 +163,9 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    static Software_Class *Load(Software_Handle_Class*);
 
-    static Internet_Browser_Class* Instance_Pointer;
 
-public:
-    Internet_Browser_Class(Software_Handle_Class* Task_Handle_To_Set);
-    ~Internet_Browser_Class();
+    static Internet_Browser_Class *Instance_Pointer;
 
     void Go_Link();
     void Page_Up();
@@ -180,10 +175,18 @@ public:
     void Load_Page();
     void Go_URL();
     void Go_Home();
-    
+
+public:
+    Internet_Browser_Class();
+    ~Internet_Browser_Class();
+
     friend void Internet_Browser_Task(void *pvParameters);
+
+    static Software_Class* Load();
 };
 
 void Internet_Browser_Task(void *pvParameters);
+
+Software_Handle_Class Internet_Browser_Handle("Internet_Browser", 12, Internet_Browser_Class::Load);
 
 #endif

@@ -3,7 +3,7 @@
 
 #include "GalaxOS.hpp"
 
-class Paint_Class : public Software_Class
+class Paint_Class : protected Software_Class
 {
 protected:
     Software_Class *Load(Software_Handle_Class *);
@@ -12,7 +12,7 @@ protected:
 
     static const uint8_t Page_Paint = 25;
 public:
-    Paint_Class(Software_Handle_Class*);
+    Paint_Class();
     ~Paint_Class();
 
     friend void Paint_Task(void*);

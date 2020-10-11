@@ -6,15 +6,15 @@ Paint_Class* Paint_Class::Instance_Pointer = NULL;
 
 Software_Class *Paint_Class::Load(Software_Handle_Class *Software_Handle_To_Set)
 {
-    if (Instance_Pointer != NULL)
+    if (Instance_Pointer == NULL)
     {
-        return Instance_Pointer;
+        Instance_Pointer = new Paint_Class;
     }
-    return new Paint_Class(Software_Handle_To_Set);
+    return Instance_Pointer;
 }
 
 
-Paint_Class::Paint_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 6)
+Paint_Class::Paint_Class() : Software_Class(6)
 {
     xTaskCreatePinnedToCore(Paint_Task, "Paint Task", 8192, NULL, 2, &Task_Handle, 1);
 
@@ -34,13 +34,13 @@ void Paint_Task(void* pvParameters)
         {
             case 0:
                 break;
-            case 0x004D: // NULL + M : Maximize
+            case INSTANCE_POINTER->Code::Maximize: // NULL + M : Maximize
                 GalaxOS.Display.Set_Current_Page(Paint_Class::Page_Paint);
                 break;
-            case 0x006D: // NULL + m : Minimize
+            case INSTANCE_POINTER->Code::Minimize: // NULL + m : Minimize
                 vTaskSuspend(NULL);
                 break;
-            case 0x0043: // NULL + C : Close
+            case INSTANCE_POINTER->Code::Close: // NULL + C : Close
                 vTaskDelete(NULL);
                 break;
             

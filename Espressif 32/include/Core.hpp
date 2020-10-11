@@ -130,10 +130,10 @@ protected:
 
     int C_Frequency;
 
-    int Low_RAM_Threshold;
+    const int Low_RAM_Threshold = 2000;
 
     //User attribute
-    char *Current_Username;
+    char Current_Username[8];
 
     String Temporary_String;
 
@@ -249,7 +249,7 @@ public:
 
     // Software Management
 
-    void Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)()); // Used by softwa
+    void Set_Load_Function(const char*, Software_Class* (*)()); // Used by softwa
 
     // Display callback functions
 
@@ -267,12 +267,14 @@ public:
 
     void Incomming_String_Data_From_Display(String &);
     void Incomming_Numeric_Data_From_Display(uint32_t &);
-    void Incomming_Event_From_Display(uint16_t &);
+    void Incomming_Event_From_Display(uint8_t &);
 
     // Serial communication macro
+
     void Horizontal_Separator();
-    void Print_Line(const char * = NULL, uint8_t const & = 0);
-    void Print_Line(const __FlashStringHelper *, uint8_t const & = 0);
+    void Print_Line(const char *, uint8_t const & = 0);
+    void Print_Line(const __FlashStringHelper*, uint8_t const & = 0);
+    void Print_Line();
 
     //
     byte Get_Speaker_Pin();
@@ -298,7 +300,7 @@ public:
     void Set_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
     void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
 
-    char *Get_Current_Username()
+    char* Get_Current_Username()
     {
         return Current_Username;
     }
@@ -315,6 +317,7 @@ public:
 
     GalaxOS_Event Check_Credentials(String const &, String const &);
     GalaxOS_Event Login(String const &, String const &);
+    GalaxOS_Event Logout();
 
     //services
     void Desk_Execute(uint16_t const &Command);

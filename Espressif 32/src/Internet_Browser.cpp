@@ -3,16 +3,16 @@
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
-Software_Class *Internet_Browser_Class::Load(Software_Handle_Class* Software_Handle_To_Set)
+Software_Class *Internet_Browser_Class::Load()
 {
-  if (Instance_Pointer != NULL)
+  if (Instance_Pointer == NULL)
   {
-    return Instance_Pointer;
+    Instance_Pointer = new Internet_Browser_Class;
   }
-  return new Internet_Browser_Class(Software_Handle_To_Set);
+  return Instance_Pointer;
 }
 
-Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 5)
+Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 {
 
   memset(Server, 0, 30);
@@ -28,8 +28,9 @@ Internet_Browser_Class::Internet_Browser_Class(Software_Handle_Class* Software_H
   xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, 2, &Task_Handle, 1);
 }
 
-Internet_Browser_Class::~Internet_Browser_Class() : ~Software_Class()
+Internet_Browser_Class::~Internet_Browser_Class()
 {
+  Instance_Pointer = NULL;
 }
 
 void Internet_Browser_Task(void *pvParameters)
@@ -40,15 +41,17 @@ void Internet_Browser_Task(void *pvParameters)
     switch (INSTANCE_POINTER->Get_Command())
     {
     case 0:
+      vTaskDelay(pdMS_TO_TICKS(20));
       //Idle : nothing to do
       break;
-    case 0x004D: // NULL + M : Maximize
+    case Code::Maximize: // NULL + M : Maximize
       //do something when
       break;
-    case 0x006D: // NULL + m : Minimize
+    case Code::Minimize: // NULL + m : Minimize
       vTaskSuspend(NULL); 
       break;
-    case 0x0043: // NULL + C : Close
+    case Code::Close: // NULL + C : Close
+      delete INSTANCE_POINTER;
       vTaskDelete(NULL);
       break;
     case 0x4E4C: //NL
@@ -77,8 +80,6 @@ void Internet_Browser_Task(void *pvParameters)
       //error handle
       break;
     }
-    Internet_Browser_Class::Instance_Pointer->Task_Method_Array[Internet_Browser_Class::Instance_Pointer->Read_Position] = 0; //work done, reset the selector
-    Internet_Browser_Class::Instance_Pointer->Read_Position++;
     vTaskDelay(pdMS_TO_TICKS(10));
   }
 }
@@ -103,7 +104,7 @@ void Internet_Browser_Class::Go_Home()
 void Internet_Browser_Class::Go_URL()
 {
   String Temporary_String;
-  GalaxOS.Get_Variable('U', URL);
+  GalaxOS.Get_Variable('U', &URL, 0, Handle_Pointer);
   Split_URL(URL);
   if (Cache_URL(Server, Path))
   {

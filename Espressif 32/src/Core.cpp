@@ -26,14 +26,12 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 #else
   Drive = &SD;
 #endif
-  Low_RAM_Threshold = 2000;
 
   C_MIDI = 60;
 
   C_Frequency = 262;
 
-  Current_Username = new char[8];
-  memset(Current_Username, 255, sizeof(Current_Username));
+  strcpy(Current_Username, "");
 
   Tag = 0x00;
 
@@ -208,7 +206,7 @@ void GalaxOS_Class::Start()
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software ...");
   Software_Handle_Pointer[0] = &Shell_Handle;
-  
+
   Temporary_File = Drive->open(Software_Registry_Path);
   if (!Temporary_File)
   {
@@ -308,7 +306,7 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 {
   if (Tag != 0)
   {
-    Set_Variable(Tag, Received_Data, 0, Open_Software_Pointer[0]->Handle_Pointer);
+    Set_Variable(Tag, &Received_Data, 0, Open_Software_Pointer[0]->Handle_Pointer);
     Tag = 0;
   }
   else
@@ -318,7 +316,12 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
   }
 }
 
-void GalaxOS_Class::Open_File(File& File_To_Open)
+void GalaxOS_Class::Incomming_Event_From_Display(uint8_t& Event_Code)
+{
+  
+}
+
+void GalaxOS_Class::Open_File(File &File_To_Open)
 {
   if (!File_To_Open)
   {
@@ -442,7 +445,7 @@ void GalaxOS_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Clo
       }
     }
   }
-  Maximize(1);
+  Maximize_Software(1);
 }
 
 void GalaxOS_Class::Minimize_Software()
@@ -457,7 +460,7 @@ void GalaxOS_Class::Minimize_Software()
       break;
     }
   }
-  Maximize(1);
+  Maximize_Software(1);
 }
 
 void GalaxOS_Class::Maximize_Software(uint8_t Slot)
@@ -472,11 +475,10 @@ void GalaxOS_Class::Maximize_Software(uint8_t Slot)
   }
   else if (Open_Software_Pointer != NULL)
   {
-    Minimize();
+    Minimize_Software();
   }
   Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
-  Open_Software_Pointer[Slot];
-  Open_Software_Pointer[0]->Maxmize();
+  Open_Software_Pointer[0]->Maximize();
 }
 
 uint8_t GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
@@ -487,11 +489,11 @@ uint8_t GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
     {
       return 255; //nothing find
     }
-    if (Software_Pointer[i]->Handle_Pointer == NULL)
+    if (Open_Software_Pointer[i]->Handle_Pointer == NULL)
     {
       continue;
     }
-    else if (strcmp(Software_Pointer[i]->Handle_Pointer->Name, Software_Name))
+    else if (strcmp(Open_Software_Pointer[i]->Handle_Pointer->Name, Software_Name))
     {
       return i;
     }
@@ -517,12 +519,12 @@ uint8_t GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
   }
 }
 
-void GalaxOS_Class::Set_Load_Function(const char *Software_Name, void (*Load_Function_To_Set)())
+void GalaxOS_Class::Set_Load_Function(const char *Software_Name, Software_Class *(*Load_Function_To_Set)())
 {
-  Software_Handle_Pointer[Get_Software_Handle_Pointer(Software_Name)]->Load_Function_Pointer = &Load_Function_To_Set;
+  Software_Handle_Pointer[Get_Software_Handle_Pointer(Software_Name)]->Load_Function_Pointer = Load_Function_To_Set;
 }
 
-// Serial communication with commputerà
+// Serial communication with commputer
 
 void GalaxOS_Class::Horizontal_Separator()
 {
@@ -1008,6 +1010,10 @@ GalaxOS_Event GalaxOS_Class::Login(String const &Username_To_Check, String const
   {
     return Check_Credentials(Username_To_Check, Password_To_Check);
   }
+}
+
+GalaxOS_Event GalaxOS_Class::Logout()
+{
 }
 
 void GalaxOS_Class::Load_User_Files()
