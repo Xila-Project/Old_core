@@ -157,6 +157,7 @@ void GalaxOS_Class::Start()
     DynamicJsonDocument Display_Registry(256);
     deserializeJson(Display_Registry, Temporary_File);
     Display.Set_Backlight(Display_Registry["Backlight"] | 100, false);
+    Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
   }
 
   // Load network configuration
@@ -172,7 +173,7 @@ void GalaxOS_Class::Start()
     WiFi.setHostname(Network_Registry["Host Name"]);                   // Set hostname
     const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
     char SSID[32], Password[32];
-    for (uint8_t i = 1; i < Number_WiFi_AP; i++)
+    for (uint8_t i = 0; i < Number_WiFi_AP; i++)
     {
       strcpy(SSID, Network_Registry["SSID" + String(i)]);
       strcpy(Password, Network_Registry["Password" + String(i)]);
@@ -598,7 +599,7 @@ void GalaxOS_Class::Restore_System_State()
     return;
   }
 
-  Current_Username = Temporary_Json_Document["Current Username"];
+  strcpy(Current_Username, Temporary_Json_Document["Current Username"]);
 
   Temporary_File.close();
   ESP.restart();
@@ -1111,6 +1112,42 @@ void GalaxOS_Class::Synchronise_Time()
   Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
   vTaskDelay(pdMS_TO_TICKS(1000));
   Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
+}
+
+// Create System file at 1st boot
+
+void GalaxOS_Class::Create_System_Files()
+{
+  // Display Registry
+  DynamicJsonDocument Display_Registry(256);
+  Display_Registry["Backlight"] = 75;
+  Display_Registry["Baud Rate"] = 921600;
+  File Temporary_File = Drive->open(Display_Registry_Path, FILE_WRITE);
+  serializeJson(Display_Registry, Temporary_File);
+  Display_Registry.clear();
+  Temporary_File.close();
+  
+  // Network registry
+  DynamicJsonDocument Network_Registry(256);
+  Network_Registry["Host name"] = "ESP32";
+  Network_Registry["Number WiFi AP"] = 0;
+  Temporary_File = Drive->open(Network_Registry_Path, FILE_WRITE);
+  serializeJson(Display_Registry, Temporary_File);
+  Network_Registry.clear();
+  Temporary_File.close();
+
+  // Regional registry
+  DynamicJsonDocument Regional_Registry(256);
+  Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  serializeJson(Regional_Registry, Temporary_File);
+  Regional_Registry.clear();
+  Temporary_File.close();
+
+  // Software registry
+  DynamicJsonDocument Software_Registry(256);
+  Temporary_File = Drive->open(Software_Registry_Path, FILE_WRITE);
+  Software_Registry.clear();
+  Temporary_File.close();
 }
 
 void Pictviewer()

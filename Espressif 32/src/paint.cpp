@@ -34,13 +34,13 @@ void Paint_Task(void* pvParameters)
         {
             case 0:
                 break;
-            case INSTANCE_POINTER->Code::Maximize: // NULL + M : Maximize
+            case Code::Maximize: // NULL + M : Maximize
                 GalaxOS.Display.Set_Current_Page(Paint_Class::Page_Paint);
                 break;
-            case INSTANCE_POINTER->Code::Minimize: // NULL + m : Minimize
+            case Code::Minimize: // NULL + m : Minimize
                 vTaskSuspend(NULL);
                 break;
-            case INSTANCE_POINTER->Code::Close: // NULL + C : Close
+            case Code::Close: // NULL + C : Close
                 vTaskDelete(NULL);
                 break;
             

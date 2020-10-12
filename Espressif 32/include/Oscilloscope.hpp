@@ -12,9 +12,6 @@ protected:
 
     const uint8_t Waveform_ID = 9;
 
-    Oscilloscope_Class(Software_Handle_Class *);
-    ~Oscilloscope_Class();
-
     uint8_t Current_Channel;
 
     // Constant
@@ -29,7 +26,7 @@ protected:
 
     const long VREF[5] = {250, 500, 1250, 2500, 5000};
     const int MILLIVOL_per_dot[5] = {33, 17, 6, 3, 2};
-    
+
     // channel mode
     const int MODE_ON = 0;
     const int MODE_INV = 1;
@@ -75,23 +72,28 @@ protected:
     short menu = 19;
 
     short data[4][320]; // keep twice of the number of channels to make it a double buffer
-    
-    short sample = 0;       // index for double buffer
+
+    short sample = 0; // index for double buffer
     int amplitude = 0;
     int amplitudeStep = 5;
 
-///////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////
 
     inline long adRead(short, short, int);
 
     void Refresh_Waveform();
     void Refresh_User_Interface();
 
-    Software_Class* Load(Software_Handle_Class*);
-
     friend void Oscilloscope_Task(void *); //main task
-    friend void SigmaDelta_Task(void *); // used to generate sigmadelta signal
+    friend void SigmaDelta_Task(void *);   // used to generate sigmadelta signal
+
+public:
+    static Software_Class *Load();
+    Oscilloscope_Class();
+    ~Oscilloscope_Class();
 };
+
+Software_Handle_Class Oscilloscope("Oscilloscope", 12, Oscilloscope_Class::Load);
 
 void Oscilloscope_Task(void *);
 void SigmaDelta_Task(void *);

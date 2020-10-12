@@ -6,24 +6,22 @@
 #include <soc/rtc.h>
 #include <math.h>
 
-Sound_Class::Sound_Class *Instance_Pointer = NULL;
-
-
+Sound_Class *Sound_Class::Instance_Pointer = NULL;
 
 Sound_Class::Sound_Class()
+    : Volume(0),
+      currentSample(0),
+      lastFilledWord(0),
 {
     if (Instance_Pointer != NULL)
     {
         delete this;
     }
-
-    INSTANCE_POINTER = this;
-
-    Volume = 0;
 }
 
 Sound_Class::~Sound_Class()
 {
+    Instance_Pointer = NULL;
 }
 
 void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
@@ -59,8 +57,8 @@ void Sound_Class::Get_Metadata()
     Serial.println(Sampling_Rate);
 
     Music_File.seek(34);
-    Byte_Rate = File_Music.read();
-    Byte_Rate = File_Music.read() << 8;
+    Byte_Rate = Music_File.read();
+    Byte_Rate = Music_File.read() << 8;
 
     if (Stereo == 2)
     {
@@ -69,25 +67,23 @@ void Sound_Class::Get_Metadata()
     {
     }
 
-    File_Music.seek(36);
+    Music_File.seek(36);
     strcpy(Temporary_Array, "data");
-    for (byte i = 0; i < 4 i++)
+    for (byte i = 0; i < 4; i++)
     {
-        if (File_Music.read() != Temporary_Array[i])
+        if (Music_File.read() != Temporary_Array[i])
         {
-            if (sFile.read() != Temporary_Array[i])
+            if (Music_File.read() != Temporary_Array[i])
             {
-                File_Music.seek(40);
-                Size = File_Music.read();
-                Size |= (File_Music.read() << 8) + 2;
-
-                for ()
+                Music_File.seek(40);
+                Size = Music_File.read();
+                Size |= (Music_File.read() << 8) + 2;
             }
 
             return;
         }
     }
-    File_Music.seek(44);
+    Music_File.seek(44);
 }
 
 void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
@@ -104,10 +100,8 @@ void Sound_Class::Play(File &File_To_Play)
     {
         return;
     }
-    File_Music = File_To_Play;
-    File_Music.seek(0);
-
-    Get_Informations();
+    Music_File = File_To_Play;
+    Music_File.seek(0);
 
     // Check first RIFF infos
 

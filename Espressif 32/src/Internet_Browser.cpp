@@ -172,7 +172,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
   if (!Cache_File)
   {
     Serial.println(F("Cache open failed !"));
@@ -884,12 +884,12 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     GalaxOS.Display.Set_Text("URL_TXT", "Home Page");
-    Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
+    Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
   {
     GalaxOS.Display.Set_Text("URL_TXT", URL);
-    Cache_File = GalaxOS.Drive.open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
+    Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
   }
 
   if (!Cache_File)

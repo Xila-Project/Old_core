@@ -240,9 +240,9 @@ void Shell_Class::Make_Directory(char *Item_Name)
     }
 }
 
-void Shell_Class::Delete(char *Item_Name)
+void Shell_Class::Delete(char* Item_Name)
 {
-    switch(GalaxOS.Event_Handler(Item_Name)
+    switch(GalaxOS.Event_Handler(F("Do you want to delete ?")));
     {
     case GalaxOS.Yes:
         GalaxOS.Drive->remove(Current_Path + Item_Name);

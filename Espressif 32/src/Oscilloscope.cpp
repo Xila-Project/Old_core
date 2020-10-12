@@ -6,7 +6,7 @@ extern GalaxOS_Class GalaxOS;
 
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
-Oscilloscope_Class::Oscilloscope_Class(Software_Handle_Class *Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 6)
+Oscilloscope_Class::Oscilloscope_Class() : Software_Class(6)
 {
 
     Instance_Pointer = this;
@@ -17,19 +17,16 @@ Oscilloscope_Class::Oscilloscope_Class(Software_Handle_Class *Software_Handle_To
 
 Oscilloscope_Class::~Oscilloscope_Class()
 {
-    Execute(0x0043);
-    vTaskDelete(SigmaDelta_Handle);
-    vTaskDelete(Task_Handle);
-    Instance_Pointer == NULL;
+    Instance_Pointer = NULL;
 }
 
-Software_Class *Oscilloscope_Class::Load(Software_Handle_Class* Software_Handle_To_Set)
+Software_Class* Oscilloscope_Class::Load()
 {
-  if (Instance_Pointer != NULL)
+  if (Instance_Pointer == NULL)
   {
-    return Instance_Pointer;
+    return new Oscilloscope_Class;
   }
-  return new Oscilloscope_Class(Software_Handle_To_Set);
+  return Instance_Pointer;
 }
 
 void SigmaDelta_Task(void *pvParameters)
@@ -508,10 +505,8 @@ void Oscilloscope_Class::Refresh_User_Interface()
                 }
                 INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 0][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch0, INSTANCE_POINTER->ch0_mode, INSTANCE_POINTER->ch0_off);
                 INSTANCE_POINTER->data[INSTANCE_POINTER->sample + 1][i] = INSTANCE_POINTER->adRead(INSTANCE_POINTER->ad_ch1, INSTANCE_POINTER->ch1_mode, INSTANCE_POINTER->ch1_off);
-                ClearAndDrawDot(i); // refresh screen
             }
-            DrawGrid(); //refresh screen
-            DrawText(); // refresh screen
+            INSTANCE_POINTER->Refresh_Waveform();
         }
     }
 }
@@ -554,10 +549,10 @@ void Oscilloscope_Class::Refresh_Waveform()
     }
     if (ch0_mode != MODE_OFF)
     {
-        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, NULL, SAMPLES, data[sample + 0]);
+        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 0], SAMPLES);
     }
     if (ch1_mode != MODE_OFF)
     {
-        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, NULL, SAMPLES, data[sample + 1]);
+        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 1], SAMPLES);
     }
 }

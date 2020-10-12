@@ -168,6 +168,8 @@ protected:
     void Minimize_Software();
     void Maximize_Software(uint8_t);
 
+    void Create_System_Files();
+
 public:
 
     // Core APIs (system calls)

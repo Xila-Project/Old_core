@@ -18,8 +18,8 @@ protected:
     const int indexAddress = opcodeCount;
     const int bufferStart = indexAddress + 1;
     
-    long currentSample = 0;
-    int lastFilledWord = 0;
+    long currentSample;
+    int lastFilledWord;
 
     const int Index_Adress = opcodeCount;
 
@@ -57,6 +57,8 @@ public:
     void Set_Volume(uint8_t);
     uint8_t Get_Volume();
     void Play(File&);
+    void Pause();
+
     void Mute();
     void Tone(uint16_t const&, uint32_t const&);
 
