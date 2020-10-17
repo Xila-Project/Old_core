@@ -1,6 +1,4 @@
 #include "piano.hpp"
-#include "object.hpp"
-
 uint8_t Piano_Class::Number_Instance = 0;
 
 void Piano_Socket(void *pvParameters)

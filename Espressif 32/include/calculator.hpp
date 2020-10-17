@@ -32,12 +32,16 @@ private:
     void Display();
 
 public:
-    Calculator_Class(Software_Handle_Class*);
+    Calculator_Class();
     ~Calculator_Class();
 
     friend void Calculator_Task(void *pvParameters);
+
+    static Software_Class* Load();
 };
 
 void Calculator_Task(void *pvParamters);
+
+Software_Handle_Class Calculator_Handle("Calculator", 12, Calculator_Class::Load);
 
 #endif

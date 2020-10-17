@@ -372,7 +372,7 @@ void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t co
     Draw_Rectangle(X_Coordinate, Y_Coordinate, 1, 1, Color);
 }
 
-void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow = false)
+void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow)
 {
     if (Hollow)
     {
@@ -551,6 +551,7 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
         return NEXTION_ERROR_UPDATE_FAILED;
     }
     Serial.println(F("Succefully transmited file"));
+    return NEXTION_INFORMATION_UPDATE_SUCCESS;
 }
 
 void Nextion_Display_Class::Get(const __FlashStringHelper *Object_Name)

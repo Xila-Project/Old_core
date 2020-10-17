@@ -117,7 +117,7 @@ protected:
     const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
     const char Regional_Registry_Path[31] = "/GALAXOS/REGISTRY/REGIONAL.GRF";
     const char Software_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
-
+    const char Event_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
     const char Virtual_Global_Memory_File[36] = "/GALAXOS/MEMORY/GLOBAL/VARIABLE.GSF";
 
     // Virtual Memory File
@@ -160,6 +160,8 @@ protected:
 
     //Software management
 
+    GalaxOS_Event Event_Handler(GalaxOS_Event const &);
+
     uint8_t Get_Software_Pointer(const char *);
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
@@ -169,6 +171,8 @@ protected:
     void Maximize_Software(uint8_t);
 
     void Create_System_Files();
+
+
 
 public:
 
@@ -324,8 +328,16 @@ public:
     //services
     void Desk_Execute(uint16_t const &Command);
 
-    GalaxOS_Event Event_Handler(GalaxOS_Event const &);
+    enum Events
+    {
+        Error,
+        Warning,
+        Information,
+        Question,
+    };
 
+    GalaxOS_Event Event_Handler(const __FlashStringHelper*, uint8_t, const __FlashStringHelper* = NULL, const __FlashStringHelper* = NULL, const __FlashStringHelper* = NULL);
+    
     void Nextion_Upload_Firmware(String const &Path);
 
     friend class Shell_Class;
@@ -334,7 +346,7 @@ public:
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
-void Ressource_Monitor(void *pvParameters);
+void Ressource_Monitor(void *);
 void Core_Task(void *);
 
 #endif

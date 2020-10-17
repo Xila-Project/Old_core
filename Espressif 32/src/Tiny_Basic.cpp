@@ -1725,3 +1725,5 @@ void TinyBasic_Class::cmd_Files(void)
   }
   dir.close();
 }
+
+#undef INSTANCE_POINTER

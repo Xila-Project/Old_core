@@ -1,30 +1,40 @@
+#ifndef ULTRASONIC_HPP_DEFINED
+#define ULTRASONIC_HPP_DEFINED
+
 #include "GalaxOS.hpp"
 
 #define SOUND_SPEED_AIR 343
 
-class Ultrasonic_Class //Application It self;
+class Ultrasonic_Class : public Software_Class
 {
-private:
+protected:
+
     byte Trig_Pin;
     byte Echo_Pin;
+    float Offset;
 
-    static uint8_t Number_Instance;
-
-    uint16_t Socket_Method;
+    static Ultrasonic_Class* Instance_Pointer;
 
     xTaskHandle Socket_Handle;
 
     void Read();
+
+    void Set_Parameters();
+    void Measure();
+
 
 public:
 
     Ultrasonic_Class();
     ~Ultrasonic_Class();
 
-    void Execute(uint16_t const &Socket_Method_To_Set);
-    void Execute(char const &Socket_Method_Char1, char const &Socket_Method_Char2);
+    static Software_Class* Load();
 
-    friend void Ultrasonic_Socket(void *pvParameters);
+    friend void Ultrasonic_Task(void *pvParameters);
 };
 
-void Ultrasonic_Socket(void *pvParameters); 
+void Ultrasonic_Task(void *pvParameters);
+
+Software_Handle_Class Ultrasonic_Handle("Ultrasonic", 12, Ultrasonic_Class::Load)
+
+#endif

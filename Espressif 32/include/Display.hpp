@@ -49,6 +49,7 @@ enum Display_Error
 #define NEXTION_INFORMATION_START_UPGRADE_FROM_SD 0x89
 #define NEXTION_INFORMATION_TRANSPARENT_DATA_FINISHED 0xFD
 #define NEXTION_INFORMATION_TRANSPARENT_DATA_READY 0xFE
+#define NEXTION_INFORMATION_UPDATE_SUCCESS 0x69 //custom
 
 class Nextion_Display_Class
 {
@@ -98,7 +99,7 @@ public:
 
     // Basic Geometrical Drawing
     void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
-    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow);
+    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow = false);
     void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow = false);
     void Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color);
     void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);

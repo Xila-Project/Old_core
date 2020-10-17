@@ -4,15 +4,6 @@ Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
 Software_Handle_Class* Shell_Class::Handle_Pointer = &Shell_Handle;
 
-Software_Class* Shell_Class::Load()
-{
-    if (Shell_Class::Instance_Pointer == NULL)
-    {
-        Shell_Class::Instance_Pointer = new Shell_Class;
-    }
-    return Shell_Class::Instance_Pointer;
-}
-
 Shell_Class::Shell_Class() : Software_Class(6),
                              Mode(0)
 {
@@ -23,6 +14,16 @@ Shell_Class::Shell_Class() : Software_Class(6),
 
 Shell_Class::~Shell_Class()
 {
+    Instance_Pointer = NULL;
+}
+
+Software_Class* Shell_Class::Load()
+{
+    if (Shell_Class::Instance_Pointer == NULL)
+    {
+        Shell_Class::Instance_Pointer = new Shell_Class;
+    }
+    return Shell_Class::Instance_Pointer;
 }
 
 
@@ -242,7 +243,7 @@ void Shell_Class::Make_Directory(char *Item_Name)
 
 void Shell_Class::Delete(char* Item_Name)
 {
-    switch(GalaxOS.Event_Handler(F("Do you want to delete ?")));
+    switch(GalaxOS.Event_Handler(F()));
     {
     case GalaxOS.Yes:
         GalaxOS.Drive->remove(Current_Path + Item_Name);

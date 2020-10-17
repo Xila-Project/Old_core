@@ -9,9 +9,9 @@
 Sound_Class *Sound_Class::Instance_Pointer = NULL;
 
 Sound_Class::Sound_Class()
-    : Volume(0),
-      currentSample(0),
+    : currentSample(0),
       lastFilledWord(0),
+      Volume(0)
 {
     if (Instance_Pointer != NULL)
     {
@@ -38,7 +38,7 @@ void Sound_Class::Get_Metadata()
 {
     Music_File.seek(8);
     char Temporary_Array[] = {'W', 'A', 'V', 'E'};
-    for (byte i = 0; i < 4 i++)
+    for (byte i = 0; i < 4; i++)
     {
         if (Music_File.read() != Temporary_Array[i])
         {
@@ -54,11 +54,11 @@ void Sound_Class::Get_Metadata()
     Sample_Rate = Music_File.read();
     Sample_Rate |= Music_File.read() << 8;
     Serial.println(F("SR :"));
-    Serial.println(Sampling_Rate);
+    Serial.println(Sample_Rate);
 
     Music_File.seek(34);
-    Byte_Rate = Music_File.read();
-    Byte_Rate = Music_File.read() << 8;
+    Byte_Per_Sample = Music_File.read();
+    Byte_Per_Sample = Music_File.read() << 8;
 
     if (Stereo == 2)
     {
@@ -87,10 +87,6 @@ void Sound_Class::Get_Metadata()
 }
 
 void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
-{
-}
-
-void Sound_Class::Mute()
 {
 }
 
@@ -124,20 +120,20 @@ void Sound_Class::Start_ULP()
     int loopCycles = 84;
     Serial.print("Real RTC clock: ");
     Serial.println(rtc_fast_freq_hz);
-    int Delay_Time = (rtc_fast_freq_hz / Sampling_Rate) - loopCycles;
+    int Delay_Time = (rtc_fast_freq_hz / Sample_Rate) - loopCycles;
     if (Delay_Time < 0)
     {
         Serial.println("Sampling rate too high");
         return;
     }
     Serial.print("dt: ");
-    Serial.println(dt);
+    Serial.println(Delay_Time);
 
-    const ulp_insn_t Sound_Program[] = {
+    const ulp_insn_t Sound_Driver_Instruction[] = {
         //reset offset register
         I_MOVI(R3, 0),
         //delay to get the right sampling rate
-        I_DELAY(dt), // 6 + dt
+        I_DELAY(Delay_Time), // 6 + dt
         //reset sample index
         I_MOVI(R0, 0), // 6
         //write the index back to memory for the main cpu
@@ -173,8 +169,8 @@ void Sound_Class::Start_ULP()
     };
 
     size_t load_addr = 0;
-    size_t size = sizeof(mono) / sizeof(ulp_insn_t);
-    ulp_process_macros_and_load(load_addr, Sound_Program, &size);
+    size_t size = sizeof(Sound_Driver_Instruction) / sizeof(ulp_insn_t);
+    ulp_process_macros_and_load(load_addr, Sound_Driver_Instruction, &size);
     //  this is how to get the opcodes
     //  for(int i = 0; i < size; i++)
     //    Serial.println(RTC_SLOW_MEM[i], HEX);
@@ -203,7 +199,7 @@ void Sound_Class::Start_ULP()
 
 void Sound_Class::Mute()
 {
-    const ulp_insn_t Stop_Program[] = {I_HALT};
+    const ulp_insn_t Stop_Program[] = {I_HALT()};
     ulp_process_macros_and_load(0, Stop_Program, sizeof(Stop_Program) / sizeof(ulp_insn_t));
     vTaskDelete(Sound_Socket_Handle);
 }
@@ -215,7 +211,7 @@ void Sound_Task(void *pvParameters)
     int16_t Current_Sample, Current_Word;
     signed char Buffer[3036];
     int Remaining_Samples;
-    Sound_Class->Music_File.read((byte *)Buffer, 3036);
+    INSTANCE_POINTER->Music_File.read((byte *)Buffer, 3036);
     while (1)
     {
         Current_Sample = RTC_SLOW_MEM[INSTANCE_POINTER->Index_Adress] & 0xffff;
@@ -224,7 +220,7 @@ void Sound_Task(void *pvParameters)
         while (INSTANCE_POINTER->lastFilledWord != Current_Word)
         {
             unsigned int w = (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume;
-            w |= (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume) << 8;
+            w |= (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume << 8;
             RTC_SLOW_MEM[INSTANCE_POINTER->bufferStart + INSTANCE_POINTER->lastFilledWord] = w;
             INSTANCE_POINTER->lastFilledWord++;
             if (INSTANCE_POINTER->lastFilledWord == INSTANCE_POINTER->totalSampleWords)
@@ -233,10 +229,11 @@ void Sound_Task(void *pvParameters)
                 if (Remaining_Samples < 3036)
                 {
                     INSTANCE_POINTER->Music_File.read((byte *)Buffer, Remaining_Samples);
-                    for (, Remaining_Samples < 3036, i++)
+                    for (; Remaining_Samples < 3036; Location++)
                     {
                     }
-                    vTaskDelay(pdMS_TO_TICKS(5)) : INSTANCE_POINTER->Music_File.close();
+                    vTaskDelay(pdMS_TO_TICKS(5));
+                    INSTANCE_POINTER->Music_File.close();
                     INSTANCE_POINTER->Mute();
                 }
                 else

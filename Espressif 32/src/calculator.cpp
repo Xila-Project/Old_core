@@ -4,18 +4,23 @@ Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
 
 #define INSTANCE_POINTER Calculator_Class::Instance_Pointer
 
-Calculator_Class::Calculator_Class(Software_Handle_Class* Software_Handle_To_Set) : Software_Class(Software_Handle_To_Set, 8)
+Calculator_Class::Calculator_Class() : Software_Class(8)
 {
-    if (Instance_Pointer != NULL)
-    {
-        delete Instance_Pointer;
-    }
-    
     xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, &Task_Handle, 1);
 }
 
-Calculator_Class::~Calculator_Class() : ~Software_Class()
+Calculator_Class::~Calculator_Class()
 {
+    Instance_Pointer = NULL;
+}
+
+Software_Class* Calculator_Class::Load()
+{
+    if (Instance_Pointer == NULL)
+    {
+        Instance_Pointer = new Calculator_Class();
+    }
+    return Instance_Pointer;
 }
 
 void Calculator_Task(void *pvParameters)

@@ -5,6 +5,14 @@
 GalaxOS_Class GalaxOS;
 
 extern Software_Handle_Class Shell_Handle;
+extern Software_Handle_Class Oscilloscope_Handle;
+extern Software_Handle_Class Paint_Handle;
+extern Software_Handle_Class Calculator_Handle;
+extern Software_Handle_Class TinyBasic_Handle;
+extern Software_Handle_Class Internet_Browser_Handle;
+extern Software_Handle_Class Music_Player_Handle;
+extern Software_Handle_Class Piano_Handle;
+extern Software_Handle_Class Ultrasonic_Handle;
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password[] = "0749230994";*/
@@ -37,11 +45,12 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 
   memset(Open_Software_Pointer, NULL, 6);
 
-  Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
+  //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
 
 GalaxOS_Class::~GalaxOS_Class() // Detroyer
 {
+  Instance_Pointer = NULL;
 }
 
 // Used to initialise the core
@@ -207,6 +216,11 @@ void GalaxOS_Class::Start()
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software ...");
   Software_Handle_Pointer[0] = &Shell_Handle;
+  Software_Handle_Pointer[1] = &Oscilloscope_Handle;
+  Software_Handle_Pointer[2] = &Paint_Handle;
+  Software_Handle_Pointer[3] = &Calculator_Handle;
+  Software_Handle_Pointer[4] = &TinyBasic_Handle;
+  Software_Handle_Pointer[5] = &Internet_Browser_Handle;
 
   Temporary_File = Drive->open(Software_Registry_Path);
   if (!Temporary_File)
@@ -235,12 +249,16 @@ void Core_Task(void *pvParameters)
   //Core_Instruction *Core_Instruction_Pointer;
   while (1)
   {
-    vTaskSuspend(NULL);
+    if (ESP.getFreeHeap() < 2000)
+    {
+      Serial.println("Low Memory !");
+    }
+    vTaskDelay(pdMS_TO_TICKS(1000));
+  }
     /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
     Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
     xSemaphoreGive(Core_Instruction_Pointer->Executed);
     vTaskDelay(pdMS_TO_TICKS(5));*/
-  }
 }
 
 void GalaxOS_Class::Save_System_State()
@@ -317,9 +335,8 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
   }
 }
 
-void GalaxOS_Class::Incomming_Event_From_Display(uint8_t& Event_Code)
+void GalaxOS_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
-  
 }
 
 void GalaxOS_Class::Open_File(File &File_To_Open)
@@ -1068,15 +1085,16 @@ void GalaxOS_Class::Load_User_Files()
     break;
   }*/
 
-GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Type)
+GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const& Event_ID)
 {
 
   Display.Set_Current_Page(F("Event"));
 
   DynamicJsonDocument Event_Registry(256);
-  deserializeJson(Event_Registry, Drive->open("/GALAXOS/REGISTRY/ERROR.GRF"));
+  File Temporary_File = Drive->open(Event_Registry_Path);
+  deserializeJson(Event_Registry, Temporary_File);
 
-  Display.Set_Text(F("MESSAGE_TXT"), Event_Registry[Type]);
+  Display.Set_Text("MESSAGE_TXT", Event_Registry[Event_ID]);
   byte i = 0;
 
   while (Event_Reply == 0 && i < 100)
@@ -1090,6 +1108,50 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Type)
     return Default;
   }
   return Event_Reply;
+}
+
+GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper* Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+{
+  boolean Custom_Event;
+  if (Button_Text_1 != NULL)
+  {
+    Custom_Event = true;
+    Display.Set_Text(F("BUTTON"), Button_Text_1);
+    if (Button_Text_2 != NULL)
+    {
+      Display.Set_Text(F("BUTTON"), Button_Text_2);
+    }
+    else
+    {
+      Display.Set_Text(F("BUTTON"), F(""));
+    }
+    if (Button_Text_3 != NULL)
+    {
+      Display.Set_Text(F("BUTTON"), Button_Text_3);
+    }
+    else
+    {
+      Display.Set_Text(F("BUTTON"), F(""));
+    }
+  }
+  switch (Event_Type)
+  {
+  case Error:
+    Display.Set_Picture(F("EVENT_PIC"), 12);
+    break;
+  case Warning:
+    Display.Set_Picture(F("EVENT_PIC"), 12);
+    break;
+  default:
+    break;
+  }
+  while (Event_Reply == 0)
+  {
+    vTaskDelay(pdMS_TO_TICKS(10));
+  }
+  GalaxOS_Event Event_Reply_Copy = Event_Reply;
+  Event_Reply = 0;
+  return Event_Reply_Copy;
 }
 
 void GalaxOS_Class::Synchronise_Time()
@@ -1126,7 +1188,7 @@ void GalaxOS_Class::Create_System_Files()
   serializeJson(Display_Registry, Temporary_File);
   Display_Registry.clear();
   Temporary_File.close();
-  
+
   // Network registry
   DynamicJsonDocument Network_Registry(256);
   Network_Registry["Host name"] = "ESP32";

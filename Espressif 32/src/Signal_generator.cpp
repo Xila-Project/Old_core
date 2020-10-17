@@ -4,12 +4,21 @@ Signal_Generator_Class* Signal_Generator_Class::Instance_Pointer = NULL;
 
 Signal_Generator_Class::Signal_Generator_Class() : Software_Class(6)
 {
-    xTaskCreatePinnedToCore(Signal_Generator_Task, "Signal Generator", 1024*4, NULL, 2, &Instance_Pointer, 1);
+    xTaskCreatePinnedToCore(Signal_Generator_Task, "Signal Generator", 1024*4, NULL, 2, &Task_Handle, 1);
 }
 
 Signal_Generator_Class::~Signal_Generator_Class()
 {
 
+}
+
+Software_Class* Signal_Generator_Class::Load()
+{
+    if (Instance_Pointer == NULL)
+    {
+        Instance_Pointer = new Signal_Generator_Class();
+    }
+    return Instance_Pointer;
 }
 
 void Signal_Generator_Task(void *pvParameters)
@@ -20,7 +29,7 @@ void Signal_Generator_Task(void *pvParameters)
         {
             case 0:
                 //idle
-                vTaskDelay(pdMS_TO_TICKS(10));
+                vTaskDelay(pdMS_TO_TICKS(20));
                 break;
             case Code::Close:
                 delete INSTANCE_POINTER;
@@ -32,5 +41,6 @@ void Signal_Generator_Task(void *pvParameters)
             default :
                 break;
         }
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }

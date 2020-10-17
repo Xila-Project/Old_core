@@ -94,7 +94,7 @@ struct stack_gosub_frame
 class TinyBasic_Class : public Software_Class
 {
 protected:
-    static TinyBasic_Class *Instance_Pointer;
+    static TinyBasic_Class* Instance_Pointer;
 
     const unsigned char keywords[250] PROGMEM = {
         'L', 'I', 'S', 'T' + 0x80,
