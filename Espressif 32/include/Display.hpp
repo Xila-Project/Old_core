@@ -58,7 +58,7 @@ protected:
 
     xTaskHandle Nextion_Serial_Handle;
 
-    void (*Callback_Function_String_Data)(String&);
+    void (*Callback_Function_String_Data)(const char*, uint8_t);
     void (*Callback_Function_Numeric_Data)(uint32_t&);
     void (*Callback_Function_Event)(uint8_t&);
 
@@ -72,6 +72,8 @@ protected:
 
     inline void Instruction_End();
     inline void Argument_Separator();
+
+    void Main_Routine();
 
 public:
 
@@ -93,7 +95,7 @@ public:
     Nextion_Display_Class(uint32_t const &Baud_Rate = 921600, uint8_t const &RX_Pin = 16, uint8_t const &TX_Pin = 17);
     ~Nextion_Display_Class();
 
-    void Set_Callback_Function_String_Data(void (*Function_Pointer)(String &));
+    void Set_Callback_Function_String_Data(void (*Function_Pointer)(const char*, uint8_t));
     void Set_Callback_Function_Numeric_Data(void(*Function_Pointer)(uint32_t &));
     void Set_Callback_Function_Event(void(*Function_Pointer)(uint8_t &));
 

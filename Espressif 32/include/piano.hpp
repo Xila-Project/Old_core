@@ -4,24 +4,27 @@ class Piano_Class : public Software_Class
 {
 private:
 
-    static uint8_t Number_Instance;
+    static Piano_Class* Instance_Pointer;
 
-    xTaskHandle Socket_Handle;
+    int16_t Offset;
+    uint8_t Current_Note;
+    uint32_t Duration;
+    bool MIDI_Output;
 
-    uint16_t Socket_Method;
+    const uint16_t Note_Frequency[24] = {262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988};
 
-    void Play_Note(uint32_t Frequency, uint8_t Note);
+    void Play_Note(uint8_t);
 
 public:
+
     Piano_Class();
     ~Piano_Class();
 
-    uint8_t Get_Number_Instance();
-
-    void Execute(uint16_t const& Socket_Method_To_Set);
-    void Execute(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
+    static Software_Class* Load();
     
-    friend void Piano_Socket(void *pvParameters);
+    friend void Piano_Task(void *pvParameters);
 };
 
-void Piano_Socket(void *pvParameters);
+Software_Handle_Class Piano_Handle("Piano", 12, Piano_Class::Load);
+
+void Piano_Task(void *);

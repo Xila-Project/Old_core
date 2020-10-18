@@ -162,15 +162,15 @@ void Sound_Class::Start_ULP()
         //if reached end of the buffer, jump relative to index reset
         I_BGE(-13, totalSamples), // 4
         //wait to get the right sample rate (2 cycles more to compensate the index reset)
-        I_DELAY((unsigned int)dt + 2), // 8 + dt
+        I_DELAY((unsigned int)Delay_Time + 2), // 8 + dt
         //if not, jump absolute to where index is written to memory
         I_BXI(3) // 4
                  // write io and jump back another 12 + 4
     };
 
     size_t load_addr = 0;
-    size_t size = sizeof(Sound_Driver_Instruction) / sizeof(ulp_insn_t);
-    ulp_process_macros_and_load(load_addr, Sound_Driver_Instruction, &size);
+    size_t Size = sizeof(Sound_Driver_Instruction) / sizeof(ulp_insn_t);
+    ulp_process_macros_and_load(load_addr, Sound_Driver_Instruction, &Size);
     //  this is how to get the opcodes
     //  for(int i = 0; i < size; i++)
     //    Serial.println(RTC_SLOW_MEM[i], HEX);
@@ -194,13 +194,14 @@ void Sound_Class::Start_ULP()
     {
         vTaskDelay(pdMS_TO_TICKS(1));
     }
-    xTaskCreatePinnedToCore(Fill_Samples, "Sound Driver", 1024 * 3, NULL, 2, Sound_Socket_Handle, 1);
+    xTaskCreatePinnedToCore(Sound_Task, "Sound Driver", 1024 * 3, NULL, 0, &Sound_Socket_Handle, 1);
 }
 
 void Sound_Class::Mute()
 {
     const ulp_insn_t Stop_Program[] = {I_HALT()};
-    ulp_process_macros_and_load(0, Stop_Program, sizeof(Stop_Program) / sizeof(ulp_insn_t));
+    size_t Size = sizeof(Stop_Program) / sizeof(ulp_insn_t);
+    ulp_process_macros_and_load(0, Stop_Program, &Size);
     vTaskDelete(Sound_Socket_Handle);
 }
 
@@ -246,3 +247,5 @@ void Sound_Task(void *pvParameters)
         vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
+
+#undef INSTANCE_POINTER

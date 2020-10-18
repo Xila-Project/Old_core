@@ -29,3 +29,5 @@ void Music_Player_Class::Pause()
 {
     
 }
+
+#undef INSTANCE_POINTER

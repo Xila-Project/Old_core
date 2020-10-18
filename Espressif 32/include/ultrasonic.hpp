@@ -13,14 +13,18 @@ protected:
     byte Echo_Pin;
     float Offset;
 
+    uint8_t Shape;
+
+    float Measure[5];
+
     static Ultrasonic_Class* Instance_Pointer;
 
-    xTaskHandle Socket_Handle;
-
     void Read();
+    void Calculate();
+    void Set(uint8_t);
+    void Draw_Shape();
 
-    void Set_Parameters();
-    void Measure();
+    void Set_Variable(void*, uint8_t, uint8_t);
 
 
 public:
@@ -30,11 +34,11 @@ public:
 
     static Software_Class* Load();
 
-    friend void Ultrasonic_Task(void *pvParameters);
+    friend void Ultrasonic_Task(void*);
 };
 
-void Ultrasonic_Task(void *pvParameters);
+void Ultrasonic_Task(void*);
 
-Software_Handle_Class Ultrasonic_Handle("Ultrasonic", 12, Ultrasonic_Class::Load)
+Software_Handle_Class Ultrasonic_Handle("Ultrasonic", 12, Ultrasonic_Class::Load);
 
 #endif

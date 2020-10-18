@@ -47,3 +47,5 @@ void Paint_Task(void* pvParameters)
         }
     }
 }
+
+#undef INSTANCE_POINTER

@@ -17,7 +17,8 @@
 			"array": "cpp",
 			"string": "cpp",
 			"cstdint": "cpp",
-			"random": "cpp"
+			"random": "cpp",
+			"typeinfo": "cpp"
 		}
 	}
 }

@@ -23,6 +23,7 @@ class Software_Class // Software class, used by the core in order to communicate
 {
 protected:
     Software_Class(uint8_t);
+    ~Software_Class();
 
     TaskHandle_t Task_Handle;
 
@@ -44,6 +45,8 @@ protected:
 
     void Execute(uint16_t const &);
     void Execute(char const &, char const &);
+
+    virtual void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     uint16_t Get_Command();
 

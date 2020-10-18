@@ -33,6 +33,14 @@ Internet_Browser_Class::~Internet_Browser_Class()
   Instance_Pointer = NULL;
 }
 
+void Internet_Browser_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+  if (Adress == 'U' && Type == GalaxOS.Code::Variable_Char_Local)
+  {
+    strcpy(URL, (char *)Variable);
+  }
+}
+
 void Internet_Browser_Task(void *pvParameters)
 {
   (void)pvParameters;
@@ -103,8 +111,6 @@ void Internet_Browser_Class::Go_Home()
 
 void Internet_Browser_Class::Go_URL()
 {
-  String Temporary_String;
-  GalaxOS.Get_Variable('U', &URL, 0, Handle_Pointer);
   Split_URL(URL);
   if (Cache_URL(Server, Path))
   {
@@ -1298,3 +1304,5 @@ void Internet_Browser_Class::Split_URL(char *localURL)
   Serial.println(Server);
   Serial.println(Path);
 }
+
+#undef INSTANCE_POINTER

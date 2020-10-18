@@ -44,3 +44,5 @@ void Signal_Generator_Task(void *pvParameters)
         vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
+
+#undef INSTANCE_POINTER

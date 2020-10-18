@@ -22,7 +22,7 @@ Nextion_Display_Class::~Nextion_Display_Class()
     vTaskDelete(Nextion_Serial_Handle);
 }
 
-void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(String&))
+void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(const char*, uint8_t))
 {
     Callback_Function_String_Data = Function_Pointer;
 }
@@ -45,7 +45,8 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     }
     uint8_t Return_Code = 0;
     uint8_t Temporary_Byte_Array[] = {0, 0, 0, 0, 0, 0, 0};
-    String Temporary_String = String("");
+    char Temporary_String[150];
+    memset(Temporary_String, '\0', sizeof(Temporary_String));
     uint8_t Event_Code = 0;
     (void)pvParameters;
     for (;;)
@@ -69,26 +70,13 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 }
                 break;
             case NEXTION_INFORMATION_STRING_DATA_ENCLOSED:
-                Temporary_String = String("");
-                while (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
-                {
-                    Temporary_Byte_Array[0] = DISPLAY_POINTER->Nextion_Serial.read();
-                    if (Temporary_Byte_Array[0] == 255)
-                    {
-                        ++Temporary_Byte_Array[1];
-                        if (Temporary_Byte_Array[1] >= 3) //end of message
-                        {
-                            break;
-                        }
-                    }
-                    else
-                    {
-                        Temporary_String += (char)Temporary_Byte_Array[2];
-                    }
-                }
+                DISPLAY_POINTER->Nextion_Serial.readBytesUntil(0xFF, Temporary_String, sizeof(Temporary_String));
+                DISPLAY_POINTER->Nextion_Serial.read();
+                DISPLAY_POINTER->Nextion_Serial.read();
+                DISPLAY_POINTER->Nextion_Serial.read();
                 if (Nextion_Display_Class::Display_Pointer->Callback_Function_String_Data != NULL)
                 {
-                    (Nextion_Display_Class::Display_Pointer->Callback_Function_String_Data(Temporary_String));
+                    (DISPLAY_POINTER->Callback_Function_String_Data(Temporary_String, sizeof(Temporary_String)));
                 }
                 break;
 
@@ -155,7 +143,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 break;
             }
         }
-        vTaskDelay(50);
+        vTaskDelay(pdMS_TO_TICKS(15));
     }
 }
 

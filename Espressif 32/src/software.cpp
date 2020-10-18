@@ -6,18 +6,20 @@ Software_Class *Software_Class::Instance_Pointer = NULL;
 
 Software_Class::Software_Class(uint8_t Task_Queue_Size) //constructor
 {
+  Serial.println(F("Software constructor"));
   Task_Handle = NULL;
   xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
 }
 
 Software_Class::~Software_Class() // Destructor : close
 {
+  Serial.println(F("Software destructor"));
   if (Instance_Pointer != this)
   {
     delete Instance_Pointer;
   }
-  Execute(0x0043); // Wait until last Close
   Instance_Pointer == NULL;
+  
   vQueueDelete(Command_Queue_Handle);
   vTaskDelete(Task_Handle);
 }

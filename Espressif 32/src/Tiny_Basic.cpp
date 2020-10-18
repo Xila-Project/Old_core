@@ -4,8 +4,9 @@
 #include <Arduino.h>
 
 TinyBasic_Class *TinyBasic_Class::Instance_Pointer = NULL;
+#define INSTANCE_POINTER TinyBasic_Class::Instance_Pointer
 
-Software_Class* TinyBasic_Class::Load()
+Software_Class *TinyBasic_Class::Load()
 {
   if (Instance_Pointer == NULL)
   {
@@ -14,9 +15,12 @@ Software_Class* TinyBasic_Class::Load()
   return Instance_Pointer;
 }
 
-TinyBasic_Class::TinyBasic_Class() : Software_Class(5)
+TinyBasic_Class::TinyBasic_Class() : Software_Class(6),
+                                     inhibitOutput(false),
+                                     runAfterLoad(false),
+                                     triggerRun(false)
 {
-  xTaskCreatePinnedToCore(TinyBasic_Task, "TinyBasic", 2 * 6 * 1024, NULL, 2, &Task_Handle, 0);
+  xTaskCreatePinnedToCore(TinyBasic_Task, "TinyBasic Task", 6 * 1024, NULL, 2, &Task_Handle, 0);
 }
 
 TinyBasic_Class::~TinyBasic_Class()
@@ -68,7 +72,7 @@ void TinyBasic_Task(void *pvParameters)
   unsigned char linelen;
   boolean isDigital;
   boolean alsoWait = false;
-  int val;
+
   GalaxOS.Sound.Mute();
 
   while (1)
@@ -78,7 +82,7 @@ void TinyBasic_Task(void *pvParameters)
     case 0:
 
       break;
-    case 0x: //"EC"
+    case 0x4543: //"EC"
 
       // configure program space
       INSTANCE_POINTER->program_start = INSTANCE_POINTER->program;
@@ -90,7 +94,7 @@ void TinyBasic_Task(void *pvParameters)
       INSTANCE_POINTER->printnum(INSTANCE_POINTER->variables_begin - INSTANCE_POINTER->program_end);
       INSTANCE_POINTER->printmsg(INSTANCE_POINTER->memorymsg);
       // eprom size
-      INSTANCE_POINTER->printnum(E2END + 1);
+      INSTANCE_POINTER->printnum(EEPROM.length() + 1);
       INSTANCE_POINTER->printmsg(INSTANCE_POINTER->eeprommsg);
 
     warmstart:
@@ -150,18 +154,18 @@ void TinyBasic_Task(void *pvParameters)
       // Now we have the number, add the line header.
       INSTANCE_POINTER->txtpos -= 3;
       *((unsigned short *)INSTANCE_POINTER->txtpos) = INSTANCE_POINTER->linenum;
-      INSTANCE_POINTER->txtpos[sizeof(INSTANCE_POINTER->LINENUM)] = linelen;
+      INSTANCE_POINTER->txtpos[sizeof(TinyBasic_Class::LINENUM)] = linelen;
 
       // Merge it into the rest of the program
       start = INSTANCE_POINTER->findline();
 
       // If a line with that number exists, then remove it
-      if (start != INSTANCE_POINTER->program_end && *((INSTANCE_POINTER->LINENUM *)start) == INSTANCE_POINTER->linenum)
+      if (start != INSTANCE_POINTER->program_end && *((TinyBasic_Class::LINENUM *)start) == INSTANCE_POINTER->linenum)
       {
         unsigned char *dest, *from;
         unsigned tomove;
 
-        from = start + start[sizeof(INSTANCE_POINTER->LINENUM)];
+        from = start + start[sizeof(TinyBasic_Class::LINENUM)];
         dest = start;
 
         tomove = INSTANCE_POINTER->program_end - from;
@@ -176,7 +180,7 @@ void TinyBasic_Task(void *pvParameters)
       }
 
       // If the line has no txt, it was just a delete
-      if (INSTANCE_POINTER->txtpos[sizeof(INSTANCE_POINTER->LINENUM) + sizeof(char)] == NL)
+      if (INSTANCE_POINTER->txtpos[sizeof(TinyBasic_Class::LINENUM) + sizeof(char)] == NL)
         goto prompt;
 
       // Make room for the new line, either all in one hit or lots of little shuffles
@@ -253,7 +257,7 @@ void TinyBasic_Task(void *pvParameters)
       goto interperateAtTxtpos;
 
     direct:
-      INSTANCE_POINTER->txtpos = INSTANCE_POINTER->program_end + sizeof(INSTANCE_POINTER->LINENUM);
+      INSTANCE_POINTER->txtpos = INSTANCE_POINTER->program_end + sizeof(TinyBasic_Class::LINENUM);
       if (*INSTANCE_POINTER->txtpos == NL)
         goto prompt;
 
@@ -378,17 +382,17 @@ void TinyBasic_Task(void *pvParameters)
     execnextline:
       if (INSTANCE_POINTER->current_line == NULL) // Processing direct commands?
         goto prompt;
-      INSTANCE_POINTER->current_line += INSTANCE_POINTER->current_line[sizeof(INSTANCE_POINTER->LINENUM)];
+      INSTANCE_POINTER->current_line += INSTANCE_POINTER->current_line[sizeof(TinyBasic_Class::LINENUM)];
 
     execline:
       if (INSTANCE_POINTER->current_line == INSTANCE_POINTER->program_end) // Out of lines to run
         goto warmstart;
-      INSTANCE_POINTER->txtpos = INSTANCE_POINTER->current_line + sizeof(INSTANCE_POINTER->LINENUM) + sizeof(char);
+      INSTANCE_POINTER->txtpos = INSTANCE_POINTER->current_line + sizeof(TinyBasic_Class::LINENUM) + sizeof(char);
       goto interperateAtTxtpos;
     elist:
     {
       int i;
-      for (i = 0; i < (E2END + 1); i++)
+      for (i = 0; i < (EEPROM.length() + 1); i++)
       {
         val = EEPROM.read(i);
 
@@ -411,7 +415,7 @@ void TinyBasic_Task(void *pvParameters)
 
     eformat:
     {
-      for (int i = 0; i < E2END; i++)
+      for (int i = 0; i < EEPROM.length(); i++)
       {
         if ((i & 0x03f) == 0x20)
           INSTANCE_POINTER->outchar('.');
@@ -490,7 +494,7 @@ void TinyBasic_Task(void *pvParameters)
       var = *INSTANCE_POINTER->txtpos;
       INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos != '=')
+      if (*INSTANCE_POINTER->txtpos != '=')
         goto qwhat;
       INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
@@ -521,13 +525,13 @@ void TinyBasic_Task(void *pvParameters)
       if (*INSTANCE_POINTER->txtpos != NL && *INSTANCE_POINTER->txtpos != ':')
         goto qwhat;
 
-      if (!INSTANCE_POINTER->expression_error && *txtpos == NL)
+      if (!INSTANCE_POINTER->expression_error && *INSTANCE_POINTER->txtpos == NL)
       {
         struct stack_for_frame *f;
-        if (INSTANCE_POINTER->sp + sizeof(struct INSTANCE_POINTER->stack_for_frame) < INSTANCE_POINTER->stack_limit)
+        if (INSTANCE_POINTER->sp + sizeof(struct stack_for_frame) < INSTANCE_POINTER->stack_limit)
           goto qsorry;
 
-        INSTANCE_POINTER->sp -= sizeof(struct INSTANCE_POINTER->stack_for_frame);
+        INSTANCE_POINTER->sp -= sizeof(struct stack_for_frame);
         f = (struct stack_for_frame *)INSTANCE_POINTER->sp;
         ((short int *)INSTANCE_POINTER->variables_begin)[var - 'A'] = initial;
         f->frame_type = STACK_FOR_FLAG;
@@ -547,15 +551,15 @@ void TinyBasic_Task(void *pvParameters)
       if (!INSTANCE_POINTER->expression_error && *INSTANCE_POINTER->txtpos == NL)
       {
         struct stack_gosub_frame *f;
-        if (INSTANCE_POINTER->sp + sizeof(struct INSTANCE_POINTER->stack_gosub_frame) < INSTANCE_POINTER->stack_limit)
+        if (INSTANCE_POINTER->sp + sizeof(struct stack_gosub_frame) < INSTANCE_POINTER->stack_limit)
           goto qsorry;
 
-        INSTANCE_POINTER->sp -= sizeof(struct INSTANCE_POINTER->stack_gosub_frame);
+        INSTANCE_POINTER->sp -= sizeof(struct stack_gosub_frame);
         f = (struct stack_gosub_frame *)INSTANCE_POINTER->sp;
         f->frame_type = STACK_GOSUB_FLAG;
         f->txtpos = INSTANCE_POINTER->txtpos;
         f->current_line = INSTANCE_POINTER->current_line;
-        current_line = INSTANCE_POINTER->findline();
+        INSTANCE_POINTER->current_line = INSTANCE_POINTER->findline();
         goto execline;
       }
       goto qhow;
@@ -563,11 +567,11 @@ void TinyBasic_Task(void *pvParameters)
     next:
       // Fnd the variable name
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos < 'A' || *txtpos > 'Z')
+      if (*INSTANCE_POINTER->txtpos < 'A' || *INSTANCE_POINTER->txtpos > 'Z')
         goto qhow;
-      txtpos++;
+      INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos != ':' && *txtpos != NL)
+      if (*INSTANCE_POINTER->txtpos != ':' && *INSTANCE_POINTER->txtpos != NL)
         goto qwhat;
 
     gosub_return:
@@ -583,11 +587,11 @@ void TinyBasic_Task(void *pvParameters)
             struct stack_gosub_frame *f = (struct stack_gosub_frame *)INSTANCE_POINTER->tempsp;
             INSTANCE_POINTER->current_line = f->current_line;
             INSTANCE_POINTER->txtpos = f->txtpos;
-            INSTANCE_POINTER->sp += sizeof(struct INSTANCE_POINTER->stack_gosub_frame);
+            INSTANCE_POINTER->sp += sizeof(struct stack_gosub_frame);
             goto run_next_statement;
           }
           // This is not the loop you are looking for... so Walk back up the stack
-          INSTANCE_POINTER->tempsp += sizeof(struct INSTANCE_POINTER->stack_gosub_frame);
+          INSTANCE_POINTER->tempsp += sizeof(struct stack_gosub_frame);
           break;
         case STACK_FOR_FLAG:
           // Flag, Var, Final, Step
@@ -595,7 +599,7 @@ void TinyBasic_Task(void *pvParameters)
           {
             struct stack_for_frame *f = (struct stack_for_frame *)INSTANCE_POINTER->tempsp;
             // Is the the variable we are looking for?
-            if (txtpos[-1] == f->for_var)
+            if (INSTANCE_POINTER->txtpos[-1] == f->for_var)
             {
               short int *varaddr = ((short int *)INSTANCE_POINTER->variables_begin) + INSTANCE_POINTER->txtpos[-1] - 'A';
               *varaddr = *varaddr + f->step;
@@ -608,12 +612,12 @@ void TinyBasic_Task(void *pvParameters)
                 goto run_next_statement;
               }
               // We've run to the end of the loop. drop out of the loop, popping the stack
-              INSTANCE_POINTER->sp = INSTANCE_POINTER->tempsp + sizeof(struct INSTANCE_POINTER->stack_for_frame);
+              INSTANCE_POINTER->sp = INSTANCE_POINTER->tempsp + sizeof(struct stack_for_frame);
               goto run_next_statement;
             }
           }
           // This is not the loop you are looking for... so Walk back up the stack
-          INSTANCE_POINTER->tempsp += sizeof(struct INSTANCE_POINTER->stack_for_frame);
+          INSTANCE_POINTER->tempsp += sizeof(struct stack_for_frame);
           break;
         default:
           //printf("Stack is stuffed!\n");
@@ -628,14 +632,14 @@ void TinyBasic_Task(void *pvParameters)
       short int value;
       short int *var;
 
-      if (*txtpos < 'A' || *txtpos > 'Z')
+      if (*INSTANCE_POINTER->txtpos < 'A' || *INSTANCE_POINTER->txtpos > 'Z')
         goto qhow;
-      var = (short int *)INSTANCE_POINTER->variables_begin + *txtpos - 'A';
+      var = (short int *)INSTANCE_POINTER->variables_begin + *INSTANCE_POINTER->txtpos - 'A';
       INSTANCE_POINTER->txtpos++;
 
       INSTANCE_POINTER->ignore_blanks();
 
-      if (*txtpos != '=')
+      if (*INSTANCE_POINTER->txtpos != '=')
         goto qwhat;
       INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
@@ -664,7 +668,7 @@ void TinyBasic_Task(void *pvParameters)
 
       // check for a comma
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos != ',')
+      if (*INSTANCE_POINTER->txtpos != ',')
         goto qwhat;
       INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
@@ -717,7 +721,7 @@ void TinyBasic_Task(void *pvParameters)
         goto run_next_statement;
       }
 
-      if (*txtpos == NL)
+      if (*INSTANCE_POINTER->txtpos == NL)
       {
         goto execnextline;
       }
@@ -729,7 +733,7 @@ void TinyBasic_Task(void *pvParameters)
         {
           ;
         }
-        else if (*txtpos == '"' || *txtpos == '\'')
+        else if (*INSTANCE_POINTER->txtpos == '"' || *INSTANCE_POINTER->txtpos == '\'')
           goto qwhat;
         else
         {
@@ -766,17 +770,17 @@ void TinyBasic_Task(void *pvParameters)
 
       {
         // eprom size
-        INSTANCE_POINTER->printnum(E2END + 1);
+        INSTANCE_POINTER->printnum(EEPROM.length() + 1);
         INSTANCE_POINTER->printmsg(INSTANCE_POINTER->eeprommsg);
 
         // figure out the memory usage;
         val = ' ';
         int i;
-        for (i = 0; (i < (E2END + 1)) && (val != '\0'); i++)
+        for (i = 0; (i < (EEPROM.length() + 1)) && (val != '\0'); i++)
         {
           val = EEPROM.read(i);
         }
-        INSTANCE_POINTER->printnum((E2END + 1) - (i - 1));
+        INSTANCE_POINTER->printnum((EEPROM.length() + 1) - (i - 1));
 
         INSTANCE_POINTER->printmsg(INSTANCE_POINTER->eepromamsg);
       }
@@ -799,12 +803,12 @@ void TinyBasic_Task(void *pvParameters)
 
       // check for a comma
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos != ',')
+      if (*INSTANCE_POINTER->txtpos != ',')
         goto qwhat;
-      txtpos++;
+      INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
 
-      txtposBak = txtpos;
+      txtposBak = INSTANCE_POINTER->txtpos;
       INSTANCE_POINTER->scantable(INSTANCE_POINTER->highlow_tab);
       if (INSTANCE_POINTER->table_index != HIGHLOW_UNKNOWN)
       {
@@ -986,7 +990,7 @@ void TinyBasic_Task(void *pvParameters)
 
       // check for a comma
       INSTANCE_POINTER->ignore_blanks();
-      if (*txtpos != ',')
+      if (*INSTANCE_POINTER->txtpos != ',')
         goto qwhat;
       INSTANCE_POINTER->txtpos++;
       INSTANCE_POINTER->ignore_blanks();
@@ -1001,7 +1005,7 @@ void TinyBasic_Task(void *pvParameters)
       Serial.printf("Wifi ssid %s pswd %s\n", ssid, pswd);
 
       // Check that we are at the end of the statement
-      if (*INSTANCE_POINTER->txtpos != NL && *txtpos != ':')
+      if (*INSTANCE_POINTER->txtpos != NL && *INSTANCE_POINTER->txtpos != ':')
         goto qwhat;
 
       // all set with
@@ -1011,7 +1015,7 @@ void TinyBasic_Task(void *pvParameters)
       goto unimplemented;
 
     tonestop:
-      noTone(kPiezoPin);
+      GalaxOS.Sound.Mute();
       goto run_next_statement;
 
     tonegen:
@@ -1597,7 +1601,7 @@ void TinyBasic_Class::line_terminator(void)
 /***********************************************************/
 unsigned char TinyBasic_Class::breakcheck(void)
 {
-  if (Serial.available() & Serial.read() == CTRLC)
+  if (Serial.available() && Serial.read() == CTRLC)
   {
     return CTRLC;
   }

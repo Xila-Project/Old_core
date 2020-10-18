@@ -1,147 +1,145 @@
 #include "piano.hpp"
-uint8_t Piano_Class::Number_Instance = 0;
 
-void Piano_Socket(void *pvParameters)
+Piano_Class* Piano_Class::Instance_Pointer = NULL;
+#define INSTANCE_POINTER Piano_Class::Instance_Pointer
+
+Piano_Class::Piano_Class() : Software_Class(6),
+Offset(0),
+Duration(200),
+MIDI_Output(false)
 {
-    Piano_Class *Piano_Pointer = GalaxOS.Get_Software_Pointer();
+    xTaskCreatePinnedToCore(Piano_Task, "Piano Task", 4*1024, NULL, 1, &Task_Handle, 0);
+}
+
+Piano_Class::~Piano_Class()
+{
+    Instance_Pointer = NULL;
+}
+
+void Piano_Task(void *pvParameters)
+{
     (void)pvParameters;
-    for (;;)
+    while (1)
     {
-        switch (Piano_Pointer->Socket_Method)
+        switch (INSTANCE_POINTER->Get_Command())
         {
         case 0: //idle state
-
+            vTaskDelay(pdMS_TO_TICKS(10));
             break;
 
         case 0x4320: //C
-            Piano_Pointer->Play_Note(0, 0);
+            INSTANCE_POINTER->Play_Note(0);
             break;
 
         case 0x4323: //C#
-            Piano_Pointer->Play_Note(16, 1);
+            INSTANCE_POINTER->Play_Note(1);
 
             break;
 
         case 0x4420: //D
-            Piano_Pointer->Play_Note(32, 2);
+            INSTANCE_POINTER->Play_Note(2);
 
             break;
 
         case 0x4423: //D#
-            Piano_Pointer->Play_Note(50, 3);
+            INSTANCE_POINTER->Play_Note(3);
 
             break;
 
         case 0x4520: //E
-            Piano_Pointer->Play_Note(68, 4);
+            INSTANCE_POINTER->Play_Note(4);
             break;
 
         case 0x4620: //F
-            Piano_Pointer->Play_Note(88, 5);
+            INSTANCE_POINTER->Play_Note(5);
             break;
 
         case 0x4623: //F#
-            Piano_Pointer->Play_Note(108, 6);
+            INSTANCE_POINTER->Play_Note(6);
             break;
 
         case 0x4720: //G
-            Piano_Pointer->Play_Note(130, 7);
+            INSTANCE_POINTER->Play_Note(7);
             break;
 
         case 0x4723: //G#
-            Piano_Pointer->Play_Note(154, 8);
+            INSTANCE_POINTER->Play_Note(8);
             break;
 
         case 0x4120: //A
-            Piano_Pointer->Play_Note(178, 9);
+            INSTANCE_POINTER->Play_Note(9);
             break;
 
         case 0x4123: //A#
-            Piano_Pointer->Play_Note(205, 10);
+            INSTANCE_POINTER->Play_Note(10);
             break;
 
         case 0x4220: //B
-            Piano_Pointer->Play_Note(232, 11);
+            INSTANCE_POINTER->Play_Note(11);
             break;
 
         case 0x6320: //c
-            Piano_Pointer->Play_Note(262, 12);
+            INSTANCE_POINTER->Play_Note(12);
             break;
 
         case 0x6323: //c#
-            Piano_Pointer->Play_Note(293, 13);
+            INSTANCE_POINTER->Play_Note(13);
             break;
 
         case 0x6420: //d
-            Piano_Pointer->Play_Note(326, 14);
+            INSTANCE_POINTER->Play_Note(14);
             break;
 
         case 0x6423: //d#
-            Piano_Pointer->Play_Note(361, 15);
+            INSTANCE_POINTER->Play_Note(15);
             break;
 
         case 0x6520: //e
-            Piano_Pointer->Play_Note(398, 16);
+            INSTANCE_POINTER->Play_Note(16);
             break;
 
         case 0x6620: //f
-            Piano_Pointer->Play_Note(437, 17);
+            INSTANCE_POINTER->Play_Note(17);
             break;
 
         case 0x6623: //f#
-            Piano_Pointer->Play_Note(478, 18);
+            INSTANCE_POINTER->Play_Note(18);
             break;
 
         case 0x6720: //g
-            Piano_Pointer->Play_Note(522, 19);
+            INSTANCE_POINTER->Play_Note(19);
             break;
 
         case 0x6723: //g#
-            Piano_Pointer->Play_Note(569, 20);
+            INSTANCE_POINTER->Play_Note(20);
             break;
 
         case 0x6120: //a
-            Piano_Pointer->Play_Note(618, 21);
+            INSTANCE_POINTER->Play_Note(21);
             break;
 
         case 0x6123: //a#
-            Piano_Pointer->Play_Note(670, 22);
+            INSTANCE_POINTER->Play_Note(22);
             break;
 
         case 0x6220: //b
-            Piano_Pointer->Play_Note(726, 23);
+            INSTANCE_POINTER->Play_Note(23);
             break;
 
         default:
             break;
         }
-        Piano_Pointer->Socket_Method = 0;
-        vTaskSuspend(Piano_Pointer->Socket_Handle);
+        vTaskDelay(pdMS_TO_TICKS(10));
     }
 }
 
-void Piano_Class::Execute(uint32_t const& Socket_Method_To_Set)
+void Piano_Class::Play_Note(uint8_t Note)
 {
-    Socket_Method = Socket_Method_To_Set;
-    vTaskResume(Socket_Handle);
-}
-
-void Piano_Class::Play_Note(uint32_t Frequency, uint8_t Note)
-{
-    ledcAttachPin(GalaxOS.Get_Speaker_Pin(), 0);
-    String Temporary = "";
-    unsigned long Duration = 200;
-    Frequency += GalaxOS.Get_C_Frequency();
-    Note += GalaxOS.Get_C_MIDI();
-    Temporary = "Frequency : " + String(Frequency, DEC);
-    Nextion_Serial.print(F("FREQUENCY_TXT.txt=\""));
-    Nextion_Serial.print(Temporary);
-    Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    Temporary = "MIDI Code : " + String(Note, DEC);
-    Nextion_Serial.print(F("MIDICODE_TXT.txt=\""));
-    Nextion_Serial.print(Temporary);
-    Nextion_Serial.print(F("\xFF\xFF\xFF"));
-    if (GalaxOS.MIDIOutEnable == true)
+    Current_Note = Note_Frequency[Note] + Offset;
+    GalaxOS.Sound.Tone(Current_Note, Duration);
+    GalaxOS.Display.Set_Text(F("FREQUENCY_TXT"), "Frequency : " + String(Current_Note));
+    GalaxOS.Display.Set_Text(F("MIDICODE_TXT"), "MIDI Code : " + String(Note));   
+    if (MIDI_Output == true)
     {
         Serial.write(144);
         Serial.write(Note);
@@ -151,7 +149,6 @@ void Piano_Class::Play_Note(uint32_t Frequency, uint8_t Note)
         Serial.write(Note);
         Serial.write(128);
     }
-    ledcWriteTone(0, Frequency);
-    vTaskDelay(pdMS_TO_TICKS(Duration));
-    ledcWriteTone(0, 0);
 }
+
+#undef INSTANCE_POINTER

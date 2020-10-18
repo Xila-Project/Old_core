@@ -25,9 +25,6 @@
 //                   Adafruit 2.4" TFT Touchscreen Featherwing
 //                   https://learn.adafruit.com/adafruit-2-4-tft-touch-screen-featherwing/pinouts
 //
-
-#define INSTANCE_POINTER TinyBasic_Class::Instance_Pointer
-
 ////////////////////////////////////////////////////////////////////////////////
 // Feature option configuration - comment out to minimize dependencies
 
@@ -41,10 +38,6 @@
 
 // Enable EEPROM-based program storage with autorun to store a program during powerdown
 //#define ENABLE_EEPROM 1
-
-// Enable TONE, NOTONE commands to support audio
-//#define ENABLE_TONES 1
-#define kPiezoPin 5
 
 // Enable WiFi support to read/write information from the network.
 //#define ENABLE_WIFI 1
@@ -74,6 +67,29 @@
 #define TONE_RAM (40) /* I/O buffer */
 #define PROG_RAM (PROG_MAX - FILEIO_RAM - TONE_RAM)
 
+////////////////////////////////////////////////////////////////////////////////
+// ASCII Characters
+#define CR '\r'
+#define NL '\n'
+#define LF 0x0a
+#define TAB '\t'
+#define BELL '\b'
+#define SPACE ' '
+#define SQUOTE '\''
+#define DQUOTE '\"'
+#define CTRLC 0x03
+#define CTRLH 0x08
+#define CTRLS 0x13
+#define CTRLX 0x18
+
+// This is calibration data for the raw touch data to the screen coordinates
+#define TS_MINX 3800
+#define TS_MAXX 100
+#define TS_MINY 100
+#define TS_MAXY 3750
+#define PENRADIUS 3
+
+
 struct stack_for_frame
 {
     char frame_type;
@@ -91,12 +107,12 @@ struct stack_gosub_frame
     unsigned char *txtpos;
 };
 
-class TinyBasic_Class : public Software_Class
+class TinyBasic_Class : protected Software_Class
 {
 protected:
-    static TinyBasic_Class* Instance_Pointer;
+    static TinyBasic_Class *Instance_Pointer;
 
-    const unsigned char keywords[250] PROGMEM = {
+    const unsigned char keywords[250] = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
         'N', 'E', 'W' + 0x80,
@@ -137,24 +153,11 @@ protected:
         'W', 'I', 'F', 'I' + 0x80,
         0};
 
-    boolean inhibitOutput = false;
-    boolean runAfterLoad = false;
-    boolean triggerRun = false;
+    boolean inhibitOutput;
+    boolean runAfterLoad;
+    boolean triggerRun;
 
-////////////////////////////////////////////////////////////////////////////////
-// ASCII Characters
-#define CR '\r'
-#define NL '\n'
-#define LF 0x0a
-#define TAB '\t'
-#define BELL '\b'
-#define SPACE ' '
-#define SQUOTE '\''
-#define DQUOTE '\"'
-#define CTRLC 0x03
-#define CTRLH 0x08
-#define CTRLS 0x13
-#define CTRLX 0x18
+
 
     typedef short unsigned LINENUM;
 
@@ -167,12 +170,6 @@ protected:
 
     TaskHandle_t TinyBasic_Socket_Handle;
 
-    // This is calibration data for the raw touch data to the screen coordinates
-#define TS_MINX 3800
-#define TS_MAXX 100
-#define TS_MINY 100
-#define TS_MAXY 3750
-#define PENRADIUS 3
 
     // EEPROM
 
@@ -328,9 +325,6 @@ protected:
 
     String Command;
 
-    TinyBasic_Class();
-    ~TinyBasic_Class();
-
     void cmd_Files(void);
     boolean sd_is_initialized = false;
 
@@ -365,6 +359,9 @@ protected:
     friend void TinyBasic_Task(void *pvParameters);
 
 public:
+    TinyBasic_Class();
+    ~TinyBasic_Class();
+    
     static Software_Class *Load();
 };
 

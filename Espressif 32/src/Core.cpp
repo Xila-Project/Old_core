@@ -15,7 +15,7 @@ extern Software_Handle_Class Piano_Handle;
 extern Software_Handle_Class Ultrasonic_Handle;
 
 /*char WiFi_SSID[] = "Avrupa";
-char WiFi_Password[] = "0749230994";*/
+char WiFi_Password [] = "0749230994";*/
 
 GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 {
@@ -43,7 +43,7 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 
   Tag = 0x00;
 
-  memset(Open_Software_Pointer, NULL, 6);
+  memset(Open_Software_Pointer, 0, 6);
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
@@ -115,7 +115,7 @@ void GalaxOS_Class::Start()
 
   //Testing Virtual Memory
 
-  Verbose_Print_Line("> Testing Virtual Memory ...");
+  /*Verbose_Print_Line("> Testing Virtual Memory ...");
 
   uint32_t Test_Float = 123456789;
   Set_Variable('T', &Test_Float);
@@ -139,12 +139,12 @@ void GalaxOS_Class::Start()
   Set_Variable('T', Test_String);
   Serial.println(Test_String);
   Get_Variable('T', Test_String);
-  Serial.println(Test_String);
+  Serial.println(Test_String);/
 
   if (Test_Float != 123456789 || Test_Integer != 1543 || Test_Byte != 128 || Test_String == "test")
   {
     Verbose_Print("> Waring : Test failed for uint64_t");
-  }
+  }*/
 
   // Load Task
   Verbose_Print("> Loading Task ...");
@@ -255,7 +255,7 @@ void Core_Task(void *pvParameters)
     }
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
-    /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
+  /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
     Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
     xSemaphoreGive(Core_Instruction_Pointer->Executed);
     vTaskDelay(pdMS_TO_TICKS(5));*/
@@ -281,11 +281,9 @@ void GalaxOS_Class::Save_System_State()
 
 // Callback function for screen
 
-void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
+void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
-  uint8_t Temporary_Return_Code = Received_Data.charAt(0);
-  Received_Data.remove(0, 1);
-  switch (Temporary_Return_Code)
+  switch (Received_Data[0])
   {
   case Code::Close:
     Close_Software();
@@ -295,25 +293,26 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
     break;
   case Code::Command:
   case Code::Command_New:
-    Open_Software_Pointer[0]->Execute(Received_Data.charAt(0), Received_Data.charAt(1));
+    Open_Software_Pointer[0]->Execute(Received_Data[0], Received_Data[1]);
     break;
   case Code::Variable_String_Local:
-    Tag = (char)Received_Data.charAt(0);
-    Received_Data.remove(0, 1);
-    Set_Variable(Tag, Received_Data, 0, Open_Software_Pointer[0]->Handle_Pointer);
+  {
+    String Temporary_String;
+    Temporary_String = String(Received_Data);
+    Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
+    break;
+  }
+  case Code::Variable_Char_Local:
+    Open_Software_Pointer[0]->Set_Variable(Received_Data, Variable_Char_Local, Tag, Size);
     Tag = '\0';
     break;
   case Code::Variable_String_Global:
-    Tag = (char)Received_Data.charAt(0);
-    Received_Data.remove(0, 1);
-    Set_Variable(Tag, Received_Data);
-    Tag = '\0';
     break;
   case Code::Variable_Long_Local:
-    Tag = (char)Received_Data.charAt(0);
+    Tag = Received_Data[1];
     break;
   case Code::Variable_Long_Global:
-    Tag = (char)Received_Data.charAt(0);
+    Tag = Received_Data[1];
     break;
   default:
     //error handle
@@ -323,15 +322,14 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(String &Received_Data)
 
 void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 {
-  if (Tag != 0)
+  if (Tag != '\0')
   {
-    Set_Variable(Tag, &Received_Data, 0, Open_Software_Pointer[0]->Handle_Pointer);
-    Tag = 0;
+    Open_Software_Pointer[0]->Set_Variable(&Received_Data, Variable_Long_Local, Tag);
+    Tag = '\0';
   }
   else
   {
-    Serial.println(F("Error : Cannot Set Variable Because Tag is NULL."));
-    //error handle
+    Event_Handler(Screen_Data_Exception);
   }
 }
 
@@ -473,8 +471,8 @@ void GalaxOS_Class::Minimize_Software()
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-      Open_Software_Pointer[i] == Open_Software_Pointer[0];
-      Open_Software_Pointer[0] == NULL;
+      Open_Software_Pointer[i] = Open_Software_Pointer[0];
+      Open_Software_Pointer[0] = NULL;
       break;
     }
   }
@@ -489,7 +487,7 @@ void GalaxOS_Class::Maximize_Software(uint8_t Slot)
   }
   if (strcmp(Open_Software_Pointer[0]->Handle_Pointer->Name, "Shell")) // Shell
   {
-    Open_Software_Pointer[1] == Open_Software_Pointer[0];
+    Open_Software_Pointer[1] = Open_Software_Pointer[0];
   }
   else if (Open_Software_Pointer != NULL)
   {
@@ -535,6 +533,7 @@ uint8_t GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
       return i;
     }
   }
+  return 255;
 }
 
 void GalaxOS_Class::Set_Load_Function(const char *Software_Name, Software_Class *(*Load_Function_To_Set)())
@@ -675,7 +674,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set, Software_
   }
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
-}*/
+}/
 
 // String
 void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
@@ -996,27 +995,27 @@ void Ressource_Monitor(void *pvParameters)
 }*/
 
 // Account management
-GalaxOS_Event GalaxOS_Class::Check_Credentials(String const &Username_To_Check, String const &Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Check_Credentials(const char* Username_To_Check, const char* Password_To_Check)
 {
-  File Temporary_File = Drive->open("/GALAXOS/REGISTRY/ACCOUNT.GCF", FILE_WRITE);
+  File Temporary_File = Drive->open("/GALAXOS/REGISTRY/ACCOUNT.GRF", FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   deserializeJson(Account_Registry, Temporary_File);
 
-  if (Password_To_Check == Account_Registry[Username_To_Check])
+  if (strcmp(Password_To_Check, Account_Registry[Username_To_Check]))
   {
-    Verbose_Print_Line("> Wrong Credentials ...");
+    Verbose_Print_Line("> Good Credentials ...");
     Temporary_File.close();
     return Good_Credentials;
   }
   else
   {
-    Verbose_Print_Line("> Good Credentials ...");
+    Verbose_Print_Line("> Wrong Credentials ...");
     Temporary_File.close();
     return Wrong_Credentials;
   }
 }
 
-GalaxOS_Event GalaxOS_Class::Login(String const &Username_To_Check, String const &Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Login(const char* Username_To_Check, const char* Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
@@ -1085,7 +1084,7 @@ void GalaxOS_Class::Load_User_Files()
     break;
   }*/
 
-GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const& Event_ID)
+GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Event_ID)
 {
 
   Display.Set_Current_Page(F("Event"));
@@ -1110,7 +1109,7 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const& Event_ID)
   return Event_Reply;
 }
 
-GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper* Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   boolean Custom_Event;
   if (Button_Text_1 != NULL)

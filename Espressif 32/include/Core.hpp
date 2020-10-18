@@ -213,6 +213,7 @@ public:
         Failed_To_Initialize_SD_Card,
         Corrupted_System_File,
         Invalid_Software_ID,
+        Screen_Data_Exception
     };
 
     enum Color
@@ -265,13 +266,15 @@ public:
         Minimize = 0x6D,
         Command = 0x2A,
         Command_New = 0x23,
-        Variable_String_Local = 0x0073,
-        Variable_String_Global = 0x0053,
+        Variable_String_Local = 0x73,
+        Variable_String_Global = 0x53,
+        Variable_Char_Local = 0x62,
+        Variable_Char_Global = 0x42,
         Variable_Long_Local = 0x6C,
         Variable_Long_Global = 0x4C,
     };
 
-    void Incomming_String_Data_From_Display(String &);
+    void Incomming_String_Data_From_Display(const char*, uint8_t);
     void Incomming_Numeric_Data_From_Display(uint32_t &);
     void Incomming_Event_From_Display(uint8_t &);
 
@@ -283,11 +286,8 @@ public:
     void Print_Line();
 
     //
-    byte Get_Speaker_Pin();
-    int Get_C_Frequency();
-    byte Get_C_MIDI();
 
-    // Virtual Memory
+    /* Virtual Memory
     void Set_Variable(char const &, String const &, uint16_t = 0, Software_Handle_Class * = NULL);
     void Get_Variable(char const &, String &, uint16_t = 0, Software_Handle_Class * = NULL);
 
@@ -301,10 +301,10 @@ public:
     void Get_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
     void Set_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);*/
+    void Get_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
     void Set_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
-    void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
+    void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);*/
 
     char* Get_Current_Username()
     {
@@ -321,8 +321,8 @@ public:
     void Load_System_Files();
     void Load_User_Files();
 
-    GalaxOS_Event Check_Credentials(String const &, String const &);
-    GalaxOS_Event Login(String const &, String const &);
+    GalaxOS_Event Check_Credentials(const char*, const char*);
+    GalaxOS_Event Login(const char* Username_To_Check, const char* Password_To_Check);
     GalaxOS_Event Logout();
 
     //services

@@ -204,3 +204,5 @@ void Calculator_Class::Display()
     GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
 }
 
+#undef INSTANCE_POINTER
+

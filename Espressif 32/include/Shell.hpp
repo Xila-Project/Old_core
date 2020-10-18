@@ -9,8 +9,6 @@ class Shell_Class : public Software_Class
 {
 protected:
 
-
-
     File Temporary_File;
 
     uint8_t Mode;
@@ -22,6 +20,11 @@ protected:
     static Shell_Class *Instance_Pointer;
 
     static Software_Handle_Class* Handle_Pointer;
+
+    char Software_Name[24];
+
+    char Username[8];
+    char Password[24];
 
     void Login();
 
@@ -40,6 +43,8 @@ protected:
 
     void Open_From_Dock(uint8_t);
     void Open_From_Menu();
+
+    void Set_Variable(const void*, uint8_t, uint8_t, uint8_t = 0);
 
     friend void Shell_Task(void *);
 

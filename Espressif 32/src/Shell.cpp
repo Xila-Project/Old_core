@@ -2,7 +2,7 @@
 
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
-Software_Handle_Class* Shell_Class::Handle_Pointer = &Shell_Handle;
+Software_Handle_Class *Shell_Class::Handle_Pointer = &Shell_Handle;
 
 Shell_Class::Shell_Class() : Software_Class(6),
                              Mode(0)
@@ -17,7 +17,7 @@ Shell_Class::~Shell_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class* Shell_Class::Load()
+Software_Class *Shell_Class::Load()
 {
     if (Shell_Class::Instance_Pointer == NULL)
     {
@@ -26,7 +26,28 @@ Software_Class* Shell_Class::Load()
     return Shell_Class::Instance_Pointer;
 }
 
-
+void Shell_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+    switch (Adress)
+    {
+        case 'S':
+            strcpy(Software_Name, (char*)Variable);
+            break;
+        case 'U':
+            strcpy(Username, (char*)Variable);
+            break;
+        case 'P':
+            if (Type == GalaxOS.Code::Variable_String_Local)
+            {
+                Current_Path = *(String*)Variable;
+            }
+            else
+            {
+                strcpy(Password, (char*)Variable);
+            }
+            break;
+    }
+}
 
 void Shell_Task(void *pvParameters)
 {
@@ -93,8 +114,6 @@ void Shell_Task(void *pvParameters)
 
 void Shell_Class::Open_From_Menu()
 {
-    char Software_Name[24];
-    GalaxOS.Get_Variable('S', Software_Name, 24, INSTANCE_POINTER->Handle_Pointer);
     GalaxOS.Open_Software(Software_Name);
 }
 
@@ -159,15 +178,11 @@ void Shell_Class::Open_Login()
 
 void Shell_Class::Login()
 {
-    String Username, Password;
-    GalaxOS.Get_Variable('U', Username, 0, Handle_Pointer);
-    GalaxOS.Get_Variable('P', Password, 0, Handle_Pointer);
     GalaxOS.Login(Username, Password);
 }
 
 void Shell_Class::Display_Path()
 {
-    GalaxOS.Get_Variable('P', Current_Path, 0, Handle_Pointer);
     Temporary_File = GalaxOS.Drive->open(Current_Path);
     String Temporary_String;
     if (Temporary_File)
@@ -229,7 +244,7 @@ void Shell_Class::Make_File(char *File_Name)
 {
     if (!GalaxOS.Drive->open(Current_Path + "/" + File_Name, FILE_WRITE))
     {
-        //error 
+        //error
     }
 }
 
@@ -241,16 +256,18 @@ void Shell_Class::Make_Directory(char *Item_Name)
     }
 }
 
-void Shell_Class::Delete(char* Item_Name)
+void Shell_Class::Delete(char *Item_Name)
 {
-    switch(GalaxOS.Event_Handler(F()));
+    switch (GalaxOS.Event_Handler(F("Do you "), GalaxOS.Question))
     {
-    case GalaxOS.Yes:
+    case GalaxOS.Answer::Yes:
         GalaxOS.Drive->remove(Current_Path + Item_Name);
-    case GalaxOS.No:
-    case GalaxOS.Cancel:
+        break;
+    case GalaxOS.Answer::No:
+    case GalaxOS.Answer::Cancel:
     default:
         break;
-        
     }
 }
+
+#undef INSTANCE_POINTER

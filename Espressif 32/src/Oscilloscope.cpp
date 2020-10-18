@@ -556,3 +556,5 @@ void Oscilloscope_Class::Refresh_Waveform()
         GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 1], SAMPLES);
     }
 }
+
+#undef INSTANCE_POINTER
