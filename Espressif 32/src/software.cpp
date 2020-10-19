@@ -2,11 +2,12 @@
 
 //Software class
 
-Software_Class *Software_Class::Instance_Pointer = NULL;
+Software_Class* Software_Class::Instance_Pointer = NULL;
+Software_Handle_Class* Software_Class::Handle_Pointer = NULL; 
 
 Software_Class::Software_Class(uint8_t Task_Queue_Size) //constructor
 {
-  Serial.println(F("Software constructor"));
+  //Serial.println(F("Software constructor"));
   Task_Handle = NULL;
   xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
 }
@@ -18,10 +19,13 @@ Software_Class::~Software_Class() // Destructor : close
   {
     delete Instance_Pointer;
   }
-  Instance_Pointer == NULL;
-  
+  Instance_Pointer = NULL;
   vQueueDelete(Command_Queue_Handle);
-  vTaskDelete(Task_Handle);
+}
+
+void Software_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+  
 }
 
 uint16_t Software_Class::Get_Command()

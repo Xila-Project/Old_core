@@ -3,7 +3,6 @@
 extern GalaxOS_Class GalaxOS;
 
 #define INSTANCE_POINTER Oscilloscope_Class::Instance_Pointer
-
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(6)
@@ -11,8 +10,8 @@ Oscilloscope_Class::Oscilloscope_Class() : Software_Class(6)
 
     Instance_Pointer = this;
 
-    xTaskCreatePinnedToCore(Oscilloscope_Task, "Oscilloscope", 2 * 1024, NULL, 2, &Task_Handle, 0);
-    xTaskCreatePinnedToCore(SigmaDelta_Task, "SigmaDelta", 2 * 1024, NULL, 2, &SigmaDelta_Handle, 0);
+    xTaskCreatePinnedToCore(Oscilloscope_Task, "Oscilloscope", 2 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    xTaskCreatePinnedToCore(SigmaDelta_Task, "SigmaDelta", 2 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &SigmaDelta_Handle, SOFTWARE_CORE);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()

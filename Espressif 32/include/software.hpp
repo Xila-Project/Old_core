@@ -23,15 +23,15 @@ class Software_Class // Software class, used by the core in order to communicate
 {
 protected:
     Software_Class(uint8_t);
-    ~Software_Class();
+    virtual ~Software_Class();
 
     TaskHandle_t Task_Handle;
 
-    static Software_Class *Load();
+    static Software_Class* Load();
 
-    static Software_Class *Instance_Pointer;
+    static Software_Class* Instance_Pointer;
 
-    static Software_Handle_Class *Handle_Pointer;
+    static Software_Handle_Class* Handle_Pointer;
 
     QueueHandle_t Command_Queue_Handle;
 

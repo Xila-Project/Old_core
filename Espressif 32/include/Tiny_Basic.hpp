@@ -89,6 +89,32 @@
 #define TS_MAXY 3750
 #define PENRADIUS 3
 
+#define FUNC_PEEK 0
+#define FUNC_ABS 1
+#define FUNC_AREAD 2
+#define FUNC_DREAD 3
+#define FUNC_RND 4
+#define FUNC_UNKNOWN 5
+
+#define ECHO_CHARS 1
+
+#define RELOP_GE 0
+#define RELOP_NE 1
+#define RELOP_GT 2
+#define RELOP_EQ 3
+#define RELOP_LE 4
+#define RELOP_LT 5
+#define RELOP_NE_BANG 6
+#define RELOP_UNKNOWN 7
+
+#define HIGHLOW_HIGH 1
+#define HIGHLOW_UNKNOWN 4
+
+#define STACK_SIZE (sizeof(struct stack_for_frame) * 5)
+#define VAR_SIZE sizeof(short int) // Size of variables in bytes
+
+#define STACK_GOSUB_FLAG 'G'
+#define STACK_FOR_FLAG 'F'
 
 struct stack_for_frame
 {
@@ -96,23 +122,23 @@ struct stack_for_frame
     char for_var;
     short int terminal;
     short int step;
-    unsigned char *current_line;
-    unsigned char *txtpos;
+    char *current_line;
+    char *txtpos;
 };
 
 struct stack_gosub_frame
 {
     char frame_type;
-    unsigned char *current_line;
-    unsigned char *txtpos;
+    char *current_line;
+    char *txtpos;
 };
 
-class TinyBasic_Class : protected Software_Class
+class TinyBasic_Class : public Software_Class
 {
 protected:
     static TinyBasic_Class *Instance_Pointer;
 
-    const unsigned char keywords[250] = {
+    const char keywords[250] = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
         'N', 'E', 'W' + 0x80,
@@ -157,23 +183,18 @@ protected:
     boolean runAfterLoad;
     boolean triggerRun;
 
-
-
     typedef short unsigned LINENUM;
 
-#define ECHO_CHARS 1
-
-    unsigned char program[PROG_RAM];
-    unsigned char *txtpos, *list_line, *tmptxtpos;
-    unsigned char expression_error;
-    unsigned char *tempsp;
+    char program[PROG_RAM];
+    char *txtpos, *list_line, *tmptxtpos;
+    char expression_error;
+    char *tempsp;
 
     TaskHandle_t TinyBasic_Socket_Handle;
 
-
     // EEPROM
 
-    int eepos = 0;
+    int eepos ;
 
     // Stream files source : these will select, at runtime, where IO happens through for load/save
     enum
@@ -182,8 +203,9 @@ protected:
         kStreamEEProm,
         kStreamFile
     };
-    unsigned char inStream = kStreamSerial;
-    unsigned char outStream = kStreamSerial;
+
+    char inStream;
+    char outStream;
 
     /***********************************************************/
     // Keyword table and constants - the last character has 0x80 added to it
@@ -235,7 +257,7 @@ protected:
         KW_DEFAULT /* always the final one*/
     };
 
-    const unsigned char func_tab[26] = {
+    const char func_tab[26] = {
         'P', 'E', 'E', 'K' + 0x80,
         'A', 'B', 'S' + 0x80,
         'A', 'R', 'E', 'A', 'D' + 0x80,
@@ -243,22 +265,15 @@ protected:
         'R', 'N', 'D' + 0x80,
         0};
 
-#define FUNC_PEEK 0
-#define FUNC_ABS 1
-#define FUNC_AREAD 2
-#define FUNC_DREAD 3
-#define FUNC_RND 4
-#define FUNC_UNKNOWN 5
-
-    const unsigned char to_tab[4] = {
+    const char to_tab[4] = {
         'T', 'O' + 0x80,
         0};
 
-    const unsigned char step_tab[5] = {
+    const char step_tab[5] = {
         'S', 'T', 'E', 'P' + 0x80,
         0};
 
-    const unsigned char relop_tab[19] = {
+    const char relop_tab[19] = {
         '>', '=' + 0x80,
         '<', '>' + 0x80,
         '>' + 0x80,
@@ -268,83 +283,65 @@ protected:
         '!', '=' + 0x80,
         0};
 
-#define RELOP_GE 0
-#define RELOP_NE 1
-#define RELOP_GT 2
-#define RELOP_EQ 3
-#define RELOP_LE 4
-#define RELOP_LT 5
-#define RELOP_NE_BANG 6
-#define RELOP_UNKNOWN 7
-
-    const unsigned char highlow_tab[12] = {
+    const char highlow_tab[12] = {
         'H', 'I', 'G', 'H' + 0x80,
         'H', 'I' + 0x80,
         'L', 'O', 'W' + 0x80,
         'L', 'O' + 0x80,
         0};
 
-#define HIGHLOW_HIGH 1
-#define HIGHLOW_UNKNOWN 4
+    char *stack_limit;
+    char *program_start;
+    char *program_end;
+    char *variables_begin;
+    char *current_line;
+    char *sp;
 
-#define STACK_SIZE (sizeof(struct stack_for_frame) * 5)
-#define VAR_SIZE sizeof(short int) // Size of variables in bytes
-
-    unsigned char *stack_limit;
-    unsigned char *program_start;
-    unsigned char *program_end;
-    unsigned char *variables_begin;
-    unsigned char *current_line;
-    unsigned char *sp;
-
-#define STACK_GOSUB_FLAG 'G'
-#define STACK_FOR_FLAG 'F'
-
-    unsigned char table_index;
+    char table_index;
     LINENUM linenum;
 
-    const unsigned char okmsg[3] = "OK";
-    const unsigned char whatmsg[7] = "What? ";
-    const unsigned char howmsg[5] = "How?";
-    const unsigned char sorrymsg[8] = "Sorry!";
-    const unsigned char initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
-    const unsigned char memorymsg[13] = " bytes free.";
-    const unsigned char eeprommsg[21] = " EEProm bytes total.";
-    const unsigned char eepromamsg[25] = " EEProm bytes available.";
-    const unsigned char breakmsg[7] = "break!";
-    const unsigned char unimplimentedmsg[14] = "Unimplemented";
-    const unsigned char backspacemsg[4] = "\b \b";
-    const unsigned char indentmsg[5] = "    ";
-    const unsigned char sderrormsg[15] = "SD card error.";
-    const unsigned char sdfilemsg[15] = "SD file error.";
-    const unsigned char dirextmsg[6] = "(dir)";
-    const unsigned char slashmsg[2] = "/";
-    const unsigned char spacemsg[2] = " ";
+    const char okmsg[3] = "OK";
+    const char whatmsg[7] = "What? ";
+    const char howmsg[5] = "How?";
+    const char sorrymsg[8] = "Sorry!";
+    const char initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
+    const char memorymsg[13] = " bytes free.";
+    const char eeprommsg[21] = " EEProm bytes total.";
+    const char eepromamsg[25] = " EEProm bytes available.";
+    const char breakmsg[7] = "break!";
+    const char unimplimentedmsg[14] = "Unimplemented";
+    const char backspacemsg[4] = "\b \b";
+    const char indentmsg[5] = "    ";
+    const char sderrormsg[15] = "SD card error.";
+    const char sdfilemsg[15] = "SD file error.";
+    const char dirextmsg[6] = "(dir)";
+    const char slashmsg[2] = "/";
+    const char spacemsg[2] = " ";
 
     File fp;
 
     String Command;
 
     void cmd_Files(void);
-    boolean sd_is_initialized = false;
+    boolean sd_is_initialized;
 
     int inchar(void);
-    void outchar(unsigned char c);
+    void outchar(char c);
     void line_terminator(void);
-    unsigned char breakcheck(void);
+    char breakcheck(void);
 
     void ignore_blanks(void);
-    void scantable(const unsigned char *table);
-    void pushb(unsigned char b);
-    unsigned char popb();
+    void scantable(const char *table);
+    void pushb(char b);
+    char popb();
     void printnum(int num);
     void printUnum(unsigned int num);
     unsigned short testnum(void);
-    unsigned char print_quoted_string(void);
-    void printmsgNoNL(const unsigned char *msg);
-    void printmsg(const unsigned char *msg);
+    char print_quoted_string(void);
+    void printmsgNoNL(const char* msg);
+    void printmsg(const char *msg);
     void getln(char prompt);
-    unsigned char *findline(void);
+    char *findline(void);
     void toUppercaseBuffer(void);
     void printline();
     short int expr4(void);
@@ -353,16 +350,16 @@ protected:
     short int expression(void);
 
     int isValidFnChar(char c);
-    unsigned char *filenameWord(void);
+    char *filenameWord(void);
     int initSD(void);
 
-    friend void TinyBasic_Task(void *pvParameters);
+    friend void TinyBasic_Task(void *);
 
 public:
+    static Software_Class *Load();
+
     TinyBasic_Class();
     ~TinyBasic_Class();
-    
-    static Software_Class *Load();
 };
 
 void TinyBasic_Task(void *);

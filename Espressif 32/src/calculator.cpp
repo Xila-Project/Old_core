@@ -6,7 +6,7 @@ Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
 
 Calculator_Class::Calculator_Class() : Software_Class(8)
 {
-    xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, 2, &Task_Handle, 1);
+    xTaskCreatePinnedToCore(Calculator_Task, "Calculator", 4*1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
 }
 
 Calculator_Class::~Calculator_Class()

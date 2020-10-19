@@ -14,7 +14,6 @@ Software_Class *Internet_Browser_Class::Load()
 
 Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 {
-
   memset(Server, 0, 30);
   memset(Path, 0, 60);
   memset(URL, 0, 90);
@@ -25,7 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 
   textContent = {0, 0, false};
 
-  xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, 2, &Task_Handle, 1);
+  xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()

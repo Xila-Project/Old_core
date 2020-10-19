@@ -3,36 +3,34 @@
 
 #include "GalaxOS.hpp"
 
-class Periodic_Class : public Software_Class
+class Periodic_Class : protected Software_Class
 {
-    private:
+    protected:
+        static Periodic_Class* Instance_Pointer;
 
-        
+        uint8_t Current_Atom;
 
-        static uint8_t Number_Instance;
-
-        uint16_t Socket_Method;
-
-        xTaskHandle Socket_Handle;
-
-        uint16_t Current_Atom;
+        uint32_t X, Y;
 
         void Get_Main_Data();
         void Get_Data();
         void Get_List();
+
+        void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     public:
 
         Periodic_Class();
         ~Periodic_Class();
 
-        void Execute(uint16_t const& Socket_Method_To_Set);
-        void Execute(char const& Socket_Method_Char1, char const& Socket_Method_Char2);
+        friend void Periodic_Task(void *);
 
-        friend void Periodic_Socket(void *);
+        static Software_Class* Load();
 
 };
 
 void Periodic_Task(void *);
+
+Software_Handle_Class Periodic_Handle("Periodic", 12, Periodic_Class::Load);
 
 #endif

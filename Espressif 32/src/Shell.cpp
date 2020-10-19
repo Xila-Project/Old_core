@@ -5,10 +5,10 @@ Shell_Class *Shell_Class::Instance_Pointer = NULL;
 Software_Handle_Class *Shell_Class::Handle_Pointer = &Shell_Handle;
 
 Shell_Class::Shell_Class() : Software_Class(6),
-                             Mode(0)
+                             Mode(0),
+                             Selected_Software(0)
 {
-    Instance_Pointer = this;
-    xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 2 * 1024, NULL, 1, &Task_Handle, 0);
+    xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 2 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
     Execute('L', 'G');
 }
 
@@ -17,13 +17,13 @@ Shell_Class::~Shell_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Shell_Class::Load()
+Software_Class* Shell_Class::Load()
 {
-    if (Shell_Class::Instance_Pointer == NULL)
+    if (Instance_Pointer == NULL)
     {
-        Shell_Class::Instance_Pointer = new Shell_Class;
+        Instance_Pointer = new Shell_Class();
     }
-    return Shell_Class::Instance_Pointer;
+    return Instance_Pointer;
 }
 
 void Shell_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
@@ -31,7 +31,7 @@ void Shell_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adres
     switch (Adress)
     {
         case 'S':
-            strcpy(Software_Name, (char*)Variable);
+            Selected_Software = *(uint8_t*)Variable;
             break;
         case 'U':
             strcpy(Username, (char*)Variable);
@@ -69,6 +69,22 @@ void Shell_Task(void *pvParameters)
             vTaskSuspend(NULL);
             break;
 
+        case 0x534D: // SM : Shutdown menu
+            GalaxOS.Display.Set_Current_Page(F("Shell_Shutdown"));
+            break;
+
+        case 0x5253: // RS : Restart system
+
+            break;
+        case 0x4853: // HS : hibernate sys
+            break;
+
+        case 0x4C53: // LS : lock system
+            break;
+    
+        case 0x5353: // SS : shutdown
+
+            break;
         case 0x4C47: // LoGin with entred username and password
             INSTANCE_POINTER->Login();
             break;
@@ -76,7 +92,7 @@ void Shell_Task(void *pvParameters)
         case 0x4F4C: // Open Login page
             INSTANCE_POINTER->Open_Login();
             break;
-        case 0x4F44: // Open Desk page & load it
+        case 0x4F44: // "OD" Open Desk page & load it
             INSTANCE_POINTER->Open_Desk();
             break;
         case 0x4F4D: // Open Menu
@@ -87,22 +103,22 @@ void Shell_Task(void *pvParameters)
             INSTANCE_POINTER->Open_From_Menu();
             break;
 
-        case 0x5431: // T1 : Maxmize software from task bar
+        case 0x4431: // Dx : Maxmize software from task bar
             INSTANCE_POINTER->Open_From_Dock(1);
             break;
-        case 0x5432:
+        case 0x4432:
             INSTANCE_POINTER->Open_From_Dock(2);
             break;
-        case 0x5433:
+        case 0x4433:
             INSTANCE_POINTER->Open_From_Dock(3);
             break;
-        case 0x5434:
+        case 0x4434:
             INSTANCE_POINTER->Open_From_Dock(4);
             break;
-        case 0x5435:
+        case 0x4435:
             INSTANCE_POINTER->Open_From_Dock(5);
             break;
-        case 0x5436:
+        case 0x4436:
             INSTANCE_POINTER->Open_From_Dock(6);
             break;
         default:
@@ -114,7 +130,7 @@ void Shell_Task(void *pvParameters)
 
 void Shell_Class::Open_From_Menu()
 {
-    GalaxOS.Open_Software(Software_Name);
+    GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Selected_Software]);
 }
 
 void Shell_Class::Open_From_Dock(uint8_t Slot)
@@ -154,12 +170,20 @@ void Shell_Class::Open_Menu()
 {
     GalaxOS.Display.Set_Current_Page(F("Shell_Menu"));
     GalaxOS.Display.Set_Text(F("USERNAME_TXT"), GalaxOS.Current_Username);
-    char Temporary_String[] = "SLOT _PIC";
-    for (uint8_t Slot = 0; Slot < MAXIMUM_SOFTWARE; Slot++)
+    char Temporary_String[] = "ITEM _PIC";
+    uint8_t Item = 0;
+    for (; Item < 15; Item++)
     {
-        Temporary_String[4] = Slot;
-        GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Slot]->Icon);
-        GalaxOS.Display.Set_Text(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Slot]->Name);
+        Temporary_String[4] = Item;
+        GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Icon);
+    }
+    Temporary_String[6] = 'T';
+    Temporary_String[7] = 'X';
+    Temporary_String[8] = 'T';
+    for (Item = 0; Item < 15; Item++)
+    {
+        Temporary_String[4] = Item;
+        GalaxOS.Display.Set_Text(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Name);
     }
 }
 

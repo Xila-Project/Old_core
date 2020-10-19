@@ -8,12 +8,21 @@ Offset(0),
 Duration(200),
 MIDI_Output(false)
 {
-    xTaskCreatePinnedToCore(Piano_Task, "Piano Task", 4*1024, NULL, 1, &Task_Handle, 0);
+    xTaskCreatePinnedToCore(Piano_Task, "Piano Task", 4*1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
 }
 
 Piano_Class::~Piano_Class()
 {
     Instance_Pointer = NULL;
+}
+
+Software_Class* Piano_Class::Load()
+{
+    if (Instance_Pointer == NULL)
+    {
+        Instance_Pointer = new Piano_Class();
+    }
+    return Instance_Pointer;
 }
 
 void Piano_Task(void *pvParameters)

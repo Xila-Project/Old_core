@@ -1,20 +1,17 @@
 #include "Display.hpp"
 
-uint8_t Number_Instance = 0;
-
-Nextion_Display_Class *Nextion_Display_Class::Display_Pointer;
+Nextion_Display_Class* Nextion_Display_Class::Display_Pointer = NULL;
 
 Nextion_Display_Class::Nextion_Display_Class(uint32_t const &Baud_Rate, uint8_t const& RX_Pin, uint8_t const& TX_Pin) : Nextion_Serial(1)
 {
-    ++Number_Instance;
-    if (Number_Instance > 1)
+    if (Display_Pointer != NULL)
     {
         delete this;
     }
     Display_Pointer = this;
 
     Nextion_Serial.begin(Baud_Rate, SERIAL_8N1, RX_Pin, TX_Pin); //Nextion UART
-    xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion Serial", 1024 * 3, NULL, 2, &Nextion_Serial_Handle, 1);
+    xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion Serial", 1024 * 3, NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, SYSTEM_CORE);
 }
 
 Nextion_Display_Class::~Nextion_Display_Class()
@@ -190,6 +187,21 @@ void Nextion_Display_Class::Draw_Advanced_Crop_Picture(uint16_t const &X_Destina
     Instruction_End();
 }
 
+void Nextion_Display_Class::Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color)
+{
+    Nextion_Serial.print(F("fill"));
+    Nextion_Serial.print(X_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Y_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Width);
+    Argument_Separator();
+    Nextion_Serial.print(Height);
+    Argument_Separator();
+    Nextion_Serial.print(Color);
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Set_Background_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type = -1)
 {
     Nextion_Serial.print(Object_Name);
@@ -212,6 +224,14 @@ void Nextion_Display_Class::Set_Time(const __FlashStringHelper *Object_Name, uin
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".tim="));
     Nextion_Serial.print(Time);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Trigger(const __FlashStringHelper* Object_Name, bool const& Enable)
+{
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".en="));
+    Nextion_Serial.print(Enable);
     Instruction_End();
 }
 
@@ -257,6 +277,24 @@ void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, con
 {
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".txt=\""));
+    Nextion_Serial.print(Value);
+    Nextion_Serial.print(F("\""));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Text(String const& Object_Name, String const& Value)
+{
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".txt=\""));
+    Nextion_Serial.print(Value);
+    Nextion_Serial.print(F("\""));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value)
+{
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".val=\""));
     Nextion_Serial.print(Value);
     Nextion_Serial.print(F("\""));
     Instruction_End();

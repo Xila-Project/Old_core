@@ -5,6 +5,7 @@
 #include "HardwareSerial.h"
 #include "FS.h"
 #include "SD_MMC.h"
+#include "Configuration.hpp"
 
 #define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
 
@@ -61,8 +62,6 @@ protected:
     void (*Callback_Function_String_Data)(const char*, uint8_t);
     void (*Callback_Function_Numeric_Data)(uint32_t&);
     void (*Callback_Function_Event)(uint8_t&);
-
-    static uint8_t Number_Instance;
 
     uint16_t Cursor_X, Cursor_Y;
 

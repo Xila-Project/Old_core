@@ -2,6 +2,8 @@
 
 #include "Core.hpp"
 
+GalaxOS_Class* GalaxOS_Class::Instance_Pointer = NULL;
+
 GalaxOS_Class GalaxOS;
 
 extern Software_Handle_Class Shell_Handle;
@@ -45,6 +47,8 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 
   memset(Open_Software_Pointer, 0, 6);
 
+  xTaskCreatePinnedToCore(Core_Task, "GalaxOS Core", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
 
@@ -58,7 +62,7 @@ GalaxOS_Class::~GalaxOS_Class() // Detroyer
 void GalaxOS_Class::Start()
 {
 
-  Serial.begin(921600); //PC Debug UART
+  Serial.begin(SERIAL_SPEED); //PC Debug UART
   Remaining_Spaces = 0;
   Horizontal_Separator();
   Print_Line();
@@ -168,6 +172,8 @@ void GalaxOS_Class::Start()
     Display.Set_Backlight(Display_Registry["Backlight"] | 100, false);
     Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
   }
+  Display.Set_Current_Page(F("Core_Splash"));
+  Display.Set_Trigger(F("LOAD1_TIM"), 1);
 
   // Load network configuration
   {
@@ -239,13 +245,14 @@ void GalaxOS_Class::Start()
   // When every thing is loaded : open shell (with privilège -> friend class) in order to login
   Display.Set_Time(F("LOAD_TIM"), 50);
 
-  Open_Software("Shell");
+  Open_Software(&Shell_Handle);
 }
 
 // Main task for the core
 void Core_Task(void *pvParameters)
 {
   (void)pvParameters;
+  GalaxOS_Class::Instance_Pointer->Start();
   //Core_Instruction *Core_Instruction_Pointer;
   while (1)
   {
@@ -253,7 +260,11 @@ void Core_Task(void *pvParameters)
     {
       Serial.println("Low Memory !");
     }
-    vTaskDelay(pdMS_TO_TICKS(1000));
+    #if STACK_OVERFLOW_DETECTION == 1
+    Verbose_Print("> Current task high watermark :");
+    Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
+    #endif
+    vTaskDelay(pdMS_TO_TICKS(2000));
   }
   /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
     Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
@@ -410,7 +421,22 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
       DynamicJsonDocument Extension_Registry(256);
       File Temporary_File = Drive->open(Extension_Registry_Path);
       deserializeJson(Extension_Registry, Temporary_File);
-      Open_Software_Pointer[Get_Software_Pointer(Extension_Registry[Extension])]->Open_File(File_To_Open);
+      for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+      {
+        if (strcmp(Software_Handle_Pointer[i]->Name, Extension_Registry[Extension]))
+        {
+          Open_Software(Software_Handle_Pointer[i]);
+          for (uint8_t j = 0; i < 8; i++)
+          {
+            if (Open_Software_Pointer[j]->Handle_Pointer == Software_Handle_Pointer[i])
+            {
+              Open_Software_Pointer[j]->Open_File(File_To_Open);
+              File_To_Open.close();
+              return;
+            }
+          }
+        }
+      }
     }
     //error handle : unknow extension
   }
@@ -419,16 +445,11 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 // Software management
 
-void GalaxOS_Class::Open_Software(const char *Software_Name)
+void GalaxOS_Class::Open_Software(Software_Handle_Class* Software_Handle_Pointer)
 {
-  uint8_t Software_Handle_Slot = Get_Software_Handle_Pointer(Software_Name);
-  if (Software_Handle_Slot == 255)
+  for (uint8_t i = 0; i < 6; i++) //check if software is openned already
   {
-    return; // error : no matching software found
-  }
-  for (uint8_t i = 0; i < 6; i++)
-  {
-    if (Software_Handle_Pointer[Software_Handle_Slot] == Open_Software_Pointer[i]->Handle_Pointer)
+    if (Software_Handle_Pointer == Open_Software_Pointer[i]->Handle_Pointer)
     {
       Maximize_Software(i);
       return;
@@ -438,7 +459,9 @@ void GalaxOS_Class::Open_Software(const char *Software_Name)
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-      Open_Software_Pointer[i] = Software_Handle_Pointer[Software_Handle_Slot]->Load_Function_Pointer();
+      Open_Software_Pointer[i] = Software_Handle_Pointer->Load_Function_Pointer();
+      Open_Software_Pointer[i]->Handle_Pointer = Software_Handle_Pointer;
+      break;
     }
   }
 }
@@ -495,25 +518,6 @@ void GalaxOS_Class::Maximize_Software(uint8_t Slot)
   }
   Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
   Open_Software_Pointer[0]->Maximize();
-}
-
-uint8_t GalaxOS_Class::Get_Software_Pointer(const char *Software_Name)
-{
-  for (uint8_t i = 0; 1 < 6; i++)
-  {
-    if (i > 6)
-    {
-      return 255; //nothing find
-    }
-    if (Open_Software_Pointer[i]->Handle_Pointer == NULL)
-    {
-      continue;
-    }
-    else if (strcmp(Open_Software_Pointer[i]->Handle_Pointer->Name, Software_Name))
-    {
-      return i;
-    }
-  }
 }
 
 uint8_t GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
@@ -1111,10 +1115,8 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Event_ID)
 
 GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
-  boolean Custom_Event;
   if (Button_Text_1 != NULL)
   {
-    Custom_Event = true;
     Display.Set_Text(F("BUTTON"), Button_Text_1);
     if (Button_Text_2 != NULL)
     {

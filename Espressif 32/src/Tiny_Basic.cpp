@@ -1,10 +1,26 @@
 #include "Tiny_Basic.hpp"
-#include "GalaxOS.hpp"
 
 #include <Arduino.h>
 
 TinyBasic_Class *TinyBasic_Class::Instance_Pointer = NULL;
 #define INSTANCE_POINTER TinyBasic_Class::Instance_Pointer
+
+TinyBasic_Class::TinyBasic_Class() : Software_Class(8),
+                                     inhibitOutput(false),
+                                     runAfterLoad(false),
+                                     triggerRun(false),
+                                     eepos(0),
+                                     inStream(kStreamSerial),
+                                     outStream(kStreamSerial),
+                                     sd_is_initialized(true)
+{
+  xTaskCreatePinnedToCore(TinyBasic_Task, "TinyBasic", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+}
+
+TinyBasic_Class::~TinyBasic_Class()
+{
+  Instance_Pointer = NULL;
+}
 
 Software_Class *TinyBasic_Class::Load()
 {
@@ -13,19 +29,6 @@ Software_Class *TinyBasic_Class::Load()
     Instance_Pointer = new TinyBasic_Class;
   }
   return Instance_Pointer;
-}
-
-TinyBasic_Class::TinyBasic_Class() : Software_Class(6),
-                                     inhibitOutput(false),
-                                     runAfterLoad(false),
-                                     triggerRun(false)
-{
-  xTaskCreatePinnedToCore(TinyBasic_Task, "TinyBasic Task", 6 * 1024, NULL, 2, &Task_Handle, 0);
-}
-
-TinyBasic_Class::~TinyBasic_Class()
-{
-  Instance_Pointer = NULL;
 }
 
 void TinyBasic_Task(void *pvParameters)
@@ -67,9 +70,9 @@ void TinyBasic_Task(void *pvParameters)
     INSTANCE_POINTER->runAfterLoad = true;
   }
 
-  unsigned char *start;
-  unsigned char *newEnd;
-  unsigned char linelen;
+  char *start;
+  char *newEnd;
+  char linelen;
   boolean isDigital;
   boolean alsoWait = false;
 
@@ -122,7 +125,7 @@ void TinyBasic_Task(void *pvParameters)
 
       // Move it to the end of program_memory
       {
-        unsigned char *dest;
+        char *dest;
         dest = INSTANCE_POINTER->variables_begin - 1;
         while (1)
         {
@@ -162,7 +165,7 @@ void TinyBasic_Task(void *pvParameters)
       // If a line with that number exists, then remove it
       if (start != INSTANCE_POINTER->program_end && *((TinyBasic_Class::LINENUM *)start) == INSTANCE_POINTER->linenum)
       {
-        unsigned char *dest, *from;
+        char *dest, *from;
         unsigned tomove;
 
         from = start + start[sizeof(TinyBasic_Class::LINENUM)];
@@ -187,7 +190,7 @@ void TinyBasic_Task(void *pvParameters)
       while (linelen > 0)
       {
         unsigned int tomove;
-        unsigned char *from, *dest;
+        char *from, *dest;
         unsigned int space_to_make;
 
         space_to_make = INSTANCE_POINTER->txtpos - INSTANCE_POINTER->program_end;
@@ -232,7 +235,7 @@ void TinyBasic_Task(void *pvParameters)
       INSTANCE_POINTER->printmsgNoNL(INSTANCE_POINTER->whatmsg);
       if (INSTANCE_POINTER->current_line != NULL)
       {
-        unsigned char tmp = *INSTANCE_POINTER->txtpos;
+        char tmp = *INSTANCE_POINTER->txtpos;
         if (*INSTANCE_POINTER->txtpos != NL)
           *INSTANCE_POINTER->txtpos = '^';
         INSTANCE_POINTER->list_line = INSTANCE_POINTER->current_line;
@@ -458,7 +461,7 @@ void TinyBasic_Task(void *pvParameters)
       goto warmstart;
     input:
     {
-      unsigned char var;
+      char var;
       int value;
       INSTANCE_POINTER->ignore_blanks();
       if (*INSTANCE_POINTER->txtpos < 'A' || *INSTANCE_POINTER->txtpos > 'Z')
@@ -486,7 +489,7 @@ void TinyBasic_Task(void *pvParameters)
 
     forloop:
     {
-      unsigned char var;
+      char var;
       short int initial, step, terminal;
       INSTANCE_POINTER->ignore_blanks();
       if (*INSTANCE_POINTER->txtpos < 'A' || *INSTANCE_POINTER->txtpos > 'Z')
@@ -793,7 +796,7 @@ void TinyBasic_Task(void *pvParameters)
     {
       short int pinNo;
       short int value;
-      unsigned char *txtposBak;
+      char *txtposBak;
 
       // Get the pin number
       INSTANCE_POINTER->expression_error = 0;
@@ -865,7 +868,7 @@ void TinyBasic_Task(void *pvParameters)
 
       // load from a file into memory
       {
-        unsigned char *filename;
+        char *filename;
 
         // Work out the filename
         INSTANCE_POINTER->expression_error = 0;
@@ -891,7 +894,7 @@ void TinyBasic_Task(void *pvParameters)
       goto unimplemented;
     save: // save from memory out to a file
     {
-      unsigned char *filename;
+      char *filename;
 
       // Work out the filename
       INSTANCE_POINTER->expression_error = 0;
@@ -939,7 +942,7 @@ void TinyBasic_Task(void *pvParameters)
     delfile:
       // delete a file
       {
-        unsigned char *filename;
+        char *filename;
 
         // Work out the filename
         INSTANCE_POINTER->expression_error = 0;
@@ -978,15 +981,15 @@ void TinyBasic_Task(void *pvParameters)
     {
       short int value;
 
-      unsigned char *ssid;
-      unsigned char *pswd;
+      char *ssid;
+      char *pswd;
 
       // Get the SSID from an expression
       INSTANCE_POINTER->expression_error = 0;
       value = INSTANCE_POINTER->expression();
       if (INSTANCE_POINTER->expression_error)
         goto qwhat;
-      ssid = (unsigned char *)value;
+      ssid = (char *)value;
 
       // check for a comma
       INSTANCE_POINTER->ignore_blanks();
@@ -1000,7 +1003,7 @@ void TinyBasic_Task(void *pvParameters)
       value = INSTANCE_POINTER->expression();
       if (INSTANCE_POINTER->expression_error)
         goto qwhat;
-      pswd = (unsigned char *)value;
+      pswd = (char *)value;
 
       Serial.printf("Wifi ssid %s pswd %s\n", ssid, pswd);
 
@@ -1070,7 +1073,7 @@ void TinyBasic_Class::ignore_blanks(void)
 }
 
 /***************************************************************************/
-void TinyBasic_Class::scantable(const unsigned char *table)
+void TinyBasic_Class::scantable(const char *table)
 {
   int i = 0;
   table_index = 0;
@@ -1110,16 +1113,16 @@ void TinyBasic_Class::scantable(const unsigned char *table)
 }
 
 /***************************************************************************/
-void TinyBasic_Class::pushb(unsigned char b)
+void TinyBasic_Class::pushb(char b)
 {
   sp--;
   *sp = b;
 }
 
 /***************************************************************************/
-unsigned char TinyBasic_Class::popb()
+char TinyBasic_Class::popb()
 {
-  unsigned char b;
+  char b;
   b = *sp;
   sp++;
   return b;
@@ -1189,10 +1192,10 @@ unsigned short TinyBasic_Class::testnum(void)
 }
 
 /***************************************************************************/
-unsigned char TinyBasic_Class::print_quoted_string(void)
+char TinyBasic_Class::print_quoted_string(void)
 {
   int i = 0;
-  unsigned char delim = *txtpos;
+  char delim = *txtpos;
   if (delim != '"' && delim != '\'')
     return 0;
   txtpos++;
@@ -1217,7 +1220,7 @@ unsigned char TinyBasic_Class::print_quoted_string(void)
 }
 
 /***************************************************************************/
-void TinyBasic_Class::printmsgNoNL(const unsigned char *msg)
+void TinyBasic_Class::printmsgNoNL(const char *msg)
 {
   while (pgm_read_byte(msg) != 0)
   {
@@ -1226,7 +1229,7 @@ void TinyBasic_Class::printmsgNoNL(const unsigned char *msg)
 }
 
 /***************************************************************************/
-void TinyBasic_Class::printmsg(const unsigned char *msg)
+void TinyBasic_Class::printmsg(const char *msg)
 {
   printmsgNoNL(msg);
   line_terminator();
@@ -1272,9 +1275,9 @@ void TinyBasic_Class::getln(char prompt)
 }
 
 /***************************************************************************/
-unsigned char *TinyBasic_Class::findline(void)
+char *TinyBasic_Class::findline(void)
 {
-  unsigned char *line = program_start;
+  char *line = program_start;
   while (1)
   {
     if (line == program_end)
@@ -1291,8 +1294,8 @@ unsigned char *TinyBasic_Class::findline(void)
 /***************************************************************************/
 void TinyBasic_Class::toUppercaseBuffer(void)
 {
-  unsigned char *c = program_end + sizeof(LINENUM);
-  unsigned char quote = 0;
+  char *c = program_end + sizeof(LINENUM);
+  char quote = 0;
 
   while (*c != NL)
   {
@@ -1375,7 +1378,7 @@ short int TinyBasic_Class::expr4(void)
     if (table_index == FUNC_UNKNOWN)
       goto expr4_error;
 
-    unsigned char f = table_index;
+    char f = table_index;
 
     if (*txtpos != '(')
       goto expr4_error;
@@ -1557,10 +1560,10 @@ int TinyBasic_Class::isValidFnChar(char c)
 
 //****************************************************************************************//
 
-unsigned char *TinyBasic_Class::filenameWord()
+char *TinyBasic_Class::filenameWord()
 {
   // SDL - I wasn't sure if this functionality existed above, so I figured i'd put it here
-  unsigned char *ret = txtpos;
+  char *ret = txtpos;
   expression_error = 0;
 
   // make sure there are no quotes or spaces, search for valid characters
@@ -1599,7 +1602,7 @@ void TinyBasic_Class::line_terminator(void)
 }
 
 /***********************************************************/
-unsigned char TinyBasic_Class::breakcheck(void)
+char TinyBasic_Class::breakcheck(void)
 {
   if (Serial.available() && Serial.read() == CTRLC)
   {
@@ -1663,7 +1666,7 @@ inchar_loadfinish:
 }
 
 /***********************************************************/
-void TinyBasic_Class::outchar(unsigned char c)
+void TinyBasic_Class::outchar(char c)
 {
   if (inhibitOutput)
   {
@@ -1700,7 +1703,7 @@ void TinyBasic_Class::cmd_Files(void)
 
     // common header
     printmsgNoNL(indentmsg);
-    printmsgNoNL((const unsigned char *)entry.name());
+    printmsgNoNL((const char *)entry.name());
     if (entry.isDirectory())
     {
       printmsgNoNL(slashmsg);

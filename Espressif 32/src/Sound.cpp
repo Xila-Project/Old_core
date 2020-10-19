@@ -6,6 +6,7 @@
 #include <soc/rtc.h>
 #include <math.h>
 
+#define INSTANCE_POINTER Sound_Class::Instance_Pointer
 Sound_Class *Sound_Class::Instance_Pointer = NULL;
 
 Sound_Class::Sound_Class()
@@ -194,7 +195,7 @@ void Sound_Class::Start_ULP()
     {
         vTaskDelay(pdMS_TO_TICKS(1));
     }
-    xTaskCreatePinnedToCore(Sound_Task, "Sound Driver", 1024 * 3, NULL, 0, &Sound_Socket_Handle, 1);
+    xTaskCreatePinnedToCore(Sound_Task, "Sound Driver", 1024 * 3, NULL, DRIVER_TASK_PRIORITY, &Sound_Socket_Handle, SYSTEM_CORE);
 }
 
 void Sound_Class::Mute()

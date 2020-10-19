@@ -100,7 +100,6 @@ typedef uint16_t GalaxOS_Event;
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
 
-
 class GalaxOS_Class
 {
 protected:
@@ -162,22 +161,18 @@ protected:
 
     GalaxOS_Event Event_Handler(GalaxOS_Event const &);
 
-    uint8_t Get_Software_Pointer(const char *);
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
-    void Open_Software(const char *);
+    void Open_Software(Software_Handle_Class *);
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
     void Maximize_Software(uint8_t);
 
     void Create_System_Files();
 
-
-
 public:
-
     // Core APIs (system calls)
-    void Open_File(File&);
+    void Open_File(File &);
 
     enum Information
     {
@@ -221,8 +216,8 @@ public:
         Black,
         White,
         Grey,
-        Light_Grey,
-        Dark_Grey,
+        Light_Grey = 33808,
+        Dark_Grey = 16904,
         Red = 57344,
         Blue = 1300,
         Green = 34308,
@@ -256,25 +251,27 @@ public:
 
     // Software Management
 
-    void Set_Load_Function(const char*, Software_Class* (*)()); // Used by softwa
+    void Set_Load_Function(const char *, Software_Class *(*)()); // Used by softwa
 
     // Display callback functions
 
-    enum Code {
-        Close = 0x43,
-        Maximize = 0x4D,
-        Minimize = 0x6D,
-        Command = 0x2A,
-        Command_New = 0x23,
-        Variable_String_Local = 0x73,
-        Variable_String_Global = 0x53,
-        Variable_Char_Local = 0x62,
-        Variable_Char_Global = 0x42,
-        Variable_Long_Local = 0x6C,
-        Variable_Long_Global = 0x4C,
+    enum Code
+    {
+        Close = 0x43,                  // 'C'
+        Maximize = 0x4D,               // 'M'
+        Minimize = 0x6D,               // 'm'
+        Switch = 0x53,                 // 'S' : switch
+        Command = 0x2A,                // '*'
+        Command_New = 0x23,            // '#'
+        Variable_String_Local = 0x73,  // 's'
+        Variable_String_Global = 0x53, // 'S'
+        Variable_Char_Local = 0x62,    // 'c'
+        Variable_Char_Global = 0x42,   // 'C'
+        Variable_Long_Local = 0x6C,    // 'l'
+        Variable_Long_Global = 0x4C,   // 'L'
     };
 
-    void Incomming_String_Data_From_Display(const char*, uint8_t);
+    void Incomming_String_Data_From_Display(const char *, uint8_t);
     void Incomming_Numeric_Data_From_Display(uint32_t &);
     void Incomming_Event_From_Display(uint8_t &);
 
@@ -282,7 +279,7 @@ public:
 
     void Horizontal_Separator();
     void Print_Line(const char *, uint8_t const & = 0);
-    void Print_Line(const __FlashStringHelper*, uint8_t const & = 0);
+    void Print_Line(const __FlashStringHelper *, uint8_t const & = 0);
     void Print_Line();
 
     //
@@ -294,7 +291,7 @@ public:
     void Set_Variable(uint8_t const &, const char *, uint16_t, Software_Handle_Class * = NULL);
     void Get_Variable(uint8_t const &, char *, uint16_t, Software_Handle_Class * = NULL);
 
-    /*void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
+    void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
     void Get_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
 
     void Set_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
@@ -306,7 +303,7 @@ public:
     void Set_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
     void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);*/
 
-    char* Get_Current_Username()
+    char *Get_Current_Username()
     {
         return Current_Username;
     }
@@ -321,8 +318,8 @@ public:
     void Load_System_Files();
     void Load_User_Files();
 
-    GalaxOS_Event Check_Credentials(const char*, const char*);
-    GalaxOS_Event Login(const char* Username_To_Check, const char* Password_To_Check);
+    GalaxOS_Event Check_Credentials(const char *, const char *);
+    GalaxOS_Event Login(const char *Username_To_Check, const char *Password_To_Check);
     GalaxOS_Event Logout();
 
     //services
@@ -336,8 +333,8 @@ public:
         Question,
     };
 
-    GalaxOS_Event Event_Handler(const __FlashStringHelper*, uint8_t, const __FlashStringHelper* = NULL, const __FlashStringHelper* = NULL, const __FlashStringHelper* = NULL);
-    
+    GalaxOS_Event Event_Handler(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+
     void Nextion_Upload_Firmware(String const &Path);
 
     friend class Shell_Class;

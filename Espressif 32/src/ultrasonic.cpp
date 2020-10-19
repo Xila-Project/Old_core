@@ -8,7 +8,7 @@ Trig_Pin(8),
 Echo_Pin(9),
 Offset(0)
 {
-
+  xTaskCreatePinnedToCore(Ultrasonic_Task, "Ultrasonic Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
 }
 
 Ultrasonic_Class::~Ultrasonic_Class()

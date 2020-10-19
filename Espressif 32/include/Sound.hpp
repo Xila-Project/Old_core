@@ -2,10 +2,8 @@
 #define SOUND_H_INCLUDED
 
 #include "Arduino.h"
+#include "Configuration.hpp"
 #include <FS.h>
-
-#define INSTANCE_POINTER Sound_Class::Instance_Pointer
-
 
 class Sound_Class
 {

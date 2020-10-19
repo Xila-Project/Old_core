@@ -89,11 +89,12 @@ protected:
 
 public:
     static Software_Class *Load();
+
     Oscilloscope_Class();
     ~Oscilloscope_Class();
 };
 
-Software_Handle_Class Oscilloscope("Oscilloscope", 12, Oscilloscope_Class::Load);
+Software_Handle_Class Oscilloscope_Handle("Oscilloscope", 12, Oscilloscope_Class::Load);
 
 void Oscilloscope_Task(void *);
 void SigmaDelta_Task(void *);

@@ -14,14 +14,11 @@ protected:
     uint8_t Mode;
     String Current_Path;
 
-    Shell_Class();
-    ~Shell_Class();
-
-    static Shell_Class *Instance_Pointer;
+    static Shell_Class* Instance_Pointer;
 
     static Software_Handle_Class* Handle_Pointer;
 
-    char Software_Name[24];
+    uint8_t Selected_Software;
 
     char Username[8];
     char Password[24];
@@ -50,6 +47,9 @@ protected:
 
 public:
     static Software_Class* Load();
+
+    Shell_Class();
+    ~Shell_Class();
 };
 
 void Shell_Task(void *);
