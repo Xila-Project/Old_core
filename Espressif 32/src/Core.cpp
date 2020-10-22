@@ -2,6 +2,7 @@
 
 #include "Core.hpp"
 
+#define INSTANCE_POINTER GalaxOS_Class::Instance_Pointer
 GalaxOS_Class* GalaxOS_Class::Instance_Pointer = NULL;
 
 GalaxOS_Class GalaxOS;
@@ -19,7 +20,9 @@ extern Software_Handle_Class Ultrasonic_Handle;
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password [] = "0749230994";*/
 
-GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
+GalaxOS_Class::GalaxOS_Class() : Display(),
+                                 Sound(),
+                                 Keyboard(2, 6)
 {
   if (Instance_Pointer != NULL)
   {
@@ -37,17 +40,11 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
   Drive = &SD;
 #endif
 
-  C_MIDI = 60;
-
-  C_Frequency = 262;
-
-  strcpy(Current_Username, "");
+  memset(Current_Username, 255, 8);
 
   Tag = 0x00;
 
-  memset(Open_Software_Pointer, 0, 6);
-
-  xTaskCreatePinnedToCore(Core_Task, "GalaxOS Core", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+  memset(Open_Software_Pointer, 0, 8);
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
@@ -55,6 +52,28 @@ GalaxOS_Class::GalaxOS_Class() : Keyboard(2, 6) //builder
 GalaxOS_Class::~GalaxOS_Class() // Detroyer
 {
   Instance_Pointer = NULL;
+}
+
+// Idle task, lowest priority, nothing is running
+
+void Idle_Task_Software_Core(void* pvParameters)
+{
+  (void)pvParameters;
+  while(1)
+  {
+    Serial.print(F("Idle software core"));
+    vTaskDelay(1);
+  }
+}
+
+void Idle_Task_System_Core(void* pvParameters)
+{
+  (void)pvParameters;
+  while(1)
+  {
+    Serial.print(F("Idle system core"));
+    vTaskDelay(1); 
+  }
 }
 
 // Used to initialise the core
@@ -89,10 +108,10 @@ void GalaxOS_Class::Start()
   pinMode(4, INPUT_PULLUP);
   pinMode(12, INPUT_PULLUP);
   pinMode(13, INPUT_PULLUP);
-  //delete &SD_MMC;
+  Drive = &SD_MMC;
 #else
 
-  delete &SD;
+  Drive = &SD;
 #endif
 
   if (!Drive->begin() || Drive->cardType() == CARD_NONE)
@@ -106,7 +125,7 @@ void GalaxOS_Class::Start()
   File Temporary_File;
 
   // Initialize Virtual Memory
-  Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
+  /*Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
 
   if (Virtual_Memory_Semaphore == NULL)
   {
@@ -115,7 +134,7 @@ void GalaxOS_Class::Start()
   else
   {
     xSemaphoreGive(Virtual_Memory_Semaphore);
-  }
+  }*/
 
   //Testing Virtual Memory
 
@@ -151,29 +170,34 @@ void GalaxOS_Class::Start()
   }*/
 
   // Load Task
-  Verbose_Print("> Loading Task ...");
+  Verbose_Print_Line("> Loading Task ...");
+  //xTaskCreatePinnedToCore(Idle_Task_Software_Core, "Idle Software", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SOFTWARE_CORE);
+  //xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
 
-  //xTaskCreatePinnedToCore() //core class : used to execute api call in "root" mode
 
   // Check if the system state was saved
-  Verbose_Print("> Check existing of file last state ...");
+  Verbose_Print_Line("> Check existing of file last state ...");
   if (Drive->exists("/GALAXOS/GOSCUSA.GSF"))
   {
     Restore_System_State();
   }
 
-  // Load display configuration
-
+  // Initialize display & Load display configuration
+  Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
+  Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
+  Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+  Display.Begin();
   {
     Verbose_Print_Line("> Load display registry ...");
     Temporary_File = Drive->open(Display_Registry_Path);
     DynamicJsonDocument Display_Registry(256);
     deserializeJson(Display_Registry, Temporary_File);
-    Display.Set_Backlight(Display_Registry["Backlight"] | 100, false);
-    Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
+    Display.Set_Backlight(Display_Registry["Brightness"] | 100);
+    //Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
   }
-  Display.Set_Current_Page(F("Core_Splash"));
-  Display.Set_Trigger(F("LOAD1_TIM"), 1);
+  Display.Set_Current_Page(F("Core_Load"));
+  Display.Click(7, 1); // Shadow in annimation
+  vTaskDelay(pdMS_TO_TICKS(4000));
 
   // Load network configuration
   {
@@ -185,15 +209,18 @@ void GalaxOS_Class::Start()
     }
     DynamicJsonDocument Network_Registry(256);
     deserializeJson(Network_Registry, Temporary_File);
-    WiFi.setHostname(Network_Registry["Host Name"]);                   // Set hostname
-    const uint8_t Number_WiFi_AP = Network_Registry["Number WiFi AP"]; // Check number of registred AP
-    char SSID[32], Password[32];
-    for (uint8_t i = 0; i < Number_WiFi_AP; i++)
+    // WiFi :
+    JsonObject WiFi_Node = Network_Registry["WiFi"];
+    WiFi.setHostname(WiFi_Node["Host Name"]); // Set hostname
+    JsonArray Name_Array = WiFi_Node["Name"];
+    JsonArray Password_Array = WiFi_Node["Password"];
+    char Name[32], Password[32];
+    for (uint8_t i = 0; i < Name_Array.size(); i++)
     {
-      strcpy(SSID, Network_Registry["SSID" + String(i)]);
-      strcpy(Password, Network_Registry["Password" + String(i)]);
+      strcpy(Name, Name_Array[i]);
+      strcpy(Password, Password_Array[i]);
       WiFi.setAutoConnect(false);
-      WiFi.begin(SSID, Password);
+      WiFi.begin(Name, Password);
       while (WiFi.status() != WL_CONNECTED && i < 50)
       {
         vTaskDelay(pdMS_TO_TICKS(100));
@@ -206,7 +233,8 @@ void GalaxOS_Class::Start()
     }
     Temporary_File.close();
   }
-
+  Display.Set_Value(F("LOAD_BAR"), 20);
+  vTaskDelay(pdMS_TO_TICKS(1000));
   // Set Regional Parameters
   {
     Verbose_Print_Line("> Load regional registry ...");
@@ -215,12 +243,18 @@ void GalaxOS_Class::Start()
     {
       //error
     }
-    Synchronise_Time();
+    //Synchronise_Time();
     Temporary_File.close();
   }
+  Display.Set_Value(F("LOAD_BAR"), 40);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+
+  Display.Set_Value(F("LOAD_BAR"), 60);
+  vTaskDelay(pdMS_TO_TICKS(1000));
 
   // Load software (including Shell UI)
-  Verbose_Print_Line("> Load software ...");
+  Verbose_Print_Line("> Load software registry");
+  //Verbose_Print_Line("> Load software ...");
   Software_Handle_Pointer[0] = &Shell_Handle;
   Software_Handle_Pointer[1] = &Oscilloscope_Handle;
   Software_Handle_Pointer[2] = &Paint_Handle;
@@ -228,42 +262,49 @@ void GalaxOS_Class::Start()
   Software_Handle_Pointer[4] = &TinyBasic_Handle;
   Software_Handle_Pointer[5] = &Internet_Browser_Handle;
 
-  Temporary_File = Drive->open(Software_Registry_Path);
-  if (!Temporary_File)
   {
-    return;
+    Temporary_File = Drive->open(Software_Registry_Path);
+    if (!Temporary_File)
+    {
+      return;
+    }
+    DynamicJsonDocument Software_Registry(256);
+    deserializeJson(Software_Registry, Temporary_File);
   }
-  DynamicJsonDocument Software_Registry(256);
-  deserializeJson(Software_Registry, Temporary_File);
 
+  Display.Set_Value(F("LOAD_BAR"), 80);
+  vTaskDelay(pdMS_TO_TICKS(1000));
   // to do
 
-  // Create core task
+  Display.Set_Value(F("LOAD_BAR"), 100);
+  vTaskDelay(pdMS_TO_TICKS(1000));
+  Display.Click(7, 0); // Shadow out animation;
+  vTaskDelay(pdMS_TO_TICKS(4000));
 
-  xTaskCreatePinnedToCore(Core_Task, "Core Task", 6 * 1024, NULL, 0, &Core_Task_Handle, 0);
-
-  // When every thing is loaded : open shell (with privilège -> friend class) in order to login
-  Display.Set_Time(F("LOAD_TIM"), 50);
-
-  Open_Software(&Shell_Handle);
+  //Finish startup
+  Verbose_Print_Line(F("> Open Shell"));
+  Open_Software_Pointer[1] = (*Shell_Handle.Load_Function_Pointer)();
+  Open_Software_Pointer[0] = Open_Software_Pointer[1];
 }
 
 // Main task for the core
-void Core_Task(void *pvParameters)
+void GalaxOS_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
-  GalaxOS_Class::Instance_Pointer->Start();
+  
   //Core_Instruction *Core_Instruction_Pointer;
   while (1)
   {
+    GalaxOS.Start();
+    vTaskSuspend(NULL);
     if (ESP.getFreeHeap() < 2000)
     {
       Serial.println("Low Memory !");
     }
-    #if STACK_OVERFLOW_DETECTION == 1
+#if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
     Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
-    #endif
+#endif
     vTaskDelay(pdMS_TO_TICKS(2000));
   }
   /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
@@ -294,36 +335,37 @@ void GalaxOS_Class::Save_System_State()
 
 void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
+  Serial.println(Received_Data);
   switch (Received_Data[0])
   {
   case Code::Close:
-    Close_Software();
+    GalaxOS.Close_Software();
     break;
   case Code::Minimize:
-    Minimize_Software();
+    GalaxOS.Minimize_Software();
     break;
   case Code::Command:
   case Code::Command_New:
-    Open_Software_Pointer[0]->Execute(Received_Data[0], Received_Data[1]);
+    GalaxOS.Open_Software_Pointer[0]->Execute(Received_Data[0], Received_Data[1]);
     break;
   case Code::Variable_String_Local:
   {
     String Temporary_String;
     Temporary_String = String(Received_Data);
-    Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
+    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
     break;
   }
   case Code::Variable_Char_Local:
-    Open_Software_Pointer[0]->Set_Variable(Received_Data, Variable_Char_Local, Tag, Size);
-    Tag = '\0';
+    GalaxOS.Open_Software_Pointer[0]->Set_Variable(Received_Data, Variable_Char_Local, GalaxOS.Tag, Size);
+    GalaxOS.Tag = '\0';
     break;
   case Code::Variable_String_Global:
     break;
   case Code::Variable_Long_Local:
-    Tag = Received_Data[1];
+    GalaxOS.Tag = Received_Data[1];
     break;
   case Code::Variable_Long_Global:
-    Tag = Received_Data[1];
+    GalaxOS.Tag = Received_Data[1];
     break;
   default:
     //error handle
@@ -333,19 +375,20 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data
 
 void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 {
-  if (Tag != '\0')
+  if (GalaxOS.Tag != '\0')
   {
-    Open_Software_Pointer[0]->Set_Variable(&Received_Data, Variable_Long_Local, Tag);
-    Tag = '\0';
+    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Received_Data, GalaxOS.Variable_Long_Local, GalaxOS.Tag);
+    GalaxOS.Tag = '\0';
   }
   else
   {
-    Event_Handler(Screen_Data_Exception);
+    GalaxOS.Event_Handler(GalaxOS.Screen_Data_Exception);
   }
 }
 
 void GalaxOS_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
+
 }
 
 void GalaxOS_Class::Open_File(File &File_To_Open)
@@ -445,22 +488,24 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 // Software management
 
-void GalaxOS_Class::Open_Software(Software_Handle_Class* Software_Handle_Pointer)
+void GalaxOS_Class::Open_Software(Software_Handle_Class *Software_Handle_Pointer)
 {
-  for (uint8_t i = 0; i < 6; i++) //check if software is openned already
+  for (uint8_t i = 0; i < 8; i++) //check if software is openned already
   {
-    if (Software_Handle_Pointer == Open_Software_Pointer[i]->Handle_Pointer)
+    if (Open_Software_Pointer[i] != NULL)
     {
-      Maximize_Software(i);
-      return;
+      if (Software_Handle_Pointer == Open_Software_Pointer[i]->Handle_Pointer)
+      {
+        Maximize_Software(i);
+        return;
+      }
     }
   }
-  for (uint8_t i = 0; i < 6; i++)
+  for (uint8_t i = 0; i < 8; i++)
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-      Open_Software_Pointer[i] = Software_Handle_Pointer->Load_Function_Pointer();
-      Open_Software_Pointer[i]->Handle_Pointer = Software_Handle_Pointer;
+      Open_Software_Pointer[i] = (*Software_Handle_Pointer->Load_Function_Pointer)();
       break;
     }
   }
@@ -999,7 +1044,7 @@ void Ressource_Monitor(void *pvParameters)
 }*/
 
 // Account management
-GalaxOS_Event GalaxOS_Class::Check_Credentials(const char* Username_To_Check, const char* Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   File Temporary_File = Drive->open("/GALAXOS/REGISTRY/ACCOUNT.GRF", FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -1019,7 +1064,7 @@ GalaxOS_Event GalaxOS_Class::Check_Credentials(const char* Username_To_Check, co
   }
 }
 
-GalaxOS_Event GalaxOS_Class::Login(const char* Username_To_Check, const char* Password_To_Check)
+GalaxOS_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
@@ -1115,34 +1160,44 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(uint16_t const &Event_ID)
 
 GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
+  Display.Set_Current_Page(F("Event"));
   if (Button_Text_1 != NULL)
   {
-    Display.Set_Text(F("BUTTON"), Button_Text_1);
+    Display.Set_Text(F("BUTTON1"), Button_Text_1);
     if (Button_Text_2 != NULL)
     {
-      Display.Set_Text(F("BUTTON"), Button_Text_2);
+      Display.Set_Text(F("BUTTON2"), Button_Text_2);
     }
     else
     {
-      Display.Set_Text(F("BUTTON"), F(""));
+      Display.Set_Text(F("BUTTON2"), F(""));
     }
     if (Button_Text_3 != NULL)
     {
-      Display.Set_Text(F("BUTTON"), Button_Text_3);
+      Display.Set_Text(F("BUTTON3"), Button_Text_3);
     }
     else
     {
-      Display.Set_Text(F("BUTTON"), F(""));
+      Display.Set_Text(F("BUTTON3"), F(""));
     }
   }
   switch (Event_Type)
   {
   case Error:
     Display.Set_Picture(F("EVENT_PIC"), 12);
+    Display.Set_Text(F("TITLE_TXT"), F("Error"));
     break;
   case Warning:
     Display.Set_Picture(F("EVENT_PIC"), 12);
+    Display.Set_Text(F("TITLE_TXT"), F("Warning"));
     break;
+  case Information:
+    Display.Set_Picture(F("EVENT_PIC"), 12);
+    Display.Set_Text(F("TITLE_TXT"), F("Information"));
+    break;
+  case Question:
+    Display.Set_Picture(F("EVENT_PIC"), 12);
+    Display.Set_Text(F("TITLE_TXT"), F("Question"));
   default:
     break;
   }

@@ -1,35 +1,43 @@
 #include "Display.hpp"
 
-Nextion_Display_Class* Nextion_Display_Class::Display_Pointer = NULL;
+Nextion_Display_Class *Nextion_Display_Class::Display_Pointer = NULL;
 
-Nextion_Display_Class::Nextion_Display_Class(uint32_t const &Baud_Rate, uint8_t const& RX_Pin, uint8_t const& TX_Pin) : Nextion_Serial(1)
+Nextion_Display_Class::Nextion_Display_Class() : Nextion_Serial(1),
+                                                 Callback_Function_String_Data(NULL),
+                                                 Callback_Function_Numeric_Data(NULL),
+                                                 Callback_Function_Event(NULL)
+
 {
     if (Display_Pointer != NULL)
     {
         delete this;
     }
     Display_Pointer = this;
-
-    Nextion_Serial.begin(Baud_Rate, SERIAL_8N1, RX_Pin, TX_Pin); //Nextion UART
-    xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion Serial", 1024 * 3, NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, SYSTEM_CORE);
 }
 
 Nextion_Display_Class::~Nextion_Display_Class()
 {
+    Display_Pointer = NULL;
     vTaskDelete(Nextion_Serial_Handle);
 }
 
-void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(const char*, uint8_t))
+void Nextion_Display_Class::Begin(uint32_t Baud_Rate, uint8_t RX_Pin, uint8_t TX_Pin)
+{
+    Nextion_Serial.begin(Baud_Rate, SERIAL_8N1, RX_Pin, TX_Pin); //Nextion UART
+    xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion Serial", 1024 * 4, NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, SYSTEM_CORE);
+}
+
+void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(const char *, uint8_t))
 {
     Callback_Function_String_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t&))
+void Nextion_Display_Class::Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t &))
 {
     Callback_Function_Numeric_Data = Function_Pointer;
 }
 
-void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t&))
+void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t &))
 {
     Callback_Function_Event = Function_Pointer;
 }
@@ -52,10 +60,10 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
         {
             Return_Code = Nextion_Display_Class::Display_Pointer->Nextion_Serial.read();
             Serial.print(F("|| R_C : "));
-            Serial.print(Return_Code);
+            Serial.print(Return_Code, HEX);
             switch (Return_Code)
             {
-            case NEXTION_INFORMATION_NUMERIC_DATA_ENCLOSED:
+            case Nextion_Display_Class::Numeric_Data_Enclosed:
 
                 if (7 == Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 7))
                 {
@@ -66,7 +74,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                     }
                 }
                 break;
-            case NEXTION_INFORMATION_STRING_DATA_ENCLOSED:
+            case Nextion_Display_Class::String_Data_Enclosed:
                 DISPLAY_POINTER->Nextion_Serial.readBytesUntil(0xFF, Temporary_String, sizeof(Temporary_String));
                 DISPLAY_POINTER->Nextion_Serial.read();
                 DISPLAY_POINTER->Nextion_Serial.read();
@@ -77,22 +85,22 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 }
                 break;
 
-            case NEXTION_INFORMATION_CURRENT_PAGE_NUMBER:
-                if (4 == Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_Byte_Array, 4))
+            case Nextion_Display_Class::Current_Page_Number:
+                if (4 == Nextion_Display_Class::Display_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 4))
                 {
-                    if (Temporary_Byte_Array[1] == 0xFF && Temporary_Byte_Array[2] == 0xFF && Temporary_Byte_Array[3] == 0xFF)
+                    if (Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF && Temporary_String[3] == 0xFF)
                     {
-                        
+
                         DISPLAY_POINTER->Page_History[5] = DISPLAY_POINTER->Page_History[4];
                         DISPLAY_POINTER->Page_History[3] = DISPLAY_POINTER->Page_History[2];
                         DISPLAY_POINTER->Page_History[2] = DISPLAY_POINTER->Page_History[1];
-                        DISPLAY_POINTER->Page_History[1] = DISPLAY_POINTER->Page_History[0];    
-                        DISPLAY_POINTER->Page_History[0] = Temporary_Byte_Array[0];
+                        DISPLAY_POINTER->Page_History[1] = DISPLAY_POINTER->Page_History[0];
+                        DISPLAY_POINTER->Page_History[0] = Temporary_String[0];
                     }
                 }
                 break;
 
-            case NEXTION_ERROR_INVALID_INSTRUCTION:
+            case Nextion_Display_Class::Invalid_Instruction:
                 switch (Nextion_Display_Class::Display_Pointer->Nextion_Serial.read()) //Distinguish Invalid instruction && startup
                 {
                 case 0x00: // Startup_Instruction
@@ -103,7 +111,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                         {
                             if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                             {
-                                Event_Code = NEXTION_INFORMATION_STARTUP;   
+                                Event_Code = Nextion_Display_Class::Startup;
                                 Nextion_Display_Class::Display_Pointer->Callback_Function_Event(Event_Code);
                             }
                         }
@@ -115,7 +123,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                     {
                         if (Nextion_Display_Class::Display_Pointer->Callback_Function_Event != NULL)
                         {
-                            Event_Code = NEXTION_ERROR_INVALID_INSTRUCTION;
+                            Event_Code = Nextion_Display_Class::Invalid_Instruction;
                             Nextion_Display_Class::Display_Pointer->Callback_Function_Event(Event_Code);
                         }
                     }
@@ -123,7 +131,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
 
             default:
 
-                Temporary_Byte_Array[1] = 0;                        //counter for 0xFF ending code
+                Temporary_Byte_Array[1] = 0;                                               //counter for 0xFF ending code
                 while (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available()) //Purge until the end of the intruction
                 {
                     Temporary_Byte_Array[0] = Nextion_Display_Class::Display_Pointer->Nextion_Serial.read();
@@ -227,7 +235,7 @@ void Nextion_Display_Class::Set_Time(const __FlashStringHelper *Object_Name, uin
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Trigger(const __FlashStringHelper* Object_Name, bool const& Enable)
+void Nextion_Display_Class::Set_Trigger(const __FlashStringHelper *Object_Name, bool const &Enable)
 {
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".en="));
@@ -282,7 +290,7 @@ void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, con
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Text(String const& Object_Name, String const& Value)
+void Nextion_Display_Class::Set_Text(String const &Object_Name, String const &Value)
 {
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".txt=\""));
@@ -291,12 +299,11 @@ void Nextion_Display_Class::Set_Text(String const& Object_Name, String const& Va
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value)
+void Nextion_Display_Class::Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value)
 {
     Nextion_Serial.print(Object_Name);
-    Nextion_Serial.print(F(".val=\""));
-    Nextion_Serial.print(Value);
-    Nextion_Serial.print(F("\""));
+    Nextion_Serial.print(F(".val="));
+    Nextion_Serial.print(String(Value));
     Instruction_End();
 }
 
@@ -393,12 +400,12 @@ void Nextion_Display_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t c
     Instruction_End();
 }
 
-void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const& Color)
+void Nextion_Display_Class::Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color)
 {
     Draw_Rectangle(X_Coordinate, Y_Coordinate, 1, 1, Color);
 }
 
-void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow)
+void Nextion_Display_Class::Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow)
 {
     if (Hollow)
     {
@@ -449,9 +456,36 @@ void Nextion_Display_Class::Calibrate()
     Instruction_End();
 }
 
-void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uint8_t const& Channel, uint32_t* Data, uint32_t const& Quantity)
+void Nextion_Display_Class::Show(const __FlashStringHelper *Object_Name)
 {
-    Nextion_Serial.print(F("add"));
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("0");
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Hide(const __FlashStringHelper *Object_Name)
+{
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("1");
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Click(uint16_t const &Component_ID, uint8_t const &Event_Type)
+{
+    Nextion_Serial.print(F("click "));
+    Nextion_Serial.print(Component_ID);
+    Argument_Separator();
+    Nextion_Serial.print(Event_Type);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t *Data, uint32_t const &Quantity)
+{
+    Nextion_Serial.print(F("add "));
     if (Quantity == 0)
     {
         Nextion_Serial.print(Component_ID);
@@ -469,7 +503,7 @@ void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uin
         Argument_Separator();
         Nextion_Serial.print(Quantity);
         vTaskDelay(pdMS_TO_TICKS(10)); //wait display to prepare transparent mode
-        for(uint16_t i = 0; i < Quantity; i++)
+        for (uint16_t i = 0; i < Quantity; i++)
         {
             Nextion_Serial.write(Data[i]);
         }
@@ -477,7 +511,7 @@ void Nextion_Display_Class::Add_Value_Waveform(uint16_t const& Component_ID, uin
     Instruction_End();
 }
 
-void Nextion_Display_Class::Clear_Waveform(uint16_t const& Component_ID, uint8_t const& Channel)
+void Nextion_Display_Class::Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel)
 {
     Nextion_Serial.print(F("cle "));
     Serial.print(Component_ID);
@@ -574,10 +608,10 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
     if (Nextion_Serial.read() != 0x05)
     {
         //error handle
-        return NEXTION_ERROR_UPDATE_FAILED;
+        return Update_Failed;
     }
     Serial.println(F("Succefully transmited file"));
-    return NEXTION_INFORMATION_UPDATE_SUCCESS;
+    return Update_Succeed;
 }
 
 void Nextion_Display_Class::Get(const __FlashStringHelper *Object_Name)
@@ -616,7 +650,7 @@ void Nextion_Display_Class::Set_Baud_Rate(uint32_t const &Baudrate, bool const &
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Backlight(uint8_t const &Brightness, bool const &Save = false)
+void Nextion_Display_Class::Set_Backlight(uint8_t const &Brightness, bool const &Save)
 {
     if (Brightness > 100)
     {
@@ -628,7 +662,7 @@ void Nextion_Display_Class::Set_Backlight(uint8_t const &Brightness, bool const 
         Nextion_Serial.print(F("s"));
     }
     Nextion_Serial.print(F("="));
-    Nextion_Serial.print(Brightness);
+    Nextion_Serial.print(String(Brightness));
     Instruction_End();
 }
 

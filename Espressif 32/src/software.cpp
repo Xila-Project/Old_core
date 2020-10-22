@@ -5,11 +5,14 @@
 Software_Class* Software_Class::Instance_Pointer = NULL;
 Software_Handle_Class* Software_Class::Handle_Pointer = NULL; 
 
-Software_Class::Software_Class(uint8_t Task_Queue_Size) //constructor
+Software_Class::Software_Class(uint8_t Task_Queue_Size)
 {
-  //Serial.println(F("Software constructor"));
-  Task_Handle = NULL;
-  xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
+  Serial.println(F("Software constructor"));
+  Command_Queue_Handle = xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
+  if (Command_Queue_Handle == NULL)
+  {
+    // errror
+  }
 }
 
 Software_Class::~Software_Class() // Destructor : close
@@ -32,15 +35,16 @@ uint16_t Software_Class::Get_Command()
 {
   uint16_t Command_Buffer;
   xQueueReceive(Command_Queue_Handle, &Command_Buffer, portMAX_DELAY);
+  Serial.println(Command_Buffer, HEX);
   return Command_Buffer;
 }
 
-void Software_Class::Execute(uint16_t const& Command_To_Execute)
+void Software_Class::Execute(uint16_t Command_To_Execute)
 {
   xQueueSendToBack(Command_Queue_Handle, (void *) &Command_To_Execute, portMAX_DELAY);
 }
 
-void Software_Class::Execute(char const &Task_Method_Char1, char const &Task_Method_Char2)
+void Software_Class::Execute(char Task_Method_Char1, char Task_Method_Char2)
 {
   Execute(((uint16_t)Task_Method_Char1 << 8) | (uint16_t)Task_Method_Char2);
 }

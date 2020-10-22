@@ -9,49 +9,6 @@
 
 #define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
 
-enum Display_Error
-{
-    Invalid_Instruciton = 0x00,
-    Invalid_Component_ID = 0x02,
-    Invalid_Page_ID = 0x03
-};
-
-#define NEXTION_ERROR_INVALID_INSTRUCTION 0x00  //4 byte
-#define NEXTION_ERROR_INVALID_COMPONENT_ID 0x02 //4 byte
-#define NEXTION_ERROR_INVALID_PAGE_ID 0x03
-#define NEXTION_ERROR_INVALID_PICTURE_ID 0x04
-#define NEXTION_ERROR_INVALID_FONT_ID 0x05
-#define NEXTION_ERROR_INVALID_FILE_OPERATION 0x06
-#define NEXTION_ERROR_INVALID_CRC 0x09
-#define NEXTION_ERROR_INVALID_BAUD_RATE_SETTING 0x11
-#define NEXTION_ERROR_INVALID_WAVEFORM_ID_OR_CHANNEL 0x12
-#define NEXTION_ERROR_INVALID_VARIABLE_NAME_OR_ATTRIBUTE 0x1A
-#define NEXTION_ERROR_INVALID_VARIABLE_OPERATION 0x1B
-#define NEXTION_ERROR_FAIL_TO_ASSIGN 0x1C
-#define NEXTION_ERROR_FAIL_EEPROM_OPERATION 0x1D
-#define NEXTION_ERROR_INVALID_QUANTITY_OF_PARAMETERS 0x1E
-#define NEXTION_ERROR_IO_OPERATION_FAILED 0x1F
-#define NEXTION_ERROR_INVALID_ESCAPE_CHARACTER 0x20
-#define NEXTION_ERROR_TOO_LONG_VARIABLE_NAME 0x23
-#define NEXTION_ERROR_SERIAL_BUFFER_OVERFLOW 0x24
-#define NEXTION_ERROR_UPDATE_FAILED 0x25
-
-#define NEXTION_INFORMATION_STARTUP 0x07 //custom
-#define NEXTION_INFORMATION_INTRUCTION_SUCCESSFUL 0x01
-#define NEXTION_INFORMATION_TOUCH_EVENT 0x65
-#define NEXTION_INFORMATION_CURRENT_PAGE_NUMBER 0x66
-#define NEXTION_INFORMATION_TOUCH_COORDINATE_AWAKE 0x67
-#define NEXTION_INFORMATION_TOUCH_COOORDINATE_SLEEP 0x68
-#define NEXTION_INFORMATION_STRING_DATA_ENCLOSED 0x70
-#define NEXTION_INFORMATION_NUMERIC_DATA_ENCLOSED 0x71
-#define NEXTION_INFORMATION_AUTO_ENTERED_SLEEP_MODE 0x86
-#define NEXTION_INFORMATION_AUTO_WAKE_FROM_SLEEP_MODE 0x87
-#define NEXTION_INFORMATION_READY 0x88
-#define NEXTION_INFORMATION_START_UPGRADE_FROM_SD 0x89
-#define NEXTION_INFORMATION_TRANSPARENT_DATA_FINISHED 0xFD
-#define NEXTION_INFORMATION_TRANSPARENT_DATA_READY 0xFE
-#define NEXTION_INFORMATION_UPDATE_SUCCESS 0x69 //custom
-
 class Nextion_Display_Class
 {
 protected:
@@ -76,6 +33,48 @@ protected:
 
 public:
 
+    enum Error
+    {
+        Invalid_Instruction = 0x00,
+        Invalid_Component_ID =  0x02,
+        Invalid_Page_ID = 0x03,
+        Invalid_Picture_ID = 0x04,
+        Invalid_Font_ID = 0x05,
+        Invalid_File_Operation = 0x06,
+        Invalid_CRC = 0x09,
+        Invalid_Baud_Rate_Setting = 0x11,
+        Invalid_Waveform_ID_Or_Channel = 0x12,
+        Invalid_Variable_Name_Or_Attribue = 0x1A,
+        Invalid_Variable_Operation = 0x1B,
+        Fail_To_Assign = 0x1C,
+        Fail_EEPROM_Operation = 0x1D,
+        Invalid_Quantity_Of_Parameters = 0x1E,
+        IO_Operation_Failed = 0x1F,
+        Invalid_Escape_Character = 0x20,
+        Too_Long_Variable_Name = 0x23,
+        Serial_Buffer_Overflow = 0x24,
+        Update_Failed = 0x25
+    };
+
+    enum Information
+    {
+        Startup = 0x07,
+        Instruction_Successfull = 0x01,
+        Touch_Event = 0x65,
+        Current_Page_Number = 0x66,
+        Touch_Coordinate_Awake = 0x67,
+        Touch_Coordinate_Sleep = 0x68,
+        String_Data_Enclosed = 0x70,
+        Numeric_Data_Enclosed = 0x71,
+        Auto_Entered_Sleep_Mode = 0x86,
+        Auto_Wake_From_Sleep_Mode = 0x87,
+        Ready = 0x88,
+        Start_Upgrade_From_SD = 0x89,
+        Transparent_Data_Finished = 0xFD,
+        Transparent_Data_Ready = 0xFE,
+        Update_Succeed = 0x69
+    };
+
     enum Color
     {
         Black = 0,
@@ -91,8 +90,10 @@ public:
     static Nextion_Display_Class *Display_Pointer;
 
     //Class setup
-    Nextion_Display_Class(uint32_t const &Baud_Rate = 921600, uint8_t const &RX_Pin = 16, uint8_t const &TX_Pin = 17);
+    Nextion_Display_Class();
     ~Nextion_Display_Class();
+
+    void Begin(uint32_t Baud_Rate = 912600, uint8_t RX_Pin = 16, uint8_t TX_Pin = 17);
 
     void Set_Callback_Function_String_Data(void (*Function_Pointer)(const char*, uint8_t));
     void Set_Callback_Function_Numeric_Data(void(*Function_Pointer)(uint32_t &));
@@ -140,7 +141,7 @@ public:
     void Set_Current_Page(const __FlashStringHelper *Page_Name);
     uint8_t &Get_Current_Page();
 
-    void Set_Backlight(uint8_t const &Brightness, bool const &Save);
+    void Set_Backlight(uint8_t const &Brightness, bool const &Save = false);
     uint8_t Get_Backlight();
 
     void Set_Baud_Rate(uint32_t const &Baudrate, bool const &Save);

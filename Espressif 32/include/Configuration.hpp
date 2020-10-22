@@ -15,7 +15,17 @@
 #define SYSTEM_TASK_PRIORITY 2
 #define DRIVER_TASK_PRIORITY 3
 
-#define VERBOSE_MODE 1 //only serial output
+#define DEBUG_MODE 1
+
+#if DEBUG_MODE == 0
+#define SD_MODE 0 // use by default (=0) the SD I/O mode, not suitable for debbug 
+#define STACK_OVERFLOW_DETECTION 1
+#define VERBOSE_MODE 0
+#else
+#define SD_MODE 1
+#define STACK_OVERFLOW_DETECTION 0
+#define VERBOSE_MODE 1
+#endif
 
 #if VERBOSE_MODE == 0
 #define Verbose_Print(t)
@@ -23,16 +33,6 @@
 #else
 #define Verbose_Print(t) Serial.print(F(t))
 #define Verbose_Print_Line(t) GalaxOS.Print_Line(F(t))
-#endif
-
-#define DEBUG_MODE 1
-
-#if DEBUG_MODE == 0
-#define SD_MODE 0 // use by default (=0) the SD I/O mode, not suitable for debbug 
-#define STACK_OVERFLOW_DETECTION 1
-#else
-#define SD_MODE 1
-#define STACK_OVERFLOW_DETECTION 0
 #endif
 
 #endif

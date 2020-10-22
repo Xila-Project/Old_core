@@ -43,8 +43,8 @@ protected:
 
     void Open_File(File &File_To_Set);
 
-    void Execute(uint16_t const &);
-    void Execute(char const &, char const &);
+    void Execute(uint16_t);
+    void Execute(char, char);
 
     virtual void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 

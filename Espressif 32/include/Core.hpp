@@ -136,7 +136,10 @@ protected:
 
     String Temporary_String;
 
-    Software_Class *Open_Software_Pointer[6];
+    Software_Class *Open_Software_Pointer[8];
+    // Open_Software_Pointer[0] : Current running software
+    // Open_Software_Pointer[1] : Shell slot
+    // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
     Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
     uint8_t Event_Reply;
@@ -271,9 +274,9 @@ public:
         Variable_Long_Global = 0x4C,   // 'L'
     };
 
-    void Incomming_String_Data_From_Display(const char *, uint8_t);
-    void Incomming_Numeric_Data_From_Display(uint32_t &);
-    void Incomming_Event_From_Display(uint8_t &);
+    static void Incomming_String_Data_From_Display(const char *, uint8_t);
+    static void Incomming_Numeric_Data_From_Display(uint32_t &);
+    static void Incomming_Event_From_Display(uint8_t &);
 
     // Serial communication macro
 
@@ -322,9 +325,6 @@ public:
     GalaxOS_Event Login(const char *Username_To_Check, const char *Password_To_Check);
     GalaxOS_Event Logout();
 
-    //services
-    void Desk_Execute(uint16_t const &Command);
-
     enum Events
     {
         Error,
@@ -337,13 +337,15 @@ public:
 
     void Nextion_Upload_Firmware(String const &Path);
 
+    static void Core_Task(void *);
+
     friend class Shell_Class;
-    friend void Core_Task(void *);
     friend void Ressource_Monitor(void *pvParameters);
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
 void Ressource_Monitor(void *);
-void Core_Task(void *);
+void Idle_Task_System_Core(void *);
+void Idle_Task_Software_Core(void *);
 
 #endif

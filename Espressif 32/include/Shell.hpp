@@ -54,6 +54,6 @@ public:
 
 void Shell_Task(void *);
 
-Software_Handle_Class Shell_Handle("Shell", 12, Shell_Class::Load);
+Software_Handle_Class Shell_Handle("Shell", 5, Shell_Class::Load);
 
 #endif

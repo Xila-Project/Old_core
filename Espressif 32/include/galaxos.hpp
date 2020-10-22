@@ -56,9 +56,16 @@
 ||      - Keyboard.hpp/cpp : Keyboard hardawre abstraction layer              ||
 ||      - Sound.hpp/cpp : Sound hardware abstraction layer (use ULP proc)     ||
 ||  - Software :                                                              ||
-||      - Shell.hpp/cpp : Main UI Server Software (with high priviliege)      ||
+||      - Shell.hpp/cpp : Main UI Software (with high priviliege)             ||
 ||      - TinyBasic.hpp/cpp : Basic emulator, used by core to run Basic script||
-||
+||      - Internet_Browser.hpp/cpp : Primitive internet browser               ||
+||      - Oscilloscope.hpp/cpp : Primitive oscilloscope application           ||
+||      - Signal_Generator.hpp/cpp : Primitive signal generator               ||
+||      - Calculator.hpp/cpp : Basic scientific calculator                    ||
+||      - Music_Player : Basic musiplayer                                     ||
+||      - Paint.hpp/cpp : Basic paint software                                ||
+||      - Ultrasonic.hpp/cpp : An ultrasonic meter                            ||
+||      - Periodic.hpp/cpp :  The periodic table                              ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                                  Main Path :                               ||
 || Communication Settings Path : /USERS/%USERNAME%/STTNGS/.GSF
