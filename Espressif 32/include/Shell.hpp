@@ -20,8 +20,8 @@ protected:
 
     uint8_t Selected_Software;
 
-    char Username[8];
-    char Password[24];
+    char Username[9];
+    char Password[25];
 
     void Login();
 

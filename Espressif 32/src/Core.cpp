@@ -3,7 +3,7 @@
 #include "Core.hpp"
 
 #define INSTANCE_POINTER GalaxOS_Class::Instance_Pointer
-GalaxOS_Class* GalaxOS_Class::Instance_Pointer = NULL;
+GalaxOS_Class *GalaxOS_Class::Instance_Pointer = NULL;
 
 GalaxOS_Class GalaxOS;
 
@@ -56,23 +56,23 @@ GalaxOS_Class::~GalaxOS_Class() // Detroyer
 
 // Idle task, lowest priority, nothing is running
 
-void Idle_Task_Software_Core(void* pvParameters)
+void Idle_Task_Software_Core(void *pvParameters)
 {
   (void)pvParameters;
-  while(1)
+  while (1)
   {
     Serial.print(F("Idle software core"));
     vTaskDelay(1);
   }
 }
 
-void Idle_Task_System_Core(void* pvParameters)
+void Idle_Task_System_Core(void *pvParameters)
 {
   (void)pvParameters;
-  while(1)
+  while (1)
   {
     Serial.print(F("Idle system core"));
-    vTaskDelay(1); 
+    vTaskDelay(1);
   }
 }
 
@@ -173,7 +173,6 @@ void GalaxOS_Class::Start()
   Verbose_Print_Line("> Loading Task ...");
   //xTaskCreatePinnedToCore(Idle_Task_Software_Core, "Idle Software", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SOFTWARE_CORE);
   //xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
-
 
   // Check if the system state was saved
   Verbose_Print_Line("> Check existing of file last state ...");
@@ -279,7 +278,7 @@ void GalaxOS_Class::Start()
   Display.Set_Value(F("LOAD_BAR"), 100);
   vTaskDelay(pdMS_TO_TICKS(1000));
   Display.Click(7, 0); // Shadow out animation;
-  vTaskDelay(pdMS_TO_TICKS(4000));
+  vTaskDelay(pdMS_TO_TICKS(2000));
 
   //Finish startup
   Verbose_Print_Line(F("> Open Shell"));
@@ -291,7 +290,7 @@ void GalaxOS_Class::Start()
 void GalaxOS_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
-  
+
   //Core_Instruction *Core_Instruction_Pointer;
   while (1)
   {
@@ -336,6 +335,7 @@ void GalaxOS_Class::Save_System_State()
 void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
   Serial.println(Received_Data);
+  String Temporary_String;
   switch (Received_Data[0])
   {
   case Code::Close:
@@ -346,17 +346,14 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data
     break;
   case Code::Command:
   case Code::Command_New:
-    GalaxOS.Open_Software_Pointer[0]->Execute(Received_Data[0], Received_Data[1]);
+    GalaxOS.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
     break;
   case Code::Variable_String_Local:
-  {
-    String Temporary_String;
-    Temporary_String = String(Received_Data);
+    Temporary_String = String(Received_Data + 2);
     GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
     break;
-  }
   case Code::Variable_Char_Local:
-    GalaxOS.Open_Software_Pointer[0]->Set_Variable(Received_Data, Variable_Char_Local, GalaxOS.Tag, Size);
+    GalaxOS.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_Char_Local, Received_Data[1], Size);
     GalaxOS.Tag = '\0';
     break;
   case Code::Variable_String_Global:
@@ -388,7 +385,6 @@ void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 
 void GalaxOS_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
-
 }
 
 void GalaxOS_Class::Open_File(File &File_To_Open)
@@ -1046,22 +1042,31 @@ void Ressource_Monitor(void *pvParameters)
 // Account management
 GalaxOS_Event GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-  File Temporary_File = Drive->open("/GALAXOS/REGISTRY/ACCOUNT.GRF", FILE_WRITE);
-  DynamicJsonDocument Account_Registry(256);
-  deserializeJson(Account_Registry, Temporary_File);
-
-  if (strcmp(Password_To_Check, Account_Registry[Username_To_Check]))
+  if (Drive->exists("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF"))
   {
-    Verbose_Print_Line("> Good Credentials ...");
-    Temporary_File.close();
-    return Good_Credentials;
+    File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF", FILE_WRITE);
+    DynamicJsonDocument User_Registry(256);
+    deserializeJson(User_Registry, Temporary_File);
+    const char* Password = User_Registry["Password"];
+    if (Password == NULL)
+    {
+      // error : corrupted user file (USER.GRF)
+      return Wrong_Credentials;
+    }
+    if (strcmp(Password_To_Check, Password))
+    {
+      Verbose_Print_Line("> Good Credentials ...");
+      Temporary_File.close();
+      return Good_Credentials;
+    }
+    else
+    {
+      Verbose_Print_Line("> Wrong Credentials ...");
+      Temporary_File.close();
+      return Wrong_Credentials;
+    }
   }
-  else
-  {
-    Verbose_Print_Line("> Wrong Credentials ...");
-    Temporary_File.close();
-    return Wrong_Credentials;
-  }
+  return Wrong_Credentials;
 }
 
 GalaxOS_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Password_To_Check)

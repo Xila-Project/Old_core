@@ -132,7 +132,7 @@ protected:
     const int Low_RAM_Threshold = 2000;
 
     //User attribute
-    char Current_Username[8];
+    char Current_Username[9];
 
     String Temporary_String;
 
@@ -268,7 +268,7 @@ public:
         Command_New = 0x23,            // '#'
         Variable_String_Local = 0x73,  // 's'
         Variable_String_Global = 0x53, // 'S'
-        Variable_Char_Local = 0x62,    // 'c'
+        Variable_Char_Local = 0x63,    // 'c'
         Variable_Char_Global = 0x42,   // 'C'
         Variable_Long_Local = 0x6C,    // 'l'
         Variable_Long_Global = 0x4C,   // 'L'

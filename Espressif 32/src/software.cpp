@@ -33,9 +33,8 @@ void Software_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Ad
 
 uint16_t Software_Class::Get_Command()
 {
-  uint16_t Command_Buffer;
-  xQueueReceive(Command_Queue_Handle, &Command_Buffer, portMAX_DELAY);
-  Serial.println(Command_Buffer, HEX);
+  uint16_t Command_Buffer = 0;
+  xQueueReceive(Command_Queue_Handle, &Command_Buffer, 0);
   return Command_Buffer;
 }
 

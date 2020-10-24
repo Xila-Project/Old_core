@@ -8,8 +8,11 @@ Shell_Class::Shell_Class() : Software_Class(6),
                              Mode(0),
                              Selected_Software(0)
 {
-    xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    memset(Username, '\0', sizeof(Username));
+    memset(Password, '\0', sizeof(Password));
     Execute(0x4F4C);
+    xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+
 }
 
 Shell_Class::~Shell_Class()
@@ -32,7 +35,6 @@ Software_Class *Shell_Class::Load()
 
 void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-    Verbose_Print_Line("> Set variable shell");
     switch (Adress)
     {
     case 'S':
@@ -91,7 +93,7 @@ void Shell_Task(void *pvParameters)
         case 0x5353: // SS : shutdown
 
             break;
-        case 0x4C6F: // LO : Login with entred username and password
+        case 0x4C6F: // Lo : Login with entred username and password
             INSTANCE_POINTER->Login();
             break;
 
@@ -211,7 +213,7 @@ void Shell_Class::Open_Login()
     {
         Verbose_Print_Line("> Open login page");
         GalaxOS.Display.Set_Current_Page(F("Shell_Login"));
-        GalaxOS.Display.Set_Text(F("USERNAME_TXT"), F("Useranme"));
+        GalaxOS.Display.Set_Text(F("USERNAME_TXT"), F("Username"));
         GalaxOS.Display.Set_Text(F("PASSWORD_TXT"), F("Password"));
     }
     else
@@ -222,6 +224,7 @@ void Shell_Class::Open_Login()
 
 void Shell_Class::Login()
 {
+    
     if (GalaxOS.Check_Credentials(Username, Password) == GalaxOS.Good_Credentials)
     {
         Verbose_Print_Line(F("> Load user files"));
@@ -255,6 +258,7 @@ void Shell_Class::Login()
     }
     else // Wrong credentials
     {
+        GalaxOS.Event_Handler(F("Wrong credentials !"), GalaxOS.Error);
         // Event handle :
     }
 }
