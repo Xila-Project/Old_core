@@ -12,7 +12,6 @@ Shell_Class::Shell_Class() : Software_Class(6),
     memset(Password, '\0', sizeof(Password));
     Execute(0x4F4C);
     xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-
 }
 
 Shell_Class::~Shell_Class()
@@ -61,7 +60,7 @@ void Shell_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        
+
         switch (INSTANCE_POINTER->Get_Command())
         {
         case 0: // IDLE
@@ -173,7 +172,7 @@ void Shell_Class::Open_Desk()
     // List all running app on the task bar
     for (uint8_t Slot = 1; Slot < 8; Slot++)
     {
-        Temporary_String[4] = Slot;
+        Temporary_String[4] = Slot + 48;
         if (GalaxOS.Open_Software_Pointer[Slot + 1] != NULL)
         {
             GalaxOS.Display.Set_Picture(Temporary_String, GalaxOS.Open_Software_Pointer[Slot]->Handle_Pointer->Icon);
@@ -224,9 +223,10 @@ void Shell_Class::Open_Login()
 
 void Shell_Class::Login()
 {
-    
+
     if (GalaxOS.Check_Credentials(Username, Password) == GalaxOS.Good_Credentials)
     {
+        strcpy(GalaxOS.Current_Username, Username);
         Verbose_Print_Line(F("> Load user files"));
         GalaxOS.Display.Hide(F("USERNAME_TXT"));
         GalaxOS.Display.Hide(F("PASSWORD_TXT"));
@@ -242,19 +242,31 @@ void Shell_Class::Login()
         DynamicJsonDocument Shell_Registry(256);
         File Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/SHELL.GRF", FILE_WRITE);
         deserializeJson(Shell_Registry, Temporary_File);
+        /*
+                char Temporary_Char_Array[20];
+        strcpy(Temporary_Char_Array, Shell_Registry["Registry"]);
+        if (strcmp(Temporary_Char_Array, "Shell"))
+        {
+            //Color = Shell_Registry["Color"] | 16904;
+        }
+        */
         if (Shell_Registry["Registry"] == "Shell")
         {
-            // Color = Shell_Registry["Color"] | 16904;
+            Verbose_Print_Line("Simple comp work !!!!");
+            //Color = Shell_Registry["Color"] | 16904;
         }
+
         GalaxOS.Display.Set_Value(F("LOAD_BAR"), 20);
-        vTaskDelay(pdMS_TO_TICKS(pdMS_TO_TICKS(100)));
+        vTaskDelay(pdMS_TO_TICKS(1000));
         GalaxOS.Display.Set_Value(F("LOAD_BAR"), 40);
-        vTaskDelay(pdMS_TO_TICKS(pdMS_TO_TICKS(100)));
+        vTaskDelay(pdMS_TO_TICKS(1000));
         GalaxOS.Display.Set_Value(F("LOAD_BAR"), 60);
-        vTaskDelay(pdMS_TO_TICKS(pdMS_TO_TICKS(100)));
+        vTaskDelay(pdMS_TO_TICKS(1000));
         GalaxOS.Display.Set_Value(F("LOAD_BAR"), 80);
-        vTaskDelay(pdMS_TO_TICKS(pdMS_TO_TICKS(100)));
+        vTaskDelay(pdMS_TO_TICKS(1000));
         GalaxOS.Display.Set_Value(F("LOAD_BAR"), 100);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Open_Desk();
     }
     else // Wrong credentials
     {

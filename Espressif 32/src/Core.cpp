@@ -40,11 +40,11 @@ GalaxOS_Class::GalaxOS_Class() : Display(),
   Drive = &SD;
 #endif
 
-  memset(Current_Username, 255, 8);
+  memset(Current_Username, '\0', sizeof(Current_Username));
 
   Tag = 0x00;
 
-  memset(Open_Software_Pointer, 0, 8);
+  memset(Open_Software_Pointer, '\0', sizeof(Open_Software_Pointer));
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
 }
@@ -80,7 +80,11 @@ void Idle_Task_System_Core(void *pvParameters)
 
 void GalaxOS_Class::Start()
 {
+  xTaskCreatePinnedToCore(GalaxOS_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+}
 
+void GalaxOS_Class::Load()
+{
   Serial.begin(SERIAL_SPEED); //PC Debug UART
   Remaining_Spaces = 0;
   Horizontal_Separator();
@@ -114,14 +118,14 @@ void GalaxOS_Class::Start()
   Drive = &SD;
 #endif
 
-  if (!Drive->begin() || Drive->cardType() == CARD_NONE)
+  while (!Drive->begin() || Drive->cardType() == CARD_NONE)
   {
-    Print_Line(F("> Warning : The SD Card isn't mouted."), STYLE_LEFT_ALIGNMENT);
+    Display.Draw_Text(140, 228, 200, 20, Main_16, Display.White, Display.Black, Display.Center, Display.Center, Display.None, "Please Insert System Drive");
+    vTaskDelay(pdMS_TO_TICKS(50));
   }
-  else
-  {
-    Print_Line(F("> The SD Card is mounted."));
-  }
+
+  Display.Draw_Fill(140, 228, 200, 20, Display.Black);
+
   File Temporary_File;
 
   // Initialize Virtual Memory
@@ -198,6 +202,19 @@ void GalaxOS_Class::Start()
   Display.Click(7, 1); // Shadow in annimation
   vTaskDelay(pdMS_TO_TICKS(4000));
 
+
+  // Sound load
+  {
+    Temporary_File = Drive->open(Sound_Registry_Path);
+    DynamicJsonDocument Sound_Registry(256);
+    deserializeJson(Sound_Registry, Temporary_File);
+    Sound.Set_Volume(Sound_Registry["Volume"] | 0);
+    Temporary_File.close();
+  }
+  Temporary_File = Drive->open("/GALAXOS/SOUNDS/STARTUP.WAV");
+  Sound.Play(Temporary_File);
+  vTaskDelay(pdMS_TO_TICKS(10000));
+
   // Load network configuration
   {
     Verbose_Print_Line("> Load network registry ...");
@@ -209,10 +226,9 @@ void GalaxOS_Class::Start()
     DynamicJsonDocument Network_Registry(256);
     deserializeJson(Network_Registry, Temporary_File);
     // WiFi :
-    JsonObject WiFi_Node = Network_Registry["WiFi"];
-    WiFi.setHostname(WiFi_Node["Host Name"]); // Set hostname
-    JsonArray Name_Array = WiFi_Node["Name"];
-    JsonArray Password_Array = WiFi_Node["Password"];
+    WiFi.setHostname(Network_Registry["WiFi"]["Host Name"]); // Set hostname
+    JsonArray Name_Array = Network_Registry["WiFi"]["Names"];
+    JsonArray Password_Array = Network_Registry["WiFi"]["Passwords"];
     char Name[32], Password[32];
     for (uint8_t i = 0; i < Name_Array.size(); i++)
     {
@@ -233,7 +249,8 @@ void GalaxOS_Class::Start()
     Temporary_File.close();
   }
   Display.Set_Value(F("LOAD_BAR"), 20);
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  vTaskDelay(pdMS_TO_TICKS(800));
+
   // Set Regional Parameters
   {
     Verbose_Print_Line("> Load regional registry ...");
@@ -242,14 +259,25 @@ void GalaxOS_Class::Start()
     {
       //error
     }
-    //Synchronise_Time();
+    DynamicJsonDocument Regional_Registry(256);
+    deserializeJson(Regional_Registry, Temporary_File);
+    char NTP_Server[Regional_Registry["Time"]["NTP Server"].size()];
+    strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
+    Serial.println(NTP_Server);
+    char Time_Zone[Regional_Registry["Time"]["Time Zone"].size()];
+    strcpy(Time_Zone, Regional_Registry["Time"]["Time Zone"]);
+    Serial.println(Time_Zone);
+    configTime(0, 0, NTP_Server);
+
+    setenv("TZ", Time_Zone, 1);
     Temporary_File.close();
   }
+
   Display.Set_Value(F("LOAD_BAR"), 40);
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  vTaskDelay(pdMS_TO_TICKS(1200));
 
   Display.Set_Value(F("LOAD_BAR"), 60);
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  vTaskDelay(pdMS_TO_TICKS(800));
 
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software registry");
@@ -272,11 +300,11 @@ void GalaxOS_Class::Start()
   }
 
   Display.Set_Value(F("LOAD_BAR"), 80);
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  vTaskDelay(pdMS_TO_TICKS(1200));
   // to do
 
   Display.Set_Value(F("LOAD_BAR"), 100);
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  vTaskDelay(pdMS_TO_TICKS(800));
   Display.Click(7, 0); // Shadow out animation;
   vTaskDelay(pdMS_TO_TICKS(2000));
 
@@ -290,21 +318,20 @@ void GalaxOS_Class::Start()
 void GalaxOS_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
-
   //Core_Instruction *Core_Instruction_Pointer;
+  GalaxOS.Load();
   while (1)
   {
-    GalaxOS.Start();
-    vTaskSuspend(NULL);
     if (ESP.getFreeHeap() < 2000)
     {
       Serial.println("Low Memory !");
     }
+    INSTANCE_POINTER->Synchronise_Time();
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
     Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
 #endif
-    vTaskDelay(pdMS_TO_TICKS(2000));
+    vTaskDelay(pdMS_TO_TICKS(200));
   }
   /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
     Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
@@ -1044,16 +1071,16 @@ GalaxOS_Event GalaxOS_Class::Check_Credentials(const char *Username_To_Check, co
 {
   if (Drive->exists("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF"))
   {
-    File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF", FILE_WRITE);
+    File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF");
     DynamicJsonDocument User_Registry(256);
-    deserializeJson(User_Registry, Temporary_File);
-    const char* Password = User_Registry["Password"];
-    if (Password == NULL)
+    if (deserializeJson(User_Registry, Temporary_File))
     {
-      // error : corrupted user file (USER.GRF)
       return Wrong_Credentials;
     }
-    if (strcmp(Password_To_Check, Password))
+    char Password[24];
+    strcpy(Password, User_Registry["Password"]);
+    Serial.println(Password);
+    if (strcmp(Password_To_Check, Password) == 0)
     {
       Verbose_Print_Line("> Good Credentials ...");
       Temporary_File.close();
@@ -1074,17 +1101,12 @@ GalaxOS_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Pa
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
 
-    Load_User_Files();
     return Good_Credentials;
   }
   else
   {
     return Check_Credentials(Username_To_Check, Password_To_Check);
   }
-}
-
-GalaxOS_Event GalaxOS_Class::Logout()
-{
 }
 
 void GalaxOS_Class::Load_User_Files()
@@ -1186,6 +1208,13 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, u
       Display.Set_Text(F("BUTTON3"), F(""));
     }
   }
+  else
+  {
+    Display.Set_Text(F("BUTTON1"), F("Okay"));
+    Display.Set_Text(F("BUTTON2"), F("Yes"));
+    Display.Set_Text(F("BUTTON3"), F("No"));
+  }
+
   switch (Event_Type)
   {
   case Error:
@@ -1217,24 +1246,13 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, u
 
 void GalaxOS_Class::Synchronise_Time()
 {
-  char NTP_Server[20] = "pool.ntp.org";
-  const long GMT_Offset = 3600;
-  const long Daylight_Offset = 3600;
-  if (WiFi.status() != WL_CONNECTED)
-  {
-    //error handle
-    return;
-  }
-  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-  if (!getLocalTime(&Time))
-  {
-    //error handle
-    Serial.println(F("Failed to get time"));
-    return;
-  }
-  Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
-  vTaskDelay(pdMS_TO_TICKS(1000));
-  Serial.println(&Time, "%A, %B %d %Y %H:%M:%S");
+  static char Clock[5];
+  time(&Now);
+  localtime_r(&Now, &Time);
+  itoa(Time.tm_hour, Clock, 10);
+  itoa(Time.tm_min, Clock + 3, 10);
+  Clock[2] = ':';
+  Display.Set_Text(F("CLOCK_TXT"), Clock);
 }
 
 // Create System file at 1st boot

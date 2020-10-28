@@ -103,12 +103,13 @@ typedef uint16_t GalaxOS_Event;
 class GalaxOS_Class
 {
 protected:
+
+    // Instance pointer
+
     static GalaxOS_Class *Instance_Pointer;
 
-    // System extension :
-    // GRF : Galax'OS Registry File
-    // GEF : Galax'OS Executable File
-    // GSF : Galax'OS Sound File
+    // System path
+
     const char Users_Path[8] = "/USERS/";
     const char System_Path[10] = "/GALAXOS/";
     const char Extension_Registry_Path[31] = "/GALAXOS/REGISTRY/EXTENSIO.GRF";
@@ -117,7 +118,31 @@ protected:
     const char Regional_Registry_Path[31] = "/GALAXOS/REGISTRY/REGIONAL.GRF";
     const char Software_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
     const char Event_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
+    const char Sound_Registry_Path[28] = "/GALAXOS/REGISTRY/SOUND.GRF";
     const char Virtual_Global_Memory_File[36] = "/GALAXOS/MEMORY/GLOBAL/VARIABLE.GSF";
+    // System extension :
+    // GRF : Galax'OS Registry File
+    // GEF : Galax'OS Executable File
+    // GSF : Galax'OS Sound File
+
+    // Picure ID
+
+    enum Picture {
+        GalaxOS_Icon_64,
+        AFG_Icon_64,
+        Question_32,
+        Information_32,
+        Warning_32,
+        Error_32
+    };
+
+    // Font ID
+
+    enum Font {
+        Main_16 = 0,
+        Main_24 = 2,
+        Main_32 = 3
+    };
 
     // Virtual Memory File
 
@@ -125,9 +150,6 @@ protected:
     uint8_t Split_Number[8];
     SemaphoreHandle_t Virtual_Memory_Semaphore;
 
-    byte C_MIDI;
-
-    int C_Frequency;
 
     const int Low_RAM_Threshold = 2000;
 
@@ -142,14 +164,20 @@ protected:
     // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
     Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
+    // Event Handler
+
     uint8_t Event_Reply;
+
+    // Display callback
 
     char Tag;
 
-    struct tm Time;
+    // Unix time
 
-    char WiFi_SSID[20];
-    char WiFi_Password[20];
+    tm Time;
+    time_t Now;
+
+    // 
 
     xTaskHandle Ressource_Monitor_Handle;
     xTaskHandle Core_Task_Handle;
@@ -245,12 +273,19 @@ public:
 #endif
     // WiFi
 
-    // System state
-    void Start();
-    void Save_System_State(); //Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
-    void Restore_System_State();
 
-    void Synchronise_Time();
+
+    // System state
+    void Start(); // public
+
+    void Load(); // private
+
+    void Save_System_State(); // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
+    void Restore_System_State(); // private : 
+
+    void Synchronise_Time(); // private : 
+
+    uint8_t Offset;
 
     // Software Management
 

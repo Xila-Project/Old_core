@@ -9,6 +9,14 @@ class Shell_Class : public Software_Class
 {
 protected:
 
+    enum Picture
+    {
+        Empty_16 = 15,
+        File_16 = 16,
+        Folder_16 = 17,
+        Empty_32 = 39
+    };
+
     File Temporary_File;
 
     uint8_t Mode;

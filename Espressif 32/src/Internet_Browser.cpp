@@ -17,7 +17,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
   memset(Server, 0, 30);
   memset(Path, 0, 60);
   memset(URL, 0, 90);
-
+ 
   Server[0] = '*';
 
   pageLinks = {0, 0};
@@ -219,7 +219,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     //error handle : reset ?
     return 0;
   }
-  vTaskDelay(pdMS_TO_TICKS(500)); // Give the Ethernet shield a mo to get going
+  vTaskDelay(pdMS_TO_TICKS(500));
 
   byte Wait = 0;
   while ((Wait < 100) && (!WiFi_Client.available())) //wait 5 sec unti timeout

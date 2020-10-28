@@ -85,6 +85,23 @@ public:
         White = 65535
     };
 
+    enum Alignement
+    {
+        Top = 0,
+        Bottom = 3,
+        Left = 0,
+        Right = 2,
+        Center = 0
+    };
+
+    enum Background
+    {
+        Crop_Image = 0,
+        Solid_Color = 1,
+        Image = 2,
+        None = 3
+    };
+
     uint8_t Page_History[5];
 
     static Nextion_Display_Class *Display_Pointer;
