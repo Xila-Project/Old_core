@@ -126,6 +126,11 @@ private:
 
     File Cache_File;
 
+    enum Page_ID
+    {
+
+    };
+
     struct cacheStruct
     {
         uint8_t pagePtr, lastPage;        // Pointers to current and last page indexed
@@ -163,7 +168,7 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
+    void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     static Internet_Browser_Class *Instance_Pointer;
 
@@ -180,13 +185,17 @@ public:
     Internet_Browser_Class();
     ~Internet_Browser_Class();
 
-    friend void Internet_Browser_Task(void *pvParameters);
+    enum Picture_ID
+    {
+        Internet_Browser_32 = 9
+    };
 
-    static Software_Class* Load();
+    static void Main_Task(void *pvParameters);
+
+    static Software_Class *Load();
 };
 
-void Internet_Browser_Task(void *pvParameters);
 
-Software_Handle_Class Internet_Browser_Handle("Internet_Browser", 12, Internet_Browser_Class::Load);
+Software_Handle_Class Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Internet_Browser_32, Internet_Browser_Class::Load);
 
 #endif

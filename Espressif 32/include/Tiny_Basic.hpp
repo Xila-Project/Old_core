@@ -358,12 +358,17 @@ protected:
 public:
     static Software_Class *Load();
 
+    enum Picture_ID
+    {
+        Tiny_Basic_32 = 38 //currently empty
+    };
+
     TinyBasic_Class();
     ~TinyBasic_Class();
 };
 
 void TinyBasic_Task(void *);
 
-Software_Handle_Class TinyBasic_Handle("Tiny Basic", 12, TinyBasic_Class::Load);
+Software_Handle_Class TinyBasic_Handle("Tiny Basic", TinyBasic_Class::Tiny_Basic_32, TinyBasic_Class::Load);
 
 #endif

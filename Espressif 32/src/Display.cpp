@@ -13,11 +13,13 @@ Nextion_Display_Class::Nextion_Display_Class() : Nextion_Serial(1),
         delete this;
     }
     Display_Pointer = this;
+    Serial_Semaphore = xSemaphoreCreateMutex();
 }
 
 Nextion_Display_Class::~Nextion_Display_Class()
 {
     Display_Pointer = NULL;
+    vSemaphoreDelete(Serial_Semaphore);
     vTaskDelete(Nextion_Serial_Handle);
 }
 
@@ -53,7 +55,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     memset(Temporary_String, '\0', sizeof(Temporary_String));
     uint8_t Temporary_Byte = 0;
     (void)pvParameters;
-    for (;;)
+    while (1)
     {
         if (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
         {
@@ -150,7 +152,7 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
                 break;
             }
         }
-        vTaskDelay(pdMS_TO_TICKS(15));
+        vTaskDelay(pdMS_TO_TICKS(20));
     }
 }
 
@@ -285,20 +287,24 @@ void Nextion_Display_Class::Set_Input_Type(const __FlashStringHelper *Object_Nam
 
 void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value)
 {
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".txt=\""));
     Nextion_Serial.print(Value);
     Nextion_Serial.print(F("\""));
     Instruction_End();
+    xSemaphoreGive(Serial_Semaphore);
 }
 
 void Nextion_Display_Class::Set_Text(String const &Object_Name, String const &Value)
 {
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".txt=\""));
     Nextion_Serial.print(Value);
     Nextion_Serial.print(F("\""));
     Instruction_End();
+    xSemaphoreGive(Serial_Semaphore);
 }
 
 void Nextion_Display_Class::Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value)
@@ -463,7 +469,7 @@ void Nextion_Display_Class::Show(const __FlashStringHelper *Object_Name)
     Nextion_Serial.print(F("vis "));
     Nextion_Serial.print(Object_Name);
     Argument_Separator();
-    Nextion_Serial.print("0");
+    Nextion_Serial.print("1");
     Instruction_End();
 }
 
@@ -472,7 +478,7 @@ void Nextion_Display_Class::Hide(const __FlashStringHelper *Object_Name)
     Nextion_Serial.print(F("vis "));
     Nextion_Serial.print(Object_Name);
     Argument_Separator();
-    Nextion_Serial.print("1");
+    Nextion_Serial.print("0");
     Instruction_End();
 }
 

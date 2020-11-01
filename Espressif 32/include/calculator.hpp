@@ -37,11 +37,16 @@ public:
 
     friend void Calculator_Task(void *pvParameters);
 
+    enum Picture_ID
+    {
+        Calculator_32 = 6
+    };
+
     static Software_Class* Load();
 };
 
 void Calculator_Task(void *pvParamters);
 
-Software_Handle_Class Calculator_Handle("Calculator", 12, Calculator_Class::Load);
+Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Calculator_32, Calculator_Class::Load);
 
 #endif

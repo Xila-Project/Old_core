@@ -1,4 +1,5 @@
 {
     "Registry": "Shell",
-    "Color": 16904
+    "Color": 16904,
+    "Background": "Image"
 }

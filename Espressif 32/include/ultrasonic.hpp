@@ -34,11 +34,16 @@ public:
 
     static Software_Class* Load();
 
+    enum Picture_ID
+    {
+        Ultrasonic_32 = 38
+    };
+
     friend void Ultrasonic_Task(void*);
 };
 
 void Ultrasonic_Task(void*);
 
-Software_Handle_Class Ultrasonic_Handle("Ultrasonic", 12, Ultrasonic_Class::Load);
+Software_Handle_Class Ultrasonic_Handle("Ultrasonic", Ultrasonic_Class::Ultrasonic_32, Ultrasonic_Class::Load);
 
 #endif

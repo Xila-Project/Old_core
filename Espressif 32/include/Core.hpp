@@ -74,7 +74,7 @@ typedef uint16_t GalaxOS_Event;
 #define ERROR_INVALID_SOFTWARE_ID 4562
 #define ERROR_CANNOT_OPEN_REGISTRY_FILE 684
 #define ERROR_REGISTRY_FILE_DOES_NOT_EXIST 8404
-#define ERROR_TO_MUCH_OPENNED_SOFTWARE 7519
+#define ERROR_TOO_MUCH_OPENNED_SOFTWARE 7519
 
 // Alignement
 #define STYLE_LEFT_ALIGNMENT 0
@@ -176,6 +176,8 @@ protected:
 
     tm Time;
     time_t Now;
+    char NTP_Server[32];
+    char Time_Zone[48];
 
     // 
 

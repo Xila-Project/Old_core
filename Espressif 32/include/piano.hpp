@@ -21,10 +21,15 @@ public:
     ~Piano_Class();
 
     static Software_Class* Load();
+
+    enum Picture_ID
+    {
+        Piano_32 = 5,
+    };
     
     friend void Piano_Task(void *pvParameters);
 };
 
-Software_Handle_Class Piano_Handle("Piano", 12, Piano_Class::Load);
+Software_Handle_Class Piano_Handle("Piano", Piano_Class::Piano_32, Piano_Class::Load);
 
 void Piano_Task(void *);

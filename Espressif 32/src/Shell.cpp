@@ -11,7 +11,7 @@ Shell_Class::Shell_Class() : Software_Class(6),
     memset(Username, '\0', sizeof(Username));
     memset(Password, '\0', sizeof(Password));
     Execute(0x4F4C);
-    xTaskCreatePinnedToCore(Shell_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    xTaskCreatePinnedToCore(Main_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
 }
 
 Shell_Class::~Shell_Class()
@@ -55,13 +55,13 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     }
 }
 
-void Shell_Task(void *pvParameters)
+void Shell_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
     {
 
-        switch (INSTANCE_POINTER->Get_Command())
+        switch (Instance_Pointer->Get_Command())
         {
         case 0: // IDLE
             //Nothing to do : idle
@@ -69,7 +69,7 @@ void Shell_Task(void *pvParameters)
             break;
 
         case 0x0043: // close
-            delete INSTANCE_POINTER;
+            delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
         case 0x004D: // minimize
@@ -93,17 +93,17 @@ void Shell_Task(void *pvParameters)
 
             break;
         case 0x4C6F: // Lo : Login with entred username and password
-            INSTANCE_POINTER->Login();
+            Instance_Pointer->Login();
             break;
 
         case 0x4F4C: // "OL" : Open Login page
-            INSTANCE_POINTER->Open_Login();
+            Instance_Pointer->Open_Login();
             break;
         case 0x4F44: // "OD" Open Desk page & load it
-            INSTANCE_POINTER->Open_Desk();
+            Instance_Pointer->Open_Desk();
             break;
         case 0x4F4D: // "OM" : Open Menu
-            INSTANCE_POINTER->Open_Menu();
+            Instance_Pointer->Open_Menu();
             break;
         case 0x4F46: // "OF" : Open file manager
             GalaxOS.Display.Set_Current_Page(F("Shell_File"));
@@ -121,25 +121,25 @@ void Shell_Task(void *pvParameters)
             GalaxOS.Display.Set_Current_Page(F("Shell_System"));
             break;
         case 0x4D4F: // MO : Open software from menu
-            INSTANCE_POINTER->Open_From_Menu();
+            Instance_Pointer->Open_From_Menu();
             break;
         case 0x4431: // Dx : Maxmize software from task bar
-            INSTANCE_POINTER->Open_From_Dock(1);
+            Instance_Pointer->Open_From_Dock(1);
             break;
         case 0x4432:
-            INSTANCE_POINTER->Open_From_Dock(2);
+            Instance_Pointer->Open_From_Dock(2);
             break;
         case 0x4433:
-            INSTANCE_POINTER->Open_From_Dock(3);
+            Instance_Pointer->Open_From_Dock(3);
             break;
         case 0x4434:
-            INSTANCE_POINTER->Open_From_Dock(4);
+            Instance_Pointer->Open_From_Dock(4);
             break;
         case 0x4435:
-            INSTANCE_POINTER->Open_From_Dock(5);
+            Instance_Pointer->Open_From_Dock(5);
             break;
         case 0x4436:
-            INSTANCE_POINTER->Open_From_Dock(6);
+            Instance_Pointer->Open_From_Dock(6);
             break;
         default:
             break;
@@ -170,16 +170,16 @@ void Shell_Class::Open_Desk()
     Temporary_File.openNextFile();*/
 
     // List all running app on the task bar
-    for (uint8_t Slot = 1; Slot < 8; Slot++)
+    for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
-        Temporary_String[4] = Slot + 48;
-        if (GalaxOS.Open_Software_Pointer[Slot + 1] != NULL)
+        Temporary_String[4] = Slot + 47;
+        if (GalaxOS.Open_Software_Pointer[Slot] != NULL)
         {
             GalaxOS.Display.Set_Picture(Temporary_String, GalaxOS.Open_Software_Pointer[Slot]->Handle_Pointer->Icon);
         }
         else
         {
-            GalaxOS.Display.Set_Picture(Temporary_String, 39); //if there's
+            GalaxOS.Display.Set_Picture(Temporary_String, Empty_32); //if there's
         }
     }
 }
@@ -187,28 +187,72 @@ void Shell_Class::Open_Desk()
 void Shell_Class::Open_Menu()
 {
     GalaxOS.Display.Set_Current_Page(F("Shell_Menu"));
-    GalaxOS.Display.Set_Text(F("USERNAME_TXT"), GalaxOS.Current_Username);
-    char Temporary_String[] = "ITEM _TXT";
+    char Temporary_String[11];
+    Temporary_String[0] = '\r'; //jump
+    Temporary_String[1] = '\n';
+    strcpy(Temporary_String + 2, GalaxOS.Current_Username);
+    GalaxOS.Display.Set_Text(F("USERNAME_TXT"), Temporary_String);
+    GalaxOS.Display.Show(F("CP_PIC"));
+    GalaxOS.Display.Show(F("SHUTDOWN_PIC"));
+    strcpy(Temporary_String, "ITEM _TXT");
     uint8_t Item = 0;
-    for (Item = 0; Item < 15; Item++)
+    for (Item = 0; Item < 10; Item++)
     {
-        Temporary_String[4] = Item;
-        GalaxOS.Display.Set_Text(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Name);
+        Temporary_String[4] = Item + 49;
+        if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
+        {
+            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item]->Name));
+        }
+        else
+        {
+            GalaxOS.Display.Set_Text(String(Temporary_String), "");
+        }
     }
-    Temporary_String[6] = 'P';
-    Temporary_String[7] = 'I';
-    Temporary_String[8] = 'C';
-    for (; Item < 15; Item++)
+    strcpy(Temporary_String, "ITEM1 _TXT");
+    for (Item = 0; Item < 4; Item++)
     {
-        Temporary_String[4] = Item;
-        GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Icon);
+        Temporary_String[5] = Item + 48;
+        if (GalaxOS.Software_Handle_Pointer[Item + 9] != NULL)
+        {
+            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item + 9]->Name));
+        }
+        else
+        {
+            GalaxOS.Display.Set_Text(String(Temporary_String), "");
+        }
+    }
+    strcpy(Temporary_String, "ITEM _PIC");
+    for (Item = 0; Item < 10; Item++)
+    {
+        Temporary_String[4] = Item + 49;
+        if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
+        {
+            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Icon);
+        }
+        else
+        {
+            GalaxOS.Display.Set_Picture(String(Temporary_String), Empty_32);
+        }
+    }
+    strcpy(Temporary_String, "ITEM1 _PIC");
+    for (Item = 0; Item < 5; Item++)
+    {
+        Temporary_String[5] = Item + 48;
+        if (GalaxOS.Software_Handle_Pointer[Item + 9] != NULL)
+        {
+            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item + 9]->Icon);
+        }
+        else
+        {
+            GalaxOS.Display.Set_Picture(String(Temporary_String), Empty_32);
+        }
     }
 }
 
 void Shell_Class::Open_Login()
 {
 
-    if (GalaxOS.Current_Username[0] == 255)
+    if (GalaxOS.Current_Username[0] == '\0')
     {
         Verbose_Print_Line("> Open login page");
         GalaxOS.Display.Set_Current_Page(F("Shell_Login"));
@@ -240,7 +284,7 @@ void Shell_Class::Login()
         GalaxOS.Display.Show(F("GALAXOS_TXT"));
 
         DynamicJsonDocument Shell_Registry(256);
-        File Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/SHELL.GRF", FILE_WRITE);
+        File Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/REGISTRY/SHELL.GRF");
         deserializeJson(Shell_Registry, Temporary_File);
         /*
                 char Temporary_Char_Array[20];
@@ -250,7 +294,7 @@ void Shell_Class::Login()
             //Color = Shell_Registry["Color"] | 16904;
         }
         */
-        if (Shell_Registry["Registry"] == "Shell")
+        if (strcmp(Shell_Registry["Registry"],"Shell") == 0)
         {
             Verbose_Print_Line("Simple comp work !!!!");
             //Color = Shell_Registry["Color"] | 16904;
@@ -363,5 +407,3 @@ void Shell_Class::Delete(char *Item_Name)
         break;
     }
 }
-
-#undef INSTANCE_POINTER

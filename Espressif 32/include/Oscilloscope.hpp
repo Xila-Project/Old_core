@@ -90,11 +90,16 @@ protected:
 public:
     static Software_Class *Load();
 
+    enum Picture_ID
+    {
+        Oscilloscope_32 = 17
+    };
+
     Oscilloscope_Class();
     ~Oscilloscope_Class();
 };
 
-Software_Handle_Class Oscilloscope_Handle("Oscilloscope", 12, Oscilloscope_Class::Load);
+Software_Handle_Class Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Oscilloscope_32, Oscilloscope_Class::Load);
 
 void Oscilloscope_Task(void *);
 void SigmaDelta_Task(void *);

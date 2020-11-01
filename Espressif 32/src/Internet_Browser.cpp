@@ -24,7 +24,8 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 
   textContent = {0, 0, false};
 
-  xTaskCreatePinnedToCore(Internet_Browser_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+  xTaskCreatePinnedToCore(Main_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+  Execute(Code::Maximize);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
@@ -40,7 +41,7 @@ void Internet_Browser_Class::Set_Variable(const void* Variable, uint8_t Type, ui
   }
 }
 
-void Internet_Browser_Task(void *pvParameters)
+void Internet_Browser_Class::Main_Task(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
@@ -52,6 +53,8 @@ void Internet_Browser_Task(void *pvParameters)
       //Idle : nothing to do
       break;
     case Code::Maximize: // NULL + M : Maximize
+      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+      Instance_Pointer->Go_Home();
       //do something when
       break;
     case Code::Minimize: // NULL + m : Minimize
@@ -62,25 +65,25 @@ void Internet_Browser_Task(void *pvParameters)
       vTaskDelete(NULL);
       break;
     case 0x4E4C: //NL
-      Internet_Browser_Class::Instance_Pointer->Next_Link();
+      Instance_Pointer->Next_Link();
       break;
     case 0x5044: //PD
-      Internet_Browser_Class::Instance_Pointer->Page_Down();
+      Instance_Pointer->Page_Down();
       break;
     case 0x504C: //PL
-      Internet_Browser_Class::Instance_Pointer->Previous_Link();
+      Instance_Pointer->Previous_Link();
       break;
     case 0x5055: //PU
-      Internet_Browser_Class::Instance_Pointer->Page_Up();
+      Instance_Pointer->Page_Up();
       break;
     case 0x474C: //GL
-      Internet_Browser_Class::Instance_Pointer->Go_Link();
+      Instance_Pointer->Go_Link();
       break;
     case 0x4755: //GU
-      Internet_Browser_Class::Instance_Pointer->Go_URL();
+      Instance_Pointer->Go_URL();
       break;
     case 0x484F: //HO
-      Internet_Browser_Class::Instance_Pointer->Go_Home();
+      Instance_Pointer->Go_Home();
       break;
     default:
       Serial.println(F("Unknow Socket Method ! "));
@@ -122,9 +125,10 @@ void Internet_Browser_Class::Go_URL()
     Cache_File.close();
     WiFi_Client.stop();
     Serial.println(F("Download & Caching Failed !"));
-    memcpy(Server, "*\0", 2);
-    memcpy(Path, '\0', 1);
-    memcpy(URL, '\0', 1);
+    memset(Server, '\0', sizeof(Server));
+    Server[0] = '*';
+    memset(Path, '\0', sizeof(Path));
+    memset(URL, '\0', sizeof(URL));
     pageLinks.lastLink = 0;
     return;
   }
@@ -867,6 +871,9 @@ byte Internet_Browser_Class::Display_Page()
   Serial.println();
   Serial.print(F("Display cached page :"));
   Serial.println(textContent.pagePtr);
+
+  GalaxOS.Display.Hide(F("LOAD_BAR"));
+  GalaxOS.Display.Hide(F("LOAD_TXT"));
 
   uint16_t filePtr = textContent.index[textContent.pagePtr]; // Pointer into cached file
   uint8_t c = 1;                                             // Input character

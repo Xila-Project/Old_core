@@ -16,6 +16,8 @@ extern Software_Handle_Class Internet_Browser_Handle;
 extern Software_Handle_Class Music_Player_Handle;
 extern Software_Handle_Class Piano_Handle;
 extern Software_Handle_Class Ultrasonic_Handle;
+extern Software_Handle_Class Pong_Handle;
+extern Software_Handle_Class Signal_Generator_Handle;
 
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password [] = "0749230994";*/
@@ -44,9 +46,23 @@ GalaxOS_Class::GalaxOS_Class() : Display(),
 
   Tag = 0x00;
 
-  memset(Open_Software_Pointer, '\0', sizeof(Open_Software_Pointer));
+  Open_Software_Pointer[0] = NULL;
+  Open_Software_Pointer[1] = NULL;
+  Open_Software_Pointer[2] = NULL;
+  Open_Software_Pointer[3] = NULL;
+  Open_Software_Pointer[4] = NULL;
+  Open_Software_Pointer[5] = NULL;
+  Open_Software_Pointer[6] = NULL;
+  Open_Software_Pointer[7] = NULL;
 
-  //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE - 1; i++)
+  {
+    Software_Handle_Pointer[i] = NULL;
+  }
+
+
+
+  //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
 }
 
 GalaxOS_Class::~GalaxOS_Class() // Detroyer
@@ -123,7 +139,7 @@ void GalaxOS_Class::Load()
     Display.Draw_Text(140, 228, 200, 20, Main_16, Display.White, Display.Black, Display.Center, Display.Center, Display.None, "Please Insert System Drive");
     vTaskDelay(pdMS_TO_TICKS(50));
   }
-
+  
   Display.Draw_Fill(140, 228, 200, 20, Display.Black);
 
   File Temporary_File;
@@ -213,7 +229,7 @@ void GalaxOS_Class::Load()
   }
   Temporary_File = Drive->open("/GALAXOS/SOUNDS/STARTUP.WAV");
   Sound.Play(Temporary_File);
-  vTaskDelay(pdMS_TO_TICKS(10000));
+  vTaskDelay(pdMS_TO_TICKS(3000));
 
   // Load network configuration
   {
@@ -221,7 +237,7 @@ void GalaxOS_Class::Load()
     Temporary_File = Drive->open(Network_Registry_Path);
     if (!Temporary_File)
     {
-      //error handle
+      // error handle
     }
     DynamicJsonDocument Network_Registry(256);
     deserializeJson(Network_Registry, Temporary_File);
@@ -243,6 +259,7 @@ void GalaxOS_Class::Load()
       }
       if (WiFi.status() == WL_CONNECTED)
       {
+        Verbose_Print_Line("> WiFi connected");
         break;
       }
     }
@@ -261,14 +278,12 @@ void GalaxOS_Class::Load()
     }
     DynamicJsonDocument Regional_Registry(256);
     deserializeJson(Regional_Registry, Temporary_File);
-    char NTP_Server[Regional_Registry["Time"]["NTP Server"].size()];
+
     strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
-    Serial.println(NTP_Server);
-    char Time_Zone[Regional_Registry["Time"]["Time Zone"].size()];
     strcpy(Time_Zone, Regional_Registry["Time"]["Time Zone"]);
+    Serial.println(NTP_Server);
     Serial.println(Time_Zone);
     configTime(0, 0, NTP_Server);
-
     setenv("TZ", Time_Zone, 1);
     Temporary_File.close();
   }
@@ -288,6 +303,11 @@ void GalaxOS_Class::Load()
   Software_Handle_Pointer[3] = &Calculator_Handle;
   Software_Handle_Pointer[4] = &TinyBasic_Handle;
   Software_Handle_Pointer[5] = &Internet_Browser_Handle;
+  Software_Handle_Pointer[6] = &Music_Player_Handle;
+  Software_Handle_Pointer[7] = &Piano_Handle;
+  Software_Handle_Pointer[8] = &Ultrasonic_Handle;
+  Software_Handle_Pointer[9] = &Pong_Handle;
+  Software_Handle_Pointer[10] = &Signal_Generator_Handle;
 
   {
     Temporary_File = Drive->open(Software_Registry_Path);
@@ -1249,10 +1269,16 @@ void GalaxOS_Class::Synchronise_Time()
   static char Clock[5];
   time(&Now);
   localtime_r(&Now, &Time);
-  itoa(Time.tm_hour, Clock, 10);
-  itoa(Time.tm_min, Clock + 3, 10);
+  Clock[0] = Time.tm_hour / 10;
+  Clock[0] += 48;
+  Clock[1] = Time.tm_hour % 10;
+  Clock[1] += 48;
   Clock[2] = ':';
-  Display.Set_Text(F("CLOCK_TXT"), Clock);
+  Clock[3] = Time.tm_min / 10;
+  Clock[3] += 48;
+  Clock[4] = Time.tm_min % 10;
+  Clock[4] += 48;
+  Display.Set_Text(F("CLOCK_TXT"), String(Clock));
 }
 
 // Create System file at 1st boot

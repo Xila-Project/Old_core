@@ -3,18 +3,16 @@
 
 #include "GalaxOS.hpp"
 
-#define INSTANCE_POINTER Shell_Class::Instance_Pointer
-
 class Shell_Class : public Software_Class
 {
 protected:
 
     enum Picture
     {
-        Empty_16 = 15,
-        File_16 = 16,
-        Folder_16 = 17,
-        Empty_32 = 39
+        Empty_16 = 14,
+        File_16 = 15,
+        Folder_16 = 16,
+        Empty_32 = 38
     };
 
     File Temporary_File;
@@ -51,17 +49,20 @@ protected:
 
     void Set_Variable(const void*, uint8_t, uint8_t, uint8_t = 0);
 
-    friend void Shell_Task(void *);
+    static void Main_Task(void *);
 
 public:
     static Software_Class* Load();
+
+    enum Picture_ID
+    {
+        Shell_32 = 4
+    };
 
     Shell_Class();
     ~Shell_Class();
 };
 
-void Shell_Task(void *);
-
-Software_Handle_Class Shell_Handle("Shell", 5, Shell_Class::Load);
+Software_Handle_Class Shell_Handle("Shell", Shell_Class::Shell_32, Shell_Class::Load);
 
 #endif

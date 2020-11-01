@@ -16,6 +16,8 @@ protected:
 
     xTaskHandle Nextion_Serial_Handle;
 
+    SemaphoreHandle_t Serial_Semaphore;
+
     void (*Callback_Function_String_Data)(const char*, uint8_t);
     void (*Callback_Function_Numeric_Data)(uint32_t&);
     void (*Callback_Function_Event)(uint8_t&);

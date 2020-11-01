@@ -18,11 +18,16 @@ protected:
     friend void Signal_Generator_Task(void*);
 
 public:
+    enum Picture_ID
+    {
+        Signal_Generator_32 = 18
+    };
+
     static Software_Class* Load();
 };
 
 void Signal_Generator_Task(void*);
 
-Software_Handle_Class Signal_Generator_Handle("Signal Generator", 12, Signal_Generator_Class::Load);
+Software_Handle_Class Signal_Generator_Handle("Signal Generator", Signal_Generator_Class::Signal_Generator_32, Signal_Generator_Class::Load);
 
 #endif
