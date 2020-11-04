@@ -3,14 +3,23 @@
 
 #include "GalaxOS.hpp"
 
+// JSON Data file : 
+// Creative Commons Attribution-ShareAlike 3.0 liscence
+// https://github.com/Bowserinator/Periodic-Table-JSON
+
+
 class Periodic_Class : protected Software_Class
 {
     protected:
         static Periodic_Class* Instance_Pointer;
 
+        File Periodic_File;
+
         uint8_t Current_Atom;
 
         uint32_t X, Y;
+
+        char Name[16];
 
         void Get_Main_Data();
         void Get_Data();
@@ -23,13 +32,11 @@ class Periodic_Class : protected Software_Class
         Periodic_Class();
         ~Periodic_Class();
 
-        friend void Periodic_Task(void *);
+        static void Main_Task(void *);
 
         static Software_Class* Load();
 
 };
-
-void Periodic_Task(void *);
 
 Software_Handle_Class Periodic_Handle("Periodic", 12, Periodic_Class::Load);
 

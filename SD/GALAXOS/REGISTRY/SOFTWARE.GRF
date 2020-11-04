@@ -1,3 +1,13 @@
 {
-    "Registry":"Software"
+    "Registry": "Software",
+    "Extension": [
+        [
+            "TXT",
+            "Text Editor"
+        ],
+        [
+            "",
+            ""
+        ]
+    ]
 }

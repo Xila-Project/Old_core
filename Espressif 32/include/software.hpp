@@ -16,7 +16,8 @@ enum Code // System code used by the core to communicate
 {
     Close = 0x0043,
     Maximize = 0x004D,
-    Minimize = 0x006D
+    Minimize = 0x006D,
+    Open = 0x004F
 };
 
 class Software_Class // Software class, used by the core in order to communicate with the software
@@ -41,7 +42,7 @@ protected:
     void Maximize(); // Show
     void Minimize(); // Hide
 
-    void Open_File(File &File_To_Set);
+    void Open_File(File &File_To_Open);
 
     void Execute(uint16_t);
     void Execute(char, char);

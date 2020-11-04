@@ -22,19 +22,17 @@ protected:
 
     static Shell_Class* Instance_Pointer;
 
-    static Software_Handle_Class* Handle_Pointer;
-
-    uint8_t Selected_Software;
-
     char Username[9];
     char Password[25];
 
     void Login();
 
     void Open_Desk();
-    void Open_Menu();
+    void Open_Drawer();
     void Open_Item();
     void Open_Login();
+    void Open_File_Manager();
+    void Open_Preferences(char Section);
 
     void Display_Path();
 
@@ -45,7 +43,7 @@ protected:
     void Go_Parent();
 
     void Open_From_Dock(uint8_t);
-    void Open_From_Menu();
+    void Open_From_Drawer(uint8_t);
 
     void Set_Variable(const void*, uint8_t, uint8_t, uint8_t = 0);
 

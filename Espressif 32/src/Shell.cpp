@@ -1,13 +1,11 @@
 #include "Shell.hpp"
 
-Shell_Class *Shell_Class::Instance_Pointer = NULL;
-
-Software_Handle_Class *Shell_Class::Handle_Pointer = &Shell_Handle;
+Shell_Class* Shell_Class::Instance_Pointer = NULL;
 
 Shell_Class::Shell_Class() : Software_Class(6),
-                             Mode(0),
-                             Selected_Software(0)
+                             Mode(0)
 {
+    Handle_Pointer = &Shell_Handle;
     memset(Username, '\0', sizeof(Username));
     memset(Password, '\0', sizeof(Password));
     Execute(0x4F4C);
@@ -25,10 +23,6 @@ Software_Class *Shell_Class::Load()
     {
         Instance_Pointer = new Shell_Class();
     }
-    else
-    {
-        Instance_Pointer->Execute('O', 'F');
-    }
     return Instance_Pointer;
 }
 
@@ -36,9 +30,6 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 {
     switch (Adress)
     {
-    case 'S':
-        Selected_Software = *(uint8_t *)Variable;
-        break;
     case 'U':
         strcpy(Username, (char *)Variable);
         break;
@@ -95,35 +86,81 @@ void Shell_Class::Main_Task(void *pvParameters)
         case 0x4C6F: // Lo : Login with entred username and password
             Instance_Pointer->Login();
             break;
-
+        case 0x44: // DC : display calibration
+            GalaxOS.Display.Calibrate();
+            // wait until display sent reset code
+            break;
         case 0x4F4C: // "OL" : Open Login page
             Instance_Pointer->Open_Login();
             break;
         case 0x4F44: // "OD" Open Desk page & load it
             Instance_Pointer->Open_Desk();
             break;
-        case 0x4F4D: // "OM" : Open Menu
-            Instance_Pointer->Open_Menu();
+        case 0x4F64: // "Od" Open drawer
+            Instance_Pointer->Open_Drawer();
             break;
         case 0x4F46: // "OF" : Open file manager
-            GalaxOS.Display.Set_Current_Page(F("Shell_File"));
+            Instance_Pointer->Open_File_Manager();
+
             break;
         case 0x4F50: // "OP" : Open preferiencies (default : personnal)
-            GalaxOS.Display.Set_Current_Page(F("Shell_Personal"));
+            Instance_Pointer->Open_Preferences('P');
             break;
         case 0x4F48: // "OH" : Open hardware prefencies
-            GalaxOS.Display.Set_Current_Page(F("Shell_Hardware"));
+            Instance_Pointer->Open_Preferences('H');
             break;
         case 0x4F4E: // "ON" : Open network
-            GalaxOS.Display.Set_Current_Page(F("Shell_Network"));
+            Instance_Pointer->Open_Preferences('N');
             break;
         case 0x4F53: // "OS" : Open software
-            GalaxOS.Display.Set_Current_Page(F("Shell_System"));
+            Instance_Pointer->Open_Preferences('S');
             break;
-        case 0x4D4F: // MO : Open software from menu
-            Instance_Pointer->Open_From_Menu();
+        case 0x6430: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(0);
             break;
-        case 0x4431: // Dx : Maxmize software from task bar
+        case 0x6431: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(1);
+            break;
+        case 0x6432: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(2);
+            break;
+        case 0x6433: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(3);
+            break;
+        case 0x6434: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(4);
+            break;
+        case 0x6435: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(5);
+            break;
+        case 0x6436: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(6);
+            break;
+        case 0x6437: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(7);
+            break;
+        case 0x6438: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(8);
+            break;
+        case 0x6439: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(9);
+            break;
+        case 0x6441: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(10);
+            break;
+        case 0x6442: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(11);
+            break;
+        case 0x6443: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(12);
+            break;
+        case 0x6444: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(13);
+            break;
+        case 0x6445: // dx : Open software from drawer
+            Instance_Pointer->Open_From_Drawer(14);
+            break;
+        case 0x4431: // Dx : Maxmize software from dock
             Instance_Pointer->Open_From_Dock(1);
             break;
         case 0x4432:
@@ -148,14 +185,46 @@ void Shell_Class::Main_Task(void *pvParameters)
     }
 }
 
-void Shell_Class::Open_From_Menu()
+void Shell_Class::Open_From_Drawer(uint8_t Slot)
 {
-    GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Selected_Software]);
+    switch (Slot)
+    {
+    case 0: //File manager
+        Open_File_Manager();
+        break;
+    case 1:
+        Open_Preferences('P');
+        break;
+    default:
+        GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Slot - 1]); // exclude 1st slot (shell ui), so add, minus 2 = 1
+        break;
+    }
 }
 
 void Shell_Class::Open_From_Dock(uint8_t Slot)
 {
     GalaxOS.Maximize_Software(Slot + 1);
+}
+
+void Shell_Class::Open_Preferences(char Section)
+{
+    switch (Section)
+    {
+    case 'P':
+        GalaxOS.Display.Set_Current_Page(F("Shell_Personal"));
+        break;
+    case 'H':
+        GalaxOS.Display.Set_Current_Page(F("Shell_Hardware"));
+        break;
+    case 'N':
+        GalaxOS.Display.Set_Current_Page(F("Shell_Network"));
+        break;
+    case 'S':
+        GalaxOS.Display.Set_Current_Page(F("Shell_System"));
+        break;
+    default:
+        break;
+    }
 }
 
 void Shell_Class::Open_Desk()
@@ -184,7 +253,7 @@ void Shell_Class::Open_Desk()
     }
 }
 
-void Shell_Class::Open_Menu()
+void Shell_Class::Open_Drawer()
 {
     GalaxOS.Display.Set_Current_Page(F("Shell_Menu"));
     char Temporary_String[11];
@@ -196,9 +265,9 @@ void Shell_Class::Open_Menu()
     GalaxOS.Display.Show(F("SHUTDOWN_PIC"));
     strcpy(Temporary_String, "ITEM _TXT");
     uint8_t Item = 0;
-    for (Item = 0; Item < 10; Item++)
+    for (Item = 1; Item < 10; Item++)
     {
-        Temporary_String[4] = Item + 49;
+        Temporary_String[4] = Item + 47;
         if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
         {
             GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item]->Name));
@@ -249,6 +318,11 @@ void Shell_Class::Open_Menu()
     }
 }
 
+void Shell_Class::Open_File_Manager()
+{
+    GalaxOS.Display.Set_Current_Page(F("Shell_File"));
+}
+
 void Shell_Class::Open_Login()
 {
 
@@ -294,7 +368,7 @@ void Shell_Class::Login()
             //Color = Shell_Registry["Color"] | 16904;
         }
         */
-        if (strcmp(Shell_Registry["Registry"],"Shell") == 0)
+        if (strcmp(Shell_Registry["Registry"], "Shell") == 0)
         {
             Verbose_Print_Line("Simple comp work !!!!");
             //Color = Shell_Registry["Color"] | 16904;
