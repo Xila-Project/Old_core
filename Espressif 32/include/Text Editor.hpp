@@ -40,7 +40,7 @@ public:
 
     enum Picture
     {
-        Text_Editor_32
+        Text_Editor_32 = 49
     };
 
     static Software_Class *Load();

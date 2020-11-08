@@ -110,7 +110,7 @@ void Periodic_Class::Get_Main_Data()
 
 void Periodic_Class::Get_Data()
 {
-    DynamicJsonDocument Element_Filter(256);
+    /*DynamicJsonDocument Element_Filter(256);
     Element_Filter[Name] = true;
     DynamicJsonDocument Periodic_Register(1536);
     deserializeJson(Periodic_Register, Periodic_File);
@@ -175,7 +175,7 @@ void Periodic_Class::Get_Data()
 
     strcpy(Temporary_Char_Array, "Electron affinity : ");
     itoa(Periodic_Register[Name]["electron_affinity"], Temporary_Char_Array + sizeof("Electron affinity"), 10);
-    GalaxOS.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);
+    GalaxOS.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);*/
 }
 
 void Periodic_Class::Get_List()

@@ -1,13 +1,7 @@
 {
     "Registry": "Software",
-    "Extension": [
-        [
-            "TXT",
-            "Text Editor"
-        ],
-        [
-            "",
-            ""
-        ]
-    ]
+    "Extension": {
+        "GRF": "Core",
+        ""
+    }
 }

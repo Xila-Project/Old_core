@@ -8,6 +8,12 @@ GalaxOS_Class *GalaxOS_Class::Instance_Pointer = NULL;
 GalaxOS_Class GalaxOS;
 
 extern Software_Handle_Class Shell_Handle;
+extern Software_Handle_Class Executable_Loader_Handle;
+
+/*char WiFi_SSID[] = "Avrupa";
+char WiFi_Password [] = "0749230994";*/
+
+extern Software_Handle_Class Shell_Handle;
 extern Software_Handle_Class Oscilloscope_Handle;
 extern Software_Handle_Class Paint_Handle;
 extern Software_Handle_Class Calculator_Handle;
@@ -18,9 +24,9 @@ extern Software_Handle_Class Piano_Handle;
 extern Software_Handle_Class Ultrasonic_Handle;
 extern Software_Handle_Class Pong_Handle;
 extern Software_Handle_Class Signal_Generator_Handle;
-
-/*char WiFi_SSID[] = "Avrupa";
-char WiFi_Password [] = "0749230994";*/
+extern Software_Handle_Class Text_Editor_Handle;
+extern Software_Handle_Class Periodic_Handle;
+extern Software_Handle_Class Clock_Handle;
 
 GalaxOS_Class::GalaxOS_Class() : Display(),
                                  Sound(),
@@ -60,8 +66,6 @@ GalaxOS_Class::GalaxOS_Class() : Display(),
     Software_Handle_Pointer[i] = NULL;
   }
 
-
-
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
 }
 
@@ -72,22 +76,22 @@ GalaxOS_Class::~GalaxOS_Class() // Detroyer
 
 // Idle task, lowest priority, nothing is running
 
-void Idle_Task_Software_Core(void *pvParameters)
+void GalaxOS_Class::Idle_Task_Software_Core(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
   {
-    Serial.print(F("Idle software core"));
+    //Serial.print(F("Idle software core"));
     vTaskDelay(1);
   }
 }
 
-void Idle_Task_System_Core(void *pvParameters)
+void GalaxOS_Class::Idle_Task_System_Core(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
   {
-    Serial.print(F("Idle system core"));
+    //Serial.print(F("Idle system core"));
     vTaskDelay(1);
   }
 }
@@ -96,7 +100,41 @@ void Idle_Task_System_Core(void *pvParameters)
 
 void GalaxOS_Class::Start()
 {
+#if DEBUG_MODE == 1
   xTaskCreatePinnedToCore(GalaxOS_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+#else
+  esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
+  if (Wakeup_Cause == ESP_SLEEP_WAKEUP_EXT0)
+  {
+    xTaskCreatePinnedToCore(GalaxOS_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+  }
+  else
+  {
+    Shutdown();
+  }
+#endif
+}
+
+void GalaxOS_Class::Shutdown()
+{
+  Close_Software(Open_Software_Pointer[2]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[3]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[4]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[5]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[6]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[7]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[1]->Handle_Pointer);
+  Close_Software(Open_Software_Pointer[0]->Handle_Pointer);
+
+  // Shutdown screen
+  Display.Sleep();
+
+  // Disconnect wifi
+  WiFi.disconnect(true);
+
+  //Set deep sleep
+  esp_sleep_enable_ext0_wakeup(GPIO_NUM_27, LOW);
+  esp_deep_sleep_start();
 }
 
 void GalaxOS_Class::Load()
@@ -134,12 +172,18 @@ void GalaxOS_Class::Load()
   Drive = &SD;
 #endif
 
+  // Initialize display & Load display configuration
+  Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
+  Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
+  Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+  Display.Begin();
+  Display.Wake_Up();
+
   while (!Drive->begin() || Drive->cardType() == CARD_NONE)
   {
     Display.Draw_Text(140, 228, 200, 20, Main_16, Display.White, Display.Black, Display.Center, Display.Center, Display.None, "Please Insert System Drive");
     vTaskDelay(pdMS_TO_TICKS(50));
   }
-  
   Display.Draw_Fill(140, 228, 200, 20, Display.Black);
 
   File Temporary_File;
@@ -191,8 +235,8 @@ void GalaxOS_Class::Load()
 
   // Load Task
   Verbose_Print_Line("> Loading Task ...");
-  //xTaskCreatePinnedToCore(Idle_Task_Software_Core, "Idle Software", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SOFTWARE_CORE);
-  //xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
+  xTaskCreatePinnedToCore(Idle_Task_Software_Core, "Idle Software", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SOFTWARE_CORE);
+  xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
 
   // Check if the system state was saved
   Verbose_Print_Line("> Check existing of file last state ...");
@@ -201,11 +245,6 @@ void GalaxOS_Class::Load()
     Restore_System_State();
   }
 
-  // Initialize display & Load display configuration
-  Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
-  Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
-  Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
-  Display.Begin();
   {
     Verbose_Print_Line("> Load display registry ...");
     Temporary_File = Drive->open(Display_Registry_Path);
@@ -217,7 +256,6 @@ void GalaxOS_Class::Load()
   Display.Set_Current_Page(F("Core_Load"));
   Display.Click(7, 1); // Shadow in annimation
   vTaskDelay(pdMS_TO_TICKS(4000));
-
 
   // Sound load
   {
@@ -295,10 +333,9 @@ void GalaxOS_Class::Load()
   vTaskDelay(pdMS_TO_TICKS(800));
 
   // Load software (including Shell UI)
-  Verbose_Print_Line("> Load software registry");
-  //Verbose_Print_Line("> Load software ...");
-  Software_Handle_Pointer[0] = &Shell_Handle;
-  Software_Handle_Pointer[1] = &Oscilloscope_Handle;
+  Verbose_Print_Line("> Load software ...");
+  Software_Handle_Pointer[0] = &Executable_Loader_Handle;
+  Software_Handle_Pointer[1] = &Shell_Handle;
   Software_Handle_Pointer[2] = &Paint_Handle;
   Software_Handle_Pointer[3] = &Calculator_Handle;
   Software_Handle_Pointer[4] = &TinyBasic_Handle;
@@ -308,15 +345,34 @@ void GalaxOS_Class::Load()
   Software_Handle_Pointer[8] = &Ultrasonic_Handle;
   Software_Handle_Pointer[9] = &Pong_Handle;
   Software_Handle_Pointer[10] = &Signal_Generator_Handle;
+  Software_Handle_Pointer[11] = &Oscilloscope_Handle;
+  Software_Handle_Pointer[12] = &Text_Editor_Handle;
+  Software_Handle_Pointer[13] = &Periodic_Handle;
+  Software_Handle_Pointer[14] = &Clock_Handle;
 
+  File Software_Directory = Drive->open("/SOFTWARE");
+  while (1)
   {
-    Temporary_File = Drive->open(Software_Registry_Path);
+    Temporary_File = Software_Directory.openNextFile();
     if (!Temporary_File)
     {
-      return;
+      break;
     }
-    DynamicJsonDocument Software_Registry(256);
-    deserializeJson(Software_Registry, Temporary_File);
+    else if (Temporary_File.isDirectory())
+    {
+      if (Drive->exists("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF"))
+      {
+        Temporary_File = Drive->open("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF");
+        if (Temporary_File)
+        {
+          DynamicJsonDocument Software_Registry(256);
+          if (deserializeJson(Software_Registry, Temporary_File) == DeserializationError::Ok)
+          {
+            Add_Software_Handle(new Software_Handle_Class(Software_Registry["Name"], Software_Registry["Picture"], NULL));
+          }
+        }
+      }
+    }
   }
 
   Display.Set_Value(F("LOAD_BAR"), 80);
@@ -346,7 +402,8 @@ void GalaxOS_Class::Core_Task(void *pvParameters)
     {
       Serial.println("Low Memory !");
     }
-    INSTANCE_POINTER->Synchronise_Time();
+    Instance_Pointer->Synchronise_Time();
+    Instance_Pointer->Refresh_Clock();
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
     Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
@@ -361,9 +418,9 @@ void GalaxOS_Class::Core_Task(void *pvParameters)
 
 void GalaxOS_Class::Save_System_State()
 {
-  if (Drive->exists("/GALAXOS/GOSeCUSA.GSF"))
+  if (Drive->exists("/GALAXOS/SLEEP.XDF"))
   {
-    if (Drive->remove("/GALAXOS/GOSCUSA.GSF"))
+    if (Drive->remove("/GALAXOS/SLEEP.XDF"))
     {
       //event handler
     }
@@ -404,6 +461,8 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data
     GalaxOS.Tag = '\0';
     break;
   case Code::Variable_String_Global:
+    Temporary_String = String(Received_Data + 2);
+    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
     break;
   case Code::Variable_Long_Local:
     GalaxOS.Tag = Received_Data[1];
@@ -439,13 +498,11 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
   if (!File_To_Open)
   {
     //error handle
-    File_To_Open.close();
     return;
   }
   else if (File_To_Open.isDirectory())
   {
     //error : directory not a file
-    File_To_Open.close();
     return;
   }
   char File_Name[14];
@@ -460,46 +517,21 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
   }
   char Extension[] = {File_Name[i + 1], File_Name[i + 2], File_Name[i + 3]};
   //pre-defined
-  if (strcmp(Extension, "GEF")) // executable file : load it into FFS
+  if (strcmp(Extension, "XEF")) // executable file : load it into flash
   {
-    if (File_To_Open.size() == 0)
+    Open_Software(&Executable_Loader_Handle);
+    for (i = 0; i < 8; i++)
     {
-      //error : empty file
-      File_To_Open.close();
-      return;
-    }
-    if (Update.begin(File_To_Open.size()))
-    {
-      if (Update.writeStream(File_To_Open) != File_To_Open.size())
+      if (Open_Software_Pointer[i] != NULL)
       {
-        //error : update perform partialy
-        File_To_Open.close();
-        return;
-      }
-      if (Update.end() && Update.isFinished())
-      {
-        //info : update completed
-      }
-      else
-      {
-        //error : update went wrong
+        if (Open_Software_Pointer[i]->Handle_Pointer == &Executable_Loader_Handle)
+        {
+          Open_Software_Pointer[i]->Open_File(File_To_Open);
+        }
       }
     }
-    else
-    {
-      //error : not enought space to perform OTA
-    }
-  }
-  else if (strcmp(Extension, "BMP"))
-  {
   }
 
-  else if (strcmp(Extension, "GPF"))
-  {
-  }
-  else if (strcmp(Extension, "FPF"))
-  {
-  }
   else
   {
     if (Drive->open(F("/GALAXOS/REGISTRY/EXTENSIO.GCF")))
@@ -565,14 +597,17 @@ void GalaxOS_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Clo
   {
     for (uint8_t i = 2; i <= 7; i++)
     {
-      if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
+      if (Open_Software_Pointer != NULL)
       {
-        Open_Software_Pointer[i]->Close();
-        Open_Software_Pointer[i] = NULL;
+        if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
+        {
+          Open_Software_Pointer[i]->Close();
+          Open_Software_Pointer[i] = NULL;
+        }
       }
     }
   }
-  Maximize_Software(1);
+  Maximize_Software(1); //reopen shell
 }
 
 void GalaxOS_Class::Minimize_Software()
@@ -608,29 +643,22 @@ void GalaxOS_Class::Maximize_Software(uint8_t Slot)
   Open_Software_Pointer[0]->Maximize();
 }
 
-uint8_t GalaxOS_Class::Get_Software_Handle_Pointer(const char *Software_Name)
+void GalaxOS_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add)
 {
-  for (byte i = 0; i <= MAXIMUM_SOFTWARE; i++)
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
-    if (i >= MAXIMUM_SOFTWARE)
+    if (Software_Handle_Pointer[i] != NULL && strcmp(Software_Handle_Pointer[i]->Name, Software_Handle_Pointer_To_Add->Name) == 0) //check for doublon
     {
-      return 255; // nothing found
-    }
-    if (Software_Handle_Pointer[i] == NULL)
-    {
-      continue;
-    }
-    if (strcmp(Software_Handle_Pointer[i]->Name, Software_Name))
-    {
-      return i;
+      delete Software_Handle_Pointer_To_Add;
     }
   }
-  return 255;
-}
-
-void GalaxOS_Class::Set_Load_Function(const char *Software_Name, Software_Class *(*Load_Function_To_Set)())
-{
-  Software_Handle_Pointer[Get_Software_Handle_Pointer(Software_Name)]->Load_Function_Pointer = Load_Function_To_Set;
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    if (Software_Handle_Pointer[i] == NULL)
+    {
+      Software_Handle_Pointer[i] = Software_Handle_Pointer_To_Add;
+    }
+  }
 }
 
 // Serial communication with commputer
@@ -1129,20 +1157,6 @@ GalaxOS_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Pa
   }
 }
 
-void GalaxOS_Class::Load_User_Files()
-{
-  Verbose_Print("> Load user files ...");
-  if (Current_Username[0] == 255) // if not logged
-  {
-    Event_Handler(Not_Logged);
-    return;
-  }
-  if (!Drive->exists(Users_Path + String(Current_Username)))
-  {
-    Event_Handler(Corrupted_User_File);
-  }
-}
-
 /*  switch (Type)
   {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
@@ -1264,11 +1278,9 @@ GalaxOS_Event GalaxOS_Class::Event_Handler(const __FlashStringHelper *Message, u
   return Event_Reply_Copy;
 }
 
-void GalaxOS_Class::Synchronise_Time()
+void GalaxOS_Class::Refresh_Clock()
 {
   static char Clock[5];
-  time(&Now);
-  localtime_r(&Now, &Time);
   Clock[0] = Time.tm_hour / 10;
   Clock[0] += 48;
   Clock[1] = Time.tm_hour % 10;
@@ -1278,7 +1290,20 @@ void GalaxOS_Class::Synchronise_Time()
   Clock[3] += 48;
   Clock[4] = Time.tm_min % 10;
   Clock[4] += 48;
+  Clock[5] += '\0';
   Display.Set_Text(F("CLOCK_TXT"), String(Clock));
+}
+
+void GalaxOS_Class::Synchronise_Time()
+{
+  time(&Now);
+  localtime_r(&Now, &Time);
+}
+
+tm GalaxOS_Class::Get_Time()
+{
+  Synchronise_Time();
+  return Time;
 }
 
 // Create System file at 1st boot

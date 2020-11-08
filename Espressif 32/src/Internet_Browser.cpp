@@ -1,5 +1,4 @@
 #include "Internet_Browser.hpp"
-#include "galaxos.hpp"
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
@@ -17,7 +16,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
   memset(Server, 0, 30);
   memset(Path, 0, 60);
   memset(URL, 0, 90);
- 
+
   Server[0] = '*';
 
   pageLinks = {0, 0};
@@ -25,7 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
   textContent = {0, 0, false};
 
   xTaskCreatePinnedToCore(Main_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-  Execute(Code::Maximize);
+  Execute(Software_Code::Maximize);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
@@ -33,9 +32,9 @@ Internet_Browser_Class::~Internet_Browser_Class()
   Instance_Pointer = NULL;
 }
 
-void Internet_Browser_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-  if (Adress == 'U' && Type == GalaxOS.Code::Variable_Char_Local)
+  if (Adress == 'U')
   {
     strcpy(URL, (char *)Variable);
   }
@@ -46,22 +45,22 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
   (void)pvParameters;
   while (1)
   {
-    switch (INSTANCE_POINTER->Get_Command())
+    switch (Instance_Pointer->Get_Command())
     {
     case 0:
       vTaskDelay(pdMS_TO_TICKS(20));
       //Idle : nothing to do
       break;
-    case Code::Maximize: // NULL + M : Maximize
+    case Software_Code::Maximize: // NULL + M : Maximize
       GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       //do something when
       break;
-    case Code::Minimize: // NULL + m : Minimize
-      vTaskSuspend(NULL); 
+    case Software_Code::Minimize: // NULL + m : Minimize
+      vTaskSuspend(NULL);
       break;
-    case Code::Close: // NULL + C : Close
-      delete INSTANCE_POINTER;
+    case Software_Code::Close: // NULL + C : Close
+      delete Instance_Pointer;
       vTaskDelete(NULL);
       break;
     case 0x4E4C: //NL
@@ -123,7 +122,7 @@ void Internet_Browser_Class::Go_URL()
   else
   {
     Cache_File.close();
-    WiFi_Client.stop();
+    Client.stop();
     Serial.println(F("Download & Caching Failed !"));
     memset(Server, '\0', sizeof(Server));
     Server[0] = '*';
@@ -195,6 +194,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   if (WiFi.status() != WL_CONNECTED)
   {
+    GalaxOS.Event_Handler(F("WiFi not connected."), GalaxOS.Error);
     //error handle : not connected
     return 0;
   }
@@ -206,16 +206,16 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     return 0;
   }
 
-  if (WiFi_Client.connect(URLserver, 80))
+  if (Client.connect(URLserver, 80))
   {
-    WiFi_Client.print(F("GET "));
-    WiFi_Client.print(URLpath);
-    WiFi_Client.print(F(" HTTP/1.1\r\n"));
+    Client.print(F("GET "));
+    Client.print(URLpath);
+    Client.print(F(" HTTP/1.1\r\n"));
 
-    WiFi_Client.print(F("Host: "));
-    WiFi_Client.print(URLserver);
+    Client.print(F("Host: "));
+    Client.print(URLserver);
 
-    WiFi_Client.print(F("\r\nUser-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\r\nConnection: close\r\n\r\n"));
+    Client.print(F("\r\nUser-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\r\nConnection: close\r\n\r\n"));
   }
   else
   {
@@ -226,11 +226,12 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   vTaskDelay(pdMS_TO_TICKS(500));
 
   byte Wait = 0;
-  while ((Wait < 100) && (!WiFi_Client.available())) //wait 5 sec unti timeout
+  while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
   {
     vTaskDelay(pdMS_TO_TICKS(50));
+    Wait++;
   }
-  if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
+  if ((!Client.available()) && (!Client.connected()))
   {
     //error handle
     Serial.println(F("\nWiFi timeout"));
@@ -240,30 +241,15 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   Serial.println(F("\nParsing..."));
   startTime = millis();
 
-  if (HTTP_Return_Code != HTTP_CODE_OK || HTTP_Return_Code != HTTP_CODE_MOVED_PERMANENTLY)
-  {
-    if (HTTP_Return_Code < 0)
-    {
-      //error handle : unable to connect
-      Serial.println(F("Unable to connect !"));
-    }
-    else
-    {
-      //error handle : bad http code returned
-      Serial.println(F("Bad http code returned !"));
-    }
-    return 0;
-  }
-
   {
     memcpy(generalBuffer, "HTTP/1.1 \0", 10); //looking for the HTTP return code
     outputChar = Find_Until(generalBuffer, true);
     if (outputChar == 2)
     {
-      HTTP_Return_Code = WiFi_Client.parseInt();
+      HTTP_Return_Code = Client.parseInt();
       Serial.print(F("Result: "));
       Serial.println(HTTP_Return_Code);
-      if (HTTP_Return_Code >= 300) // stop parsing if http code isn't between 200 and 300
+      if (HTTP_Return_Code >= 308) // stop parsing if http code isn't between 200 and 300
       {
         Display_Page(); //display current
         return 0;
@@ -275,7 +261,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     Serial.println(outputChar);
     if (outputChar == 2)
     {
-      fileLength = WiFi_Client.parseInt();
+      fileLength = Client.parseInt();
       if (fileLength < 10)
       {
         fileLength = 0;
@@ -310,7 +296,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       localState = sENDTAG;
     }
   }
-  c = WiFi_Client.read();
+  c = Client.read();
 
   //================================================
   // Loading loop
@@ -318,23 +304,23 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   while (metaState < sFOOTER)
   {
     c = 0;
-    if (WiFi_Client.available())
+    if (Client.available())
     {
-      c = WiFi_Client.read();
+      c = Client.read();
       downloadCount++;
     }
     else
     {
       Wait = 0;
-      while ((Wait < 100) && (!WiFi_Client.available())) //wait 5 sec unti timeout
+      while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
       {
         vTaskDelay(pdMS_TO_TICKS(50));
       }
-      if ((!WiFi_Client.available()) && (!WiFi_Client.connected()))
+      if ((!Client.available()) && (!Client.connected()))
       {
         //error handle
         Serial.println(F("\nWiFi timeout"));
-        WiFi_Client.stop();
+        Client.stop();
         Cache_File.flush();
         return 0;
       }
@@ -648,8 +634,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   Serial.println(F("Finish parsing"));
 
   Cache_File.print('\0');
-  //WiFi_Client.flush();
-  WiFi_Client.stop();
+  //Client.flush();
+  Client.stop();
 
   Cache_File.flush();
 
@@ -782,10 +768,12 @@ void Internet_Browser_Class::Load_Page()
   else
   {
     Cache_File.close();
-    WiFi_Client.stop();
-    memcpy(Server, "*\0", 2);
-    memcpy(Path, '\0', 1);
-    memcpy(URL, '\0', 1);
+    Client.stop();
+    memset(Server, '\0', sizeof(Server));
+    memset(Path, '\0', sizeof(Path));
+    memset(URL, '\0', sizeof(URL));
+    Server[0] = '*';
+
     pageLinks.lastLink = 0;
 
     Serial.println(F("Download & caching failed"));
@@ -886,8 +874,9 @@ byte Internet_Browser_Class::Display_Page()
   boolean buildingIndex = (pageLinks.lastLink == 0); // True if this page's URL haven't been index yet
   uint16_t Cursor_Y;
   uint16_t Cursor_X;
-  String Text_To_Print;
-  uint16_t Text_Char_Count;
+  char Text_To_Print[80];
+  uint16_t Width_Count;
+  uint8_t Text_Char_Count;
 
   GalaxOS.Display.Draw_Rectangle(0, 50, 464, 222, 16904, false);
 
@@ -895,7 +884,7 @@ byte Internet_Browser_Class::Display_Page()
 
   if (Server[0] == '*')
   {
-    GalaxOS.Display.Set_Text("URL_TXT", "Home Page");
+    GalaxOS.Display.Set_Text(F("URL_TXT"), F("Home Page"));
     Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
@@ -927,18 +916,22 @@ byte Internet_Browser_Class::Display_Page()
   }
 
   Cursor_Y = 50;
-  Text_To_Print = "";
+
+  memset(Text_To_Print, '\0', sizeof(Text_To_Print));
+
   Text_Char_Count = 0;
+  Width_Count = 0;
 
   // Loop through cache fizle
   while ((filePtr <= Cache_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
   {
-    if (Text_Char_Count >= 55) //print if auto return to line (max 56 normal)
+    if (Width_Count >= 449) //print if auto return to line (max 56 normal)
     {
+      Text_To_Print[Text_Char_Count] = '\0';
       switch (Current_Color)
       {
       case 65534: //Bold style
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 57344, 16904, 0, 1, 1, Text_To_Print);
+        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
         break;
@@ -968,7 +961,8 @@ byte Internet_Browser_Class::Display_Page()
 
       Cursor_Y += 14; //new line
       Text_Char_Count = 0;
-      Text_To_Print = "";
+      Width_Count = 0;
+      vTaskDelay(pdMS_TO_TICKS(250));
     }
 
     c = Cache_File.read();
@@ -979,9 +973,18 @@ byte Internet_Browser_Class::Display_Page()
     if (c > 31)
     {
       if (!invisiblePrint)
-      { // Print only if in visible mode (supresses URLs)
-        Text_To_Print += (char)c;
-        ++Text_Char_Count;
+      {
+        // Print only if in visible mode (supresses URLs)
+        Text_To_Print[Text_Char_Count] = c;
+        if (c < 0x5B) // maj size
+        {
+          Width_Count += 8; // 8 px char
+        }
+        else
+        {
+          Width_Count += 7;
+        }
+        Text_Char_Count++;
       }
     }
 
@@ -993,7 +996,7 @@ byte Internet_Browser_Class::Display_Page()
       case TAG_CR:
 
       case 10: // Print rest of buffer and return to line
-        Text_Char_Count = 65535;
+        Width_Count = 65535;
         invisiblePrint = false;
 
         break;
@@ -1040,15 +1043,15 @@ byte Internet_Browser_Class::Display_Page()
         {
           currentLink++; // Removed && buildingLink
         }
-        Text_Char_Count = 65535;
+        Width_Count = 65535;
         break;
 
       case TAG_HEADING2: // End of header or bold tags
-        Text_Char_Count = 65535;
+        Width_Count = 65535;
         break;
 
       case TAG_BOLD2:
-        Text_Char_Count = 65535;
+        Width_Count = 65535;
         break;
 
         // List entry tag
@@ -1170,10 +1173,10 @@ byte Internet_Browser_Class::Find_Until(uint8_t *String_To_Find, boolean termina
 
   while (millis() < timeOut)
   {
-    if (WiFi_Client.available())
+    if (Client.available())
     {
       timeOut = millis() + 5000;
-      c = WiFi_Client.read();
+      c = Client.read();
       if (terminate && (c == '<'))
       {
         return 1; // Pre-empted match
@@ -1310,5 +1313,3 @@ void Internet_Browser_Class::Split_URL(char *localURL)
   Serial.println(Server);
   Serial.println(Path);
 }
-
-#undef INSTANCE_POINTER

@@ -6,21 +6,12 @@
 class Shell_Class : public Software_Class
 {
 protected:
-
-    enum Picture
-    {
-        Empty_16 = 14,
-        File_16 = 15,
-        Folder_16 = 16,
-        Empty_32 = 38
-    };
-
     File Temporary_File;
 
     uint8_t Mode;
     String Current_Path;
 
-    static Shell_Class* Instance_Pointer;
+    static Shell_Class *Instance_Pointer;
 
     char Username[9];
     char Password[25];
@@ -45,22 +36,27 @@ protected:
     void Open_From_Dock(uint8_t);
     void Open_From_Drawer(uint8_t);
 
-    void Set_Variable(const void*, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     static void Main_Task(void *);
 
 public:
-    static Software_Class* Load();
+    static Software_Class *Load();
 
-    enum Picture_ID
+    enum Picture
     {
-        Shell_32 = 4
+        File_Manager_32 = 4,
+        Preferences_32 = 3,
+        Empty_16 = 14,
+        File_16 = 15,
+        Folder_16 = 16,
+        Empty_32 = 38
     };
 
     Shell_Class();
     ~Shell_Class();
 };
 
-Software_Handle_Class Shell_Handle("Shell", Shell_Class::Shell_32, Shell_Class::Load);
+Software_Handle_Class Shell_Handle("Shell", Shell_Class::Empty_32, Shell_Class::Load);
 
 #endif

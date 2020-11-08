@@ -22,14 +22,12 @@ public:
 
     static Software_Class* Load();
 
-    enum Picture_ID
+    enum Picture
     {
         Piano_32 = 5,
     };
     
-    friend void Piano_Task(void *pvParameters);
+    static void Main_Task(void *pvParameters);
 };
 
 Software_Handle_Class Piano_Handle("Piano", Piano_Class::Piano_32, Piano_Class::Load);
-
-void Piano_Task(void *);

@@ -60,6 +60,7 @@
 // Event constant (used to interract with the event handler)
 
 typedef uint16_t GalaxOS_Event;
+typedef tm GalaxOS_Time;
 
 // Errors
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
@@ -103,7 +104,6 @@ typedef uint16_t GalaxOS_Event;
 class GalaxOS_Class
 {
 protected:
-
     // Instance pointer
 
     static GalaxOS_Class *Instance_Pointer;
@@ -127,8 +127,8 @@ protected:
 
     // Picure ID
 
-    enum Picture {
-        GalaxOS_Icon_64,
+    enum Picture
+    {
         AFG_Icon_64,
         Question_32,
         Information_32,
@@ -138,18 +138,17 @@ protected:
 
     // Font ID
 
-    enum Font {
+    enum Font
+    {
         Main_16 = 0,
         Main_24 = 2,
         Main_32 = 3
     };
 
-    // Virtual Memory File
-
+    /* Virtual Memory File
     File Virtual_Memory_File;
     uint8_t Split_Number[8];
-    SemaphoreHandle_t Virtual_Memory_Semaphore;
-
+    SemaphoreHandle_t Virtual_Memory_Semaphore;*/
 
     const int Low_RAM_Threshold = 2000;
 
@@ -169,22 +168,10 @@ protected:
     uint8_t Event_Reply;
 
     // Display callback
-
     char Tag;
-
-    // Unix time
-
-    tm Time;
-    time_t Now;
-    char NTP_Server[32];
-    char Time_Zone[48];
-
-    // 
-
-    xTaskHandle Ressource_Monitor_Handle;
-    xTaskHandle Core_Task_Handle;
-
-    QueueHandle_t Core_Instruction_Queue_Handle;
+    static void Incomming_String_Data_From_Display(const char *, uint8_t);
+    static void Incomming_Numeric_Data_From_Display(uint32_t &);
+    static void Incomming_Event_From_Display(uint8_t &);
 
     // Serial print
 
@@ -200,6 +187,7 @@ protected:
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
     void Maximize_Software(uint8_t);
+    void Add_Software_Handle(Software_Handle_Class *);
 
     void Create_System_Files();
 
@@ -275,23 +263,24 @@ public:
 #endif
     // WiFi
 
-
-
     // System state
     void Start(); // public
 
-    void Load(); // private
+    void Shutdown(); // private
+    void Load();     // private
 
-    void Save_System_State(); // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
-    void Restore_System_State(); // private : 
+    void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
+    void Restore_System_State(); // private :
 
-    void Synchronise_Time(); // private : 
+    // Time management
+    GalaxOS_Time Time;
+    time_t Now;
+    char NTP_Server[32];
+    char Time_Zone[48];
 
-    uint8_t Offset;
-
-    // Software Management
-
-    void Set_Load_Function(const char *, Software_Class *(*)()); // Used by softwa
+    void Synchronise_Time();
+    void Refresh_Clock();
+    GalaxOS_Time Get_Time();
 
     // Display callback functions
 
@@ -310,10 +299,6 @@ public:
         Variable_Long_Local = 0x6C,    // 'l'
         Variable_Long_Global = 0x4C,   // 'L'
     };
-
-    static void Incomming_String_Data_From_Display(const char *, uint8_t);
-    static void Incomming_Numeric_Data_From_Display(uint32_t &);
-    static void Incomming_Event_From_Display(uint8_t &);
 
     // Serial communication macro
 
@@ -355,8 +340,6 @@ public:
     void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
     void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
-    void Load_System_Files();
-    void Load_User_Files();
 
     GalaxOS_Event Check_Credentials(const char *, const char *);
     GalaxOS_Event Login(const char *Username_To_Check, const char *Password_To_Check);
@@ -374,15 +357,16 @@ public:
 
     void Nextion_Upload_Firmware(String const &Path);
 
+    // System's task :
+    xTaskHandle Core_Task_Handle;
+    //QueueHandle_t Core_Instruction_Queue_Handle;
     static void Core_Task(void *);
+    static void Idle_Task_Software_Core(void *);
+    static void Idle_Task_System_Core(void *);
 
     friend class Shell_Class;
-    friend void Ressource_Monitor(void *pvParameters);
+    friend class Software_Handle_Class;
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
-void Ressource_Monitor(void *);
-void Idle_Task_System_Core(void *);
-void Idle_Task_Software_Core(void *);
-
 #endif

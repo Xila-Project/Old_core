@@ -363,7 +363,7 @@ void Nextion_Display_Class::Draw_Crop_Picture(uint16_t const &X_Coordinate, uint
     Instruction_End();
 }
 
-void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint8_t const &Font_ID, uint8_t const &Text_Color, uint16_t Backgroud, uint8_t const &Horizontal_Alignment, uint8_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text)
+void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("xstr "));
@@ -387,7 +387,9 @@ void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t con
     Argument_Separator();
     Nextion_Serial.print(Background_Type);
     Argument_Separator();
+    Nextion_Serial.print(F("\""));
     Nextion_Serial.print(Text);
+    Nextion_Serial.print(F("\""));
     Instruction_End();
 }
 
@@ -648,6 +650,22 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
     return Update_Succeed;
 }
 
+// Sleep & Wake up
+
+void Nextion_Display_Class::Sleep()
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("sleep=1"));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Wake_Up()
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("sleep=0"));
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Get(const __FlashStringHelper *Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
@@ -701,7 +719,7 @@ void Nextion_Display_Class::Set_Backlight(uint8_t const &Brightness, bool const 
         Nextion_Serial.print(F("s"));
     }
     Nextion_Serial.print(F("="));
-    Nextion_Serial.print(String(Brightness));
+    Nextion_Serial.print(Brightness);
     Instruction_End();
 }
 

@@ -360,7 +360,7 @@ public:
 
     enum Picture_ID
     {
-        Tiny_Basic_32 = 38 //currently empty
+        Tiny_Basic_32 = 48 //currently empty
     };
 
     TinyBasic_Class();

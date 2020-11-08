@@ -5,6 +5,7 @@
 Software_Class* Software_Class::Instance_Pointer = NULL;
 Software_Handle_Class* Software_Class::Handle_Pointer = NULL; 
 
+
 Software_Class::Software_Class(uint8_t Task_Queue_Size)
 {
   Serial.println(F("Software constructor"));
@@ -24,6 +25,11 @@ Software_Class::~Software_Class() // Destructor : close
   }
   Instance_Pointer = NULL;
   vQueueDelete(Command_Queue_Handle);
+}
+
+void Software_Class::Open_File(File& File_To_Open)
+{
+  
 }
 
 void Software_Class::Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
@@ -51,18 +57,19 @@ void Software_Class::Execute(char Task_Method_Char1, char Task_Method_Char2)
 void Software_Class::Close()
 {
   vTaskResume(Task_Handle);
-  Execute(Code::Close);
+  Execute(Software_Code::Close);
 }
 
 void Software_Class::Maximize()
 {
   vTaskResume(Task_Handle);
-  Execute(Code::Maximize);
+  Execute(Software_Code::Maximize);
 }
 
 void Software_Class::Minimize()
 {
-  Execute(Code::Minimize);
+  vTaskResume(Task_Handle);
+  Execute(Software_Code::Minimize);
 }
 
 Software_Class* Software_Class::Load() // just an example

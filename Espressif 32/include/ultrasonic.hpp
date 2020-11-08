@@ -36,7 +36,7 @@ public:
 
     enum Picture_ID
     {
-        Ultrasonic_32 = 38
+        Ultrasonic_32 = 47
     };
 
     friend void Ultrasonic_Task(void*);

@@ -5,7 +5,7 @@ Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 Text_Editor_Class::Text_Editor_Class() : Software_Class(6)
 {
     xTaskCreatePinnedToCore(Main_Task, "Text Editor Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Code::Open);
+    Execute(Software_Code::Open);
 }
 
 Text_Editor_Class::~Text_Editor_Class()
@@ -31,15 +31,15 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             // IDLE : nothing to do
             vTaskDelay(pdMS_TO_TICKS(20));
             break;
-        case Code::Close:
+        case Software_Code::Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Code::Maximize:
-        case Code::Open:
+        case Software_Code::Maximize:
+        case Software_Code::Open:
             GalaxOS.Display.Set_Current_Page(F("Text_Editor"));
             break;
-        case Code::Minimize:
+        case Software_Code::Minimize:
             break;
         case 0x5355: // SU : scroll up
             Instance_Pointer->Offset += 55;
@@ -102,7 +102,8 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
     case 'S':
         if (Type == GalaxOS.Variable_Long_Local)
         {
-            Offset = ((uint8_t)Variable * File_To_Edit.size()) / 176;
+            Offset = *(uint8_t *)Variable; 
+            Offset = (Offset * File_To_Edit.size()) / 176;
             Execute('R', 'T');
         }
         break;
@@ -123,11 +124,11 @@ void Text_Editor_Class::Refresh_Text()
     char Line_Ending;
     switch (Mode)
     {
-    case Mode::MacOS:
-    case Mode::Windows:
+    case MacOS:
+    case Windows:
         Line_Ending = 0x0D;
         break;
-    case Mode::Unix:
+    case Unix:
         Line_Ending = 0x0A;
     default:
         break;

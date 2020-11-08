@@ -4,15 +4,17 @@
 #include "Arduino.h"
 #include "FS.h"
 
-class GalaxOS_Class;
-class Shell_Class;
+
+
 class Software_Handle_Class;
+class GalaxOS_Class;
+extern GalaxOS_Class GalaxOS;
 
 #define SOFTWARE_TYPE_LOADED 0
 #define SOFTWARE_TYPE_COMPILED 1
 #define SOFTWARE_TYPE_INTERPRETED 2
 
-enum Code // System code used by the core to communicate
+enum Software_Code // System code used by the core to communicate
 {
     Close = 0x0043,
     Maximize = 0x004D,
@@ -28,11 +30,11 @@ protected:
 
     TaskHandle_t Task_Handle;
 
-    static Software_Class* Load();
+    static Software_Class *Load();
 
-    static Software_Class* Instance_Pointer;
+    static Software_Class *Instance_Pointer;
 
-    static Software_Handle_Class* Handle_Pointer;
+    static Software_Handle_Class *Handle_Pointer;
 
     QueueHandle_t Command_Queue_Handle;
 
@@ -42,12 +44,12 @@ protected:
     void Maximize(); // Show
     void Minimize(); // Hide
 
-    void Open_File(File &File_To_Open);
+    virtual void Open_File(File &File_To_Open);
 
     void Execute(uint16_t);
     void Execute(char, char);
 
-    virtual void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
+    virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     uint16_t Get_Command();
 

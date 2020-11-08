@@ -1,6 +1,6 @@
 #include "Shell.hpp"
 
-Shell_Class* Shell_Class::Instance_Pointer = NULL;
+Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
 Shell_Class::Shell_Class() : Software_Class(6),
                              Mode(0)
@@ -8,8 +8,8 @@ Shell_Class::Shell_Class() : Software_Class(6),
     Handle_Pointer = &Shell_Handle;
     memset(Username, '\0', sizeof(Username));
     memset(Password, '\0', sizeof(Password));
-    Execute(0x4F4C);
     xTaskCreatePinnedToCore(Main_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Execute(Software_Code::Maximize);
 }
 
 Shell_Class::~Shell_Class()
@@ -32,6 +32,11 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     {
     case 'U':
         strcpy(Username, (char *)Variable);
+        break;
+    case 'D':
+        if (Type == GalaxOS.Variable_Long_Local)
+        {
+        }
         break;
     case 'P':
         if (Type == GalaxOS.Variable_String_Local)
@@ -59,14 +64,16 @@ void Shell_Class::Main_Task(void *pvParameters)
             vTaskDelay(pdMS_TO_TICKS(20));
             break;
 
-        case 0x0043: // close
+        case Software_Code::Close: // close
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case 0x004D: // minimize
+        case Software_Code::Minimize: // minimize
             vTaskSuspend(NULL);
             break;
-
+        case Software_Code::Maximize:
+            Instance_Pointer->Open_Desk();
+            break;
         case 0x534D: // SM : Shutdown menu
             GalaxOS.Display.Set_Current_Page(F("Shell_Shutdown"));
             break;
@@ -81,7 +88,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             break;
 
         case 0x5353: // SS : shutdown
-
+            GalaxOS.Shutdown();
             break;
         case 0x4C6F: // Lo : Login with entred username and password
             Instance_Pointer->Login();
@@ -196,7 +203,7 @@ void Shell_Class::Open_From_Drawer(uint8_t Slot)
         Open_Preferences('P');
         break;
     default:
-        GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Slot - 1]); // exclude 1st slot (shell ui), so add, minus 2 = 1
+        GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Slot]); // exclude 1st slot (shell ui), so add, minus 2 = 1
         break;
     }
 }
@@ -237,7 +244,11 @@ void Shell_Class::Open_Desk()
     /*Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/DESKTOP/");
     Temporary_File.rewindDirectory();
     Temporary_File.openNextFile();*/
-
+    if (GalaxOS.Current_Username[0] == '\0')
+    {
+        Open_Login();
+        return;
+    }
     // List all running app on the task bar
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
@@ -255,19 +266,22 @@ void Shell_Class::Open_Desk()
 
 void Shell_Class::Open_Drawer()
 {
-    GalaxOS.Display.Set_Current_Page(F("Shell_Menu"));
+    GalaxOS.Display.Set_Current_Page(F("Shell_Drawer"));
     char Temporary_String[11];
     Temporary_String[0] = '\r'; //jump
     Temporary_String[1] = '\n';
     strcpy(Temporary_String + 2, GalaxOS.Current_Username);
     GalaxOS.Display.Set_Text(F("USERNAME_TXT"), Temporary_String);
-    GalaxOS.Display.Show(F("CP_PIC"));
     GalaxOS.Display.Show(F("SHUTDOWN_PIC"));
     strcpy(Temporary_String, "ITEM _TXT");
     uint8_t Item = 0;
-    for (Item = 1; Item < 10; Item++)
+    GalaxOS.Display.Set_Text(F("ITEM0_TXT"), F("File Manager"));
+    GalaxOS.Display.Set_Picture(F("ITEM0_PIC"), File_Manager_32);
+    GalaxOS.Display.Set_Text(F("ITEM1_TXT"), F("Preferences"));
+    GalaxOS.Display.Set_Picture(F("ITEM1_PIC"), Preferences_32);
+    for (Item = 2; Item < 10; Item++)
     {
-        Temporary_String[4] = Item + 47;
+        Temporary_String[4] = Item + 48;
         if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
         {
             GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item]->Name));
@@ -281,9 +295,9 @@ void Shell_Class::Open_Drawer()
     for (Item = 0; Item < 4; Item++)
     {
         Temporary_String[5] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item + 9] != NULL)
+        if (GalaxOS.Software_Handle_Pointer[Item + 10] != NULL)
         {
-            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item + 9]->Name));
+            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item + 10]->Name));
         }
         else
         {
@@ -291,9 +305,9 @@ void Shell_Class::Open_Drawer()
         }
     }
     strcpy(Temporary_String, "ITEM _PIC");
-    for (Item = 0; Item < 10; Item++)
+    for (Item = 2; Item < 10; Item++)
     {
-        Temporary_String[4] = Item + 49;
+        Temporary_String[4] = Item + 48;
         if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
         {
             GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Icon);
@@ -307,9 +321,9 @@ void Shell_Class::Open_Drawer()
     for (Item = 0; Item < 5; Item++)
     {
         Temporary_String[5] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item + 9] != NULL)
+        if (GalaxOS.Software_Handle_Pointer[Item + 10] != NULL)
         {
-            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item + 9]->Icon);
+            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item + 10]->Icon);
         }
         else
         {

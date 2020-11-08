@@ -19,6 +19,9 @@
 || Version : 0.1 - Alix ANNERAUD - MIT Licence - 2016/2020                    ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                                    Wiring :                                ||
+||  - Power button :                                                          ||
+|| Side 1 : GND                                                               ||
+|| Side 2 : 27                                                                ||
 ||  - Display (Nextion) :                                                     ||
 || Red -> 5v                                                                  ||
 || Blue -> P16                                                                ||

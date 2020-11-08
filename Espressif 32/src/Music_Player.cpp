@@ -1,8 +1,6 @@
 #include "Music_Player.hpp"
 
-#define INSTANCE_POINTER Music_Player_Class::Instance_Pointer
-
-Music_Player_Class *Music_Player_Class::Instance_Pointer = NULL;
+Music_Player_Class* Music_Player_Class::Instance_Pointer = NULL;
 
 Software_Class* Music_Player_Class::Load()
 {
@@ -23,12 +21,12 @@ Music_Player_Class::~Music_Player_Class()
     
 }
 
-void Music_Player_Task(void *pvParameters)
+void Music_Player_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
     {
-        switch (INSTANCE_POINTER->Get_Command())
+        switch (Instance_Pointer->Get_Command())
         {
         case 0:
 
@@ -44,7 +42,5 @@ void Music_Player_Task(void *pvParameters)
 
 void Music_Player_Class::Pause()
 {
-    
-}
 
-#undef INSTANCE_POINTER
+}

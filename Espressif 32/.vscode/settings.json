@@ -8,5 +8,6 @@
         "utility": "cpp",
         "algorithm": "cpp",
         "string": "cpp"
-    }
+    },
+    "C_Cpp.dimInactiveRegions": false
 }

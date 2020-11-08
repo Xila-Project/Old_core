@@ -36,8 +36,13 @@ class Periodic_Class : protected Software_Class
 
         static Software_Class* Load();
 
+        enum Picture
+        {
+            Periodic_32 = 46
+        };
+
 };
 
-Software_Handle_Class Periodic_Handle("Periodic", 12, Periodic_Class::Load);
+Software_Handle_Class Periodic_Handle("Periodic", Periodic_Class::Periodic_32, Periodic_Class::Load);
 
 #endif

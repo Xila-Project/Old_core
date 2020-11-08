@@ -31,11 +31,11 @@ void Signal_Generator_Task(void *pvParameters)
                 //idle
                 vTaskDelay(pdMS_TO_TICKS(20));
                 break;
-            case Code::Close:
+            case Software_Code::Close:
                 delete INSTANCE_POINTER;
                 vTaskDelete(NULL);
                 break;
-            case Code::Minimize:
+            case Software_Code::Minimize:
                 vTaskSuspend(NULL);
                 break;
             default :

@@ -3,12 +3,10 @@
 
 #include "GalaxOS.hpp"
 
-#include "WiFiClient.h"
-#include <HTTPClient.h>
+#include "WiFiClientSecure.h"
 
 //highest header file, will be replace by a separate one
 
-#define INSTANCE_POINTER Internet_Browser_Class::Instance_Pointer
 
 #define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
@@ -149,7 +147,7 @@ private:
     linkStruct pageLinks;
 
     uint8_t generalBuffer[55];
-    WiFiClient WiFi_Client;
+    WiFiClientSecure Client;
 
     void Build_URL(uint16_t pointer); // combine splitted url into full one
 
@@ -185,7 +183,7 @@ public:
     Internet_Browser_Class();
     ~Internet_Browser_Class();
 
-    enum Picture_ID
+    enum Picture
     {
         Internet_Browser_32 = 9
     };

@@ -17,8 +17,6 @@ private:
 
     uint8_t Operator[4];
 
-    
-
     uint8_t Current_Number;
 
     void Add_Number(uint8_t const& Number_To_Add);
@@ -35,17 +33,15 @@ public:
     Calculator_Class();
     ~Calculator_Class();
 
-    friend void Calculator_Task(void *pvParameters);
+    static void Main_Task(void *pvParameters);
 
-    enum Picture_ID
+    enum Picture
     {
         Calculator_32 = 6
     };
 
     static Software_Class* Load();
 };
-
-void Calculator_Task(void *pvParamters);
 
 Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Calculator_32, Calculator_Class::Load);
 

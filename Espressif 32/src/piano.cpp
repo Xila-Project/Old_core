@@ -1,14 +1,14 @@
 #include "piano.hpp"
 
 Piano_Class* Piano_Class::Instance_Pointer = NULL;
-#define INSTANCE_POINTER Piano_Class::Instance_Pointer
 
 Piano_Class::Piano_Class() : Software_Class(6),
 Offset(0),
 Duration(200),
 MIDI_Output(false)
 {
-    xTaskCreatePinnedToCore(Piano_Task, "Piano Task", 4*1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    xTaskCreatePinnedToCore(Main_Task, "Piano Task", 4*1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Execute(Software_Code::Maximize);
 }
 
 Piano_Class::~Piano_Class()
@@ -25,114 +25,116 @@ Software_Class* Piano_Class::Load()
     return Instance_Pointer;
 }
 
-void Piano_Task(void *pvParameters)
+void Piano_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
     {
-        switch (INSTANCE_POINTER->Get_Command())
+        switch (Instance_Pointer->Get_Command())
         {
         case 0: //idle state
             vTaskDelay(pdMS_TO_TICKS(10));
             break;
-
+        case Software_Code::Maximize:
+            GalaxOS.Display.Set_Current_Page(F("Piano"));
+            break;
+        case Software_Code::Minimize:
+            
+            break;
+        case Software_Code::Close:
+            break;
         case 0x4320: //C
-            INSTANCE_POINTER->Play_Note(0);
+            Instance_Pointer->Play_Note(0);
             break;
-
         case 0x4323: //C#
-            INSTANCE_POINTER->Play_Note(1);
-
+            Instance_Pointer->Play_Note(1);
             break;
-
         case 0x4420: //D
-            INSTANCE_POINTER->Play_Note(2);
-
+            Instance_Pointer->Play_Note(2);
             break;
-
         case 0x4423: //D#
-            INSTANCE_POINTER->Play_Note(3);
+            Instance_Pointer->Play_Note(3);
 
             break;
 
         case 0x4520: //E
-            INSTANCE_POINTER->Play_Note(4);
+            Instance_Pointer->Play_Note(4);
             break;
 
         case 0x4620: //F
-            INSTANCE_POINTER->Play_Note(5);
+            Instance_Pointer->Play_Note(5);
             break;
 
         case 0x4623: //F#
-            INSTANCE_POINTER->Play_Note(6);
+            Instance_Pointer->Play_Note(6);
             break;
 
         case 0x4720: //G
-            INSTANCE_POINTER->Play_Note(7);
+            Instance_Pointer->Play_Note(7);
             break;
 
         case 0x4723: //G#
-            INSTANCE_POINTER->Play_Note(8);
+            Instance_Pointer->Play_Note(8);
             break;
 
         case 0x4120: //A
-            INSTANCE_POINTER->Play_Note(9);
+            Instance_Pointer->Play_Note(9);
             break;
 
         case 0x4123: //A#
-            INSTANCE_POINTER->Play_Note(10);
+            Instance_Pointer->Play_Note(10);
             break;
 
         case 0x4220: //B
-            INSTANCE_POINTER->Play_Note(11);
+            Instance_Pointer->Play_Note(11);
             break;
 
         case 0x6320: //c
-            INSTANCE_POINTER->Play_Note(12);
+            Instance_Pointer->Play_Note(12);
             break;
 
         case 0x6323: //c#
-            INSTANCE_POINTER->Play_Note(13);
+            Instance_Pointer->Play_Note(13);
             break;
 
         case 0x6420: //d
-            INSTANCE_POINTER->Play_Note(14);
+            Instance_Pointer->Play_Note(14);
             break;
 
         case 0x6423: //d#
-            INSTANCE_POINTER->Play_Note(15);
+            Instance_Pointer->Play_Note(15);
             break;
 
         case 0x6520: //e
-            INSTANCE_POINTER->Play_Note(16);
+            Instance_Pointer->Play_Note(16);
             break;
 
         case 0x6620: //f
-            INSTANCE_POINTER->Play_Note(17);
+            Instance_Pointer->Play_Note(17);
             break;
 
         case 0x6623: //f#
-            INSTANCE_POINTER->Play_Note(18);
+            Instance_Pointer->Play_Note(18);
             break;
 
         case 0x6720: //g
-            INSTANCE_POINTER->Play_Note(19);
+            Instance_Pointer->Play_Note(19);
             break;
 
         case 0x6723: //g#
-            INSTANCE_POINTER->Play_Note(20);
+            Instance_Pointer->Play_Note(20);
             break;
 
         case 0x6120: //a
-            INSTANCE_POINTER->Play_Note(21);
+            Instance_Pointer->Play_Note(21);
             break;
 
         case 0x6123: //a#
-            INSTANCE_POINTER->Play_Note(22);
+            Instance_Pointer->Play_Note(22);
             break;
 
         case 0x6220: //b
-            INSTANCE_POINTER->Play_Note(23);
+            Instance_Pointer->Play_Note(23);
             break;
 
         default:
@@ -159,5 +161,3 @@ void Piano_Class::Play_Note(uint8_t Note)
         Serial.write(128);
     }
 }
-
-#undef INSTANCE_POINTER
