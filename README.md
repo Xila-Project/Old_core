@@ -1,9 +1,8 @@
-# Galax OS Embedded Edition
+# Xila
 
 ## Introduction
 
-GalaxOS cannot be consider as an operating system, it's more an user interface developped on ESP32 (before on Atmel Mega 2560) which has mutiple purposes. It's a huge project for a beginner in C++ like me (be lenient with me when you read the code).
-The code has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources. I hope you would like it !
+Xila is a graphical user interface made for microcontroler, it can be considered as a graphical operating system. But it relay on FreeRTOS API. It's a huge project for a beginner in C++ like me (pls be lenient with me when you read the code). Due fussy character, my has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources. I hope you would like it !
 
 ### Inpired By
 
@@ -17,7 +16,7 @@ Here's features which are already implemented :
 
 - File manager (explorer, create, move, delete ...)
 - Account manager.
-- Internet Browser (Only HTTP1.1, it sound silly, but it's a proof of concept !)
+- Internet Browser (I know, it sound totaly silly, but it's for the fun!)
 - Multimeter.
 - Oscilloscope.
 - Function generator.
@@ -26,7 +25,7 @@ Here's features which are already implemented :
 - Periodic Table.
 - Picture viewer (currently only support bitmap).
 - Ultrasonic meter.
-- Clock (NTP Time).
+- Clock (rely on NTP Time).
 - Music Player (with ULP processor).
 - Calculator
 - Control Parameter (edit configuration registry, stored in json file ".GCF").
@@ -35,19 +34,32 @@ Here's features which are already implemented :
 
 ## Roadmap
 
-- Release a "stable" version.
-- Add SSL/TLS support to the Internet Browser.
-- Add support for external app (Tinybasic ? / Python ? / Multi partitionning with binaries ?)
+- Release a "stable" version
 - Add external video support (bitluni's VGA ? / FabGL ?).
 - Get rid of proprietary Nextion Display (Retro-ingenering ? Gamebuino 3 ?)
 - Comment proprely the code
-- Implement TinyBasic or/and MicroPython intepreter.
-- Use ULP to save time during sleep period.
 
+## Installation
+
+Xila is portable, I you just want to make it run on your SD card, then you just have to copy the code here in the Arduino IDE and then the ESP32 will do the job for you. 
+
+## Developpement
+
+Xila main goal was to allow the cohabitation between to programs. If you want to add yours, you have to way to proceed :
+
+### External Software
+
+This way is more flexible, because you only generate an executable file, which will be loaded in the ESP32 flash.
+
+I'm currently considering a way to implement code interpeter like Basic to run external programs. (Allow to not rewrite the flash each time we switch software).
+
+### Internal Software
+
+If you want to make your app faster to load and not ruin your ESP32 flash. You can implement your software like a "built-in" one. To understand how to proceed, read the documentation on how to create your own software.
 
 ## Hardware
 
-Here's main hadware needed to run GalaxOS :
+Here's main hadware needed to run Xila :
 
 - NodeMCU-32S (but all esp32 will work fine).
 - Nextion 4.3" Resistive Touch Display (NX4827T043_11)
