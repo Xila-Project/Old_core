@@ -213,7 +213,7 @@ void Shell_Class::Open_From_Dock(uint8_t Slot)
     GalaxOS.Maximize_Software(Slot + 1);
 }
 
-void Shell_Class::Open_Preferences(char Section)
+void Shell_Class::Open_Preferences(char const &Section)
 {
     switch (Section)
     {
@@ -228,15 +228,78 @@ void Shell_Class::Open_Preferences(char Section)
         break;
     case 'S':
         GalaxOS.Display.Set_Current_Page(F("Shell_System"));
+        GalaxOS.Display.Set_Text(F("NTPVAL_TXT"), GalaxOS.NTP_Server);
+        GalaxOS.Display.Set_Text(F("USERNVAL_TXT"), GalaxOS.Current_Username);
+
         break;
     default:
         break;
     }
 }
 
+void Shell_Class::Modify_User(uint8_t const &Mode)
+{
+    switch (Mode)
+    {
+    case 'D':
+        if (GalaxOS.Event_Dialog(F("Are you sure you want to delete this user ?"), GalaxOS.Question) == GalaxOS.Button_2)
+        {
+            if (GalaxOS.Delete_User(Username, Password) == GalaxOS.Success)
+            {
+                GalaxOS.Event_Dialog(F("Succed to delete this user account."), GalaxOS.Information);
+                if (strcmp(GalaxOS.Current_Username, Username) == 0)
+                {
+                    Logout();
+                    return;
+                }
+            }
+            else
+            {
+                GalaxOS.Event_Dialog(F("Failed to delete this user account."), GalaxOS.Error);
+            }
+        }
+        break;
+    case 'A':
+        if (GalaxOS.Add_User(Username, Password) == GalaxOS.Success)
+        {
+            GalaxOS.Event_Dialog(F("User account created successfully."), GalaxOS.Infromation);
+        }
+        else
+        {
+            GalaxOS.Event_Dialog(F("Failed to create this user account."), GalaxOS.Error);
+        }
+        break;
+    case 'M':
+        if (GalaxOS.Change_Password(Username, Password) == GalaxOS.Success)
+        {
+            GalaxOS.Event_Dialog(F("Succed to change user's password."), GalaxOS.Information);
+        }
+        else
+        {
+            GalaxOS.Event_Dialog(F("Failed to change user's password."), GalaxOS.Error);
+        }
+        break;
+    }
+    Execute(0x4F53);
+}
+
+void Shell_Class::Logout()
+{
+    if (GalaxOS.Logout() == GalaxOS.Succcess)
+    {
+        
+    }
+    Open_Login();
+}
+
 void Shell_Class::Open_Desk()
 {
     Verbose_Print_Line("> Open desk");
+    if (GalaxOS.Current_Username[0] == '\0')
+    {
+        Open_Login();
+        return;
+    }
     GalaxOS.Display.Set_Current_Page(F("Shell_Desk"));
     char Temporary_String[] = "SLOT _PIC";
 
@@ -244,11 +307,7 @@ void Shell_Class::Open_Desk()
     /*Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/DESKTOP/");
     Temporary_File.rewindDirectory();
     Temporary_File.openNextFile();*/
-    if (GalaxOS.Current_Username[0] == '\0')
-    {
-        Open_Login();
-        return;
-    }
+
     // List all running app on the task bar
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
@@ -402,8 +461,8 @@ void Shell_Class::Login()
     }
     else // Wrong credentials
     {
-        GalaxOS.Event_Handler(F("Wrong credentials !"), GalaxOS.Error);
-        // Event handle :
+        GalaxOS.Event_Dialog(F("Wrong credentials !"), GalaxOS.Error);
+        Open_Login();
     }
 }
 
@@ -484,13 +543,11 @@ void Shell_Class::Make_Directory(char *Item_Name)
 
 void Shell_Class::Delete(char *Item_Name)
 {
-    switch (GalaxOS.Event_Handler(F("Do you "), GalaxOS.Question))
+    switch (GalaxOS.Event_Dialog(F("Do you "), GalaxOS.Question))
     {
-    case GalaxOS.Yes:
+    case GalaxOS.Button_1:
         GalaxOS.Drive->remove(Current_Path + Item_Name);
         break;
-    case GalaxOS.No:
-    case GalaxOS.Cancel:
     default:
         break;
     }

@@ -17,13 +17,16 @@ protected:
     char Password[25];
 
     void Login();
-
+    void Logout();
+    
     void Open_Desk();
     void Open_Drawer();
     void Open_Item();
     void Open_Login();
     void Open_File_Manager();
-    void Open_Preferences(char Section);
+    void Open_Preferences(char const& Section);
+
+    void Modify_User(uint8_t const& Mode);
 
     void Display_Path();
 

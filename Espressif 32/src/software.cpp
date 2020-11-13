@@ -8,17 +8,16 @@ Software_Handle_Class* Software_Class::Handle_Pointer = NULL;
 
 Software_Class::Software_Class(uint8_t Task_Queue_Size)
 {
-  Serial.println(F("Software constructor"));
   Command_Queue_Handle = xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
   if (Command_Queue_Handle == NULL)
   {
-    // errror
+    Serial.print(F("Error cannot create software Queue !"));
+    delete this;
   }
 }
 
 Software_Class::~Software_Class() // Destructor : close
 {
-  Serial.println(F("Software destructor"));
   if (Instance_Pointer != this)
   {
     delete Instance_Pointer;

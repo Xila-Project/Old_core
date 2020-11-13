@@ -24,7 +24,7 @@ Software_Class* Clock_Class::Load()
 
 void Clock_Class::Main_Task(void *pvParameters)
 {
-    GalaxOS_Time Time;
+    Xila_Time Time;
     char Temporary_Char_Array[40];
     uint8_t Offset;
     while (1)

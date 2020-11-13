@@ -59,8 +59,9 @@
 
 // Event constant (used to interract with the event handler)
 
-typedef uint16_t GalaxOS_Event;
-typedef tm GalaxOS_Time;
+typedef uint16_t Xila_Event;
+typedef uint16_t Xila_Command;
+typedef tm Xila_Time;
 
 // Errors
 #define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
@@ -110,8 +111,8 @@ protected:
 
     // System path
 
-    const char Users_Path[8] = "/USERS/";
-    const char System_Path[10] = "/GALAXOS/";
+    const char Users_Directory_Path[8] = "/USERS/";
+    const char System_Directory_Path[10] = "/GALAXOS/";
     const char Extension_Registry_Path[31] = "/GALAXOS/REGISTRY/EXTENSIO.GRF";
     const char Display_Registry_Path[30] = "/GALAXOS/REGISTRY/DISPLAY.GRF";
     const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
@@ -163,10 +164,6 @@ protected:
     // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
     Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
-    // Event Handler
-
-    uint8_t Event_Reply;
-
     // Display callback
     char Tag;
     static void Incomming_String_Data_From_Display(const char *, uint8_t);
@@ -178,8 +175,6 @@ protected:
     uint8_t Remaining_Spaces;
 
     //Software management
-
-    GalaxOS_Event Event_Handler(GalaxOS_Event const &);
 
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
@@ -207,15 +202,6 @@ public:
         Delete_File,
     };
 
-    enum Answer
-    {
-        Yes,
-        Cancel,
-        Apply,
-        No,
-        Default,
-    };
-
     enum Warning
     {
 
@@ -229,6 +215,7 @@ public:
         Failed_To_Initialize_SD_Card,
         Corrupted_System_File,
         Invalid_Software_ID,
+        Too_Much_Openned_Software,
         Screen_Data_Exception
     };
 
@@ -273,25 +260,26 @@ public:
     void Restore_System_State(); // private :
 
     // Time management
-    GalaxOS_Time Time;
+    Xila_Time Time;
     time_t Now;
     char NTP_Server[32];
     char Time_Zone[48];
 
     void Synchronise_Time();
     void Refresh_Clock();
-    GalaxOS_Time Get_Time();
+    Xila_Time Get_Time();
 
     // Display callback functions
 
     enum Code
     {
-        Close = 0x43,                  // 'C'
-        Maximize = 0x4D,               // 'M'
-        Minimize = 0x6D,               // 'm'
-        Switch = 0x53,                 // 'S' : switch
-        Command = 0x2A,                // '*'
-        Command_New = 0x23,            // '#'
+        Close = 0x43,       // 'C'
+        Maximize = 0x4D,    // 'M'
+        Minimize = 0x6D,    // 'm'
+        Switch = 0x53,      // 'S' : switch
+        Command = 0x2A,     // '*'
+        Command_New = 0x23, // '#'
+        Event = 0x45,
         Variable_String_Local = 0x73,  // 's'
         Variable_String_Global = 0x53, // 'S'
         Variable_Char_Local = 0x63,    // 'c'
@@ -340,10 +328,14 @@ public:
     void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
     void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
+    Xila_Event Check_Credentials(const char *, const char *);
+    Xila_Event Add_User(const char*, const char*);
+    Xila_Event Delete_User(const char*, const char*);
+    Xila_Event Change_Password(const char*, const char*, const char*);
+    Xila_Event Login(const char *Username_To_Check, const char *Password_To_Check);
+    Xila_Event Logout();
 
-    GalaxOS_Event Check_Credentials(const char *, const char *);
-    GalaxOS_Event Login(const char *Username_To_Check, const char *Password_To_Check);
-    GalaxOS_Event Logout();
+    // System dialogs
 
     enum Events
     {
@@ -353,7 +345,21 @@ public:
         Question,
     };
 
-    GalaxOS_Event Event_Handler(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    enum Reply
+    {
+        None = 0,
+        Button_1 = 0x31,
+        Button_2 = 0x32,
+        Button_3 = 0x33
+    };
+
+    Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    Xila_Event Event_Dialog(Xila_Event const &);
+    SemaphoreHandle_t Dialog_Semaphore;
+    Xila_Event Event_Reply;
+    File File_Dialog(Xila_Event const&); //s
+
+    //
 
     void Nextion_Upload_Firmware(String const &Path);
 

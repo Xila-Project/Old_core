@@ -24,7 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
   textContent = {0, 0, false};
 
   xTaskCreatePinnedToCore(Main_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-  Execute(Software_Code::Maximize);
+  Maximize();
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
@@ -34,7 +34,7 @@ Internet_Browser_Class::~Internet_Browser_Class()
 
 void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-  if (Adress == 'U')
+  if (Adress == 'U' && Type == GalaxOS.Variable_Char_Local)
   {
     strcpy(URL, (char *)Variable);
   }
@@ -63,17 +63,20 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       delete Instance_Pointer;
       vTaskDelete(NULL);
       break;
-    case 0x4E4C: //NL
-      Instance_Pointer->Next_Link();
-      break;
+
     case 0x5044: //PD
       Instance_Pointer->Page_Down();
       break;
-    case 0x504C: //PL
-      Instance_Pointer->Previous_Link();
-      break;
+
     case 0x5055: //PU
       Instance_Pointer->Page_Up();
+      break;
+
+    case 0x4E4C: //NL
+      Instance_Pointer->Next_Link();
+      break;
+    case 0x504C: //PL
+      Instance_Pointer->Previous_Link();
       break;
     case 0x474C: //GL
       Instance_Pointer->Go_Link();
@@ -96,16 +99,15 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
 void Internet_Browser_Class::Go_Home()
 {
   Serial.println(F("Go Home"));
-  memset(Server, 0, 30);
-  memset(Path, 0, 60);
-  memset(URL, 0, 90);
-  Server[0] = '*';
-  Server[1] = '\0';
-  URL[0] = '*';
-  URL[1] = '\0';
+  memset(Server, '\0', sizeof(Server));
+  memset(Path, '\0', sizeof(Path));
+  memset(URL, '\0', sizeof(URL));
+  strcpy(Server, "*");
+  strcpy(URL, "*");
   if (!Display_Page())
   {
-    Serial.println(F("Display Cache Failed !"));
+    GalaxOS.Event_Dialog(F("Display home page failed."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
   }
   Cache_File.flush();
 }
@@ -123,6 +125,7 @@ void Internet_Browser_Class::Go_URL()
   {
     Cache_File.close();
     Client.stop();
+    GalaxOS.Event_Dialog(F("Download or caching failed."), GalaxOS.Error);
     Serial.println(F("Download & Caching Failed !"));
     memset(Server, '\0', sizeof(Server));
     Server[0] = '*';
@@ -133,7 +136,8 @@ void Internet_Browser_Class::Go_URL()
   }
   if (!Display_Page())
   {
-    Serial.println(F("Display Cache Failed !"));
+    GalaxOS.Event_Dialog(F("Display page failed."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
   }
 }
 
@@ -183,7 +187,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
   if (!Cache_File)
   {
-    Serial.println(F("Cache open failed !"));
+    GalaxOS.Event_Dialog(F("Cache file open failed."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     return 0;
   }
 
@@ -194,19 +199,22 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   if (WiFi.status() != WL_CONNECTED)
   {
-    GalaxOS.Event_Handler(F("WiFi not connected."), GalaxOS.Error);
+    GalaxOS.Event_Dialog(F("Download failed : WiFi is not not connected."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     //error handle : not connected
     return 0;
   }
 
   if (URLserver[0] == '*') // Should never get an * here
   {
+    GalaxOS.Event_Dialog(F("Invalid URL."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Invalid URL !"));
     //error handle
     return 0;
   }
 
-  if (Client.connect(URLserver, 80))
+  if (Client.connect(URLserver, 443))
   {
     Client.print(F("GET "));
     Client.print(URLpath);
@@ -219,6 +227,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   }
   else
   {
+    GalaxOS.Event_Dialog(F("Connection failed."), GalaxOS.Error);
+    
     Serial.println(F("Connection failed !"));
     //error handle : reset ?
     return 0;
@@ -234,6 +244,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   if ((!Client.available()) && (!Client.connected()))
   {
     //error handle
+    GalaxOS.Event_Dialog(F("Connection timeout."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("\nWiFi timeout"));
     return 0;
   }
@@ -274,6 +286,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     }
     else if (outputChar == 1) //cannot find the file lenght, stop
     {
+      GalaxOS.Event_Dialog(F("Failed to parse page."), GalaxOS.Error);
+      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
       Serial.println(F("\nStopped by <, no file length found"));
       fileLength = 0;
     }
@@ -289,7 +303,10 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     outputChar = Find_Until(generalBuffer, false);
     if (outputChar == 0) //cannot find the body
     {
+      GalaxOS.Event_Dialog(F("Failed to parse page."), GalaxOS.Error);
+      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
       Serial.println(F("\nTimeout finding <body>\nShould probably stop now"));
+      return 0;
     }
     else
     {
@@ -319,6 +336,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       if ((!Client.available()) && (!Client.connected()))
       {
         //error handle
+        GalaxOS.Event_Dialog(F("The Connection has timed out."), GalaxOS.Error);
+        GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
         Serial.println(F("\nWiFi timeout"));
         Client.stop();
         Cache_File.flush();
@@ -777,7 +796,8 @@ void Internet_Browser_Class::Load_Page()
     pageLinks.lastLink = 0;
 
     Serial.println(F("Download & caching failed"));
-    //error handle
+    GalaxOS.Event_Dialog(F("Download or caching failed."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
   }
 
   pageLinks.lastLink = 0;
@@ -895,6 +915,8 @@ byte Internet_Browser_Class::Display_Page()
 
   if (!Cache_File)
   {
+    GalaxOS.Event_Dialog(F("Failed to open cache file."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Failed to open cache !"));
     memcpy(Server, "*\0", 2);
     return 0;
@@ -903,6 +925,8 @@ byte Internet_Browser_Class::Display_Page()
   if (!Cache_File.seek(filePtr))
   {
     //error handle
+    GalaxOS.Event_Dialog(F("Seek failure in cache file."), GalaxOS.Error);
+    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Seek failture"));
     return 0;
   }
@@ -928,12 +952,17 @@ byte Internet_Browser_Class::Display_Page()
     if (Width_Count >= 449) //print if auto return to line (max 56 normal)
     {
       Text_To_Print[Text_Char_Count] = '\0';
+      Serial.println(Text_To_Print);
+      Serial.print(F("Color : "));
+      Serial.println(Current_Color);
+
       switch (Current_Color)
       {
       case 65534: //Bold style
         GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
+
         break;
 
       case 65533: //Highlight style
@@ -962,7 +991,7 @@ byte Internet_Browser_Class::Display_Page()
       Cursor_Y += 14; //new line
       Text_Char_Count = 0;
       Width_Count = 0;
-      vTaskDelay(pdMS_TO_TICKS(250));
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
 
     c = Cache_File.read();

@@ -130,6 +130,7 @@ public:
     void Draw_Crop_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Picture_ID);
     void Draw_Advanced_Crop_Picture(uint16_t const &X_Destination, uint16_t const &Y_Destination, uint16_t const &Width, uint16_t const &Height, uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
     void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text);
+    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char* Text);
 
     //void Print(String const& Text_To_Print);
     //void Print(const __FlashStringHelper* Text_To_Print);
@@ -145,6 +146,7 @@ public:
     void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
     void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
     void Set_Text(String const &Object_Name, String const &Value);
+    void Set_Text(const __FlashStringHelper *Object_Name, const char* Value);
     void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
     void Set_Channel(const __FlashStringHelper *Object_Name, uint8_t const &Channel);
     void Set_Grid_Width(const __FlashStringHelper *Object_Name, uint16_t const &Width);
@@ -160,7 +162,7 @@ public:
     void Set_Current_Page(const __FlashStringHelper *Page_Name);
     uint8_t &Get_Current_Page();
 
-    void Set_Backlight(uint8_t const &Brightness, bool const &Save = false);
+    void Set_Brightness(uint16_t const& Brightness, bool const& Save = false);
     uint8_t Get_Backlight();
 
     void Set_Baud_Rate(uint32_t const &Baudrate, bool const &Save);

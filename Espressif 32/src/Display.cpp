@@ -316,6 +316,16 @@ void Nextion_Display_Class::Set_Text(String const &Object_Name, String const &Va
     Instruction_End();
 }
 
+void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, const char* Value)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".txt=\""));
+    Nextion_Serial.print(Value);
+    Nextion_Serial.print(F("\""));
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
@@ -365,6 +375,36 @@ void Nextion_Display_Class::Draw_Crop_Picture(uint16_t const &X_Coordinate, uint
 
 void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text)
 {
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("xstr "));
+    Nextion_Serial.print(X_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Y_Coordinate);
+    Argument_Separator();
+    Nextion_Serial.print(Width);
+    Argument_Separator();
+    Nextion_Serial.print(Height);
+    Argument_Separator();
+    Nextion_Serial.print(Font_ID);
+    Argument_Separator();
+    Nextion_Serial.print(Text_Color);
+    Argument_Separator();
+    Nextion_Serial.print(Backgroud);
+    Argument_Separator();
+    Nextion_Serial.print(Horizontal_Alignment);
+    Argument_Separator();
+    Nextion_Serial.print(Vertical_Alignment);
+    Argument_Separator();
+    Nextion_Serial.print(Background_Type);
+    Argument_Separator();
+    Nextion_Serial.print(F("\""));
+    Nextion_Serial.print(Text);
+    Nextion_Serial.print(F("\""));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char* Text)
+{ 
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("xstr "));
     Nextion_Serial.print(X_Coordinate);
@@ -706,7 +746,7 @@ void Nextion_Display_Class::Set_Baud_Rate(uint32_t const &Baudrate, bool const &
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Backlight(uint8_t const &Brightness, bool const &Save)
+void Nextion_Display_Class::Set_Brightness(uint16_t const &Brightness, bool const &Save)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     if (Brightness > 100)
