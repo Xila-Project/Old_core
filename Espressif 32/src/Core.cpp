@@ -32,7 +32,7 @@ GalaxOS_Class::GalaxOS_Class() : Tag(0),
                                  Display(),
                                  Sound(),
                                  Keyboard(2, 6),
-
+                                 Battery(13, 47, 47),
                                  Event_Reply(None)
 
 {
@@ -393,6 +393,9 @@ void GalaxOS_Class::Core_Task(void *pvParameters)
     }
     Instance_Pointer->Synchronise_Time();
     Instance_Pointer->Refresh_Clock();
+    
+    uint8_t Battery_Level = Instance_Pointer->Battery.Get_Charge_Level();
+
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
     Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));

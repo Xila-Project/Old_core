@@ -22,6 +22,10 @@
 ||  - Power button :                                                          ||
 || Side 1 : GND                                                               ||
 || Side 2 : 27                                                                ||
+||  - Battery :                                                               ||
+|| 5V -> Vin                                                                  ||
+|| GND -> GND                                                                 ||
+|| VBat -> ?                                                                  ||
 ||  - Display (Nextion) :                                                     ||
 || Red -> 5v                                                                  ||
 || Blue -> P16                                                                ||

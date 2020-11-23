@@ -33,6 +33,7 @@
 #include "Display.hpp"  // Nextion display driver (maybe create a library for each driver)
 #include "Keyboard.hpp" // PS2 keyboard driver
 #include "Sound.hpp"
+#include "Battery.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -240,6 +241,8 @@ public:
     Nextion_Display_Class Display;
     // Sound
     Sound_Class Sound;
+    // Battery
+    Battery_Class Battery;
     // Input
     Keyboard_Class Keyboard;
 // Disk
