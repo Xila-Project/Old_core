@@ -1,8 +1,9 @@
 #include "Calculator.hpp"
 
-Calculator_Class* Calculator_Class::Instance_Pointer = NULL;
+Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
-Calculator_Class::Calculator_Class() : Software_Class(8)
+Calculator_Class::Calculator_Class() : Software_Class(8),
+                                       Current_Number(0xFF)
 {
     xTaskCreatePinnedToCore(Main_Task, "Calculator", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
     Execute(Software_Code::Maximize);
@@ -13,7 +14,7 @@ Calculator_Class::~Calculator_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class* Calculator_Class::Load()
+Software_Class *Calculator_Class::Load()
 {
     if (Instance_Pointer == NULL)
     {
@@ -83,33 +84,47 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Compute();
 
         case 0x4243: //BC
+            Instance_Pointer->Clear_All();
+            break;
+        case 0x: // AR : switch Angle unity to Radian
+            Instance_Pointer->Angle_Unity = 'R';
+            break;
+        case 0x: // AD : switch Angle unity to Degree
+            Instance_Pointer->Angle_Unity = 'D';
+            break;
+        case 0x4244: //BD
             Instance_Pointer->Clear();
             break;
 
-        case 0x4244: //BD
-            Instance_Pointer->Clear_Last_Number();
+        case 0x:
+            Instance_Pointer->Set_Operator(Pi);
             break;
-
         case 0x422B: //B+
-            Instance_Pointer->Set_Operator('+');
+            Instance_Pointer->Set_Operator(Addition);
             break;
 
         case 0x422D: //B-
-            Instance_Pointer->Set_Operator('-');
+            Instance_Pointer->Set_Operator(Substraction);
             break;
 
         case 0x422A: //B*
-            Instance_Pointer->Set_Operator('*');
+            Instance_Pointer->Set_Operator(Multiplication);
             break;
 
         case 0x422F: //B/
-            Instance_Pointer->Set_Operator('/');
+            Instance_Pointer->Set_Operator(Division);
             break;
+
+        case 0x: //B
+            Instance_Pointer->Set_Operator(Modulo);
+            break;
+
+        case:
+            Instance_Pointer->Set_Operator(Sine);
 
         case 0x42B2: //B²
             pow(Instance_Pointer->Number[Instance_Pointer->Current_Number], 2);
             break;
-
 
         default:
             break;
@@ -120,96 +135,253 @@ void Calculator_Class::Main_Task(void *pvParameters)
 
 void Calculator_Class::Add_Number(uint8_t const &Number_To_Add)
 {
-    Number[Current_Number] *= 10;
-    Number[Current_Number] += Number_To_Add;
+    if (Number_To_Add < 10)
+    {
+        Number[Current_Number] *= 10;
+        Number[Current_Number] += Number_To_Add;
+    }
+    else if (Number_To_Add == Pi)
+    {
+        Number[Current_Number] = PI;
+    }
+    else if (Number_To_Add == Exponential)
+    {
+        Number[Current_Number] = NEPER_CONSTANT;
+    }
+    else if (Number_To_Add == Random)
+    {
+        Number[Current_Number] = random(10);
+    }
+
+    Display();
 }
 
 void Calculator_Class::Set_Operator(char const &Opertor_To_Set)
 {
-    Operator[Current_Number] = Opertor_To_Set;
-    Current_Number++;
-}
-
-void Calculator_Class::Compute()
-{
-    for (uint8_t i = 1; i < 6; i++)
+    Operator = Opertor_To_Set;
+    Current_Number = 1;
+    if (Current_Number > 2)
     {
-        if (Number[i] != 0 && Operator[i - 1] != 0)
-        {
-            switch (Operator[i - 1])
-            {
-            case '+':
-                Result += Number[i];
-                break;
-            case '-':
-                Result -= Number[i];
-                break;
-            case '*':
-                Result *= Number[i];
-                break;
-            case '/':
-                Result /= Number[i];
-                break;
-            case '^':
-                pow(Number[0], Number[i]);
-                break;
-            case 'S':
-                Result = sin(Number[i]);
-                break;
-            case 'C':
-                Result = cos(Number[i]);
-                break;
-            case 'T':
-                Result = tan(Number[i]);
-                break;
-            case 's':
-                asin(Number[i]);
-                break;
-            case 'c':
-                Result = acos(Number[i]);
-            case 't':
-                Result = atan(Number[i]);
-            default:
-                break;
-            }
-        }
+        Number[0] = Result;
+        Number[1] = 0;
+        Result = 0;
+        Current_Number = 0;
     }
     Display();
 }
 
-void Calculator_Class::Clear()
+void Calculator_Class::Switch_Symbol()
 {
-    Current_Number = 0;
-    memset(Number, 0, sizeof(Number));
-    memset(Operator, 0, sizeof(Operator));
-
+    if (Number[Current_Number] > 0)
+    {
+        Number[Current_Number] -= Number[Current_Number] * 2;
+    }
+    else
+    {
+        Number[Current_Number] += Number[Current_Number] * 2;
+    }
+    Display();
 }
 
-void Calculator_Class::Clear_Last_Number()
+void Calculator_Class::Compute()
+{
+    uint32_t Temporary_Number[2];
+    switch (Operator)
+    {
+    case Addition:
+        Result = Number[0] + Number[1];
+        break;
+    case Substraction:
+        Result = Number[0] - Number[1];
+        break;
+    case Multiplication:
+        Result = Number[0] * Number[1];
+        break;
+    case Division:
+        Result = Number[0] / Number[1];
+        break;
+    case Modulo:
+        Temporary_Number[0] = (long)Number[0];
+        Temporary_Number[1] = (long)Number[1];
+        Result = Temporary_Number[0] % Temporary_Number[1];
+        break;
+    case Sine:
+        if (Angle_Unity == Degree)
+        {
+            Result = sinf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = sinf(Number[0]);
+        }
+        break;
+    case Cosine:
+        if (Angle_Unity == Degree)
+        {
+            Result = cosf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = cosf(Number[0]);
+        }
+        break;
+    case Tangent:
+        if (Angle_Unity == Degree)
+        {
+            Result = tanf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = tanf(Number[0]);
+        }
+        break;
+    case Arc_Sine:
+        if (Angle_Unity == Degree)
+        {
+            Result = asinf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = asinf(Number[0]);
+        }
+        break;
+    case Arc_Cosine:
+        if (Angle_Unity == Degree)
+        {
+            Result = acosf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = acosf(Number[0]);
+        }
+        break;
+    case Arc_Tangent:
+        if (Angle_Unity == Degree)
+        {
+            Result = atanf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = atanf(Number[0]);
+        }
+        break;
+    case Hyperbolic_Sine:
+        if (Angle_Unity == Degree)
+        {
+            Result = sinhf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = sinhf(Number[0]);
+        }
+        break;
+    case Hyperbolic_Cosine:
+        if (Angle_Unity == Degree)
+        {
+            Result = coshf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = coshf(Number[0]);
+        }
+        break;
+    case Hyperbolic_Tangent:
+        if (Angle_Unity == Degree)
+        {
+            Result = tanhf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = tanhf(Number[0]);
+        }
+        break;
+    case Arc_Hyperbolic_Sine:
+        if (Angle_Unity == Degree)
+        {
+            Result = asinhf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = asinhf(Number[0]);
+        }
+        break;
+    case Arc_Hyperbolic_Cosine:
+        if (Angle_Unity == Degree)
+        {
+            Result = acoshf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = acoshf(Number[0]);
+        }
+        break;
+    case Arc_Hyperbolic_Tangent:
+        if (Angle_Unity == Degree)
+        {
+            Result = atanhf(Degree_To_Radian(Number[0]));
+        }
+        else
+        {
+            Result = atanhf(Number[0]);
+        }
+        break;
+    }
+    Current_Number = 2;
+    Display();
+}
+
+float Calculator_Class::Degree_To_Radian(float Angle)
+{
+    Angle *= PI;
+    Angle /= 180;
+    return Angle;
+}
+
+void Calculator_Class::Clear()
 {
     Number[Current_Number] = 0;
+    Display();
+}
+
+void Calculator_Class::Clear_All()
+{
+    Current_Number = 0;
+    Number[0] = 0;
+    Number[1] = 0;
+    Result = 0;
+    Operator = 0xFF;
 }
 
 void Calculator_Class::Display()
 {
     String Temporary_String = "";
-    for (uint8_t i = 0; i < 6; i++)
+    switch (Current_Number)
     {
-        if (Number[i] == 0)
-        {
-            break;
-        }
-        else
-        {
-           Temporary_String += Number[i];
-        }
+    case 0:
+        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), F(""));
+        Temporary_String = String(Number[Current_Number]);
+        GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
+        break;
+    case 1:
+        Temporary_String = String(Number[0]);
         Temporary_String += " ";
+        Temporary_String += String(Operator);
+        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
+        Temporary_String = String(Number[1]);
+        GalaxOS.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
+        break;
+    case 2:
+        Temporary_String = String(Number[0]);
+        Temporary_String += " ";
+        Temporary_String += String(Operator);
+        Temporary_String += " ";
+        Temporary_String += String(Number[1]);
+        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
+        Temporary_String = String(Result);
+        GalaxOS.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
 
-        if (Operator[i] != 0 && i < 5)
-        {
-            Temporary_String += Operator[i];
-        }
+    default:
+        break;
     }
     GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
 }
-

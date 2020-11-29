@@ -21,12 +21,13 @@
 ||                                    Wiring :                                ||
 ||  - Power button :                                                          ||
 || Side 1 : GND                                                               ||
-|| Side 2 : 27                                                                ||
+|| Side 2 : 39                                                                ||
 ||  - Battery :                                                               ||
 || 5V -> Vin                                                                  ||
 || GND -> GND                                                                 ||
-|| VBat -> ?                                                                  ||
+|| VBat -> P36                                                                ||
 ||  - Display (Nextion) :                                                     ||
+|| NPN Trans Base -> 27
 || Red -> 5v                                                                  ||
 || Blue -> P16                                                                ||
 || Yellow -> P17                                                              ||
@@ -46,7 +47,7 @@
 || SCK -> 18                                                                  ||
 || CS -> 5                                                                    ||
 || VCC -> 3.3v                                                                ||
-|| GND -> GND                                                                 ||
+|| GND -> GND
 ||  - Debbugger (ESP-Prog)                                                    ||
 || MTCK -> 13                                                                 ||
 || MTMS -> 14                                                                 ||
