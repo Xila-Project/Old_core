@@ -3,7 +3,7 @@
 Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
 Calculator_Class::Calculator_Class() : Software_Class(8),
-                                       Current_Number(0xFF)
+                                       State(0xFF)
 {
     xTaskCreatePinnedToCore(Main_Task, "Calculator", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
     Execute(Software_Code::Maximize);
@@ -21,6 +21,79 @@ Software_Class *Calculator_Class::Load()
         Instance_Pointer = new Calculator_Class();
     }
     return Instance_Pointer;
+}
+
+void Calculator_Class::Memory_Operation(uint8_t &const Operation)
+{
+    switch (Operation)
+    {
+    case Memory_Add:
+        if (State >= 2)
+        {
+            Memory += Result;
+        }
+        else
+        {
+            Memory += Number[State];
+        }
+        break;
+    case Memory_Substract:
+        if (State >= 2)
+        {
+            Memory -= Result;
+        }
+        else
+        {
+            Memory -= Number[State];
+        }
+        break;
+    case Memory_Read:
+        State = 0;
+        Number[State] = Memory_Read;
+        Display();
+        break;
+    case Memory_Clear:
+        Memory = 0;
+        break;
+    }
+}
+
+void Calculator_Class::Switch_Angle_Unity()
+{
+    if (Angle_Unity = Degree)
+    {
+        Angle_Unity = Radian;
+        GalaxOS.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
+    }
+    else
+    {
+        Angle_Unity = Degree;
+        GalaxOS.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
+    }
+}
+
+void Calculator_Class::Switch_Keys()
+{
+    if (Keys_Mode == 1) // Mode 1 : Normal
+    {
+        GalaxOS.Display.Set_Text(F("SIN_BUT"), "Sin");
+        GalaxOS.Display.Set_Text(F("COS_BUT"), "Cos");
+        GalaxOS.Display.Set_Text(F("TAN_BUT"), "Tan");
+        GalaxOS.Display.Set_Text(F("SINH_BUT"), "SinH");
+        GalaxOS.Display.Set_Text(F("COSH_BUT"), "CosH");
+        GalaxOS.Display.Set_Text(F("TANH_BUT"), "TanH");
+        Keys_Mode = 2;
+    }
+    else // Mode 2 : Normal
+    {
+        GalaxOS.Display.Set_Text(F("SIN_BUT"), "ASin");
+        GalaxOS.Display.Set_Text(F("COS_BUT"), "ACos");
+        GalaxOS.Display.Set_Text(F("TAN_BUT"), "ATan");
+        GalaxOS.Display.Set_Text(F("SINH_BUT"), "ASinH");
+        GalaxOS.Display.Set_Text(F("COSH_BUT"), "ACosH");
+        GalaxOS.Display.Set_Text(F("TANH_BUT"), "ATanH");
+        Keys_Mode = 2;
+    }
 }
 
 void Calculator_Class::Main_Task(void *pvParameters)
@@ -86,19 +159,62 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case 0x4243: //BC
             Instance_Pointer->Clear_All();
             break;
-        case 0x: // AR : switch Angle unity to Radian
-            Instance_Pointer->Angle_Unity = 'R';
+
+        case 0x4D43: // MC
+            Instance_Pointer->Memory_Operation(Memory_Clear);
             break;
-        case 0x: // AD : switch Angle unity to Degree
-            Instance_Pointer->Angle_Unity = 'D';
+        case 0x4D52: // MR
+            Instance_Pointer->Memory_Operation(Memory_Read);
             break;
+        case 0x4D2B: // M+
+            Instance_Pointer->Memory_Operation(Memory_Add);
+            break;
+        case 0x4D2D: // M-
+            Instance_Pointer->Memory_Operation(Memory_Substract);
+            break;
+
+        case 0x534B: //SK
+            Instance_Pointer->Switch_Keys();
+            break;
+
+        case 0x5341: // SA : switch Angle unity to Radian
+            Switch_Angle_Unity();
+            break;
+
         case 0x4244: //BD
             Instance_Pointer->Clear();
             break;
 
-        case 0x:
-            Instance_Pointer->Set_Operator(Pi);
+        case 0x4661: // FA
+            Instance_Pointer->Set_Operator(Factorial);
             break;
+
+        case 0x5069: // Pi
+            if (State >= 2)
+            {
+                Clear_All();
+            }
+
+            Number[State] = Pi;
+
+            Instance_Pointer->Display();
+            break;
+
+        case 0x4661: // Ne : exemponential number
+            if (State >= 2)
+            {
+                Clear_All();
+            }
+
+            Number[State] = Exponential;
+
+            Instance_Pointer->Display();
+            break;
+
+        case 0x4661: // Fe : exponential function
+            Set_Operator(Exponential);
+            break;
+
         case 0x422B: //B+
             Instance_Pointer->Set_Operator(Addition);
             break;
@@ -120,10 +236,18 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
 
         case:
-            Instance_Pointer->Set_Operator(Sine);
+            if (Keys_Mode = 1)
+            {
+                Instance_Pointer->Set_Operator(Sine);
+            }
+            else
+            {
+                Instance_Pointer->Set_Operator(Arc_Sine)
+            }
+            break;
 
         case 0x42B2: //B²
-            pow(Instance_Pointer->Number[Instance_Pointer->Current_Number], 2);
+            pow(Instance_Pointer->Number[Instance_Pointer->State], 2);
             break;
 
         default:
@@ -137,20 +261,20 @@ void Calculator_Class::Add_Number(uint8_t const &Number_To_Add)
 {
     if (Number_To_Add < 10)
     {
-        Number[Current_Number] *= 10;
-        Number[Current_Number] += Number_To_Add;
+        Number[State] *= 10;
+        Number[State] += Number_To_Add;
     }
     else if (Number_To_Add == Pi)
     {
-        Number[Current_Number] = PI;
+        Number[State] = PI;
     }
     else if (Number_To_Add == Exponential)
     {
-        Number[Current_Number] = NEPER_CONSTANT;
+        Number[State] = NEPER_CONSTANT;
     }
     else if (Number_To_Add == Random)
     {
-        Number[Current_Number] = random(10);
+        Number[State] = random(10);
     }
 
     Display();
@@ -159,26 +283,26 @@ void Calculator_Class::Add_Number(uint8_t const &Number_To_Add)
 void Calculator_Class::Set_Operator(char const &Opertor_To_Set)
 {
     Operator = Opertor_To_Set;
-    Current_Number = 1;
-    if (Current_Number > 2)
+    State = 1;
+    if (State > 2)
     {
         Number[0] = Result;
         Number[1] = 0;
         Result = 0;
-        Current_Number = 0;
+        State = 0;
     }
     Display();
 }
 
 void Calculator_Class::Switch_Symbol()
 {
-    if (Number[Current_Number] > 0)
+    if (Number[State] > 0)
     {
-        Number[Current_Number] -= Number[Current_Number] * 2;
+        Number[State] -= Number[State] * 2;
     }
     else
     {
-        Number[Current_Number] += Number[Current_Number] * 2;
+        Number[State] += Number[State] * 2;
     }
     Display();
 }
@@ -204,6 +328,13 @@ void Calculator_Class::Compute()
         Temporary_Number[0] = (long)Number[0];
         Temporary_Number[1] = (long)Number[1];
         Result = Temporary_Number[0] % Temporary_Number[1];
+        break;
+    case Factorial:
+        Result = 1;
+        for (uint8_t i = 1; i <= Number; i++)
+        {
+            Result *= Number;
+        }
         break;
     case Sine:
         if (Angle_Unity == Degree)
@@ -326,7 +457,7 @@ void Calculator_Class::Compute()
         }
         break;
     }
-    Current_Number = 2;
+    State = 2;
     Display();
 }
 
@@ -339,13 +470,13 @@ float Calculator_Class::Degree_To_Radian(float Angle)
 
 void Calculator_Class::Clear()
 {
-    Number[Current_Number] = 0;
+    Number[State] = 0;
     Display();
 }
 
 void Calculator_Class::Clear_All()
 {
-    Current_Number = 0;
+    State = 0;
     Number[0] = 0;
     Number[1] = 0;
     Result = 0;
@@ -355,11 +486,11 @@ void Calculator_Class::Clear_All()
 void Calculator_Class::Display()
 {
     String Temporary_String = "";
-    switch (Current_Number)
+    switch (State)
     {
     case 0:
         GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), F(""));
-        Temporary_String = String(Number[Current_Number]);
+        Temporary_String = String(Number[State]);
         GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
         break;
     case 1:

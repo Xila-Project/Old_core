@@ -16,18 +16,31 @@ private:
 
     float Number[2];
 
+    float Memory;
 
     uint8_t Operator;
 
-    uint8_t Current_Number;
+    uint8_t State;
+
+    uint8_t Keys_Mode;
+    
+    // 0 : taping Number[0]
+    // 1 : taping Number[1]
+    // 2 : have computed the result
 
     void Add_Number(uint8_t const& Number_To_Add);
     void Switch_Symbol();
+    void Switch_Angle_Unity();
     void Set_Operator(char const& Operator_To_Set);
 
     float Degree_To_Radian(float);
 
+    void Memory_Operation(uint8_t& const);
+
+    void Switch_Keys();
+
     uint8_t Angle_Unity;
+    void Switch_Angle_Unity();
 
     void Clear();
     void Clear_All();
@@ -56,7 +69,7 @@ private:
         Multiplication = '*',
         Division = ':',
         Modulo = '%',
-                    
+        Factorial,
         Logarithm,
         Natural_Logarithm,
         Square_Root,
@@ -73,7 +86,11 @@ private:
         Hyperbolic_Tangent,
         Arc_Hyperbolic_Sine,
         Arc_Hyperbolic_Cosine,
-        Arc_Hyperbolic_Tangent
+        Arc_Hyperbolic_Tangent,
+        Memory_Add,
+        Memory_Substract,
+        Memory_Clear,
+        Memory_Read
     };
 
 public:
