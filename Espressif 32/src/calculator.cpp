@@ -231,7 +231,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Set_Operator(Division);
             break;
 
-        case 0x: //B
+        case 0x4225: //B
             Instance_Pointer->Set_Operator(Modulo);
             break;
 
