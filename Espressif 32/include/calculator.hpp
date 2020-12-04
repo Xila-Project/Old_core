@@ -22,11 +22,18 @@ private:
 
     uint8_t State;
 
-    uint8_t Keys_Mode;
+
     
     // 0 : taping Number[0]
     // 1 : taping Number[1]
     // 2 : have computed the result
+
+    uint8_t Keys_Mode;
+
+    // 00000000 : Normal mode 
+    // 00000001 : 2nd mode
+    // 00000010 : Hyperbolic mode
+    // 00000100 : Degree mode
 
     void Add_Number(uint8_t const& Number_To_Add);
     void Switch_Symbol();
@@ -37,9 +44,9 @@ private:
 
     void Memory_Operation(uint8_t& const);
 
-    void Switch_Keys();
+    void Switch_Keys_Second();
+    void Switch_Keys_Hyperbolic();
 
-    uint8_t Angle_Unity;
     void Switch_Angle_Unity();
 
     void Clear();
