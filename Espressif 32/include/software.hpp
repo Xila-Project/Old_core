@@ -79,4 +79,14 @@ public:
     ~Software_Handle_Class();
 };
 
+class Background_Job_Class // Software lightweight task regulary executed by Xila
+{
+protected:
+    Software_Handle_Class* Related_Software;
+    virtual void Function_Job();
+public:
+    Background_Job_Class(Software_Handle_Class* Related_Software, void(*Function_Job)());
+    ~Background_Job_Class();
+};
+
 #endif

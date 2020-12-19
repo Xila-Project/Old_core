@@ -189,6 +189,17 @@ protected:
 
 public:
     // Core APIs (system calls)
+
+
+    //Background job
+
+    Xila_Event Add_Background_Job(Background_Job_Class*);
+    Xila_Event Delete_Background_Job(Background_Job_Class*);
+    Xila_Event 
+
+
+
+
     void Open_File(File &);
 
     enum Information

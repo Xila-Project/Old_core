@@ -34,6 +34,7 @@ private:
     // 00000001 : 2nd mode
     // 00000010 : Hyperbolic mode
     // 00000100 : Degree mode
+    // 00001000 : AC mode
 
     void Add_Number(uint8_t const& Number_To_Add);
     void Switch_Symbol();

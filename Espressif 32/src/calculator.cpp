@@ -74,46 +74,28 @@ void Calculator_Class::Switch_Angle_Unity()
 
 void Calculator_Class::Switch_Keys()
 {
-    if (bitRead(Keys_Mode, 1) == 1)
+    if (bitRead(Keys_Mode, 1) == 1) // Second enabled
+    {
+        if (bitRead(Keys_Mode, 2) == 1) // all enabled
+        {
+            GalaxOS.Display.Click(59, 1);
+        }
+        else // hyperbolic disabled
+        {
+            GalaxOS.Display.Click(58, 0);
+        }
+    }
+    else // second disabled
     {
         if (bitRead(Keys_Mode, 2) == 1) // hyperbolic enabled
         {
-            GalaxOS.Display.Set_Text(F("SINE_BUT"), "ASinH");
-            GalaxOS.Display.Set_Text(F("COSINE_BUT"), "ACosH");
-            GalaxOS.Display.Set_Text(F("TANGENT_BUT"), "ATanH");
-            GalaxOS.Display.Set_Text(F("SECANT_BUT"), "ASecH");
-            GalaxOS.Display.Set_Text(F("COSECANT_BUT"), "ACscH");
-            GalaxOS.Display.Set_Text(F("COTANGENT_BUT"), "ACotH");
+            GalaxOS.Display.Click(58, )
         }
-        else
+        else // all disabled
         {
-            GalaxOS.Display.Set_Text(F("SINE_BUT"), "ASin");
-            GalaxOS.Display.Set_Text(F("COSINE_BUT"), "ACos");
-            GalaxOS.Display.Set_Text(F("TANGENT_BUT"), "ATan");
-            GalaxOS.Display.Set_Text(F("SECANT_BUT"), "ASec");
-            GalaxOS.Display.Set_Text(F("COSECANT_BUT"), "ACsc");
-            GalaxOS.Display.Set_Text(F("COTANGENT_BUT"), "ACot");
+            GalaxOS.Display.Click(59, 0);
         }
-        bitWrite(Keys_Mode, 1, 0);
     }
-    else
-    {
-        if (bitRead(Keys_Mode, 2) == 1)
-        {
-        GalaxOS.Display.Set_Text(F("SIN_BUT"), "Sin");
-        GalaxOS.Display.Set_Text(F("COS_BUT"), "Cos");
-        GalaxOS.Display.Set_Text(F("TAN_BUT"), "Tan");
-        GalaxOS.Display.Set_Text(F("SINH_BUT"), "SinH");
-        GalaxOS.Display.Set_Text(F("COSH_BUT"), "CosH");
-        GalaxOS.Display.Set_Text(F("TANH_BUT"), "TanH");
-        }
-        else
-        {
-
-        }
-        bitWrite(Keys_Mode, 1, 1);
-    }
-    if ()
 }
 
 void Calculator_Class::Main_Task(void *pvParameters)
@@ -177,7 +159,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Compute();
 
         case 0x4243: //BC
-            Instance_Pointer->Clear_All();
+            Instance_Pointer->Clear();
             break;
 
         case 0x4D43: // MC
@@ -193,26 +175,30 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Memory_Operation(Memory_Substract);
             break;
 
-        case 0x534B: //S2
+        case 0x5332: //S2
             if (bitRead(Keys_Mode, 1) == 1)
             {
                 bitWrite(Keys_Mode, 1, 0);
+                GalaxOS.Display.Set_Value(F("SECOND_BUT"), 0);
             }
             else
             {
                 bitWrite(Keys_Mode, 1, 1);
+                GalaxOS.Display.Set_Value(F("SECOND_BUT"), 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
 
-        case 0x53: //SH
-                        if (bitRead(Keys_Mode, 1) == 1)
+        case 0x5348: //SH
+            if (bitRead(Keys_Mode, 1) == 1)
             {
                 bitWrite(Keys_Mode, 1, 0);
+                GalaxOS.Display.Set_Value(F("HYPERBOLIC_BUT"), 0);
             }
             else
             {
                 bitWrite(Keys_Mode, 1, 1);
+                GalaxOS.Display.Set_Value(F("HYPERBOLIC_BUT"), 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
@@ -227,10 +213,6 @@ void Calculator_Class::Main_Task(void *pvParameters)
                 bitWrite(Instance_Pointer->Keys_Mode, 3, 1);
                 GalaxOS.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
             }
-            break;
-
-        case 0x4244: //BD
-            Instance_Pointer->Clear();
             break;
 
         case 0x4661: // FA
@@ -518,6 +500,10 @@ float Calculator_Class::Degree_To_Radian(float Angle)
 
 void Calculator_Class::Clear()
 {
+    if (Number[State] == 0) 
+    {
+
+    }
     Number[State] = 0;
     Display();
 }
