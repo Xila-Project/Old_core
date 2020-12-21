@@ -8,6 +8,7 @@
 // 921600 / 115200
 #define SERIAL_SPEED 115200
 
+#define VERSION "0.1.0"
 
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
@@ -34,7 +35,7 @@
 #define Verbose_Println(t) 
 #else
 #define Verbose_Print(t) Serial.print(F(t))
-#define Verbose_Print_Line(t) GalaxOS.Print_Line(F(t))
+#define Verbose_Print_Line(t) Xila.Print_Line(F(t))
 #endif
 
 #endif

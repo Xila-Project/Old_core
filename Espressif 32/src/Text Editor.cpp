@@ -37,7 +37,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Software_Code::Maximize:
         case Software_Code::Open:
-            GalaxOS.Display.Set_Current_Page(F("Text_Editor"));
+            Xila.Display.Set_Current_Page(F("Text_Editor"));
             break;
         case Software_Code::Minimize:
             break;
@@ -100,7 +100,7 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
     switch (Type)
     {
     case 'S':
-        if (Type == GalaxOS.Variable_Long_Local)
+        if (Type == Xila.Variable_Long_Local)
         {
             Offset = *(uint8_t *)Variable; 
             Offset = (Offset * File_To_Edit.size()) / 176;
@@ -142,7 +142,7 @@ void Text_Editor_Class::Refresh_Text()
             {
                 File_To_Edit.read();
             }
-            GalaxOS.Display.Set_Text(Line_Name, Temporary_Char_Array);
+            Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             Line_Number++;
             if (Line_Number > 9)
             {
@@ -162,7 +162,7 @@ void Text_Editor_Class::Refresh_Text()
         }
         else if (Column_Number >= 55)
         {
-            GalaxOS.Display.Set_Text(Line_Name, Temporary_Char_Array);
+            Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             Line_Number++;
             if (Line_Number > 9)
             {

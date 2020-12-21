@@ -23,6 +23,8 @@ Paint_Class::Paint_Class() : Software_Class(6)
 Paint_Class::~Paint_Class()
 {
 
+
+
 }
 
 void Paint_Class::Main_Task(void* pvParameters)
@@ -35,7 +37,7 @@ void Paint_Class::Main_Task(void* pvParameters)
             case 0:
                 break;
             case Software_Code::Maximize: // NULL + M : Maximize
-                GalaxOS.Display.Set_Current_Page(F("Paint"));
+                Xila.Display.Set_Current_Page(F("Paint"));
                 break;
             case Software_Code::Minimize: // NULL + m : Minimize
                 vTaskSuspend(NULL);

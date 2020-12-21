@@ -103,12 +103,12 @@ typedef tm Xila_Time;
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
 
-class GalaxOS_Class
+class Xila_Class
 {
 protected:
     // Instance pointer
 
-    static GalaxOS_Class *Instance_Pointer;
+    static Xila_Class *Instance_Pointer;
 
     // System path
 
@@ -193,19 +193,39 @@ public:
 
     //Background job
 
-    Xila_Event Add_Background_Job(Background_Job_Class*);
+    Xila_Event Add_Background_Job(Software_Handle_Class*, void(*));
     Xila_Event Delete_Background_Job(Background_Job_Class*);
-    Xila_Event 
-
 
 
 
     void Open_File(File &);
 
+    enum Font_16
+    {
+        State_Button = 127,
+        Left_Arrow,
+        Right_Arrow,
+        Up_Arrow,
+        Down_Arrow,
+        Battery_Empty,
+        Battery_Low,
+        Battery_Medium,
+        Battery_High,
+        WiFi_Low,
+        WiFi_Medium,
+        WiFi_High,
+        Bluetooth,
+        Sound_Mute,
+        Sound_Low,
+        Sound_Medium,
+        Sound_High,
+    };
+
     enum Information
     {
         Good_Credentials,
         Wrong_Credentials,
+        Success,
     };
 
     enum Question
@@ -228,7 +248,8 @@ public:
         Corrupted_System_File,
         Invalid_Software_ID,
         Too_Much_Openned_Software,
-        Screen_Data_Exception
+        Screen_Data_Exception,
+        User_Already_Exist
     };
 
     enum Color
@@ -244,8 +265,8 @@ public:
         Yellow = 64896
     };
 
-    GalaxOS_Class();
-    ~GalaxOS_Class();
+    Xila_Class();
+    ~Xila_Class();
 
     // Drivers
     // Display

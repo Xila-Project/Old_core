@@ -1,7 +1,7 @@
 #ifndef TEXT_EDITOR_HPP_INCLUDED
 #define TEXT_EDITOR_HPP_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Text_Editor_Class : public Software_Class
 {

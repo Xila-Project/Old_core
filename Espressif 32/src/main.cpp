@@ -1,8 +1,8 @@
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 void setup()
 {
-    GalaxOS.Start();
+    Xila.Start();
 }
 
 void loop()

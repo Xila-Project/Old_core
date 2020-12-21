@@ -1,7 +1,7 @@
 #ifndef PAINT_H_INCLUDED
 #define PAINT_H_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Paint_Class : protected Software_Class
 {

@@ -34,7 +34,7 @@ Internet_Browser_Class::~Internet_Browser_Class()
 
 void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-  if (Adress == 'U' && Type == GalaxOS.Variable_Char_Local)
+  if (Adress == 'U' && Type == Xila.Variable_Char_Local)
   {
     strcpy(URL, (char *)Variable);
   }
@@ -52,7 +52,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       //Idle : nothing to do
       break;
     case Software_Code::Maximize: // NULL + M : Maximize
-      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+      Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       //do something when
       break;
@@ -106,8 +106,8 @@ void Internet_Browser_Class::Go_Home()
   strcpy(URL, "*");
   if (!Display_Page())
   {
-    GalaxOS.Event_Dialog(F("Display home page failed."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Display home page failed."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
   Cache_File.flush();
 }
@@ -125,7 +125,7 @@ void Internet_Browser_Class::Go_URL()
   {
     Cache_File.close();
     Client.stop();
-    GalaxOS.Event_Dialog(F("Download or caching failed."), GalaxOS.Error);
+    Xila.Event_Dialog(F("Download or caching failed."), Xila.Error);
     Serial.println(F("Download & Caching Failed !"));
     memset(Server, '\0', sizeof(Server));
     Server[0] = '*';
@@ -136,8 +136,8 @@ void Internet_Browser_Class::Go_URL()
   }
   if (!Display_Page())
   {
-    GalaxOS.Event_Dialog(F("Display page failed."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Display page failed."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
 }
 
@@ -180,15 +180,15 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   //================================================
   // Open URL
   //================================================
-  GalaxOS.Display.Draw_Rectangle(2, 54, 443, 216, 16904, false);
+  Xila.Display.Draw_Rectangle(2, 54, 443, 216, 16904, false);
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
   if (!Cache_File)
   {
-    GalaxOS.Event_Dialog(F("Cache file open failed."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Cache file open failed."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     return 0;
   }
 
@@ -199,16 +199,16 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   if (WiFi.status() != WL_CONNECTED)
   {
-    GalaxOS.Event_Dialog(F("Download failed : WiFi is not not connected."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Download failed : WiFi is not not connected."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     //error handle : not connected
     return 0;
   }
 
   if (URLserver[0] == '*') // Should never get an * here
   {
-    GalaxOS.Event_Dialog(F("Invalid URL."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Invalid URL."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Invalid URL !"));
     //error handle
     return 0;
@@ -227,7 +227,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   }
   else
   {
-    GalaxOS.Event_Dialog(F("Connection failed."), GalaxOS.Error);
+    Xila.Event_Dialog(F("Connection failed."), Xila.Error);
     
     Serial.println(F("Connection failed !"));
     //error handle : reset ?
@@ -244,8 +244,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   if ((!Client.available()) && (!Client.connected()))
   {
     //error handle
-    GalaxOS.Event_Dialog(F("Connection timeout."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Connection timeout."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("\nWiFi timeout"));
     return 0;
   }
@@ -286,8 +286,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     }
     else if (outputChar == 1) //cannot find the file lenght, stop
     {
-      GalaxOS.Event_Dialog(F("Failed to parse page."), GalaxOS.Error);
-      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
+      Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Serial.println(F("\nStopped by <, no file length found"));
       fileLength = 0;
     }
@@ -303,8 +303,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     outputChar = Find_Until(generalBuffer, false);
     if (outputChar == 0) //cannot find the body
     {
-      GalaxOS.Event_Dialog(F("Failed to parse page."), GalaxOS.Error);
-      GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
+      Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Serial.println(F("\nTimeout finding <body>\nShould probably stop now"));
       return 0;
     }
@@ -336,8 +336,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       if ((!Client.available()) && (!Client.connected()))
       {
         //error handle
-        GalaxOS.Event_Dialog(F("The Connection has timed out."), GalaxOS.Error);
-        GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+        Xila.Event_Dialog(F("The Connection has timed out."), Xila.Error);
+        Xila.Display.Set_Current_Page(F("Internet_Brow"));
         Serial.println(F("\nWiFi timeout"));
         Client.stop();
         Cache_File.flush();
@@ -796,8 +796,8 @@ void Internet_Browser_Class::Load_Page()
     pageLinks.lastLink = 0;
 
     Serial.println(F("Download & caching failed"));
-    GalaxOS.Event_Dialog(F("Download or caching failed."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Download or caching failed."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
 
   pageLinks.lastLink = 0;
@@ -880,8 +880,8 @@ byte Internet_Browser_Class::Display_Page()
   Serial.print(F("Display cached page :"));
   Serial.println(textContent.pagePtr);
 
-  GalaxOS.Display.Hide(F("LOAD_BAR"));
-  GalaxOS.Display.Hide(F("LOAD_TXT"));
+  Xila.Display.Hide(F("LOAD_BAR"));
+  Xila.Display.Hide(F("LOAD_TXT"));
 
   uint16_t filePtr = textContent.index[textContent.pagePtr]; // Pointer into cached file
   uint8_t c = 1;                                             // Input character
@@ -898,25 +898,25 @@ byte Internet_Browser_Class::Display_Page()
   uint16_t Width_Count;
   uint8_t Text_Char_Count;
 
-  GalaxOS.Display.Draw_Rectangle(0, 50, 464, 222, 16904, false);
+  Xila.Display.Draw_Rectangle(0, 50, 464, 222, 16904, false);
 
   //Draw header
 
   if (Server[0] == '*')
   {
-    GalaxOS.Display.Set_Text(F("URL_TXT"), F("Home Page"));
-    Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
+    Xila.Display.Set_Text(F("URL_TXT"), F("Home Page"));
+    Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
   }
   else
   {
-    GalaxOS.Display.Set_Text("URL_TXT", URL);
-    Cache_File = GalaxOS.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
+    Xila.Display.Set_Text("URL_TXT", URL);
+    Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
   }
 
   if (!Cache_File)
   {
-    GalaxOS.Event_Dialog(F("Failed to open cache file."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Failed to open cache file."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Failed to open cache !"));
     memcpy(Server, "*\0", 2);
     return 0;
@@ -925,8 +925,8 @@ byte Internet_Browser_Class::Display_Page()
   if (!Cache_File.seek(filePtr))
   {
     //error handle
-    GalaxOS.Event_Dialog(F("Seek failure in cache file."), GalaxOS.Error);
-    GalaxOS.Display.Set_Current_Page(F("Internet_Brow"));
+    Xila.Event_Dialog(F("Seek failure in cache file."), Xila.Error);
+    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     Serial.println(F("Seek failture"));
     return 0;
   }
@@ -959,32 +959,32 @@ byte Internet_Browser_Class::Display_Page()
       switch (Current_Color)
       {
       case 65534: //Bold style
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
+        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
 
         break;
 
       case 65533: //Highlight style
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
+        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65532: //Link style
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
+        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65531: //Heading style
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
+        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
 
       default:
-        GalaxOS.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
+        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
 
@@ -1090,7 +1090,7 @@ byte Internet_Browser_Class::Display_Page()
 
         // Horizontal rule tag
       case TAG_HR:
-        GalaxOS.Display.Draw_Rectangle(32, Cursor_Y + 6, 400, 2, 65535, false);
+        Xila.Display.Draw_Rectangle(32, Cursor_Y + 6, 400, 2, 65535, false);
         Cursor_Y += 14;
         break;
 

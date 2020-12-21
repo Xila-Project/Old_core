@@ -1,7 +1,7 @@
 #ifndef SHELL_HPP_INCLUDED
 #define SHELL_HPP_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Shell_Class : public Software_Class
 {
@@ -36,7 +36,7 @@ protected:
     void Delete(char *);
     void Go_Parent();
 
-    void Open_From_Dock(uint8_t);
+    void Dock(uint8_t, uint8_t);
     void Open_From_Drawer(uint8_t);
 
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);

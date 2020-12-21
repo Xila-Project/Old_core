@@ -1,7 +1,7 @@
 #ifndef CALCULATOR_HPP_INCLUDED
 #define CALCULATOR_HPP_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 #include "Arduino.h"
 
 #define NEPER_CONSTANT 2.71828182845904523536028747135266249

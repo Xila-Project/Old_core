@@ -2,10 +2,10 @@
 
 #include "Core.hpp"
 
-#define INSTANCE_POINTER GalaxOS_Class::Instance_Pointer
-GalaxOS_Class *GalaxOS_Class::Instance_Pointer = NULL;
+#define INSTANCE_POINTER Xila_Class::Instance_Pointer
+Xila_Class *Xila_Class::Instance_Pointer = NULL;
 
-GalaxOS_Class GalaxOS;
+Xila_Class Xila;
 
 extern Software_Handle_Class Shell_Handle;
 extern Software_Handle_Class Executable_Loader_Handle;
@@ -28,7 +28,7 @@ extern Software_Handle_Class Text_Editor_Handle;
 extern Software_Handle_Class Periodic_Handle;
 extern Software_Handle_Class Clock_Handle;
 
-GalaxOS_Class::GalaxOS_Class() : Tag(0),
+Xila_Class::Xila_Class() : Tag(0),
                                  Display(),
                                  Sound(),
                                  Keyboard(2, 6),
@@ -62,14 +62,14 @@ GalaxOS_Class::GalaxOS_Class() : Tag(0),
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
 }
 
-GalaxOS_Class::~GalaxOS_Class() // destructor
+Xila_Class::~Xila_Class() // destructor
 {
   Instance_Pointer = NULL;
 }
 
 // Idle task, lowest priority, nothing is running
 
-void GalaxOS_Class::Idle_Task_Software_Core(void *pvParameters)
+void Xila_Class::Idle_Task_Software_Core(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
@@ -79,7 +79,7 @@ void GalaxOS_Class::Idle_Task_Software_Core(void *pvParameters)
   }
 }
 
-void GalaxOS_Class::Idle_Task_System_Core(void *pvParameters)
+void Xila_Class::Idle_Task_System_Core(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
@@ -91,15 +91,15 @@ void GalaxOS_Class::Idle_Task_System_Core(void *pvParameters)
 
 // Used to initialise the core
 
-void GalaxOS_Class::Start()
+void Xila_Class::Start()
 {
 #if DEBUG_MODE == 1
-  xTaskCreatePinnedToCore(GalaxOS_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+  xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
 #else
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
   if (Wakeup_Cause == ESP_SLEEP_WAKEUP_EXT0)
   {
-    xTaskCreatePinnedToCore(GalaxOS_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
   }
   else
   {
@@ -108,7 +108,7 @@ void GalaxOS_Class::Start()
 #endif
 }
 
-void GalaxOS_Class::Shutdown()
+void Xila_Class::Shutdown()
 {
   Close_Software(Open_Software_Pointer[2]->Handle_Pointer);
   Close_Software(Open_Software_Pointer[3]->Handle_Pointer);
@@ -130,7 +130,7 @@ void GalaxOS_Class::Shutdown()
   esp_deep_sleep_start();
 }
 
-void GalaxOS_Class::Load()
+void Xila_Class::Load()
 {
   Serial.begin(SERIAL_SPEED); //PC Debug UART
   Remaining_Spaces = 0;
@@ -146,7 +146,7 @@ void GalaxOS_Class::Load()
   Print_Line();
   Horizontal_Separator();
   //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
-  Print_Line(F("Galax OS Embedded Edition - Alix ANNERAUD - Alpha"));
+  Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
   Horizontal_Separator();
   Print_Line(F("Starting Galax OS ..."), 0);
   // Initialize SD Card
@@ -239,11 +239,11 @@ void GalaxOS_Class::Load()
   xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
 
   // Check for a firmware switch (install/unistall software or recovery OS)
-  if (Drive->exists("/GALAXOS/XILA.XEF"))
+  if (Drive->exists("/XILA/XILA.XEF"))
   {
     Verbose_Print_Line("Switch firmware");
     Open_Software(&Executable_Loader_Handle);
-    Temporary_File = Drive->open("/GALAXOS/XILA.XEF");
+    Temporary_File = Drive->open("/XILA/XILA.XEF");
     Open_File(Temporary_File);
   }
 
@@ -269,7 +269,7 @@ void GalaxOS_Class::Load()
     Sound.Set_Volume(Sound_Registry["Volume"] | 0);
     Temporary_File.close();
   }
-  Temporary_File = Drive->open("/GALAXOS/SOUNDS/STARTUP.WAV");
+  Temporary_File = Drive->open("/XILA/SOUNDS/STARTUP.WAV");
   Sound.Play(Temporary_File);
 
   // Load network configuration
@@ -380,39 +380,97 @@ void GalaxOS_Class::Load()
 }
 
 // Main task for the core
-void GalaxOS_Class::Core_Task(void *pvParameters)
+void Xila_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
   //Core_Instruction *Core_Instruction_Pointer;
-  GalaxOS.Load();
+  Xila.Load();
   while (1)
   {
     if (ESP.getFreeHeap() < 2000)
     {
       Serial.println("Low Memory !");
     }
-    Instance_Pointer->Synchronise_Time();
-    Instance_Pointer->Refresh_Clock();
+    Xila.Synchronise_Time();
+    Xila.Refresh_Clock();
+
+    //refresh icon
+
+    int8_t Level = WiFi.RSSI();
+    if (WiFi.status() == WL_CONNECTED)
+    {
+      if (Level <= -70)
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
+      }
+      if (Level <= -50 && Level > -70)
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
+      }
+      else
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
+      }
+    }
+    else
+    {
+      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
+    }
     
-    uint8_t Battery_Level = Instance_Pointer->Battery.Get_Charge_Level();
+
+    Level = Instance_Pointer->Battery.Get_Charge_Level();
+    if (Level <= 15)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
+    }
+    else if (Level <= 30 && Level > 15)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
+    }
+    else if (Level <= 70 && Level > 30)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
+    }
+    else // more than 70 %
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
+    }
+
+    Level = Instance_Pointer->Sound.Get_Volume();
+    if (Level == 0)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
+    }
+    else if (Level < 33)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
+    }
+    else if (Level < 66)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
+    }
+    else
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
+    }
 
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
-    Serial.println(uxTaskGetStackHighWaterMark(GalaxOS_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
+    Serial.println(uxTaskGetStackHighWaterMark(Xila_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
 #endif
     vTaskDelay(pdMS_TO_TICKS(200));
   }
-  /*xQueueReceive(GalaxOS.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
+  /*xQueueReceive(Xila.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
     Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
     xSemaphoreGive(Core_Instruction_Pointer->Executed);
     vTaskDelay(pdMS_TO_TICKS(5));*/
 }
 
-void GalaxOS_Class::Save_System_State()
+void Xila_Class::Save_System_State()
 {
-  if (Drive->exists("/GALAXOS/SLEEP.XDF"))
+  if (Drive->exists("/XILA/SLEEP.XDF"))
   {
-    if (Drive->remove("/GALAXOS/SLEEP.XDF"))
+    if (Drive->remove("/XILA/SLEEP.XDF"))
     {
       //event handler
     }
@@ -421,14 +479,14 @@ void GalaxOS_Class::Save_System_State()
 
   System_Save_Registry["Current Username"] = Current_Username;
 
-  File Temporary_File = Drive->open("/GALAXOS/GOSCUSA.GSF");
+  File Temporary_File = Drive->open("/XILA/GOSCUSA.GSF");
   serializeJson(System_Save_Registry, Temporary_File);
   Temporary_File.close();
 }
 
 // Callback function for screen
 
-void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
+void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
   Serial.println(Received_Data);
   String Temporary_String;
@@ -442,28 +500,28 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data
     break;
   case Code::Command:
   case Code::Command_New:
-    GalaxOS.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
+    Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
     break;
   case Code::Event:
-    GalaxOS.Event_Reply = (Xila_Event)Received_Data[1];
+    Xila.Event_Reply = (Xila_Event)Received_Data[1];
     break;
   case Code::Variable_String_Local:
     Temporary_String = String(Received_Data + 2);
-    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
+    Xila.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
     break;
   case Code::Variable_Char_Local:
-    GalaxOS.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_Char_Local, Received_Data[1], Size);
-    GalaxOS.Tag = '\0';
+    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_Char_Local, Received_Data[1], Size);
+    Xila.Tag = '\0';
     break;
   case Code::Variable_String_Global:
     Temporary_String = String(Received_Data + 2);
-    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
+    Xila.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
     break;
   case Code::Variable_Long_Local:
-    GalaxOS.Tag = Received_Data[1];
+    Xila.Tag = Received_Data[1];
     break;
   case Code::Variable_Long_Global:
-    GalaxOS.Tag = Received_Data[1];
+    Xila.Tag = Received_Data[1];
     break;
   default:
     //error handle
@@ -471,24 +529,24 @@ void GalaxOS_Class::Incomming_String_Data_From_Display(const char *Received_Data
   }
 }
 
-void GalaxOS_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
+void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 {
-  if (GalaxOS.Tag != '\0')
+  if (Xila.Tag != '\0')
   {
-    GalaxOS.Open_Software_Pointer[0]->Set_Variable(&Received_Data, GalaxOS.Variable_Long_Local, GalaxOS.Tag);
-    GalaxOS.Tag = '\0';
+    Xila.Open_Software_Pointer[0]->Set_Variable(&Received_Data, Xila.Variable_Long_Local, Xila.Tag);
+    Xila.Tag = '\0';
   }
   else
   {
-    GalaxOS.Event_Dialog(F("Unexpected Numeric Data Return From Display"), Error);
+    Xila.Event_Dialog(F("Unexpected Numeric Data Return From Display"), Error);
   }
 }
 
-void GalaxOS_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
+void Xila_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
 }
 
-void GalaxOS_Class::Open_File(File &File_To_Open)
+void Xila_Class::Open_File(File &File_To_Open)
 {
   if (!File_To_Open)
   {
@@ -529,7 +587,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
   else
   {
-    if (Drive->open(F("/GALAXOS/REGISTRY/EXTENSIO.GCF")))
+    if (Drive->open(F("/XILA/REGISTRY/EXTENSIO.GCF")))
     {
       DynamicJsonDocument Extension_Registry(256);
       File Temporary_File = Drive->open(Extension_Registry_Path);
@@ -558,7 +616,7 @@ void GalaxOS_Class::Open_File(File &File_To_Open)
 
 // Software management
 
-void GalaxOS_Class::Open_Software(Software_Handle_Class *Software_Handle_Pointer)
+void Xila_Class::Open_Software(Software_Handle_Class *Software_Handle_Pointer)
 {
   uint8_t i = 1;
   for (; i < 8; i++) //check if software is openned already
@@ -588,7 +646,7 @@ void GalaxOS_Class::Open_Software(Software_Handle_Class *Software_Handle_Pointer
   Event_Dialog(F("Too many open software, please close one before starting a software."), Error);
 }
 
-void GalaxOS_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
+void Xila_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
 {
   if (Software_Handle_To_Close == NULL) //by default delete current running software
   {
@@ -622,13 +680,13 @@ void GalaxOS_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Clo
   Maximize_Software(1); //reopen shell
 }
 
-void GalaxOS_Class::Minimize_Software()
+void Xila_Class::Minimize_Software()
 {
   Open_Software_Pointer[0]->Minimize();
   Open_Software_Pointer[0] = NULL;
 }
 
-void GalaxOS_Class::Maximize_Software(uint8_t Slot)
+void Xila_Class::Maximize_Software(uint8_t Slot)
 {
   if (Open_Software_Pointer[Slot] == NULL) // Error : no software to maximize
   {
@@ -642,7 +700,7 @@ void GalaxOS_Class::Maximize_Software(uint8_t Slot)
   Open_Software_Pointer[0]->Maximize();
 }
 
-void GalaxOS_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add)
+void Xila_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add)
 {
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
@@ -662,12 +720,12 @@ void GalaxOS_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_P
 
 // Serial communication with commputer
 
-void GalaxOS_Class::Horizontal_Separator()
+void Xila_Class::Horizontal_Separator()
 {
   Serial.println(F("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||"));
 }
 
-void GalaxOS_Class::Print_Line(const __FlashStringHelper *Text_To_Print, uint8_t const &Alignement)
+void Xila_Class::Print_Line(const __FlashStringHelper *Text_To_Print, uint8_t const &Alignement)
 {
   Serial.print(F("||"));
   Serial.print(F(" "));
@@ -675,7 +733,7 @@ void GalaxOS_Class::Print_Line(const __FlashStringHelper *Text_To_Print, uint8_t
   Serial.println(F("||"));
 }
 
-void GalaxOS_Class::Print_Line(const char *Text_To_Print, uint8_t const &Alignement)
+void Xila_Class::Print_Line(const char *Text_To_Print, uint8_t const &Alignement)
 {
   Serial.print(F("||"));
 
@@ -710,21 +768,21 @@ void GalaxOS_Class::Print_Line(const char *Text_To_Print, uint8_t const &Alignem
   Serial.println(F("||"));
 }
 
-void GalaxOS_Class::Print_Line()
+void Xila_Class::Print_Line()
 {
   Serial.print(F("||                                                                            ||"));
 }
 
 // --------------------------
 
-void GalaxOS_Class::Restore_System_State()
+void Xila_Class::Restore_System_State()
 {
-  if (!Drive->exists("/GALAXOS/XILA.GRF"))
+  if (!Drive->exists("/XILA/XILA.GRF"))
   {
     // no need to restore
     return;
   }
-  File Temporary_File = Drive->open("/GALAXOS/GOSCUSA.GSF");
+  File Temporary_File = Drive->open("/XILA/GOSCUSA.GSF");
   DynamicJsonDocument Temporary_Json_Document(256);
   //ReadBufferingStream Buffering_Stream(Drive->open("/"), 64); dont work, i don't know why
 
@@ -736,7 +794,7 @@ void GalaxOS_Class::Restore_System_State()
   strcpy(Current_Username, Temporary_Json_Document["Current Username"]);
 
   Temporary_File.close();
-  Drive->remove(F("/GALAXOS/XILA.GRF"));
+  Drive->remove(F("/XILA/XILA.GRF"));
 }
 
 //---------------------------------------------------------------------------//
@@ -744,12 +802,12 @@ void GalaxOS_Class::Restore_System_State()
 //---------------------------------------------------------------------------//
 
 // Char array
-/*void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
+/*void Xila_Class::Set_Variable(char const &Tag, const char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -758,7 +816,7 @@ void GalaxOS_Class::Restore_System_State()
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -769,12 +827,12 @@ void GalaxOS_Class::Restore_System_State()
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Get_Variable(char const &Tag, char *String_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -783,7 +841,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set, Software_
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -795,12 +853,12 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Set, Software_
 }/
 
 // String
-void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Set_Variable(char const &Tag, String const &String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -809,7 +867,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set, u
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -820,12 +878,12 @@ void GalaxOS_Class::Set_Variable(char const &Tag, String const &String_To_Set, u
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Get_Variable(char const &Tag, String &String_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -834,7 +892,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get, uint16_
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -846,12 +904,12 @@ void GalaxOS_Class::Get_Variable(char const &Tag, String &String_To_Get, uint16_
 }
 
 // char array
-void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Set_Variable(char const &Tag, const char *String_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -860,7 +918,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set, uin
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -871,12 +929,12 @@ void GalaxOS_Class::Set_Variable(char const &Tag, const char *String_To_Set, uin
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Get_Variable(char const &Tag, char *String_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL) // global scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/GLOBAL/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -885,7 +943,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Get, uint16_t 
   }
   else // local scope
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/STRING/" + Tag, FILE_READ);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -897,7 +955,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, char *String_To_Get, uint16_t 
 }
 
 // 32-bit var
-void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Split_Number[0] = (uint8_t)Number_To_Set[0];
@@ -915,7 +973,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint1
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -926,7 +984,7 @@ void GalaxOS_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint1
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
+void Xila_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint16_t Size, Software_Handle_Class *Software_Handle_Targeted)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL)
@@ -940,7 +998,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint1
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_READ);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -953,7 +1011,7 @@ void GalaxOS_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint1
 }
 /*
 // 32-bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Split_Number[0] = (uint8_t)Number_To_Set;
@@ -971,7 +1029,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_S
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -982,7 +1040,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_S
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL)
@@ -996,7 +1054,7 @@ void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, So
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted) + "/VARIABLE.GSF", FILE_READ);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -1008,7 +1066,7 @@ void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, So
 }
 
 // 16 bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Set_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL)
@@ -1023,7 +1081,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, ui
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
     if (Virtual_Memory_File)
     {
       Split_Number[0] = (char)Number_To_Set;
@@ -1035,7 +1093,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, ui
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Get_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL)
@@ -1049,7 +1107,7 @@ void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, ui
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -1061,7 +1119,7 @@ void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, ui
 }
 
 // 8 bit variable
-void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Set_Variable(uint8_t const &Tag, uint8_t* Number_To_Set, uint16_t const& Size = 1, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   if (Software_Handle_Targeted == NULL)
@@ -1075,7 +1133,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t* Number_To_Set, uin
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/GALAXOS/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRTIE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRTIE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -1086,7 +1144,7 @@ void GalaxOS_Class::Set_Variable(uint8_t const &Tag, uint8_t* Number_To_Set, uin
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
 
-void GalaxOS_Class::Get_Variable(uint8_t const &Tag, uint8_t &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
+void Xila_Class::Get_Variable(uint8_t const &Tag, uint8_t &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
   xSemaphoreTake(Virtual_Memory_Semaphore, portMAX_DELAY);
   Virtual_Memory_File = Drive->open(Virtual_Global_Memory_File, FILE_READ);
@@ -1113,11 +1171,11 @@ void Ressource_Monitor(void *pvParameters)
 }*/
 
 // Account management
-Xila_Event GalaxOS_Class::Add_User(const char *Username, const char *Password)
+Xila_Event Xila_Class::Add_User(const char *Username, const char *Password)
 {
   if (Drive->exists("/USERS/" + String(Username)))
   {
-    return This_User_Already_Exist;
+    return User_Already_Exist;
   }
   else
   {
@@ -1130,11 +1188,11 @@ Xila_Event GalaxOS_Class::Add_User(const char *Username, const char *Password)
     User_Registry["Registry"] = "User";
     strcpy(User_Registry["Password"], Password);
     serializeJson(User_Registry, Temporary_File);
-    return Success; 
+    return Success;
   }
 }
 
-Xila_Event GalaxOS_Class::Delete_User(const char *Username_To_Check, const char *Password_To_Check)
+Xila_Event Xila_Class::Delete_User(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
@@ -1147,7 +1205,7 @@ Xila_Event GalaxOS_Class::Delete_User(const char *Username_To_Check, const char 
   }
 }
 
-Xila_Event GalaxOS_Class::Change_Password(const char* Username_To_Check, const char* Password_To_Check, const char* Password_To_Set)
+Xila_Event Xila_Class::Change_Password(const char *Username_To_Check, const char *Password_To_Check, const char *Password_To_Set)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
@@ -1157,22 +1215,21 @@ Xila_Event GalaxOS_Class::Change_Password(const char* Username_To_Check, const c
     strcpy(User_Registry["Password"], Password_To_Set);
     serializeJson(User_Registry, Temporary_File);
     Temporary_File.close();
-    return Success;   
+    return Success;
   }
   else
   {
     return Wrong_Credentials;
   }
-  
 }
 
-Xila_Event GalaxOS_Class::Logout()
+Xila_Event Xila_Class::Logout()
 {
   memset(Current_Username, '/0', sizeof(Current_Username));
   return Success;
 }
 
-Xila_Event GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Xila_Event Xila_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Drive->exists("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF"))
   {
@@ -1201,7 +1258,7 @@ Xila_Event GalaxOS_Class::Check_Credentials(const char *Username_To_Check, const
   return Wrong_Credentials;
 }
 
-Xila_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
   {
@@ -1251,7 +1308,7 @@ Xila_Event GalaxOS_Class::Login(const char *Username_To_Check, const char *Passw
     break;
   }*/
 
-Xila_Event GalaxOS_Class::Event_Dialog(uint16_t const &Event_ID)
+Xila_Event Xila_Class::Event_Dialog(uint16_t const &Event_ID)
 {
 
   /*Display.Set_Current_Page(F("Event"));
@@ -1272,7 +1329,7 @@ Xila_Event GalaxOS_Class::Event_Dialog(uint16_t const &Event_ID)
   return 0;
 }
 
-Xila_Event GalaxOS_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
   Display.Set_Current_Page(F("Event"));
@@ -1334,7 +1391,7 @@ Xila_Event GalaxOS_Class::Event_Dialog(const __FlashStringHelper *Message, uint8
   return Event_Reply_Copy;
 }
 
-void GalaxOS_Class::Refresh_Clock()
+void Xila_Class::Refresh_Clock()
 {
   static char Clock[5];
   Clock[0] = Time.tm_hour / 10;
@@ -1350,13 +1407,13 @@ void GalaxOS_Class::Refresh_Clock()
   Display.Set_Text(F("CLOCK_TXT"), Clock);
 }
 
-void GalaxOS_Class::Synchronise_Time()
+void Xila_Class::Synchronise_Time()
 {
   time(&Now);
   localtime_r(&Now, &Time);
 }
 
-tm GalaxOS_Class::Get_Time()
+tm Xila_Class::Get_Time()
 {
   Synchronise_Time();
   return Time;
@@ -1364,7 +1421,7 @@ tm GalaxOS_Class::Get_Time()
 
 // Create System file at 1st boot
 
-void GalaxOS_Class::Create_System_Files()
+void Xila_Class::Create_System_Files()
 {
   // Display Registry
   DynamicJsonDocument Display_Registry(256);

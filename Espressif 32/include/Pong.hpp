@@ -1,7 +1,7 @@
 #ifndef PONG_HPP_INCLUDED
 #define PONG_HPP_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Pong_Class : public Software_Class
 {

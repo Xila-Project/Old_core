@@ -1,7 +1,7 @@
 #ifndef PERIODIC_H_INCLUDED
 #define PERIODIC_H_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 // JSON Data file : 
 // Creative Commons Attribution-ShareAlike 3.0 liscence

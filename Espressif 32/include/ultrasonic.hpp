@@ -1,7 +1,7 @@
 #ifndef ULTRASONIC_HPP_DEFINED
 #define ULTRASONIC_HPP_DEFINED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 #define SOUND_SPEED_AIR 343
 

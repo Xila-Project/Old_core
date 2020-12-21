@@ -1,7 +1,7 @@
 #ifndef SIGNAL_GENERATOR_INCLUDED
 #define SIGNAL_GENERATOR_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 #define INSTANCE_POINTER Signal_Generator_Class::Instance_Pointer
 

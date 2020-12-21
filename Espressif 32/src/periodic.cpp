@@ -39,7 +39,7 @@ void Periodic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Ad
 void Periodic_Class::Main_Task(void *pvParamters)
 {
     (void)pvParamters;
-    Instance_Pointer->Periodic_File = GalaxOS.Drive->open("/SOFTWARE/PERIODIC/PERIODIC.GRF");
+    Instance_Pointer->Periodic_File = Xila.Drive->open("/SOFTWARE/PERIODIC/PERIODIC.GRF");
     for (;;)
     {
         switch (Instance_Pointer->Get_Command())
@@ -117,18 +117,18 @@ void Periodic_Class::Get_Data()
     char Temporary_Char_Array[61];
 
     strcpy(Temporary_Char_Array, Periodic_Register[Name]["symbol"]);
-    GalaxOS.Display.Set_Text(F("SYMBOL_TXT"), Periodic_Register[Name]["symbol"]);
+    Xila.Display.Set_Text(F("SYMBOL_TXT"), Periodic_Register[Name]["symbol"]);
 
     itoa(Periodic_Register[Name]["number"], Temporary_Char_Array, 10);
-    GalaxOS.Display.Set_Text(F("NUMBER_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("NUMBER_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Name : ");
     strcpy(Temporary_Char_Array + sizeof("Name : "), Periodic_Register[Name]["name"]);
-    GalaxOS.Display.Set_Text(F("NAME_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("NAME_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Category : ");
     strcpy(Temporary_Char_Array + sizeof("Category : "), Periodic_Register[Name]["category"]);
-    GalaxOS.Display.Set_Text(F("CATEGORY_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("CATEGORY_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Apperance : ");
     if (Periodic_Register[Name]["color"] == NULL)
@@ -139,43 +139,43 @@ void Periodic_Class::Get_Data()
     {
         strcpy(Temporary_Char_Array + sizeof("Apperance : "), Periodic_Register[Name]["color"]);
     }
-    GalaxOS.Display.Set_Text(F("APPEARANCE_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("APPEARANCE_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Discover : ");
     strcpy(Temporary_Char_Array + sizeof("Discover : "), Periodic_Register[Name]["discovered_by"]);
-    GalaxOS.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Mass : ");
     itoa(Periodic_Register[Name]["atomic_mass"], Temporary_Char_Array + sizeof("Mass : "), 10);
-    GalaxOS.Display.Set_Text(F("MASS_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("MASS_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Density : ");
     itoa(Periodic_Register[Name]["density"], Temporary_Char_Array + sizeof("Density : "), 10);
-    GalaxOS.Display.Set_Text(F("DENSITY_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("DENSITY_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Melting point : ");
     itoa(Periodic_Register[Name]["melt"], Temporary_Char_Array + sizeof("Melting point : "), 10);
-    GalaxOS.Display.Set_Text(F("MELT_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("MELT_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Boiling point : ");
     itoa(Periodic_Register[Name]["boil"], Temporary_Char_Array + sizeof("Boiling point : "), 10);
-    GalaxOS.Display.Set_Text(F("NAME_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("NAME_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Phase At S.T.P. : ");
     strcpy(Temporary_Char_Array + sizeof("Phase At S.T.P. : "), Periodic_Register[Name]["phase"]);
-    GalaxOS.Display.Set_Text(F("PHASE_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("PHASE_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Electron configuration : ");
     strcpy(Temporary_Char_Array + sizeof("Electron configuration : "), Periodic_Register[Name]["electron_configuration"]);
-    GalaxOS.Display.Set_Text(F("ELECTRONC_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("ELECTRONC_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Electronegativity : ");
     itoa(Periodic_Register[Name]["electronegativity_pauling"], Temporary_Char_Array + sizeof("Electronegativity : "), 10);
-    GalaxOS.Display.Set_Text(F("ELECTRONN_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("ELECTRONN_TXT"), Temporary_Char_Array);
 
     strcpy(Temporary_Char_Array, "Electron affinity : ");
     itoa(Periodic_Register[Name]["electron_affinity"], Temporary_Char_Array + sizeof("Electron affinity"), 10);
-    GalaxOS.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);*/
+    Xila.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);*/
 }
 
 void Periodic_Class::Get_List()

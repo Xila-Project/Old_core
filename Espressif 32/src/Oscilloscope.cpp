@@ -1,7 +1,5 @@
 #include "Oscilloscope.hpp"
 
-extern GalaxOS_Class GalaxOS;
-
 #define INSTANCE_POINTER Oscilloscope_Class::Instance_Pointer
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
@@ -235,7 +233,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
                 {
                     INSTANCE_POINTER->range0 = RANGE_MIN;
                 }
-                GalaxOS.Display.Set_Text(F("RANGE_TXT"), "Range : " + String(INSTANCE_POINTER->Ranges[INSTANCE_POINTER->range0]) + " V/Div");
+                Xila.Display.Set_Text(F("RANGE_TXT"), "Range : " + String(INSTANCE_POINTER->Ranges[INSTANCE_POINTER->range0]) + " V/Div");
             }
             else
             {
@@ -247,7 +245,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
                 {
                     INSTANCE_POINTER->range1 = RANGE_MIN;
                 }
-                GalaxOS.Display.Set_Text(F("RANGE_TXT"), "Range : " + String(INSTANCE_POINTER->Ranges[INSTANCE_POINTER->range1]) + " V/Div");
+                Xila.Display.Set_Text(F("RANGE_TXT"), "Range : " + String(INSTANCE_POINTER->Ranges[INSTANCE_POINTER->range1]) + " V/Div");
             }
             break;
         case 0x534D: //SM : switch mode
@@ -261,7 +259,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
                 {
                     INSTANCE_POINTER->ch0_mode = INSTANCE_POINTER->MODE_ON;
                 }
-                GalaxOS.Display.Set_Text(F("MODE_TXT"), "Mode : " + String(INSTANCE_POINTER->Modes[INSTANCE_POINTER->ch0_mode]));
+                Xila.Display.Set_Text(F("MODE_TXT"), "Mode : " + String(INSTANCE_POINTER->Modes[INSTANCE_POINTER->ch0_mode]));
             }
             else
             {
@@ -273,7 +271,7 @@ void Oscilloscope_Class::Refresh_User_Interface()
                 {
                     INSTANCE_POINTER->ch1_mode = INSTANCE_POINTER->MODE_ON;
                 }
-                GalaxOS.Display.Set_Text(F("MODE_TXT"), "Mode : " + String(INSTANCE_POINTER->Modes[INSTANCE_POINTER->ch1_mode]));
+                Xila.Display.Set_Text(F("MODE_TXT"), "Mode : " + String(INSTANCE_POINTER->Modes[INSTANCE_POINTER->ch1_mode]));
             }
             break;
 
@@ -548,11 +546,11 @@ void Oscilloscope_Class::Refresh_Waveform()
     }
     if (ch0_mode != MODE_OFF)
     {
-        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 0], SAMPLES);
+        Xila.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 0], SAMPLES);
     }
     if (ch1_mode != MODE_OFF)
     {
-        GalaxOS.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 1], SAMPLES);
+        Xila.Display.Add_Value_Waveform(Waveform_ID, 0, (uint32_t*)data[sample + 1], SAMPLES);
     }
 }
 

@@ -1,7 +1,7 @@
 #ifndef EXECUTABLE_LOADER_INCLUDED
 #define EXECUTABLE_LOADER_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 // Used to load external
 

@@ -63,12 +63,12 @@ void Calculator_Class::Switch_Angle_Unity()
     if (Angle_Unity = Degree)
     {
         Angle_Unity = Radian;
-        GalaxOS.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
+        Xila.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
     }
     else
     {
         Angle_Unity = Degree;
-        GalaxOS.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
+        Xila.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
     }
 }
 
@@ -78,22 +78,22 @@ void Calculator_Class::Switch_Keys()
     {
         if (bitRead(Keys_Mode, 2) == 1) // all enabled
         {
-            GalaxOS.Display.Click(59, 1);
+            Xila.Display.Click(59, 1);
         }
         else // hyperbolic disabled
         {
-            GalaxOS.Display.Click(58, 0);
+            Xila.Display.Click(58, 0);
         }
     }
     else // second disabled
     {
         if (bitRead(Keys_Mode, 2) == 1) // hyperbolic enabled
         {
-            GalaxOS.Display.Click(58, )
+            Xila.Display.Click(58, )
         }
         else // all disabled
         {
-            GalaxOS.Display.Click(59, 0);
+            Xila.Display.Click(59, 0);
         }
     }
 }
@@ -111,7 +111,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             vTaskDelete(NULL);
             break;
         case Software_Code::Maximize:
-            GalaxOS.Display.Set_Current_Page(F("Calculator"));
+            Xila.Display.Set_Current_Page(F("Calculator"));
             break;
         case Software_Code::Minimize:
             vTaskSuspend(NULL);
@@ -179,12 +179,12 @@ void Calculator_Class::Main_Task(void *pvParameters)
             if (bitRead(Keys_Mode, 1) == 1)
             {
                 bitWrite(Keys_Mode, 1, 0);
-                GalaxOS.Display.Set_Value(F("SECOND_BUT"), 0);
+                Xila.Display.Set_Value(F("SECOND_BUT"), 0);
             }
             else
             {
                 bitWrite(Keys_Mode, 1, 1);
-                GalaxOS.Display.Set_Value(F("SECOND_BUT"), 1);
+                Xila.Display.Set_Value(F("SECOND_BUT"), 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
@@ -193,12 +193,12 @@ void Calculator_Class::Main_Task(void *pvParameters)
             if (bitRead(Keys_Mode, 1) == 1)
             {
                 bitWrite(Keys_Mode, 1, 0);
-                GalaxOS.Display.Set_Value(F("HYPERBOLIC_BUT"), 0);
+                Xila.Display.Set_Value(F("HYPERBOLIC_BUT"), 0);
             }
             else
             {
                 bitWrite(Keys_Mode, 1, 1);
-                GalaxOS.Display.Set_Value(F("HYPERBOLIC_BUT"), 1);
+                Xila.Display.Set_Value(F("HYPERBOLIC_BUT"), 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
@@ -206,12 +206,12 @@ void Calculator_Class::Main_Task(void *pvParameters)
             if (bitRead(Instance_Pointer->Keys_Mode, 3) == 1)
             {
                 bitWrite(Instance_Pointer->Keys_Mode, 3, 0);
-                GalaxOS.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
+                Xila.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
             }
             else
             {
                 bitWrite(Instance_Pointer->Keys_Mode, 3, 1);
-                GalaxOS.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
+                Xila.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
             }
             break;
 
@@ -523,17 +523,17 @@ void Calculator_Class::Display()
     switch (State)
     {
     case 0:
-        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), F(""));
+        Xila.Display.Set_Text(F("CALCULATIO_TXT"), F(""));
         Temporary_String = String(Number[State]);
-        GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
+        Xila.Display.Set_Text("NUMBER_TXT", Temporary_String);
         break;
     case 1:
         Temporary_String = String(Number[0]);
         Temporary_String += " ";
         Temporary_String += String(Operator);
-        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
+        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
         Temporary_String = String(Number[1]);
-        GalaxOS.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
+        Xila.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
         break;
     case 2:
         Temporary_String = String(Number[0]);
@@ -541,12 +541,12 @@ void Calculator_Class::Display()
         Temporary_String += String(Operator);
         Temporary_String += " ";
         Temporary_String += String(Number[1]);
-        GalaxOS.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
+        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_String);
         Temporary_String = String(Result);
-        GalaxOS.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
+        Xila.Display.Set_Text(F("NUMBER_TXT"), Temporary_String);
 
     default:
         break;
     }
-    GalaxOS.Display.Set_Text("NUMBER_TXT", Temporary_String);
+    Xila.Display.Set_Text("NUMBER_TXT", Temporary_String);
 }

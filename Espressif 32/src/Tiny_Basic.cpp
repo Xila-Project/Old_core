@@ -35,10 +35,10 @@ void TinyBasic_Task(void *pvParameters)
 {
   (void)pvParameters;
   INSTANCE_POINTER->printmsg(INSTANCE_POINTER->initmsg);
-  GalaxOS.Display.Draw_Fill(2, 20, 476, 250, COLOR_DARK_GREY);
+  Xila.Display.Draw_Fill(2, 20, 476, 250, COLOR_DARK_GREY);
 
   // Initialize SD Card
-  if (!GalaxOS.Drive->begin())
+  if (!Xila.Drive->begin())
   {
     // failed
     INSTANCE_POINTER->printmsg(INSTANCE_POINTER->sderrormsg);
@@ -47,10 +47,10 @@ void TinyBasic_Task(void *pvParameters)
   {
     INSTANCE_POINTER->sd_is_initialized = true;
   }
-  if (GalaxOS.Drive->exists(AUTORUN_FILE))
+  if (Xila.Drive->exists(AUTORUN_FILE))
   {
     INSTANCE_POINTER->program_end = INSTANCE_POINTER->program_start;
-    INSTANCE_POINTER->fp = GalaxOS.Drive->open(AUTORUN_FILE);
+    INSTANCE_POINTER->fp = Xila.Drive->open(AUTORUN_FILE);
     INSTANCE_POINTER->inStream = INSTANCE_POINTER->kStreamFile;
     INSTANCE_POINTER->inhibitOutput = true;
     INSTANCE_POINTER->runAfterLoad = true;
@@ -76,7 +76,7 @@ void TinyBasic_Task(void *pvParameters)
   boolean isDigital;
   boolean alsoWait = false;
 
-  GalaxOS.Sound.Mute();
+  Xila.Sound.Mute();
 
   while (1)
   {
@@ -877,7 +877,7 @@ void TinyBasic_Task(void *pvParameters)
           goto qwhat;
 
         // check if file exists
-        if (!GalaxOS.Drive->exists((char *)filename))
+        if (!Xila.Drive->exists((char *)filename))
         {
           // file is missing
           INSTANCE_POINTER->printmsg(INSTANCE_POINTER->sdfilemsg);
@@ -885,7 +885,7 @@ void TinyBasic_Task(void *pvParameters)
         else
         {
           // file exists so open it
-          INSTANCE_POINTER->fp = GalaxOS.Drive->open((const char *)filename);
+          INSTANCE_POINTER->fp = Xila.Drive->open((const char *)filename);
           INSTANCE_POINTER->inStream = INSTANCE_POINTER->kStreamFile;
           INSTANCE_POINTER->inhibitOutput = true;
         }
@@ -908,13 +908,13 @@ void TinyBasic_Task(void *pvParameters)
       Serial.println((char *)filename);
 
       // remove the old file if it exists
-      if (GalaxOS.Drive->exists((char *)filename))
+      if (Xila.Drive->exists((char *)filename))
       {
-        GalaxOS.Drive->remove((char *)filename);
+        Xila.Drive->remove((char *)filename);
       }
 
       // open the file, switch over to file output
-      INSTANCE_POINTER->fp = GalaxOS.Drive->open((const char *)filename, FILE_WRITE);
+      INSTANCE_POINTER->fp = Xila.Drive->open((const char *)filename, FILE_WRITE);
 
       if (INSTANCE_POINTER->fp == (File)NULL)
       {
@@ -955,9 +955,9 @@ void TinyBasic_Task(void *pvParameters)
         Serial.println((char *)filename);
 
         // remove the file if it exists
-        if (GalaxOS.Drive->exists((char *)filename))
+        if (Xila.Drive->exists((char *)filename))
         {
-          GalaxOS.Drive->remove((char *)filename);
+          Xila.Drive->remove((char *)filename);
         }
         goto warmstart;
       }
@@ -1018,7 +1018,7 @@ void TinyBasic_Task(void *pvParameters)
       goto unimplemented;
 
     tonestop:
-      GalaxOS.Sound.Mute();
+      Xila.Sound.Mute();
       goto run_next_statement;
 
     tonegen:
@@ -1049,7 +1049,7 @@ void TinyBasic_Task(void *pvParameters)
       if (freq == 0 || duration == 0)
         goto tonestop;
 
-      GalaxOS.Sound.Tone(freq, duration);
+      Xila.Sound.Tone(freq, duration);
       if (alsoWait)
       {
         delay(duration);
@@ -1689,7 +1689,7 @@ void TinyBasic_Class::outchar(char c)
 
 void TinyBasic_Class::cmd_Files(void)
 {
-  File dir = GalaxOS.Drive->open("/");
+  File dir = Xila.Drive->open("/");
   dir.seek(0);
 
   while (true)

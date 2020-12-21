@@ -1,7 +1,7 @@
 #ifndef INTERNET_BROWSER_H_INCLUDED
 #define INTERNET_BROWSER_H_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 #include "WiFiClientSecure.h"
 

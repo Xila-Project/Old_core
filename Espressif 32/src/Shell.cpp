@@ -34,12 +34,12 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         strcpy(Username, (char *)Variable);
         break;
     case 'D':
-        if (Type == GalaxOS.Variable_Long_Local)
+        if (Type == Xila.Variable_Long_Local)
         {
         }
         break;
     case 'P':
-        if (Type == GalaxOS.Variable_String_Local)
+        if (Type == Xila.Variable_String_Local)
         {
             Current_Path = *(String *)Variable;
         }
@@ -75,7 +75,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Open_Desk();
             break;
         case 0x534D: // SM : Shutdown menu
-            GalaxOS.Display.Set_Current_Page(F("Shell_Shutdown"));
+            Xila.Display.Set_Current_Page(F("Shell_Shutdown"));
             break;
 
         case 0x5253: // RS : Restart system
@@ -88,13 +88,13 @@ void Shell_Class::Main_Task(void *pvParameters)
             break;
 
         case 0x5353: // SS : shutdown
-            GalaxOS.Shutdown();
+            Xila.Shutdown();
             break;
         case 0x4C6F: // Lo : Login with entred username and password
             Instance_Pointer->Login();
             break;
         case 0x44: // DC : display calibration
-            GalaxOS.Display.Calibrate();
+            Xila.Display.Calibrate();
             // wait until display sent reset code
             break;
         case 0x4F4C: // "OL" : Open Login page
@@ -167,23 +167,41 @@ void Shell_Class::Main_Task(void *pvParameters)
         case 0x6445: // dx : Open software from drawer
             Instance_Pointer->Open_From_Drawer(14);
             break;
-        case 0x4431: // Dx : Maxmize software from dock
-            Instance_Pointer->Open_From_Dock(1);
+        case 0x4D31: // Mx : Maxmize software from dock
+            Instance_Pointer->Dock(1, 'M');
             break;
-        case 0x4432:
-            Instance_Pointer->Open_From_Dock(2);
+        case 0x4D32:
+            Instance_Pointer->Dock(2, 'M');
             break;
-        case 0x4433:
-            Instance_Pointer->Open_From_Dock(3);
+        case 0x4D33:
+            Instance_Pointer->Dock(3, 'M');
             break;
-        case 0x4434:
-            Instance_Pointer->Open_From_Dock(4);
+        case 0x4D34:
+            Instance_Pointer->Dock(4, 'M');
             break;
-        case 0x4435:
-            Instance_Pointer->Open_From_Dock(5);
+        case 0x4D35:
+            Instance_Pointer->Dock(5, 'M');
             break;
-        case 0x4436:
-            Instance_Pointer->Open_From_Dock(6);
+        case 0x4D36:
+            Instance_Pointer->Dock(6, 'M');
+            break;
+        case 0x4331: // Cx : Close software from dock
+            Instance_Pointer->Dock(1, 'C');
+            break;
+        case 0x4332:
+            Instance_Pointer->Dock(2, 'C');
+            break;
+        case 0x4333:
+            Instance_Pointer->Dock(3, 'C');
+            break;
+        case 0x4334:
+            Instance_Pointer->Dock(4, 'C');
+            break;
+        case 0x4335:
+            Instance_Pointer->Dock(5, 'C');
+            break;
+        case 0x4336:
+            Instance_Pointer->Dock(6, 'C');
             break;
         default:
             break;
@@ -203,14 +221,21 @@ void Shell_Class::Open_From_Drawer(uint8_t Slot)
         Open_Preferences('P');
         break;
     default:
-        GalaxOS.Open_Software(GalaxOS.Software_Handle_Pointer[Slot]); // exclude 1st slot (shell ui), so add, minus 2 = 1
+        Xila.Open_Software(Xila.Software_Handle_Pointer[Slot]); // exclude 1st slot (shell ui), so add, minus 2 = 1
         break;
     }
 }
 
-void Shell_Class::Open_From_Dock(uint8_t Slot)
+void Shell_Class::Dock(uint8_t Slot, uint8_t Action)
 {
-    GalaxOS.Maximize_Software(Slot + 1);
+    if (Action == 'M') // maximize
+    {
+        Xila.Maximize_Software(Slot + 1);
+    }
+    else if (Action == 'C')
+    {
+        Xila.Close_Software(Xila.Open_Software_Pointer[Slot + 1]->Handle_Pointer);
+    }
 }
 
 void Shell_Class::Open_Preferences(char const &Section)
@@ -218,18 +243,18 @@ void Shell_Class::Open_Preferences(char const &Section)
     switch (Section)
     {
     case 'P':
-        GalaxOS.Display.Set_Current_Page(F("Shell_Personal"));
+        Xila.Display.Set_Current_Page(F("Shell_Personal"));
         break;
     case 'H':
-        GalaxOS.Display.Set_Current_Page(F("Shell_Hardware"));
+        Xila.Display.Set_Current_Page(F("Shell_Hardware"));
         break;
     case 'N':
-        GalaxOS.Display.Set_Current_Page(F("Shell_Network"));
+        Xila.Display.Set_Current_Page(F("Shell_Network"));
         break;
     case 'S':
-        GalaxOS.Display.Set_Current_Page(F("Shell_System"));
-        GalaxOS.Display.Set_Text(F("NTPVAL_TXT"), GalaxOS.NTP_Server);
-        GalaxOS.Display.Set_Text(F("USERNVAL_TXT"), GalaxOS.Current_Username);
+        Xila.Display.Set_Current_Page(F("Shell_System"));
+        Xila.Display.Set_Text(F("NTPVAL_TXT"), Xila.NTP_Server);
+        Xila.Display.Set_Text(F("USERNVAL_TXT"), Xila.Current_Username);
 
         break;
     default:
@@ -242,12 +267,12 @@ void Shell_Class::Modify_User(uint8_t const &Mode)
     switch (Mode)
     {
     case 'D':
-        if (GalaxOS.Event_Dialog(F("Are you sure you want to delete this user ?"), GalaxOS.Question) == GalaxOS.Button_2)
+        if (Xila.Event_Dialog(F("Are you sure you want to delete this user ?"), Xila.Question) == Xila.Button_2)
         {
-            if (GalaxOS.Delete_User(Username, Password) == GalaxOS.Success)
+            if (Xila.Delete_User(Username, Password) == Xila.Success)
             {
-                GalaxOS.Event_Dialog(F("Succed to delete this user account."), GalaxOS.Information);
-                if (strcmp(GalaxOS.Current_Username, Username) == 0)
+                Xila.Event_Dialog(F("Succed to delete this user account."), Xila.Information);
+                if (strcmp(Xila.Current_Username, Username) == 0)
                 {
                     Logout();
                     return;
@@ -255,28 +280,28 @@ void Shell_Class::Modify_User(uint8_t const &Mode)
             }
             else
             {
-                GalaxOS.Event_Dialog(F("Failed to delete this user account."), GalaxOS.Error);
+                Xila.Event_Dialog(F("Failed to delete this user account."), Xila.Error);
             }
         }
         break;
     case 'A':
-        if (GalaxOS.Add_User(Username, Password) == GalaxOS.Success)
+        if (Xila.Add_User(Username, Password) == Xila.Success)
         {
-            GalaxOS.Event_Dialog(F("User account created successfully."), GalaxOS.Infromation);
+            Xila.Event_Dialog(F("User account created successfully."), Xila.Information);
         }
         else
         {
-            GalaxOS.Event_Dialog(F("Failed to create this user account."), GalaxOS.Error);
+            Xila.Event_Dialog(F("Failed to create this user account."), Xila.Error);
         }
         break;
     case 'M':
-        if (GalaxOS.Change_Password(Username, Password) == GalaxOS.Success)
+        if (Xila.Change_Password(Username, Password) == Xila.Success)
         {
-            GalaxOS.Event_Dialog(F("Succed to change user's password."), GalaxOS.Information);
+            Xila.Event_Dialog(F("Succed to change user's password."), Xila.Information);
         }
         else
         {
-            GalaxOS.Event_Dialog(F("Failed to change user's password."), GalaxOS.Error);
+            Xila.Event_Dialog(F("Failed to change user's password."), Xila.Error);
         }
         break;
     }
@@ -285,9 +310,8 @@ void Shell_Class::Modify_User(uint8_t const &Mode)
 
 void Shell_Class::Logout()
 {
-    if (GalaxOS.Logout() == GalaxOS.Succcess)
+    if (Xila.Logout() == Xila.Success)
     {
-        
     }
     Open_Login();
 }
@@ -295,16 +319,16 @@ void Shell_Class::Logout()
 void Shell_Class::Open_Desk()
 {
     Verbose_Print_Line("> Open desk");
-    if (GalaxOS.Current_Username[0] == '\0')
+    if (Xila.Current_Username[0] == '\0')
     {
         Open_Login();
         return;
     }
-    GalaxOS.Display.Set_Current_Page(F("Shell_Desk"));
+    Xila.Display.Set_Current_Page(F("Shell_Desk"));
     char Temporary_String[] = "SLOT _PIC";
 
     // List all files on the desk
-    /*Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/DESKTOP/");
+    /*Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/DESKTOP/");
     Temporary_File.rewindDirectory();
     Temporary_File.openNextFile();*/
 
@@ -312,99 +336,99 @@ void Shell_Class::Open_Desk()
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
         Temporary_String[4] = Slot + 47;
-        if (GalaxOS.Open_Software_Pointer[Slot] != NULL)
+        if (Xila.Open_Software_Pointer[Slot] != NULL)
         {
-            GalaxOS.Display.Set_Picture(Temporary_String, GalaxOS.Open_Software_Pointer[Slot]->Handle_Pointer->Icon);
+            Xila.Display.Set_Picture(Temporary_String, Xila.Open_Software_Pointer[Slot]->Handle_Pointer->Icon);
         }
         else
         {
-            GalaxOS.Display.Set_Picture(Temporary_String, Empty_32); //if there's
+            Xila.Display.Set_Picture(Temporary_String, Empty_32); //if there's
         }
     }
 }
 
 void Shell_Class::Open_Drawer()
 {
-    GalaxOS.Display.Set_Current_Page(F("Shell_Drawer"));
+    Xila.Display.Set_Current_Page(F("Shell_Drawer"));
     char Temporary_String[11];
     Temporary_String[0] = '\r'; //jump
     Temporary_String[1] = '\n';
-    strcpy(Temporary_String + 2, GalaxOS.Current_Username);
-    GalaxOS.Display.Set_Text(F("USERNAME_TXT"), Temporary_String);
-    GalaxOS.Display.Show(F("SHUTDOWN_PIC"));
+    strcpy(Temporary_String + 2, Xila.Current_Username);
+    Xila.Display.Set_Text(F("USERNAME_TXT"), Temporary_String);
+    Xila.Display.Show(F("SHUTDOWN_PIC"));
     strcpy(Temporary_String, "ITEM _TXT");
     uint8_t Item = 0;
-    GalaxOS.Display.Set_Text(F("ITEM0_TXT"), F("File Manager"));
-    GalaxOS.Display.Set_Picture(F("ITEM0_PIC"), File_Manager_32);
-    GalaxOS.Display.Set_Text(F("ITEM1_TXT"), F("Preferences"));
-    GalaxOS.Display.Set_Picture(F("ITEM1_PIC"), Preferences_32);
+    Xila.Display.Set_Text(F("ITEM0_TXT"), F("File Manager"));
+    Xila.Display.Set_Picture(F("ITEM0_PIC"), File_Manager_32);
+    Xila.Display.Set_Text(F("ITEM1_TXT"), F("Preferences"));
+    Xila.Display.Set_Picture(F("ITEM1_PIC"), Preferences_32);
     for (Item = 2; Item < 10; Item++)
     {
         Temporary_String[4] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
+        if (Xila.Software_Handle_Pointer[Item] != NULL)
         {
-            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item]->Name));
+            Xila.Display.Set_Text(String(Temporary_String), String(Xila.Software_Handle_Pointer[Item]->Name));
         }
         else
         {
-            GalaxOS.Display.Set_Text(String(Temporary_String), "");
+            Xila.Display.Set_Text(String(Temporary_String), "");
         }
     }
     strcpy(Temporary_String, "ITEM1 _TXT");
     for (Item = 0; Item < 4; Item++)
     {
         Temporary_String[5] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item + 10] != NULL)
+        if (Xila.Software_Handle_Pointer[Item + 10] != NULL)
         {
-            GalaxOS.Display.Set_Text(String(Temporary_String), String(GalaxOS.Software_Handle_Pointer[Item + 10]->Name));
+            Xila.Display.Set_Text(String(Temporary_String), String(Xila.Software_Handle_Pointer[Item + 10]->Name));
         }
         else
         {
-            GalaxOS.Display.Set_Text(String(Temporary_String), "");
+            Xila.Display.Set_Text(String(Temporary_String), "");
         }
     }
     strcpy(Temporary_String, "ITEM _PIC");
     for (Item = 2; Item < 10; Item++)
     {
         Temporary_String[4] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item] != NULL)
+        if (Xila.Software_Handle_Pointer[Item] != NULL)
         {
-            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item]->Icon);
+            Xila.Display.Set_Picture(String(Temporary_String), Xila.Software_Handle_Pointer[Item]->Icon);
         }
         else
         {
-            GalaxOS.Display.Set_Picture(String(Temporary_String), Empty_32);
+            Xila.Display.Set_Picture(String(Temporary_String), Empty_32);
         }
     }
     strcpy(Temporary_String, "ITEM1 _PIC");
     for (Item = 0; Item < 5; Item++)
     {
         Temporary_String[5] = Item + 48;
-        if (GalaxOS.Software_Handle_Pointer[Item + 10] != NULL)
+        if (Xila.Software_Handle_Pointer[Item + 10] != NULL)
         {
-            GalaxOS.Display.Set_Picture(String(Temporary_String), GalaxOS.Software_Handle_Pointer[Item + 10]->Icon);
+            Xila.Display.Set_Picture(String(Temporary_String), Xila.Software_Handle_Pointer[Item + 10]->Icon);
         }
         else
         {
-            GalaxOS.Display.Set_Picture(String(Temporary_String), Empty_32);
+            Xila.Display.Set_Picture(String(Temporary_String), Empty_32);
         }
     }
 }
 
 void Shell_Class::Open_File_Manager()
 {
-    GalaxOS.Display.Set_Current_Page(F("Shell_File"));
+    Xila.Display.Set_Current_Page(F("Shell_File"));
 }
 
 void Shell_Class::Open_Login()
 {
 
-    if (GalaxOS.Current_Username[0] == '\0')
+    if (Xila.Current_Username[0] == '\0')
     {
         Verbose_Print_Line("> Open login page");
-        GalaxOS.Display.Set_Current_Page(F("Shell_Login"));
-        GalaxOS.Display.Set_Text(F("USERNAME_TXT"), F("Username"));
-        GalaxOS.Display.Set_Text(F("PASSWORD_TXT"), F("Password"));
+        Xila.Display.Set_Current_Page(F("Shell_Login"));
+        Xila.Display.Set_Text(F("USERNAME_TXT"), F("Username"));
+        Xila.Display.Set_Text(F("PASSWORD_TXT"), F("Password"));
     }
     else
     {
@@ -415,23 +439,23 @@ void Shell_Class::Open_Login()
 void Shell_Class::Login()
 {
 
-    if (GalaxOS.Check_Credentials(Username, Password) == GalaxOS.Good_Credentials)
+    if (Xila.Check_Credentials(Username, Password) == Xila.Good_Credentials)
     {
-        strcpy(GalaxOS.Current_Username, Username);
+        strcpy(Xila.Current_Username, Username);
         Verbose_Print_Line(F("> Load user files"));
-        GalaxOS.Display.Hide(F("USERNAME_TXT"));
-        GalaxOS.Display.Hide(F("PASSWORD_TXT"));
-        GalaxOS.Display.Hide(F("LOGIN_BUT"));
-        GalaxOS.Display.Show(F("YELLOW_TXT"));
-        GalaxOS.Display.Show(F("GREEN_TXT"));
-        GalaxOS.Display.Show(F("BLUE_TXT"));
-        GalaxOS.Display.Show(F("RED_TXT"));
-        GalaxOS.Display.Show(F("LOAD_BAR"));
-        GalaxOS.Display.Show(F("LOAD_TXT"));
-        GalaxOS.Display.Show(F("GALAXOS_TXT"));
+        Xila.Display.Hide(F("USERNAME_TXT"));
+        Xila.Display.Hide(F("PASSWORD_TXT"));
+        Xila.Display.Hide(F("LOGIN_BUT"));
+        Xila.Display.Show(F("YELLOW_TXT"));
+        Xila.Display.Show(F("GREEN_TXT"));
+        Xila.Display.Show(F("BLUE_TXT"));
+        Xila.Display.Show(F("RED_TXT"));
+        Xila.Display.Show(F("LOAD_BAR"));
+        Xila.Display.Show(F("LOAD_TXT"));
+        Xila.Display.Show(F("GALAXOS_TXT"));
 
         DynamicJsonDocument Shell_Registry(256);
-        File Temporary_File = GalaxOS.Drive->open("/USERS/" + String(GalaxOS.Current_Username) + "/REGISTRY/SHELL.GRF");
+        File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
         deserializeJson(Shell_Registry, Temporary_File);
         /*
                 char Temporary_Char_Array[20];
@@ -447,55 +471,55 @@ void Shell_Class::Login()
             //Color = Shell_Registry["Color"] | 16904;
         }
 
-        GalaxOS.Display.Set_Value(F("LOAD_BAR"), 20);
+        Xila.Display.Set_Value(F("LOAD_BAR"), 20);
         vTaskDelay(pdMS_TO_TICKS(1000));
-        GalaxOS.Display.Set_Value(F("LOAD_BAR"), 40);
+        Xila.Display.Set_Value(F("LOAD_BAR"), 40);
         vTaskDelay(pdMS_TO_TICKS(1000));
-        GalaxOS.Display.Set_Value(F("LOAD_BAR"), 60);
+        Xila.Display.Set_Value(F("LOAD_BAR"), 60);
         vTaskDelay(pdMS_TO_TICKS(1000));
-        GalaxOS.Display.Set_Value(F("LOAD_BAR"), 80);
+        Xila.Display.Set_Value(F("LOAD_BAR"), 80);
         vTaskDelay(pdMS_TO_TICKS(1000));
-        GalaxOS.Display.Set_Value(F("LOAD_BAR"), 100);
+        Xila.Display.Set_Value(F("LOAD_BAR"), 100);
         vTaskDelay(pdMS_TO_TICKS(1000));
         Open_Desk();
     }
     else // Wrong credentials
     {
-        GalaxOS.Event_Dialog(F("Wrong credentials !"), GalaxOS.Error);
+        Xila.Event_Dialog(F("Wrong credentials !"), Xila.Error);
         Open_Login();
     }
 }
 
 void Shell_Class::Display_Path()
 {
-    Temporary_File = GalaxOS.Drive->open(Current_Path);
+    Temporary_File = Xila.Drive->open(Current_Path);
     String Temporary_String;
     if (Temporary_File)
     {
         if (Temporary_File.isDirectory())
         {
             Temporary_File.rewindDirectory();
-            GalaxOS.Display.Set_Text("PATH_TXT", Current_Path);
+            Xila.Display.Set_Text("PATH_TXT", Current_Path);
             File Item;
             for (byte i = 1; i < 33; i++)
             {
                 Item = Temporary_File.openNextFile();
                 if (Item)
                 {
-                    GalaxOS.Display.Set_Text("ITEM" + String(i) + "_TXT", Item.name());
+                    Xila.Display.Set_Text("ITEM" + String(i) + "_TXT", Item.name());
                     if (Item.isDirectory())
                     {
-                        GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 17);
+                        Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 17);
                     }
                     else
                     {
-                        GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 16);
+                        Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 16);
                     }
                 }
                 else
                 {
-                    GalaxOS.Display.Set_Text("ITEM" + String(i) + "_TXT", "");
-                    GalaxOS.Display.Set_Picture("ITEM" + String(i) + "_PIC", 15);
+                    Xila.Display.Set_Text("ITEM" + String(i) + "_TXT", "");
+                    Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 15);
                 }
 
                 Item.close();
@@ -503,7 +527,7 @@ void Shell_Class::Display_Path()
         }
         else
         {
-            GalaxOS.Open_File(Temporary_File);
+            Xila.Open_File(Temporary_File);
             Temporary_File.close();
             Go_Parent();
         }
@@ -527,7 +551,7 @@ void Shell_Class::Go_Parent()
 
 void Shell_Class::Make_File(char *File_Name)
 {
-    if (!GalaxOS.Drive->open(Current_Path + "/" + File_Name, FILE_WRITE))
+    if (!Xila.Drive->open(Current_Path + "/" + File_Name, FILE_WRITE))
     {
         //error
     }
@@ -535,18 +559,18 @@ void Shell_Class::Make_File(char *File_Name)
 
 void Shell_Class::Make_Directory(char *Item_Name)
 {
-    if (!GalaxOS.Drive->exists(Current_Path + Item_Name))
+    if (!Xila.Drive->exists(Current_Path + Item_Name))
     {
-        GalaxOS.Drive->mkdir(Current_Path + Item_Name);
+        Xila.Drive->mkdir(Current_Path + Item_Name);
     }
 }
 
 void Shell_Class::Delete(char *Item_Name)
 {
-    switch (GalaxOS.Event_Dialog(F("Do you "), GalaxOS.Question))
+    switch (Xila.Event_Dialog(F("Do you "), Xila.Question))
     {
-    case GalaxOS.Button_1:
-        GalaxOS.Drive->remove(Current_Path + Item_Name);
+    case Xila.Button_1:
+        Xila.Drive->remove(Current_Path + Item_Name);
         break;
     default:
         break;

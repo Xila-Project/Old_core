@@ -1,4 +1,4 @@
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Music_Player_Class : public Software_Class
 {

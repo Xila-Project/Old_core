@@ -1,4 +1,4 @@
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 // Code reused from "M5Stack ESP32 Oscilloscope"
 // https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope

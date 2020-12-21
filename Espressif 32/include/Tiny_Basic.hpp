@@ -1,7 +1,7 @@
 #ifndef TINYBASIC_H_INCLUDED
 #define TINYBASIC_H_INCLUDED
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 #include <SPI.h>
 #include <SD_MMC.h>

@@ -7,8 +7,8 @@
 
 
 class Software_Handle_Class;
-class GalaxOS_Class;
-extern GalaxOS_Class GalaxOS;
+class Xila_Class;
+extern Xila_Class Xila;
 
 #define SOFTWARE_TYPE_LOADED 0
 #define SOFTWARE_TYPE_COMPILED 1
@@ -53,7 +53,7 @@ protected:
 
     uint16_t Get_Command();
 
-    friend class GalaxOS_Class;
+    friend class Xila_Class;
     friend class Software_Handle_Class;
     friend class Shell_Class;
 };
@@ -70,7 +70,7 @@ protected:
 
     //char* Get_Name();
 
-    friend class GalaxOS_Class;
+    friend class Xila_Class;
     friend class Software_Class;
     friend class Shell_Class;
 
@@ -79,14 +79,5 @@ public:
     ~Software_Handle_Class();
 };
 
-class Background_Job_Class // Software lightweight task regulary executed by Xila
-{
-protected:
-    Software_Handle_Class* Related_Software;
-    virtual void Function_Job();
-public:
-    Background_Job_Class(Software_Handle_Class* Related_Software, void(*Function_Job)());
-    ~Background_Job_Class();
-};
 
 #endif

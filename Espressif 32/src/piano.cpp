@@ -36,7 +36,7 @@ void Piano_Class::Main_Task(void *pvParameters)
             vTaskDelay(pdMS_TO_TICKS(10));
             break;
         case Software_Code::Maximize:
-            GalaxOS.Display.Set_Current_Page(F("Piano"));
+            Xila.Display.Set_Current_Page(F("Piano"));
             break;
         case Software_Code::Minimize:
             
@@ -147,9 +147,9 @@ void Piano_Class::Main_Task(void *pvParameters)
 void Piano_Class::Play_Note(uint8_t Note)
 {
     Current_Note = Note_Frequency[Note] + Offset;
-    GalaxOS.Sound.Tone(Current_Note, Duration);
-    GalaxOS.Display.Set_Text(F("FREQUENCY_TXT"), "Frequency : " + String(Current_Note));
-    GalaxOS.Display.Set_Text(F("MIDICODE_TXT"), "MIDI Code : " + String(Note));   
+    Xila.Sound.Tone(Current_Note, Duration);
+    Xila.Display.Set_Text(F("FREQUENCY_TXT"), "Frequency : " + String(Current_Note));
+    Xila.Display.Set_Text(F("MIDICODE_TXT"), "MIDI Code : " + String(Note));   
     if (MIDI_Output == true)
     {
         Serial.write(144);

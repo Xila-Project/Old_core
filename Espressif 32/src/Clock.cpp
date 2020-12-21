@@ -23,6 +23,19 @@ Software_Class *Clock_Class::Load()
     return Instance_Pointer;
 }
 
+void Clock_Class::Refresh_Timer()
+{
+    Temporary_Time = millis - Last_Update;
+    if (Temporary_Time > 950)
+    {
+        Temporary_Time /= 1000;
+        
+        Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
+        Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
+        Xila.Display.Set_Value(F("MILLIS_NUM"), 0);
+    }
+}
+
 void Clock_Class::Refresh_Alarm()
 {
     char Object_Name[10];
@@ -51,7 +64,7 @@ void Clock_Class::Refresh_Alarm()
         else
         {
 
-            GalaxOS.Display.Set_Text(F("ALARM__TXT"), "");
+            Xila.Display.Set_Text(F("ALARM__TXT"), "");
         }
     }
 }
@@ -62,7 +75,7 @@ void Clock_Class::Add_Alarm()
 
 void Clock_Class::Refresh_Clock()
 {
-    Time = GalaxOS.Get_Time();
+    Time = Xila.Get_Time();
     // Set time
     Temporary_Char_Array[0] = (Time.tm_hour / 10) + 48;
     Temporary_Char_Array[1] = (Time.tm_hour % 10) + 48;
@@ -73,7 +86,7 @@ void Clock_Class::Refresh_Clock()
     Temporary_Char_Array[6] = (Time.tm_sec / 10) + 48;
     Temporary_Char_Array[7] = (Time.tm_sec % 10) + 48;
     Temporary_Char_Array[8] = '\0';
-    GalaxOS.Display.Set_Text(F("TIME_TXT"), String(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("TIME_TXT"), String(Temporary_Char_Array));
     // Set data
     Offset = 0;
     strcpy(Temporary_Char_Array, Instance_Pointer->Days[Time.tm_wday]);
@@ -116,7 +129,7 @@ void Clock_Class::Refresh_Clock()
     Temporary_Char_Array[Offset + 2] = (Time.tm_year / 10) + 48;
     Temporary_Char_Array[Offset + 3] = (Time.tm_year % 10) + 48;
     Temporary_Char_Array[Offset + 4] = '\0';
-    GalaxOS.Display.Set_Text(F("DATE_TXT"), String(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("DATE_TXT"), String(Temporary_Char_Array));
     vTaskDelay(pdMS_TO_TICKS(500));
 }
 
@@ -133,22 +146,22 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Refresh_Clock();
                 break;
             case 0x4F41:
-                GalaxOS.Display.Set_Current_Page(F("Clock_Alarm"));
+                Xila.Display.Set_Current_Page(F("Clock_Alarm"));
                 Instance_Pointer->Current_Tab = Alarm;
                 Instance_Pointer->Refresh_Alarm();
                 break;
             case 0x4F54:
-                GalaxOS.Display.Set_Current_Page(F("Clock_Timer"));
+                Xila.Display.Set_Current_Page(F("Clock_Timer"));
                 Instance_Pointer->Current_Tab = Timer;
                 Instance_Pointer->Refresh_Timer();
                 break;
             case 0x4F63: // Switch page Chronometer
-                GalaxOS.Display.Set_Current_Page(F("Clock_Chrono"));
+                Xila.Display.Set_Current_Page(F("Clock_Chrono"));
                 Instance_Pointer->Current_Tab = Chronometer;
                 Instance_Pointer->Refresh_Chronometer();
                 break;
             case Software_Code::Open:
-                GalaxOS.Display.Set_Current_Page(F("Clock"));
+                Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
@@ -160,7 +173,7 @@ void Clock_Class::Main_Task(void *pvParameters)
                 vTaskSuspend(NULL);
                 break;
             case Software_Code::Maximize:
-                GalaxOS.Display.Set_Current_Page(F("Clock"));
+                Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
                 break;
@@ -173,29 +186,29 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Refresh_Clock();
                 break;
             case 0x4F63: // Oc
-                GalaxOS.Display.Set_Current_Page(F("Clock_Chrono"));
+                Xila.Display.Set_Current_Page(F("Clock_Chrono"));
                 Instance_Pointer->Current_Tab = Alarm;
                 Instance_Pointer->Refresh_Alarm();
                 break;
             case 0x4F54: //OT
-                GalaxOS.Display.Set_Current_Page(F("Clock_Timer"));
+                Xila.Display.Set_Current_Page(F("Clock_Timer"));
                 Instance_Pointer->Current_Tab = Timer;
                 Instance_Pointer->Refresh_Timer();
                 break;
             case 0x4F43: // OC: Switch page clock
-                GalaxOS.Display.Set_Current_Page(F("Clock"));
+                Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Chronometer;
                 Instance_Pointer->Refresh_Chronometer();
                 break;
 
-            case: //A0
+            case : //A0
                 Instance_Pointer->Selected_Alarm = 0;
-                Instance_Pointer->Refresh_Alarms();
+                Instance_Pointer->Refresh_Alarm();
                 break;
-            case: //A1
+            case : //A1
                 Instance_Pointer->Selected_Alarm = 1;
                 break;
-            case: //A0
+            case : //A0
                 Instance_Pointer->Selected_Alarm = 2;
                 break;
             case: //A0
@@ -216,9 +229,11 @@ void Clock_Class::Main_Task(void *pvParameters)
             case : //AH
                 Instance_Pointer->Alarm_Hour[Instance_Pointer->Selected_Alarm]++;
                 break;
-            case 
-            case 0x case Software_Code::Open:
-                GalaxOS.Display.Set_Current_Page(F("Clock"));
+            case :
+
+                break;
+            case Software_Code::Open:
+                Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
@@ -230,7 +245,7 @@ void Clock_Class::Main_Task(void *pvParameters)
                 vTaskSuspend(NULL);
                 break;
             case Software_Code::Maximize:
-                GalaxOS.Display.Set_Current_Page(F("Clock"));
+                Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
                 break;
@@ -238,8 +253,38 @@ void Clock_Class::Main_Task(void *pvParameters)
             break;
 
         case Timer:
-            break;
+            switch (Instance_Pointer->Get_Command())
+            {
+            case 0x0000: //IDLE
+                Instance_Pointer->Refresh_Timer();
+                break;
+            case : // SP : Start / Pause
+                if (Instance_Pointer->Timer_State == 0)
+                {
+                    Instance_Pointer->Timer_State = 1;
+                    Instance_Pointer->Current_Lap = 0;
+                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+                    Instance_Pointer->Inital_Time = millis();
 
+                }
+                else if (Instance_Pointer->Timer_State == 2)
+                {
+
+                }
+                else //LAP
+                {
+                    
+                }
+                break;
+            
+            case : //LR : Lap / erase
+                if (Instance_Pointer->Timer_State == 0) //disabled
+                {
+
+                }
+                break;
+            }
+            break;
         case Chronometer:
             break;
         }

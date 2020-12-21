@@ -1,7 +1,7 @@
 #ifndef CLOCK_HPP_INCLUDED
 #define CLOCK_HPP_INCLUDEd
 
-#include "GalaxOS.hpp"
+#include "Xila.hpp"
 
 class Clock_Class : public Software_Class
 {
@@ -38,6 +38,7 @@ class Clock_Class : public Software_Class
         };
 
         uint8_t Current_Tab;
+
         enum Tabs
         {
             Clock,
@@ -52,10 +53,23 @@ class Clock_Class : public Software_Class
         bool Alarm_Enabled[6];
         char Alarm_Title[6][10];
 
+        int Timer_State;
+        // 0 : Stop
+        // 1 : Running
+        // 2 : Paused
+        uint32_t Inital_Time;
+        uint32_t Last_Update;
+        uint32_t Temporary_Time;
+        uint32_t Paused_Time;
+        uint32_t Laps[32];
+        uint8_t Current_Lap;
+
         Xila_Time Time;
 
         char Temporary_Char_Array[40];
         uint8_t Offset;
+
+        
 
         void Refresh_Clock();
 

@@ -30,7 +30,7 @@ void Ultrasonic_Class::Set_Variable(void* Variable_Pointer, uint8_t Type, uint8_
   uint32_t Temporary_Long = 0;
   switch (Type)
   {
-    case GalaxOS.Code::Variable_String_Local:
+    case Xila.Code::Variable_String_Local:
       Temporary_Long = (uint32_t)Variable_Pointer;
       break;
   }
@@ -138,7 +138,7 @@ void Ultrasonic_Class::Read()
       Measure[0] /= 2;
       Measure[0] /= 1000000;
       Measure[0] *= SOUND_SPEED_AIR;
-      GalaxOS.Display.Set_Value(F("DISTANCE_NUM"), Measure[0]);
+      Xila.Display.Set_Value(F("DISTANCE_NUM"), Measure[0]);
       switch (Shape) // calculate
       {
         case 0x00:
