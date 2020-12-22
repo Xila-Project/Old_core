@@ -82,9 +82,11 @@ Software_Class* Software_Class::Load() // just an example
 
 // Software handle
 
-Software_Handle_Class::Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class* (*Load_Function_Pointer_To_Set)())
+Software_Handle_Class::Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void *(*Startup_Function_Pointer)(), void *(*Background_Function_Pointer)())
 : Icon(Icon_ID),
-Load_Function_Pointer(Load_Function_Pointer_To_Set)
+Load_Function_Pointer(Load_Function_Pointer),
+Startup_Function_Pointer(Startup_Function_Pointer),
+Background_Function_Pointer(Background_Function_Pointer)
 {
   strcpy(Name, Software_Name);
 }

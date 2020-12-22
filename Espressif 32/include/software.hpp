@@ -4,8 +4,6 @@
 #include "Arduino.h"
 #include "FS.h"
 
-
-
 class Software_Handle_Class;
 class Xila_Class;
 extern Xila_Class Xila;
@@ -66,6 +64,10 @@ protected:
 
     Software_Class *(*Load_Function_Pointer)(); //function called by the core to load software and return loaded software (construct class, open executable etc...)
 
+    void (*Startup_Function_Pointer)();
+
+    void (*Background_Function_Pointer)();
+
     //Software_Class* Load_Function(Software_Handle_Class*);
 
     //char* Get_Name();
@@ -75,9 +77,8 @@ protected:
     friend class Shell_Class;
 
 public:
-    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer_To_Set)());
+    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL);
     ~Software_Handle_Class();
 };
-
 
 #endif

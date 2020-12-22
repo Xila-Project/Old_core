@@ -29,11 +29,11 @@ extern Software_Handle_Class Periodic_Handle;
 extern Software_Handle_Class Clock_Handle;
 
 Xila_Class::Xila_Class() : Tag(0),
-                                 Display(),
-                                 Sound(),
-                                 Keyboard(2, 6),
-                                 Battery(13, 47, 47),
-                                 Event_Reply(None)
+                           Display(),
+                           Sound(),
+                           Battery(13, 47, 47),
+                           Keyboard(2, 6),
+                           Event_Reply(None)
 
 {
   if (Instance_Pointer != NULL)
@@ -370,6 +370,16 @@ void Xila_Class::Load()
     }
   }
 
+  // Execute startup function of each software
+
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
+    {
+      (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
+    }
+  }
+
   vTaskDelay(pdMS_TO_TICKS(3000));
   Display.Set_Value(F("STATE_VAR"), 2);
   vTaskDelay(pdMS_TO_TICKS(1200));
@@ -383,16 +393,36 @@ void Xila_Class::Load()
 void Xila_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
-  //Core_Instruction *Core_Instruction_Pointer;
   Xila.Load();
+  uint8_t Counter = 0;
   while (1)
   {
+    
     if (ESP.getFreeHeap() < 2000)
     {
       Serial.println("Low Memory !");
     }
+    
     Xila.Synchronise_Time();
+    
     Xila.Refresh_Clock();
+
+    // Software background function execution
+
+    if ((millis() - Instance_Pointer->Last_Execution) > 250)
+    {
+      if (Xila.Software_Handle_Pointer[Counter] != NULL)
+      {
+        if (Xila.Software_Handle_Pointer[Counter]->Background_Function_Pointer != NULL)
+        {
+          (*Xila.Software_Handle_Pointer[Counter]->Background_Function_Pointer)();
+        }
+      }
+      else
+      {
+        Counter = 0;
+      }
+    }
 
     //refresh icon
 
@@ -416,7 +446,6 @@ void Xila_Class::Core_Task(void *pvParameters)
     {
       Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
     }
-    
 
     Level = Instance_Pointer->Battery.Get_Charge_Level();
     if (Level <= 15)
@@ -479,7 +508,7 @@ void Xila_Class::Save_System_State()
 
   System_Save_Registry["Current Username"] = Current_Username;
 
-  File Temporary_File = Drive->open("/XILA/GOSCUSA.GSF");
+  File Temporary_File = Drive->open("/XILA/GOSCUSA.XSF");
   serializeJson(System_Save_Registry, Temporary_File);
   Temporary_File.close();
 }
@@ -782,7 +811,7 @@ void Xila_Class::Restore_System_State()
     // no need to restore
     return;
   }
-  File Temporary_File = Drive->open("/XILA/GOSCUSA.GSF");
+  File Temporary_File = Drive->open("/XILA/GOSCUSA.XSF");
   DynamicJsonDocument Temporary_Json_Document(256);
   //ReadBufferingStream Buffering_Stream(Drive->open("/"), 64); dont work, i don't know why
 
@@ -973,7 +1002,7 @@ void Xila_Class::Set_Variable(char const &Tag, uint32_t *Number_To_Set, uint16_t
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_WRITE);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -998,7 +1027,7 @@ void Xila_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint16_t
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + String(*Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_READ);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -1029,7 +1058,7 @@ void Xila_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set,
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_WRITE);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -1054,7 +1083,7 @@ void Xila_Class::Get_Variable(uint8_t const &Tag, uint32_t &Number_To_Get, Softw
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted) + "/VARIABLE.GSF", FILE_READ);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted) + "/VARIABLE.XSF", FILE_READ);
     Virtual_Memory_File.seek(Tag << 1);
     if (Virtual_Memory_File)
     {
@@ -1081,7 +1110,7 @@ void Xila_Class::Set_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint1
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_WRITE);
     if (Virtual_Memory_File)
     {
       Split_Number[0] = (char)Number_To_Set;
@@ -1107,7 +1136,7 @@ void Xila_Class::Get_Variable(uint8_t const &Tag, uint16_t* Number_To_Set, uint1
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRITE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_WRITE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {
@@ -1133,7 +1162,7 @@ void Xila_Class::Set_Variable(uint8_t const &Tag, uint8_t* Number_To_Set, uint16
   }
   else
   {
-    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.GSF", FILE_WRTIE);
+    Virtual_Memory_File = Drive->open("/XILA/MEMORY/" + char(Software_Handle_Targeted->Name) + "/VARIABLE.XSF", FILE_WRTIE);
     Virtual_Memory_File.seek(0);
     if (Virtual_Memory_File)
     {

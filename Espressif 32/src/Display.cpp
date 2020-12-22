@@ -316,7 +316,7 @@ void Nextion_Display_Class::Set_Text(String const &Object_Name, String const &Va
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, const char* Value)
+void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, const char *Value)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
@@ -327,6 +327,24 @@ void Nextion_Display_Class::Set_Text(const __FlashStringHelper *Object_Name, con
 }
 
 void Nextion_Display_Class::Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".val="));
+    Nextion_Serial.print(String(Value));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Value(String const &Object_Name, uint32_t const &Value)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print(F(".val="));
+    Nextion_Serial.print(String(Value));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Value(const char* Object_Name, uint32_t const &Value)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
@@ -403,8 +421,8 @@ void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t con
     Instruction_End();
 }
 
-void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char* Text)
-{ 
+void Nextion_Display_Class::Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char *Text)
+{
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("xstr "));
     Nextion_Serial.print(X_Coordinate);
@@ -535,7 +553,45 @@ void Nextion_Display_Class::Show(const __FlashStringHelper *Object_Name)
     Instruction_End();
 }
 
+void Nextion_Display_Class::Show(String const& Object_Name)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("1");
+    Instruction_End();
+}
+void Nextion_Display_Class::Show(const char* Object_Name)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("1");
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Hide(const __FlashStringHelper *Object_Name)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("0");
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Hide(String const& Object_Name)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("vis "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print("0");
+    Instruction_End();
+}
+void Nextion_Display_Class::Hide(const char* Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("vis "));

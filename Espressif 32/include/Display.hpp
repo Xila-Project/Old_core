@@ -18,9 +18,9 @@ protected:
 
     SemaphoreHandle_t Serial_Semaphore;
 
-    void (*Callback_Function_String_Data)(const char*, uint8_t);
-    void (*Callback_Function_Numeric_Data)(uint32_t&);
-    void (*Callback_Function_Event)(uint8_t&);
+    void (*Callback_Function_String_Data)(const char *, uint8_t);
+    void (*Callback_Function_Numeric_Data)(uint32_t &);
+    void (*Callback_Function_Event)(uint8_t &);
 
     uint16_t Cursor_X, Cursor_Y;
 
@@ -34,11 +34,10 @@ protected:
     void Main_Routine();
 
 public:
-
     enum Error
     {
         Invalid_Instruction = 0x00,
-        Invalid_Component_ID =  0x02,
+        Invalid_Component_ID = 0x02,
         Invalid_Page_ID = 0x03,
         Invalid_Picture_ID = 0x04,
         Invalid_Font_ID = 0x05,
@@ -114,13 +113,13 @@ public:
 
     void Begin(uint32_t Baud_Rate = 912600, uint8_t RX_Pin = 16, uint8_t TX_Pin = 17);
 
-    void Set_Callback_Function_String_Data(void (*Function_Pointer)(const char*, uint8_t));
-    void Set_Callback_Function_Numeric_Data(void(*Function_Pointer)(uint32_t &));
-    void Set_Callback_Function_Event(void(*Function_Pointer)(uint8_t &));
+    void Set_Callback_Function_String_Data(void (*Function_Pointer)(const char *, uint8_t));
+    void Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t &));
+    void Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t &));
 
     // Basic Geometrical Drawing
     void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
-    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const& Color, bool const &Hollow = false);
+    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow = false);
     void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow = false);
     void Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color);
     void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
@@ -130,7 +129,7 @@ public:
     void Draw_Crop_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Picture_ID);
     void Draw_Advanced_Crop_Picture(uint16_t const &X_Destination, uint16_t const &Y_Destination, uint16_t const &Width, uint16_t const &Height, uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
     void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text);
-    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char* Text);
+    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char *Text);
 
     //void Print(String const& Text_To_Print);
     //void Print(const __FlashStringHelper* Text_To_Print);
@@ -146,8 +145,10 @@ public:
     void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
     void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
     void Set_Text(String const &Object_Name, String const &Value);
-    void Set_Text(const __FlashStringHelper *Object_Name, const char* Value);
+    void Set_Text(const __FlashStringHelper *Object_Name, const char *Value);
     void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
+    void Set_Value(String const& Object_Name, uint32_t const& Value);
+    void Set_Value(const char* Object_Name, uint32_t const& Value);
     void Set_Channel(const __FlashStringHelper *Object_Name, uint8_t const &Channel);
     void Set_Grid_Width(const __FlashStringHelper *Object_Name, uint16_t const &Width);
     void Set_Grid_Heigh(const __FlashStringHelper *Object_Name, uint16_t const &Heigh);
@@ -162,7 +163,7 @@ public:
     void Set_Current_Page(const __FlashStringHelper *Page_Name);
     uint8_t &Get_Current_Page();
 
-    void Set_Brightness(uint16_t const& Brightness, bool const& Save = false);
+    void Set_Brightness(uint16_t const &Brightness, bool const &Save = false);
     uint8_t Get_Backlight();
 
     void Set_Baud_Rate(uint32_t const &Baudrate, bool const &Save);
@@ -203,12 +204,16 @@ public:
     void Click(uint16_t const &Component_ID, uint8_t const &Event_Type);
     void Start_Waveform_Refresh();
     void Stop_Waveform_Refresh();
-    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t* Data, uint32_t const &Quantity = 0);
+    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t *Data, uint32_t const &Quantity = 0);
     void Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel);
     void Get(const __FlashStringHelper *Object_Name);
     void Calibrate();
     void Show(const __FlashStringHelper *Object_Name);
+    void Show(String const &Object_Name);
+    void Show(const char *Object_Name);
     void Hide(const __FlashStringHelper *Object_Name);
+    void Hide(String const &Object_Name);
+    void Hide(const char *Object_Name);
     void Disable_Touch_Event(const __FlashStringHelper *Object_Name);
     void Enable_Touch_Event(const __FlashStringHelper *Object_Name);
     void Stop_Execution();

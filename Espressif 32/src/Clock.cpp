@@ -23,27 +23,112 @@ Software_Class *Clock_Class::Load()
     return Instance_Pointer;
 }
 
-void Clock_Class::Refresh_Timer()
+void Clock_Class::Background_Function()
 {
-    Temporary_Time = millis - Last_Update;
-    if (Temporary_Time > 950)
+    if (Next_Alarm < millis())
     {
-        Temporary_Time /= 1000;
-        
-        Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
-        Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
-        Xila.Display.Set_Value(F("MILLIS_NUM"), 0);
+        Xila.Open_Software(&Clock_Handle);
+        Instance_Pointer->Execute(0x5249);
     }
 }
 
-void Clock_Class::Refresh_Alarm()
+void Clock_Class::Refresh_Timer()
 {
-    char Object_Name[10];
-    char Object_Text[20];
+    if ((millis() - Last_Update) < 950)
+    {
+
+        Temporary_Time = Inital_Time - millis();
+        Temporary_Time /= 1000; //get rid of milliseconds
+        Xila.Display.Set_Value(F("SECONDS_NUM"), Temporary_Time % 60);
+        Temporary_Time /= 60;
+        Xila.Display.Set_Value(F("MINUTES_NUM"), Temporary_Time % 60);
+        Xila.Display.Set_Value(F("HOURS_NUM"), Temporary_Time / 60);
+        if (State == 1) // Running
+        {
+            if (millis() >= Inital_Time)
+            {
+                File Ringtone_File = Xila.Drive->open(F("/SOFTWARE/CLOCK/RINGTONE.WAV"));
+                Xila.Sound.Play(Ringtone_File); // play something
+            }
+        }
+        Last_Update = millis();
+    }
+}
+
+void Clock_Class::Refresh_Chronometer()
+{
+    if ((millis() - Last_Update) < 950)
+    {
+        if (State == 0)
+        {
+            Xila.Display.Set_Value(F("MILLIS_NUM"), 0);
+
+            Xila.Display.Set_Value(F("SECOND_NUM"), 0);
+            Xila.Display.Set_Value(F("MINUTE_NUM"), 0);
+        }
+        else if (State == 1)
+        {
+            Temporary_Time = millis() - Inital_Time;
+            Xila.Display.Set_Value(F("MILLIS_NUM"), Temporary_Time % 1000);
+            Temporary_Time /= 1000;
+            Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
+            Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
+        }
+        else if (State == 2)
+        {
+            Temporary_Time = Paused_Time - Inital_Time;
+            Xila.Display.Set_Value(F("MILLIS_NUM"), Temporary_Time % 1000);
+            Temporary_Time /= 1000;
+            Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
+            Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
+        }
+        Last_Update = millis();
+    }
+}
+
+void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+    if (Type == Xila.Variable_Long_Local)
+    {
+        if (Adress == 'H')
+        {
+            if (Current_Tab == Timer)
+            {
+                Hours = *(uint8_t *)Variable;
+            }
+            else // alarm
+            {
+                Alarm_Hour[Selected_Alarm] = *(uint8_t *)Variable;
+            }
+        }
+        else if (Adress == 'M')
+        {
+            if (Current_Tab == Timer)
+            {
+                Minutes = *(uint8_t *)Variable;
+            }
+            else // alarm
+            {
+                Alarm_Minute[Selected_Alarm] = *(uint8_t *)Variable;
+            }
+        }
+        else if (Adress == 'S')
+        {
+            Seconds = *(uint8_t *)Variable;
+        }
+    }
+}
+
+void Clock_Class::Refresh_Alarms()
+{
+    char Object_Name[11];
+    char Object_Text[25] = "  -   :   -";
     for (uint8_t i = 0; i < 6; i++)
     {
+        Object_Name[5] = i + 48;
         if (Alarm_Exist[i] == true)
         {
+
             if (Alarm_Enabled[i] == true)
             {
                 Object_Text[0] = 'E';
@@ -52,25 +137,98 @@ void Clock_Class::Refresh_Alarm()
             {
                 Object_Text[0] = 'D';
             }
-            Object_Text[1] = '|';
-            strcpy(Object_Text + 2, Alarm_Title[i]);
-            if (Alarm_Hour < 10)
+
+            Object_Text[4] = (Alarm_Hour[i] / 10) + 48;
+            Object_Text[5] = (Alarm_Hour[i] % 10) + 48;
+
+            Object_Text[7] = (Alarm_Hour[i] / 10) + 48;
+            Object_Text[8] = (Alarm_Hour[i] % 10) + 48;
+
+            strcpy(Object_Text + 12, Alarm_Title[i]);
+
+            strcpy(Object_Name, "ALARM _TXT");
+            Object_Name[5] = i + 48;
+            Xila.Display.Set_Text(Object_Name, Object_Text);
+
+            strcpy(Object_Name, "ALARM _RAD");
+            Object_Name[5] = i + 48;
+            Xila.Display.Show(Object_Name);
+            if (Selected_Alarm == i)
             {
-                Object_Text[sizeof(Alarm_Title) + 2] = ' ';
-                Object_Text[sizeof(Alarm_Title) + 3] = ':';
-                Object_Text[sizeof(Alarm_Title) + 4] = ' ';
+                Xila.Display.Set_Value(Object_Name, 1);
+            }
+            else
+            {
+                Xila.Display.Set_Value(Object_Name, 0);
             }
         }
         else
         {
+            strcpy(Object_Name, "ALARM _TXT");
+            Object_Name[5] = i + 48;
+            Xila.Display.Set_Text(Object_Name, "");
 
-            Xila.Display.Set_Text(F("ALARM__TXT"), "");
+            strcpy(Object_Name, "ALARM _RAD");
+            Object_Name[5] = i + 48;
+            Xila.Display.Hide(Object_Name);
         }
+    }
+}
+
+void Clock_Class::Refresh_Alarm()
+{
+    if (Alarm_Enabled[Selected_Alarm] == true)
+    {
+        Xila.Display.Set_Text(F("TITLE_TXT"), Alarm_Title[Selected_Alarm]);
+        Xila.Display.Set_Value(F("HOURS_NUM"), Alarm_Hour[Selected_Alarm]);
+        Xila.Display.Set_Value(F("MINUTES_NUM"), Alarm_Minute[Selected_Alarm]);
+        if (Alarm_Enabled[Selected_Alarm] == true)
+        {
+            Xila.Display.Set_Text(F("ENABLE_BUT"), F("Disable"));
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("ENABLE_BUT"), F("Enable"));
+        }
+    }
+    else
+    {
+        for (uint8_t i = 0; i < 7; i++)
+        {
+            if (i < 6)
+            {
+                if (Instance_Pointer->Alarm_Exist[i] == true)
+                {
+                    Instance_Pointer->Selected_Alarm = i;
+                    break;
+                }
+            }
+            else
+            {
+                Instance_Pointer->Add_Alarm();
+                break;
+            }
+        }
+        Refresh_Alarm();
+        Refresh_Alarms();
     }
 }
 
 void Clock_Class::Add_Alarm()
 {
+    for (uint8_t i = 0; i < 6; i++)
+    {
+        if (Alarm_Exist[i] == false)
+        {
+            Alarm_Exist[i] = true;
+            Alarm_Hour[i] = 0;
+            Alarm_Minute[i] = 0;
+            Alarm_Enabled[i] = false;
+            strcpy(Alarm_Title[i], "Untitled");
+            Selected_Alarm = i;
+            return;
+        }
+    }
 }
 
 void Clock_Class::Refresh_Clock()
@@ -160,6 +318,8 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Current_Tab = Chronometer;
                 Instance_Pointer->Refresh_Chronometer();
                 break;
+            case 0x5249: // Ring
+                break;
             case Software_Code::Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
@@ -183,7 +343,7 @@ void Clock_Class::Main_Task(void *pvParameters)
             switch (Instance_Pointer->Get_Command())
             {
             case 0x0000: // IDLE
-                Instance_Pointer->Refresh_Clock();
+                Instance_Pointer->Refresh_Alarms();
                 break;
             case 0x4F63: // Oc
                 Xila.Display.Set_Current_Page(F("Clock_Chrono"));
@@ -201,36 +361,94 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Refresh_Chronometer();
                 break;
 
-            case : //A0
-                Instance_Pointer->Selected_Alarm = 0;
-                Instance_Pointer->Refresh_Alarm();
+            case 0x4130: //Ax : Select alarm
+                if (Instance_Pointer->Alarm_Exist[0] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 0;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
                 break;
-            case : //A1
-                Instance_Pointer->Selected_Alarm = 1;
-                break;
-            case : //A0
-                Instance_Pointer->Selected_Alarm = 2;
-                break;
-            case: //A0
-                Instance_Pointer->Selected_Alarm = 3;
-                break;
-            case: //A0
-                Instance_Pointer->Selected_Alarm = 4;
-                break;
-            case: //A0
-                Instance_Pointer->Selected_Alarm = 5;
-                break;
-            case : //AM
-                Instance_Pointer->Alarm_Minute[Instance_Pointer->Selected_Alarm]++;
-                break;    
-            case : //RM
-                Instance_Pointer->Alarm_Minute[Instance_Pointer->Selected_Alarm]--;
-                break;
-            case : //AH
-                Instance_Pointer->Alarm_Hour[Instance_Pointer->Selected_Alarm]++;
-                break;
-            case :
+            case 0x4131:
+                if (Instance_Pointer->Alarm_Exist[1] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 1;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
 
+                break;
+            case 0x4132:
+                if (Instance_Pointer->Alarm_Exist[2] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 2;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
+                break;
+            case 0x4133:
+                if (Instance_Pointer->Alarm_Exist[3] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 3;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
+                break;
+            case 0x4134:
+                if (Instance_Pointer->Alarm_Exist[4] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 4;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
+                break;
+            case 0x4135:
+                if (Instance_Pointer->Alarm_Exist[5] = true)
+                {
+                    Instance_Pointer->Selected_Alarm = 5;
+                    Instance_Pointer->Refresh_Alarms();
+                    Instance_Pointer->Refresh_Alarm();
+                }
+                break;
+            case 0x4141: //AA
+                Instance_Pointer->Add_Alarm();
+                Instance_Pointer->Refresh_Alarm();
+                Instance_Pointer->Refresh_Alarms();
+                break;
+            case 0x4441: //DA
+                Instance_Pointer->Alarm_Exist[Instance_Pointer->Selected_Alarm] = false;
+                for (uint8_t i = 0; i < 7; i++)
+                {
+                    if (i < 6)
+                    {
+                        if (Instance_Pointer->Alarm_Exist[i] == true)
+                        {
+                            Instance_Pointer->Selected_Alarm = i;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        Instance_Pointer->Add_Alarm();
+                        break;
+                    }
+                }
+                Instance_Pointer->Refresh_Alarms();
+                break;
+            case 0x4544: //ED
+                if (Instance_Pointer->Alarm_Enabled[Instance_Pointer->Selected_Alarm] == true)
+                {
+                    Instance_Pointer->Alarm_Enabled[Instance_Pointer->Selected_Alarm] = false;
+                }
+                else
+                {
+                    Instance_Pointer->Alarm_Enabled[Instance_Pointer->Selected_Alarm] = true;
+                }
+
+                Instance_Pointer->Refresh_Alarm();
+                Instance_Pointer->Refresh_Alarms();
+                break;
+            case 0x5249: // Ring
                 break;
             case Software_Code::Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
@@ -252,40 +470,211 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case Timer:
+        case Chronometer:
             switch (Instance_Pointer->Get_Command())
             {
             case 0x0000: //IDLE
+                Instance_Pointer->Refresh_Chronometer();
+                break;
+            case 0x5350: // SP : Start / Pause
+                Xila.Sound.Stop();
+                if (Instance_Pointer->State == 0) // Stoped -> Running
+                {
+                    Instance_Pointer->State = 1;
+
+                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+
+                    Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
+
+                    Instance_Pointer->Inital_Time = millis();
+                }
+                else if (Instance_Pointer->State == 2) // Paused -> Running
+                {
+                    Instance_Pointer->Inital_Time += millis() - Instance_Pointer->Paused_Time;
+                    Instance_Pointer->State = 1;
+
+                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+                    Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
+                }
+                else // Running -> Pause
+                {
+                    Instance_Pointer->Paused_Time = millis();
+                    Instance_Pointer->State = 2;
+                    Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+                    Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
+                }
+                break;
+
+            case 0x4C52: //LR : Lap / Reset
+                Xila.Sound.Stop();
+                Instance_Pointer->Inital_Time = 0;
+                Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+
+                Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
+
+                Xila.Display.Set_Value(F("MINUTE_NUM"), 0);
+                Xila.Display.Set_Value(F("SECOND_NUM"), 0);
+                Xila.Display.Set_Value(F("MILLIS_NUM"), 0);
+                Instance_Pointer->State = 0;
+
+                break;
+            case 0x4255: // : UP laps
+
+                break;
+            case 0x4244: //  : Down laps
+                break;
+            case 0x4F41: // OA
+                Xila.Display.Set_Current_Page(F("Clock_Alarm"));
+                Instance_Pointer->Current_Tab = Alarm;
+                Instance_Pointer->Refresh_Alarm();
+                break;
+            case 0x4F54: // OT
+                Xila.Display.Set_Current_Page(F("Clock_Timer"));
+                Instance_Pointer->Current_Tab = Timer;
                 Instance_Pointer->Refresh_Timer();
                 break;
-            case : // SP : Start / Pause
-                if (Instance_Pointer->Timer_State == 0)
+            case 0x4F43: // "OC" : Switch page Clock
+                Xila.Display.Set_Current_Page(F("Clock"));
+                Instance_Pointer->Current_Tab = Clock;
+                Instance_Pointer->Refresh_Clock();
+                break;
+            case 0x5249: // Ring
+                break;
+            case Software_Code::Open:
+                Xila.Display.Set_Current_Page(F("Clock"));
+                Instance_Pointer->Current_Tab = Clock;
+                Instance_Pointer->Refresh_Clock();
+                break;
+            case Software_Code::Close:
+                delete Instance_Pointer;
+                vTaskDelete(NULL);
+                break;
+            case Software_Code::Minimize:
+                vTaskSuspend(NULL);
+                break;
+            case Software_Code::Maximize:
+                if (Instance_Pointer->Current_Tab == Clock)
                 {
-                    Instance_Pointer->Timer_State = 1;
-                    Instance_Pointer->Current_Lap = 0;
-                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
-                    Instance_Pointer->Inital_Time = millis();
-
+                    Xila.Display.Set_Current_Page(F("Clock"));
                 }
-                else if (Instance_Pointer->Timer_State == 2)
+                else if (Instance_Pointer->Current_Tab == Alarm)
                 {
-
+                    Xila.Display.Set_Current_Page(F("Clock_Alarm"));
                 }
-                else //LAP
+                else if (Instance_Pointer->Current_Tab == Timer)
                 {
-                    
+                    Xila.Display.Set_Current_Page(F("Clock_Timer"));
+                }
+                else if (Instance_Pointer->Current_Tab == Chronometer)
+                {
+                    Xila.Display.Set_Current_Page(F("Clock_Chronometer"));
                 }
                 break;
-            
-            case : //LR : Lap / erase
-                if (Instance_Pointer->Timer_State == 0) //disabled
-                {
-
-                }
+            default:
                 break;
             }
             break;
-        case Chronometer:
+        case Timer:
+            switch (Instance_Pointer->Get_Command())
+            {
+            case 0x0000: // IDLE
+                Instance_Pointer->Refresh_Timer();
+                break;
+
+            case 0x5350:                          // SP : Start / Pause
+                if (Instance_Pointer->State == 0) //Stopped -> Start
+                {
+                    Instance_Pointer->State = 1;
+                    Instance_Pointer->Inital_Time = Instance_Pointer->Hours * 3600;
+                    Instance_Pointer->Inital_Time += Instance_Pointer->Minutes * 3600;
+                    Instance_Pointer->Inital_Time += Instance_Pointer->Seconds;
+                    Instance_Pointer->Inital_Time *= 1000;
+                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+                    Xila.Display.Hide(F("REMHOUR_BUT"));
+                    Xila.Display.Hide(F("ADDHOUR_BUT"));
+                    Xila.Display.Hide(F("REMMIN_BUT"));
+                    Xila.Display.Hide(F("ADDMIN_BUT"));
+                    Xila.Display.Hide(F("REMSEC_BUT"));
+                    Xila.Display.Hide(F("ADDSEC_BUT"));
+                }
+                else if (Instance_Pointer->State == 1) // Running -> Pause
+                {
+                    Instance_Pointer->Paused_Time = millis();
+                    Instance_Pointer->State = 2;
+                    Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+                }
+                else // Pause -> Start
+                {
+                    Instance_Pointer->State = 1;
+                    Instance_Pointer->Inital_Time += millis() - Instance_Pointer->Paused_Time;
+                    Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+                }
+
+                break;
+
+            case 0x434C: // CL : clear
+                Instance_Pointer->State = 0;
+                Instance_Pointer->Hours = 0;
+                Instance_Pointer->Minutes = 0;
+                Instance_Pointer->Seconds = 0;
+                Xila.Display.Show(F("REMHOUR_BUT"));
+                Xila.Display.Show(F("ADDHOUR_BUT"));
+                Xila.Display.Show(F("REMMIN_BUT"));
+                Xila.Display.Show(F("ADDMIN_BUT"));
+                Xila.Display.Show(F("REMSEC_BUT"));
+                Xila.Display.Show(F("ADDSEC_BUT"));
+                Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+                break;
+            case 0x4F41: // OA
+                Xila.Display.Set_Current_Page(F("Clock_Alarm"));
+                Instance_Pointer->Current_Tab = Alarm;
+                Instance_Pointer->Refresh_Alarm();
+                break;
+            case 0x4F43: // "OC" : Switch page Clock
+                Xila.Display.Set_Current_Page(F("Clock"));
+                Instance_Pointer->Current_Tab = Clock;
+                Instance_Pointer->Refresh_Clock();
+                break;
+            case 0x4F63: // "Oc" : Switch page Clock
+                Xila.Display.Set_Current_Page(F("Clock_Chrono"));
+                Instance_Pointer->Current_Tab = Chronometer;
+                Instance_Pointer->Refresh_Chronometer();
+                break;
+            case 0x5249: // Ring
+                break;
+            case Software_Code::Open:
+                Xila.Display.Set_Current_Page(F("Clock"));
+                Instance_Pointer->Current_Tab = Clock;
+                Instance_Pointer->Refresh_Clock();
+                break;
+            case Software_Code::Close:
+                delete Instance_Pointer;
+                vTaskDelete(NULL);
+                break;
+            case Software_Code::Minimize:
+                vTaskSuspend(NULL);
+                break;
+            case Software_Code::Maximize:
+                if (Instance_Pointer->Current_Tab == Clock)
+                {
+                    Xila.Display.Set_Current_Page(F("Clock"));
+                }
+                else if (Instance_Pointer->Current_Tab == Alarm)
+                {
+                    Xila.Display.Set_Current_Page(F("Clock_Alarm"));
+                }
+                else if (Instance_Pointer->Current_Tab == Timer)
+                {
+                    Xila.Display.Set_Current_Page(F("Clock_Timer"));
+                }
+                else if (Instance_Pointer->Current_Tab == Chronometer)
+                {
+                    Xila.Display.Set_Current_Page(F("Clock_Chronometer"));
+                }
+                break;
+            default:
+                break;
+            }
             break;
         }
         vTaskDelay(pdMS_TO_TICKS(40));

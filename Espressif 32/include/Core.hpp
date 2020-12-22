@@ -179,24 +179,19 @@ protected:
 
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
+public:
+
     void Open_Software(Software_Handle_Class *);
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
     void Maximize_Software(uint8_t);
     void Add_Software_Handle(Software_Handle_Class *);
 
+    // Format drive 
+    
     void Create_System_Files();
 
-public:
     // Core APIs (system calls)
-
-
-    //Background job
-
-    Xila_Event Add_Background_Job(Software_Handle_Class*, void(*));
-    Xila_Event Delete_Background_Job(Background_Job_Class*);
-
-
 
     void Open_File(File &);
 
@@ -396,7 +391,9 @@ public:
 
     //
 
-    void Nextion_Upload_Firmware(String const &Path);
+    // Background job
+
+    uint32_t Last_Execution;
 
     // System's task :
     xTaskHandle Core_Task_Handle;
