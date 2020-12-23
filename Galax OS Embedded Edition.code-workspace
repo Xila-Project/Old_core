@@ -6,6 +6,10 @@
 		{
 			"name": "Espressif 32",
 			"path": "Espressif 32"
+		},
+		{
+			"name": "Espressif 32",
+			"path": "..\\..\\github\\GalaxOS-EE\\Espressif 32"
 		}
 	],
 	"settings": {

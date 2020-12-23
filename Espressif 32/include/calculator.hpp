@@ -14,6 +14,10 @@ private:
 
     char Temporary_Char_Array[59];
 
+    char Ending_Character;
+
+    uint8_t Temporary_Current_Position;
+
     char Numbers[3][59];
 
     uint8_t Exponent[3];
@@ -24,14 +28,16 @@ private:
    
     uint8_t Secondary_Operator[2];
 
-    float Memory;
+    double Memory;
 
-    uint8_t Main_Operator;
+    uint8_t Primary_Operator;
 
 
     uint8_t State;
-     
-    // 0 : taping Number[0]
+    
+
+    // 000 : Blank
+    // 001 : taping Number[0]
     // set operator + (secondary operator)
     // 1 : taping Number[1]
     // (set secondary operator)
@@ -74,7 +80,15 @@ private:
 
     void Compute();
 
+    double Factorial(double Number);
+
+    double asech(double Number);
+    double acsch(double Number);
+    double acoth(double Number);
+
     void Display();
+
+    void Error();
 
     enum Angle_Unity
     {
@@ -85,7 +99,7 @@ private:
     enum Special_Number
     {
         Pi = 'P',
-        Exponential = 'N',
+        Neper_Constant = 'N',
         Random = 'R',
         Point = '.',
     };
@@ -101,29 +115,46 @@ private:
         Factorial = '!',              //secondary
         Logarithm = 'l',              //secondary
         Natural_Logarithm = 'L',      //secondary
+        Binary_Logarithm,
 
         Squared,                //secondary
         Cube,                   //secondary
 
-        Exponent,               //main
+        Exponent = '^',               //main
 
         Square_Root,            //secondary
         Cubic_Root,             //secondary
 
         Root = 'r',                   //main
 
+        Inverse,
+        Absolute,
+
         Sine = 180,             //secondary
         Cosine,
         Tangent,
+        Secant,
+        Cosecant,
+        Cotangent,
         Arc_Sine,
         Arc_Cosine,
         Arc_Tangent,
+        Arc_Secant,
+        Arc_Cosecant,
+        Arc_Cotangent,
         Hyperbolic_Sine,
         Hyperbolic_Cosine,
         Hyperbolic_Tangent,
+        Hyperbolic_Secant,
+        Hyperbolic_Cosecant,
+        Hyperbolic_Cotangent,
         Arc_Hyperbolic_Sine,
         Arc_Hyperbolic_Cosine,
         Arc_Hyperbolic_Tangent,
+        Arc_Hyperbolic_Secant,
+        Arc_Hyperbolic_Cosecant,
+        Arc_Hyperbolic_Cotangent,
+
 
         Memory_Add,
         Memory_Substract,
