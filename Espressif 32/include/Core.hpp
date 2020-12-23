@@ -296,7 +296,7 @@ public:
     char Time_Zone[48];
 
     void Synchronise_Time();
-    void Refresh_Clock();
+    void Refresh_Header();
     Xila_Time Get_Time();
 
     // Display callback functions
@@ -391,9 +391,11 @@ public:
 
     //
 
-    // Background job
+    // Background jobs
 
     uint32_t Last_Execution;
+    uint8_t Background_Function_Counter;
+    void Execute_Background_Jobs();
 
     // System's task :
     xTaskHandle Core_Task_Handle;

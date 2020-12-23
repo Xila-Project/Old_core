@@ -12,6 +12,9 @@
 #include <soc/rtc.h>
 #include <math.h>
 
+#define LEFT_CHANNEL 0
+#define RIGHT_CHANNEL 1
+
 class Sound_Class
 {
 protected:
@@ -75,7 +78,8 @@ public:
 
     void Mute();
     void Stop();
-    void Tone(uint16_t const &, uint32_t const &);
+    void Tone(uint16_t const &, uint32_t const & = 0);
+    void No_Tone();
 };
 
 #endif

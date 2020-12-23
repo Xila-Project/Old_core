@@ -33,7 +33,8 @@ Xila_Class::Xila_Class() : Tag(0),
                            Sound(),
                            Battery(13, 47, 47),
                            Keyboard(2, 6),
-                           Event_Reply(None)
+                           Event_Reply(None),
+                           Background_Function_Counter(0)
 
 {
   if (Instance_Pointer != NULL)
@@ -397,91 +398,17 @@ void Xila_Class::Core_Task(void *pvParameters)
   uint8_t Counter = 0;
   while (1)
   {
-    
+
     if (ESP.getFreeHeap() < 2000)
     {
       Serial.println("Low Memory !");
     }
-    
-    Xila.Synchronise_Time();
-    
-    Xila.Refresh_Clock();
 
-    // Software background function execution
+    Xila.Synchronise_Time(); // Time synchro
 
-    if ((millis() - Instance_Pointer->Last_Execution) > 250)
-    {
-      if (Xila.Software_Handle_Pointer[Counter] != NULL)
-      {
-        if (Xila.Software_Handle_Pointer[Counter]->Background_Function_Pointer != NULL)
-        {
-          (*Xila.Software_Handle_Pointer[Counter]->Background_Function_Pointer)();
-        }
-      }
-      else
-      {
-        Counter = 0;
-      }
-    }
+    Xila.Refresh_Header(); // Header refreshing
 
-    //refresh icon
-
-    int8_t Level = WiFi.RSSI();
-    if (WiFi.status() == WL_CONNECTED)
-    {
-      if (Level <= -70)
-      {
-        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
-      }
-      if (Level <= -50 && Level > -70)
-      {
-        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
-      }
-      else
-      {
-        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
-      }
-    }
-    else
-    {
-      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
-    }
-
-    Level = Instance_Pointer->Battery.Get_Charge_Level();
-    if (Level <= 15)
-    {
-      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
-    }
-    else if (Level <= 30 && Level > 15)
-    {
-      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
-    }
-    else if (Level <= 70 && Level > 30)
-    {
-      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
-    }
-    else // more than 70 %
-    {
-      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
-    }
-
-    Level = Instance_Pointer->Sound.Get_Volume();
-    if (Level == 0)
-    {
-      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
-    }
-    else if (Level < 33)
-    {
-      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
-    }
-    else if (Level < 66)
-    {
-      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
-    }
-    else
-    {
-      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
-    }
+    Xila.Execute_Background_Jobs();     // Software background function execution
 
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
@@ -1248,7 +1175,7 @@ Xila_Event Xila_Class::Change_Password(const char *Username_To_Check, const char
   }
   else
   {
-    return Wrong_Credentials;
+    return Error;
   }
 }
 
@@ -1420,8 +1347,9 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
   return Event_Reply_Copy;
 }
 
-void Xila_Class::Refresh_Clock()
+void Xila_Class::Refresh_Header()
 {
+  uint32_t Update_Time = millis();
   static char Clock[5];
   Clock[0] = Time.tm_hour / 10;
   Clock[0] += 48;
@@ -1434,6 +1362,85 @@ void Xila_Class::Refresh_Clock()
   Clock[4] += 48;
   Clock[5] += '\0';
   Display.Set_Text(F("CLOCK_TXT"), Clock);
+
+ Clock[0] = WiFi.RSSI();
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    if (Clock[0] <= -70)
+    {
+      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
+    }
+    if (Clock[0] <= -50 && Clock[0] > -70)
+    {
+      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
+    }
+    else
+    {
+      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
+    }
+  }
+  else
+  {
+    Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
+  }
+
+  Clock[0] = Instance_Pointer->Battery.Get_Charge_Level();
+  if (Clock[0] <= 15)
+  {
+    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
+  }
+  else if (Clock[0] <= 30 && Clock[0] > 15)
+  {
+    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
+  }
+  else if (Clock[0] <= 70 && Clock[0] > 30)
+  {
+    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
+  }
+  else // more than 70 %
+  {
+    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
+  }
+
+  Clock[0] = Instance_Pointer->Sound.Get_Volume();
+  if (Clock[0] == 0)
+  {
+    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
+  }
+  else if (Clock[0] < 33)
+  {
+    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
+  }
+  else if (Clock[0] < 66)
+  {
+    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
+  }
+  else
+  {
+    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
+  }
+  Update_Time = millis() - Update_Time;
+  Verbose_Print("Update header time :");
+  Verbose_Print_Line(Update_Time);
+}
+
+void Xila_Class::Execute_Background_Jobs()
+{
+  if ((millis() - Last_Execution) > 250)
+    {
+      if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
+      {
+        if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
+        {
+          (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
+        }
+        Background_Function_Counter = millis();
+      }
+      else
+      {
+        Background_Function_Counter = 0;
+      }
+    }
 }
 
 void Xila_Class::Synchronise_Time()

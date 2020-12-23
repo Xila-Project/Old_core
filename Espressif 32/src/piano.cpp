@@ -54,9 +54,7 @@ void Piano_Class::Main_Task(void *pvParameters)
             break;
         case 0x4423: //D#
             Instance_Pointer->Play_Note(3);
-
             break;
-
         case 0x4520: //E
             Instance_Pointer->Play_Note(4);
             break;
@@ -148,9 +146,15 @@ void Piano_Class::Play_Note(uint8_t Note)
 {
     Current_Note = Note_Frequency[Note] + Offset;
     Xila.Sound.Tone(Current_Note, Duration);
-    Xila.Display.Set_Text(F("FREQUENCY_TXT"), "Frequency : " + String(Current_Note));
-    Xila.Display.Set_Text(F("MIDICODE_TXT"), "MIDI Code : " + String(Note));   
-    if (MIDI_Output == true)
+    
+    dtostrf(Note_Frequency[Note], 3, 0, Temporary_Char);
+    Temporary_Char[4] = ' ';
+    Temporary_Char[5] = 'H';
+    Temporary_Char[6] = 'z';
+    Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_Char);
+    
+
+    /*if (MIDI_Output == true)
     {
         Serial.write(144);
         Serial.write(Note);
@@ -159,5 +163,5 @@ void Piano_Class::Play_Note(uint8_t Note)
         Serial.write(128);
         Serial.write(Note);
         Serial.write(128);
-    }
+    }*/
 }

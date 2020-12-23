@@ -10,11 +10,26 @@ protected:
 
     static Paint_Class* Instance_Pointer;
 
+    /*volatile uint32_t Buffer[2][200];
+
+    uint8_t Currrent_Buffer;
+    uint8_t Buffer_Position;
+
+    uint16_t Color_Palette[64];
+
+    uint16_t 
+
+    File Paint_File;
+
+    void Export_To_Bitmap();*/
+    
 public:
     Paint_Class();
     ~Paint_Class();
 
     static Software_Class *Load();
+
+    void Set_Variable(const void *, uint8_t , uint8_t , uint8_t  = 0);
 
     enum Picture_ID
     {

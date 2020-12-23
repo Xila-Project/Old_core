@@ -295,7 +295,7 @@ void Shell_Class::Modify_User(uint8_t const &Mode)
         }
         break;
     case 'M':
-        if (Xila.Change_Password(Username, Password) == Xila.Success)
+        if (Xila.Change_Password(Username, Password, Password_To_Set) == Xila.Success)
         {
             Xila.Event_Dialog(F("Succed to change user's password."), Xila.Information);
         }

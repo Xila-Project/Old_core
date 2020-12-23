@@ -202,6 +202,8 @@ public:
     void Refresh(uint16_t const &Component_ID);
     void Delay(uint16_t Delay_Time);
     void Click(uint16_t const &Component_ID, uint8_t const &Event_Type);
+    void Click(const __FlashStringHelper* Object_Name, uint8_t const& Event_Type);
+    void Click(const char* Object_Name, uint8_t const& Event_Type);
     void Start_Waveform_Refresh();
     void Stop_Waveform_Refresh();
     void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t *Data, uint32_t const &Quantity = 0);

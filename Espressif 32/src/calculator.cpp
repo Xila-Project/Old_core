@@ -23,7 +23,7 @@ Software_Class *Calculator_Class::Load()
     return Instance_Pointer;
 }
 
-void Calculator_Class::Memory_Operation(uint8_t &const Operation)
+void Calculator_Class::Memory_Operation(uint8_t Operation)
 {
     switch (Operation)
     {
@@ -60,14 +60,14 @@ void Calculator_Class::Memory_Operation(uint8_t &const Operation)
 
 void Calculator_Class::Switch_Angle_Unity()
 {
-    if (Angle_Unity = Degree)
+    if (bitRead(Keys_Mode, 3) == 1)
     {
-        Angle_Unity = Radian;
+        bitWrite(Keys_Mode, 3, 0);
         Xila.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
     }
     else
     {
-        Angle_Unity = Degree;
+        bitWrite(Keys_Mode, 3, 1);
         Xila.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
     }
 }
@@ -76,24 +76,25 @@ void Calculator_Class::Switch_Keys()
 {
     if (bitRead(Keys_Mode, 1) == 1) // Second enabled
     {
+
         if (bitRead(Keys_Mode, 2) == 1) // all enabled
         {
-            Xila.Display.Click(59, 1);
+            Xila.Display.Click(F("SS_HOT"), 1);
         }
         else // hyperbolic disabled
         {
-            Xila.Display.Click(58, 0);
+            Xila.Display.Click(F("SH_HOT"), 0);
         }
     }
     else // second disabled
     {
         if (bitRead(Keys_Mode, 2) == 1) // hyperbolic enabled
         {
-            Xila.Display.Click(58, )
+            Xila.Display.Click(F("SH_HOT"), 1);
         }
         else // all disabled
         {
-            Xila.Display.Click(59, 0);
+            Xila.Display.Click(F("SS_HOT"), 0);
         }
     }
 }
@@ -176,29 +177,25 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
 
         case 0x5332: //S2
-            if (bitRead(Keys_Mode, 1) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, 1) == 1)
             {
-                bitWrite(Keys_Mode, 1, 0);
-                Xila.Display.Set_Value(F("SECOND_BUT"), 0);
+                bitWrite(Instance_Pointer->Keys_Mode, 1, 0);
             }
             else
             {
-                bitWrite(Keys_Mode, 1, 1);
-                Xila.Display.Set_Value(F("SECOND_BUT"), 1);
+                bitWrite(Instance_Pointer->Keys_Mode, 1, 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
 
         case 0x5348: //SH
-            if (bitRead(Keys_Mode, 1) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, 1) == 1)
             {
-                bitWrite(Keys_Mode, 1, 0);
-                Xila.Display.Set_Value(F("HYPERBOLIC_BUT"), 0);
+                bitWrite(Instance_Pointer->Keys_Mode, 1, 0);
             }
             else
             {
-                bitWrite(Keys_Mode, 1, 1);
-                Xila.Display.Set_Value(F("HYPERBOLIC_BUT"), 1);
+                bitWrite(Instance_Pointer->Keys_Mode, 1, 1);
             }
             Instance_Pointer->Switch_Keys();
             break;
@@ -214,35 +211,32 @@ void Calculator_Class::Main_Task(void *pvParameters)
                 Xila.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
             }
             break;
-
         case 0x4661: // FA
             Instance_Pointer->Set_Operator(Factorial);
             break;
 
         case 0x5069: // Pi
-            if (State >= 2)
+            if (Instance_Pointer->State >= 2)
             {
-                Clear_All();
+                Instance_Pointer->Clear_All();
             }
-
-            Number[State] = Pi;
-
+            Instance_Pointer->Number[Instance_Pointer->State] = Pi;
             Instance_Pointer->Display();
             break;
 
-        case 0x4661: // Ne : exemponential number
-            if (State >= 2)
+        case 0x4661: // Ne : exponential number
+            if (Instance_Pointer->State >= 2)
             {
                 Clear_All();
             }
 
-            Number[State] = Exponential;
+            Instance_Pointer->Number[State] = Exponential;
 
             Instance_Pointer->Display();
             break;
 
         case 0x4661: // Fe : exponential function
-            Set_Operator(Exponential);
+            Instance_Pointer->Set_Operator(Exponential);
             break;
 
         case 0x422B: //B+
@@ -289,50 +283,89 @@ void Calculator_Class::Main_Task(void *pvParameters)
 
 void Calculator_Class::Add_Number(uint8_t const &Number_To_Add)
 {
-    if (Number_To_Add < 10)
+    switch (Number_To_Add)
     {
-        Number[State] *= 10;
-        Number[State] += Number_To_Add;
-    }
-    else if (Number_To_Add == Pi)
-    {
-        Number[State] = PI;
-    }
-    else if (Number_To_Add == Exponential)
-    {
-        Number[State] = NEPER_CONSTANT;
-    }
-    else if (Number_To_Add == Random)
-    {
-        Number[State] = random(10);
+    case Pi:
+        Clear();
+        Numbers[State][0] = 'P';
+        break;
+    case Exponential:
+        Clear();
+        Numbers[State][0] = 'N';
+        break;
+    case Random:
+        Clear();
+        dtostrf(esp_random(), sizeof(Numbers[State]), 0, Numbers[State]);
+        Decimal_Point[State] = false;
+        break;
+    case Point:
+        if (Decimal_Point[State] != true)
+        {
+            Numbers[State][Current_Position[State]++] = '.';
+            Decimal_Point[State] = true;
+        }
+        break;
+    default:
+        if (!isAlpha(Numbers[State][0]))
+        {
+            if (Current_Position[State] == 0)
+            {
+            }
+            Numbers[State][Current_Position[State]++] = Number_To_Add + 48;
+        }
+        break;
     }
 
     Display();
 }
 
+void Calculator_Class::Delete_Number()
+{
+    if (Current_Position[State] > 0)
+    {
+        switch (Numbers[State][--Current_Position[State]])
+        {
+        case 'P':
+            Clear();
+            break;
+        case 'N':
+            Clear();
+            break;
+        case '.':
+            Decimal_Point[State] = false;
+            break;
+        }
+    }
+    Display();
+}
+
 void Calculator_Class::Set_Operator(char const &Opertor_To_Set)
 {
-    Operator = Opertor_To_Set;
-    State = 1;
-    if (State > 2)
+    Main_Operator = Opertor_To_Set;
+    if (State > 1)
     {
         Number[0] = Result;
         Number[1] = 0;
         Result = 0;
         State = 0;
     }
+    else
+    {
+        State = 1;
+    }
+
     Display();
 }
 
 void Calculator_Class::Switch_Symbol()
 {
-    if (Number[State] > 0)
+    if (Numbers[State][0] == '0')
     {
-        Number[State] -= Number[State] * 2;
+        Numbers[State][0] = '-';
     }
     else
     {
-        Number[State] += Number[State] * 2;
+        Numbers[State][0] == '0';;
     }
     Display();
 }
@@ -340,6 +373,11 @@ void Calculator_Class::Switch_Symbol()
 void Calculator_Class::Compute()
 {
     uint32_t Temporary_Number[2];
+
+    //1st secondary operator :
+
+    // 2nd secondary operator :
+
     switch (Operator)
     {
     case Addition:
@@ -367,7 +405,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Sine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = sinf(Degree_To_Radian(Number[0]));
         }
@@ -377,7 +415,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Cosine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = cosf(Degree_To_Radian(Number[0]));
         }
@@ -387,7 +425,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Tangent:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = tanf(Degree_To_Radian(Number[0]));
         }
@@ -397,7 +435,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Sine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = asinf(Degree_To_Radian(Number[0]));
         }
@@ -407,7 +445,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Cosine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = acosf(Degree_To_Radian(Number[0]));
         }
@@ -417,7 +455,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Tangent:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = atanf(Degree_To_Radian(Number[0]));
         }
@@ -427,7 +465,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Hyperbolic_Sine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = sinhf(Degree_To_Radian(Number[0]));
         }
@@ -437,7 +475,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Hyperbolic_Cosine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = coshf(Degree_To_Radian(Number[0]));
         }
@@ -447,7 +485,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Hyperbolic_Tangent:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = tanhf(Degree_To_Radian(Number[0]));
         }
@@ -457,7 +495,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Hyperbolic_Sine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = asinhf(Degree_To_Radian(Number[0]));
         }
@@ -467,7 +505,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Hyperbolic_Cosine:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = acoshf(Degree_To_Radian(Number[0]));
         }
@@ -477,7 +515,7 @@ void Calculator_Class::Compute()
         }
         break;
     case Arc_Hyperbolic_Tangent:
-        if (Angle_Unity == Degree)
+        if (bitRead(Keys_Mode, Angle) == Degree)
         {
             Result = atanhf(Degree_To_Radian(Number[0]));
         }
@@ -500,29 +538,29 @@ float Calculator_Class::Degree_To_Radian(float Angle)
 
 void Calculator_Class::Clear()
 {
-    if (Number[State] == 0) 
-    {
-
-    }
-    Number[State] = 0;
-    Display();
+    memset(Numbers[State], 0, sizeof(Numbers[State]));
+    Current_Position[State] = 0;
 }
 
 void Calculator_Class::Clear_All()
 {
     State = 0;
-    Number[0] = 0;
-    Number[1] = 0;
-    Result = 0;
-    Operator = 0xFF;
+
+    memset(Numbers[0], 0, sizeof(Numbers[0]));
+    memset(Numbers[1], 0, sizeof(Numbers[1]));
+    memset(Numbers[2], 0, sizeof(Numbers[2]));
+
+    Secondary_Operator[0] = 0xFF;
+    Secondary_Operator[1] = 0xFF;
+    Main_Operator = 0xFF;
 }
 
 void Calculator_Class::Display()
 {
-    String Temporary_String = "";
     switch (State)
     {
     case 0:
+
         Xila.Display.Set_Text(F("CALCULATIO_TXT"), F(""));
         Temporary_String = String(Number[State]);
         Xila.Display.Set_Text("NUMBER_TXT", Temporary_String);

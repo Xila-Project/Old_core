@@ -27,6 +27,30 @@ Paint_Class::~Paint_Class()
 
 }
 
+/*void Paint_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+    if (Adress == 'C')
+    {
+        if (Buffer_Position < sizeof(Currrent_Buffer))
+        {
+            Buffer[Currrent_Buffer][Buffer_Position++] = *(uint32_t *)Variable;
+        }
+        else
+        {
+            if (Currrent_Buffer == 0)
+            {
+                Currrent_Buffer == 1;
+            }
+            else
+            {
+                Currrent_Buffer == 0;
+            }
+            Buffer_Position = 0;
+            Execute(0x); //write
+        }
+    }
+}*/
+
 void Paint_Class::Main_Task(void* pvParameters)
 {
     (void)pvParameters;

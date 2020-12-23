@@ -15,6 +15,7 @@ protected:
 
     char Username[9];
     char Password[25];
+    char Password_To_Set[25];
 
     void Login();
     void Logout();

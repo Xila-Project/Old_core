@@ -110,14 +110,14 @@ void Periodic_Class::Get_Main_Data()
 
 void Periodic_Class::Get_Data()
 {
-    /*DynamicJsonDocument Element_Filter(256);
+    DynamicJsonDocument Element_Filter(256);
     Element_Filter[Name] = true;
     DynamicJsonDocument Periodic_Register(1536);
     deserializeJson(Periodic_Register, Periodic_File);
     char Temporary_Char_Array[61];
 
     strcpy(Temporary_Char_Array, Periodic_Register[Name]["symbol"]);
-    Xila.Display.Set_Text(F("SYMBOL_TXT"), Periodic_Register[Name]["symbol"]);
+    Xila.Display.Set_Text(F("SYMBOL_TXT"), Temporary_Char_Array);
 
     itoa(Periodic_Register[Name]["number"], Temporary_Char_Array, 10);
     Xila.Display.Set_Text(F("NUMBER_TXT"), Temporary_Char_Array);
@@ -175,7 +175,7 @@ void Periodic_Class::Get_Data()
 
     strcpy(Temporary_Char_Array, "Electron affinity : ");
     itoa(Periodic_Register[Name]["electron_affinity"], Temporary_Char_Array + sizeof("Electron affinity"), 10);
-    Xila.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);*/
+    Xila.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);
 }
 
 void Periodic_Class::Get_List()

@@ -601,6 +601,27 @@ void Nextion_Display_Class::Hide(const char* Object_Name)
     Instruction_End();
 }
 
+void Nextion_Display_Class::Click(const __FlashStringHelper* Object_Name, uint8_t const& Event_Type)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("click "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print(Event_Type);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Click(const char* Object_Name, uint8_t const& Event_Type)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("click "));
+    Nextion_Serial.print(Object_Name);
+    Argument_Separator();
+    Nextion_Serial.print(Event_Type);
+    Instruction_End();
+}
+
+
 void Nextion_Display_Class::Click(uint16_t const &Component_ID, uint8_t const &Event_Type)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);

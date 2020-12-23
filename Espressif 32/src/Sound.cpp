@@ -128,6 +128,29 @@ uint8_t Sound_Class::Get_Metadata()
 
 void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
 {
+    if (ledcRead(LEFT_CHANNEL) || ledcRead(RIGHT_CHANNEL))
+    {
+        //already used channel
+        return;
+    }
+    ledcAttachPin(25, LEFT_CHANNEL);
+    ledcAttachPin(26, RIGHT_CHANNEL);
+    ledcWriteTone(LEFT_CHANNEL, Frequency);
+    ledcWriteTone(RIGHT_CHANNEL, Frequency);
+    if (Duration)
+    {
+        vTaskDelay(pdMS_TO_TICKS(Duration));
+        No_Tone();
+        No_Tone();
+    }
+}
+
+void Sound_Class::No_Tone()
+{
+    ledcDetachPin(25);
+    ledcDetachPin(26);
+    ledcWrite(LEFT_CHANNEL, 0);
+    ledcWrite(RIGHT_CHANNEL, 0);
 }
 
 void Sound_Class::Seek(uint32_t Time)
