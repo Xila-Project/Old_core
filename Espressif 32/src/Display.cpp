@@ -344,7 +344,7 @@ void Nextion_Display_Class::Set_Value(String const &Object_Name, uint32_t const 
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Value(const char* Object_Name, uint32_t const &Value)
+void Nextion_Display_Class::Set_Value(const char *Object_Name, uint32_t const &Value)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
@@ -553,7 +553,7 @@ void Nextion_Display_Class::Show(const __FlashStringHelper *Object_Name)
     Instruction_End();
 }
 
-void Nextion_Display_Class::Show(String const& Object_Name)
+void Nextion_Display_Class::Show(String const &Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("vis "));
@@ -562,7 +562,7 @@ void Nextion_Display_Class::Show(String const& Object_Name)
     Nextion_Serial.print("1");
     Instruction_End();
 }
-void Nextion_Display_Class::Show(const char* Object_Name)
+void Nextion_Display_Class::Show(const char *Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("vis "));
@@ -582,7 +582,7 @@ void Nextion_Display_Class::Hide(const __FlashStringHelper *Object_Name)
     Instruction_End();
 }
 
-void Nextion_Display_Class::Hide(String const& Object_Name)
+void Nextion_Display_Class::Hide(String const &Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("vis "));
@@ -591,7 +591,7 @@ void Nextion_Display_Class::Hide(String const& Object_Name)
     Nextion_Serial.print("0");
     Instruction_End();
 }
-void Nextion_Display_Class::Hide(const char* Object_Name)
+void Nextion_Display_Class::Hide(const char *Object_Name)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("vis "));
@@ -601,7 +601,7 @@ void Nextion_Display_Class::Hide(const char* Object_Name)
     Instruction_End();
 }
 
-void Nextion_Display_Class::Click(const __FlashStringHelper* Object_Name, uint8_t const& Event_Type)
+void Nextion_Display_Class::Click(const __FlashStringHelper *Object_Name, uint8_t const &Event_Type)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("click "));
@@ -611,7 +611,7 @@ void Nextion_Display_Class::Click(const __FlashStringHelper* Object_Name, uint8_
     Instruction_End();
 }
 
-void Nextion_Display_Class::Click(const char* Object_Name, uint8_t const& Event_Type)
+void Nextion_Display_Class::Click(const char *Object_Name, uint8_t const &Event_Type)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("click "));
@@ -620,7 +620,6 @@ void Nextion_Display_Class::Click(const char* Object_Name, uint8_t const& Event_
     Nextion_Serial.print(Event_Type);
     Instruction_End();
 }
-
 
 void Nextion_Display_Class::Click(uint16_t const &Component_ID, uint8_t const &Event_Type)
 {
@@ -678,27 +677,38 @@ void Nextion_Display_Class::Reboot()
     Instruction_End();
 }
 
-uint8_t Nextion_Display_Class::Update(String const &File_Path)
+void Nextion_Display_Class::Set_Standby_Serial_Timer(uint16_t const &Value)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
-    vTaskSuspend(Nextion_Serial_Handle);
-    if (!SD_MMC.exists(File_Path))
-    {
-        //error handle
-        return 0;
-    }
-    while (Nextion_Serial.available()) //clear serial buffer
+    Nextion_Serial.print(F("ussp="));
+    Nextion_Serial.print(Value);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Standby_Touch_Timer(uint16_t const &Value)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("thsp="));
+    Nextion_Serial.print(Value);
+    Instruction_End();
+}
+
+uint8_t Nextion_Display_Class::Update(File &Update_File)
+{
+    File Temporary_File = Update_File;
+    Set_Brightness(100);
+    Set_Standby_Serial_Timer(0);
+    Set_Standby_Touch_Timer(0);
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    vTaskSuspend(Nextion_Serial_Handle); // Suspend serial task
+    while (Nextion_Serial.available())   //clear serial buffer
     {
         Nextion_Serial.read();
     }
-    Instruction_End();
-    Nextion_Serial.print(F("DRAKJHSUYDGBNCJHGJKSHBDN"));
-    Instruction_End();
-    Instruction_End(); //twice to clear
-    Nextion_Serial.print(F("connect"));
-    Instruction_End();
-    Nextion_Serial.print(F("ÿÿconnect"));
-    Instruction_End();
+    Nextion_Serial.print(F("ÿÿÿ")); // ensure that last instruction is cleared
+    Nextion_Serial.print(F("DRAKJHSUYDGBNCJHGJKSHBDNÿÿÿ"));
+    Nextion_Serial.print(F("connectÿÿÿ"));
+
     byte i = 0;
     while (Nextion_Serial.available() == 0)
     {
@@ -707,24 +717,21 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
         if (i > 50)
         {
             //error handle : no reply from screen
-            return 0;
+            return Update_Failed;
         }
     }
-    String Temporary_String = "";
-    for (byte i = 0; i < 5; i++)
+    char Temporary_String[5] = "";
+    Serial.readBytes(Temporary_String, sizeof(String));
+    if (strcmp(Temporary_String, "comok") != 0)
     {
-        Temporary_String += char(Nextion_Serial.read());
+        return Update_Failed;
     }
     while (Nextion_Serial.available())
     {
         Nextion_Serial.read();
     }
-    if (Temporary_String != "comok")
-    {
-        return 0;
-    }
-    Temporary_File = SD_MMC.open(File_Path, FILE_READ);
-    uint32_t Size = Temporary_File.size();
+
+    size_t Size = Temporary_File.size();
 
     Nextion_Serial.print(F("whmi-wri "));
     Nextion_Serial.print(Size);
@@ -734,36 +741,44 @@ uint8_t Nextion_Display_Class::Update(String const &File_Path)
     Nextion_Serial.print(F("res0"));
     Instruction_End();
 
+    char Temporary_Buffer[4097];
+    memset(Temporary_Buffer, 0, sizeof(Temporary_Buffer));
+
     while (Temporary_File.available() >= 4096)
     {
+        Temporary_File.readBytes(Temporary_Buffer, 4096);
         while (Nextion_Serial.available() == 0)
         {
-            vTaskDelay(50);
+            vTaskDelay(pdMS_TO_TICKS(5));
         }
         if (Nextion_Serial.read() != 0x05)
         {
-            //error handle
-            return 0;
+            //error - unexpected return number
+            return Update_Failed;
         }
-        for (uint16_t i = 0; i < 4096; i++)
-        {
-            Nextion_Serial.print(Temporary_File.read());
-        }
+        Nextion_Serial.print(Temporary_Buffer);
     }
-    while (Temporary_File.available()) //final packet
-    {
-        Nextion_Serial.print(Temporary_File.read());
-    }
+    memset(Temporary_Buffer, 0, sizeof(Temporary_Buffer));
+    Temporary_File.readBytes(Temporary_Buffer, Temporary_File.available());
     while (Nextion_Serial.available() == 0)
     {
-        vTaskDelay(50);
+        vTaskDelay(pdMS_TO_TICKS(5));
     }
     if (Nextion_Serial.read() != 0x05)
     {
-        //error handle
+        //error - unexpected return number
         return Update_Failed;
     }
-    Serial.println(F("Succefully transmited file"));
+    Nextion_Serial.print(Temporary_Buffer);
+    while (Nextion_Serial.available() == 0)
+    {
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+    if (Nextion_Serial.read() != 0x05)
+    {
+        //error - unexpected return number
+        return Update_Failed;
+    }
     return Update_Succeed;
 }
 

@@ -23,8 +23,9 @@ Software_Class *Calculator_Class::Load()
     return Instance_Pointer;
 }
 
-uint16_t Calculator_Class::Numbers_After_Point(double Number)
+uint16_t Calculator_Class::Numbers_After_Point(double Number) //usefull to know how many number to display, currently unused
 {
+    return 0;
 }
 
 void Calculator_Class::Memory_Operation(uint8_t Operation)
@@ -34,7 +35,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
     case Memory_Add:
         if (State == 2)
         {
-            Memory += atof(Numbers[3]);
+            Memory += atof(Numbers[2]);
         }
         else if (State == 0)
         {
@@ -44,7 +45,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
     case Memory_Substract:
         if (State == 2)
         {
-            Memory -= atof(Numbers[3]);
+            Memory -= atof(Numbers[2]);
         }
         else if (State == 0)
         {
@@ -53,7 +54,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
         break;
     case Memory_Read:
         Clear_All();
-        dtostrf(Memory, sizeof(Numbers[0]), 9, Numbers[0]);
+        dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
         Display();
         break;
     case Memory_Clear:
@@ -587,8 +588,8 @@ void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
 {
     if (State > 1)
     {
-        memset(Numbers[0], 0, sizeof(Numbers[0]);
-        memset(Numbers[1], 0, sizeof(Numbers[1]);
+        memset(Numbers[0], 0, sizeof(Numbers[0]));
+        memset(Numbers[1], 0, sizeof(Numbers[1]));
         strcpy(Numbers[0], Numbers[2]);
         Exponent[0] = Exponent[2];
         Decimal_Point[0] = Decimal_Point[2];
@@ -605,8 +606,8 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
 {
     if (State > 1)
     {
-        memset(Numbers[0], 0, sizeof(Numbers[0]);
-        memset(Numbers[1], 0, sizeof(Numbers[1]);
+        memset(Numbers[0], 0, sizeof(Numbers[0]));
+        memset(Numbers[1], 0, sizeof(Numbers[1]));
         strcpy(Numbers[0], Numbers[2]);
         Exponent[0] = Exponent[2];
         Decimal_Point[0] = Decimal_Point[2];
@@ -876,31 +877,31 @@ void Calculator_Class::Compute()
     switch (Primary_Operator)
     {
     case Addition:
-        Temporary_Numbers[3] = Temporary_Numbers[0] + Temporary_Numbers[1];
+        Temporary_Numbers[2] = Temporary_Numbers[0] + Temporary_Numbers[1];
         break;
     case Substraction:
-        Temporary_Numbers[3] = Temporary_Numbers[0] - Temporary_Numbers[1];
+        Temporary_Numbers[2] = Temporary_Numbers[0] - Temporary_Numbers[1];
         break;
     case Multiplication:
-        Temporary_Numbers[3] = Temporary_Numbers[0] * Temporary_Numbers[1];
+        Temporary_Numbers[2] = Temporary_Numbers[0] * Temporary_Numbers[1];
         break;
     case Division:
-        Temporary_Numbers[3] = Temporary_Numbers[0] / Temporary_Numbers[1];
+        Temporary_Numbers[2] = Temporary_Numbers[0] / Temporary_Numbers[1];
         break;
     case Modulo:
-        Temporary_Numbers[3] = fmod(Temporary_Numbers[0], Temporary_Numbers[1]);
+        Temporary_Numbers[2] = fmod(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     case Power:
-        Temporary_Numbers[3] = pow(Temporary_Numbers[0], Temporary_Numbers[1]);
+        Temporary_Numbers[2] = pow(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     case Root:
-        Temporary_Numbers[3] = pow(Temporary_Numbers[0], 1 / Temporary_Numbers[1]);
+        Temporary_Numbers[2] = pow(Temporary_Numbers[0], 1 / Temporary_Numbers[1]);
         break;
     default: // No primary operator
-        Temporary_Numbers[3] = Temporary_Numbers[0];
+        Temporary_Numbers[2] = Temporary_Numbers[0];
         break;
     }
-
+    dtostrf(Temporary_Numbers[2], sizeof(Numbers[2]), POINT_PRECISION, Numbers[2]);
     State = 2;
     Display();
 }
@@ -959,7 +960,7 @@ void Calculator_Class::Clear_All()
 
     Current_Position[0] = 0;
     Current_Position[1] = 0;
-    Current_Position[3] = 0;
+    Current_Position[2] = 0;
 
     Primary_Operator = 0xFF;
 }
@@ -1186,32 +1187,89 @@ void Calculator_Class::Display()
         {
         case Sine:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Sin(");
-            Temporary_Current_Position += 3;
+            Temporary_Current_Position += 4;
             Ending_Character = ')';
             break;
         case Cosine:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Cos(");
-            Temporary_Current_Position += 3;
+            Temporary_Current_Position += 4;
             Ending_Character = ')';
             break;
         case Tangent:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Tan(");
-            Temporary_Current_Position += 3;
+            Temporary_Current_Position += 4;
             Ending_Character = ')';
+            break;
+        case Secant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Sec(");
+            Temporary_Current_Position += 4;
+            break;
+        case Cosecant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Csc(");
+            Temporary_Current_Position += 4;
+            break;
+        case Cotangent:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Cot(");
+            Temporary_Current_Position += 4;
             break;
         case Arc_Sine:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "ASin(");
-            Temporary_Current_Position += 4;
+            Temporary_Current_Position += 5;
             Ending_Character = ')';
             break;
         case Arc_Cosine:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "ACos(");
-            Temporary_Current_Position += 4;
+            Temporary_Current_Position += 5;
             Ending_Character = ')';
             break;
         case Arc_Tangent:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "ATan(");
-            Temporary_Current_Position += 4;
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Arc_Secant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ASec(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Arc_Cosecant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ACsc(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Arc_Cotangent:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ACot(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Sine:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "SinH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Cosine:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "CosH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Tangent:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "TanH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Secant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "SecH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Cosecant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "CscH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Hyperbolic_Cotangent:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "CotH(");
+            Temporary_Current_Position += 5;
             Ending_Character = ')';
             break;
         case Arc_Hyperbolic_Sine:
@@ -1229,30 +1287,45 @@ void Calculator_Class::Display()
             Temporary_Current_Position += 5;
             Ending_Character = ')';
             break;
+        case Arc_Hyperbolic_Secant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ASecH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Arc_Hyperbolic_Cotangent:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ACotH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Arc_Hyperbolic_Cosecant:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "ACscH(");
+            Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
         case Factorial:
-            Temporary_Current_Position += 0;
+            //Temporary_Current_Position += 0;
             Ending_Character = '!';
             break;
-        case Logarithm:
+        /*case Logarithm:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Log(");
             Temporary_Current_Position += 4;
             Ending_Character = ')';
-            break;
+            break;*/
         case Natural_Logarithm:
-            strcpy(Temporary_Char_Array, "Ln(");
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Ln(");
             Temporary_Current_Position += 3;
             break;
         case Binary_Logarithm:
-            strcpy(Temporary_Char_Array, "Log2(");
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Log2(");
             Temporary_Current_Position += 5;
             break;
         case Squared:
             Temporary_Current_Position += 0;
-            Ending_Character = '²';
+            Ending_Character = 0xB2;
             break;
         case Cube:
             Temporary_Current_Position += 0;
-            Ending_Character = '³';
+            Ending_Character = 0xB3;
             break;
         case Square_Root:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Sqrt(");
@@ -1262,6 +1335,16 @@ void Calculator_Class::Display()
         case Cubic_Root:
             strcpy(Temporary_Char_Array + Temporary_Current_Position, "Cbrt(");
             Temporary_Current_Position += 5;
+            Ending_Character = ')';
+            break;
+        case Exponential:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "Exp(");
+            Temporary_Current_Position += 4;
+            Ending_Character = ')';
+            break;
+        case Power_2:
+            strcpy(Temporary_Char_Array + Temporary_Current_Position, "2^(");
+            Temporary_Current_Position += 4;
             Ending_Character = ')';
             break;
         case Inverse:
@@ -1276,6 +1359,7 @@ void Calculator_Class::Display()
             Ending_Character = '|';
             break;
         default:
+            //Temporary_Current_Position = 0;
             break;
         }
         switch (Numbers[1][0])
@@ -1294,14 +1378,10 @@ void Calculator_Class::Display()
             break;
         }
         Temporary_Char_Array[Temporary_Current_Position++] = Ending_Character;
-        if (State == 1)
-        {
-            Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
-        }
+        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
     }
     if (State > 1)
     {
-        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
-        Xila.Display.Set_Text(F("RESULT_TXT"), Numbers[3]);
+        Xila.Display.Set_Text(F("RESULT_TXT"), Numbers[0]);
     }
 }

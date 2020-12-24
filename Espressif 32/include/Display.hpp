@@ -174,7 +174,8 @@ public:
 
     void Set_Random_Generator(uint32_t const &Minimum, uint32_t const &Maximum);
 
-    void Set_Standby_Timer(uint16_t const &Timer_Value, uint8_t Type_Timer);
+    void Set_Standby_Serial_Timer(uint16_t const& Value);
+    void Set_Standby_Touch_Timer(uint16_t const& Value);
     void Set_Autowake(bool const &State);
 
     void Set_Adress(uint16_t Adress);
@@ -223,7 +224,7 @@ public:
     void Refresh_Current_Page();
 
     void Reboot();
-    uint8_t Update(String const &File_Path);
+    uint8_t Update(File&);
 
     friend void Nextion_Serial_Receive(void *pvParameters);
 };

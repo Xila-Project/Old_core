@@ -6,6 +6,8 @@
 
 #define NEPER_CONSTANT 2.71828182845904523536028747135266249
 
+#define POINT_PRECISION 9
+
 class Calculator_Class : public Software_Class
 {
 private:
@@ -67,8 +69,6 @@ private:
 
     void Switch_Keys_Second();
     void Switch_Keys_Hyperbolic();
-
-    void Switch_Angle_Unity();
 
     uint16_t Numbers_After_Point(double Number);
 
