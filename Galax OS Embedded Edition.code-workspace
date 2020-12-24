@@ -24,7 +24,8 @@
 			"cstdint": "cpp",
 			"random": "cpp",
 			"typeinfo": "cpp",
-			"cstdlib": "cpp"
+			"cstdlib": "cpp",
+			"cmath": "cpp"
 		}
 	}
 }

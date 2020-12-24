@@ -9,35 +9,26 @@
 class Calculator_Class : public Software_Class
 {
 private:
-
-    static Calculator_Class* Instance_Pointer;
+    static Calculator_Class *Instance_Pointer;
 
     char Temporary_Char_Array[59];
-
     char Ending_Character;
-
     uint8_t Temporary_Current_Position;
 
     char Numbers[3][59];
-
-    uint8_t Exponent[3];
     
+    uint8_t Exponent[3];
     uint8_t Decimal_Point[3];
-
     uint8_t Current_Position[3];
-   
+
     uint8_t Secondary_Operator[2];
 
     double Memory;
 
     uint8_t Primary_Operator;
 
-
     uint8_t State;
-    
-
-    // 000 : Blank
-    // 001 : taping Number[0]
+    // 0 : taping Number[0]
     // set operator + (secondary operator)
     // 1 : taping Number[1]
     // (set secondary operator)
@@ -52,21 +43,25 @@ private:
         Angle,
     };
 
-    // 00000000 : Normal mode 
+    // 00000000 : Normal mode
     // 00000001 : 2nd mode
     // 00000010 : Hyperbolic mode
     // 00000100 : Degree mode
     // 00001000 : AC mode
 
-    void Add_Number(uint8_t const& Number_To_Add);
+    double Temporary_Numbers[3]; //Used in computation
+
+    void Add_Number(char const &Number_To_Add);
     void Delete_Number();
 
     void Switch_Symbol();
     void Switch_Angle_Unity();
-    void Switch_Keys();
-    void Set_Operator(char const& Operator_To_Set);
+    void Refresh_Keys();
 
-    float Degree_To_Radian(float);
+    void Set_Primary_Operator(char const &Operator_To_Set);
+    void Set_Secondary_Operator(char const& Operator_To_Set);
+
+    void Degree_To_Radian(uint8_t);
 
     void Memory_Operation(uint8_t const);
 
@@ -75,12 +70,21 @@ private:
 
     void Switch_Angle_Unity();
 
+    uint16_t Numbers_After_Point(double Number);
+
+
     void Clear();
     void Clear_All();
 
     void Compute();
 
-    double Factorial(double Number);
+    void Compute_Secondary(uint8_t Selected_Number);
+
+    double fact(double Number);
+
+    double asec(double Number);
+    double acsc(double Number);
+    double acot(double Number);
 
     double asech(double Number);
     double acsch(double Number);
@@ -102,35 +106,42 @@ private:
         Neper_Constant = 'N',
         Random = 'R',
         Point = '.',
+        Power_10 = 'E',
+        Symbol = 'S'
     };
 
     enum Operation
     {
-        Addition = '+',         //main
-        Substraction = '-',     //main
-        Multiplication = '*',   //main
-        Division = ':',         //main 
-        Modulo = '%',           //main
+        Addition = '+',       //main
+        Substraction = '-',   //main
+        Multiplication = '*', //main
+        Division = ':',       //main
+        Modulo = '%',         //main
 
-        Factorial = '!',              //secondary
-        Logarithm = 'l',              //secondary
-        Natural_Logarithm = 'L',      //secondary
-        Binary_Logarithm,
+        Factorial = '!',         //secondary
+        Decimal_Logarithm = 'l', //secondary
+        Natural_Logarithm = 'L', //secondary
+        Binary_Logarithm,        //secondary
 
-        Squared,                //secondary
-        Cube,                   //secondary
+        //Logarithm, //primary
 
-        Exponent = '^',               //main
+        Squared, //secondary
+        Cube,    //secondary
 
-        Square_Root,            //secondary
-        Cubic_Root,             //secondary
+        Exponential, //secondary
+        Power_2, // secondary
 
-        Root = 'r',                   //main
+        Power = '^', //primary
 
-        Inverse,
-        Absolute,
+        Square_Root, //secondary
+        Cubic_Root,  //secondary
 
-        Sine = 180,             //secondary
+        Root = 'r', // primary
+
+        Inverse, // secondary
+        Absolute,   // secondary
+
+        Sine = 180, //secondary
         Cosine,
         Tangent,
         Secant,
@@ -155,7 +166,6 @@ private:
         Arc_Hyperbolic_Cosecant,
         Arc_Hyperbolic_Cotangent,
 
-
         Memory_Add,
         Memory_Substract,
         Memory_Clear,
@@ -173,7 +183,7 @@ public:
         Calculator_32 = 6
     };
 
-    static Software_Class* Load();
+    static Software_Class *Load();
 };
 
 Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Calculator_32, Calculator_Class::Load);
