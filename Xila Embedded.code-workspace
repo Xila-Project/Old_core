@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "Espressif 32",
+			"path": "Software\\Espressif 32"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.XRF": "json",
+			"*.tcc": "cpp",
+			"fstream": "cpp",
+			"cstring": "cpp",
+			"algorithm": "cpp",
+			"array": "cpp",
+			"string": "cpp",
+			"cstdint": "cpp",
+			"random": "cpp",
+			"typeinfo": "cpp",
+			"cstdlib": "cpp",
+			"cmath": "cpp"
+		}
+	}
+}

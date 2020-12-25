@@ -1,6 +1,0 @@
-{
-    "Registry": "Drive",
-    "Mode": "SPI",
-    "Mount Path": "/",
-    "Pins": [14, 15, 16, 17, 18, 19]
-}
