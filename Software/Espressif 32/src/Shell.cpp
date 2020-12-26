@@ -85,24 +85,45 @@ void Shell_Class::Main_Task(void *pvParameters)
         {
         case About:
             Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
-            Instance_Pointer->Main_Command();
+            Instance_Pointer->Main_Commands();
+            break;
         case Desk:
-            Instance_Pointer->Desk();
+            Instance_Pointer->Desk_Commands();
             break;
-        }
-
-        switch (Instance_Pointer->Get_Command())
-        {
-
-        case 0x4C6F: // Lo : Login with entred username and password
-            Instance_Pointer->Login();
+        case Drawer:
+            Instance_Pointer->Drawer_Commands();
             break;
-        case 0x44: // DC : display calibration
-            Xila.Display.Calibrate();
-            // wait until display sent reset code
+        case Event:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Main_Commands();
             break;
-
-     
+        case File_Manager:
+            Instance_Pointer->File_Manager_Commands();
+            break;
+        case Preferences_Hardware:
+            Instance_Pointer->Preferences_Hardware_Commands();
+            break;
+        case Installation:
+            Instance_Pointer->Installation_Commands();
+            break;
+        case Login:
+            Instance_Pointer->Login_Commands();
+            break;
+        case Preferences_Network:
+            Instance_Pointer->Preferences_Network_Commands();
+            break;
+        case Preferences_Personal:
+            Instance_Pointer->Preferences_Personal_Commands();
+            break;
+        case Shutdown:
+            Instance_Pointer->Shutdown_Commands();
+            break;
+        case Preferences_System:
+            Instance_Pointer->Preferences_System_Commands();
+            break;
+        case Welcome:
+            Instance_Pointer->Installation_Commands();
+            break;
         default:
             break;
         }
@@ -110,13 +131,30 @@ void Shell_Class::Main_Task(void *pvParameters)
     }
 }
 
-void Shell_Class::Desk_Command()
+void Shell_Class::Desk_Commands()
 {
     Current_Command = Get_Command();
     switch (Current_Command)
     {
     case 0: // IDLE
         vTaskDelay(pdMS_TO_TICKS(5));
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+void Shell_Class::Login_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0: // IDLE
+        Idle();
+        break;
+    case 0x4C6F: // Lo : Login with entred username and password
+        Instance_Pointer->Login();
         break;
     default:
         Main_Commands();
@@ -132,10 +170,11 @@ void Shell_Class::Drawer()
     case 0:
         vTaskDelay(pdMS_TO_TICKS);
         break;
-    case : // Nd : Next drawer items
-
+    case 0x4E64: // Nd : Next drawer items
+        
         break;
-    case :  // Pd : Previous drawer items
+    case 0x5064: // Pd : Previous drawer items
+
         break;
     case 0x6430: // dx : Open software from drawer
         Open_From_Drawer(0);
@@ -209,12 +248,12 @@ void Shell_Class::Shutdown()
     }
 }
 
-void Shell_Clas::Main_Commands()
+void Shell_Class:Main_Commands()
 {
     switch (Current_Command)
     {
     case 0: //IDLE
-        vTaskDelay(pdMS_TO_TICKS(20));
+        Idle();
         break;
     case 0x534D: // Os : Shutdown menu
         Xila.Display.Set_Current_Page(F("Shell_Shutdown"));
@@ -228,7 +267,20 @@ void Shell_Clas::Main_Commands()
     case 0x4F64: // "Od" Open drawer
         Open_Drawer();
         break;
+    case Xila.Open_File:
+        File_Manager_Mode = Xila.Open_File;
+        Open_File_Manager();
+        break;
+    case Xila.Open_Folder:
+        File_Manager_Mode = Xila.Open_Folder;
+        Open_File_Manager();
+        break;
+    case Xila.Save_File:
+        File_Manager_Mode = Xila.Save_File;
+        Open_File_Manager();
+        break;
     case 0x4F46: // "OF" : Open file manager
+        Open_File_Manager = 0;
         Open_File_Manager();
         break;
     case 0x4F50: // "OP" : Open preferiencies (default : personnal)
@@ -261,6 +313,16 @@ void Shell_Clas::Main_Commands()
         Instance_Pointer->Open_Desk();
         break;
     }
+}
+
+void Shell_Class::Idle()
+{
+    vTaskDelay(pdMS_TO_TICKS(20));
+}
+
+void Shell_Class::Open_File_Dialog()
+{
+    Xila.Display.Set_Current_Page("Shell_Class")
 }
 
 void Shell_Class::Open_From_Drawer(uint8_t Slot)
@@ -303,6 +365,7 @@ void Shell_Class::Open_Preferences(char const &Section)
         break;
     case 'N':
         Xila.Display.Set_Current_Page(F("Shell_Network"));
+
         break;
     case 'S':
         Xila.Display.Set_Current_Page(F("Shell_System"));
@@ -381,12 +444,17 @@ void Shell_Class::Open_Desk()
 
     if (Desk_Background == 0)
     {
-        
+        Xila.Display.Hide(F("COLORB_TXT"));
+        Xila.Display.Show(F("IMAGEB_TXT"));
     }
-    else ()
+    else
     {
-
+        Xila.Display.Set_Background_Color(F("COLORB_TXT"), Desk_Background);
+        Xila.Display.Hide(F("IMAGEB_TXT"));
+        Xila.Display.Show(F("COLORB_TXT"));
     }
+    Xila.Display.Hide(F("MAXIMIZE_BUT"));
+    Xila.Display.Hide(F("CLOSE_BUT"));
 
     char Temporary_String[] = "SLOT _PIC";
 
@@ -478,79 +546,38 @@ void Shell_Class::Open_Drawer()
     }
 }
 
+// File manager
+
 void Shell_Class::Open_File_Manager()
 {
     Xila.Display.Set_Current_Page(F("Shell_File"));
-}
-
-void Shell_Class::Open_Login()
-{
-
-    if (Xila.Current_Username[0] == '\0')
+    switch (File_Manager_Mode)
     {
-        Verbose_Print_Line("> Open login page");
-        Xila.Display.Set_Current_Page(F("Shell_Login"));
-        Xila.Display.Set_Text(F("USERNAME_TXT"), F("Username"));
-        Xila.Display.Set_Text(F("PASSWORD_TXT"), F("Password"));
+    case Xila.Open_File:
+        Xila.Display.Show(F("CANCEL_BUT"));
+        Xila.Display.Set_Text(F("SAVEOPEN_BUT"), F("Open"));
+        Xila.Display.Show(F("SAVEOPEN_BUT"));
+        Xila.Display.Show(F("FILENAME_BUT"));
+        break;
+    case Xila.Save_File:
+        Xila.Display.Show(F("CANCEL_BUT"));
+        Xila.Display.Set_Text(F("SAVEOPEN_BUT"), F("Save"));
+        Xila.Display.Show(F("SAVEOPEN_BUT"));
+        Xila.Display.Show(F("FILENAME_BUT"));
+        break;
+    case Xila.Open_Folder:
+        Xila.Display.Show(F("CANCEL_BUT"));
+        Xila.Display.Set_Text(F("SAVEOPEN_BUT"), F("Open"));
+        Xila.Display.Show(F("SAVEOPEN_BUT"));
+        Xila.Display.Show(F("FILENAME_BUT"));
+        break;
+    default:
+        Xila.Display.Hide(F("CANCEL_BUT"));
+        Xila.Display.Hide(F("SAVEOPEN_BUT"));
+        Xila.Display.Hide(F("FILENAME_BUT"));
+        break;
     }
-    else
-    {
-        Open_Desk();
-    }
-}
-
-void Shell_Class::Login()
-{
-
-    if (Xila.Check_Credentials(Username, Password) == Xila.Good_Credentials)
-    {
-        strcpy(Xila.Current_Username, Username);
-        Verbose_Print_Line(F("> Load user files"));
-        Xila.Display.Hide(F("USERNAME_TXT"));
-        Xila.Display.Hide(F("PASSWORD_TXT"));
-        Xila.Display.Hide(F("LOGIN_BUT"));
-        Xila.Display.Show(F("YELLOW_TXT"));
-        Xila.Display.Show(F("GREEN_TXT"));
-        Xila.Display.Show(F("BLUE_TXT"));
-        Xila.Display.Show(F("RED_TXT"));
-        Xila.Display.Show(F("LOAD_BAR"));
-        Xila.Display.Show(F("LOAD_TXT"));
-        Xila.Display.Show(F("GALAXOS_TXT"));
-
-        DynamicJsonDocument Shell_Registry(256);
-        File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
-        deserializeJson(Shell_Registry, Temporary_File);
-        /*
-                char Temporary_Char_Array[20];
-        strcpy(Temporary_Char_Array, Shell_Registry["Registry"]);
-        if (strcmp(Temporary_Char_Array, "Shell"))
-        {
-            //Color = Shell_Registry["Color"] | 16904;
-        }
-        */
-        if (strcmp(Shell_Registry["Registry"], "Shell") == 0)
-        {
-            Verbose_Print_Line("Simple comp work !!!!");
-            //Color = Shell_Registry["Color"] | 16904;
-        }
-
-        Xila.Display.Set_Value(F("LOAD_BAR"), 20);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 40);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 60);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 80);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 100);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Open_Desk();
-    }
-    else // Wrong credentials
-    {
-        Xila.Event_Dialog(F("Wrong credentials !"), Xila.Error);
-        Open_Login();
-    }
+    Display_Path();
 }
 
 void Shell_Class::Display_Path()
@@ -564,7 +591,7 @@ void Shell_Class::Display_Path()
             Temporary_File.rewindDirectory();
             Xila.Display.Set_Text("PATH_TXT", Current_Path);
             File Item;
-            for (byte i = 1; i < 33; i++)
+            for (byte i = 1; i < 31; i++)
             {
                 Item = Temporary_File.openNextFile();
                 if (Item)
@@ -637,5 +664,77 @@ void Shell_Class::Delete(char *Item_Name)
         break;
     default:
         break;
+    }
+}
+
+// Login
+
+void Shell_Class::Open_Login()
+{
+
+    if (Xila.Current_Username[0] == '\0') // Check if logged
+    {
+        Verbose_Print_Line("> Open login page");
+        Xila.Display.Set_Current_Page(F("Shell_Login"));
+        Xila.Display.Set_Text(F("USERNAME_TXT"), F("Username"));
+        Xila.Display.Set_Text(F("PASSWORD_TXT"), F("Password"));
+    }
+    else
+    {
+        Open_Desk();
+    }
+}
+
+void Shell_Class::Login()
+{
+
+    if (Xila.Check_Credentials(Username, Password) == Xila.Good_Credentials)
+    {
+        strcpy(Xila.Current_Username, Username);
+        Verbose_Print_Line(F("> Load user files"));
+        Xila.Display.Hide(F("USERNAME_TXT"));
+        Xila.Display.Hide(F("PASSWORD_TXT"));
+        Xila.Display.Hide(F("LOGIN_BUT"));
+        Xila.Display.Show(F("YELLOW_TXT"));
+        Xila.Display.Show(F("GREEN_TXT"));
+        Xila.Display.Show(F("BLUE_TXT"));
+        Xila.Display.Show(F("RED_TXT"));
+        Xila.Display.Show(F("LOAD_BAR"));
+        Xila.Display.Show(F("LOAD_TXT"));
+        Xila.Display.Show(F("GALAXOS_TXT"));
+
+        DynamicJsonDocument Shell_Registry(256);
+        File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
+        deserializeJson(Shell_Registry, Temporary_File);
+        /*
+                char Temporary_Char_Array[20];
+        strcpy(Temporary_Char_Array, Shell_Registry["Registry"]);
+        if (strcmp(Temporary_Char_Array, "Shell"))
+        {
+            //Color = Shell_Registry["Color"] | 16904;
+        }
+        */
+        if (strcmp(Shell_Registry["Registry"], "Shell") == 0)
+        {
+            Verbose_Print_Line("Simple comp work !!!!");
+            //Color = Shell_Registry["Color"] | 16904;
+        }
+
+        Xila.Display.Set_Value(F("LOAD_BAR"), 20);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Xila.Display.Set_Value(F("LOAD_BAR"), 40);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Xila.Display.Set_Value(F("LOAD_BAR"), 60);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Xila.Display.Set_Value(F("LOAD_BAR"), 80);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Xila.Display.Set_Value(F("LOAD_BAR"), 100);
+        vTaskDelay(pdMS_TO_TICKS(1000));
+        Open_Desk();
+    }
+    else // Wrong credentials
+    {
+        Xila.Event_Dialog(F("Wrong credentials !"), Xila.Error);
+        Open_Login();
     }
 }

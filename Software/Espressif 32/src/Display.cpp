@@ -218,7 +218,7 @@ void Nextion_Display_Class::Draw_Fill(uint16_t const &X_Coordinate, uint16_t con
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Background_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type = -1)
+void Nextion_Display_Class::Set_Background_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);

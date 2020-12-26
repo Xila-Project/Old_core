@@ -22,9 +22,10 @@ protected:
 
     enum Pages
     {
-        About = 28,
+        About = 27,
         Desk,
         Drawer,
+        Event,
         File_Manager,
         Preferences_Hardware,
         Installation,
@@ -33,9 +34,10 @@ protected:
         Preferences_Personal,
         Shutdown,
         Preferences_System,
-        Task_Manager,
         Welcome,
     };
+
+    uint8_t Offset;
 
     void Login();
     void Logout();
@@ -44,19 +46,34 @@ protected:
     uint16_t Current_Command;
     
     void Main_Commands();
-    void Desk();
-    void Shutdown();
+    void Desk_Commands();
+
+    void Preferences_Hardware_Commands();
+    void Preferences_Network_Commands();
+    void Preferences_Personal_Commands();
+    void Preferences_System_Commands();
+
+    void Shutdown_Commands();
+
     void Drawer();
+    void Login_Commands();
+    void Installation_Commands();
+    void Load();
+    void File_Manager_Commands();
 
     void Install();
 
     void Open_Install();
+
+    inline void Idle();
 
     uint16_t Desk_Background;
     void Open_Desk();
     void Open_Drawer();
     void Open_Item();
     void Open_Login();
+
+    uint8_t File_Manager_Mode;
     void Open_File_Manager();
     void Open_Preferences(char const &Section);
 

@@ -1337,7 +1337,7 @@ Xila_Event Xila_Class::Event_Dialog(uint16_t const &Event_ID)
 Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  Display.Set_Current_Page(F("Event"));
+  Display.Set_Current_Page(F("Shell_Event"));
   if (Button_Text_1 != NULL)
   {
     Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
@@ -1394,6 +1394,30 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
   Event_Reply = 0;
   xSemaphoreGive(Dialog_Semaphore);
   return Event_Reply_Copy;
+}
+
+Xila_Event Xila_Class::Open_File_Dialog(File& File_To_Open)
+{
+  Maximize_Shell();
+  Execute_Shell(Open_File);
+
+  while (!Shell_Return_Item)
+  {
+    vTaskDelay(pdMS_TO_TICKS(10));
+  }
+
+  return 
+}
+
+
+void Xila_Class::Maximize_Shell()
+{
+  Maximize_Software(1);
+}
+
+void Xila_Class::Execute_Shell(uint16_t const& Command)
+{
+  Open_Software_Pointer[1]->Execute(Command);
 }
 
 void Xila_Class::Refresh_Header()

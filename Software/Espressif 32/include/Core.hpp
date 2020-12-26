@@ -166,6 +166,13 @@ protected:
     // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
     Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
+    // Shell short cut
+
+    void* Shell_Return_Item;
+    Xila_Event Shell_Return;
+    void Maximize_Shell();
+    void Execute_Shell(uint16_t const&);    
+
     // Display callback
     char Tag;
     static void Incomming_String_Data_From_Display(const char *, uint8_t);
@@ -195,10 +202,6 @@ public:
     void Minimize_Software();
     void Maximize_Software(uint8_t);
     void Add_Software_Handle(Software_Handle_Class *);
-
-    // Format drive
-
-    void Create_System_Files();
 
     // Core APIs (system calls)
 
@@ -397,7 +400,11 @@ public:
     Xila_Event Event_Dialog(Xila_Event const &);
     SemaphoreHandle_t Dialog_Semaphore;
     Xila_Event Event_Reply;
-    File File_Dialog(Xila_Event const &); //s
+
+    Xila_Event Open_File_Dialog(File& File_To_Open);
+    Xila_Event Open_Folder_Dialog(File& Folder_To_Open);
+    Xila_Event Save_File_Dialog(File const&);
+
 
     // Copy paste
 
