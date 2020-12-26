@@ -13,21 +13,54 @@ protected:
 
     static Shell_Class *Instance_Pointer;
 
+    char* Temporary_Variable;
     char Username[9];
     char Password[25];
     char Password_To_Set[25];
 
+    uint8_t Automatic_Login;
+
+    enum Pages
+    {
+        About = 28,
+        Desk,
+        Drawer,
+        File_Manager,
+        Preferences_Hardware,
+        Installation,
+        Login,
+        Preferences_Network,
+        Preferences_Personal,
+        Shutdown,
+        Preferences_System,
+        Task_Manager,
+        Welcome,
+    };
+
     void Login();
     void Logout();
+
+    // Command
+    uint16_t Current_Command;
     
+    void Main_Commands();
+    void Desk();
+    void Shutdown();
+    void Drawer();
+
+    void Install();
+
+    void Open_Install();
+
+    uint16_t Desk_Background;
     void Open_Desk();
     void Open_Drawer();
     void Open_Item();
     void Open_Login();
     void Open_File_Manager();
-    void Open_Preferences(char const& Section);
+    void Open_Preferences(char const &Section);
 
-    void Modify_User(uint8_t const& Mode);
+    void Modify_User(uint8_t const &Mode);
 
     void Display_Path();
 
@@ -45,7 +78,7 @@ protected:
     static void Main_Task(void *);
 
 public:
-    static Software_Class* Load();
+    static Software_Class *Load();
 
     static void Startup();
 
@@ -63,6 +96,6 @@ public:
     ~Shell_Class();
 };
 
-Software_Handle_Class Shell_Handle("Shell", Shell_Class::Empty_32, Shell_Class::Load, Shell_Class::Startup_Function);
+Software_Handle_Class Shell_Handle("Shell", Shell_Class::Empty_32, Shell_Class::Load, Shell_Class::Startup);
 
 #endif

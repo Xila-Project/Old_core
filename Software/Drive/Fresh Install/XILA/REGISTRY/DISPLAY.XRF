@@ -1,0 +1,6 @@
+{
+    "Registry": "Display",
+    "Brightness": 100,
+    "Receive Pin": 17,
+    "Send Pin": 16
+}

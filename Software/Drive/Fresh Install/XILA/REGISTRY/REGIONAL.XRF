@@ -1,0 +1,14 @@
+{
+    "Registry": "Regional",
+    "Time": 
+    {
+        "NTP Server": "pool.ntp.org",
+        "Time Zone": "",
+        "GMT Offset": 0,
+        "Daylight Offset": 0
+    },
+    "Language":
+    {
+        
+    }
+}

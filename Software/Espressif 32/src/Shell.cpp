@@ -34,6 +34,14 @@ void Shell_Class::Startup()
 
 void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
+    switch (Xila.Display.Get_Current_Page())
+    {
+    case Installation:
+        switch (Adress):
+                case 'A':
+
+                    break;
+    }
     switch (Adress)
     {
     case 'U':
@@ -57,45 +65,35 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     }
 }
 
+void Shell_Class::Install()
+{
+
+    if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
+    {
+        Xila.Display.Set_Current_Page(F("Shell_Install"));
+        return;
+    }
+    else
+}
+
 void Shell_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
     {
+        switch (Xila.Display.Get_Current_Page())
+        {
+        case About:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Main_Command();
+        case Desk:
+            Instance_Pointer->Desk();
+            break;
+        }
 
         switch (Instance_Pointer->Get_Command())
         {
-        case 0: // IDLE
-            //Nothing to do : idle
-            vTaskDelay(pdMS_TO_TICKS(20));
-            break;
 
-        case Software_Code::Close: // close
-            delete Instance_Pointer;
-            vTaskDelete(NULL);
-            break;
-        case Software_Code::Minimize: // minimize
-            vTaskSuspend(NULL);
-            break;
-        case Software_Code::Maximize:
-            Instance_Pointer->Open_Desk();
-            break;
-        case 0x534D: // SM : Shutdown menu
-            Xila.Display.Set_Current_Page(F("Shell_Shutdown"));
-            break;
-
-        case 0x5253: // RS : Restart system
-
-            break;
-        case 0x4853: // HS : hibernate sys
-            break;
-
-        case 0x4C53: // LS : lock system
-            break;
-
-        case 0x5353: // SS : shutdown
-            Xila.Shutdown();
-            break;
         case 0x4C6F: // Lo : Login with entred username and password
             Instance_Pointer->Login();
             break;
@@ -103,116 +101,165 @@ void Shell_Class::Main_Task(void *pvParameters)
             Xila.Display.Calibrate();
             // wait until display sent reset code
             break;
-        case 0x4F4C: // "OL" : Open Login page
-            Instance_Pointer->Open_Login();
-            break;
-        case 0x4F44: // "OD" Open Desk page & load it
-            Instance_Pointer->Open_Desk();
-            break;
-        case 0x4F64: // "Od" Open drawer
-            Instance_Pointer->Open_Drawer();
-            break;
-        case 0x4F46: // "OF" : Open file manager
-            Instance_Pointer->Open_File_Manager();
 
-            break;
-        case 0x4F50: // "OP" : Open preferiencies (default : personnal)
-            Instance_Pointer->Open_Preferences('P');
-            break;
-        case 0x4F48: // "OH" : Open hardware prefencies
-            Instance_Pointer->Open_Preferences('H');
-            break;
-        case 0x4F4E: // "ON" : Open network
-            Instance_Pointer->Open_Preferences('N');
-            break;
-        case 0x4F53: // "OS" : Open software
-            Instance_Pointer->Open_Preferences('S');
-            break;
-        case 0x6430: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(0);
-            break;
-        case 0x6431: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(1);
-            break;
-        case 0x6432: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(2);
-            break;
-        case 0x6433: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(3);
-            break;
-        case 0x6434: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(4);
-            break;
-        case 0x6435: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(5);
-            break;
-        case 0x6436: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(6);
-            break;
-        case 0x6437: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(7);
-            break;
-        case 0x6438: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(8);
-            break;
-        case 0x6439: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(9);
-            break;
-        case 0x6441: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(10);
-            break;
-        case 0x6442: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(11);
-            break;
-        case 0x6443: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(12);
-            break;
-        case 0x6444: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(13);
-            break;
-        case 0x6445: // dx : Open software from drawer
-            Instance_Pointer->Open_From_Drawer(14);
-            break;
-        case 0x4D31: // Mx : Maxmize software from dock
-            Instance_Pointer->Dock(1, 'M');
-            break;
-        case 0x4D32:
-            Instance_Pointer->Dock(2, 'M');
-            break;
-        case 0x4D33:
-            Instance_Pointer->Dock(3, 'M');
-            break;
-        case 0x4D34:
-            Instance_Pointer->Dock(4, 'M');
-            break;
-        case 0x4D35:
-            Instance_Pointer->Dock(5, 'M');
-            break;
-        case 0x4D36:
-            Instance_Pointer->Dock(6, 'M');
-            break;
-        case 0x4331: // Cx : Close software from dock
-            Instance_Pointer->Dock(1, 'C');
-            break;
-        case 0x4332:
-            Instance_Pointer->Dock(2, 'C');
-            break;
-        case 0x4333:
-            Instance_Pointer->Dock(3, 'C');
-            break;
-        case 0x4334:
-            Instance_Pointer->Dock(4, 'C');
-            break;
-        case 0x4335:
-            Instance_Pointer->Dock(5, 'C');
-            break;
-        case 0x4336:
-            Instance_Pointer->Dock(6, 'C');
-            break;
+     
         default:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+}
+
+void Shell_Class::Desk_Command()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0: // IDLE
+        vTaskDelay(pdMS_TO_TICKS(5));
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+void Shell_Class::Drawer()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0:
+        vTaskDelay(pdMS_TO_TICKS);
+        break;
+    case : // Nd : Next drawer items
+
+        break;
+    case :  // Pd : Previous drawer items
+        break;
+    case 0x6430: // dx : Open software from drawer
+        Open_From_Drawer(0);
+        break;
+    case 0x6431: // dx : Open software from drawer
+        Open_From_Drawer(1);
+        break;
+    case 0x6432: // dx : Open software from drawer
+        Open_From_Drawer(2);
+        break;
+    case 0x6433: // dx : Open software from drawer
+        Open_From_Drawer(3);
+        break;
+    case 0x6434: // dx : Open software from drawer
+        Open_From_Drawer(4);
+        break;
+    case 0x6435: // dx : Open software from drawer
+        Open_From_Drawer(5);
+        break;
+    case 0x6436: // dx : Open software from drawer
+        Open_From_Drawer(6);
+        break;
+    case 0x6437: // dx : Open software from drawer
+        Open_From_Drawer(7);
+        break;
+    case 0x6438: // dx : Open software from drawer
+        Open_From_Drawer(8);
+        break;
+    case 0x6439: // dx : Open software from drawer
+        Open_From_Drawer(9);
+        break;
+    case 0x6441: // dx : Open software from drawer
+        Open_From_Drawer(10);
+        break;
+    case 0x6442: // dx : Open software from drawer
+        Open_From_Drawer(11);
+        break;
+    case 0x6443: // dx : Open software from drawer
+        Open_From_Drawer(12);
+        break;
+    case 0x6444: // dx : Open software from drawer
+        Open_From_Drawer(13);
+        break;
+    case 0x6445: // dx : Open software from drawer
+        Open_From_Drawer(14);
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+void Shell_Class::Shutdown()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0x5253: // RS : Restart system
+        Xila.Restart();
+        break;
+    case 0x4853: // HS : hibernate sys
+
+        break;
+    case 0x4C53: // LS : lock system
+        break;
+
+    case 0x5353: // SS : shutdown
+        Xila.Display.Set_Current_Page(F("LOAD_TXT"));
+        Xila.Shutdown();
+        break;
+    }
+}
+
+void Shell_Clas::Main_Commands()
+{
+    switch (Current_Command)
+    {
+    case 0: //IDLE
+        vTaskDelay(pdMS_TO_TICKS(20));
+        break;
+    case 0x534D: // Os : Shutdown menu
+        Xila.Display.Set_Current_Page(F("Shell_Shutdown"));
+        break;
+    case 0x4F4C: // "OL" : Open Login page
+        Open_Login();
+        break;
+    case 0x4F44: // "OD" Open Desk page & load it
+        Open_Desk();
+        break;
+    case 0x4F64: // "Od" Open drawer
+        Open_Drawer();
+        break;
+    case 0x4F46: // "OF" : Open file manager
+        Open_File_Manager();
+        break;
+    case 0x4F50: // "OP" : Open preferiencies (default : personnal)
+        Instance_Pointer->Open_Preferences('P');
+        break;
+    case 0x4F48: // "OH" : Open hardware prefencies
+        Instance_Pointer->Open_Preferences('H');
+        break;
+    case 0x4F4E: // "ON" : Open network
+        Instance_Pointer->Open_Preferences('N');
+        break;
+    case 0x4F53: // "OS" : Open system preferencies
+        Instance_Pointer->Open_Preferences('S');
+        break;
+    case Software_Code::Open: // open routine
+        Execute(Software_Code::Maximize);
+        break;
+    case Software_Code::Close: // close
+        delete Instance_Pointer;
+        vTaskDelete(NULL);
+        break;
+    case Software_Code::Minimize: // minimize
+        vTaskSuspend(NULL);
+        break;
+    case Software_Code::Maximize:
+        if (Xila.Power_Button_Counter == 1)
+        {
+            Instance_Pointer->Execute(0x534D);
+        }
+        Instance_Pointer->Open_Desk();
+        break;
     }
 }
 
@@ -331,6 +378,16 @@ void Shell_Class::Open_Desk()
         return;
     }
     Xila.Display.Set_Current_Page(F("Shell_Desk"));
+
+    if (Desk_Background == 0)
+    {
+        
+    }
+    else ()
+    {
+
+    }
+
     char Temporary_String[] = "SLOT _PIC";
 
     // List all files on the desk

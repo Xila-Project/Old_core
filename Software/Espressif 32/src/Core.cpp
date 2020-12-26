@@ -127,7 +127,7 @@ void Xila_Class::Shutdown()
   WiFi.disconnect(true);
 
   //Set deep sleep
-  esp_sleep_enable_ext0_wakeup(GPIO_NUM_27, LOW);
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_deep_sleep_start();
 }
 
@@ -150,6 +150,13 @@ void Xila_Class::Load()
   Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
   Horizontal_Separator();
   Print_Line(F("Starting Galax OS ..."), 0);
+  
+  // Setting interrput for power buttons
+  
+  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+
+
   // Initialize SD Card
   Print_Line(F("Mount The SD Card ..."), 0);
 
@@ -161,6 +168,7 @@ void Xila_Class::Load()
   Display.Wake_Up();
   //Start animation
   Display.Set_Current_Page(F("Core_Load"));
+  Display.Set_Value(F("LOAD_TIM"), 0);
   Display.Set_Trigger(F("LOAD_TIM"), true);
 
 // Initialize drive
@@ -188,6 +196,31 @@ void Xila_Class::Load()
   //Display.Set_Text(F("EVENT_TXT"), F(""));
 
   File Temporary_File;
+
+  // Checking version / installation
+  {
+    Verbose_Print_Line("> Load system registry");
+    Temporary_File = Drive->open(System_Registry_Path);
+    if (!Temporary_File)
+    {
+    }
+    DynamicJsonDocument System_Registry(256);
+    if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
+    {
+      Display.Set_Text(F("EVENT_TXT"),"Damaged system registry.");
+    }
+    uint8_t Major = System_Registry["Version"]["Major"];
+    uint8_t Minor = System_Registry_Path["Version"]["Minor"];
+    uint8_t Revision = System_Registry_Path["Version"]["Revision"];
+
+    if (Major != VERSION_MAJOR || Minor != VERSION_MINOR || Revision != VERSION_REVISION)
+    {
+      Display.Set_Text(F("EVENT_TXT"), "Incompatible drive version.");
+    }
+    
+
+
+  }
 
   // Initialize Virtual Memory
   /*Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
@@ -405,7 +438,9 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     Xila.Refresh_Header(); // Header refreshing
 
-    Xila.Execute_Background_Jobs();     // Software background function execution
+    Xila.Check_Power_Button();
+
+    Xila.Execute_Background_Jobs(); // Software background function execution
 
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");
@@ -435,6 +470,23 @@ void Xila_Class::Save_System_State()
   File Temporary_File = Drive->open("/XILA/GOSCUSA.XSF");
   serializeJson(System_Save_Registry, Temporary_File);
   Temporary_File.close();
+}
+
+// Interrput function
+
+void IRAM_ATTR Xila_Class::Power_Button_Handler()
+{
+  vTaskEnterCritical(&Xila.Power_Button_Mutex);
+  Xila.Power_Button_Counter = 1;
+  vTaskExitCritical(&Xila.Power_Button_Mutex);
+}
+
+void Xila_Class::Check_Power_Button()
+{
+  if (Power_Button_Counter == 1)
+  {
+    Maximize_Software(1);
+  }
 }
 
 // Callback function for screen
@@ -1360,7 +1412,7 @@ void Xila_Class::Refresh_Header()
   Clock[5] += '\0';
   Display.Set_Text(F("CLOCK_TXT"), Clock);
 
- Clock[0] = WiFi.RSSI();
+  Clock[0] = WiFi.RSSI();
   if (WiFi.status() == WL_CONNECTED)
   {
     if (Clock[0] <= -70)
@@ -1424,20 +1476,20 @@ void Xila_Class::Refresh_Header()
 void Xila_Class::Execute_Background_Jobs()
 {
   if ((millis() - Last_Execution) > 250)
+  {
+    if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
     {
-      if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
+      if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
       {
-        if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
-        {
-          (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
-        }
-        Background_Function_Counter = millis();
+        (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
       }
-      else
-      {
-        Background_Function_Counter = 0;
-      }
+      Background_Function_Counter = millis();
     }
+    else
+    {
+      Background_Function_Counter = 0;
+    }
+  }
 }
 
 void Xila_Class::Synchronise_Time()

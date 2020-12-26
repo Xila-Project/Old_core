@@ -113,15 +113,16 @@ protected:
     // System path
 
     const char Users_Directory_Path[8] = "/USERS/";
-    const char System_Directory_Path[10] = "/GALAXOS/";
-    const char Extension_Registry_Path[31] = "/GALAXOS/REGISTRY/EXTENSIO.GRF";
-    const char Display_Registry_Path[30] = "/GALAXOS/REGISTRY/DISPLAY.GRF";
-    const char Network_Registry_Path[30] = "/GALAXOS/REGISTRY/NETWORK.GRF";
-    const char Regional_Registry_Path[31] = "/GALAXOS/REGISTRY/REGIONAL.GRF";
-    const char Software_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
-    const char Event_Registry_Path[31] = "/GALAXOS/REGISTRY/SOFTWARE.GRF";
-    const char Sound_Registry_Path[28] = "/GALAXOS/REGISTRY/SOUND.GRF";
-    const char Virtual_Global_Memory_File[36] = "/GALAXOS/MEMORY/GLOBAL/VARIABLE.GSF";
+    const char System_Directory_Path[10] = "/XILA/";
+    const char System_Registry_Path[26] = "/XILA/REGISTRY/SYSTEM.XRF";
+    const char Extension_Registry_Path[31] = "/XILA/REGISTRY/EXTENSIO.XRF";
+    const char Display_Registry_Path[30] = "/XILA/REGISTRY/DISPLAY.XRF";
+    const char Network_Registry_Path[30] = "/XILA/REGISTRY/NETWORK.XRF";
+    const char Regional_Registry_Path[31] = "/XILA/REGISTRY/REGIONAL.XRF";
+    const char Software_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
+    const char Event_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
+    const char Sound_Registry_Path[28] = "/XILA/REGISTRY/SOUND.XRF";
+    const char Virtual_Global_Memory_File[36] = "/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
     // System extension :
     // GRF : Galax'OS Registry File
     // GEF : Galax'OS Executable File
@@ -180,6 +181,15 @@ protected:
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
 public:
+    // Power button
+
+    static void IRAM_ATTR Power_Button_Handler();
+    portMUX_TYPE Power_Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
+    volatile uint8_t Power_Button_Counter;
+    void Check_Power_Button();
+
+    // Software management
+
     void Open_Software(Software_Handle_Class *);
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
@@ -283,6 +293,7 @@ public:
     void Start(); // public
 
     void Shutdown(); // private
+    void Restart(); // private
     void Load();     // private
 
     void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
@@ -377,9 +388,9 @@ public:
     enum Reply
     {
         None = 0,
-        Button_1 = 0x31,
-        Button_2 = 0x32,
-        Button_3 = 0x33
+        Button_1 = 0x31, // Yes
+        Button_2 = 0x32, // No
+        Button_3 = 0x33 // Cancel
     };
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
@@ -390,7 +401,7 @@ public:
 
     // Copy paste
 
-    void* Copied_Data;
+    void *Copied_Data;
 
     Xila_Event Copy(uint32_t &Value_To_Copy);
     Xila_Event Copy(const char *Char_Array_To_Copy);

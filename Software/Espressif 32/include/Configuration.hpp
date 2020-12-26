@@ -1,16 +1,32 @@
 // Configuration File
 
-// For debbuging purpose
-
 #ifndef CONFIGURATION_HPP_INCLUDED
 #define CONFIGURATION_HPP_INCLUDED
 
 // 921600 / 115200
 #define SERIAL_SPEED 115200
 
-#define VERSION "0.1.0"
-#define DRIVE_RETROCOMPATIBILITY_VERSION "0.1.0"
+// Pin configuration
 
+#define POWER_BUTTON_PIN GPIO_NUM_39
+#define BATTERY_SENSING_PIN 36
+
+// Versionning
+#define VERSION_MAJOR 0
+#define VERSION_MINOR 1
+#define VERSION_REVISION 0
+
+//  Drive retrocompatibility
+#define DRIVE_VERSION_MAJOR 0
+#define DRIVE_VERSION_MINOR 1
+#define DRIVE_VERSION_REVISION 0
+
+// Display retrocompatibility
+#define DISPLAY_VERSION_MAJOR 0
+#define DISPLAY_VERSION_MINOR 1
+#define DISPLAY_VERSION_REVISION 0
+
+// Core repartition
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
 
@@ -19,6 +35,7 @@
 #define SYSTEM_TASK_PRIORITY 2
 #define DRIVER_TASK_PRIORITY 3
 
+// Debug
 #define DEBUG_MODE 1
 
 #if DEBUG_MODE == 0
