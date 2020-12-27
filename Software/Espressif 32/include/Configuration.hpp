@@ -1,5 +1,4 @@
 // Configuration File
-
 #ifndef CONFIGURATION_HPP_INCLUDED
 #define CONFIGURATION_HPP_INCLUDED
 
@@ -10,6 +9,14 @@
 
 #define POWER_BUTTON_PIN GPIO_NUM_39
 #define BATTERY_SENSING_PIN 36
+
+// Software
+#define TYPE_BUILTIN_SOFTWARE 0
+#define TYPE_EXTERNAL_SOFTWARE 1
+#define TYPE_EMULATED_SOFTWARE 2
+
+// Json document
+#define DEFAULT_REGISTRY_SIZE 256
 
 // Versionning
 #define VERSION_MAJOR 0
@@ -26,7 +33,7 @@
 #define DISPLAY_VERSION_MINOR 1
 #define DISPLAY_VERSION_REVISION 0
 
-// Core repartition
+// Core tasks repartition
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
 
@@ -34,6 +41,9 @@
 #define SOFTWARE_TASK_PRIOITY 1
 #define SYSTEM_TASK_PRIORITY 2
 #define DRIVER_TASK_PRIORITY 3
+
+#define MAXIMUM_PASSWORD_LENGHT 24
+#define MAXIMUM_USERNAME_LENGHT 8
 
 // Debug
 #define DEBUG_MODE 1

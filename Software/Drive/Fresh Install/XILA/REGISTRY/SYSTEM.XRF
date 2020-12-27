@@ -6,5 +6,6 @@
         "Minor":1,
         "Revision":0
     },
-    "State": 0
+    "State": 0,
+    "Device Name" : ""
 }

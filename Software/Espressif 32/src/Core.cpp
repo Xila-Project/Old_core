@@ -58,6 +58,8 @@ Xila_Class::Xila_Class() : Tag(0),
   memset(Open_Software_Pointer, NULL, sizeof(Open_Software_Pointer) / sizeof(Open_Software_Pointer[1]));
   memset(Software_Handle_Pointer, NULL, sizeof(Software_Handle_Pointer) / sizeof(Software_Handle_Pointer[1]));
 
+  memset(Device_Name, '\0', sizeof(Device_Name));
+
   Dialog_Semaphore = xSemaphoreCreateMutex();
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
@@ -118,7 +120,6 @@ void Xila_Class::Shutdown()
   Close_Software(Open_Software_Pointer[6]->Handle_Pointer);
   Close_Software(Open_Software_Pointer[7]->Handle_Pointer);
   Close_Software(Open_Software_Pointer[1]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[0]->Handle_Pointer);
 
   // Shutdown screen
   Display.Sleep();
@@ -150,12 +151,11 @@ void Xila_Class::Load()
   Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
   Horizontal_Separator();
   Print_Line(F("Starting Galax OS ..."), 0);
-  
+
   // Setting interrput for power buttons
-  
+
   pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
-
 
   // Initialize SD Card
   Print_Line(F("Mount The SD Card ..."), 0);
@@ -197,6 +197,8 @@ void Xila_Class::Load()
 
   File Temporary_File;
 
+  uint8_t Installation_State;
+
   // Checking version / installation
   {
     Verbose_Print_Line("> Load system registry");
@@ -207,19 +209,18 @@ void Xila_Class::Load()
     DynamicJsonDocument System_Registry(256);
     if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
     {
-      Display.Set_Text(F("EVENT_TXT"),"Damaged system registry.");
+      Display.Set_Text(F("EVENT_TXT"), "Damaged system registry.");
     }
-    uint8_t Major = System_Registry["Version"]["Major"];
-    uint8_t Minor = System_Registry_Path["Version"]["Minor"];
-    uint8_t Revision = System_Registry_Path["Version"]["Revision"];
-
-    if (Major != VERSION_MAJOR || Minor != VERSION_MINOR || Revision != VERSION_REVISION)
+    else
     {
-      Display.Set_Text(F("EVENT_TXT"), "Incompatible drive version.");
+      JsonObject Version = System_Registry["Version"];
+
+      if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
+      {
+        Display.Set_Text(F("EVENT_TXT"), "Incompatible installation.");
+      }
+      Installation_State = System_Registry["State"];
     }
-    
-
-
   }
 
   // Initialize Virtual Memory
@@ -317,7 +318,7 @@ void Xila_Class::Load()
     DynamicJsonDocument Network_Registry(256);
     deserializeJson(Network_Registry, Temporary_File);
     // WiFi :
-    WiFi.setHostname(Network_Registry["WiFi"]["Host Name"]); // Set hostname
+    WiFi.setHostname(Device_Name); // Set hostname
     JsonArray Name_Array = Network_Registry["WiFi"]["Names"];
     JsonArray Password_Array = Network_Registry["WiFi"]["Passwords"];
     char Name[32], Password[32];
@@ -364,6 +365,8 @@ void Xila_Class::Load()
 
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software ...");
+
+  vTaskDelay(pdMS_TO_TICKS(5000)); // Waiting for software to add their
   Software_Handle_Pointer[0] = &Executable_Loader_Handle;
   Software_Handle_Pointer[1] = &Shell_Handle;
   Software_Handle_Pointer[2] = &Paint_Handle;
@@ -705,15 +708,38 @@ void Xila_Class::Maximize_Software(uint8_t Slot)
   Open_Software_Pointer[0]->Maximize();
 }
 
-void Xila_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add)
+void Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path)
 {
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
-    if (Software_Handle_Pointer[i] != NULL && strcmp(Software_Handle_Pointer[i]->Name, Software_Handle_Pointer_To_Add->Name) == 0) //check for doublon
+    if (Software_Handle_Pointer[i] != NULL) //check for doublon
     {
-      delete Software_Handle_Pointer_To_Add;
+      if (strcmp(Software_Handle_Pointer[i]->Name, Software_Handle_Pointer_To_Add->Name) == 0)
+      {
+        return;
+      }
     }
   }
+
+  if (!Drive->exists(Header_Path))
+  {
+    return;
+  }
+  File Temporary_File = Drive->open(Header_Path);
+  DynamicJsonDocument Software_Registry(DEFAULT_REGISTRY_SIZE);
+  if (deserializeJson(Software_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    return;
+  }
+  if (Software_Registry["Type"] != 0)
+  {
+    return;
+  }
+  if (strcmp(Software_Registry["Name"], Software_Handle_Pointer_To_Add->Name) != 0)
+  {
+    return;
+  }
+  
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
     if (Software_Handle_Pointer[i] == NULL)
@@ -1180,46 +1206,31 @@ Xila_Event Xila_Class::Add_User(const char *Username, const char *Password)
 {
   if (Drive->exists("/USERS/" + String(Username)))
   {
-    return User_Already_Exist;
+    return Error;
   }
-  else
+
+  Drive->mkdir("/USERS/" + String(Username) + "/REGISTRY");
+  Drive->mkdir("/USERS/" + String(Username) + "/DESK");
+  Drive->mkdir("/USERS/" + String(Username) + "/DOCUMENT");
+  Drive->mkdir("/USERS/" + String(Username) + "/MUSIC");
+  File Temporary_File = Drive->open("/USERS/" + String(Username) + "/REGISTRY/USER.XRF", FILE_WRITE);
+  DynamicJsonDocument User_Registry(256);
+  if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
-    Drive->mkdir("/USERS/" + String(Username) + "/REGISTRY");
-    Drive->mkdir("/USERS/" + String(Username) + "/DESK");
-    Drive->mkdir("/USERS/" + String(Username) + "/DOCUMENT");
-    Drive->mkdir("/USERS/" + String(Username) + "/MUSIC");
-    File Temporary_File = Drive->open("/USERS/" + String(Username) + "/REGISTRY/USER.XRF", FILE_WRITE);
-    DynamicJsonDocument User_Registry(256);
-    User_Registry["Registry"] = "User";
-    strcpy(User_Registry["Password"], Password);
-    serializeJson(User_Registry, Temporary_File);
-    return Success;
+    return Error;
   }
+
+  strcpy(User_Registry["Registry"], "User");
+  strcpy(User_Registry["Password"], Password);
+  serializeJson(User_Registry, Temporary_File);
+  return Success;
 }
 
 Xila_Event Xila_Class::Delete_User(const char *Username_To_Check, const char *Password_To_Check)
 {
-  if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
+  if (Check_Credentials(Username_To_Check, Password_To_Check) == Success)
   {
     Drive->remove("/USERS/" + String(Username_To_Check));
-    return Success;
-  }
-  else
-  {
-    return Wrong_Credentials;
-  }
-}
-
-Xila_Event Xila_Class::Change_Password(const char *Username_To_Check, const char *Password_To_Check, const char *Password_To_Set)
-{
-  if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
-  {
-    File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.XRF");
-    DynamicJsonDocument User_Registry(256);
-    deserializeJson(User_Registry, Temporary_File);
-    strcpy(User_Registry["Password"], Password_To_Set);
-    serializeJson(User_Registry, Temporary_File);
-    Temporary_File.close();
     return Success;
   }
   else
@@ -1228,9 +1239,27 @@ Xila_Event Xila_Class::Change_Password(const char *Username_To_Check, const char
   }
 }
 
+Xila_Event Xila_Class::Change_Password(const char *Username_To_Check, const char *Password_To_Check, const char *Password_To_Set)
+{
+  if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
+  {
+    return Error;
+  }
+  File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.XRF");
+  DynamicJsonDocument User_Registry(DEFAULT_REGISTRY_SIZE);
+  User_Registry["Registry"] = "Registry";
+  User_Registry["Password"] = Password_To_Set;
+  serializeJson(User_Registry, Temporary_File);
+  return Success;
+}
+
 Xila_Event Xila_Class::Logout()
 {
-  memset(Current_Username, '/0', sizeof(Current_Username));
+  if (Current_Username[0] == '\0')
+  {
+    return Error;
+  }
+  memset(Current_Username, '\0', sizeof(Current_Username));
   return Success;
 }
 
@@ -1240,43 +1269,35 @@ Xila_Event Xila_Class::Check_Credentials(const char *Username_To_Check, const ch
   {
     File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.GRF");
     DynamicJsonDocument User_Registry(256);
-    if (deserializeJson(User_Registry, Temporary_File))
+    if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {
-      return Wrong_Credentials;
+      return Error;
     }
     char Password[24];
     strcpy(Password, User_Registry["Password"]);
     Serial.println(Password);
-    if (strcmp(Password_To_Check, Password) == 0)
-    {
-      Verbose_Print_Line("> Good Credentials ...");
-      Temporary_File.close();
-      return Good_Credentials;
-    }
-    else
+    if (strcmp(Password_To_Check, Password) != 0)
     {
       Verbose_Print_Line("> Wrong Credentials ...");
-      Temporary_File.close();
-      return Wrong_Credentials;
+
+      return Error;
     }
-  }
-  return Wrong_Credentials;
-}
 
-Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
-{
-  if (Check_Credentials(Username_To_Check, Password_To_Check) == Good_Credentials)
+    Verbose_Print_Line("> Good Credentials ...");
+    return Success;
+  }
+
+  Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
   {
-
-    return Good_Credentials;
+    if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
+    {
+      return Error;
+    }
+    strcpy(Current_Username, Username_To_Check);
+    return Success;
   }
-  else
-  {
-    return Check_Credentials(Username_To_Check, Password_To_Check);
-  }
-}
 
-/*  switch (Type)
+  /*  switch (Type)
   {
     Nextion_Serial_Transmit(F("Event"), COMMAND_PAGE_NAME, "", 0);
   case ERROR_FAILLED_TO_INTIALIZE_SD_CARD:
@@ -1313,10 +1334,10 @@ Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password
     break;
   }*/
 
-Xila_Event Xila_Class::Event_Dialog(uint16_t const &Event_ID)
-{
+  Xila_Event Xila_Class::Event_Dialog(uint16_t const &Event_ID)
+  {
 
-  /*Display.Set_Current_Page(F("Event"));
+    /*Display.Set_Current_Page(F("Event"));
   
   byte i = 0;
 
@@ -1331,241 +1352,241 @@ Xila_Event Xila_Class::Event_Dialog(uint16_t const &Event_ID)
     return Default;
   }
   return Event_Reply;*/
-  return 0;
-}
+    return 0;
+  }
 
-Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
-{
-  xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  Display.Set_Current_Page(F("Shell_Event"));
-  if (Button_Text_1 != NULL)
+  Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
   {
-    Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
-    if (Button_Text_2 != NULL)
+    xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+    Display.Set_Current_Page(F("Shell_Event"));
+    if (Button_Text_1 != NULL)
     {
-      Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
-    }
-    else
-    {
-      Display.Set_Text(F("BUTTON2_BUT"), F(""));
-    }
-    if (Button_Text_3 != NULL)
-    {
-      Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
-    }
-    else
-    {
-      Display.Set_Text(F("BUTTON3_BUT"), F(""));
-    }
-  }
-  else
-  {
-    Display.Set_Text(F("BUTTON1_BUT"), F("Okay"));
-    Display.Set_Text(F("BUTTON2_BUT"), F("Yes"));
-    Display.Set_Text(F("BUTTON3_BUT"), F("No"));
-  }
-  Display.Set_Text(F("MESSAGE_TXT"), Message);
-  switch (Event_Type)
-  {
-  case Error:
-    Display.Set_Picture(F("EVENT_PIC"), 12);
-    Display.Set_Text(F("TITLE_TXT"), F("Error"));
-    break;
-  case Warning:
-    Display.Set_Picture(F("EVENT_PIC"), 12);
-    Display.Set_Text(F("TITLE_TXT"), F("Warning"));
-    break;
-  case Information:
-    Display.Set_Picture(F("EVENT_PIC"), 12);
-    Display.Set_Text(F("TITLE_TXT"), F("Information"));
-    break;
-  case Question:
-    Display.Set_Picture(F("EVENT_PIC"), 12);
-    Display.Set_Text(F("TITLE_TXT"), F("Question"));
-  default:
-    break;
-  }
-  Display.Show(F("CLOSE_PIC"));
-  while (Event_Reply == 0)
-  {
-    vTaskDelay(pdMS_TO_TICKS(10));
-  }
-  Xila_Event Event_Reply_Copy = Event_Reply;
-  Event_Reply = 0;
-  xSemaphoreGive(Dialog_Semaphore);
-  return Event_Reply_Copy;
-}
-
-Xila_Event Xila_Class::Open_File_Dialog(File& File_To_Open)
-{
-  Maximize_Shell();
-  Execute_Shell(Open_File);
-
-  while (!Shell_Return_Item)
-  {
-    vTaskDelay(pdMS_TO_TICKS(10));
-  }
-
-  return 
-}
-
-
-void Xila_Class::Maximize_Shell()
-{
-  Maximize_Software(1);
-}
-
-void Xila_Class::Execute_Shell(uint16_t const& Command)
-{
-  Open_Software_Pointer[1]->Execute(Command);
-}
-
-void Xila_Class::Refresh_Header()
-{
-  uint32_t Update_Time = millis();
-  static char Clock[5];
-  Clock[0] = Time.tm_hour / 10;
-  Clock[0] += 48;
-  Clock[1] = Time.tm_hour % 10;
-  Clock[1] += 48;
-  Clock[2] = ':';
-  Clock[3] = Time.tm_min / 10;
-  Clock[3] += 48;
-  Clock[4] = Time.tm_min % 10;
-  Clock[4] += 48;
-  Clock[5] += '\0';
-  Display.Set_Text(F("CLOCK_TXT"), Clock);
-
-  Clock[0] = WiFi.RSSI();
-  if (WiFi.status() == WL_CONNECTED)
-  {
-    if (Clock[0] <= -70)
-    {
-      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
-    }
-    if (Clock[0] <= -50 && Clock[0] > -70)
-    {
-      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
-    }
-    else
-    {
-      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
-    }
-  }
-  else
-  {
-    Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
-  }
-
-  Clock[0] = Instance_Pointer->Battery.Get_Charge_Level();
-  if (Clock[0] <= 15)
-  {
-    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
-  }
-  else if (Clock[0] <= 30 && Clock[0] > 15)
-  {
-    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
-  }
-  else if (Clock[0] <= 70 && Clock[0] > 30)
-  {
-    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
-  }
-  else // more than 70 %
-  {
-    Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
-  }
-
-  Clock[0] = Instance_Pointer->Sound.Get_Volume();
-  if (Clock[0] == 0)
-  {
-    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
-  }
-  else if (Clock[0] < 33)
-  {
-    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
-  }
-  else if (Clock[0] < 66)
-  {
-    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
-  }
-  else
-  {
-    Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
-  }
-  Update_Time = millis() - Update_Time;
-  Verbose_Print("Update header time :");
-  Verbose_Print_Line(Update_Time);
-}
-
-void Xila_Class::Execute_Background_Jobs()
-{
-  if ((millis() - Last_Execution) > 250)
-  {
-    if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
-    {
-      if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
+      Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
+      if (Button_Text_2 != NULL)
       {
-        (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
+        Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
       }
-      Background_Function_Counter = millis();
+      else
+      {
+        Display.Set_Text(F("BUTTON2_BUT"), F(""));
+      }
+      if (Button_Text_3 != NULL)
+      {
+        Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
+      }
+      else
+      {
+        Display.Set_Text(F("BUTTON3_BUT"), F(""));
+      }
     }
     else
     {
-      Background_Function_Counter = 0;
+      Display.Set_Text(F("BUTTON1_BUT"), F("Okay"));
+      Display.Set_Text(F("BUTTON2_BUT"), F("Yes"));
+      Display.Set_Text(F("BUTTON3_BUT"), F("No"));
+    }
+    Display.Set_Text(F("MESSAGE_TXT"), Message);
+    switch (Event_Type)
+    {
+    case Error:
+      Display.Set_Picture(F("EVENT_PIC"), 12);
+      Display.Set_Text(F("TITLE_TXT"), F("Error"));
+      break;
+    case Warning:
+      Display.Set_Picture(F("EVENT_PIC"), 12);
+      Display.Set_Text(F("TITLE_TXT"), F("Warning"));
+      break;
+    case Information:
+      Display.Set_Picture(F("EVENT_PIC"), 12);
+      Display.Set_Text(F("TITLE_TXT"), F("Information"));
+      break;
+    case Question:
+      Display.Set_Picture(F("EVENT_PIC"), 12);
+      Display.Set_Text(F("TITLE_TXT"), F("Question"));
+    default:
+      break;
+    }
+    Display.Show(F("CLOSE_PIC"));
+    while (Event_Reply == 0)
+    {
+      vTaskDelay(pdMS_TO_TICKS(10));
+    }
+    Xila_Event Event_Reply_Copy = Event_Reply;
+    Event_Reply = 0;
+    xSemaphoreGive(Dialog_Semaphore);
+    return Event_Reply_Copy;
+  }
+
+  Xila_Event Xila_Class::Open_File_Dialog(File & File_To_Open)
+  {
+    Maximize_Shell();
+    Execute_Shell(Open_File);
+
+    while (!Shell_Return_Item)
+    {
+      vTaskDelay(pdMS_TO_TICKS(10));
+    }
+
+    return
+  }
+
+  void Xila_Class::Maximize_Shell()
+  {
+    Maximize_Software(1);
+  }
+
+  void Xila_Class::Execute_Shell(uint16_t const &Command)
+  {
+    Open_Software_Pointer[1]->Execute(Command);
+  }
+
+  void Xila_Class::Refresh_Header()
+  {
+    uint32_t Update_Time = millis();
+    static char Clock[5];
+    Clock[0] = Time.tm_hour / 10;
+    Clock[0] += 48;
+    Clock[1] = Time.tm_hour % 10;
+    Clock[1] += 48;
+    Clock[2] = ':';
+    Clock[3] = Time.tm_min / 10;
+    Clock[3] += 48;
+    Clock[4] = Time.tm_min % 10;
+    Clock[4] += 48;
+    Clock[5] += '\0';
+    Display.Set_Text(F("CLOCK_TXT"), Clock);
+
+    Clock[0] = WiFi.RSSI();
+    if (WiFi.status() == WL_CONNECTED)
+    {
+      if (Clock[0] <= -70)
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
+      }
+      if (Clock[0] <= -50 && Clock[0] > -70)
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
+      }
+      else
+      {
+        Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
+      }
+    }
+    else
+    {
+      Instance_Pointer->Display.Set_Text(F("CONNEXION_BUT"), F(' '));
+    }
+
+    Clock[0] = Instance_Pointer->Battery.Get_Charge_Level();
+    if (Clock[0] <= 15)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
+    }
+    else if (Clock[0] <= 30 && Clock[0] > 15)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
+    }
+    else if (Clock[0] <= 70 && Clock[0] > 30)
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
+    }
+    else // more than 70 %
+    {
+      Instance_Pointer->Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
+    }
+
+    Clock[0] = Instance_Pointer->Sound.Get_Volume();
+    if (Clock[0] == 0)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
+    }
+    else if (Clock[0] < 33)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
+    }
+    else if (Clock[0] < 66)
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
+    }
+    else
+    {
+      Instance_Pointer->Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
+    }
+    Update_Time = millis() - Update_Time;
+    Verbose_Print("Update header time :");
+    Verbose_Print_Line(Update_Time);
+  }
+
+  void Xila_Class::Execute_Background_Jobs()
+  {
+    if ((millis() - Last_Execution) > 250)
+    {
+      if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
+      {
+        if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
+        {
+          (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
+        }
+        Background_Function_Counter = millis();
+      }
+      else
+      {
+        Background_Function_Counter = 0;
+      }
     }
   }
-}
 
-void Xila_Class::Synchronise_Time()
-{
-  time(&Now);
-  localtime_r(&Now, &Time);
-}
+  void Xila_Class::Synchronise_Time()
+  {
+    time(&Now);
+    localtime_r(&Now, &Time);
+  }
 
-tm Xila_Class::Get_Time()
-{
-  Synchronise_Time();
-  return Time;
-}
+  tm Xila_Class::Get_Time()
+  {
+    Synchronise_Time();
+    return Time;
+  }
 
-// Create System file at 1st boot
+  // Create System file at 1st boot
 
-void Xila_Class::Create_System_Files()
-{
-  // Display Registry
-  DynamicJsonDocument Display_Registry(256);
-  Display_Registry["Backlight"] = 75;
-  Display_Registry["Baud Rate"] = 921600;
-  File Temporary_File = Drive->open(Display_Registry_Path, FILE_WRITE);
-  serializeJson(Display_Registry, Temporary_File);
-  Display_Registry.clear();
-  Temporary_File.close();
+  /*void Xila_Class::Create_System_Files()
+  {
+    // Display Registry
+    DynamicJsonDocument Display_Registry(256);
+    Display_Registry["Backlight"] = 75;
+    Display_Registry["Baud Rate"] = 921600;
+    File Temporary_File = Drive->open(Display_Registry_Path, FILE_WRITE);
+    serializeJson(Display_Registry, Temporary_File);
+    Display_Registry.clear();
+    Temporary_File.close();
 
-  // Network registry
-  DynamicJsonDocument Network_Registry(256);
-  Network_Registry["Host name"] = "ESP32";
-  Network_Registry["Number WiFi AP"] = 0;
-  Temporary_File = Drive->open(Network_Registry_Path, FILE_WRITE);
-  serializeJson(Display_Registry, Temporary_File);
-  Network_Registry.clear();
-  Temporary_File.close();
+    // Network registry
+    DynamicJsonDocument Network_Registry(256);
+    Network_Registry["Host name"] = "ESP32";
+    Network_Registry["Number WiFi AP"] = 0;
+    Temporary_File = Drive->open(Network_Registry_Path, FILE_WRITE);
+    serializeJson(Display_Registry, Temporary_File);
+    Network_Registry.clear();
+    Temporary_File.close();
 
-  // Regional registry
-  DynamicJsonDocument Regional_Registry(256);
-  Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
-  serializeJson(Regional_Registry, Temporary_File);
-  Regional_Registry.clear();
-  Temporary_File.close();
+    // Regional registry
+    DynamicJsonDocument Regional_Registry(256);
+    Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+    serializeJson(Regional_Registry, Temporary_File);
+    Regional_Registry.clear();
+    Temporary_File.close();
 
-  // Software registry
-  DynamicJsonDocument Software_Registry(256);
-  Temporary_File = Drive->open(Software_Registry_Path, FILE_WRITE);
-  Software_Registry.clear();
-  Temporary_File.close();
-}
+    // Software registry
+    DynamicJsonDocument Software_Registry(256);
+    Temporary_File = Drive->open(Software_Registry_Path, FILE_WRITE);
+    Software_Registry.clear();
+    Temporary_File.close();
+  }*/
 
-void Pictviewer()
-{
+  void Pictviewer()
+  {
+  }
   /*Nextion_Serial.print(F("page Pictviewer\xFF\xFF\xFF"));
   Nextion_Serial.print(F("FILENAME_TXT.txt=\""));
   Nextion_Serial.print(Temporary_File_Name);
@@ -1706,4 +1727,3 @@ void Pictviewer()
   {
     Serial.println(F("The File Doesn't Exist or isn't readable"));
   }*/
-}

@@ -118,19 +118,23 @@ protected:
     const char Extension_Registry_Path[31] = "/XILA/REGISTRY/EXTENSIO.XRF";
     const char Display_Registry_Path[30] = "/XILA/REGISTRY/DISPLAY.XRF";
     const char Network_Registry_Path[30] = "/XILA/REGISTRY/NETWORK.XRF";
+    const char Account_Registry_Path[27] = "/XILA/REGISTRY/ACCOUNT.XRF";
     const char Regional_Registry_Path[31] = "/XILA/REGISTRY/REGIONAL.XRF";
     const char Software_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
     const char Event_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
     const char Sound_Registry_Path[28] = "/XILA/REGISTRY/SOUND.XRF";
-    const char Virtual_Global_Memory_File[36] = "/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
+    const char Virtual_Global_Memory_File[36] = "f/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
+    
     // System extension :
     // GRF : Galax'OS Registry File
     // GEF : Galax'OS Executable File
     // GSF : Galax'OS Sound File
 
+    char Device_Name[24];
+
     // Picure ID
 
-    enum Picture
+    enum Image
     {
         AFG_Icon_64,
         Question_32,
@@ -158,13 +162,12 @@ protected:
     //User attribute
     char Current_Username[9];
 
-    String Temporary_String;
-
-    Software_Class *Open_Software_Pointer[8];
+    Software_Class* Open_Software_Pointer[8];
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
     // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
-    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
+
+    Software_Handle_Class* Software_Handle_Pointer[MAXIMUM_SOFTWARE];
 
     // Shell short cut
 
@@ -201,7 +204,8 @@ public:
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
     void Maximize_Software(uint8_t);
-    void Add_Software_Handle(Software_Handle_Class *);
+
+    void Load_Software_Handle(Software_Handle_Class* Software_Handle_Pointer_To_Add, const __FlashStringHelper* Header_Path);
 
     // Core APIs (system calls)
 
@@ -226,37 +230,6 @@ public:
         Sound_Low,
         Sound_Medium,
         Sound_High,
-    };
-
-    enum Information
-    {
-        Good_Credentials,
-        Wrong_Credentials,
-        Success,
-    };
-
-    enum Question
-    {
-        Close_All_Running_Software,
-        Delete_File,
-    };
-
-    enum Warning
-    {
-
-        Low_RAM,
-    };
-
-    enum Error
-    {
-        Not_Logged,
-        Corrupted_User_File,
-        Failed_To_Initialize_SD_Card,
-        Corrupted_System_File,
-        Invalid_Software_ID,
-        Too_Much_Openned_Software,
-        Screen_Data_Exception,
-        User_Already_Exist
     };
 
     enum Color
@@ -371,6 +344,8 @@ public:
     void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
     void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
+    
+
     Xila_Event Check_Credentials(const char *, const char *);
     Xila_Event Add_User(const char *, const char *);
     Xila_Event Delete_User(const char *, const char *);
@@ -386,6 +361,7 @@ public:
         Warning,
         Information,
         Question,
+        Success,
     };
 
     enum Reply

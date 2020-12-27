@@ -12,6 +12,8 @@ extern Xila_Class Xila;
 #define SOFTWARE_TYPE_COMPILED 1
 #define SOFTWARE_TYPE_INTERPRETED 2
 
+#define Instruction(x,y) (x * 256 + y) 
+
 enum Software_Code // System code used by the core to communicate
 {
     Close = 0x0043,
@@ -68,6 +70,8 @@ protected:
 
     void (*Background_Function_Pointer)();
 
+    void (*Shutdown_Function_Pointer)();
+
     //Software_Class* Load_Function(Software_Handle_Class*);
 
     //char* Get_Name();
@@ -77,7 +81,7 @@ protected:
     friend class Shell_Class;
 
 public:
-    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL);
+    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdo));
     ~Software_Handle_Class();
 };
 

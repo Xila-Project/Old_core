@@ -9,14 +9,14 @@ protected:
     File Temporary_File;
 
     uint8_t Mode;
-    String Current_Path;
+    char Current_Path[64];
 
     static Shell_Class *Instance_Pointer;
 
-    char* Temporary_Variable;
-    char Username[9];
-    char Password[25];
-    char Password_To_Set[25];
+    uint32_t Temporary_Variable[2];
+
+    char Username[MAXIMUM_USERNAME_LENGHT + 1];
+    char Password[MAXIMUM_PASSWORD_LENGHT + 1];
 
     uint8_t Automatic_Login;
 
@@ -28,7 +28,7 @@ protected:
         Event,
         File_Manager,
         Preferences_Hardware,
-        Installation,
+        Install,
         Login,
         Preferences_Network,
         Preferences_Personal,
@@ -55,13 +55,12 @@ protected:
 
     void Shutdown_Commands();
 
-    void Drawer();
+    void Drawer_Commands();
     void Login_Commands();
-    void Installation_Commands();
-    void Load();
+    void Install_Commands();
+    void Load_Commands();
     void File_Manager_Commands();
 
-    void Install();
 
     void Open_Install();
 
@@ -72,6 +71,7 @@ protected:
     void Open_Drawer();
     void Open_Item();
     void Open_Login();
+    void Open_Load(uint8_t Mode);
 
     uint8_t File_Manager_Mode;
     void Open_File_Manager();
@@ -95,11 +95,11 @@ protected:
     static void Main_Task(void *);
 
 public:
-    static Software_Class *Load();
+    static Software_Class* Load();
 
     static void Startup();
 
-    enum Picture
+    enum Image
     {
         File_Manager_32 = 4,
         Preferences_32 = 3,

@@ -11,7 +11,7 @@ protected:
 
     byte Trig_Pin;
     byte Echo_Pin;
-    float Offset;
+    double Offset;
 
     uint8_t Shape;
 
@@ -20,8 +20,7 @@ protected:
     static Ultrasonic_Class* Instance_Pointer;
 
     void Read();
-    void Calculate();
-    void Set(uint8_t);
+    void Compute();
     void Draw_Shape();
 
     void Set_Variable(void*, uint8_t, uint8_t);
@@ -34,15 +33,13 @@ public:
 
     static Software_Class* Load();
 
+    static void Main_Task(void*);
+
     enum Picture_ID
     {
         Ultrasonic_32 = 47
     };
-
-    friend void Ultrasonic_Task(void*);
 };
-
-void Ultrasonic_Task(void*);
 
 Software_Handle_Class Ultrasonic_Handle("Ultrasonic", Ultrasonic_Class::Ultrasonic_32, Ultrasonic_Class::Load);
 

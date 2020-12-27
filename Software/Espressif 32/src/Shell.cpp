@@ -36,11 +36,32 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 {
     switch (Xila.Display.Get_Current_Page())
     {
-    case Installation:
-        switch (Adress):
-                case 'A':
-
-                    break;
+    case Install:
+        switch (Adress)
+        {
+        case 'O':
+            Temporary_Variable[0] = (uint32_t)Variable;
+            break;
+        case 'o':
+            Temporary_Variable[1] = (uint32_t)Variable;
+            break;
+        case 'A': // Autologin
+            Temporary_Variable[0] = (uint8_t)Variable;
+            break;
+        default:
+            break;
+        }
+        break;
+    case Preferences_Personal:
+        switch (Adress)
+        {
+            case 'C':
+                Temporary_Variable[0] = (uint32_t)Variable;
+                break;
+        }
+        break;
+    default:
+        break;
     }
     switch (Adress)
     {
@@ -65,15 +86,64 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     }
 }
 
+void Shell_Class::Install_Commands()
+{
+    switch (Get_Command())
+    {
+    case Instruction('Q', 'u'):
+        if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
+        {
+            Xila.Display.Set_Current_Page(F("Shell_Install"));
+            return;
+        }
+        break;
+    case Instruction('S', 'R'):
+    {
+        Temporary_File = Xila.Drive->open(Xila.Regional_Registry_Path, FILE_WRITE);
+        DynamicJsonDocument Regional_Registry(256);
+        if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+        {
+            Xila.Event_Dialog(F("Cannot set the regionnal registry."), Xila.Error);
+            break;
+        }
+        Regional_Registry["Time"]["GMT Offset"] = Temporary_Variable[0];
+        Regional_Registry["Time"]["Daylight Offset"] = Temporary_Variable[1];
+        serializeJson(Regional_Registry, Temporary_File);
+        Temporary_File.close();
+    }
+    break;
+    case Instruction('C', 'U'):
+    {
+        Temporary_File = Xila.Drive->open(Xila.Account_Registry_Path, FILE_WRITE);
+        DynamicJsonDocument Account_Registry(256);
+        if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+        {
+            Xila.Event_Dialog(F("Cannot set the account registry."), Xila.Error);
+        }
+        else
+        {
+            strcpy(Account_Registry["Autologin"], Username);
+            serializeJson(Account_Registry, Temporary_File);
+        }
+        Temporary_File.close();
+        if (Xila.Add_User(Username, Password) != Xila.Success)
+        {
+            Xila.Event_Dialog(F("Cannot create the user account."), Xila.Error);
+            break;
+        }
+        Login();
+    }
+    break;
+    case Instruction('I', 'n'):
+        Xila.Display.Set_Current_Page(F("Shell_Install"));
+        break;
+    default:
+        break;
+    }
+}
+
 void Shell_Class::Install()
 {
-
-    if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
-    {
-        Xila.Display.Set_Current_Page(F("Shell_Install"));
-        return;
-    }
-    else
 }
 
 void Shell_Class::Main_Task(void *pvParameters)
@@ -83,46 +153,45 @@ void Shell_Class::Main_Task(void *pvParameters)
     {
         switch (Xila.Display.Get_Current_Page())
         {
-        case About:
-            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
-            Instance_Pointer->Main_Commands();
-            break;
-        case Desk:
-            Instance_Pointer->Desk_Commands();
-            break;
-        case Drawer:
-            Instance_Pointer->Drawer_Commands();
-            break;
-        case Event:
-            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
-            Instance_Pointer->Main_Commands();
-            break;
-        case File_Manager:
-            Instance_Pointer->File_Manager_Commands();
-            break;
-        case Preferences_Hardware:
-            Instance_Pointer->Preferences_Hardware_Commands();
-            break;
-        case Installation:
-            Instance_Pointer->Installation_Commands();
-            break;
-        case Login:
-            Instance_Pointer->Login_Commands();
-            break;
-        case Preferences_Network:
-            Instance_Pointer->Preferences_Network_Commands();
-            break;
-        case Preferences_Personal:
-            Instance_Pointer->Preferences_Personal_Commands();
-            break;
-        case Shutdown:
-            Instance_Pointer->Shutdown_Commands();
-            break;
-        case Preferences_System:
+        case Pages::About:
             Instance_Pointer->Preferences_System_Commands();
             break;
-        case Welcome:
-            Instance_Pointer->Installation_Commands();
+        case Pages::Desk:
+            Instance_Pointer->Desk_Commands();
+            break;
+        case Pages::Drawer:
+            Instance_Pointer->Drawer_Commands();
+            break;
+        case Pages::Event:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Main_Commands();
+            break;
+        case Pages::File_Manager:
+            Instance_Pointer->File_Manager_Commands();
+            break;
+        case Pages::Preferences_Hardware:
+            Instance_Pointer->Preferences_Hardware_Commands();
+            break;
+        case Pages::Install:
+            Instance_Pointer->Install_Commands();
+            break;
+        case Pages::Login:
+            Instance_Pointer->Login_Commands();
+            break;
+        case Pages::Preferences_Network:
+            Instance_Pointer->Preferences_Network_Commands();
+            break;
+        case Pages::Preferences_Personal:
+            Instance_Pointer->Preferences_Personal_Commands();
+            break;
+        case Pages::Shutdown:
+            Instance_Pointer->Shutdown_Commands();
+            break;
+        case Pages::Preferences_System:
+            Instance_Pointer->Preferences_System_Commands();
+            break;
+        case Pages::Welcome:
+            Instance_Pointer->Install_Commands();
             break;
         default:
             break;
@@ -137,7 +206,7 @@ void Shell_Class::Desk_Commands()
     switch (Current_Command)
     {
     case 0: // IDLE
-        vTaskDelay(pdMS_TO_TICKS(5));
+        Idle();
         break;
     default:
         Main_Commands();
@@ -162,16 +231,16 @@ void Shell_Class::Login_Commands()
     }
 }
 
-void Shell_Class::Drawer()
+void Shell_Class::Drawer_Commands()
 {
     Current_Command = Get_Command();
     switch (Current_Command)
     {
     case 0:
-        vTaskDelay(pdMS_TO_TICKS);
+        Idle();
         break;
     case 0x4E64: // Nd : Next drawer items
-        
+
         break;
     case 0x5064: // Pd : Previous drawer items
 
@@ -227,45 +296,80 @@ void Shell_Class::Drawer()
     }
 }
 
-void Shell_Class::Shutdown()
+void Shell_Class::Preferences_Personal_Commands()
 {
     Current_Command = Get_Command();
     switch (Current_Command)
     {
-    case 0x5253: // RS : Restart system
+        case 0:
+            Idle();
+            break;
+        case Instruction('S', 'P'):
+            {
+                DynamicJsonDocument Shell_Registry(256);
+                Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username), FILE_WRITE);
+                if (deserializeJson(Shell_Registry, Temporary_File) != DeserializationError::Ok)
+                {
+                    Xila.Event_Dialog(F("Cannot set the user shell registry."), Xila.Error);
+                    Open_Preferences('P');
+                }
+                else
+                {
+                    Shell_Registry["Color"] = (uint16_t)Temporary_Variable[0];
+                }
+            }
+            break;
+        default:
+            Main_Commands();
+            break;
+    }
+}
+
+void Shell_Class::Shutdown_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0:
+        Idle();
+        break;
+    case Instruction('R', 'S'): // RS : Restart system
         Xila.Restart();
         break;
-    case 0x4853: // HS : hibernate sys
+    case Instruction('H', 'S'): // HS : hibernate sys
 
         break;
-    case 0x4C53: // LS : lock system
+    case Instruction('L', 'S'): // LS : lock system
         break;
 
-    case 0x5353: // SS : shutdown
+    case Instruction('S', 'S'): // SS : shutdown
         Xila.Display.Set_Current_Page(F("LOAD_TXT"));
         Xila.Shutdown();
+        break;
+    default:
+        Main_Commands();
         break;
     }
 }
 
-void Shell_Class:Main_Commands()
+void Shell_Class::Main_Commands()
 {
     switch (Current_Command)
     {
-    case 0: //IDLE
-        Idle();
-        break;
-    case 0x534D: // Os : Shutdown menu
+    case Instruction('O', 's'): // Os : Shutdown menu
         Xila.Display.Set_Current_Page(F("Shell_Shutdown"));
         break;
-    case 0x4F4C: // "OL" : Open Login page
+    case Instruction('O', 'L'): // "OL" : Open Login page
         Open_Login();
         break;
-    case 0x4F44: // "OD" Open Desk page & load it
+    case Instruction('O', 'D'): // "OD" Open Desk page & load it
         Open_Desk();
         break;
-    case 0x4F64: // "Od" Open drawer
+    case Instruction('O', 'd'): // "Od" Open drawer
         Open_Drawer();
+        break;
+    case Instruction('O', 'A'): // Open about xila
+        Xila.Display.Set_Current_Page(F("Shell_About"));
         break;
     case Xila.Open_File:
         File_Manager_Mode = Xila.Open_File;
@@ -283,16 +387,16 @@ void Shell_Class:Main_Commands()
         Open_File_Manager = 0;
         Open_File_Manager();
         break;
-    case 0x4F50: // "OP" : Open preferiencies (default : personnal)
+    case Instruction('O', 'P'): // "OP" : Open preferiencies (default : personnal)
         Instance_Pointer->Open_Preferences('P');
         break;
-    case 0x4F48: // "OH" : Open hardware prefencies
+    case Instruction('O', 'H'): // "OH" : Open hardware prefencies
         Instance_Pointer->Open_Preferences('H');
         break;
-    case 0x4F4E: // "ON" : Open network
+    case Instruction('O', 'N'): // "ON" : Open network
         Instance_Pointer->Open_Preferences('N');
         break;
-    case 0x4F53: // "OS" : Open system preferencies
+    case Instruction('O', 'S'): // "OS" : Open system preferencies
         Instance_Pointer->Open_Preferences('S');
         break;
     case Software_Code::Open: // open routine
@@ -318,11 +422,6 @@ void Shell_Class:Main_Commands()
 void Shell_Class::Idle()
 {
     vTaskDelay(pdMS_TO_TICKS(20));
-}
-
-void Shell_Class::Open_File_Dialog()
-{
-    Xila.Display.Set_Current_Page("Shell_Class")
 }
 
 void Shell_Class::Open_From_Drawer(uint8_t Slot)
@@ -596,7 +695,7 @@ void Shell_Class::Display_Path()
                 Item = Temporary_File.openNextFile();
                 if (Item)
                 {
-                    Xila.Display.Set_Text("ITEM" + String(i) + "_TXT", Item.name());
+                    Xila.Display.Set_Text("ITEM" + char(i) + "_TXT", Item.name());
                     if (Item.isDirectory())
                     {
                         Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 17);
@@ -692,16 +791,10 @@ void Shell_Class::Login()
     {
         strcpy(Xila.Current_Username, Username);
         Verbose_Print_Line(F("> Load user files"));
-        Xila.Display.Hide(F("USERNAME_TXT"));
-        Xila.Display.Hide(F("PASSWORD_TXT"));
-        Xila.Display.Hide(F("LOGIN_BUT"));
-        Xila.Display.Show(F("YELLOW_TXT"));
-        Xila.Display.Show(F("GREEN_TXT"));
-        Xila.Display.Show(F("BLUE_TXT"));
-        Xila.Display.Show(F("RED_TXT"));
-        Xila.Display.Show(F("LOAD_BAR"));
-        Xila.Display.Show(F("LOAD_TXT"));
-        Xila.Display.Show(F("GALAXOS_TXT"));
+        Xila.Display.Set_Current_Page(F("Shell_Load"));
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Login"));
+        Xila.Display.Refresh(F("CLOSE_BUT"));
+        Xila.Display.Set_Text(F("LOAD_TXT"), F("Loading user data ..."));
 
         DynamicJsonDocument Shell_Registry(256);
         File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
@@ -720,15 +813,7 @@ void Shell_Class::Login()
             //Color = Shell_Registry["Color"] | 16904;
         }
 
-        Xila.Display.Set_Value(F("LOAD_BAR"), 20);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 40);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 60);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 80);
-        vTaskDelay(pdMS_TO_TICKS(1000));
-        Xila.Display.Set_Value(F("LOAD_BAR"), 100);
+        Xila.Display.Set_Value(F("STATE_VAR"), 2);
         vTaskDelay(pdMS_TO_TICKS(1000));
         Open_Desk();
     }
