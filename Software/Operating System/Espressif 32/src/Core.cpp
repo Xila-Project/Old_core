@@ -7,25 +7,8 @@ Xila_Class *Xila_Class::Instance_Pointer = NULL;
 
 Xila_Class Xila;
 
-extern Software_Handle_Class Shell_Handle;
-extern Software_Handle_Class Executable_Loader_Handle;
-
 /*char WiFi_SSID[] = "Avrupa";
 char WiFi_Password [] = "0749230994";*/
-
-extern Software_Handle_Class Shell_Handle;
-extern Software_Handle_Class Oscilloscope_Handle;
-extern Software_Handle_Class Paint_Handle;
-extern Software_Handle_Class Calculator_Handle;
-extern Software_Handle_Class TinyBasic_Handle;
-extern Software_Handle_Class Internet_Browser_Handle;
-extern Software_Handle_Class Music_Player_Handle;
-extern Software_Handle_Class Piano_Handle;
-extern Software_Handle_Class Pong_Handle;
-extern Software_Handle_Class Signal_Generator_Handle;
-extern Software_Handle_Class Text_Editor_Handle;
-extern Software_Handle_Class Periodic_Handle;
-extern Software_Handle_Class Clock_Handle;
 
 Xila_Class::Xila_Class() : Tag(0),
                            Display(),
@@ -97,7 +80,6 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 {
   // Restore attribute
   System_State = 1;
-  this->Software_Handle_To_Start = Software_Handle_To_Start;
 
   xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
 }
@@ -105,19 +87,253 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 void Xila_Class::Start()
 {
   System_State = 0;
-#if DEBUG_MODE == 1
-  xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-#else
+
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
-  if (Wakeup_Cause == ESP_SLEEP_WAKEUP_EXT0)
-  {
-    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-  }
-  else
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 || Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
     Shutdown();
   }
+
+  Serial.begin(SERIAL_SPEED); //PC Debug UART
+  Remaining_Spaces = 0;
+
+  //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
+  Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
+  Print_Line(F("Starting Xila ..."), 0);
+
+  // Setting interrput for power buttons
+
+  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+
+  // Initialize display
+  Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
+  Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
+  Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+  Display.Begin();
+  Display.Wake_Up();
+  Display.Set_Current_Page(F("Core_Load")); // Play animation
+  Display.Set_Trigger(F("LOAD_TIM"), true);
+
+// Initialize drive
+#if SD_MODE == 0
+  pinMode(14, INPUT_PULLUP);
+  //pinMode(15, INPUT_PULLUP);
+  pinMode(2, INPUT_PULLUP);
+  pinMode(4, INPUT_PULLUP);
+  pinMode(12, INPUT_PULLUP);
+  pinMode(13, INPUT_PULLUP);
+  Drive = &SD_MMC;
+#else
+  Drive = &SD;
 #endif
+
+  if (!Drive->begin() || Drive->cardType() == CARD_NONE)
+  {
+    Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
+  }
+  while (!Drive->begin() || Drive->cardType() == CARD_NONE)
+  {
+    vTaskDelay(pdMS_TO_TICKS(50));
+  }
+  Display.Set_Text(F("EVENT_TXT"), F(""));
+
+  File Temporary_File;
+  uint8_t Installation_State;
+
+  // Checking version / installation
+  {
+    Verbose_Print_Line("> Load system registry");
+    Temporary_File = Drive->open(System_Registry_Path);
+    if (!Temporary_File)
+    {
+    }
+    DynamicJsonDocument System_Registry(256);
+    if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
+    {
+      Display.Set_Text(F("EVENT_TXT"), "Damaged system registry.");
+    }
+    else
+    {
+      JsonObject Version = System_Registry["Version"];
+
+      if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
+      {
+        Display.Set_Text(F("EVENT_TXT"), "Incompatible installation.");
+      }
+      Installation_State = System_Registry["State"];
+    }
+  }
+
+  {
+    Verbose_Print_Line("> Load display registry ...");
+    Temporary_File = Drive->open(Display_Registry_Path);
+    DynamicJsonDocument Display_Registry(256);
+    deserializeJson(Display_Registry, Temporary_File);
+    Display.Set_Brightness(100);
+    //Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
+  }
+
+  // Sound load
+  {
+    Temporary_File = Drive->open(Sound_Registry_Path);
+    DynamicJsonDocument Sound_Registry(256);
+    deserializeJson(Sound_Registry, Temporary_File);
+    Sound.Set_Volume(Sound_Registry["Volume"]);
+    Temporary_File.close();
+  }
+
+  Temporary_File = Drive->open(Startup_Sound_Path);
+  Sound.Play(Temporary_File);
+
+  // Load network configuration
+  {
+    Verbose_Print_Line("> Load network registry ...");
+    Temporary_File = Drive->open(Network_Registry_Path);
+    if (!Temporary_File)
+    {
+      // error handle
+    }
+    DynamicJsonDocument Network_Registry(256);
+    deserializeJson(Network_Registry, Temporary_File);
+    // WiFi :
+    WiFi.setHostname(Device_Name); // Set hostname
+    JsonArray Name_Array = Network_Registry["WiFi"]["Names"];
+    JsonArray Password_Array = Network_Registry["WiFi"]["Passwords"];
+    char Name[32], Password[32];
+    for (uint8_t i = 0; i < Name_Array.size(); i++)
+    {
+      strcpy(Name, Name_Array[i]);
+      strcpy(Password, Password_Array[i]);
+      WiFi.setAutoConnect(false);
+      WiFi.begin(Name, Password);
+      while (WiFi.status() != WL_CONNECTED && i < 50)
+      {
+        vTaskDelay(pdMS_TO_TICKS(100));
+        i++;
+      }
+      if (WiFi.status() == WL_CONNECTED)
+      {
+        Verbose_Print_Line("> WiFi connected");
+        break;
+      }
+    }
+    Temporary_File.close();
+  }
+
+  // Set Regional Parameters
+  {
+    Verbose_Print_Line("> Load regional registry ...");
+    Temporary_File = Drive->open(Regional_Registry_Path);
+    if (!Temporary_File)
+    {
+      //error
+    }
+    DynamicJsonDocument Regional_Registry(256);
+    deserializeJson(Regional_Registry, Temporary_File);
+
+    strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
+    int32_t GMT_Offset = Regional_Registry["Time"]["GMT Offset"];
+    int16_t Daylight_Offset = Regional_Registry["Time"]["Daylight Offset"];
+    Serial.println(NTP_Server);
+    Serial.println(GMT_Offset);
+    Serial.println(Daylight_Offset);
+    configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+    Temporary_File.close();
+  }
+
+  // Load software (including Shell UI)
+  Verbose_Print_Line("> Load software ...");
+
+  vTaskDelay(pdMS_TO_TICKS(5000)); // Waiting for software to add their
+
+  extern Software_Handle_Class Oscilloscope_Handle;
+  extern Software_Handle_Class Paint_Handle;
+  extern Software_Handle_Class Calculator_Handle;
+  extern Software_Handle_Class TinyBasic_Handle;
+  extern Software_Handle_Class Internet_Browser_Handle;
+  extern Software_Handle_Class Music_Player_Handle;
+  extern Software_Handle_Class Piano_Handle;
+  extern Software_Handle_Class Pong_Handle;
+  extern Software_Handle_Class Signal_Generator_Handle;
+  extern Software_Handle_Class Text_Editor_Handle;
+  extern Software_Handle_Class Periodic_Handle;
+  extern Software_Handle_Class Clock_Handle;
+
+  Load_Software_Handle(&Oscilloscope_Handle, F("/SOFTWARE/OSCOPE/OSCOPE.GRF"));
+  Load_Software_Handle(&Paint_Handle, F("/SOFTWARE/PAINT/PAINT.GRF"));
+  Load_Software_Handle(&Calculator_Handle, F("/SOFTWARE/CALCATOR/CALCATOR.GRF"));
+  Load_Software_Handle(&TinyBasic_Handle, F("/SOFTWARE/TINYBASI/TINYBASI.GRF"));
+  Load_Software_Handle(&Internet_Browser_Handle, F("/SOFTWARE/INTEBROW/INTEBROW.GRF"));
+  Load_Software_Handle(&Music_Player_Handle, F("/SOFTWARE/MUSICPLA/MUSICPLA.GRF"));
+  Load_Software_Handle(&Piano_Handle, F("/SOFTWARE/PIANO/PIANO.GRF"));
+  Load_Software_Handle(&Pong_Handle, F("/SOFTWARE/PONG/PONG.GRF"));
+
+  Software_Handle_Pointer[0] = &Executable_Loader_Handle;
+  Software_Handle_Pointer[1] = &Shell_Handle;
+  Software_Handle_Pointer[2] = &Paint_Handle;
+  Software_Handle_Pointer[3] = &Calculator_Handle;
+  Software_Handle_Pointer[4] = &TinyBasic_Handle;
+  Software_Handle_Pointer[5] = &Internet_Browser_Handle;
+  Software_Handle_Pointer[6] = &Music_Player_Handle;
+  Software_Handle_Pointer[7] = &Piano_Handle;
+  Software_Handle_Pointer[9] = &Pong_Handle;
+  Software_Handle_Pointer[10] = &Signal_Generator_Handle;
+  Software_Handle_Pointer[11] = &Oscilloscope_Handle;
+  Software_Handle_Pointer[12] = &Text_Editor_Handle;
+  Software_Handle_Pointer[13] = &Periodic_Handle;
+  Software_Handle_Pointer[14] = &Clock_Handle;
+
+  File Software_Directory = Drive->open("/SOFTWARE");
+  while (1)
+  {
+    Temporary_File = Software_Directory.openNextFile();
+    if (!Temporary_File)
+    {
+      break;
+    }
+    else if (Temporary_File.isDirectory())
+    {
+      if (Drive->exists("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF"))
+      {
+        Temporary_File = Drive->open("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF");
+        if (Temporary_File)
+        {
+          DynamicJsonDocument Software_Registry(256);
+          if (deserializeJson(Software_Registry, Temporary_File) == DeserializationError::Ok)
+          {
+            for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+            {
+              if (Software_Handle_Pointer[i] == NULL)
+              {
+                Software_Handle_Pointer[i]
+              }
+            }
+            Add_Software_Handle(new Software_Handle_Class(Software_Registry["Name"], Software_Registry["Picture"], NULL));
+          }
+        }
+      }
+    }
+  }
+
+  if (Installation_State == 1)
+  {
+    Execute(Installation_Wizard);
+  }
+
+  // Execute startup function of each software
+
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
+    {
+      (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
+    }
+  }
+
+  vTaskDelay(pdMS_TO_TICKS(3000));
+  Display.Set_Value(F("STATE_VAR"), 2);
+  vTaskDelay(pdMS_TO_TICKS(1200));
 }
 
 void Xila_Class::Shutdown()
@@ -136,9 +352,38 @@ void Xila_Class::Shutdown()
   // Disconnect wifi
   WiFi.disconnect(true);
 
+  {
+    File Temporary_File = Drive->open(Sound_Registry_Path);
+    DynamicJsonDocument Sound_Registry(DEFAULT_REGISTRY_SIZE);
+    Sound_Registry["Registry"] = "Sound";
+    Sound_Registry["Volume"] = Sound.Get_Volume();
+    serializeJson(Sound_Registry, Temporary_File);
+  }
+
+  vTaskDelay(pdMS_TO_TICKS(5000));
+
   //Set deep sleep
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_deep_sleep_start();
+}
+
+Xila_Event Xila_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_To_Add)
+{
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    if (Software_Handle_Pointer[i] == NULL)
+    {
+      Software_Handle_Pointer[i] = Software_Handle_To_Add;
+      return Success;
+    }
+    else
+    {
+      if (i == MAXIMUM_SOFTWARE - 1)
+      {
+        return Error;
+      }
+    }
+  }
 }
 
 void Xila_Class::Restart()
@@ -211,282 +456,6 @@ void Xila_Class::Load_From_Dump()
 
 void Xila_Class::Load()
 {
-  Serial.begin(SERIAL_SPEED); //PC Debug UART
-  Remaining_Spaces = 0;
-
-  //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
-  Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
-  Print_Line(F("Starting Xila ..."), 0);
-
-  // Setting interrput for power buttons
-
-  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
-
-  // Initialize SD Card
-  Print_Line(F("Mount The SD Card ..."), 0);
-
-  // Initialize display
-  Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
-  Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
-  Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
-  Display.Begin();
-  Display.Wake_Up();
-  //Start animation
-  Display.Set_Current_Page(F("Core_Load"));
-  Display.Set_Value(F("LOAD_TIM"), 0);
-  Display.Set_Trigger(F("LOAD_TIM"), true);
-
-// Initialize drive
-#if SD_MODE == 0
-  pinMode(14, INPUT_PULLUP);
-  //pinMode(15, INPUT_PULLUP);
-  pinMode(2, INPUT_PULLUP);
-  pinMode(4, INPUT_PULLUP);
-  pinMode(12, INPUT_PULLUP);
-  pinMode(13, INPUT_PULLUP);
-  Drive = &SD_MMC;
-#else
-
-  Drive = &SD;
-#endif
-
-  if (!Drive->begin() || Drive->cardType() == CARD_NONE)
-  {
-    Display.Set_Text(F("EVENT_TXT"), F("Please Check System Drive"));
-  }
-  while (!Drive->begin() || Drive->cardType() == CARD_NONE)
-  {
-    vTaskDelay(pdMS_TO_TICKS(50));
-  }
-  //Display.Set_Text(F("EVENT_TXT"), F(""));
-
-  File Temporary_File;
-
-  uint8_t Installation_State;
-
-  // Checking version / installation
-  {
-    Verbose_Print_Line("> Load system registry");
-    Temporary_File = Drive->open(System_Registry_Path);
-    if (!Temporary_File)
-    {
-    }
-    DynamicJsonDocument System_Registry(256);
-    if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
-    {
-      Display.Set_Text(F("EVENT_TXT"), "Damaged system registry.");
-    }
-    else
-    {
-      JsonObject Version = System_Registry["Version"];
-
-      if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
-      {
-        Display.Set_Text(F("EVENT_TXT"), "Incompatible installation.");
-      }
-      Installation_State = System_Registry["State"];
-    }
-  }
-
-  // Initialize Virtual Memory
-  /*Virtual_Memory_Semaphore = xSemaphoreCreateMutex();
-
-  if (Virtual_Memory_Semaphore == NULL)
-  {
-    //error handle
-  }
-  else
-  {
-    xSemaphoreGive(Virtual_Memory_Semaphore);
-  }*/
-
-  //Testing Virtual Memory
-
-  /*Verbose_Print_Line("> Testing Virtual Memory ...");
-
-  uint32_t Test_Float = 123456789;
-  Set_Variable('T', &Test_Float);
-  Serial.println(Test_Float);
-  Get_Variable('T', &Test_Float);
-  Serial.println(Test_Float);
-
-  uint16_t Test_Integer = 1543;
-  Set_Variable('T', (uint32_t *)&Test_Integer);
-  Serial.println(Test_Integer);
-  Get_Variable('T', (uint32_t *)&Test_Integer);
-  Serial.println(Test_Integer);
-
-  uint8_t Test_Byte = 128;
-  Set_Variable('T', (uint32_t *)&Test_Byte);
-  Serial.println(Test_Byte);
-  Get_Variable('T', (uint32_t *)&Test_Byte);
-  Serial.println(Test_Byte);
-
-  String Test_String = "test";
-  Set_Variable('T', Test_String);
-  Serial.println(Test_String);
-  Get_Variable('T', Test_String);
-  Serial.println(Test_String);/
-
-  if (Test_Float != 123456789 || Test_Integer != 1543 || Test_Byte != 128 || Test_String == "test")
-  {
-    Verbose_Print("> Waring : Test failed for uint64_t");
-  }*/
-
-  // Initailize system tasks
-  Verbose_Print_Line("> Loading Task ...");
-  xTaskCreatePinnedToCore(Idle_Task_Software_Core, "Idle Software", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SOFTWARE_CORE);
-  xTaskCreatePinnedToCore(Idle_Task_System_Core, "Idle System", 2 * 1024, NULL, IDLE_TASK_PRIORITY, NULL, SYSTEM_CORE);
-
-  // Check for a firmware switch (install/unistall software or recovery OS)
-  if (Drive->exists("/XILA/XILA.XEF"))
-  {
-    Verbose_Print_Line("Switch firmware");
-    Open_Software(&Executable_Loader_Handle);
-    Temporary_File = Drive->open("/XILA/XILA.XEF");
-    Open_File(Temporary_File);
-  }
-
-  // Check for a state
-  Verbose_Print_Line("> Check existing of file last state ...");
-
-  Restore_System_State();
-
-  {
-    Verbose_Print_Line("> Load display registry ...");
-    Temporary_File = Drive->open(Display_Registry_Path);
-    DynamicJsonDocument Display_Registry(256);
-    deserializeJson(Display_Registry, Temporary_File);
-    Display.Set_Brightness(100);
-    //Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
-  }
-
-  // Sound load
-  {
-    Temporary_File = Drive->open(Sound_Registry_Path);
-    DynamicJsonDocument Sound_Registry(256);
-    deserializeJson(Sound_Registry, Temporary_File);
-    Sound.Set_Volume(Sound_Registry["Volume"] | 0);
-    Temporary_File.close();
-  }
-  Temporary_File = Drive->open("/XILA/SOUNDS/STARTUP.WAV");
-  Sound.Play(Temporary_File);
-
-  // Load network configuration
-  {
-    Verbose_Print_Line("> Load network registry ...");
-    Temporary_File = Drive->open(Network_Registry_Path);
-    if (!Temporary_File)
-    {
-      // error handle
-    }
-    DynamicJsonDocument Network_Registry(256);
-    deserializeJson(Network_Registry, Temporary_File);
-    // WiFi :
-    WiFi.setHostname(Device_Name); // Set hostname
-    JsonArray Name_Array = Network_Registry["WiFi"]["Names"];
-    JsonArray Password_Array = Network_Registry["WiFi"]["Passwords"];
-    char Name[32], Password[32];
-    for (uint8_t i = 0; i < Name_Array.size(); i++)
-    {
-      strcpy(Name, Name_Array[i]);
-      strcpy(Password, Password_Array[i]);
-      WiFi.setAutoConnect(false);
-      WiFi.begin(Name, Password);
-      while (WiFi.status() != WL_CONNECTED && i < 50)
-      {
-        vTaskDelay(pdMS_TO_TICKS(100));
-        i++;
-      }
-      if (WiFi.status() == WL_CONNECTED)
-      {
-        Verbose_Print_Line("> WiFi connected");
-        break;
-      }
-    }
-    Temporary_File.close();
-  }
-
-  // Set Regional Parameters
-  {
-    Verbose_Print_Line("> Load regional registry ...");
-    Temporary_File = Drive->open(Regional_Registry_Path);
-    if (!Temporary_File)
-    {
-      //error
-    }
-    DynamicJsonDocument Regional_Registry(256);
-    deserializeJson(Regional_Registry, Temporary_File);
-
-    strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
-    int32_t GMT_Offset = Regional_Registry["Time"]["GMT Offset"];
-    int16_t Daylight_Offset = Regional_Registry["Time"]["Daylight Offset"];
-    Serial.println(NTP_Server);
-    Serial.println(GMT_Offset);
-    Serial.println(Daylight_Offset);
-    configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-    Temporary_File.close();
-  }
-
-  // Load software (including Shell UI)
-  Verbose_Print_Line("> Load software ...");
-
-  vTaskDelay(pdMS_TO_TICKS(5000)); // Waiting for software to add their
-  Software_Handle_Pointer[0] = &Executable_Loader_Handle;
-  Software_Handle_Pointer[1] = &Shell_Handle;
-  Software_Handle_Pointer[2] = &Paint_Handle;
-  Software_Handle_Pointer[3] = &Calculator_Handle;
-  Software_Handle_Pointer[4] = &TinyBasic_Handle;
-  Software_Handle_Pointer[5] = &Internet_Browser_Handle;
-  Software_Handle_Pointer[6] = &Music_Player_Handle;
-  Software_Handle_Pointer[7] = &Piano_Handle;
-  Software_Handle_Pointer[8] = &Ultrasonic_Handle;
-  Software_Handle_Pointer[9] = &Pong_Handle;
-  Software_Handle_Pointer[10] = &Signal_Generator_Handle;
-  Software_Handle_Pointer[11] = &Oscilloscope_Handle;
-  Software_Handle_Pointer[12] = &Text_Editor_Handle;
-  Software_Handle_Pointer[13] = &Periodic_Handle;
-  Software_Handle_Pointer[14] = &Clock_Handle;
-
-  File Software_Directory = Drive->open("/SOFTWARE");
-  while (1)
-  {
-    Temporary_File = Software_Directory.openNextFile();
-    if (!Temporary_File)
-    {
-      break;
-    }
-    else if (Temporary_File.isDirectory())
-    {
-      if (Drive->exists("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF"))
-      {
-        Temporary_File = Drive->open("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF");
-        if (Temporary_File)
-        {
-          DynamicJsonDocument Software_Registry(256);
-          if (deserializeJson(Software_Registry, Temporary_File) == DeserializationError::Ok)
-          {
-            Add_Software_Handle(new Software_Handle_Class(Software_Registry["Name"], Software_Registry["Picture"], NULL));
-          }
-        }
-      }
-    }
-  }
-
-  // Execute startup function of each software
-
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-    if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
-    {
-      (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
-    }
-  }
-
-  vTaskDelay(pdMS_TO_TICKS(3000));
-  Display.Set_Value(F("STATE_VAR"), 2);
-  vTaskDelay(pdMS_TO_TICKS(1200));
 }
 
 Xila_Event Xila_Class::Create_Dump()
@@ -961,19 +930,30 @@ void Xila_Class::Minimize_Software()
 
 void Xila_Class::Maximize_Software(uint8_t Slot)
 {
-  if (Open_Software_Pointer[Slot] == NULL) // Error : no software to maximize
+  if (System_State == SYSTEM_STATE_STANDALONE)
   {
-    return;
+    if (Slot == 1)
+    {
+    }
   }
-  if (Open_Software_Pointer[0] != NULL)
+  else
   {
-    Minimize_Software();
+
+    if (Open_Software_Pointer[Slot] == NULL) // Error : no software to maximize
+    {
+      return;
+    }
+    if (Open_Software_Pointer[0] != NULL)
+    {
+      Minimize_Software();
+    }
+    Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
+    vTaskResume(Open_Software_Pointer[0]->Task_Handle);
+    Open_Software_Pointer[0]->Execute(Maximize);
   }
-  Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
-  Open_Software_Pointer[0]->Maximize();
 }
 
-void Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path)
+Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path)
 {
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
@@ -981,14 +961,14 @@ void Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Poi
     {
       if (strcmp(Software_Handle_Pointer[i]->Name, Software_Handle_Pointer_To_Add->Name) == 0)
       {
-        return;
+        return Error;
       }
     }
   }
 
   if (!Drive->exists(Header_Path))
   {
-    return;
+    return Error;
   }
   File Temporary_File = Drive->open(Header_Path);
   DynamicJsonDocument Software_Registry(DEFAULT_REGISTRY_SIZE);
@@ -998,11 +978,11 @@ void Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Poi
   }
   if (Software_Registry["Type"] != 0)
   {
-    return;
+    return Error;
   }
   if (strcmp(Software_Registry["Name"], Software_Handle_Pointer_To_Add->Name) != 0)
   {
-    return;
+    return Error;
   }
 
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
@@ -1067,30 +1047,6 @@ void Xila_Class::Print_Line(const char *Text_To_Print, uint8_t const &Alignement
 void Xila_Class::Print_Line()
 {
   Serial.print(F("||                                                                            ||"));
-}
-
-// --------------------------
-
-void Xila_Class::Restore_System_State()
-{
-  if (!Drive->exists("/XILA/XILA.GRF"))
-  {
-    // no need to restore
-    return;
-  }
-  File Temporary_File = Drive->open("/XILA/GOSCUSA.XSF");
-  DynamicJsonDocument Temporary_Json_Document(256);
-  //ReadBufferingStream Buffering_Stream(Drive->open("/"), 64); dont work, i don't know why
-
-  if (deserializeJson(Temporary_Json_Document, Temporary_File) == true)
-  {
-    return;
-  }
-
-  strcpy(Current_Username, Temporary_Json_Document["Current Username"]);
-
-  Temporary_File.close();
-  Drive->remove(F("/XILA/XILA.GRF"));
 }
 
 //---------------------------------------------------------------------------//

@@ -47,6 +47,10 @@ typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
 
+// System state
+#define SYSTEM_STATE_STANDALONE 1
+#define SYSTEM_STATE_NORMAL 0
+
 // Alignement
 #define STYLE_LEFT_ALIGNMENT 0
 #define STYLE_CENTER_ALIGNMENT 1
@@ -82,7 +86,9 @@ protected:
     const char Virtual_Global_Memory_File[36] = "/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
     const char Dump_Registry_Path[24] = "/XILA/REGISTRY/DUMP.XRF";
     const char System_Executable_Path[15] = "/XILA/XILA.XEF";
-    const char Clipboard_Path[28] = "/XILA/TEMPORARY/CLIPBOAR.XDF";
+    const char Clipboard_Path[29] = "/XILA/TEMPORARY/CLIPBOAR.XDF";
+    const char Startup_Sound_Path[25] = "/XILA/SOUNDS/STARTUP.WAV";
+
     // System extension :
     // GRF : Galax'OS Registry File
     // GEF : Galax'OS Executable File
@@ -158,14 +164,13 @@ public:
     void Check_Power_Button();
 
     // Software management
-
+   
     void Open_Software(Software_Handle_Class *);
     void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
     void Maximize_Software(uint8_t);
 
-    void Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path);
-
+    Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path);
     // Core APIs (system calls)
 
     void Open_File(File &);
@@ -262,6 +267,7 @@ public:
         Maximize = 'M',
         Minimize = 'm',
         Hiberrnate = 'H', // create dump
+        Installation_Wizard = 'I', // Open installation form
         Command = '*',
         Command_New = '#',
         Event = 'E',
@@ -357,13 +363,13 @@ private:
     uint8_t Split_Number[8];
 
 public:
-    Xila_Event Copy(uint64_t const& Value_To_Copy);
-    Xila_Event Copy(const char* Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
-    Xila_Event Copy(String const& String_To_Copy); // deprecated : only for compatibility purpose
+    Xila_Event Copy(uint64_t const &Value_To_Copy);
+    Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+    Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
 
     Xila_Event Paste(uint64_t &Value_To_Paste);
-    Xila_Event Paste(char* Char_Array_To_Paste, size_t Char_Array_Lenght);
-    Xila_Event Paste(String& String_To_Paste);
+    Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+    Xila_Event Paste(String &String_To_Paste);
 
     // Background jobs
 
