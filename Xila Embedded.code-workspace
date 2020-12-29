@@ -21,7 +21,8 @@
 			"random": "cpp",
 			"typeinfo": "cpp",
 			"cstdlib": "cpp",
-			"cmath": "cpp"
+			"cmath": "cpp",
+			"vector": "cpp"
 		}
 	}
 }

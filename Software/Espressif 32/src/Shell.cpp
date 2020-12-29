@@ -9,7 +9,7 @@ Shell_Class::Shell_Class() : Software_Class(6),
     memset(Username, '\0', sizeof(Username));
     memset(Password, '\0', sizeof(Password));
     xTaskCreatePinnedToCore(Main_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Software_Code::Maximize);
+    Execute(Xila.Maximize);
 }
 
 Shell_Class::~Shell_Class()
@@ -140,10 +140,6 @@ void Shell_Class::Install_Commands()
     default:
         break;
     }
-}
-
-void Shell_Class::Install()
-{
 }
 
 void Shell_Class::Main_Task(void *pvParameters)
@@ -399,17 +395,20 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'S'): // "OS" : Open system preferencies
         Instance_Pointer->Open_Preferences('S');
         break;
-    case Software_Code::Open: // open routine
-        Execute(Software_Code::Maximize);
+    case Xila.Open: // open routine
+        Execute(Xila.Maximize);
         break;
-    case Software_Code::Close: // close
+    case Xila.Close: // close
+        Xila.Display.Set_Current_Page(F("Shell_Load"));
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Shutdown"));
+        Xila.Display.Set_Text(F("LOAD_TXT"), F("Shutting down ..."));
         delete Instance_Pointer;
         vTaskDelete(NULL);
         break;
-    case Software_Code::Minimize: // minimize
+    case Xila.Minimize: // minimize
         vTaskSuspend(NULL);
         break;
-    case Software_Code::Maximize:
+    case Xila.Maximize:
         if (Xila.Power_Button_Counter == 1)
         {
             Instance_Pointer->Execute(0x534D);

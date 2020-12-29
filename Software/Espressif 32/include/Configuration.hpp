@@ -2,8 +2,12 @@
 #ifndef CONFIGURATION_HPP_INCLUDED
 #define CONFIGURATION_HPP_INCLUDED
 
-// 921600 / 115200
+// USB serial speed
 #define SERIAL_SPEED 115200
+
+// Software
+
+#define MAXIMUM_SOFTWARE 15
 
 // Pin configuration
 

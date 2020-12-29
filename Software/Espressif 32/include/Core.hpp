@@ -7,6 +7,8 @@
 //                          Include Necessary Libraries                       //
 //----------------------------------------------------------------------------//
 
+#include <vector>
+
 #include "Arduino.h"
 
 #if SD_MODE == 0
@@ -39,45 +41,11 @@
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
-//
-#define MAXIMUM_SOFTWARE 15
-
-// Page ID Index
-#define PAGE_SPLASH_A 0
-#define PAGE_SPLASH_B 1
-#define PAGE_ARDUINO_HOME 2
-#define PAGE_DESK 19
-#define PAGE_EVENT 20
-#define PAGE_IGOS 27
-#define PAGE_PIANO 38
-#define PAGE_MENU_1
-
-// Color
-
-#define COLOR_DARK_GREY 16904
-#define COLOR_LIGHT_GREY 33808
-#define COLOR_WHITE 65535
-
-// Event constant (used to interract with the event handler)
+// Event  (used to interract with the event handler)
 
 typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
-
-// Errors
-#define ERROR_FAILLED_TO_INTIALIZE_SD_CARD 10896
-#define ERROR_SOME_SYSTEM_FILES_ARE_MISSING 49361
-#define ERROR_SOME_SYSTEM_FILES_ARE_CORRUPTED 60041
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_MISSING 25814
-#define ERROR_SOME_USER_SETTINGS_FILES_ARE_CORRUPTED 12733
-#define ERROR_THE_FILE_DO_NOT_EXIST 7018
-#define ERROR_CANNOT_CREATE_SYSTEM_QUEUE 17496
-#define ERROR_UNEXPECTED_RETURN_COMMAND 46201
-#define ERROR_CANNOT_WRITE_DATA_TO_DISK_RAM 8942
-#define ERROR_INVALID_SOFTWARE_ID 4562
-#define ERROR_CANNOT_OPEN_REGISTRY_FILE 684
-#define ERROR_REGISTRY_FILE_DOES_NOT_EXIST 8404
-#define ERROR_TOO_MUCH_OPENNED_SOFTWARE 7519
 
 // Alignement
 #define STYLE_LEFT_ALIGNMENT 0
@@ -85,23 +53,11 @@ typedef tm Xila_Time;
 #define STYLE_RIGHT_ALIGNMENT 2
 #define STYLE_JUSTIFIED_ALIGNMENT 3
 
-// Nextion command
-#define CODE_COMMAND 0x2A                   // * : Command
-#define CODE_COMMAND_NEW 0x43               // # : Command
-#define CODE_VARIABLE_BYTE_LOCAL 0x62       // b : 1 byte
-#define CODE_VARIABLE_BYTE_GLOBAL 0x42      // B : 1 byte
-#define CODE_VARIABLE_INTEGER_LOCAL 0x69    // i : 2 bytes
-#define CODE_VARIABLE_INTEGER_GLOBAL 0x49   // I : 2 bytes
-#define CODE_VARIABLE_LONG_GLOBAL 0x4C      // L : 4 bytes
-#define CODE_VARIABLE_LONG_LOCAL 0x6C       // l : 4 bytes
-#define CODE_VARIABLE_LONG_LONG_GLOBAL 0x48 // H : 8 bytes
-#define CODE_VARIABLE_LONG_LONG_LOCAL 0x68  // h : 8 bytes
-#define CODE_VARIABLE_STRING_GLOBAL 0x53    // S : String (undefined size)
-#define CODE_VARIABLE_STRING_LOCAL 0x73     // s : String
-
 //----------------------------------------------------------------------------//
 //                         Define GalaxOS Core Class                          //
 //----------------------------------------------------------------------------//
+
+extern Software_Handle_Class Shell_Handle;
 
 class Xila_Class
 {
@@ -123,8 +79,9 @@ protected:
     const char Software_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
     const char Event_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
     const char Sound_Registry_Path[28] = "/XILA/REGISTRY/SOUND.XRF";
-    const char Virtual_Global_Memory_File[36] = "f/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
-    
+    const char Virtual_Global_Memory_File[36] = "/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
+    const char Dump_Registry_Path[24] = "/XILA/REGISTRY/DUMP.XRF";
+    const char System_Executable_Path[15]= "/XILA/XILA.XEF";
     // System extension :
     // GRF : Galax'OS Registry File
     // GEF : Galax'OS Executable File
@@ -162,19 +119,20 @@ protected:
     //User attribute
     char Current_Username[9];
 
-    Software_Class* Open_Software_Pointer[8];
+    Software_Class *Open_Software_Pointer[8];
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
-    // Open_Softwaer_Pointer[2 - 7] : Other openned software (still in ram)
+    // Open_Softwaer_Pointer[2 - 7] : Other openned software
 
-    Software_Handle_Class* Software_Handle_Pointer[MAXIMUM_SOFTWARE];
+    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
+    // Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle
 
     // Shell short cut
 
-    void* Shell_Return_Item;
+    void *Shell_Return_Item;
     Xila_Event Shell_Return;
     void Maximize_Shell();
-    void Execute_Shell(uint16_t const&);    
+    void Execute_Shell(uint16_t const &);
 
     // Display callback
     char Tag;
@@ -205,7 +163,7 @@ public:
     void Minimize_Software();
     void Maximize_Software(uint8_t);
 
-    void Load_Software_Handle(Software_Handle_Class* Software_Handle_Pointer_To_Add, const __FlashStringHelper* Header_Path);
+    void Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path);
 
     // Core APIs (system calls)
 
@@ -235,8 +193,7 @@ public:
     enum Color
     {
         Black,
-        White,
-        Grey,
+        White = 65535,
         Light_Grey = 33808,
         Dark_Grey = 16904,
         Red = 57344,
@@ -266,11 +223,22 @@ public:
     // WiFi
 
     // System state
-    void Start(); // public
+    void Start();                                                //start system in standard mode
+    void Start(Software_Handle_Class *Software_Handle_To_Start); // reload system from the dump file
 
-    void Shutdown(); // private
-    void Restart(); // private
-    void Load();     // private
+    void Shutdown();       // private
+    void Restart();        // private
+    void Load();           // private
+    void Load_From_Dump(); // restore curre
+
+    Xila_Event Load_Executable(File);
+
+    Xila_Event Create_Dump();
+    Xila_Event Load_Dump();
+
+    uint8_t System_State;
+
+    Software_Handle_Class* Software_Handle_To_Start;
 
     void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
     void Restore_System_State(); // private :
@@ -279,7 +247,6 @@ public:
     Xila_Time Time;
     time_t Now;
     char NTP_Server[32];
-    char Time_Zone[48];
 
     void Synchronise_Time();
     void Refresh_Header();
@@ -287,21 +254,24 @@ public:
 
     // Display callback functions
 
-    enum Code
+    enum Instruction
     {
-        Close = 0x43,       // 'C'
-        Maximize = 0x4D,    // 'M'
-        Minimize = 0x6D,    // 'm'
-        Switch = 0x53,      // 'S' : switch
-        Command = 0x2A,     // '*'
-        Command_New = 0x23, // '#'
-        Event = 0x45,
-        Variable_String_Local = 0x73,  // 's'
-        Variable_String_Global = 0x53, // 'S'
-        Variable_Char_Local = 0x63,    // 'c'
-        Variable_Char_Global = 0x42,   // 'C'
-        Variable_Long_Local = 0x6C,    // 'l'
-        Variable_Long_Global = 0x4C,   // 'L'
+        Open = 'O',
+        Close = 'C',
+        Maximize = 'M',
+        Minimize = 'm',
+        Command = '*',
+        Command_New = '#',
+        Event = 'E',
+        Variable_Byte_Local = 'b',
+        Variable_Byte_Global = 'B',
+        Variable_String_Local = 's',
+        Variable_String_Global = 'S',
+        Variable_Char_Local = 'c',
+        Variable_Char_Global = 'C',
+        Variable_Long_Local = 'l',
+        Variable_Long_Global = 'L',
+
     };
 
     // Serial communication macro
@@ -344,13 +314,11 @@ public:
     void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
     void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
-    
-
     Xila_Event Check_Credentials(const char *, const char *);
     Xila_Event Add_User(const char *, const char *);
     Xila_Event Delete_User(const char *, const char *);
     Xila_Event Change_Password(const char *, const char *, const char *);
-    Xila_Event Login(const char *Username_To_Check, const char *Password_To_Check);
+    Xila_Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
     Xila_Event Logout();
 
     // System dialogs
@@ -369,7 +337,7 @@ public:
         None = 0,
         Button_1 = 0x31, // Yes
         Button_2 = 0x32, // No
-        Button_3 = 0x33 // Cancel
+        Button_3 = 0x33  // Cancel
     };
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
@@ -377,16 +345,18 @@ public:
     SemaphoreHandle_t Dialog_Semaphore;
     Xila_Event Event_Reply;
 
-    Xila_Event Open_File_Dialog(File& File_To_Open);
-    Xila_Event Open_Folder_Dialog(File& Folder_To_Open);
-    Xila_Event Save_File_Dialog(File const&);
-
+    Xila_Event Open_File_Dialog(File &File_To_Open);
+    Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
+    Xila_Event Save_File_Dialog(File const &);
 
     // Copy paste
 
-    void *Copied_Data;
+    std::vector<char> Copied_Data;
 
-    Xila_Event Copy(uint32_t &Value_To_Copy);
+    size_t Size_Of_Coped_Data;
+
+    Xila_Event Copy(uint32_t& Value_To_Copy);
+    Xila_Event Copy(uint64_t& Value_To_Copy);
     Xila_Event Copy(const char *Char_Array_To_Copy);
     Xila_Event Copy(String &String_To_Copy); // deprecated : only for compatibility purpose
 

@@ -14,14 +14,6 @@ extern Xila_Class Xila;
 
 #define Instruction(x,y) (x * 256 + y) 
 
-enum Software_Code // System code used by the core to communicate
-{
-    Close = 0x0043,
-    Maximize = 0x004D,
-    Minimize = 0x006D,
-    Open = 0x004F
-};
-
 class Software_Class // Software class, used by the core in order to communicate with the software
 {
 protected:
@@ -40,7 +32,6 @@ protected:
 
     //API used by the core
 
-    void Close();    // Close
     void Maximize(); // Show
     void Minimize(); // Hide
 
@@ -62,6 +53,7 @@ class Software_Handle_Class //Software "descriptor" class, used interaly to load
 {
 protected:
     uint8_t Icon;
+    uint8_t Type;
     char Name[24]; //used to identify the software,
 
     Software_Class *(*Load_Function_Pointer)(); //function called by the core to load software and return loaded software (construct class, open executable etc...)
@@ -81,7 +73,13 @@ protected:
     friend class Shell_Class;
 
 public:
-    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdo));
+    enum Software_Type
+    {
+
+    };
+    
+    Software_Handle_Class();
+    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
     ~Software_Handle_Class();
 };
 
