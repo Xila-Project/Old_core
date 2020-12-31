@@ -13,10 +13,9 @@ protected:
 
     static Shell_Class *Instance_Pointer;
 
-    uint32_t Temporary_Variable[2];
+    uint32_t Temporary_Variable[4];
 
-    char Username[MAXIMUM_USERNAME_LENGHT + 1];
-    char Password[MAXIMUM_PASSWORD_LENGHT + 1];
+    char* Temporary_Char_Array[3];
 
     uint8_t Automatic_Login;
 

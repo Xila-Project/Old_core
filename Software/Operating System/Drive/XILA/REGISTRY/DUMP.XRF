@@ -1,12 +1,4 @@
 {
     "Registry": "Dump",
-    "Current User": "Alix",
-    "Number Software": 6,
-    "Software Handle":
-    {
-      "Name": ["soft1", "soft2", "soft3", "soft4", "soft5", "soft6"],
-      "Icon": [1,2,3,4,5,6],
-      "Type": [0,1,2,0,1,2]  
-    },
-    "Openned Software":["", "", "", "", "", ""]
+    "Current User": "Alix"
 }

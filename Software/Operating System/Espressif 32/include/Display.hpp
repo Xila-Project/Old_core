@@ -224,7 +224,7 @@ public:
     void Refresh_Current_Page();
 
     void Reboot();
-    uint8_t Update(File&);
+    uint8_t Update(File Update_File);
 
     friend void Nextion_Serial_Receive(void *pvParameters);
 };

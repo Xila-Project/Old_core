@@ -7,8 +7,6 @@
 //                          Include Necessary Libraries                       //
 //----------------------------------------------------------------------------//
 
-#include <vector>
-
 #include "Arduino.h"
 
 #if SD_MODE == 0
@@ -51,6 +49,10 @@ typedef tm Xila_Time;
 #define SYSTEM_STATE_STANDALONE 1
 #define SYSTEM_STATE_NORMAL 0
 
+// Software type
+#define SOFTWARE_EMBEDDED 0
+#define SOFTWARE_STANDALONE 1
+
 // Alignement
 #define STYLE_LEFT_ALIGNMENT 0
 #define STYLE_CENTER_ALIGNMENT 1
@@ -84,10 +86,14 @@ protected:
     const char Event_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
     const char Sound_Registry_Path[28] = "/XILA/REGISTRY/SOUND.XRF";
     const char Virtual_Global_Memory_File[36] = "/XILA/MEMORY/GLOBAL/VARIABLE.XSF";
-    const char Dump_Registry_Path[24] = "/XILA/REGISTRY/DUMP.XRF";
+
+    const char Software_Dump_Registry_Path[24] = "/XILA/REGISTRY/DUMP/SOFTWARE.XRF";
+
     const char System_Executable_Path[15] = "/XILA/XILA.XEF";
     const char Clipboard_Path[29] = "/XILA/TEMPORARY/CLIPBOAR.XDF";
     const char Startup_Sound_Path[25] = "/XILA/SOUNDS/STARTUP.WAV";
+    const char Display_Executable_Path[26] = "/XILA/EXECUTAB/XILA_D.XEF";
+    const char Microcontroller_Executable_Path[26] = "/XILA/EXECUTAB/XILA_M.XEF";
 
     // System extension :
     // GRF : Galax'OS Registry File
@@ -141,7 +147,7 @@ protected:
     void Maximize_Shell();
     void Execute_Shell(uint16_t const &);
 
-    // Display callback
+    // Display
     char Tag;
     static void Incomming_String_Data_From_Display(const char *, uint8_t);
     static void Incomming_Numeric_Data_From_Display(uint32_t &);
@@ -155,22 +161,35 @@ protected:
 
     uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
 
-public:
     // Power button
 
+public:
     static void IRAM_ATTR Power_Button_Handler();
+
+
     portMUX_TYPE Power_Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
+
+
     volatile uint8_t Power_Button_Counter;
+
+
     void Check_Power_Button();
 
     // Software management
-   
-    void Open_Software(Software_Handle_Class *);
-    void Close_Software(Software_Handle_Class * = NULL);
-    void Minimize_Software();
-    void Maximize_Software(uint8_t);
 
-    Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path);
+    inline void Rollback(); // go back to xila
+
+    inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const&);
+
+    void Open_Software(Software_Handle_Class const&);
+    Xila_Event Close_Software(Software_Handle_Class * = NULL);
+    Xila_Event Minimize_Software();
+    Xila_Event Maximize_Software(Software_Handle_Class const &);
+
+    Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Load, const __FlashStringHelper *Header_Path);
+
+    void Add_Software_Handle(Software_Handle_Class* Software_Handle_To_Add);
+
     // Core APIs (system calls)
 
     void Open_File(File &);
@@ -228,16 +247,26 @@ public:
 #endif
     // WiFi
 
+    Xila_Event WiFi_Connect();
+    Xila_Event WiFi_Connect(char* Name, char* Password);
+
     // System state
     void Start();                                                //start system in standard mode
     void Start(Software_Handle_Class *Software_Handle_To_Start); // reload system from the dump file
 
     void Shutdown();       // private
     void Restart();        // private
-    void Load();           // private
-    void Load_From_Dump(); // restore curre
 
-    Xila_Event Load_Executable(File);
+
+    Xila_Event Set_Regionnal_Registry(const char* NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Dayligh_Offset = 0xFFFF);
+    Xila_Event Set_Display_Registry(uint8_t Brighness, uint8_t Receive_Pin, uint8_t Send_Pin);
+    Xila_Event Set_Network_Registry(bool WiFi_Enabled, const char* WiFi_Name, const char* Password);
+    Xila_Event Set_Account_Registry(const char* Autologin_Account = NULL);
+    Xila_Event Set_System_Registry(const char* Device_Name);
+
+    Xila_Event Load_Executable(File, uint8_t Type = 'M');
+    // M for mcu
+    // D for display
 
     Xila_Event Create_Dump();
     Xila_Event Load_Dump();
@@ -266,8 +295,11 @@ public:
         Close = 'C',
         Maximize = 'M',
         Minimize = 'm',
-        Hiberrnate = 'H', // create dump
+        Hiberrnate = 'H',          // create dump
         Installation_Wizard = 'I', // Open installation form
+        Open_File_Dialog = 'f',
+        Open_Folder_Dialog = 'F',
+        Save_File_Dialog = 'e',
         Command = '*',
         Command_New = '#',
         Event = 'E',
@@ -352,9 +384,14 @@ public:
     SemaphoreHandle_t Dialog_Semaphore;
     Xila_Event Event_Reply;
 
-    Xila_Event Open_File_Dialog(File &File_To_Open);
-    Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
-    Xila_Event Save_File_Dialog(File const &);
+    Xila_Event File_Dialog(File &File_To_Open);
+    Xila_Event Folder_Dialog(File &Folder_To_Open);
+    Xila_Event File_Dialog(File const &);
+
+    Xila_Event Set_Autologin();
+
+    uint16_t Display_Standby_Time;
+    uint32_t System_Standby_Time;
 
     // Copy paste
 

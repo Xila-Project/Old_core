@@ -1,6 +1,8 @@
-#include <Arduino.h>
+#include "Ultrasonic.hpp"
 
 void setup() {
+
+  Start(&Ultrasonic_Handle);
   // put your setup code here, to run once:
 }
 

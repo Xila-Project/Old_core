@@ -693,9 +693,8 @@ void Nextion_Display_Class::Set_Standby_Touch_Timer(uint16_t const &Value)
     Instruction_End();
 }
 
-uint8_t Nextion_Display_Class::Update(File &Update_File)
+uint8_t Nextion_Display_Class::Update(File Update_File)
 {
-    File Temporary_File = Update_File;
     Set_Brightness(100);
     Set_Standby_Serial_Timer(0);
     Set_Standby_Touch_Timer(0);
@@ -731,7 +730,7 @@ uint8_t Nextion_Display_Class::Update(File &Update_File)
         Nextion_Serial.read();
     }
 
-    size_t Size = Temporary_File.size();
+    size_t Size = Update_File.size();
 
     Nextion_Serial.print(F("whmi-wri "));
     Nextion_Serial.print(Size);
@@ -744,9 +743,9 @@ uint8_t Nextion_Display_Class::Update(File &Update_File)
     char Temporary_Buffer[4097];
     memset(Temporary_Buffer, 0, sizeof(Temporary_Buffer));
 
-    while (Temporary_File.available() >= 4096)
+    while (Update_File.available() >= 4096)
     {
-        Temporary_File.readBytes(Temporary_Buffer, 4096);
+        Update_File.readBytes(Temporary_Buffer, 4096);
         while (Nextion_Serial.available() == 0)
         {
             vTaskDelay(pdMS_TO_TICKS(5));
@@ -759,7 +758,7 @@ uint8_t Nextion_Display_Class::Update(File &Update_File)
         Nextion_Serial.print(Temporary_Buffer);
     }
     memset(Temporary_Buffer, 0, sizeof(Temporary_Buffer));
-    Temporary_File.readBytes(Temporary_Buffer, Temporary_File.available());
+    Update_File.readBytes(Temporary_Buffer, Update_File.available());
     while (Nextion_Serial.available() == 0)
     {
         vTaskDelay(pdMS_TO_TICKS(5));

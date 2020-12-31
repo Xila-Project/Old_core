@@ -6,10 +6,8 @@ Shell_Class::Shell_Class() : Software_Class(6),
                              Mode(0)
 {
     Handle_Pointer = &Shell_Handle;
-    memset(Username, '\0', sizeof(Username));
-    memset(Password, '\0', sizeof(Password));
     xTaskCreatePinnedToCore(Main_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Xila.Maximize);
+    Execute(Xila.Open);
 }
 
 Shell_Class::~Shell_Class()
@@ -28,7 +26,7 @@ Software_Class *Shell_Class::Load()
 
 void Shell_Class::Startup()
 {
-    Xila.Open_Software(&Shell_Handle);
+    Xila.Open_Software(Shell_Handle);
     Verbose_Print_Line(F("> Open_Shell"));
 }
 
@@ -46,7 +44,47 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
             Temporary_Variable[1] = (uint32_t)Variable;
             break;
         case 'A': // Autologin
-            Temporary_Variable[0] = (uint8_t)Variable;
+            Temporary_Variable[2] = (uint8_t)Variable;
+            break;
+        case 'D':
+            if (Temporary_Char_Array[0] != NULL)
+            {
+                delete[] Temporary_Char_Array[0];
+            }
+            Temporary_Char_Array[0] = new char[25];
+            strcpy(Temporary_Char_Array[0], (char *)Variable);
+            break;
+        case 'U':
+            if (Temporary_Char_Array[1] != NULL)
+            {
+                delete[] Temporary_Char_Array[1];
+            }
+            Temporary_Char_Array[1] = new char[9];
+            strcpy(Temporary_Char_Array[1], (char *)Variable);
+            break;
+        case 'P':
+            if (Temporary_Char_Array[2] != NULL)
+            {
+                delete[] Temporary_Char_Array[2];
+            }
+            Temporary_Char_Array[2] = new char[25];
+            strcpy(Temporary_Char_Array[2], (char *)Variable);
+            break;
+        case 's':
+            if (Temporary_Char_Array[0] != NULL)
+            {
+                delete[] Temporary_Char_Array[0];
+            }
+            Temporary_Char_Array[0] = new char[33];
+            strcpy(Temporary_Char_Array[0], (char *)Variable);
+            break;
+        case 'p':
+            if (Temporary_Char_Array[1] != NULL)
+            {
+                delete[] Temporary_Char_Array[1];
+            }
+            Temporary_Char_Array[1] = new char[81];
+            strcpy(Temporary_Char_Array[1], (char *)Variable);
             break;
         default:
             break;
@@ -55,33 +93,56 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Preferences_Personal:
         switch (Adress)
         {
-            case 'C':
-                Temporary_Variable[0] = (uint32_t)Variable;
-                break;
+        case 'C':
+            Temporary_Variable[0] = *(uint32_t *)Variable;
+            break;
+        default:
+            break;
+        }
+        break;
+    case Preferences_Hardware:
+        switch (Adress)
+        {
+        case 'B':
+            Temporary_Variable[0] = *(uint8_t *)Variable;
+            break;
+        case 'V':
+            Temporary_Variable[1] = *(uint8_t *)Variable;
+            break;
+        case 's':
+            Temporary_Variable[2] = *(uint16_t *)Variable;
+            break;
+        case 'S':
+            Temporary_Variable[3] = *(uint32_t *)Variable;
+            break;
+        default:
+            break;
+        }
+        break;
+    case Preferences_Network:
+        switch (Adress)
+        {
+        case 'N':
+            if (Temporary_Char_Array[0] != NULL)
+            {
+                delete[] Temporary_Char_Array[0];
+            }
+            Temporary_Char_Array[0] = new char[33];
+            strcpy(Temporary_Char_Array[0], (char *)Variable);
+            break;
+        case 'P':
+            if (Temporary_Char_Array[1] != NULL)
+            {
+                delete[] Temporary_Char_Array[1];
+            }
+            Temporary_Char_Array[1] = new char[81];
+            strcpy(Temporary_Char_Array[1], (char *)Variable);
+            break;
+        default:
+            break;
         }
         break;
     default:
-        break;
-    }
-    switch (Adress)
-    {
-    case 'U':
-        strcpy(Username, (char *)Variable);
-        break;
-    case 'D':
-        if (Type == Xila.Variable_Long_Local)
-        {
-        }
-        break;
-    case 'P':
-        if (Type == Xila.Variable_String_Local)
-        {
-            Current_Path = *(String *)Variable;
-        }
-        else
-        {
-            strcpy(Password, (char *)Variable);
-        }
         break;
     }
 }
@@ -90,52 +151,63 @@ void Shell_Class::Install_Commands()
 {
     switch (Get_Command())
     {
+    case Instruction('I', 'P'):
+        Xila.Event_Dialog(F("Entered passwords does not match."), Xila.Error);
+        Xila.Display.Set_Current_Page(F("Shell_Install"));
+        break;
     case Instruction('Q', 'u'):
         if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
         {
-            Xila.Display.Set_Current_Page(F("Shell_Install"));
             return;
         }
+        Xila.Display.Set_Current_Page(F("Shell_Install"));
         break;
-    case Instruction('S', 'R'):
+    case Instruction('C', 'o'):
     {
-        Temporary_File = Xila.Drive->open(Xila.Regional_Registry_Path, FILE_WRITE);
-        DynamicJsonDocument Regional_Registry(256);
-        if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+        if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
         {
-            Xila.Event_Dialog(F("Cannot set the regionnal registry."), Xila.Error);
-            break;
+            // Regional preferences
+            if (Xila.Set_Regionnal_Registry(NULL, Temporary_Variable[0], Temporary_Variable[1]) != Xila.Success)
+            {
+                Xila.Event_Dialog(F("Cannot set the regional preferences."), Xila.Error);
+                Xila.Display.Set_Current_Page(F("Shell_Install"));
+            }
+            // User account preferences
+            if (Temporary_Variable[2] != 0)
+            {
+                if (Xila.Set_Account_Registry(Temporary_Char_Array[1]) != Xila.Success)
+                {
+                    Xila.Event_Dialog(F("Cannot set the account registry."), Xila.Error);
+                    Xila.Display.Set_Current_Page(F("Shell_Install"));
+                }
+            }
+            if (Xila.Add_User(Temporary_Char_Array[1], Temporary_Char_Array[2]) != Xila.Success)
+            {
+                Xila.Event_Dialog(F("Cannot create the user account."), Xila.Error);
+                Xila.Display.Set_Current_Page(F("Shell_Install"));
+                break;
+            }
+            delete[] Temporary_Char_Array[0];
+            delete[] Temporary_Char_Array[1];
+            delete[] Temporary_Char_Array[2];
+            Temporary_Char_Array[0] = NULL;
+            Temporary_Char_Array[1] = NULL;
+            Temporary_Char_Array[2] = NULL;
+            Login();
         }
-        Regional_Registry["Time"]["GMT Offset"] = Temporary_Variable[0];
-        Regional_Registry["Time"]["Daylight Offset"] = Temporary_Variable[1];
-        serializeJson(Regional_Registry, Temporary_File);
-        Temporary_File.close();
     }
     break;
-    case Instruction('C', 'U'):
-    {
-        Temporary_File = Xila.Drive->open(Xila.Account_Registry_Path, FILE_WRITE);
-        DynamicJsonDocument Account_Registry(256);
-        if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+    case Instruction('W', 'C'): // WiFi connect
+        if (Xila.WiFi_Connect(Temporary_Char_Array[0], Temporary_Char_Array[1]) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Cannot set the account registry."), Xila.Error);
+            Xila.Event_Dialog(F("Failed to connect to the WiFi network."), Xila.Error);
+            Xila.Display.Set_Current_Page(F("Shell_Install"));
         }
         else
         {
-            strcpy(Account_Registry["Autologin"], Username);
-            serializeJson(Account_Registry, Temporary_File);
+            Xila.Event_Dialog(F("Succed to connect to the WiFi Network"), Xila.Information);
+            Xila.Display.Set_Current_Page(F("Shell_Install"));
         }
-        Temporary_File.close();
-        if (Xila.Add_User(Username, Password) != Xila.Success)
-        {
-            Xila.Event_Dialog(F("Cannot create the user account."), Xila.Error);
-            break;
-        }
-        Login();
-    }
-    break;
-    case Instruction('I', 'n'):
-        Xila.Display.Set_Current_Page(F("Shell_Install"));
         break;
     default:
         break;
@@ -292,32 +364,95 @@ void Shell_Class::Drawer_Commands()
     }
 }
 
+void Shell_Class::Preferences_Network_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case Instruction('W', 'C'):
+        if (Xila.WiFi_Connect(Temporary_Char_Array[0], Temporary_Char_Array[1]) != Xila.Success)
+        {
+            Xila.Event_Dialog(F("Failed to connect to the WiFi Network."), Xila.Error);
+            Xila.Display.Set_Current_Page(F("Shell_Network"));
+        }
+        delete[] Temporary_Char_Array[0];
+        delete[] Temporary_Char_Array[1];
+        Temporary_Char_Array[0] = NULL;
+        Temporary_Char_Array[1] = NULL;
+        break;
+    case Instruction('W', 'A'):
+        WiFi.disconnect();
+        WiFi.softAP(Temporary_Char_Array[0], Temporary_Char_Array[1]);
+        delete[] Temporary_Char_Array[0];
+        delete[] Temporary_Char_Array[1];
+        Temporary_Char_Array[0] = NULL;
+        Temporary_Char_Array[1] = NULL;
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
 void Shell_Class::Preferences_Personal_Commands()
 {
     Current_Command = Get_Command();
     switch (Current_Command)
     {
-        case 0:
-            Idle();
-            break;
-        case Instruction('S', 'P'):
-            {
-                DynamicJsonDocument Shell_Registry(256);
-                Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username), FILE_WRITE);
-                if (deserializeJson(Shell_Registry, Temporary_File) != DeserializationError::Ok)
-                {
-                    Xila.Event_Dialog(F("Cannot set the user shell registry."), Xila.Error);
-                    Open_Preferences('P');
-                }
-                else
-                {
-                    Shell_Registry["Color"] = (uint16_t)Temporary_Variable[0];
-                }
-            }
-            break;
-        default:
-            Main_Commands();
-            break;
+    case Instruction('S', 'P'):
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+void Shell_Class::Preferences_Hardware_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case Instruction('D', 'C'):
+        Xila.Display.Calibrate();
+        break;
+    case Instruction('S', 'H'):
+        Xila.Display.Set_Brightness((uint8_t)Temporary_Variable[0]);
+        Xila.Sound.Set_Volume((uint8_t)Temporary_Variable[1]);
+        Xila.Display_Standby_Time = (uint16_t)Temporary_Variable[2];
+        Xila.System_Standby_Time = Temporary_Variable[3];
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+void Shell_Class::Preferences_Personal_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case 0:
+        Idle();
+        break;
+    case Instruction('S', 'P'):
+    {
+        DynamicJsonDocument Shell_Registry(256);
+        Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username), FILE_WRITE);
+        if (deserializeJson(Shell_Registry, Temporary_File) != DeserializationError::Ok)
+        {
+            Xila.Event_Dialog(F("Cannot set the user shell registry."), Xila.Error);
+            Open_Preferences('P');
+        }
+        else
+        {
+            Shell_Registry["Color"] = (uint16_t)Temporary_Variable[0];
+        }
+    }
+    break;
+    default:
+        Main_Commands();
+        break;
     }
 }
 
@@ -367,20 +502,23 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'A'): // Open about xila
         Xila.Display.Set_Current_Page(F("Shell_About"));
         break;
-    case Xila.Open_File:
-        File_Manager_Mode = Xila.Open_File;
+    case Xila.Installation_Wizard:
+        Xila.Display.Set_Current_Page(F("Shell_Install"));
+        break;
+    case Xila.Open_File_Dialog:
+        File_Manager_Mode = Xila.Open_File_Dialog;
         Open_File_Manager();
         break;
-    case Xila.Open_Folder:
-        File_Manager_Mode = Xila.Open_Folder;
+    case Xila.Open_Folder_Dialog:
+        File_Manager_Mode = Xila.Open_Folder_Dialog;
         Open_File_Manager();
         break;
-    case Xila.Save_File:
-        File_Manager_Mode = Xila.Save_File;
+    case Xila.Save_File_Dialog:
+        File_Manager_Mode = Xila.Save_File_Dialog;
         Open_File_Manager();
         break;
     case 0x4F46: // "OF" : Open file manager
-        Open_File_Manager = 0;
+        File_Manager_Mode = 0;
         Open_File_Manager();
         break;
     case Instruction('O', 'P'): // "OP" : Open preferiencies (default : personnal)

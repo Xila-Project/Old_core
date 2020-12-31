@@ -63,19 +63,32 @@ protected:
 
     //char* Get_Name();
 
-    friend class Xila_Class;
-    friend class Software_Class;
-    friend class Shell_Class;
+    
 
 public:
+
+    bool Is_Equal(Software_Handle_Class const& Software_Handle_To_Compare) const;
+
+    void From_Char_Array(const char* Char_Array);
+    void To_Char_Array(char* Char_Array);
+
+    
+
     enum Software_Type
     {
 
     };
     
     Software_Handle_Class();
-    Software_Handle_Class(char const *Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
+    Software_Handle_Class(const char* Char_Array);
+    Software_Handle_Class(const char* Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
     ~Software_Handle_Class();
+
+    friend class Xila_Class;
+    friend class Software_Class;
+    friend class Shell_Class;
 };
+
+bool operator==(Software_Handle_Class const& a, Software_Handle_Class const& b);
 
 #endif

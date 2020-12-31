@@ -16,9 +16,10 @@ Xila_Class::Xila_Class() : Tag(0),
                            Battery(13, 47, 47),
                            Keyboard(2, 6),
                            Event_Reply(None),
-                           Background_Function_Counter(0)
+                           Background_Function_Counter(0),
 
 {
+  System_State = 0;
   if (Instance_Pointer != NULL)
   {
     // something went wrong
@@ -37,8 +38,8 @@ Xila_Class::Xila_Class() : Tag(0),
 
   memset(Current_Username, '\0', sizeof(Current_Username));
 
-  memset(Open_Software_Pointer, NULL, sizeof(Open_Software_Pointer) / sizeof(Open_Software_Pointer[1]));
-  memset(Software_Handle_Pointer, NULL, sizeof(Software_Handle_Pointer) / sizeof(Software_Handle_Pointer[1]));
+  memset(Open_Software_Pointer, NULL, sizeof(Open_Software_Pointer));
+  memset(Software_Handle_Pointer, NULL, sizeof(Software_Handle_Pointer));
 
   memset(Device_Name, '\0', sizeof(Device_Name));
 
@@ -80,6 +81,67 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 {
   // Restore attribute
   System_State = 1;
+
+  File Temporary_File = Drive->open(Software_Dump_Registry_Path);
+  char Temporary_Char_Array[26];
+
+  uint16_t File_Position = 0;
+
+  uint8_t i = 2;
+  while (Temporary_File.available() < (6 * sizeof(Temporary_Char_Array)))
+  {
+    Temporary_File.seek(File_Position);
+    if (Temporary_File.peek() != '\0')
+    {
+      Temporary_File.readBytes(Temporary_Char_Array, sizeof(Temporary_Char_Array));
+      Open_Software_Pointer[i] = new Software_Class(0);
+      Open_Software_Pointer[i]->Handle_Pointer = new Software_Handle_Class(Temporary_Char_Array);
+    }
+    File_Position += sizeof(Temporary_Char_Array);
+    i++;
+  }
+
+  File_Position = 6 * sizeof(Temporary_Char_Array);
+  i = 0;
+  Software_Handle_Class Temporary_Software_Handle;
+  while (Temporary_File.available())
+  {
+    Temporary_File.seek(File_Position);
+    Temporary_File.readBytes(Temporary_Char_Array, sizeof(Temporary_Char_Array));
+    Temporary_Software_Handle.From_Char_Array(Temporary_Char_Array);
+    if (Seek_Open_Software_Handle(Temporary_Software_Handle) != 0)
+    {
+      Software_Handle_Pointer[i] = Open_Software_Pointer[Seek_Open_Software_Handle(Temporary_Software_Handle)]->Handle_Pointer;
+    }
+    else
+    {
+      Add_Software_Handle(new Software_Handle_Class(Temporary_Char_Array));
+    }
+    File_Position += sizeof(Temporary_Char_Array);
+    i++;
+  }
+
+  Temporary_File.close();
+
+  strcpy(Current_Username, Dump_Registry["Current User"])
+
+  {
+    uint8_t Number_Software = Dump_Registry["Number Software"];
+    for (uint8_t i = 0; i <= Number_Software; i++)
+    {
+      Software_Handle_Pointer[i] = new Software_Handle_Class();
+      strcpy(Software_Handle_Pointer[i]->Name, Software_Name[i]);
+      Software_Handle_Pointer[i]->Icon = Software_Icon[i];
+      Software_Handle_Pointer[i]->Type = Software_Type[i];
+    }
+  }
+  {
+
+  }
+
+  (*Shell_Handle.Startup_Function_Pointer)();
+  vTaskDelay(pdMS_TO_TICKS(500));
+  Open_Software(*Software_Handle_To_Start);
 
   xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
 }
@@ -161,8 +223,26 @@ void Xila_Class::Start()
       {
         Display.Set_Text(F("EVENT_TXT"), "Incompatible installation.");
       }
-      Installation_State = System_Registry["State"];
+      Installation_State = System_Registry["State"] | 0;
+      if (Installation_State != 0)
+      {
+        Temporary_File.close();
+        Temporary_File = Drive->open(Display_Executable_Path);
+        if (Display.Update(Temporary_File) != Display.Update_Succeed)
+        {
+          Verbose_Print("Display update failed");
+          ESP.restart();
+        }
+        Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
+        Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
+        Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+        Display.Begin();
+        Display.Wake_Up();
+        Display.Set_Current_Page(F("Core_Load")); // Play animation
+        Display.Set_Trigger(F("LOAD_TIM"), true);
+      }
     }
+    Temporary_File.close();
   }
 
   {
@@ -174,7 +254,7 @@ void Xila_Class::Start()
     //Display.Set_Baud_Rate(Display_Registry["Baud Rate"] | 921600, false);
   }
 
-  // Sound load
+  // Sound driver load
   {
     Temporary_File = Drive->open(Sound_Registry_Path);
     DynamicJsonDocument Sound_Registry(256);
@@ -183,43 +263,16 @@ void Xila_Class::Start()
     Temporary_File.close();
   }
 
+  // Play sound
   Temporary_File = Drive->open(Startup_Sound_Path);
   Sound.Play(Temporary_File);
 
   // Load network configuration
-  {
-    Verbose_Print_Line("> Load network registry ...");
-    Temporary_File = Drive->open(Network_Registry_Path);
-    if (!Temporary_File)
-    {
-      // error handle
-    }
-    DynamicJsonDocument Network_Registry(256);
-    deserializeJson(Network_Registry, Temporary_File);
-    // WiFi :
-    WiFi.setHostname(Device_Name); // Set hostname
-    JsonArray Name_Array = Network_Registry["WiFi"]["Names"];
-    JsonArray Password_Array = Network_Registry["WiFi"]["Passwords"];
-    char Name[32], Password[32];
-    for (uint8_t i = 0; i < Name_Array.size(); i++)
-    {
-      strcpy(Name, Name_Array[i]);
-      strcpy(Password, Password_Array[i]);
-      WiFi.setAutoConnect(false);
-      WiFi.begin(Name, Password);
-      while (WiFi.status() != WL_CONNECTED && i < 50)
-      {
-        vTaskDelay(pdMS_TO_TICKS(100));
-        i++;
-      }
-      if (WiFi.status() == WL_CONNECTED)
-      {
-        Verbose_Print_Line("> WiFi connected");
-        break;
-      }
-    }
-    Temporary_File.close();
-  }
+  Verbose_Print_Line("> Load network registry ...");
+
+  // WiFi :
+  WiFi.setHostname(Device_Name); // Set hostname
+  WiFi_Connect();
 
   // Set Regional Parameters
   {
@@ -260,80 +313,157 @@ void Xila_Class::Start()
   extern Software_Handle_Class Periodic_Handle;
   extern Software_Handle_Class Clock_Handle;
 
-  Load_Software_Handle(&Oscilloscope_Handle, F("/SOFTWARE/OSCOPE/OSCOPE.GRF"));
-  Load_Software_Handle(&Paint_Handle, F("/SOFTWARE/PAINT/PAINT.GRF"));
-  Load_Software_Handle(&Calculator_Handle, F("/SOFTWARE/CALCATOR/CALCATOR.GRF"));
-  Load_Software_Handle(&TinyBasic_Handle, F("/SOFTWARE/TINYBASI/TINYBASI.GRF"));
-  Load_Software_Handle(&Internet_Browser_Handle, F("/SOFTWARE/INTEBROW/INTEBROW.GRF"));
-  Load_Software_Handle(&Music_Player_Handle, F("/SOFTWARE/MUSICPLA/MUSICPLA.GRF"));
-  Load_Software_Handle(&Piano_Handle, F("/SOFTWARE/PIANO/PIANO.GRF"));
-  Load_Software_Handle(&Pong_Handle, F("/SOFTWARE/PONG/PONG.GRF"));
+  Load_Software_Handle(&Calculator_Handle, F("/SOFTWARE/CALCULAT/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Clock_Handle, F("/SOFTWARE/CLOCK/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Internet_Browser_Handle, F("/SOFTWARE/INTERNET/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Music_Player_Handle, F("/SOFTWARE/MUSICPLA/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Oscilloscope_Handle, F("/SOFTWARE/OSCOPE/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Periodic_Handle, F("/SOFTWARE/PERIODIC/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Piano_Handle, F("/SOFTWARE/PIANO/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Pong_Handle, F("/SOFTWARE/PONG/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Paint_Handle, F("/SOFTWARE/PAINT/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Signal_Generator_Handle, F("/SOFTWARE/SIGNAL/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&Text_Editor_Handle, F("/SOFTWARE/TEXTEDIT/REGISTRY/SOFTWARE.GRF"));
+  Load_Software_Handle(&TinyBasic_Handle, F("/SOFTWARE/TINYBASI/REGISTRY/SOFTWARE.GRF"));
 
-  Software_Handle_Pointer[0] = &Executable_Loader_Handle;
-  Software_Handle_Pointer[1] = &Shell_Handle;
-  Software_Handle_Pointer[2] = &Paint_Handle;
-  Software_Handle_Pointer[3] = &Calculator_Handle;
-  Software_Handle_Pointer[4] = &TinyBasic_Handle;
-  Software_Handle_Pointer[5] = &Internet_Browser_Handle;
-  Software_Handle_Pointer[6] = &Music_Player_Handle;
-  Software_Handle_Pointer[7] = &Piano_Handle;
-  Software_Handle_Pointer[9] = &Pong_Handle;
-  Software_Handle_Pointer[10] = &Signal_Generator_Handle;
-  Software_Handle_Pointer[11] = &Oscilloscope_Handle;
-  Software_Handle_Pointer[12] = &Text_Editor_Handle;
-  Software_Handle_Pointer[13] = &Periodic_Handle;
-  Software_Handle_Pointer[14] = &Clock_Handle;
+  (*Shell_Handle.Startup_Function_Pointer)();
 
-  File Software_Directory = Drive->open("/SOFTWARE");
-  while (1)
+  if (Installation_State == 1)
   {
-    Temporary_File = Software_Directory.openNextFile();
-    if (!Temporary_File)
+    Open_Software_Pointer[1]->Execute(Installation_Wizard);
+  }
+  else
+  {
+    for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
     {
-      break;
-    }
-    else if (Temporary_File.isDirectory())
-    {
-      if (Drive->exists("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF"))
+      if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
       {
-        Temporary_File = Drive->open("/SOFTWARE/" + String(Temporary_File.name()) + "/REGISTRY/SOFTWARE.GRF");
-        if (Temporary_File)
-        {
-          DynamicJsonDocument Software_Registry(256);
-          if (deserializeJson(Software_Registry, Temporary_File) == DeserializationError::Ok)
-          {
-            for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-            {
-              if (Software_Handle_Pointer[i] == NULL)
-              {
-                Software_Handle_Pointer[i]
-              }
-            }
-            Add_Software_Handle(new Software_Handle_Class(Software_Registry["Name"], Software_Registry["Picture"], NULL));
-          }
-        }
+        (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
       }
     }
   }
 
-  if (Installation_State == 1)
-  {
-    Execute(Installation_Wizard);
-  }
-
   // Execute startup function of each software
-
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-    if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
-    {
-      (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
-    }
-  }
 
   vTaskDelay(pdMS_TO_TICKS(3000));
   Display.Set_Value(F("STATE_VAR"), 2);
   vTaskDelay(pdMS_TO_TICKS(1200));
+}
+
+Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Dayligh_Offset)
+{
+  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Regional_Registry(256);
+  if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    return Error;
+  }
+  JsonObject Time = Regional_Registry["Time"];
+  if (GMT_Offset != 0xFFFFFFFF)
+  {
+    Time["GMT Offset"] = GMT_Offset;
+  }
+  if (Dayligh_Offset != 0xFFFF)
+  {
+    Time["Time"]["Daylight Offset"] = Dayligh_Offset;
+  }
+  if (NTP_Server != NULL)
+  {
+    Time["NTP Server"] = NTP_Server;
+  }
+  serializeJson(Regional_Registry, Temporary_File);
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Set_Account_Registry(const char *Autologin_Account)
+{
+  if (Autologin_Account == NULL)
+  {
+    return Xila.Success;
+  }
+  File Temporary_File = Drive->open(Account_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Account_Registry(256);
+  if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    return Error;
+  }
+  Account_Registry["Autologin"] = Autologin_Account;
+  serializeJson(Account_Registry, Temporary_File);
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::WiFi_Connect()
+{
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    return Success;
+  }
+  File Temporary_File = Drive->open(Network_Registry_Path);
+  if (!Temporary_File)
+  {
+    return Error;
+  }
+  DynamicJsonDocument Network_Registry(512);
+  deserializeJson(Network_Registry, Temporary_File);
+  JsonObject WiFi_Registry = Network_Registry["WiFi"];
+  char Name[33];
+  char Password[81];
+  strlcpy(Name, WiFi_Registry["Name"], sizeof(Name));
+  strlcpy(Password, WiFi_Registry["Password"], sizeof(Password));
+  WiFi.setAutoConnect(false);
+  WiFi.begin(Name, Password);
+  for (uint8_t i = 0; i <= 50; i++)
+  {
+    if (i == 50)
+    {
+      return Error;
+    }
+    else if (WiFi.status() == WL_CONNECTED)
+    {
+      break;
+    }
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+/**
+ * Try to connect to a WiFi access point, if succed, save parameters to the Network Registry.
+ * @param Name  Pointer to the WiFi access point name.
+ * @param Password Char array pointer to the WiFi access point password.
+*/
+Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
+{
+  WiFi.setAutoConnect(false);
+  WiFi.begin(Name, Password);
+  for (uint8_t i = 0; i <= 50; i++)
+  {
+    if (i == 50)
+    {
+      return Error;
+    }
+    else if (WiFi.status() == WL_CONNECTED)
+    {
+      break;
+    }
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+  File Temporary_File = Drive->open(Network_Registry_Path);
+  if (!Temporary_File)
+  {
+    return Error;
+  }
+  DynamicJsonDocument Network_Registry(512);
+  deserializeJson(Network_Registry, Temporary_File);
+  JsonObject WiFi = Network_Registry["WiFi"];
+  WiFi["Name"] = Name;
+  WiFi["Password"] = Password;
+  serializeJson(Network_Registry, Temporary_File);
+  Temporary_File.close();
+  return Success;
 }
 
 void Xila_Class::Shutdown()
@@ -397,65 +527,6 @@ void Xila_Class::Restart()
   Close_Software(Open_Software_Pointer[1]->Handle_Pointer);
 
   esp_restart();
-}
-
-void Xila_Class::Load_From_Dump()
-{
-  File Temporary_File = Drive->open(Dump_Registry_Path);
-  DynamicJsonDocument Dump_Registry(1024);
-  if (deserializeJson(Dump_Registry, Temporary_File) != DeserializationError::Ok)
-  {
-    Drive->remove(Dump_Registry_Path);
-    Load_Executable(Drive->open(System_Executable_Path));
-  }
-  if (strcmp(Dump_Registry["Registry"], "Dump") != 0)
-  {
-    Verbose_Print_Line(F("Invalid registry"));
-  }
-  strcpy(Current_Username, Dump_Registry["Current User"]);
-
-  {
-    uint8_t Number_Software = Dump_Registry["Number Software"];
-    JsonArray Software_Name = Dump_Registry["Software Handle"]["Name"];
-    JsonArray Software_Icon = Dump_Registry["Software Handle"]["Icon"];
-    JsonArray Software_Type = Dump_Registry["Software Handle"]["Type"];
-    for (uint8_t i = 0; i <= Number_Software; i++)
-    {
-      Software_Handle_Pointer[i] = new Software_Handle_Class();
-      strcpy(Software_Handle_Pointer[i]->Name, Software_Name[i]);
-      Software_Handle_Pointer[i]->Icon = Software_Icon[i];
-      Software_Handle_Pointer[i]->Type = Software_Type[i];
-    }
-  }
-  {
-    JsonArray Openned_Software = Dump_Registry["Openned Software"];
-    for (uint8_t i = 0; i < 6; i++)
-    {
-      if (strcmp(Openned_Software[i], "") == 0)
-      {
-        Openned_Software[i] = NULL;
-      }
-      else
-      {
-        for (uint8_t j = 0; j < MAXIMUM_SOFTWARE; j++)
-        {
-          if (Software_Handle_Pointer != NULL && strcmp(Software_Handle_Pointer[j]->Name, Openned_Software[i]) == 0)
-          {
-            Openned_Software[i] = Software_Handle_Pointer[j];
-            break;
-          }
-        }
-      }
-    }
-  }
-
-  Open_Software(&Shell_Handle);
-  vTaskDelay(pdMS_TO_TICKS(500));
-  Open_Software(Software_Handle_To_Start);
-}
-
-void Xila_Class::Load()
-{
 }
 
 Xila_Event Xila_Class::Create_Dump()
@@ -582,17 +653,17 @@ Xila_Event Xila_Class::Paste(String &String_To_Paste)
   return Success;
 }
 
-Xila_Event Xila_Class::Load_Executable(File Binary_To_Load)
+Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 {
-  if (!Binary_To_Load)
+  if (!Executable_File)
   {
     return Error;
   }
-  if (Binary_To_Load.isDirectory())
+  if (Executable_File.isDirectory())
   {
     return Error;
   }
-  if (Binary_To_Load.size() == 0)
+  if (Executable_File.size() == 0)
   {
     return Error;
   }
@@ -600,12 +671,12 @@ Xila_Event Xila_Class::Load_Executable(File Binary_To_Load)
   {
     return Error;
   }
-  if (!Update.begin(Binary_To_Load.size()))
+  if (!Update.begin(Executable_File.size()))
   {
     return Error;
   }
-  size_t Written = Update.writeStream(Binary_To_Load);
-  if (Written != Binary_To_Load.size())
+  size_t Written = Update.writeStream(Executable_File);
+  if (Written != Executable_File.size())
   {
     return Error;
   }
@@ -617,7 +688,6 @@ Xila_Event Xila_Class::Load_Executable(File Binary_To_Load)
   {
     return Error;
   }
-
   if (Open_Software_Pointer[0] != NULL)
   {
     vTaskResume(Open_Software_Pointer[0]->Task_Handle);
@@ -653,8 +723,8 @@ Xila_Event Xila_Class::Load_Executable(File Binary_To_Load)
     vTaskResume(Open_Software_Pointer[7]->Task_Handle);
     Open_Software_Pointer[7]->Execute(Xila.Hiberrnate);
   }
-
   esp_restart();
+}
 }
 
 // Main task for the core
@@ -788,182 +858,200 @@ void Xila_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
 }
 
-void Xila_Class::Open_File(File &File_To_Open)
+void Xila_Class::Rollback()
 {
-  if (!File_To_Open)
+  File Temporary_File = Drive->open(Display_Executable_Path);
+  while (Display.Update(Temporary_File) != Display.Update_Succeed)
   {
-    //error handle
-    return;
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
-  else if (File_To_Open.isDirectory())
+  Temporary_File = Drive->open(Microcontroller_Executable_Path);
+  while (Load_Executable(Temporary_File))
   {
-    //error : directory not a file
-    return;
+    vTaskDelay(pdMS_TO_TICKS(1000));
   }
-  char File_Name[14];
-  strcpy(File_Name, File_To_Open.name());
-  uint8_t i = 1;
-  for (; i < 14; i++) //extract extension
-  {
-    if (File_Name[i] == '.')
-    {
-      break;
-    }
-  }
-  char Extension[] = {File_Name[i + 1], File_Name[i + 2], File_Name[i + 3]};
-  //pre-defined
-  if (strcmp(Extension, "XEF")) // executable file : load it into flash
-  {
-    Open_Software(&Executable_Loader_Handle);
-    for (i = 0; i < 8; i++)
-    {
-      if (Open_Software_Pointer[i] != NULL)
-      {
-        if (Open_Software_Pointer[i]->Handle_Pointer == &Executable_Loader_Handle)
-        {
-          Open_Software_Pointer[i]->Open_File(File_To_Open);
-        }
-      }
-    }
-  }
-
-  else
-  {
-    if (Drive->open(F("/XILA/REGISTRY/EXTENSIO.GCF")))
-    {
-      DynamicJsonDocument Extension_Registry(256);
-      File Temporary_File = Drive->open(Extension_Registry_Path);
-      deserializeJson(Extension_Registry, Temporary_File);
-      for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-      {
-        if (strcmp(Software_Handle_Pointer[i]->Name, Extension_Registry[Extension]))
-        {
-          Open_Software(Software_Handle_Pointer[i]);
-          for (uint8_t j = 0; i < 8; i++)
-          {
-            if (Open_Software_Pointer[j]->Handle_Pointer == Software_Handle_Pointer[i])
-            {
-              Open_Software_Pointer[j]->Open_File(File_To_Open);
-              File_To_Open.close();
-              return;
-            }
-          }
-        }
-      }
-    }
-    //error handle : unknow extension
-  }
-  File_To_Open.close();
 }
 
 // Software management
 
-void Xila_Class::Open_Software(Software_Handle_Class *Software_Handle_Pointer)
+uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Software_Handle)
 {
-  uint8_t i = 1;
+  for (uint8_t i = 1; i <= 8; i++)
+  {
+    if (i < 8 && *Open_Software_Pointer[i]->Handle_Pointer == Software_Handle)
+    {
+      return i;
+    }
+    else if (i == 8)
+    {
+      return 0;
+    }
+  }
+}
+
+void Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
+{
+  uint8_t i = 2;
+  if (Software_Handle == Shell_Handle)
+  {
+    if (Open_Software_Pointer[1] != NULL)
+    {
+      Maximize_Software(Shell_Handle);
+      return;
+    }
+    else
+    {
+      Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
+      Minimize_Software();
+      return;
+    }
+  }
   for (; i < 8; i++) //check if software is openned already
   {
     if (Open_Software_Pointer[i] != NULL)
     {
       if (Software_Handle_Pointer == Open_Software_Pointer[i]->Handle_Pointer)
       {
-        Maximize_Software(i);
+        Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
         return;
       }
     }
   }
-  // if not, open it in an empty place
-  for (i = 1; i < 8; i++)
+  // if not, open it in an empty slot
+  for (i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-      Open_Software_Pointer[i] = (*Software_Handle_Pointer->Load_Function_Pointer)();
-      Maximize_Software(i);
+      Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
       return;
     }
   }
 
   // if not enough place, call event handler
 
-  Event_Dialog(F("Too many open software, please close one before starting a software."), Error);
+  Event_Dialog(F("Too many openned software."), Error);
 }
 
 void Xila_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
 {
-  if (Software_Handle_To_Close == NULL) //by default delete current running software
+  if (System_State == SYSTEM_STATE_STANDALONE)
   {
-    for (uint8_t i = 2; i < 8; i++)
+    if (Software_Handle_To_Close == NULL) //by default delete current running software
     {
-      if (Open_Software_Pointer[i] != NULL)
+      for (uint8_t i = 2; i < 8; i++)
       {
-        if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
+        if (Open_Software_Pointer[i] != NULL)
         {
-          Open_Software_Pointer[i] = NULL;
+          if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
+          {
+            Open_Software_Pointer[i] = NULL;
+          }
+        }
+      }
+      Open_Software_Pointer[0]->Execute(Close);
+      Open_Software_Pointer[0] = NULL;
+    }
+    if (Software_Handle_To_Close == NULL)
+    {
+      for (uint8_t i = 2; i < 8; i++)
+      {
+        if (Open_Software_Pointer[i] != NULL)
+        {
+          if (Open_Software_Pointer[i])
         }
       }
     }
-    Open_Software_Pointer[0]->Close();
-    Open_Software_Pointer[0] = NULL;
   }
-  else
+  else if (System_State == SYSTEM_STATE_NORMAL)
   {
-    for (uint8_t i = 2; i < 8; i++)
+    if (Software_Handle_To_Close == NULL) //by default delete current running software
     {
-      if (Open_Software_Pointer[i] != NULL)
+      for (uint8_t i = 2; i < 8; i++)
       {
-        if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
+        if (Open_Software_Pointer[i] != NULL)
         {
-          Open_Software_Pointer[i]->Close();
-          Open_Software_Pointer[i] = NULL;
+          if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
+          {
+            Open_Software_Pointer[i] = NULL;
+          }
+        }
+      }
+      Open_Software_Pointer[0]->Execute(Close);
+      Open_Software_Pointer[0] = NULL;
+    }
+    else
+    {
+      for (uint8_t i = 2; i < 8; i++)
+      {
+        if (Open_Software_Pointer[i] != NULL)
+        {
+          if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
+          {
+            Open_Software_Pointer[i]->Close();
+            Open_Software_Pointer[i] = NULL;
+          }
         }
       }
     }
+    Maximize_Software(1); //reopen shell
   }
-  Maximize_Software(1); //reopen shell
 }
 
 void Xila_Class::Minimize_Software()
 {
-  Open_Software_Pointer[0]->Minimize();
-  Open_Software_Pointer[0] = NULL;
-}
-
-void Xila_Class::Maximize_Software(uint8_t Slot)
-{
-  if (System_State == SYSTEM_STATE_STANDALONE)
+  if (Open_Software_Pointer[0] != NULL)
   {
-    if (Slot == 1)
-    {
-    }
-  }
-  else
-  {
-
-    if (Open_Software_Pointer[Slot] == NULL) // Error : no software to maximize
-    {
-      return;
-    }
-    if (Open_Software_Pointer[0] != NULL)
-    {
-      Minimize_Software();
-    }
-    Open_Software_Pointer[0] = Open_Software_Pointer[Slot];
-    vTaskResume(Open_Software_Pointer[0]->Task_Handle);
-    Open_Software_Pointer[0]->Execute(Maximize);
+    Open_Software_Pointer[0]->Execute(Minimize);
+    Open_Software_Pointer[0] = NULL;
   }
 }
 
-Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_Pointer_To_Add, const __FlashStringHelper *Header_Path)
+void Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
 {
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
   {
-    if (Software_Handle_Pointer[i] != NULL) //check for doublon
+    return;
+  }
+  if (Open_Software_Pointer[i])
+
+    if (System_State == SYSTEM_STATE_STANDALONE)
     {
-      if (strcmp(Software_Handle_Pointer[i]->Name, Software_Handle_Pointer_To_Add->Name) == 0)
+      if (Software_Handle.Type == SOFTWARE_STANDALONE)
       {
-        return Error;
+        if (Seek_Open_Software_Handle(Software_Handle) == 0)
+        {
+          return;
+        }
+        Minimize_Software();
+        Open_Software_Pointer[0] = Open_Software_Pointer[Seek_Open_Software_Handle(Software_Handle)];
+      }
+      else
+      {
+        Rollback();
+        return;
       }
     }
+    else
+    {
+      if (Software_Handle.Type == SOFTWARE_STANDALONE)
+      {
+        Open_Software(Software_Handle);
+      }
+      if (Open_Software_Pointer[0] != NULL)
+      {
+        Minimize_Software();
+      }
+
+      vTaskResume(Open_Software_Pointer[0]->Task_Handle);
+      Open_Software_Pointer[0]->Execute(Maximize);
+    }
+}
+
+Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Add, const __FlashStringHelper *Header_Path)
+{
+  if (Software_Handle_To_Add->Type == SOFTWARE_STANDALONE)
+  {
+    return Error;
   }
 
   if (!Drive->exists(Header_Path))
@@ -980,7 +1068,7 @@ Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Hand
   {
     return Error;
   }
-  if (strcmp(Software_Registry["Name"], Software_Handle_Pointer_To_Add->Name) != 0)
+  if (strcmp(Software_Registry["Name"], Software_Handle_To_Add->Name) != 0)
   {
     return Error;
   }
@@ -989,7 +1077,7 @@ Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Hand
   {
     if (Software_Handle_Pointer[i] == NULL)
     {
-      Software_Handle_Pointer[i] = Software_Handle_Pointer_To_Add;
+      Software_Handle_Pointer[i] = Software_Handle_To_Add;
     }
   }
 }
