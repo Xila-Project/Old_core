@@ -14,7 +14,7 @@ extern Xila_Class Xila;
 
 #define Instruction(x,y) (x * 256 + y) 
 
-class Software_Class // Software class, used by the core in order to communicate with the software
+class Software_Class // Software class, API used by the core in order to communicate with the software
 {
 protected:
     Software_Class(uint8_t);
@@ -26,7 +26,7 @@ protected:
 
     static Software_Class *Instance_Pointer;
 
-    static Software_Handle_Class *Handle_Pointer;
+    static Software_Handle_Class* Handle_Pointer;
 
     QueueHandle_t Command_Queue_Handle;
 

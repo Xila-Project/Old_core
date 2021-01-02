@@ -83,7 +83,7 @@ typedef tm Xila_Time;
 #define String_Concat(first, second) first second
 
 //----------------------------------------------------------------------------//
-//                         Define GalaxOS Core Class                          //
+//                         Define Xila Core API                               //
 //----------------------------------------------------------------------------//
 
 extern Software_Handle_Class Shell_Handle;
@@ -94,29 +94,6 @@ protected:
     // Instance pointer
 
     static Xila_Class *Instance_Pointer;
-
-    const char System_Registry_Path[26] = "/XILA/REGISTRY/SYSTEM.XRF";
-    const char Display_Registry_Path[30] = "/XILA/REGISTRY/DISPLAY.XRF";
-    const char Network_Registry_Path[30] = "/XILA/REGISTRY/NETWORK.XRF";
-    const char Account_Registry_Path[27] = "/XILA/REGISTRY/ACCOUNT.XRF";
-    const char Regional_Registry_Path[31] = "/XILA/REGISTRY/REGIONAL.XRF";
-    const char Software_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
-    const char Event_Registry_Path[31] = "/XILA/REGISTRY/SOFTWARE.XRF";
-    const char Sound_Registry_Path[28] = "/XILA/REGISTRY/SOUND.XRF";
-    const char Extension_Registry_Path[31] = "/XILA/REGISTRY/EXTENSIO.XRF";
-
-    const char Software_Dump_Registry_Path[24] = "/XILA/REGISTRY/DUMP/SOFTWARE.XRF";
-
-    const char System_Executable_Path[15] = "/XILA/XILA.XEF";
-    const char Clipboard_Path[29] = "/XILA/TEMPORARY/CLIPBOAR.XDF";
-    const char Startup_Sound_Path[25] = "/XILA/SOUNDS/STARTUP.WAV";
-    const char Display_Executable_Path[26] = "/XILA/EXECUTAB/XILA_D.XEF";
-    const char Microcontroller_Executable_Path[26] = "/XILA/EXECUTAB/XILA_M.XEF";
-
-    // System extension :
-    // XRF : Galax'OS Registry File
-    // XEF : Galax'OS Executable File
-    // XSF : Galax'OS Sound File
 
     /**
      * Device name used as Network hostname ...
@@ -193,18 +170,14 @@ public:
 
     inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
 
-    void Open_Software(Software_Handle_Class const &);
-    Xila_Event Close_Software(Software_Handle_Class * = NULL);
-    Xila_Event Minimize_Software();
-    Xila_Event Maximize_Software(Software_Handle_Class const &);
+    void Open_Software(Software_Handle_Class const&);
+    void Close_Software(Software_Handle_Class* = NULL);
+    void Minimize_Software();
+    void Maximize_Software(Software_Handle_Class const&);
 
     Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Load, const __FlashStringHelper *Header_Path);
 
-    void Add_Software_Handle(Software_Handle_Class *Software_Handle_To_Add);
-
-    // Core APIs (system calls)
-
-    void Open_File(File &);
+    Xila_Event Add_Software_Handle(Software_Handle_Class const&); //private shortcut
 
     enum Font_16
     {
@@ -225,6 +198,13 @@ public:
         Sound_Low,
         Sound_Medium,
         Sound_High,
+    };
+
+    enum Font_32
+    {
+        Exclamation_Mark = 127,
+        Question_Mark,
+        Cross
     };
 
     enum Color
@@ -268,7 +248,13 @@ public:
 
     void Shutdown(); // private
     void Restart();  // private
-    uint32_t System_Standby_Time;
+
+    Xila_Event Load_Regionnal_Registry();
+    Xila_Event Load_Display_Registry();
+    Xila_Event Load_Network_Registry();
+    Xila_Event Load_Account_Registry();
+    Xila_Event Load_System_Registry();
+    Xila_Event Load_Sound_Registry();
 
     Xila_Event Set_Regionnal_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Dayligh_Offset = 0xFFFF);
     Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);
@@ -276,6 +262,11 @@ public:
     Xila_Event Set_Account_Registry(const char *Autologin_Account = NULL);
     Xila_Event Set_System_Registry(const char *Device_Name);
     Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);
+
+    int32_t GMT_Offset;
+    int16_t Daylight_Offset;
+
+    const char* Get_Device_Name();
 
     /**
      * 
@@ -402,8 +393,10 @@ public:
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
     SemaphoreHandle_t Dialog_Semaphore;
-    Xila_Event Event_Reply;
+    File* File_Dialog_Reply;
+    uint32_t Long_Dialog_Reply;
 
+    Xila_Event Color_Picker_Dialog(uint16_t& Color);
     Xila_Event File_Dialog(File &File_To_Open);
     Xila_Event Folder_Dialog(File &Folder_To_Open);
     Xila_Event File_Dialog(File const &);
@@ -412,6 +405,8 @@ public:
 
     uint16_t Display_Standby_Time;
     uint32_t System_Standby_Time;
+
+    Xila_Event Copy_File(File& Origin_File, File& Destination_File);
 
     // Copy paste
 
@@ -432,6 +427,8 @@ public:
 
     uint32_t Last_Execution;
     uint8_t Background_Function_Counter;
+
+    inline void Execute_Startup_Function();
     void Execute_Background_Jobs();
 
     // System's task :

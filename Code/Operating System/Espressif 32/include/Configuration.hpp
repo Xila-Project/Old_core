@@ -5,12 +5,16 @@
 // USB serial speed
 #define SERIAL_SPEED 115200
 
+//
+#define DEFAULT_DEVICE_NAME "ESP32"
+
 // Software
 
 #define MAXIMUM_SOFTWARE 15
 
 // Pin configuration
 
+#define DISPLAY_SWITCH_PIN 27
 #define POWER_BUTTON_PIN GPIO_NUM_39
 #define BATTERY_SENSING_PIN 36
 

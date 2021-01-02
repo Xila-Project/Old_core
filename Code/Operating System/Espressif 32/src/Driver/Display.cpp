@@ -272,7 +272,7 @@ void Nextion_Display_Class::Set_Picture(String const &Object_Name, uint8_t const
     Instruction_End();
 }
 
-void Nextion_Display_Class::Set_Font_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type = -1)
+void Nextion_Display_Class::Set_Font_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);

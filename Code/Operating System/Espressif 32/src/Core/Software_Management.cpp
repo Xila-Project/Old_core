@@ -19,7 +19,7 @@ uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Softw
 
 void Xila_Class::Maximize_Shell()
 {
-  Maximize_Software(1);
+  Maximize_Software(Shell_Handle);
 }
 
 void Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
@@ -43,7 +43,7 @@ void Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
   {
     if (Open_Software_Pointer[i] != NULL)
     {
-      if (Software_Handle_Pointer == Open_Software_Pointer[i]->Handle_Pointer)
+      if (**Software_Handle_Pointer == *Open_Software_Pointer[i]->Handle_Pointer)
       {
         Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
         return;
@@ -65,7 +65,7 @@ void Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
   Event_Dialog(F("Too many openned software."), Error);
 }
 
-void Xila_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
+void Xila_Class::Close_Software(Software_Handle_Class* Software_Handle_To_Close)
 {
   if (System_State == SYSTEM_STATE_STANDALONE)
   {
@@ -120,7 +120,7 @@ void Xila_Class::Close_Software(Software_Handle_Class *Software_Handle_To_Close)
         {
           if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
           {
-            Open_Software_Pointer[i]->Close();
+            Open_Software_Pointer[i]->Execute(Close);
             Open_Software_Pointer[i] = NULL;
           }
         }
@@ -215,7 +215,7 @@ Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Hand
   }
 }
 
-Xila_Event Xila_Class::Add_Software_Handle(Software_Handle_Class *Software_Handle_To_Add)
+Xila_Event Xila_Class::Add_Software_Handle(Software_Handle_Class const& Software_Handle_To_Add)
 {
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {

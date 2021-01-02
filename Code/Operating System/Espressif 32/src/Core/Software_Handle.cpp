@@ -52,12 +52,6 @@ Software_Handle_Class::~Software_Handle_Class()
 {
 }
 
-void Software_Handle_Class::From_Char_Array(const char* Char_Array)
-{
-
-
-}
-
 void Software_Handle_Class::To_Char_Array(char* Char_Array)
 {
 strcpy(Char_Array, Name);

@@ -136,7 +136,7 @@ public:
     // Set Object Attributes
     void Set_Font(const __FlashStringHelper *Object_Name, uint8_t const &Font_ID);
     void Set_Background_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type = -1);
-    void Set_Font_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type);
+    void Set_Font_Color(const __FlashStringHelper *Object_Name, uint16_t const &Color, int8_t Type = -1);
     void Set_Horizontal_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Horizontal_Alignment);
     void Set_Vertical_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Set_Vertical_Alignment);
     void Set_Input_Type(const __FlashStringHelper *Object_Name, uint8_t const &Input_Type);

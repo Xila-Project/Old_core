@@ -1,4 +1,4 @@
-#include "Shell.hpp"
+#include "Software/Shell.hpp"
 
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
@@ -563,7 +563,8 @@ Xila_Event Shell_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
-    if (deserializeJson(Shell_Registry, Temporary_Variable) != DeserializationError::Ok);
+    if (deserializeJson(Shell_Registry, Temporary_Variable) != DeserializationError::Ok)
+        ;
     {
         return Xila.Error;
     }
@@ -754,19 +755,33 @@ void Shell_Class::Open_Preferences(char const &Section)
     {
     case 'P':
         Xila.Display.Set_Current_Page(F("Shell_Personal"));
+        if (Desk_Background == -1)
+        {
+            Xila.Display.Click(F("DEFAULTB_RAD"), 0);
+        }
+        else
+        {
+            Xila.Display.Click(F("COLORB_RAD"), 0);
+            Xila.Display.Set_Value(F("COLORB_NUM"), Desk_Background);
+        }
         break;
     case 'H':
         Xila.Display.Set_Current_Page(F("Shell_Hardware"));
+        Xila.Display.Set_Value(F("VOLUME_SLI"), Xila.Sound.Get_Volume());
+        Xila.Display.Set_Value(F("DSTANDBY_NUM"), Xila.Display_Standby_Time);
+        Xila.Display.Set_Value(F("SSTANDBY_NUM"), Xila.System_Standby_Time);
         break;
     case 'N':
         Xila.Display.Set_Current_Page(F("Shell_Network"));
-
+        Xila.Display.Set_Text(F("WNAMEVAL_TXT"), WiFi.SSID());
         break;
     case 'S':
         Xila.Display.Set_Current_Page(F("Shell_System"));
         Xila.Display.Set_Text(F("NTPVAL_TXT"), Xila.NTP_Server);
-        Xila.Display.Set_Text(F("USERNVAL_TXT"), Xila.Current_Username);
-
+        Xila.Display.Set_Value(F("GMTOFFSET_NUM"), Xila.GMT_Offset);
+        Xila.Display.Set_Value(F("DAYLIGHTO_NUM"), Xila.GMT_Offset);
+        Xila.Display.Set_Text(F("TUSERVAL_TXT"), Xila.Current_Username);
+        Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Xila.Device_Name);
         break;
     default:
         break;

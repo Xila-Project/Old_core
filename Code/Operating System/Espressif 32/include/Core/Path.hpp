@@ -7,25 +7,36 @@
 #define Software_Directory_Path "/SOFTWARE/"
 #define Users_DirectoryPath "/USERS/"
 
-#define Registry_Directory_Path String_Concat(Xila_Directory_Path, "REGISTRY/")
+#define Registry_File_Extension ".XRF"
+#define Data_File_Extension ".XDF" // mainly used for undefined data type
+#define Executable_File_Extension ".XEF"
+#define Sound_File_Extension ".WAV"
 
-#define System_Registry_Path = String_Concat(Registry_Directory_Path, "SYSTEM.XRF");
-#define Display_Registry_Path = String_Concat(Registry_Directory_Path, "DISPLAY.XRF");
-#define Network_Registry_Path = String_Concat(Registry_Directory_Path, "NETWORK.XRF");
-#define Account_Registry_Path = String_Concat(Registry_Directory_Path, "ACCOUNT.XRF");
-#define Regional_Registry_Path = String_Concat(Registry_Directory_Path, "REGIONAL.XRF");
-#define Software_Registry_Path = String_Concat(Registry_Directory_Path, "SOFTWARE.XRF");
-#define Event_Registry_Path = String_Concat(Registry_Directory_Path, "SOFTWARE.XRF");
-#define Sound_Registry_Path = String_Concat(Registry_Directory_Path, "SOUND.XRF");
-#define Extension_Registry_Path = String_Concat(Registry_Directory_Path, "EXTENSIO.XRF");
+#define Registry_Directory_Path Xila_Directory_Path "REGISTRY/"
+#define Registry(name) Registry_Directory_Path name Registry_File_Extension //shortcut
+#define Temporary_Directory_Path Xila_Directory_Path "TEMPORARY/"
+#define Sounds_Directory_Path Xila_Directory_Path "SOUNDS/"
+#define Executable_Directory_Path Xila_Directory_Path "EXECUTAB/"
 
-#define Software_Dump_Registry_Path = "/XILA/REGISTRY/DUMP/SOFTWARE.XRF";
+#define System_Registry_Path Registry("SYSTEM")
+#define Display_Registry_Path Registry("DISPLAY")
+#define Network_Registry_Path Registry("NETWORK")
+#define Account_Registry_Path Registry("ACCOUNT")
+#define Regional_Registry_Path Registry("REGIONAL")
+#define Software_Registry_Path Registry("SOFTWARE")
+#define Event_Registry_Path Registry("SOFTWARE")
+#define Sound_Registry_Path Registry("SOUND")
+#define Extension_Registry_Path Registry("EXTENSIO")
 
-#define System_Executable_Path = "/XILA/XILA.XEF";
-#define Clipboard_Path = "/XILA/TEMPORARY/CLIPBOAR.XDF";
-#define Startup_Sound_Path = "/XILA/SOUNDS/STARTUP.WAV";
-#define Display_Executable_Path = "/XILA/EXECUTAB/XILA_D.XEF";
-#define Microcontroller_Executable_Path = "/XILA/EXECUTAB/XILA_M.XEF";
+#define Startup_Sound_Path Sounds_Directory_Path "STARTUP" Sound_File_Extension
+#define Shutdown_Sound_Path Sounds_Directory_Path "SHUTDOWN" Sound_File_Extension
+#define Login_Sound_Path Sounds_Directory_Path "LOGIN" Sound_File_Extension
+
+#define Software_Dump_Registry_Path Temporary_Directory_Path "SOFTWARE" Data_File_Extension
+#define Clipboard_Path Temporary_Directory_Path "CLIPBOAR" Data_File_Extension
+
+#define Display_Executable_Path Execitable_Registry_Path "XILA_D" Executable_File_Extension
+#define Microcontroller_Executable_Path Execitable_Registry_Path "XILA_M" Executable_File_Extension
 
 #undef String_Concat
 

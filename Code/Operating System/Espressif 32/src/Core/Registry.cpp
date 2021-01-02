@@ -1,5 +1,93 @@
 #include "Core/Core.hpp"
 
+Xila_Event Xila_Class::Load_Regionnal_Registry()
+{
+  Verbose_Print_Line("> Load regional registry ...");
+  File Temporary_File = Drive->open(Regional_Registry_Path);
+  if (!Temporary_File)
+  {
+    return Error
+  }
+
+  DynamicJsonDocument Regional_Registry(256);
+  deserializeJson(Regional_Registry, Temporary_File);
+
+  strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
+
+  int32_t GMT_Offset = Regional_Registry["Time"]["GMT Offset"];
+  int16_t Daylight_Offset = Regional_Registry["Time"]["Daylight Offset"];
+
+  Serial.println(NTP_Server);
+  Serial.println(GMT_Offset);
+  Serial.println(Daylight_Offset);
+
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Load_System_Registry()
+{
+  Verbose_Print_Line("> Load system registry");
+  File Temporary_File = Drive->open(System_Registry_Path);
+  if (!Temporary_File)
+  {
+    return Error;
+  }
+  DynamicJsonDocument System_Registry(512);
+  if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
+  {
+    return Error;
+  }
+
+  JsonObject Version = System_Registry["Version"];
+
+  if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
+  {
+    return 2;
+  }
+
+  if (System_Registry["State"] != 0)
+  {
+    return 3;
+  }
+
+  strlcpy(Device_Name, System_Registry["Davice Name"], sizeof(Device_Name));
+
+  Temporary_File.close();
+}
+
+Xila_Event Xila_Class::Load_Display_Registry()
+{
+  Verbose_Print_Line("> Load display registry ...");
+  File Temporary_File = Drive->open(Display_Registry_Path);
+  DynamicJsonDocument Display_Registry(256);
+  if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    return Error;
+  }
+  Display.Set_Brightness(Display_Registry["Brightness"]);
+  Temporary_File.close();
+  return Success
+}
+
+Xila_Event Xila_Class::Load_Sound_Registry()
+{
+  File Temporary_File = Drive->open(Sound_Registry_Path);
+  DynamicJsonDocument Sound_Registry(256);
+  if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    return Error;
+  }
+  Sound.Set_Volume(Sound_Registry["Volume"]);
+  Temporary_File.close();
+  return Success
+}
+
+Xila_Event Xila_Class::Load_Regionnal_Registry()
+{
+}
+
 Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Dayligh_Offset)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);

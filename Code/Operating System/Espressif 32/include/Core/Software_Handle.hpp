@@ -43,6 +43,7 @@ public:
 
     };
     
+    
     Software_Handle_Class();
     Software_Handle_Class(const char* Char_Array);
     Software_Handle_Class(const char* Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
@@ -53,6 +54,12 @@ public:
     friend class Shell_Class;
 };
 
+/**
+ * @param a 1st software handle to compare.
+ * @param b 2nd software handle to compare.
+ * 
+ * @return 1 if software handle are identical and 0 if not.
+*/
 bool operator==(Software_Handle_Class const& a, Software_Handle_Class const& b);
 
 #endif
