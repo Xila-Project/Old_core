@@ -86,14 +86,29 @@ Xila_Event Xila_Class::Load_Sound_Registry()
 
 Xila_Event Xila_Class::Load_Regionnal_Registry()
 {
+  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Regional_Registry(256);
+  if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  JsonObject Time = Regional_Registry["Time"];
+  GMT_Offset = Time["GMT Offset"];
+  Daylight_Offset = Time["Daylight Offset"];
+  strlcpy(NTP_Server, Time["NTP Server"], sizeof(NTP_Server));
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  Temporary_File.close();
+  return Success;
 }
 
-Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Dayligh_Offset)
+Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Daylight_Offset)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Regional_Registry(256);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   JsonObject Time = Regional_Registry["Time"];
@@ -101,15 +116,35 @@ Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GM
   {
     Time["GMT Offset"] = GMT_Offset;
   }
-  if (Dayligh_Offset != 0xFFFF)
+  if (Daylight_Offset != 0xFFFF)
   {
-    Time["Time"]["Daylight Offset"] = Dayligh_Offset;
+    Time["Daylight Offset"] = Daylight_Offset;
   }
   if (NTP_Server != NULL)
   {
     Time["NTP Server"] = NTP_Server;
+    strlcpy(this->NTP_Server, NTP_Server, sizeof(this->NTP_Server));
   }
-  serializeJson(Regional_Registry, Temporary_File);
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  if (serializeJson(Regional_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Load_Account_Registry()
+{
+  File Temporary_File = Drive->open(Account_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Account_Registry(256);
+  if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  strlcpy(Current_Username, Account_Registry["Autologin"], sizeof(Current_Username));
   Temporary_File.close();
   return Success;
 }
@@ -118,12 +153,13 @@ Xila_Event Xila_Class::Set_Account_Registry(const char *Autologin_Account)
 {
   if (Autologin_Account == NULL)
   {
-    return Xila.Success;
+    return Success;
   }
   File Temporary_File = Drive->open(Account_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   Account_Registry["Autologin"] = Autologin_Account;
@@ -132,12 +168,13 @@ Xila_Event Xila_Class::Set_Account_Registry(const char *Autologin_Account)
   return Success;
 }
 
-Xila_Event Xila_Class::Set_Display_Registry(uint8_t Brighness, , uint8_t Receive_Pin, uint8_t Send_Pin)
+Xila_Event Xila_Class::Set_Display_Registry(uint8_t Brighness, uint16_t Standby_Time, uint8_t Receive_Pin, uint8_t Send_Pin)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Display_Registry(256);
   if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   if (Brighness != 0xFF)
@@ -153,7 +190,16 @@ Xila_Event Xila_Class::Set_Display_Registry(uint8_t Brighness, , uint8_t Receive
   {
     Display_Registry["Send Pin"] = Send_Pin;
   }
-  serializeJson(Display_Registry, Temporary_File);
+  if (Standby_Time != 0xFFFF)
+  {
+    Display_Registry["Standby Time"] = Standby_Time;
+    Display_Standby_Time = Standby_Time;
+  }
+  if (serializeJson(Display_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
   Temporary_File.close();
   return Success;
 }

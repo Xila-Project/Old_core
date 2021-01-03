@@ -11,8 +11,8 @@ Xila_Class::Xila_Class() : Tag(0),
                            Sound(),
                            Battery(13, 47, 47),
                            Keyboard(2, 6),
-                           Event_Reply(None),
-                           Background_Function_Counter(0),
+                           Dialog_Semaphore(xSemaphoreCreateMutex()),
+                           Background_Function_Counter(0)
 
 {
   System_State = 0;
@@ -38,8 +38,6 @@ Xila_Class::Xila_Class() : Tag(0),
   memset(Software_Handle_Pointer, NULL, sizeof(Software_Handle_Pointer));
 
   memset(Device_Name, '\0', sizeof(Device_Name));
-
-  Dialog_Semaphore = xSemaphoreCreateMutex();
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
 }
@@ -127,7 +125,9 @@ void Xila_Class::Start()
     Shutdown();
   }
 
-  Serial.begin(SERIAL_SPEED); //PC Debug UART
+
+  
+
   Remaining_Spaces = 0;
 
   //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
@@ -146,7 +146,12 @@ void Xila_Class::Start()
   Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
   Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
   Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+  #if DISPLAY_MODE == 1
+  Display.Begin(912600, 1, 3);
+  #else
   Display.Begin();
+  #endif
+
   Display.Wake_Up();
   Display.Set_Current_Page(F("Core_Load")); // Play animation
   Display.Set_Trigger(F("LOAD_TIM"), true);
@@ -517,7 +522,6 @@ void Xila_Class::Check_Power_Button()
 
 void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
-  Serial.println(Received_Data);
   String Temporary_String;
   switch (Received_Data[0])
   {
@@ -604,7 +608,7 @@ void Xila_Class::Print_Line(const __FlashStringHelper *Text_To_Print, uint8_t co
   Serial.println(F("||"));
 }
 
-Xila_Event Xila_Class::Copy_File(File& Origin_File, File& Destination_File)
+Xila_Event Xila_Class::Copy_File(File &Origin_File, File &Destination_File)
 {
   uint8_t Readed_Bytes;
   uint8_t Buffer[255];
@@ -665,7 +669,7 @@ void Xila_Class::Execute_Shell(uint16_t const &Command)
   Open_Software_Pointer[1]->Execute(Command);
 }
 
-const char* Xila_Class::Get_Device_Name()
+const char *Xila_Class::Get_Device_Name()
 {
   return Device_Name;
 }
@@ -748,6 +752,7 @@ void Xila_Class::Refresh_Header()
     Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
   }
   Update_Time = millis() - Update_Time;
+
   Verbose_Print("Update header time :");
   Verbose_Print_Line(Update_Time);
 }

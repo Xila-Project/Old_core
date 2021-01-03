@@ -60,8 +60,6 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
         if (Nextion_Display_Class::Display_Pointer->Nextion_Serial.available())
         {
             Return_Code = Nextion_Display_Class::Display_Pointer->Nextion_Serial.read();
-            Serial.print(F("|| R_C : "));
-            Serial.println(Return_Code, HEX);
             switch (Return_Code)
             {
             case Nextion_Display_Class::Numeric_Data_Enclosed:

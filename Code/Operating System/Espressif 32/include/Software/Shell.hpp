@@ -67,20 +67,31 @@ protected:
 
     inline void Idle();
 
-    int32_t Desk_Background;
+    uint32_t Desk_Background;
+
     void Open_Desk();
     void Open_Drawer();
+    void Refresh_Drawer();
     void Open_Item();
     void Open_Login();
     void Open_Load(uint8_t Mode);
 
+    // 0 : default (browse)
+    // 1 : open file
+    // 2 : open folder
+    // 3 : save file
+    // 4 : new file
+    // 5 : delete file
+    // 6 : rename file
+    // 7 : copy file
     uint8_t File_Manager_Mode;
+    
     void Open_File_Manager();
     void Open_Preferences(char const &Section);
 
-    void Modify_User(uint8_t const &Mode);
+    uint8_t Drawer_Offset;
 
-    void Display_Path();
+
 
     void Make_Directory(char *);
     void Make_File(char *);

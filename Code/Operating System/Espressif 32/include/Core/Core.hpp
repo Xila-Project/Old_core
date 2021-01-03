@@ -20,8 +20,6 @@
 #ifndef GALAXOS_CORE_H_INCLUDED
 #define GALAXOS_CORE_H_INCLUDED
 
-#include "Configuration.hpp"
-
 //----------------------------------------------------------------------------//
 //                          Include Necessary Libraries                       //
 //----------------------------------------------------------------------------//
@@ -32,7 +30,7 @@
 #include "SD_MMC.h"
 #include "FS.h"
 #else
-#include <SD.h>
+#include "SD.h"
 #endif
 
 #include "time.h"
@@ -44,11 +42,15 @@
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
 
+// Main compile-time configuration file
+#include "Configuration.hpp"
+// Path list
+#include "Path.hpp"
+
 // Other part of the core
 #include "Instruction.hpp"
 #include "Software.hpp"
 #include "Software_Handle.hpp"
-#include "Path.hpp"
 
 // Driver files
 #include "Driver/Display.hpp"  // Nextion display driver (maybe create a library for each driver)
@@ -75,12 +77,6 @@ typedef tm Xila_Time;
 #define SOFTWARE_STANDALONE 1
 
 // Alignement
-#define STYLE_LEFT_ALIGNMENT 0
-#define STYLE_CENTER_ALIGNMENT 1
-#define STYLE_RIGHT_ALIGNMENT 2
-#define STYLE_JUSTIFIED_ALIGNMENT 3
-
-#define String_Concat(first, second) first second
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -170,14 +166,14 @@ public:
 
     inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
 
-    void Open_Software(Software_Handle_Class const&);
-    void Close_Software(Software_Handle_Class* = NULL);
+    void Open_Software(Software_Handle_Class const &);
+    void Close_Software(Software_Handle_Class * = NULL);
     void Minimize_Software();
-    void Maximize_Software(Software_Handle_Class const&);
+    void Maximize_Software(Software_Handle_Class const &);
 
     Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Load, const __FlashStringHelper *Header_Path);
 
-    Xila_Event Add_Software_Handle(Software_Handle_Class const&); //private shortcut
+    Xila_Event Add_Software_Handle(Software_Handle_Class const &); //private shortcut
 
     enum Font_16
     {
@@ -235,7 +231,7 @@ public:
 #if SD_MODE == 0
     fs::SDMMCFS *Drive;
 #else
-    fs::SDFS *Drive;
+    fs::SDFS* Drive;
 #endif
     // WiFi
 
@@ -256,17 +252,17 @@ public:
     Xila_Event Load_System_Registry();
     Xila_Event Load_Sound_Registry();
 
-    Xila_Event Set_Regionnal_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Dayligh_Offset = 0xFFFF);
+    Xila_Event Set_Regionnal_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);
     Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);
     Xila_Event Set_Network_Registry(bool WiFi_Enabled, const char *WiFi_Name, const char *Password);
     Xila_Event Set_Account_Registry(const char *Autologin_Account = NULL);
-    Xila_Event Set_System_Registry(const char *Device_Name);
+    Xila_Event Set_System_Registry(const char *Device_Name, );
     Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);
 
     int32_t GMT_Offset;
     int16_t Daylight_Offset;
 
-    const char* Get_Device_Name();
+    const char *Get_Device_Name();
 
     /**
      * 
@@ -393,53 +389,53 @@ public:
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
     SemaphoreHandle_t Dialog_Semaphore;
-    File* File_Dialog_Reply;
+    File *File_Dialog_Reply;
     uint32_t Long_Dialog_Reply;
-
-    Xila_Event Color_Picker_Dialog(uint16_t& Color);
+)
+    //Xila_Event Color_Picker_Dialog(uint16_t& Color);
     Xila_Event File_Dialog(File &File_To_Open);
-    Xila_Event Folder_Dialog(File &Folder_To_Open);
-    Xila_Event File_Dialog(File const &);
+Xila_Event Folder_Dialog(File &Folder_To_Open);
+Xila_Event File_Dialog(File const &);
 
-    Xila_Event Set_Autologin();
+Xila_Event Set_Autologin();
 
-    uint16_t Display_Standby_Time;
-    uint32_t System_Standby_Time;
+uint16_t Display_Standby_Time;
+uint32_t System_Standby_Time;
 
-    Xila_Event Copy_File(File& Origin_File, File& Destination_File);
+Xila_Event Copy_File(File &Origin_File, File &Destination_File);
 
-    // Copy paste
+// Copy paste
 
 private:
-    File Clipboard_File;
-    uint8_t Split_Number[8];
+File Clipboard_File;
+uint8_t Split_Number[8];
 
 public:
-    Xila_Event Copy(uint64_t const &Value_To_Copy);
-    Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
-    Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
+Xila_Event Copy(uint64_t const &Value_To_Copy);
+Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
 
-    Xila_Event Paste(uint64_t &Value_To_Paste);
-    Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
-    Xila_Event Paste(String &String_To_Paste);
+Xila_Event Paste(uint64_t &Value_To_Paste);
+Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+Xila_Event Paste(String &String_To_Paste);
 
-    // Background jobs
+// Background jobs
 
-    uint32_t Last_Execution;
-    uint8_t Background_Function_Counter;
+uint32_t Last_Execution;
+uint8_t Background_Function_Counter;
 
-    inline void Execute_Startup_Function();
-    void Execute_Background_Jobs();
+inline void Execute_Startup_Function();
+void Execute_Background_Jobs();
 
-    // System's task :
-    xTaskHandle Core_Task_Handle;
-    //QueueHandle_t Core_Instruction_Queue_Handle;
-    static void Core_Task(void *);
-    static void Idle_Task_Software_Core(void *);
-    static void Idle_Task_System_Core(void *);
+// System's task :
+xTaskHandle Core_Task_Handle;
+//QueueHandle_t Core_Instruction_Queue_Handle;
+static void Core_Task(void *);
+static void Idle_Task_Software_Core(void *);
+static void Idle_Task_System_Core(void *);
 
-    friend class Shell_Class;
-    friend class Software_Handle_Class;
+friend class Shell_Class;
+friend class Software_Handle_Class;
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)

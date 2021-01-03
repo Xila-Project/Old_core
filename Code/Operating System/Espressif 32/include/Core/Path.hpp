@@ -5,7 +5,7 @@
 
 #define Xila_Directory_Path "/XILA/"
 #define Software_Directory_Path "/SOFTWARE/"
-#define Users_DirectoryPath "/USERS/"
+#define Users_Directory_Path "/USERS/"
 
 #define Registry_File_Extension ".XRF"
 #define Data_File_Extension ".XDF" // mainly used for undefined data type
@@ -35,8 +35,8 @@
 #define Software_Dump_Registry_Path Temporary_Directory_Path "SOFTWARE" Data_File_Extension
 #define Clipboard_Path Temporary_Directory_Path "CLIPBOAR" Data_File_Extension
 
-#define Display_Executable_Path Execitable_Registry_Path "XILA_D" Executable_File_Extension
-#define Microcontroller_Executable_Path Execitable_Registry_Path "XILA_M" Executable_File_Extension
+#define Display_Executable_Path Executable_Directory_Path "XILA_D" Executable_File_Extension
+#define Microcontroller_Executable_Path Executable_Directory_Path "XILA_M" Executable_File_Extension
 
 #undef String_Concat
 

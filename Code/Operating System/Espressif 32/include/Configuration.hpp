@@ -54,21 +54,20 @@
 #define MAXIMUM_USERNAME_LENGHT 8
 
 // Debug
+
 #define DEBUG_MODE 1
 
-#if DEBUG_MODE == 0
-#define SD_MODE 0 // use by default (=0) the SD I/O mode, not suitable for debbug 
-#define STACK_OVERFLOW_DETECTION 1
-#define VERBOSE_MODE 0
-#else
-#define SD_MODE 1
 #define STACK_OVERFLOW_DETECTION 0
-#define VERBOSE_MODE 1
-#endif
+#define SD_MODE 1
+
+#define DISPLAY_MODE 1
+
+#define VERBOSE_MODE 0
+
 
 #if VERBOSE_MODE == 0
-#define Verbose_Print(t)
-#define Verbose_Println(t) 
+#define Verbose_Print(t) NULL
+#define Verbose_Print_Line(t) NULL 
 #else
 #define Verbose_Print(t) Serial.print(F(t))
 #define Verbose_Print_Line(t) Xila.Print_Line(F(t))
