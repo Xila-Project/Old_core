@@ -154,6 +154,27 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     }
 }
 
+void Nextion_Display_Class::Send_Raw(const __FlashStringHelper* Data)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Data);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Send_Raw(String const& Data)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Data);
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Send_Raw(const char* Data)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Data);
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Refresh_Current_Page()
 {
     Get(F("dp"));
@@ -461,7 +482,7 @@ void Nextion_Display_Class::Draw_Picture(uint16_t const &X_Coordinate, uint16_t 
     Instruction_End();
 }
 
-void Nextion_Display_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow)
+void Nextion_Display_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &Color, bool const &Hollow)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     if (Hollow)

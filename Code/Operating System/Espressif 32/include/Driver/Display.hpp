@@ -119,7 +119,7 @@ public:
     // Basic Geometrical Drawing
     void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
     void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color, bool const &Hollow = false);
-    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &, uint16_t const &Color, bool const &Hollow = false);
+    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Radius, uint16_t const &Color, bool const &Hollow = false);
     void Draw_Fill(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Color);
     void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
 
@@ -127,8 +127,8 @@ public:
     void Draw_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
     void Draw_Crop_Picture(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Picture_ID);
     void Draw_Advanced_Crop_Picture(uint16_t const &X_Destination, uint16_t const &Y_Destination, uint16_t const &Width, uint16_t const &Height, uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Picture_ID);
-    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text);
-    void Draw_Text(uint16_t const &X_Coordinarte, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char *Text);
+    void Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, String const &Text);
+    void Draw_Text(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Width, uint16_t const &Height, uint16_t const &Font_ID, uint16_t const &Text_Color, uint16_t Backgroud, uint16_t const &Horizontal_Alignment, uint16_t const &Vertical_Alignment, uint16_t const &Background_Type, const char *Text);
 
     //void Print(String const& Text_To_Print);
     //void Print(const __FlashStringHelper* Text_To_Print);
@@ -141,10 +141,12 @@ public:
     void Set_Vertical_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Set_Vertical_Alignment);
     void Set_Input_Type(const __FlashStringHelper *Object_Name, uint8_t const &Input_Type);
     void Set_Wordwrap(const __FlashStringHelper *Object_Name, bool const &Wordwrap);
-    void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
+    void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value, bool const& Value_Is_Object = false);
     void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
     void Set_Text(String const &Object_Name, String const &Value);
     void Set_Text(const __FlashStringHelper *Object_Name, const char *Value);
+
+
     void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
     void Set_Value(String const& Object_Name, uint32_t const& Value);
     void Set_Value(const char* Object_Name, uint32_t const& Value);
@@ -194,10 +196,12 @@ public:
     void Start_Sending_Realtime_Coordinate();
     void Stop_Sending_Realtime_Coordinate();
 
-    void Send_Custom_Instruction(const __FlashStringHelper *Instruction);
-    void Send_Custom_Instruction(String const &Intruction);
+    void Send_Raw(const __FlashStringHelper *Data);
+    void Send_Raw(String const &Data);
+    void Send_Raw(const char* Data);
 
     //Command
+
     void Clear(uint16_t const &Color);
     void Refresh(uint16_t const &Component_ID);
     void Refresh(const __FlashStringHelper* Object_Name);
