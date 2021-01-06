@@ -14,6 +14,7 @@
 
 #define LEFT_CHANNEL 0
 #define RIGHT_CHANNEL 1
+#define CUSTOM_CHANNEL 2
 
 class Sound_Class
 {
@@ -79,7 +80,12 @@ public:
     void Mute();
     void Stop();
     void Tone(uint16_t const &, uint32_t const & = 0);
-    void No_Tone();
+    
+    void Tone(uint8_t, uint16_t, uint32_t);
+
+    void No_Tone(); // no tone on default pin
+    void No_Tone(uint8_t);
+
 };
 
 #endif
