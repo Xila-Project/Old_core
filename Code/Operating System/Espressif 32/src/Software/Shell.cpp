@@ -3,7 +3,8 @@
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
 Shell_Class::Shell_Class() : Software_Class(6),
-                             Mode(0)
+                             Mode(0),
+                             Offset(0)
 {
     Handle_Pointer = &Shell_Handle;
     xTaskCreatePinnedToCore(Main_Task, "Shell Task", 6 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
@@ -38,13 +39,13 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         switch (Adress)
         {
         case 'O':
-            Temporary_Variable[0] = (uint32_t)Variable;
+            Temporary_Variable[0] = *(uint32_t*)Variable;
             break;
         case 'o':
-            Temporary_Variable[1] = (uint32_t)Variable;
+            Temporary_Variable[1] = *(uint32_t*)Variable;
             break;
         case 'A': // Autologin
-            Temporary_Variable[2] = (uint8_t)Variable;
+            Temporary_Variable[2] = *(uint8_t*)Variable;
             break;
         case 'D':
             if (Temporary_Char_Array[0] != NULL)
@@ -163,10 +164,10 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
             strlcpy(Temporary_Char_Array[1], (char *)Variable, 25);
             break;
         case 'O': // GMT offset
-            Temporary_Variable[0] = (uint32_t)Variable;
+            Temporary_Variable[0] = *(uint32_t*)Variable;
             break;
         case 'o': // Daylight offset
-            Temporary_Variable[1] = (uint32_t)Variable;
+            Temporary_Variable[1] = *(uint32_t*)Variable;
             break;
         default:
             break;
@@ -198,19 +199,52 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case File_Manager:
         switch (Adress)
         {
-        case 'F':
-            if (Temporary_Char_Array[0] != NULL)
-            {
-                delete[] Temporary_Char_Array[0];
-            }
-            Temporary_Char_Array[0] = new char[13];
-            strlcpy(Temporary_Char_Array[0], (char *)Variable, 13);
-            break;
 
+        case 'P':
+            strlcpy(Current_Path, (char *)Variable, sizeof(Current_Path));
+            break;
+        case 'I':
+            strlcpy(Current_File_Name, (char *)Variable, sizeof(Current_File_Name));
+            Execute(Instruction('G', 'I'));
+            break;
+        case 'F':
+            strlcpy(Current_File_Name, (char *)Variable, sizeof(Current_File_Name));
+            break;
         default:
             break;
         }
+    case Keyboard:
+        switch (Adress)
+        {
+        case 'C':
+            Temporary_Variable[0] = *(uint16_t*)Variable;
+            break;
+        case 'T':
+            Temporary_Variable[1] = *(uint8_t*)Variable;
+            break;
+        }
+    default:
+        break;
+    }
+}
 
+void Shell_Class::Keyboard_Commands()
+{
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case Instruction('E', 'n'):
+        if (Temporary_Variable[0] == 54)
+        {
+            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
+        }
+        else
+        {
+            Xila.Display.Send_Raw(F("cov Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0"));
+        }
+
+
+        break;
     default:
         break;
     }
@@ -218,7 +252,8 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 
 void Shell_Class::Install_Commands()
 {
-    switch (Get_Command())
+    Current_Command = Get_Command();
+    switch (Current_Command)
     {
     case Instruction('I', 'P'):
         Xila.Event_Dialog(F("Entered passwords does not match."), Xila.Error);
@@ -359,7 +394,14 @@ void Shell_Class::File_Manager_Commands()
     case 0:
         Idle();
         break;
-    case Instruction('F', '1'):
+    case Instruction('C', 'a'):
+        Empty_Footer_Bar();
+        if (File_Manager_Mode > 4)
+        {
+        }
+        break;
+    case Instruction('G', 'I'):
+        Select_Item();
         break;
     case Instruction('R', 'D'):
         memset(Temporary_Directory_Path, '\0', sizeof(Temporary_Directory_Path));
@@ -375,7 +417,7 @@ void Shell_Class::File_Manager_Commands()
         case Instruction('d', 'F'):
         Empty_Footer_Bar();
         Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Select an item to delete."));
-
+        File_Manager_Mode = 7;
         break;
     case Instruction('n', 'F'):
         Fill_Footer_Bar();
@@ -474,21 +516,21 @@ void Shell_Class::Drawer_Commands()
         Idle();
         break;
     case Instruction('N', 'd'): // Nd : Next drawer items
-        if (Drawer_Offset > 241)
+        if (Offset > 241)
         {
-            if (Xila.Software_Handle_Pointer[Drawer_Offset + 15] != NULL)
+            if (Xila.Software_Handle_Pointer[Offset + 15] != NULL)
             {
-                Drawer_Offset += 15;
+                Offset += 15;
                 Refresh_Drawer();
             }
         }
         break;
     case Instruction('P', 'd'): // Pd : Previous drawer items
-        if (Drawer_Offset > 14)
+        if (Offset > 14)
         {
-            if (Xila.Software_Handle_Pointer[Drawer_Offset + 15] != NULL)
+            if (Xila.Software_Handle_Pointer[Offset + 15] != NULL)
             {
-                Drawer_Offset += 15;
+                Offset += 15;
                 Refresh_Drawer();
             }
         }
@@ -496,19 +538,19 @@ void Shell_Class::Drawer_Commands()
     case Instruction('d', '0'): // dx : Open software from drawer
         Open_From_Drawer(0);
         break;
-    case 0x6431: // dx : Open software from drawer
+    case Instruction('d', '1'): // dx : Open software from drawer
         Open_From_Drawer(1);
         break;
-    case 0x6432: // dx : Open software from drawer
+    case Instruction('d', '2'): // dx : Open software from drawer
         Open_From_Drawer(2);
         break;
-    case 0x6433: // dx : Open software from drawer
+    case Instruction('d', '3'): // dx : Open software from drawer
         Open_From_Drawer(3);
         break;
-    case 0x6434: // dx : Open software from drawer
+    case Instruction('d', '4'): // dx : Open software from drawer
         Open_From_Drawer(4);
         break;
-    case 0x6435: // dx : Open software from drawer
+    case Instruction('d', '5'): // dx : Open software from drawer
         Open_From_Drawer(5);
         break;
     case 0x6436: // dx : Open software from drawer
@@ -778,6 +820,10 @@ void Shell_Class::Main_Commands()
 {
     switch (Current_Command)
     {
+    case Instruction('O', 'K'):
+        Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
+
+        break;
     case Instruction('L', 'R'):
         Load_Registry();
         break;
@@ -831,9 +877,7 @@ void Shell_Class::Main_Commands()
         Execute(Xila.Maximize);
         break;
     case Xila.Close: // close
-        Xila.Display.Set_Current_Page(F("Shell_Load"));
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Shutdown"));
-        Xila.Display.Set_Text(F("LOAD_TXT"), F("Shutting down ..."));
+        Open_Load(Shutdown);
         delete Instance_Pointer;
         vTaskDelete(NULL);
         break;
@@ -850,6 +894,22 @@ void Shell_Class::Main_Commands()
     }
 }
 
+void Shell_Class::Open_Load(uint8_t Mode)
+{
+    Xila.Display.Set_Current_Page(F("Shell_Load"));
+    switch (Mode)
+    {
+    case Shutdown:
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Shutdown"));
+        Xila.Display.Set_Text(F("LOAD_TXT"), F("Shutting down ..."));
+        break;
+    case Login:
+        break;
+    default:
+        break;
+    }
+}
+
 void Shell_Class::Idle()
 {
     vTaskDelay(pdMS_TO_TICKS(20));
@@ -857,17 +917,20 @@ void Shell_Class::Idle()
 
 void Shell_Class::Open_From_Drawer(uint8_t Slot)
 {
-    switch (Slot)
+    if ((Slot + Offset) < (sizeof(Software_Handle_Pointer) / sizeof(Software_Handle *)))
     {
-    case 0: //File manager
-        Open_File_Manager();
-        break;
-    case 1:
-        Open_Preferences('P');
-        break;
-    default:
-        Xila.Open_Software(Xila.Software_Handle_Pointer[Slot]); // exclude 1st slot (shell ui), so add, minus 2 = 1
-        break;
+        if (Xila.Software_Handle_Pointer[Slot + Offset] != NULL)
+        {
+            Xila.Open_Software(Xila.Software_Handle_Pointer[Slot + Offset]);
+        }
+        else
+        {
+            Open_Drawer();
+        }
+    }
+    else
+    {
+        Open_Drawer();
     }
 }
 
@@ -979,6 +1042,7 @@ void Shell_Class::Open_Desk()
 void Shell_Class::Open_Drawer()
 {
     Xila.Display.Set_Current_Page(F("Shell_Drawer"));
+    Offset = 0;
     Refresh_Drawer();
 }
 
@@ -1043,9 +1107,29 @@ void Shell_Class::Refresh_Drawer()
 
 // File manager
 
+void Shell_Class::Select_Item(uint8_t Item)
+{
+    switch (File_Manager_Mode)
+    {
+    case 0:
+    case 1:
+        strlcat(Temporary_Directory_Path, Current_Path, sizeof(Current_Path));
+        Refresh_File_Manager();
+        break;
+    case 2:
+        Delete();
+        Refresh_File_Manager();
+        break;
+    case 3:
+        Execute(Instruction('C', 'a'));
+        break;
+    }
+}
+
 void Shell_Class::Open_File_Manager()
 {
     Xila.Display.Set_Current_Page(F("Shell_File"));
+    Offset = 0;
     switch (File_Manager_Mode)
     {
     case Xila.Open_File:
@@ -1072,7 +1156,9 @@ void Shell_Class::Open_File_Manager()
 
 void Shell_Class::Go_Parent()
 {
-    for (uint8_t i = sizeof(Current_Path); i > 0; i--)
+    uint8_t i = strlen(Current_Path);
+    Current_Path[i] = '\0'; // delete last char (if directory)
+    for (; i > 0; i--)
     {
         if (Current_Path[i] == '\\')
         {
@@ -1082,6 +1168,12 @@ void Shell_Class::Go_Parent()
         else
         {
             Current_Path[i] = '\0';
+            if (i = 1)
+            {
+                Current_Path[0] = '\\';
+                Display_Path();
+                return;
+            }
         }
     }
 }
@@ -1104,9 +1196,9 @@ void Shell_Class::Make_Directory(char *Item_Name)
     }
 }
 
-void Shell_Class::Delete(char *Item_Name)
+void Shell_Class::Delete()
 {
-    switch (Xila.Event_Dialog(F("Do you "), Xila.Question))
+    switch (Xila.Event_Dialog(F("Do you want to delete this item ?"), Xila.Question))
     {
     case Xila.Button_1:
         Xila.Drive->remove(Current_Path + Item_Name);
