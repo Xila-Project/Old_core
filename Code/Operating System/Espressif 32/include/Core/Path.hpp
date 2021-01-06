@@ -11,6 +11,7 @@
 #define Data_File_Extension ".XDF" // mainly used for undefined data type
 #define Executable_File_Extension ".XEF"
 #define Sound_File_Extension ".WAV"
+#define Basic_File_Extension ".BAS"
 
 #define Registry_Directory_Path Xila_Directory_Path "REGISTRY/"
 #define Registry(name) Registry_Directory_Path name Registry_File_Extension //shortcut

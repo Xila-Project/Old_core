@@ -10,7 +10,6 @@ Xila_Class::Xila_Class() : Tag(0),
                            Display(),
                            Sound(),
                            Battery(13, 47, 47),
-                           Keyboard(2, 6),
                            Dialog_Semaphore(xSemaphoreCreateMutex()),
                            Background_Function_Counter(0)
 
@@ -124,9 +123,7 @@ void Xila_Class::Start()
   {
     Shutdown();
   }
-
-
-  
+ 
 
   Remaining_Spaces = 0;
 
@@ -223,7 +220,11 @@ void Xila_Class::Start()
   WiFi.setHostname(Device_Name); // Set hostname
   WiFi_Connect();
 
+  // Set keyboard layout
   Load_Regionnal_Registry();
+  
+  Keyboard.begin()
+
 
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software ...");
@@ -534,6 +535,12 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   case Xila.Command:
   case Xila.Command_New:
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
+    break;
+  case Xila.Keyboard:
+    Maximize_Shell();
+    Shell_Execute();
+    Xila.Open_Software_Pointer[1]->Execute('K', 'e');
+    Xila.Open_Software_Pointer[1]->Set_Variable(Received_Data + 4, Variable_Char_Local, 'K', Size);
     break;
   case Xila.Event:
     Xila.Event_Reply = (Xila_Event)Received_Data[1];

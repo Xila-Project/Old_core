@@ -6,16 +6,11 @@
 class Shell_Class : public Software_Class
 {
 protected:
-    File Temporary_File;
-
-    uint8_t Mode;
-    char Current_Path[64];
-
     static Shell_Class *Instance_Pointer;
 
     uint32_t Temporary_Variable[4];
 
-    char* Temporary_Char_Array[3];
+    char *Temporary_Char_Array[3];
 
     uint8_t Automatic_Login;
 
@@ -28,6 +23,7 @@ protected:
         File_Manager,
         Preferences_Hardware,
         Install,
+        Keyboard,
         Login,
         Preferences_Network,
         Preferences_Personal,
@@ -43,9 +39,12 @@ protected:
 
     // Command
     uint16_t Current_Command;
-    
+
     void Main_Commands();
     void Desk_Commands();
+
+    void Keyboard_Commands();
+    void Numpad_Commands();
 
     void Preferences_Hardware_Commands();
     void Preferences_Network_Commands();
@@ -76,27 +75,48 @@ protected:
     void Open_Login();
     void Open_Load(uint8_t Mode);
 
+    enum Load_Mode
+    {
+        Login,
+        Shutdown,
+    };
+
+    enum File_Manager_Mode
+    {
+        Browse,
+        New_File,
+        Delete_File,
+        Rename_File,
+        Copy_File,
+        Cut_File,
+        Open_File,
+        Open_Folder,
+        Save_File
+    };
+
+    File Temporary_File;
+
+    uint8_t Mode;
     // 0 : default (browse)
-    // 1 : open file
-    // 2 : open folder
-    // 3 : save file
-    // 4 : new file
-    // 5 : delete file
-    // 6 : rename file
-    // 7 : copy file
-    uint8_t File_Manager_Mode;
-    
+    // 1 : new file
+    // 2 : delete file
+    // 3 : rename file
+    // 4 : copy file
+    // 5 : open file
+    // 6 : open folder
+    // 7 : save file
+
+    char Current_Item_Name[13];
+    char Current_Path[128];
+
+    void Select_Item();
     void Open_File_Manager();
     void Open_Preferences(char const &Section);
 
-    uint8_t Drawer_Offset;
-
-
-
-    void Make_Directory(char *);
-    void Make_File(char *);
-    void Rename(char *);
-    void Delete(char *);
+    void Make_Directory();
+    void Make_File();
+    void Rename();
+    void Delete();
     void Go_Parent();
 
     void Dock(uint8_t, uint8_t);
@@ -107,7 +127,7 @@ protected:
     static void Main_Task(void *);
 
 public:
-    static Software_Class* Load();
+    static Software_Class *Load();
 
     static void Startup();
 

@@ -105,16 +105,6 @@ protected:
         Error_32
     };
 
-    /**
-     * Font identifier
-    */
-    enum Font
-    {
-        Main_16 = 0,
-        Main_24 = 2,
-        Main_32 = 3
-    };
-
     const int Low_RAM_Threshold = 2000;
 
     //User attribute
@@ -152,6 +142,17 @@ protected:
     // Power button
 
 public:
+
+    /**
+     * Font identifier
+    */
+    enum Font
+    {
+        Main_16 = 0,
+        Main_24 = 2,
+        Main_32 = 3
+    };
+
     static void IRAM_ATTR Power_Button_Handler();
 
     portMUX_TYPE Power_Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
@@ -231,7 +232,7 @@ public:
 #if SD_MODE == 0
     fs::SDMMCFS *Drive;
 #else
-    fs::SDFS* Drive;
+    fs::SDFS *Drive;
 #endif
     // WiFi
 
@@ -306,6 +307,8 @@ public:
         Open_File_Dialog = 'f',
         Open_Folder_Dialog = 'F',
         Save_File_Dialog = 'e',
+        Keyboard_Dialog = 'K',
+        Numpad_Dialog = 'N',
         Command = '*',
         Command_New = '#',
         Event = 'E',
@@ -316,8 +319,7 @@ public:
         Variable_Char_Local = 'c',
         Variable_Char_Global = 'C',
         Variable_Long_Local = 'l',
-        Variable_Long_Global = 'L',
-
+        Variable_Long_Global = 'L'
     };
 
     // Serial communication macro
