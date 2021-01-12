@@ -1,20 +1,20 @@
 /**
- * @file
+ * @file Core.hpp
+ * @brief Xila's core header file.
  * @author Alix ANNERAUD
+ * @copyright MIT License
  * @version 0.1.0
- * 
+ * @date 21/05/2020
+ * @details Gather all the parts used by Xila core.
  * @section License
  * 
- * Copyright <YEAR> <COPYRIGHT HOLDER>
+ * Copyright (c) 2020 Alix ANNERAUD
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
  * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
- * @section Description
- * 
- * Xila core class.
 */
 
 #ifndef GALAXOS_CORE_H_INCLUDED
@@ -84,6 +84,12 @@ typedef tm Xila_Time;
 
 extern Software_Handle_Class Shell_Handle;
 
+/**
+ * @class Xila_Class
+ * @brief Core class.
+ * 
+ * Contain all core parts and include also its API which is used by external software.
+ */
 class Xila_Class
 {
 protected:
@@ -144,13 +150,13 @@ protected:
 public:
 
     /**
-     * Font identifier
+     * @enum Font identifier
     */
     enum Font
     {
-        Main_16 = 0,
-        Main_24 = 2,
-        Main_32 = 3
+        Main_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
+        Main_24 = 2, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
+        Main_32 = 3 /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
     };
 
     static void IRAM_ATTR Power_Button_Handler();
@@ -167,9 +173,30 @@ public:
 
     inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
 
+    /**
+     * @brief Function used to open a Software.
+     * 
+     * @param Software_Handle The software's handle to open 
+     */
     void Open_Software(Software_Handle_Class const &);
+
+    /**
+     * @brief Function used to close a Software.
+     * 
+     * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
+     */
     void Close_Software(Software_Handle_Class * = NULL);
+    
+    /**
+     * @brief Function used to minimize the currently running software, and then maximize Shell.
+     */
     void Minimize_Software();
+    
+    /**
+     * @brief Function used to maxmize the software.
+     * 
+     * @param Software_Handle The software's handle to maxmize.
+     */
     void Maximize_Software(Software_Handle_Class const &);
 
     Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Load, const __FlashStringHelper *Header_Path);
@@ -236,32 +263,69 @@ public:
 #endif
     // WiFi
 
+    /**
+     * @brief Function that allow to connect WiFi.
+     * @return Xila.Success if it succed to connect, and Xila.Error if not.
+     * @details Function that connect to already registered access point.
+     */
     Xila_Event WiFi_Connect();
+    
+    /**
+     * @brief Function that allow to connect WiFi.
+     * @param Name SSID of the access point.
+     * @param Password Password of the access point.
+     * @return Xila.Success if it succed to connect, and Xila.Error if not.
+     * @details Function that that try to connect to the given access point, and if succed, save credential into network registry.
+     */
     Xila_Event WiFi_Connect(char *Name, char *Password);
 
     // System state
-    void Start();                                                //start system in standard mode
-    void Start(Software_Handle_Class *Software_Handle_To_Start); // reload system from the dump file
 
+    /**
+    * @brief Function handle deep-sleep wakeup, initialize the core, start software etc.
+    * @param Software_Handle_To_Start If null, mean that Xila is in normal mode, if not mean that Xila is in standalone mode, and then must start the concerned software after initialization. 
+    * @details Function that :
+    * 1) Check if the wakeup reasing is linked to a power button press, or undefined (power reset) and if not, go to sleep.
+    * 2) Create an interrupt for the power button.
+    * 3) Initalize display.
+    * 4) Initalize system drive.
+    * 5) Load registries (display, sound, keyboard, network, time).
+    * 6) Play sound and animation.
+    * 7) Load software handles.
+    * 8) Execute software startup function (Shell and other software).
+    */
+    void Start(Software_Handle_Class *Software_Handle_To_Start = NULL); // reload system from the dump file
+
+    /**
+     * @brief Function shutdown the system.
+     * @details Function that execute, before making 
+     * 
+     */
     void Shutdown(); // private
     void Restart();  // private
 
-    Xila_Event Load_Regionnal_Registry();
+    Xila_Event Load_Time_Registry();
+    Xila_Event Load_Keyboard_Registry();
     Xila_Event Load_Display_Registry();
     Xila_Event Load_Network_Registry();
     Xila_Event Load_Account_Registry();
     Xila_Event Load_System_Registry();
     Xila_Event Load_Sound_Registry();
 
-    Xila_Event Set_Regionnal_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);
+    Xila_Event Set_Time_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);
+    Xila_Event Set_Keyboard_Registry(uint8_t Data_Pin = 0xFF, uint8_t Interrupt_Pin = 0xFF, uint8_t Keymap = 0xFF);
     Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);
-    Xila_Event Set_Network_Registry(bool WiFi_Enabled, const char *WiFi_Name, const char *Password);
+    Xila_Event Set_Network_Registry(uint8_t WiFi_Enabled = 0xFF, const char* WiFi_Name = NULL, const char *Password = NULL);
     Xila_Event Set_Account_Registry(const char *Autologin_Account = NULL);
-    Xila_Event Set_System_Registry(const char *Device_Name, );
+    Xila_Event Set_System_Registry(const char *Device_Name);
     Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);
 
     int32_t GMT_Offset;
     int16_t Daylight_Offset;
+
+    uint8_t Keyboard_Data_Pin;
+    uint8_t Keyboard_Interrupt_Pin;
+    uint8_t Keyboard_Keymap;
 
     const char *Get_Device_Name();
 

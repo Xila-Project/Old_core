@@ -95,7 +95,7 @@
 #include <FS.h>
 
 #include <EEPROM.h> /* NOTE: case sensitive */
-int eepos = 0;
+
 
 #ifdef ENABLE_WIFI
 #include <WiFi.h>
@@ -182,6 +182,8 @@ protected:
     unsigned char expression_error;
     unsigned char *tempsp;
 
+    int eepos;
+
     /***********************************************************/
     // Keyword table and constants - the last character has 0x80 added to it
 
@@ -258,7 +260,7 @@ protected:
         unsigned char *txtpos;
     };
 
-    const unsigned char func_tab[] = {
+    const unsigned char func_tab[21] = {
         'P', 'E', 'E', 'K' + 0x80,
         'A', 'B', 'S' + 0x80,
         'A', 'R', 'E', 'A', 'D' + 0x80,
@@ -271,7 +273,7 @@ protected:
     unsigned char *filenameWord();
     boolean sd_is_initialized = false;
 
-    const unsigned char keywords[90] = {
+    const unsigned char keywords[238] = {
         'L', 'I', 'S', 'T' + 0x80,
         'L', 'O', 'A', 'D' + 0x80,
         'N', 'E', 'W' + 0x80,
@@ -388,16 +390,20 @@ protected:
 
     void Read_Command();
 
-    char Temporary_Input[193];
+    char Temporary_Input[190];
+    uint8_t Current_Position = 0;
+
+    uint16_t Current_Command;
+    char Temporary_Char;
 
     void Clear(); // uniplemented yet
 
     uint8_t Current_Line;
+
     uint8_t Current_Column;
-    
-    void Write(uint8_t Char);
-    uint8_t Read();
-    uint8_t Available();
+    char Temporary_Output[69];
+
+
 
     void Analog_Write(uint8_t, int16_t); // uniplemented yet
     

@@ -1,12 +1,43 @@
+/**
+ * @file Shell.hpp
+ * @brief Xila's user interface header file.
+ * @author Alix ANNERAUD
+ * @copyright MIT License
+ * @version 0.1.0
+ * @date 21/05/2020
+ * @details Xila user interface software.
+ * @section License
+ * 
+ * Copyright (c) 2020 Alix ANNERAUD
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
+*/
 #ifndef SHELL_HPP_INCLUDED
 #define SHELL_HPP_INCLUDED
 
 #include "Xila.hpp"
 
+/**
+ * @class Shell_Class Shell.hpp
+ * 
+ * @
+*/
 class Shell_Class : public Software_Class
 {
 protected:
     static Shell_Class *Instance_Pointer;
+
+    char Target_Username[9];
+    char Password_1[25];
+    char Password_2[25];
+
+    char Device_Name[25];
+
+    char WiFi_Name[25] char WiFi_Password[25];
 
     uint32_t Temporary_Variable[4];
 
@@ -14,6 +45,11 @@ protected:
 
     uint8_t Automatic_Login;
 
+    char Temporary_Char[14];
+
+    /**
+     * @enum Pages
+     */
     enum Pages
     {
         About = 27,
@@ -24,6 +60,7 @@ protected:
         Preferences_Hardware,
         Install,
         Keyboard,
+        Keypad,
         Login,
         Preferences_Network,
         Preferences_Personal,
@@ -40,11 +77,14 @@ protected:
     // Command
     uint16_t Current_Command;
 
+    inline void Open_Keypad();
+    inline void Open_Keyboard();
+
     void Main_Commands();
     void Desk_Commands();
 
     void Keyboard_Commands();
-    void Numpad_Commands();
+    void Keypad_Commands();
 
     void Preferences_Hardware_Commands();
     void Preferences_Network_Commands();
@@ -81,38 +121,33 @@ protected:
         Shutdown,
     };
 
-    enum File_Manager_Mode
-    {
-        Browse,
-        New_File,
-        Delete_File,
-        Rename_File,
-        Copy_File,
-        Cut_File,
-        Open_File,
-        Open_Folder,
-        Save_File
-    };
+    File Temporary_Item;
 
-    File Temporary_File;
+    uint8_t Operation;
+    enum File_Manager_Operation
+    {
+        Idle,
+        New,
+        Delete,
+        Rename,
+        Copy,
+        Cut
+    };
 
     uint8_t Mode;
     // 0 : default (browse)
-    // 1 : new file
-    // 2 : delete file
-    // 3 : rename file
-    // 4 : copy file
-    // 5 : open file
-    // 6 : open folder
-    // 7 : save file
+    // 1 : open file
+    // 2 : open folder
+    // 3 : save file
 
     char Current_Item_Name[13];
-    char Current_Path[128];
+    char Current_Path[192];
 
     void Select_Item();
     void Open_File_Manager();
     void Open_Preferences(char const &Section);
 
+    void Refresh_File_Manager();
     void Make_Directory();
     void Make_File();
     void Rename();

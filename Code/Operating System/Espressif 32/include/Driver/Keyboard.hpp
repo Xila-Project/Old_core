@@ -181,6 +181,7 @@ private:
     static volatile uint8_t buffer[BUFFER_SIZE];
     static volatile uint8_t head, tail;
     static uint8_t DataPin;
+    static uint8_t irq_num;
     static uint8_t CharBuffer;
     static uint8_t UTF8next;
     static const Keymap_Class *keymap;

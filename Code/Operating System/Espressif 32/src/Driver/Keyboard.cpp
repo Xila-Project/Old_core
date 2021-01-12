@@ -41,7 +41,8 @@
 #include "Driver/Keyboard.hpp"
 
 volatile uint8_t Keyboard_Class::buffer[BUFFER_SIZE];
-uint8_t Keyboard_Class::DataPin;
+uint8_t Keyboard_Class::DataPin = 0;
+uint8_t Keyboard_Class::irq_num = 255;
 uint8_t Keyboard_Class::CharBuffer = 0;
 uint8_t Keyboard_Class::UTF8next = 0;
 const Keymap_Class *keymap = NULL;
@@ -297,7 +298,12 @@ Keyboard_Class::Keyboard_Class()
 
 void Keyboard_Class::begin(uint8_t data_pin, uint8_t irq_pin, const Keymap_Class &map)
 {
-    uint8_t irq_num = 255;
+    if (irq_num != 255)
+    {
+        detachInterrupt(irq_num);
+    }
+
+    irq_num = 255;
 
     DataPin = data_pin;
     keymap = &map;
@@ -306,6 +312,9 @@ void Keyboard_Class::begin(uint8_t data_pin, uint8_t irq_pin, const Keymap_Class
     pinMode(data_pin, INPUT_PULLUP);
 
     irq_num = irq_pin;
+
+    CharBuffer = 0;
+    UTF8next = 0;
 
     head = 0;
     tail = 0;

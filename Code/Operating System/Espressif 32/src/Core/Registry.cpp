@@ -1,6 +1,6 @@
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Load_Regionnal_Registry()
+Xila_Event Xila_Class::Load_Time_Registry()
 {
   Verbose_Print_Line("> Load regional registry ...");
   File Temporary_File = Drive->open(Regional_Registry_Path);
@@ -12,8 +12,7 @@ Xila_Event Xila_Class::Load_Regionnal_Registry()
   DynamicJsonDocument Regional_Registry(256);
   deserializeJson(Regional_Registry, Temporary_File);
 
-  strcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"]);
-
+  strlcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"], sizeof(NTP_Server));
   int32_t GMT_Offset = Regional_Registry["Time"]["GMT Offset"];
   int16_t Daylight_Offset = Regional_Registry["Time"]["Daylight Offset"];
 
@@ -84,7 +83,7 @@ Xila_Event Xila_Class::Load_Sound_Registry()
   return Success
 }
 
-Xila_Event Xila_Class::Load_Regionnal_Registry()
+Xila_Event Xila_Class::Load_Time_Registry()
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Regional_Registry(256);
@@ -102,7 +101,45 @@ Xila_Event Xila_Class::Load_Regionnal_Registry()
   return Success;
 }
 
-Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Daylight_Offset)
+Xila_Event Xila_Class::Load_Keyboard_Registry()
+{
+  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Regional_Registry(256);
+  if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  JsonObject Keyboard_Registry = Regional_Registry["Keyboard"];
+  Keyboard_Data_Pin = Keyboard_Registry["Data_Pin"];
+  Keyboard_Interrupt_Pin = Keyboard_Registry["Interrupt_Pin"];
+  Keyboard_Keymap = Keyboard_Registry["Keymap"];
+  switch (Keyboard_Keymap)
+  {
+  case 'G':
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin, Keyboard.Keymap_German);
+    break;
+  case 'F':
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin, Keyboard.Keymap_French);
+    break;
+  case 'S':
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin, Keyboard.Keymap_Spanish);
+    break;
+  case 'I':
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin, Keyboard.Keymap_Italian);
+    break;
+  case 'u':
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin, Keyboard.Keymap_UK);
+    break;
+  default: //U or other
+    Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin);
+    break;
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Set_Time_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Daylight_Offset)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Regional_Registry(256);
@@ -126,6 +163,41 @@ Xila_Event Xila_Class::Set_Regionnal_Registry(const char *NTP_Server, int32_t GM
     strlcpy(this->NTP_Server, NTP_Server, sizeof(this->NTP_Server));
   }
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  if (serializeJson(Regional_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Set_Keyboard_Registry(uint8_t Data_Pin, uint8_t Interrupt_Pin , uint8_t Keymap)
+{
+File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Regional_Registry(256);
+  if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  JsonObject Keyboard_Registry = Regional_Registry["Keyboard"];
+  if (Data_Pin != 0xFF)
+  {
+    Keyboard_Data_Pin = Data_Pin;
+    Keyboard_Registry["Data Pin"] = Data_Pin;
+  }
+  if (Interrupt_Pin != 0xFF)
+  {
+    Keyboard_Interrupt_Pin = Interrupt_Pin;
+    Keyboard_Registry["Interrupt Pin"] = Interrupt_Pin;
+  }
+  if (Keymap != 0xFF)
+  {
+    Keyboard_Registry["Keymap"] = Keymap;
+    Keyboard_Keymap = Keymap;
+  }
+
   if (serializeJson(Regional_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();

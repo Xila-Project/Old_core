@@ -62,38 +62,31 @@ void Tiny_Basic_Class::Read_Command()
   }
 }
 
+/////////////////////////////////////////////////////////////////
+
+void Tiny_Basic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+  switch (Adress)
+  {
+  case 'C':
+    if (Type = Xila.Variable_Char_Local)
+    {
+      memset(Temporary_Input, '\0', sizeof(Temporary_Input));
+      strlcpy(Temporary_Input, (char *)Variable, sizeof(Temporary_Input));
+      strcat(Temporary_Input, "\r\n");
+    }
+    break;
+  default:
+    break;
+  }
+}
+
 //////////////////////////////////////////////////////////////////
 
 void Tiny_Basic_Class::Clear()
 {
   Xila.Display.Click(F("SCROLL_HOT"), 1);
   Current_Line = 1;
-}
-
-//////////////////////////////////////////////////////////////////
-
-void Tiny_Basic_Class::Write(uint8_t Char)
-{
-  Current_Column += 
-}
-
-////////////////////////////////////////////////////////////////////////
-
-uint8_t Tiny_Basic_Class::Available()
-{
-  static char Char;
-  if (Xila.Keyboard.available())
-  {
-    Char = Xila.Keyboard.read();
-    if (Char == PS2_ENTER)
-    {
-    }
-
-    Xila.Display.Add_Text(F("TEMPORARY_VAR"), Char);
-  }
-  if (Get_Command() != 0)
-  {
-  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -659,17 +652,63 @@ unsigned char *Tiny_Basic_Class::filenameWord()
 /***************************************************************************/
 void Tiny_Basic_Class::line_terminator()
 {
+  Read_Command();
   if (outStream == kStreamXila)
   {
-    if (Current_Line < 15)
+    if (Current_Line < 14)
     {
       Current_Line++;
+      switch (Current_Line) //faster than modulo
+      {
+      case 1:
+        Xila.Display.Set_Text(F("LINE1_TXT"), Temporary_Output);
+        break;
+      case 2:
+        Xila.Display.Set_Text(F("LINE2_TXT"), Temporary_Output);
+        break;
+      case 3:
+        Xila.Display.Set_Text(F("LINE3_TXT"), Temporary_Output);
+        break;
+      case 4:
+        Xila.Display.Set_Text(F("LINE4_TXT"), Temporary_Output);
+        break;
+      case 5:
+        Xila.Display.Set_Text(F("LINE5_TXT"), Temporary_Output);
+        break;
+      case 6:
+        Xila.Display.Set_Text(F("LINE6_TXT"), Temporary_Output);
+        break;
+      case 7:
+        Xila.Display.Set_Text(F("LINE7_TXT"), Temporary_Output);
+        break;
+      case 8:
+        Xila.Display.Set_Text(F("LINE8_TXT"), Temporary_Output);
+        break;
+      case 9:
+        Xila.Display.Set_Text(F("LINE9_TXT"), Temporary_Output);
+        break;
+      case 10:
+        Xila.Display.Set_Text(F("LINE10_TXT"), Temporary_Output);
+        break;
+      case 11:
+        Xila.Display.Set_Text(F("LINE11_TXT"), Temporary_Output);
+        break;
+      case 12:
+        Xila.Display.Set_Text(F("LINE12_TXT"), Temporary_Output);
+        break;
+      case 13:
+        Xila.Display.Set_Text(F("LINE13_TXT"), Temporary_Output);
+        break;
+      }
     }
     else
     {
-      Current_Line = 15;
-      Xila.Display.Click(F("SCROLL_HOT"), 0);
+      Current_Line = 14;
+      Xila.Display.Click(F("SCROLL_HOT"), 0); // scroll
+      Xila.Display.Set_Text(F("LINE14_TXT"), Temporary_Output);
     }
+    Current_Column = 0;
+    memset(Temporary_Output, '\0', sizeof(Temporary_Output));
   }
   else
   {
@@ -719,7 +758,10 @@ unsigned char Tiny_Basic_Class::breakcheck()
   {
     if (Xila.Keyboard.available())
     {
-      return Xila.Keyboard.read() == PS2_ESC;
+      if (Xila.Keyboard.read() == PS2_ESC)
+      {
+        return 1;
+      }
     }
   }
   else
@@ -765,9 +807,28 @@ int Tiny_Basic_Class::inchar()
   case (kStreamXila): // Xila (keyboard and display)
     while (1)
     {
-      if (Available())
+      Read_Command();
+
+      if (Xila.Keyboard.available())
       {
-        return Read();
+        Temporary_Char = Xila.Keyboard.read();
+        if (Temporary_Char == PS2_ENTER)
+        {
+          Xila.Display.Click(F("ENTER_BUT"), 0);
+        }
+        else if (Temporary_Char == PS2_BACKSPACE)
+        {
+          Xila.Display.Delete_Text(F("INPUT_TXT"), 1);
+        }
+        else
+        {
+          Xila.Display.Add_Text(F("INPUT_VAR"), &Temporary_Char);
+        }
+      }
+
+      if (Temporary_Input[Current_Position] != '\0')
+      {
+        return Temporary_Input[Current_Position++];
       }
     }
     break;
@@ -808,7 +869,12 @@ void Tiny_Basic_Class::outchar(unsigned char c)
     Serial.write(c);
     break;
   case kStreamXila:
-    Write(c);
+    if (Current_Column > 68)
+    {
+      line_terminator();
+    }
+    Temporary_Output[Current_Column] += c;
+    Current_Column++;
     break;
   default:
     break;

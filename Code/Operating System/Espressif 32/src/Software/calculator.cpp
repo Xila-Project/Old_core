@@ -686,7 +686,7 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
         Temporary_Numbers[Selected_Number] = PI;
         break;
     case Neper_Constant:
-        Temporary_Numbers[Selected_Number] = Neper_Constant;
+        Temporary_Numbers[Selected_Number] = EULER;
         break;
     default:
         Temporary_Numbers[Selected_Number] = atof(Numbers[Selected_Number]);
@@ -910,8 +910,7 @@ void Calculator_Class::Degree_To_Radian(uint8_t Selected_Number)
 {
     if (bitRead(Keys_Mode, Angle) == Degree)
     {
-        Temporary_Numbers[Selected_Number] *= PI;
-        Temporary_Numbers[Selected_Number] /= 180;
+        Temporary_Numbers[Selected_Number] *= DEG_TO_RAD;
     }
 }
 

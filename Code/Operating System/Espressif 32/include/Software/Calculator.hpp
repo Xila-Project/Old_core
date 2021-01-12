@@ -4,8 +4,6 @@
 #include "Xila.hpp"
 #include "Arduino.h"
 
-#define NEPER_CONSTANT 2.71828182845904523536028747135266249
-
 #define POINT_PRECISION 9
 
 class Calculator_Class : public Software_Class

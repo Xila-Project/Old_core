@@ -11,7 +11,8 @@
 	"settings": {
 		"files.associations": {
 			"*.XRF": "json",
-			"fstream": "cpp"
+			"fstream": "cpp",
+			"random": "cpp"
 		}
 	}
 }

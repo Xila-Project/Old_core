@@ -14,6 +14,7 @@ Xila_Class::Xila_Class() : Tag(0),
                            Background_Function_Counter(0)
 
 {
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   System_State = 0;
   if (Instance_Pointer != NULL)
   {
@@ -47,9 +48,11 @@ Xila_Class::~Xila_Class() // destructor
 }
 
 // Used to initialise the core
-
+/*
 void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 {
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
+
   // Restore attribute
   System_State = 1;
 
@@ -112,18 +115,20 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
   Open_Software(*Software_Handle_To_Start);
 
   xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-}
+}*/
 
-void Xila_Class::Start()
+void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 {
-  System_State = 0;
-
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
-  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 || Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
-    Shutdown();
+    esp_deep_sleep_start();
   }
- 
+  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+
+  System_State = 0;
 
   Remaining_Spaces = 0;
 
@@ -133,9 +138,6 @@ void Xila_Class::Start()
 
   // Setting interrput for power buttons
 
-  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
-
   // Initialize display
   pinMode(DISPLAY_SWITCH_PIN, OUTPUT);
   digitalWrite(DISPLAY_SWITCH_PIN, HIGH);
@@ -143,11 +145,7 @@ void Xila_Class::Start()
   Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
   Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
   Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
-  #if DISPLAY_MODE == 1
-  Display.Begin(912600, 1, 3);
-  #else
   Display.Begin();
-  #endif
 
   Display.Wake_Up();
   Display.Set_Current_Page(F("Core_Load")); // Play animation
@@ -221,10 +219,8 @@ void Xila_Class::Start()
   WiFi_Connect();
 
   // Set keyboard layout
-  Load_Regionnal_Registry();
-  
-  Keyboard.begin()
-
+  Load_Time_Registry();
+  Load_Keyboard_Registry();
 
   // Load software (including Shell UI)
   Verbose_Print_Line("> Load software ...");
@@ -536,11 +532,15 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   case Xila.Command_New:
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
     break;
-  case Xila.Keyboard:
+  case Xila.Keyboard_Dialog:
     Maximize_Shell();
     Shell_Execute();
-    Xila.Open_Software_Pointer[1]->Execute('K', 'e');
-    Xila.Open_Software_Pointer[1]->Set_Variable(Received_Data + 4, Variable_Char_Local, 'K', Size);
+    Xila.Open_Software_Pointer[1]->Execute('O', 'K');
+    break;
+  case Xila.Numpad_Dialog:
+    Maximize_Shell();
+    Shell_Execute();
+    Xila.Open_Software_Pointer[1]->Execute('O', 'k');
     break;
   case Xila.Event:
     Xila.Event_Reply = (Xila_Event)Received_Data[1];

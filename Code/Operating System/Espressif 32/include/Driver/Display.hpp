@@ -1,3 +1,24 @@
+/**
+ * @file Display.cpp
+ * @brief Xila's display driver header file.
+ * @author Alix ANNERAUD
+ * @copyright MIT License
+ * @version 0.1.0
+ * @date 21/05/2020
+ * @details Xila display driver, used by the core and softwares to display things.
+ * @section License
+ * 
+ * Copyright (c) 2020 Alix ANNERAUD
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
+*/
+
+
+
 #ifndef DISPLAY_H_INCLUDED
 #define DISPLAY_H_INCLUDED
 
@@ -141,11 +162,12 @@ public:
     void Set_Vertical_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Set_Vertical_Alignment);
     void Set_Input_Type(const __FlashStringHelper *Object_Name, uint8_t const &Input_Type);
     void Set_Wordwrap(const __FlashStringHelper *Object_Name, bool const &Wordwrap);
-    void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value, bool const& Value_Is_Object = false);
+    void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
     void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
     void Set_Text(String const &Object_Name, String const &Value);
     void Set_Text(const __FlashStringHelper *Object_Name, const char *Value);
-
+    void Add_Text(const __FlashStringHelper* Component_Name, const char* Data);
+    void Delete_Text(const __FlashStringHelper* Component_Name, uint8_t const& Quantity_To_Delete);
 
     void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
     void Set_Value(String const& Object_Name, uint32_t const& Value);

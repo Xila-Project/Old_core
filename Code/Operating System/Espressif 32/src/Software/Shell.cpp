@@ -1,3 +1,22 @@
+/**
+ * @file Shell.cpp
+ * @brief Xila's user interface source file.
+ * @author Alix ANNERAUD
+ * @copyright MIT License
+ * @version 0.1.0
+ * @date 21/05/2020
+ * @details Xila user interface software.
+ * @section License
+ * 
+ * Copyright (c) 2020 Alix ANNERAUD
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
+*/
+
 #include "Software/Shell.hpp"
 
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
@@ -31,6 +50,68 @@ void Shell_Class::Startup()
     Verbose_Print_Line(F("> Open_Shell"));
 }
 
+void Shell_Class::Main_Task(void *pvParameters)
+{
+    (void)pvParameters;
+    while (1)
+    {
+        switch (Xila.Display.Get_Current_Page())
+        {
+        case Pages::About:
+            Instance_Pointer->Preferences_System_Commands();
+            break;
+        case Pages::Desk:
+            Instance_Pointer->Desk_Commands();
+            break;
+        case Pages::Drawer:
+            Instance_Pointer->Drawer_Commands();
+            break;
+        case Pages::Event:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Main_Commands();
+            break;
+        case Pages::Keypad:
+            Instance_Pointer->Keypad_Commands();
+            break;
+        case Pages::Keyboard:
+            Instance_Pointer->Keyboard_Commands();
+            break;
+        case Pages::File_Manager:
+            Instance_Pointer->File_Manager_Commands();
+            break;
+        case Pages::Preferences_Hardware:
+            Instance_Pointer->Preferences_Hardware_Commands();
+            break;
+        case Pages::Install:
+            Instance_Pointer->Install_Commands();
+            break;
+        case Pages::Login:
+            Instance_Pointer->Login_Commands();
+            break;
+        case Pages::Preferences_Network:
+            Instance_Pointer->Preferences_Network_Commands();
+            break;
+        case Pages::Preferences_Personal:
+            Instance_Pointer->Preferences_Personal_Commands();
+            break;
+        case Pages::Shutdown:
+            Instance_Pointer->Shutdown_Commands();
+            break;
+        case Pages::Preferences_System:
+            Instance_Pointer->Preferences_System_Commands();
+            break;
+        case Pages::Welcome:
+            Instance_Pointer->Install_Commands();
+            break;
+        default:
+            break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(5));
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+
 void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
     switch (Xila.Display.Get_Current_Page())
@@ -39,13 +120,13 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         switch (Adress)
         {
         case 'O':
-            Temporary_Variable[0] = *(uint32_t*)Variable;
+            Temporary_Variable[0] = *(uint32_t *)Variable;
             break;
         case 'o':
-            Temporary_Variable[1] = *(uint32_t*)Variable;
+            Temporary_Variable[1] = *(uint32_t *)Variable;
             break;
         case 'A': // Autologin
-            Temporary_Variable[2] = *(uint8_t*)Variable;
+            Temporary_Variable[2] = *(uint8_t *)Variable;
             break;
         case 'D':
             if (Temporary_Char_Array[0] != NULL)
@@ -94,8 +175,8 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Preferences_Personal:
         switch (Adress)
         {
-        case 'C':
-            Temporary_Variable[0] = *(uint32_t *)Variable;
+        case 'B':
+            Desk_Background = *(uint32_t *)Variable;
             break;
         default:
             break;
@@ -164,10 +245,10 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
             strlcpy(Temporary_Char_Array[1], (char *)Variable, 25);
             break;
         case 'O': // GMT offset
-            Temporary_Variable[0] = *(uint32_t*)Variable;
+            Temporary_Variable[0] = *(uint32_t *)Variable;
             break;
         case 'o': // Daylight offset
-            Temporary_Variable[1] = *(uint32_t*)Variable;
+            Temporary_Variable[1] = *(uint32_t *)Variable;
             break;
         default:
             break;
@@ -216,11 +297,8 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Keyboard:
         switch (Adress)
         {
-        case 'C':
-            Temporary_Variable[0] = *(uint16_t*)Variable;
-            break;
         case 'T':
-            Temporary_Variable[1] = *(uint8_t*)Variable;
+            Temporary_Variable[1] = *(uint8_t *)Variable;
             break;
         }
     default:
@@ -228,24 +306,187 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     }
 }
 
-void Shell_Class::Keyboard_Commands()
+void Shell_Class::Open_Keypad()
+{
+    Temporary_Variable[0] = 0xFFFFFFFF;
+    Xila.Display.Send_Raw(F("TYPE=b[COMPONENT].type"));
+    Xila.Display.Get(F("\"lT\""));
+    Xila.Display.Get(F("TYPE"));
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+    while (Temporary_Variable[0] == 0xFFFFFFFF) //waiting for display to send type
+    {
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+    if (Temporary_Variable[0] == 54)
+    {
+        Xila.Display.Send_Raw(F("covx b[COMPONENT].val,Shell_Keyboard.INPUT_VAR.txt,0,0"));
+        Xila.Display.Send_Raw(F("MASK=0"));
+        Xila.Display.Send_Raw(F("LENGTH=15"));
+    }
+    else if (Temporary_Variable[0] == 59)
+    {
+        Xila.Display.Send_Raw(F("LENGTH=p[COMPONENT].val"));
+        Xila.Display.Send_Raw(F("POINT=b[COMPONENT].vvs1"));
+        Xila.Display.Send_Raw(F("MASK=0"));
+    }
+    else
+    {
+        Xila.Display.Send_Raw(F("Shell_Keyboard.INPUT_VAR.txt=b[COMPONENT].txt"));
+        Xila.Display.Send_Raw(F("LENGTH=b[COMPONENT].txt_maxl"));
+        if (Temporary_Variable[0] == 116)
+        {
+            Xila.Display.Send_Raw(F("MASK=b[COMPONENT].pw"));
+        }
+    }
+    Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
+}
+
+void Shell_Class::Open_Keyboard()
+{
+    Temporary_Variable[0] = 0xFFFFFFFF;
+    Xila.Display.Get(F("\"lT\""));
+    Xila.Display.Get(F("b[COMPONENT].type"));
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+    while (Temporary_Variable[0] == 0xFFFFFFFF) //waiting for display to send type
+    {
+        vTaskDelay(pdMS_TO_TICKS(20));
+    }
+    if (Temporary_Variable[0] == 54)
+    {
+        Xila.Display.Send_Raw(F("cov b[COMPONENT].val,Shell_Keyboard.INPUT_VAR.txt,0"));
+        Xila.Display.Send_Raw(F("MASK=0"));
+        Xila.Display.Send_Raw(F("LENGTH=189"));
+    }
+    else
+    {
+        Xila.Display.Send_Raw(F("Shell_Keyboard.INPUT_VAR.txt=b[COMPONENT].txt"));
+        Xila.Display.Send_Raw(F("LENGTH=b[COMPONENT].txt_maxl"));
+        if (Temporary_Variable[0] == 116)
+        {
+            Xila.Display.Send_Raw(F("MASK=b[COMPONENT].pw"));
+        }
+    }
+    Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
+}
+
+void Shell_Class::Keypad_Commands()
 {
     Current_Command = Get_Command();
+    if (Xila.Keyboard.available())
+    {
+        switch (Xila.Keyboard.read())
+        {
+        case '0':
+            Xila.Display.Click(F("b0"), 0);
+            break;
+        case '1':
+            Xila.Display.Click(F("b1"), 0);
+            break;
+        case '2':
+            Xila.Display.Click(F("b2"), 0);
+            break;
+        case '3':
+            Xila.Display.Click(F("b3"), 0);
+            break;
+        case '4':
+            Xila.Display.Click(F("b4"), 0);
+            break;
+        case '5':
+            Xila.Display.Click(F("b5"), 0);
+            break;
+        case '6':
+            Xila.Display.Click(F("b6"), 0);
+            break;
+        case '7':
+            Xila.Display.Click(F("b7"), 0);
+            break;
+        case '8':
+            Xila.Display.Click(F("b8"), 0);
+            break;
+        case '9':
+            Xila.Display.Click(F("b9"), 0);
+            break;
+        case '.':
+            Xila.Display.Click(F("b99"), 0);
+            break;
+        case '-':
+            Xila.Display.Click(F("b10"), 0);
+            break;
+        case PS2_BACKSPACE:
+            Xila.Display.Click(F("b200"), 1);
+            break;
+        case PS2_ENTER:
+            Xila.Display.Click(F("b210"), 0);
+            break;
+        }
+    }
     switch (Current_Command)
     {
-    case Instruction('E', 'n'):
+    case Instruction('E', 'k'):
+        Xila.Display.Set_Current_Page(F("PAGE"));
         if (Temporary_Variable[0] == 54)
         {
-            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
+            Xila.Display.Send_Raw(F("covx Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0,0"));
+        }
+        else if (Temporary_Variable[0] == 59)
+        {
+            Xila.Display.Send_Raw(F("b[COMPONENT].val=Shell_Keypad.TEMPORARY_FLO.val"));
         }
         else
         {
-            Xila.Display.Send_Raw(F("cov Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0"));
+            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
         }
 
-
+        Xila.Shell_Minimize();
         break;
     default:
+        break;
+    }
+}
+
+void Shell_Class::Keyboard_Commands()
+{
+    if (Xila.Keyboard.available())
+    {
+        int Char = Xila.Keyboard.read();
+        if (Char == PS2_ENTER)
+        {
+            Xila.Display.Click(F("b210"), 0);
+        }
+        else if (Char == PS2_BACKSPACE)
+        {
+            Xila.Display.Click(F("b200"), 0);
+        }
+        else if (Char == PS2_TAB)
+        {
+            Xila.Display.Click(F("b201"), 0);
+        }
+        else
+        {
+            if (isPrintable(Char))
+            {
+                Xila.Display.Add_Text(F("INPUT_VAR"), &Char);
+            }
+        }
+    }
+    Current_Command = Get_Command();
+    switch (Current_Command)
+    {
+    case Instruction('E', 'K'):
+        Xila.Display.Set_Current_Page(F("PAGE"));
+        if (Temporary_Variable[0] == 54)
+        {
+            Xila.Display.Send_Raw(F("cov Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0"));
+        }
+        else
+        {
+            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
+        }
+
+        Xila.Shell_Minimize();
+        break;
+    default:
+        Main_Commands();
         break;
     }
 }
@@ -318,60 +559,6 @@ void Shell_Class::Install_Commands()
     }
 }
 
-void Shell_Class::Main_Task(void *pvParameters)
-{
-    (void)pvParameters;
-    while (1)
-    {
-        switch (Xila.Display.Get_Current_Page())
-        {
-        case Pages::About:
-            Instance_Pointer->Preferences_System_Commands();
-            break;
-        case Pages::Desk:
-            Instance_Pointer->Desk_Commands();
-            break;
-        case Pages::Drawer:
-            Instance_Pointer->Drawer_Commands();
-            break;
-        case Pages::Event:
-            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
-            Instance_Pointer->Main_Commands();
-            break;
-        case Pages::File_Manager:
-            Instance_Pointer->File_Manager_Commands();
-            break;
-        case Pages::Preferences_Hardware:
-            Instance_Pointer->Preferences_Hardware_Commands();
-            break;
-        case Pages::Install:
-            Instance_Pointer->Install_Commands();
-            break;
-        case Pages::Login:
-            Instance_Pointer->Login_Commands();
-            break;
-        case Pages::Preferences_Network:
-            Instance_Pointer->Preferences_Network_Commands();
-            break;
-        case Pages::Preferences_Personal:
-            Instance_Pointer->Preferences_Personal_Commands();
-            break;
-        case Pages::Shutdown:
-            Instance_Pointer->Shutdown_Commands();
-            break;
-        case Pages::Preferences_System:
-            Instance_Pointer->Preferences_System_Commands();
-            break;
-        case Pages::Welcome:
-            Instance_Pointer->Install_Commands();
-            break;
-        default:
-            break;
-        }
-        vTaskDelay(pdMS_TO_TICKS(5));
-    }
-}
-
 void Shell_Class::Desk_Commands()
 {
     Current_Command = Get_Command();
@@ -394,21 +581,91 @@ void Shell_Class::File_Manager_Commands()
     case 0:
         Idle();
         break;
-    case Instruction('C', 'a'):
+    case Instruction('C', 'l'):
         Empty_Footer_Bar();
-        if (File_Manager_Mode > 4)
+        if (Mode > 4)
         {
         }
+        break;
+    case Instruction('C', 'o'): // copy file
+        if (Operation == Copy)
+        {
+            if (Temporary_Item.isDirectory())
+            {
+                Xila.Event_Dialog(F("Cannot copy folder."), Xila.Error);
+            }
+            else
+            {
+                File Destination_File = Xila.Drive->open(Current_Path + Temporary_Item.name());
+                Xila.Copy_File(Temporary_Item, Destination_File);
+            }
+        }
+        else
+        {
+            Operation = Copy;
+            Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Click on a file to copy."));
+        }
+        Refresh_File_Manager();
+        break;
+    case Instruction('C', 'u'):
+        if (Operation == Cut)
+        {
+            if (Temporary_Item.isDirectory())
+            {
+                Xila.Event_Dialog(F("Cannot copy folder."), Xila.Error);
+            }
+            else
+            {
+                File Destination_File = Xila.Drive->open(Current_Path + Temporary_Item.name());
+                Xila.Copy_File(Temporary_Item, Destination_File);
+            }
+        }
+        else
+        {
+            Operation = Cut;
+            Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Click on a file to copy."));
+        }
+        Refresh_File_Manager();
+        break;
+    case Instruction('D', 'e'):
+        if (Operation == Delete)
+        {
+            Operation = Idle;
+        }
+        else
+        {
+            Operation = Delete;
+            Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Click on an item to delete it."));
+        }
+        Refresh_File_Manager();
+        break;
+    case Instruction('R', 'e'):
+        if (Operation == Rename)
+        {
+            Operation = Idle;
+        }
+        else
+        {
+            Operation = Rename;
+            Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Click on an item to rename it."));
+        }
+        Refresh_File_Manager();
         break;
     case Instruction('G', 'I'):
         Select_Item();
         break;
-    case Instruction('R', 'D'):
+    case Instruction('N', 'P'): // complete
+        Offset;
+        break;
+    case Instruction('P', 'P'):
+        Offset;
+        break;
+    case Instruction('R', 'D'): // open root directory
         memset(Temporary_Directory_Path, '\0', sizeof(Temporary_Directory_Path));
         Temporary_Directory_Path[0] = '\\';
         Refresh_File_Manager();
         break;
-    case Instruction('H', 'D');
+    case Instruction('H', 'D'); // open home directory
         memset(Temporary_Directory_Path, '\0', sizeof(Temporary_Directory_Path));
         strlcpy(Temporary_Directory_Path, Users_Directory_Path, sizeof(Temporary_Directory_Path));
         strlcat(Temporary_Directory_Path, Xila.Current_Username, sizeof(Temporary_Directory_Path));
@@ -419,23 +676,53 @@ void Shell_Class::File_Manager_Commands()
         Xila.Display.Set_Text(F("FOOTERBAR_TXT"), F("Select an item to delete."));
         File_Manager_Mode = 7;
         break;
-    case Instruction('n', 'F'):
-        Fill_Footer_Bar();
-        Xila.Display.Set_Text(F("SAVEOPEN_BUT"), F("New"));
+    case Instruction('N', 'f'): //new file
+        strlcpy(Current_Item_Name, "NEWFILE .TXT");
+        for (uint8_t i = 0; i <= 10; i++)
+        {
+            if (i < 10)
+            {
+                Current_Item_Name[7] = i + '0';
+                if (!Xila.Drive->exist(Current_Path + "/" + Current_Item_Name))
+                {
+                    if (!Xila.Drive->mkdir(Current_Path + "/" + Current_Item_Name))
+                    {
+                        Xila.Event_Dialog(F("Failed to create file."), Xila.Error);
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                Xila.Event_Dialog(F("Failed to create file."), Xila.Error);
+                break;
+            }
+        }
+        Refresh_File_Manager();
         break;
     case Instruction('N', 'F'):
-        if (Xila.Drive->exist(Current_Path + "/" + Temporary_Char_Array[0], FILE_WRITE))
+        strlcpy(Current_Item_Name, "NEWDIRE .TXT");
+        for (uint8_t i = 0; i <= 10; i++)
         {
-            Xila.Event_Dialog(F("Cannot create file that already exist."), Xila.Error);
-            Open_File_Manager();
-            return;
+            if (i < 10)
+            {
+                Current_Item_Name[7] = i + '0';
+                if (!Xila.Drive->exist(Current_Path + "/" + Current_Item_Name))
+                {
+                    if (!Xila.Drive->mkdir(Current_Path + "/" + Current_Item_Name))
+                    {
+                        Xila.Event_Dialog(F("Failed to create folder."), Xila.Error);
+                    }
+                    break;
+                }
+            }
+            else
+            {
+                Xila.Event_Dialog(F("Failed to create folder."), Xila.Error);
+                break;
+            }
         }
-        if (!Xila.Drive->open(Current_Path + "/" + Temporary_Char_Array[0], FILE_WRITE))
-        {
-            Xila.Event_Dialog(F("Failed to create file."), Xila.Error);
-            Open_File_Manager();
-            return;
-        }
+        Refresh_File_Manager();
         break;
     default:
         break;
@@ -444,34 +731,55 @@ void Shell_Class::File_Manager_Commands()
 
 void Shell_Class::Refresh_File_Manager()
 {
-    Temporary_File = Xila.Drive->open(Current_Path);
-    String Temporary_String;
-    if (Temporary_File)
+    strcat(Current_Path, Current_File_Name);
+    memset(Current_File_Name, '\0', sizeof(Current_File_Name));
+    Temporary_Item = Xila.Drive->open(Current_Path);
+    if (Temporary_Item)
     {
-        if (Temporary_File.isDirectory())
+        if (Temporary_Item.isDirectory())
         {
-            Temporary_File.rewindDirectory();
-            Xila.Display.Set_Text("PATH_TXT", Current_Path);
-            File Item;
-            for (byte i = 1; i < 31; i++)
+            if (Mode == Xila.Open_Folder_Dialog)
             {
-                Item = Temporary_File.openNextFile();
+                Xila.Set_Text(F("FILENAME_TXT"), Temporary_Item.name());
+            }
+
+            Temporary_Item.rewindDirectory();
+
+            for (uint8_t i = 0; i < Offset; i++)
+            {
+                Temporary_Item.openNextFile();
+            }
+
+            Xila.Display.Set_Text("PATH_TXT", Current_Path);
+
+            char Temporary_Item_Name[13] = "ITEM _TXT";
+            strlcpy(Current_Item_Name, "ITEM _PIC", sizeof(Current_Item_Name));
+
+            File Item;
+
+            for (uint8_t i = 1; i <= 30; i++)
+            {
+                Item = Temporary_Item.openNextFile();
+
+                Current_Item_Name[4] = i + '0';
+                Temporary_Item_Name[4] = i + '0';
+
                 if (Item)
                 {
-                    Xila.Display.Set_Text("ITEM" + char(i) + "_TXT", Item.name());
+                    Xila.Display.Set_Text(Temporary_Item_Name, Item.name());
                     if (Item.isDirectory())
                     {
-                        Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 17);
+                        Xila.Display.Set_Picture(Current_Item_Name, Folder_16);
                     }
                     else
                     {
-                        Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 16);
+                        Xila.Display.Set_Picture(Current_Item_Name, File_16);
                     }
                 }
                 else
                 {
-                    Xila.Display.Set_Text("ITEM" + String(i) + "_TXT", "");
-                    Xila.Display.Set_Picture("ITEM" + String(i) + "_PIC", 15);
+                    Xila.Display.Set_Text(Temporary_Item_Name, "");
+                    Xila.Display.Set_Picture(Current_Item_Name, Empty_32);
                 }
 
                 Item.close();
@@ -479,14 +787,24 @@ void Shell_Class::Refresh_File_Manager()
         }
         else
         {
-            Xila.Open_File(Temporary_File);
-            Temporary_File.close();
+            switch (Operation)
+            {
+            case Copy:
+
+                break;
+
+            default:
+                switch (Current_Mode)
+            }
+            Xila.Open_File(Temporary_Item);
+            Temporary_Item.close();
             Go_Parent();
         }
     }
     else
     {
-        //error handle
+        Xila.Event_Dialog(F("Failed to open path."), Xila.Error);
+        Execute('R', 'D');
     }
 }
 
@@ -701,6 +1019,65 @@ void Shell_Class::Preferences_Hardware_Commands()
     Current_Command = Get_Command();
     switch (Current_Command)
     {
+    case Instruction('T', 'D'):
+        Temporary_Item = Xila.Drive->open(F(Test_Path), FILE_WRITE);
+        if (!Temporary_Item)
+        {
+            Xila.Event_Dialog(F("Failed to start the write test."), Xila.Error);
+            Xila.Display.Set_Current_Page(F("Shell_Hardware"));
+            break;
+        }
+        static uint8_t Buffer[512];
+        uint16_t i;
+        double Time = millis();
+
+        for (i = 0; i < 2048; i++)
+        {
+            Temporary_Item.write(Buffer, sizeof(Buffer));
+        }
+
+        Time = millis() - Time;
+        Time /= 1000;               // convert time in sec
+        Time = (2048 * 512) / Time; // divide quantity data copied by the time in sec
+        Time = Time / 1000;
+
+        Xila.Display.Set_Value(F("WRITESPEED_NUM"), (uint32_t)Time);
+        Temporary_Item.close();
+
+        Temporary_Item = Xila.Drive->open(F(Test_Path));
+        if (!Temporary_Item)
+        {
+            Xila.Event_Dialog(F("Failed to start the read test."), Xila.Error);
+            Xila.Display.Set_Current_Page(F("Shell_Hardware"));
+            break;
+        }
+
+        size_t Length = Temporary_Item.size();
+        Time = millis();
+        while (Length)
+        {
+            if (Length > 512)
+            {
+                File.read(Buffer, sizeof(Buffer));
+                Length -= sizeof(Buffer);
+            }
+            else
+            {
+                File.read(Buffer, Length);
+                Length = 0;
+            }
+        }
+
+        Time = millis() - Time;
+        Time /= 1000;
+        Time = Temporary_Item.size() / Time;
+        Time = Time / 1000;
+        Temporary_Item.close();
+
+        Xila.Display.Set_Value(F("READSPEED_NUM"), (uint32_t)Time);
+        Xila.Drive->remove(F(Test_Path));
+
+        break;
     case Instruction('D', 'C'):
         Xila.Display.Calibrate();
         break;
@@ -733,7 +1110,7 @@ void Shell_Class::Preferences_Hardware_Commands()
 
 Xila_Event Shell_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    File Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Temporary_Variable) != DeserializationError::Ok)
         ;
@@ -741,13 +1118,13 @@ Xila_Event Shell_Class::Load_Registry()
         return Xila.Error;
     }
     Desk_Background = Shell_Registry["Desk Background"] | -1;
-    Temporary_File.close();
+    Temporary_Item.close();
     return Xila.Success;
 }
 
 Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
 {
-    File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    File Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
     deserializeJson(Shell_Registry, Temporary_Variable);
     Shell_Registry["Desk Background"] = Desk_Background;
@@ -755,7 +1132,7 @@ Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
     {
         return Xila.Error;
     }
-    Temporary_File.close();
+    Temporary_Item.close();
     this->Desk_Background = Desk_Background;
     return Xila.Success;
 }
@@ -771,8 +1148,8 @@ void Shell_Class::Preferences_Personal_Commands()
     case Instruction('S', 'P'):
     {
         DynamicJsonDocument Shell_Registry(256);
-        Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username), FILE_WRITE);
-        if (deserializeJson(Shell_Registry, Temporary_File) != DeserializationError::Ok)
+        Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username), FILE_WRITE);
+        if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
         {
             Xila.Event_Dialog(F("Cannot set the user shell registry."), Xila.Error);
             Open_Preferences('P');
@@ -821,8 +1198,10 @@ void Shell_Class::Main_Commands()
     switch (Current_Command)
     {
     case Instruction('O', 'K'):
-        Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
-
+        Open_Keyboard();
+        break;
+    case Instruction('O', 'k'): // open numeric keypad
+        Open_Keypad();
         break;
     case Instruction('L', 'R'):
         Load_Registry();
@@ -967,6 +1346,30 @@ void Shell_Class::Open_Preferences(char const &Section)
         Xila.Display.Set_Value(F("VOLUME_SLI"), Xila.Sound.Get_Volume());
         Xila.Display.Set_Value(F("DSTANDBY_NUM"), Xila.Display_Standby_Time);
         Xila.Display.Set_Value(F("SSTANDBY_NUM"), Xila.System_Standby_Time);
+        switch (Xila.Drive->cardType())
+        {
+        case CARD_NONE:
+            Xila.Display.Set_Value(F("DRIVETYPE_TXT"), F("Drive type : None"));
+            break;
+        case CARD_SD:
+            Xila.Display.Set_Value(F("DRIVETYPE_TXT"), F("Drive type : SDSC"));
+            break;
+        case CARD_SDHC:
+            Xila.Display.Set_Value(F("DRIVETYPE_TXT"), F("Drive type : SDHC"));
+            break;
+        case CARD_MMC:
+            Xila.Display.Set_Value(F("DRIVETYPE_TXT"), F("Drive type : MMC"));
+            break;
+        case CARD_UNKNOWN:
+            Xila.Display.Set_Value(F("DRIVETYPE_TXT"), F("Drive type : Unknow"));
+            break;
+        }
+
+        Temporary_Variable[0] = Xila.Drive->cardSize() / (1024 * 1024);
+        Xila.Display.Set_Value(F("DRIVESIZE_NUM"), Temporary_Variable[0]);
+        Temporary_Variable[0] = Xila.Drive->usedBytes() / (1024 * 1024);
+        Xila.Display.Set_Value(F("USEDSPACE_NUM"), Temporary_Variable[0]);
+
         break;
     case 'N':
         Xila.Display.Set_Current_Page(F("Shell_Network"));
@@ -1020,9 +1423,9 @@ void Shell_Class::Open_Desk()
     char Temporary_String[] = "SLOT _PIC";
 
     // List all files on the desk
-    /*Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/DESKTOP/");
-    Temporary_File.rewindDirectory();
-    Temporary_File.openNextFile();*/
+    /*Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/DESKTOP/");
+    Temporary_Item.rewindDirectory();
+    Temporary_Item.openNextFile();*/
 
     // List all running app on the task bar
     for (uint8_t Slot = 2; Slot < 8; Slot++)
@@ -1239,8 +1642,8 @@ void Shell_Class::Login()
         Xila.Display.Set_Text(F("LOAD_TXT"), F("Loading user data ..."));
 
         DynamicJsonDocument Shell_Registry(256);
-        File Temporary_File = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
-        deserializeJson(Shell_Registry, Temporary_File);
+        File Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.GRF");
+        deserializeJson(Shell_Registry, Temporary_Item);
         /*
                 char Temporary_Char_Array[20];
         strcpy(Temporary_Char_Array, Shell_Registry["Registry"]);

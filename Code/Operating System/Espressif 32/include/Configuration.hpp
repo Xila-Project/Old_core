@@ -55,12 +55,13 @@
 
 // Debug
 
-#define DEBUG_MODE 1
+#define DEBUG_MODE 1 
 
 #define STACK_OVERFLOW_DETECTION 0
-#define SD_MODE 1
 
-#define DISPLAY_MODE 1
+#define SD_MODE 1 // 0 : SD_MMC / 1 : SD_SPI
+
+#define DISPLAY_MODE 1 //
 
 #define VERBOSE_MODE 0
 

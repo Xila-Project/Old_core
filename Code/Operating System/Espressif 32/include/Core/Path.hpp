@@ -15,6 +15,7 @@
 
 #define Registry_Directory_Path Xila_Directory_Path "REGISTRY/"
 #define Registry(name) Registry_Directory_Path name Registry_File_Extension //shortcut
+
 #define Temporary_Directory_Path Xila_Directory_Path "TEMPORARY/"
 #define Sounds_Directory_Path Xila_Directory_Path "SOUNDS/"
 #define Executable_Directory_Path Xila_Directory_Path "EXECUTAB/"
@@ -35,6 +36,7 @@
 
 #define Software_Dump_Registry_Path Temporary_Directory_Path "SOFTWARE" Data_File_Extension
 #define Clipboard_Path Temporary_Directory_Path "CLIPBOAR" Data_File_Extension
+#define Test_Path Temporary_Directory_Path "TEST" Data_File_Extension
 
 #define Display_Executable_Path Executable_Directory_Path "XILA_D" Executable_File_Extension
 #define Microcontroller_Executable_Path Executable_Directory_Path "XILA_M" Executable_File_Extension
