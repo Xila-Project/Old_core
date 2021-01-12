@@ -1,40 +1,22 @@
-language: cpp
-sudo: false
+language: python
+python:
+  - "3.7"
+
 cache:
   directories:
-    - ~/arduino_ide
-    - ~/.arduino15/packages/
-git:
-  depth: false
-  quiet: true
-addons:
-  apt:
-    sources:
-      - llvm-toolchain-trusty-5.0
-      - key_url: 'http://apt.llvm.org/llvm-snapshot.gpg.key'
-    packages:
-      - python3-pip
-      - python3-wheel
-      - clang-format-5.0
-env:
-  global:
-#    - ARDUINO_IDE_VERSION="1.8.10"
-     - PRETTYNAME="Xila"
-# Optional, will default to "$TRAVIS_BUILD_DIR/Doxyfile"
-#    - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+    - "~/.platformio"
+    - "$HOME/.cache/pip"
 
-before_install:
-   - source <(curl -SLs https://raw.githubusercontent.com/alixfaitgrr/travis-ci-arduino/master/install.sh)
-   - curl -SLs https://raw.githubusercontent.com/alixfaitgrr/travis-ci-arduino/master/run-clang-format.py > run-clang-format.py
+env:
+  - PLATFORMIO_CI_SRC=Code/Operating System/Regular
 
 install:
-    - arduino --install-library "ArduinoJson"
+  - pip install -U platformio
+  - pip update
+
+  # Libraries from PlatformIO Library Registry :
+  # ArduinoJson : https://platformio.org/lib/show/64/ArduinoJson/installation
+  - pio lib -g install 64
 
 script:
-   - python run-clang-format.py -r .
-   - build_main_platforms
-
-# Generate and deploy documentation
-after_success:
-  - source <(curl -SLs  https://raw.githubusercontent.com/alixfaitgrr/travis-ci-arduino/master/library_check.sh)
-  - source <(curl -SLs  https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/doxy_gen_and_deploy.sh)
+  - pio ci --project-conf=/Code/Operating System/platoformio.ini
