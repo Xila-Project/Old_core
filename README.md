@@ -2,6 +2,8 @@
 
 ## Introduction
 
+[![Build Status](https://travis-ci.com/AlixFaitGrr/Xila.svg?branch=master)](https://travis-ci.com/AlixFaitGrr/Xila)
+
 Xila is a graphical user interface made for microcontroler, it can be considered as a graphical operating system. But it relay on FreeRTOS API. It's a huge project for a beginner in C++ like me (pls be lenient with me when you read the code). Due fussy character, my has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources. I hope you would like it !
 
 ### Inpired By
