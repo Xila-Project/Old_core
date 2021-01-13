@@ -12,7 +12,8 @@
 		"files.associations": {
 			"*.XRF": "json",
 			"fstream": "cpp",
-			"random": "cpp"
+			"random": "cpp",
+			"*.tcc": "cpp"
 		}
 	}
 }

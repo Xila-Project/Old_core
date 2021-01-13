@@ -1,6 +1,8 @@
 #include "Arduino.h"
 
 #include "Core/Core.hpp"
+#include "soc/rtc_wdt.h"
+
 
 Xila_Class *Xila_Class::Instance_Pointer = NULL;
 
@@ -127,6 +129,13 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
   }
   pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+
+  #if WATCHDOG == 0
+  rtc_wdt_protect_off();
+  rtc_wdt_disable();
+  #endif
+  
+
 
   System_State = 0;
 
@@ -522,12 +531,6 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   String Temporary_String;
   switch (Received_Data[0])
   {
-  case Xila.Close:
-    Xila.Close_Software();
-    break;
-  case Xila.Minimize:
-    Xila.Minimize_Software();
-    break;
   case Xila.Command:
   case Xila.Command_New:
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
@@ -580,6 +583,17 @@ void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
   {
     Xila.Event_Dialog(F("Unexpected Numeric Data Return From Display"), Error);
   }
+}
+
+void Xila_Class::Feed_Watchdog()
+{
+  Current_Software_Watchdog = millis();
+}
+
+void Xila_Class::Delay(uint32_t Delay_In_Millisecond)
+{
+  Current_Software_Watchdog = millis();
+  vTaskDelay(pdMS_TO_TICKS(Delay_In_Millisecond));
 }
 
 void Xila_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
@@ -840,145 +854,4 @@ tm Xila_Class::Get_Time()
     Temporary_File = Drive->open(Software_Registry_Path, FILE_WRITE);
     Software_Registry.clear();
     Temporary_File.close();
-  }*/
-
-/*Nextion_Serial.print(F("page Pictviewer\xFF\xFF\xFF"));
-  Nextion_Serial.print(F("FILENAME_TXT.txt=\""));
-  Nextion_Serial.print(Temporary_File_Name);
-  Nextion_Serial.print(F("\"\xFF\xFF\xFF"));
-  unsigned int Width;
-  unsigned int Height;
-  unsigned int Size;
-  unsigned long Data_offset;
-  unsigned int Encoding;
-  unsigned int Array_Size;
-  byte Red;
-  byte Green;
-  byte Blue;
-  unsigned int Color;
-  Serial.print(F("Open path :"));
-  Serial.println(Temporary_File_Path);
-  Temporary_File = Drive->open(Temporary_File_Path);
-  if (Temporary_File)
-  {
-    //Read the header
-    Temporary_File.seek(0);
-    if (Temporary_File.read() == 66 && Temporary_File.read() == 77)
-    {
-      Serial.println(F("It's a Bitmap File"));
-      Temporary_File.seek(2);
-      Size = int(Temporary_File.read()); //in bytes
-      Serial.print(F("Size :"));
-      Serial.println(Size);
-      Nextion_Serial.print(F("SIEZ_NUM.val="));
-      Nextion_Serial.print(Size);
-      Nextion_Serial.print(F("\xFF\xFF\xFF"));
-      Temporary_File.seek(10);
-      Data_offset = long(Temporary_File.read());
-      Serial.print(F("Data Offset :"));
-      Serial.println(Data_offset);
-      Temporary_File.seek(18);
-      Width = int(Temporary_File.read());
-      Serial.print(F("Width :"));
-      Serial.println(Width);
-      Nextion_Serial.print(F("WIDTH_NUM.val="));
-      Nextion_Serial.print(Width);
-      Nextion_Serial.print(F("\xFF\xFF\xFF"));
-      Temporary_File.seek(22);
-      Height = long(Temporary_File.read());
-      Nextion_Serial.print(F("HEIGH_NUM.val="));
-      Nextion_Serial.print(Height);
-      Nextion_Serial.print(F("\xFF\xFF\xFF"));
-      Serial.print(F("Height :"));
-      Serial.println(Height);
-      Temporary_File.seek(28);
-      Encoding = int(Temporary_File.read());
-      Serial.print(F("Encoding :"));
-      Serial.println(Encoding);
-      Height += 24;
-      Width += 10;
-      Temporary_File.seek(Data_offset);
-      Serial.println(Temporary_File.position());
-      if (Encoding == 16)
-      {
-        //Draw picture
-        Serial.println(F("16 bit encoding"));
-        for (int y = Height; y > 24; y--)
-        {
-          for (int x = 10; x < Width; x++)
-          {
-            Serial.println(Temporary_File.peek());
-            Blue = Temporary_File.read();
-            Serial.println(Temporary_File.peek());
-            Green = Temporary_File.read();
-            Color = Blue;
-            Color = Color << 8;
-            Color = Color | Green;
-            Serial.println(Color);
-            Nextion_Serial.print(F("fill "));
-            Nextion_Serial.print(x);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(y);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(1);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(1);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(Color);
-            Nextion_Serial.write(0xff);
-            Nextion_Serial.write(0xff);
-            Nextion_Serial.write(0xff);
-          }
-        }
-      }
-      else if (Encoding == 24)
-      {
-        Serial.println(F("24 bit encoding"));
-        for (int y = Height; y > 24; y--)
-        {
-          for (int x = 10; x < Width; x++)
-          {
-            Serial.println(Temporary_File.peek());
-            Blue = Temporary_File.read();
-            Serial.println(Temporary_File.peek());
-            Green = Temporary_File.read();
-            Serial.println(Temporary_File.peek());
-            Red = Temporary_File.read();
-            Color = Red << 6;
-            Color = Color | Green;
-            Color = Color << 5;
-            Color = Color | Blue;
-            Serial.println(Color);
-            Nextion_Serial.print(F("fill "));
-            Nextion_Serial.print(x);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(y);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(1);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(1);
-            Nextion_Serial.write(0x2c);
-            Nextion_Serial.print(map(Color, 0, 16777215, 0, 65535));
-            Nextion_Serial.write(0xff);
-            Nextion_Serial.write(0xff);
-            Nextion_Serial.write(0xff);
-          }
-          Temporary_File.read();
-          Temporary_File.read();
-        }
-      }
-
-      else
-      {
-        Serial.println(F("The 32 bit encoding isn't be supported now"));
-      }
-    }
-    else
-    {
-      Serial.println(F("It isn't a bitmap file"));
-    }
-  }
-  else
-  {
-    Serial.println(F("The File Doesn't Exist or isn't readable"));
   }*/

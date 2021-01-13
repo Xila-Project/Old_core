@@ -57,6 +57,8 @@
 
 #define DEBUG_MODE 1 
 
+#define WATCHDOG 0 //managed by core
+
 #define STACK_OVERFLOW_DETECTION 0
 
 #define SD_MODE 1 // 0 : SD_MMC / 1 : SD_SPI

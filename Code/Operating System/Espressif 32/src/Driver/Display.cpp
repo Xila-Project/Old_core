@@ -173,6 +173,11 @@ void Nextion_Serial_Receive(void *pvParameters) //Parsing incomming data
     }
 }
 
+void Nextion_Display_Class::Write(int Data)
+{
+    Nextion_Serial.write(Data);
+}
+
 void Nextion_Display_Class::Send_Raw(const __FlashStringHelper* Data)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
@@ -283,6 +288,20 @@ void Nextion_Display_Class::Set_Time(const __FlashStringHelper *Object_Name, uin
     Instruction_End();
 }
 
+void Nextion_Display_Class::Set_Reparse_Mode(uint8_t Mode)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    if (Mode == 0)
+    {
+        Nextion_Serial.print(F("DRAKJHSUYDGBNCJHGJKSHBDN"));
+    }
+    else
+    {
+        Nextion_Serial.print(F("recmod=0"));
+    }
+    Instruction_End();
+}
+
 void Nextion_Display_Class::Set_Trigger(const __FlashStringHelper *Object_Name, bool const &Enable)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
@@ -328,9 +347,8 @@ void Nextion_Display_Class::Set_Input_Type(const __FlashStringHelper *Object_Nam
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
-    Nextion_Serial.print(F(".pw=\""));
-    Nextion_Serial.print(Input_Type);
-    Nextion_Serial.print(F("\""));
+    Nextion_Serial.print(F(".pw="));
+    Nextion_Serial.write(Input_Type);
     Instruction_End();
 }
 

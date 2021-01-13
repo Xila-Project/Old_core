@@ -181,6 +181,8 @@ public:
     void Set_Time(const __FlashStringHelper *Object_Name, uint16_t const &Time);
     void Set_Trigger(const __FlashStringHelper *Object_Name, bool const &Enable);
 
+    void Set_Reparse_Mode(uint8_t Mode);
+
     // Set System Global Variable
     void Set_Current_Page(uint8_t const &Page_ID);
     void Set_Current_Page(const __FlashStringHelper *Page_Name);
@@ -218,6 +220,7 @@ public:
     void Start_Sending_Realtime_Coordinate();
     void Stop_Sending_Realtime_Coordinate();
 
+    inline void Write(int Data);
     void Send_Raw(const __FlashStringHelper *Data);
     void Send_Raw(String const &Data);
     void Send_Raw(const char* Data);

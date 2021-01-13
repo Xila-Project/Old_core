@@ -149,6 +149,23 @@ protected:
 
 public:
 
+    uint32_t Current_Software_Watchdog;
+
+
+
+    /**
+     * @brief A function that feed watchdog
+     */
+    void Feed_Watchdog();
+
+    /**
+    * @brief A delay function.
+    * @param Delay_In_Millisecond
+    * @details A delay function that behave exactly like delay() but reset also Xila watchdog (check if an app is frozen)
+    */
+    void Delay(uint32_t Delay_In_Millisecond);
+
+
     /**
      * @enum Font identifier
     */
@@ -156,7 +173,7 @@ public:
     {
         Main_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
         Main_24 = 2, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
-        Main_32 = 3 /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
+        Main_32 = 3  /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
     };
 
     static void IRAM_ATTR Power_Button_Handler();
@@ -186,12 +203,12 @@ public:
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
     void Close_Software(Software_Handle_Class * = NULL);
-    
+
     /**
      * @brief Function used to minimize the currently running software, and then maximize Shell.
      */
     void Minimize_Software();
-    
+
     /**
      * @brief Function used to maxmize the software.
      * 
@@ -269,7 +286,7 @@ public:
      * @details Function that connect to already registered access point.
      */
     Xila_Event WiFi_Connect();
-    
+
     /**
      * @brief Function that allow to connect WiFi.
      * @param Name SSID of the access point.
@@ -315,7 +332,7 @@ public:
     Xila_Event Set_Time_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);
     Xila_Event Set_Keyboard_Registry(uint8_t Data_Pin = 0xFF, uint8_t Interrupt_Pin = 0xFF, uint8_t Keymap = 0xFF);
     Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);
-    Xila_Event Set_Network_Registry(uint8_t WiFi_Enabled = 0xFF, const char* WiFi_Name = NULL, const char *Password = NULL);
+    Xila_Event Set_Network_Registry(uint8_t WiFi_Enabled = 0xFF, const char *WiFi_Name = NULL, const char *Password = NULL);
     Xila_Event Set_Account_Registry(const char *Autologin_Account = NULL);
     Xila_Event Set_System_Registry(const char *Device_Name);
     Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);
@@ -366,16 +383,16 @@ public:
         Close = 'C',
         Maximize = 'M',
         Minimize = 'm',
-        Hiberrnate = 'H',          // create dump
+        Hibernate = 'H',
         Installation_Wizard = 'I', // Open installation form
         Open_File_Dialog = 'f',
         Open_Folder_Dialog = 'F',
         Save_File_Dialog = 'e',
         Keyboard_Dialog = 'K',
-        Numpad_Dialog = 'N',
+        Keypad_Dialog = 'k',
+        Event_Dialog = 'E',
         Command = '*',
         Command_New = '#',
-        Event = 'E',
         Variable_Byte_Local = 'b',
         Variable_Byte_Global = 'B',
         Variable_String_Local = 's',
@@ -436,72 +453,81 @@ public:
 
     // System dialogs
 
+    /**
+     * @enum Events
+     * @brief All kinds of events returned by Core API.
+     */
     enum Events
     {
+        None,
         Error,
         Warning,
         Information,
         Question,
         Success,
+        Button_1 = 0x31, //< Button 1 reply, by default : Yes
+        Button_2 = 0x32, //< Button 2 reply by default : No
+        Button_3 = 0x33  //< Button 3 reply by default : Cancel (returned also by close button)
     };
 
-    enum Reply
-    {
-        None = 0,
-        Button_1 = 0x31, // Yes
-        Button_2 = 0x32, // No
-        Button_3 = 0x33  // Cancel
-    };
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    //Xila_Event Color_Picker_Dialog(uint16_t& Color);
+    Xila_Event Open_File_Dialog(File &File_To_Open);
+    Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
+    Xila_Event Save_File_Dialog(File const &);
+    Xila_Event Keyboard_Dialog(char* Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
+    // to do : Xila_Event Keyboard_Dialog(float& Number_To_Get) (and more overload);
+    Xila_Event Keypad_Dialog(float &Number_To_Get);
+    
+
+    void *Dialog_Pointer;
+    uint32_t Dialog_Long;
+    uint8_t Dialog_Byte;
+    Xila_Event Dialog_State;
     SemaphoreHandle_t Dialog_Semaphore;
     File *File_Dialog_Reply;
-    uint32_t Long_Dialog_Reply;
-)
-    //Xila_Event Color_Picker_Dialog(uint16_t& Color);
-    Xila_Event File_Dialog(File &File_To_Open);
-Xila_Event Folder_Dialog(File &Folder_To_Open);
-Xila_Event File_Dialog(File const &);
 
-Xila_Event Set_Autologin();
 
-uint16_t Display_Standby_Time;
-uint32_t System_Standby_Time;
+    Xila_Event Set_Autologin();
 
-Xila_Event Copy_File(File &Origin_File, File &Destination_File);
+    uint16_t Display_Standby_Time;
+    uint32_t System_Standby_Time;
 
-// Copy paste
+    Xila_Event Copy_File(File &Origin_File, File &Destination_File);
+
+    // Copy paste
 
 private:
-File Clipboard_File;
-uint8_t Split_Number[8];
+    File Clipboard_File;
+    uint8_t Split_Number[8];
 
 public:
-Xila_Event Copy(uint64_t const &Value_To_Copy);
-Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
-Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
+    Xila_Event Copy(uint64_t const &Value_To_Copy);
+    Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+    Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
 
-Xila_Event Paste(uint64_t &Value_To_Paste);
-Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
-Xila_Event Paste(String &String_To_Paste);
+    Xila_Event Paste(uint64_t &Value_To_Paste);
+    Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+    Xila_Event Paste(String &String_To_Paste);
 
-// Background jobs
+    // Background jobs
 
-uint32_t Last_Execution;
-uint8_t Background_Function_Counter;
+    uint32_t Last_Execution;
+    uint8_t Background_Function_Counter;
 
-inline void Execute_Startup_Function();
-void Execute_Background_Jobs();
+    inline void Execute_Startup_Function();
+    void Execute_Background_Jobs();
 
-// System's task :
-xTaskHandle Core_Task_Handle;
-//QueueHandle_t Core_Instruction_Queue_Handle;
-static void Core_Task(void *);
-static void Idle_Task_Software_Core(void *);
-static void Idle_Task_System_Core(void *);
+    // System's task :
+    xTaskHandle Core_Task_Handle;
+    //QueueHandle_t Core_Instruction_Queue_Handle;
+    static void Core_Task(void *);
+    static void Idle_Task_Software_Core(void *);
+    static void Idle_Task_System_Core(void *);
 
-friend class Shell_Class;
-friend class Software_Handle_Class;
+    friend class Shell_Class;
+    friend class Software_Handle_Class;
 };
 
 //GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
