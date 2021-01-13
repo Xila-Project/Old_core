@@ -297,10 +297,17 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Keyboard:
         switch (Adress)
         {
-        case 'T':
-            Temporary_Variable[1] = *(uint8_t *)Variable;
+        case 'I':
+            if (Xila.Dialog_Pointer != NULL)
+            {
+                strlcpy(Xila.Dialog_Pointer, (char *)Variable, Xila.Dialog_Long);
+            }
             break;
         }
+    case Keypad:
+    case 'I':
+        memcpy(Xila.Dialog_Long, (float *)Variable, sizeof(uint32_t));
+        break;
     default:
         break;
     }
@@ -308,65 +315,20 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 
 void Shell_Class::Open_Keypad()
 {
-    Temporary_Variable[0] = 0xFFFFFFFF;
-    Xila.Display.Send_Raw(F("TYPE=b[COMPONENT].type"));
-    Xila.Display.Get(F("\"lT\""));
-    Xila.Display.Get(F("TYPE"));
     Xila.Display.Send_Raw(F("PAGE=dp"));
-    while (Temporary_Variable[0] == 0xFFFFFFFF) //waiting for display to send type
-    {
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-    if (Temporary_Variable[0] == 54)
-    {
-        Xila.Display.Send_Raw(F("covx b[COMPONENT].val,Shell_Keyboard.INPUT_VAR.txt,0,0"));
-        Xila.Display.Send_Raw(F("MASK=0"));
-        Xila.Display.Send_Raw(F("LENGTH=15"));
-    }
-    else if (Temporary_Variable[0] == 59)
-    {
-        Xila.Display.Send_Raw(F("LENGTH=p[COMPONENT].val"));
-        Xila.Display.Send_Raw(F("POINT=b[COMPONENT].vvs1"));
-        Xila.Display.Send_Raw(F("MASK=0"));
-    }
-    else
-    {
-        Xila.Display.Send_Raw(F("Shell_Keyboard.INPUT_VAR.txt=b[COMPONENT].txt"));
-        Xila.Display.Send_Raw(F("LENGTH=b[COMPONENT].txt_maxl"));
-        if (Temporary_Variable[0] == 116)
-        {
-            Xila.Display.Send_Raw(F("MASK=b[COMPONENT].pw"));
-        }
-    }
-    Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
+    Xila.Display.Set_Current_Page(F("Shell_Keypad"));
+    Xila.Display.Set_Value(F("TEMPORARY_FLO"), Xila.Dialog_Long);
+    Xila.Display.Click(F("CONVERT_HOT"), 0);
 }
 
 void Shell_Class::Open_Keyboard()
 {
-    Temporary_Variable[0] = 0xFFFFFFFF;
-    Xila.Display.Get(F("\"lT\""));
-    Xila.Display.Get(F("b[COMPONENT].type"));
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    while (Temporary_Variable[0] == 0xFFFFFFFF) //waiting for display to send type
-    {
-        vTaskDelay(pdMS_TO_TICKS(20));
-    }
-    if (Temporary_Variable[0] == 54)
-    {
-        Xila.Display.Send_Raw(F("cov b[COMPONENT].val,Shell_Keyboard.INPUT_VAR.txt,0"));
-        Xila.Display.Send_Raw(F("MASK=0"));
-        Xila.Display.Send_Raw(F("LENGTH=189"));
-    }
-    else
-    {
-        Xila.Display.Send_Raw(F("Shell_Keyboard.INPUT_VAR.txt=b[COMPONENT].txt"));
-        Xila.Display.Send_Raw(F("LENGTH=b[COMPONENT].txt_maxl"));
-        if (Temporary_Variable[0] == 116)
-        {
-            Xila.Display.Send_Raw(F("MASK=b[COMPONENT].pw"));
-        }
-    }
+    Xila.Display.Send_Raw(F("PAGE=dp")); // save page id
     Xila.Display.Set_Current_Page(F("Shell_Keyboard"));
+
+    Xila.Display.Set_Value(F("LENGHT_VAR"), Xila.Dialog_Long);
+    Xila.Display.Set_Text(F("INPUT_VAR"), (char *)Xila.Dialog_Pointer);
+    Xila.Display.Set_Input_Type(F("INPUT_TXT"), Xila.Dialog_Byte);
 }
 
 void Shell_Class::Keypad_Commands()
@@ -424,22 +386,11 @@ void Shell_Class::Keypad_Commands()
     {
     case Instruction('E', 'k'):
         Xila.Display.Set_Current_Page(F("PAGE"));
-        if (Temporary_Variable[0] == 54)
-        {
-            Xila.Display.Send_Raw(F("covx Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0,0"));
-        }
-        else if (Temporary_Variable[0] == 59)
-        {
-            Xila.Display.Send_Raw(F("b[COMPONENT].val=Shell_Keypad.TEMPORARY_FLO.val"));
-        }
-        else
-        {
-            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
-        }
-
+        Xila.Dialog_State = Xila.Success;
         Xila.Shell_Minimize();
         break;
     default:
+        Main_Commands();
         break;
     }
 }
@@ -474,15 +425,7 @@ void Shell_Class::Keyboard_Commands()
     {
     case Instruction('E', 'K'):
         Xila.Display.Set_Current_Page(F("PAGE"));
-        if (Temporary_Variable[0] == 54)
-        {
-            Xila.Display.Send_Raw(F("cov Shell_Keyboard.INPUT_VAR.txt,b[COMPONENT].val,0"));
-        }
-        else
-        {
-            Xila.Display.Send_Raw(F("b[COMPONENT].txt=Shell_Keyboard.INPUT_VAR.txt"));
-        }
-
+        Xila.Dialog_State = Xila.Success;
         Xila.Shell_Minimize();
         break;
     default:
@@ -1197,9 +1140,6 @@ void Shell_Class::Main_Commands()
 {
     switch (Current_Command)
     {
-    case Instruction('O', 'K'):
-        Open_Keyboard();
-        break;
     case Instruction('O', 'k'): // open numeric keypad
         Open_Keypad();
         break;
@@ -1221,6 +1161,9 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'A'): // Open about xila
         Xila.Display.Set_Current_Page(F("Shell_About"));
         break;
+    case Xila.Keyboard_Dialog:
+        Open_Keyboard();
+        break;
     case Xila.Installation_Wizard:
         Xila.Display.Set_Current_Page(F("Shell_Install"));
         break;
@@ -1236,7 +1179,7 @@ void Shell_Class::Main_Commands()
         File_Manager_Mode = Xila.Save_File_Dialog;
         Open_File_Manager();
         break;
-    case 0x4F46: // "OF" : Open file manager
+    case Instruction('O', 'F'): // "OF" : Open file manager
         File_Manager_Mode = 0;
         Open_File_Manager();
         break;
