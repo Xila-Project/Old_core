@@ -3,7 +3,6 @@
 #include "Core/Core.hpp"
 #include "soc/rtc_wdt.h"
 
-
 Xila_Class *Xila_Class::Instance_Pointer = NULL;
 
 Xila_Class Xila;
@@ -49,11 +48,16 @@ Xila_Class::~Xila_Class() // destructor
   Instance_Pointer = NULL;
 }
 
-// Used to initialise the core
-/*
 void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
 {
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
+  esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
+  {
+    esp_deep_sleep_start();
+  }
+  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
   // Restore attribute
   System_State = 1;
@@ -117,9 +121,9 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
   Open_Software(*Software_Handle_To_Start);
 
   xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-}*/
+}
 
-void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
+void Xila_Class::Start()
 {
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
@@ -130,12 +134,10 @@ void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
   pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
-  #if WATCHDOG == 0
+#if WATCHDOG == 0
   rtc_wdt_protect_off();
   rtc_wdt_disable();
-  #endif
-  
-
+#endif
 
   System_State = 0;
 
@@ -312,12 +314,27 @@ Xila_Event Xila_Class::WiFi_Connect()
   return Success;
 }
 
-/**
- * Try to connect to a WiFi access point, if succed, save parameters to the Network Registry.
- * @param Name  Pointer to the WiFi access point name.
- * @param Password Char array pointer to the WiFi access point password.
- * @return Xila.Success if connected or Xila.Error if not.
-*/
+void Xila_Class::Check_Watchdog()
+{
+  if ((millis() - Last_Watchdog_Feed) > WATCHDOG_INITAL_TIME)
+  {
+    if (Watchdog_Reminder == false)
+    {
+      Open_Software_Pointer[0]->Execute(Watchdog);
+      Watchdog_Reminder = true;
+    }
+    else
+    {
+      if ((millis() - Last_Watchdog_Feed) > WATCHDOG_MAXIMUM_TIME)
+      {
+        Force_Close_Software();
+        Watchdog_Reminder = false;
+        Last_Watchdog_Feed = millis();
+      }
+    }
+  }
+}
+
 Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
 {
   WiFi.setAutoConnect(false);
@@ -424,7 +441,6 @@ Xila_Event Xila_Class::Update()
 
 Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 {
-
   if (!Executable_File)
   {
     return Error;
@@ -443,7 +459,7 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
     {
       return Error;
     }
-    if (!Update.begin(Executable_File.size()))
+    if (!Update.begin(Executable_File.size(), U_FLASH))
     {
       return Error;
     }
@@ -463,37 +479,44 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
     if (Open_Software_Pointer[0] != NULL)
     {
       vTaskResume(Open_Software_Pointer[0]->Task_Handle);
-      Open_Software_Pointer[0]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[0]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[2] != NULL)
     {
       vTaskResume(Open_Software_Pointer[2]->Task_Handle);
-      Open_Software_Pointer[2]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[2]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[3] != NULL)
     {
       vTaskResume(Open_Software_Pointer[3]->Task_Handle);
-      Open_Software_Pointer[3]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[3]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[4] != NULL)
     {
       vTaskResume(Open_Software_Pointer[4]->Task_Handle);
-      Open_Software_Pointer[4]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[4]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[5] != NULL)
     {
       vTaskResume(Open_Software_Pointer[5]->Task_Handle);
-      Open_Software_Pointer[5]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[5]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[6] != NULL)
     {
       vTaskResume(Open_Software_Pointer[6]->Task_Handle);
-      Open_Software_Pointer[6]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[6]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     if (Open_Software_Pointer[7] != NULL)
     {
       vTaskResume(Open_Software_Pointer[7]->Task_Handle);
-      Open_Software_Pointer[7]->Execute(Xila.Hiberrnate);
+      Open_Software_Pointer[7]->Execute(Xila.Hibernate);
+      vTaskDelay(pdMS_TO_TICKS(200));
     }
     esp_restart();
   }

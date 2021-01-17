@@ -149,9 +149,8 @@ protected:
 
 public:
 
-    uint32_t Current_Software_Watchdog;
-
-
+    uint32_t Last_Watchdog_Feed;
+    uint8_t Watchdog_Reminder;
 
     /**
      * @brief A function that feed watchdog
@@ -164,6 +163,8 @@ public:
     * @details A delay function that behave exactly like delay() but reset also Xila watchdog (check if an app is frozen)
     */
     void Delay(uint32_t Delay_In_Millisecond);
+
+    void Check_Watchdog();
 
 
     /**
@@ -203,6 +204,12 @@ public:
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
     void Close_Software(Software_Handle_Class * = NULL);
+
+    /**
+     * @brief Function that close roughly a software
+     * @details Delete manualy the main software task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables ...).
+     */
+    void Force_Close_Software();
 
     /**
      * @brief Function used to minimize the currently running software, and then maximize Shell.
@@ -248,6 +255,10 @@ public:
         Cross
     };
 
+    /**
+     * @enum Color
+     * @brief Default system colors.
+     */
     enum Color
     {
         Black,
@@ -274,9 +285,9 @@ public:
     Keyboard_Class Keyboard;
 // Disk
 #if SD_MODE == 0
-    fs::SDMMCFS *Drive;
+    fs::SDMMCFS* Drive;
 #else
-    fs::SDFS *Drive;
+    fs::SDFS* Drive;
 #endif
     // WiFi
 
@@ -354,7 +365,9 @@ public:
      * @return 
     */
     Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
-    Xila_Event Update();
+    
+    
+    //Xila_Event Update();
 
     Xila_Event Create_Dump();
     Xila_Event Load_Dump();
@@ -384,13 +397,14 @@ public:
         Maximize = 'M',
         Minimize = 'm',
         Hibernate = 'H',
+        Watchdog = 'W',
         Installation_Wizard = 'I', // Open installation form
-        Open_File_Dialog = 'f',
-        Open_Folder_Dialog = 'F',
-        Save_File_Dialog = 'e',
-        Keyboard_Dialog = 'K',
-        Keypad_Dialog = 'k',
-        Event_Dialog = 'E',
+        Open_File = 'f',
+        Open_Folder = 'F',
+        Save_File = 'e',
+        Keyboarg = 'K',
+        Keypad = 'k',
+        Event = 'E',
         Command = '*',
         Command_New = '#',
         Variable_Byte_Local = 'b',
