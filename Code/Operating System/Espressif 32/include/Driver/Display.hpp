@@ -236,7 +236,7 @@ public:
     void Click(const char* Object_Name, uint8_t const& Event_Type);
     void Start_Waveform_Refresh();
     void Stop_Waveform_Refresh();
-    void Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t *Data, uint32_t const &Quantity = 0);
+    void Add_Value_Waveform(uint8_t const &Component_ID, uint8_t const &Channel, uint8_t* Data, uint32_t const &Quantity = 0);
     void Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel);
     void Get(const __FlashStringHelper *Object_Name);
     void Calibrate();

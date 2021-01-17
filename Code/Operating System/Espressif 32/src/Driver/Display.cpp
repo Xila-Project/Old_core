@@ -706,7 +706,7 @@ void Nextion_Display_Class::Click(uint16_t const &Component_ID, uint8_t const &E
     Instruction_End();
 }
 
-void Nextion_Display_Class::Add_Value_Waveform(uint16_t const &Component_ID, uint8_t const &Channel, uint32_t *Data, uint32_t const &Quantity)
+void Nextion_Display_Class::Add_Value_Waveform(uint8_t const &Component_ID, uint8_t const &Channel, uint8_t *Data, uint32_t const &Quantity)
 {
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(F("add "));
@@ -717,6 +717,7 @@ void Nextion_Display_Class::Add_Value_Waveform(uint16_t const &Component_ID, uin
         Nextion_Serial.print(Channel);
         Argument_Separator();
         Nextion_Serial.print(Data[0]);
+        Instruction_End();
     }
     else
     {
@@ -726,13 +727,11 @@ void Nextion_Display_Class::Add_Value_Waveform(uint16_t const &Component_ID, uin
         Nextion_Serial.print(Channel);
         Argument_Separator();
         Nextion_Serial.print(Quantity);
+        Nextion_Serial.print(F("\xFF\xFF\xFF"));
         vTaskDelay(pdMS_TO_TICKS(10)); //wait display to prepare transparent mode
-        for (uint16_t i = 0; i < Quantity; i++)
-        {
-            Nextion_Serial.write(Data[i]);
-        }
+        Nextion_Serial.write(Data, Quantity);
     }
-    Instruction_End();
+
 }
 
 void Nextion_Display_Class::Clear_Waveform(uint16_t const &Component_ID, uint8_t const &Channel)
