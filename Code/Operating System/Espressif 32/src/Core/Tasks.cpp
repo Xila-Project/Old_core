@@ -35,6 +35,8 @@ void Xila_Class::Core_Task(void *pvParameters)
       Serial.println("Low Memory !");
     }
 
+    Xila.Check_Watchdog(); // check if current running software is not frozen
+
     Xila.Synchronise_Time(); // Time synchro
 
     Xila.Refresh_Header(); // Header refreshing
