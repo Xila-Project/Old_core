@@ -1,28 +1,44 @@
 #include "Xila.hpp"
 
-// Code reused from "M5Stack ESP32 Oscilloscope"
-// https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope
+/**
+ * @file Oscilloscope.hpp
+ * @brief Oscilloscope Software header file.
+ * @author Botofancalin - Alix ANNERAUD (adaptation to Xila)
+ * @copyright Botofancalin - Alix ANNERAUD (only rewritten code)
+ * @version 0.1.0
+ * @date 
+ * @details An oscilloscope application
+ * @section Licence
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
+ * https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope
+ */
 
-class Oscilloscope_Class : public Software_Class
+class Oscilloscope_Class : private Software_Class
 {
 protected:
     static Oscilloscope_Class *Instance_Pointer;
 
     TaskHandle_t SigmaDelta_Handle;
 
-    const uint8_t Waveform_ID = 9;
+    const uint8_t Waveform_ID = 4;
 
     uint8_t Current_Channel;
+
+    uint32_t Last_Interface_Refresh;
+
+    
 
     // Constant
 
     const int LCD_WIDTH = 340;
     const int LCD_HEIGHT = 250;
-    const int SAMPLES = 320;
+    const int SAMPLES = 350;
     const int DOTS_DIV = 75;
 
-    const int ad_ch0 = 35; // Analog 35 pin for channel 0
-    const int ad_ch1 = 36; // Analog 36 pin for channel 1
+    int ad_ch0 = 35; // Analog 35 pin for channel 0
+    int ad_ch1 = 36; // Analog 36 pin for channel 1
 
     const long VREF[5] = {250, 500, 1250, 2500, 5000};
     const int MILLIVOL_per_dot[5] = {33, 17, 6, 3, 2};
@@ -39,7 +55,7 @@ protected:
     const int TRIG_AUTO = 0;
     const int TRIG_NORM = 1;
     const int TRIG_SCAN = 2;
-    const char *TRIG_Modes[3] = {"Automatic", "Normal", "Scan"};
+    const char *TRIG_Modes[3] = {"Autoc", "Normal", "Scan"};
     const int TRIG_E_UP = 0;
     const int TRIG_E_DN = 1;
 
@@ -71,7 +87,7 @@ protected:
     short Start = 1;
     short menu = 19;
 
-    short data[4][320]; // keep twice of the number of channels to make it a double buffer
+    short data[4][350]; // keep twice of the number of channels to make it a double buffer
 
     short sample = 0; // index for double buffer
     int amplitude = 0;
@@ -79,15 +95,26 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
+    void Run();
+
     inline long adRead(short, short, int);
 
     void Refresh_Waveform();
-    void Refresh_User_Interface();
+
+    void Refresh_Interface();
+
+    void Check_Commands();
 
     friend void Oscilloscope_Task(void *); //main task
     friend void SigmaDelta_Task(void *);   // used to generate sigmadelta signal
 
 public:
+
+    static void Main_Task(void*);
+    
+    
+    //static void SigmaDelta_Task(void*);
+
     static Software_Class *Load();
 
     enum Picture_ID
@@ -100,6 +127,3 @@ public:
 };
 
 Software_Handle_Class Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Oscilloscope_32, Oscilloscope_Class::Load);
-
-void Oscilloscope_Task(void *);
-void SigmaDelta_Task(void *);
