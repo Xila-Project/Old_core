@@ -79,8 +79,7 @@ public:
 
     void Mute();
     void Stop();
-    void Tone(uint16_t const &, uint32_t const & = 0);
-    
+    void Tone(uint16_t const &, uint32_t const & = 0);    
     void Tone(uint8_t, uint16_t, uint32_t);
 
     void No_Tone(); // no tone on default pin
