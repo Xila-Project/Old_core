@@ -28,7 +28,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Command())
         {
         case 0:
-            vTaskDelay(pdMS_TO_TICKS(30));
+            Xila.Delay(30);
             break;
         case Xila.Open:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
@@ -66,7 +66,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
 
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(20));
+        Xila.Delay(20);
     }
 }
 

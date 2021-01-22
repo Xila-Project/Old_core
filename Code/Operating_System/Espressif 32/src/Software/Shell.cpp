@@ -106,7 +106,7 @@ void Shell_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(5));
+        Xila.Delay(5);
     }
 }
 
@@ -1234,7 +1234,7 @@ void Shell_Class::Open_Load(uint8_t Mode)
 
 void Shell_Class::Idle()
 {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
 }
 
 void Shell_Class::Open_From_Drawer(uint8_t Slot)
@@ -1602,7 +1602,7 @@ void Shell_Class::Login()
         }
 
         Xila.Display.Set_Value(F("STATE_VAR"), 2);
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        Xila.Delay(1000);
         Open_Desk();
     }
     else // Wrong credentials

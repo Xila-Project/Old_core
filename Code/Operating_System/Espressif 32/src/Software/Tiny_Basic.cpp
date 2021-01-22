@@ -1176,7 +1176,7 @@ interperateAtTxtpos:
   {
     expression_error = 0;
     val = expression();
-    vTaskDelay(pdMS_TO_TICKS(val));
+    Xila.Delay(val);
     goto execnextline;
   }
   case KW_FILES:

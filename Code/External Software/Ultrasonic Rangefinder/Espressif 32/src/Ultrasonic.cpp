@@ -1,4 +1,4 @@
-#include "Ultrasonic.hpp"
+#include "Software/Ultrasonic.hpp"
 
 Ultrasonic_Class *Ultrasonic_Class::Instance_Pointer = NULL;
 
@@ -52,7 +52,7 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
     {
     case 0x0000: // IDLE : measure
       Instance_Pointer->Read();
-      vTaskDelay(pdMS_TO_TICKS(10));
+      Xila.Delay(10);
       break;
     case Software_Code::Open:
       Xila.Display.Set_Current_Page(F("Ultrasonic"));
@@ -122,7 +122,7 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
     default:
       break;
     }
-    vTaskDelay(pdMS_TO_TICKS(10));
+    Xila.Delay(10);
   }
 }
 

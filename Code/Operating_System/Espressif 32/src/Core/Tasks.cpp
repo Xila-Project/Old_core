@@ -1,27 +1,5 @@
 #include "Core/Core.hpp"
 
-// Idle task, lowest priority, nothing is running
-
-void Xila_Class::Idle_Task_Software_Core(void *pvParameters)
-{
-  (void)pvParameters;
-  while (1)
-  {
-    //Serial.print(F("Idle software core"));
-    vTaskDelay(1);
-  }
-}
-
-void Xila_Class::Idle_Task_System_Core(void *pvParameters)
-{
-  (void)pvParameters;
-  while (1)
-  {
-    //Serial.print(F("Idle system core"));
-    vTaskDelay(1);
-  }
-}
-
 // Main task for the core
 void Xila_Class::Core_Task(void *pvParameters)
 {

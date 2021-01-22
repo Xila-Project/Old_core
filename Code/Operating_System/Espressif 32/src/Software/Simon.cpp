@@ -29,7 +29,7 @@ void Simon_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Command())
         {
         case 0:
-            vTaskDelay(30);
+            Xila.Delay(30);
             break;
         case Xila.Close:
             Instance_Pointer->Save_Registry();

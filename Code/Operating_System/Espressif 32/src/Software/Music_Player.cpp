@@ -28,15 +28,15 @@ void Music_Player_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Command())
         {
-        case 0:
-
+        case Xila.Idle:
+            
             //idle state
-            vTaskDelay(pdMS_TO_TICKS(20));
+            Xila.Delay(20);
             break;
         case 0xFF:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
+        Xila.Delay(10);
     }
 }
 

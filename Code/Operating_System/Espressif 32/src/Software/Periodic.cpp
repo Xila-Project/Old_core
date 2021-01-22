@@ -61,7 +61,7 @@ void Periodic_Class::Main_Task(void *pvParamters)
             //error handle
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(20));
+        Xila.Delay(20);
     }
 }
 

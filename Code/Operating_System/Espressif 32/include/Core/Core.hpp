@@ -26,7 +26,7 @@
 
 #include "Arduino.h"
 
-#if SD_MODE == 0
+#if SD_MODE == 1
 #include "SD_MMC.h"
 #include "FS.h"
 #else
@@ -392,6 +392,7 @@ public:
 
     enum Instruction
     {
+        Idle = 0,
         Open = 'O',
         Close = 'C',
         Maximize = 'M',

@@ -29,7 +29,7 @@ void Signal_Generator_Task(void *pvParameters)
         {
             case 0:
                 //idle
-                vTaskDelay(pdMS_TO_TICKS(20));
+                Xila.Delay(20);
                 break;
             case Software_Code::Close:
                 delete INSTANCE_POINTER;
@@ -41,7 +41,7 @@ void Signal_Generator_Task(void *pvParameters)
             default :
                 break;
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
+        Xila.Delay(10);
     }
 }
 

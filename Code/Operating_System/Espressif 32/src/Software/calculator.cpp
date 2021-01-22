@@ -490,7 +490,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(20));
+        Xila.Delay(20);
     }
 }
 

@@ -288,7 +288,7 @@ void Clock_Class::Refresh_Clock()
     Temporary_Char_Array[Offset + 3] = (Time.tm_year % 10) + 48;
     Temporary_Char_Array[Offset + 4] = '\0';
     Xila.Display.Set_Text(F("DATE_TXT"), String(Temporary_Char_Array));
-    vTaskDelay(pdMS_TO_TICKS(500));
+    Xila.Delay(500);
 }
 
 void Clock_Class::Main_Task(void *pvParameters)
@@ -677,6 +677,6 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(40));
+        Xila.Delay(40);
     }
 }

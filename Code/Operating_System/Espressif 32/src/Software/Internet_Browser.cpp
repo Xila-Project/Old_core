@@ -48,7 +48,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
     switch (Instance_Pointer->Get_Command())
     {
     case 0:
-      vTaskDelay(pdMS_TO_TICKS(20));
+      Xila.Delay(20);
       //Idle : nothing to do
       break;
     case Software_Code::Maximize: // NULL + M : Maximize
@@ -92,7 +92,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       //error handle
       break;
     }
-    vTaskDelay(pdMS_TO_TICKS(10));
+    Xila.Delay(10);
   }
 }
 
@@ -192,7 +192,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     return 0;
   }
 
-  vTaskDelay(pdMS_TO_TICKS(100));
+  Xila.Delay(100);
   Serial.println(F("\nConnecting ..."));
   Serial.println(URLserver);
   Serial.println(URLpath);
@@ -233,12 +233,12 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     //error handle : reset ?
     return 0;
   }
-  vTaskDelay(pdMS_TO_TICKS(500));
+  Xila.Delay(500);
 
   byte Wait = 0;
   while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
   {
-    vTaskDelay(pdMS_TO_TICKS(50));
+    Xila.Delay(50);
     Wait++;
   }
   if ((!Client.available()) && (!Client.connected()))
@@ -331,7 +331,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       Wait = 0;
       while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
       {
-        vTaskDelay(pdMS_TO_TICKS(50));
+        Xila.Delay(50);
       }
       if ((!Client.available()) && (!Client.connected()))
       {
@@ -991,7 +991,7 @@ byte Internet_Browser_Class::Display_Page()
       Cursor_Y += 14; //new line
       Text_Char_Count = 0;
       Width_Count = 0;
-      vTaskDelay(pdMS_TO_TICKS(200));
+      Xila.Delay(200);
     }
 
     c = Cache_File.read();

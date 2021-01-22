@@ -29,7 +29,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
         {
         case 0:
             // IDLE : nothing to do
-            vTaskDelay(pdMS_TO_TICKS(20));
+            Xila.Delay(20);
             break;
         case Software_Code::Close:
             delete Instance_Pointer;
@@ -61,7 +61,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(20));
+        Xila.Delay(20);
     }
 }
 

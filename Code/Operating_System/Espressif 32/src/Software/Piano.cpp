@@ -33,7 +33,7 @@ void Piano_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Command())
         {
         case 0: //idle state
-            vTaskDelay(pdMS_TO_TICKS(10));
+            Xila.Delay(10);
             break;
         case Software_Code::Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
@@ -138,7 +138,7 @@ void Piano_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        vTaskDelay(pdMS_TO_TICKS(10));
+       Xila.Delay(pdMS_TO_TICKS(10);
     }
 }
 
