@@ -29,7 +29,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Command())
         {
         case Xila.Idle:
-            
+
             //idle state
             Xila.Delay(20);
             break;
@@ -37,6 +37,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         }
         Xila.Delay(10);
+        
     }
 }
 

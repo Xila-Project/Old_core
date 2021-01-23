@@ -9,6 +9,10 @@ protected:
 
     void Pause();
 
+    uint32_t Total_Time;
+    uint32_t Remaing_Time;
+    
+
 public:
     Music_Player_Class();
     ~Music_Player_Class();
@@ -19,6 +23,7 @@ public:
     {
         Music_Player_32 = 11
     };
+    
 };
 
 Software_Handle_Class Music_Player_Handle("Music Player", Music_Player_Class::Music_Player_32, Music_Player_Class::Load);
