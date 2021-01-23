@@ -17,11 +17,8 @@
  * 
 */
 
-
-
 #include "Driver/Sound.hpp"
 
-#define INSTANCE_POINTER Sound_Class::Instance_Pointer
 Sound_Class *Sound_Class::Instance_Pointer = NULL;
 
 Sound_Class::Sound_Class()
@@ -52,10 +49,15 @@ uint8_t Sound_Class::Get_Volume()
     return Volume;
 }
 
+uint8_t Sound_Class::Get_State()
+{
+    return State;
+}
+
 uint8_t Sound_Class::Get_Metadata()
 {
-    char Temporary_Char_Array_1[] = {'R', 'I', 'F', 'F'};
-    char Temporary_Char_Array_2[4];
+    char Temporary_Char_Array_1[] = "RIFF";
+    char Temporary_Char_Array_2[5];
 
     // RIFF constant : 4 bytes
     Music_File.seek(0);
@@ -136,7 +138,9 @@ uint8_t Sound_Class::Get_Metadata()
     Music_File.seek(0x24);
     strcpy(Temporary_Char_Array_1, "data");
     Music_File.readBytes(Temporary_Char_Array_2, 4);
-    memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 4);
+    if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 4) == 0)
+    {
+    }
 
     // Datablock size : 4 bytes
     Music_File.seek(0x28);
@@ -147,18 +151,62 @@ uint8_t Sound_Class::Get_Metadata()
     return 1;
 }
 
-void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
+void Sound_Class::Set_Time(uint32_t Time)
 {
-    if (ledcRead(LEFT_CHANNEL) || ledcRead(RIGHT_CHANNEL))
+    if (State == Stopped || Mode == 1)
     {
-        //already used channel
         return;
     }
-    ledcAttachPin(25, LEFT_CHANNEL);
-    ledcAttachPin(26, RIGHT_CHANNEL);
-    ledcWriteTone(LEFT_CHANNEL, Frequency);
-    ledcWriteTone(RIGHT_CHANNEL, Frequency);
-    if (Duration)
+
+    Pause();
+
+    Music_File.seek(44 + (Byte_Per_Second * (Time / 1000)));
+
+    Resume();
+}
+
+uint32_t Sound_Class::Get_Time()
+{
+    if (State == Stopped || Mode == 1)
+    {
+        return 0;
+    }
+    return millis() - Start_Time;
+}
+
+uint32_t Sound_Class::Get_Total_Time()
+{
+    if (State == Stopped || Mode != 0)
+    {
+        return 0;
+    }
+    return (((Music_File.size() - 44) / Byte_Per_Second) * 1000);
+}
+
+void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration, uint8_t const &Pin)
+{
+    if (State == Playing)
+    {
+        return;
+    }
+
+    if (Pin == 0xFF)
+    {
+        ledcAttachPin(25, LEFT_CHANNEL);
+        ledcAttachPin(26, RIGHT_CHANNEL);
+        ledcWriteTone(LEFT_CHANNEL, Frequency);
+        ledcWriteTone(RIGHT_CHANNEL, Frequency);
+    }
+    else
+    {
+        ledcAttachPin(Pin, CUSTOM_CHANNEL);
+        ledcWriteTone(CUSTOM_CHANNEL, Frequency);
+    }
+
+    State = Playing;
+    Mode = 3;
+
+    if (Duration != 0)
     {
         vTaskDelay(pdMS_TO_TICKS(Duration));
         No_Tone();
@@ -166,46 +214,20 @@ void Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration)
     }
 }
 
-void Sound_Class::Tone(uint8_t Pin, uint16_t const &Frequency, uint32_t const &Duration)
+void Sound_Class::No_Tone(uint8_t const &Pin)
 {
-    if (ledcRead(CUSTOM_CHANNEL) || ledcRead(RIGHT_CHANNEL))
+    if (Pin == 0xFF)
     {
-        //already used channel
-        return;
+        ledcWrite(LEFT_CHANNEL, 0);
+        ledcWrite(RIGHT_CHANNEL, 0);
+        ledcDetachPin(25);
+        ledcDetachPin(26);
     }
-    ledcAttachPin(25, LEFT_CHANNEL);
-    ledcAttachPin(26, RIGHT_CHANNEL);
-    ledcWriteTone(LEFT_CHANNEL, Frequency);
-    ledcWriteTone(RIGHT_CHANNEL, Frequency);
-    if (Duration)
+    else
     {
-        vTaskDelay(pdMS_TO_TICKS(Duration));
-        No_Tone();
-        No_Tone();
+        ledcWrite(CUSTOM_CHANNEL, 0);
+        ledcDetachPin(Custom_Pin);
     }
-}
-
-
-void Sound_Class::No_Tone()
-{
-    ledcDetachPin(25);
-    ledcDetachPin(26);
-    ledcWrite(LEFT_CHANNEL, 0);
-    ledcWrite(RIGHT_CHANNEL, 0);
-}
-
-void Sound_Class::No_Tone(uint8_t Pin)
-{
-    ledcDetachPin(Pin);
-    ledcWrite(CUSTOM_CHANNEL, 0);
-}
-
-void Sound_Class::Seek(uint32_t Time)
-{
-    vTaskSuspend(Sound_Task_Handle);
-    uint32_t Position = Time * Byte_Per_Second + 44;
-    Music_File.seek(Position);
-    vTaskResume(Sound_Task_Handle);
 }
 
 uint8_t Sound_Class::Play(File &File_To_Play)
@@ -217,6 +239,7 @@ uint8_t Sound_Class::Play(File &File_To_Play)
         Serial.println(F("Cannot open file"));
         return 0;
     }
+
     Music_File = File_To_Play;
 
     if (!Get_Metadata())
@@ -234,23 +257,43 @@ uint8_t Sound_Class::Play(File &File_To_Play)
 
 uint8_t Sound_Class::Play(uint8_t *Samples, const uint32_t &Buffer_Size, const uint32_t &Sample_Frequency)
 {
+    if (State == Stopped)
+    {
+        Stop();
+    }
     this->Sample_Frequency = Sample_Frequency;
     this->Buffer_To_Play = Samples;
     this->Buffer_Size = Buffer_Size;
+    Channel_Number = 1;
+
     return Start_ULP();
 }
 
-uint8_t Sound_Class::Play()
+uint8_t Sound_Class::Resume()
 {
+    if (State == Stopped)
+    {
+        return false;
+    }
+
     vTaskResume(Sound_Task_Handle);
-    return 0;
+
+    State = Playing;
+
+    return true;
 }
 
 void Sound_Class::Pause()
 {
+    if (State == Stopped)
+    {
+        return;
+    }
+
     vTaskSuspend(Sound_Task_Handle);
-    size_t Size = sizeof(Stop_Program) / sizeof(ulp_insn_t);
-    ulp_process_macros_and_load(0, Stop_Program, &Size);
+
+    State = Paused;
+
     dac_output_disable(DAC_CHANNEL_1);
     dac_output_disable(DAC_CHANNEL_2);
 }
@@ -277,7 +320,6 @@ uint8_t Sound_Class::Start_ULP()
     int retAddress1 = 13;
     int retAddress2 = 13;
 
-    int loopCycles = 100;
     Serial.print("Real RTC clock : ");
     Serial.println(rtc_fast_freq_hz);
 
@@ -330,7 +372,7 @@ uint8_t Sound_Class::Start_ULP()
             //increment the sample index
             I_ADDI(R0, R0, 1), // 6
             //if reached end of the buffer, jump relative to index reset
-            I_BGE(-13, totalSamples), // 4
+            I_BGE(-13, (uint32_t)totalSamples), // 4
             //wait to get the right sample rate (2 cycles more to compensate the index reset)
             I_DELAY((unsigned int)Delay_Time + 2), // 8 + dt
             //if not, jump absolute to where index is written to memory
@@ -362,6 +404,7 @@ uint8_t Sound_Class::Start_ULP()
         totalSampleWords = 2048 - 512 - 512 - (opcodeCount + 1);
         totalSamples = totalSampleWords * 2;
         retAddress1 = 9;
+
         const ulp_insn_t Play_Program[] = {
             //reset offset register
             I_MOVI(R3, 0),
@@ -390,11 +433,9 @@ uint8_t Sound_Class::Start_ULP()
             I_ADDI(R1, R1, dacTableStart2), // 6
             //jump to the dac opcode
             I_BXR(R1), // 4
-            //here we get back from writing the second sample
-            //increment the sample index
             I_ADDI(R0, R0, 1), // 6
             //if reached end of the buffer, jump relative to index reset
-            I_BGE(-13, totalSampleWords), // 4
+            I_BGE(-13, (uint32_t)totalSampleWords), // 4
             //wait to get the right sample rate (2 cycles more to compensate the index reset)
             I_DELAY((unsigned int)Delay_Time + 2), // 8 + dt
             //if not, jump absolute to where index is written to memory
@@ -443,6 +484,11 @@ uint8_t Sound_Class::Start_ULP()
 
 void Sound_Class::Stop()
 {
+    if (State == Stopped)
+    {
+        return;
+    }
+
     Serial.println(F("Stop"));
     for (int i = 0; i < totalSampleWords; i++) //mute dac
     {
@@ -451,9 +497,17 @@ void Sound_Class::Stop()
     size_t Size = sizeof(Stop_Program) / sizeof(ulp_insn_t);
     ulp_process_macros_and_load(0, Stop_Program, &Size);
     ulp_run(0);
-    dac_output_disable(DAC_CHANNEL_1);
-    dac_output_disable(DAC_CHANNEL_2);
-    Music_File.close();
+
+    Mute();
+
+    if (Mode == 0)
+    {
+        Music_File.close();
+    }
+
+    Mode = 0;
+    State = Stopped;
+
     vTaskDelete(Sound_Task_Handle);
 }
 
@@ -472,73 +526,73 @@ void Sound_Class::Sound_Task(void *pvParameters)
 
     while (1)
     {
-        if (INSTANCE_POINTER->Buffer_To_Play != NULL) //play from buffer
+        if (Instance_Pointer->Mode == 1) //play from buffer
         {
             Serial.println(F("play from buffer"));
             while (1)
             {
-                /*Current_Sample = RTC_SLOW_MEM[INSTANCE_POINTER->Index_Adress] & 0xffff;
+                /*Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Adress] & 0xffff;
                 Current_Word = Current_Sample >> 1;
-                while (INSTANCE_POINTER->Last_Filled_Word != Current_Word)
+                while (Instance_Pointer->Last_Filled_Word != Current_Word)
                 {
-                    /*uint16_t Word = (uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume;
-                    Word |= ((uint8_t)(int)Buffer[Location++] + INSTANCE_POINTER->Volume) << 8;
-                    RTC_SLOW_MEM[INSTANCE_POINTER->bufferStart + INSTANCE_POINTER->Last_Filled_Word] = Word;
-                    INSTANCE_POINTER->Last_Filled_Word++;
-                    if (INSTANCE_POINTER->Last_Filled_Word == INSTANCE_POINTER->totalSampleWords)
+                    uint16_t Word = (uint8_t)(int)Buffer[Location++] + Instance_Pointer->Volume;
+                    Word |= ((uint8_t)(int)Buffer[Location++] + Instance_Pointer->Volume) << 8;
+                    RTC_SLOW_MEM[Instance_Pointer->bufferStart + Instance_Pointer->Last_Filled_Word] = Word;
+                    Instance_Pointer->Last_Filled_Word++;
+                    if (Instance_Pointer->Last_Filled_Word == Instance_Pointer->totalSampleWords)
                     {
-                        Remaining_Samples = INSTANCE_POINTER->Music_File.available();
+                        Remaining_Samples = Instance_Pointer->Music_File.available();
                         if (Remaining_Samples < 3036)
                         {
-                            INSTANCE_POINTER->Music_File.read(Buffer, Remaining_Samples);
+                            Instance_Pointer->Music_File.read(Buffer, Remaining_Samples);
                             for (; Remaining_Samples < 3036; Location++)
                             {
                             }
                             vTaskDelay(pdMS_TO_TICKS(10));
-                            INSTANCE_POINTER->Stop_ULP();
+                            Instance_Pointer->Stop_ULP();
                         }
                         else
                         {
-                            INSTANCE_POINTER->Music_File.read(Buffer, 3036);
+                            Instance_Pointer->Music_File.read(Buffer, 3036);
                         }
-                        INSTANCE_POINTER->Last_Filled_Word = 0;
+                        Instance_Po)inter->Last_Filled_Word = 0;
                     }
                 }*/
             }
         }
-        else // play from file
+        else if (Instance_Pointer->Mode == 0) // play from file
         {
-            if (INSTANCE_POINTER->Bits_Per_Sample == 8) // 8 bit from sd
+            if (Instance_Pointer->Bits_Per_Sample == 8) // 8 bit from sd
             {
                 Serial.println(F("8 bit"));
-                uint8_t Buffer[INSTANCE_POINTER->totalSampleWords * 2];
-                INSTANCE_POINTER->Music_File.read(Buffer, sizeof(Buffer));
+                uint8_t Buffer[Instance_Pointer->totalSampleWords * 2];
+                Instance_Pointer->Music_File.read(Buffer, sizeof(Buffer));
                 while (1)
                 {
-                    int Current_Sample = RTC_SLOW_MEM[INSTANCE_POINTER->Index_Adress] & 0xffff;
+                    int Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Adress] & 0xffff;
                     int Current_Word = Current_Sample >> 1;
                     while (Last_Filled_Word != Current_Word)
                     {
                         uint16_t Word = (uint16_t)Buffer[Location++];
                         Word |= (uint16_t)Buffer[Location++] << 8;
-                        RTC_SLOW_MEM[INSTANCE_POINTER->bufferStart + Last_Filled_Word] = Word;
+                        RTC_SLOW_MEM[Instance_Pointer->bufferStart + Last_Filled_Word] = Word;
                         Last_Filled_Word++;
-                        if (Last_Filled_Word == INSTANCE_POINTER->totalSampleWords) // need to refresh buffer
+                        if (Last_Filled_Word == Instance_Pointer->totalSampleWords) // need to refresh buffer
                         {
                             if (End == true)
                             {
-                                INSTANCE_POINTER->Stop();
+                                Instance_Pointer->Stop();
                             }
                             Last_Filled_Word = 0;
                             Location = 0;
-                            if (INSTANCE_POINTER->Music_File.available() <= sizeof(Buffer))
+                            if (Instance_Pointer->Music_File.available() <= sizeof(Buffer))
                             {
-                                INSTANCE_POINTER->Music_File.read(Buffer, INSTANCE_POINTER->Music_File.available());
+                                Instance_Pointer->Music_File.read(Buffer, Instance_Pointer->Music_File.available());
                                 End = true;
                             }
                             else
                             {
-                                INSTANCE_POINTER->Music_File.read(Buffer, sizeof(Buffer));
+                                Instance_Pointer->Music_File.read(Buffer, sizeof(Buffer));
                             }
                         }
                     }
@@ -553,5 +607,3 @@ void Sound_Class::Sound_Task(void *pvParameters)
         }
     }
 }
-
-#undef INSTANCE_POINTER
