@@ -31,17 +31,27 @@ class Shell_Class : public Software_Class
 protected:
     static Shell_Class *Instance_Pointer;
 
-    char Target_Username[9];
+    // Login page variable
+    char Username[9];
+    char Password[25];
+
+    // File Manager variable 
+    char Current_Item_Name[13];
+    
+    char Current_Path[192];
+
+    // 
+
+
     char Password_1[25];
     char Password_2[25];
 
     char Device_Name[25];
 
-    char WiFi_Name[25] char WiFi_Password[25];
+    char WiFi_Name[25];
+    char WiFi_Password[25];
 
     uint32_t Temporary_Variable[4];
-
-    char *Temporary_Char_Array[3];
 
     uint8_t Automatic_Login;
 
@@ -112,8 +122,12 @@ protected:
     void Open_Drawer();
     void Refresh_Drawer();
     void Open_Item();
+
     void Open_Login();
+    
     void Open_Load(uint8_t Mode);
+
+    void Refresh_Login();
 
     enum Load_Mode
     {
@@ -121,17 +135,29 @@ protected:
         Shutdown,
     };
 
+    File Selected_Item;
+
     File Temporary_Item;
 
     uint8_t Operation;
+
     enum File_Manager_Operation
     {
-        Idle,
-        New,
+        Browse,
+        New_File,
+        New_Folder,
         Delete,
         Rename,
         Copy,
         Cut
+    };
+
+    enum File_Manager_Mode
+    {
+        Default,
+        Open_File,
+        Open_Folder,
+        Save_File
     };
 
     uint8_t Mode;
@@ -140,8 +166,10 @@ protected:
     // 2 : open folder
     // 3 : save file
 
-    char Current_Item_Name[13];
-    char Current_Path[192];
+    inline void Fill_Footer_Bar();
+    inline void Empty_Footer_Bar();
+
+    inline void Open_File();
 
     void Select_Item();
     void Open_File_Manager();
@@ -150,8 +178,6 @@ protected:
     void Refresh_File_Manager();
     void Make_Directory();
     void Make_File();
-    void Rename();
-    void Delete();
     void Go_Parent();
 
     void Dock(uint8_t, uint8_t);
@@ -166,13 +192,22 @@ public:
 
     static void Startup();
 
-    enum Image
+    enum Images
     {
         File_Manager_32 = 4,
         Preferences_32 = 3,
         Empty_16 = 14,
         File_16 = 15,
         Folder_16 = 16,
+        Home_24 = 35,
+        Copy_24,
+        Cut_24,
+        Paste_24,
+        Trash_24,
+        New_File_24,
+        New_Folder_24,
+        Rename_24,
+        Root_24,
         Empty_32 = 38
     };
 

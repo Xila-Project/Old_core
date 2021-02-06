@@ -148,7 +148,6 @@ protected:
     // Power button
 
 public:
-
     uint32_t Last_Watchdog_Feed;
     uint8_t Watchdog_Reminder;
 
@@ -165,7 +164,6 @@ public:
     void Delay(uint32_t Delay_In_Millisecond);
 
     void Check_Watchdog();
-
 
     /**
      * @enum Font identifier
@@ -285,9 +283,11 @@ public:
     Keyboard_Class Keyboard;
 // Disk
 #if SD_MODE == 0
-    fs::SDMMCFS* Drive;
+    fs::SDMMCFS Drive = &SD_MMC;
 #else
-    fs::SDFS* Drive;
+
+    fs::SDFS* Drive = &SD;
+
 #endif
     // WiFi
 
@@ -365,8 +365,7 @@ public:
      * @return 
     */
     Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
-    
-    
+
     //Xila_Event Update();
 
     Xila_Event Create_Dump();
@@ -485,16 +484,17 @@ public:
         Button_3 = 0x33  //< Button 3 reply by default : Cancel (returned also by close button)
     };
 
+    void Panic(uint32_t Panic_Code);
+    
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
     //Xila_Event Color_Picker_Dialog(uint16_t& Color);
     Xila_Event Open_File_Dialog(File &File_To_Open);
     Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
     Xila_Event Save_File_Dialog(File const &);
-    Xila_Event Keyboard_Dialog(char* Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
+    Xila_Event Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
     // to do : Xila_Event Keyboard_Dialog(float& Number_To_Get) (and more overload);
     Xila_Event Keypad_Dialog(float &Number_To_Get);
-    
 
     void *Dialog_Pointer;
     uint32_t Dialog_Long;
@@ -502,7 +502,6 @@ public:
     Xila_Event Dialog_State;
     SemaphoreHandle_t Dialog_Semaphore;
     File *File_Dialog_Reply;
-
 
     Xila_Event Set_Autologin();
 

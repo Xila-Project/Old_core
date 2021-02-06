@@ -11,6 +11,7 @@ Xila_Class::Xila_Class() : Tag(0),
                            Display(),
                            Sound(),
                            Battery(13, 47, 47),
+                           Keyboard(),
                            Dialog_Semaphore(xSemaphoreCreateMutex()),
                            Background_Function_Counter(0)
 
@@ -610,12 +611,12 @@ void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 
 void Xila_Class::Feed_Watchdog()
 {
-  Current_Software_Watchdog = millis();
+  Last_Watchdog_Feed = millis();
 }
 
 void Xila_Class::Delay(uint32_t Delay_In_Millisecond)
 {
-  Current_Software_Watchdog = millis();
+  Last_Watchdog_Feed = millis();
   vTaskDelay(pdMS_TO_TICKS(Delay_In_Millisecond));
 }
 

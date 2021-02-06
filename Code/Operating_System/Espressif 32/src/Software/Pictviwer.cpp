@@ -37,7 +37,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Xila.Maxmize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
             Instance_Pointer->Execute(Instruction('D', 'I'));
             break;

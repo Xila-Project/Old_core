@@ -1,5 +1,16 @@
 #include "Core/Core.hpp"
 
+void Xila_Class::Panic(uint32_t Panic_Code)
+{
+  vTaskSuspendAll();
+  Display.Set_Current_Page(F("Core_Panic"));
+  Display.Set_Text(F("ERRORCODE_TXT"), String("Error code:") + String(Panic_Code));
+  while (digitalRead(POWER_BUTTON_PIN) == HIGH)
+  {
+  }
+  ESP.restart();
+}
+
 Xila_Event Xila_Class::Keyboard_Dialog(char* Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
