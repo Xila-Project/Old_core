@@ -19,8 +19,6 @@ protected:
 
     void (*Startup_Function_Pointer)();
 
-    void (*Background_Function_Pointer)();
-
     void (*Shutdown_Function_Pointer)();
 
     //Software_Class* Load_Function(Software_Handle_Class*);
@@ -46,7 +44,7 @@ public:
     
     Software_Handle_Class();
     Software_Handle_Class(const char* Char_Array);
-    Software_Handle_Class(const char* Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Background_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
+    Software_Handle_Class(const char* Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL, void (*Shutdown_Function_Pointer)() = NULL);
     ~Software_Handle_Class();
 
     friend class Xila_Class;

@@ -44,5 +44,4 @@ protected:
     friend class Shell_Class;
 };
 
-
 #endif

@@ -79,4 +79,9 @@
 #define Verbose_Print_Line(t) Xila.Print_Line(F(t))
 #endif
 
+
+// -- Default registry values --
+
+#define DEFAULT_SOUND_REGISTRY_VOLUME 75
+
 #endif

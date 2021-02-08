@@ -21,7 +21,10 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     Xila.Check_Power_Button();
 
+
+
     Xila.Execute_Background_Jobs(); // Software background function execution
+
 
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");

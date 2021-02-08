@@ -1,4 +1,4 @@
-#include "Paint.hpp"
+#include "Software/Paint.hpp"
 
 #define INSTANCE_POINTER Paint_Class::Instance_Pointer
 

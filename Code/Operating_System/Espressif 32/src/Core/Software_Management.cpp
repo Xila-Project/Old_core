@@ -1,6 +1,6 @@
 #include "Core/Core.hpp"
 
-// Software management
+// -- Software management -- //
 
 uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Software_Handle)
 {
@@ -17,117 +17,116 @@ uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Softw
   }
 }
 
-void Xila_Class::Maximize_Shell()
+Xila_Event Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
 {
-  Maximize_Software(Shell_Handle);
-}
+  // -- if software handle is shell handle, reopen it or maximize it
 
-void Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
-{
   uint8_t i = 2;
   if (Software_Handle == Shell_Handle)
   {
     if (Open_Software_Pointer[1] != NULL)
     {
-      Maximize_Software(Shell_Handle);
-      return;
+      Maximize_Shell();
+      return Success;
     }
     else
     {
-      Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
       Minimize_Software();
-      return;
+      Open_Software_Pointer[1] = (*Shell_Handle.Load_Function_Pointer)();
+      Maximize_Shell();
+      return Success;
     }
   }
-  for (; i < 8; i++) //check if software is openned already
+
+  // -- checking if software is already openned
+  for (; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
     {
-      if (**Software_Handle_Pointer == *Open_Software_Pointer[i]->Handle_Pointer)
+      if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
       {
         Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
-        return;
+        return Success;
       }
     }
   }
-  // if not, open it in an empty slot
+
+  // -- if the software isn't minimized, load it. -- //
+
   for (i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] == NULL)
     {
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
-      return;
+      Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
+      return Success;
     }
   }
-
-  // if not enough place, call event handler
-
-  Event_Dialog(F("Too many openned software."), Error);
+  return Error;
 }
 
-void Xila_Class::Close_Software(Software_Handle_Class* Software_Handle_To_Close)
+void Xila_Class::Close_Software(Software_Handle_Class const &Software_Handle)
 {
-  if (System_State == SYSTEM_STATE_STANDALONE)
+  // -- If no software handle is specified, close the maximize software. -- //
+  if (Software_Handle == NULL)
   {
-    if (Software_Handle_To_Close == NULL) //by default delete current running software
+    for (uint8_t i = 2; i < 8; i++)
     {
-      for (uint8_t i = 2; i < 8; i++)
+      if (Open_Software_Pointer[i] != NULL)
       {
-        if (Open_Software_Pointer[i] != NULL)
+        if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
         {
-          if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
-          {
-            Open_Software_Pointer[i] = NULL;
-          }
+          Open_Software_Pointer[i] = NULL;
         }
       }
-      Open_Software_Pointer[0]->Execute(Close);
-      Open_Software_Pointer[0] = NULL;
     }
-    if (Software_Handle_To_Close == NULL)
+    Open_Software_Pointer[0]->Execute(Close);
+    Open_Software_Pointer[0] = NULL;
+  }
+  // -- If software handle is specified, close the minimized software. -- //
+  else
+  {
+    for (uint8_t i = 2; i < 8; i++)
     {
-      for (uint8_t i = 2; i < 8; i++)
+      if (Open_Software_Pointer[i] != NULL)
       {
-        if (Open_Software_Pointer[i] != NULL)
+        if (*Open_Software_Pointer[i]->Handle_Pointer == Software_Handle)
         {
-          if (Open_Software_Pointer[i])
+          Xila_Tasks_Handle Temporary_Task_Handle;
+          Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
+          Open_Software_Pointer[i]->Execute(Close);
+          vTaskResume(Temporary_Task_Handle);
+          // -- Waiting for the software to close
+          for (uint8_t ii = 0; ii <= 200; ii++)
+          {
+            if (eTaskGetState(Temporary_Task_Handle) == eDeleted)
+            {
+              break;
+            }
+            vTaskDelay(pdMS_TO_TICKS(20));
+          }
+          // -- Force closing the software, if not closed within 4000 ms
+          if (eTaskGetState(Temporary_Task_Handle) != eDeleted)
+          {
+            delete Open_Software_Pointer[i];
+            vTaskDelete(Temporary_Task_Handle);
+          }
+          Open_Software_Pointer[i] = NULL;
+
+          // -- Don't forget to remove maximized pointer.
+          if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
+          {
+            Open_Software_Pointer[0] = NULL;
+          }
+          
+          break;
         }
       }
     }
   }
-  else if (System_State == SYSTEM_STATE_NORMAL)
-  {
-    if (Software_Handle_To_Close == NULL) //by default delete current running software
-    {
-      for (uint8_t i = 2; i < 8; i++)
-      {
-        if (Open_Software_Pointer[i] != NULL)
-        {
-          if (Open_Software_Pointer[i]->Handle_Pointer == Open_Software_Pointer[0]->Handle_Pointer)
-          {
-            Open_Software_Pointer[i] = NULL;
-          }
-        }
-      }
-      Open_Software_Pointer[0]->Execute(Close);
-      Open_Software_Pointer[0] = NULL;
-    }
-    else
-    {
-      for (uint8_t i = 2; i < 8; i++)
-      {
-        if (Open_Software_Pointer[i] != NULL)
-        {
-          if (Open_Software_Pointer[i]->Handle_Pointer == Software_Handle_To_Close)
-          {
-            Open_Software_Pointer[i]->Execute(Close);
-            Open_Software_Pointer[i] = NULL;
-          }
-        }
-      }
-    }
-    Maximize_Software(1); //reopen shell
-  }
+
+  // -- Finaly, maximize shell
+  Maximize_Shell();
 }
 
 void Xila_Class::Minimize_Software()
@@ -139,97 +138,68 @@ void Xila_Class::Minimize_Software()
   }
 }
 
-void Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
+Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
 {
-  if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
+  // -- Check if the software was already open or if another software is currently openned.
+  if (Open_Software_Pointer[0]->Handle_Pointer != NULL)
   {
-    return;
-  }
-  if (Open_Software_Pointer[i])
-
-    if (System_State == SYSTEM_STATE_STANDALONE)
+    if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
     {
-      if (Software_Handle.Type == SOFTWARE_STANDALONE)
-      {
-        if (Seek_Open_Software_Handle(Software_Handle) == 0)
-        {
-          return;
-        }
-        Minimize_Software();
-        Open_Software_Pointer[0] = Open_Software_Pointer[Seek_Open_Software_Handle(Software_Handle)];
-      }
-      else
-      {
-        Rollback();
-        return;
-      }
-    }
-    else
-    {
-      if (Software_Handle.Type == SOFTWARE_STANDALONE)
-      {
-        Open_Software(Software_Handle);
-      }
-      if (Open_Software_Pointer[0] != NULL)
-      {
-        Minimize_Software();
-      }
-
-      vTaskResume(Open_Software_Pointer[0]->Task_Handle);
-      Open_Software_Pointer[0]->Execute(Maximize);
-    }
-}
-
-Xila_Event Xila_Class::Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Add, const __FlashStringHelper *Header_Path)
-{
-  if (Software_Handle_To_Add->Type == SOFTWARE_STANDALONE)
-  {
-    return Error;
-  }
-
-  if (!Drive->exists(Header_Path))
-  {
-    return Error;
-  }
-  File Temporary_File = Drive->open(Header_Path);
-  DynamicJsonDocument Software_Registry(DEFAULT_REGISTRY_SIZE);
-  if (deserializeJson(Software_Registry, Temporary_File) != DeserializationError::Ok)
-  {
-    return;
-  }
-  if (Software_Registry["Type"] != 0)
-  {
-    return Error;
-  }
-  if (strcmp(Software_Registry["Name"], Software_Handle_To_Add->Name) != 0)
-  {
-    return Error;
-  }
-
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-    if (Software_Handle_Pointer[i] == NULL)
-    {
-      Software_Handle_Pointer[i] = Software_Handle_To_Add;
-    }
-  }
-}
-
-Xila_Event Xila_Class::Add_Software_Handle(Software_Handle_Class const& Software_Handle_To_Add)
-{
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
-  {
-    if (Software_Handle_Pointer[i] == NULL)
-    {
-      Software_Handle_Pointer[i] = Software_Handle_To_Add;
       return Success;
     }
     else
     {
-      if (i == MAXIMUM_SOFTWARE - 1)
+      Minimize_Software();
+    }
+  }
+
+  // -- Looking for the concern software
+  for (uint8_t i = 0; i < 8; i++)
+  {
+    if (Open_Software_Pointer[i] != NULL)
+    {
+      if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
       {
-        return Error;
+        vTaskResume(Open_Software_Pointer[i]->Task_Handle);
+        Open_Software_Pointer[i]->Execute(Maximize);
+        Open_Software_Pointer[0] = Open_Software_Pointer[i];
+        return Success;
       }
     }
   }
+  return Error;
+}
+
+void Xila_Class::Force_Close_Software()
+{
+  if (Open_Software_Pointer[0] != NULL)
+  {
+    vTaskDelete(Open_Software_Pointer[0]->Task_Handle);
+    delete Open_Software_Pointer[0];
+  }
+
+  Maximize_Shell();
+}
+
+void Xila_Class::Add_Software_Handle(Software_Handle_Class &Software_Handle_To_Add)
+{
+  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  {
+    if (Software_Handle_Pointer[i] == NULL)
+    {
+      Software_Handle_Pointer[i] = &Software_Handle_To_Add;
+    }
+  }
+}
+
+// -- Shell shortcut -- //
+
+void Xila_Class::Execute_Shell(Xila_Command const &Command)
+{
+  Open_Software_Pointer[1]->Execute(Command);
+}
+
+void Xila_Class::Maximize_Shell()
+{
+  Maximize_Software(Shell_Handle);
 }

@@ -1,4 +1,4 @@
-#include "signal_generator.hpp"
+#include "Software/signal_generator.hpp"
 
 Signal_Generator_Class* Signal_Generator_Class::Instance_Pointer = NULL;
 

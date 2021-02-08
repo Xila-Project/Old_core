@@ -1,5 +1,10 @@
 #include "Core/Core.hpp"
 
+Xila_Event Xila_Class::Load_Network_Registry()
+{
+  
+}
+
 Xila_Event Xila_Class::Load_Time_Registry()
 {
   Verbose_Print_Line("> Load regional registry ...");
@@ -83,6 +88,7 @@ Xila_Event Xila_Class::Load_Sound_Registry()
   return Success
 }
 
+
 Xila_Event Xila_Class::Load_Time_Registry()
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
@@ -134,6 +140,25 @@ Xila_Event Xila_Class::Load_Keyboard_Registry()
   default: //U or other
     Keyboard.begin(Keyboard_Data_Pin, Keyboard_Interrupt_Pin);
     break;
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::Set_Sound_Registry(uint8_t Volume)
+{
+  File Temporary_File = Drive->open(Sound_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Sound_Registry(256);
+  if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error; 
+  }
+  Sound_Registry["Volume"] = Volume;
+  if (serializeJson(Sound_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
   }
   Temporary_File.close();
   return Success;

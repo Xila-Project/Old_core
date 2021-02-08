@@ -1,4 +1,4 @@
-#include "Text Editor.hpp"
+#include "Software/Text Editor.hpp"
 
 Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 

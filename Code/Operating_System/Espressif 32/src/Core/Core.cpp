@@ -16,6 +16,8 @@ Xila_Class::Xila_Class() : Tag(0),
                            Background_Function_Counter(0)
 
 {
+
+  Watchdog_Reminder = false;
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   System_State = 0;
   if (Instance_Pointer != NULL)
@@ -49,108 +51,39 @@ Xila_Class::~Xila_Class() // destructor
   Instance_Pointer = NULL;
 }
 
-void Xila_Class::Start(Software_Handle_Class *Software_Handle_To_Start)
+void Xila_Class::First_Start_Routine()
 {
+  // -- Check if the power button was press or the power supply plugged.
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
   if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
-    esp_deep_sleep_start();
+    Shutdown();
+  }
+
+  // -- Check if the battery level is enough to start.
+  if (Battery.Get_Charge_Level() <= 3)
+  {
+    Shutdown();
   }
   pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
-  // Restore attribute
-  System_State = 1;
-
-  File Temporary_File = Drive->open(Software_Dump_Registry_Path);
-  char Temporary_Char_Array[26];
-
-  uint16_t File_Position = 0;
-
-  uint8_t i = 2;
-  while (Temporary_File.available() < (6 * sizeof(Temporary_Char_Array)))
-  {
-    Temporary_File.seek(File_Position);
-    if (Temporary_File.peek() != '\0')
-    {
-      Temporary_File.readBytes(Temporary_Char_Array, sizeof(Temporary_Char_Array));
-      Open_Software_Pointer[i] = new Software_Class(0);
-      Open_Software_Pointer[i]->Handle_Pointer = new Software_Handle_Class(Temporary_Char_Array);
-    }
-    File_Position += sizeof(Temporary_Char_Array);
-    i++;
-  }
-
-  File_Position = 6 * sizeof(Temporary_Char_Array);
-  i = 0;
-  Software_Handle_Class Temporary_Software_Handle;
-  while (Temporary_File.available())
-  {
-    Temporary_File.seek(File_Position);
-    Temporary_File.readBytes(Temporary_Char_Array, sizeof(Temporary_Char_Array));
-    Temporary_Software_Handle.From_Char_Array(Temporary_Char_Array);
-    if (Seek_Open_Software_Handle(Temporary_Software_Handle) != 0)
-    {
-      Software_Handle_Pointer[i] = Open_Software_Pointer[Seek_Open_Software_Handle(Temporary_Software_Handle)]->Handle_Pointer;
-    }
-    else
-    {
-      Add_Software_Handle(new Software_Handle_Class(Temporary_Char_Array));
-    }
-    File_Position += sizeof(Temporary_Char_Array);
-    i++;
-  }
-
-  Temporary_File.close();
-
-  strcpy(Current_Username, Dump_Registry["Current User"])
-
-  {
-    uint8_t Number_Software = Dump_Registry["Number Software"];
-    for (uint8_t i = 0; i <= Number_Software; i++)
-    {
-      Software_Handle_Pointer[i] = new Software_Handle_Class();
-      strcpy(Software_Handle_Pointer[i]->Name, Software_Name[i]);
-      Software_Handle_Pointer[i]->Icon = Software_Icon[i];
-      Software_Handle_Pointer[i]->Type = Software_Type[i];
-    }
-  }
-
-  (*Shell_Handle.Startup_Function_Pointer)();
-  vTaskDelay(pdMS_TO_TICKS(500));
-  Open_Software(*Software_Handle_To_Start);
-
-  xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-}
-
-void Xila_Class::Start()
-{
-  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
-  esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
-  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
-  {
-    esp_deep_sleep_start();
-  }
-  pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+  // -- Disable FreeRTOS watchdog and replace it with Xila watchdog
 
 #if WATCHDOG == 0
   rtc_wdt_protect_off();
   rtc_wdt_disable();
 #endif
 
-  System_State = 0;
-
-  Remaining_Spaces = 0;
+  // --
 
   //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
   Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
   Print_Line(F("Starting Xila ..."), 0);
 
-  // Setting interrput for power buttons
+  // -- Initialize display. -- //
 
-  // Initialize display
   pinMode(DISPLAY_SWITCH_PIN, OUTPUT);
   digitalWrite(DISPLAY_SWITCH_PIN, HIGH);
 
@@ -163,7 +96,8 @@ void Xila_Class::Start()
   Display.Set_Current_Page(F("Core_Load")); // Play animation
   Display.Set_Trigger(F("LOAD_TIM"), true);
 
-// Initialize drive
+  // -- Initialize drive. -- //
+
 #if SD_MODE == 0
   pinMode(14, INPUT_PULLUP);
   //pinMode(15, INPUT_PULLUP);
@@ -186,21 +120,25 @@ void Xila_Class::Start()
   }
   Display.Set_Text(F("EVENT_TXT"), F(""));
 
-  uint8_t Installation_State = 0;
+  System_State = Default;
   Xila_Event Returned_Data;
 
+  // -- Load system registry -- //
+
   Returned_Data = Load_System_Registry();
+
   if (Returned_Data != Success)
   {
+
     if (Returned_Data == Error)
     {
-      Display.Set_Text(F("EVENT_TXT"), "Damaged system registry.");
+      Panic_Handler(Damaged_System_Registry);
     }
     else if (Returned_Data == 2)
     {
-      Display.Set_Text(F("EVENT_TXT"), "Incompatible installation.");
+      Panic_Handler(Installation_Conflict);
     }
-    else if (Returned_Data == 3) // install
+    else if (Returned_Data == 3) // new installation
     {
       File Temporary_File = Drive->open(Display_Executable_Path);
       if (Display.Update(Temporary_File) != Display.Update_Succeed)
@@ -208,6 +146,7 @@ void Xila_Class::Start()
         Verbose_Print("Display update failed");
         ESP.restart();
       }
+
       Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
       Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
       Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
@@ -215,26 +154,97 @@ void Xila_Class::Start()
       Display.Wake_Up();
       Display.Set_Current_Page(F("Core_Load")); // Play animation
       Display.Set_Trigger(F("LOAD_TIM"), true);
-      Installation_State = true;
+
+      System_State = New_Installation;
     }
   }
 
-  // Play sound
+  WiFi.setHostname(Device_Name); // Set hostname
+
+  // -- Load sound registry --
+
+  Returned_Data = Load_Sound_Registry();
+
+  if (Returned_Data != Success)
+  {
+  }
+
+  // -- Play startup sound
+
   {
     File Temporary_File = Drive->open(Startup_Sound_Path);
     Sound.Play(Temporary_File);
     Temporary_File.close();
   }
 
+  // -- Load display registry
+
+  Returned_Data = Load_Display_Registry();
+
+  if (Returned_Data != Success)
+  {
+  }
+
   // WiFi :
-  WiFi.setHostname(Device_Name); // Set hostname
+
   WiFi_Connect();
 
-  // Set keyboard layout
-  Load_Time_Registry();
-  Load_Keyboard_Registry();
+  // -- Load Time Registry
+  Returned_Data = Load_Time_Registry();
 
-  // Load software (including Shell UI)
+  if (Returned_Data != Success)
+  {
+  }
+
+  // -- Load Keyboard Registry
+
+  Returned_Data = Load_Keyboard_Registry();
+
+  if (Returned_Data != Success)
+  {
+  }
+
+  Returned_Data = Load_Dump();
+}
+
+void Xila_Class::Second_Start_Routine()
+{
+  Execute_Startup_Function();
+
+  vTaskDelay(pdMS_TO_TICKS(500));
+
+  if (System_State == New_Installation)
+  {
+    Open_Software_Pointer[1]->Execute(Installation_Wizard);
+  }
+
+  xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+
+  vTaskDelay(pdMS_TO_TICKS(3000));
+  Display.Set_Value(F("STATE_VAR"), 2);
+  vTaskDelay(pdMS_TO_TICKS(1200));
+}
+
+void Xila_Class::Start(Software_Handle_Class *Software_Package, uint8_t Size)
+{
+  First_Start_Routine();
+
+  // Restore attribute
+
+  for (uint8_t i = 0; i < Size; i++)
+  {
+    Add_Software_Handle(Software_Package[i]);
+  }
+
+  Second_Start_Routine();
+}
+
+void Xila_Class::Start()
+{
+  First_Start_Routine();
+
+  // -- Load softwares -- //
+
   Verbose_Print_Line("> Load software ...");
 
   extern Software_Handle_Class Oscilloscope_Handle;
@@ -250,33 +260,20 @@ void Xila_Class::Start()
   extern Software_Handle_Class Periodic_Handle;
   extern Software_Handle_Class Clock_Handle;
 
-  Load_Software_Handle(&Calculator_Handle, F("/SOFTWARE/CALCULAT/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Clock_Handle, F("/SOFTWARE/CLOCK/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Internet_Browser_Handle, F("/SOFTWARE/INTERNET/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Music_Player_Handle, F("/SOFTWARE/MUSICPLA/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Oscilloscope_Handle, F("/SOFTWARE/OSCOPE/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Periodic_Handle, F("/SOFTWARE/PERIODIC/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Piano_Handle, F("/SOFTWARE/PIANO/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Pong_Handle, F("/SOFTWARE/PONG/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Paint_Handle, F("/SOFTWARE/PAINT/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Signal_Generator_Handle, F("/SOFTWARE/SIGNAL/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&Text_Editor_Handle, F("/SOFTWARE/TEXTEDIT/REGISTRY/SOFTWARE.GRF"));
-  Load_Software_Handle(&TinyBasic_Handle, F("/SOFTWARE/TINYBASI/REGISTRY/SOFTWARE.GRF"));
+  Add_Software_Handle(Calculator_Handle);
+  Add_Software_Handle(Clock_Handle);
+  Add_Software_Handle(Internet_Browser_Handle);
+  Add_Software_Handle(Music_Player_Handle);
+  Add_Software_Handle(Oscilloscope_Handle);
+  Add_Software_Handle(Periodic_Handle);
+  Add_Software_Handle(Piano_Handle);
+  Add_Software_Handle(Pong_Handle);
+  Add_Software_Handle(Paint_Handle);
+  Add_Software_Handle(Signal_Generator_Handle);
+  Add_Software_Handle(Text_Editor_Handle);
+  Add_Software_Handle(TinyBasic_Handle);
 
-  // Execute startup function of each software
-
-  (*Shell_Handle.Startup_Function_Pointer)();
-
-  if (Installation_State == true)
-  {
-    Open_Software_Pointer[1]->Execute(Installation_Wizard);
-  }
-
-  xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-
-  vTaskDelay(pdMS_TO_TICKS(3000));
-  Display.Set_Value(F("STATE_VAR"), 2);
-  vTaskDelay(pdMS_TO_TICKS(1200));
+  Second_Start_Routine();
 }
 
 Xila_Event Xila_Class::WiFi_Connect()
@@ -336,6 +333,20 @@ void Xila_Class::Check_Watchdog()
   }
 }
 
+Xila_Event Xila_Class::Load_Dump()
+{
+  if (!Drive->exists(Software_Dump_Registry_Path))
+  {
+    File Temporary_File = Drive->open(Software_Dump_Registry_Path);
+    DynamicJsonDocument Dump_Registry(256);
+    if (deserializeJson(Dump_Registry, Temporary_File) != DeserializationError::Ok)
+    {
+      return Error;
+    }
+    strlcpy(Current_Username, Dump_Registry["Current User"], sizeof(Current_Username));
+  }
+}
+
 Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
 {
   WiFi.setAutoConnect(false);
@@ -369,13 +380,35 @@ Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
 
 void Xila_Class::Shutdown()
 {
-  Close_Software(Open_Software_Pointer[2]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[3]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[4]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[5]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[6]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[7]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[1]->Handle_Pointer);
+  Maximize_Shell();
+  Execute_Shell(Close);
+
+  Xila_Tasks_Handle Temporary_Task_Handle;
+  for (uint8_t i = 2; i < 8; i++)
+  {
+    if (Open_Software_Pointer[i] != NULL)
+    {
+      Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
+      Open_Software_Pointer[i]->Execute(Close);
+      vTaskResume(Temporary_Task_Handle);
+      // -- Waiting for the software to close
+      for (uint8_t ii = 0; ii <= 200; ii++)
+      {
+        if (eTaskGetState(Temporary_Task_Handle) == eDeleted)
+        {
+          break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(20));
+      }
+      // -- Force closing the software, if not closed within 4000 ms
+      if (eTaskGetState(Temporary_Task_Handle) != eDeleted)
+      {
+        delete Open_Software_Pointer[i];
+        vTaskDelete(Temporary_Task_Handle);
+      }
+      Open_Software_Pointer[i] = NULL;
+    }
+  }
 
   // Shutdown screen
   Display.Sleep();
@@ -383,15 +416,9 @@ void Xila_Class::Shutdown()
   // Disconnect wifi
   WiFi.disconnect(true);
 
-  {
-    File Temporary_File = Drive->open(Sound_Registry_Path);
-    DynamicJsonDocument Sound_Registry(DEFAULT_REGISTRY_SIZE);
-    Sound_Registry["Registry"] = "Sound";
-    Sound_Registry["Volume"] = Sound.Get_Volume();
-    serializeJson(Sound_Registry, Temporary_File);
-  }
+  Set_Sound_Registry(Sound.Get_Volume());
 
-  vTaskDelay(pdMS_TO_TICKS(5000));
+  vTaskDelay(pdMS_TO_TICKS(4000));
 
   //Set deep sleep
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
@@ -400,44 +427,46 @@ void Xila_Class::Shutdown()
 
 void Xila_Class::Restart()
 {
-  Close_Software(Open_Software_Pointer[2]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[3]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[4]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[5]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[6]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[7]->Handle_Pointer);
-  Close_Software(Open_Software_Pointer[1]->Handle_Pointer);
+  Maximize_Shell();
+  Execute_Shell(Close);
 
+  Xila_Tasks_Handle Temporary_Task_Handle;
+  for (uint8_t i = 2; i < 8; i++)
+  {
+    if (Open_Software_Pointer[i] != NULL)
+    {
+      Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
+      Open_Software_Pointer[i]->Execute(Close);
+      vTaskResume(Temporary_Task_Handle);
+      // -- Waiting for the software to close
+      for (uint8_t ii = 0; ii <= 200; ii++)
+      {
+        if (eTaskGetState(Temporary_Task_Handle) == eDeleted)
+        {
+          break;
+        }
+        vTaskDelay(pdMS_TO_TICKS(20));
+      }
+      // -- Force closing the software, if not closed within 4000 ms
+      if (eTaskGetState(Temporary_Task_Handle) != eDeleted)
+      {
+        delete Open_Software_Pointer[i];
+        vTaskDelete(Temporary_Task_Handle);
+      }
+      Open_Software_Pointer[i] = NULL;
+    }
+  }
+
+  Set_Sound_Registry(Sound.Get_Volume());
+
+  vTaskDelay(pdMS_TO_TICKS(4000));
+
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_restart();
 }
 
 Xila_Event Xila_Class::Create_Dump()
 {
-}
-
-Xila_Event Xila_Class::Update()
-{
-  File Temporary_File = Drive->open(Display_Executable_Path);
-  if (!Temporary_File)
-  {
-    return Error;
-  }
-  if (Load_Executable(Temporary_File, 'D') != Success)
-  {
-    return Error;
-  }
-
-  Temporary_File = Drive->open(Microcontroller_Executable_Path);
-  if (!Temporary_File)
-  {
-    return Error;
-  }
-  if (Load_Executable(Temporary_File, 'M') != Success)
-  {
-    return Error;
-  }
-
-  Restart();
 }
 
 Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
@@ -456,10 +485,6 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
   }
   if (Type = 'M')
   {
-    if (Create_Dump() != Success)
-    {
-      return Error;
-    }
     if (!Update.begin(Executable_File.size(), U_FLASH))
     {
       return Error;
@@ -477,49 +502,6 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
     {
       return Error;
     }
-    if (Open_Software_Pointer[0] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[0]->Task_Handle);
-      Open_Software_Pointer[0]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[2] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[2]->Task_Handle);
-      Open_Software_Pointer[2]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[3] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[3]->Task_Handle);
-      Open_Software_Pointer[3]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[4] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[4]->Task_Handle);
-      Open_Software_Pointer[4]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[5] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[5]->Task_Handle);
-      Open_Software_Pointer[5]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[6] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[6]->Task_Handle);
-      Open_Software_Pointer[6]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    if (Open_Software_Pointer[7] != NULL)
-    {
-      vTaskResume(Open_Software_Pointer[7]->Task_Handle);
-      Open_Software_Pointer[7]->Execute(Xila.Hibernate);
-      vTaskDelay(pdMS_TO_TICKS(200));
-    }
-    esp_restart();
   }
   else if (Type = 'D')
   {
@@ -527,6 +509,21 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
     {
       return Error;
     }
+
+    // -- Initialize display. -- //
+
+    pinMode(DISPLAY_SWITCH_PIN, OUTPUT);
+    digitalWrite(DISPLAY_SWITCH_PIN, HIGH);
+
+    Display.Set_Callback_Function_Numeric_Data(&Incomming_Numeric_Data_From_Display);
+    Display.Set_Callback_Function_String_Data(&Incomming_String_Data_From_Display);
+    Display.Set_Callback_Function_Event(&Incomming_Event_From_Display);
+    Display.Begin();
+
+    Display.Wake_Up();
+    Display.Set_Current_Page(F("Core_Load")); // Play animation
+    Display.Set_Trigger(F("LOAD_TIM"), true);
+
     return Success;
   }
 }
@@ -558,16 +555,6 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   case Xila.Command:
   case Xila.Command_New:
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
-    break;
-  case Xila.Keyboard_Dialog:
-    Maximize_Shell();
-    Shell_Execute();
-    Xila.Open_Software_Pointer[1]->Execute('O', 'K');
-    break;
-  case Xila.Numpad_Dialog:
-    Maximize_Shell();
-    Shell_Execute();
-    Xila.Open_Software_Pointer[1]->Execute('O', 'k');
     break;
   case Xila.Event:
     Xila.Event_Reply = (Xila_Event)Received_Data[1];
@@ -709,11 +696,6 @@ void Xila_Class::Print_Line()
   Serial.print(F("||                                                                            ||"));
 }
 
-void Xila_Class::Execute_Shell(uint16_t const &Command)
-{
-  Open_Software_Pointer[1]->Execute(Command);
-}
-
 const char *Xila_Class::Get_Device_Name()
 {
   return Device_Name;
@@ -804,11 +786,16 @@ void Xila_Class::Refresh_Header()
 
 void Xila_Class::Execute_Startup_Function()
 {
+  (*Shell_Handle.Startup_Function_Pointer)();
+
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
-    if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
+    if (Software_Handle_Pointer[i] != NULL)
     {
-      (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
+      if (Software_Handle_Pointer[i]->Startup_Function_Pointer != NULL)
+      {
+        (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
+      }
     }
   }
 }
@@ -842,6 +829,17 @@ tm Xila_Class::Get_Time()
 {
   Synchronise_Time();
   return Time;
+}
+
+void Xila_Class::Panic_Handler(uint32_t Panic_Code)
+{
+  vTaskSuspendAll();
+  Display.Set_Current_Page(F("Core_Panic"));
+  Display.Set_Text(F("ERRORCODE_TXT"), String("Error code:") + String(Panic_Code));
+  while (digitalRead(POWER_BUTTON_PIN) == HIGH)
+  {
+  }
+  ESP.restart();
 }
 
 // Create System file at 1st boot

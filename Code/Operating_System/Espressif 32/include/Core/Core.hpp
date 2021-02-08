@@ -67,6 +67,7 @@
 typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
+typedef xTaskHandle Xila_Tasks_Handle;
 
 // System state
 #define SYSTEM_STATE_STANDALONE 1
@@ -84,6 +85,8 @@ typedef tm Xila_Time;
 
 extern Software_Handle_Class Shell_Handle;
 
+size_t test = sizeof(xTaskHandle);
+
 /**
  * @class Xila_Class
  * @brief Core class.
@@ -92,6 +95,8 @@ extern Software_Handle_Class Shell_Handle;
  */
 class Xila_Class
 {
+
+
 protected:
     // Instance pointer
 
@@ -128,8 +133,9 @@ protected:
 
     void *Shell_Return_Item;
     Xila_Event Shell_Return;
-    void Maximize_Shell();
-    void Execute_Shell(uint16_t const &);
+
+    inline void Maximize_Shell();
+    inline void Execute_Shell(Xila_Command const&);
 
     // Display
     char Tag;
@@ -181,11 +187,12 @@ public:
 
     volatile uint8_t Power_Button_Counter;
 
+
+
     void Check_Power_Button();
 
     // Software management
 
-    inline void Rollback(); // go back to xila
 
     inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
 
@@ -194,17 +201,17 @@ public:
      * 
      * @param Software_Handle The software's handle to open 
      */
-    void Open_Software(Software_Handle_Class const &);
+    Xila_Event Open_Software(Software_Handle_Class const& Software_Handle);
 
     /**
      * @brief Function used to close a Software.
      * 
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
-    void Close_Software(Software_Handle_Class * = NULL);
+    void Close_Software(Software_Handle_Class const& Software_Handle = NULL);
 
     /**
-     * @brief Function that close roughly a software
+     * @brief Function that close roughly the current running software.
      * @details Delete manualy the main software task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables ...).
      */
     void Force_Close_Software();
@@ -219,11 +226,10 @@ public:
      * 
      * @param Software_Handle The software's handle to maxmize.
      */
-    void Maximize_Software(Software_Handle_Class const &);
+    Xila_Event Maximize_Software(Software_Handle_Class const &);
 
-    Xila_Event Load_Software_Handle(Software_Handle_Class *Software_Handle_To_Load, const __FlashStringHelper *Header_Path);
-
-    Xila_Event Add_Software_Handle(Software_Handle_Class const &); //private shortcut
+    
+    void Add_Software_Handle(Software_Handle_Class&); //private shortcut
 
     enum Font_16
     {
@@ -311,8 +317,8 @@ public:
 
     /**
     * @brief Function handle deep-sleep wakeup, initialize the core, start software etc.
-    * @param Software_Handle_To_Start If null, mean that Xila is in normal mode, if not mean that Xila is in standalone mode, and then must start the concerned software after initialization. 
-    * @details Function that :
+    * @param Software_Package Software that Xila need to load. 
+    * @details Function steps :
     * 1) Check if the wakeup reasing is linked to a power button press, or undefined (power reset) and if not, go to sleep.
     * 2) Create an interrupt for the power button.
     * 3) Initalize display.
@@ -322,7 +328,24 @@ public:
     * 7) Load software handles.
     * 8) Execute software startup function (Shell and other software).
     */
-    void Start(Software_Handle_Class *Software_Handle_To_Start = NULL); // reload system from the dump file
+    void Start(Software_Handle_Class* Software_Package, uint8_t Size); // reload system from the dump file
+    
+    /**
+     * @brief Function that handle deep-sleep wakeup, initialize the, start software etc.
+     * @details Function steps :
+     * 1) Cheeck if the wa
+     */
+    void Start();
+
+    inline void First_Start_Routine();
+    inline void Second_Start_Routine();
+
+    enum Panic_Code
+    {
+        Damaged_System_Registry,
+        Installation_Conflict,
+        Low_Memory
+    };
 
     /**
      * @brief Function shutdown the system.
@@ -366,6 +389,7 @@ public:
     */
     Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
 
+
     //Xila_Event Update();
 
     Xila_Event Create_Dump();
@@ -373,7 +397,11 @@ public:
 
     uint8_t System_State;
 
-    Software_Handle_Class *Software_Handle_To_Start;
+    enum System_States
+    {
+        Default,
+        New_Installation,
+    };
 
     void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
     void Restore_System_State(); // private :
@@ -402,7 +430,7 @@ public:
         Open_File = 'f',
         Open_Folder = 'F',
         Save_File = 'e',
-        Keyboarg = 'K',
+        Keyboard = 'K',
         Keypad = 'k',
         Event = 'E',
         Command = '*',
@@ -484,7 +512,7 @@ public:
         Button_3 = 0x33  //< Button 3 reply by default : Cancel (returned also by close button)
     };
 
-    void Panic(uint32_t Panic_Code);
+    void Panic_Handler(uint32_t Panic_Code);
     
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);

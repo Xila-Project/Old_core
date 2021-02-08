@@ -13,7 +13,8 @@
 			"*.XRF": "json",
 			"fstream": "cpp",
 			"random": "cpp",
-			"*.tcc": "cpp"
+			"*.tcc": "cpp",
+			"new": "cpp"
 		}
 	}
 }

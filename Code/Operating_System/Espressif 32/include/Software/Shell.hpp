@@ -31,6 +31,8 @@ class Shell_Class : public Software_Class
 protected:
     static Shell_Class *Instance_Pointer;
 
+    
+
     // Login page variable
     char Username[9];
     char Password[25];
@@ -83,6 +85,8 @@ protected:
 
     void Login();
     void Logout();
+
+    void System_Update();
 
     // Command
     uint16_t Current_Command;
@@ -152,19 +156,10 @@ protected:
         Cut
     };
 
-    enum File_Manager_Mode
-    {
-        Default,
-        Open_File,
-        Open_Folder,
-        Save_File
-    };
 
+    // -- Related to Xila.Instruction
     uint8_t Mode;
-    // 0 : default (browse)
-    // 1 : open file
-    // 2 : open folder
-    // 3 : save file
+
 
     inline void Fill_Footer_Bar();
     inline void Empty_Footer_Bar();

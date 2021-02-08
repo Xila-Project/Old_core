@@ -1014,21 +1014,54 @@ void Shell_Class::Preferences_System_Commands()
         Xila.Display.Set_Current_Page(F("Shell_About"));
         break;
     case Instruction('U', 'p'):
-        Xila.Display.Set_Current_Page(F("Shell_Load"));
-        Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating firmware"));
-        Xila.Display.Set_Text(F("LOAD_TXT"), F("Update"));
-        Xila.Display.Refresh(F("CLOSE_BUT"));
-        if (Xila.Update() != Xila.Success)
-        {
-            Open_Preferences('S');
-            Xila.Event_Dialog(F("Failed to update."), Xila.Error);
-            Open_Preferences('S');
-        }
-        break;
+        System_Update();
     default:
         Main_Commands();
         break;
     }
+}
+
+void Shell_Class::System_Update()
+{
+    if (Xila.Event_Dialog(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
+    {
+        return;
+    }
+
+    Xila.Display.Set_Current_Page(F("Shell_Load"));
+    Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating firmware"));
+    Xila.Display.Set_Text(F("LOAD_TXT"), F("Update"));
+    Xila.Display.Refresh(F("CLOSE_BUT"));
+
+    File Temporary_File = Xila.Drive->open(Display_Executable_Path);
+    if (!Temporary_File)
+    {
+        Open_Preferences('S');
+        Xila.Event_Dialog(F("Failed to update : no update file."), Xila.Error);
+        return;
+    }
+    if (Xila.Load_Executable(Temporary_File, 'D') != Xila.Success)
+    {
+        Open_Preferences('S');
+        Xila.Event_Dialog(F("Failed to update"), Xila.Error);
+        return;
+    }
+
+    Temporary_File = Xila.Drive->open(Microcontroller_Executable_Path);
+    if (!Temporary_File)
+    {
+        Open_Preferences('S');
+        Xila.Event_Dialog(F("Failed to update"), Xila.Error);
+        return;
+    }
+    if (Xila.Load_Executable(Temporary_File, 'M') != Xila.Success)
+    {
+        Open_Preferences('S');
+        Xila.Event_Dialog(F("Failed to update"), Xila.Error);
+        return;
+    }
+
+    Xila.Restart();
 }
 
 void Shell_Class::Preferences_Network_Commands()
@@ -1105,12 +1138,12 @@ void Shell_Class::Preferences_Hardware_Commands()
         {
             if (Length > 512)
             {
-                File.read(Buffer, sizeof(Buffer));
+                Temporary_Item.read(Buffer, sizeof(Buffer));
                 Length -= sizeof(Buffer);
             }
             else
             {
-                File.read(Buffer, Length);
+                Temporary_Item.read(Buffer, Length);
                 Length = 0;
             }
         }
@@ -1140,7 +1173,7 @@ void Shell_Class::Preferences_Hardware_Commands()
         {
             Xila.Event_Dialog(F("Failed to set sound registry."), Xila.Error);
         }
-        if (Xila.Set_(Temporary_Variable[3], 0xFF, 0xFF) != Xila.Success)
+        if (Xila.Set_Display_Registry(Temporary_Variable[3], 0xFF, 0xFF) != Xila.Success)
         {
             Xila.Event_Dialog(F("Failed to set display registry."), Xila.Error);
         }
@@ -1265,28 +1298,30 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'A'): // Open about xila
         Xila.Display.Set_Current_Page(F("Shell_About"));
         break;
-    case Xila.Keyboard_Dialog:
+    case Xila.Keyboard:
         Open_Keyboard();
         break;
     case Xila.Installation_Wizard:
         Xila.Display.Set_Current_Page(F("Shell_Install"));
         break;
-    case Xila.Open_File_Dialog:
-        File_Manager_Mode = Xila.Open_File_Dialog;
+
+    case Xila.Open_File:
+        Mode = Xila.Open_File;
         Open_File_Manager();
         break;
-    case Xila.Open_Folder_Dialog:
-        File_Manager_Mode = Xila.Open_Folder_Dialog;
+    case Xila.Open_Folder:
+        Mode = Xila.Open_Folder;
         Open_File_Manager();
         break;
-    case Xila.Save_File_Dialog:
-        File_Manager_Mode = Xila.Save_File_Dialog;
+    case Xila.Save_File:
+        Mode = Xila.Save_File;
         Open_File_Manager();
         break;
     case Instruction('O', 'F'): // "OF" : Open file manager
-        File_Manager_Mode = 0;
+        Mode = 0;
         Open_File_Manager();
         break;
+
     case Instruction('O', 'P'): // "OP" : Open preferiencies (default : personnal)
         Instance_Pointer->Open_Preferences('P');
         break;
