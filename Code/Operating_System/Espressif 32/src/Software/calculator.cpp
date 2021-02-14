@@ -5,8 +5,8 @@ Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 Calculator_Class::Calculator_Class() : Software_Class(8),
                                        State(0xFF)
 {
-    xTaskCreatePinnedToCore(Main_Task, "Calculator", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Software_Code::Maximize);
+    Xila.Task_Create(Main_Task, "Calculator", 4 * 1024, NULL, &Task_Handle);
+    Execute(Xila.Maximize);
 }
 
 Calculator_Class::~Calculator_Class()
@@ -112,14 +112,14 @@ void Calculator_Class::Main_Task(void *pvParameters)
         {
         case 0: //idle
             break;
-        case Software_Code::Close:
+        case Xila.Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Software_Code::Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));
             break;
-        case Software_Code::Minimize:
+        case Xila.Minimize:
             vTaskSuspend(NULL);
             break;
 

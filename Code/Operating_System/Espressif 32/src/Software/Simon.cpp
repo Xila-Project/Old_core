@@ -10,7 +10,7 @@ Simon_Class::Simon_Class() : Software_Class(10)
     }
     Instance_Pointer = this;
 
-    xTaskCreatePinnedToCore(Main_Task, "Simon Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Xila.Task_Create(Main_Task, "Simon Task", 4 * 1024, NULL, &Task_Handle);
     Execute(Xila.Open);
 }
 
@@ -199,36 +199,36 @@ void Simon_Class::Show_Sequence()
         {
         case Red:
             Xila.Display.Set_Background_Color(F("RED_BUT"), 57344);
-            Xila.Sound.Tone(?, Speed);
-            Xila.Delay(Speed);
+            Xila.Sound.Tone(523, Speed);
+            //Xila.Delay(Speed);
             Xila.Display.Set_Background_Color(F("RED_BUT"), 57344);
             Xila.Delay(200);
             break;
         case Green:
             Xila.Display.Set_Background_Color(F("GREEN_BUT"), 34308);
-            Xila.Sound.Tone(?, Speed);
-            Xila.Delay(Speed);
+            Xila.Sound.Tone(659, Speed);
+            //Xila.Delay(Speed);
             Xila.Display.Set_Background_Color(F("GREEN_BUT"), 34308);
             Xila.Delay(200);
             break;
         case Blue:
             Xila.Display.Set_Background_Color(F("BLUE_BUT"), 1300);
-            Xila.Sound.Tone(?, Speed);
-            Xila.Delay(Speed);
+            Xila.Sound.Tone(784, Speed);
+            //Xila.Delay(Speed);
             Xila.Display.Set_Background_Color(F("BLUE_BUT"), 1300);
             Xila.Delay(200);
             break;
         case Yellow:
             Xila.Display.Set_Background_Color(F("YELLOW_BUT"), 64896);
-            Xila.Sound.Tone(?, Speed);
-            Xila.Delay(Speed);
+            Xila.Sound.Tone(988, Speed);
+            //Xila.Delay(Speed);
             Xila.Display.Set_Background_Color(F("YELLOW_BUT"), 64896);
             Xila.Delay(200);
             break;
         default:
             Xila.Event_Dialog(F("Exception in the generated sequence."), Xila.Error);
-            Xila.Show_Scores();
-            Xila.Reset();
+            Show_Scores();
+            Reset();
             break;
         }
     }

@@ -23,21 +23,13 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 
   textContent = {0, 0, false};
 
-  xTaskCreatePinnedToCore(Main_Task, "Internet_Browser", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-  Maximize();
+  Xila.Task_Create(Main_Task, "Internet_Browser", 8192, NULL, &Task_Handle);
+  Execute(Xila.Open);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
 {
   Instance_Pointer = NULL;
-}
-
-void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
-{
-  if (Adress == 'U' && Type == Xila.Variable_Char_Local)
-  {
-    strcpy(URL, (char *)Variable);
-  }
 }
 
 void Internet_Browser_Class::Main_Task(void *pvParameters)
@@ -51,19 +43,23 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Delay(20);
       //Idle : nothing to do
       break;
-    case Software_Code::Maximize: // NULL + M : Maximize
+    case Xila.Maximize: // NULL + M : Maximize
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       //do something when
       break;
-    case Software_Code::Minimize: // NULL + m : Minimize
+    case Xila.Minimize: // NULL + m : Minimize
       vTaskSuspend(NULL);
       break;
-    case Software_Code::Close: // NULL + C : Close
+    case Xila.Close: // NULL + C : Close
       delete Instance_Pointer;
       vTaskDelete(NULL);
       break;
 
+    case Instruction('K', 'U'):
+      Xila.Keyboard_Dialog(Instance_Pointer->URL, sizeof(URL));
+      Instance_Pointer->Display_Page();
+      break;
     case 0x5044: //PD
       Instance_Pointer->Page_Down();
       break;

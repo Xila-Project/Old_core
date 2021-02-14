@@ -129,7 +129,7 @@ void Music_Player_Class::Open_Folder()
     if (Reply != Xila.Success)
     {
         Xila.Event_Dialog(F("Unable to open folder."), Xila.Error);
-        return
+        return;
     }
     if (Music_Folder)
     {
@@ -148,7 +148,6 @@ void Music_Player_Class::Open_Folder()
 
 void Music_Player_Class::Refresh_Interface()
 {
-
     Volume = Xila.Sound.Get_Volume();
     Xila.Display.Set_Value(F("VOLUME_SLI"), Volume);
 
@@ -211,10 +210,12 @@ void Music_Player_Class::Play()
     if (Loop == true)
     {
         Reply = Xila.Sound.Play(Music_File);
-        if (Music_File && Reply !=)
+        if (Reply == 0)
         {
-            return;
+            Xila.Event_Dialog(F("Failed to play music file."), Xila.Error);
+            Refresh_Interface();
         }
+        return;
     }
 
     if (Music_Folder)

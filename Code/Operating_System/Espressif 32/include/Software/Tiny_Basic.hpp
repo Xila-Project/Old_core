@@ -156,6 +156,8 @@ class Tiny_Basic_Class : public Software_Class
 protected:
     static Tiny_Basic_Class* Instance_Pointer;
 
+    char Lines[15][69];
+
     ////////////////////
 
     boolean inhibitOutput = false;
@@ -271,7 +273,7 @@ protected:
     File fp;
     void cmd_Files();
     unsigned char *filenameWord();
-    boolean sd_is_initialized = false;
+    boolean sd_is_initialized;
 
     const unsigned char keywords[238] = {
         'L', 'I', 'S', 'T' + 0x80,
@@ -401,12 +403,11 @@ protected:
     uint8_t Current_Line;
 
     uint8_t Current_Column;
-    char Temporary_Output[69];
-
-
 
     void Analog_Write(uint8_t, int16_t); // uniplemented yet
     
+    void Refresh_Interface();
+    void Scroll();
     void Draw_Rectangle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Heigh, uint16_t const& Widht, uint16_t const& Color, uint16_t const& Fill_Color); //interface between xila display lib and tinybasic
     void Draw_Line(uint16_t const& X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
     void Draw_Row(uint16_t const& X_Start, uint16_t const& Y_Coordinate, uint16_t const& X_End, uint16_t const& Color);
@@ -416,12 +417,6 @@ protected:
     void Draw_Char(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, char const* Char);
     
     // base function
-
-    int inchar();
-    void outchar(unsigned char c);
-    void line_terminator();
-    short int expression();
-    unsigned char breakcheck();
 
     void ignore_blanks();
     void scantable(const unsigned char *);
@@ -442,20 +437,18 @@ protected:
     short int expr2();
     short int expression();
     int isValidFnChar(char);
-    unsigned char *filenameWord();
     void line_terminator();
     void setup();
     unsigned char breakcheck();
     int inchar();
     void outchar(unsigned char);
     bool initSD();
-    void cmd_Files();
 
     void Loop();
     void Setup();
 
 public:
-    Software_Class *Load();
+    static Software_Class* Load();
 
     enum Picture_ID
     {

@@ -1,10 +1,10 @@
-#include "Software/signal_generator.hpp"
+#include "Software/Signal_Generator.hpp"
 
 Signal_Generator_Class* Signal_Generator_Class::Instance_Pointer = NULL;
 
 Signal_Generator_Class::Signal_Generator_Class() : Software_Class(6)
 {
-    xTaskCreatePinnedToCore(Signal_Generator_Task, "Signal Generator", 1024*4, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Xila.Task_Create(Signal_Generator_Task, "Signal Generator", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Signal_Generator_Class::~Signal_Generator_Class()
@@ -31,11 +31,11 @@ void Signal_Generator_Task(void *pvParameters)
                 //idle
                 Xila.Delay(20);
                 break;
-            case Software_Code::Close:
+            case Xila.Close:
                 delete INSTANCE_POINTER;
                 vTaskDelete(NULL);
                 break;
-            case Software_Code::Minimize:
+            case Xila.Minimize:
                 vTaskSuspend(NULL);
                 break;
             default :

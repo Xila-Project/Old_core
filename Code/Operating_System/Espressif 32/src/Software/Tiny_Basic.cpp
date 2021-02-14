@@ -9,12 +9,13 @@ Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(8),
                                        inhibitOutput(false),
                                        runAfterLoad(false),
                                        triggerRun(false),
-                                       eepos(0),
                                        inStream(kStreamXila),
                                        outStream(kStreamXila),
+                                       eepos(0),
                                        sd_is_initialized(true)
 {
-  xTaskCreatePinnedToCore(Tiny_Basic_Class::Main_Task, "TinyBasic", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+  memset(Lines, '\0', sizeof(Lines));
+  Xila.Task_Create(Main_Task, "TinyBasic", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Tiny_Basic_Class::~Tiny_Basic_Class()
@@ -48,45 +49,66 @@ void Tiny_Basic_Class::Read_Command()
   case Xila.Open:
     break;
   case Xila.Minimize:
-    vTaskSuspend(NULL);
+    Xila.Task_Suspend();
     break;
   case Xila.Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
     break;
   case Xila.Close:
     delete Instance_Pointer;
-    vTaskDelete(NULL);
+    Xila.Task_Delete(NULL);
+    break;
+  case Instruction('K', 'I'):
+    Xila.Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
+    Refresh_Interface();
     break;
   default:
     break;
   }
 }
-
-/////////////////////////////////////////////////////////////////
-
-void Tiny_Basic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
-{
-  switch (Adress)
-  {
-  case 'C':
-    if (Type = Xila.Variable_Char_Local)
-    {
-      memset(Temporary_Input, '\0', sizeof(Temporary_Input));
-      strlcpy(Temporary_Input, (char *)Variable, sizeof(Temporary_Input));
-      strcat(Temporary_Input, "\r\n");
-    }
-    break;
-  default:
-    break;
-  }
-}
-
-//////////////////////////////////////////////////////////////////
 
 void Tiny_Basic_Class::Clear()
 {
   Xila.Display.Click(F("SCROLL_HOT"), 1);
   Current_Line = 1;
+  memset(Lines[1], '\0', (14 * sizeof(Lines[1])));
+}
+
+void Tiny_Basic_Class::Refresh_Interface()
+{
+  Xila.Display.Set_Text(F("LINE1_TXT"), Lines[1]);
+  Xila.Display.Set_Text(F("LINE2_TXT"), Lines[2]);
+  Xila.Display.Set_Text(F("LINE3_TXT"), Lines[3]);
+  Xila.Display.Set_Text(F("LINE4_TXT"), Lines[4]);
+  Xila.Display.Set_Text(F("LINE5_TXT"), Lines[5]);
+  Xila.Display.Set_Text(F("LINE6_TXT"), Lines[6]);
+  Xila.Display.Set_Text(F("LINE7_TXT"), Lines[7]);
+  Xila.Display.Set_Text(F("LINE8_TXT"), Lines[8]);
+  Xila.Display.Set_Text(F("LINE9_TXT"), Lines[9]);
+  Xila.Display.Set_Text(F("LINE10_TXT"), Lines[10]);
+  Xila.Display.Set_Text(F("LINE11_TXT"), Lines[11]);
+  Xila.Display.Set_Text(F("LINE12_TXT"), Lines[12]);
+  Xila.Display.Set_Text(F("LINE13_TXT"), Lines[13]);
+  Xila.Display.Set_Text(F("LINE14_TXT"), Lines[14]);
+  Xila.Display.Set_Text(F("INPUT_TXT"), Temporary_Input);
+}
+
+void Tiny_Basic_Class::Scroll()
+{
+  memcpy(Lines[1], Lines[2], sizeof(Lines[1]));
+  memcpy(Lines[2], Lines[3], sizeof(Lines[2]));
+  memcpy(Lines[3], Lines[4], sizeof(Lines[3]));
+  memcpy(Lines[4], Lines[5], sizeof(Lines[4]));
+  memcpy(Lines[5], Lines[6], sizeof(Lines[5]));
+  memcpy(Lines[6], Lines[7], sizeof(Lines[6]));
+  memcpy(Lines[7], Lines[8], sizeof(Lines[7]));
+  memcpy(Lines[8], Lines[9], sizeof(Lines[8]));
+  memcpy(Lines[9], Lines[10], sizeof(Lines[9]));
+  memcpy(Lines[10], Lines[11], sizeof(Lines[10]));
+  memcpy(Lines[11], Lines[12], sizeof(Lines[11]));
+  memcpy(Lines[12], Lines[13], sizeof(Lines[12]));
+  memcpy(Lines[13], Lines[14], sizeof(Lines[13]));
+  Xila.Display.Click(F("SCROLL_HOT"), 0); // scroll
 }
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +183,35 @@ void Tiny_Basic_Class::scantable(const unsigned char *table)
   while (1)
   {
     // Run out of table entries?
+    if (pgm_read_byte(table) == 0)
+      return;
+
+    // Do we match this character?
+    if (txtpos[i] == pgm_read_byte(table))
+    {
+      i++;
+      table++;
+    }
+    else
+    {
+      // do we match the last character of keywork (with 0x80 added)? If so, return
+      if (txtpos[i] + 0x80 == pgm_read_byte(table))
+      {
+        txtpos += i + 1; // Advance the pointer to following the keyword
+        ignore_blanks();
+        return;
+      }
+
+      // Forward to the end of this keyword
+      while ((pgm_read_byte(table) & 0x80) == 0)
+        table++;
+
+      // Now move on to the first character of the next word, and reset the position index
+      table++;
+      table_index++;
+      ignore_blanks();
+      i = 0;
+    }
   }
 }
 
@@ -657,58 +708,58 @@ void Tiny_Basic_Class::line_terminator()
   {
     if (Current_Line < 14)
     {
-      Current_Line++;
       switch (Current_Line) //faster than modulo
       {
       case 1:
-        Xila.Display.Set_Text(F("LINE1_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE1_TXT"), Lines[1]);
         break;
       case 2:
-        Xila.Display.Set_Text(F("LINE2_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE2_TXT"), Lines[2]);
         break;
       case 3:
-        Xila.Display.Set_Text(F("LINE3_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE3_TXT"), Lines[3]);
         break;
       case 4:
-        Xila.Display.Set_Text(F("LINE4_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE4_TXT"), Lines[4]);
         break;
       case 5:
-        Xila.Display.Set_Text(F("LINE5_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE5_TXT"), Lines[5]);
         break;
       case 6:
-        Xila.Display.Set_Text(F("LINE6_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE6_TXT"), Lines[6]);
         break;
       case 7:
-        Xila.Display.Set_Text(F("LINE7_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE7_TXT"), Lines[7]);
         break;
       case 8:
-        Xila.Display.Set_Text(F("LINE8_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE8_TXT"), Lines[8]);
         break;
       case 9:
-        Xila.Display.Set_Text(F("LINE9_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE9_TXT"), Lines[9]);
         break;
       case 10:
-        Xila.Display.Set_Text(F("LINE10_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE10_TXT"), Lines[10]);
         break;
       case 11:
-        Xila.Display.Set_Text(F("LINE11_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE11_TXT"), Lines[11]);
         break;
       case 12:
-        Xila.Display.Set_Text(F("LINE12_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE12_TXT"), Lines[12]);
         break;
       case 13:
-        Xila.Display.Set_Text(F("LINE13_TXT"), Temporary_Output);
+        Xila.Display.Set_Text(F("LINE13_TXT"), Lines[13]);
         break;
       }
+      Current_Line++;
     }
     else
     {
       Current_Line = 14;
-      Xila.Display.Click(F("SCROLL_HOT"), 0); // scroll
-      Xila.Display.Set_Text(F("LINE14_TXT"), Temporary_Output);
+      Scroll();
     }
+
     Current_Column = 0;
-    memset(Temporary_Output, '\0', sizeof(Temporary_Output));
+    memset(Lines[Current_Line], '\0', sizeof(Lines[0]));
   }
   else
   {
@@ -869,11 +920,11 @@ void Tiny_Basic_Class::outchar(unsigned char c)
     Serial.write(c);
     break;
   case kStreamXila:
-    if (Current_Column > 68)
+    if (Current_Column >= 68)
     {
       line_terminator();
     }
-    Temporary_Output[Current_Column] += c;
+    Lines[Current_Line][Current_Column] = c;
     Current_Column++;
     break;
   default:
@@ -1186,14 +1237,14 @@ interperateAtTxtpos:
   case KW_CHAIN:
     goto chain;
   case KW_SERCOM:
-    if (serial1On)
+    /*if (serial1On)
     {
       serial1On = false;
     }
     else
     {
       serial1On = true;
-    }
+    }*/
     goto prompt;
   case KW_CLEAR:
     Clear();
@@ -2393,7 +2444,7 @@ drawchar:
 {
   unsigned int x;
   unsigned int y;
-  unsigned char c;
+  char c[2];
 
   //Get the x coordinate
   expression_error = 0;
@@ -2425,10 +2476,11 @@ drawchar:
   ignore_blanks();
   //if (*txtpos < ' ' || *txtpos > '~')
   //  goto qwhat;
-  c = *txtpos;
+  c[0] = *txtpos;
+  c[1] = '\0';
   txtpos++;
 
-  if (x < 0 || x > TV.hres() || y < 0 || y > TV.vres())
+  if (x < 0 || x > DISPLAY_X_RESOLUTION || y < 0 || y > DISPLAY_Y_RESOLUTION)
     goto qwhat;
 
   Draw_Char(x, y, c);
@@ -2558,4 +2610,5 @@ tonegen:
     alsoWait = false;
   }
   goto run_next_statement;
+}
 }

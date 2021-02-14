@@ -1,4 +1,4 @@
-#include "Software/Ultrasonic.hpp"
+#include "Ultrasonic.hpp"
 
 Ultrasonic_Class *Ultrasonic_Class::Instance_Pointer = NULL;
 
@@ -8,7 +8,7 @@ Ultrasonic_Class::Ultrasonic_Class() : Software_Class(5),
                                        Offset(0),
                                        Shape(0)
 {
-  xTaskCreatePinnedToCore(Main_Task, "Ultrasonic Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+  Xila.Task_Create(Main_Task, "Ultrasonic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Ultrasonic_Class::~Ultrasonic_Class()
@@ -54,17 +54,17 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
       Instance_Pointer->Read();
       Xila.Delay(10);
       break;
-    case Software_Code::Open:
+    case Xila.Open:
       Xila.Display.Set_Current_Page(F("Ultrasonic"));
       break;
-    case Software_Code::Close:
+    case Xila.Close:
       delete Instance_Pointer;
       vTaskDelete(NULL);
       break;
-    case Software_Code::Minimize:
+    case Xila.Minimize:
       vTaskSuspend(NULL);
       break;
-    case Software_Code::Maximize:
+    case Xila.Maximize:
       Xila.Display.Set_Current_Page(F("Ultrasonic"));
       break;
     case Instruction('N', 'S'): // NS

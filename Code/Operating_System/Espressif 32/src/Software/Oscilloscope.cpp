@@ -4,10 +4,8 @@ Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(6)
 {
-
 	Instance_Pointer = this;
-
-	xTaskCreatePinnedToCore(Main_Task, "Oscilloscope", 8 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+	Xila.Task_Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()
@@ -336,11 +334,11 @@ void Oscilloscope_Class::Check_Commands()
 		Refresh_Interface();
 		break;
 	case Xila.Minimize:
-		vTaskSuspend(Main_Task);
+		Xila.Task_Suspend(Task_Handle);
 		break;
 	case Xila.Close:
 		delete Instance_Pointer;
-		vTaskDelete(NULL);
+		Xila.Task_Delete();
 		break;
 	case Xila.Watchdog: //reset watchdog
 		Xila.Feed_Watchdog();

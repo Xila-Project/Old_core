@@ -31,27 +31,46 @@ class Shell_Class : public Software_Class
 protected:
     static Shell_Class *Instance_Pointer;
 
-    
+    float Temporary_Float;
 
     // Login page variable
-    char Username[9];
-    char Password[25];
 
-    // File Manager variable 
+    // -- File Manager variable
+
     char Current_Item_Name[13];
-    
     char Current_Path[192];
 
-    // 
+    // -- Hardware
+
+    uint8_t Brightness;
+
+    uint16_t Standby_Display_Time;
+    uint16_t Standby_System_Time;
 
 
-    char Password_1[25];
-    char Password_2[25];
+    
 
-    char Device_Name[25];
+    // -- Preferences system attributes
 
-    char WiFi_Name[25];
-    char WiFi_Password[25];
+    bool Autologin;
+
+    int32_t GMT_Offset;      // -- Shared with install wizard
+    int16_t Daylight_Offset; // -- Shared with install wizard
+
+    char NTP_Server[sizeof(Xila.NTP_Server)];
+    char Device_Name[25]; // -- Shared with install wizard
+
+    char Target_Username[9];
+    char Username[9];       // -- Shared with install wizard and login
+    char Password_1[25];    // -- Shared with install wizard and login
+    char Password_2[25];    // -- Shared with install wizard
+
+    // -- Preferences network attributes
+
+    char WiFi_Name[25];     // -- Shared with install wizard
+    char WiFi_Password[65]; // -- Shared with install wizard
+
+    // -
 
     uint32_t Temporary_Variable[4];
 
@@ -64,7 +83,8 @@ protected:
      */
     enum Pages
     {
-        About = 27,
+        About = 21,
+        Color_Picker, // color picker
         Desk,
         Drawer,
         Event,
@@ -74,6 +94,7 @@ protected:
         Keyboard,
         Keypad,
         Login,
+        Load,
         Preferences_Network,
         Preferences_Personal,
         Shutdown,
@@ -83,29 +104,55 @@ protected:
 
     uint8_t Offset;
 
-    void Login();
     void Logout();
 
-    void System_Update();
+    inline void System_Update();
 
-    // Command
-    uint16_t Current_Command;
+    // -- Preferences methods
 
-    inline void Open_Keypad();
-    inline void Open_Keyboard();
+    inline void Open_Preferences_Hardware();
+    inline void Open_Preferences_Network();
+    inline void Open_Preferences_System();
+    inline void Open_Preferences_Personal();
 
-    void Main_Commands();
-    void Desk_Commands();
-
-    void Keyboard_Commands();
-    void Keypad_Commands();
+    void Refresh_Preferences_Hardware();
+    void Refresh_Preferences_Personal();
+    void Refresh_Preferences_Network();
+    void Refresh_Preferences_System();
 
     void Preferences_Hardware_Commands();
     void Preferences_Network_Commands();
     void Preferences_Personal_Commands();
     void Preferences_System_Commands();
 
+    // -- Desk methods
+
+    void Refresh_Desk();
+
+    void Desk_Commands();
+
+    // -- Global scope
+
+    uint16_t Current_Command;
+    void Main_Commands();
+
+    // -- Dialog boxes method
+
+    inline void Open_Color_Picker();
+    inline void Open_Keypad();
+    inline void Open_Keyboard();
+
+    inline void Color_Picker_Commands();
+    inline void Event_Commands();
+    inline void Keyboard_Commands();
+    inline void Keypad_Commands();
+
+    // -- Shutdown
+
+    inline void Open_Shutdown();
     void Shutdown_Commands();
+
+    // -- Desk
 
     void Drawer_Commands();
     void Login_Commands();
@@ -116,11 +163,13 @@ protected:
     Xila_Event Set_Registry(uint32_t Desk_Background = 0xFFFFFFFF);
     Xila_Event Load_Registry();
 
-    void Open_Install();
+    void Refresh_Install();
+
+    inline void Open_Install();
 
     inline void Idle();
 
-    uint32_t Desk_Background;
+    int32_t Desk_Background;
 
     void Open_Desk();
     void Open_Drawer();
@@ -128,16 +177,10 @@ protected:
     void Open_Item();
 
     void Open_Login();
-    
+
     void Open_Load(uint8_t Mode);
 
     void Refresh_Login();
-
-    enum Load_Mode
-    {
-        Login,
-        Shutdown,
-    };
 
     File Selected_Item;
 
@@ -156,22 +199,16 @@ protected:
         Cut
     };
 
-
     // -- Related to Xila.Instruction
     uint8_t Mode;
-
 
     inline void Fill_Footer_Bar();
     inline void Empty_Footer_Bar();
 
-    inline void Open_File();
-
     void Select_Item();
     void Open_File_Manager();
-    void Open_Preferences(char const &Section);
 
     void Refresh_File_Manager();
-    void Make_Directory();
     void Make_File();
     void Go_Parent();
 
@@ -183,7 +220,7 @@ protected:
     static void Main_Task(void *);
 
 public:
-    static Software_Class *Load();
+    static Software_Class *Load_Shell();
 
     static void Startup();
 
@@ -210,6 +247,6 @@ public:
     ~Shell_Class();
 };
 
-Software_Handle_Class Shell_Handle("Shell", Shell_Class::Empty_32, Shell_Class::Load, Shell_Class::Startup);
+Software_Handle_Class Shell_Handle("Shell", Shell_Class::Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
 
 #endif

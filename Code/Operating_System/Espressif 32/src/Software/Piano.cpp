@@ -7,8 +7,8 @@ Offset(0),
 Duration(200),
 MIDI_Output(false)
 {
-    xTaskCreatePinnedToCore(Main_Task, "Piano Task", 4*1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Software_Code::Maximize);
+    Xila.Task_Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Execute(Xila.Open);
 }
 
 Piano_Class::~Piano_Class()
@@ -35,13 +35,16 @@ void Piano_Class::Main_Task(void *pvParameters)
         case 0: //idle state
             Xila.Delay(10);
             break;
-        case Software_Code::Maximize:
+        case Xila.Open:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
             break;
-        case Software_Code::Minimize:
-            
+        case Xila.Minimize:
+            Xila.Task_Suspend();
             break;
-        case Software_Code::Close:
+        case Xila.Close:
+            delete Instance_Pointer;
+            Xila.Task_Delete();
             break;
         case 0x4320: //C
             Instance_Pointer->Play_Note(0);
@@ -138,7 +141,7 @@ void Piano_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-       Xila.Delay(pdMS_TO_TICKS(10);
+       Xila.Delay(10);
     }
 }
 

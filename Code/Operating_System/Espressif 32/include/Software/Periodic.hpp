@@ -15,9 +15,9 @@ class Periodic_Class : protected Software_Class
 
         File Periodic_File;
 
-        uint8_t Current_Atom;
+        uint8_t Current_Atom_Name;
 
-        uint32_t X, Y;
+        float X, Y;
 
         char Name[16];
 

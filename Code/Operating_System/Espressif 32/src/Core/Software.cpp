@@ -15,6 +15,10 @@ Software_Class::Software_Class(uint8_t Task_Queue_Size)
       Serial.print(F("Error cannot create software Queue !"));
       delete this;
     }
+    else
+    {
+      Execute('O');
+    }
   }
 }
 

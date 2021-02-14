@@ -5,8 +5,8 @@ Clock_Class *Clock_Class::Instance_Pointer = NULL;
 Clock_Class::Clock_Class() : Software_Class(6),
                              Current_Tab(Clock)
 {
-    Execute(Open);
-    xTaskCreatePinnedToCore(Main_Task, "Clock Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Execute(Xila.Open);
+    Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Clock_Class::~Clock_Class()
@@ -23,12 +23,21 @@ Software_Class *Clock_Class::Load()
     return Instance_Pointer;
 }
 
-void Clock_Class::Background_Function()
+void Clock_Class::Startup_Function()
 {
-    if (Next_Alarm < millis())
+    Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(2));
+}
+
+void Clock_Class::Background_Task(void* pvParameters)
+{
+    while (1)
     {
-        Xila.Open_Software(&Clock_Handle);
-        Instance_Pointer->Execute(0x5249);
+        if (Next_Alarm < millis())
+        {
+            Xila.Software_Open(Clock_Handle);
+            Instance_Pointer->Execute(Instruction('R', 'i'));
+        }
+        vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
 
@@ -303,36 +312,36 @@ void Clock_Class::Main_Task(void *pvParameters)
             case 0x0000: // IDLE
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case 0x4F41:
+            case Instruction('O', 'A'):
                 Xila.Display.Set_Current_Page(F("Clock_Alarm"));
                 Instance_Pointer->Current_Tab = Alarm;
                 Instance_Pointer->Refresh_Alarm();
                 break;
-            case 0x4F54:
+            case Instruction('O', 'T'):
                 Xila.Display.Set_Current_Page(F("Clock_Timer"));
                 Instance_Pointer->Current_Tab = Timer;
                 Instance_Pointer->Refresh_Timer();
                 break;
-            case 0x4F63: // Switch page Chronometer
+            case Instruction('O', 'c'): // Switch page Chronometer
                 Xila.Display.Set_Current_Page(F("Clock_Chrono"));
                 Instance_Pointer->Current_Tab = Chronometer;
                 Instance_Pointer->Refresh_Chronometer();
                 break;
-            case 0x5249: // Ring
+            case Instruction('R', 'i'): // Ring
                 break;
-            case Software_Code::Open:
+            case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Software_Code::Close:
+            case Xila.Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Software_Code::Minimize:
+            case Xila.Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Software_Code::Maximize:
+            case Xila.Maximize:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
@@ -448,21 +457,21 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Refresh_Alarm();
                 Instance_Pointer->Refresh_Alarms();
                 break;
-            case 0x5249: // Ring
+            case Instruction('R', 'i'): // Ring
                 break;
-            case Software_Code::Open:
+            case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Software_Code::Close:
+            case Xila.Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Software_Code::Minimize:
+            case Xila.Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Software_Code::Maximize:
+            case Xila.Maximize:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
@@ -540,19 +549,19 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case 0x5249: // Ring
                 break;
-            case Software_Code::Open:
+            case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Software_Code::Close:
+            case Xila.Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Software_Code::Minimize:
+            case Xila.Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Software_Code::Maximize:
+            case Xila.Maximize:
                 if (Instance_Pointer->Current_Tab == Clock)
                 {
                     Xila.Display.Set_Current_Page(F("Clock"));
@@ -642,19 +651,19 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case 0x5249: // Ring
                 break;
-            case Software_Code::Open:
+            case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Software_Code::Close:
+            case Xila.Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Software_Code::Minimize:
+            case Xila.Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Software_Code::Maximize:
+            case Xila.Maximize:
                 if (Instance_Pointer->Current_Tab == Clock)
                 {
                     Xila.Display.Set_Current_Page(F("Clock"));
@@ -677,6 +686,6 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
         }
-        Xila.Delay(40);
+        Xila.Delay(20);
     }
 }

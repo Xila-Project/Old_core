@@ -380,10 +380,10 @@ Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
 
 void Xila_Class::Shutdown()
 {
+  Execute_Shell(Shutting_down);
   Maximize_Shell();
-  Execute_Shell(Close);
 
-  Xila_Tasks_Handle Temporary_Task_Handle;
+  Xila_Task_Handle Temporary_Task_Handle;
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
@@ -430,7 +430,7 @@ void Xila_Class::Restart()
   Maximize_Shell();
   Execute_Shell(Close);
 
-  Xila_Tasks_Handle Temporary_Task_Handle;
+  Xila_Task_Handle Temporary_Task_Handle;
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
@@ -556,20 +556,13 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   case Xila.Command_New:
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
     break;
-  case Xila.Event:
-    Xila.Event_Reply = (Xila_Event)Received_Data[1];
-    break;
   case Xila.Variable_String_Local:
-    Temporary_String = String(Received_Data + 2);
-    Xila.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
-    break;
-  case Xila.Variable_Char_Local:
-    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_Char_Local, Received_Data[1], Size);
+    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[0]);
     Xila.Tag = '\0';
     break;
   case Xila.Variable_String_Global:
-    Temporary_String = String(Received_Data + 2);
-    Xila.Open_Software_Pointer[0]->Set_Variable(&Temporary_String, Variable_String_Local, Received_Data[0]);
+    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[0]);
+    Xila.Tag = '\0';
     break;
   case Xila.Variable_Long_Local:
     Xila.Tag = Received_Data[1];
@@ -609,20 +602,6 @@ void Xila_Class::Delay(uint32_t Delay_In_Millisecond)
 
 void Xila_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
 {
-}
-
-void Xila_Class::Rollback()
-{
-  File Temporary_File = Drive->open(Display_Executable_Path);
-  while (Display.Update(Temporary_File) != Display.Update_Succeed)
-  {
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
-  Temporary_File = Drive->open(Microcontroller_Executable_Path);
-  while (Load_Executable(Temporary_File))
-  {
-    vTaskDelay(pdMS_TO_TICKS(1000));
-  }
 }
 
 // Serial communication with commputer
@@ -796,25 +775,6 @@ void Xila_Class::Execute_Startup_Function()
       {
         (*Software_Handle_Pointer[i]->Startup_Function_Pointer)();
       }
-    }
-  }
-}
-
-void Xila_Class::Execute_Background_Jobs()
-{
-  if ((millis() - Last_Execution) > 250)
-  {
-    if (Software_Handle_Pointer[Background_Function_Counter] != NULL)
-    {
-      if (Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer != NULL)
-      {
-        (*Software_Handle_Pointer[Background_Function_Counter]->Background_Function_Pointer)();
-      }
-      Background_Function_Counter = millis();
-    }
-    else
-    {
-      Background_Function_Counter = 0;
     }
   }
 }

@@ -10,6 +10,7 @@ private:
 
     static Clock_Class *Instance_Pointer;
 
+
     uint8_t Current_Tab;
     Xila_Time Time;
 
@@ -99,7 +100,9 @@ private:
 public:
     static Software_Class *Load();
 
-    static void Background_Function();
+    static void Startup_Function();
+
+    static void Background_Task(void*);
 
     enum Picture
     {
@@ -110,6 +113,6 @@ public:
     ~Clock_Class();
 };
 
-Software_Handle_Class Clock_Handle("Clock", Clock_Class::Clock_32, Clock_Class::Load, NULL, Clock_Class::Background_Function);
+Software_Handle_Class Clock_Handle("Clock", Clock_Class::Clock_32, Clock_Class::Load, Clock_Class::Startup_Function);
 
 #endif

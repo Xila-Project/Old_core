@@ -1,80 +1,90 @@
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Keyboard_Dialog(char* Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
+Xila_Event Xila_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  Maximize_Shell();
+  Feed_Watchdog();
+
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Dialog_State = None;
   Dialog_Pointer = Char_Array_To_Get;
-  Dialog_Long = Char_Array_Size;
-  Dialog_Byte = Masked_Input;
-  Dialog_State = None;
-  Execute_Shell(Instruction::Keyboard_Dialog);
-  while (Dialog_State == None)
-  {
-    vTaskDelay(pdMS_TO_TICKS(30));
-  }
+  Dialog_Long[0] = Char_Array_Size;
+  Dialog_Long[1] = Masked_Input;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
 
-  Dialog_Pointer = NULL;
-  Dialog_Long = 0;
-  xSemaphoreGive(Dialog_Semaphore);
-  if (Dialog_State == Success)
-  {
-    Dialog_State = None;
-    return Success;
-  }
-  else
-  {
-    Dialog_State = None;
-    return Error;
-  }
-}
-
-Xila_Event Xila_Class::Keypad_Dialog(float& Number_To_Get)
-{
-  xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+  Execute_Shell(Virtual_Keyboard);
   Maximize_Shell();
-  Dialog_Long = Number_To_Get;
-  Dialog_State = None;
-  Execute_Shell(Instruction::Keypad_Dialog);
-  while (Dialog_State == None)
-  {
-    vTaskDelay(pdMS_TO_TICKS(30));
-  }
-  memcpy(&Number_To_Get, &Dialog_Long, sizeof(uint32_t));
+
+  vTaskSuspend(NULL);
+
+  // -- Tasks suspended here
+
+  Display.Set_Current_Page(F("PAGE"));
+
+  Maximize_Software(*Caller_Software_Handle_Pointer);
+
   xSemaphoreGive(Dialog_Semaphore);
-  if (Dialog_State == Success)
-  {
-    Dialog_State = None;
-    return Success;
-  }
-  else
-  {
-    Dialog_State = None;
-    return Error;
-  }
+  return Dialog_State;
 }
 
-/*
-Xila_Event Xila_Class::Color_Picker_Dialog(uint16_t& Color)
+Xila_Event Xila_Class::Keypad_Dialog(float &Number_To_Get)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  Dialog_Reply = NULL;
-  while (Dialog_Reply == NULL)
-  {
+  Feed_Watchdog();
 
-  }
-  
-}*/
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Dialog_State = None;
+  Dialog_Pointer = &Number_To_Get;
+
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+
+  Execute_Shell(Virtual_Keypad);
+  Maximize_Shell();
+
+  // -- Tasks suspended here
+
+  Display.Set_Current_Page(F("PAGE"));
+
+  Maximize_Software(*Caller_Software_Handle_Pointer);
+
+  xSemaphoreGive(Dialog_Semaphore);
+  return Dialog_State;
+}
+
+Xila_Event Xila_Class::Color_Picker_Dialog(uint16_t &Color)
+{
+  xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+  Feed_Watchdog();
+
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Dialog_State = None;
+  Dialog_Pointer = &Color;
+
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+
+  Execute_Shell(Color_Picker);
+  Maximize_Shell();
+
+  // -- Tasks suspended here
+
+  return Dialog_State;
+}
 
 Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  Maximize_Shell();
-  Dialog_State = None;
-  Execute_Shell(Instruction::Event_Dialog);
-  // Currently handle by the core, but will be soon mooved to shell
+  Feed_Watchdog();
+
   Display.Send_Raw(F("PAGE=dp")); // save app page id
   Display.Set_Current_Page(F("Shell_Event"));
+
+  Dialog_State = None;
+
+  // Currently handle by the core, but will be soon mooved to shell
+
   if (Button_Text_1 != NULL)
   {
     Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
@@ -128,11 +138,13 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
   }
   Display.Refresh(F("CLOSE_PIC"));
 
-  while (Dialog_State == None)
-  {
-    vTaskDelay(pdMS_TO_TICKS(30));
-  }
+  Execute_Shell(Event);
+  Maximize_Shell();
+
+  // -- Tasks is suspended here
+
   Display.Set_Current_Page(F("PAGE")); //go back to app page
+
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
 }
@@ -140,20 +152,83 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
 Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
-  File_Dialog_Reply = NULL;
-  Software_Handle_Class *Temporary_Software_Handle = Open_Software_Pointer[0]->Handle_Pointer;
-  Maximize_Shell();
-  Execute_Shell(Instruction::Open_File_Dialog);
+  Feed_Watchdog();
+  Dialog_Pointer = NULL;
+  Dialog_State = None;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
 
-  while (Dialog_State = None)
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Execute_Shell(Open_File);
+  Maximize_Shell();
+
+  // -- Task Suspended here
+
+  Display.Set_Current_Page(F("PAGE")); //go back to app page
+
+  if (Dialog_State == Button_1)
   {
-    vTaskDelay(pdMS_TO_TICKS(30));
+    File_To_Open = *(File *)Dialog_Pointer;
+  }
+
+  Maximize_Software(*Caller_Software_Handle_Pointer);
+
+  xSemaphoreGive(Dialog_Semaphore);
+  return Dialog_State;
+}
+
+Xila_Event Xila_Class::Save_File_Dialog(File &File_To_Save)
+{
+  xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+  Feed_Watchdog();
+  Dialog_Pointer = NULL;
+  Dialog_State = None;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Execute_Shell(Save_File);
+  Maximize_Shell();
+
+  // -- Task is suspended here, because the shell is running
+
+  Display.Set_Current_Page(F("PAGE")); //go back to app page
+
+  if (Dialog_State == Xila.Button_1)
+  {
+    File_To_Save = *(File *)Dialog_Pointer;
+  }
+
+  Maximize_Software(*Caller_Software_Handle_Pointer);
+
+  xSemaphoreGive(Dialog_Semaphore);
+  return Dialog_State;
+}
+
+Xila_Event Xila_Class::Open_Folder_Dialog(File &Folder_To_Open)
+{
+  xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+  Feed_Watchdog();
+  Dialog_Pointer = NULL;
+  Dialog_State = None;
+  Software_Handle_Class *Temporary_Software_Handle = Open_Software_Pointer[0]->Handle_Pointer;
+
+  Display.Send_Raw(F("PAGE=dp"));
+
+  Execute_Shell(Open_Folder);
+  Maximize_Shell();
+
+  // -- Tasks is suspended here
+
+  Display.Set_Current_Page(F("PAGE"));
+
+  if (Dialog_State == Xila.Button_1)
+  {
+    Folder_To_Open = *(File *)Dialog_Pointer;
   }
 
   Maximize_Software(*Temporary_Software_Handle);
-  File_To_Open = *File_Dialog_Reply;
-  File_Dialog_Reply->close();
-  delete File_Dialog_Reply;
+
   xSemaphoreGive(Dialog_Semaphore);
-  return Success;
+  return Dialog_State;
 }

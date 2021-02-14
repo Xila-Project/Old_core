@@ -4,7 +4,7 @@ Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
 Periodic_Class::Periodic_Class() : Software_Class(6)
 {
-    xTaskCreatePinnedToCore(Main_Task, "Periodic", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
+    Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Periodic_Class::~Periodic_Class()
@@ -47,13 +47,13 @@ void Periodic_Class::Main_Task(void *pvParamters)
         case 0: //Idle state
             Serial.println(F("Periodic Socket : Nothing to do ..."));
             break;
-        case 18253: //GM
+        case Instruction('G', 'M'): //GM
             Instance_Pointer->Get_Main_Data();
             break;
-        case 18252: //GL
+        case Instruction('G', 'L'): //GL
             Instance_Pointer->Get_List();
             break;
-        case 18244: //GD
+        case Instruction('G', 'D'): //GD
             Instance_Pointer->Get_Data();
             break;
         default:
@@ -67,45 +67,52 @@ void Periodic_Class::Main_Task(void *pvParamters)
 
 void Periodic_Class::Get_Main_Data()
 {
-    float Column, Line;
 
-    Column = (float)X;
-    Column += 8;
-    Column /= 26;
-    Column = round(Column);
-    Line = (float)Y;
-    Line -= 16;
-    Line /= 26;
-    Line = round(Line);
-    Verbose_Print("> Column :");
-    Serial.println(Column);
-    Verbose_Print("> Line :");
-    Serial.println(Line);
-    if (Line == 1)
+    uint8_t Column, Line;
+
+    Column = (X - 7) / 26;
+
+    Line = (Y - 30) / 26;
+
+    switch (Line)
     {
-        Current_Atom = 3;
-        Column -= 16;
+        case 0:
+            if (Column > 0 && Column < 17)
+            {
+                return;
+            }
+            break;
+        case 1:
+        case 2:
+            if (Column > 1 && Column < 12)
+            {
+                return;
+            }
+            break;
+        case 3:
+        case 4:
+            break;
+        case 5:
+        case 6:
+            if (Column == 2)
+            {
+                return;
+            }
+            break;
+        case 7:
+        case 8:
+            if (Column < 3)
+            {
+                return;
+            }
+            break;
     }
-    else if (Line < 4)
-    {
-        Current_Atom = 9;
-        Column -= 10;
-    }
-    else if (Line < 6)
-    {
-        Current_Atom = 19;
-    }
-    else if (Line < 8)
-    {
-        Current_Atom = 33;
-        Column -= 1;
-    }
-    else if (Line < 10)
-    {
-        Current_Atom = 16;
-        Column -= 3;
-    }
-    Current_Atom -= Column;
+
+    DynamicJsonDocument Filter(64);
+
+
+
+
 }
 
 void Periodic_Class::Get_Data()

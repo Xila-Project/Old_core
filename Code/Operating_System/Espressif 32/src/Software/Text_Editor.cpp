@@ -4,8 +4,8 @@ Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 
 Text_Editor_Class::Text_Editor_Class() : Software_Class(6)
 {
-    xTaskCreatePinnedToCore(Main_Task, "Text Editor Task", 4 * 1024, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-    Execute(Software_Code::Open);
+    Xila.Task_Create(Main_Task, "Text Editor Task", 4 * 1024, NULL, &Task_Handle);
+    Execute(Xila.Open);
 }
 
 Text_Editor_Class::~Text_Editor_Class()
@@ -31,15 +31,15 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             // IDLE : nothing to do
             Xila.Delay(20);
             break;
-        case Software_Code::Close:
+        case Xila.Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Software_Code::Maximize:
-        case Software_Code::Open:
+        case Xila.Maximize:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Text_Editor"));
             break;
-        case Software_Code::Minimize:
+        case Xila.Minimize:
             break;
         case 0x5355: // SU : scroll up
             Instance_Pointer->Offset += 55;

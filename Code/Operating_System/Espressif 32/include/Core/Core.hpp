@@ -67,7 +67,8 @@
 typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
-typedef xTaskHandle Xila_Tasks_Handle;
+typedef void* Xila_Task_Handle;
+typedef void (*Xila_Task_Function)( void * );
 
 // System state
 #define SYSTEM_STATE_STANDALONE 1
@@ -190,9 +191,16 @@ public:
 
 
     void Check_Power_Button();
+  
 
-    // Software management
+    // -- Task management -- //
 
+    inline void Task_Resume(Xila_Task_Handle Task_To_Resume);
+    inline void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
+    inline void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
+    inline Xila_Event Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
+
+    // -- Software management -- //
 
     inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
 
@@ -201,7 +209,7 @@ public:
      * 
      * @param Software_Handle The software's handle to open 
      */
-    Xila_Event Open_Software(Software_Handle_Class const& Software_Handle);
+    Xila_Event Software_Open(Software_Handle_Class const& Software_Handle);
 
     /**
      * @brief Function used to close a Software.
@@ -313,7 +321,7 @@ public:
      */
     Xila_Event WiFi_Connect(char *Name, char *Password);
 
-    // System state
+    // -- System state -- //
 
     /**
     * @brief Function handle deep-sleep wakeup, initialize the core, start software etc.
@@ -337,9 +345,6 @@ public:
      */
     void Start();
 
-    inline void First_Start_Routine();
-    inline void Second_Start_Routine();
-
     enum Panic_Code
     {
         Damaged_System_Registry,
@@ -353,7 +358,15 @@ public:
      * 
      */
     void Shutdown(); // private
+    
+    inline void First_Start_Routine();
+    inline void Second_Start_Routine();
+
     void Restart();  // private
+    
+    void Hibernate(); // private
+
+    // -- Registry modification methods -- //
 
     Xila_Event Load_Time_Registry();
     Xila_Event Load_Keyboard_Registry();
@@ -424,23 +437,22 @@ public:
         Close = 'C',
         Maximize = 'M',
         Minimize = 'm',
-        Hibernate = 'H',
+        Hibernating = 'H',
         Watchdog = 'W',
         Installation_Wizard = 'I', // Open installation form
         Open_File = 'f',
         Open_Folder = 'F',
         Save_File = 'e',
-        Keyboard = 'K',
-        Keypad = 'k',
+        Virtual_Keyboard = 'K',
+        Virtual_Keypad = 'k',
+        Color_Picker = 'c',
+        Shutting_down = 200,
+        Restarting,
         Event = 'E',
         Command = '*',
         Command_New = '#',
-        Variable_Byte_Local = 'b',
-        Variable_Byte_Global = 'B',
         Variable_String_Local = 's',
         Variable_String_Global = 'S',
-        Variable_Char_Local = 'c',
-        Variable_Char_Global = 'C',
         Variable_Long_Local = 'l',
         Variable_Long_Global = 'L'
     };
@@ -516,25 +528,30 @@ public:
     
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-    //Xila_Event Color_Picker_Dialog(uint16_t& Color);
-    Xila_Event Open_File_Dialog(File &File_To_Open);
+    Xila_Event Color_Picker_Dialog(uint16_t& Color);
+    Xila_Event Open_File_Dialog(File& File_To_Open);
     Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
-    Xila_Event Save_File_Dialog(File const &);
+    Xila_Event Save_File_Dialog(File& File_To_Save);
     Xila_Event Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-    // to do : Xila_Event Keyboard_Dialog(float& Number_To_Get) (and more overload);
+    // to do : Xila_Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
     Xila_Event Keypad_Dialog(float &Number_To_Get);
+    
 
+    uint32_t Dialog_Long[2];
     void *Dialog_Pointer;
-    uint32_t Dialog_Long;
-    uint8_t Dialog_Byte;
+
+    Software_Handle_Class* Caller_Software_Handle_Pointer;
+
     Xila_Event Dialog_State;
+    
     SemaphoreHandle_t Dialog_Semaphore;
+    
     File *File_Dialog_Reply;
 
     Xila_Event Set_Autologin();
 
-    uint16_t Display_Standby_Time;
-    uint32_t System_Standby_Time;
+    uint16_t Standby_Display_Time;
+    uint32_t Standby_System_Time;
 
     Xila_Event Copy_File(File &Origin_File, File &Destination_File);
 

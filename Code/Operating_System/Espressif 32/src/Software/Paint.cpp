@@ -16,8 +16,7 @@ Software_Class *Paint_Class::Load()
 
 Paint_Class::Paint_Class() : Software_Class(6)
 {
-    xTaskCreatePinnedToCore(Main_Task, "Paint Task", 8192, NULL, SOFTWARE_TASK_PRIOITY, &Task_Handle, SOFTWARE_CORE);
-
+    Xila.Task_Create(Main_Task, "Paint Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Paint_Class::~Paint_Class()
@@ -60,13 +59,13 @@ void Paint_Class::Main_Task(void* pvParameters)
         {
             case 0:
                 break;
-            case Software_Code::Maximize: // NULL + M : Maximize
+            case Xila.Maximize: // NULL + M : Maximize
                 Xila.Display.Set_Current_Page(F("Paint"));
                 break;
-            case Software_Code::Minimize: // NULL + m : Minimize
+            case Xila.Minimize: // NULL + m : Minimize
                 vTaskSuspend(NULL);
                 break;
-            case Software_Code::Close: // NULL + C : Close
+            case Xila.Close: // NULL + C : Close
                 vTaskDelete(NULL);
                 break;
             

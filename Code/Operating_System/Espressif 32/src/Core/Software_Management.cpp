@@ -17,7 +17,7 @@ uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Softw
   }
 }
 
-Xila_Event Xila_Class::Open_Software(Software_Handle_Class const &Software_Handle)
+Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handle)
 {
   // -- if software handle is shell handle, reopen it or maximize it
 
@@ -92,7 +92,7 @@ void Xila_Class::Close_Software(Software_Handle_Class const &Software_Handle)
       {
         if (*Open_Software_Pointer[i]->Handle_Pointer == Software_Handle)
         {
-          Xila_Tasks_Handle Temporary_Task_Handle;
+          Xila_Task_Handle Temporary_Task_Handle;
           Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
           Open_Software_Pointer[i]->Execute(Close);
           vTaskResume(Temporary_Task_Handle);

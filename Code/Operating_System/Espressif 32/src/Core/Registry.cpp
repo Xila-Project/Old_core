@@ -2,32 +2,6 @@
 
 Xila_Event Xila_Class::Load_Network_Registry()
 {
-  
-}
-
-Xila_Event Xila_Class::Load_Time_Registry()
-{
-  Verbose_Print_Line("> Load regional registry ...");
-  File Temporary_File = Drive->open(Regional_Registry_Path);
-  if (!Temporary_File)
-  {
-    return Error
-  }
-
-  DynamicJsonDocument Regional_Registry(256);
-  deserializeJson(Regional_Registry, Temporary_File);
-
-  strlcpy(NTP_Server, Regional_Registry["Time"]["NTP Server"], sizeof(NTP_Server));
-  int32_t GMT_Offset = Regional_Registry["Time"]["GMT Offset"];
-  int16_t Daylight_Offset = Regional_Registry["Time"]["Daylight Offset"];
-
-  Serial.println(NTP_Server);
-  Serial.println(GMT_Offset);
-  Serial.println(Daylight_Offset);
-
-  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-  Temporary_File.close();
-  return Success;
 }
 
 Xila_Event Xila_Class::Load_System_Registry()
@@ -56,7 +30,7 @@ Xila_Event Xila_Class::Load_System_Registry()
     return 3;
   }
 
-  strlcpy(Device_Name, System_Registry["Davice Name"], sizeof(Device_Name));
+  strlcpy(Device_Name, System_Registry["Device Name"], sizeof(Device_Name));
 
   Temporary_File.close();
 }
@@ -72,7 +46,7 @@ Xila_Event Xila_Class::Load_Display_Registry()
   }
   Display.Set_Brightness(Display_Registry["Brightness"]);
   Temporary_File.close();
-  return Success
+  return Success;
 }
 
 Xila_Event Xila_Class::Load_Sound_Registry()
@@ -85,9 +59,8 @@ Xila_Event Xila_Class::Load_Sound_Registry()
   }
   Sound.Set_Volume(Sound_Registry["Volume"]);
   Temporary_File.close();
-  return Success
+  return Success;
 }
-
 
 Xila_Event Xila_Class::Load_Time_Registry()
 {
@@ -145,6 +118,31 @@ Xila_Event Xila_Class::Load_Keyboard_Registry()
   return Success;
 }
 
+Xila_Event Xila_Class::Set_System_Registry(const char *Device_Name)
+{
+  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument System_Registry(256);
+  if (deserializeJson(System_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  if (Device_Name != NULL)
+  {
+    System_Registry["Device Name"] = Device_Name;
+    strlcpy(this->Device_Name, Device_Name, sizeof(this->Device_Name));
+  }
+
+  if (serializeJson(System_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  
+  Temporary_File.close();
+  return Success;
+}
+
 Xila_Event Xila_Class::Set_Sound_Registry(uint8_t Volume)
 {
   File Temporary_File = Drive->open(Sound_Registry_Path, FILE_WRITE);
@@ -152,7 +150,7 @@ Xila_Event Xila_Class::Set_Sound_Registry(uint8_t Volume)
   if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
-    return Error; 
+    return Error;
   }
   Sound_Registry["Volume"] = Volume;
   if (serializeJson(Sound_Registry, Temporary_File) == 0)
@@ -197,9 +195,9 @@ Xila_Event Xila_Class::Set_Time_Registry(const char *NTP_Server, int32_t GMT_Off
   return Success;
 }
 
-Xila_Event Xila_Class::Set_Keyboard_Registry(uint8_t Data_Pin, uint8_t Interrupt_Pin , uint8_t Keymap)
+Xila_Event Xila_Class::Set_Keyboard_Registry(uint8_t Data_Pin, uint8_t Interrupt_Pin, uint8_t Keymap)
 {
-File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Regional_Registry(256);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -290,7 +288,7 @@ Xila_Event Xila_Class::Set_Display_Registry(uint8_t Brighness, uint16_t Standby_
   if (Standby_Time != 0xFFFF)
   {
     Display_Registry["Standby Time"] = Standby_Time;
-    Display_Standby_Time = Standby_Time;
+    Standby_Display_Time = Standby_Time;
   }
   if (serializeJson(Display_Registry, Temporary_File) == 0)
   {

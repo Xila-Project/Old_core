@@ -15,7 +15,7 @@ void setup()
 
     xTaskCreatePinnedToCore(Serial_Handler, "Serial Handler", 4*1024, NULL, 0, NULL, 0);
 
-xTaskCreatePinnedToCore(Serial_1_Handler, "Serial Handler", 4*1024, NULL, 0, NULL, 0);
+    xTaskCreatePinnedToCore(Serial_1_Handler, "Serial Handler", 4*1024, NULL, 0, NULL, 0);
 }
 
 void Serial_Handler(void* pvParameters)
@@ -36,5 +36,4 @@ void Serial_1_Handler(void* pvParameters)
 
 void loop()
 {
-    vTaskDelete(NULL);
 }

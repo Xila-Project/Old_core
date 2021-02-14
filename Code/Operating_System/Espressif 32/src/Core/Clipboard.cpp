@@ -12,13 +12,13 @@ Xila_Event Xila_Class::Copy(uint64_t const &Value_To_Copy)
     return Error;
   }
   Split_Number[0] = (uint8_t)Value_To_Copy;
-  Split_Number[1] = (uint8_t)Value_To_Copy << 8;
-  Split_Number[2] = (uint8_t)Value_To_Copy << 16;
-  Split_Number[3] = (uint8_t)Value_To_Copy << 24;
-  Split_Number[4] = (uint8_t)Value_To_Copy << 32;
-  Split_Number[5] = (uint8_t)Value_To_Copy << 40;
-  Split_Number[6] = (uint8_t)Value_To_Copy << 48;
-  Split_Number[7] = (uint8_t)Value_To_Copy << 56;
+  Split_Number[1] = (uint8_t)(Value_To_Copy << 8);
+  Split_Number[2] = (uint8_t)(Value_To_Copy << 16);
+  Split_Number[3] = (uint8_t)(Value_To_Copy << 24);
+  Split_Number[4] = (uint8_t)(Value_To_Copy << 32);
+  Split_Number[5] = (uint8_t)(Value_To_Copy << 40);
+  Split_Number[6] = (uint8_t)(Value_To_Copy << 48);
+  Split_Number[7] = (uint8_t)(Value_To_Copy << 56);
   Clipboard_File.write(Split_Number, sizeof(Value_To_Copy));
   return Success;
 }

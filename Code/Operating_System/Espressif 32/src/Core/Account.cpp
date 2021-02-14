@@ -91,6 +91,7 @@ Xila_Event Xila_Class::Check_Credentials(const char *Username_To_Check, const ch
     Verbose_Print_Line("> Good Credentials ...");
     return Success;
   }
+  return Error;
 }
 
 Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password_To_Check)

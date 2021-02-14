@@ -56,6 +56,8 @@
 #define WATCHDOG_INITAL_TIME 4000
 #define WATCHDOG_MAXIMUM_TIME 6000
 
+#define Memory_Chunk(x) (x * 1024)
+
 // Debug
 
 #define DEBUG_MODE 1 
@@ -68,7 +70,7 @@
 
 #define DISPLAY_MODE 1 //
 
-#define VERBOSE_MODE 0
+#define VERBOSE_MODE 1
 
 
 #if VERBOSE_MODE == 0
