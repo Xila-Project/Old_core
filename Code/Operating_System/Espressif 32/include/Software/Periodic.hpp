@@ -7,6 +7,7 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
+#define PERIODIC_FILE_PATH "/SOFTWARE/PERIODIC/DATA/PERIODIC.XRF"
 
 class Periodic_Class : protected Software_Class
 {
@@ -15,12 +16,11 @@ class Periodic_Class : protected Software_Class
 
         File Periodic_File;
 
-        uint8_t Current_Atom_Name;
+        char Current_Atom_Name[32];
 
         float X, Y;
 
-        char Name[16];
-
+        void Get_Atom_Name();
         void Get_Main_Data();
         void Get_Data();
         void Get_List();

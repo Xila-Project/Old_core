@@ -14,7 +14,12 @@
 			"fstream": "cpp",
 			"random": "cpp",
 			"*.tcc": "cpp",
-			"new": "cpp"
+			"new": "cpp",
+			"exception": "cpp",
+			"iosfwd": "cpp",
+			"ostream": "cpp",
+			"sstream": "cpp",
+			"streambuf": "cpp"
 		}
 	}
 }

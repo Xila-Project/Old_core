@@ -741,7 +741,7 @@ void Shell_Class::Open_File_Manager()
 {
     Xila.Display.Set_Current_Page(File_Manager);
     Offset = 0;
-    memset(Current_Path, '/0', sizeof(Current_Path));
+    memset(Current_Path, '\0', sizeof(Current_Path));
     strcpy(Current_Path, "/");
 
     switch (Mode)
@@ -995,7 +995,7 @@ void Shell_Class::Go_Parent()
         else
         {
             Current_Path[i] = '\0';
-            if (i = 1)
+            if (i == 1)
             {
                 Current_Path[0] = '\\';
                 return;
@@ -1467,7 +1467,7 @@ void Shell_Class::Preferences_System_Commands()
         Refresh_Preferences_System();
         break;
     case Instruction('A', 'u'):
-        Autologin != Autologin;
+        Autologin = !Autologin;
         Refresh_Preferences_System();
         break;
     case Instruction('S', 'a'):
@@ -1663,7 +1663,7 @@ void Shell_Class::Install_Commands()
         Refresh_Install();
         break;
     case Instruction('A', 'u'): // -- Enable or disable autologin
-        Autologin != Autologin;
+        Autologin = !Autologin;
         Xila.Display.Set_Value(F("AUTOLOGIN_CHE"), Autologin);
         break;
     case Instruction('C', 'C'): // -- Open color picker for desk color
