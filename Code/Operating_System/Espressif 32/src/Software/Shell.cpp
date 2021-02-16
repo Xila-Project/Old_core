@@ -276,9 +276,10 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 
 Xila_Event Shell_Class::Load_Registry()
 {
-    File Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    Temporary_Item.close();
+    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
-    if (deserializeJson(Shell_Registry, Temporary_Variable) != DeserializationError::Ok)
+    if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
     {
         return Xila.Error;
     }
@@ -289,11 +290,12 @@ Xila_Event Shell_Class::Load_Registry()
 
 Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
 {
-    File Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    Temporary_Item.close();
+    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
-    deserializeJson(Shell_Registry, Temporary_Variable);
+    deserializeJson(Shell_Registry, Temporary_Item);
     Shell_Registry["Desk Background"] = Desk_Background;
-    if (serializeJson(Shell_Registry, Temporary_Variable) == 0)
+    if (serializeJson(Shell_Registry, Temporary_Item) == 0)
     {
         return Xila.Error;
     }

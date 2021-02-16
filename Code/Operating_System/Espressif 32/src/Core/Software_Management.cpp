@@ -194,12 +194,12 @@ void Xila_Class::Add_Software_Handle(Software_Handle_Class &Software_Handle_To_A
 
 // -- Shell shortcut -- //
 
-void Xila_Class::Execute_Shell(Xila_Command const &Command)
+inline void Xila_Class::Execute_Shell(Xila_Command const &Command)
 {
   Open_Software_Pointer[1]->Execute(Command);
 }
 
-void Xila_Class::Maximize_Shell()
+inline void Xila_Class::Maximize_Shell()
 {
   Maximize_Software(Shell_Handle);
 }

@@ -10,7 +10,7 @@ Simon_Class::Simon_Class() : Software_Class(10)
     }
     Instance_Pointer = this;
 
-    Xila.Task_Create(Main_Task, "Simon Task", 4 * 1024, NULL, &Task_Handle);
+    Xila.Task_Create(Main_Task, "Simon Task", Memory_Chunk(4), NULL, &Task_Handle);
     Execute(Xila.Open);
 }
 
@@ -20,6 +20,16 @@ Simon_Class::~Simon_Class()
     {
         delete Instance_Pointer;
     }
+}
+
+Software_Class* Simon_Class::Load()
+{
+    if (Instance_Pointer != NULL)
+    {
+        delete Instance_Pointer;
+    }
+    Instance_Pointer = new Simon_Class();
+    return Instance_Pointer;
 }
 
 void Simon_Class::Main_Task(void *pvParameters)

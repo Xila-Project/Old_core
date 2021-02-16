@@ -2,6 +2,104 @@
 
 #include <Arduino.h>
 
+const unsigned char Tiny_Basic_Class::keywords[238] = {
+    'L', 'I', 'S', 'T' + 0x80,
+    'L', 'O', 'A', 'D' + 0x80,
+    'N', 'E', 'W' + 0x80,
+    'R', 'U', 'N' + 0x80,
+    'S', 'A', 'V', 'E' + 0x80,
+    'N', 'E', 'X', 'T' + 0x80,
+    'L', 'E', 'T' + 0x80,
+    'I', 'F' + 0x80,
+    'G', 'O', 'T', 'O' + 0x80,
+    'G', 'O', 'S', 'U', 'B' + 0x80,
+    'R', 'E', 'T', 'U', 'R', 'N' + 0x80,
+    'R', 'E', 'M' + 0x80,
+    'F', 'O', 'R' + 0x80,
+    'I', 'N', 'P', 'U', 'T' + 0x80,
+    'P', 'R', 'I', 'N', 'T' + 0x80,
+    'P', 'O', 'K', 'E' + 0x80,
+    'S', 'T', 'O', 'P' + 0x80,
+    'B', 'Y', 'E' + 0x80,
+    'F', 'I', 'L', 'E', 'S' + 0x80,
+    'D', 'E', 'L', 'E', 'T', 'E' + 0x80,
+    'M', 'E', 'M' + 0x80,
+    '?' + 0x80,
+    '\'' + 0x80,
+    'A', 'W', 'R', 'I', 'T', 'E' + 0x80,
+    'D', 'W', 'R', 'I', 'T', 'E' + 0x80,
+    'D', 'E', 'L', 'A', 'Y' + 0x80,
+    'E', 'N', 'D' + 0x80,
+    'R', 'S', 'E', 'E', 'D' + 0x80,
+    'C', 'H', 'A', 'I', 'N' + 0x80,
+    'C', 'L', 'E', 'A', 'R' + 0x80,
+    'S', 'E', 'R', 'C', 'O', 'M' + 0x80,
+    'N', 'L', 'I', 'S', 'T' + 0x80,
+    'D', 'R', 'A', 'W', 'P', 'I', 'X' + 0x80,
+    'D', 'R', 'A', 'W', 'L', 'I', 'N', 'E' + 0x80,
+    'D', 'R', 'A', 'W', 'R', 'O', 'W' + 0x80,
+    'D', 'R', 'A', 'W', 'C', 'O', 'L' + 0x80,
+    'D', 'R', 'A', 'W', 'R', 'E', 'C', 'T' + 0x80,
+    'D', 'R', 'A', 'W', 'C', 'I', 'R', 'C' + 0x80,
+    'D', 'R', 'A', 'W', 'C', 'H', 'A', 'R' + 0x80,
+    'G', 'E', 'T', 'P', 'I', 'X' + 0x80,
+    'T', 'O', 'N', 'E', 'W' + 0x80,
+    'T', 'O', 'N', 'E' + 0x80,
+    'N', 'O', 'T', 'O', 'N', 'E' + 0x80,
+    'E', 'C', 'H', 'A', 'I', 'N' + 0x80,
+    'E', 'L', 'I', 'S', 'T' + 0x80,
+    'E', 'L', 'O', 'A', 'D' + 0x80,
+    'E', 'F', 'O', 'R', 'M', 'A', 'T' + 0x80,
+    'E', 'S', 'A', 'V', 'E' + 0x80,
+    'W', 'I', 'F', 'I' + 0x80,
+    0};
+
+const unsigned char Tiny_Basic_Class::to_tab[3] = {
+    'T', 'O' + 0x80,
+    0};
+
+const unsigned char Tiny_Basic_Class::step_tab[5] = {
+    'S', 'T', 'E', 'P' + 0x80,
+    0};
+
+const unsigned char Tiny_Basic_Class::relop_tab[12] = {
+    '>', '=' + 0x80,
+    '<', '>' + 0x80,
+    '>' + 0x80,
+    '=' + 0x80,
+    '<', '=' + 0x80,
+    '<' + 0x80,
+    '!', '=' + 0x80,
+    0};
+
+const unsigned char Tiny_Basic_Class::highlow_tab[12] = {
+    'H', 'I', 'G', 'H' + 0x80,
+    'H', 'I' + 0x80,
+    'L', 'O', 'W' + 0x80,
+    'L', 'O' + 0x80,
+    0};
+
+const unsigned char Tiny_Basic_Class::okmsg[3] = "OK";
+const unsigned char Tiny_Basic_Class::whatmsg[7] = "What? ";
+const unsigned char Tiny_Basic_Class::howmsg[5] = "How?";
+const unsigned char Tiny_Basic_Class::sorrymsg[7] = "Sorry!";
+const unsigned char Tiny_Basic_Class::initmsg[21] = "TinyBasic ESP32 " TBE_VERSION;
+const unsigned char Tiny_Basic_Class::lameName[5] = "Xila";
+const unsigned char Tiny_Basic_Class::memorymsg[13] = " bytes free.";
+
+const unsigned char Tiny_Basic_Class::eeprommsg[21] = " EEProm bytes total.";
+const unsigned char Tiny_Basic_Class::eepromamsg[25] = " EEProm bytes available.";
+
+const unsigned char Tiny_Basic_Class::breakmsg[7] = "break!";
+const unsigned char Tiny_Basic_Class::unimplimentedmsg[14] = "Unimplemented";
+const unsigned char Tiny_Basic_Class::backspacemsg[4] = "\b \b";
+const unsigned char Tiny_Basic_Class::indentmsg[5] = "    ";
+const unsigned char Tiny_Basic_Class::sderrormsg[15] = "SD card error.";
+const unsigned char Tiny_Basic_Class::sdfilemsg[15] = "SD file error.";
+const unsigned char Tiny_Basic_Class::dirextmsg[6] = "(dir)";
+const unsigned char Tiny_Basic_Class::slashmsg[2] = "/";
+const unsigned char Tiny_Basic_Class::spacemsg[2] = " ";
+
 Tiny_Basic_Class *Tiny_Basic_Class::Instance_Pointer = NULL;
 #define INSTANCE_POINTER Tiny_Basic_Class::Instance_Pointer
 
@@ -2540,7 +2638,7 @@ wifi:
   value = expression();
   if (expression_error)
     goto qwhat;
-  ssid = (unsigned char *)value;
+  //ssid = (unsigned char *)value;
 
   // check for a comma
   ignore_blanks();
@@ -2554,9 +2652,7 @@ wifi:
   value = expression();
   if (expression_error)
     goto qwhat;
-  pswd = (unsigned char *)value;
-
-  Serial.printf("Wifi ssid %s pswd %s\n", ssid, pswd);
+  //pswd = (unsigned char *)value;
 
   if (Xila.WiFi_Connect((char *)ssid, (char *)pswd) != Xila.Success)
   {

@@ -229,40 +229,42 @@ void Periodic_Class::Get_Data()
     Xila.Display.Set_Text(F("DISCOVERV_TXT"), Temporary_Char_Array);
 
     // Mass
-    strcpy(Temporary_Char_Array, "Mass : ");
     dtostrf(Current_Atom["atomic_mass"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
     strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
 
     // Density
-    dtostrf(Current_Atom["density"], sizeof(Temporary_Char_Array), 4, sizeof(Temporary_Char_Array));
-    strlcat(Temporary_Char_Array, " g/cm^3", sizeof(Temporary_Char_Array));
-    
+    dtostrf(Current_Atom["density"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    strlcat(Temporary_Char_Array, " g/cm3", sizeof(Temporary_Char_Array));
+
     Xila.Display.Set_Text(F("DENSITYVAL_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Melting point : ");
-    itoa(Periodic_Register[Name]["melt"], Temporary_Char_Array + sizeof("Melting point : "), 10);
-    Xila.Display.Set_Text(F("MELT_TXT"), Temporary_Char_Array);
+    // Melting point
+    dtostrf(Current_Atom["melt"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("MELTVAL_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Boiling point : ");
-    itoa(Periodic_Register[Name]["boil"], Temporary_Char_Array + sizeof("Boiling point : "), 10);
-    Xila.Display.Set_Text(F("NAME_TXT"), Temporary_Char_Array);
+    // Boiling point
+    dtostrf(Current_Atom["boil"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("BOILINGVAL_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Phase At S.T.P. : ");
-    strcpy(Temporary_Char_Array + sizeof("Phase At S.T.P. : "), Periodic_Register[Name]["phase"]);
+    // Phase at STP
+    strlcpy(Temporary_Char_Array, Current_Atom["phase"], sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("PHASE_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Electron configuration : ");
-    strcpy(Temporary_Char_Array + sizeof("Electron configuration : "), Periodic_Register[Name]["electron_configuration"]);
-    Xila.Display.Set_Text(F("ELECTRONC_TXT"), Temporary_Char_Array);
+    // Electron configuration
+    strlcpy(Temporary_Char_Array, Current_Atom["electron_configuration"], sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("ELECTRONCV_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Electronegativity : ");
-    itoa(Periodic_Register[Name]["electronegativity_pauling"], Temporary_Char_Array + sizeof("Electronegativity : "), 10);
-    Xila.Display.Set_Text(F("ELECTRONN_TXT"), Temporary_Char_Array);
+    // Electronegativity
+    dtostrf(Current_Atom["electronegativity_pauling"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    strlcat(Temporary_Char_Array, " (Pauling scale)", sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("ELECTRONNV_TXT"), Temporary_Char_Array);
 
-    strcpy(Temporary_Char_Array, "Electron affinity : ");
-    itoa(Periodic_Register[Name]["electron_affinity"], Temporary_Char_Array + sizeof("Electron affinity"), 10);
-    Xila.Display.Set_Text(F("DISCOVER_TXT"), Temporary_Char_Array);
+    // Eelectron affinity
+    dtostrf(Current_Atom["electron_affinity"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    Xila.Display.Set_Text(F("ELECTRONAV_TXT"), Temporary_Char_Array);
 }
 
 void Periodic_Class::Get_List()

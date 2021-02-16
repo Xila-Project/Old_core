@@ -1,6 +1,5 @@
 #include "Core/Core.hpp"
 
-
 void Xila_Class::Task_Resume(Xila_Task_Handle Task_To_Resume)
 {
   Feed_Watchdog();
@@ -28,7 +27,6 @@ void Xila_Class::Task_Delete(Xila_Task_Handle Task_To_Delete)
   Feed_Watchdog();
   vTaskDelete(Task_To_Delete);
 }
-
 
 // Main task for the core
 void Xila_Class::Core_Task(void *pvParameters)

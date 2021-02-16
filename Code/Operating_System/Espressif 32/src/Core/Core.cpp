@@ -255,7 +255,6 @@ void Xila_Class::Start()
   extern Software_Handle_Class Music_Player_Handle;
   extern Software_Handle_Class Piano_Handle;
   extern Software_Handle_Class Pong_Handle;
-  extern Software_Handle_Class Signal_Generator_Handle;
   extern Software_Handle_Class Text_Editor_Handle;
   extern Software_Handle_Class Periodic_Handle;
   extern Software_Handle_Class Clock_Handle;
@@ -269,7 +268,6 @@ void Xila_Class::Start()
   Add_Software_Handle(Piano_Handle);
   Add_Software_Handle(Pong_Handle);
   Add_Software_Handle(Paint_Handle);
-  Add_Software_Handle(Signal_Generator_Handle);
   Add_Software_Handle(Text_Editor_Handle);
   Add_Software_Handle(TinyBasic_Handle);
 
@@ -283,12 +281,11 @@ Xila_Event Xila_Class::WiFi_Connect()
     return Success;
   }
   File Temporary_File = Drive->open(Network_Registry_Path);
-  if (!Temporary_File)
+  DynamicJsonDocument Network_Registry(512);
+  if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
   {
     return Error;
   }
-  DynamicJsonDocument Network_Registry(512);
-  deserializeJson(Network_Registry, Temporary_File);
   JsonObject WiFi_Registry = Network_Registry["WiFi"];
   char Name[33];
   char Password[81];

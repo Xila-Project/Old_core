@@ -20,8 +20,8 @@ Xila_Event Xila_Class::Add_User(const char* Username, const char* Password)
     return Error;
   }
 
-  strcpy(User_Registry["Registry"], "User");
-  strcpy(User_Registry["Password"], Password);
+  User_Registry["Registry"] = "User";
+  User_Registry["Password"] = Password;
   serializeJson(User_Registry, Temporary_File);
   return Success;
 }
