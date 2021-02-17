@@ -906,6 +906,12 @@ void Calculator_Class::Compute()
     Display();
 }
 
+void Calculator_Class::Error()
+{
+    Xila.Event_Dialog(F("Cannot calculate, please check input calculation."), Xila.Error);
+    Clear();   
+}
+
 void Calculator_Class::Degree_To_Radian(uint8_t Selected_Number)
 {
     if (bitRead(Keys_Mode, Angle) == Degree)

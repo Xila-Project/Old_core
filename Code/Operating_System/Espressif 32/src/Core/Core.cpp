@@ -38,8 +38,8 @@ Xila_Class::Xila_Class() : Tag(0),
 
   memset(Current_Username, '\0', sizeof(Current_Username));
 
-  memset(Open_Software_Pointer, NULL, sizeof(Open_Software_Pointer));
-  memset(Software_Handle_Pointer, NULL, sizeof(Software_Handle_Pointer));
+  memset(Open_Software_Pointer, '\0', sizeof(Open_Software_Pointer));
+  memset(Software_Handle_Pointer, '\0', sizeof(Software_Handle_Pointer));
 
   memset(Device_Name, '\0', sizeof(Device_Name));
 
@@ -424,8 +424,8 @@ void Xila_Class::Shutdown()
 
 void Xila_Class::Restart()
 {
-  Maximize_Shell();
   Execute_Shell(Close);
+  Maximize_Shell();
 
   Xila_Task_Handle Temporary_Task_Handle;
   for (uint8_t i = 2; i < 8; i++)
@@ -480,7 +480,7 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
   {
     return Error;
   }
-  if (Type = 'M')
+  if (Type == 'M')
   {
     if (!Update.begin(Executable_File.size(), U_FLASH))
     {
@@ -500,7 +500,7 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
       return Error;
     }
   }
-  else if (Type = 'D')
+  else if (Type == 'D')
   {
     if (Display.Update(Executable_File) != Display.Update_Succeed)
     {

@@ -133,8 +133,8 @@ protected:
     void *Shell_Return_Item;
     Xila_Event Shell_Return;
 
-    inline void Maximize_Shell();
-    inline void Execute_Shell(Xila_Command const& Command);
+    void Maximize_Shell();
+    void Execute_Shell(Xila_Command const& Command);
 
     // Display
     char Tag;
@@ -193,11 +193,11 @@ public:
 
     // -- Task management -- //
 
-    inline void Task_Resume(Xila_Task_Handle Task_To_Resume);
+    void Task_Resume(Xila_Task_Handle Task_To_Resume);
 
-    inline void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
-    inline void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
-    inline Xila_Event Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
+    void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
+    void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
+    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
 
     // -- Software management -- //
 
@@ -574,7 +574,7 @@ public:
     uint32_t Last_Execution;
     uint8_t Background_Function_Counter;
 
-    inline void Execute_Startup_Function();
+    void Execute_Startup_Function();
     void Execute_Background_Jobs();
 
     // System's task :

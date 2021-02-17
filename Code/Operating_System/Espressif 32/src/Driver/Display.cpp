@@ -199,6 +199,15 @@ void Nextion_Display_Class::Send_Raw(const char* Data)
     Instruction_End();
 }
 
+void Nextion_Display_Class::Refresh(const __FlashStringHelper* Object_Name )
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(F("ref "));
+    Nextion_Serial.print(Object_Name);
+    Instruction_End();
+
+}
+
 void Nextion_Display_Class::Refresh_Current_Page()
 {
     Get(F("dp"));

@@ -336,8 +336,6 @@ protected:
     uint8_t Current_Line;
 
     uint8_t Current_Column;
-
-    void Analog_Write(uint8_t, int16_t); // uniplemented yet
     
     void Refresh_Interface();
     void Scroll();

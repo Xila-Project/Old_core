@@ -1927,7 +1927,8 @@ dwrite:
   }
   else
   {
-    Analog_Write(pinNo, value);
+    ledcSetup(pinNo, 5000, 8);
+    ledcWrite(pinNo, value);
   }
 }
   goto run_next_statement;
