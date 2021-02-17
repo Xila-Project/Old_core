@@ -13,15 +13,20 @@ MIDI_Output(false)
 
 Piano_Class::~Piano_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
     Instance_Pointer = NULL;
 }
 
 Software_Class* Piano_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Piano_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Piano_Class();
     return Instance_Pointer;
 }
 

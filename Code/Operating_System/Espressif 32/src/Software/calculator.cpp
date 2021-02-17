@@ -11,15 +11,20 @@ Calculator_Class::Calculator_Class() : Software_Class(8),
 
 Calculator_Class::~Calculator_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
     Instance_Pointer = NULL;
 }
 
 Software_Class *Calculator_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Calculator_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Calculator_Class();
     return Instance_Pointer;
 }
 

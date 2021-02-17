@@ -1,6 +1,7 @@
 #include "Software/Clock.hpp"
 
 Clock_Class *Clock_Class::Instance_Pointer = NULL;
+uint32_t Clock_Class::Next_Alarm = 0;
 
 Clock_Class::Clock_Class() : Software_Class(6),
                              Current_Tab(Clock)
@@ -11,15 +12,20 @@ Clock_Class::Clock_Class() : Software_Class(6),
 
 Clock_Class::~Clock_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
     Instance_Pointer = NULL;
 }
 
 Software_Class *Clock_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Clock_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Clock_Class();
     return Instance_Pointer;
 }
 
@@ -28,16 +34,23 @@ void Clock_Class::Startup_Function()
     Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(2));
 }
 
-void Clock_Class::Background_Task(void* pvParameters)
+void Clock_Class::Background_Task(void *pvParameters)
 {
     while (1)
     {
-        if (Next_Alarm < millis())
+        if (Next_Alarm == 0)
         {
-            Xila.Software_Open(Clock_Handle);
-            Instance_Pointer->Execute(Instruction('R', 'i'));
+            vTaskDelay(pdMS_TO_TICKS(10000));
         }
-        vTaskDelay(pdMS_TO_TICKS(1000));
+        else
+        {
+            if (Next_Alarm < millis())
+            {
+                Xila.Software_Open(Clock_Handle);
+                Instance_Pointer->Execute(Instruction('R', 'i'));
+            }
+            vTaskDelay(pdMS_TO_TICKS(1000));
+        }
     }
 }
 
@@ -370,16 +383,16 @@ void Clock_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Refresh_Chronometer();
                 break;
 
-            case 0x4130: //Ax : Select alarm
-                if (Instance_Pointer->Alarm_Exist[0] = true)
+            case Instruction('A', '0'): //Ax : Select alarm
+                if (Instance_Pointer->Alarm_Exist[0] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 0;
                     Instance_Pointer->Refresh_Alarms();
                     Instance_Pointer->Refresh_Alarm();
                 }
                 break;
-            case 0x4131:
-                if (Instance_Pointer->Alarm_Exist[1] = true)
+            case Instruction('A', '1'):
+                if (Instance_Pointer->Alarm_Exist[1] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 1;
                     Instance_Pointer->Refresh_Alarms();
@@ -387,39 +400,39 @@ void Clock_Class::Main_Task(void *pvParameters)
                 }
 
                 break;
-            case 0x4132:
-                if (Instance_Pointer->Alarm_Exist[2] = true)
+            case Instruction('A', '2'):
+                if (Instance_Pointer->Alarm_Exist[2] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 2;
                     Instance_Pointer->Refresh_Alarms();
                     Instance_Pointer->Refresh_Alarm();
                 }
                 break;
-            case 0x4133:
-                if (Instance_Pointer->Alarm_Exist[3] = true)
+            case Instruction('A', '3'):
+                if (Instance_Pointer->Alarm_Exist[3] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 3;
                     Instance_Pointer->Refresh_Alarms();
                     Instance_Pointer->Refresh_Alarm();
                 }
                 break;
-            case 0x4134:
-                if (Instance_Pointer->Alarm_Exist[4] = true)
+            case Instruction('A', '4'):
+                if (Instance_Pointer->Alarm_Exist[4] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 4;
                     Instance_Pointer->Refresh_Alarms();
                     Instance_Pointer->Refresh_Alarm();
                 }
                 break;
-            case 0x4135:
-                if (Instance_Pointer->Alarm_Exist[5] = true)
+            case Instruction('A', '5'):
+                if (Instance_Pointer->Alarm_Exist[5] == true)
                 {
                     Instance_Pointer->Selected_Alarm = 5;
                     Instance_Pointer->Refresh_Alarms();
                     Instance_Pointer->Refresh_Alarm();
                 }
                 break;
-            case 0x4141: //AA
+            case Instruction('A', 'A'): //AA
                 Instance_Pointer->Add_Alarm();
                 Instance_Pointer->Refresh_Alarm();
                 Instance_Pointer->Refresh_Alarms();

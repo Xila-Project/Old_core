@@ -10,14 +10,20 @@ Text_Editor_Class::Text_Editor_Class() : Software_Class(6)
 
 Text_Editor_Class::~Text_Editor_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
+    Instance_Pointer = NULL;
 }
 
 Software_Class *Text_Editor_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Text_Editor_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Text_Editor_Class();
     return Instance_Pointer;
 }
 
@@ -97,7 +103,7 @@ void Text_Editor_Class::Scan()
 
 void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-    switch (Type)
+    switch (Adress)
     {
     case 'S':
         if (Type == Xila.Variable_Long_Local)
@@ -114,14 +120,18 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
 
 void Text_Editor_Class::Refresh_Text()
 {
+    if (!File_To_Edit)
+    {
+        Xila.Event_Dialog(F("Failed to read file."), Xila.Error);
+        return;
+    }
     File_To_Edit.seek(Offset);
     char Temporary_Character;
     char Temporary_Char_Array[56];
     char Line_Name[11] = "LINE _TXT";
     uint8_t Line_Number = 1;
     uint8_t Column_Number = 0;
-    uint8_t Scroll_Bar = (Offset * 176) / File_To_Edit.size();
-    char Line_Ending;
+    char Line_Ending = 0x0D;
     switch (Mode)
     {
     case MacOS:
@@ -130,8 +140,6 @@ void Text_Editor_Class::Refresh_Text()
         break;
     case Unix:
         Line_Ending = 0x0A;
-    default:
-        break;
     }
     while (File_To_Edit.available())
     {
@@ -158,7 +166,7 @@ void Text_Editor_Class::Refresh_Text()
                 strcpy(Line_Name, "LINE _TXT");
                 Line_Name[4] = Line_Number + 48;
             }
-            Column_Number == 0;
+            Column_Number = 0;
         }
         else if (Column_Number >= 55)
         {
@@ -178,7 +186,7 @@ void Text_Editor_Class::Refresh_Text()
                 strcpy(Line_Name, "LINE _TXT");
                 Line_Name[4] = Line_Number + 48;
             }
-            Column_Number == 0;
+            Column_Number = 0;
         }
         else
         {

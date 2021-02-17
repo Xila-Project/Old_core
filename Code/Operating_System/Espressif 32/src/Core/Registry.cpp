@@ -2,6 +2,8 @@
 
 Xila_Event Xila_Class::Load_Network_Registry()
 {
+  // Currently network is handled by wifi connect ()
+  return Success;
 }
 
 Xila_Event Xila_Class::Load_System_Registry()
@@ -31,8 +33,9 @@ Xila_Event Xila_Class::Load_System_Registry()
   }
 
   strlcpy(Device_Name, System_Registry["Device Name"], sizeof(Device_Name));
-
   Temporary_File.close();
+
+  return Success;
 }
 
 Xila_Event Xila_Class::Load_Display_Registry()

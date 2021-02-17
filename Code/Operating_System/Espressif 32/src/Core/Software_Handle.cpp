@@ -11,13 +11,6 @@ Software_Handle_Class::Software_Handle_Class()
   memset(Name, '\0', sizeof(Name));
 }
 
-Software_Handle_Class::Software_Handle_Class(const char* Char_Array)
-: Load_Function_Pointer(NULL),
-Startup_Function_Pointer(NULL)
-{
-  From_Char_Array(Char_Array);
-}
-
 bool Software_Handle_Class::Is_Equal(Software_Handle_Class const& Software_Handle_To_Compare) const
 {
   if (strcmp(Name, Software_Handle_To_Compare.Name) != 0)
@@ -47,20 +40,6 @@ Software_Handle_Class::Software_Handle_Class(char const *Software_Name, uint8_t 
 
 Software_Handle_Class::~Software_Handle_Class()
 {
-}
-
-void Software_Handle_Class::To_Char_Array(char* Char_Array)
-{
-strcpy(Char_Array, Name);
-Char_Array[sizeof(Name)];
-Char_Array[sizeof(Name) + 1];
-}
-
-void Software_Handle_Class::From_Char_Array(const char* Char_Array)
-{
-  strcpy(Name, Char_Array);
-  Icon = Char_Array[sizeof(Name)];
-  Type = Char_Array[sizeof(Name) + 1];
 }
 
 // Operators

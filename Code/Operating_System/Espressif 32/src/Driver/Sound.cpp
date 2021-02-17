@@ -349,11 +349,11 @@ uint8_t Sound_Class::Start_ULP()
             //reset sample index
             I_MOVI(R0, 0), // 6
             //write the index back to memory for the main cpu
-            I_ST(R0, R3, Index_Adress), // 8
+            I_ST(R0, R3, (uint32_t)Index_Adress), // 8
             //divide index by two since we store two samples in each dword
             I_RSHI(R2, R0, 1), // 6
             //load the samples
-            I_LD(R1, R2, bufferStart), // 8
+            I_LD(R1, R2, (uint32_t)bufferStart), // 8
             //get if odd or even sample
             I_ANDI(R2, R0, 1), // 6
             //multiply by 8
@@ -365,7 +365,7 @@ uint8_t Sound_Class::Start_ULP()
             //multiply by 2
             I_LSHI(R1, R1, 1), // 6
             //add start position
-            I_ADDI(R1, R1, dacTableStart1), // 6
+            I_ADDI(R1, R1, (uint32_t)dacTableStart1), // 6
             //jump to the dac opcode
             I_BXR(R1), // 4
             //here we get back from writing a sample
@@ -374,7 +374,7 @@ uint8_t Sound_Class::Start_ULP()
             //if reached end of the buffer, jump relative to index reset
             I_BGE(-13, (uint32_t)totalSamples), // 4
             //wait to get the right sample rate (2 cycles more to compensate the index reset)
-            I_DELAY((unsigned int)Delay_Time + 2), // 8 + dt
+            I_DELAY(uint32_t(Delay_Time + 2)), // 8 + dt
             //if not, jump absolute to where index is written to memory
             I_BXI(3) // 4
             // write io and jump back another 12 + 4
@@ -413,15 +413,15 @@ uint8_t Sound_Class::Start_ULP()
             //reset sample index
             I_MOVI(R0, 0), // 6
             //write the index back to memory for the main cpu
-            I_ST(R0, R3, Index_Adress), // 8
+            I_ST(R0, R3, (uint32_t)Index_Adress), // 8
             //load the samples
-            I_LD(R1, R0, bufferStart), // 8
+            I_LD(R1, R0, (uint32_t)bufferStart), // 8
             //mask the lower 8 bits
             I_ANDI(R2, R1, 255), // 6
             //multiply by 2
             I_LSHI(R2, R2, 1), // 6
             //add start position
-            I_ADDI(R2, R2, dacTableStart1), // 6
+            I_ADDI(R2, R2, (uint32_t)dacTableStart1), // 6
             //jump to the dac opcode
             I_BXR(R2), // 4
             //back from first dac
@@ -430,16 +430,17 @@ uint8_t Sound_Class::Start_ULP()
             //shift the upper bits to right and multiply by 2
             I_RSHI(R1, R1, 8 - 1), // 6
             //add start position of second dac table
-            I_ADDI(R1, R1, dacTableStart2), // 6
+            I_ADDI(R1, R1, (uint32_t)dacTableStart2), // 6
             //jump to the dac opcode
             I_BXR(R1), // 4
             I_ADDI(R0, R0, 1), // 6
             //if reached end of the buffer, jump relative to index reset
             I_BGE(-13, (uint32_t)totalSampleWords), // 4
             //wait to get the right sample rate (2 cycles more to compensate the index reset)
-            I_DELAY((unsigned int)Delay_Time + 2), // 8 + dt
+            I_DELAY(((uint32_t)Delay_Time + 2)), // 8 + dt
             //if not, jump absolute to where index is written to memory
-            I_BXI(3)};
+            I_BXI(3)
+            };
 
         size_t Size = sizeof(Play_Program) / sizeof(ulp_insn_t);
         ulp_process_macros_and_load(0, Play_Program, &Size);

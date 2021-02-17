@@ -210,12 +210,14 @@ public:
      */
     Xila_Event Software_Open(Software_Handle_Class const& Software_Handle);
 
+    void Close_Software();
+
     /**
      * @brief Function used to close a Software.
      * 
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
-    void Close_Software(Software_Handle_Class const& Software_Handle = NULL);
+    void Close_Software(Software_Handle_Class const& Software_Handle);
 
     /**
      * @brief Function that close roughly the current running software.
@@ -575,7 +577,7 @@ public:
     uint8_t Background_Function_Counter;
 
     void Execute_Startup_Function();
-    void Execute_Background_Jobs();
+
 
     // System's task :
     xTaskHandle Core_Task_Handle;

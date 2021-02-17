@@ -32,7 +32,6 @@ void Xila_Class::Task_Delete(Xila_Task_Handle Task_To_Delete)
 void Xila_Class::Core_Task(void *pvParameters)
 {
   (void)pvParameters;
-  uint8_t Counter = 0;
   while (1)
   {
 
@@ -49,9 +48,6 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     Xila.Check_Power_Button();
 
-
-
-    Xila.Execute_Background_Jobs(); // Software background function execution
 
 
 #if STACK_OVERFLOW_DETECTION == 1

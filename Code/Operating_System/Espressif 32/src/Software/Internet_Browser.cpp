@@ -4,10 +4,11 @@ Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
 Software_Class *Internet_Browser_Class::Load()
 {
-  if (Instance_Pointer == NULL)
+  if (Instance_Pointer != NULL)
   {
-    Instance_Pointer = new Internet_Browser_Class;
+    delete Instance_Pointer;
   }
+  Instance_Pointer = new Internet_Browser_Class();
   return Instance_Pointer;
 }
 
@@ -29,6 +30,10 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 
 Internet_Browser_Class::~Internet_Browser_Class()
 {
+  if (Instance_Pointer != this)
+  {
+    delete Instance_Pointer;
+  }
   Instance_Pointer = NULL;
 }
 
@@ -49,11 +54,11 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       //do something when
       break;
     case Xila.Minimize: // NULL + m : Minimize
-      vTaskSuspend(NULL);
+      Xila.Task_Suspend();
       break;
     case Xila.Close: // NULL + C : Close
       delete Instance_Pointer;
-      vTaskDelete(NULL);
+      Xila.Task_Delete();
       break;
 
     case Instruction('K', 'U'):
@@ -224,7 +229,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   else
   {
     Xila.Event_Dialog(F("Connection failed."), Xila.Error);
-    
+
     Serial.println(F("Connection failed !"));
     //error handle : reset ?
     return 0;
@@ -333,7 +338,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       {
         //error handle
         Xila.Event_Dialog(F("The Connection has timed out."), Xila.Error);
-        Xila.Display.Set_Current_Page(F("Internet_Brow"));
+        Display_Page();
+
         Serial.println(F("\nWiFi timeout"));
         Client.stop();
         Cache_File.flush();
@@ -551,15 +557,18 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
     if ((cleanChar == 10) || (cleanChar == '\t'))
     {
-      //uint32_t speed = downloadCount / ((millis() - startTime) / 1000); deleted because make esp32 crash (divide by zero)
-
+      float Download_Time = millis() - startTime;
+      Download_Time /= 1000;
+      if (Download_Time > 0)
+      {
+        uint32_t Speed = downloadCount / Download_Time;
+        Serial.println(Speed);
+      }
       if (fileLength > 0)
       {
-        //uint8_t Percent = uint8_t(downloadCount * 100 / fileLength);
-        //Serial.println(Percent);
-        /*Nextion_Serial.print(F("LOAD_BAR.val="));
-        Nextion_Serial.print(Percent);
-        Nextion_Serial.print(F("\xFF\xFF\xFF"));*/
+        uint8_t Percent = uint8_t(downloadCount * 100 / fileLength);
+        Serial.println(Percent);
+        Xila.Display.Set_Value(F("LOAD_BAR"), Percent);
       }
     }
 
@@ -889,7 +898,6 @@ byte Internet_Browser_Class::Display_Page()
   uint8_t currentLink = 0;                           // Curretly highlightd link of the page
   boolean buildingIndex = (pageLinks.lastLink == 0); // True if this page's URL haven't been index yet
   uint16_t Cursor_Y;
-  uint16_t Cursor_X;
   char Text_To_Print[80];
   uint16_t Width_Count;
   uint8_t Text_Char_Count;
@@ -935,12 +943,15 @@ byte Internet_Browser_Class::Display_Page()
     Serial.println(F("Building link index"));
   }
 
-  Cursor_Y = 50;
-
   memset(Text_To_Print, '\0', sizeof(Text_To_Print));
 
   Text_Char_Count = 0;
   Width_Count = 0;
+
+  Cursor_Y = 50;
+  Xila.Display.Set_Value(F("Y_VAR"), Cursor_Y);
+
+  // 65 max char
 
   // Loop through cache fizle
   while ((filePtr <= Cache_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
@@ -955,39 +966,62 @@ byte Internet_Browser_Class::Display_Page()
       switch (Current_Color)
       {
       case 65534: //Bold style
-        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
+
+        Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+
+        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
 
         break;
 
       case 65533: //Highlight style
-        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
+
+        Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+
+        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
 
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65532: //Link style
-        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
+
+      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        
+        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
 
       case 65531: //Heading style
-        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
+
+      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
 
       default:
-        Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
+
+      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+
+        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
 
+      
+      Xila.Display.Click(F("D_HOT"), 0);
+
       Cursor_Y += 14; //new line
+
       Text_Char_Count = 0;
       Width_Count = 0;
-      Xila.Delay(200);
+      //Xila.Delay(200);
     }
 
     c = Cache_File.read();

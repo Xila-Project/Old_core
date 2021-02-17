@@ -9,15 +9,20 @@ Periodic_Class::Periodic_Class() : Software_Class(6)
 
 Periodic_Class::~Periodic_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
     Instance_Pointer = NULL;
 }
 
 Software_Class *Periodic_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Periodic_Class;
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Periodic_Class();
     return Instance_Pointer;
 }
 

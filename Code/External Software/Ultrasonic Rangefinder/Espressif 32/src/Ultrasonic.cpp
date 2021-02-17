@@ -13,15 +13,20 @@ Ultrasonic_Class::Ultrasonic_Class() : Software_Class(5),
 
 Ultrasonic_Class::~Ultrasonic_Class()
 {
+  if (Instance_Pointer != this)
+  {
+    delete Instance_Pointer;
+  }
   Instance_Pointer = NULL;
 }
 
 Software_Class *Ultrasonic_Class::Load()
 {
-  if (Instance_Pointer == NULL)
+  if (Instance_Pointer != NULL)
   {
-    Instance_Pointer = new Ultrasonic_Class;
+    delete Instance_Pointer;
   }
+  Instance_Pointer = new Ultrasonic_Class();
   return Instance_Pointer;
 }
 

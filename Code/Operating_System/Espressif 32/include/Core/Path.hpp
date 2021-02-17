@@ -34,7 +34,7 @@
 #define Shutdown_Sound_Path Sounds_Directory_Path "SHUTDOWN" Sound_File_Extension
 #define Login_Sound_Path Sounds_Directory_Path "LOGIN" Sound_File_Extension
 
-#define Software_Dump_Registry_Path Temporary_Directory_Path "SOFTWARE" Data_File_Extension
+#define Dump_Registry_Path Temporary_Directory_Path "DUMP" Data_File_Extension
 #define Clipboard_Path Temporary_Directory_Path "CLIPBOAR" Data_File_Extension
 #define Test_Path Temporary_Directory_Path "TEST" Data_File_Extension
 

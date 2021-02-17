@@ -118,15 +118,20 @@ Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(8),
 
 Tiny_Basic_Class::~Tiny_Basic_Class()
 {
+  if (Instance_Pointer != this)
+  {
+    delete Instance_Pointer;
+  }
   Instance_Pointer = NULL;
 }
 
 Software_Class *Tiny_Basic_Class::Load()
 {
-  if (Instance_Pointer == NULL)
+  if (Instance_Pointer != NULL)
   {
-    Instance_Pointer = new Tiny_Basic_Class;
+    delete Instance_Pointer;
   }
+  Instance_Pointer = new Tiny_Basic_Class();
   return Instance_Pointer;
 }
 
@@ -1883,7 +1888,7 @@ dwrite:
 {
   short int pinNo;
   short int value;
-  unsigned char *txtposBak;
+  //unsigned char *txtposBak;
 
   // Get the pin number
   expression_error = 0;
@@ -1898,7 +1903,7 @@ dwrite:
   txtpos++;
   ignore_blanks();
 
-  txtposBak = txtpos;
+  //txtposBak = txtpos;
   scantable(highlow_tab);
   if (table_index != HIGHLOW_UNKNOWN)
   {
@@ -1933,8 +1938,8 @@ dwrite:
 }
   goto run_next_statement;
 
-pinmode: // PINMODE <pin>, I/O
-  goto unimplemented;
+/*pinmode: // PINMODE <pin>, I/O
+  goto unimplemented;*/
 
   /*************************************************/
 files:
@@ -2625,10 +2630,11 @@ getpix:
     printmsg(spacemsg);
     goto run_next_statement;*/
 }
-
 wifi:
-
 {
+  goto unimplemented;
+
+  /*
   short int value;
 
   unsigned char *ssid;
@@ -2639,7 +2645,7 @@ wifi:
   value = expression();
   if (expression_error)
     goto qwhat;
-  //ssid = (unsigned char *)value;
+  ssid = (unsigned char *)value;
 
   // check for a comma
   ignore_blanks();
@@ -2653,7 +2659,7 @@ wifi:
   value = expression();
   if (expression_error)
     goto qwhat;
-  //pswd = (unsigned char *)value;
+  pswd = (unsigned char *)value;
 
   if (Xila.WiFi_Connect((char *)ssid, (char *)pswd) != Xila.Success)
   {
@@ -2666,6 +2672,7 @@ wifi:
 
   // all set with
   goto run_next_statement;
+  */
 }
 
 tonestop:

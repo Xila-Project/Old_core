@@ -20,6 +20,7 @@ Simon_Class::~Simon_Class()
     {
         delete Instance_Pointer;
     }
+    Instance_Pointer = NULL;
 }
 
 Software_Class* Simon_Class::Load()

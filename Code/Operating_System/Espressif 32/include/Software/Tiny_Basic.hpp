@@ -318,8 +318,7 @@ protected:
     static const unsigned char spacemsg[2];
 
     
-
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+    //void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     // custom function
 

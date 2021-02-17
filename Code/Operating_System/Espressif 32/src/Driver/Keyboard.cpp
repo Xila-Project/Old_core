@@ -41,11 +41,13 @@
 #include "Driver/Keyboard.hpp"
 
 volatile uint8_t Keyboard_Class::buffer[BUFFER_SIZE];
+volatile uint8_t Keyboard_Class::head = 0;
+volatile uint8_t Keyboard_Class::tail = 0;
 uint8_t Keyboard_Class::DataPin = 0;
 uint8_t Keyboard_Class::irq_num = 255;
 uint8_t Keyboard_Class::CharBuffer = 0;
 uint8_t Keyboard_Class::UTF8next = 0;
-const Keymap_Class *keymap = NULL;
+const Keymap_Class* Keyboard_Class::keymap = NULL;
 
 // The ISR for the external interrupt
 void Keyboard_Class::Interrupt_Handler()

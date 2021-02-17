@@ -29,11 +29,7 @@ protected:
 public:
 
     bool Is_Equal(Software_Handle_Class const& Software_Handle_To_Compare) const;
-
-    void From_Char_Array(const char* Char_Array);
-    void To_Char_Array(char* Char_Array);
-
-    
+   
 
     enum Software_Type
     {
@@ -42,7 +38,6 @@ public:
     
     
     Software_Handle_Class();
-    Software_Handle_Class(const char* Char_Array);
     Software_Handle_Class(const char* Software_Name, uint8_t Icon_ID, Software_Class *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL);
     ~Software_Handle_Class();
 

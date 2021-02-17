@@ -4,10 +4,11 @@ Music_Player_Class *Music_Player_Class::Instance_Pointer = NULL;
 
 Software_Class *Music_Player_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Music_Player_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Music_Player_Class();
     return Instance_Pointer;
 }
 

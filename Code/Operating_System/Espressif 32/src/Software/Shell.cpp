@@ -34,15 +34,20 @@ Shell_Class::Shell_Class() : Software_Class(6),
 
 Shell_Class::~Shell_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
     Instance_Pointer = NULL;
 }
 
 Software_Class *Shell_Class::Load_Shell()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Shell_Class();
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Shell_Class();
     return Instance_Pointer;
 }
 
@@ -648,7 +653,7 @@ void Shell_Class::Drawer_Commands()
         Idle();
         break;
     case Instruction('N', 'd'): // Nd : Next drawer items
-        if (Offset > 241)
+        if ((Offset + 15) < (sizeof(Xila.Software_Handle_Pointer) / sizeof(Xila.Software_Handle_Pointer[1])))
         {
             if (Xila.Software_Handle_Pointer[Offset + 15] != NULL)
             {
@@ -660,11 +665,8 @@ void Shell_Class::Drawer_Commands()
     case Instruction('P', 'd'): // Pd : Previous drawer items
         if (Offset > 14)
         {
-            if (Xila.Software_Handle_Pointer[Offset + 15] != NULL)
-            {
-                Offset += 15;
-                Refresh_Drawer();
-            }
+            Offset -= 15;
+            Refresh_Drawer();
         }
         break;
     case Instruction('d', '0'): // dx : Open software from drawer

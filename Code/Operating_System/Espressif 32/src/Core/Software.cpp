@@ -57,12 +57,3 @@ void Software_Class::Execute(char Task_Method_Char1, char Task_Method_Char2)
   Execute(((uint16_t)Task_Method_Char1 << 8) | (uint16_t)Task_Method_Char2);
 }
 
-Software_Class *Software_Class::Load() // just an example
-{
-  if (Instance_Pointer == NULL)
-  {
-    Instance_Pointer = new Software_Class(6);
-  }
-  return Instance_Pointer;
-}
-

@@ -29,7 +29,7 @@ public:
 
     static Software_Class *Load();
 
-    void Set_Variable(const void *, uint8_t , uint8_t , uint8_t  = 0);
+    //void Set_Variable(const void *, uint8_t , uint8_t , uint8_t  = 0);
 
     enum Picture_ID
     {

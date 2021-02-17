@@ -6,10 +6,11 @@ Paint_Class* Paint_Class::Instance_Pointer = NULL;
 
 Software_Class *Paint_Class::Load()
 {
-    if (Instance_Pointer == NULL)
+    if (Instance_Pointer != NULL)
     {
-        Instance_Pointer = new Paint_Class;
+        delete Instance_Pointer;
     }
+    Instance_Pointer = new Paint_Class();
     return Instance_Pointer;
 }
 
@@ -21,9 +22,11 @@ Paint_Class::Paint_Class() : Software_Class(6)
 
 Paint_Class::~Paint_Class()
 {
-
-
-
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
+    Instance_Pointer = NULL;
 }
 
 /*void Paint_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)

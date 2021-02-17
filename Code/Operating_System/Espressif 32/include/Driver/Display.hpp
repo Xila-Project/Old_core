@@ -220,7 +220,7 @@ public:
     void Start_Sending_Realtime_Coordinate();
     void Stop_Sending_Realtime_Coordinate();
 
-    inline void Write(int Data);
+    void Write(int Data);
     void Send_Raw(const __FlashStringHelper *Data);
     void Send_Raw(String const &Data);
     void Send_Raw(const char* Data);

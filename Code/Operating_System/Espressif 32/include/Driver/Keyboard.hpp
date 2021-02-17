@@ -208,7 +208,7 @@ public:
 
     static void Interrupt_Handler();
     static inline uint8_t get_scan_code();
-    static char get_iso8859_code();
+    char get_iso8859_code();
 
     /**
  * Purpose: Provides an easy access to PS2 keyboards

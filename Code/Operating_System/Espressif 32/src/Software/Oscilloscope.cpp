@@ -10,15 +10,20 @@ Oscilloscope_Class::Oscilloscope_Class() : Software_Class(6)
 
 Oscilloscope_Class::~Oscilloscope_Class()
 {
+	if (Instance_Pointer != this)
+	{
+		delete Instance_Pointer;
+	}
 	Instance_Pointer = NULL;
 }
 
 Software_Class *Oscilloscope_Class::Load()
 {
-	if (Instance_Pointer == NULL)
+	if (Instance_Pointer != NULL)
 	{
-		return new Oscilloscope_Class;
+		delete Instance_Pointer;
 	}
+	Instance_Pointer = new Oscilloscope_Class();
 	return Instance_Pointer;
 }
 
@@ -241,7 +246,7 @@ void Oscilloscope_Class::Run()
 			}
 			else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
 			{
-				const unsigned long r_[] = {5000 / DOTS_DIV, 10000 / DOTS_DIV, 20000 / DOTS_DIV};
+				const unsigned long r_[] = {(uint32_t)(5000 / DOTS_DIV), (uint32_t)(10000 / DOTS_DIV), (uint32_t)(20000 / DOTS_DIV)};
 				unsigned long st = micros();
 				unsigned long r = r_[rate - 3];
 				for (int i = 0; i < SAMPLES; i++)
@@ -279,9 +284,9 @@ void Oscilloscope_Class::Run()
 				}
 			}
 
-			const unsigned long r_[] = {50000 / DOTS_DIV, 100000 / DOTS_DIV, 200000 / DOTS_DIV,
-										500000 / DOTS_DIV, 1000000 / DOTS_DIV, 2000000 / DOTS_DIV,
-										5000000 / DOTS_DIV, 10000000 / DOTS_DIV};
+			const unsigned long r_[] = {(uint32_t)(50000 / DOTS_DIV), (uint32_t)(100000 / DOTS_DIV), (uint32_t)(200000 / DOTS_DIV),
+										(uint32_t)(500000 / DOTS_DIV), (uint32_t)(1000000 / DOTS_DIV), (uint32_t)(2000000 / DOTS_DIV),
+										(uint32_t)(5000000 / DOTS_DIV), (uint32_t)(10000000 / DOTS_DIV)};
 			unsigned long st = micros();
 			for (int i = 0; i < SAMPLES; i++)
 			{

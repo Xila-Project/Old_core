@@ -1,4 +1,4 @@
-#include "Core/Core.hpp"
+//#include "Core/Core.hpp"
 
 //---------------------------------------------------------------------------//
 //                                Virtual Memory Management                  //
@@ -212,7 +212,7 @@ void Xila_Class::Get_Variable(char const &Tag, uint32_t *Number_To_Get, uint16_t
   Virtual_Memory_File.close();
   xSemaphoreGive(Virtual_Memory_Semaphore);
 }
-/*
+
 // 32-bit variable
 void Xila_Class::Set_Variable(uint8_t const &Tag, uint32_t const &Number_To_Set, Software_Handle_Class *Software_Handle_Targeted = NULL)
 {
