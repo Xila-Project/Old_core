@@ -37,14 +37,14 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   {
     if (Open_Software_Pointer[1] != NULL)
     {
-      Maximize_Shell();
+      Maximize_Software(Shell_Handle);
       return Success;
     }
     else
     {
       Minimize_Software();
       Open_Software_Pointer[1] = (*Shell_Handle.Load_Function_Pointer)();
-      Maximize_Shell();
+      Maximize_Software(Shell_Handle);
       return Success;
     }
   }
@@ -164,7 +164,7 @@ Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_H
   }
 
   // -- Looking for the concern software
-  for (uint8_t i = 0; i < 8; i++)
+  for (uint8_t i = 1; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
     {

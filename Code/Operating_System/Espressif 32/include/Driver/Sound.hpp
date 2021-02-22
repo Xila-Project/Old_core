@@ -16,6 +16,16 @@
 #define RIGHT_CHANNEL 1
 #define CUSTOM_CHANNEL 2
 
+#define DEBUG_MODE 1
+
+#if DEBUG_MODE == 1
+#define Serial_Print(x) Serial.print(F(x))
+#define Serial_Print_Line(x) Serial.println(F(x))
+#else
+#define Serial_Print(x)
+#define Serial_Print_Line(x)
+#endif
+
 class Sound_Class
 {
 protected:
@@ -63,7 +73,24 @@ protected:
 
     uint8_t State;
 
-    enum Sound_Driver_State
+    enum Event
+    {
+        Success = 1,
+        Failed_To_Get_RTC_Period,
+        Failed_To_Open_File,
+        Failed_To_Get_Metadata,
+        Failed_To_Load_ULP_Program,
+        Failed_To_Create_Task,
+        Not_RIFF_Compliant,
+        Not_WAVE_Compliant,
+        Incompatible_Block_ID,
+        Not_A_PCM_File,
+        Unsupported_Bit_Depth,
+        Unsupported_Sampling_Rate,
+        Unsupported_Channel_Number,
+    };
+
+    enum State
     {
         Stopped,
         Playing,

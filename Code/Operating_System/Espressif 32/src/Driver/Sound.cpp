@@ -64,8 +64,8 @@ uint8_t Sound_Class::Get_Metadata()
     Music_File.readBytes(Temporary_Char_Array_2, 4);
     if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 4) != 0)
     {
-        Serial.println(F("Not RIFF Compliant"));
-        return 0;
+        Serial_Print_Line("Not RIFF Compliant");
+        return Not_RIFF_Compliant;
     }
 
     // File size : 4 bytes
@@ -79,8 +79,8 @@ uint8_t Sound_Class::Get_Metadata()
     Music_File.readBytes(Temporary_Char_Array_2, 4);
     if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 4) != 0)
     {
-        Serial.println(F("Not WAVE compliant"));
-        return 0;
+        Serial_Print_Line("Not WAVE compliant");
+        return Not_WAVE_Compliant;
     }
 
     // Format descriptor : 4 bytes
@@ -90,8 +90,8 @@ uint8_t Sound_Class::Get_Metadata()
     Music_File.readBytes(Temporary_Char_Array_2, 4);
     if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 4) != 0)
     {
-        Serial.println(F("Unrecognized format block ID"));
-        return 0;
+        Serial_Print_Line("Unrecognized format block ID");
+        return Incompatible_Block_ID;
     }
 
     // Block size : 4 bytes
@@ -104,8 +104,8 @@ uint8_t Sound_Class::Get_Metadata()
     Music_File.seek(0x14);
     if (Music_File.read() != 0x01)
     {
-        Serial.println(F("Not a PCM file"));
-        return 0;
+        Serial_Print_Line("Not a PCM file");
+        return Not_A_PCM_File;
     }
 
     // Channel number: 2 bytes
@@ -232,27 +232,34 @@ void Sound_Class::No_Tone(uint8_t const &Pin)
 
 uint8_t Sound_Class::Play(File &File_To_Play)
 {
-    Serial.println(F("Play sound"));
+    Serial_Print_Line("Play sound");
     Buffer_To_Play = NULL;
+    uint8_t Return_Event;
+
     if (!File_To_Play)
     {
-        Serial.println(F("Cannot open file"));
-        return 0;
+        Serial_Print_Line("Cannot open file");
+        return Failed_To_Open_File;
     }
 
     Music_File = File_To_Play;
 
-    if (!Get_Metadata())
+    Return_Event = Get_Metadata();
+
+    if (!Return_Event)
     {
-        Serial.println(F("Cannot get metadata"));
-        return 0;
+        Serial_Print_Line("Cannot get metadata");
+        return Return_Event;
     }
-    if (!Start_ULP())
+
+    Return_Event = Start_ULP();
+
+    if (!Return_Event)
     {
-        Serial.println(F("Cannot start ulp"));
-        return 0;
+        Serial_Print_Line("Cannot start ulp");
+        return Return_Event;
     }
-    return 1;
+    return Success;
 }
 
 uint8_t Sound_Class::Play(uint8_t *Samples, const uint32_t &Buffer_Size, const uint32_t &Sample_Frequency)
@@ -305,7 +312,7 @@ uint8_t Sound_Class::Start_ULP()
         rtc_8md256_period = rtc_clk_cal(RTC_CAL_8MD256, 1000);
         if (rtc_8md256_period == 0) // if still 0 (avoid divide by 0)
         {
-            return 0;
+            return Failed_To_Get_RTC_Period;
         }
     }
 
@@ -326,7 +333,7 @@ uint8_t Sound_Class::Start_ULP()
     if (Bits_Per_Sample != 8)
     {
         // Currently only support unsigned 8 bits samples
-        return 0;
+        return Unsupported_Bit_Depth;
     }
 
     if (Channel_Number == 1)
@@ -337,7 +344,7 @@ uint8_t Sound_Class::Start_ULP()
             Serial.println("Sampling rate too high");
             return 0;
         }
-        Serial.println(F("mono"));
+        Serial_Print_Line("mono");
         totalSampleWords = 2048 - 512 - (opcodeCount + 1);
         totalSamples = totalSampleWords * 2;
         const ulp_insn_t Play_Program[] = {
@@ -381,7 +388,11 @@ uint8_t Sound_Class::Start_ULP()
         };
 
         size_t Size = sizeof(Play_Program) / sizeof(ulp_insn_t);
-        ulp_process_macros_and_load(0, Play_Program, &Size);
+
+        if (ulp_process_macros_and_load(0, Play_Program, &Size) != ESP_OK)
+        {
+            return Failed_To_Load_ULP_Program;
+        }
 
         //create DAC opcode tables
         for (int i = 0; i < 256; i++)
@@ -398,9 +409,9 @@ uint8_t Sound_Class::Start_ULP()
         if (Delay_Time < 0)
         {
             Serial.println("Sampling rate too high");
-            return 0;
+            return Unsupported_Sampling_Rate;
         }
-        Serial.println(F("stereo"));
+        Serial_Print_Line("stereo");
         totalSampleWords = 2048 - 512 - 512 - (opcodeCount + 1);
         totalSamples = totalSampleWords * 2;
         retAddress1 = 9;
@@ -474,13 +485,16 @@ uint8_t Sound_Class::Start_ULP()
     }
     else
     {
-        return 0;
+        return Unsupported_Channel_Number;
         // dont support more than 2 channel
     }
 
-    xTaskCreatePinnedToCore(Sound_Class::Sound_Task, "Sound Driver", 1024 * 6, NULL, DRIVER_TASK_PRIORITY, &Sound_Task_Handle, SYSTEM_CORE);
+    if (xTaskCreatePinnedToCore(Sound_Class::Sound_Task, "Sound Driver", 1024 * 6, NULL, DRIVER_TASK_PRIORITY, &Sound_Task_Handle, SYSTEM_CORE) != pdPASS)
+    {
+        return Failed_To_Create_Task;
+    }
 
-    return 1;
+    return Success;
 }
 
 void Sound_Class::Stop()
@@ -490,7 +504,7 @@ void Sound_Class::Stop()
         return;
     }
 
-    Serial.println(F("Stop"));
+    Serial_Print_Line("Stop");
     for (int i = 0; i < totalSampleWords; i++) //mute dac
     {
         RTC_SLOW_MEM[bufferStart + i] = 0x8080;
@@ -529,7 +543,7 @@ void Sound_Class::Sound_Task(void *pvParameters)
     {
         if (Instance_Pointer->Mode == 1) //play from buffer
         {
-            Serial.println(F("play from buffer"));
+            Serial_Print_Line("play from buffer");
             while (1)
             {
                 /*Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Adress] & 0xffff;
@@ -565,7 +579,7 @@ void Sound_Class::Sound_Task(void *pvParameters)
         {
             if (Instance_Pointer->Bits_Per_Sample == 8) // 8 bit from sd
             {
-                Serial.println(F("8 bit"));
+                Serial_Print_Line("8 bit");
                 uint8_t Buffer[Instance_Pointer->totalSampleWords * 2];
                 Instance_Pointer->Music_File.read(Buffer, sizeof(Buffer));
                 while (1)
@@ -602,7 +616,7 @@ void Sound_Class::Sound_Task(void *pvParameters)
             }
             else
             {
-                Serial.println(F("Unsupported bit res"));
+                Serial_Print_Line("Unsupported bit res");
                 vTaskDelete(NULL);
             }
         }

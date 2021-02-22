@@ -10,7 +10,7 @@
 
 // Software
 
-#define MAXIMUM_SOFTWARE 15
+#define MAXIMUM_SOFTWARE 20
 
 // Pin configuration
 
@@ -41,9 +41,15 @@
 #define DISPLAY_VERSION_MINOR 1
 #define DISPLAY_VERSION_REVISION 0
 
+// Battery 
+
+#define BATTERY_CHECKING 0
+
 // Core tasks repartition
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
+
+
 
 #define IDLE_TASK_PRIORITY 0
 #define SOFTWARE_TASK_PRIOITY 1
@@ -72,13 +78,13 @@
 
 #define VERBOSE_MODE 1
 
-
+#define SERIAL_SPEED 115200
 #if VERBOSE_MODE == 0
 #define Verbose_Print(t) NULL
 #define Verbose_Print_Line(t) NULL 
 #else
 #define Verbose_Print(t) Serial.print(F(t))
-#define Verbose_Print_Line(t) Xila.Print_Line(F(t))
+#define Verbose_Print_Line(t) Serial.println(F(t))
 #endif
 
 

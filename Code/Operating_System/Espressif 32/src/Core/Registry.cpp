@@ -1,5 +1,84 @@
 #include "Core/Core.hpp"
 
+Xila_Event Xila_Class::WiFi_Connect()
+{
+  Verbose_Print_Line("WiFi connect");
+
+  if (WiFi.status() == WL_CONNECTED)
+  {
+    return Success;
+  }
+  File Temporary_File = Drive->open(Network_Registry_Path);
+
+  DynamicJsonDocument Network_Registry(512);
+
+  if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    
+    return Error;
+  }
+
+  JsonObject WiFi_Registry = Network_Registry["WiFi"];
+
+  char Name[33];
+  char Password[81];
+
+  strlcpy(Name, WiFi_Registry["Name"] | "\0", sizeof(Name));
+  strlcpy(Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
+  
+  Verbose_Print_Line(Name);
+  Verbose_Print_Line(Password);
+
+  WiFi.setAutoConnect(false);
+  WiFi.begin(Name, Password);
+  for (uint8_t i = 0; i <= 50; i++)
+  {
+    if (i == 50)
+    {
+      return Error;
+    }
+    else if (WiFi.status() == WL_CONNECTED)
+    {
+      break;
+    }
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
+{
+  WiFi.setAutoConnect(false);
+  WiFi.begin(Name, Password);
+  for (uint8_t i = 0; i <= 50; i++)
+  {
+    if (i == 50)
+    {
+      return Error;
+    }
+    else if (WiFi.status() == WL_CONNECTED)
+    {
+      break;
+    }
+    vTaskDelay(pdMS_TO_TICKS(100));
+  }
+  File Temporary_File = Drive->open(Network_Registry_Path);
+  if (!Temporary_File)
+  {
+    return Error;
+  }
+  DynamicJsonDocument Network_Registry(512);
+  deserializeJson(Network_Registry, Temporary_File);
+  JsonObject WiFi = Network_Registry["WiFi"];
+  WiFi["Name"] = Name;
+  WiFi["Password"] = Password;
+  serializeJson(Network_Registry, Temporary_File);
+  Temporary_File.close();
+  return Success;
+}
+
+
 Xila_Event Xila_Class::Load_Network_Registry()
 {
   // Currently network is handled by wifi connect ()
@@ -14,6 +93,7 @@ Xila_Event Xila_Class::Load_System_Registry()
   {
     return Error;
   }
+  
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {

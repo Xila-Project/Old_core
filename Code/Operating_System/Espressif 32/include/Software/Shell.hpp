@@ -83,7 +83,7 @@ protected:
      */
     enum Pages
     {
-        About = 21,
+        About = 20,
         Color_Picker, // color picker
         Desk,
         Drawer,

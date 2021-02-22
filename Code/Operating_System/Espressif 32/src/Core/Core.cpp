@@ -37,9 +37,6 @@ Xila_Class::Xila_Class() : Tag(0),
 
   memset(Current_Username, '\0', sizeof(Current_Username));
 
-  memset(Open_Software_Pointer, '\0', sizeof(Open_Software_Pointer));
-  memset(Software_Handle_Pointer, '\0', sizeof(Software_Handle_Pointer));
-
   memset(Device_Name, '\0', sizeof(Device_Name));
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal
@@ -73,71 +70,7 @@ void Xila_Class::Check_Watchdog()
 }
 
 
-Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
-{
-  WiFi.setAutoConnect(false);
-  WiFi.begin(Name, Password);
-  for (uint8_t i = 0; i <= 50; i++)
-  {
-    if (i == 50)
-    {
-      return Error;
-    }
-    else if (WiFi.status() == WL_CONNECTED)
-    {
-      break;
-    }
-    vTaskDelay(pdMS_TO_TICKS(100));
-  }
-  File Temporary_File = Drive->open(Network_Registry_Path);
-  if (!Temporary_File)
-  {
-    return Error;
-  }
-  DynamicJsonDocument Network_Registry(512);
-  deserializeJson(Network_Registry, Temporary_File);
-  JsonObject WiFi = Network_Registry["WiFi"];
-  WiFi["Name"] = Name;
-  WiFi["Password"] = Password;
-  serializeJson(Network_Registry, Temporary_File);
-  Temporary_File.close();
-  return Success;
-}
 
-Xila_Event Xila_Class::WiFi_Connect()
-{
-  if (WiFi.status() == WL_CONNECTED)
-  {
-    return Success;
-  }
-  File Temporary_File = Drive->open(Network_Registry_Path);
-  DynamicJsonDocument Network_Registry(512);
-  if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
-  {
-    return Error;
-  }
-  JsonObject WiFi_Registry = Network_Registry["WiFi"];
-  char Name[33];
-  char Password[81];
-  strlcpy(Name, WiFi_Registry["Name"], sizeof(Name));
-  strlcpy(Password, WiFi_Registry["Password"], sizeof(Password));
-  WiFi.setAutoConnect(false);
-  WiFi.begin(Name, Password);
-  for (uint8_t i = 0; i <= 50; i++)
-  {
-    if (i == 50)
-    {
-      return Error;
-    }
-    else if (WiFi.status() == WL_CONNECTED)
-    {
-      break;
-    }
-    vTaskDelay(pdMS_TO_TICKS(100));
-  }
-  Temporary_File.close();
-  return Success;
-}
 
 Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 {
@@ -330,85 +263,99 @@ const char *Xila_Class::Get_Device_Name()
 
 void Xila_Class::Refresh_Header()
 {
-  uint32_t Update_Time = millis();
-  static char Clock[5];
-  Clock[0] = Time.tm_hour / 10;
-  Clock[0] += 48;
-  Clock[1] = Time.tm_hour % 10;
-  Clock[1] += 48;
-  Clock[2] = ':';
-  Clock[3] = Time.tm_min / 10;
-  Clock[3] += 48;
-  Clock[4] = Time.tm_min % 10;
-  Clock[4] += 48;
-  Clock[5] += '\0';
-  Display.Set_Text(F("CLOCK_TXT"), Clock);
 
-  Clock[0] = WiFi.RSSI();
+  char Temporary_Char_Array[6];
+
+  // -- Update clock
+  Temporary_Char_Array[0] = Time.tm_hour / 10;
+  Temporary_Char_Array[0] += 48;
+  Temporary_Char_Array[1] = Time.tm_hour % 10;
+  Temporary_Char_Array[1] += 48;
+  Temporary_Char_Array[2] = ':';
+  Temporary_Char_Array[3] = Time.tm_min / 10;
+  Temporary_Char_Array[3] += 48;
+  Temporary_Char_Array[4] = Time.tm_min % 10;
+  Temporary_Char_Array[4] += 48;
+  Temporary_Char_Array[5] = '\0';
+
+  Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
+
+  // Update connexion
+  Temporary_Char_Array[5] = WiFi.RSSI();
 
   if (WiFi.status() == WL_CONNECTED)
   {
-    if (Clock[0] <= -70)
+    if (Temporary_Char_Array[5] <= -70)
     {
-      Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Low));
+      Temporary_Char_Array[0] = WiFi_Low;
     }
-    if (Clock[0] <= -50 && Clock[0] > -70)
+    if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
     {
-      Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_Medium));
+      Temporary_Char_Array[0] = WiFi_Medium;
     }
     else
     {
-      Display.Set_Text(F("CONNEXION_BUT"), F(WiFi_High));
+      Temporary_Char_Array[0] = WiFi_High;
     }
   }
   else
   {
-    Display.Set_Text(F("CONNEXION_BUT"), F(' '));
+    Temporary_Char_Array[0] = ' ';
   }
+  Temporary_Char_Array[1] = '\0';
+  Display.Set_Text(F("CONNEXION_BUT"), Temporary_Char_Array);
 
-  Clock[0] = Battery.Get_Charge_Level();
-  if (Clock[0] <= 15)
+  // -- Update charge level
+  Temporary_Char_Array[5] = Battery.Get_Charge_Level();
+  
+  if (Temporary_Char_Array[5] <= 15)
   {
-    if (Clock[0] <= 2)
+    #if BATTERY_CHECKING == 1
+    if (Temporary_Char_Array[5] <= 2)
     {
       Shutdown();
     }
-    Display.Set_Text(F("BATTERY_BUT"), F(Battery_Empty));
+    #endif
+    Temporary_Char_Array[0] = Battery_Empty;
+    
   }
-  else if (Clock[0] <= 30 && Clock[0] > 15)
+  else if (Temporary_Char_Array[5] <= 30 && Temporary_Char_Array[5] > 15)
   {
-    Display.Set_Text(F("BATTERY_BUT"), F(Battery_Low));
+    Temporary_Char_Array[0] = Battery_Low;
   }
-  else if (Clock[0] <= 70 && Clock[0] > 30)
+  else if (Temporary_Char_Array[5] <= 70 && Temporary_Char_Array[5] > 30)
   {
-    Display.Set_Text(F("BATTERY_BUT"), F(Battery_Medium));
+    Temporary_Char_Array[0] = Battery_Medium;
   }
   else // more than 70 %
   {
-    Display.Set_Text(F("BATTERY_BUT"), F(Battery_High));
+    Temporary_Char_Array[0] = Battery_High;
   }
+  Temporary_Char_Array[1] = '\0';
+  Display.Set_Text(F("BATTERY_BUT"), Temporary_Char_Array);
 
-  Clock[0] = Sound.Get_Volume();
-  if (Clock[0] == 0)
+  // -- Update sound
+  Temporary_Char_Array[5] = Sound.Get_Volume();
+  
+  if (Temporary_Char_Array[5] == 0)
   {
-    Display.Set_Text(F("SOUND_BUT"), F(Sound_Mute));
+    Temporary_Char_Array[0] = Sound_Mute;
   }
-  else if (Clock[0] < 33)
+  else if (Temporary_Char_Array[5] < 33)
   {
-    Display.Set_Text(F("SOUND_BUT"), F(Sound_Low));
+    Temporary_Char_Array[0] = Sound_Low;
   }
-  else if (Clock[0] < 66)
+  else if (Temporary_Char_Array[5] < 66)
   {
-    Display.Set_Text(F("SOUND_BUT"), F(Sound_Medium));
+    Temporary_Char_Array[0] = Sound_Medium;
   }
   else
   {
-    Display.Set_Text(F("SOUND_BUT"), F(Sound_High));
+    Temporary_Char_Array[0] = Sound_High;
   }
-  Update_Time = millis() - Update_Time;
+  Temporary_Char_Array[1] = '\0';
+  Display.Set_Text(F("SOUND_BUT"), Temporary_Char_Array);
 
-  Verbose_Print("Update header time :");
-  Verbose_Print_Line(Update_Time);
 }
 
 void Xila_Class::Execute_Startup_Function()
@@ -441,7 +388,7 @@ tm Xila_Class::Get_Time()
 
 void Xila_Class::Panic_Handler(uint32_t Panic_Code)
 {
-  vTaskSuspendAll();
+  //vTaskSuspendAll();
   Display.Set_Current_Page(F("Core_Panic"));
   Display.Set_Text(F("ERRORCODE_TXT"), String("Error code:") + String(Panic_Code));
   while (digitalRead(POWER_BUTTON_PIN) == HIGH)

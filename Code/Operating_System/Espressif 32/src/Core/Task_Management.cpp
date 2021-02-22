@@ -31,6 +31,7 @@ void Xila_Class::Task_Delete(Xila_Task_Handle Task_To_Delete)
 // Main task for the core
 void Xila_Class::Core_Task(void *pvParameters)
 {
+  uint32_t Last_Header_Refresh = 0;
   (void)pvParameters;
   while (1)
   {
@@ -44,11 +45,13 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     Xila.Synchronise_Time(); // Time synchro
 
-    Xila.Refresh_Header(); // Header refreshing
+    if ((millis() - Last_Header_Refresh) > 3000)
+    {
+      Xila.Refresh_Header(); // Header refreshing
+      Last_Header_Refresh = millis();
+    }
 
     Xila.Check_Power_Button();
-
-
 
 #if STACK_OVERFLOW_DETECTION == 1
     Verbose_Print("> Current task high watermark :");

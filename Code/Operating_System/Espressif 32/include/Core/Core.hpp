@@ -120,12 +120,12 @@ protected:
     //User attribute
     char Current_Username[9];
 
-    Software_Class *Open_Software_Pointer[8];
+    Software_Class* Open_Software_Pointer[8] = {0};
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
     // Open_Softwaer_Pointer[2 - 7] : Other openned software
 
-    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE];
+    Software_Handle_Class* Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {0};
     // Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle
 
     // Shell short cut
@@ -288,6 +288,11 @@ public:
     ~Xila_Class();
 
     // Drivers
+
+    // WiFi
+
+    //WiFiClass* WiFi = &WiFi;
+
     // Display
     Nextion_Display_Class Display;
     // Sound
@@ -298,7 +303,7 @@ public:
     Keyboard_Class Keyboard;
 // Disk
 #if SD_MODE == 0
-    fs::SDMMCFS Drive = &SD_MMC;
+    fs::SDMMCFS* Drive = &SD_MMC;
 #else
 
     fs::SDFS* Drive = &SD;
@@ -366,6 +371,8 @@ public:
     void Restart();  // private
     
     void Hibernate(); // private
+
+    void Deep_Sleep();
 
     // -- Registry modification methods -- //
 

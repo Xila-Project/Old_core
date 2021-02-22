@@ -43,6 +43,7 @@ Shell_Class::~Shell_Class()
 
 Software_Class *Shell_Class::Load_Shell()
 {
+    Verbose_Print_Line("Load Shell");
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
@@ -53,8 +54,8 @@ Software_Class *Shell_Class::Load_Shell()
 
 void Shell_Class::Startup()
 {
+    Verbose_Print_Line("> Open_Shell");
     Xila.Software_Open(Shell_Handle);
-    Verbose_Print_Line(F("> Open_Shell"));
 }
 
 // -- Main shell methods -- //
@@ -100,6 +101,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Login_Commands();
             break;
         case Pages::Load:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
             Instance_Pointer->Main_Commands();
             break;
         case Pages::Preferences_Network:
@@ -118,6 +120,8 @@ void Shell_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Install_Commands();
             break;
         default:
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Main_Commands();
             break;
         }
         Xila.Delay(5);
@@ -128,6 +132,9 @@ void Shell_Class::Main_Commands()
 {
     switch (Current_Command)
     {
+    case Xila.Watchdog:
+        Xila.Feed_Watchdog();
+        break;
     case Xila.Color_Picker:
         Open_Color_Picker();
         break;
@@ -203,7 +210,7 @@ void Shell_Class::Main_Commands()
         Instance_Pointer->Open_Preferences_System();
         break;
     case Xila.Open: // open routine
-        Execute(Xila.Maximize);
+        Instance_Pointer->Open_Login();
         break;
     case Xila.Close: // close
         delete Instance_Pointer;
@@ -1050,6 +1057,7 @@ void Shell_Class::Open_Login()
     if (Xila.Current_Username[0] == '\0') // Check if logged
     {
         Verbose_Print_Line("> Open login page");
+
         Xila.Display.Set_Current_Page(Login);
         memset(Username, '\0', sizeof(Username));
         memset(Password_1, '\0', sizeof(Password_1));

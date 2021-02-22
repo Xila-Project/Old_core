@@ -1,4 +1,11 @@
 {
     "Registry": "System",
-    "Version": "0.1.0"
+    "Version":
+    {
+        "Major":0,
+        "Minor":1,
+        "Revision":0
+    },
+    "State": 0,
+    "Device Name" : ""
 }

@@ -30,14 +30,18 @@ void Xila_Class::First_Start_Routine()
     esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
     if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
     {
-        Shutdown();
+        Deep_Sleep();
     }
 
     // -- Check if the battery level is enough to start.
+
+#if BATTERY_CHECKING == 1
     if (Battery.Get_Charge_Level() <= 3)
     {
-        Shutdown();
+        Deep_Sleep();
     }
+#endif
+
     pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
     attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
@@ -48,7 +52,12 @@ void Xila_Class::First_Start_Routine()
     rtc_wdt_disable();
 #endif
 
-    // --
+
+    // -- Set serial
+
+    #if VERBOSE_MODE == 1
+    Serial.begin(SERIAL_SPEED);
+    #endif
 
     //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
     Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
@@ -139,13 +148,17 @@ void Xila_Class::First_Start_Routine()
 
     if (Returned_Data != Success)
     {
+        Verbose_Print_Line("Failed to load sound registry");
     }
 
     // -- Play startup sound
 
     {
         File Temporary_File = Drive->open(Startup_Sound_Path);
-        Sound.Play(Temporary_File);
+        if (!Sound.Play(Temporary_File))
+        {
+            Verbose_Print_Line("Failed to play sound");
+        }
         Temporary_File.close();
     }
 
@@ -155,17 +168,24 @@ void Xila_Class::First_Start_Routine()
 
     if (Returned_Data != Success)
     {
+        Verbose_Print_Line("Failed to load display registry");
     }
 
     // WiFi :
 
-    WiFi_Connect();
+    Returned_Data = WiFi_Connect();
+
+    if (Returned_Data != Success)
+    {
+        Verbose_Print_Line("Failed to connect to WiFi");
+    }
 
     // -- Load Time Registry
     Returned_Data = Load_Time_Registry();
 
     if (Returned_Data != Success)
     {
+        Verbose_Print_Line("Failed to load time registry");
     }
 
     // -- Load Keyboard Registry
@@ -174,12 +194,16 @@ void Xila_Class::First_Start_Routine()
 
     if (Returned_Data != Success)
     {
+        Verbose_Print_Line("Failed to play keyboard registry");
     }
 }
 
 void Xila_Class::Second_Start_Routine()
 {
     Load_Dump();
+    
+    vTaskDelay(pdMS_TO_TICKS(3000));
+    Display.Set_Value(F("STATE_VAR"), 2);
 
     Execute_Startup_Function();
 
@@ -190,11 +214,8 @@ void Xila_Class::Second_Start_Routine()
         Open_Software_Pointer[1]->Execute(Installation_Wizard);
     }
 
+    Feed_Watchdog();
     xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
-
-    vTaskDelay(pdMS_TO_TICKS(3000));
-    Display.Set_Value(F("STATE_VAR"), 2);
-    vTaskDelay(pdMS_TO_TICKS(1200));
 }
 
 void Xila_Class::Start(Software_Handle_Class *Software_Package, uint8_t Size)
@@ -289,6 +310,11 @@ void Xila_Class::Shutdown()
     vTaskDelay(pdMS_TO_TICKS(4000));
 
     //Set deep sleep
+    Deep_Sleep();
+}
+
+void Xila_Class::Deep_Sleep()
+{
     esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
     esp_deep_sleep_start();
 }
@@ -409,6 +435,6 @@ Xila_Event Xila_Class::Create_Dump()
             }
         }
     }
-    
+
     return Success;
 }
