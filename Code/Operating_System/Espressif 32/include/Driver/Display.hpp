@@ -172,6 +172,9 @@ public:
     void Set_Value(const __FlashStringHelper *Object_Name, uint32_t const &Value);
     void Set_Value(String const& Object_Name, uint32_t const& Value);
     void Set_Value(const char* Object_Name, uint32_t const& Value);
+
+    void Set_Global_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value);
+
     void Set_Channel(const __FlashStringHelper *Object_Name, uint8_t const &Channel);
     void Set_Grid_Width(const __FlashStringHelper *Object_Name, uint16_t const &Width);
     void Set_Grid_Heigh(const __FlashStringHelper *Object_Name, uint16_t const &Heigh);

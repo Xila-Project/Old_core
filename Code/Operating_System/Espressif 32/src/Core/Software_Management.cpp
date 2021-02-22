@@ -42,15 +42,14 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
     }
     else
     {
-      Minimize_Software();
       Open_Software_Pointer[1] = (*Shell_Handle.Load_Function_Pointer)();
-      Maximize_Software(Shell_Handle);
+      Open_Software_Pointer[0] = Open_Software_Pointer[1];
       return Success;
     }
   }
 
   // -- checking if software is already openned
-  for (; i < 8; i++)
+  for (i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
     {
@@ -69,7 +68,7 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
     if (Open_Software_Pointer[i] == NULL)
     {
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
-      Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
+      Open_Software_Pointer[0] = Open_Software_Pointer[i];
       return Success;
     }
   }

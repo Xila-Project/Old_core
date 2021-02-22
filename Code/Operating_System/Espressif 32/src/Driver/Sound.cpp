@@ -476,6 +476,7 @@ uint8_t Sound_Class::Start_ULP()
         }
         //start
         RTC_SLOW_MEM[Index_Adress] = 0;
+        
         ulp_run(0);
 
         while (RTC_SLOW_MEM[Index_Adress] == 0)

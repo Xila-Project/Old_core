@@ -447,7 +447,7 @@ public:
         Minimize = 'm',
         Hibernating = 'H',
         Watchdog = 'W',
-        Installation_Wizard = 'I', // Open installation form
+        Install_Dialog = 'I', // Open installation form
         Open_File = 'f',
         Open_Folder = 'F',
         Save_File = 'e',

@@ -45,8 +45,8 @@ Xila_Class::Xila_Class() : Tag(0),
 Xila_Class::~Xila_Class() // destructor
 {
   Instance_Pointer = NULL;
+  vSemaphoreDelete(Dialog_Semaphore);
 }
-
 
 void Xila_Class::Check_Watchdog()
 {
@@ -68,9 +68,6 @@ void Xila_Class::Check_Watchdog()
     }
   }
 }
-
-
-
 
 Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 {

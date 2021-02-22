@@ -45,6 +45,7 @@ Nextion_Display_Class::~Nextion_Display_Class()
 void Nextion_Display_Class::Begin(uint32_t Baud_Rate, uint8_t RX_Pin, uint8_t TX_Pin)
 {
     Nextion_Serial.begin(Baud_Rate, SERIAL_8N1, RX_Pin, TX_Pin); //Nextion UART
+    Instruction_End(); // clear last entered command
     xTaskCreatePinnedToCore(Nextion_Serial_Receive, "Nextion Serial", 1024 * 4, NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, SYSTEM_CORE);
 }
 
@@ -434,6 +435,15 @@ void Nextion_Display_Class::Set_Value(const char *Object_Name, uint32_t const &V
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".val="));
     Nextion_Serial.print(String(Value));
+    Instruction_End();
+}
+
+void Nextion_Display_Class::Set_Global_Value(const __FlashStringHelper* Object_Name, uint32_t const& Value)
+{
+    xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
+    Nextion_Serial.print(Object_Name);
+    Nextion_Serial.print("=");
+    Nextion_Serial.print(Value);
     Instruction_End();
 }
 

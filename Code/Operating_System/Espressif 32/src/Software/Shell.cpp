@@ -132,6 +132,9 @@ void Shell_Class::Main_Commands()
 {
     switch (Current_Command)
     {
+    case Xila.Idle:
+        Xila.Delay(20);
+        break;
     case Xila.Watchdog:
         Xila.Feed_Watchdog();
         break;
@@ -162,7 +165,7 @@ void Shell_Class::Main_Commands()
     case Xila.Virtual_Keypad:
         Open_Keypad();
         break;
-    case Xila.Installation_Wizard:
+    case Xila.Install_Dialog:
         Open_Install();
         break;
     case Xila.Open_File:
@@ -220,7 +223,7 @@ void Shell_Class::Main_Commands()
         vTaskSuspend(NULL);
         break;
     case Xila.Maximize:
-        if (Xila.Power_Button_Counter == 1)
+        if (Xila.Power_Button_Counter >= 1)
         {
             Instance_Pointer->Execute(0x534D);
         }
@@ -237,6 +240,8 @@ void Shell_Class::Idle()
 
 void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
+    Serial.println(Xila.Display.Get_Current_Page());
+
     switch (Xila.Display.Get_Current_Page())
     {
     case Preferences_Hardware:
@@ -351,7 +356,7 @@ void Shell_Class::Refresh_File_Manager()
             Go_Parent();
             char Temporary_Input[14];
             memset(Temporary_Input, '\0', sizeof(Temporary_Input));
-            Xila.Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
+            Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
             Xila.Drive->rename(String(Current_Path) + String(Temporary_Item.name()), String(Current_Path) + String(Temporary_Input));
             Operation = Browse;
             Empty_Footer_Bar();
@@ -967,7 +972,7 @@ void Shell_Class::File_Manager_Commands()
         Refresh_File_Manager();
         break;
     case Instruction('K', 'P'): // -- Open keyboard to input the path -- //
-        Xila.Keyboard_Dialog(Current_Path, sizeof(Current_Path));
+        Keyboard_Dialog(Current_Path, sizeof(Current_Path));
         break;
 
     case Instruction('K', 'F'): // -- Open keyboard to input current item name -- //
@@ -977,7 +982,7 @@ void Shell_Class::File_Manager_Commands()
         }
         else if (Mode == Xila.Save_File)
         {
-            Xila.Keyboard_Dialog(Current_Item_Name, sizeof(Current_Item_Name));
+            Keyboard_Dialog(Current_Item_Name, sizeof(Current_Item_Name));
         }
         else
         {
@@ -1085,12 +1090,12 @@ void Shell_Class::Login_Commands()
         Idle();
         break;
     case Instruction('K', 'U'):
-        Xila.Keyboard_Dialog(Username, sizeof(Username));
+        Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Login();
         break;
 
     case Instruction('K', 'P'):
-        Xila.Keyboard_Dialog(Password_1, sizeof(Password_1), true);
+        Keyboard_Dialog(Password_1, sizeof(Password_1), true);
         Refresh_Login();
         break;
     case Instruction('L', 'o'): // Lo : Login with entred username and password
@@ -1342,11 +1347,11 @@ void Shell_Class::Preferences_Network_Commands()
     switch (Current_Command)
     {
     case Instruction('K', 'W'):
-        Xila.Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
+        Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
         Refresh_Preferences_Network();
         break;
     case Instruction('K', 'w'):
-        Xila.Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
+        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
         Refresh_Preferences_Network();
         break;
     case Instruction('W', 'C'):
@@ -1399,23 +1404,23 @@ void Shell_Class::Preferences_System_Commands()
     switch (Current_Command)
     {
     case Instruction('K', 'N'):
-        Xila.Keyboard_Dialog(NTP_Server, sizeof(NTP_Server));
+        Keyboard_Dialog(NTP_Server, sizeof(NTP_Server));
         Refresh_Preferences_System();
         break;
     case Instruction('K', 'U'):
-        Xila.Keyboard_Dialog(Target_Username, sizeof(Target_Username));
+        Keyboard_Dialog(Target_Username, sizeof(Target_Username));
         Refresh_Preferences_System();
         break;
     case Instruction('K', 'P'):
-        Xila.Keyboard_Dialog(Password_1, sizeof(Password_1));
+        Keyboard_Dialog(Password_1, sizeof(Password_1));
         Refresh_Preferences_System();
         break;
     case Instruction('K', 'u'):
-        Xila.Keyboard_Dialog(Username, sizeof(Username));
+        Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Preferences_System();
         break;
     case Instruction('K', 'D'):
-        Xila.Keyboard_Dialog(Device_Name, sizeof(Device_Name));
+        Keyboard_Dialog(Device_Name, sizeof(Device_Name));
         Refresh_Preferences_System();
         break;
     case Instruction('k', 'O'):
@@ -1704,27 +1709,27 @@ void Shell_Class::Install_Commands()
         break;
     }
     case Instruction('K', 'D'): // -- Device name keyboard input
-        Xila.Keyboard_Dialog(Device_Name, sizeof(Device_Name));
+        Keyboard_Dialog(Device_Name, sizeof(Device_Name));
         Refresh_Install();
         break;
     case Instruction('K', 'U'): // -- Username keyboard input
-        Xila.Keyboard_Dialog(Username, sizeof(Username));
+        Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Install();
         break;
     case Instruction('K', 'P'): // -- Password keyboard input
-        Xila.Keyboard_Dialog(Password_1, sizeof(Password_1));
+        Keyboard_Dialog(Password_1, sizeof(Password_1));
         Refresh_Install();
         break;
     case Instruction('K', 'p'): // -- Confirm password keyboard input
-        Xila.Keyboard_Dialog(Password_2, sizeof(Password_2));
+        Keyboard_Dialog(Password_2, sizeof(Password_2));
         Refresh_Install();
         break;
     case Instruction('K', 'W'): // -- WiFi name keyboard input
-        Xila.Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
+        Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
         Refresh_Install();
         break;
     case Instruction('K', 'w'): // -- WiFi password keyboard input
-        Xila.Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
+        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
         Refresh_Install();
         break;
     case Instruction('C', 'o'):
@@ -1780,11 +1785,80 @@ void Shell_Class::Install_Commands()
 
 void Shell_Class::Open_Keyboard()
 {
+    Verbose_Print_Line("Open kayboard");
+
     Xila.Display.Set_Current_Page(Keyboard);
 
     Xila.Display.Set_Value(F("LENGHT_VAR"), Xila.Dialog_Long[0]);
     Xila.Display.Set_Text(F("INPUT_VAR"), (char *)Xila.Dialog_Pointer);
     Xila.Display.Set_Input_Type(F("INPUT_TXT"), Xila.Dialog_Long[1]);
+}
+
+Xila_Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+    Verbose_Print_Line("Keyboard dialog");
+
+    Xila.Feed_Watchdog();
+
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+
+    Xila.Dialog_State = Xila.None;
+    Xila.Dialog_Long[0] = Char_Array_Size;
+    Xila.Dialog_Pointer = Char_Array_To_Get;
+
+    Xila.Display.Set_Current_Page(Keyboard);
+
+    Xila.Display.Set_Global_Value(F("LENGTH"), Char_Array_Size - 1);
+    Xila.Display.Set_Text(F("INPUT_VAR"), Char_Array_To_Get);
+    Xila.Display.Set_Input_Type(F("INPUT_TXT"), Masked_Input);
+
+    while (Xila.Dialog_State == Xila.None)
+    {
+        if (Xila.Keyboard.available())
+        {
+            int Char = Xila.Keyboard.read();
+
+            if (Char == PS2_ENTER)
+            {
+                Xila.Display.Click(F("b210"), 0);
+            }
+            else if (Char == PS2_BACKSPACE)
+            {
+                Xila.Display.Click(F("b200"), 0);
+            }
+            else if (Char == PS2_TAB)
+            {
+                Xila.Display.Click(F("b201"), 0);
+            }
+            else
+            {
+                if (isPrintable(Char))
+                {
+                    char Char_Array[2];
+                    Char_Array[0] = (char)Char;
+                    Char_Array[1] = '\0';
+                    Xila.Display.Add_Text(F("INPUT_VAR"), Char_Array);
+                }
+            }
+        }
+        Current_Command = Get_Command();
+        switch (Current_Command)
+        {
+        case Instruction('V', 'a'):
+            Xila.Dialog_State = Xila.Button_1;
+            break;
+        default:
+            Main_Commands();
+            break;
+        }
+    }
+
+    Xila.Display.Set_Current_Page(F("PAGE"));
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+
+    return Xila.Dialog_State;
 }
 
 void Shell_Class::Keyboard_Commands()
@@ -1819,9 +1893,6 @@ void Shell_Class::Keyboard_Commands()
     Current_Command = Get_Command();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
     case Instruction('V', 'a'):
         Xila.Dialog_State = Xila.Button_1;
         Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer);

@@ -3,18 +3,25 @@
 Xila_Event Xila_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
+
+  Verbose_Print_Line("Keyboard dialog");
+
   Feed_Watchdog();
 
   Display.Send_Raw(F("PAGE=dp"));
 
   Dialog_State = None;
   Dialog_Pointer = Char_Array_To_Get;
-  Dialog_Long[0] = Char_Array_Size;
+  Dialog_Long[0] = Char_Array_Size - 1;
   Dialog_Long[1] = Masked_Input;
   Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
 
   Execute_Shell(Virtual_Keyboard);
-  Maximize_Shell();
+
+  if (Maximize_Software(Shell_Handle) != Success)
+  {
+    Verbose_Print_Line("Failed to maximize shell");
+  }
 
   vTaskSuspend(NULL);
 

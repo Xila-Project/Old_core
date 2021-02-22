@@ -48,7 +48,8 @@ protected:
     uint16_t Standby_System_Time;
 
 
-    
+    Xila_Event Keyboard_Dialog(char*, size_t, bool = false);
+
 
     // -- Preferences system attributes
 

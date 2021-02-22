@@ -205,13 +205,15 @@ void Xila_Class::Second_Start_Routine()
     vTaskDelay(pdMS_TO_TICKS(3000));
     Display.Set_Value(F("STATE_VAR"), 2);
 
+    vTaskDelay(pdMS_TO_TICKS(3000));
+
     Execute_Startup_Function();
 
     vTaskDelay(pdMS_TO_TICKS(500));
 
     if (System_State == New_Installation)
     {
-        Open_Software_Pointer[1]->Execute(Installation_Wizard);
+        Open_Software_Pointer[1]->Execute(Install_Dialog);
     }
 
     Feed_Watchdog();
