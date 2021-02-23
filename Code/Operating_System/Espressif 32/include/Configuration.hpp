@@ -49,7 +49,8 @@
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
 
-
+// disable / enable animation
+#define ANIMATION 1
 
 #define IDLE_TASK_PRIORITY 0
 #define SOFTWARE_TASK_PRIOITY 1

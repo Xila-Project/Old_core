@@ -139,8 +139,8 @@ protected:
     // Display
     char Tag;
     static void Incomming_String_Data_From_Display(const char *, uint8_t);
-    static void Incomming_Numeric_Data_From_Display(uint32_t &);
-    static void Incomming_Event_From_Display(uint8_t &);
+    static void Incomming_Numeric_Data_From_Display(uint32_t);
+    static void Incomming_Event_From_Display(uint8_t);
 
     // Serial print
 

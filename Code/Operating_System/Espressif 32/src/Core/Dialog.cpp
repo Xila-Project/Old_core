@@ -112,38 +112,33 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
       Display.Set_Text(F("BUTTON3_BUT"), F(""));
     }
   }
-  else
-  {
-    Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
-    Display.Set_Text(F("BUTTON2_BUT"), F("No"));
-    Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
-  }
+
   Display.Set_Text(F("MESSAGE_TXT"), Message);
   switch (Event_Type)
   {
   case Error:
-    Display.Set_Text(F("ICON_TXT"), F(Cross));
+    Display.Set_Text(F("ICON_TXT"), Cross);
     Display.Set_Font_Color(F("ICON_TXT"), Red);
-    Display.Set_Text(F("TITLE_TXT"), F("Error"));
+    Display.Set_Text(F("HEADER_TXT"), F("Error"));
     break;
   case Warning:
-    Display.Set_Text(F("EVENT_PIC"), F(Exclamation_Mark));
+    Display.Set_Text(F("EVENT_PIC"), Exclamation_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Yellow);
-    Display.Set_Text(F("TITLE_TXT"), F("Warning"));
+    Display.Set_Text(F("HEADER_TXT"), F("Warning"));
     break;
   case Information:
-    Display.Set_Text(F("EVENT_PIC"), F(Exclamation_Mark));
+    Display.Set_Text(F("EVENT_PIC"), Exclamation_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Blue);
-    Display.Set_Text(F("TITLE_TXT"), F("Information"));
+    Display.Set_Text(F("HEADER_TXT"), F("Information"));
     break;
   case Question:
-    Display.Set_Text(F("EVENT_PIC"), F(Question_Mark));
+    Display.Set_Text(F("EVENT_PIC"), Question_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Green);
-    Display.Set_Text(F("TITLE_TXT"), F("Question"));
+    Display.Set_Text(F("HEADER_TXT"), F("Question"));
   default:
     break;
   }
-  Display.Refresh(F("CLOSE_PIC"));
+  Display.Refresh(F("CLOSE_BUT"));
 
   Execute_Shell(Event);
   Maximize_Shell();

@@ -363,7 +363,7 @@ void Xila_Class::Restart()
 
 Xila_Event Xila_Class::Load_Dump()
 {
-    if (!Drive->exists(Dump_Registry_Path))
+    if (Drive->exists(Dump_Registry_Path))
     {
         File Dump_File = Drive->open(Dump_Registry_Path);
         char Temporary_Software_Name[24];

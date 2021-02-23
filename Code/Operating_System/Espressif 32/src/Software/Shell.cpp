@@ -266,10 +266,14 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         default:
             break;
         }
+        break;
     case Keyboard:
-
+        Verbose_Print_Line("Set dialog");
+        Serial.print((char)Adress);
         if (Adress == 'I' && Xila.Dialog_Pointer != NULL)
         {
+            Verbose_Print_Line("Set dialog pointer");
+            Serial.print(Xila.Dialog_Long[0]);
             strlcpy((char *)Xila.Dialog_Pointer, (char *)Variable, Xila.Dialog_Long[0]);
         }
         break;
@@ -294,12 +298,18 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 Xila_Event Shell_Class::Load_Registry()
 {
     Temporary_Item.close();
-    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    Desk_Background = -1;
+    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF");
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
     {
         return Xila.Error;
     }
+    
+    /*if (strcmp("Shell", Shell_Registry["Registry"]) != 0)
+    {
+        return Xila.Error;
+    }*/
     Desk_Background = Shell_Registry["Desk Background"] | -1;
     Temporary_Item.close();
     return Xila.Success;
@@ -344,7 +354,7 @@ void Shell_Class::Refresh_File_Manager()
             Xila.Display.Set_Picture(F("CUT_BUT"), Paste_24);
             break;
         case Delete:
-            if (Xila.Event_Dialog(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
+            if (Event_Dialog(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
             {
                 Xila.Drive->remove(Current_Path);
             }
@@ -458,7 +468,7 @@ void Shell_Class::Refresh_File_Manager()
     }
     else
     {
-        Xila.Event_Dialog(F("Failed to open path."), Xila.Error);
+        Event_Dialog(F("Failed to open path."), Xila.Error);
         Execute('R', 'D');
     }
 }
@@ -477,8 +487,6 @@ void Shell_Class::Open_Desk()
 
     Xila.Display.Set_Current_Page(Desk);
 
-    Load_Registry();
-
     Refresh_Desk();
 
     Xila.Display.Hide(F("MAXIMIZE_BUT"));
@@ -487,6 +495,8 @@ void Shell_Class::Open_Desk()
 
 void Shell_Class::Refresh_Desk()
 {
+    Verbose_Print_Line("Refresh desk");
+
     if (Desk_Background == -1)
     {
         Xila.Display.Hide(F("COLORB_TXT"));
@@ -499,6 +509,8 @@ void Shell_Class::Refresh_Desk()
         Xila.Display.Show(F("COLORB_TXT"));
     }
 
+    Xila.Display.Refresh(F("0"));
+
     char Temporary_String[] = "SLOT _PIC";
 
     // List all files on the desk
@@ -509,14 +521,14 @@ void Shell_Class::Refresh_Desk()
     // List all running app on the task bar
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
-        Temporary_String[4] = Slot + 47;
+        Temporary_String[4] = Slot - 1 + '0';
         if (Xila.Open_Software_Pointer[Slot] != NULL)
         {
             Xila.Display.Set_Picture(Temporary_String, Xila.Open_Software_Pointer[Slot]->Handle_Pointer->Icon);
         }
         else
         {
-            Xila.Display.Set_Picture(Temporary_String, Empty_32); //if there's
+            Xila.Display.Hide(Temporary_String);
         }
     }
 }
@@ -526,10 +538,6 @@ void Shell_Class::Desk_Commands()
     Current_Command = Get_Command();
     switch (Current_Command)
     {
-    case 0: // IDLE
-        Idle();
-        Refresh_Desk();
-        break;
     case Instruction('M', '1'):
         Dock(1, 'M');
         break;
@@ -601,58 +609,65 @@ void Shell_Class::Refresh_Drawer()
 {
     // Item name drawing
     char Temporary_String[11] = "ITEM _TXT";
-    for (uint i = 0; i < 15; i++)
+    for (uint8_t i = 0; i < 15; i++)
     {
         if (i < 10)
         {
-            Temporary_String[4] = i + 48;
+            Temporary_String[4] = i + '0';
         }
         else
         {
             if (i == 10)
             {
-                strlcpy(Temporary_String, "ITEM  _TXT", sizeof(Temporary_String));
+                strcpy(Temporary_String, "ITEM  _TXT");
             }
-            Temporary_String[4] = 1 + 48;
-            Temporary_String[5] = (i - 10) + 48;
+            Temporary_String[4] = '1';
+            Temporary_String[5] = (i - 10) + '0';
         }
 
         if (Xila.Software_Handle_Pointer[i + Offset] != NULL)
         {
             Xila.Display.Set_Text(Temporary_String, Xila.Software_Handle_Pointer[i + Offset]->Name);
+            
+            //Serial.print(Temporary_String);
+            //Serial.println(Xila.Software_Handle_Pointer[i + Offset]->Name);
         }
         else
         {
             Xila.Display.Set_Text(Temporary_String, "");
         }
+        Xila.Delay(1);
     }
 
     // Item picture drawing
-    strlcpy(Temporary_String, "ITEM _PIC", sizeof(Temporary_String));
-    for (uint i = 0; i < 15; i++)
+    strcpy(Temporary_String, "ITEM _PIC");
+    for (uint8_t i = 0; i < 15; i++)
     {
         if (i < 10)
         {
-            Temporary_String[4] = i + 48;
+            Temporary_String[4] = i + '0';
         }
         else
         {
             if (i == 10)
             {
-                strlcpy(Temporary_String, "ITEM  _TXT", sizeof(Temporary_String));
+                strcpy(Temporary_String, "ITEM  _PIC");
             }
-            Temporary_String[4] = 1 + 48;
-            Temporary_String[5] = (i - 10) + 48;
+            Temporary_String[4] = '1';
+            Temporary_String[5] = (i - 10) + '0';
         }
 
         if (Xila.Software_Handle_Pointer[i + Offset] != NULL)
         {
-            Xila.Display.Set_Text(Temporary_String, Xila.Software_Handle_Pointer[i + Offset]->Name);
+            Xila.Display.Set_Picture(Temporary_String, Xila.Software_Handle_Pointer[i + Offset]->Icon);
+            /*Serial.print(Temporary_String);
+            Serial.println(Xila.Software_Handle_Pointer[i + Offset]->Name);*/
         }
         else
         {
-            Xila.Display.Set_Text(Temporary_String, "");
+            Xila.Display.Hide(Temporary_String);
         }
+        Xila.Delay(1);
     }
 }
 
@@ -815,13 +830,13 @@ void Shell_Class::File_Manager_Commands()
         {
             if (Selected_Item.isDirectory())
             {
-                Xila.Event_Dialog(F("Cannot copy folder."), Xila.Error);
+                Event_Dialog(F("Cannot copy folder."), Xila.Error);
             }
             else
             {
                 if (Xila.Copy_File(Selected_Item, Temporary_Item) != Xila.Success)
                 {
-                    Xila.Event_Dialog(F("Failed to copy file."), Xila.Error);
+                    Event_Dialog(F("Failed to copy file."), Xila.Error);
                 }
             }
             Selected_Item.close();
@@ -840,13 +855,13 @@ void Shell_Class::File_Manager_Commands()
         {
             if (Selected_Item.isDirectory())
             {
-                Xila.Event_Dialog(F("Cannot copy folder."), Xila.Error);
+                Event_Dialog(F("Cannot copy folder."), Xila.Error);
             }
             else
             {
                 if (Xila.Copy_File(Selected_Item, Temporary_Item) != Xila.Success)
                 {
-                    Xila.Event_Dialog(F("Failed to copy file."), Xila.Error);
+                    Event_Dialog(F("Failed to copy file."), Xila.Error);
                 }
             }
             Selected_Item.close();
@@ -934,14 +949,14 @@ void Shell_Class::File_Manager_Commands()
                 {
                     if (!Xila.Drive->mkdir(String(Current_Path) + String("/") + String(Current_Item_Name)))
                     {
-                        Xila.Event_Dialog(F("Failed to create file."), Xila.Error);
+                        Event_Dialog(F("Failed to create file."), Xila.Error);
                     }
                     break;
                 }
             }
             else
             {
-                Xila.Event_Dialog(F("Failed to create file."), Xila.Error);
+                Event_Dialog(F("Failed to create file."), Xila.Error);
                 break;
             }
         }
@@ -958,14 +973,14 @@ void Shell_Class::File_Manager_Commands()
                 {
                     if (!Xila.Drive->mkdir(String(Current_Path) + "/" + String(Current_Item_Name)))
                     {
-                        Xila.Event_Dialog(F("Failed to create folder."), Xila.Error);
+                        Event_Dialog(F("Failed to create folder."), Xila.Error);
                     }
                     break;
                 }
             }
             else
             {
-                Xila.Event_Dialog(F("Failed to create folder."), Xila.Error);
+                Event_Dialog(F("Failed to create folder."), Xila.Error);
                 break;
             }
         }
@@ -1098,6 +1113,7 @@ void Shell_Class::Login_Commands()
         Keyboard_Dialog(Password_1, sizeof(Password_1), true);
         Refresh_Login();
         break;
+
     case Instruction('L', 'o'): // Lo : Login with entred username and password
         if (Xila.Check_Credentials(Username, Password_1) == Xila.Success)
         {
@@ -1107,16 +1123,18 @@ void Shell_Class::Login_Commands()
 
             if (Load_Registry() != Xila.Success)
             {
-                Xila.Event_Dialog(F("Failed to load user registry."), Xila.Error);
+                Event_Dialog(F("Failed to load user registry."), Xila.Error);
             }
 
+            Xila.Delay(4000);
             Xila.Display.Set_Value(F("STATE_VAR"), 2);
             Xila.Delay(1000);
             Open_Desk();
         }
         else
         {
-            Xila.Event_Dialog(F("Wrong credentials !"), Xila.Event);
+            Event_Dialog(F("Wrong credentials !"), Xila.Error);
+            Refresh_Login();
         }
         break;
     default:
@@ -1235,7 +1253,7 @@ void Shell_Class::Preferences_Hardware_Commands()
         Temporary_Item = Xila.Drive->open(F(Test_Path), FILE_WRITE);
         if (!Temporary_Item)
         {
-            Xila.Event_Dialog(F("Failed to start the write test."), Xila.Error);
+            Event_Dialog(F("Failed to start the write test."), Xila.Error);
             Xila.Display.Set_Current_Page(Preferences_Hardware);
             break;
         }
@@ -1259,7 +1277,7 @@ void Shell_Class::Preferences_Hardware_Commands()
         Temporary_Item = Xila.Drive->open(F(Test_Path));
         if (!Temporary_Item)
         {
-            Xila.Event_Dialog(F("Failed to start the read test."), Xila.Error);
+            Event_Dialog(F("Failed to start the read test."), Xila.Error);
             Xila.Display.Set_Current_Page(Preferences_Hardware);
             break;
         }
@@ -1311,11 +1329,11 @@ void Shell_Class::Preferences_Hardware_Commands()
     case Instruction('S', 'a'):
         if (Xila.Set_Display_Registry(Brightness, Standby_Display_Time) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to set display registry."), Xila.Error);
+            Event_Dialog(F("Failed to set display registry."), Xila.Error);
         }
         if (Xila.Set_Sound_Registry(Xila.Sound.Get_Volume()) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to set sound registry."), Xila.Error);
+            Event_Dialog(F("Failed to set sound registry."), Xila.Error);
         }
         // Add standby registry
         Refresh_Preferences_Hardware();
@@ -1357,11 +1375,11 @@ void Shell_Class::Preferences_Network_Commands()
     case Instruction('W', 'C'):
         if (Xila.WiFi_Connect(WiFi_Name, WiFi_Password) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to connect to the WiFi Network."), Xila.Error);
+            Event_Dialog(F("Failed to connect to the WiFi Network."), Xila.Error);
         }
         else
         {
-            Xila.Event_Dialog(F("Successfully connected."), Xila.Information);
+            Event_Dialog(F("Successfully connected."), Xila.Information);
         }
         Refresh_Preferences_Network();
         break;
@@ -1369,7 +1387,7 @@ void Shell_Class::Preferences_Network_Commands()
         WiFi.disconnect();
         if (WiFi.softAP(Xila.Device_Name, WiFi_Password) != true)
         {
-            Xila.Event_Dialog(F("Failed to enable the access point."), Xila.Error);
+            Event_Dialog(F("Failed to enable the access point."), Xila.Error);
             Refresh_Preferences_Network();
         }
         break;
@@ -1432,52 +1450,52 @@ void Shell_Class::Preferences_System_Commands()
     case Instruction('C', 'U'):
         if (Xila.Change_Username(Target_Username, Username) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to change username."), Xila.Error);
+            Event_Dialog(F("Failed to change username."), Xila.Error);
         }
         else
         {
-            Xila.Event_Dialog(F("Username successfully modified."), Xila.Information);
+            Event_Dialog(F("Username successfully modified."), Xila.Information);
         }
         Refresh_Preferences_System();
         break;
     case Instruction('C', 'P'):
         if (Xila.Change_Password(Target_Username, Password_1) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to change password."), Xila.Error);
+            Event_Dialog(F("Failed to change password."), Xila.Error);
         }
         else
         {
-            Xila.Event_Dialog(F("Password successfully modified."), Xila.Information);
+            Event_Dialog(F("Password successfully modified."), Xila.Information);
         }
         Refresh_Preferences_System();
         break;
     case Instruction('A', 'U'):
         if (Xila.Add_User(Target_Username, Password_1))
         {
-            Xila.Event_Dialog(F("Failed to add user."), Xila.Error);
+            Event_Dialog(F("Failed to add user."), Xila.Error);
         }
         else
         {
-            Xila.Event_Dialog(F("User successfully added."), Xila.Information);
+            Event_Dialog(F("User successfully added."), Xila.Information);
         }
         Refresh_Preferences_System();
         break;
     case Instruction('D', 'U'):
         if (Xila.Check_Credentials(Username, Password_1) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Wrong credentials."), Xila.Error);
+            Event_Dialog(F("Wrong credentials."), Xila.Error);
         }
         else
         {
-            if (Xila.Event_Dialog(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
+            if (Event_Dialog(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
             {
                 if (Xila.Delete_User(Username) != Xila.Success)
                 {
-                    Xila.Event_Dialog(F("Cannot delete user."), Xila.Error);
+                    Event_Dialog(F("Cannot delete user."), Xila.Error);
                 }
                 else
                 {
-                    Xila.Event_Dialog(F("User successfully deleted."), Xila.Error);
+                    Event_Dialog(F("User successfully deleted."), Xila.Error);
                 }
             }
         }
@@ -1516,7 +1534,7 @@ void Shell_Class::Refresh_Preferences_System()
 
 void Shell_Class::System_Update()
 {
-    if (Xila.Event_Dialog(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
+    if (Event_Dialog(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
     {
         return;
     }
@@ -1534,7 +1552,7 @@ void Shell_Class::System_Update()
     }
     if (Xila.Load_Executable(Temporary_File, 'D') != Xila.Success)
     {
-        Xila.Event_Dialog(F("Failed to update"), Xila.Error);
+        Event_Dialog(F("Failed to update"), Xila.Error);
         Refresh_Preferences_System();
         return;
     }
@@ -1547,7 +1565,7 @@ void Shell_Class::System_Update()
     }
     if (Xila.Load_Executable(Temporary_File, 'M') != Xila.Success)
     {
-        Xila.Event_Dialog(F("Failed to update"), Xila.Error);
+        Event_Dialog(F("Failed to update"), Xila.Error);
         Refresh_Preferences_System();
         return;
     }
@@ -1617,6 +1635,78 @@ void Shell_Class::Event_Commands()
         Main_Commands();
         break;
     }
+}
+
+Xila_Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+    Xila.Feed_Watchdog();
+
+    Xila.Display.Send_Raw(F("PAGE=dp")); // save app page id
+    Xila.Display.Set_Current_Page(F("Shell_Event"));
+
+    Xila.Dialog_State = Xila.None;
+
+    if (Button_Text_1 != NULL)
+    {
+        Xila.Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
+        if (Button_Text_2 != NULL)
+        {
+            Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("BUTTON2_BUT"), F(""));
+        }
+        if (Button_Text_3 != NULL)
+        {
+            Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("BUTTON3_BUT"), F(""));
+        }
+    }
+
+    Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
+
+    switch (Event_Type)
+    {
+    case Xila.Error:
+        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Cross);
+        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Red);
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Error"));
+        break;
+    case Xila.Warning:
+        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Exclamation_Mark);
+        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Yellow);
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Warning"));
+        break;
+    case Xila.Information:
+        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Exclamation_Mark);
+        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Blue);
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Information"));
+        break;
+    case Xila.Question:
+        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Question_Mark);
+        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Green);
+        Xila.Display.Set_Text(F("HEADER_TXT"), F("Question"));
+    default:
+        break;
+    }
+    Xila.Display.Show(F("CLOSE_BUT"));
+
+    while (Xila.Dialog_State == Xila.None)
+    {
+        Event_Commands();
+    }
+
+    // -- Tasks is suspended here
+
+    Xila.Display.Set_Current_Page(F("PAGE")); //go back to app page
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+    return Xila.Dialog_State;
 }
 
 // -- Install dialog -- //
@@ -1736,14 +1826,14 @@ void Shell_Class::Install_Commands()
     {
         if (strcmp(Password_1, Password_2) != 0)
         {
-            Xila.Event_Dialog(F("Passwords does not correspond !"), Xila.Error);
+            Event_Dialog(F("Passwords does not correspond !"), Xila.Error);
         }
-        if (Xila.Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
+        if (Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
         {
             // -- Regional preferences
             if (Xila.Set_Time_Registry(NULL, GMT_Offset, Daylight_Offset) != Xila.Success)
             {
-                Xila.Event_Dialog(F("Cannot set the regional preferences."), Xila.Error);
+                Event_Dialog(F("Cannot set the regional preferences."), Xila.Error);
                 Xila.Display.Set_Current_Page(F("Shell_Install"));
             }
             // -- User account preferences
@@ -1751,13 +1841,13 @@ void Shell_Class::Install_Commands()
             {
                 if (Xila.Set_Account_Registry(Username) != Xila.Success)
                 {
-                    Xila.Event_Dialog(F("Cannot set the account registry."), Xila.Error);
+                    Event_Dialog(F("Cannot set the account registry."), Xila.Error);
                     Xila.Display.Set_Current_Page(F("Shell_Install"));
                 }
             }
             if (Xila.Add_User(Username, Password_1) != Xila.Success)
             {
-                Xila.Event_Dialog(F("Cannot create the user account."), Xila.Error);
+                Event_Dialog(F("Cannot create the user account."), Xila.Error);
                 Xila.Display.Set_Current_Page(F("Shell_Install"));
                 break;
             }
@@ -1768,11 +1858,11 @@ void Shell_Class::Install_Commands()
     case Instruction('W', 'C'): // WiFi connect
         if (Xila.WiFi_Connect(WiFi_Name, WiFi_Password) != Xila.Success)
         {
-            Xila.Event_Dialog(F("Failed to connect to the WiFi network."), Xila.Error);
+            Event_Dialog(F("Failed to connect to the WiFi network."), Xila.Error);
         }
         else
         {
-            Xila.Event_Dialog(F("Succed to connect to the WiFi network"), Xila.Information);
+            Event_Dialog(F("Succed to connect to the WiFi network"), Xila.Information);
         }
         break;
     default:
@@ -1785,7 +1875,6 @@ void Shell_Class::Install_Commands()
 
 void Shell_Class::Open_Keyboard()
 {
-    Verbose_Print_Line("Open kayboard");
 
     Xila.Display.Set_Current_Page(Keyboard);
 
@@ -1803,6 +1892,8 @@ Xila_Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arr
 
     Xila.Display.Send_Raw(F("PAGE=dp"));
 
+    Xila.Caller_Software_Handle_Pointer = &Shell_Handle;
+
     Xila.Dialog_State = Xila.None;
     Xila.Dialog_Long[0] = Char_Array_Size;
     Xila.Dialog_Pointer = Char_Array_To_Get;
@@ -1815,43 +1906,7 @@ Xila_Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arr
 
     while (Xila.Dialog_State == Xila.None)
     {
-        if (Xila.Keyboard.available())
-        {
-            int Char = Xila.Keyboard.read();
-
-            if (Char == PS2_ENTER)
-            {
-                Xila.Display.Click(F("b210"), 0);
-            }
-            else if (Char == PS2_BACKSPACE)
-            {
-                Xila.Display.Click(F("b200"), 0);
-            }
-            else if (Char == PS2_TAB)
-            {
-                Xila.Display.Click(F("b201"), 0);
-            }
-            else
-            {
-                if (isPrintable(Char))
-                {
-                    char Char_Array[2];
-                    Char_Array[0] = (char)Char;
-                    Char_Array[1] = '\0';
-                    Xila.Display.Add_Text(F("INPUT_VAR"), Char_Array);
-                }
-            }
-        }
-        Current_Command = Get_Command();
-        switch (Current_Command)
-        {
-        case Instruction('V', 'a'):
-            Xila.Dialog_State = Xila.Button_1;
-            break;
-        default:
-            Main_Commands();
-            break;
-        }
+        Keyboard_Commands();
     }
 
     Xila.Display.Set_Current_Page(F("PAGE"));
@@ -1895,7 +1950,13 @@ void Shell_Class::Keyboard_Commands()
     {
     case Instruction('V', 'a'):
         Xila.Dialog_State = Xila.Button_1;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer);
+        if (*Xila.Caller_Software_Handle_Pointer == Shell_Handle)
+        {
+        }
+        else
+        {
+            Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer);
+        }
         break;
     default:
         Main_Commands();

@@ -197,6 +197,7 @@ void Xila_Class::Add_Software_Handle(Software_Handle_Class &Software_Handle_To_A
     if (Software_Handle_Pointer[i] == NULL)
     {
       Software_Handle_Pointer[i] = &Software_Handle_To_Add;
+      return;
     }
   }
 }

@@ -54,6 +54,7 @@ void Xila_Class::Check_Watchdog()
   {
     if (Watchdog_Reminder == false)
     {
+      Verbose_Print_Line("Watchdog warning sent");
       Open_Software_Pointer[0]->Execute(Watchdog);
       Watchdog_Reminder = true;
     }
@@ -61,6 +62,7 @@ void Xila_Class::Check_Watchdog()
     {
       if ((millis() - Last_Watchdog_Feed) > WATCHDOG_MAXIMUM_TIME)
       {
+        Verbose_Print_Line("Watchdog triggered, close software");
         Force_Close_Software();
         Watchdog_Reminder = false;
         Last_Watchdog_Feed = millis();
@@ -144,7 +146,7 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
     Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
     break;
   case Xila.Variable_String_Local:
-    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[0]);
+    Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[1]);
     Xila.Tag = '\0';
     break;
   case Xila.Variable_String_Global:
@@ -163,7 +165,7 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   }
 }
 
-void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
+void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
   if (Xila.Tag != '\0')
   {
@@ -178,8 +180,17 @@ void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t &Received_Data)
 
 
 
-void Xila_Class::Incomming_Event_From_Display(uint8_t &Event_Code)
+void Xila_Class::Incomming_Event_From_Display(uint8_t Event_Code)
 {
+  switch (Event_Code)
+  {
+  case Nextion_Display_Class::Current_Page_Number:
+    Xila.Refresh_Header();
+    break;
+  default:
+    break;
+  }
+  //Xila.Open_Software_Pointer[0]->Execute((uint16_t)Event_Code);
 }
 
 // Serial communication with commputer
@@ -261,7 +272,7 @@ const char *Xila_Class::Get_Device_Name()
 void Xila_Class::Refresh_Header()
 {
 
-  char Temporary_Char_Array[6];
+  static char Temporary_Char_Array[6];
 
   // -- Update clock
   Temporary_Char_Array[0] = Time.tm_hour / 10;
@@ -284,23 +295,22 @@ void Xila_Class::Refresh_Header()
   {
     if (Temporary_Char_Array[5] <= -70)
     {
-      Temporary_Char_Array[0] = WiFi_Low;
+      Display.Set_Text(F("CONNEXION_BUT"), WiFi_Low);
     }
     if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
     {
-      Temporary_Char_Array[0] = WiFi_Medium;
+      Display.Set_Text(F("CONNEXION_BUT"), WiFi_Medium);
     }
     else
     {
-      Temporary_Char_Array[0] = WiFi_High;
+      Display.Set_Text(F("CONNEXION_BUT"), WiFi_High);
     }
   }
   else
   {
-    Temporary_Char_Array[0] = ' ';
+    Display.Set_Text(F("CONNEXION_BUT"), ' ');
+
   }
-  Temporary_Char_Array[1] = '\0';
-  Display.Set_Text(F("CONNEXION_BUT"), Temporary_Char_Array);
 
   // -- Update charge level
   Temporary_Char_Array[5] = Battery.Get_Charge_Level();
@@ -313,45 +323,43 @@ void Xila_Class::Refresh_Header()
       Shutdown();
     }
     #endif
-    Temporary_Char_Array[0] = Battery_Empty;
+    Display.Set_Text(F("BATTERY_BUT"), Battery_Empty);
     
   }
   else if (Temporary_Char_Array[5] <= 30 && Temporary_Char_Array[5] > 15)
   {
-    Temporary_Char_Array[0] = Battery_Low;
+    Display.Set_Text(F("BATTERY_BUT"), Battery_Low);
   }
   else if (Temporary_Char_Array[5] <= 70 && Temporary_Char_Array[5] > 30)
   {
-    Temporary_Char_Array[0] = Battery_Medium;
+    Display.Set_Text(F("BATTERY_BUT"), Battery_Medium);
   }
   else // more than 70 %
   {
-    Temporary_Char_Array[0] = Battery_High;
+    Display.Set_Text(F("BATTERY_BUT"), Battery_High);
   }
-  Temporary_Char_Array[1] = '\0';
-  Display.Set_Text(F("BATTERY_BUT"), Temporary_Char_Array);
+
+
 
   // -- Update sound
   Temporary_Char_Array[5] = Sound.Get_Volume();
   
   if (Temporary_Char_Array[5] == 0)
   {
-    Temporary_Char_Array[0] = Sound_Mute;
+    Display.Set_Text(F("SOUND_BUT"), Sound_Mute);
   }
   else if (Temporary_Char_Array[5] < 33)
   {
-    Temporary_Char_Array[0] = Sound_Low;
+    Display.Set_Text(F("SOUND_BUT"), Sound_Low);
   }
   else if (Temporary_Char_Array[5] < 66)
   {
-    Temporary_Char_Array[0] = Sound_Medium;
+    Display.Set_Text(F("SOUND_BUT"), Sound_Medium);
   }
   else
   {
-    Temporary_Char_Array[0] = Sound_High;
+    Display.Set_Text(F("SOUND_BUT"), Sound_High);
   }
-  Temporary_Char_Array[1] = '\0';
-  Display.Set_Text(F("SOUND_BUT"), Temporary_Char_Array);
 
 }
 

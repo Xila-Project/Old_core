@@ -48,7 +48,7 @@ protected:
     uint16_t Standby_System_Time;
 
 
-    Xila_Event Keyboard_Dialog(char*, size_t, bool = false);
+    
 
 
     // -- Preferences system attributes
@@ -148,6 +148,11 @@ protected:
     inline void Keyboard_Commands();
     inline void Keypad_Commands();
 
+    // -- Custom dialog boxes
+
+    Xila_Event Keyboard_Dialog(char*, size_t, bool = false);
+    Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+
     // -- Shutdown
 
     inline void Open_Shutdown();
@@ -171,6 +176,10 @@ protected:
     inline void Idle();
 
     int32_t Desk_Background;
+    /**
+     * -1 = Default desk background
+     * 0 - 65535 : Custom color
+    */
 
     void Open_Desk();
     void Open_Drawer();

@@ -39,8 +39,8 @@ protected:
     SemaphoreHandle_t Serial_Semaphore;
 
     void (*Callback_Function_String_Data)(const char *, uint8_t);
-    void (*Callback_Function_Numeric_Data)(uint32_t &);
-    void (*Callback_Function_Event)(uint8_t &);
+    void (*Callback_Function_Numeric_Data)(uint32_t);
+    void (*Callback_Function_Event)(uint8_t);
 
     uint16_t Cursor_X, Cursor_Y;
 
@@ -125,7 +125,7 @@ public:
 
     uint8_t Page_History[5];
 
-    static Nextion_Display_Class *Display_Pointer;
+    static Nextion_Display_Class* Instance_Pointer;
 
     //Class setup
     Nextion_Display_Class();
@@ -134,8 +134,8 @@ public:
     void Begin(uint32_t Baud_Rate = 912600, uint8_t RX_Pin = 16, uint8_t TX_Pin = 17);
 
     void Set_Callback_Function_String_Data(void (*Function_Pointer)(const char *, uint8_t));
-    void Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t &));
-    void Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t &));
+    void Set_Callback_Function_Numeric_Data(void (*Function_Pointer)(uint32_t));
+    void Set_Callback_Function_Event(void (*Function_Pointer)(uint8_t));
 
     // Basic Geometrical Drawing
     void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
@@ -162,6 +162,8 @@ public:
     void Set_Vertical_Alignment(const __FlashStringHelper *Object_Name, uint8_t const &Set_Vertical_Alignment);
     void Set_Input_Type(const __FlashStringHelper *Object_Name, uint8_t const &Input_Type);
     void Set_Wordwrap(const __FlashStringHelper *Object_Name, bool const &Wordwrap);
+
+    void Set_Text(const __FlashStringHelper* Object_Name, char Value);
     void Set_Text(const __FlashStringHelper *Object_Name, const __FlashStringHelper *Value);
     void Set_Text(const __FlashStringHelper *Object_Name, String const &Value, uint8_t const &Insert);
     void Set_Text(String const &Object_Name, String const &Value);
@@ -258,9 +260,8 @@ public:
     void Reboot();
     uint8_t Update(File Update_File);
 
-    friend void Nextion_Serial_Receive(void *pvParameters);
+    static void Main_Task(void*);
 };
 
-void Nextion_Serial_Receive(void *pvParameters);
 
 #endif
