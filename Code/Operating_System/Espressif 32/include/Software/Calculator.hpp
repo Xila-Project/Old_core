@@ -176,14 +176,14 @@ public:
 
     static void Main_Task(void *pvParameters);
 
-    enum Picture
+    enum Image
     {
-        Calculator_32 = 6
+        Icon_32 = Xila.Calculator
     };
 
     static Software_Class *Load();
 };
 
-Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Calculator_32, Calculator_Class::Load);
+Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Icon_32, Calculator_Class::Load);
 
 #endif

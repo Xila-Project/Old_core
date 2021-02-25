@@ -12,7 +12,7 @@ Software_Class *Internet_Browser_Class::Load()
   return Instance_Pointer;
 }
 
-Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
+Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Browser_Handle, 10)
 {
   memset(Server, 0, 30);
   memset(Path, 0, 60);
@@ -24,8 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(5)
 
   textContent = {0, 0, false};
 
-  Xila.Task_Create(Main_Task, "Internet_Browser", 8192, NULL, &Task_Handle);
-  Execute(Xila.Open);
+  Xila.Task_Create(Main_Task, "Internet_Browser", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
@@ -48,7 +47,14 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Delay(20);
       //Idle : nothing to do
       break;
+    case Xila.Open:
+      Verbose_Print_Line("Open");
+      Xila.Display.Set_Current_Page(F("Internet_Brow"));
+      Instance_Pointer->Go_Home();
+      
+      break;
     case Xila.Maximize: // NULL + M : Maximize
+      Verbose_Print_Line("Maxmize");
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       //do something when
@@ -1021,7 +1027,7 @@ byte Internet_Browser_Class::Display_Page()
 
       Text_Char_Count = 0;
       Width_Count = 0;
-      //Xila.Delay(200);
+      Xila.Delay(500);
     }
 
     c = Cache_File.read();

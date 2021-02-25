@@ -50,8 +50,10 @@
 #define SYSTEM_CORE 1
 
 // disable / enable animation
-#define ANIMATION 1
+#define ANIMATION 0
 
+
+// 
 #define IDLE_TASK_PRIORITY 0
 #define SOFTWARE_TASK_PRIOITY 1
 #define SYSTEM_TASK_PRIORITY 2
@@ -59,6 +61,8 @@
 
 #define MAXIMUM_PASSWORD_LENGHT 24
 #define MAXIMUM_USERNAME_LENGHT 8
+
+// Watchdog 
 
 #define WATCHDOG_INITAL_TIME 4000
 #define WATCHDOG_MAXIMUM_TIME 6000
@@ -87,6 +91,7 @@
 #define Verbose_Print(t) Serial.print(F(t))
 #define Verbose_Print_Line(t) Serial.println(F(t))
 #endif
+
 
 
 // -- Default registry values --

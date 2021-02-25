@@ -10,7 +10,7 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     if (ESP.getFreeHeap() < 2000)
     {
-      Serial.println("Low Memory !");
+      Xila.Panic_Handler(Low_Memory);
     }
 
     Xila.Check_Watchdog(); // check if current running software is not frozen
@@ -25,14 +25,8 @@ void Xila_Class::Core_Task(void *pvParameters)
 
     Xila.Check_Power_Button();
 
-#if STACK_OVERFLOW_DETECTION == 1
-    Verbose_Print("> Current task high watermark :");
-    Serial.println(uxTaskGetStackHighWaterMark(Xila_Class::Instance_Pointer->Open_Software_Pointer[0]->Task_Handle));
-#endif
+    Xila.Check_System_Drive();
+
     vTaskDelay(pdMS_TO_TICKS(200));
   }
-  /*xQueueReceive(Xila.Core_Instruction_Queue_Handle, Core_Instruction_Pointer, portMAX_DELAY);
-    Core_Instruction_Pointer->Return_Pointer = Core_Instruction_Pointer->Function_Pointer(Core_Instruction_Pointer);
-    xSemaphoreGive(Core_Instruction_Pointer->Executed);
-    vTaskDelay(pdMS_TO_TICKS(5));*/
 }

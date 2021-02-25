@@ -2,7 +2,7 @@
 
 Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
-Calculator_Class::Calculator_Class() : Software_Class(8),
+Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle, 10),
                                        State(0xFF)
 {
     Xila.Task_Create(Main_Task, "Calculator", 4 * 1024, NULL, &Task_Handle);

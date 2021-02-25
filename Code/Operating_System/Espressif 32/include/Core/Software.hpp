@@ -17,7 +17,7 @@ extern Xila_Class Xila;
 class Software_Class // Software class, API used by the core in order to communicate with the software
 {
 protected:
-    Software_Class(uint8_t);
+    Software_Class(Software_Handle_Class& Handle_Pointer, uint8_t Queue_Size);
     virtual ~Software_Class();
 
     TaskHandle_t Task_Handle;
@@ -38,6 +38,14 @@ protected:
     virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     uint16_t Get_Command();
+
+public:
+
+
+    enum Image
+    {
+
+    };
 
     friend class Xila_Class;
     friend class Software_Handle_Class;

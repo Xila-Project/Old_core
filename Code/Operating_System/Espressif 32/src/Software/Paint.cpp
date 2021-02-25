@@ -15,7 +15,7 @@ Software_Class *Paint_Class::Load()
 }
 
 
-Paint_Class::Paint_Class() : Software_Class(6)
+Paint_Class::Paint_Class() : Software_Class(Paint_Handle, 6)
 {
     Xila.Task_Create(Main_Task, "Paint Task", Memory_Chunk(4), NULL, &Task_Handle);
 }

@@ -3,8 +3,8 @@
     "WiFi":
     {
         "Host name": "ESP32",
-        "Names": ["Avrupa","",""],
-        "Passwords": ["0769094509","",""],
+        "Name": "Avrupa",
+        "Password": "0769094509",
         "IP Adress": "",
         "Subnet Mask": "",
         "Default Gateway": ""

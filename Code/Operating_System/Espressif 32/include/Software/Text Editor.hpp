@@ -38,14 +38,14 @@ public:
         Undefined
     };
 
-    enum Picture
+    enum Image
     {
-        Text_Editor_32 = 49
+        Icon_32 = Xila.Text_Editor
     };
 
     static Software_Class *Load();
 };
 
-Software_Handle_Class Text_Editor_Handle("Text Editor", Text_Editor_Class::Text_Editor_32, Text_Editor_Class::Load);
+Software_Handle_Class Text_Editor_Handle("Text Editor", Text_Editor_Class::Icon_32, Text_Editor_Class::Load);
 
 #endif

@@ -2,7 +2,7 @@
 
 Piano_Class* Piano_Class::Instance_Pointer = NULL;
 
-Piano_Class::Piano_Class() : Software_Class(6),
+Piano_Class::Piano_Class() : Software_Class(Piano_Handle, 6),
 Offset(0),
 Duration(200),
 MIDI_Output(false)

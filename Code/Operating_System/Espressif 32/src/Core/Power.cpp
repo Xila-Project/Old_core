@@ -52,12 +52,11 @@ void Xila_Class::First_Start_Routine()
     rtc_wdt_disable();
 #endif
 
-
     // -- Set serial
 
-    #if VERBOSE_MODE == 1
+#if VERBOSE_MODE == 1
     Serial.begin(SERIAL_SPEED);
-    #endif
+#endif
 
     //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");
     Print_Line(F("Xila Embedded Edition - Alix ANNERAUD - Alpha - 0.1.0"));
@@ -201,11 +200,15 @@ void Xila_Class::First_Start_Routine()
 void Xila_Class::Second_Start_Routine()
 {
     Load_Dump();
-    
+
+#if ANIMATION == 1
     vTaskDelay(pdMS_TO_TICKS(3000));
+#endif
     Display.Set_Value(F("STATE_VAR"), 2);
 
+#if ANNIMATION == 1
     vTaskDelay(pdMS_TO_TICKS(3000));
+#endif
 
     Execute_Startup_Function();
 
@@ -242,29 +245,33 @@ void Xila_Class::Start()
 
     Verbose_Print_Line("> Load software ...");
 
-    extern Software_Handle_Class Oscilloscope_Handle;
-    extern Software_Handle_Class Paint_Handle;
     extern Software_Handle_Class Calculator_Handle;
-    extern Software_Handle_Class TinyBasic_Handle;
+    extern Software_Handle_Class Clock_Handle;
     extern Software_Handle_Class Internet_Browser_Handle;
     extern Software_Handle_Class Music_Player_Handle;
-    extern Software_Handle_Class Piano_Handle;
-    extern Software_Handle_Class Pong_Handle;
-    extern Software_Handle_Class Text_Editor_Handle;
+    extern Software_Handle_Class Oscilloscope_Handle;
+    extern Software_Handle_Class Paint_Handle;
     extern Software_Handle_Class Periodic_Handle;
-    extern Software_Handle_Class Clock_Handle;
+    extern Software_Handle_Class Piano_Handle;
+    extern Software_Handle_Class Picture_Viewer_Handle;
+    extern Software_Handle_Class Pong_Handle;
+    extern Software_Handle_Class Simon_Handle;
+    extern Software_Handle_Class Text_Editor_Handle;
+    extern Software_Handle_Class Tiny_Basic_Handle;
 
     Add_Software_Handle(Calculator_Handle);
     Add_Software_Handle(Clock_Handle);
     Add_Software_Handle(Internet_Browser_Handle);
     Add_Software_Handle(Music_Player_Handle);
     Add_Software_Handle(Oscilloscope_Handle);
+    Add_Software_Handle(Paint_Handle);
     Add_Software_Handle(Periodic_Handle);
     Add_Software_Handle(Piano_Handle);
+    Add_Software_Handle(Picture_Viewer_Handle);
     Add_Software_Handle(Pong_Handle);
-    Add_Software_Handle(Paint_Handle);
+    Add_Software_Handle(Simon_Handle);
     Add_Software_Handle(Text_Editor_Handle);
-    Add_Software_Handle(TinyBasic_Handle);
+    Add_Software_Handle(Tiny_Basic_Handle);
 
     Second_Start_Routine();
 }
@@ -308,6 +315,9 @@ void Xila_Class::Shutdown()
     WiFi.disconnect(true);
 
     Set_Sound_Registry(Sound.Get_Volume());
+
+    // 
+    Drive->end();
 
     vTaskDelay(pdMS_TO_TICKS(4000));
 
@@ -354,6 +364,8 @@ void Xila_Class::Restart()
     }
 
     Set_Sound_Registry(Sound.Get_Volume());
+
+    Drive->end();
 
     vTaskDelay(pdMS_TO_TICKS(4000));
 

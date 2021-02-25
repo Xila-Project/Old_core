@@ -89,14 +89,11 @@ Xila_Event Xila_Class::Load_System_Registry()
 {
   Verbose_Print_Line("> Load system registry");
   File Temporary_File = Drive->open(System_Registry_Path);
-  if (!Temporary_File)
-  {
-    return Error;
-  }
-  
+ 
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
+    Temporary_File.close();
     return Error;
   }
 
@@ -104,12 +101,14 @@ Xila_Event Xila_Class::Load_System_Registry()
 
   if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
   {
+    Temporary_File.close();
     return 2;
   }
 
   if (System_Registry["State"] != 0)
   {
-    return 3;
+    Temporary_File.close();
+        return 3;
   }
 
   strlcpy(Device_Name, System_Registry["Device Name"], sizeof(Device_Name));
@@ -125,6 +124,7 @@ Xila_Event Xila_Class::Load_Display_Registry()
   DynamicJsonDocument Display_Registry(256);
   if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   Display.Set_Brightness(Display_Registry["Brightness"]);
@@ -138,6 +138,7 @@ Xila_Event Xila_Class::Load_Sound_Registry()
   DynamicJsonDocument Sound_Registry(256);
   if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   Sound.Set_Volume(Sound_Registry["Volume"]);
@@ -147,9 +148,14 @@ Xila_Event Xila_Class::Load_Sound_Registry()
 
 Xila_Event Xila_Class::Load_Time_Registry()
 {
-  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
-  DynamicJsonDocument Regional_Registry(256);
+  File Temporary_File = Drive->open(Regional_Registry_Path);
+  DynamicJsonDocument Regional_Registry(512);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  if (strcmp("Regional", Regional_Registry["Registry"]) != 0)
   {
     Temporary_File.close();
     return Error;
@@ -157,6 +163,7 @@ Xila_Event Xila_Class::Load_Time_Registry()
   JsonObject Time = Regional_Registry["Time"];
   GMT_Offset = Time["GMT Offset"];
   Daylight_Offset = Time["Daylight Offset"];
+
   strlcpy(NTP_Server, Time["NTP Server"], sizeof(NTP_Server));
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   Temporary_File.close();
@@ -165,16 +172,16 @@ Xila_Event Xila_Class::Load_Time_Registry()
 
 Xila_Event Xila_Class::Load_Keyboard_Registry()
 {
-  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
-  DynamicJsonDocument Regional_Registry(256);
+  File Temporary_File = Drive->open(Regional_Registry_Path);
+  DynamicJsonDocument Regional_Registry(512);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
     return Error;
   }
-  JsonObject Keyboard_Registry = Regional_Registry["Keyboard"];
-  Keyboard_Data_Pin = Keyboard_Registry["Data_Pin"];
-  Keyboard_Interrupt_Pin = Keyboard_Registry["Interrupt_Pin"];
+  JsonObject Keyboard_Registry = Regional_Registry["Language"];
+  Keyboard_Data_Pin = Keyboard_Registry["Data Pin"];
+  Keyboard_Interrupt_Pin = Keyboard_Registry["Interrupt Pin"];
   Keyboard_Keymap = Keyboard_Registry["Keymap"];
   switch (Keyboard_Keymap)
   {
@@ -203,7 +210,7 @@ Xila_Event Xila_Class::Load_Keyboard_Registry()
 
 Xila_Event Xila_Class::Set_System_Registry(const char *Device_Name)
 {
-  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  File Temporary_File = Drive->open(System_Registry_Path, FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
   if (deserializeJson(System_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -248,7 +255,7 @@ Xila_Event Xila_Class::Set_Sound_Registry(uint8_t Volume)
 Xila_Event Xila_Class::Set_Time_Registry(const char *NTP_Server, int32_t GMT_Offset, int16_t Daylight_Offset)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
-  DynamicJsonDocument Regional_Registry(256);
+  DynamicJsonDocument Regional_Registry(512);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
@@ -281,7 +288,7 @@ Xila_Event Xila_Class::Set_Time_Registry(const char *NTP_Server, int32_t GMT_Off
 Xila_Event Xila_Class::Set_Keyboard_Registry(uint8_t Data_Pin, uint8_t Interrupt_Pin, uint8_t Keymap)
 {
   File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
-  DynamicJsonDocument Regional_Registry(256);
+  DynamicJsonDocument Regional_Registry(512);
   if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
@@ -348,7 +355,7 @@ Xila_Event Xila_Class::Set_Account_Registry(const char *Autologin_Account)
 
 Xila_Event Xila_Class::Set_Display_Registry(uint8_t Brighness, uint16_t Standby_Time, uint8_t Receive_Pin, uint8_t Send_Pin)
 {
-  File Temporary_File = Drive->open(Regional_Registry_Path, FILE_WRITE);
+  File Temporary_File = Drive->open(Display_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Display_Registry(256);
   if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
   {

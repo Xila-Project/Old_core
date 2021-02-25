@@ -12,7 +12,7 @@ Software_Class *Music_Player_Class::Load()
     return Instance_Pointer;
 }
 
-Music_Player_Class::Music_Player_Class() : Software_Class(6),
+Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle, 6),
                                            State(Stopped)
 {
 }

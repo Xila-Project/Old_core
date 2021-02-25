@@ -14,22 +14,21 @@ Xila_Event Xila_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arra
   Dialog_Pointer = Char_Array_To_Get;
   Dialog_Long[0] = Char_Array_Size - 1;
   Dialog_Long[1] = Masked_Input;
-  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
-
+  
   Execute_Shell(Virtual_Keyboard);
 
-  if (Maximize_Software(Shell_Handle) != Success)
-  {
-    Verbose_Print_Line("Failed to maximize shell");
-  }
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0];
 
-  vTaskSuspend(NULL);
+  // Maxmize shell
+  Open_Software_Pointer[0] = Open_Software_Pointer[1];
+  
+  Xila.Task_Resume(Open_Software_Pointer[0]->Task_Handle);
+
+  Xila.Task_Suspend();
 
   // -- Tasks suspended here
 
   Display.Set_Current_Page(F("PAGE"));
-
-  Maximize_Software(*Caller_Software_Handle_Pointer);
 
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
@@ -45,7 +44,7 @@ Xila_Event Xila_Class::Keypad_Dialog(float &Number_To_Get)
   Dialog_State = None;
   Dialog_Pointer = &Number_To_Get;
 
-  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0];
 
   Execute_Shell(Virtual_Keypad);
   Maximize_Shell();
@@ -53,8 +52,6 @@ Xila_Event Xila_Class::Keypad_Dialog(float &Number_To_Get)
   // -- Tasks suspended here
 
   Display.Set_Current_Page(F("PAGE"));
-
-  Maximize_Software(*Caller_Software_Handle_Pointer);
 
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
@@ -70,7 +67,7 @@ Xila_Event Xila_Class::Color_Picker_Dialog(uint16_t &Color)
   Dialog_State = None;
   Dialog_Pointer = &Color;
 
-  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0];
 
   Execute_Shell(Color_Picker);
   Maximize_Shell();
@@ -157,7 +154,7 @@ Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
   Feed_Watchdog();
   Dialog_Pointer = NULL;
   Dialog_State = None;
-  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0];
 
   Display.Send_Raw(F("PAGE=dp"));
 
@@ -173,8 +170,6 @@ Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
     File_To_Open = *(File *)Dialog_Pointer;
   }
 
-  Maximize_Software(*Caller_Software_Handle_Pointer);
-
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
 }
@@ -185,12 +180,14 @@ Xila_Event Xila_Class::Save_File_Dialog(File &File_To_Save)
   Feed_Watchdog();
   Dialog_Pointer = NULL;
   Dialog_State = None;
-  Caller_Software_Handle_Pointer = Open_Software_Pointer[0]->Handle_Pointer;
+  Caller_Software_Handle_Pointer = Open_Software_Pointer[0];
 
   Display.Send_Raw(F("PAGE=dp"));
 
   Execute_Shell(Save_File);
   Maximize_Shell();
+
+  Xila.Task_Suspend();
 
   // -- Task is suspended here, because the shell is running
 
@@ -200,8 +197,6 @@ Xila_Event Xila_Class::Save_File_Dialog(File &File_To_Save)
   {
     File_To_Save = *(File *)Dialog_Pointer;
   }
-
-  Maximize_Software(*Caller_Software_Handle_Pointer);
 
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;

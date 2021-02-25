@@ -24,12 +24,12 @@ public:
 
     static Software_Class* Load();
 
-    enum Picture
+    enum Image
     {
-        Piano_32 = 5,
+        Icon_32 = Xila.Piano,
     };
     
     static void Main_Task(void *pvParameters);
 };
 
-Software_Handle_Class Piano_Handle("Piano", Piano_Class::Piano_32, Piano_Class::Load);
+Software_Handle_Class Piano_Handle("Piano", Piano_Class::Icon_32, Piano_Class::Load);

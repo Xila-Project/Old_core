@@ -2,7 +2,7 @@
 
 Simon_Class *Simon_Class::Instance_Pointer = NULL;
 
-Simon_Class::Simon_Class() : Software_Class(10)
+Simon_Class::Simon_Class() : Software_Class(Simon_Handle, 10)
 {
     if (Instance_Pointer != NULL)
     {

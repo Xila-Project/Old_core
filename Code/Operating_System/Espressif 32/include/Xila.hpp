@@ -51,6 +51,11 @@
 || MTMS -> 14                                                                 ||
 || MTDI -> 12                                                                 ||
 || MTDO -> 15                                                                 ||
+||  - Keyboard :
+|| Ground -> Ground
+|| Data ->
+|| Clock ->
+|| 5V ->
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                                  Project Files :                           ||
 ||  - GalaxOS.hpp/cpp : "hub" files                                           ||

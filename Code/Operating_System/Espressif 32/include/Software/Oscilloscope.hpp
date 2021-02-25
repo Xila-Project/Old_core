@@ -119,11 +119,11 @@ public:
 
     enum Picture_ID
     {
-        Oscilloscope_32 = 17
+        Icon_32 = Xila.Oscilloscope
     };
 
     Oscilloscope_Class();
     ~Oscilloscope_Class();
 };
 
-Software_Handle_Class Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Oscilloscope_32, Oscilloscope_Class::Load);
+Software_Handle_Class Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Icon_32, Oscilloscope_Class::Load);

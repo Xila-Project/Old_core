@@ -19,7 +19,7 @@
 
 #include "Driver/Display.hpp"
 
-Nextion_Display_Class* Nextion_Display_Class::Instance_Pointer = NULL;
+Nextion_Display_Class *Nextion_Display_Class::Instance_Pointer = NULL;
 
 Nextion_Display_Class::Nextion_Display_Class() : Nextion_Serial(1),
                                                  Callback_Function_String_Data(NULL),
@@ -116,14 +116,28 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
                     {
                         if (Temporary_String[0] != Instance_Pointer->Page_History[0])
                         {
+                            Instance_Pointer->Page_History[5] = Instance_Pointer->Page_History[4];
+                            Instance_Pointer->Page_History[3] = Instance_Pointer->Page_History[2];
+                            Instance_Pointer->Page_History[2] = Instance_Pointer->Page_History[1];
+                            Instance_Pointer->Page_History[1] = Instance_Pointer->Page_History[0];
+                            Instance_Pointer->Page_History[0] = Temporary_String[0];
+                        }
+                        Instance_Pointer->Callback_Function_Event(Current_Page_Number);
+                    }
+                }
+                break;
+            case Serial_Buffer_Overflow:
+                if (3 == Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 3))
+                {
+                    if (Temporary_String[0] == 0xFF && Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF)
+                    {
                         Instance_Pointer->Page_History[5] = Instance_Pointer->Page_History[4];
                         Instance_Pointer->Page_History[3] = Instance_Pointer->Page_History[2];
                         Instance_Pointer->Page_History[2] = Instance_Pointer->Page_History[1];
                         Instance_Pointer->Page_History[1] = Instance_Pointer->Page_History[0];
                         Instance_Pointer->Page_History[0] = Temporary_String[0];
-                        }
-                        Instance_Pointer->Callback_Function_Event(Current_Page_Number);
                     }
+                    Instance_Pointer->Callback_Function_Event(Serial_Buffer_Overflow);
                 }
                 break;
             case Invalid_Instruction:
@@ -170,6 +184,7 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
                 }
 
             default:
+                Verbose_Print_Line("Unrecognized command");
                 Instance_Pointer->Nextion_Serial.readStringUntil(0xFF);
                 Instance_Pointer->Nextion_Serial.read();
                 Instance_Pointer->Nextion_Serial.read();
@@ -433,7 +448,7 @@ void Nextion_Display_Class::Set_Value(const __FlashStringHelper *Object_Name, ui
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".val="));
-    Nextion_Serial.print(String(Value));
+    Nextion_Serial.print(Value);
     Instruction_End();
 }
 
@@ -451,7 +466,7 @@ void Nextion_Display_Class::Set_Value(const char *Object_Name, uint32_t const &V
     xSemaphoreTake(Serial_Semaphore, portMAX_DELAY);
     Nextion_Serial.print(Object_Name);
     Nextion_Serial.print(F(".val="));
-    Nextion_Serial.print(String(Value));
+    Nextion_Serial.print(Value);
     Instruction_End();
 }
 

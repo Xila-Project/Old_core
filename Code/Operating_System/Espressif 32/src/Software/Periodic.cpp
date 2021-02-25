@@ -2,7 +2,7 @@
 
 Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
-Periodic_Class::Periodic_Class() : Software_Class(6)
+Periodic_Class::Periodic_Class() : Software_Class(Periodic_Handle, 10)
 {
     Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }

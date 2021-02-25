@@ -22,7 +22,9 @@
 			"streambuf": "cpp",
 			"array": "cpp",
 			"initializer_list": "cpp",
-			"utility": "cpp"
+			"utility": "cpp",
+			"memory": "cpp",
+			"istream": "cpp"
 		}
 	}
 }

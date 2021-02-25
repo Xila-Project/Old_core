@@ -2,7 +2,7 @@
 
 Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 
-Text_Editor_Class::Text_Editor_Class() : Software_Class(6)
+Text_Editor_Class::Text_Editor_Class() : Software_Class(Text_Editor_Handle, 6)
 {
     Xila.Task_Create(Main_Task, "Text Editor Task", 4 * 1024, NULL, &Task_Handle);
     Execute(Xila.Open);

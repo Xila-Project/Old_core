@@ -3,7 +3,7 @@
 Clock_Class *Clock_Class::Instance_Pointer = NULL;
 uint32_t Clock_Class::Next_Alarm = 0;
 
-Clock_Class::Clock_Class() : Software_Class(6),
+Clock_Class::Clock_Class() : Software_Class(Clock_Handle, 10),
                              Current_Tab(Clock)
 {
     Execute(Xila.Open);

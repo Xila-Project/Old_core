@@ -36,13 +36,13 @@ class Periodic_Class : protected Software_Class
 
         static Software_Class* Load();
 
-        enum Picture
+        enum Image
         {
-            Periodic_32 = 46
+            Icon_32 = Xila.Periodic
         };
 
 };
 
-Software_Handle_Class Periodic_Handle("Periodic", Periodic_Class::Periodic_32, Periodic_Class::Load);
+Software_Handle_Class Periodic_Handle("Periodic", Periodic_Class::Icon_32, Periodic_Class::Load);
 
 #endif

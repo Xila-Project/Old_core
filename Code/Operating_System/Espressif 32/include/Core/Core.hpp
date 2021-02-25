@@ -67,8 +67,8 @@
 typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
-typedef void* Xila_Task_Handle;
-typedef void (*Xila_Task_Function)( void * );
+typedef void *Xila_Task_Handle;
+typedef void (*Xila_Task_Function)(void *);
 
 // System state
 #define SYSTEM_STATE_STANDALONE 1
@@ -95,7 +95,6 @@ extern Software_Handle_Class Shell_Handle;
 class Xila_Class
 {
 
-
 protected:
     // Instance pointer
 
@@ -106,26 +105,17 @@ protected:
     */
     char Device_Name[24];
 
-    enum Image
-    {
-        AFG_Icon_64,
-        Question_32,
-        Information_32,
-        Warning_32,
-        Error_32
-    };
-
     const int Low_RAM_Threshold = 2000;
 
     //User attribute
     char Current_Username[9];
 
-    Software_Class* Open_Software_Pointer[8] = {0};
+    Software_Class *Open_Software_Pointer[8] = {0};
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
     // Open_Softwaer_Pointer[2 - 7] : Other openned software
 
-    Software_Handle_Class* Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {0};
+    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {0};
     // Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle
 
     // Shell short cut
@@ -134,7 +124,7 @@ protected:
     Xila_Event Shell_Return;
 
     void Maximize_Shell();
-    void Execute_Shell(Xila_Command const& Command);
+    void Execute_Shell(Xila_Command const &Command);
 
     // Display
     char Tag;
@@ -153,6 +143,30 @@ protected:
     // Power button
 
 public:
+
+    enum Image_Offset
+    {
+        Shell = 0,
+        Calculator = 19,
+        Clock = 20,
+        Internet_Browser = 21,
+        Music_Player = 22,
+        Oscilloscope = 29,
+        Paint = 30,
+        Periodic = 31,
+        Piano = 33,
+        Picture_Viewer = 37,
+        Pong = 38,
+        Simon = 39,
+        Text_Editor = 40,
+        Tiny_Basic = 41
+    };
+
+    enum Pages_Offset
+    {
+
+    };
+
     uint32_t Last_Watchdog_Feed;
     uint8_t Watchdog_Reminder;
 
@@ -186,10 +200,7 @@ public:
 
     volatile uint8_t Power_Button_Counter;
 
-
-
     void Check_Power_Button();
-  
 
     // -- Task management -- //
 
@@ -197,7 +208,7 @@ public:
 
     void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
     void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
-    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
+    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
 
     // -- Software management -- //
 
@@ -208,7 +219,7 @@ public:
      * 
      * @param Software_Handle The software's handle to open 
      */
-    Xila_Event Software_Open(Software_Handle_Class const& Software_Handle);
+    Xila_Event Software_Open(Software_Handle_Class const &Software_Handle);
 
     void Close_Software();
 
@@ -217,7 +228,7 @@ public:
      * 
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
-    void Close_Software(Software_Handle_Class const& Software_Handle);
+    void Close_Software(Software_Handle_Class const &Software_Handle);
 
     /**
      * @brief Function that close roughly the current running software.
@@ -237,8 +248,7 @@ public:
      */
     Xila_Event Maximize_Software(Software_Handle_Class const &);
 
-    
-    void Add_Software_Handle(Software_Handle_Class&); //private shortcut
+    void Add_Software_Handle(Software_Handle_Class &); //private shortcut
 
     enum Font_16
     {
@@ -303,10 +313,10 @@ public:
     Keyboard_Class Keyboard;
 // Disk
 #if SD_MODE == 0
-    fs::SDMMCFS* Drive = &SD_MMC;
+    fs::SDMMCFS *Drive = &SD_MMC;
 #else
 
-    fs::SDFS* Drive = &SD;
+    fs::SDFS *Drive = &SD;
 
 #endif
     // WiFi
@@ -342,8 +352,8 @@ public:
     * 7) Load software handles.
     * 8) Execute software startup function (Shell and other software).
     */
-    void Start(Software_Handle_Class* Software_Package, uint8_t Size); // reload system from the dump file
-    
+    void Start(Software_Handle_Class *Software_Package, uint8_t Size); // reload system from the dump file
+
     /**
      * @brief Function that handle deep-sleep wakeup, initialize the, start software etc.
      * @details Function steps :
@@ -355,6 +365,7 @@ public:
     {
         Damaged_System_Registry,
         Installation_Conflict,
+        System_Drive_Failure,
         Low_Memory
     };
 
@@ -364,12 +375,14 @@ public:
      * 
      */
     void Shutdown(); // private
-    
+
+    void Check_System_Drive();
+
     inline void First_Start_Routine();
     inline void Second_Start_Routine();
 
-    void Restart();  // private
-    
+    void Restart(); // private
+
     void Hibernate(); // private
 
     void Deep_Sleep();
@@ -409,7 +422,6 @@ public:
      * @return 
     */
     Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
-
 
     //Xila_Event Update();
 
@@ -533,27 +545,25 @@ public:
     };
 
     void Panic_Handler(uint32_t Panic_Code);
-    
 
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-    Xila_Event Color_Picker_Dialog(uint16_t& Color);
-    Xila_Event Open_File_Dialog(File& File_To_Open);
+    Xila_Event Color_Picker_Dialog(uint16_t &Color);
+    Xila_Event Open_File_Dialog(File &File_To_Open);
     Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
-    Xila_Event Save_File_Dialog(File& File_To_Save);
+    Xila_Event Save_File_Dialog(File &File_To_Save);
     Xila_Event Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
     // to do : Xila_Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
     Xila_Event Keypad_Dialog(float &Number_To_Get);
-    
 
     uint32_t Dialog_Long[2];
     void *Dialog_Pointer;
 
-    Software_Handle_Class* Caller_Software_Handle_Pointer;
+    Software_Class *Caller_Software_Handle_Pointer;
 
     Xila_Event Dialog_State;
-    
+
     SemaphoreHandle_t Dialog_Semaphore;
-    
+
     File *File_Dialog_Reply;
 
     Xila_Event Set_Autologin();
@@ -584,7 +594,6 @@ public:
     uint8_t Background_Function_Counter;
 
     void Execute_Startup_Function();
-
 
     // System's task :
     xTaskHandle Core_Task_Handle;

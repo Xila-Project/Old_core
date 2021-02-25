@@ -31,14 +31,14 @@ public:
 
     //void Set_Variable(const void *, uint8_t , uint8_t , uint8_t  = 0);
 
-    enum Picture_ID
+    enum Image
     {
-        Paint_32 = 7
+        Icon_32 = Xila.Paint
     };
 
     static void Main_Task(void*);
 };
 
-Software_Handle_Class Paint_Handle("Paint", Paint_Class::Paint_32, Paint_Class::Load);
+Software_Handle_Class Paint_Handle("Paint", Paint_Class::Icon_32, Paint_Class::Load);
 
 #endif

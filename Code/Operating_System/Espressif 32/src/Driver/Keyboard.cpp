@@ -40,7 +40,7 @@
 
 #include "Driver/Keyboard.hpp"
 
-volatile uint8_t Keyboard_Class::buffer[BUFFER_SIZE];
+volatile uint8_t Keyboard_Class::buffer[BUFFER_SIZE] = {0};
 volatile uint8_t Keyboard_Class::head = 0;
 volatile uint8_t Keyboard_Class::tail = 0;
 uint8_t Keyboard_Class::DataPin = 0;
@@ -324,6 +324,7 @@ void Keyboard_Class::begin(uint8_t data_pin, uint8_t irq_pin, const Keymap_Class
     {
         attachInterrupt(irq_num, Interrupt_Handler, FALLING);
     }
+    
 }
 
 const Keymap_Class Keyboard_Class::Keymap_US = {

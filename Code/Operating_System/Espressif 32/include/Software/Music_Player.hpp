@@ -5,7 +5,7 @@
 class Music_Player_Class : public Software_Class
 {
 protected:
-    static Music_Player_Class* Instance_Pointer;
+    static Music_Player_Class *Instance_Pointer;
 
     static void Main_Task(void *);
 
@@ -52,7 +52,7 @@ protected:
 
     void Next_Track();
     void Last_Track();
-    
+
     void Refresh_Interface();
 
     uint8_t Count_Music_File();
@@ -61,19 +61,18 @@ public:
     Music_Player_Class();
     ~Music_Player_Class();
 
-    static Software_Class* Load();
+    static Software_Class *Load();
 
     enum Picture
     {
-        Pause_32 = 44,
-        Play_32,
-        Step_Backward_32,
-        Step_Forward_32,
+        Music_Player_Icon_32 = Xila.Music_Player,
         Loop_32,
+        Pause_32,
+        Play_32,
         Random_32,
-        Music_Player_32 = 11
+        Step_Backward_32,
+        Step_Forward_32
     };
-    
 };
 
-Software_Handle_Class Music_Player_Handle("Music Player", Music_Player_Class::Music_Player_32, Music_Player_Class::Load);
+Software_Handle_Class Music_Player_Handle("Music Player", Music_Player_Class::Music_Player_Icon_32, Music_Player_Class::Load);

@@ -139,6 +139,10 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
   String Temporary_String;
+  while (Xila.Open_Software_Pointer[0] == NULL)
+  {
+    vTaskDelay(pdMS_TO_TICKS(1));
+  }
   switch (Received_Data[0])
   {
   case Xila.Command:
@@ -186,6 +190,9 @@ void Xila_Class::Incomming_Event_From_Display(uint8_t Event_Code)
   {
   case Nextion_Display_Class::Current_Page_Number:
     Xila.Refresh_Header();
+    break;
+  case Nextion_Display_Class::Serial_Buffer_Overflow:
+    Verbose_Print_Line("Display buffer overflow");
     break;
   default:
     break;
@@ -391,11 +398,19 @@ tm Xila_Class::Get_Time()
   return Time;
 }
 
+void Xila_Class::Check_System_Drive()
+{
+  if (Drive->cardType() == CARD_NONE)
+  {
+    Panic_Handler(System_Drive_Failure);
+  }
+}
+
 void Xila_Class::Panic_Handler(uint32_t Panic_Code)
 {
-  //vTaskSuspendAll();
+  vTaskSuspendAll();
   Display.Set_Current_Page(F("Core_Panic"));
-  Display.Set_Text(F("ERRORCODE_TXT"), String("Error code:") + String(Panic_Code));
+  Display.Set_Text(F("ERRORCODE_TXT"), String("Error code: ") + String(Panic_Code));
   while (digitalRead(POWER_BUTTON_PIN) == HIGH)
   {
   }

@@ -103,7 +103,7 @@ const unsigned char Tiny_Basic_Class::spacemsg[2] = " ";
 Tiny_Basic_Class *Tiny_Basic_Class::Instance_Pointer = NULL;
 #define INSTANCE_POINTER Tiny_Basic_Class::Instance_Pointer
 
-Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(8),
+Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle, 10),
                                        inhibitOutput(false),
                                        runAfterLoad(false),
                                        triggerRun(false),

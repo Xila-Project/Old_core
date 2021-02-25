@@ -54,7 +54,7 @@ public:
 
     enum Images
     {
-        Icon_32,
+        Icon_32 = Xila.Simon,
 
     };
 

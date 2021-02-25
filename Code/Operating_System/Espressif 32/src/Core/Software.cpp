@@ -3,13 +3,15 @@
 //Software class
 
 Software_Class *Software_Class::Instance_Pointer = NULL;
-Software_Handle_Class *Software_Class::Handle_Pointer = NULL;
 
-Software_Class::Software_Class(uint8_t Task_Queue_Size)
+Software_Handle_Class* Software_Class::Handle_Pointer = NULL;
+
+Software_Class::Software_Class(Software_Handle_Class& Software_Handle, uint8_t Queue_Size)
 {
-  if (Task_Queue_Size != 0)
+  Handle_Pointer = &Software_Handle;
+  if (Queue_Size != 0)
   {
-    Command_Queue_Handle = xQueueCreate(Task_Queue_Size, sizeof(uint16_t));
+    Command_Queue_Handle = xQueueCreate(Queue_Size, sizeof(uint16_t));
     if (Command_Queue_Handle == NULL)
     {
       Serial.print(F("Error cannot create software Queue !"));

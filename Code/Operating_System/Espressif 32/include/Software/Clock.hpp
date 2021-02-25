@@ -106,13 +106,13 @@ public:
 
     enum Picture
     {
-        Clock_32 = 38
+        Icon_32 = Xila.Clock
     };
 
     Clock_Class();
     ~Clock_Class();
 };
 
-Software_Handle_Class Clock_Handle("Clock", Clock_Class::Clock_32, Clock_Class::Load, Clock_Class::Startup_Function);
+Software_Handle_Class Clock_Handle("Clock", Clock_Class::Icon_32, Clock_Class::Load, Clock_Class::Startup_Function);
 
 #endif

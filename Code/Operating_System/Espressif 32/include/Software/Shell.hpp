@@ -29,6 +29,7 @@
 class Shell_Class : public Software_Class
 {
 protected:
+
     static Shell_Class *Instance_Pointer;
 
     float Temporary_Float;
@@ -47,10 +48,6 @@ protected:
     uint16_t Standby_Display_Time;
     uint16_t Standby_System_Time;
 
-
-    
-
-
     // -- Preferences system attributes
 
     bool Autologin;
@@ -62,9 +59,9 @@ protected:
     char Device_Name[25]; // -- Shared with install wizard
 
     char Target_Username[9];
-    char Username[9];       // -- Shared with install wizard and login
-    char Password_1[25];    // -- Shared with install wizard and login
-    char Password_2[25];    // -- Shared with install wizard
+    char Username[9];    // -- Shared with install wizard and login
+    char Password_1[25]; // -- Shared with install wizard and login
+    char Password_2[25]; // -- Shared with install wizard
 
     // -- Preferences network attributes
 
@@ -150,7 +147,7 @@ protected:
 
     // -- Custom dialog boxes
 
-    Xila_Event Keyboard_Dialog(char*, size_t, bool = false);
+    Xila_Event Keyboard_Dialog(char *, size_t, bool = false);
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
 
     // -- Shutdown
@@ -236,21 +233,25 @@ public:
 
     enum Images
     {
-        File_Manager_32 = 4,
-        Preferences_32 = 3,
-        Empty_16 = 14,
-        File_16 = 15,
-        Folder_16 = 16,
-        Home_24 = 35,
+        Empty_16 = Xila.Shell,
+        File_16,
+        Folder_16,
         Copy_24,
         Cut_24,
-        Paste_24,
-        Trash_24,
+        Home_24,
         New_File_24,
         New_Folder_24,
+        Paste_24,
+        Refresh_24,
         Rename_24,
         Root_24,
-        Empty_32 = 38
+        Trash_24,
+        Empty_32,
+        File_Manager_32,
+        Preferences_32,
+        Shutdown_32,
+        Alix_Fait_Grr_Icon_64,
+        Background_Picture_480,
     };
 
     Shell_Class();

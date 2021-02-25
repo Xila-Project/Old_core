@@ -183,9 +183,9 @@ public:
     Internet_Browser_Class();
     ~Internet_Browser_Class();
 
-    enum Picture
+    enum Image
     {
-        Internet_Browser_32 = 9
+        Icon_32 = Xila.Internet_Browser
     };
 
     static void Main_Task(void *pvParameters);
@@ -194,6 +194,6 @@ public:
 };
 
 
-Software_Handle_Class Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Internet_Browser_32, Internet_Browser_Class::Load);
+Software_Handle_Class Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Icon_32, Internet_Browser_Class::Load);
 
 #endif

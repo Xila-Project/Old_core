@@ -380,9 +380,9 @@ protected:
 public:
     static Software_Class* Load();
 
-    enum Picture_ID
+    enum Picture
     {
-        Tiny_Basic_32 = 48 //currently empty
+        Icon_32 = Xila.Tiny_Basic //currently empty
     };
 
     static void Main_Task(void *pvParameters);
@@ -393,6 +393,6 @@ public:
 
 void Tiny_Basic_Task(void *);
 
-Software_Handle_Class TinyBasic_Handle("Tiny Basic", Tiny_Basic_Class::Tiny_Basic_32, Tiny_Basic_Class::Load);
+Software_Handle_Class Tiny_Basic_Handle("Tiny Basic", Tiny_Basic_Class::Icon_32, Tiny_Basic_Class::Load);
 
 #endif
