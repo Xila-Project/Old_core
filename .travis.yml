@@ -19,4 +19,4 @@ install:
   - pio lib -g install 64
 
 script:
-  - pio ci --project-conf=/Code/Operating System/Espressif 32/platoformio.ini
+  - pio ci --project-conf=/Code/Operating_System/Espressif 32/platoformio.ini
