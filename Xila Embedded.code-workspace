@@ -4,8 +4,8 @@
 			"path": "."
 		},
 		{
-			"name": "Espressif 32",
-			"path": "Code\\Operating_System\\Espressif 32"
+			"name": "Espressif_32",
+			"path": "Code\\Operating_System\\Espressif_32"
 		}
 	],
 	"settings": {
