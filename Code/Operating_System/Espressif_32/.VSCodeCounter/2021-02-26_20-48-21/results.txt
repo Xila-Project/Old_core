@@ -1,0 +1,188 @@
+Date : 2021-02-26 20:48:21
+Directory : c:\Users\alixa\github\Xila Embedded
+Total : 109 files,  20907 codes, 1967 comments, 2502 blanks, all 25376 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| C++                |         66 |     14,936 |      1,936 |      2,391 |     19,263 |
+| JSON               |         28 |      5,366 |          0 |          3 |      5,369 |
+| Markdown           |          8 |        366 |          0 |         90 |        456 |
+| Visual Basic       |          1 |        160 |          0 |          0 |        160 |
+| JSON with Comments |          2 |         42 |          0 |          0 |         42 |
+| Ini                |          3 |         22 |         29 |         13 |         64 |
+| YAML               |          1 |         15 |          2 |          5 |         22 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                  | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                     |        109 |     20,907 |      1,967 |      2,502 |     25,376 |
+| Code                                                                                                                  |        104 |     20,725 |      1,965 |      2,446 |     25,136 |
+| Code\Developpement Kit                                                                                                |         13 |        282 |         10 |         12 |        304 |
+| Code\Developpement Kit\Drive                                                                                          |         11 |        241 |          0 |          1 |        242 |
+| Code\Developpement Kit\Drive\USERS                                                                                    |          2 |          8 |          0 |          0 |          8 |
+| Code\Developpement Kit\Drive\USERS\ALIX                                                                               |          2 |          8 |          0 |          0 |          8 |
+| Code\Developpement Kit\Drive\USERS\ALIX\REGISTRY                                                                      |          2 |          8 |          0 |          0 |          8 |
+| Code\Developpement Kit\Drive\XILA                                                                                     |          8 |         73 |          0 |          1 |         74 |
+| Code\Developpement Kit\Drive\XILA\REGISTRY                                                                            |          8 |         73 |          0 |          1 |         74 |
+| Code\Developpement Kit\Serial Bridge                                                                                  |          2 |         41 |         10 |         11 |         62 |
+| Code\Developpement Kit\Serial Bridge\Serial Bridge                                                                    |          2 |         41 |         10 |         11 |         62 |
+| Code\Developpement Kit\Serial Bridge\Serial Bridge\src                                                                |          1 |         36 |          1 |          9 |         46 |
+| Code\External Software                                                                                                |          4 |        236 |         11 |         31 |        278 |
+| Code\External Software\Ultrasonic Rangefinder                                                                         |          4 |        236 |         11 |         31 |        278 |
+| Code\External Software\Ultrasonic Rangefinder\Espressif 32                                                            |          4 |        236 |         11 |         31 |        278 |
+| Code\External Software\Ultrasonic Rangefinder\Espressif 32\include                                                    |          1 |         29 |          0 |         17 |         46 |
+| Code\External Software\Ultrasonic Rangefinder\Espressif 32\src                                                        |          2 |        203 |          2 |         12 |        217 |
+| Code\Install Tool                                                                                                     |          1 |         74 |         21 |         18 |        113 |
+| Code\Operating_System                                                                                                 |         86 |     20,133 |      1,923 |      2,385 |     24,441 |
+| Code\Operating_System\Drive                                                                                           |         17 |      5,262 |          0 |          2 |      5,264 |
+| Code\Operating_System\Drive\SOFTWARE                                                                                  |          6 |      5,167 |          0 |          0 |      5,167 |
+| Code\Operating_System\Drive\SOFTWARE\CALCULAT                                                                         |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\CALCULAT\REGISTRY                                                                |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\INTERNET                                                                         |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\INTERNET\REGISTRY                                                                |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\MUSICPLA                                                                         |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\MUSICPLA\REGISTRY                                                                |          1 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\PERIODIC                                                                         |          1 |      5,095 |          0 |          0 |      5,095 |
+| Code\Operating_System\Drive\SOFTWARE\PERIODIC\DATA                                                                    |          1 |      5,095 |          0 |          0 |      5,095 |
+| Code\Operating_System\Drive\SOFTWARE\SHELL                                                                            |          2 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\SHELL\REGISTRY                                                                   |          2 |         18 |          0 |          0 |         18 |
+| Code\Operating_System\Drive\SOFTWARE\SHELL\REGISTRY\TEMPLATE                                                          |          1 |          4 |          0 |          0 |          4 |
+| Code\Operating_System\Drive\XILA                                                                                      |         11 |         95 |          0 |          2 |         97 |
+| Code\Operating_System\Drive\XILA\REGISTRY                                                                             |         11 |         95 |          0 |          2 |         97 |
+| Code\Operating_System\Drive\XILA\REGISTRY\TEMPLATE                                                                    |          2 |         22 |          0 |          1 |         23 |
+| Code\Operating_System\Espressif_32                                                                                    |         68 |     14,859 |      1,923 |      2,383 |     19,165 |
+| Code\Operating_System\Espressif_32\.VSCodeCounter                                                                     |          6 |        252 |          0 |         39 |        291 |
+| Code\Operating_System\Espressif_32\.VSCodeCounter\2020-10-21_21-42-23                                                 |          2 |         67 |          0 |         13 |         80 |
+| Code\Operating_System\Espressif_32\.VSCodeCounter\2020-12-22_20-20-52                                                 |          2 |         82 |          0 |         13 |         95 |
+| Code\Operating_System\Espressif_32\.VSCodeCounter\2021-02-17_23-19-49                                                 |          2 |        103 |          0 |         13 |        116 |
+| Code\Operating_System\Espressif_32\include                                                                            |         26 |      2,132 |        616 |        787 |      3,535 |
+| Code\Operating_System\Espressif_32\include\Core                                                                       |          5 |        407 |        204 |        176 |        787 |
+| Code\Operating_System\Espressif_32\include\Driver                                                                     |          4 |        578 |        132 |        128 |        838 |
+| Code\Operating_System\Espressif_32\include\Software                                                                   |         15 |      1,091 |        184 |        445 |      1,720 |
+| Code\Operating_System\Espressif_32\src                                                                                |         34 |     12,452 |      1,296 |      1,545 |     15,293 |
+| Code\Operating_System\Espressif_32\src\Core                                                                           |         13 |      1,752 |        475 |        321 |      2,548 |
+| Code\Operating_System\Espressif_32\src\Driver                                                                         |          4 |      1,882 |        212 |        204 |      2,298 |
+| Code\Operating_System\Espressif_32\src\Software                                                                       |         15 |      8,807 |        597 |      1,011 |     10,415 |
+| Code\Operating_System\Espressif_32\test                                                                               |          1 |         10 |          0 |          3 |         13 |
+| Code\Operating_System\Espressif_32\test\Regular                                                                       |          1 |         10 |          0 |          3 |         13 |
++-----------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                              | language           | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\alixa\github\Xila Embedded\.travis.yml                                                                       | YAML               |         15 |          2 |          5 |         22 |
+| c:\Users\alixa\github\Xila Embedded\Code Of Conduct.md                                                                | Markdown           |         57 |          0 |         20 |         77 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\USERS\ALIX\REGISTRY\SHELL.XRF                        | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\USERS\ALIX\REGISTRY\USER.XRF                         | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\DISPLAY.XRF                            | JSON               |          6 |          0 |          0 |          6 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\DRIVE.XRF                              | JSON               |          6 |          0 |          0 |          6 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\DUMP.XRF                               | JSON               |          9 |          0 |          1 |         10 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\NETWORK.XRF                            | JSON               |         15 |          0 |          0 |         15 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\REGIONAL.XRF                           | JSON               |         15 |          0 |          0 |         15 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\SOFTWARE.XRF                           | JSON               |          7 |          0 |          0 |          7 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\SOUND.XRF                              | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\XILA\REGISTRY\SYSTEM.XRF                             | JSON               |         11 |          0 |          0 |         11 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Drive\test.bas                                             | Visual Basic       |        160 |          0 |          0 |        160 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Serial Bridge\Serial Bridge\platformio.ini                 | Ini                |          5 |          9 |          2 |         16 |
+| c:\Users\alixa\github\Xila Embedded\Code\Developpement Kit\Serial Bridge\Serial Bridge\src\main.cpp                   | C++                |         36 |          1 |          9 |         46 |
+| c:\Users\alixa\github\Xila Embedded\Code\External Software\Ultrasonic Rangefinder\Espressif 32\include\Ultrasonic.hpp | C++                |         29 |          0 |         17 |         46 |
+| c:\Users\alixa\github\Xila Embedded\Code\External Software\Ultrasonic Rangefinder\Espressif 32\platformio.ini         | Ini                |          4 |          9 |          2 |         15 |
+| c:\Users\alixa\github\Xila Embedded\Code\External Software\Ultrasonic Rangefinder\Espressif 32\src\Ultrasonic.cpp     | C++                |        197 |          0 |          9 |        206 |
+| c:\Users\alixa\github\Xila Embedded\Code\External Software\Ultrasonic Rangefinder\Espressif 32\src\main.cpp           | C++                |          6 |          2 |          3 |         11 |
+| c:\Users\alixa\github\Xila Embedded\Code\Install Tool\Install Tool.ino                                                | C++                |         74 |         21 |         18 |        113 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\CALCULAT\REGISTRY\CALCULAT.XRF               | JSON               |         18 |          0 |          0 |         18 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\INTERNET\REGISTRY\SOFTWARE.XRF               | JSON               |         18 |          0 |          0 |         18 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\MUSICPLA\REGISTRY\MUSICPLA.XRF               | JSON               |         18 |          0 |          0 |         18 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\PERIODIC\DATA\PERIODIC.XRF                   | JSON               |      5,095 |          0 |          0 |      5,095 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\SHELL\REGISTRY\SOFTWARE.XRF                  | JSON               |         14 |          0 |          0 |         14 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\SOFTWARE\SHELL\REGISTRY\TEMPLATE\SHELL.XRF            | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\ACCOUNT.XRF                             | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\DISPLAY.XRF                             | JSON               |          7 |          0 |          0 |          7 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\DRIVE.XRF                               | JSON               |          6 |          0 |          0 |          6 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\KEYBOARD.XRF                            | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\NETWORK.XRF                             | JSON               |         17 |          0 |          0 |         17 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\REGIONAL.XRF                            | JSON               |         13 |          0 |          1 |         14 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\SOFTWARE.XRF                            | JSON               |          7 |          0 |          0 |          7 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\SOUND.XRF                               | JSON               |          4 |          0 |          0 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\SYSTEM.XRF                              | JSON               |         11 |          0 |          0 |         11 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\TEMPLATE\SOFTWARE.XRF                   | JSON               |         18 |          0 |          0 |         18 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Drive\XILA\REGISTRY\TEMPLATE\USER.XRF                       | JSON               |          4 |          0 |          1 |          5 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2020-10-21_21-42-23\details.md  | Markdown           |         49 |          0 |          6 |         55 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2020-10-21_21-42-23\results.md  | Markdown           |         18 |          0 |          7 |         25 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2020-12-22_20-20-52\details.md  | Markdown           |         61 |          0 |          6 |         67 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2020-12-22_20-20-52\results.md  | Markdown           |         21 |          0 |          7 |         28 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2021-02-17_23-19-49\details.md  | Markdown           |         74 |          0 |          6 |         80 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\.VSCodeCounter\2021-02-17_23-19-49\results.md  | Markdown           |         29 |          0 |          7 |         36 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Configuration.hpp                      | C++                |         50 |         17 |         34 |        101 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Core.hpp                          | C++                |        294 |        192 |        126 |        612 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Instruction.hpp                   | C++                |         14 |          0 |          3 |         17 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Path.hpp                          | C++                |         35 |          0 |         11 |         46 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Software.hpp                      | C++                |         35 |          0 |         20 |         55 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Software_Handle.hpp               | C++                |         29 |         12 |         16 |         57 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Driver\Battery.hpp                     | C++                |        118 |         19 |          8 |        145 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Driver\Display.hpp                     | C++                |        189 |         26 |         52 |        267 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Driver\Keyboard.hpp                    | C++                |        170 |         60 |         23 |        253 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Driver\Sound.hpp                       | C++                |        101 |         27 |         45 |        173 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Calculator.hpp                | C++                |        129 |         11 |         49 |        189 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Clock.hpp                     | C++                |         74 |         11 |         33 |        118 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Internet_Browser.hpp          | C++                |        135 |         22 |         42 |        199 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Music_Player.hpp              | C++                |         52 |          3 |         24 |         79 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Oscilloscope.hpp              | C++                |         68 |         25 |         37 |        130 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Paint.hpp                     | C++                |         19 |         13 |         12 |         44 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Periodic.hpp                  | C++                |         28 |          3 |         17 |         48 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Piano.hpp                     | C++                |         23 |          0 |         12 |         35 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Picture_Viewer.hpp            | C++                |         36 |          0 |         14 |         50 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Pong.hpp                      | C++                |         14 |          0 |          8 |         22 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Shell.hpp                     | C++                |        150 |         44 |         69 |        263 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Simon.hpp                     | C++                |         45 |          0 |         24 |         69 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Software_Template.hpp         | C++                |         18 |          0 |          7 |         25 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Text Editor.hpp               | C++                |         34 |          0 |         17 |         51 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Tiny_Basic.hpp                | C++                |        266 |         52 |         80 |        398 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Xila.hpp                               | C++                |          6 |         79 |          4 |         89 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\platformio.ini                                 | Ini                |         13 |         11 |          9 |         33 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Account.cpp                           | C++                |         95 |          1 |         13 |        109 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Clipboard.cpp                         | C++                |        115 |          0 |          7 |        122 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Core.cpp                              | C++                |        347 |         48 |         59 |        454 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Dialog.cpp                            | C++                |        161 |          9 |         61 |        231 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Instruction.cpp                       | C++                |          7 |          1 |          1 |          9 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Power.cpp                             | C++                |        342 |         27 |         85 |        454 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Registry.cpp                          | C++                |        354 |          1 |         36 |        391 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Software.cpp                          | C++                |         49 |          1 |         12 |         62 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Software_Handle.cpp                   | C++                |         41 |          2 |          7 |         50 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Software_Management.cpp               | C++                |        193 |         12 |         24 |        229 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Task.cpp                              | C++                |         23 |          1 |          8 |         32 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Task_Management.cpp                   | C++                |         25 |          0 |          6 |         31 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Core\Virtual_Memory.cpp                    | C++                |          0 |        372 |          2 |        374 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Driver\Battery.cpp                         | C++                |         22 |         20 |          6 |         48 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Driver\Display.cpp                         | C++                |        885 |         23 |         82 |        990 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Driver\Keyboard.cpp                        | C++                |        541 |         60 |         34 |        635 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Driver\Sound.cpp                           | C++                |        434 |        109 |         82 |        625 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Main.cpp                                   | C++                |          9 |         12 |          7 |         28 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Clock.cpp                         | C++                |        663 |          2 |         40 |        705 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Internet_Browser.cpp              | C++                |      1,157 |         61 |        163 |      1,381 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Music_Player.cpp                  | C++                |        270 |          1 |         27 |        298 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Oscilloscope.cpp                  | C++                |        526 |         54 |         40 |        620 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Paint.cpp                         | C++                |         46 |         23 |         10 |         79 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Periodic.cpp                      | C++                |        215 |         17 |         45 |        277 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Piano.cpp                         | C++                |        136 |         10 |         29 |        175 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Picture_Viewer.cpp                | C++                |        164 |          7 |         17 |        188 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Pong.cpp                          | C++                |          1 |          0 |          0 |          1 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Shell.cpp                         | C++                |      1,864 |         66 |        176 |      2,106 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Simon.cpp                         | C++                |        235 |          4 |         17 |        256 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Software_Template.cpp             | C++                |          1 |         10 |          3 |         14 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Text_Editor.cpp                   | C++                |        186 |          1 |         11 |        198 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\Tiny_Basic.cpp                    | C++                |      2,059 |        317 |        343 |      2,719 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Software\calculator.cpp                    | C++                |      1,284 |         24 |         90 |      1,398 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\src\Xila.cpp                                   | C++                |          2 |          0 |          2 |          4 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\test\Regular\Regular.cpp                       | C++                |         10 |          0 |          3 |         13 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Workspace.code-workspace                                    | JSON with Comments |         12 |          0 |          0 |         12 |
+| c:\Users\alixa\github\Xila Embedded\README.md                                                                         | Markdown           |         57 |          0 |         31 |         88 |
+| c:\Users\alixa\github\Xila Embedded\Xila Embedded.code-workspace                                                      | JSON with Comments |         30 |          0 |          0 |         30 |
+| c:\Users\alixa\github\Xila Embedded\library.json                                                                      | JSON               |         23 |          0 |          0 |         23 |
+| Total                                                                                                                 |                    |     20,907 |      1,967 |      2,502 |     25,376 |
++-----------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

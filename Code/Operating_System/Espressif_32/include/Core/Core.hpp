@@ -221,6 +221,8 @@ public:
      */
     Xila_Event Software_Open(Software_Handle_Class const &Software_Handle);
 
+    /**
+     */
     void Close_Software();
 
     /**

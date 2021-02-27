@@ -1,8 +1,6 @@
 #include "Xila.hpp"
 
-
-
-//#include "unity.h" testing pup
+//#include "unity.h"
 
 void setup()
 {
@@ -25,5 +23,5 @@ void setup()
 
 void loop()
 {
-    vTaskDelete(NULL);
+    Xila.Task_Delete(NULL);
 }

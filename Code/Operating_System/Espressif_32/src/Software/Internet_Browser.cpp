@@ -59,9 +59,21 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Instance_Pointer->Go_Home();
       //do something when
       break;
+      
     case Xila.Minimize: // NULL + m : Minimize
+
       Xila.Task_Suspend();
       break;
+
+    case Instruction('M', 'i'):
+      Xila.Minimize_Software();
+
+      break;
+
+    case Instruction('C', 'l'):
+      Xila.Close_Software(Internet_Browser_Handle);
+      break;
+
     case Xila.Close: // NULL + C : Close
       delete Instance_Pointer;
       Xila.Task_Delete();
@@ -191,7 +203,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_WRITE);
+  Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/CACHE.XDF", FILE_WRITE);
   if (!Cache_File)
   {
     Xila.Event_Dialog(F("Cache file open failed."), Xila.Error);
@@ -240,6 +252,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     //error handle : reset ?
     return 0;
   }
+  
   Xila.Delay(500);
 
   byte Wait = 0;
@@ -915,18 +928,18 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     Xila.Display.Set_Text(F("URL_TXT"), F("Home Page"));
-    Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/HOMEPAGE.GDF", FILE_READ);
+    Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/HOMEPAGE.XDF");
   }
   else
   {
     Xila.Display.Set_Text("URL_TXT", URL);
-    Cache_File = Xila.Drive->open("/SOFTWARE/IGOS/CACHE.GDF", FILE_READ);
+    Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/CACHE.XDF");
   }
 
   if (!Cache_File)
   {
     Xila.Event_Dialog(F("Failed to open cache file."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
+
     Serial.println(F("Failed to open cache !"));
     memcpy(Server, "*\0", 2);
     return 0;
@@ -936,7 +949,7 @@ byte Internet_Browser_Class::Display_Page()
   {
     //error handle
     Xila.Event_Dialog(F("Seek failure in cache file."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
+
     Serial.println(F("Seek failture"));
     return 0;
   }
@@ -1171,9 +1184,6 @@ byte Internet_Browser_Class::Display_Page()
     pageLinks.lastLink--;
   }
 
-  //displayPageIndex();
-  //displayLinkIndex();
-
   Serial.print(F("Char count:\t"));
   Serial.println(count);
   Serial.print(F("filePtr:\t"));
@@ -1183,16 +1193,6 @@ byte Internet_Browser_Class::Display_Page()
 
   Cache_File.flush();
 
-  // Draw RAM use and page position in header
-  /*tftLCD.setCursor(43, 0);
-  tftLCD.setBGColour(GREY);
-  tftLCD.setTextColour(BLACK);
-  tftLCD.print(lowestRAM);
-  tftLCD.setCursor(46, 0);
-  tftLCD.print(F(" p"));
-  tftLCD.print(textContent.pagePtr + 1);
-  tftLCD.print(F("/"));
-  tftLCD.println(textContent.lastPage + 1);*/
   return 1;
 }
 
