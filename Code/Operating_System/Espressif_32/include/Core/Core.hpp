@@ -470,6 +470,7 @@ public:
         Color_Picker = 'c',
         Shutting_down = 200,
         Restarting,
+        Power = 'P',
         Event = 'E',
         Command = '*',
         Command_New = '#',

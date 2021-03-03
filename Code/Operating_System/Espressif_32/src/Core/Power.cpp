@@ -12,14 +12,17 @@ void IRAM_ATTR Xila_Class::Power_Button_Handler()
 {
     vTaskEnterCritical(&Xila.Power_Button_Mutex);
     Xila.Power_Button_Counter = 1;
+    Verbose_Print_Line("Button triggered");
     vTaskExitCritical(&Xila.Power_Button_Mutex);
 }
 
 void Xila_Class::Check_Power_Button()
 {
-    if (Power_Button_Counter == 1)
+    if (Power_Button_Counter != 0)
     {
+        Execute_Shell(Xila.Power);
         Maximize_Software(Shell_Handle);
+        Power_Button_Counter = 0;
     }
 }
 
@@ -42,8 +45,10 @@ void Xila_Class::First_Start_Routine()
     }
 #endif
 
-    pinMode(POWER_BUTTON_PIN, INPUT_PULLUP);
-    attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+    pinMode(POWER_BUTTON_PIN, INPUT);
+
+    // Temporary disable power button interrupt due to disturbance caused maybe by WiFi
+    //attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
     // -- Disable FreeRTOS watchdog and replace it with Xila watchdog
 

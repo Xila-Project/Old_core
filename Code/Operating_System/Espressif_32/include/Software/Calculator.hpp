@@ -88,7 +88,7 @@ private:
     double acsch(double Number);
     double acoth(double Number);
 
-    void Display();
+    void Refresh_Interface();
 
     void Error();
 

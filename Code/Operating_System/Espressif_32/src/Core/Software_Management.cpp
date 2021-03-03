@@ -30,6 +30,7 @@ uint8_t Xila_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Softw
 
 Xila_Event Xila_Class::Software_Open(Software_Handle_Class const& Software_Handle)
 {
+  Verbose_Print_Line("Open software ...");
   // -- if software handle is shell handle, reopen it or maximize it
 
   uint8_t i = 2;
@@ -56,6 +57,8 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const& Software_Handl
       if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
       {
         Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
+        Verbose_Print("Maximized software :");
+        Serial.println(Open_Software_Pointer[0]->Handle_Pointer->Name);
         return Success;
       }
     }
@@ -69,6 +72,8 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const& Software_Handl
     {
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
       Open_Software_Pointer[0] = Open_Software_Pointer[i];
+      Verbose_Print_Line("Openned software :");
+      Serial.println(Open_Software_Pointer[0]->Handle_Pointer->Name);
       return Success;
     }
   }
@@ -77,6 +82,7 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const& Software_Handl
 
 void Xila_Class::Close_Software()
 {
+  Verbose_Print_Line("Close software");
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
@@ -95,7 +101,7 @@ void Xila_Class::Close_Software()
 
 void Xila_Class::Close_Software(Software_Handle_Class const &Software_Handle)
 {
-
+  Verbose_Print_Line("Close software");
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Open_Software_Pointer[i] != NULL)
@@ -140,6 +146,7 @@ void Xila_Class::Close_Software(Software_Handle_Class const &Software_Handle)
 
 void Xila_Class::Minimize_Software()
 {
+  Verbose_Print_Line("Minimize software");
   if (Open_Software_Pointer[0] != NULL)
   {
     Open_Software_Pointer[0]->Execute(Minimize);
@@ -149,6 +156,7 @@ void Xila_Class::Minimize_Software()
 
 Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
 {
+  Verbose_Print_Line("Maximize software");
   // -- Check if the software was already open or if another software is currently openned.
   if (Open_Software_Pointer[0]->Handle_Pointer != NULL)
   {
@@ -181,6 +189,7 @@ Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_H
 
 void Xila_Class::Force_Close_Software()
 {
+  Verbose_Print_Line("Force close software");
   if (*Open_Software_Pointer[0]->Handle_Pointer == Shell_Handle)
   {
     vTaskDelete(Open_Software_Pointer[1]->Task_Handle);

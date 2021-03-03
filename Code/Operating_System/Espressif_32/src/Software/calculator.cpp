@@ -5,8 +5,7 @@ Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle, 10),
                                        State(0xFF)
 {
-    Xila.Task_Create(Main_Task, "Calculator", 4 * 1024, NULL, &Task_Handle);
-    Execute(Xila.Maximize);
+    Xila.Task_Create(Main_Task, "Calculator", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Calculator_Class::~Calculator_Class()
@@ -20,6 +19,7 @@ Calculator_Class::~Calculator_Class()
 
 Software_Class *Calculator_Class::Load()
 {
+    Verbose_Print_Line("Open calculator");
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
@@ -60,7 +60,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
     case Memory_Read:
         Clear_All();
         dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
-        Display();
+        Refresh_Interface();
         break;
     case Memory_Clear:
         Memory = 0;
@@ -115,7 +115,18 @@ void Calculator_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Command())
         {
-        case 0: //idle
+        case Xila.Idle: //idle
+            Xila.Delay(20);
+            break;
+        case Xila.Watchdog:
+            Xila.Feed_Watchdog();
+            Verbose_Print_Line("Feed watchdog");
+            break;
+        case Instruction('C', 'l'):
+            Xila.Close_Software();
+            break;
+        case Instruction('M', 'i'):
+            Xila.Minimize_Software();
             break;
         case Xila.Close:
             delete Instance_Pointer;
@@ -125,69 +136,73 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Xila.Display.Set_Current_Page(F("Calculator"));
             break;
         case Xila.Minimize:
+            Verbose_Print_Line("Minimize");
             vTaskSuspend(NULL);
             break;
-
+        case Xila.Open:
+            Xila.Display.Set_Current_Page(F("Calculator"));
+            break;
         // Number editing keys
-        case 0x4E30: //Nx
+        case Instruction('N', '0'): //Nx
             Instance_Pointer->Add_Number('0');
             break;
 
-        case 0x4E31:
+        case Instruction('N', '1'):
+            
             Instance_Pointer->Add_Number('1');
             break;
 
-        case 0x4E32:
+        case Instruction('N', '2'):
             Instance_Pointer->Add_Number('2');
             break;
 
-        case 0x4E33:
+        case Instruction('N', '3'):
             Instance_Pointer->Add_Number('3');
             break;
 
-        case 0x4E34:
+        case Instruction('N', '4'):
             Instance_Pointer->Add_Number('4');
             break;
 
-        case 0x4E35:
+        case Instruction('N', '5'):
             Instance_Pointer->Add_Number('5');
             break;
 
-        case 0x4E36:
+        case Instruction('N', '6'):
             Instance_Pointer->Add_Number('6');
             break;
 
-        case 0x4E37:
+        case Instruction('N', '7'):
             Instance_Pointer->Add_Number('7');
             break;
-        case 0x4E38:
+        case Instruction('N', '8'):
             Instance_Pointer->Add_Number('8');
             break;
 
-        case 0x4E39:
+        case Instruction('N', '9'):
             Instance_Pointer->Add_Number('9');
             break;
 
-        case 0x506F: // Po
+        case Instruction('P', 'o'): // Po
             Instance_Pointer->Add_Number('.');
             break;
 
-        case 0x5069: // Pi
+        case Instruction('P', 'i'): // Pi
             Instance_Pointer->Add_Number(Pi);
             break;
 
-        case 0x5261: // Ra : random
+        case Instruction('R', 'a'): // Ra : random
             Instance_Pointer->Add_Number(Random);
             break;
 
-        case 0x5353: // SS : switch symbol
+        case Instruction('S', 'S'): // SS : switch symbol
             Instance_Pointer->Add_Number(Symbol);
             break;
 
-        case 0x4571: //Eq
+        case Instruction('E', 'q'): //Eq
             Instance_Pointer->Compute();
 
-        case 0x436C: //Cl
+        case Instruction('C', 'E'): //Cl
             Instance_Pointer->Clear();
             break;
 
@@ -495,12 +510,12 @@ void Calculator_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        Xila.Delay(20);
     }
 }
 
 void Calculator_Class::Add_Number(char const &Number_To_Add)
 {
+    Verbose_Print_Line("Add number");
     switch (Number_To_Add)
     {
     case Pi:
@@ -561,12 +576,12 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
             if (Current_Position[State] == 0)
             {
             }
-            Numbers[State][Current_Position[State]++] = Number_To_Add + 48;
+            Numbers[State][Current_Position[State]++] = Number_To_Add + '0';
         }
         break;
     }
 
-    Display();
+    Refresh_Interface();
 }
 
 void Calculator_Class::Delete_Number()
@@ -586,7 +601,7 @@ void Calculator_Class::Delete_Number()
             break;
         }
     }
-    Display();
+    Refresh_Interface();
 }
 
 void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
@@ -604,7 +619,7 @@ void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
         State = 0;
     }
     Secondary_Operator[State] = Operator_To_Set;
-    Display();
+    Refresh_Interface();
 }
 
 void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
@@ -621,7 +636,7 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
     }
     Primary_Operator = Opertor_To_Set;
     State = 1;
-    Display();
+    Refresh_Interface();
 }
 
 double Calculator_Class::fact(double Number)
@@ -908,7 +923,7 @@ void Calculator_Class::Compute()
     }
     dtostrf(Temporary_Numbers[2], sizeof(Numbers[2]), POINT_PRECISION, Numbers[2]);
     State = 2;
-    Display();
+    Refresh_Interface();
 }
 
 void Calculator_Class::Error()
@@ -975,8 +990,9 @@ void Calculator_Class::Clear_All()
     Primary_Operator = 0xFF;
 }
 
-void Calculator_Class::Display()
+void Calculator_Class::Refresh_Interface()
 {
+    Verbose_Print_Line("Refresh");
     Temporary_Current_Position = 0;
     memset(Temporary_Char_Array, 0, sizeof(Temporary_Char_Array));
     if (State >= 0)

@@ -9,7 +9,7 @@ Xila_Class Xila;
 Xila_Class::Xila_Class() : Tag(0),
                            Display(),
                            Sound(),
-                           Battery(13, 47, 47),
+                           Battery(36, 47, 47),
                            Keyboard(),
                            Dialog_Semaphore(xSemaphoreCreateMutex()),
                            Background_Function_Counter(0)
@@ -141,7 +141,8 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   String Temporary_String;
   while (Xila.Open_Software_Pointer[0] == NULL)
   {
-    vTaskDelay(pdMS_TO_TICKS(1));
+    Verbose_Print_Line("NULL Open_Software_Pointer[0]");
+    vTaskDelay(pdMS_TO_TICKS(20));
   }
   switch (Received_Data[0])
   {

@@ -53,6 +53,7 @@ Software_Class *Shell_Class::Load_Shell()
 void Shell_Class::Startup()
 {
     Verbose_Print_Line("> Open_Shell");
+
     Xila.Software_Open(Shell_Handle);
 }
 
@@ -142,7 +143,7 @@ void Shell_Class::Main_Commands()
     case Instruction('L', 'R'):
         Load_Registry();
         break;
-    case Instruction('O', 's'): // Os : Shutdown menu
+    case Xila.Power: // Os : Shutdown menu
         Open_Shutdown();
         break;
     case Instruction('O', 'L'): // "OL" : Open Login page
@@ -260,7 +261,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         {
         case 'F':
             strlcat(Current_Path, (char *)Variable, sizeof(Current_Path));
-            Execute('R', 'F');            
+            Execute('R', 'F');
             break;
         default:
             break;
@@ -386,7 +387,7 @@ void Shell_Class::Refresh_File_Manager()
                 {
                     Temporary_Item.openNextFile().close();
                 }
-                
+
                 char Temporary_Item_Name[13] = "ITEM _TXT";
                 char Temporary_Item_Picture[13] = "ITEM _PIC";
 
@@ -445,7 +446,7 @@ void Shell_Class::Refresh_File_Manager()
 
                     if (Item)
                     {
-                        
+
                         Xila.Display.Set_Text(Temporary_Item_Name, Item.name() + 1);
 
                         if (Item.isDirectory())
@@ -461,13 +462,12 @@ void Shell_Class::Refresh_File_Manager()
                     {
                         Xila.Display.Set_Text(Temporary_Item_Name, "");
 
-
                         Xila.Display.Set_Picture(Temporary_Item_Picture, Empty_16);
                     }
 
                     Item.close();
                     Xila.Delay(10);
-                }    
+                }
             }
             else // if it is a file
             {
@@ -778,6 +778,7 @@ void Shell_Class::Open_From_Drawer(uint8_t Slot)
             if (Xila.Software_Open(*Xila.Software_Handle_Pointer[Slot + Offset]) != Xila.Success)
             {
                 Verbose_Print_Line("Failed to open software");
+                Event_Dialog(F("Failed to open software"), Xila.Error);
             }
         }
         else
@@ -1151,15 +1152,15 @@ void Shell_Class::Login_Commands()
                 Event_Dialog(F("Failed to load user registry."), Xila.Error);
             }
 
-            #if ANIMATION == 1
+#if ANIMATION == 1
             Xila.Delay(4000);
-            #endif
+#endif
 
             Xila.Display.Set_Value(F("STATE_VAR"), 2);
-            
-            #if ANIMATION == 1
+
+#if ANIMATION == 1
             Xila.Delay(1000);
-            #endif
+#endif
             Open_Desk();
         }
         else
