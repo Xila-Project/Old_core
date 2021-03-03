@@ -298,7 +298,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
 
         case Instruction('S', 'H'): // Enable hyperbolic
-            if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)c
             {
                 bitWrite(Instance_Pointer->Keys_Mode, Hyperbolic, 0);
             }

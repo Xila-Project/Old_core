@@ -94,7 +94,7 @@ void Xila_Class::Close_Software()
     }
   }
   Open_Software_Pointer[0]->Execute(Close);
-  Open_Software_Pointer[0] = NULL;
+  
   // -- Maximize shell
   Maximize_Shell();
 }
