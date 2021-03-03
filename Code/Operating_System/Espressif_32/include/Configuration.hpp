@@ -52,6 +52,8 @@
 // disable / enable animation
 #define ANIMATION 0
 
+// used to bypass login form during debugging session
+#define LOGIN 0
 
 // 
 #define IDLE_TASK_PRIORITY 0

@@ -37,6 +37,10 @@ Xila_Class::Xila_Class() : Tag(0),
 
   memset(Current_Username, '\0', sizeof(Current_Username));
 
+#if LOGIN == 0
+  strcpy(Current_Username, "ALIX");
+#endif
+
   memset(Device_Name, '\0', sizeof(Device_Name));
 
   //Core_Instruction_Queue_Handle = xQueueCreate(10, sizeof(Core_Instruction));cal

@@ -12,7 +12,7 @@ private:
     static Calculator_Class *Instance_Pointer;
 
     char Temporary_Char_Array[59];
-    char Ending_Character;
+    char Ending_Character[4];
     uint8_t Temporary_Current_Position;
 
     char Numbers[3][59];
@@ -110,6 +110,7 @@ private:
 
     enum Operation
     {
+        None = '\0',
         Addition = '+',       //main
         Substraction = '-',   //main
         Multiplication = '*', //main
