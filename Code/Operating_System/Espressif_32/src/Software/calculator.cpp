@@ -70,24 +70,24 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
 
 void Calculator_Class::Switch_Angle_Unity()
 {
-    if (bitRead(Keys_Mode, 3) == 1)
+    if (bitRead(Keys_Mode, Angle) == 1)
     {
-        bitWrite(Keys_Mode, 3, 0);
+        bitWrite(Keys_Mode, Angle, 0);
         Xila.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
     }
     else
     {
-        bitWrite(Keys_Mode, 3, 1);
+        bitWrite(Keys_Mode, Angle, 1);
         Xila.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
     }
 }
 
 void Calculator_Class::Refresh_Keys()
 {
-    if (bitRead(Keys_Mode, 1) == 1) // Second enabled
+    if (bitRead(Keys_Mode, Second) == 1) // Second enabled
     {
 
-        if (bitRead(Keys_Mode, 2) == 1) // all enabled
+        if (bitRead(Keys_Mode, Hyperbolic) == 1) // all enabled
         {
             Xila.Display.Click(F("SS_HOT"), 1);
         }
@@ -98,7 +98,7 @@ void Calculator_Class::Refresh_Keys()
     }
     else // second disabled
     {
-        if (bitRead(Keys_Mode, 2) == 1) // hyperbolic enabled
+        if (bitRead(Keys_Mode, Hyperbolic) == 1) // hyperbolic enabled
         {
             Xila.Display.Click(F("SH_HOT"), 1);
         }
@@ -135,6 +135,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Refresh_Keys();
             break;
         case Xila.Minimize:
             Verbose_Print_Line("Minimize");
@@ -144,6 +145,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Clear_All();
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Refresh_Keys();
             break;
         // Number editing keys
         case Instruction('N', '0'): //Nx
@@ -239,22 +241,22 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Set_Primary_Operator(Root);
             break;
         // Memory keys
-        case 0x4D43: // MC
+        case Instruction('M', 'C'): // MC
             Instance_Pointer->Memory_Operation(Memory_Clear);
             break;
-        case 0x4D52: // MR
+        case Instruction('M', 'R'): // MR
             Instance_Pointer->Memory_Operation(Memory_Read);
             break;
-        case 0x4D2B: // M+
+        case Instruction('M', '+'): // M+
             Instance_Pointer->Memory_Operation(Memory_Add);
             break;
-        case 0x4D2D: // M-
+        case Instruction('M', '-'): // M-
             Instance_Pointer->Memory_Operation(Memory_Substract);
             break;
 
             // Secondary operator keys
 
-        case 0x4661: // Fa : factorial
+        case Instruction('F', 'a'): // Fa : factorial
             Instance_Pointer->Set_Secondary_Operator(Factorial);
             break;
 
@@ -270,58 +272,58 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Set_Secondary_Operator(Cube);
             break;
 
-        case 0x5352: // SR
+        case Instruction('S', 'R'): // SR
             Instance_Pointer->Set_Secondary_Operator(Square_Root);
             break;
 
-        case 0x4352: // CR
+        case Instruction('C', 'R'): // CR
             Instance_Pointer->Set_Secondary_Operator(Cubic_Root);
             break;
 
-        case 0x496E: // In
+        case Instruction('I', 'n'): // In
             Instance_Pointer->Set_Secondary_Operator(Inverse);
             break;
 
         // Keys switch
         case Instruction('S', '2'): // Enable second
-            if (bitRead(Instance_Pointer->Keys_Mode, 1) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 1, 0);
+                bitWrite(Instance_Pointer->Keys_Mode, Second, 0);
             }
             else
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 1, 1);
+                bitWrite(Instance_Pointer->Keys_Mode, Second, 1);
             }
             Instance_Pointer->Refresh_Keys();
             break;
 
         case Instruction('S', 'H'): // Enable hyperbolic
-            if (bitRead(Instance_Pointer->Keys_Mode, 2) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 2, 0);
+                bitWrite(Instance_Pointer->Keys_Mode, Hyperbolic, 0);
             }
             else
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 2, 1);
+                bitWrite(Instance_Pointer->Keys_Mode, Hyperbolic, 1);
             }
             Instance_Pointer->Refresh_Keys();
             break;
 
         case Instruction('S', 'A'): // SA : switch Angle unity to Radian
-            if (bitRead(Instance_Pointer->Keys_Mode, 3) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Angle) == 1)
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 3, 0);
+                bitWrite(Instance_Pointer->Keys_Mode, Angle, 0);
                 Xila.Display.Set_Text(F("ANGLE_BUT"), F("Rad"));
             }
             else
             {
-                bitWrite(Instance_Pointer->Keys_Mode, 3, 1);
+                bitWrite(Instance_Pointer->Keys_Mode, Angle, 1);
                 Xila.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
             }
             break;
 
         // Dual function keys
-        case 0x6578: // ex : exp(x) / e (neper constant)
+        case Instruction('e', 'x'): // ex : exp(x) / e (neper constant)
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 Instance_Pointer->Add_Number(Neper_Constant);
@@ -332,7 +334,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x4545: // EE : 10^x / 2^x
+        case Instruction('E', 'E'): // EE : 10^x / 2^x
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 Instance_Pointer->Add_Number(Power_10);
@@ -342,7 +344,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
                 Instance_Pointer->Set_Secondary_Operator(Power_2);
             }
             break;
-        case 0x4C6E: // Ln : Ln / LogY
+        case Instruction('L', 'n'): // Ln : Ln / LogY
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 Instance_Pointer->Set_Secondary_Operator(Natural_Logarithm);
@@ -353,7 +355,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x4C31: // L1 : log10 / log2
+        case Instruction('L', '1'): // L1 : log10 / log2
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 Instance_Pointer->Set_Secondary_Operator(Decimal_Logarithm);
@@ -364,7 +366,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x5369: // Si:
+        case Instruction('S', 'i'): // Si:
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -388,7 +390,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
                 }
             }
             break;
-        case 0x436F: // Co:
+        case Instruction('C', 'o'): // Co:
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -412,7 +414,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
                 }
             }
             break;
-        case 0x5461: // Ta
+        case Instruction('T', 'a'): // Ta
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -437,7 +439,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x5365: // Se :
+        case Instruction('S', 'e'): // Se :
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -462,7 +464,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x4373: // Cs :
+        case Instruction('C', 's'): // Cs :
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -487,7 +489,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
 
-        case 0x4374: // Ct:
+        case Instruction('C', 't'): // Ct:
             if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
             {
                 if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
@@ -646,13 +648,26 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
 {
     if (State > 1)
     {
-        memset(Numbers[0], 0, sizeof(Numbers[0]));
-        memset(Numbers[1], 0, sizeof(Numbers[1]));
-        strcpy(Numbers[0], Numbers[2]);
-        Exponent[0] = Exponent[2];
+        // -- Clear calculation
+        memset(Numbers[0], '\0', sizeof(Numbers[0]));
+        memset(Numbers[1], '\0', sizeof(Numbers[1]));
+        Secondary_Operator[1] = None;
+        Secondary_Operator[0] = None;
+
+        Decimal_Point[1] = 0;
+        Current_Position[1] = 1;
+        Exponent[1] = 0;
+        // -- Copy result data
+        memcpy(Numbers[0] + 1, Numbers[2], sizeof(Numbers[0]));
         Decimal_Point[0] = Decimal_Point[2];
+        Exponent[0] = Exponent[2];
         Current_Position[0] = Current_Position[2];
-        Secondary_Operator[1] = 0;
+        // -- Clear result
+        memset(Numbers[2], '\0', sizeof(Numbers[2]));
+        Exponent[2] = 0;
+        Decimal_Point[2] = 0;
+        Current_Position[2] = 0;
+        
     }
     Primary_Operator = Opertor_To_Set;
     State = 1;
@@ -952,14 +967,31 @@ void Calculator_Class::Compute()
 
     Serial.print("|");
     Serial.print(Temporary_Numbers[2]);
-    
+
     dtostrf(Temporary_Numbers[2], sizeof(Numbers[2]), POINT_PRECISION, Numbers[2]);
-  
+
     Serial.println(Numbers[2]);
-  
-    // -- Delete unwanted spaces
+
+
     uint8_t i;
-    for (i =  0; i < sizeof(Numbers[2]); i++)
+    // -- Delete unwanted zeros
+    for (i = sizeof(Numbers[2]) - 1; i > 0; i--)
+    {
+        if (Numbers[2][i] == '0' || Numbers[2][i] == '\0')
+        {
+            Numbers[2][i] = '\0';
+        }
+        else 
+        {
+            if (Numbers[2][i] == '.')
+            {
+                Numbers[2][i] = '\0';
+            }
+            break;
+        }
+    }
+    // -- Delete unwanted spaces
+    for (i = 0; i < sizeof(Numbers[2]); i++)
     {
         if (Numbers[2][i] != ' ')
         {
@@ -967,10 +999,11 @@ void Calculator_Class::Compute()
         }
     }
     strcpy(Numbers[2], Numbers[2] + i);
+    Current_Position[2] = strlen(Numbers[2]);
 
     Serial.println(Numbers[2]);
-    
-    // -- 
+
+    // --
     State = 2;
     Refresh_Interface();
 }
@@ -1053,6 +1086,7 @@ void Calculator_Class::Refresh_Interface()
     Serial.print(Secondary_Operator[1]);
     Serial.println("|");
 
+    // -- Clear the entire char array
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     // -- Display 1st number and it's secondary operator + display primary operator
@@ -1472,11 +1506,16 @@ void Calculator_Class::Refresh_Interface()
 
         strlcat(Temporary_Char_Array, Ending_Character, sizeof(Temporary_Char_Array));
 
-        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
+        if (State == 1)
+        {
+            Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
+            Xila.Display.Set_Text(F("RESULT_TXT"), "");
+        }
     }
-    
+
     if (State > 1)
     {
+        Xila.Display.Set_Text(F("CALCULATIO_TXT"), Temporary_Char_Array);
         Xila.Display.Set_Text(F("RESULT_TXT"), Numbers[2]);
     }
 }
