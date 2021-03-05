@@ -10,7 +10,7 @@ cache:
 env:
   - LINUX_SRC=linux
   
-  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32
+  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32/src/Main.cpp
 
 install:
   - pip install -U platformio
