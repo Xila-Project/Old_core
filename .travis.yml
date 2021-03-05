@@ -21,4 +21,4 @@ install:
   - pio lib -g install 64
 
 script:
-  - platformio ci --project-conf=/Code/Operating_System/Espressif_32/platformio.ini
+  - platformio ci --board=esp32doit-devkit-v1 --lib="."
