@@ -10,7 +10,7 @@ cache:
 env:
   - LINUX_SRC=linux
   
-  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32/src/Main.cpp
+  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32
 
 install:
   - pip install -U platformio
@@ -21,4 +21,4 @@ install:
   - pio lib -g install 64
 
 script:
-  - platformio ci --board=esp32doit-devkit-v1 --lib="."
+  - pio run -v
