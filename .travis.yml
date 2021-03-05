@@ -8,7 +8,9 @@ cache:
     - "$HOME/.cache/pip"
 
 env:
-  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32/
+  - LINUX_SRC=linux
+  
+  - PLATFORMIO_CI_SRC=Code/Operating_System/Espressif_32
 
 install:
   - pip install -U platformio
@@ -19,4 +21,4 @@ install:
   - pio lib -g install 64
 
 script:
-  - pio ci --project-conf=/Code/Operating_System/Espressif_32/platoformio.ini
+  - platformio ci --project-conf=/Code/Operating_System/Espressif_32/platformio.ini
