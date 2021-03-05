@@ -72,12 +72,12 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   {
     if (Open_Software_Pointer[i] == NULL)
     {
+            Serial.print(Open_Software_Pointer[1]->Handle_Pointer->Name);
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
       Open_Software_Pointer[0] = Open_Software_Pointer[i];
-
+      Serial.print(Open_Software_Pointer[1]->Handle_Pointer->Name);
       Verbose_Print("Openned software :");
-      Serial.print(Open_Software_Pointer[0]->Handle_Pointer->Name);
-      Serial.println(i);
+
 
       return Success;
     }
