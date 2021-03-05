@@ -21,4 +21,4 @@ install:
   - pio lib -g install 64
 
 script:
-  - pio run -v
+  - pio run -v --project-dir="./Code/Operating_System/Espressif_32/"
