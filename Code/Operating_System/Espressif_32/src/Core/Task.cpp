@@ -13,6 +13,16 @@ void Xila_Class::Core_Task(void *pvParameters)
       Xila.Panic_Handler(Low_Memory);
     }
 
+    if (Xila.Open_Software_Pointer[0] == NULL)
+    {
+      vTaskDelay(pdMS_TO_TICKS(40));
+      if (Xila.Open_Software_Pointer[0] == NULL)
+      {
+        Xila.Execute_Shell(Desk);
+        Xila.Maximize_Shell();
+      }
+    }
+
     Xila.Check_Watchdog(); // check if current running software is not frozen
 
     Xila.Synchronise_Time(); // Time synchro
@@ -21,6 +31,8 @@ void Xila_Class::Core_Task(void *pvParameters)
     {
       Xila.Refresh_Header(); // Header refreshing
       Last_Header_Refresh = millis();
+
+      Serial.println(Xila.Open_Software_Pointer[1]->Handle_Pointer->Name);
     }
 
     Xila.Check_Power_Button();

@@ -15,7 +15,7 @@ Software_Class *Paint_Class::Load()
 }
 
 
-Paint_Class::Paint_Class() : Software_Class(Paint_Handle, 6)
+Paint_Class::Paint_Class() : Software_Class(Paint_Handle)
 {
     Xila.Task_Create(Main_Task, "Paint Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -48,7 +48,7 @@ Paint_Class::~Paint_Class()
                 Currrent_Buffer == 0;
             }
             Buffer_Position = 0;
-            Execute(0x); //write
+            Send_Instruction(0x); //write
         }
     }
 }*/
@@ -58,7 +58,7 @@ void Paint_Class::Main_Task(void* pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (INSTANCE_POINTER->Get_Command())
+        switch (INSTANCE_POINTER->Get_Instruction())
         {
             case 0:
                 break;

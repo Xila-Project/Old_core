@@ -2,7 +2,7 @@
 
 Picture_Viewer_Class *Picture_Viewer_Class::Instance_Pointer = NULL;
 
-Picture_Viewer_Class::Picture_Viewer_Class() : Software_Class(Picture_Viewer_Handle, 6)
+Picture_Viewer_Class::Picture_Viewer_Class() : Software_Class(Picture_Viewer_Handle)
 {
 
 }
@@ -31,7 +31,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case 0:
             Xila.Delay(30);
@@ -45,20 +45,20 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
-            Instance_Pointer->Execute(Instruction('D', 'I'));
+            Instance_Pointer->Send_Instruction(Instruction('D', 'I'));
             break;
         case Xila.Minimize:
             vTaskSuspend(NULL);
             break;
         case Instruction('C', 'l'):
-            Xila.Close_Software();
+            Xila.Software_Close(Picture_Viewer_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Minimize_Software();
+            Xila.Software_Minimize(Picture_Viewer_Handle);
             break;
         case Instruction('O', 'I'):
             Xila.Open_File_Dialog(Instance_Pointer->Image_File);
-            Instance_Pointer->Execute('D', 'I');
+            Instance_Pointer->Send_Instruction('D', 'I');
             break;
         case Instruction('D', 'I'):
             if (!Instance_Pointer->Image_File)

@@ -23,7 +23,7 @@
 
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
-Shell_Class::Shell_Class() : Software_Class(Shell_Handle, 6),
+Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Offset(0),
                              Mode(0)
 {
@@ -100,7 +100,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Login_Commands();
             break;
         case Pages::Load:
-            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Instruction();
             Instance_Pointer->Main_Commands();
             break;
         case Pages::Preferences_Network:
@@ -119,7 +119,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Install_Commands();
             break;
         default:
-            Instance_Pointer->Current_Command = Instance_Pointer->Get_Command();
+            Instance_Pointer->Current_Command = Instance_Pointer->Get_Instruction();
             Instance_Pointer->Main_Commands();
             break;
         }
@@ -149,7 +149,7 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'L'): // "OL" : Open Login page
         Open_Login();
         break;
-    case Instruction('O', 'D'): // "OD" Open Desk page & load it
+    case Xila.Desk: // "OD" Open Desk page & load it
         Open_Desk();
         break;
     case Instruction('O', 'd'): // "Od" Open drawer
@@ -219,13 +219,9 @@ void Shell_Class::Main_Commands()
         Xila.Task_Delete();
         break;
     case Xila.Minimize: // minimize
-        vTaskSuspend(NULL);
+        Xila.Task_Suspend();
         break;
     case Xila.Maximize:
-        if (Xila.Power_Button_Counter >= 1)
-        {
-            Instance_Pointer->Execute(0x534D);
-        }
         break;
     }
 }
@@ -261,7 +257,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         {
         case 'F':
             strlcat(Current_Path, (char *)Variable, sizeof(Current_Path));
-            Execute('R', 'F');
+            Send_Instruction('R', 'F');
             break;
         default:
             break;
@@ -502,7 +498,7 @@ void Shell_Class::Refresh_File_Manager()
                     break;
                 }
                 Go_Parent();
-                Execute('R', 'e');
+                Send_Instruction('R', 'e');
             }
         }
         Temporary_Item.close();
@@ -510,7 +506,7 @@ void Shell_Class::Refresh_File_Manager()
     else
     {
         Event_Dialog(F("Failed to open path."), Xila.Error);
-        Execute('R', 'D');
+        Send_Instruction('R', 'D');
     }
 }
 
@@ -576,7 +572,7 @@ void Shell_Class::Refresh_Desk()
 
 void Shell_Class::Desk_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('M', '1'):
@@ -633,7 +629,7 @@ void Shell_Class::Dock(uint8_t Slot, uint8_t Action)
     }
     else if (Action == 'C')
     {
-        Xila.Close_Software(*Xila.Open_Software_Pointer[Slot + 1]->Handle_Pointer);
+        Xila.Software_Close(*Xila.Open_Software_Pointer[Slot + 1]->Handle_Pointer);
     }
 }
 
@@ -695,7 +691,7 @@ void Shell_Class::Refresh_Drawer()
 
 void Shell_Class::Drawer_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -827,7 +823,7 @@ void Shell_Class::Open_File_Manager()
 
 void Shell_Class::File_Manager_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -1124,7 +1120,7 @@ void Shell_Class::Refresh_Login()
 
 void Shell_Class::Login_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0: // IDLE
@@ -1198,7 +1194,7 @@ void Shell_Class::Open_Preferences_Personal()
 
 void Shell_Class::Preferences_Personal_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -1277,7 +1273,7 @@ void Shell_Class::Refresh_Preferences_Hardware()
 
 void Shell_Class::Preferences_Hardware_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('T', 'D'): // -- Drive testing
@@ -1393,7 +1389,7 @@ void Shell_Class::Refresh_Preferences_Network()
 
 void Shell_Class::Preferences_Network_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('K', 'W'):
@@ -1450,7 +1446,7 @@ void Shell_Class::Open_Preferences_System()
 
 void Shell_Class::Preferences_System_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('K', 'N'):
@@ -1614,7 +1610,7 @@ void Shell_Class::Open_Shutdown()
 
 void Shell_Class::Shutdown_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -1645,7 +1641,7 @@ void Shell_Class::Shutdown_Commands()
 
 void Shell_Class::Event_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -1784,7 +1780,7 @@ void Shell_Class::Refresh_Install()
 
 void Shell_Class::Install_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case 0:
@@ -1977,7 +1973,7 @@ void Shell_Class::Keyboard_Commands()
             }
         }
     }
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
@@ -2007,7 +2003,7 @@ void Shell_Class::Open_Keypad()
 
 void Shell_Class::Keypad_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     if (Xila.Keyboard.available())
     {
         switch (Xila.Keyboard.read())
@@ -2088,7 +2084,7 @@ void Shell_Class::Open_Color_Picker()
 
 void Shell_Class::Color_Picker_Commands()
 {
-    Current_Command = Get_Command();
+    Current_Command = Get_Instruction();
     switch (Current_Command)
     {
     case Instruction('V', 'a'):

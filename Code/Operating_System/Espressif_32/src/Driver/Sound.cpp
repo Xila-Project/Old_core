@@ -490,7 +490,7 @@ uint8_t Sound_Class::Start_ULP()
         // dont support more than 2 channel
     }
 
-    if (xTaskCreatePinnedToCore(Sound_Class::Sound_Task, "Sound Driver", 1024 * 6, NULL, DRIVER_TASK_PRIORITY, &Sound_Task_Handle, SYSTEM_CORE) != pdPASS)
+    if (xTaskCreatePinnedToCore(Sound_Class::Sound_Task, "Sound Driver", Memory_Chunk(6), NULL, DRIVER_TASK_PRIORITY, &Sound_Task_Handle, tskNO_AFFINITY) != pdPASS)
     {
         return Failed_To_Create_Task;
     }

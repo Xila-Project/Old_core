@@ -2,7 +2,7 @@
 
 Simon_Class *Simon_Class::Instance_Pointer = NULL;
 
-Simon_Class::Simon_Class() : Software_Class(Simon_Handle, 10)
+Simon_Class::Simon_Class() : Software_Class(Simon_Handle)
 {
     if (Instance_Pointer != NULL)
     {
@@ -11,7 +11,7 @@ Simon_Class::Simon_Class() : Software_Class(Simon_Handle, 10)
     Instance_Pointer = this;
 
     Xila.Task_Create(Main_Task, "Simon Task", Memory_Chunk(4), NULL, &Task_Handle);
-    Execute(Xila.Open);
+    Send_Instruction(Xila.Open);
 }
 
 Simon_Class::~Simon_Class()
@@ -37,7 +37,7 @@ void Simon_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case 0:
             Xila.Delay(30);
@@ -57,10 +57,10 @@ void Simon_Class::Main_Task(void *pvParameters)
         case Xila.Minimize:
             break;
         case Instruction('M', 'i'):
-            Xila.Minimize_Software();
+            Xila.Software_Minimize(Simon_Handle);
             break;
         case Instruction('C', 'l'):
-            Xila.Close_Software();
+            Xila.Software_Close(Simon_Handle);
             break;
         case Instruction('R', 'e'):
             Instance_Pointer->Press(Red);

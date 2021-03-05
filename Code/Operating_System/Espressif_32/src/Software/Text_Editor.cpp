@@ -2,10 +2,10 @@
 
 Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 
-Text_Editor_Class::Text_Editor_Class() : Software_Class(Text_Editor_Handle, 6)
+Text_Editor_Class::Text_Editor_Class() : Software_Class(Text_Editor_Handle)
 {
     Xila.Task_Create(Main_Task, "Text Editor Task", 4 * 1024, NULL, &Task_Handle);
-    Execute(Xila.Open);
+    Send_Instruction(Xila.Open);
 }
 
 Text_Editor_Class::~Text_Editor_Class()
@@ -31,7 +31,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case 0:
             // IDLE : nothing to do
@@ -74,7 +74,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
 void Text_Editor_Class::Open_File(File File_To_Open)
 {
     File_To_Edit = File_To_Open;
-    Execute(0x5346);
+    Send_Instruction(0x5346);
 }
 
 void Text_Editor_Class::Scan()
@@ -110,7 +110,7 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
         {
             Offset = *(uint8_t *)Variable; 
             Offset = (Offset * File_To_Edit.size()) / 176;
-            Execute('R', 'T');
+            Send_Instruction('R', 'T');
         }
         break;
     default:

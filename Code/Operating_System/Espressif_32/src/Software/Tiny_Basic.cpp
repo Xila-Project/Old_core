@@ -103,7 +103,7 @@ const unsigned char Tiny_Basic_Class::spacemsg[2] = " ";
 Tiny_Basic_Class *Tiny_Basic_Class::Instance_Pointer = NULL;
 #define INSTANCE_POINTER Tiny_Basic_Class::Instance_Pointer
 
-Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle, 10),
+Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle),
                                        inhibitOutput(false),
                                        runAfterLoad(false),
                                        triggerRun(false),
@@ -147,7 +147,7 @@ void Tiny_Basic_Class::Main_Task(void *pvParameters)
 
 void Tiny_Basic_Class::Read_Command()
 {
-  switch (Instance_Pointer->Get_Command())
+  switch (Instance_Pointer->Get_Instruction())
   {
   case Xila.Open:
     break;

@@ -94,7 +94,7 @@
 #define Verbose_Print_Line(t) Serial.println(F(t))
 #endif
 
-
+#define DEFAULT_QUEUE_SIZE 16
 
 // -- Default registry values --
 

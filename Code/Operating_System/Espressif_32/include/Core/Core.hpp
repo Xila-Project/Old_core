@@ -110,12 +110,12 @@ protected:
     //User attribute
     char Current_Username[9];
 
-    Software_Class *Open_Software_Pointer[8] = {0};
+    Software_Class *Open_Software_Pointer[8] = {NULL};
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
     // Open_Softwaer_Pointer[2 - 7] : Other openned software
 
-    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {0};
+    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {NULL};
     // Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle
 
     // Shell short cut
@@ -143,7 +143,6 @@ protected:
     // Power button
 
 public:
-
     enum Image_Offset
     {
         Shell = 0,
@@ -222,26 +221,22 @@ public:
     Xila_Event Software_Open(Software_Handle_Class const &Software_Handle);
 
     /**
-     */
-    void Close_Software();
-
-    /**
      * @brief Function used to close a Software.
      * 
      * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
      */
-    void Close_Software(Software_Handle_Class const &Software_Handle);
+    void Software_Close(Software_Handle_Class const &Software_Handle);
 
     /**
      * @brief Function that close roughly the current running software.
      * @details Delete manualy the main software task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables ...).
      */
-    void Force_Close_Software();
+    void Force_Software_Close();
 
     /**
      * @brief Function used to minimize the currently running software, and then maximize Shell.
      */
-    void Minimize_Software();
+    void Software_Minimize(Software_Handle_Class const& Software_Handle);
 
     /**
      * @brief Function used to maxmize the software.
@@ -441,7 +436,7 @@ public:
     void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
     void Restore_System_State(); // private :
 
-    // Time management
+    // -- Time management
     Xila_Time Time;
     time_t Now;
     char NTP_Server[32];
@@ -452,32 +447,49 @@ public:
 
     // Display callback functions
 
-    enum Instruction
+
+    // -- Prefixs used to differienciate exchanged data between display, core and software
+    enum Prefixs
     {
+        Instruction = '#',
+
+        Variable_String_Local = 's', // 
+        Variable_String_Global = 'S', // Unused : redirected to Variable_String_Local
+        Variable_Long_Local = 'l',
+        Variable_Long_Global = 'L' // Unused : redirected to Variable_Long_Local
+    };
+
+    // -- Instructions used by the core (with the prefix "#")
+
+    enum Instructions
+    {
+        // -- General instructions
         Idle = 0,
+
+        // -- Software state instructions
         Open = 'O',
         Close = 'C',
         Maximize = 'M',
         Minimize = 'm',
-        Hibernating = 'H',
-        Watchdog = 'W',
-        Install_Dialog = 'I', // Open installation form
-        Open_File = 'f',
-        Open_Folder = 'F',
-        Save_File = 'e',
-        Virtual_Keyboard = 'K',
-        Virtual_Keypad = 'k',
-        Color_Picker = 'c',
+        // -- System state instructions
         Shutting_down = 200,
         Restarting,
-        Power = 'P',
-        Event = 'E',
-        Command = '*',
-        Command_New = '#',
-        Variable_String_Local = 's',
-        Variable_String_Global = 'S',
-        Variable_Long_Local = 'l',
-        Variable_Long_Global = 'L'
+        Hibernating = 'H',
+
+        Watchdog = 'W',
+
+        // -- Shell specials instructions
+        Install_Dialog = 'I',   // Open installation form
+        Desk = 'D',             // Open desk
+        Open_File = 'f',        // Open open file dialog
+        Open_Folder = 'F',      // Open open folder dialog
+        Save_File = 'e',        // Open save file dialog
+        Virtual_Keyboard = 'K', // Open keyboard dialog
+        Virtual_Keypad = 'k',   // Open keyapd dialog
+        Color_Picker = 'c',     // Open color picker dialog
+        Power = 'P',            // Open power dialog
+        Event = 'E',            // Open event dialog
+
     };
 
     // Serial communication macro

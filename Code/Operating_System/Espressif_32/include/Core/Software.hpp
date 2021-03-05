@@ -2,7 +2,7 @@
 #define SOTFWARE_H_INCLUDED
 
 #include "Arduino.h"
-#include "FS.h"
+#include "Configuration.hpp"
 
 class Software_Handle_Class;
 class Xila_Class;
@@ -17,7 +17,7 @@ extern Xila_Class Xila;
 class Software_Class // Software class, API used by the core in order to communicate with the software
 {
 protected:
-    Software_Class(Software_Handle_Class& Handle_Pointer, uint8_t Queue_Size);
+    Software_Class(Software_Handle_Class& Handle_Pointer, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
     virtual ~Software_Class();
 
     TaskHandle_t Task_Handle;
@@ -30,14 +30,14 @@ protected:
 
     QueueHandle_t Command_Queue_Handle;
 
-    virtual void Open_File(File &File_To_Open);
+    // Main methods used by the core to communicate
 
-    void Execute(uint16_t);
-    void Execute(char, char);
+    void Send_Instruction(uint16_t);
+    void Send_Instruction(char, char);
 
     virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
-    uint16_t Get_Command();
+    uint16_t Get_Instruction();
 
 public:
 

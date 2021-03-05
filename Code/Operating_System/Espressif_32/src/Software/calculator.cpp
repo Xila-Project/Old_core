@@ -2,7 +2,7 @@
 
 Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
-Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle, 10),
+Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle),
                                        State(0xFF)
 {
     Xila.Task_Create(Main_Task, "Calculator", Memory_Chunk(4), NULL, &Task_Handle);
@@ -113,7 +113,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case Xila.Idle: //idle
             Xila.Delay(20);
@@ -123,12 +123,13 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Verbose_Print_Line("Feed watchdog");
             break;
         case Instruction('C', 'l'):
-            Xila.Close_Software();
+            Xila.Software_Close(Calculator_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Minimize_Software();
+            Xila.Software_Minimize(Calculator_Handle);
             break;
         case Xila.Close:
+            Verbose_Print_Line("Close calc");
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
@@ -139,6 +140,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Minimize:
             Verbose_Print_Line("Minimize");
+            delete Instance_Pointer;
             vTaskSuspend(NULL);
             break;
         case Xila.Open:
@@ -298,7 +300,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
 
         case Instruction('S', 'H'): // Enable hyperbolic
-            if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)c
+            if (bitRead(Instance_Pointer->Keys_Mode, Hyperbolic) == 1)
             {
                 bitWrite(Instance_Pointer->Keys_Mode, Hyperbolic, 0);
             }
@@ -318,7 +320,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             else
             {
                 bitWrite(Instance_Pointer->Keys_Mode, Angle, 1);
-                Xila.Display.Set_Text(F("AGNLE_BUT"), F("Deg"));
+                Xila.Display.Set_Text(F("ANGLE_BUT"), F("Deg"));
             }
             break;
 
@@ -523,6 +525,43 @@ void Calculator_Class::Main_Task(void *pvParameters)
 void Calculator_Class::Add_Number(char const &Number_To_Add)
 {
     Verbose_Print_Line("Add number");
+
+    if (State > 1) // -- If there's a result computed
+    {
+        // -- Clear calculation
+        memset(Numbers[0], '\0', sizeof(Numbers[0]));
+        memset(Numbers[1], '\0', sizeof(Numbers[1]));
+        Secondary_Operator[1] = None;
+        Secondary_Operator[0] = None;
+
+        Decimal_Point[1] = 0;
+        Current_Position[1] = 1;
+        Exponent[1] = 0;
+        // -- Copy result data
+
+        if (Numbers[2][0] == '-')
+        {
+            memcpy(Numbers[0], Numbers[2], sizeof(Numbers[0]));
+        }
+        else
+        {
+            memcpy(Numbers[0] + 1, Numbers[2], sizeof(Numbers[0]));
+            Numbers[0][0] = '0';
+        }
+
+        Decimal_Point[0] = Decimal_Point[2];
+        Exponent[0] = Exponent[2];
+        Current_Position[0] = Current_Position[2];
+        // -- Clear result
+        memset(Numbers[2], '\0', sizeof(Numbers[2]));
+        Exponent[2] = 0;
+        Decimal_Point[2] = 0;
+        Current_Position[2] = 0;
+
+        Primary_Operator = None;
+        State = 0;
+    }
+
     switch (Number_To_Add)
     {
     case Pi:
@@ -658,7 +697,17 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
         Current_Position[1] = 1;
         Exponent[1] = 0;
         // -- Copy result data
-        memcpy(Numbers[0] + 1, Numbers[2], sizeof(Numbers[0]));
+
+        if (Numbers[2][0] == '-')
+        {
+            memcpy(Numbers[0], Numbers[2], sizeof(Numbers[0]));
+        }
+        else
+        {
+            memcpy(Numbers[0] + 1, Numbers[2], sizeof(Numbers[0]));
+            Numbers[0][0] = '0';
+        }
+
         Decimal_Point[0] = Decimal_Point[2];
         Exponent[0] = Exponent[2];
         Current_Position[0] = Current_Position[2];
@@ -667,7 +716,6 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
         Exponent[2] = 0;
         Decimal_Point[2] = 0;
         Current_Position[2] = 0;
-        
     }
     Primary_Operator = Opertor_To_Set;
     State = 1;
@@ -927,6 +975,11 @@ void Calculator_Class::Compute()
 {
     Verbose_Print_Line("Compute");
 
+    Serial.print("|");
+    Serial.print(Numbers[0]);
+    Serial.print("|");
+    Serial.print(Numbers[1]);
+
     Compute_Secondary(0);
 
     Serial.print("|");
@@ -972,7 +1025,6 @@ void Calculator_Class::Compute()
 
     Serial.println(Numbers[2]);
 
-
     uint8_t i;
     // -- Delete unwanted zeros
     for (i = sizeof(Numbers[2]) - 1; i > 0; i--)
@@ -981,7 +1033,7 @@ void Calculator_Class::Compute()
         {
             Numbers[2][i] = '\0';
         }
-        else 
+        else
         {
             if (Numbers[2][i] == '.')
             {
@@ -1029,7 +1081,7 @@ void Calculator_Class::Clear()
     {
         if (Numbers[1][0] == 0)
         {
-            Primary_Operator = 0;
+            Primary_Operator = None;
             State = 0;
         }
         else

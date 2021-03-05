@@ -59,7 +59,7 @@ void Xila_Class::Check_Watchdog()
     if (Watchdog_Reminder == false)
     {
       Verbose_Print_Line("Watchdog warning sent");
-      Open_Software_Pointer[0]->Execute(Watchdog);
+      Open_Software_Pointer[0]->Send_Instruction(Watchdog);
       Watchdog_Reminder = true;
     }
     else
@@ -67,7 +67,7 @@ void Xila_Class::Check_Watchdog()
       if ((millis() - Last_Watchdog_Feed) > WATCHDOG_MAXIMUM_TIME)
       {
         Verbose_Print_Line("Watchdog triggered, close software");
-        Force_Close_Software();
+        Force_Software_Close();
         Watchdog_Reminder = false;
         Last_Watchdog_Feed = millis();
       }
@@ -150,9 +150,8 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   }
   switch (Received_Data[0])
   {
-  case Xila.Command:
-  case Xila.Command_New:
-    Xila.Open_Software_Pointer[0]->Execute(Received_Data[1], Received_Data[2]);
+  case Xila.Instruction:
+    Xila.Open_Software_Pointer[0]->Send_Instruction(Received_Data[1], Received_Data[2]);
     break;
   case Xila.Variable_String_Local:
     Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[1]);
@@ -202,7 +201,7 @@ void Xila_Class::Incomming_Event_From_Display(uint8_t Event_Code)
   default:
     break;
   }
-  //Xila.Open_Software_Pointer[0]->Execute((uint16_t)Event_Code);
+  //Xila.Open_Software_Pointer[0]->Send_Instruction((uint16_t)Event_Code);
 }
 
 // Serial communication with commputer

@@ -3,10 +3,10 @@
 Clock_Class *Clock_Class::Instance_Pointer = NULL;
 uint32_t Clock_Class::Next_Alarm = 0;
 
-Clock_Class::Clock_Class() : Software_Class(Clock_Handle, 10),
+Clock_Class::Clock_Class() : Software_Class(Clock_Handle),
                              Current_Tab(Clock)
 {
-    Execute(Xila.Open);
+    Send_Instruction(Xila.Open);
     Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
@@ -47,7 +47,7 @@ void Clock_Class::Background_Task(void *pvParameters)
             if (Next_Alarm < millis())
             {
                 Xila.Software_Open(Clock_Handle);
-                Instance_Pointer->Execute(Instruction('R', 'i'));
+                Instance_Pointer->Send_Instruction(Instruction('R', 'i'));
             }
             vTaskDelay(pdMS_TO_TICKS(1000));
         }
@@ -320,7 +320,7 @@ void Clock_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Current_Tab)
         {
         case Clock:
-            switch (Instance_Pointer->Get_Command())
+            switch (Instance_Pointer->Get_Instruction())
             {
             case 0x0000: // IDLE
                 Instance_Pointer->Refresh_Clock();
@@ -362,7 +362,7 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
         case Alarm:
-            switch (Instance_Pointer->Get_Command())
+            switch (Instance_Pointer->Get_Instruction())
             {
             case 0x0000: // IDLE
                 Instance_Pointer->Refresh_Alarms();
@@ -493,7 +493,7 @@ void Clock_Class::Main_Task(void *pvParameters)
             break;
 
         case Chronometer:
-            switch (Instance_Pointer->Get_Command())
+            switch (Instance_Pointer->Get_Instruction())
             {
             case 0x0000: //IDLE
                 Instance_Pointer->Refresh_Chronometer();
@@ -597,7 +597,7 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
         case Timer:
-            switch (Instance_Pointer->Get_Command())
+            switch (Instance_Pointer->Get_Instruction())
             {
             case 0x0000: // IDLE
                 Instance_Pointer->Refresh_Timer();

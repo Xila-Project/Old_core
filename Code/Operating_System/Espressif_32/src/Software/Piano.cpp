@@ -2,13 +2,13 @@
 
 Piano_Class* Piano_Class::Instance_Pointer = NULL;
 
-Piano_Class::Piano_Class() : Software_Class(Piano_Handle, 6),
+Piano_Class::Piano_Class() : Software_Class(Piano_Handle),
 Offset(0),
 Duration(200),
 MIDI_Output(false)
 {
     Xila.Task_Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
-    Execute(Xila.Open);
+    Send_Instruction(Xila.Open);
 }
 
 Piano_Class::~Piano_Class()
@@ -35,7 +35,7 @@ void Piano_Class::Main_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case 0: //idle state
             Xila.Delay(10);

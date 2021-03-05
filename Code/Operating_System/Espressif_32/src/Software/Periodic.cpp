@@ -2,7 +2,7 @@
 
 Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
-Periodic_Class::Periodic_Class() : Software_Class(Periodic_Handle, 10)
+Periodic_Class::Periodic_Class() : Software_Class(Periodic_Handle)
 {
     Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -47,7 +47,7 @@ void Periodic_Class::Main_Task(void *pvParamters)
     Instance_Pointer->Periodic_File = Xila.Drive->open("/SOFTWARE/PERIODIC/PERIODIC.GRF");
     for (;;)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case 0: //Idle state
             Serial.println(F("Periodic Socket : Nothing to do ..."));

@@ -2,7 +2,7 @@
 
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
-Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle, 6)
+Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle)
 {
 	Instance_Pointer = this;
 	Xila.Task_Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
@@ -327,7 +327,7 @@ void Oscilloscope_Class::Run()
 
 void Oscilloscope_Class::Check_Commands()
 {
-	switch (Get_Command())
+	switch (Get_Instruction())
 	{
 	case 0:
 		break;

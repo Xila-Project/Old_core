@@ -221,11 +221,11 @@ void Xila_Class::Second_Start_Routine()
 
     if (System_State == New_Installation)
     {
-        Open_Software_Pointer[1]->Execute(Install_Dialog);
+        Open_Software_Pointer[1]->Send_Instruction(Install_Dialog);
     }
 
     Feed_Watchdog();
-    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", 4 * 1024, NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, SYSTEM_CORE);
+    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", Memory_Chunk(4), NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, tskNO_AFFINITY);
 }
 
 void Xila_Class::Start(Software_Handle_Class *Software_Package, uint8_t Size)
@@ -292,7 +292,7 @@ void Xila_Class::Shutdown()
         if (Open_Software_Pointer[i] != NULL)
         {
             Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
-            Open_Software_Pointer[i]->Execute(Close);
+            Open_Software_Pointer[i]->Send_Instruction(Close);
             vTaskResume(Temporary_Task_Handle);
             // -- Waiting for the software to close
             for (uint8_t ii = 0; ii <= 200; ii++)
@@ -347,7 +347,7 @@ void Xila_Class::Restart()
         if (Open_Software_Pointer[i] != NULL)
         {
             Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
-            Open_Software_Pointer[i]->Execute(Close);
+            Open_Software_Pointer[i]->Send_Instruction(Close);
             vTaskResume(Temporary_Task_Handle);
             // -- Waiting for the software to close
             for (uint8_t ii = 0; ii <= 200; ii++)
@@ -409,7 +409,7 @@ Xila_Event Xila_Class::Load_Dump()
 
 Xila_Event Xila_Class::Create_Dump()
 {
-    Minimize_Software();
+    Software_Minimize(*Open_Software_Pointer[0]->Handle_Pointer);
 
     File Dump_File = Drive->open(Dump_Registry_Path, FILE_WRITE);
 
@@ -441,7 +441,7 @@ Xila_Event Xila_Class::Create_Dump()
         if (Open_Software_Pointer[i] != NULL)
         {
             Temporary_Task_Handle = Open_Software_Pointer[i]->Task_Handle;
-            Open_Software_Pointer[i]->Execute(Hibernating);
+            Open_Software_Pointer[i]->Send_Instruction(Hibernating);
             Task_Resume(Temporary_Task_Handle);
             // -- Waiting for the software to close
             for (uint8_t ii = 0; ii <= 200; ii++)

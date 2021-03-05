@@ -52,7 +52,7 @@ void Nextion_Display_Class::Begin(uint32_t Baud_Rate, uint8_t RX_Pin, uint8_t TX
 {
     Nextion_Serial.begin(Baud_Rate, SERIAL_8N1, RX_Pin, TX_Pin); //Nextion UART
     Instruction_End();                                           // clear last entered command
-    xTaskCreatePinnedToCore(Main_Task, "Nextion Serial", 1024 * 4, NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, SYSTEM_CORE);
+    xTaskCreatePinnedToCore(Main_Task, "Nextion Serial", Memory_Chunk(4), NULL, DRIVER_TASK_PRIORITY, &Nextion_Serial_Handle, tskNO_AFFINITY);
 }
 
 void Nextion_Display_Class::Set_Callback_Function_String_Data(void (*Function_Pointer)(const char *, uint8_t))

@@ -2,7 +2,7 @@
 
 Ultrasonic_Class *Ultrasonic_Class::Instance_Pointer = NULL;
 
-Ultrasonic_Class::Ultrasonic_Class() : Software_Class(5),
+Ultrasonic_Class::Ultrasonic_Class() : Software_Class(Ultrasonic_Handle),
                                        Trig_Pin(8),
                                        Echo_Pin(9),
                                        Offset(0),
@@ -53,7 +53,7 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
   (void)pvParameters;
   while (1)
   {
-    switch (Instance_Pointer->Get_Command())
+    switch (Instance_Pointer->Get_Instruction())
     {
     case 0x0000: // IDLE : measure
       Instance_Pointer->Read();

@@ -12,7 +12,7 @@ Software_Class *Music_Player_Class::Load()
     return Instance_Pointer;
 }
 
-Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle, 6),
+Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
                                            State(Stopped)
 {
 }
@@ -38,21 +38,21 @@ void Music_Player_Class::Main_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (Instance_Pointer->Get_Command())
+        switch (Instance_Pointer->Get_Instruction())
         {
         case Xila.Idle:
             Instance_Pointer->Refresh_Interface();
             Xila.Delay(20);
             break;
         case Xila.Close:
+            Instance_Pointer->Stop();
             Instance_Pointer->Music_File.close();
             Instance_Pointer->Music_Folder.close();
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
         case Instruction('C', 'l'):
-            Instance_Pointer->Stop();
-            Xila.Close_Software();
+            Xila.Software_Close(Music_Player_Handle);
             break;
         case Instruction('P', 'P'):
             if (Instance_Pointer->State == Playing)

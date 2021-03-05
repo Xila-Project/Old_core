@@ -12,7 +12,7 @@ Software_Class *Internet_Browser_Class::Load()
   return Instance_Pointer;
 }
 
-Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Browser_Handle, 10)
+Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Browser_Handle)
 {
   memset(Server, 0, 30);
   memset(Path, 0, 60);
@@ -41,7 +41,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
   (void)pvParameters;
   while (1)
   {
-    switch (Instance_Pointer->Get_Command())
+    switch (Instance_Pointer->Get_Instruction())
     {
     case 0:
       Xila.Delay(20);
@@ -66,12 +66,12 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       break;
 
     case Instruction('M', 'i'):
-      Xila.Minimize_Software();
+      Xila.Software_Minimize(Internet_Browser_Handle);
 
       break;
 
     case Instruction('C', 'l'):
-      Xila.Close_Software(Internet_Browser_Handle);
+      Xila.Software_Close(Internet_Browser_Handle);
       break;
 
     case Xila.Close: // NULL + C : Close
