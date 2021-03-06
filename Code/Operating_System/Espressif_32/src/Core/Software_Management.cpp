@@ -72,11 +72,20 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-            Serial.print(Open_Software_Pointer[1]->Handle_Pointer->Name);
-      Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)();
+            Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
+      Serial.println(i);
+
+
+
+      Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)(); // <- at this point Open_Software_Pointer[1] to be modified
+
+    Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
+
       Open_Software_Pointer[0] = Open_Software_Pointer[i];
-      Serial.print(Open_Software_Pointer[1]->Handle_Pointer->Name);
-      Verbose_Print("Openned software :");
+
+      
+      
+      Verbose_Print("Openned software");
 
 
       return Success;
@@ -144,21 +153,6 @@ void Xila_Class::Software_Minimize(Software_Handle_Class const &Software_Handle)
 Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
 {
   Verbose_Print_Line("Maximize software");
-
-  Serial.println((uint32_t)&Software_Handle, HEX);
-
-  Serial.print(Open_Software_Pointer[1]->Handle_Pointer->Name);
-
-  Serial.println((uint32_t)&Open_Software_Pointer[1]->Handle_Pointer, HEX);
-
-  Serial.println((uint32_t)Open_Software_Pointer[0], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[1], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[2], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[3], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[4], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[5], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[6], HEX);
-  Serial.println((uint32_t)Open_Software_Pointer[7], HEX);
 
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)

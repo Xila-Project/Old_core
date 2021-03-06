@@ -20,6 +20,7 @@ Calculator_Class::~Calculator_Class()
 Software_Class *Calculator_Class::Load()
 {
     Verbose_Print_Line("Open calculator");
+    
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;

@@ -17,16 +17,16 @@ extern Xila_Class Xila;
 class Software_Class // Software class, API used by the core in order to communicate with the software
 {
 protected:
-    Software_Class(Software_Handle_Class& Handle_Pointer, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
+    Software_Class(Software_Handle_Class& Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
     virtual ~Software_Class();
 
     TaskHandle_t Task_Handle;
 
     static Software_Class *Load();
 
-    static Software_Class *Instance_Pointer;
+    //static Software_Class *Instance_Pointer;
 
-    static Software_Handle_Class* Handle_Pointer;
+    Software_Handle_Class* Handle_Pointer;
 
     QueueHandle_t Command_Queue_Handle;
 

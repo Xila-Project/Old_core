@@ -67,7 +67,8 @@
 typedef uint16_t Xila_Event;
 typedef uint16_t Xila_Command;
 typedef tm Xila_Time;
-typedef void *Xila_Task_Handle;
+typedef void* Xila_Task_Handle;
+
 typedef void (*Xila_Task_Function)(void *);
 
 // System state
@@ -207,7 +208,7 @@ public:
 
     void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
     void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
-    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle Task_Handle = NULL);
+    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle* Task_Handle = NULL);
 
     // -- Software management -- //
 

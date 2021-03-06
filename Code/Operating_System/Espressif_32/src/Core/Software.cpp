@@ -2,13 +2,11 @@
 
 //Software class
 
-Software_Class *Software_Class::Instance_Pointer = NULL;
+Software_Class::Software_Class(Software_Handle_Class& Software_Handle, uint8_t Queue_Size):
+Handle_Pointer(&Software_Handle)
 
-Software_Handle_Class* Software_Class::Handle_Pointer = NULL;
-
-Software_Class::Software_Class(Software_Handle_Class& Software_Handle, uint8_t Queue_Size)
 {
-  Handle_Pointer = &Software_Handle;
+
   if (Queue_Size != 0)
   {
     Command_Queue_Handle = xQueueCreate(Queue_Size, sizeof(uint16_t));
@@ -26,11 +24,6 @@ Software_Class::Software_Class(Software_Handle_Class& Software_Handle, uint8_t Q
 
 Software_Class::~Software_Class() // Destructor : close
 {
-  if (Instance_Pointer != this)
-  {
-    delete Instance_Pointer;
-  }
-  Instance_Pointer = NULL;
   vQueueDelete(Command_Queue_Handle);
 }
 

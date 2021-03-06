@@ -283,6 +283,7 @@ void Xila_Class::Start()
 
 void Xila_Class::Shutdown()
 {
+    Verbose_Print_Line("Shutdown");
     Execute_Shell(Shutting_down);
     Maximize_Shell();
 

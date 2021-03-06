@@ -12,10 +12,10 @@ void Xila_Class::Task_Suspend(Xila_Task_Handle Task_To_Suspend)
   vTaskSuspend(Task_To_Suspend);
 }
 
-Xila_Event Xila_Class::Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters, Xila_Task_Handle Task_Handle)
+Xila_Event Xila_Class::Task_Create(Xila_Task_Function Task_Function, const char* Task_Name, size_t Stack_Size, void* pvParameters, Xila_Task_Handle* Task_Handle)
 {
   Feed_Watchdog();
-  if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, SOFTWARE_TASK_PRIOITY, &Task_Handle, tskNO_AFFINITY) != pdPASS)
+  if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, SOFTWARE_TASK_PRIOITY, Task_Handle, tskNO_AFFINITY) != pdPASS)
   {
     return Error;
   }

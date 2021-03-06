@@ -27,7 +27,7 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Offset(0),
                              Mode(0)
 {
-    Xila.Task_Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, Task_Handle);
+    Xila.Task_Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
 Shell_Class::~Shell_Class()
