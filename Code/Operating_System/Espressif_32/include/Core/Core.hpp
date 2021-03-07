@@ -244,7 +244,7 @@ public:
      * 
      * @param Software_Handle The software's handle to maxmize.
      */
-    Xila_Event Maximize_Software(Software_Handle_Class const &);
+    Xila_Event Software_Maximize(Software_Handle_Class const &);
 
     void Add_Software_Handle(Software_Handle_Class &); //private shortcut
 

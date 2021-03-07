@@ -141,8 +141,6 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Minimize:
             Verbose_Print_Line("Minimize");
-            delete Instance_Pointer;
-            vTaskSuspend(NULL);
             break;
         case Xila.Open:
             Instance_Pointer->Clear_All();
@@ -1166,34 +1164,30 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Secant:
             strcpy(Temporary_Char_Array, "Sec(");
-
+            Ending_Character[0] = ')';
             break;
         case Cosecant:
             strcpy(Temporary_Char_Array, "Csc(");
-
+            Ending_Character[0] = ')';
             break;
         case Cotangent:
             strcpy(Temporary_Char_Array, "Cot(");
-
+            Ending_Character[0] = ')';
             break;
         case Arc_Sine:
             strcpy(Temporary_Char_Array, "ASin(");
-
             Ending_Character[0] = ')';
             break;
         case Arc_Cosine:
             strcpy(Temporary_Char_Array, "ACos(");
-
             Ending_Character[0] = ')';
             break;
         case Arc_Tangent:
             strcpy(Temporary_Char_Array, "ATan(");
-
             Ending_Character[0] = ')';
             break;
         case Arc_Secant:
             strcpy(Temporary_Char_Array, "ASec(");
-
             Ending_Character[0] = ')';
             break;
         case Arc_Cosecant:
@@ -1277,11 +1271,11 @@ void Calculator_Class::Refresh_Interface()
             break;*/
         case Natural_Logarithm:
             strcpy(Temporary_Char_Array, "Ln(");
-            ;
+            Ending_Character[0] = ')';
             break;
         case Binary_Logarithm:
             strcpy(Temporary_Char_Array, "Log2(");
-
+            Ending_Character[0] = ')';
             break;
         case Squared:;
             Ending_Character[0] = 0xB2;
@@ -1317,7 +1311,6 @@ void Calculator_Class::Refresh_Interface()
 
         case Absolute:
             strcpy(Temporary_Char_Array, "|");
-
             Ending_Character[0] = '|';
             break;
         case None:
@@ -1381,15 +1374,15 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Secant:
             strlcat(Temporary_Char_Array, "Sec(", sizeof(Temporary_Char_Array));
-
+Ending_Character[0] = ')';
             break;
         case Cosecant:
             strlcat(Temporary_Char_Array, "Csc(", sizeof(Temporary_Char_Array));
-
+Ending_Character[0] = ')';
             break;
         case Cotangent:
             strlcat(Temporary_Char_Array, "Cot(", sizeof(Temporary_Char_Array));
-
+Ending_Character[0] = ')';
             break;
         case Arc_Sine:
             strlcat(Temporary_Char_Array, "ASin(", sizeof(Temporary_Char_Array));
@@ -1492,11 +1485,11 @@ void Calculator_Class::Refresh_Interface()
             break;*/
         case Natural_Logarithm:
             strlcat(Temporary_Char_Array, "Ln(", sizeof(Temporary_Char_Array));
-            ;
+            Ending_Character[0] = ')';
             break;
         case Binary_Logarithm:
             strlcat(Temporary_Char_Array, "Log2(", sizeof(Temporary_Char_Array));
-
+Ending_Character[0] = ')';
             break;
         case Squared:;
             Ending_Character[0] = 0xB2;

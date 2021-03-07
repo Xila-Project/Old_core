@@ -224,7 +224,7 @@ Xila_Event Xila_Class::Open_Folder_Dialog(File &Folder_To_Open)
     Folder_To_Open = *(File *)Dialog_Pointer;
   }
 
-  Maximize_Software(*Temporary_Software_Handle);
+  Software_Maximize(*Temporary_Software_Handle);
 
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;

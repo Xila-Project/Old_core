@@ -1,7 +1,5 @@
 #include "Software/Paint.hpp"
 
-#define INSTANCE_POINTER Paint_Class::Instance_Pointer
-
 Paint_Class* Paint_Class::Instance_Pointer = NULL;
 
 Software_Class *Paint_Class::Load()
@@ -58,20 +56,32 @@ void Paint_Class::Main_Task(void* pvParameters)
     (void)pvParameters;
     while (1)
     {
-        switch (INSTANCE_POINTER->Get_Instruction())
+        switch (Instance_Pointer->Get_Instruction())
         {
             case 0:
+                Xila.Delay(30);
                 break;
-            case Xila.Maximize: // NULL + M : Maximize
+            case Xila.Watchdog:
+                Xila.Feed_Watchdog();
+                break;
+            case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Paint"));
                 break;
-            case Xila.Minimize: // NULL + m : Minimize
-                vTaskSuspend(NULL);
+            case Xila.Maximize:
+                Xila.Display.Set_Current_Page(F("Paint"));
                 break;
-            case Xila.Close: // NULL + C : Close
+            case Xila.Minimize:
+                break;
+            case Xila.Close:
+                delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            
+            case Instruction('C', 'l'):
+                Xila.Software_Close(Paint_Handle);
+                break;
+            case Instruction('M', 'i'):
+                Xila.Software_Minimize(Paint_Handle);
+                break;
         }
     }
 }

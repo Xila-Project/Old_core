@@ -29,6 +29,7 @@
 class Shell_Class : public Software_Class
 {
 protected:
+    // -- Variable
 
     static Shell_Class *Instance_Pointer;
 
@@ -76,6 +77,13 @@ protected:
 
     char Temporary_Char[14];
 
+    // -- Desk variables
+    int32_t Desk_Background;
+    /**
+     * -1 = Default desk background
+     * 0 - 65535 : Custom color
+    */
+
     /**
      * @enum Pages
      */
@@ -102,7 +110,13 @@ protected:
 
     uint8_t Offset;
 
+    // -- Methods
+
+    //
+
     void Logout();
+
+    //
 
     inline void System_Update();
 
@@ -126,8 +140,9 @@ protected:
     // -- Desk methods
 
     void Refresh_Desk();
-
     void Desk_Commands();
+
+    void Dock(uint8_t, uint8_t);
 
     // -- Global scope
 
@@ -157,14 +172,26 @@ protected:
 
     // -- Desk
 
-    void Drawer_Commands();
+    void Open_Desk();
+
     void Login_Commands();
     void Install_Commands();
     void Load_Commands();
     void File_Manager_Commands();
 
+    // -- Drawer
+    
+    void Open_Drawer();
+    void Refresh_Drawer();
+    void Open_From_Drawer(uint8_t);
+    void Drawer_Commands();
+
+    // -- Registry management
+
     Xila_Event Set_Registry(uint32_t Desk_Background = 0xFFFFFFFF);
     Xila_Event Load_Registry();
+
+    // -- Installation wizard methods
 
     void Refresh_Install();
 
@@ -172,15 +199,8 @@ protected:
 
     inline void Idle();
 
-    int32_t Desk_Background;
-    /**
-     * -1 = Default desk background
-     * 0 - 65535 : Custom color
-    */
+    //
 
-    void Open_Desk();
-    void Open_Drawer();
-    void Refresh_Drawer();
     void Open_Item();
 
     void Open_Login();
@@ -209,6 +229,8 @@ protected:
     // -- Related to Xila.Instruction
     uint8_t Mode;
 
+    // -- File manager methods
+
     inline void Fill_Footer_Bar();
     inline void Empty_Footer_Bar();
 
@@ -219,8 +241,10 @@ protected:
     void Make_File();
     void Go_Parent();
 
-    void Dock(uint8_t, uint8_t);
-    void Open_From_Drawer(uint8_t);
+    char Temporary_File_Name[192];
+    const char *Get_File_Name(File const &File); // Temporary fix to file name issues
+
+    //
 
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 

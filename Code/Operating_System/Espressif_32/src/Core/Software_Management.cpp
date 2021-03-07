@@ -34,12 +34,12 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   // -- if software handle is shell handle, reopen it or maximize it
 
   uint8_t i = 2;
-  
+
   if (Software_Handle == Shell_Handle)
   {
     if (Open_Software_Pointer[1] != NULL)
     {
-      Maximize_Software(Shell_Handle);
+      Software_Maximize(Shell_Handle);
       return Success;
     }
     else
@@ -57,7 +57,7 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
     {
       if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
       {
-        Maximize_Software(*Open_Software_Pointer[i]->Handle_Pointer);
+        Software_Maximize(*Open_Software_Pointer[i]->Handle_Pointer);
         Verbose_Print("Maximized software :");
         Serial.print(Open_Software_Pointer[0]->Handle_Pointer->Name);
         Serial.println(i);
@@ -72,14 +72,7 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   {
     if (Open_Software_Pointer[i] == NULL)
     {
-            Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
-      Serial.println(i);
-
-
-
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)(); // <- at this point Open_Software_Pointer[1] to be modified
-
-    Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
 
       if (Open_Software_Pointer[i]->Instruction_Queue_Handle == NULL)
       {
@@ -90,13 +83,7 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
         return Error;
       }
 
-
       Open_Software_Pointer[0] = Open_Software_Pointer[i];
-
-      
-      
-      Verbose_Print("Openned software");
-
 
       return Success;
     }
@@ -129,7 +116,7 @@ void Xila_Class::Software_Close(Software_Handle_Class const &Software_Handle)
 
         Open_Software_Pointer[1]->Send_Instruction(Xila.Desk);
 
-        if (Maximize_Software(Shell_Handle) != Success)
+        if (Software_Maximize(Shell_Handle) != Success)
         {
           Verbose_Print_Line("Failed to maximize shell");
         }
@@ -146,10 +133,26 @@ void Xila_Class::Software_Minimize(Software_Handle_Class const &Software_Handle)
 
   if (Open_Software_Pointer[0] != NULL)
   {
+    Verbose_Print("0:");
+    Serial.println(Open_Software_Pointer[0]->Handle_Pointer->Name);
+  }
+  if (Open_Software_Pointer[1] != NULL)
+  {
+    Verbose_Print("1:");
+    Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
+  }
+    if (Open_Software_Pointer[2] != NULL)
+  {
+    Verbose_Print("2:");
+    Serial.println(Open_Software_Pointer[2]->Handle_Pointer->Name);
+  }
+
+  if (Open_Software_Pointer[0] != NULL)
+  {
     if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
     {
-      Open_Software_Pointer[0]->Send_Instruction(Minimize);
-      vTaskDelay(pdMS_TO_TICKS(10));
+      Open_Software_Pointer[0]->Send_Instruction(Minimize); // -- Inform software that its minimized
+      vTaskDelay(pdMS_TO_TICKS(10));                        // -- purge time
       Open_Software_Pointer[0] = NULL;
     }
     else
@@ -159,17 +162,32 @@ void Xila_Class::Software_Minimize(Software_Handle_Class const &Software_Handle)
   }
 
   Execute_Shell(Xila.Desk);
-  Maximize_Software(Shell_Handle);
+  Software_Maximize(Shell_Handle);
 }
 
-Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_Handle)
+Xila_Event Xila_Class::Software_Maximize(Software_Handle_Class const &Software_Handle)
 {
   Verbose_Print_Line("Maximize software");
+
+  if (Open_Software_Pointer[0] != NULL)
+  {
+    Verbose_Print("0:");
+    Serial.println(Open_Software_Pointer[0]->Handle_Pointer->Name);
+  }
+  if (Open_Software_Pointer[1] != NULL)
+  {
+    Verbose_Print("1:");
+    Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
+  }
+    if (Open_Software_Pointer[3] != NULL)
+  {
+    Verbose_Print("3:");
+    Serial.println(Open_Software_Pointer[3]->Handle_Pointer->Name);
+  }
 
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)
   {
-    Serial.println(i);
     if (Open_Software_Pointer[i] != NULL)
     {
       if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
@@ -185,15 +203,15 @@ Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_H
           // -- If not, minimize the maximized software
           else
           {
-            Open_Software_Pointer[0]->Send_Instruction(Minimize);
-            vTaskDelay(pdMS_TO_TICKS(20));
+            Open_Software_Pointer[0]->Send_Instruction(Minimize); // -
+
+            vTaskDelay(pdMS_TO_TICKS(10));
             Open_Software_Pointer[0] = NULL;
           }
         }
         // -- Then maximize target software
-        Open_Software_Pointer[i]->Send_Instruction(Maximize);
-        vTaskResume(Open_Software_Pointer[i]->Task_Handle);
         Open_Software_Pointer[0] = Open_Software_Pointer[i];
+        Open_Software_Pointer[0]->Send_Instruction(Maximize);        
         return Success;
       }
     }
@@ -213,6 +231,7 @@ void Xila_Class::Force_Software_Close()
       Open_Software_Pointer[0] = NULL;
     }
     Open_Software_Pointer[1] = NULL;
+
     Software_Open(Shell_Handle);
   }
   else
@@ -248,5 +267,5 @@ void Xila_Class::Execute_Shell(Xila_Command const &Command)
 
 void Xila_Class::Maximize_Shell()
 {
-  Maximize_Software(Shell_Handle);
+  Software_Maximize(Shell_Handle);
 }

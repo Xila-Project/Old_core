@@ -127,9 +127,17 @@ public:
 
     static Nextion_Display_Class* Instance_Pointer;
 
+    static void Default_Callback_Function_String_Data(const char*, uint8_t);
+    static void Default_Callback_Function_Numeric_Data(uint32_t);
+    static void Default_Callback_Function_Event(uint8_t);
+
     //Class setup
     Nextion_Display_Class();
     ~Nextion_Display_Class();
+
+    //
+
+    void Purge();
 
     void Begin(uint32_t Baud_Rate = 912600, uint8_t RX_Pin = 16, uint8_t TX_Pin = 17);
 

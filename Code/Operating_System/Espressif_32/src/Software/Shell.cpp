@@ -219,7 +219,6 @@ void Shell_Class::Main_Commands()
         Xila.Task_Delete();
         break;
     case Xila.Minimize: // minimize
-        Xila.Task_Suspend();
         break;
     case Xila.Maximize:
         break;
@@ -235,8 +234,6 @@ void Shell_Class::Idle()
 
 void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-    Serial.println(Xila.Display.Get_Current_Page());
-
     switch (Xila.Display.Get_Current_Page())
     {
     case Preferences_Hardware:
@@ -256,6 +253,10 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         switch (Adress)
         {
         case 'F':
+            if (Current_Path[1] != '\0')
+            {
+                strcat(Current_Path, "/");
+            }
             strlcat(Current_Path, (char *)Variable, sizeof(Current_Path));
             Send_Instruction('R', 'F');
             break;
@@ -264,11 +265,9 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         }
         break;
     case Keyboard:
-        Verbose_Print_Line("Set dialog");
         Serial.print((char)Adress);
         if (Adress == 'I' && Xila.Dialog_Pointer != NULL)
         {
-            Verbose_Print_Line("Set dialog pointer");
             Serial.print(Xila.Dialog_Long[0]);
             strlcpy((char *)Xila.Dialog_Pointer, (char *)Variable, Xila.Dialog_Long[0]);
         }
@@ -295,7 +294,9 @@ Xila_Event Shell_Class::Load_Registry()
 {
     Temporary_Item.close();
     Desk_Background = -1;
+
     Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF");
+
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
     {
@@ -339,7 +340,16 @@ void Shell_Class::Refresh_File_Manager()
     /*strcat(Current_Path, Current_File_Name);
     memset(Current_File_Name, '\0', sizeof(Current_File_Name));*/
     Temporary_Item = Xila.Drive->open(Current_Path);
-    
+
+    if (Mode == 0)
+    {
+        Empty_Footer_Bar();
+    }
+    else
+    {
+        Fill_Footer_Bar();
+    }
+
     if (Temporary_Item)
     {
         File Item;
@@ -362,12 +372,12 @@ void Shell_Class::Refresh_File_Manager()
             Empty_Footer_Bar();
             break;
         case Rename:
-            Xila.Display.Send_Raw(F("PAGE=dp"));
             Go_Parent();
             char Temporary_Input[14];
             memset(Temporary_Input, '\0', sizeof(Temporary_Input));
+            strcpy(Temporary_Input, Get_File_Name(Temporary_Item));
             Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
-            Xila.Drive->rename(String(Current_Path) + String(Temporary_Item.name()), String(Current_Path) + String(Temporary_Input));
+            Xila.Drive->rename(Temporary_Item.name(), String(Current_Path) + String(Temporary_Input));
             Operation = Browse;
             Empty_Footer_Bar();
             break;
@@ -377,7 +387,7 @@ void Shell_Class::Refresh_File_Manager()
                 if (Mode == Xila.Open_Folder)
                 {
                     Selected_Item = Temporary_Item;
-                    Xila.Display.Set_Text(F("FILENAME_TXT"), Selected_Item.name());
+                    Xila.Display.Set_Text(F("FILENAME_TXT"), Get_File_Name(Selected_Item));
                 }
 
                 Temporary_Item.rewindDirectory();
@@ -447,7 +457,7 @@ void Shell_Class::Refresh_File_Manager()
                     if (Item)
                     {
 
-                        Xila.Display.Set_Text(Temporary_Item_Name, Item.name() + 1);
+                        Xila.Display.Set_Text(Temporary_Item_Name, Get_File_Name(Item));
 
                         if (Item.isDirectory())
                         {
@@ -486,11 +496,11 @@ void Shell_Class::Refresh_File_Manager()
                     {
                     case Xila.Save_File:
                         Selected_Item = Temporary_Item;
-                        Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_Item.name());
+                        Xila.Display.Set_Text(F("FILENAME_TXT"), Get_File_Name(Temporary_Item));
                         break;
                     case Xila.Open_File:
                         Selected_Item = Temporary_Item;
-                        Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_Item.name());
+                        Xila.Display.Set_Text(F("FILENAME_TXT"), Get_File_Name(Temporary_Item));
                         break;
                     case Xila.Open_Folder:
 
@@ -511,6 +521,20 @@ void Shell_Class::Refresh_File_Manager()
     {
         Event_Dialog(F("Failed to open path."), Xila.Error);
         Send_Instruction('R', 'D');
+    }
+}
+
+const char *Shell_Class::Get_File_Name(File const &File)
+{
+    memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
+    strlcpy(Temporary_File_Name, File.name(), sizeof(Temporary_File_Name));
+    for (uint8_t i = (sizeof(Temporary_File_Name) - 1); i >= 0; i--)
+    {
+        if (Temporary_File_Name[i] == '/')
+        {
+            strcpy(Temporary_File_Name, Temporary_File_Name + (i + 1));
+            return Temporary_File_Name;
+        }
     }
 }
 
@@ -629,7 +653,7 @@ void Shell_Class::Dock(uint8_t Slot, uint8_t Action)
     }
     if (Action == 'M') // maximize
     {
-        Xila.Maximize_Software(*Xila.Open_Software_Pointer[Slot + 1]->Handle_Pointer);
+        Xila.Software_Maximize(*Xila.Open_Software_Pointer[Slot + 1]->Handle_Pointer);
     }
     else if (Action == 'C')
     {
@@ -909,7 +933,7 @@ void Shell_Class::File_Manager_Commands()
         Operation = Rename;
         Refresh_File_Manager();
         break;
-    case Instruction('N', 'P'): // complete
+    case Instruction('N', 'P'):
         Offset += 29;
         Refresh_File_Manager();
         break;
@@ -928,7 +952,7 @@ void Shell_Class::File_Manager_Commands()
             {
                 Xila.Dialog_Pointer = &Selected_Item;
                 Xila.Dialog_State = Xila.Button_1;
-                Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+                Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
             }
             break;
 
@@ -937,7 +961,7 @@ void Shell_Class::File_Manager_Commands()
             {
                 Xila.Dialog_Pointer = &Selected_Item;
                 Xila.Dialog_State = Xila.Button_1;
-                Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+                Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
             }
             break;
         case Xila.Save_File:
@@ -945,7 +969,7 @@ void Shell_Class::File_Manager_Commands()
             {
                 Xila.Dialog_Pointer = &Selected_Item;
                 Xila.Dialog_State = Xila.Button_1;
-                Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+                Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
             }
 
             break;
@@ -954,8 +978,9 @@ void Shell_Class::File_Manager_Commands()
         }
         break;
     case Instruction('R', 'D'): // open root directory
+        Verbose_Print_Line("Open root directory");
         memset(Current_Path, '\0', sizeof(Current_Path));
-        Current_Path[0] = '\\';
+        Current_Path[0] = '/';
         Refresh_File_Manager();
         break;
     case Instruction('H', 'D'): // open home directory
@@ -1014,6 +1039,7 @@ void Shell_Class::File_Manager_Commands()
         break;
     case Instruction('K', 'P'): // -- Open keyboard to input the path -- //
         Keyboard_Dialog(Current_Path, sizeof(Current_Path));
+        Refresh_File_Manager();
         break;
 
     case Instruction('K', 'F'): // -- Open keyboard to input current item name -- //
@@ -1653,15 +1679,34 @@ void Shell_Class::Event_Commands()
         break;
     case Instruction('B', '1'):
         Xila.Dialog_State = Xila.Button_1;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        if (*Xila.Caller_Software_Handle_Pointer->Handle_Pointer == Shell_Handle)
+        {
+        }
+        else
+        {
+            Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        }
+
         break;
     case Instruction('B', '2'):
-        Xila.Dialog_State = Xila.Button_2;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        Xila.Dialog_State = Xila.Button_1;
+        if (*Xila.Caller_Software_Handle_Pointer->Handle_Pointer == Shell_Handle)
+        {
+        }
+        else
+        {
+            Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        }
         break;
     case Instruction('B', '3'):
-        Xila.Dialog_State = Xila.Button_3;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        Xila.Dialog_State = Xila.Button_1;
+        if (*Xila.Caller_Software_Handle_Pointer->Handle_Pointer == Shell_Handle)
+        {
+        }
+        else
+        {
+            Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        }
         break;
     default:
         Main_Commands();
@@ -1673,6 +1718,8 @@ Xila_Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t
 {
     xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
     Xila.Feed_Watchdog();
+
+    Xila.Caller_Software_Handle_Pointer = Instance_Pointer;
 
     Xila.Display.Send_Raw(F("PAGE=dp")); // save app page id
     Xila.Display.Set_Current_Page(F("Shell_Event"));
@@ -1987,7 +2034,7 @@ void Shell_Class::Keyboard_Commands()
         }
         else
         {
-            Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+            Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
         }
         break;
     default:
@@ -2060,7 +2107,7 @@ void Shell_Class::Keypad_Commands()
     {
     case Instruction('V', 'a'):
         Xila.Dialog_State = Xila.Button_1;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
         break;
     default:
         Main_Commands();
@@ -2093,11 +2140,11 @@ void Shell_Class::Color_Picker_Commands()
     {
     case Instruction('V', 'a'):
         Xila.Dialog_State = Xila.Button_1;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
         break;
     case Instruction('C', 'a'):
         Xila.Dialog_State = Xila.Button_3;
-        Xila.Maximize_Software(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
+        Xila.Software_Maximize(*Xila.Caller_Software_Handle_Pointer->Handle_Pointer);
         break;
     default:
         Main_Commands();

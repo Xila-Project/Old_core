@@ -9,7 +9,7 @@
 class Calculator_Class : public Software_Class
 {
 private:
-    static Calculator_Class *Instance_Pointer;
+    static Calculator_Class* Instance_Pointer;
 
     char Temporary_Char_Array[59];
     char Ending_Character[4];

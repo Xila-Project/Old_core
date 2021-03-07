@@ -22,17 +22,19 @@
 Nextion_Display_Class *Nextion_Display_Class::Instance_Pointer = NULL;
 
 Nextion_Display_Class::Nextion_Display_Class() : Nextion_Serial(1),
-                                                 Callback_Function_String_Data(NULL),
-                                                 Callback_Function_Numeric_Data(NULL),
-                                                 Callback_Function_Event(NULL)
+                                                 Callback_Function_String_Data(Default_Callback_Function_String_Data),
+                                                 Callback_Function_Numeric_Data(Default_Callback_Function_Numeric_Data),
+                                                 Callback_Function_Event(Default_Callback_Function_Event)
 
 {
     if (Instance_Pointer != NULL)
     {
         delete this;
     }
+    
     Instance_Pointer = this;
     Serial_Semaphore = xSemaphoreCreateBinary();
+
     if (Serial_Semaphore == NULL)
     {
         Verbose_Print_Line("Failed to create serial semaphore");
@@ -70,6 +72,18 @@ void Nextion_Display_Class::Set_Callback_Function_Event(void (*Function_Pointer)
     Callback_Function_Event = Function_Pointer;
 }
 
+void Nextion_Display_Class::Default_Callback_Function_String_Data(const char * String, uint8_t Size)
+{
+}
+
+void Nextion_Display_Class::Default_Callback_Function_Numeric_Data(uint32_t Numeric_Data)
+{
+}
+
+void Nextion_Display_Class::Default_Callback_Function_Event(uint8_t Event)
+{
+}
+
 void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming data
 {
     if (Instance_Pointer == NULL)
@@ -86,50 +100,37 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
         if (Instance_Pointer->Nextion_Serial.available())
         {
             Return_Code = Instance_Pointer->Nextion_Serial.read();
+
+            memset(Temporary_String, '\0', sizeof(Temporary_String));
+
             switch (Return_Code)
             {
             case Numeric_Data_Enclosed:
 
-                if (7 == Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 7))
+                Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 7);
+
+                if (Temporary_String[4] == 0xFF && Temporary_String[5] == 0xFF && Temporary_String[6] == 0xFF)
                 {
-                    if (Temporary_String[4] == 0xFF && Temporary_String[5] == 0xFF && Temporary_String[6] == 0xFF)
-                    {
-                        uint32_t Temporary_Long = ((uint32_t)Temporary_String[4] << 24) | ((uint32_t)Temporary_String[3] << 16) | ((uint32_t)Temporary_String[2] << 8) | (Temporary_String[1]);
-                        (Instance_Pointer->Callback_Function_Numeric_Data(Temporary_Long));
-                    }
+                    uint32_t Temporary_Long = ((uint32_t)Temporary_String[3] << 24) | ((uint32_t)Temporary_String[2] << 16) | ((uint32_t)Temporary_String[1] << 8) | (Temporary_String[0]);
+
+                    (Instance_Pointer->Callback_Function_Numeric_Data(Temporary_Long));
                 }
+
                 break;
             case String_Data_Enclosed:
                 Temporary_Byte = Instance_Pointer->Nextion_Serial.readBytesUntil(0xFF, Temporary_String, sizeof(Temporary_String));
                 Instance_Pointer->Nextion_Serial.read();
                 Instance_Pointer->Nextion_Serial.read();
-                Temporary_String[Temporary_Byte] = '\0';
-                if (Instance_Pointer->Callback_Function_String_Data != NULL)
-                {
-                    (Instance_Pointer->Callback_Function_String_Data(Temporary_String, sizeof(Temporary_String)));
-                }
+
+                (Instance_Pointer->Callback_Function_String_Data(Temporary_String, sizeof(Temporary_String)));
+
                 break;
             case Current_Page_Number:
-                if (4 == Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 4))
+                Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 4);
+
+                if (Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF && Temporary_String[3] == 0xFF)
                 {
-                    if (Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF && Temporary_String[3] == 0xFF)
-                    {
-                        if (Temporary_String[0] != Instance_Pointer->Page_History[0])
-                        {
-                            Instance_Pointer->Page_History[5] = Instance_Pointer->Page_History[4];
-                            Instance_Pointer->Page_History[3] = Instance_Pointer->Page_History[2];
-                            Instance_Pointer->Page_History[2] = Instance_Pointer->Page_History[1];
-                            Instance_Pointer->Page_History[1] = Instance_Pointer->Page_History[0];
-                            Instance_Pointer->Page_History[0] = Temporary_String[0];
-                        }
-                        Instance_Pointer->Callback_Function_Event(Current_Page_Number);
-                    }
-                }
-                break;
-            case Serial_Buffer_Overflow:
-                if (3 == Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 3))
-                {
-                    if (Temporary_String[0] == 0xFF && Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF)
+                    if (Temporary_String[0] != Instance_Pointer->Page_History[0])
                     {
                         Instance_Pointer->Page_History[5] = Instance_Pointer->Page_History[4];
                         Instance_Pointer->Page_History[3] = Instance_Pointer->Page_History[2];
@@ -137,63 +138,103 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
                         Instance_Pointer->Page_History[1] = Instance_Pointer->Page_History[0];
                         Instance_Pointer->Page_History[0] = Temporary_String[0];
                     }
-                    Instance_Pointer->Callback_Function_Event(Serial_Buffer_Overflow);
+
+                    Instance_Pointer->Callback_Function_Event(Current_Page_Number);
                 }
+                else
+                {
+                    Instance_Pointer->Purge();
+                }
+
                 break;
+            
+            case Touch_Event:
+                // -- Unhandled yet
+                break;
+
+            // -- 4  bytes instruction 
+            case Auto_Entered_Sleep_Mode:
+            case Auto_Wake_From_Sleep_Mode:
+            case Ready:
+            case Start_Upgrade_From_SD:
+            case Transparent_Data_Finished:
+            case Transparent_Data_Ready:
+            case Instruction_Successfull:
+            case Invalid_Component_ID:
+            case Invalid_Page_ID:
+            case Invalid_Picture_ID:
+            case Invalid_Font_ID:
+            case Invalid_CRC:
+            case Invalid_Baud_Rate_Setting:
+            case Invalid_Waveform_ID_Or_Channel:
+            case Invalid_Variable_Name_Or_Attribue:
+            case Invalid_Variable_Operation:
+            case Fail_To_Assign:
+            case Invalid_Quantity_Of_Parameters:
+            case IO_Operation_Failed:
+            case Invalid_Escape_Character:
+            case Too_Long_Variable_Name:
+            case Serial_Buffer_Overflow:
+                Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 3);
+                if (Temporary_String[0] == 0xFF && Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF)
+                {
+                    Instance_Pointer->Callback_Function_Event(Return_Code);
+                }
+                else
+                {
+                    Instance_Pointer->Purge();
+                }            
+                break;
+        
             case Invalid_Instruction:
-                switch (Instance_Pointer->Nextion_Serial.read()) //Distinguish Invalid instruction && startup
+                switch (Instance_Pointer->Nextion_Serial.read()) //Distinguish Invalid instruction or startup
                 {
                 case 0x00: // Startup Instruction
-                    Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 5);
-                    if (Temporary_String[0] == 0x00 && Temporary_String[1] == 0x00)
-                    {
-                        if (Temporary_String[2] == 0xFF && Temporary_String[3] == 0xFF && Temporary_String[4] == 0xFF)
-                        {
-                            if (Instance_Pointer->Callback_Function_Event != NULL)
-                            {
-                                Temporary_Byte = Startup;
-                                Instance_Pointer->Callback_Function_Event(Temporary_Byte);
-                            }
-                        }
-                        else // unrecognize command : purge serial
-                        {
-                            Instance_Pointer->Nextion_Serial.readStringUntil(0xFF);
-                            Instance_Pointer->Nextion_Serial.read();
-                            Instance_Pointer->Nextion_Serial.read();
-                            Instance_Pointer->Nextion_Serial.read();
-                        }
-                    }
-
-                case 0xFF: //Invalid Instruction
-                    Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 3);
-                    if (Temporary_String[0] == 0xFF && Temporary_String[1] == 0xFF && Temporary_String[2] == 0xFF)
+                    Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 4);
+                    if (Temporary_String[0] == 0x00 && Temporary_String[1] == 0x00 && Temporary_String[2] == 0xFF && Temporary_String[3] == 0xFF)
                     {
                         if (Instance_Pointer->Callback_Function_Event != NULL)
                         {
-                            Temporary_Byte = Nextion_Display_Class::Invalid_Instruction;
-                            Instance_Pointer->Callback_Function_Event(Temporary_Byte);
+                            Instance_Pointer->Callback_Function_Event(Startup);
+                        }
+                    }
+                    else // unrecognize command : purge serial
+                    {
+                        Instance_Pointer->Purge();
+                    }
+
+                case 0xFF: //Invalid Instruction
+                    Instance_Pointer->Nextion_Serial.readBytes((char *)Temporary_String, 2);
+                    if (Temporary_String[0] == 0xFF && Temporary_String[1] == 0xFF)
+                    {
+                        if (Instance_Pointer->Callback_Function_Event != NULL)
+                        {
+                            Instance_Pointer->Callback_Function_Event(Invalid_Instruction);
                         }
                     }
                     else // Unrecognized instruction : purge serial
                     {
-                        Instance_Pointer->Nextion_Serial.readStringUntil(0xFF);
-                        Instance_Pointer->Nextion_Serial.read();
-                        Instance_Pointer->Nextion_Serial.read();
-                        Instance_Pointer->Nextion_Serial.read();
+                        Instance_Pointer->Purge();
                     }
                 }
-
+            
             default:
-                Verbose_Print_Line("Unrecognized command");
-                Instance_Pointer->Nextion_Serial.readStringUntil(0xFF);
-                Instance_Pointer->Nextion_Serial.read();
-                Instance_Pointer->Nextion_Serial.read();
-                Instance_Pointer->Nextion_Serial.read();
+                Verbose_Print_Line("Unrecognized nextion message");
+                Instance_Pointer->Purge();
                 Instance_Pointer->Callback_Function_Event(Return_Code);
                 break;
             }
         }
         vTaskDelay(pdMS_TO_TICKS(20));
+    }
+}
+
+void Nextion_Display_Class::Purge()
+{
+    Nextion_Serial.readStringUntil(0xFF);
+    while (Nextion_Serial.peek() == 0xFF)
+    {
+        Nextion_Serial.read();
     }
 }
 

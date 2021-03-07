@@ -7,7 +7,7 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
-#define PERIODIC_FILE_PATH "/SOFTWARE/PERIODIC/DATA/PERIODIC.XRF"
+#define PERIODIC_FILE_PATH "/SOFTWARE/PERIODIC/PERIODIC.XRF"
 
 class Periodic_Class : protected Software_Class
 {

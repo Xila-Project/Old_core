@@ -21,7 +21,7 @@ void Xila_Class::Check_Power_Button()
     if (Power_Button_Counter != 0)
     {
         Execute_Shell(Xila.Power);
-        Maximize_Software(Shell_Handle);
+        Software_Maximize(Shell_Handle);
         Power_Button_Counter = 0;
     }
 }

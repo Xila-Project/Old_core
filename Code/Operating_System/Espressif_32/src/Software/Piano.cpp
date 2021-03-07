@@ -40,16 +40,24 @@ void Piano_Class::Main_Task(void *pvParameters)
         case 0: //idle state
             Xila.Delay(10);
             break;
+        case Xila.Watchdog:
+            Xila.Feed_Watchdog();
+            break;
         case Xila.Open:
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
             break;
         case Xila.Minimize:
-            Xila.Task_Suspend();
             break;
         case Xila.Close:
             delete Instance_Pointer;
             Xila.Task_Delete();
+            break;
+        case Instruction('C', 'l'):
+            Xila.Software_Close(Piano_Handle);
+            break;
+        case Instruction('M', 'i'):
+            Xila.Software_Minimize(Piano_Handle);
             break;
         case 0x4320: //C
             Instance_Pointer->Play_Note(0);
