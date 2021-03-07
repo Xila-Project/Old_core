@@ -27,6 +27,7 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Offset(0),
                              Mode(0)
 {
+    Desk_Background = -1;
     Xila.Task_Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
@@ -149,6 +150,8 @@ void Shell_Class::Main_Commands()
     case Instruction('O', 'L'): // "OL" : Open Login page
         Open_Login();
         break;
+    case Instruction('O', 'D'):
+    case Xila.Open:
     case Xila.Desk: // "OD" Open Desk page & load it
         Open_Desk();
         break;
@@ -210,9 +213,6 @@ void Shell_Class::Main_Commands()
         break;
     case Instruction('O', 'S'): // "OS" : Open system preferencies
         Instance_Pointer->Open_Preferences_System();
-        break;
-    case Xila.Open: // open routine
-        Instance_Pointer->Open_Login();
         break;
     case Xila.Close: // close
         delete Instance_Pointer;
@@ -307,6 +307,9 @@ Xila_Event Shell_Class::Load_Registry()
         return Xila.Error;
     }*/
     Desk_Background = Shell_Registry["Desk Background"] | -1;
+
+    Serial.println(Desk_Background);
+
     Temporary_Item.close();
     return Xila.Success;
 }
@@ -336,6 +339,7 @@ void Shell_Class::Refresh_File_Manager()
     /*strcat(Current_Path, Current_File_Name);
     memset(Current_File_Name, '\0', sizeof(Current_File_Name));*/
     Temporary_Item = Xila.Drive->open(Current_Path);
+    
     if (Temporary_Item)
     {
         File Item;

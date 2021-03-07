@@ -81,6 +81,16 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
 
     Serial.println(Open_Software_Pointer[1]->Handle_Pointer->Name);
 
+      if (Open_Software_Pointer[i]->Instruction_Queue_Handle == NULL)
+      {
+        Verbose_Print_Line("Failed to create queue, close software");
+        vTaskDelete(Open_Software_Pointer[i]->Task_Handle);
+        delete Open_Software_Pointer[i];
+        Open_Software_Pointer[i] = NULL;
+        return Error;
+      }
+
+
       Open_Software_Pointer[0] = Open_Software_Pointer[i];
 
       
@@ -116,6 +126,8 @@ void Xila_Class::Software_Close(Software_Handle_Class const &Software_Handle)
         Task_Resume(Open_Software_Pointer[i]->Task_Handle);
         vTaskDelay(pdMS_TO_TICKS(20));
         Open_Software_Pointer[i] = NULL;
+
+        Open_Software_Pointer[1]->Send_Instruction(Xila.Desk);
 
         if (Maximize_Software(Shell_Handle) != Success)
         {
@@ -157,12 +169,13 @@ Xila_Event Xila_Class::Maximize_Software(Software_Handle_Class const &Software_H
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)
   {
+    Serial.println(i);
     if (Open_Software_Pointer[i] != NULL)
     {
       if (Software_Handle == *Open_Software_Pointer[i]->Handle_Pointer)
       {
         // -- Check if the software was already open or if another software is currently openned.
-        if (Open_Software_Pointer[0]->Handle_Pointer != NULL)
+        if (Open_Software_Pointer[0] != NULL)
         {
           // -- If software handle bind with currently openned software do nothing and return success
           if (*Open_Software_Pointer[0]->Handle_Pointer == Software_Handle)
