@@ -4,7 +4,7 @@ Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
 Periodic_Class::Periodic_Class() : Software_Class(Periodic_Handle)
 {
-    Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
 Periodic_Class::~Periodic_Class()
@@ -178,16 +178,22 @@ void Periodic_Class::Get_Atom_Name()
     for (JsonPair Pair : Index_Object)
     {
         Line_Object = Pair.value().as<JsonObject>();
+
+        Serial.println(Pair.key().c_str());
     }
 
     for (JsonPair Pair : Line_Object)
     {
         Column_Object = Pair.value().as<JsonObject>();
+
+        Serial.println(Pair.key().c_str());
     }
 
     for (JsonPair Pair : Column_Object)
     {
         strlcpy(Current_Atom_Name, Pair.value().as<char *>(), sizeof(Current_Atom_Name));
+
+        Serial.println(Pair.key().c_str());
     }
 
     Periodic_File.close();
@@ -199,18 +205,24 @@ void Periodic_Class::Get_Main_Data()
 
     Serial.println(Current_Atom_Name);
 
-    DynamicJsonDocument Periodic_Registry(256);
+    DynamicJsonDocument Periodic_Registry(512);
 
     {
         DynamicJsonDocument Filter(256);
-        JsonObject Current_Atom_Object = Filter.createNestedObject(Current_Atom_Name);
+        Filter[Current_Atom_Name]["name"] = true;
+        Filter[Current_Atom_Name]["atomic_mass"] = true;
+        Filter[Current_Atom_Name]["category"] = true;
+        Filter[Current_Atom_Name]["symbol"] = true;
+        Filter[Current_Atom_Name]["number"] = true;
+
+        /*JsonObject Current_Atom_Object = Filter.createNestedObject(Current_Atom_Name);
+        Current_Atom_Object["name"] = true;
         Current_Atom_Object["atomic_mass"] = true;
         Current_Atom_Object["category"] = true;
         Current_Atom_Object["symbol"] = true;
-        Current_Atom_Object["number"] = true;
+        Current_Atom_Object["number"] = true;*/
 
         Periodic_File = Xila.Drive->open(PERIODIC_FILE_PATH);
-        DynamicJsonDocument Periodic_Registry(256);
         if (deserializeJson(Periodic_Registry, Periodic_File, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
             Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
@@ -218,42 +230,52 @@ void Periodic_Class::Get_Main_Data()
         }
     }
 
+    JsonObject Periodic_Object = Periodic_Registry.as<JsonObject>();
+
     Verbose_Print_Line("Deserialized");
 
     JsonObject Current_Atom_Object;
 
-    for (JsonPair Pair : Periodic_Registry.as<JsonObject>())
+    for (JsonPair Pair : Periodic_Object)
     {
         Current_Atom_Object = Pair.value().as<JsonObject>();
+    }
+
+    for (JsonPair Pair : Periodic_Object)
+    {
+        Serial.println(Pair.value().as<char>());
         Serial.println(Pair.key().c_str());
     }
 
     Verbose_Print_Line("Found");
 
+    Verbose_Print_Line("Deserialized");
+
     char Temporary_Char_Array[64];
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-
-    Verbose_Print_Line("Deserialized");
 
     strlcpy(Temporary_Char_Array, Current_Atom_Object["symbol"], sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("SYMBOL_TXT"), Temporary_Char_Array);
 
     Verbose_Print_Line("Deserialized");
 
-    Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<long>());
+   // Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<long>());
 
     Verbose_Print_Line("Deserialized");
 
-    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Name);
+    strlcpy(Temporary_Char_Array, Current_Atom_Object["name"], sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Temporary_Char_Array);
 
-    dtostrf(Current_Atom_Object["atomic_mass"].as<double>(), sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
-    strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
+    
+    
+    //dtostrf(Current_Atom_Object["atomic_mass"].as<double>(), sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    //strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
+   // Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
 
     Verbose_Print_Line("Deserialized");
 
     strlcpy(Temporary_Char_Array, Current_Atom_Object["category"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("CATEGORYVAL_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("CATEGORVAL_TXT"), Temporary_Char_Array);
 }
 
 void Periodic_Class::Get_Data()
