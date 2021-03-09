@@ -37,7 +37,7 @@ void Xila_Class::Core_Task(void *pvParameters)
       Serial.println(Xila.Open_Software_Pointer[1]->Handle_Pointer->Name);
     }
 
-    if ((millis() - Last_Header_Refresh) > 4000) // Refresh header every ~4000 ms
+    if ((millis() - Last_Header_Refresh) > 10000) // Refresh header every ~10000 ms
     {
       Xila.Refresh_Header(); // Header refreshing
       Last_Header_Refresh = millis();

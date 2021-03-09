@@ -7,7 +7,8 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
-#define PERIODIC_FILE_PATH "/SOFTWARE/PERIODIC/PERIODIC.XRF"
+#define DATA_FILE_PATH "/SOFTWARE/PERIODIC/DATA.XRF"
+#define INDEX_FILE_PATH "/SOFTWARE/PERIODIC/INDEX.XRF"
 
 class Periodic_Class : protected Software_Class
 {
@@ -24,6 +25,8 @@ class Periodic_Class : protected Software_Class
         void Get_Main_Data();
         void Get_Data();
         void Get_List();
+
+
 
         void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 

@@ -35,7 +35,10 @@
 
 #include "time.h"
 #include "Update.h"
-#include <ArduinoJson.h> //used to store
+
+#include <ArduinoJson.h> //used to store registries
+#include <StreamUtils.h>
+
 #include "WiFi.h"
 
 //----------------------------------------------------------------------------//

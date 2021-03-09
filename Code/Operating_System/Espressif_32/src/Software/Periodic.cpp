@@ -58,6 +58,9 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Xila.Software_Minimize(Periodic_Handle);
             break;
         case Xila.Maximize:
+            Xila.Display.Set_Current_Page(F("Periodic_Main"));
+            Instance_Pointer->Get_Main_Data();
+            break;
         case Xila.Open:
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
             break;
@@ -68,13 +71,15 @@ void Periodic_Class::Main_Task(void *pvParamters)
         case Xila.Minimize:
             break;
         case Instruction('G', 'M'): //GM
+            Instance_Pointer->Get_Atom_Name();
             Instance_Pointer->Get_Main_Data();
-            break;
-        case Instruction('G', 'L'): //GL
-            Instance_Pointer->Get_List();
             break;
         case Instruction('G', 'D'): //GD
             Instance_Pointer->Get_Data();
+            break;
+        case Instruction('B', 'a'):
+            Xila.Display.Set_Current_Page(F("Periodic_Main"));
+            Instance_Pointer->Get_Main_Data();
             break;
         default:
             Serial.println(F("Unknow Socket Method ! "));
@@ -126,9 +131,6 @@ void Periodic_Class::Get_Atom_Name()
         break;
     }
 
-    Serial.println(Column);
-    Serial.println(Line);
-
     char Line_String[2], Column_String[3];
 
     Line_String[0] = Line + '0';
@@ -147,65 +149,56 @@ void Periodic_Class::Get_Atom_Name()
         Column_String[2] = '\0';
     }
 
-    Verbose_Print_Line("Create filter");
+    uint32_t time = millis();
 
     DynamicJsonDocument Index(256);
+
     {
+        // -- Create a filter
         DynamicJsonDocument Filter(256);
-        Filter["index"][Line_String][Column_String] = true;
-
-        Periodic_File = Xila.Drive->open(PERIODIC_FILE_PATH);
-        memset(Current_Atom_Name, '\0', sizeof(Current_Atom_Name));
-        Verbose_Print_Line("Deserialize");
-
-        if (deserializeJson(Index, Periodic_File, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
+        Filter[Line_String][Column_String] = true;
+        // -- Open file and initlize the buffer
+        Periodic_File = Xila.Drive->open(INDEX_FILE_PATH);
+        ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
+        // -- Deserialize file
+        if (deserializeJson(Index, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
+            // -- Show an error and return if periodic index is corrupted
             Xila.Event_Dialog(F("Failed to open periodic index."), Xila.Error);
             return;
         }
     }
-
-    Verbose_Print_Line("Deserialized");
-
-    Serial.println(Line_String);
-    Serial.println(Column_String);
-
+    // -- Browse the index
     JsonObject Index_Object = Index.as<JsonObject>();
-
     JsonObject Line_Object;
-    JsonObject Column_Object;
-
+    memset(Current_Atom_Name, '\0', sizeof(Current_Atom_Name));
     for (JsonPair Pair : Index_Object)
     {
         Line_Object = Pair.value().as<JsonObject>();
-
-        Serial.println(Pair.key().c_str());
     }
-
     for (JsonPair Pair : Line_Object)
     {
-        Column_Object = Pair.value().as<JsonObject>();
-
-        Serial.println(Pair.key().c_str());
-    }
-
-    for (JsonPair Pair : Column_Object)
-    {
         strlcpy(Current_Atom_Name, Pair.value().as<char *>(), sizeof(Current_Atom_Name));
-
-        Serial.println(Pair.key().c_str());
     }
 
+    Serial.println(millis() - time);
     Periodic_File.close();
 }
 
 void Periodic_Class::Get_Main_Data()
 {
-    Get_Atom_Name();
 
     Serial.println(Current_Atom_Name);
 
-    DynamicJsonDocument Periodic_Registry(512);
+    if (Current_Atom_Name[0] == '\0')
+    {
+        Xila.Display.Set_Current_Page(F("Periodic_Main"));
+        return;
+    }
+
+    DynamicJsonDocument Data_Registry(512);
+
+    uint32_t time = millis();
 
     {
         DynamicJsonDocument Filter(256);
@@ -215,22 +208,19 @@ void Periodic_Class::Get_Main_Data()
         Filter[Current_Atom_Name]["symbol"] = true;
         Filter[Current_Atom_Name]["number"] = true;
 
-        /*JsonObject Current_Atom_Object = Filter.createNestedObject(Current_Atom_Name);
-        Current_Atom_Object["name"] = true;
-        Current_Atom_Object["atomic_mass"] = true;
-        Current_Atom_Object["category"] = true;
-        Current_Atom_Object["symbol"] = true;
-        Current_Atom_Object["number"] = true;*/
-
-        Periodic_File = Xila.Drive->open(PERIODIC_FILE_PATH);
-        if (deserializeJson(Periodic_Registry, Periodic_File, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
+        Periodic_File = Xila.Drive->open(DATA_FILE_PATH);
+        ReadBufferingStream Periodic_File_Buffer(Periodic_File, 512);
+        if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
             Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
+            Periodic_File.close();
             return;
         }
+
+        Periodic_File.close();
     }
 
-    JsonObject Periodic_Object = Periodic_Registry.as<JsonObject>();
+    JsonObject Periodic_Object = Data_Registry.as<JsonObject>();
 
     Verbose_Print_Line("Deserialized");
 
@@ -241,130 +231,345 @@ void Periodic_Class::Get_Main_Data()
         Current_Atom_Object = Pair.value().as<JsonObject>();
     }
 
-    for (JsonPair Pair : Periodic_Object)
-    {
-        Serial.println(Pair.value().as<char>());
-        Serial.println(Pair.key().c_str());
-    }
+    Serial.println(millis() - time);
 
     Verbose_Print_Line("Found");
 
     Verbose_Print_Line("Deserialized");
 
-    char Temporary_Char_Array[64];
+    // -- Name
+    if (Current_Atom_Object["name"].as<char *>() == NULL)
+    {
+        Xila.Event_Dialog(F("Failed to load element datas"), Xila.Error);
+        return;
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<char *>());
+    }
+
+    // -- Symbol
+    if (Current_Atom_Object["symbol"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<char *>());
+    }
+
+    // -- Category
+    if (Current_Atom_Object["category"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<char *>());
+    }
+
+    // -- Number
+    Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<int>());
+
+    // -- Atomic mass
+    char Temporary_Char_Array[24];
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
-    strlcpy(Temporary_Char_Array, Current_Atom_Object["symbol"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("SYMBOL_TXT"), Temporary_Char_Array);
+    dtostrf(Current_Atom_Object["atomic_mass"].as<double>(), 21, 8, Temporary_Char_Array);
+    uint8_t i;
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
 
-    Verbose_Print_Line("Deserialized");
-
-   // Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<long>());
-
-    Verbose_Print_Line("Deserialized");
-
-    strlcpy(Temporary_Char_Array, Current_Atom_Object["name"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Temporary_Char_Array);
-
-    
-    
-    //dtostrf(Current_Atom_Object["atomic_mass"].as<double>(), sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
-    //strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
-   // Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
-
-    Verbose_Print_Line("Deserialized");
-
-    strlcpy(Temporary_Char_Array, Current_Atom_Object["category"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("CATEGORVAL_TXT"), Temporary_Char_Array);
+    Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
 }
 
 void Periodic_Class::Get_Data()
 {
-    DynamicJsonDocument Filter(256);
-    Filter[Current_Atom_Name] = true;
-
-    DynamicJsonDocument Periodic_Registry(2048);
-    if (deserializeJson(Periodic_Registry, Periodic_File, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
+    if (Current_Atom_Name[0] == '\0')
     {
-        Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
+        Xila.Display.Set_Current_Page(F("Periodic_Main"));
         return;
     }
 
-    JsonObject Current_Atom = Periodic_Registry[Current_Atom_Name];
+    Xila.Display.Set_Current_Page(F("Periodic_Data"));
+
+    DynamicJsonDocument Data_Registry(2048);
+    {
+        // -- Create a filter
+        DynamicJsonDocument Filter(256);
+        Filter[Current_Atom_Name] = true;
+        // -- Open data file and initialize the buffer
+        Periodic_File = Xila.Drive->open(DATA_FILE_PATH);
+        ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
+        // -- Deserialize file
+        if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
+        {
+            // -- Show an error and return if data file is corrupted
+            Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
+            Periodic_File.close();
+            return;
+        }
+
+        Periodic_File.close();
+    }
+
+    JsonObject Data_Object = Data_Registry.as<JsonObject>();
+    JsonObject Current_Atom_Object;
+    for (JsonPair Pair : Data_Object)
+    {
+        Current_Atom_Object = Pair.value().as<JsonObject>();
+    }
 
     char Temporary_Char_Array[64];
 
     /*float Temporary_Float;
     uint32_t Temporary_Long;*/
 
-    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-
-    // -- Symbol
-    strlcpy(Temporary_Char_Array, Current_Atom["symbol"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("SYMBOL_TXT"), Temporary_Char_Array);
-
-    // Atom number
-    Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom["number"].as<long>());
-
     // Name
-    strlcpy(Temporary_Char_Array, Current_Atom["name"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Temporary_Char_Array);
-
-    // Category
-    strlcpy(Temporary_Char_Array, Current_Atom["category"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("CATEGORYV_TXT"), Temporary_Char_Array);
-
-    // Appearance
-    if (Current_Atom["color"] == NULL)
+    if (Current_Atom_Object["name"].as<char*>() == NULL)
     {
-        strlcpy(Temporary_Char_Array, "unknown", sizeof(Temporary_Char_Array));
+        Xila.Event_Dialog(F("Failed to load element datas"), Xila.Error);
+        return;
     }
     else
     {
-        strlcpy(Temporary_Char_Array, Current_Atom["color"], sizeof(Temporary_Char_Array));
+        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<char *>());
     }
-    Xila.Display.Set_Text(F("APPEARANCE_TXT"), Temporary_Char_Array);
+
+    // -- Symbol
+    if (Current_Atom_Object["symbol"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<char *>());
+    }
+
+    // Atom number
+    Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<int>());
+
+    // Category
+    if (Current_Atom_Object["category"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<char *>());
+    }
+
+    // Appearance
+    if (Current_Atom_Object["color"].as<char *>() == NULL)
+    {
+        Xila.Display.Set_Text(F("APPEARANCV_TXT"), F("unknow"));
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("APPEARANCV_TXT"), Current_Atom_Object["color"].as<char *>());
+    }
 
     // Discover
-    strlcpy(Temporary_Char_Array, Current_Atom["discovered_by"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("DISCOVERV_TXT"), Temporary_Char_Array);
+    if (Current_Atom_Object["discovered_by"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("DISCOVERV_TXT"), Current_Atom_Object["discovered_by"].as<char *>());
+    }
 
     // Mass
-    dtostrf(Current_Atom["atomic_mass"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["atomic_mass"].as<double>(), (sizeof(Temporary_Char_Array) - 3), 8, Temporary_Char_Array);
+    uint8_t i;
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
     strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
 
     // Density
-    dtostrf(Current_Atom["density"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
-    strlcat(Temporary_Char_Array, " g/cm3", sizeof(Temporary_Char_Array));
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["density"].as<double>(), sizeof(Temporary_Char_Array) - 5, 4, Temporary_Char_Array);
 
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcat(Temporary_Char_Array, " g/l", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("DENSITYVAL_TXT"), Temporary_Char_Array);
 
-    // Melting point
-    dtostrf(Current_Atom["melt"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    // -- Melting point
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["melt"], sizeof(Temporary_Char_Array) - 3, 4, Temporary_Char_Array);
+ 
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
     strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("MELTVAL_TXT"), Temporary_Char_Array);
 
-    // Boiling point
-    dtostrf(Current_Atom["boil"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    // -- Boiling point
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["boil"], sizeof(Temporary_Char_Array) - 3, 4, Temporary_Char_Array);
+
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
     strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("BOILINGVAL_TXT"), Temporary_Char_Array);
 
-    // Phase at STP
-    strlcpy(Temporary_Char_Array, Current_Atom["phase"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("PHASE_TXT"), Temporary_Char_Array);
+    // -- Phase at STP
+    if (Current_Atom_Object["phase"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("PHASEVAL_TXT"), Current_Atom_Object["phase"].as<char *>());
+    }
 
-    // Electron configuration
-    strlcpy(Temporary_Char_Array, Current_Atom["electron_configuration"], sizeof(Temporary_Char_Array));
-    Xila.Display.Set_Text(F("ELECTRONCV_TXT"), Temporary_Char_Array);
+    // -- Electron configuration
+    if (Current_Atom_Object["electron_configuration"].as<char *>() != NULL)
+    {
+        Xila.Display.Set_Text(F("ELECTRONCV_TXT"), Current_Atom_Object["electron_configuration"].as<char *>());
+    }
 
-    // Electronegativity
-    dtostrf(Current_Atom["electronegativity_pauling"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    // -- Electronegativity
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["electronegativity_pauling"], sizeof(Temporary_Char_Array) - 17, 4, Temporary_Char_Array);
+
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
     strlcat(Temporary_Char_Array, " (Pauling scale)", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("ELECTRONNV_TXT"), Temporary_Char_Array);
 
     // Eelectron affinity
-    dtostrf(Current_Atom["electron_affinity"], sizeof(Temporary_Char_Array), 4, Temporary_Char_Array);
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+    dtostrf(Current_Atom_Object["electron_affinity"].as<double>(), sizeof(Temporary_Char_Array) - 2, 4, Temporary_Char_Array);
+
+    for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
+    {
+        if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')
+        {
+            Temporary_Char_Array[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Char_Array[i] == '.')
+            {
+                Temporary_Char_Array[i] = '\0';
+            }
+            break;
+        }
+    }
+    for (i = 0; i < sizeof(Temporary_Char_Array); i++)
+    {
+        if (Temporary_Char_Array[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
     Xila.Display.Set_Text(F("ELECTRONAV_TXT"), Temporary_Char_Array);
 }
 
