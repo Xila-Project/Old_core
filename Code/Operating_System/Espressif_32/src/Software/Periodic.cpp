@@ -91,7 +91,7 @@ void Periodic_Class::Main_Task(void *pvParamters)
 
 void Periodic_Class::Get_Atom_Name()
 {
-    uint8_t Column, Line;
+    uint8_t Column;
 
     Column = (X - 7) / 26;
 
@@ -208,7 +208,40 @@ void Periodic_Class::Get_Main_Data()
         Filter[Current_Atom_Name]["symbol"] = true;
         Filter[Current_Atom_Name]["number"] = true;
 
-        Periodic_File = Xila.Drive->open(DATA_FILE_PATH);
+        switch (Line)
+        {
+        case 0:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("1")));
+            break;
+        case 1:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("2")));
+            break;
+        case 2:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("3")));
+            break;
+        case 3:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("4")));
+            break;
+        case 4:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("5")));
+            break;
+        case 5:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("6")));
+            break;
+        case 6:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("7")));
+            break;
+        case 7:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("8")));
+            break;
+        case 8:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("9")));
+            break;
+        default:
+            return;
+            break;
+        }
+
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 512);
         if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
@@ -313,7 +346,39 @@ void Periodic_Class::Get_Data()
         DynamicJsonDocument Filter(256);
         Filter[Current_Atom_Name] = true;
         // -- Open data file and initialize the buffer
-        Periodic_File = Xila.Drive->open(DATA_FILE_PATH);
+        switch (Line)
+        {
+        case 0:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("1")));
+            break;
+        case 1:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("2")));
+            break;
+        case 2:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("3")));
+            break;
+        case 3:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("4")));
+            break;
+        case 4:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("5")));
+            break;
+        case 5:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("6")));
+            break;
+        case 6:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("7")));
+            break;
+        case 7:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("8")));
+            break;
+        case 8:
+            Periodic_File = Xila.Drive->open((Data_Registry_Path("9")));
+            break;
+        default:
+            return;
+            break;
+        }
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
         // -- Deserialize file
         if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
@@ -340,7 +405,7 @@ void Periodic_Class::Get_Data()
     uint32_t Temporary_Long;*/
 
     // Name
-    if (Current_Atom_Object["name"].as<char*>() == NULL)
+    if (Current_Atom_Object["name"].as<char *>() == NULL)
     {
         Xila.Event_Dialog(F("Failed to load element datas"), Xila.Error);
         return;
@@ -444,7 +509,7 @@ void Periodic_Class::Get_Data()
     // -- Melting point
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
     dtostrf(Current_Atom_Object["melt"], sizeof(Temporary_Char_Array) - 3, 4, Temporary_Char_Array);
- 
+
     for (i = sizeof(Temporary_Char_Array) - 1; i > 0; i--)
     {
         if (Temporary_Char_Array[i] == '0' || Temporary_Char_Array[i] == '\0')

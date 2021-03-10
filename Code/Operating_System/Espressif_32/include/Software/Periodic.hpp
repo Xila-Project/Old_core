@@ -7,7 +7,7 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
-#define DATA_FILE_PATH "/SOFTWARE/PERIODIC/DATA.XRF"
+#define Data_Registry_Path(Line) "/SOFTWARE/PERIODIC/DATA/" Line Registry_File_Extension
 #define INDEX_FILE_PATH "/SOFTWARE/PERIODIC/INDEX.XRF"
 
 class Periodic_Class : protected Software_Class
@@ -20,6 +20,8 @@ class Periodic_Class : protected Software_Class
         char Current_Atom_Name[32];
 
         float X, Y;
+
+        uint8_t Line;
 
         void Get_Atom_Name();
         void Get_Main_Data();

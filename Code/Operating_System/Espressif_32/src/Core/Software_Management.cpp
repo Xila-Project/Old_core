@@ -72,6 +72,11 @@ Xila_Event Xila_Class::Software_Open(Software_Handle_Class const &Software_Handl
   {
     if (Open_Software_Pointer[i] == NULL)
     {
+      if (Software_Handle.Load_Function_Pointer == NULL)
+      {
+        return Error;
+      }
+
       Open_Software_Pointer[i] = (*Software_Handle.Load_Function_Pointer)(); // <- at this point Open_Software_Pointer[1] to be modified
 
       if (Open_Software_Pointer[i]->Instruction_Queue_Handle == NULL)

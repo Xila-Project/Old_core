@@ -1,14 +1,13 @@
 #include "Software/Piano.hpp"
 
-Piano_Class* Piano_Class::Instance_Pointer = NULL;
+Piano_Class *Piano_Class::Instance_Pointer = NULL;
 
 Piano_Class::Piano_Class() : Software_Class(Piano_Handle),
-Offset(0),
-Duration(200),
-MIDI_Output(false)
+                             Offset(0),
+                             Duration(200),
+                             MIDI_Output(false)
 {
     Xila.Task_Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
-    Send_Instruction(Xila.Open);
 }
 
 Piano_Class::~Piano_Class()
@@ -20,7 +19,7 @@ Piano_Class::~Piano_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class* Piano_Class::Load()
+Software_Class *Piano_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -44,8 +43,11 @@ void Piano_Class::Main_Task(void *pvParameters)
             Xila.Feed_Watchdog();
             break;
         case Xila.Open:
+            Xila.Display.Set_Current_Page(F("Piano"));
+            break;
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
+            Instance_Pointer->Refresh_Interface();
             break;
         case Xila.Minimize:
             break;
@@ -154,21 +156,24 @@ void Piano_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-       Xila.Delay(10);
+        Xila.Delay(10);
     }
 }
 
-void Piano_Class::Play_Note(uint8_t Note)
+void Piano_Class::Refresh_Interface()
 {
-    Current_Note = Note_Frequency[Note] + Offset;
-    Xila.Sound.Tone(Current_Note, Duration);
-    
-    dtostrf(Note_Frequency[Note], 3, 0, Temporary_Char);
+    dtostrf(Note_Frequency[Note_ID], 3, 0, Temporary_Char);
     Temporary_Char[4] = ' ';
     Temporary_Char[5] = 'H';
     Temporary_Char[6] = 'z';
     Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_Char);
-    
+}
+
+void Piano_Class::Play_Note(uint8_t Note)
+{
+    Note_ID = Note;
+    Current_Note = Note_Frequency[Note_ID] + Offset;
+    Xila.Sound.Tone(Current_Note, Duration);
 
     /*if (MIDI_Output == true)
     {

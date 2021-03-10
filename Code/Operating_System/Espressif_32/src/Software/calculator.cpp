@@ -132,7 +132,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case Xila.Close:
             Verbose_Print_Line("Close calc");
             delete Instance_Pointer;
-            vTaskDelete(NULL);
+            Xila.Task_Delete();
             break;
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));

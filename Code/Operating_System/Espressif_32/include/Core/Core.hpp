@@ -577,7 +577,7 @@ public:
     uint32_t Dialog_Long[2];
     void *Dialog_Pointer;
 
-    Software_Class *Caller_Software_Handle_Pointer;
+    Software_Class *Caller_Software_Pointer;
 
     Xila_Event Dialog_State;
 

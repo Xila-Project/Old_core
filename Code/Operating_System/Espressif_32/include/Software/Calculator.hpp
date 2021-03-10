@@ -175,7 +175,7 @@ public:
     Calculator_Class();
     ~Calculator_Class();
 
-    static void Main_Task(void *pvParameters);
+    static void Main_Task(void*);
 
     enum Image
     {
