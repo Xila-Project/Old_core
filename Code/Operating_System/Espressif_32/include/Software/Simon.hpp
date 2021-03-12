@@ -5,7 +5,7 @@
 
 #define MAXIMUM_LEVEL 256
 
-#define Simon_Registry_Path Software_Directory_Path "/SIMON/REGISTRY.XRF"
+#define Simon_Registry_Path Software_Directory_Path "SIMON/REGISTRY.XRF"
 
 class Simon_Class : public Software_Class
 {
@@ -40,7 +40,7 @@ private:
 
 public:
     uint16_t Speed;
-    uint8_t Current_Level;
+    uint8_t Current_Level[2];
     uint8_t Sequence[MAXIMUM_LEVEL];
 
     uint8_t Highest_Score[8];

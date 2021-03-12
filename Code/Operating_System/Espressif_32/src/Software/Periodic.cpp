@@ -21,6 +21,7 @@ Software_Class *Periodic_Class::Load()
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
+        Verbose_Print_Line("Double instance !");
     }
     Instance_Pointer = new Periodic_Class();
     return Instance_Pointer;
@@ -44,6 +45,7 @@ void Periodic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Ad
 void Periodic_Class::Main_Task(void *pvParamters)
 {
     (void)pvParamters;
+    Xila.Delay(10);
     while (1)
     {
         switch (Instance_Pointer->Get_Instruction())

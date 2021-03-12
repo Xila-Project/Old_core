@@ -6,7 +6,6 @@ Software_Class::Software_Class(Software_Handle_Class& Software_Handle, uint8_t Q
 Handle_Pointer(&Software_Handle),
 Instruction_Queue_Handle(NULL)
 {
-
   if (Queue_Size != 0)
   {
     Instruction_Queue_Handle = xQueueCreate(Queue_Size, sizeof(uint16_t));
@@ -20,6 +19,7 @@ Instruction_Queue_Handle(NULL)
       Send_Instruction('O');
     }
   }
+  vTaskDelay(pdMS_TO_TICKS(5));
 }
 
 Software_Class::~Software_Class() // Destructor : close

@@ -145,7 +145,8 @@ void Shell_Class::Main_Commands()
     case Instruction('L', 'R'):
         Load_Registry();
         break;
-    case Xila.Power: // Os : Shutdown menu
+    case Instruction('O', 's'):
+    case Xila.Power:
         Open_Shutdown();
         break;
     case Instruction('O', 'L'): // "OL" : Open Login page

@@ -10,6 +10,10 @@ protected:
 
     static Paint_Class* Instance_Pointer;
 
+    void Refresh_Interface();
+
+    uint16_t Color_Palette[8];
+
     /*volatile uint32_t Buffer[2][200];
 
     uint8_t Currrent_Buffer;
