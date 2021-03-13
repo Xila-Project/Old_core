@@ -47,11 +47,11 @@ void Simon_Class::Main_Task(void *pvParameters)
         case Xila.Open:
             Instance_Pointer->Load_Registry();
             Xila.Display.Set_Current_Page(F("Simon"));
-            Instance_Pointer->Show_Scores();
+            Instance_Pointer->Refresh_Interface();
             break;
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Simon"));
-            Instance_Pointer->Show_Scores();
+            Instance_Pointer->Refresh_Interface();
             break;
         case Xila.Minimize:
             break;
@@ -82,7 +82,7 @@ void Simon_Class::Main_Task(void *pvParameters)
             }
             else
             {
-                Instance_Pointer->Reset();
+                Instance_Pointer->Game_Over();
                 Xila.Display.Set_Text(F("STARTSTOP_BUT"), F("Start"));
             }
             break;
@@ -93,21 +93,21 @@ void Simon_Class::Main_Task(void *pvParameters)
     }
 }
 
-void Simon_Class::Show_Scores()
+void Simon_Class::Refresh_Interface()
 {
-    Xila.Display.Set_Value(F("SCORE1_NUM"), Highest_Score[0]);
-    Xila.Display.Set_Value(F("SCORE2_NUM"), Highest_Score[1]);
-    Xila.Display.Set_Value(F("SCORE3_NUM"), Highest_Score[2]);
-    Xila.Display.Set_Value(F("SCORE4_NUM"), Highest_Score[3]);
-    Xila.Display.Set_Value(F("SCORE5_NUM"), Highest_Score[4]);
-    Xila.Display.Set_Value(F("SCORE6_NUM"), Highest_Score[5]);
-    Xila.Display.Set_Value(F("SCORE7_NUM"), Highest_Score[6]);
+    Xila.Display.Set_Value(F("SCORE1_NUM"), Scores[0]);
+    Xila.Display.Set_Value(F("SCORE2_NUM"), Scores[1]);
+    Xila.Display.Set_Value(F("SCORE3_NUM"), Scores[2]);
+    Xila.Display.Set_Value(F("SCORE4_NUM"), Scores[3]);
+    Xila.Display.Set_Value(F("SCORE5_NUM"), Scores[4]);
+    Xila.Display.Set_Value(F("SCORE6_NUM"), Scores[5]);
+    Xila.Display.Set_Value(F("SCORE7_NUM"), Scores[6]);
     Xila.Display.Set_Value(F("SCORE_NUM"), Current_Level[1]);
 }
 
 void Simon_Class::Load_Registry()
 {
-    memset(Highest_Score, '\0', sizeof(Highest_Score));
+    memset(Scores, '\0', sizeof(Scores));
     File Temporary_File = Xila.Drive->open(Simon_Registry_Path);
     DynamicJsonDocument Simon_Registry(256);
     if (deserializeJson(Simon_Registry, Temporary_File) != DeserializationError::Ok)
@@ -116,13 +116,13 @@ void Simon_Class::Load_Registry()
         Temporary_File.close();
         return;
     }
-    Highest_Score[0] = Simon_Registry["Highest score"][0];
-    Highest_Score[1] = Simon_Registry["Highest score"][1];
-    Highest_Score[2] = Simon_Registry["Highest score"][2];
-    Highest_Score[3] = Simon_Registry["Highest score"][3];
-    Highest_Score[4] = Simon_Registry["Highest score"][4];
-    Highest_Score[5] = Simon_Registry["Highest score"][5];
-    Highest_Score[6] = Simon_Registry["Highest score"][6];
+    Scores[0] = Simon_Registry["Scores"][0];
+    Scores[1] = Simon_Registry["Scores"][1];
+    Scores[2] = Simon_Registry["Scores"][2];
+    Scores[3] = Simon_Registry["Scores"][3];
+    Scores[4] = Simon_Registry["Scores"][4];
+    Scores[5] = Simon_Registry["Scores"][5];
+    Scores[6] = Simon_Registry["Scores"][6];
     Temporary_File.close();
 }
 
@@ -130,15 +130,15 @@ void Simon_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive->open(Simon_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Simon_Registry(256);
-    Simon_Registry["Highest score"][0] = Highest_Score[0];
-    Simon_Registry["Highest score"][1] = Highest_Score[1];
-    Simon_Registry["Highest score"][2] = Highest_Score[2];
-    Simon_Registry["Highest score"][3] = Highest_Score[3];
-    Simon_Registry["Highest score"][4] = Highest_Score[4];
-    Simon_Registry["Highest score"][5] = Highest_Score[5];
-    Simon_Registry["Highest score"][6] = Highest_Score[6];
+    Simon_Registry["Scores"][0] = Scores[0];
+    Simon_Registry["Scores"][1] = Scores[1];
+    Simon_Registry["Scores"][2] = Scores[2];
+    Simon_Registry["Scores"][3] = Scores[3];
+    Simon_Registry["Scores"][4] = Scores[4];
+    Simon_Registry["Scores"][5] = Scores[5];
+    Simon_Registry["Scores"][6] = Scores[6];
 
-    if (serializeJson(Simon_Registry, Temporary_File) != DeserializationError::Ok)
+    if (serializeJson(Simon_Registry, Temporary_File) == 0)
     {
         Xila.Event_Dialog(F("Failed to save registry."), Xila.Error);
         Temporary_File.close();
@@ -149,18 +149,49 @@ void Simon_Class::Save_Registry()
 
 void Simon_Class::Press(uint8_t Color)
 {
+    Serial.print(Current_Level[0]);
+    Serial.print("|");
+    Serial.println(Current_Level[1]);
+
     if (Speed == 0)
     {
         return;
     }
+
+    switch (Color)
+    {
+    case Red:
+        Xila.Sound.Tone(523, Speed);
+        break;
+    case Green:
+        Xila.Sound.Tone(659, Speed);
+        break;
+    case Blue:
+        Xila.Sound.Tone(784, Speed);
+        break;
+    case Yellow:
+        Xila.Sound.Tone(988, Speed);
+        break;
+    default:
+        break;
+    }
+
     if (Sequence[Current_Level[1]] != Color)
     {
+        Verbose_Print_Line("Wrong color");
+        Xila.Event_Dialog(F("Game over !"), Xila.Information);
+        Refresh_Interface();
         Game_Over();
         return;
     }
+
     Current_Level[1]++;
+    Refresh_Interface();
+    Verbose_Print_Line("Correct color");
+
     if (Current_Level[1] == Current_Level[0])
     {
+        Verbose_Print_Line("Sequence ending");
         if (Current_Level[1] >= MAXIMUM_LEVEL)
         {
             Win();
@@ -176,7 +207,7 @@ void Simon_Class::Press(uint8_t Color)
 
 void Simon_Class::Reset()
 {
-    Current_Level[0] = 0;
+    Current_Level[0] = 1;
     Current_Level[1] = 0;
     Speed = 0;
 }
@@ -184,25 +215,46 @@ void Simon_Class::Reset()
 void Simon_Class::Win()
 {
     Xila.Event_Dialog(F("Well done ! You have max out the game."), Xila.Information);
-    Highest_Score[7] = Current_Level[0];
-    Sort_Scores();
+    Scores[7] = Current_Level[0];
+    Refresh_Interface();
     Save_Registry();
-    Show_Scores();
+    Refresh_Interface();
     Reset();
 }
 
 void Simon_Class::Sort_Scores()
 {
-    /*
-    for (uint8_t i = 0; i < (sizeof(Highest_Score) - 1); i++)
+    uint8_t Temporary_Byte;
+    for (uint8_t i = 1; i < sizeof(Scores); i++)
     {
-        for (uint8_t j = 0; i < (sizeof(Highest_Score) - (i + 1)); j++)
+        if (Scores[i] < Scores[i - 1])
         {
-            if (Highest_Score[j] > Highest_Score[j + 1])
+            Temporary_Byte = Scores[i - 1];
+            Scores[i - 1] = Scores[i];
+            Scores[i] = Temporary_Byte;
+            i = 1;
+        }
+    }
+
+    Serial.print(Scores[0]);
+    Serial.print(Scores[1]);
+    Serial.print(Scores[2]);
+    Serial.print(Scores[3]);
+    Serial.print(Scores[4]);
+    Serial.print(Scores[5]);
+    Serial.print(Scores[6]);
+    Serial.print(Scores[7]);
+
+    /*
+    for (uint8_t i = 0; i < (sizeof(Scores) - 1); i++)
+    {
+        for (uint8_t j = 0; i < (sizeof(Scores) - (i + 1)); j++)
+        {
+            if (Scores[j] > Scores[j + 1])
             {
-                uint8_t k = Highest_Score[j];
-                Highest_Score[j] = Highest_Score[j + 1];
-                Highest_Score[j + 1] = k;
+                uint8_t k = Scores[j];
+                Scores[j] = Scores[j + 1];
+                Scores[j + 1] = k;
             }
         }
     }*/
@@ -210,17 +262,16 @@ void Simon_Class::Sort_Scores()
 
 void Simon_Class::Game_Over()
 {
-    Xila.Event_Dialog(F("Game over !"), Xila.Information);
-    Highest_Score[7] = Current_Level[0];
+    Scores[7] = Current_Level[0];
     Sort_Scores();
     Save_Registry();
-    Show_Scores();
+    Refresh_Interface();
     Reset();
 }
 
 void Simon_Class::Show_Sequence()
 {
-    for (uint8_t i = 0; i <= Current_Level[0]; i++)
+    for (uint8_t i = 0; i < Current_Level[0]; i++)
     {
         switch (Sequence[i])
         {
@@ -255,7 +306,7 @@ void Simon_Class::Show_Sequence()
             break;
         default:
             Xila.Event_Dialog(F("Exception in the generated sequence."), Xila.Error);
-            Show_Scores();
+            Refresh_Interface();
             Reset();
             break;
         }
@@ -264,7 +315,7 @@ void Simon_Class::Show_Sequence()
 
 void Simon_Class::Generate_Sequence()
 {
-    Current_Level[0] = 0;
+    Current_Level[0] = 1;
     Current_Level[1] = 0;
     Speed = 1000;
     for (uint8_t i = 0; i < (MAXIMUM_LEVEL - 1); i++)

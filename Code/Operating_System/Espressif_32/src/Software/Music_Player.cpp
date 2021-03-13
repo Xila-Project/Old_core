@@ -15,6 +15,7 @@ Software_Class *Music_Player_Class::Load()
 Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
                                            State(Stopped)
 {
+    Xila.Task_Create(Main_Task, "Music Player", Memory_Chunk(5), NULL, &Task_Handle);
 }
 
 Music_Player_Class::~Music_Player_Class()
@@ -49,10 +50,24 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Music_File.close();
             Instance_Pointer->Music_Folder.close();
             delete Instance_Pointer;
-            vTaskDelete(NULL);
+            Xila.Task_Delete();
             break;
+        case Xila.Open:
+            Xila.Display.Set_Current_Page(F("Music_Player"));
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Xila.Maximize:
+            Xila.Display.Set_Current_Page(F("Music_Player"));
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Xila.Minimize:
+            break;
+        
         case Instruction('C', 'l'):
             Xila.Software_Close(Music_Player_Handle);
+            break;
+        case Instruction('M', 'i'):
+            Xila.Software_Minimize(Music_Player_Handle);
             break;
         case Instruction('P', 'P'):
             if (Instance_Pointer->State == Playing)
@@ -90,10 +105,9 @@ void Music_Player_Class::Main_Task(void *pvParameters)
         case Instruction('O', 'F'):
             Instance_Pointer->Open_Folder();
             break;
-        case 0xFF:
+        default:
             break;
         }
-        Xila.Delay(10);
     }
 }
 
@@ -102,7 +116,7 @@ void Music_Player_Class::Set_Time()
     if (State != Stopped)
     {
         Xila.Sound.Set_Time(Total_Time * Total_Time / TIMELINE_SIZE);
-        Xila.Display.Set_Value(F("TIMELINE_PRO"), Time_To_Set * 100 / 346);
+        Xila.Display.Set_Value(F("TIMELINE_PRO"), ((Time_To_Set * 100) / 346));
     }
 }
 
@@ -138,10 +152,12 @@ void Music_Player_Class::Open_Folder()
         Number_Of_Files = 0;
         do
         {
+            Music_File.close();
             Music_File = Music_Folder.openNextFile();
             Number_Of_Files++;
 
         } while (Music_File);
+
         Number_Of_Files--;
         Play();
     }
@@ -295,4 +311,14 @@ void Music_Player_Class::Pause()
         State = Paused;
     }
     Refresh_Interface();
+}
+
+void Music_Player_Class::Next_Track()
+{
+
+}
+
+void Music_Player_Class::Last_Track()
+{
+    
 }

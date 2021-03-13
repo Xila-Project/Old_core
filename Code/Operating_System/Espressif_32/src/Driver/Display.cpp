@@ -93,7 +93,6 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
     uint8_t Return_Code = 0;
     char Temporary_String[150];
     memset(Temporary_String, '\0', sizeof(Temporary_String));
-    uint8_t Temporary_Byte = 0;
     (void)pvParameters;
     while (1)
     {
@@ -118,7 +117,7 @@ void Nextion_Display_Class::Main_Task(void *pvParameters) //Parsing incomming da
 
                 break;
             case String_Data_Enclosed:
-                Temporary_Byte = Instance_Pointer->Nextion_Serial.readBytesUntil(0xFF, Temporary_String, sizeof(Temporary_String));
+                Instance_Pointer->Nextion_Serial.readBytesUntil(0xFF, Temporary_String, sizeof(Temporary_String));
                 Instance_Pointer->Nextion_Serial.read();
                 Instance_Pointer->Nextion_Serial.read();
 

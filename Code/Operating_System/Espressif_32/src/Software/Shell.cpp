@@ -1272,7 +1272,6 @@ void Shell_Class::Open_Preferences_Hardware()
 void Shell_Class::Refresh_Preferences_Hardware()
 {
     Xila.Display.Set_Value(F("VOLUME_SLI"), Xila.Sound.Get_Volume());
-
     Xila.Display.Set_Value(F("SSTANDBY_NUM"), Standby_System_Time);
 
     switch (Xila.Drive->cardType())
@@ -1294,10 +1293,8 @@ void Shell_Class::Refresh_Preferences_Hardware()
         break;
     }
 
-    Temporary_Variable[0] = Xila.Drive->cardSize() / (1024 * 1024);
-    Xila.Display.Set_Value(F("DRIVESIZE_NUM"), Temporary_Variable[0]);
-    Temporary_Variable[0] = Xila.Drive->usedBytes() / (1024 * 1024);
-    Xila.Display.Set_Value(F("USEDSPACE_NUM"), Temporary_Variable[0]);
+    Xila.Display.Set_Value(F("DRIVESIZE_NUM"), (Xila.Drive->cardSize() / (1024 * 1024)));
+    //Xila.Display.Set_Value(F("USEDSPACE_NUM"), (Xila.Drive->usedBytes() / (1024 * 1024)));
 }
 
 void Shell_Class::Preferences_Hardware_Commands()
@@ -1737,17 +1734,17 @@ Xila_Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t
         Xila.Display.Set_Text(F("HEADER_TXT"), F("Error"));
         break;
     case Xila.Warning:
-        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Exclamation_Mark);
+        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Exclamation_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Yellow);
         Xila.Display.Set_Text(F("HEADER_TXT"), F("Warning"));
         break;
     case Xila.Information:
-        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Exclamation_Mark);
+        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Exclamation_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Blue);
         Xila.Display.Set_Text(F("HEADER_TXT"), F("Information"));
         break;
     case Xila.Question:
-        Xila.Display.Set_Text(F("EVENT_PIC"), Xila.Question_Mark);
+        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Question_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Green);
         Xila.Display.Set_Text(F("HEADER_TXT"), F("Question"));
     default:

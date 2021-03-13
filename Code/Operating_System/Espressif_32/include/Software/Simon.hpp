@@ -24,7 +24,7 @@ private:
     void Load_Registry();
     void Save_Registry();
 
-    void Show_Scores();
+    void Sort_Scores();
 
     void Generate_Sequence();
     void Show_Sequence();
@@ -33,7 +33,7 @@ private:
 
     void Press(uint8_t);
 
-    void Sort_Scores();
+    void Refresh_Interface();
 
     void Game_Over();
     void Win();
@@ -43,7 +43,7 @@ public:
     uint8_t Current_Level[2];
     uint8_t Sequence[MAXIMUM_LEVEL];
 
-    uint8_t Highest_Score[8];
+    uint8_t Scores[8];
 
     static void Main_Task(void *);
 

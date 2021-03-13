@@ -59,8 +59,8 @@ void Xila_Class::First_Start_Routine()
 
     // -- Set serial
 
-#if VERBOSE_MODE == 1
-    Serial.begin(SERIAL_SPEED);
+#if USB_SERIAL == 1
+    Serial.begin(USB_SERIAL_SPEED);
 #endif
 
     //Print_Line("Flash : 1,310,720 Bytes - EEPROM : 512 Bytes - RAM : " + char(ESP.getFreeHeap()) + "/ 327680 Bytes");

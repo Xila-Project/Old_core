@@ -132,17 +132,17 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
     Display.Set_Text(F("HEADER_TXT"), F("Error"));
     break;
   case Warning:
-    Display.Set_Text(F("EVENT_PIC"), Exclamation_Mark);
+    Display.Set_Text(F("ICON_TXT"), Exclamation_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Yellow);
     Display.Set_Text(F("HEADER_TXT"), F("Warning"));
     break;
   case Information:
-    Display.Set_Text(F("EVENT_PIC"), Exclamation_Mark);
+    Display.Set_Text(F("ICON_TXT"), Exclamation_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Blue);
     Display.Set_Text(F("HEADER_TXT"), F("Information"));
     break;
   case Question:
-    Display.Set_Text(F("EVENT_PIC"), Question_Mark);
+    Display.Set_Text(F("ICON_TXT"), Question_Mark);
     Display.Set_Font_Color(F("ICON_TXT"), Green);
     Display.Set_Text(F("HEADER_TXT"), F("Question"));
   default:

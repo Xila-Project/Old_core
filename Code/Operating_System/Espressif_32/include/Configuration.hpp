@@ -2,10 +2,14 @@
 #ifndef CONFIGURATION_HPP_INCLUDED
 #define CONFIGURATION_HPP_INCLUDED
 
-// USB serial speed
-#define SERIAL_SPEED 115200
+#include  "esp_log.h"
 
-//
+// -- Default value
+
+// USB serial speed
+#define USB_SERIAL_SPEED 115200
+
+
 #define DEFAULT_DEVICE_NAME "ESP32"
 
 // Software
@@ -41,19 +45,13 @@
 #define DISPLAY_VERSION_MINOR 1
 #define DISPLAY_VERSION_REVISION 0
 
-// Battery 
-
-#define BATTERY_CHECKING 0
-
 // Core tasks repartition
 #define SOFTWARE_CORE 0
 #define SYSTEM_CORE 1
 
-// disable / enable animation
-#define ANIMATION 0
-
-// used to bypass login form during debugging session
-#define LOGIN 0
+// -- 
+#define MAXIMUM_PASSWORD_LENGHT 24
+#define MAXIMUM_USERNAME_LENGHT 8
 
 // 
 #define IDLE_TASK_PRIORITY 0
@@ -61,43 +59,53 @@
 #define SYSTEM_TASK_PRIORITY 2
 #define DRIVER_TASK_PRIORITY 3
 
-#define MAXIMUM_PASSWORD_LENGHT 24
-#define MAXIMUM_USERNAME_LENGHT 8
+//
+#define DEFAULT_QUEUE_SIZE 16
+
+// Task memory allocation
+#define Memory_Chunk(x) (x * 1024)
 
 // Watchdog 
 
-#define WATCHDOG_INITAL_TIME 4000
-#define WATCHDOG_MAXIMUM_TIME 6000
-
-#define Memory_Chunk(x) (x * 1024)
-
-// Debug
-
-#define DEBUG_MODE 1 
-
-#define WATCHDOG 0 //managed by core
-
-#define STACK_OVERFLOW_DETECTION 0
-
-#define SD_MODE 1 // 0 : SD_MMC / 1 : SD_SPI
-
-#define DISPLAY_MODE 1 //
-
-#define VERBOSE_MODE 1
-
-#define SERIAL_SPEED 115200
-#if VERBOSE_MODE == 0
-#define Verbose_Print(t) NULL
-#define Verbose_Print_Line(t) NULL 
-#else
-#define Verbose_Print(t) Serial.print(F(t))
-#define Verbose_Print_Line(t) Serial.println(F(t))
-#endif
-
-#define DEFAULT_QUEUE_SIZE 16
+#define WATCHDOG_INITAL_TIME 4000   // ms
+#define WATCHDOG_MAXIMUM_TIME 6000  // ms
 
 // -- Default registry values --
 
 #define DEFAULT_SOUND_REGISTRY_VOLUME 75
+
+// -- Debug / Release specific configurations
+
+#if CORE_DEBUG_LEVEL <= 1 // release mode
+
+#define BATTERY_CHECKING 1  // enable battery checking
+#define ANIMATION 1         // enable animation
+#define LOGIN 1             // used to bypass login form during debugging session
+#define WATCHDOG 0          // Disable esp32 watchdog - managed by core
+#define SD_MODE 0           // SD mmc mode
+#define STACK_OVERFLOW_DETECTION 0
+
+#define Verbose_Print(t) NULL
+#define Verbose_Print_Line(t) NULL
+
+#define DEBUG_MODE 0
+#define USB_SERIAL 0
+
+#else // debug mode
+
+#define BATTERY_CHECKING 0      // disable battery checking
+#define ANIMATION 0             // disable animation
+#define LOGIN 0                 // used to bypass login form during debugging session
+#define WATCHDOG 0              // Disable esp32 watchdog - managed by core
+#define SD_MODE 1               // 0 : SD_MMC / 1 : SD_SPI
+#define STACK_OVERFLOW_DETECTION 0
+
+#define Verbose_Print(t) Serial.print(F(t))
+#define Verbose_Print_Line(t) Serial.println(F(t))
+
+#define DEBUG_MODE 1
+#define USB_SERIAL 1
+
+#endif
 
 #endif

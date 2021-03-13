@@ -381,12 +381,22 @@ public:
 
     inline void First_Start_Routine();
     inline void Second_Start_Routine();
+    
 
     void Restart(); // private
 
     void Hibernate(); // private
 
     void Deep_Sleep();
+
+    // -- Log
+    /*inline void Log_Error(Software_Handle_Class const&);
+    inline void Log_Warning(Software_Handle_Class const&);
+    inline void Log_Information(Software_Handle_Class const&);
+    inline void Log_Debug(Software_Handle_Class const&);
+    inline void Log_Verbose(Software_Handle_Class const&);*/
+
+
 
     // -- Registry modification methods -- //
 
