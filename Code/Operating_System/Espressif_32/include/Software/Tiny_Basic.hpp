@@ -90,10 +90,6 @@
 #define FILEIO_RAM (0)
 #endif
 
-#include <SPI.h>
-#include <SD.h>
-#include <FS.h>
-
 #include <EEPROM.h> /* NOTE: case sensitive */
 
 

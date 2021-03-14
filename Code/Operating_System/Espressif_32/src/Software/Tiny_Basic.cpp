@@ -1052,7 +1052,7 @@ boolean Tiny_Basic_Class::initSD()
   // an output, even when your shield uses another line for CS
   //pinMode(10, OUTPUT); // change this to 53 on a mega
 
-  if ( !SD.begin( SD_CS )) {
+  if ( !Xila.Drive->begin( SD_CS )) {
     // failed
     printmsg( sderrormsg );
     return false;
@@ -1081,7 +1081,7 @@ boolean Tiny_Basic_Class::initSD()
 
 void Tiny_Basic_Class::cmd_Files()
 {
-  File dir = SD.open("/");
+  File dir = Xila.Drive->open("/");
   dir.seek(0);
 
   while (true)
@@ -1968,7 +1968,7 @@ load:
       goto qwhat;
 
     // check if file exists
-    if (!SD.exists((char *)filename))
+    if (!Xila.Drive->exists((char *)filename))
     {
       // file is missing
       printmsg(sdfilemsg);
@@ -1976,7 +1976,7 @@ load:
     else
     {
       // file exists so open it
-      fp = SD.open((const char *)filename);
+      fp = Xila.Drive->open((const char *)filename);
       inStream = kStreamFile;
       inhibitOutput = true;
     }
@@ -2000,13 +2000,13 @@ save:
     Serial.println((char *)filename);
 
     // remove the old file if it exists
-    if (SD.exists((char *)filename))
+    if (Xila.Drive->exists((char *)filename))
     {
-      SD.remove((char *)filename);
+      Xila.Drive->remove((char *)filename);
     }
 
     // open the file, switch over to file output
-    fp = SD.open((const char *)filename, FILE_WRITE);
+    fp = Xila.Drive->open((const char *)filename, FILE_WRITE);
 
     if (fp == (File)NULL)
     {
@@ -2048,9 +2048,9 @@ delfile:
     Serial.println((char *)filename);
 
     // remove the file if it exists
-    if (SD.exists((char *)filename))
+    if (Xila.Drive->exists((char *)filename))
     {
-      SD.remove((char *)filename);
+      Xila.Drive->remove((char *)filename);
     }
     goto warmstart;
   }

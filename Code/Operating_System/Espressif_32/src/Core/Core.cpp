@@ -31,7 +31,7 @@ Xila_Class::Xila_Class() : Tag(0),
 
 #if SD_MODE == 0
   Drive = &SD_MMC;
-#else
+#elif SD_MODE == 1
   Drive = &SD;
 #endif
 

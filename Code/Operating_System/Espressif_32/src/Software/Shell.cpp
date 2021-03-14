@@ -1229,7 +1229,7 @@ void Shell_Class::Preferences_Personal_Commands()
     case 0:
         Idle();
         break;
-    case Instruction('k', 'B'):
+    case Instruction('C', 'B'):
     {
         if (Desk_Background < 0)
         {
@@ -1457,12 +1457,15 @@ void Shell_Class::Open_Preferences_System()
 {
     Xila.Display.Set_Current_Page(Preferences_System);
     Autologin = false;
+    
     memset(NTP_Server, '\0', sizeof(NTP_Server));
     strcpy(NTP_Server, Xila.NTP_Server);
     GMT_Offset = Xila.GMT_Offset;
     Daylight_Offset = Xila.Daylight_Offset;
+
     memset(Target_Username, '\0', sizeof(Target_Username));
     strcpy(Target_Username, Xila.Current_Username);
+
     memset(Password_1, '\0', sizeof(Password_1));
     memset(Username, '\0', sizeof(Username));
     memset(Device_Name, '\0', sizeof(Device_Name));
@@ -1583,7 +1586,7 @@ void Shell_Class::Refresh_Preferences_System()
     Xila.Display.Set_Text(F("TUSERVAL_TXT"), Target_Username);
     Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Device_Name);
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
-    Xila.Display.Set_Text(F("PASSWORD_TXT"), Password_1);
+    Xila.Display.Set_Text(F("PASSWVAL_TXT"), Password_1);
 }
 
 void Shell_Class::System_Update()

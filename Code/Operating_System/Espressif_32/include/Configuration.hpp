@@ -97,7 +97,8 @@
 #define ANIMATION 0             // disable animation
 #define LOGIN 0                 // used to bypass login form during debugging session
 #define WATCHDOG 0              // Disable esp32 watchdog - managed by core
-#define SD_MODE 1               // 0 : SD_MMC / 1 : SD_SPI
+
+#define SD_MODE 0               // SD spi mode
 #define STACK_OVERFLOW_DETECTION 0
 
 #define Verbose_Print(t) Serial.print(F(t))

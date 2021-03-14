@@ -91,7 +91,7 @@ void Xila_Class::First_Start_Routine()
     pinMode(12, INPUT_PULLUP);
     pinMode(13, INPUT_PULLUP);
     Drive = &SD_MMC;
-#else
+#elif SD_MODE == 1
     Drive = &SD;
 #endif
 

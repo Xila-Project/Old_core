@@ -26,11 +26,13 @@
 
 #include "Arduino.h"
 
-#if SD_MODE == 1
-#include "SD_MMC.h"
+#if SD_MODE == 0
 #include "FS.h"
-#else
+#include "SD_MMC.h"
+#elif SD_MODE == 1
+#include "FS.h"
 #include "SD.h"
+#include "SPI.h"
 #endif
 
 #include "time.h"
@@ -150,19 +152,19 @@ public:
     enum Image_Offset
     {
         Shell = 0,
-        Calculator = 19,
-        Clock = 20,
-        Internet_Browser = 21,
-        Music_Player = 22,
-        Oscilloscope = 29,
-        Paint = 30,
-        Periodic = 31,
-        Piano = 33,
-        Picture_Viewer = 37,
-        Pong = 38,
-        Simon = 39,
-        Text_Editor = 40,
-        Tiny_Basic = 41
+        Calculator = 20,
+        Clock = 21,
+        Internet_Browser = 22,
+        Music_Player = 23,
+        Oscilloscope = 30,
+        Paint = 31,
+        Periodic = 32,
+        Piano = 34,
+        Picture_Viewer = 38,
+        Pong = 39,
+        Simon = 40,
+        Text_Editor = 41,
+        Tiny_Basic = 42
     };
 
     enum Pages_Offset
@@ -315,10 +317,8 @@ public:
 // Disk
 #if SD_MODE == 0
     fs::SDMMCFS *Drive = &SD_MMC;
-#else
-
+#elif SD_MODE == 1
     fs::SDFS *Drive = &SD;
-
 #endif
     // WiFi
 

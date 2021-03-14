@@ -6,7 +6,6 @@ uint32_t Clock_Class::Next_Alarm = 0;
 Clock_Class::Clock_Class() : Software_Class(Clock_Handle),
                              Current_Tab(Clock)
 {
-    Send_Instruction(Xila.Open);
     Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
@@ -322,7 +321,7 @@ void Clock_Class::Main_Task(void *pvParameters)
         case Clock:
             switch (Instance_Pointer->Get_Instruction())
             {
-            case 0x0000: // IDLE
+            case Xila.Idle: // IDLE
                 Instance_Pointer->Refresh_Clock();
                 break;
             case Instruction('O', 'A'):
@@ -342,6 +341,12 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case Instruction('R', 'i'): // Ring
                 break;
+            case Instruction('C', 'l'):
+                Xila.Software_Close(Clock_Handle);
+                break;
+            case Instruction('M', 'i'):
+                Xila.Software_Minimize(Clock_Handle);
+                break;
             case Xila.Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
@@ -352,7 +357,6 @@ void Clock_Class::Main_Task(void *pvParameters)
                 vTaskDelete(NULL);
                 break;
             case Xila.Minimize:
-                vTaskSuspend(NULL);
                 break;
             case Xila.Maximize:
                 Xila.Display.Set_Current_Page(F("Clock"));
