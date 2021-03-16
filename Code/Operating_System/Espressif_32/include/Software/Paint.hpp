@@ -13,6 +13,7 @@ protected:
     void Refresh_Interface();
 
     uint16_t Color_Palette[8];
+    uint8_t Current_Color;
 
     /*volatile uint32_t Buffer[2][200];
 

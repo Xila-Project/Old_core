@@ -1,6 +1,6 @@
 #include "Software/Paint.hpp"
 
-Paint_Class* Paint_Class::Instance_Pointer = NULL;
+Paint_Class *Paint_Class::Instance_Pointer = NULL;
 
 Software_Class *Paint_Class::Load()
 {
@@ -12,17 +12,8 @@ Software_Class *Paint_Class::Load()
     return Instance_Pointer;
 }
 
-
 Paint_Class::Paint_Class() : Software_Class(Paint_Handle)
 {
-    Color_Palette[0] = 0;
-    Color_Palette[1] = 31;
-    Color_Palette[2] = 63488;
-    Color_Palette[3] = 63519;
-    Color_Palette[4] = 2016;
-    Color_Palette[5] = 2047;
-    Color_Palette[6] = 65504;
-    Color_Palette[7] = 65535;
     Xila.Task_Create(Main_Task, "Paint Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
@@ -59,71 +50,80 @@ Paint_Class::~Paint_Class()
     }
 }*/
 
-void Paint_Class::Main_Task(void* pvParameters)
+void Paint_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-            case 0:
-                Xila.Delay(30);
-                break;
-            case Xila.Watchdog:
-                Xila.Feed_Watchdog();
-                break;
-            case Xila.Open:
-                Xila.Display.Set_Current_Page(F("Paint"));
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Xila.Maximize:
-                Xila.Display.Set_Current_Page(F("Paint"));
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Xila.Minimize:
-                break;
-            case Xila.Close:
-                delete Instance_Pointer;
-                vTaskDelete(NULL);
-                break;
-            case Instruction('C', 'l'):
-                Xila.Software_Close(Paint_Handle);
-                break;
-            case Instruction('M', 'i'):
-                Xila.Software_Minimize(Paint_Handle);
-                break;
-            case Instruction('S', '1'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[0]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '2'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[1]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '3'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[2]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '4'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[3]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '5'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[4]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '6'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[5]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '7'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[6]);
-                Instance_Pointer->Refresh_Interface();
-                break;
-            case Instruction('S', '8'):
-                Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[7]);
-                Instance_Pointer->Refresh_Interface();
-                break;
+        case 0:
+            Xila.Delay(30);
+            break;
+        case Xila.Watchdog:
+            Xila.Feed_Watchdog();
+            break;
+        case Xila.Open:
+            Xila.Display.Set_Current_Page(F("Paint"));
+            Instance_Pointer->Color_Palette[0] = 0;
+            Instance_Pointer->Color_Palette[1] = 31;
+            Instance_Pointer->Color_Palette[2] = 63488;
+            Instance_Pointer->Color_Palette[3] = 63519;
+            Instance_Pointer->Color_Palette[4] = 2016;
+            Instance_Pointer->Color_Palette[5] = 2047;
+            Instance_Pointer->Color_Palette[6] = 65504;
+            Instance_Pointer->Color_Palette[7] = 65535;
+            Instance_Pointer->Current_Color = 0;
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Xila.Maximize:
+            Xila.Display.Set_Current_Page(F("Paint"));
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Xila.Minimize:
+            break;
+        case Xila.Close:
+            delete Instance_Pointer;
+            vTaskDelete(NULL);
+            break;
+        case Instruction('C', 'l'):
+            Xila.Software_Close(Paint_Handle);
+            break;
+        case Instruction('M', 'i'):
+            Xila.Software_Minimize(Paint_Handle);
+            break;
+        case Instruction('S', '1'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[0]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '2'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[1]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '3'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[2]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '4'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[3]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '5'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[4]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '6'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[5]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '7'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[6]);
+            Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('S', '8'):
+            Xila.Color_Picker_Dialog(Instance_Pointer->Color_Palette[7]);
+            Instance_Pointer->Refresh_Interface();
+            break;
         }
     }
 }

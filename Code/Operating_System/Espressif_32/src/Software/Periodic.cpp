@@ -60,11 +60,20 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Xila.Software_Minimize(Periodic_Handle);
             break;
         case Xila.Maximize:
-            Xila.Display.Set_Current_Page(F("Periodic_Main"));
-            Instance_Pointer->Get_Main_Data();
+            if (Instance_Pointer->Tab == 0)
+            {
+                Xila.Display.Set_Current_Page(F("Periodic_Main"));
+                Instance_Pointer->Get_Main_Data();
+            }
+            else
+            {
+                Xila.Display.Set_Current_Page(F("Periodic_Data"));
+                Instance_Pointer->Get_Data();
+            }
             break;
         case Xila.Open:
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
+            Instance_Pointer->Tab = 0;
             break;
         case Xila.Close:
             delete Instance_Pointer;
@@ -77,10 +86,12 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Instance_Pointer->Get_Main_Data();
             break;
         case Instruction('G', 'D'): //GD
+            Instance_Pointer->Tab = 1;
             Instance_Pointer->Get_Data();
             break;
         case Instruction('B', 'a'):
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
+            Instance_Pointer->Tab = 0;
             Instance_Pointer->Get_Main_Data();
             break;
         default:

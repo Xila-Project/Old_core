@@ -211,7 +211,7 @@ void Xila_Class::Second_Start_Routine()
 #endif
     Display.Set_Value(F("STATE_VAR"), 2);
 
-#if ANNIMATION == 1
+#if ANIMATION == 1
     vTaskDelay(pdMS_TO_TICKS(3000));
 #endif
 

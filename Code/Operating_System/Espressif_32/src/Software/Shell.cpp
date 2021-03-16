@@ -283,7 +283,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Color_Picker:
         if (Adress == 'C' && Xila.Dialog_Pointer != NULL)
         {
-            memcpy(Xila.Dialog_Long, (uint16_t *)Variable, sizeof(uint16_t));
+            memcpy(Xila.Dialog_Pointer, (uint16_t *)Variable, sizeof(uint16_t));
         }
     default:
         break;
@@ -1066,11 +1066,9 @@ void Shell_Class::File_Manager_Commands()
 
 void Shell_Class::Go_Parent()
 {
-    uint8_t i = strlen(Current_Path);
-    Current_Path[i] = '\0'; // delete last char (if directory)
-    for (; i > 0; i--)
+    for (uint8_t i = sizeof(Current_Path); i > 0; i--)
     {
-        if (Current_Path[i] == '\\')
+        if (Current_Path[i] == '/')
         {
             return;
         }
@@ -1079,7 +1077,7 @@ void Shell_Class::Go_Parent()
             Current_Path[i] = '\0';
             if (i == 1)
             {
-                Current_Path[0] = '\\';
+                Current_Path[0] = '/';
                 return;
             }
         }
@@ -2094,6 +2092,7 @@ void Shell_Class::Keypad_Commands()
 void Shell_Class::Open_Color_Picker()
 {
     Xila.Display.Set_Current_Page(Color_Picker);
+
 
     uint8_t Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 11;
 

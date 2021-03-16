@@ -8,7 +8,7 @@ private:
 
     int16_t Offset;
     uint8_t Note_ID;
-    uint8_t Current_Note;
+    uint16_t Current_Note;
     uint32_t Duration;
     bool MIDI_Output;
 
@@ -16,7 +16,8 @@ private:
 
     char Temporary_Char[7];
 
-    void Play_Note(uint8_t);
+    void Press_Key(uint8_t);
+    void Release_Key();
     void Refresh_Interface();
 
 public:

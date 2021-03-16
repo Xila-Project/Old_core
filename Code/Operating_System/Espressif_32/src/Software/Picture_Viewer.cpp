@@ -4,7 +4,7 @@ Picture_Viewer_Class *Picture_Viewer_Class::Instance_Pointer = NULL;
 
 Picture_Viewer_Class::Picture_Viewer_Class() : Software_Class(Picture_Viewer_Handle)
 {
-
+    Xila.Task_Create(Main_Task, "Picture viewer", Memory_Chunk(5), NULL, &Task_Handle);
 }
 
 Picture_Viewer_Class::~Picture_Viewer_Class()
@@ -13,6 +13,7 @@ Picture_Viewer_Class::~Picture_Viewer_Class()
     {
         delete Instance_Pointer;
     }
+    Instance_Pointer = NULL;
     Image_File.close();
 }
 
@@ -33,7 +34,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0:
+        case Xila.Idle:
             Xila.Delay(30);
             break;
         case Xila.Open:
@@ -48,7 +49,6 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Send_Instruction(Instruction('D', 'I'));
             break;
         case Xila.Minimize:
-            vTaskSuspend(NULL);
             break;
         case Instruction('C', 'l'):
             Xila.Software_Close(Picture_Viewer_Handle);
@@ -58,7 +58,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'I'):
             Xila.Open_File_Dialog(Instance_Pointer->Image_File);
-            Instance_Pointer->Send_Instruction('D', 'I');
+            Instance_Pointer->Send_Instruction(Instruction('D', 'I'));
             break;
         case Instruction('D', 'I'):
             if (!Instance_Pointer->Image_File)

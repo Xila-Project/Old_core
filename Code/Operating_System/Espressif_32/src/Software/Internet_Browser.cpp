@@ -61,13 +61,10 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       break;
       
     case Xila.Minimize: // NULL + m : Minimize
-
-      Xila.Task_Suspend();
       break;
 
     case Instruction('M', 'i'):
       Xila.Software_Minimize(Internet_Browser_Handle);
-
       break;
 
     case Instruction('C', 'l'):
@@ -1040,7 +1037,6 @@ byte Internet_Browser_Class::Display_Page()
 
       Text_Char_Count = 0;
       Width_Count = 0;
-      Xila.Delay(500);
     }
 
     c = Cache_File.read();

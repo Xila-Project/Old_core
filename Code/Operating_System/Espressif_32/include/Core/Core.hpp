@@ -17,8 +17,8 @@
  * 
 */
 
-#ifndef GALAXOS_CORE_H_INCLUDED
-#define GALAXOS_CORE_H_INCLUDED
+#ifndef CORE_H_INCLUDED
+#define CORE_H_INCLUDED
 
 //----------------------------------------------------------------------------//
 //                          Include Necessary Libraries                       //
@@ -26,14 +26,13 @@
 
 #include "Arduino.h"
 
-#if SD_MODE == 0
-#include "FS.h"
+
 #include "SD_MMC.h"
-#elif SD_MODE == 1
 #include "FS.h"
 #include "SD.h"
 #include "SPI.h"
-#endif
+
+
 
 #include "time.h"
 #include "Update.h"
@@ -316,9 +315,9 @@ public:
     Keyboard_Class Keyboard;
 // Disk
 #if SD_MODE == 0
-    fs::SDMMCFS *Drive = &SD_MMC;
+    fs::SDMMCFS* Drive = &SD_MMC;
 #elif SD_MODE == 1
-    fs::SDFS *Drive = &SD;
+    fs::SDFS* Drive = &SD;
 #endif
     // WiFi
 
@@ -635,5 +634,4 @@ public:
     friend class Software_Handle_Class;
 };
 
-//GalaxOS tasks as separate function (FreeRTOS seems to not support class/struct method)
 #endif

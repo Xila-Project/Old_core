@@ -19,6 +19,8 @@ class Periodic_Class : protected Software_Class
 
         char Current_Atom_Name[32];
 
+        uint8_t Tab;
+
         float X, Y;
 
         uint8_t Line;

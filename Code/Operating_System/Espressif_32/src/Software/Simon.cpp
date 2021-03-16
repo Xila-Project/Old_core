@@ -47,6 +47,9 @@ void Simon_Class::Main_Task(void *pvParameters)
         case Xila.Open:
             Instance_Pointer->Load_Registry();
             Xila.Display.Set_Current_Page(F("Simon"));
+            Instance_Pointer->Current_Level[0] = 0;
+            Instance_Pointer->Current_Level[1] = 0;
+            Instance_Pointer->Speed = 0;
             Instance_Pointer->Refresh_Interface();
             break;
         case Xila.Maximize:

@@ -20,6 +20,11 @@ Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
 
 Music_Player_Class::~Music_Player_Class()
 {
+    if (Instance_Pointer != this)
+    {
+        delete Instance_Pointer;
+    }
+    Instance_Pointer = NULL;
 }
 
 void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
@@ -42,7 +47,6 @@ void Music_Player_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case Xila.Idle:
-            Instance_Pointer->Refresh_Interface();
             Xila.Delay(20);
             break;
         case Xila.Close:
@@ -104,6 +108,9 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'F'):
             Instance_Pointer->Open_Folder();
+            break;
+        case Instruction('R', 'e'):
+            Instance_Pointer->Refresh_Interface();
             break;
         default:
             break;

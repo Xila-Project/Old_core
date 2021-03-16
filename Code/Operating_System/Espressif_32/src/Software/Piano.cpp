@@ -61,98 +61,100 @@ void Piano_Class::Main_Task(void *pvParameters)
         case Instruction('M', 'i'):
             Xila.Software_Minimize(Piano_Handle);
             break;
-        case 0x4320: //C
-            Instance_Pointer->Play_Note(0);
+        case Instruction('C', ' '): //C
+            Instance_Pointer->Press_Key(0);
             break;
         case 0x4323: //C#
-            Instance_Pointer->Play_Note(1);
+            Instance_Pointer->Press_Key(1);
             break;
         case 0x4420: //D
-            Instance_Pointer->Play_Note(2);
+            Instance_Pointer->Press_Key(2);
             break;
         case 0x4423: //D#
-            Instance_Pointer->Play_Note(3);
+            Instance_Pointer->Press_Key(3);
             break;
         case 0x4520: //E
-            Instance_Pointer->Play_Note(4);
+            Instance_Pointer->Press_Key(4);
             break;
 
         case 0x4620: //F
-            Instance_Pointer->Play_Note(5);
+            Instance_Pointer->Press_Key(5);
             break;
 
         case 0x4623: //F#
-            Instance_Pointer->Play_Note(6);
+            Instance_Pointer->Press_Key(6);
             break;
 
         case 0x4720: //G
-            Instance_Pointer->Play_Note(7);
+            Instance_Pointer->Press_Key(7);
             break;
 
         case 0x4723: //G#
-            Instance_Pointer->Play_Note(8);
+            Instance_Pointer->Press_Key(8);
             break;
 
         case 0x4120: //A
-            Instance_Pointer->Play_Note(9);
+            Instance_Pointer->Press_Key(9);
             break;
 
         case 0x4123: //A#
-            Instance_Pointer->Play_Note(10);
+            Instance_Pointer->Press_Key(10);
             break;
 
         case 0x4220: //B
-            Instance_Pointer->Play_Note(11);
+            Instance_Pointer->Press_Key(11);
             break;
 
         case 0x6320: //c
-            Instance_Pointer->Play_Note(12);
+            Instance_Pointer->Press_Key(12);
             break;
 
         case 0x6323: //c#
-            Instance_Pointer->Play_Note(13);
+            Instance_Pointer->Press_Key(13);
             break;
 
         case 0x6420: //d
-            Instance_Pointer->Play_Note(14);
+            Instance_Pointer->Press_Key(14);
             break;
 
         case 0x6423: //d#
-            Instance_Pointer->Play_Note(15);
+            Instance_Pointer->Press_Key(15);
             break;
 
         case 0x6520: //e
-            Instance_Pointer->Play_Note(16);
+            Instance_Pointer->Press_Key(16);
             break;
 
         case 0x6620: //f
-            Instance_Pointer->Play_Note(17);
+            Instance_Pointer->Press_Key(17);
             break;
 
         case 0x6623: //f#
-            Instance_Pointer->Play_Note(18);
+            Instance_Pointer->Press_Key(18);
             break;
 
         case 0x6720: //g
-            Instance_Pointer->Play_Note(19);
+            Instance_Pointer->Press_Key(19);
             break;
 
         case 0x6723: //g#
-            Instance_Pointer->Play_Note(20);
+            Instance_Pointer->Press_Key(20);
             break;
 
         case 0x6120: //a
-            Instance_Pointer->Play_Note(21);
+            Instance_Pointer->Press_Key(21);
             break;
 
         case 0x6123: //a#
-            Instance_Pointer->Play_Note(22);
+            Instance_Pointer->Press_Key(22);
             break;
 
         case 0x6220: //b
-            Instance_Pointer->Play_Note(23);
+            Instance_Pointer->Press_Key(23);
             break;
-
+        case Instruction('R', 'e'):
+            Instance_Pointer->Release_Key();
+            break;
         default:
             break;
         }
@@ -162,19 +164,26 @@ void Piano_Class::Main_Task(void *pvParameters)
 
 void Piano_Class::Refresh_Interface()
 {
-    dtostrf(Note_Frequency[Note_ID], 3, 0, Temporary_Char);
-    Temporary_Char[4] = ' ';
-    Temporary_Char[5] = 'H';
-    Temporary_Char[6] = 'z';
-    Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_Char);
+    if (Note_ID == 0xFF)
+    {
+        Xila.Display.Set_Text(F("FREQVAL_TXT"), "");
+    }
+    else
+    {
+        dtostrf(Note_Frequency[Note_ID], 3, 0, Temporary_Char);
+        Temporary_Char[4] = ' ';
+        Temporary_Char[5] = 'H';
+        Temporary_Char[6] = 'z';
+        Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_Char);
+    }
 }
 
-void Piano_Class::Play_Note(uint8_t Note)
+void Piano_Class::Press_Key(uint8_t Note)
 {
     Note_ID = Note;
     Current_Note = Note_Frequency[Note_ID] + Offset;
     Xila.Sound.Tone(Current_Note, Duration);
-
+    Refresh_Interface();
     /*if (MIDI_Output == true)
     {
         Serial.write(144);
@@ -185,4 +194,11 @@ void Piano_Class::Play_Note(uint8_t Note)
         Serial.write(Note);
         Serial.write(128);
     }*/
+}
+void Piano_Class::Release_Key()
+{
+    Note_ID = 0xFF;
+    Current_Note = 0xFFFF;
+    Xila.Sound.No_Tone();
+    Refresh_Interface();
 }
