@@ -177,7 +177,7 @@ void Music_Player_Class::Refresh_Interface()
 
     if (State == Stopped)
     {
-        Xila.Display.Set_Picture(F("PLAY_TXT"), Play_32);
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
 
         Xila.Display.Set_Text(F("FILENAME_TXT"), F("File:"));
         Xila.Display.Set_Text(F("NEXTFILE_TXT"), F("Next:"));
@@ -206,11 +206,11 @@ void Music_Player_Class::Refresh_Interface()
 
         if (State == Paused)
         {
-            Xila.Display.Set_Picture(F("PLAY_TXT"), Pause_32);
+            Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
         }
         else if (State == Playing)
         {
-            Xila.Display.Set_Picture(F("PLAY_TXT"), Play_32);
+            Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
         }
 
         if (Music_File)
@@ -302,7 +302,7 @@ void Music_Player_Class::Resume()
     if (State != Stopped)
     {
         Xila.Sound.Resume();
-        Xila.Display.Set_Picture(F("PLAY_TXT"), Play_32);
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
         State = Playing;
     }
 
@@ -314,7 +314,7 @@ void Music_Player_Class::Pause()
     if (State != Stopped)
     {
         Xila.Sound.Pause();
-        Xila.Display.Set_Picture(F("PLAY_TXT"), Pause_32);
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
         State = Paused;
     }
     Refresh_Interface();
