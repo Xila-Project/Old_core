@@ -67,56 +67,57 @@ void Shell_Class::Main_Task(void *pvParameters)
     {
         switch (Xila.Display.Get_Current_Page())
         {
-        case Pages::About:
+        case About:
             Instance_Pointer->Preferences_System_Commands();
             break;
-        case Pages::Color_Picker:
+        case Color_Picker:
             Instance_Pointer->Color_Picker_Commands();
             break;
-        case Pages::Desk:
+        case Desk:
             Instance_Pointer->Desk_Commands();
             break;
-        case Pages::Drawer:
+        case Drawer:
             Instance_Pointer->Drawer_Commands();
             break;
-        case Pages::Event:
+        case Event:
             Instance_Pointer->Event_Commands();
             break;
-        case Pages::File_Manager:
+        case File_Manager_Main:
+        case File_Manager_Detail:
             Instance_Pointer->File_Manager_Commands();
             break;
-        case Pages::Preferences_Hardware:
+        case Preferences_Hardware:
             Instance_Pointer->Preferences_Hardware_Commands();
             break;
-        case Pages::Install:
+        case Install:
             Instance_Pointer->Install_Commands();
             break;
-        case Pages::Keyboard:
+        case Keyboard:
             Instance_Pointer->Keyboard_Commands();
             break;
-        case Pages::Keypad:
+        case Keypad:
             Instance_Pointer->Keypad_Commands();
             break;
-        case Pages::Login:
+        case Login:
             Instance_Pointer->Login_Commands();
             break;
-        case Pages::Load:
+        case Load:
             Instance_Pointer->Current_Command = Instance_Pointer->Get_Instruction();
             Instance_Pointer->Main_Commands();
             break;
-        case Pages::Preferences_Network:
+        case Preferences_Network:
             Instance_Pointer->Preferences_Network_Commands();
             break;
-        case Pages::Preferences_Personal:
+        case Preferences_Personal:
             Instance_Pointer->Preferences_Personal_Commands();
             break;
-        case Pages::Shutdown:
+        case Shutdown:
             Instance_Pointer->Shutdown_Commands();
             break;
-        case Pages::Preferences_System:
+        case Preferences_System:
             Instance_Pointer->Preferences_System_Commands();
             break;
-        case Pages::Welcome:
+        case Welcome:
             Instance_Pointer->Install_Commands();
             break;
         default:
@@ -251,7 +252,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
             break;
         }
         break;
-    case File_Manager:
+    case File_Manager_Main:
         switch (Adress)
         {
         case 'F':
@@ -382,6 +383,9 @@ void Shell_Class::Refresh_File_Manager()
             Xila.Drive->rename(Temporary_Item.name(), String(Current_Path) + String(Temporary_Input));
             Operation = Browse;
             Empty_Footer_Bar();
+            break;
+        case Detail:
+            Open_File_Manager_Detail();
             break;
         default:
             if (Temporary_Item.isDirectory())
@@ -539,6 +543,24 @@ const char *Shell_Class::Get_File_Name(File const &File)
         }
     }
 }
+
+// -- File Manager Detail -- //
+
+void Shell_Class::Open_File_Manager()
+{
+    Operation = Browse;
+    Xila.Display.Set_Current_Page(File_Manager_Detail);
+    Refresh_File_Manager_Detail();
+}
+
+void Shell_Class::Refresh_File_Manager_Detail()
+{
+    Temporary_Item = Xila.Drive->open(Current_Path);
+    time_t File_Last_Write_Time = Temporary_Item.getLastWrite();
+    Xila_Time* File_Last_Write_Local_Time = localtime(&File_Last_Write_Time);
+    Temporary_Item.
+}
+
 
 // -- Desk -- //
 
@@ -818,11 +840,11 @@ void Shell_Class::Open_From_Drawer(uint8_t Slot)
     }
 }
 
-// -- File manager -- //
+// -- File manager main -- //
 
 void Shell_Class::Open_File_Manager()
 {
-    Xila.Display.Set_Current_Page(File_Manager);
+    Xila.Display.Set_Current_Page(File_Manager_Main);
     Offset = 0;
     memset(Current_Path, '\0', sizeof(Current_Path));
     strcpy(Current_Path, "/");
@@ -878,6 +900,7 @@ void Shell_Class::File_Manager_Commands()
 
         break;
     case Instruction('C', 'o'): // copy file
+        Refresh_File_Manager();
         if (Operation == Copy)  //paste
         {
             if (Selected_Item.isDirectory())
@@ -900,9 +923,10 @@ void Shell_Class::File_Manager_Commands()
             Selected_Item.close();
             Xila.Display.Set_Picture(F("COPY_BUT"), Cut_24);
         }
-        Refresh_File_Manager();
+        
         break;
     case Instruction('C', 'u'):
+        Refresh_File_Manager();
         if (Operation == Cut) // paste
         {
             if (Selected_Item.isDirectory())
@@ -925,15 +949,17 @@ void Shell_Class::File_Manager_Commands()
             Selected_Item.close();
             Xila.Display.Set_Picture(F("CUT_BUT"), Cut_24);
         }
-        Refresh_File_Manager();
+        
         break;
     case Instruction('D', 'e'):
-        Operation = Delete;
         Refresh_File_Manager();
+        Operation = Delete;
+
         break;
     case Instruction('R', 'e'):
-        Operation = Rename;
         Refresh_File_Manager();
+        Operation = Rename;
+
         break;
     case Instruction('N', 'P'):
         Offset += 29;
@@ -980,12 +1006,14 @@ void Shell_Class::File_Manager_Commands()
         }
         break;
     case Instruction('R', 'D'): // open root directory
+        Operation = Browse;
         Verbose_Print_Line("Open root directory");
         memset(Current_Path, '\0', sizeof(Current_Path));
         Current_Path[0] = '/';
         Refresh_File_Manager();
         break;
     case Instruction('H', 'D'): // open home directory
+        Operation = Browse;
         memset(Current_Path, '\0', sizeof(Current_Path));
         strlcpy(Current_Path, Users_Directory_Path, sizeof(Current_Path));
         strlcat(Current_Path, Xila.Current_Username, sizeof(Current_Path));
@@ -1040,6 +1068,16 @@ void Shell_Class::File_Manager_Commands()
         Keyboard_Dialog(Current_Path, sizeof(Current_Path));
         Refresh_File_Manager();
         break;
+    case Instruction('B', 'a'):
+        Xila.Display.Set_Current_Page(File_Manager_Main);
+        Refresh_File_Manager();
+        break;
+    case Instruction('G', 'D'): // -- Get details on selected item
+        Refresh_File_Manager();
+        Operation = Detail;
+        break;
+
+
 
     case Instruction('K', 'F'): // -- Open keyboard to input current item name -- //
         if (Mode == 0)
@@ -1455,7 +1493,7 @@ void Shell_Class::Open_Preferences_System()
 {
     Xila.Display.Set_Current_Page(Preferences_System);
     Autologin = false;
-    
+
     memset(NTP_Server, '\0', sizeof(NTP_Server));
     strcpy(NTP_Server, Xila.NTP_Server);
     GMT_Offset = Xila.GMT_Offset;
@@ -2092,7 +2130,6 @@ void Shell_Class::Keypad_Commands()
 void Shell_Class::Open_Color_Picker()
 {
     Xila.Display.Set_Current_Page(Color_Picker);
-
 
     uint8_t Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 11;
 

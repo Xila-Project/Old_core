@@ -94,7 +94,8 @@ protected:
         Desk,
         Drawer,
         Event,
-        File_Manager,
+        File_Manager_Main,
+        File_Manager_Detail,
         Preferences_Hardware,
         Install,
         Keyboard,
@@ -224,7 +225,8 @@ protected:
         Delete,
         Rename,
         Copy,
-        Cut
+        Cut,
+        Detail
     };
 
     // -- Related to Xila.Instruction
@@ -244,6 +246,11 @@ protected:
 
     char Temporary_File_Name[192];
     const char *Get_File_Name(File const &File); // Temporary fix to file name issues
+
+
+    void Refresh_File_Manager_Detail();
+    void Open_File_Manager_Detail();
+    
 
     //
 
