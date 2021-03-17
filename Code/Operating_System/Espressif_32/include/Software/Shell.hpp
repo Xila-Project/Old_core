@@ -164,6 +164,7 @@ protected:
 
     Xila_Event Keyboard_Dialog(char *, size_t, bool = false);
     Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    Xila_Event Color_Picker_Dialog(uint16_t&);
 
     // -- Shutdown
 

@@ -1234,7 +1234,7 @@ void Shell_Class::Preferences_Personal_Commands()
             Desk_Background = 16904;
         }
         uint16_t Temporary_Color = Desk_Background;
-        Xila.Color_Picker_Dialog(Temporary_Color);
+        Color_Picker_Dialog(Temporary_Color);
         Desk_Background = Temporary_Color;
         break;
     }
