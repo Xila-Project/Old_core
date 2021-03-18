@@ -169,11 +169,11 @@ Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
   // -- Save context
   Caller_Software_Pointer = Open_Software_Pointer[0];
   Display.Send_Raw(F("PAGE=dp"));
-  // -- 
+  // -- Initalize variable
   Dialog_Pointer = &File_To_Open;
   Dialog_State = None;
   Caller_Software_Pointer = Open_Software_Pointer[0];
-   // --
+   // -- 
   Open_Software_Pointer[0] = NULL;
   Software_Maximize(Shell_Handle);
   Open_Software_Pointer[1]->Send_Instruction(Open_File);

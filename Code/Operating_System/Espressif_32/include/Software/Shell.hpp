@@ -240,6 +240,7 @@ protected:
     void Select_Item();
     void Open_File_Manager();
 
+    void Refresh_Footerbar();
     void Refresh_File_Manager();
     void Make_File();
     void Go_Parent();

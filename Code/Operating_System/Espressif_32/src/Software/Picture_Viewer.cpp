@@ -58,6 +58,10 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'I'):
             Xila.Open_File_Dialog(Instance_Pointer->Image_File);
+            if (!Instance_Pointer->Image_File)
+            {
+                Verbose_Print_Line("Failed to open file.");
+            }
             Instance_Pointer->Send_Instruction(Instruction('D', 'I'));
             break;
         case Instruction('D', 'I'):

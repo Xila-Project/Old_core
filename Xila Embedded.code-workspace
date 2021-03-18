@@ -24,7 +24,8 @@
 			"initializer_list": "cpp",
 			"utility": "cpp",
 			"memory": "cpp",
-			"istream": "cpp"
+			"istream": "cpp",
+			"cstdio": "cpp"
 		}
 	}
 }

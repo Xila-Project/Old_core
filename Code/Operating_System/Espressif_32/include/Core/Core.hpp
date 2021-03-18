@@ -32,7 +32,9 @@
 #include "SD.h"
 #include "SPI.h"
 
+#include "esp_log.h"
 
+#include <stdarg.h>
 
 #include "time.h"
 #include "Update.h"
@@ -387,12 +389,15 @@ public:
     void Hibernate(); // private
 
     void Deep_Sleep();
+  ;
+
+    //inline void Log_Error(Software_Handle_Class const&, ...); try to implement variadic function
 
     // -- Log
-    /*inline void Log_Error(Software_Handle_Class const&);
+    /*inline void Log_Error(Software_Handle_Class const&); 
     inline void Log_Warning(Software_Handle_Class const&);
-    inline void Log_Information(Software_Handle_Class const&);
-    inline void Log_Debug(Software_Handle_Class const&);
+    inline void Log_Information(Software_Handle_Class const&); // describe normal flow of events
+    inline void Log_Debug(Software_Handle_Class const&); // extra information (values, pointers, sizes, etc...)
     inline void Log_Verbose(Software_Handle_Class const&);*/
 
 

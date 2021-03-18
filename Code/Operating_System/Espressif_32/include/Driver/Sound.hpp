@@ -16,8 +16,6 @@
 #define RIGHT_CHANNEL 1
 #define CUSTOM_CHANNEL 2
 
-#define DEBUG_MODE 1
-
 #if DEBUG_MODE == 1
 #define Serial_Print(x) Serial.print(F(x))
 #define Serial_Print_Line(x) Serial.println(F(x))

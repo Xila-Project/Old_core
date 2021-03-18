@@ -142,10 +142,8 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 
 void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
-  String Temporary_String;
   while (Xila.Open_Software_Pointer[0] == NULL)
   {
-    Verbose_Print_Line("NULL Open_Software_Pointer[0]");
     vTaskDelay(pdMS_TO_TICKS(20));
   }
   switch (Received_Data[0])
