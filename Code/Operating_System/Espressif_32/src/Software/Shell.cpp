@@ -525,7 +525,7 @@ void Shell_Class::Refresh_File_Manager()
     Refresh_Footerbar();
 }
 
-const char* Shell_Class::Get_File_Name(File const &File)
+const char *Shell_Class::Get_File_Name(File const &File)
 {
     memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
     strlcpy(Temporary_File_Name, File.name(), sizeof(Temporary_File_Name));
@@ -544,19 +544,19 @@ void Shell_Class::Refresh_Footerbar()
 
     switch (Mode)
     {
-        case 0:
-            Xila.Display.Click(F("FOOTERBAR_HOT"), 0);
-            return;
-            break;
-        case Xila.Save_File:
-            Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Save"));
-            break;
-        case Xila.Open_Folder:
-        case Xila.Open_File:
-            Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Open"));
-            break;
-        default:
-            break;
+    case 0:
+        Xila.Display.Click(F("FOOTERBAR_HOT"), 0);
+        return;
+        break;
+    case Xila.Save_File:
+        Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Save"));
+        break;
+    case Xila.Open_Folder:
+    case Xila.Open_File:
+        Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Open"));
+        break;
+    default:
+        break;
     }
 
     if (Selected_Item)
@@ -901,7 +901,7 @@ void Shell_Class::Open_File_Manager()
     Offset = 0;
     memset(Current_Path, '\0', sizeof(Current_Path));
     strcpy(Current_Path, "/");
-    
+
     Selected_Item.close();
 
     Refresh_File_Manager();
@@ -1149,16 +1149,6 @@ void Shell_Class::Go_Parent()
             }
         }
     }
-}
-
-void Shell_Class::Fill_Footer_Bar()
-{
-    Xila.Display.Click(F("FOOTERBAR_HOT"), 1);
-}
-
-void Shell_Class::Empty_Footer_Bar()
-{
-    Xila.Display.Click(F("FOOTERBAR_HOT"), 0);
 }
 
 // -- Load -- //
@@ -1731,7 +1721,72 @@ void Shell_Class::Shutdown_Commands()
 
 // -- Dialogs -- //
 
-// -- Color dialog -- //*
+// -- Color dialog -- //
+
+void Shell_Class::Open_Color_Picker()
+{
+    Xila.Display.Set_Current_Page(Color_Picker);
+
+    uint8_t Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 11;
+
+    Xila.Display.Set_Value(F("RED_SLI"), Temporary_Byte);
+    Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 3;
+    Temporary_Byte = Temporary_Byte >> 2;
+    Xila.Display.Set_Value(F("GREEN_SLI"), Temporary_Byte);
+    Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer << 3;
+    Temporary_Byte = Temporary_Byte >> 3;
+    Xila.Display.Set_Value(F("BLUE_SLI"), Temporary_Byte);
+    Xila.Display.Click(F("COLOR_NUM"), 0);
+}
+
+void Shell_Class::Color_Picker_Commands()
+{
+    Current_Command = Get_Instruction();
+    switch (Current_Command)
+    {
+    case Instruction('V', 'a'):
+        Xila.Dialog_State = Xila.Button_1;
+        Xila.Delay(20);
+        break;
+    case Instruction('C', 'a'):
+        Xila.Dialog_State = Xila.Button_3;
+        Xila.Delay(20);
+        break;
+    default:
+        Main_Commands();
+        break;
+    }
+}
+
+Xila_Event Shell_Class::Color_Picker_Dialog(uint16_t &Color)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+    Xila.Feed_Watchdog();
+
+    // -- Save context
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+    Xila.Caller_Software_Pointer = Instance_Pointer;
+    // --
+    Xila.Dialog_State = Xila.None;
+    Xila.Dialog_Pointer = &Color;
+    // --
+    Open_Color_Picker();
+    // -- Tasks suspended here
+    while (Xila.Dialog_State == Xila.None)
+    {
+        Color_Picker_Commands();
+    }
+    // -- Retore software state
+    Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+    return Xila.Dialog_State;
+}
 
 // -- Event dialog -- //
 
@@ -1821,16 +1876,130 @@ Xila_Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t
         break;
     }
     Xila.Display.Show(F("CLOSE_BUT"));
-
+    // -- Tasks is suspended here
     while (Xila.Dialog_State == Xila.None)
     {
         Event_Commands();
     }
 
-    // -- Tasks is suspended here
-
     Xila.Display.Set_Current_Page(F("PAGE")); //go back to app page
 
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+    return Xila.Dialog_State;
+}
+
+// -- Open file dialog -- //
+
+Xila_Event Shell_Class::Open_File_Dialog(File &File_To_Open)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+
+    Xila.Feed_Watchdog();
+
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+
+    Xila.Caller_Software_Pointer = Instance_Pointer;
+
+    Xila.Dialog_State = Xila.None;
+    Xila.Dialog_Pointer = &File_To_Open;
+
+    Mode = Xila.Open_File;
+    Open_File_Manager();
+
+    while (Xila.Dialog_State == Xila.None)
+    {
+        File_Manager_Commands();
+    }
+    if (Xila.Dialog_State == Xila.Button_1)
+    {
+        File_To_Open = *(File *)Xila.Dialog_Pointer;
+    }
+    //
+    Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+    return Xila.Dialog_State;
+}
+
+Xila_Event Shell_Class::Save_File_Dialog(File &File_To_Save)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+
+    Xila.Feed_Watchdog();
+
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+
+    Xila.Caller_Software_Pointer = Instance_Pointer;
+
+    Xila.Dialog_State = Xila.None;
+    Xila.Dialog_Pointer = &File_To_Save;
+
+    Mode = Xila.Save_File;
+    Open_File_Manager();
+
+    while (Xila.Dialog_State == Xila.None)
+    {
+        File_Manager_Commands();
+    }
+    if (Xila.Dialog_State == Xila.Button_1)
+    {
+        File_To_Save = *(File *)Xila.Dialog_Pointer;
+    }
+    //
+    Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
+
+    xSemaphoreGive(Xila.Dialog_Semaphore);
+    return Xila.Dialog_State;
+}
+
+Xila_Event Shell_Class::Open_Folder_Dialog(File &Folder_To_Open)
+{
+    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
+    Xila.Feed_Watchdog();
+
+    // -- Save context
+    Xila.Caller_Software_Pointer = Xila.Open_Software_Pointer[0];
+    Xila.Display.Send_Raw(F("PAGE=dp"));
+    // --
+    Xila.Dialog_Pointer = &Folder_To_Open;
+    Xila.Dialog_State = Xila.None;
+    Xila.Caller_Software_Pointer = Xila.Open_Software_Pointer[0];
+    // --
+    Mode = Xila.Open_Folder;
+    Open_File_Manager();
+    // -- Tasks suspended here
+    while (Xila.Dialog_State == Xila.None)
+    {
+        File_Manager_Commands();
+    }
+    if (Xila.Dialog_State == Xila.Button_1)
+    {
+        Folder_To_Open = *(File *)Xila.Dialog_Pointer;
+    }
+    // -- Retore software state
+    Xila.Open_Software_Pointer[0] = Xila.Caller_Software_Pointer;
+    Xila.Display.Set_Current_Page(F("PAGE"));
+    //
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
+    //
     xSemaphoreGive(Xila.Dialog_Semaphore);
     return Xila.Dialog_State;
 }
@@ -1906,7 +2075,7 @@ void Shell_Class::Install_Commands()
             Desk_Background = 16904;
         }
         uint16_t Temporary_Color = (uint16_t)Desk_Background;
-        Xila.Color_Picker_Dialog(Temporary_Color);
+        Color_Picker_Dialog(Temporary_Color);
         Refresh_Install();
         break;
     }
@@ -2024,11 +2193,7 @@ Xila_Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arr
     Xila.Dialog_Long[0] = Char_Array_Size;
     Xila.Dialog_Pointer = Char_Array_To_Get;
 
-    Xila.Display.Set_Current_Page(Keyboard);
-
-    Xila.Display.Set_Global_Value(F("LENGTH"), Char_Array_Size - 1);
-    Xila.Display.Set_Text(F("INPUT_VAR"), Char_Array_To_Get);
-    Xila.Display.Set_Input_Type(F("INPUT_TXT"), Masked_Input);
+    Open_Keyboard();
 
     while (Xila.Dialog_State == Xila.None)
     {
@@ -2037,8 +2202,12 @@ Xila_Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arr
 
     Xila.Display.Set_Current_Page(F("PAGE"));
 
-    xSemaphoreGive(Xila.Dialog_Semaphore);
+    Xila.Dialog_Pointer = NULL;
+    Xila.Dialog_Long[0] = 0;
+    Xila.Dialog_Long[1] = 0;
+    Xila.Caller_Software_Pointer = NULL;
 
+    xSemaphoreGive(Xila.Dialog_Semaphore);
     return Xila.Dialog_State;
 }
 
@@ -2154,65 +2323,4 @@ void Shell_Class::Keypad_Commands()
         Main_Commands();
         break;
     }
-}
-
-// -- Color picker dialog -- //
-
-void Shell_Class::Open_Color_Picker()
-{
-    Xila.Display.Set_Current_Page(Color_Picker);
-
-    uint8_t Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 11;
-
-    Xila.Display.Set_Value(F("RED_SLI"), Temporary_Byte);
-    Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer >> 3;
-    Temporary_Byte = Temporary_Byte >> 2;
-    Xila.Display.Set_Value(F("GREEN_SLI"), Temporary_Byte);
-    Temporary_Byte = *(uint32_t *)Xila.Dialog_Pointer << 3;
-    Temporary_Byte = Temporary_Byte >> 3;
-    Xila.Display.Set_Value(F("BLUE_SLI"), Temporary_Byte);
-    Xila.Display.Click(F("COLOR_NUM"), 0);
-}
-
-void Shell_Class::Color_Picker_Commands()
-{
-    Current_Command = Get_Instruction();
-    switch (Current_Command)
-    {
-    case Instruction('V', 'a'):
-        Xila.Dialog_State = Xila.Button_1;
-        Xila.Delay(20);
-        break;
-    case Instruction('C', 'a'):
-        Xila.Dialog_State = Xila.Button_3;
-        Xila.Delay(20);
-        break;
-    default:
-        Main_Commands();
-        break;
-    }
-}
-
-Xila_Event Shell_Class::Color_Picker_Dialog(uint16_t &Color)
-{
-    xSemaphoreTake(Xila.Dialog_Semaphore, portMAX_DELAY);
-    Xila.Feed_Watchdog();
-
-    // -- Save context
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    Xila.Caller_Software_Pointer = Instance_Pointer;
-    // --
-    Xila.Dialog_State = Xila.None;
-    Xila.Dialog_Pointer = &Color;
-    // --
-    Open_Color_Picker();
-    // -- Tasks suspended here
-    while (Xila.Dialog_State == Xila.None)
-    {
-        Color_Picker_Commands();
-    }
-    // -- Retore software state
-    Xila.Display.Set_Current_Page(F("PAGE"));
-    xSemaphoreGive(Xila.Dialog_Semaphore);
-    return Xila.Dialog_State;
 }
