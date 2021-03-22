@@ -16,6 +16,7 @@ private:
     size_t Size;
     uint16_t Width, Height;
     char Color[2];
+
     uint32_t Offset;
     uint8_t Color_Depth;
 

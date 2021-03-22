@@ -225,6 +225,13 @@ void Shell_Class::Main_Commands()
         break;
     case Xila.Maximize:
         break;
+    default:
+        Verbose_Print(F("Unknow instruction :"));
+        
+        Serial.print(Current_Command);
+        Serial.print('|');
+        Serial.println(Xila.Display.Get_Current_Page());
+        break;
     }
 }
 
@@ -338,8 +345,7 @@ Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
 
 void Shell_Class::Refresh_File_Manager()
 {
-    /*strcat(Current_Path, Current_File_Name);
-    memset(Current_File_Name, '\0', sizeof(Current_File_Name));*/
+    Verbose_Print_Line("Refresh file manager");
     Temporary_Item = Xila.Drive->open(Current_Path);
 
     if (Temporary_Item)
@@ -356,6 +362,7 @@ void Shell_Class::Refresh_File_Manager()
             Xila.Display.Set_Picture(F("CUT_BUT"), Paste_24);
             break;
         case Delete:
+             
             if (Event_Dialog(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
             {
                 if (Temporary_Item.isDirectory())
@@ -373,18 +380,19 @@ void Shell_Class::Refresh_File_Manager()
                     }
                 }
             }
+            Go_Parent();
             Operation = Browse;
-            Send_Instruction(Instruction('R', 'F'));
+            Send_Instruction('R', 'F');
             break;
         case Rename:
             Go_Parent();
             char Temporary_Input[14];
             memset(Temporary_Input, '\0', sizeof(Temporary_Input));
-            strcpy(Temporary_Input, Get_File_Name(Temporary_Item));
+            strcpy(Temporary_Input, Xila.Get_File_Name(Temporary_Item));
             Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
             Xila.Drive->rename(Temporary_Item.name(), String(Current_Path) + String(Temporary_Input));
             Operation = Browse;
-            Send_Instruction(Instruction('R', 'F'));
+            Send_Instruction('R', 'F');
             break;
         case Detail:
             Open_File_Manager_Detail();
@@ -428,7 +436,7 @@ void Shell_Class::Refresh_File_Manager()
 
                     if (i < 10)
                     {
-                        ;
+
                         Temporary_Item_Name[4] = i + '0';
                         Temporary_Item_Picture[4] = i + '0';
                     }
@@ -466,7 +474,7 @@ void Shell_Class::Refresh_File_Manager()
                     if (Item)
                     {
 
-                        Xila.Display.Set_Text(Temporary_Item_Name, Get_File_Name(Item));
+                        Xila.Display.Set_Text(Temporary_Item_Name, Xila.Get_File_Name(Item));
 
                         if (Item.isDirectory())
                         {
@@ -512,31 +520,16 @@ void Shell_Class::Refresh_File_Manager()
                     break;
                 }
                 Go_Parent();
-                Send_Instruction(Instruction('R', 'F'));
+                Send_Instruction('R', 'F');
             }
         }
-        Temporary_Item.close();
     }
     else
     {
         Event_Dialog(F("Failed to open path."), Xila.Error);
-        Send_Instruction(Instruction('R', 'D'));
+        Send_Instruction('R', 'D');
     }
     Refresh_Footerbar();
-}
-
-const char *Shell_Class::Get_File_Name(File const &File)
-{
-    memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
-    strlcpy(Temporary_File_Name, File.name(), sizeof(Temporary_File_Name));
-    for (uint8_t i = (sizeof(Temporary_File_Name) - 1); i >= 0; i--)
-    {
-        if (Temporary_File_Name[i] == '/')
-        {
-            strcpy(Temporary_File_Name, Temporary_File_Name + (i + 1));
-            return Temporary_File_Name;
-        }
-    }
 }
 
 void Shell_Class::Refresh_Footerbar()
@@ -549,11 +542,13 @@ void Shell_Class::Refresh_Footerbar()
         return;
         break;
     case Xila.Save_File:
-        Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Save"));
+        Xila.Display.Click(F("FOOTERBAR_HOT"), 1);
+        Xila.Display.Set_Text(F("VALIDATE_BUT"), F("Save"));
         break;
     case Xila.Open_Folder:
     case Xila.Open_File:
-        Xila.Display.Set_Text(F("VALIDATE_TXT"), F("Open"));
+        Xila.Display.Click(F("FOOTERBAR_HOT"), 1);
+        Xila.Display.Set_Text(F("VALIDATE_BUT"), F("Open"));
         break;
     default:
         break;
@@ -561,7 +556,7 @@ void Shell_Class::Refresh_Footerbar()
 
     if (Selected_Item)
     {
-        Xila.Display.Set_Text(F("FILENAME_TXT"), Get_File_Name(Selected_Item));
+        Xila.Display.Set_Text(F("FILENAME_TXT"), Xila.Get_File_Name(Selected_Item));
     }
     else
     {
@@ -590,7 +585,7 @@ void Shell_Class::Refresh_File_Manager_Detail()
 
     Xila.Display.Set_Text(F("PATHVAL_TXT"), Current_Path);
 
-    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Get_File_Name(Temporary_Item));
+    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Xila.Get_File_Name(Temporary_Item));
 
     if (Temporary_Item.isDirectory())
     {
@@ -603,7 +598,7 @@ void Shell_Class::Refresh_File_Manager_Detail()
 
     char Temporary_Char_Array[25];
 
-    sprintf(Temporary_Char_Array, "%d Bytes\n", Temporary_Item.size());
+    sprintf(Temporary_Char_Array, "%-ul Bytes\n", Temporary_Item.size());
     dtostrf(Temporary_Item.size(), (sizeof(Temporary_Char_Array) - 6), 0, Temporary_Char_Array);
 
     Xila.Display.Set_Text(F("SIZEVAL_TXT"), Temporary_Char_Array);
@@ -799,9 +794,7 @@ void Shell_Class::Drawer_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
+
     case Instruction('N', 'd'): // Nd : Next drawer items
         if ((Offset + 15) < (sizeof(Xila.Software_Handle_Pointer) / sizeof(Xila.Software_Handle_Pointer[1])))
         {
@@ -899,10 +892,9 @@ void Shell_Class::Open_File_Manager()
 {
     Xila.Display.Set_Current_Page(File_Manager_Main);
     Offset = 0;
+    Operation = Browse;
     memset(Current_Path, '\0', sizeof(Current_Path));
     strcpy(Current_Path, "/");
-
-    Selected_Item.close();
 
     Refresh_File_Manager();
 }
@@ -912,15 +904,10 @@ void Shell_Class::File_Manager_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
-
     case Instruction('R', 'F'): // -- Refresh file manager
         Refresh_File_Manager();
         break;
     case Instruction('C', 'l'):
-
         if (Mode == 0)
         {
             Send_Instruction('O', 'D');
@@ -928,10 +915,7 @@ void Shell_Class::File_Manager_Commands()
         else
         {
             Xila.Dialog_State = Xila.Button_3;
-            Temporary_Item.close();
-            Selected_Item.close();
         }
-
         break;
     case Instruction('C', 'o'): // copy file
         Operation = Browse;
@@ -949,13 +933,13 @@ void Shell_Class::File_Manager_Commands()
                     Event_Dialog(F("Failed to copy file."), Xila.Error);
                 }
             }
-            Selected_Item.close();
+
             Xila.Display.Set_Picture(F("COPY_BUT"), Copy_24);
         }
         else
         {
             Operation = Copy;
-            Selected_Item.close();
+
             Xila.Display.Set_Picture(F("COPY_BUT"), Cut_24);
         }
 
@@ -976,13 +960,13 @@ void Shell_Class::File_Manager_Commands()
                     Event_Dialog(F("Failed to copy file."), Xila.Error);
                 }
             }
-            Selected_Item.close();
+
             Xila.Display.Set_Picture(F("CUT_BUT"), Cut_24);
         }
         else
         {
             Operation = Cut;
-            Selected_Item.close();
+
             Xila.Display.Set_Picture(F("CUT_BUT"), Cut_24);
         }
 
@@ -1123,8 +1107,13 @@ void Shell_Class::File_Manager_Commands()
         }
         Refresh_File_Manager();
         break;
+    case Instruction('G', 'P'):
+        Go_Parent();
+        Refresh_File_Manager();
+        break;
 
     default:
+        Main_Commands();
         break;
     }
 }
@@ -1133,20 +1122,20 @@ void Shell_Class::File_Manager_Commands()
 
 void Shell_Class::Go_Parent()
 {
-    for (uint8_t i = sizeof(Current_Path); i > 0; i--)
+    for (uint8_t i = sizeof(Current_Path); i >= 0; i--)
     {
+
         if (Current_Path[i] == '/')
         {
+            if (i != 0)
+            {
+                Current_Path[i] = '\0';
+            }
             return;
         }
         else
         {
             Current_Path[i] = '\0';
-            if (i == 1)
-            {
-                Current_Path[0] = '/';
-                return;
-            }
         }
     }
 }
@@ -1207,9 +1196,6 @@ void Shell_Class::Login_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0: // IDLE
-        Idle();
-        break;
     case Instruction('K', 'U'):
         Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Login();
@@ -1281,9 +1267,6 @@ void Shell_Class::Preferences_Personal_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
     case Instruction('C', 'B'):
     {
         if (Desk_Background < 0)
@@ -1697,9 +1680,6 @@ void Shell_Class::Shutdown_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
     case Instruction('R', 'S'): // RS : Restart system
         Xila.Restart();
         break;
@@ -1795,9 +1775,6 @@ void Shell_Class::Event_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
     case Instruction('B', '1'):
         Xila.Dialog_State = Xila.Button_1;
         Xila.Delay(20);
@@ -2050,9 +2027,6 @@ void Shell_Class::Install_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case 0:
-        Idle();
-        break;
     case Instruction('B', 'a'):
         if (Desk_Background < 0)
         {

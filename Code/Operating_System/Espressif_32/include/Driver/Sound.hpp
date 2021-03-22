@@ -4,17 +4,12 @@
 #include "Arduino.h"
 #include "Configuration.hpp"
 
+#define SD_IMPL 0
+#include "Audio.h"
+
 #include <FS.h>
 
-#include <esp32/ulp.h>
-#include <driver/rtc_io.h>
-#include <driver/dac.h>
-#include <soc/rtc.h>
-#include <math.h>
 
-#define LEFT_CHANNEL 0
-#define RIGHT_CHANNEL 1
-#define CUSTOM_CHANNEL 2
 
 #if DEBUG_MODE == 1
 #define Serial_Print(x) Serial.print(F(x))
@@ -27,50 +22,42 @@
 class Sound_Class
 {
 protected:
-    const int opcodeCount = 17;
-    const int dacTableStart1 = 2048 - 512;
-    const int dacTableStart2 = dacTableStart1 - 512;
-    int totalSampleWords; //1518 * 2 = 3036 samples for mono
-    int totalSamples;
-    const int Index_Adress = opcodeCount;
-    const int bufferStart = Index_Adress + 1;
 
-    const ulp_insn_t Stop_Program[1] = {I_HALT()};
-
-
-    uint32_t Sample_Frequency;
-
-    uint32_t Byte_Per_Second;
-    uint8_t Byte_Per_Block;
-    uint8_t Bits_Per_Sample;
-
-    uint32_t rtc_8md256_period;
-
-    uint32_t Data_Size;
-
-    uint32_t Start_Time; // start time in millis
-    uint32_t Pause_Time; // Pause time in millis
-    uint32_t Total_Time;
-
-    File Music_File;
-    uint8_t *Buffer_To_Play; // pointer to the buffer to play
-    uint32_t Buffer_Size;
-
-
-
-
-    // Metadata
-    uint32_t File_Size;
-    uint8_t Channel_Number;
-
-    byte Stereo, Byte_Per_Sample;
+    const static uint8_t Left_Channel = 0;
+    const static uint8_t Right_Channel = 1;
+    const static uint8_t Custom_Channel = 2;
 
     uint8_t Custom_Pin;
 
-    uint32_t Size;
+    Audio Audio_Driver;
 
-    uint8_t State;
+    // Metadata
+  
+    File Music_File;
+    
+    fs::FS* File_System;
 
+    enum State
+    {
+        Stopped,
+        Playing,
+        Paused
+    };
+
+    // 0 : stopped
+    // 1 : playing
+    // 2 : paused
+    // 3 : tone
+
+
+    TaskHandle_t Sound_Task_Handle;
+    static Sound_Class *Instance_Pointer;
+
+
+
+    static void Sound_Task(void *);
+
+public:
     enum Event
     {
         Success = 1,
@@ -88,50 +75,26 @@ protected:
         Unsupported_Channel_Number,
     };
 
-    enum State
-    {
-        Stopped,
-        Playing,
-        Paused
-    };
 
-    // 0 : stopped
-    // 1 : playing
-    // 2 : paused
-    // 3 : tone
-
-    uint8_t Mode;
-
-    // 0 : SD file mode
-    // 1 : Buffer mode
-    // 2 : Tone
-
-    TaskHandle_t Sound_Task_Handle;
-    static Sound_Class *Instance_Pointer;
-
-    int8_t Volume;
-
-    uint8_t Next_Sample();
-
-    void Fill_Buffer();
-
-    uint8_t Get_Metadata();
-
-    uint8_t Start_ULP();
-    void Stop_ULP();
-
-    static void Sound_Task(void *);
-
-public:
     Sound_Class();
     ~Sound_Class();
 
-    void Set_Volume(uint8_t);
+    void Set_Output_Channel(uint8_t Number_Output_Channel);
+
+    void Set_Volume(uint8_t); // volume between 0 and 255
     uint8_t Get_Volume();
-    uint8_t Play(File &File_To_Play);
-    uint8_t Play(uint8_t *Samples, const uint32_t &Buffer_Size, const uint32_t &Sample_Frequency = 44100);
+
+    void Set_File_System(fs::FS& File_System);
+
+    void Set_Balance(uint8_t);
+ 
+    uint8_t Play(File& File_To_Play);
+    uint8_t Play(const char* File_Path_Or_Host, const char* User = "", const char* Password = "");
+
     uint8_t Resume();
     void Pause();
+    void Mute();
+    void Stop();
 
     uint8_t Get_State();
 
@@ -139,13 +102,13 @@ public:
      * @brief A function that set current time of playing file.
      * @param Time Time to set in millisecond.
      */
-    void Set_Time(uint32_t Time);
+    void Set_Current_Time(uint32_t Time);
 
     /**
      * @brief A function that return the current file playing time.
      * @return Current file playling time in millisecond.
      */
-    uint32_t Get_Time();
+    uint32_t Get_Current_Time();
 
     /**
      * @brief A function that return the current file playing total time.
@@ -153,8 +116,10 @@ public:
      */
     uint32_t Get_Total_Time();
 
-    void Mute();
-    void Stop();
+    void Set_Offset_Time(int16_t Time);
+
+
+
 
     /**
      * @brief Function that tone.
@@ -166,6 +131,15 @@ public:
     void Tone(uint16_t const &Frequency, uint32_t const &Duration = 0, uint8_t const &Pin = 0xFF);
 
     void No_Tone(uint8_t const &Pin = 0xFF); // no tone (0xFF default pins)
+
+    void Sound_Loop();
+
+    friend void audio_eof_mp3(const char*);
 };
+
+void audio_eof_mp3(const char* Informations)
+{
+    Sound_Class::Instance_Pointer->Stop();
+}
 
 #endif

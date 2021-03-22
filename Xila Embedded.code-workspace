@@ -25,7 +25,8 @@
 			"utility": "cpp",
 			"memory": "cpp",
 			"istream": "cpp",
-			"cstdio": "cpp"
+			"cstdio": "cpp",
+			"typeinfo": "cpp"
 		}
 	}
 }

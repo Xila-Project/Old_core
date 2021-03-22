@@ -22,7 +22,7 @@ Xila_Event Xila_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arra
   // -- Tasks suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   // -- Retore software state
   Open_Software_Pointer[0] = Caller_Software_Pointer;
@@ -33,6 +33,9 @@ Xila_Event Xila_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Arra
   Dialog_Long[0] = 0;
   Dialog_Long[1] = 0;
   Caller_Software_Pointer = NULL;
+  //
+  Xila.Delay(5);
+
   //
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
@@ -58,7 +61,7 @@ Xila_Event Xila_Class::Keypad_Dialog(float &Number_To_Get)
   // -- Tasks suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+   Xila.Delay(20);
   }
 
   Open_Software_Pointer[0] = Caller_Software_Pointer;
@@ -91,7 +94,7 @@ Xila_Event Xila_Class::Color_Picker_Dialog(uint16_t &Color)
   // -- Tasks suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   // -- Retore software state
   Open_Software_Pointer[0] = Caller_Software_Pointer;
@@ -170,7 +173,7 @@ Xila_Event Xila_Class::Event_Dialog(const __FlashStringHelper *Message, uint8_t 
   // -- Tasks is suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   // -- Restore software state
   Open_Software_Pointer[0] = Caller_Software_Pointer;
@@ -181,6 +184,9 @@ Xila.Dialog_Pointer = NULL;
     Xila.Dialog_Long[1] = 0;
     Xila.Caller_Software_Pointer = NULL;
   //
+
+  Xila.Delay(60);
+
   xSemaphoreGive(Dialog_Semaphore);
   return Dialog_State;
 }
@@ -189,6 +195,7 @@ Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
 {
   xSemaphoreTake(Dialog_Semaphore, portMAX_DELAY);
   Feed_Watchdog();
+  Verbose_Print_Line("Open file dialog");
 
   // -- Save context
   Caller_Software_Pointer = Open_Software_Pointer[0];
@@ -204,7 +211,7 @@ Xila_Event Xila_Class::Open_File_Dialog(File &File_To_Open)
   // -- Tasks suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   if (Dialog_State == Button_1)
   {
@@ -240,7 +247,7 @@ Xila_Event Xila_Class::Save_File_Dialog(File &File_To_Save)
   // -- Tasks suspended here
   while (Xila.Dialog_State == Xila.None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   if (Dialog_State == Button_1)
   {
@@ -277,7 +284,7 @@ Xila_Event Xila_Class::Open_Folder_Dialog(File &Folder_To_Open)
   // -- Tasks suspended here
   while (Xila.Dialog_State == None)
   {
-    vTaskDelay(pdMS_TO_TICKS(20));
+    Xila.Delay(20);
   }
   if (Dialog_State == Button_1)
   {

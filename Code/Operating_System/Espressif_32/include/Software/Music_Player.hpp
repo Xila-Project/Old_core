@@ -7,6 +7,8 @@ class Music_Player_Class : public Software_Class
 protected:
     static Music_Player_Class *Instance_Pointer;
 
+    char Temporary_Char_Array[20];
+
     static void Main_Task(void *);
 
     void Pause();
@@ -16,8 +18,6 @@ protected:
     File Music_File;
     File Next_Music_File;
     File Music_Folder;
-
-    uint8_t State;
 
     enum Music_State
     {
@@ -71,7 +71,9 @@ public:
         Play_32,
         Random_32,
         Step_Backward_32,
-        Step_Forward_32
+        Fast_Backward_32,
+        Step_Forward_32,
+        Fast_Forward_32
     };
 };
 

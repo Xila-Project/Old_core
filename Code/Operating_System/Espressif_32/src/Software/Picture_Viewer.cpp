@@ -46,9 +46,12 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
-            Instance_Pointer->Send_Instruction(Instruction('D', 'I'));
+            Instance_Pointer->Send_Instruction('D', 'I');
             break;
         case Xila.Minimize:
+            break;
+        case Xila.Watchdog:
+            Xila.Feed_Watchdog();
             break;
         case Instruction('C', 'l'):
             Xila.Software_Close(Picture_Viewer_Handle);
@@ -85,6 +88,8 @@ void Picture_Viewer_Class::Get_Metadata()
     Image_File.seek(0x00);
     uint8_t Temporary_Char_Array_1[4] = {'B', 'M'};
     uint8_t Temporary_Char_Array_2[4];
+    Image_File.read(Temporary_Char_Array_2, 2);
+
     if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 2) != 0)
     {
         Xila.Event_Dialog(F("Corrupted bitmap file."), Xila.Error);
@@ -92,49 +97,61 @@ void Picture_Viewer_Class::Get_Metadata()
     }
 
     // File size
-    Image_File.seek(0x04);
+    Image_File.seek(0x02);
     Image_File.read(Temporary_Char_Array_2, sizeof(Temporary_Char_Array_2));
-    Size = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] | (size_t)Temporary_Char_Array_2[2] | (size_t)Temporary_Char_Array_2[3];
+    Size = (size_t)Temporary_Char_Array_2[0] | ((size_t)Temporary_Char_Array_2[1] << 8) | ((size_t)Temporary_Char_Array_2[2] << 16) | ((size_t)Temporary_Char_Array_2[3] << 24);
+    Serial.println(Size);
 
     // Start offset
     Image_File.seek(0x0A);
     Image_File.read(Temporary_Char_Array_2, sizeof(Temporary_Char_Array_2));
-    Offset = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] | (size_t)Temporary_Char_Array_2[2] | (size_t)Temporary_Char_Array_2[3];
+    Offset = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] << 8 | (size_t)Temporary_Char_Array_2[2] << 16 | (size_t)Temporary_Char_Array_2[3] << 24;
+    Serial.println(Offset);
 
     // Header size
     Image_File.seek(0x0E);
     Image_File.read(Temporary_Char_Array_2, sizeof(Temporary_Char_Array_2));
-    Header_Size = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] | (size_t)Temporary_Char_Array_2[2] | (size_t)Temporary_Char_Array_2[3];
+    Header_Size = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] << 8 | (size_t)Temporary_Char_Array_2[2] << 16 | (size_t)Temporary_Char_Array_2[3] << 24;
+    Serial.println(Header_Size);
 
     // Width
     Image_File.seek(0x12);
-    Image_File.read(Temporary_Char_Array_2, 2);
-    Width = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1];
+    Image_File.read(Temporary_Char_Array_2, 4);
+    Width = (uint16_t)Temporary_Char_Array_2[0] | (uint16_t)Temporary_Char_Array_2[1] << 8;
+    Serial.println(Width);
 
     // Height
-    Image_File.seek(0x14);
-    Image_File.read(Temporary_Char_Array_2, 2);
-    Height = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1];
-
-    // Color planes
     Image_File.seek(0x16);
     Image_File.read(Temporary_Char_Array_2, 2);
-    Color_Planes = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1];
+    Height = (uint16_t)Temporary_Char_Array_2[0] | (uint16_t)Temporary_Char_Array_2[1] << 8;
+    Serial.println(Height);
+
+    // Color planes
+    Image_File.seek(0x1A);
+    Image_File.read(Temporary_Char_Array_2, 2);
+    Color_Planes = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] << 8;
+    Serial.println(Color_Planes);
 
     // Color depth
-    Image_File.seek(0x18);
+    Image_File.seek(0x1C);
     Image_File.read(Temporary_Char_Array_2, 2);
-    Color_Depth = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1];
+    Color_Depth = (size_t)Temporary_Char_Array_2[0] | (size_t)Temporary_Char_Array_2[1] << 8;
+    Serial.println(Color_Depth);
 }
 
 void Picture_Viewer_Class::Draw_Image()
 {
+    Xila.Delay(20);
     Image_File.seek(Offset);
     Xila.Display.Set_Text(F("FILENAME_TXT"), Image_File.name());
     Xila.Display.Set_Value(F("WIDTH_VAR"), Width);
     Xila.Display.Set_Value(F("HEIGHT_VAR"), Height);
-    Xila.Display.Set_Value(F("SIZE_NUM"), (Size / 1024));
+    Xila.Display.Set_Value(F("SIZE_NUM"), Size);
     Xila.Display.Set_Trigger(F("DRAW_TIM"), true);
+
+    Xila.Delay(20);
+//    uint16_t Red, Green, Blue;
+
     if (Color_Depth == 1)
     {
         while (Image_File.available())
@@ -170,16 +187,38 @@ void Picture_Viewer_Class::Draw_Image()
     else if (Color_Depth == 24)
     {
         char Temporary_Char_Array[3];
+
+        Color[0] = 0xF8;
+        Color[1] = 0x00;
+
+        for (uint8_t i = 0; i < 255; i++)
+        {
+            Xila.Display.Write(Color[0]);
+            Xila.Display.Write(Color[1]);
+        }
+
+    /*
         while (Image_File.available())
         {
             Image_File.readBytes(Temporary_Char_Array, sizeof(Temporary_Char_Array));
-            Color[0] = Temporary_Char_Array[0] >> 3;
+
+            Blue = (Temporary_Char_Array[0] >> 3) & 0x1F;
+            Green = ((Temporary_Char_Array[1] >> 2) & 0x3F) << 5;
+            Red = ((Temporary_Char_Array[2] >> 3) & 0x1F) << 11;
+
+            memcpy(Color, &(uint16_t)Blue | Green | Red, sizeof(Color));
+
+            Color[0] = Temporary_Char_Array[0] >> 3 & 0x1F; // blue
+            
             Color[0] |= Color[0] << 3 | Temporary_Char_Array[1] >> 5;
             Color[1] = Temporary_Char_Array[1] >> 2;
             Color[1] |= Color[0] << 2 | Temporary_Char_Array[2] >> 3;
             Xila.Display.Write(Color[0]);
             Xila.Display.Write(Color[1]);
-        }
+            Serial.println(Color[0])
+        }*/
+
+        Xila.Delay(1000);
         Xila.Display.Set_Reparse_Mode(0);
     }
     else

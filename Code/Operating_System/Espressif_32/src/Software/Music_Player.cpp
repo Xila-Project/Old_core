@@ -12,8 +12,7 @@ Software_Class *Music_Player_Class::Load()
     return Instance_Pointer;
 }
 
-Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
-                                           State(Stopped)
+Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle)
 {
     Xila.Task_Create(Main_Task, "Music Player", Memory_Chunk(5), NULL, &Task_Handle);
 }
@@ -66,7 +65,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Minimize:
             break;
-        
+
         case Instruction('C', 'l'):
             Xila.Software_Close(Music_Player_Handle);
             break;
@@ -74,21 +73,29 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Xila.Software_Minimize(Music_Player_Handle);
             break;
         case Instruction('P', 'P'):
-            if (Instance_Pointer->State == Playing)
+            if (Xila.Sound.Get_State() == true)
             {
-                Instance_Pointer->Pause();
+               Xila.Sound.Pause();
             }
-            else if (Instance_Pointer->State == Paused)
+            else
             {
-                Instance_Pointer->Resume();
+                Xila.Sound.Resume();
             }
+            Instance_Pointer->Refresh_Interface();
             break;
-        case Instruction('N', 'T'):
+        case Instruction('F', 'o'):
             Instance_Pointer->Next_Track();
             break;
-        case Instruction('L', 'T'):
+        case Instruction('B', 'a'):
             Instance_Pointer->Last_Track();
             break;
+        case Instruction('F', 'F'):
+            Xila.Sound.Set_Offset_Time(10);
+            break;
+        case Instruction('F', 'B'):
+            Xila.Sound.Set_Offset_Time(-10);
+            break;
+
         case Instruction('L', 'o'):
             Instance_Pointer->Loop = !Instance_Pointer->Loop;
             Instance_Pointer->Refresh_Interface();
@@ -120,26 +127,25 @@ void Music_Player_Class::Main_Task(void *pvParameters)
 
 void Music_Player_Class::Set_Time()
 {
-    if (State != Stopped)
-    {
-        Xila.Sound.Set_Time(Total_Time * Total_Time / TIMELINE_SIZE);
-        Xila.Display.Set_Value(F("TIMELINE_PRO"), ((Time_To_Set * 100) / 346));
-    }
+    Xila.Sound.Set_Current_Time((Time_To_Set * Total_Time) / TIMELINE_SIZE);
+    Refresh_Interface();
 }
 
 void Music_Player_Class::Open_File()
 {
+    Stop();
     Music_File.close();
     Music_Folder.close();
-    Xila_Event Reply = Xila.Open_File_Dialog(Music_File);
-    if (Reply != Xila.Success)
-    {
-        Xila.Event_Dialog(F("Unable to open file."), Xila.Error);
-        return;
-    }
+    
+    Xila.Open_File_Dialog(Music_File);
+
     if (Music_File)
     {
         Play();
+    }
+    else
+    {
+        Xila.Event_Dialog(F("Unable to open file."), Xila.Error);
     }
 }
 
@@ -147,12 +153,7 @@ void Music_Player_Class::Open_Folder()
 {
     Music_File.close();
     Music_Folder.close();
-    Xila_Event Reply = Xila.Open_Folder_Dialog(Instance_Pointer->Music_Folder);
-    if (Reply != Xila.Success)
-    {
-        Xila.Event_Dialog(F("Unable to open folder."), Xila.Error);
-        return;
-    }
+    Xila.Open_Folder_Dialog(Music_Folder);
     if (Music_Folder)
     {
         Music_Folder.rewindDirectory();
@@ -168,64 +169,69 @@ void Music_Player_Class::Open_Folder()
         Number_Of_Files--;
         Play();
     }
+    else
+    {
+        Xila.Event_Dialog(F("Unable to open folder."), Xila.Error);
+    }
 }
 
 void Music_Player_Class::Refresh_Interface()
 {
     Volume = Xila.Sound.Get_Volume();
+
     Xila.Display.Set_Value(F("VOLUME_SLI"), Volume);
 
-    if (State == Stopped)
+    Current_Time = Xila.Sound.Get_Current_Time();
+    Total_Time = Xila.Sound.Get_Total_Time();
+
+    sprintf(Temporary_Char_Array, "%i:%02d", (Current_Time / 60), (Current_Time % 60));
+    Xila.Display.Set_Text(F("TIME_TXT"), Temporary_Char_Array);
+
+    sprintf(Temporary_Char_Array, "%i:%02d", (Total_Time / 60), (Total_Time % 60));
+    Xila.Display.Set_Text(F("TOTALTIME_TXT"), Temporary_Char_Array);
+
+    if (Total_Time != 0)
     {
-        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
-
-        Xila.Display.Set_Text(F("FILENAME_TXT"), F("File:"));
-        Xila.Display.Set_Text(F("NEXTFILE_TXT"), F("Next:"));
-        Xila.Display.Set_Text(F("FOLDER_TXT"), F("Folder:"));
-
-        Xila.Display.Set_Text(F("TIME_TXT"), F("00:00"));
-        Xila.Display.Set_Text(F("TOTALTIME_TXT"), F("00:00"));
-        Xila.Display.Set_Value(F("TIMELINE_PRO"), 0);
+        Xila.Display.Set_Value(F("TIMELINE_PRO"), (Current_Time * 100) / Total_Time);
     }
     else
     {
-        Current_Time = Xila.Sound.Get_Time() / 1000;
-        Total_Time = Xila.Sound.Get_Total_Time();
+        Xila.Display.Set_Value(F("TIMELINE_PRO"), 0);
+    }
 
-        uint8_t Seconds, Minutes;
+    if (Xila.Sound.Get_State() == false)
+    {
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
+    }
+    else
+    {
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
+        
+    }
 
-        Seconds = Current_Time % 60;
-        Minutes = Current_Time / 60;
-
-        Xila.Display.Set_Text(F("TIME_TXT"), String(Minutes) + ":" + String(Seconds));
-
-        Seconds = Total_Time % 60;
-        Minutes = Total_Time / 60;
-
-        Xila.Display.Set_Text(F("TOTALTIME_TXT"), String(Minutes) + ":" + String(Seconds));
-
-        if (State == Paused)
+    if (Music_File)
         {
-            Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
-        }
-        else if (State == Playing)
-        {
-            Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
-        }
-
-        if (Music_File)
-        {
-            Xila.Display.Set_Text(F("FILENAME_TXT"), "File: " + String(Music_File.name()));
+            Xila.Display.Set_Text(F("FILENAME_TXT"), Xila.Get_File_Name(Music_File));
         }
         if (Next_Music_File)
         {
-            Xila.Display.Set_Text(F("NEXTFILE_TXT"), "Next: " + String(Next_Music_File.name()));
+            strcpy(Temporary_Char_Array, "Next: ");
+            strlcat(Temporary_Char_Array, Xila.Get_File_Name(Next_Music_File), sizeof(Temporary_Char_Array));
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("NEXTFILE_TXT"), F("Next: "));
         }
         if (Music_Folder)
         {
-            Xila.Display.Set_Text(F("FOLDER_TXT"), "Folder:" + String(Music_Folder.name()));
+            strcpy(Temporary_Char_Array, "Folder: ");
+            strlcat(Temporary_Char_Array, Xila.Get_File_Name(Music_Folder), sizeof(Temporary_Char_Array));
+            Xila.Display.Set_Text(F("FOLDER_TXT"), Temporary_Char_Array);
         }
-    }
+        else
+        {
+            Xila.Display.Set_Text(F("FOLDER_TXT"), F("Folder:"));
+        }
 }
 
 void Music_Player_Class::Play()
@@ -242,7 +248,7 @@ void Music_Player_Class::Play()
         return;
     }
 
-    if (Music_Folder)
+    if (Music_Folder) // If play from a folder
     {
         Music_File.close();
         if (Random == true)
@@ -264,68 +270,36 @@ void Music_Player_Class::Play()
                 Music_File = Music_Folder.openNextFile();
             }
         }
-        Reply = Xila.Sound.Play(Music_File);
-        if (Reply != 0)
+
+        if (!Xila.Sound.Play(Music_File))
         {
             Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
         }
+        Refresh_Interface();
     }
-    else
+    else // If playing from a file
     {
-        Music_File.close();
-        if (Music_File)
+        if (!Xila.Sound.Play(Music_File))
         {
-            Reply = Xila.Sound.Play(Music_File);
-            if (Reply != 0)
-            {
-                Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
-            }
+            Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
         }
-        else
-        {
-            Xila.Event_Dialog(F("Cannot play file"), Xila.Error);
-        }
+        Refresh_Interface();
     }
 }
 
 void Music_Player_Class::Stop()
 {
+    Xila.Sound.Stop();
     Music_File.close();
     Music_Folder.close();
-    State = Stopped;
-    Xila.Sound.Stop();
-    Refresh_Interface();
-}
 
-void Music_Player_Class::Resume()
-{
-    if (State != Stopped)
-    {
-        Xila.Sound.Resume();
-        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
-        State = Playing;
-    }
-
-    Refresh_Interface();
-}
-
-void Music_Player_Class::Pause()
-{
-    if (State != Stopped)
-    {
-        Xila.Sound.Pause();
-        Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
-        State = Paused;
-    }
     Refresh_Interface();
 }
 
 void Music_Player_Class::Next_Track()
 {
-
 }
 
 void Music_Player_Class::Last_Track()
 {
-    
 }

@@ -24,7 +24,11 @@
 //                          Include Necessary Libraries                       //
 //----------------------------------------------------------------------------//
 
+
+
 #include "Arduino.h"
+
+
 
 
 #include "SD_MMC.h"
@@ -105,6 +109,10 @@ class Xila_Class
 protected:
     // Instance pointer
 
+    // Sound hal
+
+    
+
     static Xila_Class *Instance_Pointer;
 
     /**
@@ -157,15 +165,15 @@ public:
         Clock = 21,
         Internet_Browser = 22,
         Music_Player = 23,
-        Oscilloscope = 30,
-        Paint = 31,
-        Periodic = 32,
-        Piano = 34,
-        Picture_Viewer = 38,
-        Pong = 39,
-        Simon = 40,
-        Text_Editor = 41,
-        Tiny_Basic = 42
+        Oscilloscope = 32,
+        Paint = 33,
+        Periodic = 34,
+        Piano = 36,
+        Picture_Viewer = 40,
+        Pong = 41,
+        Simon = 42,
+        Text_Editor = 43,
+        Tiny_Basic = 44
     };
 
     enum Pages_Offset
@@ -462,6 +470,9 @@ public:
     void Synchronise_Time();
     void Refresh_Header();
     Xila_Time Get_Time();
+
+
+    const char *Get_File_Name(File const &File); // Temporary fix to file name issues
 
     // Display callback functions
 

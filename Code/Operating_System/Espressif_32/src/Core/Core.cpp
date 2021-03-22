@@ -58,7 +58,8 @@ void Xila_Class::Check_Watchdog()
   {
     if (Watchdog_Reminder == false)
     {
-      Verbose_Print_Line("Watchdog warning sent");
+      Verbose_Print("Watchdog warning sent :");
+      Serial.println(Open_Software_Pointer[0]->Handle_Pointer->Name);
       Open_Software_Pointer[0]->Send_Instruction(Watchdog);
       Watchdog_Reminder = true;
     }
@@ -108,7 +109,7 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
     {
       return Error;
     }
-    
+
     return Success;
   }
   else if (Type == 'D')
@@ -137,6 +138,35 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
   return Error;
 }
 
+//
+
+const char *Xila_Class::Get_File_Name(File const &File)
+{
+    static char Temporary_File_Name[13] = {'\0'};
+      const char *File_Name = File.name();
+  if (File_Name == NULL)
+  {
+    Verbose_Print_Line("NULL file name pointer !");
+    return Temporary_File_Name;
+  }
+
+  memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
+
+  size_t File_Name_Size = strlen(File_Name) - 1;
+  if (!File)
+  {
+    return Temporary_File_Name;
+  }
+  for (uint8_t i = File_Name_Size; i >= 0; i--)
+  {
+    if (File_Name[i] == '/')
+    {
+      strlcpy(Temporary_File_Name, File_Name + i + 1, sizeof(Temporary_File_Name));
+      break;
+    }
+  }
+  return Temporary_File_Name;
+}
 
 // Callback function for display
 
@@ -149,7 +179,7 @@ void Xila_Class::Incomming_String_Data_From_Display(const char *Received_Data, u
   switch (Received_Data[0])
   {
   case Xila.Instruction:
-    Xila.Open_Software_Pointer[0]->Send_Instruction(Received_Data[1], Received_Data[2]);
+    Xila.Open_Software_Pointer[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
     break;
   case Xila.Variable_String_Local:
     Xila.Open_Software_Pointer[0]->Set_Variable(Received_Data + 2, Variable_String_Local, Received_Data[1]);
@@ -183,8 +213,6 @@ void Xila_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
     Xila.Event_Dialog(F("Unexpected Numeric Data Return From Display"), Error);
   }
 }
-
-
 
 void Xila_Class::Incomming_Event_From_Display(uint8_t Event_Code)
 {
@@ -318,22 +346,20 @@ void Xila_Class::Refresh_Header()
   else
   {
     Display.Set_Text(F("CONNEXION_BUT"), ' ');
-
   }
 
   // -- Update charge level
   Temporary_Char_Array[5] = Battery.Get_Charge_Level();
-  
+
   if (Temporary_Char_Array[5] <= 15)
   {
-    #if BATTERY_CHECKING == 1
+#if BATTERY_CHECKING == 1
     if (Temporary_Char_Array[5] <= 2)
     {
       Shutdown();
     }
-    #endif
+#endif
     Display.Set_Text(F("BATTERY_BUT"), Battery_Empty);
-    
   }
   else if (Temporary_Char_Array[5] <= 30 && Temporary_Char_Array[5] > 15)
   {
@@ -348,20 +374,18 @@ void Xila_Class::Refresh_Header()
     Display.Set_Text(F("BATTERY_BUT"), Battery_High);
   }
 
-
-
   // -- Update sound
   Temporary_Char_Array[5] = Sound.Get_Volume();
-  
+
   if (Temporary_Char_Array[5] == 0)
   {
     Display.Set_Text(F("SOUND_BUT"), Sound_Mute);
   }
-  else if (Temporary_Char_Array[5] < 33)
+  else if (Temporary_Char_Array[5] < 86)
   {
     Display.Set_Text(F("SOUND_BUT"), Sound_Low);
   }
-  else if (Temporary_Char_Array[5] < 66)
+  else if (Temporary_Char_Array[5] < 172)
   {
     Display.Set_Text(F("SOUND_BUT"), Sound_Medium);
   }
@@ -369,7 +393,6 @@ void Xila_Class::Refresh_Header()
   {
     Display.Set_Text(F("SOUND_BUT"), Sound_High);
   }
-
 }
 
 void Xila_Class::Execute_Startup_Function()

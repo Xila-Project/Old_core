@@ -182,7 +182,7 @@ void Piano_Class::Press_Key(uint8_t Note)
 {
     Note_ID = Note;
     Current_Note = Note_Frequency[Note_ID] + Offset;
-    Xila.Sound.Tone(Current_Note, Duration);
+    Xila.Sound.Tone(Current_Note);
     Refresh_Interface();
     /*if (MIDI_Output == true)
     {

@@ -49,9 +49,6 @@ void Software_Class::Send_Instruction(uint16_t Instruction)
 
 void Software_Class::Send_Instruction(char Instruction_Char_1, char Instruction_Char_2)
 {
-  Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_1);
-  Verbose_Print("Instrution :");
-  Serial.print(Instruction_Char_2);
-  Serial.println(Instruction_Char_2);
+  Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
 }
 

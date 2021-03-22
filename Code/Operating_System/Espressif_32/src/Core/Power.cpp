@@ -149,6 +149,7 @@ void Xila_Class::First_Start_Routine()
     // -- Load sound registry --
 
     Returned_Data = Load_Sound_Registry();
+    Sound.Set_File_System(*Drive);
 
     if (Returned_Data != Success)
     {
@@ -156,15 +157,7 @@ void Xila_Class::First_Start_Routine()
     }
 
     // -- Play startup sound
-
-    {
-        File Temporary_File = Drive->open(Startup_Sound_Path);
-        if (!Sound.Play(Temporary_File))
-        {
-            Verbose_Print_Line("Failed to play sound");
-        }
-        Temporary_File.close();
-    }
+    Sound.Play((Startup_Sound_Path));
 
     // -- Load display registry
 
@@ -322,7 +315,7 @@ void Xila_Class::Shutdown()
 
     Set_Sound_Registry(Sound.Get_Volume());
 
-    // 
+    //
     Drive->end();
 
     vTaskDelay(pdMS_TO_TICKS(4000));

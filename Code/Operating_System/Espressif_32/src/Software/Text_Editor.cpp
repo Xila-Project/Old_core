@@ -47,6 +47,12 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Minimize:
             break;
+        case Instruction('C', 'l'):
+            Xila.Software_Close(Text_Editor_Handle);
+            break;
+        case Instruction('M', 'i'):
+            Xila.Software_Minimize(Text_Editor_Handle);
+            break;
         case 0x5355: // SU : scroll up
             Instance_Pointer->Offset += 55;
             Instance_Pointer->Refresh_Text();
