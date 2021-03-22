@@ -142,8 +142,8 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
 
 const char *Xila_Class::Get_File_Name(File const &File)
 {
-    static char Temporary_File_Name[13] = {'\0'};
-      const char *File_Name = File.name();
+  static char Temporary_File_Name[13] = {'\0'};
+  const char *File_Name = File.name();
   if (File_Name == NULL)
   {
     Verbose_Print_Line("NULL file name pointer !");
@@ -440,6 +440,47 @@ void Xila_Class::Panic_Handler(uint32_t Panic_Code)
   {
   }
   ESP.restart();
+}
+
+void Xila_Class::Loop()
+{
+  uint32_t Last_Header_Refresh = 0;
+  while (1)
+  {
+    Sound.Loop();
+    if (ESP.getFreeHeap() < 2000)
+    {
+      Panic_Handler(Low_Memory);
+    }
+    Sound.Loop();
+    if (Open_Software_Pointer[0] == NULL)
+    {
+      vTaskDelay(pdMS_TO_TICKS(40));
+      if (Open_Software_Pointer[0] == NULL)
+      {
+        Execute_Shell(Desk);
+        Maximize_Shell();
+      }
+    }
+    Sound.Loop();
+    Check_Watchdog(); // check if current running software is not frozen
+    Sound.Loop();
+    Synchronise_Time(); // Time synchro
+    Sound.Loop();
+    if ((millis() - Last_Header_Refresh) > 10000) // Refresh header every ~10000 ms
+    {
+      Xila.Refresh_Header(); // Header refreshing
+      Last_Header_Refresh = millis();
+    }
+    Sound.Loop();
+    Check_Power_Button();
+    Sound.Loop();
+    Check_System_Drive();
+    Sound.Loop();
+    Display.Loop();
+    Sound.Loop();
+    vTaskDelay(pdMS_TO_TICKS(10));
+  }
 }
 
 // Create System file at 1st boot

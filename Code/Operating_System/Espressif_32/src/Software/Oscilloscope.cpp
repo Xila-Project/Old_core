@@ -4,7 +4,6 @@ Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle)
 {
-	Instance_Pointer = this;
 	Xila.Task_Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
@@ -30,34 +29,58 @@ Software_Class *Oscilloscope_Class::Load()
 void Oscilloscope_Class::Main_Task(void *pvParameters)
 {
 	(void)pvParameters;
-	Instance_Pointer->Run();
+	while (1)
+	{
+
+		Instance_Pointer->Check_Commands();
+	}
 }
 
 void Oscilloscope_Class::Refresh_Interface()
 {
+	memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 	if ((millis() - Last_Interface_Refresh) >= 1000)
 	{
 		if (Current_Channel == 0)
 		{
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 0"));
 			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Blue);
-			Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range0]) + "/D");
-			Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch0_mode]));
-			Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch0_off));
+
+			strcpy(Temporary_Char_Array, "Range: ");
+			strcat(Temporary_Char_Array, Ranges[range0]);
+			strcat(Temporary_Char_Array, "/D");
+			Xila.Display.Set_Text(F("RANGE_TXT"), Temporary_Char_Array);
+			strcpy(Temporary_Char_Array, "Mode: ");
+			strcat(Temporary_Char_Array, Modes[ch0_mode]);
+			Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
+			sprintf(Temporary_Char_Array, "Offset: %i", ch0_off);
+			Xila.Display.Set_Text(F("OFFSET_TXT"), Temporary_Char_Array);
 		}
 		else
 		{
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 1"));
 			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Yellow);
-			Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range1]) + "/D");
-			Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch1_mode]));
-			Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch1_off));
+
+			strcpy(Temporary_Char_Array, "Range: ");
+			strcat(Temporary_Char_Array, Ranges[range1]);
+			strcat(Temporary_Char_Array, "/D");
+			Xila.Display.Set_Text(F("RANGE_TXT"), Temporary_Char_Array);
+			strcpy(Temporary_Char_Array, "Mode: ");
+			strcat(Temporary_Char_Array, Modes[ch1_mode]);
+			Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
+			sprintf(Temporary_Char_Array, "Offset: %i", ch1_off);
+			Xila.Display.Set_Text(F("OFFSET_TXT"), Temporary_Char_Array);
 		}
 
-		Xila.Display.Set_Text(F("RATE_TXT"), "Rate: " + String(Rates[rate]));
+		strcpy(Temporary_Char_Array, "Rate: ");
+		strcat(Temporary_Char_Array, Rates[rate]);
 
-		Xila.Display.Set_Text(F("TMODE_TXT"), "Mode: " + String(trig_mode));
-		Xila.Display.Set_Text(F("TLEVEL_TXT"), "Level: " + String(trig_lv));
+		Xila.Display.Set_Text(F("RATE_TXT"), Temporary_Char_Array);
+
+		sprintf(Temporary_Char_Array, "Mode: %i", trig_mode);
+		Xila.Display.Set_Text(F("TMODE_TXT"), Temporary_Char_Array);
+		sprintf(Temporary_Char_Array, "Level: %i", trig_lv);
+		Xila.Display.Set_Text(F("TLEVEL_TXT"), Temporary_Char_Array);
 
 		if (trig_edge == TRIG_E_DN)
 		{
@@ -67,7 +90,9 @@ void Oscilloscope_Class::Refresh_Interface()
 		{
 			Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Up"));
 		}
-		Xila.Display.Set_Text(F("TCHANNEL_TXT"), "Channel: " + String(trig_ch));
+
+		sprintf(Temporary_Char_Array, "Channel: %i", trig_ch);
+		Xila.Display.Set_Text(F("TCHANNEL_TXT"), Temporary_Char_Array);
 
 		Last_Interface_Refresh = millis();
 	}
@@ -161,175 +186,174 @@ void Oscilloscope_Class::SigmaDelta_Task(void *parameter)
 
 void Oscilloscope_Class::Run()
 {
-	while (1)
+
+	if (trig_mode != TRIG_SCAN)
 	{
-
-		if (trig_mode != TRIG_SCAN)
+		unsigned long st = millis();
+		short oad = (trig_ch == 0) ? (adRead(ad_ch0, ch0_mode, ch0_off)) : (adRead(ad_ch1, ch1_mode, ch1_off));
+		for (;;)
 		{
-			unsigned long st = millis();
-			short oad = (trig_ch == 0) ? (adRead(ad_ch0, ch0_mode, ch0_off)) : (adRead(ad_ch1, ch1_mode, ch1_off));
-			for (;;)
+			Verbose_Print_Line("Trig scan");
+			short ad;
+			if (trig_ch == 0)
 			{
-				short ad;
-				if (trig_ch == 0)
-				{
-					ad = adRead(ad_ch0, ch0_mode, ch0_off);
-				}
-				else
-				{
-					ad = adRead(ad_ch1, ch1_mode, ch1_off);
-				}
+				ad = adRead(ad_ch0, ch0_mode, ch0_off);
+			}
+			else
+			{
+				ad = adRead(ad_ch1, ch1_mode, ch1_off);
+			}
 
-				if (trig_edge == TRIG_E_UP)
-				{
-					if (ad >= trig_lv && ad > oad)
-					{
-						break;
-					}
-				}
-				else
-				{
-					if (ad <= trig_lv && ad < oad)
-					{
-						break;
-					}
-				}
-				oad = ad;
-
-				Check_Commands();
-
-				if (trig_mode == TRIG_SCAN)
+			if (trig_edge == TRIG_E_UP)
+			{
+				if (ad >= trig_lv && ad > oad)
 				{
 					break;
-				}
-				if (trig_mode == TRIG_AUTO && (millis() - st) > 100)
-				{
-					break;
-				}
-			}
-		}
-
-		// sample and draw depending on the sampling rate
-		if (rate <= 5 && Start)
-		{
-			(sample == 0) ? (sample = 2) : (sample = 0); // change the index for the double buffer
-
-			if (rate == 0) // full speed, channel 0 only
-			{
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-				}
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[sample + 1][i] = 0;
-				}
-			}
-			else if (rate == 1) // full speed, channel 1 only
-			{
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
-				}
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[sample + 0][i] = 0;
-				}
-			}
-			else if (rate == 2) // full speed, dual channel
-			{
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-					data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
-				}
-			}
-			else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
-			{
-				const unsigned long r_[] = {(uint32_t)(5000 / DOTS_DIV), (uint32_t)(10000 / DOTS_DIV), (uint32_t)(20000 / DOTS_DIV)};
-				unsigned long st = micros();
-				unsigned long r = r_[rate - 3];
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					while ((st - micros()) < r)
-					{
-						;
-					}
-					st += r;
-					data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-					data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
-				}
-			}
-			Refresh_Waveform();
-			Check_Commands();
-			Refresh_Interface();
-		}
-		else if (Start)
-		{ // 5ms - 500ms sampling
-			// copy currently showing data to another
-			if (sample == 0)
-			{
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[2][i] = data[0][i];
-					data[3][i] = data[1][i];
 				}
 			}
 			else
 			{
-				for (int i = 0; i < SAMPLES; i++)
-				{
-					data[0][i] = data[2][i];
-					data[1][i] = data[3][i];
-				}
-			}
-
-			const unsigned long r_[] = {(uint32_t)(50000 / DOTS_DIV), (uint32_t)(100000 / DOTS_DIV), (uint32_t)(200000 / DOTS_DIV),
-										(uint32_t)(500000 / DOTS_DIV), (uint32_t)(1000000 / DOTS_DIV), (uint32_t)(2000000 / DOTS_DIV),
-										(uint32_t)(5000000 / DOTS_DIV), (uint32_t)(10000000 / DOTS_DIV)};
-			unsigned long st = micros();
-			for (int i = 0; i < SAMPLES; i++)
-			{
-				while ((st - micros()) < r_[rate - 6])
-				{
-					Check_Commands();
-					if (rate < 6)
-					{
-						break;
-					}
-				}
-				if (rate < 6) // sampling rate has been changed
+				if (ad <= trig_lv && ad < oad)
 				{
 					break;
 				}
-				st += r_[rate - 6];
-				if (st - micros() > r_[rate - 6]) // sampling rate has been changed to shorter interval
-				{
-					st = micros();
-				}
-				if (!Start)
-				{
-					i--;
-					continue;
-				}
+			}
+			oad = ad;
+
+			//Check_Commands();
+
+			if (trig_mode == TRIG_SCAN)
+			{
+				break;
+			}
+			if (trig_mode == TRIG_AUTO && (millis() - st) > 100)
+			{
+				break;
+			}
+		}
+	}
+
+	// sample and draw depending on the sampling rate
+	if (rate <= 5 && Start)
+	{
+		Verbose_Print_Line("Sample and draw");
+		(sample == 0) ? (sample = 2) : (sample = 0); // change the index for the double buffer
+
+		if (rate == 0) // full speed, channel 0 only
+		{
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+			}
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[sample + 1][i] = 0;
+			}
+		}
+		else if (rate == 1) // full speed, channel 1 only
+		{
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+			}
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[sample + 0][i] = 0;
+			}
+		}
+		else if (rate == 2) // full speed, dual channel
+		{
+			for (int i = 0; i < SAMPLES; i++)
+			{
 				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
 				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 			}
-			Refresh_Waveform();
-			Refresh_Interface();
+		}
+		else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
+		{
+			const unsigned long r_[] = {(uint32_t)(5000 / DOTS_DIV), (uint32_t)(10000 / DOTS_DIV), (uint32_t)(20000 / DOTS_DIV)};
+			unsigned long st = micros();
+			unsigned long r = r_[rate - 3];
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				while ((st - micros()) < r)
+				{
+					;
+				}
+				st += r;
+				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+			}
+		}
+		Refresh_Waveform();
+		//Check_Commands();
+		//Refresh_Interface();
+	}
+	else if (Start)
+	{ // 5ms - 500ms sampling
+		// copy currently showing data to another
+		Verbose_Print_Line("Start sampling");
+		if (sample == 0)
+		{
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[2][i] = data[0][i];
+				data[3][i] = data[1][i];
+			}
 		}
 		else
 		{
-			Check_Commands();
+			for (int i = 0; i < SAMPLES; i++)
+			{
+				data[0][i] = data[2][i];
+				data[1][i] = data[3][i];
+			}
 		}
+
+		const unsigned long r_[] = {(uint32_t)(50000 / DOTS_DIV), (uint32_t)(100000 / DOTS_DIV), (uint32_t)(200000 / DOTS_DIV),
+									(uint32_t)(500000 / DOTS_DIV), (uint32_t)(1000000 / DOTS_DIV), (uint32_t)(2000000 / DOTS_DIV),
+									(uint32_t)(5000000 / DOTS_DIV), (uint32_t)(10000000 / DOTS_DIV)};
+		unsigned long st = micros();
+		for (int i = 0; i < SAMPLES; i++)
+		{
+			while ((st - micros()) < r_[rate - 6])
+			{
+				//Check_Commands();
+				if (rate < 6)
+				{
+					break;
+				}
+			}
+			if (rate < 6) // sampling rate has been changed
+			{
+				break;
+			}
+			st += r_[rate - 6];
+			if (st - micros() > r_[rate - 6]) // sampling rate has been changed to shorter interval
+			{
+				st = micros();
+			}
+			if (!Start)
+			{
+				i--;
+				continue;
+			}
+			data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+			data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+		}
+		Refresh_Waveform();
+		//Refresh_Interface();
 	}
-	}
+}
 
 void Oscilloscope_Class::Check_Commands()
 {
 	switch (Get_Instruction())
 	{
-	case 0:
+	case Xila.Idle:
+		Xila.Delay(20);
+		Refresh_Interface();
+		Run();
 		break;
 	case Xila.Open:
 		Xila.Display.Set_Current_Page(F("Oscilloscope"));
@@ -339,7 +363,6 @@ void Oscilloscope_Class::Check_Commands()
 		Refresh_Interface();
 		break;
 	case Xila.Minimize:
-		Xila.Task_Suspend(Task_Handle);
 		break;
 	case Xila.Close:
 		delete Instance_Pointer;
@@ -347,6 +370,12 @@ void Oscilloscope_Class::Check_Commands()
 		break;
 	case Xila.Watchdog: //reset watchdog
 		Xila.Feed_Watchdog();
+		break;
+	case Instruction('C', 'l'):
+		Xila.Software_Close(Oscilloscope_Handle);
+		break;
+	case Instruction('M', 'i'):
+		Xila.Software_Minimize(Oscilloscope_Handle);
 		break;
 	case Instruction('S', 't'): // SA : Start
 		Start = true;
@@ -596,7 +625,7 @@ void Oscilloscope_Class::Check_Commands()
 			Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Down"));
 		}
 		break;
-	
+
 	case Instruction('r', '+'):
 		if (rate < RATE_MAX)
 		{
@@ -616,5 +645,4 @@ void Oscilloscope_Class::Check_Commands()
 	default:
 		break;
 	}
-	Xila.Delay(10);
 }

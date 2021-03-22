@@ -50,7 +50,6 @@ protected:
     // 3 : tone
 
 
-    TaskHandle_t Sound_Task_Handle;
     static Sound_Class *Instance_Pointer;
 
 
@@ -132,7 +131,7 @@ public:
 
     void No_Tone(uint8_t const &Pin = 0xFF); // no tone (0xFF default pins)
 
-    void Sound_Loop();
+    void Loop();
 
     friend void audio_eof_mp3(const char*);
 };

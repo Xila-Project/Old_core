@@ -268,7 +268,7 @@ void Tiny_Basic_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t const 
 
 void Tiny_Basic_Class::Draw_Char(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, char const *Char)
 {
-  Xila.Display.Draw_Text(X_Coordinate, Y_Coordinate, 16, 8, Xila.Main_16, Xila.White, Xila.Dark_Grey, 1, 1, 0, Char);
+  Xila.Display.Draw_Text(X_Coordinate, Y_Coordinate, 16, 8, Xila.Regular_16, Xila.White, Xila.Dark_Grey, 1, 1, 0, Char);
 }
 
 /***************************************************************************/

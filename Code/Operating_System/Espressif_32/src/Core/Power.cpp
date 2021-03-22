@@ -51,7 +51,6 @@ void Xila_Class::First_Start_Routine()
     //attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
     // -- Disable FreeRTOS watchdog and replace it with Xila watchdog
-
 #if WATCHDOG == 0
     rtc_wdt_protect_off();
     rtc_wdt_disable();
@@ -158,6 +157,10 @@ void Xila_Class::First_Start_Routine()
 
     // -- Play startup sound
     Sound.Play((Startup_Sound_Path));
+    for (uint8_t i = 0; i < 128; i++)
+    {
+        Sound.Loop();
+    }
 
     // -- Load display registry
 
@@ -167,6 +170,7 @@ void Xila_Class::First_Start_Routine()
     {
         Verbose_Print_Line("Failed to load display registry");
     }
+    Sound.Loop();
 
     // WiFi :
 
@@ -176,6 +180,7 @@ void Xila_Class::First_Start_Routine()
     {
         Verbose_Print_Line("Failed to connect to WiFi");
     }
+    Sound.Loop();
 
     // -- Load Time Registry
     Returned_Data = Load_Time_Registry();
@@ -184,7 +189,7 @@ void Xila_Class::First_Start_Routine()
     {
         Verbose_Print_Line("Failed to load time registry");
     }
-
+    Sound.Loop();
     // -- Load Keyboard Registry
 
     Returned_Data = Load_Keyboard_Registry();
@@ -193,6 +198,8 @@ void Xila_Class::First_Start_Routine()
     {
         Verbose_Print_Line("Failed to play keyboard registry");
     }
+    Sound.Loop();
+    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", Memory_Chunk(6), NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, tskNO_AFFINITY);
 }
 
 void Xila_Class::Second_Start_Routine()
@@ -218,7 +225,6 @@ void Xila_Class::Second_Start_Routine()
     }
 
     Feed_Watchdog();
-    xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", Memory_Chunk(4), NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, tskNO_AFFINITY);
 }
 
 void Xila_Class::Start(Software_Handle_Class *Software_Package, uint8_t Size)

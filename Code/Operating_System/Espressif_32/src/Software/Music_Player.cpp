@@ -215,22 +215,22 @@ void Music_Player_Class::Refresh_Interface()
         }
         if (Next_Music_File)
         {
-            strcpy(Temporary_Char_Array, "Next: ");
+            strcpy(Temporary_Char_Array, " Next: ");
             strlcat(Temporary_Char_Array, Xila.Get_File_Name(Next_Music_File), sizeof(Temporary_Char_Array));
         }
         else
         {
-            Xila.Display.Set_Text(F("NEXTFILE_TXT"), F("Next: "));
+            Xila.Display.Set_Text(F("NEXTFILE_TXT"), F(" Next: "));
         }
         if (Music_Folder)
         {
-            strcpy(Temporary_Char_Array, "Folder: ");
+            strcpy(Temporary_Char_Array, " Folder: ");
             strlcat(Temporary_Char_Array, Xila.Get_File_Name(Music_Folder), sizeof(Temporary_Char_Array));
             Xila.Display.Set_Text(F("FOLDER_TXT"), Temporary_Char_Array);
         }
         else
         {
-            Xila.Display.Set_Text(F("FOLDER_TXT"), F("Folder:"));
+            Xila.Display.Set_Text(F("FOLDER_TXT"), F(" Folder:"));
         }
 }
 

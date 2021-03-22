@@ -29,7 +29,6 @@ Sound_Class::Sound_Class()
         delete this;
     }
     Instance_Pointer = this;
-    Sound_Task_Handle = NULL;
     Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
     Audio_Driver.setVolume(21);
@@ -170,12 +169,6 @@ uint8_t Sound_Class::Play(File &File_To_Play)
         return Failed_To_Open_File;
     }
 
-    if (xTaskCreatePinnedToCore(Sound_Task, "Sound driver", Memory_Chunk(4), NULL, DRIVER_TASK_PRIORITY, &Sound_Task_Handle, SYSTEM_CORE) != pdPASS)
-    {
-
-        return Failed_To_Create_Task;
-    }
-
     return Success;
 }
 
@@ -184,10 +177,6 @@ uint8_t Sound_Class::Resume()
     if (!Audio_Driver.isRunning())
     {
         Audio_Driver.pauseResume();
-        if (Sound_Task_Handle != NULL)
-        {
-            vTaskResume(Sound_Task_Handle);
-        }
         
     }
     return true;
@@ -197,12 +186,7 @@ void Sound_Class::Pause()
 {
     if (Audio_Driver.isRunning())
     {
-        Audio_Driver.pauseResume();
-        if (Sound_Task_Handle != NULL)
-        {
-            vTaskSuspend(Sound_Task_Handle);
-        }
-        
+        Audio_Driver.pauseResume();        
     }
 }
 
@@ -210,11 +194,6 @@ void Sound_Class::Stop()
 {
     Serial_Print_Line("Stop");
     Audio_Driver.stopSong();
-    if (Sound_Task_Handle != NULL)
-    {
-        vTaskDelete(Sound_Task_Handle);
-    }
-    Sound_Task_Handle = NULL;
 }
 
 void Sound_Class::Mute()
@@ -222,16 +201,7 @@ void Sound_Class::Mute()
     Audio_Driver.setVolume(0);
 }
 
-void Sound_Class::Sound_Task(void *pvParameters)
+void Sound_Class::Loop()
 {
-    (void)pvParameters;
-    Instance_Pointer->Sound_Loop();
-}
-
-void Sound_Class::Sound_Loop()
-{
-    while (1)
-    {
-        Audio_Driver.loop();
-    }
+    Audio_Driver.loop();
 }

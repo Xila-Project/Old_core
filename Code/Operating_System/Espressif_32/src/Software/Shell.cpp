@@ -396,6 +396,7 @@ void Shell_Class::Refresh_File_Manager()
             break;
         case Detail:
             Open_File_Manager_Detail();
+            Go_Parent();
             break;
         default:
             if (Temporary_Item.isDirectory())
@@ -2146,8 +2147,8 @@ void Shell_Class::Open_Keyboard()
 {
 
     Xila.Display.Set_Current_Page(Keyboard);
-
-    Xila.Display.Set_Value(F("LENGHT_VAR"), Xila.Dialog_Long[0]);
+    Xila.Keyboard.clear();
+    Xila.Display.Set_Value(F("MAXLENGTH_VAR"), Xila.Dialog_Long[0]);
     Xila.Display.Set_Text(F("INPUT_VAR"), (char *)Xila.Dialog_Pointer);
     Xila.Display.Set_Input_Type(F("INPUT_TXT"), Xila.Dialog_Long[1]);
 }
@@ -2232,6 +2233,7 @@ void Shell_Class::Keyboard_Commands()
 void Shell_Class::Open_Keypad()
 {
     Xila.Display.Set_Current_Page(Keypad);
+    Xila.Keyboard.clear();
     Xila.Display.Set_Value(F("TEMPORARY_FLO"), Xila.Dialog_Long[0]);
     Xila.Display.Click(F("CONVERT_HOT"), 0);
 }

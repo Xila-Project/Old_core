@@ -203,9 +203,11 @@ public:
     */
     enum Font
     {
-        Main_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
-        Main_24 = 2, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
-        Main_32 = 3  /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
+        Regular_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
+        Mono_16,
+        Regular_24, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
+        Regular_32,  /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
+        Regular_48
     };
 
     static void IRAM_ATTR Power_Button_Handler();
@@ -397,7 +399,9 @@ public:
     void Hibernate(); // private
 
     void Deep_Sleep();
-  ;
+  
+    
+    void Loop();
 
     //inline void Log_Error(Software_Handle_Class const&, ...); try to implement variadic function
 

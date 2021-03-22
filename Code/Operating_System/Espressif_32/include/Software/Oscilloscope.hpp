@@ -28,7 +28,7 @@ protected:
 
     uint32_t Last_Interface_Refresh;
 
-    
+    char Temporary_Char_Array[16];
 
     // Constant
 

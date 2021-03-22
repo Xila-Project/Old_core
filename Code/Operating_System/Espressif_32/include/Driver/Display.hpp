@@ -27,14 +27,10 @@
 #include "FS.h"
 #include "Configuration.hpp"
 
-#define DISPLAY_POINTER Nextion_Display_Class::Display_Pointer
-
 class Nextion_Display_Class
 {
 protected:
     HardwareSerial Nextion_Serial;
-
-    xTaskHandle Nextion_Serial_Handle;
 
     SemaphoreHandle_t Serial_Semaphore;
 
@@ -51,7 +47,8 @@ protected:
     inline void Instruction_End();
     inline void Argument_Separator();
 
-    void Main_Routine();
+    char Temporary_String[150];
+    uint8_t Return_Code;
 
 public:
     enum Error
@@ -268,7 +265,7 @@ public:
     void Reboot();
     uint8_t Update(File Update_File);
 
-    static void Main_Task(void*);
+    void Loop();
 };
 
 

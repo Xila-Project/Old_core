@@ -29,6 +29,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Brows
 
 Internet_Browser_Class::~Internet_Browser_Class()
 {
+  Client.stop();
   if (Instance_Pointer != this)
   {
     delete Instance_Pointer;
@@ -51,7 +52,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Verbose_Print_Line("Open");
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
-      
+
       break;
     case Xila.Maximize: // NULL + M : Maximize
       Verbose_Print_Line("Maxmize");
@@ -59,7 +60,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Instance_Pointer->Go_Home();
       //do something when
       break;
-      
+
     case Xila.Minimize: // NULL + m : Minimize
       break;
 
@@ -80,24 +81,24 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Keyboard_Dialog(Instance_Pointer->URL, sizeof(URL));
       Instance_Pointer->Display_Page();
       break;
-    case 0x5044: //PD
+    case Instruction('P', 'D'): //PD
       Instance_Pointer->Page_Down();
       break;
 
-    case 0x5055: //PU
+    case Instruction('P', 'U'): //PU
       Instance_Pointer->Page_Up();
       break;
 
-    case 0x4E4C: //NL
+    case Instruction('N', 'L'): //NL
       Instance_Pointer->Next_Link();
       break;
-    case 0x504C: //PL
+    case Instruction('P', 'L'): //PL
       Instance_Pointer->Previous_Link();
       break;
-    case 0x474C: //GL
+    case Instruction('G', 'L'): //GL
       Instance_Pointer->Go_Link();
       break;
-    case 0x4755: //GU
+    case Instruction('G', 'U'): //GU
       Instance_Pointer->Go_URL();
       break;
     case 0x484F: //HO
@@ -190,13 +191,15 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   uint16_t outputChar = 0;   // Char to build output
   uint32_t fileLength = 0;
   uint8_t cleanChar = 0;
-  uint32_t startTime = 0;
   uint32_t HTTP_Return_Code = 0;
 
   //================================================
   // Open URL
   //================================================
-  Xila.Display.Draw_Rectangle(2, 54, 443, 216, 16904, false);
+  Xila.Display.Refresh(F("PANEL_TXT"));
+  Xila.Display.Show(F("LOAD_TXT"));
+  Xila.Display.Show(F("LOAD_BAR"));
+  Xila.Display.Set_Value(F("LOAD_BAR"), 0);
 
   Serial.print(F("\nOpening cache... "));
 
@@ -204,52 +207,39 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   if (!Cache_File)
   {
     Xila.Event_Dialog(F("Cache file open failed."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
     return 0;
   }
 
   Xila.Delay(100);
-  Serial.println(F("\nConnecting ..."));
-  Serial.println(URLserver);
-  Serial.println(URLpath);
-
   if (WiFi.status() != WL_CONNECTED)
   {
     Xila.Event_Dialog(F("Download failed : WiFi is not not connected."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
-    //error handle : not connected
     return 0;
   }
 
   if (URLserver[0] == '*') // Should never get an * here
   {
     Xila.Event_Dialog(F("Invalid URL."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
-    Serial.println(F("Invalid URL !"));
-    //error handle
     return 0;
   }
 
+  Client.setInsecure();
   if (Client.connect(URLserver, 443))
   {
     Client.print(F("GET "));
     Client.print(URLpath);
     Client.print(F(" HTTP/1.1\r\n"));
-
     Client.print(F("Host: "));
     Client.print(URLserver);
-
     Client.print(F("\r\nUser-Agent: Mozilla/4.0 (Mobile; PIP/7.0) PIP/7.0\r\nConnection: close\r\n\r\n"));
   }
   else
   {
-    Xila.Event_Dialog(F("Connection failed."), Xila.Error);
-
-    Serial.println(F("Connection failed !"));
+    Xila.Event_Dialog(F("Download failed : Cannot connect to the website."), Xila.Error);
     //error handle : reset ?
     return 0;
   }
-  
+
   Xila.Delay(500);
 
   byte Wait = 0;
@@ -262,13 +252,10 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   {
     //error handle
     Xila.Event_Dialog(F("Connection timeout."), Xila.Error);
-    Xila.Display.Set_Current_Page(F("Internet_Brow"));
-    Serial.println(F("\nWiFi timeout"));
     return 0;
   }
 
   Serial.println(F("\nParsing..."));
-  startTime = millis();
 
   {
     memcpy(generalBuffer, "HTTP/1.1 \0", 10); //looking for the HTTP return code
@@ -304,13 +291,11 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     else if (outputChar == 1) //cannot find the file lenght, stop
     {
       Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
-      Xila.Display.Set_Current_Page(F("Internet_Brow"));
-      Serial.println(F("\nStopped by <, no file length found"));
       fileLength = 0;
     }
     else
     {
-      Serial.println(F("\nTimeout finding file length"));
+      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
       fileLength = 0;
     }
 
@@ -321,8 +306,6 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     if (outputChar == 0) //cannot find the body
     {
       Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
-      Xila.Display.Set_Current_Page(F("Internet_Brow"));
-      Serial.println(F("\nTimeout finding <body>\nShould probably stop now"));
       return 0;
     }
     else
@@ -353,10 +336,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       if ((!Client.available()) && (!Client.connected()))
       {
         //error handle
-        Xila.Event_Dialog(F("The Connection has timed out."), Xila.Error);
+        Xila.Event_Dialog(F("The connection has timed out."), Xila.Error);
         Display_Page();
-
-        Serial.println(F("\nWiFi timeout"));
         Client.stop();
         Cache_File.flush();
         return 0;
@@ -372,7 +353,10 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     if ((c == '&') && ((localState == sTEXT) || (localState == sURL)))
     { // Enter state condition
       if (metaState == sANCHOR)
+      {
         url[i++] = c;
+
+      }
       localState = sAMP;
       ampHash = 0;
       continue;
@@ -407,7 +391,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       }
     }
 
-    //==============================f==================
+    //=================================================
     // State is sTAG                                 3
     //================================================
     if (c == '<')
@@ -534,6 +518,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       if ((c == '"') || (c == '\''))
       { // End condition
         url[i++] = 0;
+
+
         nextState = sENDTAG;
         Store_URL(url);
         Cache_File.write(TAG_LINK2);
@@ -541,8 +527,10 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       else
       {
         url[i++] = c;
+
         url[i] = 0;
-        if (i > 130)
+
+        if (i >= sizeof(url))
         {
           nextState = sENDTAG;
           Cache_File.write(TAG_LINK2);
@@ -573,17 +561,9 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
     if ((cleanChar == 10) || (cleanChar == '\t'))
     {
-      float Download_Time = millis() - startTime;
-      Download_Time /= 1000;
-      if (Download_Time > 0)
-      {
-        uint32_t Speed = downloadCount / Download_Time;
-        Serial.println(Speed);
-      }
       if (fileLength > 0)
       {
         uint8_t Percent = uint8_t(downloadCount * 100 / fileLength);
-        Serial.println(Percent);
         Xila.Display.Set_Value(F("LOAD_BAR"), Percent);
       }
     }
@@ -670,20 +650,11 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
     localState = nextState;
   } // Loading loop
-
-  Serial.println(F("Finish parsing"));
-
   Cache_File.print('\0');
   //Client.flush();
   Client.stop();
 
   Cache_File.flush();
-
-  Serial.print(F("\nCount: "));
-  Serial.println(count, DEC);
-
-  //Nextion_Serial.print(F("LOAD_BAR.val=0\xFF\xFF\xFF"));
-
   return 1;
 }
 
@@ -860,7 +831,6 @@ void Internet_Browser_Class::displayLinkIndex()
   Serial.println(F("Link Index"));
   for (byte i = 0; i <= pageLinks.lastLink; i++)
   {
-    Serial.print(i);
     Serial.print(F("\t"));
     Serial.print(pageLinks.index[i]);
     Serial.print(F("\t"));
@@ -888,7 +858,7 @@ void Internet_Browser_Class::displayPageIndex()
 
   for (byte i = 0; i <= textContent.lastPage; i++)
   {
-    Serial.print(i);
+
     Serial.print(F("\t"));
     Serial.println(textContent.index[i]);
   }
@@ -918,7 +888,7 @@ byte Internet_Browser_Class::Display_Page()
   uint16_t Width_Count;
   uint8_t Text_Char_Count;
 
-  Xila.Display.Draw_Rectangle(0, 50, 464, 222, 16904, false);
+  Xila.Display.Refresh(F("PANEL_TXT"));
 
   //Draw header
 
@@ -984,7 +954,7 @@ byte Internet_Browser_Class::Display_Page()
       case 65534: //Bold style
 
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
-      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
 
         //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
 
@@ -995,7 +965,7 @@ byte Internet_Browser_Class::Display_Page()
       case 65533: //Highlight style
 
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
-      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
 
         //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
 
@@ -1005,9 +975,9 @@ byte Internet_Browser_Class::Display_Page()
 
       case 65532: //Link style
 
-      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
-      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-        
+        Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+        Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+
         //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         Last_Color = 65535;
@@ -1015,22 +985,21 @@ byte Internet_Browser_Class::Display_Page()
 
       case 65531: //Heading style
 
-      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
-      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+        Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
         //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
 
       default:
 
-      Xila.Display.Set_Value(F("C_VAR"), Current_Color);
-      Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
+        Xila.Display.Set_Value(F("C_VAR"), Current_Color);
+        Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
 
         //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
 
-      
       Xila.Display.Click(F("D_HOT"), 0);
 
       Cursor_Y += 14; //new line
@@ -1180,13 +1149,6 @@ byte Internet_Browser_Class::Display_Page()
     pageLinks.lastLink--;
   }
 
-  Serial.print(F("Char count:\t"));
-  Serial.println(count);
-  Serial.print(F("filePtr:\t"));
-  Serial.println(filePtr);
-  Serial.print(F("SD size:\t"));
-  Serial.println(Cache_File.size());
-
   Cache_File.flush();
 
   return 1;
@@ -1268,15 +1230,18 @@ void Internet_Browser_Class::Store_URL(char *local_url)
   {
     j = 6; // Strip leading http://
     local_url[i++] = TAG_HTTP;
+
   }
   else if ((local_url[6] == '/') && (local_url[7] == '/'))
   {
     j = 7; // Strip leading https://
     local_url[i++] = TAG_HTTP;
+
   }
   while (local_url[i] > 0)
   {
     i++;
+
     local_url[i] = local_url[i + j];
   }
   Cache_File.print(local_url);
