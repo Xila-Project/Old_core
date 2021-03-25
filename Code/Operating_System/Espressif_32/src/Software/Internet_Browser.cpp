@@ -354,8 +354,8 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     { // Enter state condition
       if (metaState == sANCHOR)
       {
-        url[i++] = c;
 
+        url[i++] = c;
       }
       localState = sAMP;
       ampHash = 0;
@@ -517,8 +517,9 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     {
       if ((c == '"') || (c == '\''))
       { // End condition
-        url[i++] = 0;
 
+
+        url[i++] = 0;
 
         nextState = sENDTAG;
         Store_URL(url);
@@ -526,11 +527,12 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       }
       else
       {
+
         url[i++] = c;
 
         url[i] = 0;
 
-        if (i >= sizeof(url))
+        if (i >= (sizeof(url) - 1))
         {
           nextState = sENDTAG;
           Cache_File.write(TAG_LINK2);
@@ -1229,14 +1231,14 @@ void Internet_Browser_Class::Store_URL(char *local_url)
   if ((local_url[5] == '/') && (local_url[6] == '/'))
   {
     j = 6; // Strip leading http://
-    local_url[i++] = TAG_HTTP;
 
+    local_url[i++] = TAG_HTTP;
   }
   else if ((local_url[6] == '/') && (local_url[7] == '/'))
   {
     j = 7; // Strip leading https://
-    local_url[i++] = TAG_HTTP;
 
+    local_url[i++] = TAG_HTTP;
   }
   while (local_url[i] > 0)
   {

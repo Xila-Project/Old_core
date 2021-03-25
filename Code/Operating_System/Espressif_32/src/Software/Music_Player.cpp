@@ -31,6 +31,8 @@ void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_
     if (Adress == 'V')
     {
         Volume = *(uint8_t *)Variable;
+        Verbose_Print("Set volume variable:");
+        Serial.println(Volume);
     }
     else if (Adress == 'T')
     {
@@ -40,7 +42,6 @@ void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_
 
 void Music_Player_Class::Main_Task(void *pvParameters)
 {
-    (void)pvParameters;
     while (1)
     {
         switch (Instance_Pointer->Get_Instruction())

@@ -55,7 +55,7 @@ protected:
     const int TRIG_AUTO = 0;
     const int TRIG_NORM = 1;
     const int TRIG_SCAN = 2;
-    const char *TRIG_Modes[3] = {"Autoc", "Normal", "Scan"};
+    const char *TRIG_Modes[3] = {"Automa", "Normal", "Scan"};
     const int TRIG_E_UP = 0;
     const int TRIG_E_DN = 1;
 

@@ -47,7 +47,8 @@ void Sound_Class::Set_File_System(fs::FS &File_System)
 void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 {
     Volume_To_Set *= 22;
-    Volume_To_Set /= 256;
+    Serial.println(Volume_To_Set);
+    Volume_To_Set = Volume_To_Set >> 8;
     Serial.println(Volume_To_Set);
     Audio_Driver.setVolume(Volume_To_Set);
 }

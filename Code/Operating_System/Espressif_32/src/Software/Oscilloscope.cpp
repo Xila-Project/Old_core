@@ -28,7 +28,6 @@ Software_Class *Oscilloscope_Class::Load()
 
 void Oscilloscope_Class::Main_Task(void *pvParameters)
 {
-	(void)pvParameters;
 	while (1)
 	{
 
@@ -186,6 +185,8 @@ void Oscilloscope_Class::SigmaDelta_Task(void *parameter)
 
 void Oscilloscope_Class::Run()
 {
+	Serial.print("Trig mode :");
+	Serial.println(trig_mode);
 
 	if (trig_mode != TRIG_SCAN)
 	{
@@ -232,6 +233,10 @@ void Oscilloscope_Class::Run()
 			}
 		}
 	}
+	Serial.print("Rate :");
+	Serial.println(rate);
+	Serial.print("Start :");
+	Serial.println(Start);
 
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
@@ -350,6 +355,7 @@ void Oscilloscope_Class::Check_Commands()
 {
 	switch (Get_Instruction())
 	{
+	Verbose_Print_Line("Check commands");
 	case Xila.Idle:
 		Xila.Delay(20);
 		Refresh_Interface();

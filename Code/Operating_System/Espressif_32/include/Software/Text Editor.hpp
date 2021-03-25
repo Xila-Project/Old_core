@@ -18,7 +18,7 @@ protected:
 
     void Open_File(File File_To_Open);
 
-    void Refresh_Text();
+    void Refresh_Interface();
 
     void Print_Line();
 
