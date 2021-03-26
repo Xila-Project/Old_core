@@ -571,7 +571,7 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
         break;
     case Random:
         Clear();
-        dtostrf(esp_random(), sizeof(Numbers[State]), 0, Numbers[State]);
+        dtostrf(Xila.Random(), sizeof(Numbers[State]), 0, Numbers[State]);
         Decimal_Point[State] = false;
         break;
     case Point:

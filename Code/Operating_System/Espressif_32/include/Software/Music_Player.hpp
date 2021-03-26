@@ -47,6 +47,8 @@ protected:
 
     void Play();
 
+    void Random_File();
+
     void Resume();
     void Stop();
 

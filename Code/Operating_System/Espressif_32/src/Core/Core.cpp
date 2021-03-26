@@ -138,6 +138,33 @@ Xila_Event Xila_Class::Load_Executable(File Executable_File, uint8_t Type)
   return Error;
 }
 
+uint32_t Xila_Class::Random()
+{
+  return esp_random();
+}
+
+uint32_t Xila_Class::Count_Files(Fila const &Folder)
+{
+  if (Folder)
+  {
+    return 0;
+  }
+  if (!Folder.isDirectory())
+  {
+    return 0;
+  }
+  uint32_t i = 0;
+  File Temporary_File = Folder.openNextFile();
+  while (Temporary_File)
+  {
+    i++
+    Temporary_File.close();
+    Temporary_File = Folder.openNextFile();
+  }
+  return i;
+}
+
+
 //
 
 const char *Xila_Class::Get_File_Name(File const &File)

@@ -477,6 +477,8 @@ public:
 
 
     const char *Get_File_Name(File const &File); // Temporary fix to file name issues
+    uint32_t Count_Files(File const& Folder); // return the number of files inside a folder
+
 
     // Display callback functions
 
@@ -605,6 +607,8 @@ public:
 
     uint32_t Dialog_Long[2];
     void *Dialog_Pointer;
+
+    uint32_t Random();
 
     Software_Class *Caller_Software_Pointer;
 

@@ -323,6 +323,6 @@ void Simon_Class::Generate_Sequence()
     Speed = 1000;
     for (uint8_t i = 0; i < (MAXIMUM_LEVEL - 1); i++)
     {
-        Sequence[i] = uint8_t(esp_random() % 4);
+        Sequence[i] = uint8_t(Xila.Random() % 4);
     }
 }
