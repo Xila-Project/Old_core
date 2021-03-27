@@ -203,7 +203,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/CACHE.XDF", FILE_WRITE);
+  Cache_File = Xila.Drive->open(Internet_Browser_File("Cache.xdf"), FILE_WRITE);
   if (!Cache_File)
   {
     Xila.Event_Dialog(F("Cache file open failed."), Xila.Error);
@@ -897,12 +897,12 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     Xila.Display.Set_Text(F("URL_TXT"), F("Home Page"));
-    Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/HOMEPAGE.XDF");
+    Cache_File = Xila.Drive->open(Internet_Browser_File("Homepage.xdf"));
   }
   else
   {
     Xila.Display.Set_Text("URL_TXT", URL);
-    Cache_File = Xila.Drive->open("/SOFTWARE/INTEBROW/CACHE.XDF");
+    Cache_File = Xila.Drive->open(Internet_Browser_File("Cache.xdf"));
   }
 
   if (!Cache_File)

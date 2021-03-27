@@ -125,6 +125,14 @@ protected:
     //User attribute
     char Current_Username[9];
 
+    uint8_t User_Session;
+    enum Session_State
+    {
+        Disconnected,
+        Logged,
+        Locked
+    };
+
     Software_Class *Open_Software_Pointer[8] = {NULL};
     // Open_Software_Pointer[0] : Current running software
     // Open_Software_Pointer[1] : Shell slot
@@ -476,8 +484,8 @@ public:
     Xila_Time Get_Time();
 
 
-    const char *Get_File_Name(File const &File); // Temporary fix to file name issues
-    uint32_t Count_Files(File const& Folder); // return the number of files inside a folder
+    Xila_Event Get_File_Name(File const &File, char* File_Name, size_t Size); // Temporary fix to file name issues
+    uint32_t Count_Files(File& Folder); // return the number of files inside a folder
 
 
     // Display callback functions
@@ -572,8 +580,10 @@ public:
     Xila_Event Delete_User(const char *);
     Xila_Event Change_Password(const char *, const char *);
     Xila_Event Change_Username(const char *, const char *);
+
     Xila_Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
     Xila_Event Logout();
+    Xila_Event Lock();
 
     // System dialogs
 
@@ -589,9 +599,12 @@ public:
         Information,
         Question,
         Success,
-        Button_1 = 0x31, //< Button 1 reply, by default : Yes
-        Button_2 = 0x32, //< Button 2 reply by default : No
-        Button_3 = 0x33  //< Button 3 reply by default : Cancel (returned also by close button)
+        Button_1 = 0x31,    //< Button 1 reply, by default : Yes
+        Button_2 = 0x32,    //< Button 2 reply by default : No
+        Button_3 = 0x33,    //< Button 3 reply by default : Cancel (returned also by close button)
+        Default_Yes = Button_1,
+        Default_No = Button_2,
+        Default_Cancel = Button_3,  
     };
 
     void Panic_Handler(uint32_t Panic_Code);
@@ -609,6 +622,8 @@ public:
     void *Dialog_Pointer;
 
     uint32_t Random();
+    uint32_t Random(uint32_t Upper_Bound);
+    uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);
 
     Software_Class *Caller_Software_Pointer;
 

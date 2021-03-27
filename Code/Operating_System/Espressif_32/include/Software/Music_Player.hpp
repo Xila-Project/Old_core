@@ -19,6 +19,8 @@ protected:
     File Next_Music_File;
     File Music_Folder;
 
+    uint8_t State;
+
     enum Music_State
     {
         Stopped,
@@ -29,6 +31,14 @@ protected:
     // 1 : play
     // 2 : pause
 
+    uint32_t Queue[24] = {0};
+
+    enum Queue_Position
+    {
+        Empty = 0,
+        Current = ((sizeof(Queue) / sizeof(uint32_t)) - 2),
+    };
+
     uint8_t Volume;
 
     bool Random = false;
@@ -37,6 +47,9 @@ protected:
     uint32_t Time_To_Set;
     uint32_t Total_Time;
     uint32_t Current_Time;
+
+
+    void Refresh_Queue();
 
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t);
 
@@ -47,13 +60,15 @@ protected:
 
     void Play();
 
-    void Random_File();
+    void Generate_Queue();
 
     void Resume();
     void Stop();
 
     void Next_Track();
     void Last_Track();
+
+    void Check_Queue();
 
     void Refresh_Interface();
 

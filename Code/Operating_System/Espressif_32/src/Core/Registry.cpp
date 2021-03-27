@@ -31,6 +31,7 @@ Xila_Event Xila_Class::WiFi_Connect()
 
   WiFi.setAutoConnect(false);
   WiFi.begin(Name, Password);
+  WiFi.setSleep(WIFI_PS_NONE);
   for (uint8_t i = 0; i <= 50; i++)
   {
     if (i == 50)
@@ -51,6 +52,7 @@ Xila_Event Xila_Class::WiFi_Connect(char *Name, char *Password)
 {
   WiFi.setAutoConnect(false);
   WiFi.begin(Name, Password);
+  WiFi.setSleep(WIFI_PS_NONE);
   for (uint8_t i = 0; i <= 50; i++)
   {
     if (i == 50)

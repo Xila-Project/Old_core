@@ -21,6 +21,7 @@
 
 #include "Xila.hpp"
 
+
 /**
  * @class Shell_Class Shell.hpp
  * 
@@ -59,7 +60,6 @@ protected:
     char NTP_Server[sizeof(Xila.NTP_Server)];
     char Device_Name[25]; // -- Shared with install wizard
 
-    char Target_Username[9];
     char Username[9];    // -- Shared with install wizard and login
     char Password_1[25]; // -- Shared with install wizard and login
     char Password_2[25]; // -- Shared with install wizard
@@ -195,7 +195,7 @@ protected:
 
     // -- Registry management
 
-    Xila_Event Set_Registry(uint32_t Desk_Background = 0xFFFFFFFF);
+    Xila_Event Save_Registry();
     Xila_Event Load_Registry();
 
     // -- Installation wizard methods

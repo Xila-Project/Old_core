@@ -94,7 +94,7 @@
         "9": "darmstadtium",
         "10": "roentgenium",
         "11": "copernicium",
-        "12": "ununtrium",
+        "12": "nihonium",
         "13": "flerovium",
         "14": "moscovium",
         "15": "livermorium",
@@ -113,8 +113,8 @@
         "11": "terbium",
         "12": "dysprosium",
         "13": "holmium",
-        "14": "erblium",
-        "15": "thullium",
+        "14": "erbium",
+        "15": "thulium",
         "16": "ytterbium",
         "17": "lutetium"
     },
@@ -127,12 +127,12 @@
         "8": "plutonium",
         "9": "americium",
         "10": "curium",
-        "11": "berklium",
+        "11": "berkelium",
         "12": "californium",
         "13": "einsteinium",
         "14": "fermium",
         "15": "mendelevium",
-        "16": "novelium",
+        "16": "nobelium",
         "17": "lawrencium"
     }
 }

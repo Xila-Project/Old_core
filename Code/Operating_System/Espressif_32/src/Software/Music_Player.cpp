@@ -28,13 +28,13 @@ Music_Player_Class::~Music_Player_Class()
 
 void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-    if (Adress == 'V')
+    if (Adress == 'V' && Type == Xila.Variable_Long_Local)
     {
         Volume = *(uint8_t *)Variable;
         Verbose_Print("Set volume variable:");
         Serial.println(Volume);
     }
-    else if (Adress == 'T')
+    else if (Adress == 'T' && Type == Xila.Variable_Long_Local)
     {
         Time_To_Set = *(uint32_t *)Variable;
     }
@@ -51,7 +51,6 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Xila.Close:
             Instance_Pointer->Stop();
-            Instance_Pointer->Music_File.close();
             Instance_Pointer->Music_Folder.close();
             delete Instance_Pointer;
             Xila.Task_Delete();
@@ -74,12 +73,17 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Xila.Software_Minimize(Music_Player_Handle);
             break;
         case Instruction('P', 'P'):
-            if (Xila.Sound.Get_State() == true)
+            if (Instance_Pointer->State == Playing)
             {
+                Instance_Pointer->State = Paused;
                 Xila.Sound.Pause();
+            }
+            else if (Instance_Pointer->State == Stopped)
+            {
             }
             else
             {
+                Instance_Pointer->State = Playing;
                 Xila.Sound.Resume();
             }
             Instance_Pointer->Refresh_Interface();
@@ -99,11 +103,11 @@ void Music_Player_Class::Main_Task(void *pvParameters)
 
         case Instruction('L', 'o'):
             Instance_Pointer->Loop = !Instance_Pointer->Loop;
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Instruction('R', 'a'):
             Instance_Pointer->Random = !Instance_Pointer->Random;
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Instruction('S', 'V'):
             Xila.Sound.Set_Volume(Instance_Pointer->Volume);
@@ -119,6 +123,10 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('R', 'e'):
             Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Check_Queue();
+            break;
+        case Instruction('R', 'Q'):
+            Instance_Pointer->Refresh_Queue();
             break;
         default:
             break;
@@ -135,12 +143,11 @@ void Music_Player_Class::Set_Time()
 void Music_Player_Class::Open_File()
 {
     Stop();
-    Music_File.close();
     Music_Folder.close();
 
     Xila.Open_File_Dialog(Music_File);
 
-    if (Music_File)
+    if (Music_File && !Music_File.isDirectory())
     {
         Play();
     }
@@ -148,32 +155,25 @@ void Music_Player_Class::Open_File()
     {
         Xila.Event_Dialog(F("Unable to open file."), Xila.Error);
     }
+    Send_Instruction('R', 'e');
 }
 
 void Music_Player_Class::Open_Folder()
 {
-    Music_File.close();
+    Stop();
     Music_Folder.close();
     Xila.Open_Folder_Dialog(Music_Folder);
-    if (Music_Folder)
+    if (Music_Folder && Music_Folder.isDirectory())
     {
-        Music_Folder.rewindDirectory();
-        Number_Of_Files = 0;
-        do
-        {
-            Music_File.close();
-            Music_File = Music_Folder.openNextFile();
-            Number_Of_Files++;
-
-        } while (Music_File);
-
-        Number_Of_Files--;
+        Generate_Queue();
+        Refresh_Queue();
         Play();
     }
     else
     {
         Xila.Event_Dialog(F("Unable to open folder."), Xila.Error);
     }
+    Send_Instruction('R', 'e');
 }
 
 void Music_Player_Class::Refresh_Interface()
@@ -190,6 +190,24 @@ void Music_Player_Class::Refresh_Interface()
 
     sprintf(Temporary_Char_Array, "%i:%02d", (Total_Time / 60), (Total_Time % 60));
     Xila.Display.Set_Text(F("TOTALTIME_TXT"), Temporary_Char_Array);
+
+    if (Random)
+    {
+        Xila.Display.Show(F("RANDOMSIGN_TXT"));
+    }
+    else
+    {
+        Xila.Display.Hide(F("RANDOMSIGN_TXT"));
+    }
+
+    if (Loop)
+    {
+        Xila.Display.Show(F("LOOPSIGN_TXT"));
+    }
+    else
+    {
+        Xila.Display.Hide(F("LOOPSIGN_TXT"));
+    }
 
     if (Total_Time != 0)
     {
@@ -211,120 +229,88 @@ void Music_Player_Class::Refresh_Interface()
 
     if (Music_File)
     {
-        Xila.Display.Set_Text(F("FILENAME_TXT"), Xila.Get_File_Name(Music_File));
+        Xila.Get_File_Name(Music_File, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+        Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_Char_Array);
     }
     if (Next_Music_File)
     {
-        strcpy(Temporary_Char_Array, " Next: ");
-        strlcat(Temporary_Char_Array, Xila.Get_File_Name(Next_Music_File), sizeof(Temporary_Char_Array));
+        Xila.Get_File_Name(Next_Music_File, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+        Xila.Display.Set_Text(F("NEXTFVAL_TXT"), Temporary_Char_Array);
     }
     else
     {
-        Xila.Display.Set_Text(F("NEXTFILE_TXT"), F(" Next: "));
+        Xila.Display.Set_Text(F("NEXTFVAL_TXT"), F(""));
     }
     if (Music_Folder)
     {
-        strcpy(Temporary_Char_Array, " Folder: ");
-        strlcat(Temporary_Char_Array, Xila.Get_File_Name(Music_Folder), sizeof(Temporary_Char_Array));
-        Xila.Display.Set_Text(F("FOLDER_TXT"), Temporary_Char_Array);
+        //strcpy(Temporary_Char_Array, " Folder: ");
+        Xila.Get_File_Name(Music_Folder, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+
+        //strlcat(Temporary_Char_Array, Xila.Get_File_Name(Music_Folder), sizeof(Temporary_Char_Array));
+        Xila.Display.Set_Text(F("FOLDERVAL_TXT"), Temporary_Char_Array);
     }
     else
     {
-        Xila.Display.Set_Text(F("FOLDER_TXT"), F(" Folder:"));
+        Xila.Display.Set_Text(F("FOLDERVAL_TXT"), F(""));
     }
 }
 
-void Music_Player_Class::Random_File()
-{
 
-    if (Music_Folder && Music_Folder.isDirectory())
-    {
-        uint32_t i = Xila.Random();
-        i = i * Xila.Count_Files(Music_Folder);
-        i /= ;
-
-        Music_Folder.rewindDirectory();
-        Next_Music_File.close();
-        Next_Music_File = Music_Folder.openNextFile();
-        if (!Next_Music_File) // empty folder
-        {
-            return;
-        }
-        Next_Music_File.close();
-
-        for (uint8_t j = 0; j < i; i++)
-        {
-            Music_Folder.openNextFile().close();
-        }
-        Next_Music_File.close();
-        Next_Music_File = Music_Folder.openNextFile();
-    }
-}
 
 void Music_Player_Class::Play()
 {
-    uint8_t Reply;
-    if (Loop == true)
-    {
-        Reply = Xila.Sound.Play(Music_File);
-        if (Reply == 0)
-        {
-            Xila.Event_Dialog(F("Failed to play music file."), Xila.Error);
-            Refresh_Interface();
-        }
-        return;
-    }
+    State = Playing;
 
-    if (Music_Folder) // If play from a folder
+    if (Music_Folder && Music_Folder.isDirectory()) // If play from a folder
     {
-        Music_File.close();
-        if (Random == true)
+        if (Music_File && !Music_File.isDirectory())
         {
-            // open randomly a file from the directory
-            Music_Folder.rewindDirectory();
-            for (uint32_t i = random(0, Number_Of_Files); i < (Number_Of_Files - 1); i++)
+            if (!Xila.Sound.Play(Music_File))
             {
-                Music_Folder.openNextFile().close();
-            }
-            Music_File = Music_Folder.openNextFile();
-        }
-        else
-        {
-            Music_File = Music_Folder.openNextFile();
-            if (!Music_File)
-            {
-                Music_Folder.rewindDirectory();
-                Music_File = Music_Folder.openNextFile();
+                State = Stopped;
+                Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
             }
         }
-
-        if (!Xila.Sound.Play(Music_File))
-        {
-            Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
-        }
-        Refresh_Interface();
     }
     else // If playing from a file
     {
         if (!Xila.Sound.Play(Music_File))
         {
+            State = Stopped;
             Xila.Event_Dialog(F("Cannot play this music file."), Xila.Error);
         }
-        Refresh_Interface();
     }
+    Send_Instruction('R', 'e');
 }
 
 void Music_Player_Class::Stop()
 {
+    State = Stopped;
     Xila.Sound.Stop();
     Music_File.close();
-    Music_Folder.close();
-
-    Refresh_Interface();
+    Next_Music_File.close();
 }
 
 void Music_Player_Class::Next_Track()
 {
+    if (Music_Folder)
+    {
+        for (uint8_t i = 0; i < ((sizeof(Queue) / sizeof(uint32_t)) - 2); i++)
+        {
+            Serial.print(i);
+            Queue[i] = Queue[i + 1];
+        }
+        Queue[Current + 1] = 0;
+
+        State = Playing;
+
+        Refresh_Queue();
+        Play();
+    }
+    else
+    {
+        Stop();
+    }
 }
 
 void Music_Player_Class::Last_Track()
@@ -335,11 +321,140 @@ void Music_Player_Class::Last_Track()
     }
     else
     {
-
         if (Music_Folder)
         {
+            Queue[0] = 0;
+            for (uint8_t i = ((sizeof(Queue) / sizeof(uint32_t)) - 1); i > 0; i--)
+            {
+                Serial.print(i);
+                Queue[i] = Queue[i - 1];
+            }
+            Refresh_Queue();
+            Play();
+        }
+        else
+        {
+            Xila.Sound.Set_Current_Time(0);
+        }
+    }
+    Send_Instruction('R', 'e');
+}
 
-            Music_Folder.openNextFile()
+void Music_Player_Class::Generate_Queue()
+{
+    Loop = false;
+
+    if (!Music_Folder || !Music_Folder.isDirectory())
+    {
+        return;
+    }
+
+    uint32_t File_Count = Xila.Count_Files(Music_Folder);
+
+    if (Random)
+    {
+        for (uint8_t i = 0; i < (sizeof(Queue) / sizeof(uint32_t)); i++)
+        {
+            Queue[i] = Xila.Random(File_Count);
+        }
+    }
+    else
+    {
+        for (uint8_t i = 0; i < (sizeof(Queue) / sizeof(uint32_t)); i++)
+        {
+            Queue[i] = i;
+        }
+    }
+}
+
+void Music_Player_Class::Refresh_Queue()
+{
+    Stop();
+    if (!Music_Folder || !Music_Folder.isDirectory())
+    {
+        return;
+    }
+    // -- Queue checking and generation
+    if (Queue[Current] == 0) // empty queue
+    {
+        Generate_Queue();
+    }
+    else if (Loop) // loop
+    {
+        Queue[Current + 1] = Queue[Current];
+    }
+    uint32_t File_Count = Xila.Count_Files(Music_Folder);
+    if (Queue[Current + 1] == 0) // complete queue
+    {
+        if (Random)
+        {
+            Queue[Current + 1] = Xila.Random(File_Count);
+        }
+        else
+        {
+            if (Queue[Current] < File_Count - 1)
+            {
+                Queue[Current + 1] = Queue[Current] + 1;
+            }
+            else
+            {
+                Queue[Current + 1] = Empty;
+            }
+        }
+    }
+
+    // -- File refreshing : open next file
+    Music_Folder.rewindDirectory();
+    Music_File.close();
+    Music_File = Music_Folder.openNextFile();
+    if (!Music_File) // empty folder
+    {
+        return;
+    }
+    Music_File.close();
+    Music_Folder.rewindDirectory();
+    for (uint8_t i = 1; i < Queue[Current]; i++)
+    {
+        Music_Folder.openNextFile().close();
+    }
+    Music_File = Music_Folder.openNextFile();
+    if (!Music_File || Music_File.isDirectory())
+    {
+        Queue[Current] = 0;
+        Send_Instruction('R', 'Q');
+    }
+    // -- File refreshing : open next file
+    if (Queue[Current + 1] != 0)
+    {
+        Music_Folder.rewindDirectory();
+        Next_Music_File.close();
+        Next_Music_File = Music_Folder.openNextFile();
+        if (!Next_Music_File) // empty folder
+        {
+            return;
+        }
+        Next_Music_File.close();
+        Next_Music_File.rewindDirectory();
+        for (uint8_t i = 1; i < Queue[Current + 1]; i++)
+        {
+            Music_Folder.openNextFile().close();
+        }
+        Next_Music_File = Music_Folder.openNextFile();
+        if (!Next_Music_File || Next_Music_File.isDirectory())
+        {
+            Queue[Current + 1] = 0;
+            Send_Instruction('R', 'Q');
+        }
+    }
+}
+
+void Music_Player_Class::Check_Queue()
+{
+    if (Xila.Sound.Get_State() == false && Music_Folder)
+    {
+        if (State == Playing)
+        {
+            Next_Track();
         }
     }
 }

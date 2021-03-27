@@ -68,7 +68,7 @@ void Clock_Class::Refresh_Timer()
         {
             if (millis() >= Inital_Time)
             {
-                File Ringtone_File = Xila.Drive->open(F("/SOFTWARE/CLOCK/RINGTONE.WAV"));
+                File Ringtone_File = Xila.Drive->open(Clock_File("Ringtone.wav"));
                 Xila.Sound.Play(Ringtone_File); // play something
             }
         }

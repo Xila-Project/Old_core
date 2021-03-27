@@ -44,7 +44,7 @@ void Sound_Class::Set_File_System(fs::FS &File_System)
     this->File_System = &File_System;
 }
 
-void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
+void Sound_Class::Set_Volume(uint16_t Volume_To_Set)
 {
     Volume_To_Set *= 22;
     Serial.println(Volume_To_Set);

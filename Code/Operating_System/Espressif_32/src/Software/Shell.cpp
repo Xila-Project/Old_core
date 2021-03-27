@@ -190,15 +190,15 @@ void Shell_Class::Main_Commands()
         break;
     case Xila.Shutting_down:
         Open_Load(Xila.Shutting_down);
-        Set_Registry(Desk_Background);
+        Save_Registry();
         break;
     case Xila.Restarting:
         Open_Load(Xila.Restarting);
-        Set_Registry(Desk_Background);
+        Save_Registry();
         break;
     case Xila.Hibernating:
         Open_Load(Xila.Hibernating);
-        Set_Registry(Desk_Background);
+        Save_Registry();
         break;
     case Instruction('O', 'F'): // Open file manager
         Mode = 0;
@@ -227,7 +227,7 @@ void Shell_Class::Main_Commands()
         break;
     default:
         Verbose_Print(F("Unknow instruction :"));
-        
+
         Serial.print(Current_Command);
         Serial.print('|');
         Serial.println(Xila.Display.Get_Current_Page());
@@ -305,7 +305,7 @@ Xila_Event Shell_Class::Load_Registry()
     Temporary_Item.close();
     Desk_Background = -1;
 
-    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF");
+    Temporary_Item = Xila.Drive->open(Users_Directory_Path + String(Xila.Current_Username) + "/Registry/Shell.xrf");
 
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
@@ -325,10 +325,10 @@ Xila_Event Shell_Class::Load_Registry()
     return Xila.Success;
 }
 
-Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
+Xila_Event Shell_Class::Save_Registry()
 {
     Temporary_Item.close();
-    Temporary_Item = Xila.Drive->open("/USERS/" + String(Xila.Current_Username) + "/REGISTRY/SHELL.XRF", FILE_WRITE);
+    Temporary_Item = Xila.Drive->open(Users_Directory_Path + String(Xila.Current_Username) + "/Registry/Shell.xrf", FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
     deserializeJson(Shell_Registry, Temporary_Item);
     Shell_Registry["Desk Background"] = Desk_Background;
@@ -337,7 +337,6 @@ Xila_Event Shell_Class::Set_Registry(uint32_t Desk_Background)
         return Xila.Error;
     }
     Temporary_Item.close();
-    this->Desk_Background = Desk_Background;
     return Xila.Success;
 }
 
@@ -362,7 +361,7 @@ void Shell_Class::Refresh_File_Manager()
             Xila.Display.Set_Picture(F("CUT_BUT"), Paste_24);
             break;
         case Delete:
-             
+
             if (Event_Dialog(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
             {
                 if (Temporary_Item.isDirectory())
@@ -388,7 +387,7 @@ void Shell_Class::Refresh_File_Manager()
             Go_Parent();
             char Temporary_Input[14];
             memset(Temporary_Input, '\0', sizeof(Temporary_Input));
-            strcpy(Temporary_Input, Xila.Get_File_Name(Temporary_Item));
+            Xila.Get_File_Name(Temporary_Item, Temporary_Input, sizeof(Temporary_Input));
             Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
             Xila.Drive->rename(Temporary_Item.name(), String(Current_Path) + String(Temporary_Input));
             Operation = Browse;
@@ -418,6 +417,7 @@ void Shell_Class::Refresh_File_Manager()
 
                 char Temporary_Item_Name[13] = "ITEM _TXT";
                 char Temporary_Item_Picture[13] = "ITEM _PIC";
+                char Temporary_File_Name[13] = "";
 
                 for (uint8_t i = 1; i <= 30; i++)
                 {
@@ -474,8 +474,9 @@ void Shell_Class::Refresh_File_Manager()
 
                     if (Item)
                     {
+                        Xila.Get_File_Name(Item, Temporary_File_Name, sizeof(Temporary_File_Name));
 
-                        Xila.Display.Set_Text(Temporary_Item_Name, Xila.Get_File_Name(Item));
+                        Xila.Display.Set_Text(Temporary_Item_Name, Temporary_File_Name);
 
                         if (Item.isDirectory())
                         {
@@ -557,7 +558,9 @@ void Shell_Class::Refresh_Footerbar()
 
     if (Selected_Item)
     {
-        Xila.Display.Set_Text(F("FILENAME_TXT"), Xila.Get_File_Name(Selected_Item));
+        char Temporary_File_Name[13];
+        Xila.Get_File_Name(Selected_Item, Temporary_File_Name, sizeof(Temporary_File_Name));
+        Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_File_Name);
     }
     else
     {
@@ -586,7 +589,11 @@ void Shell_Class::Refresh_File_Manager_Detail()
 
     Xila.Display.Set_Text(F("PATHVAL_TXT"), Current_Path);
 
-    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Xila.Get_File_Name(Temporary_Item));
+    char Temporary_Char_Array[25];
+
+    Xila.Get_File_Name(Temporary_Item, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+
+    Xila.Display.Set_Text(F("NAMEVAL_TXT"), Temporary_Char_Array);
 
     if (Temporary_Item.isDirectory())
     {
@@ -597,7 +604,7 @@ void Shell_Class::Refresh_File_Manager_Detail()
         Xila.Display.Set_Text(F("TYPEVAL_TXT"), F("File"));
     }
 
-    char Temporary_Char_Array[25];
+
 
     sprintf(Temporary_Char_Array, "%-ul Bytes\n", Temporary_Item.size());
     dtostrf(Temporary_Item.size(), (sizeof(Temporary_Char_Array) - 6), 0, Temporary_Char_Array);
@@ -1170,10 +1177,9 @@ void Shell_Class::Open_Load(uint8_t Mode)
 
 void Shell_Class::Open_Login()
 {
-    if (Xila.Current_Username[0] == '\0') // Check if logged
+    if (Xila.User_Session == Xila.Disconnected) // Check if logged
     {
         Verbose_Print_Line("> Open login page");
-
         Xila.Display.Set_Current_Page(Login);
         memset(Username, '\0', sizeof(Username));
         memset(Password_1, '\0', sizeof(Password_1));
@@ -1210,6 +1216,17 @@ void Shell_Class::Login_Commands()
     case Instruction('L', 'o'): // Lo : Login with entred username and password
         if (Xila.Check_Credentials(Username, Password_1) == Xila.Success)
         {
+            if (Xila.User_Session == Xila.Locked && (strcmp(Xila.Current_Username, Username) != 0)) // if a preced user was connected and we connect from a new user, have to close all of it's software.
+            {
+                for (uint8_t i = 2; i < 8; i++)
+                {
+                    if (Xila.Open_Software_Pointer[i] != NULL)
+                    {
+                        Xila.Software_Close(*Xila.Open_Software_Pointer[i]->Handle_Pointer);
+                    }
+                }
+            }
+
             strcpy(Xila.Current_Username, Username);
 
             Open_Load(Login);
@@ -1246,7 +1263,7 @@ void Shell_Class::Logout()
 {
     if (Xila.Current_Username[0] != '\0')
     {
-        Set_Registry(Desk_Background);
+        Save_Registry();
     }
     Xila.Logout();
 
@@ -1260,6 +1277,9 @@ void Shell_Class::Logout()
 void Shell_Class::Open_Preferences_Personal()
 {
     Xila.Display.Set_Current_Page(Preferences_Personal);
+    strcpy(Username, Xila.Current_Username);
+    memset(Password_1, '\0', sizeof(Password_1));
+    memset(Password_2, '\0', sizeof(Password_2));
     Refresh_Preferences_Personal();
 }
 
@@ -1279,6 +1299,66 @@ void Shell_Class::Preferences_Personal_Commands()
         Desk_Background = Temporary_Color;
         break;
     }
+    case Instruction('K', 'U'):
+        Keyboard_Dialog(Username, sizeof(Username));
+        Refresh_Preferences_System();
+    case Instruction('K', 'P'):
+        Keyboard_Dialog(Password_1, sizeof(Password_1));
+        Refresh_Preferences_System();
+        break;
+    case Instruction('K', 'p'):
+        Keyboard_Dialog(Password_2, sizeof(Password_2));
+        Refresh_Preferences_System();
+        break;
+    case Instruction('C', 'U'):
+        if (Xila.Change_Username(Xila.Current_Username, Username) != Xila.Success)
+        {
+            Event_Dialog(F("Failed to change username."), Xila.Error);
+        }
+        else
+        {
+            Event_Dialog(F("Username successfully modified."), Xila.Information);
+        }
+        Refresh_Preferences_System();
+        break;
+    case Instruction('C', 'P'):
+        if (strcmp(Password_1, Password_2) == 0)
+        {
+            if (Xila.Change_Password(Xila.Current_Username, Password_1) != Xila.Success)
+            {
+                Event_Dialog(F("Failed to change password."), Xila.Error);
+            }
+            else
+            {
+                Event_Dialog(F("Password successfully modified."), Xila.Information);
+            }
+        }
+        else
+        {
+            Event_Dialog(F("Passwords doesn't match."), Xila.Error);
+        }
+        Refresh_Preferences_System();
+        break;
+    case Instruction('D', 'A'):
+        Xila.Set_Account_Registry("");
+        break;
+    case Instruction('S', 'A'):
+        Xila.Set_Account_Registry(Xila.Current_Username);
+        break;
+    case Instruction('D', 'U'):
+        if (Event_Dialog(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
+        {
+            if (Xila.Delete_User(Xila.Current_Username) != Xila.Success)
+            {
+                Event_Dialog(F("Cannot delete user."), Xila.Error);
+            }
+            else
+            {
+                Event_Dialog(F("User successfully deleted."), Xila.Error);
+            }
+        }
+        Refresh_Preferences_System();
+        break;
     default:
         Main_Commands();
         break;
@@ -1296,6 +1376,9 @@ void Shell_Class::Refresh_Preferences_Personal()
         Xila.Display.Click(F("COLORB_RAD"), 0);
         Xila.Display.Set_Value(F("COLORB_NUM"), Desk_Background);
     }
+    Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
+    Xila.Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
+    Xila.Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
 }
 
 // -- Hardware -- //
@@ -1502,10 +1585,6 @@ void Shell_Class::Open_Preferences_System()
     GMT_Offset = Xila.GMT_Offset;
     Daylight_Offset = Xila.Daylight_Offset;
 
-    memset(Target_Username, '\0', sizeof(Target_Username));
-    strcpy(Target_Username, Xila.Current_Username);
-
-    memset(Password_1, '\0', sizeof(Password_1));
     memset(Username, '\0', sizeof(Username));
     memset(Device_Name, '\0', sizeof(Device_Name));
     strcpy(Device_Name, Xila.Device_Name);
@@ -1517,19 +1596,7 @@ void Shell_Class::Preferences_System_Commands()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case Instruction('K', 'N'):
-        Keyboard_Dialog(NTP_Server, sizeof(NTP_Server));
-        Refresh_Preferences_System();
-        break;
     case Instruction('K', 'U'):
-        Keyboard_Dialog(Target_Username, sizeof(Target_Username));
-        Refresh_Preferences_System();
-        break;
-    case Instruction('K', 'P'):
-        Keyboard_Dialog(Password_1, sizeof(Password_1));
-        Refresh_Preferences_System();
-        break;
-    case Instruction('K', 'u'):
         Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Preferences_System();
         break;
@@ -1543,30 +1610,14 @@ void Shell_Class::Preferences_System_Commands()
         GMT_Offset = Temporary_Float;
         Refresh_Preferences_System();
         break;
-    case Instruction('C', 'U'):
-        if (Xila.Change_Username(Target_Username, Username) != Xila.Success)
-        {
-            Event_Dialog(F("Failed to change username."), Xila.Error);
-        }
-        else
-        {
-            Event_Dialog(F("Username successfully modified."), Xila.Information);
-        }
-        Refresh_Preferences_System();
-        break;
-    case Instruction('C', 'P'):
-        if (Xila.Change_Password(Target_Username, Password_1) != Xila.Success)
-        {
-            Event_Dialog(F("Failed to change password."), Xila.Error);
-        }
-        else
-        {
-            Event_Dialog(F("Password successfully modified."), Xila.Information);
-        }
+    case Instruction('k', 'o'):
+        Temporary_Float = Daylight_Offset;
+        Xila.Keypad_Dialog(Temporary_Float);
+        Daylight_Offset = Temporary_Float;
         Refresh_Preferences_System();
         break;
     case Instruction('A', 'U'):
-        if (Xila.Add_User(Target_Username, Password_1))
+        if (Xila.Add_User(Username, ""))
         {
             Event_Dialog(F("Failed to add user."), Xila.Error);
         }
@@ -1576,31 +1627,7 @@ void Shell_Class::Preferences_System_Commands()
         }
         Refresh_Preferences_System();
         break;
-    case Instruction('D', 'U'):
-        if (Xila.Check_Credentials(Username, Password_1) != Xila.Success)
-        {
-            Event_Dialog(F("Wrong credentials."), Xila.Error);
-        }
-        else
-        {
-            if (Event_Dialog(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
-            {
-                if (Xila.Delete_User(Username) != Xila.Success)
-                {
-                    Event_Dialog(F("Cannot delete user."), Xila.Error);
-                }
-                else
-                {
-                    Event_Dialog(F("User successfully deleted."), Xila.Error);
-                }
-            }
-        }
-        Refresh_Preferences_System();
-        break;
-    case Instruction('A', 'u'):
-        Autologin = !Autologin;
-        Refresh_Preferences_System();
-        break;
+
     case Instruction('S', 'a'):
         Xila.Set_Time_Registry(NTP_Server, GMT_Offset, Daylight_Offset);
         Xila.Set_System_Registry(Device_Name);
@@ -1622,10 +1649,9 @@ void Shell_Class::Refresh_Preferences_System()
     Xila.Display.Set_Text(F("NTPVAL_TXT"), NTP_Server);
     Xila.Display.Set_Value(F("GMTOFFSET_NUM"), GMT_Offset);
     Xila.Display.Set_Value(F("DAYLIGHTO_NUM"), GMT_Offset);
-    Xila.Display.Set_Text(F("TUSERVAL_TXT"), Target_Username);
+
     Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Device_Name);
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
-    Xila.Display.Set_Text(F("PASSWVAL_TXT"), Password_1);
 }
 
 void Shell_Class::System_Update()
@@ -1688,6 +1714,8 @@ void Shell_Class::Shutdown_Commands()
         Xila.Hibernate();
         break;
     case Instruction('L', 'S'): // LS : lock system
+        Save_Registry();
+        Xila.Lock();
         Open_Login();
         break;
     case Instruction('S', 'S'): // SS : shutdown

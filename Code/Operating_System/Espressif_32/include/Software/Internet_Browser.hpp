@@ -2,11 +2,9 @@
 #define INTERNET_BROWSER_H_INCLUDED
 
 #include "Xila.hpp"
-
 #include "WiFiClientSecure.h"
 
-//highest header file, will be replace by a separate one
-
+#define Internet_Browser_File(name)  Software_Directory_Path "/Intebrow/" name
 
 #define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes

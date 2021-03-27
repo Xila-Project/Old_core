@@ -80,7 +80,7 @@ public:
 
     void Set_Output_Channel(uint8_t Number_Output_Channel);
 
-    void Set_Volume(uint8_t); // volume between 0 and 255
+    void Set_Volume(uint16_t); // volume between 0 and 255
     uint8_t Get_Volume();
 
     void Set_File_System(fs::FS& File_System);

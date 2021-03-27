@@ -7,8 +7,7 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
-#define Data_Registry_Path(Line) "/SOFTWARE/PERIODIC/DATA/" Line Registry_File_Extension
-#define INDEX_FILE_PATH "/SOFTWARE/PERIODIC/INDEX.XRF"
+#define Periodic_File(name) Software_Directory_Path "Periodic/" name
 
 class Periodic_Class : protected Software_Class
 {

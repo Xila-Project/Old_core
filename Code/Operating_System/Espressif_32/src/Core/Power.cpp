@@ -46,9 +46,8 @@ void Xila_Class::First_Start_Routine()
 #endif
 
     pinMode(POWER_BUTTON_PIN, INPUT);
-
     // Temporary disable power button interrupt due to disturbance caused maybe by WiFi
-    //attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
+    attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Power_Button_Handler, FALLING);
 
     // -- Disable FreeRTOS watchdog and replace it with Xila watchdog
 #if WATCHDOG == 0
@@ -199,6 +198,9 @@ void Xila_Class::First_Start_Routine()
         Verbose_Print_Line("Failed to play keyboard registry");
     }
     Sound.Loop();
+    
+    Power_Button_Counter = false;
+    
     xTaskCreatePinnedToCore(Xila_Class::Core_Task, "Core Task", Memory_Chunk(6), NULL, SYSTEM_TASK_PRIORITY, &Core_Task_Handle, tskNO_AFFINITY);
 }
 

@@ -143,7 +143,41 @@ uint32_t Xila_Class::Random()
   return esp_random();
 }
 
-uint32_t Xila_Class::Count_Files(Fila const &Folder)
+uint32_t Xila_Class::Random(uint32_t Upper_Bound)
+{
+  uint32_t x = esp_random();
+  uint64_t m = uint64_t(x) * uint64_t(Upper_Bound);
+  uint32_t l = uint32_t(m);
+  if (l < Upper_Bound)
+  {
+    uint32_t t = -Upper_Bound;
+    if (t >= Upper_Bound)
+    {
+      t -= Upper_Bound;
+      if (t >= Upper_Bound)
+        t %= Upper_Bound;
+    }
+    while (l < t)
+    {
+      x = esp_random();
+      m = uint64_t(x) * uint64_t(Upper_Bound);
+      l = uint32_t(m);
+    }
+  }
+  return m >> 32;
+}
+
+uint32_t Xila_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
+{
+  if (Lower_Bound >= Upper_Bound)
+  {
+    return Lower_Bound;
+  }
+  long diff = Upper_Bound - Lower_Bound;
+  return Random(diff) + Lower_Bound;
+}
+
+uint32_t Xila_Class::Count_Files(File &Folder)
 {
   if (Folder)
   {
@@ -157,42 +191,43 @@ uint32_t Xila_Class::Count_Files(Fila const &Folder)
   File Temporary_File = Folder.openNextFile();
   while (Temporary_File)
   {
-    i++
+    i++;
     Temporary_File.close();
     Temporary_File = Folder.openNextFile();
   }
   return i;
 }
 
-
 //
 
-const char *Xila_Class::Get_File_Name(File const &File)
+Xila_Event Xila_Class::Get_File_Name(File const &File, char* File_Name, size_t Size)
 {
-  static char Temporary_File_Name[13] = {'\0'};
-  const char *File_Name = File.name();
+  const char *Temporary_File_Name = File.name();
   if (File_Name == NULL)
   {
     Verbose_Print_Line("NULL file name pointer !");
-    return Temporary_File_Name;
+    return Error;
+  }
+  if (File_Name == NULL)
+  {
+    return Error;
   }
 
-  memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
+  memset(File_Name, '\0', Size);
 
-  size_t File_Name_Size = strlen(File_Name) - 1;
   if (!File)
   {
-    return Temporary_File_Name;
+    return Error;
   }
-  for (uint8_t i = File_Name_Size; i >= 0; i--)
+  for (uint8_t i = (strlen(File_Name) - 1); i >= 0; i--)
   {
     if (File_Name[i] == '/')
     {
-      strlcpy(Temporary_File_Name, File_Name + i + 1, sizeof(Temporary_File_Name));
+      strlcpy(File_Name, Temporary_File_Name + i + 1, Size);
       break;
     }
   }
-  return Temporary_File_Name;
+  return Success;
 }
 
 // Callback function for display

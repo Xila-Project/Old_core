@@ -67,9 +67,12 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'F'): // OF : open file
             Instance_Pointer->File_To_Edit.close();
-            Instance_Pointer->Scan();
             Xila.Open_File_Dialog(Instance_Pointer->File_To_Edit);
-            Instance_Pointer->Refresh_Interface();
+            if (Instance_Pointer->File_To_Edit)
+            {
+                Instance_Pointer->Scan();
+                Instance_Pointer->Refresh_Interface();
+            }
             break;
         case Instruction('S', 'F'): // SF : Scan file
             Instance_Pointer->Scan();
@@ -102,6 +105,7 @@ void Text_Editor_Class::Scan()
     {
         Mode = Undefined;
     }
+    Serial.println(Mode, HEX);
 }
 
 void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
@@ -111,7 +115,7 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
     case 'S':
         if (Type == Xila.Variable_Long_Local)
         {
-            Offset = *(uint8_t *)Variable; 
+            Offset = *(uint8_t *)Variable;
             Offset = (Offset * File_To_Edit.size()) / 176;
             Send_Instruction('R', 'T');
         }
@@ -134,11 +138,13 @@ void Text_Editor_Class::Refresh_Interface()
 
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
+
+
     char Line_Name[11] = "LINE01_TXT";
     uint8_t Line_Number = 1;
     uint8_t Column_Number = 0;
     char Line_Ending = 0x0D;
-    
+
     switch (Mode)
     {
     case MacOS:
@@ -171,7 +177,7 @@ void Text_Editor_Class::Refresh_Interface()
             Xila.Delay(10);
             Line_Number++;
             Column_Number = 0;
-            sprintf(Line_Name, "LINE%02i_TXT", Line_Number);   
+            sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
         }
         else if (Column_Number >= 55)
         {
@@ -182,7 +188,7 @@ void Text_Editor_Class::Refresh_Interface()
             Column_Number = 0;
             sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
         }
-        else
+        else if (isPrintable(Temporary_Character))
         {
             Temporary_Char_Array[Column_Number++] = Temporary_Character;
         }

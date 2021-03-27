@@ -1,19 +1,19 @@
 #include "Core/Core.hpp"
 
 // Account management
-Xila_Event Xila_Class::Add_User(const char* Username, const char* Password)
+Xila_Event Xila_Class::Add_User(const char *Username, const char *Password)
 {
-  if (Drive->exists("/USERS/" + String(Username)))
+  if (Drive->exists(Users_Directory_Path + String(Username)))
   {
     return Error;
   }
 
-  Drive->mkdir("/USERS/" + String(Username) + "/REGISTRY");
-  Drive->mkdir("/USERS/" + String(Username) + "/DESK");
-  Drive->mkdir("/USERS/" + String(Username) + "/IMAGES");
-  Drive->mkdir("/USERS/" + String(Username) + "/DOCUMENT");
-  Drive->mkdir("/USERS/" + String(Username) + "/MUSICS");
-  File Temporary_File = Drive->open("/USERS/" + String(Username) + "/REGISTRY/USER.XRF", FILE_WRITE);
+  Drive->mkdir(Users_Directory_Path + String(Username) + "/Registry");
+  Drive->mkdir(Users_Directory_Path + String(Username) + "/Desk");
+  Drive->mkdir(Users_Directory_Path + String(Username) + "/Images");
+  Drive->mkdir(Users_Directory_Path + String(Username) + "/Document");
+  Drive->mkdir(Users_Directory_Path + String(Username) + "/Musics");
+  File Temporary_File = Drive->open(Users_Directory_Path + String(Username) + "/Registry/User.xrf", FILE_WRITE);
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -28,8 +28,10 @@ Xila_Event Xila_Class::Add_User(const char* Username, const char* Password)
 
 Xila_Event Xila_Class::Delete_User(const char *Target_User)
 {
-
-  if (Drive->remove("/USERS/" + String(Target_User)))
+  char Temporary_Path[17];
+  strcpy(Temporary_Path, Users_Directory_Path);
+  strlcat(Temporary_Path, Target_User, sizeof(Temporary_Path));
+  if (Drive->rmdir(Temporary_Path))
   {
     return Success;
   }
@@ -38,7 +40,7 @@ Xila_Event Xila_Class::Delete_User(const char *Target_User)
 
 Xila_Event Xila_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
-  if (!Drive->rename("/USERS/" + String(Target_User), "/USERS/" + String(New_Username)))
+  if (!Drive->rename(Users_Directory_Path + String(Target_User), Users_Directory_Path + String(New_Username)))
   {
     return Error;
   }
@@ -51,7 +53,7 @@ Xila_Event Xila_Class::Change_Username(const char *Target_User, const char *New_
 
 Xila_Event Xila_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
-  File Temporary_File = Drive->open("/USERS/" + String(Target_User) + "/REGISTRY/USER.XRF");
+  File Temporary_File = Drive->open(Users_Directory_Path + String(Target_User) + "/Registry/User.xrf");
   DynamicJsonDocument User_Registry(DEFAULT_REGISTRY_SIZE);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -65,14 +67,24 @@ Xila_Event Xila_Class::Change_Password(const char *Target_User, const char *Pass
 Xila_Event Xila_Class::Logout()
 {
   memset(Current_Username, '\0', sizeof(Current_Username));
+  User_Session = Disconnected;
+  return Success;
+}
+
+Xila_Event Xila_Class::Lock()
+{
+  if (User_Session == Logged)
+  {
+    User_Session = Locked;
+  }
   return Success;
 }
 
 Xila_Event Xila_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-  if (Drive->exists("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.XRF"))
+  if (Drive->exists(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf"))
   {
-    File Temporary_File = Drive->open("/USERS/" + String(Username_To_Check) + "/REGISTRY/USER.XRF");
+    File Temporary_File = Drive->open(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf");
     DynamicJsonDocument User_Registry(256);
     if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -94,7 +106,7 @@ Xila_Event Xila_Class::Check_Credentials(const char *Username_To_Check, const ch
     Verbose_Print_Line("> Good Credentials ...");
     return Success;
   }
-  Verbose_Print_Line("> Failed to open user registry");  
+  Verbose_Print_Line("> Failed to open user registry");
   return Error;
 }
 
@@ -102,8 +114,10 @@ Xila_Event Xila_Class::Login(const char *Username_To_Check, const char *Password
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
   {
+    User_Session = Disconnected;
     return Error;
   }
   strcpy(Current_Username, Username_To_Check);
+  User_Session = Logged;
   return Success;
 }

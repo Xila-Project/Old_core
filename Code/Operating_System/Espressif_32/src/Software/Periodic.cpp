@@ -171,7 +171,7 @@ void Periodic_Class::Get_Atom_Name()
         DynamicJsonDocument Filter(256);
         Filter[Line_String][Column_String] = true;
         // -- Open file and initlize the buffer
-        Periodic_File = Xila.Drive->open(INDEX_FILE_PATH);
+        Periodic_File = Xila.Drive->open(Periodic_File("Index.xdf"));
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
         // -- Deserialize file
         if (deserializeJson(Index, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
@@ -224,31 +224,31 @@ void Periodic_Class::Get_Main_Data()
         switch (Line)
         {
         case 0:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("1")));
+            Periodic_File = Xila.Drive->open(Periodic_File("1.xdf"));
             break;
         case 1:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("2")));
+            Periodic_File = Xila.Drive->open(Periodic_File("2.xdf"));
             break;
         case 2:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("3")));
+            Periodic_File = Xila.Drive->open(Periodic_File("3.xdf"));
             break;
         case 3:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("4")));
+            Periodic_File = Xila.Drive->open(Periodic_File("4.xdf"));
             break;
         case 4:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("5")));
+            Periodic_File = Xila.Drive->open(Periodic_File("5.xdf"));
             break;
         case 5:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("6")));
+            Periodic_File = Xila.Drive->open(Periodic_File("6.xdf"));
             break;
         case 6:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("7")));
+            Periodic_File = Xila.Drive->open(Periodic_File("7.xdf"));
             break;
         case 7:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("8")));
+            Periodic_File = Xila.Drive->open(Periodic_File("8.xdf"));
             break;
         case 8:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("9")));
+            Periodic_File = Xila.Drive->open(Periodic_File("9.xdf"));
             break;
         default:
             return;
@@ -362,36 +362,37 @@ void Periodic_Class::Get_Data()
         switch (Line)
         {
         case 0:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("1")));
+            Periodic_File = Xila.Drive->open(Periodic_File("1.xdf"));
             break;
         case 1:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("2")));
+            Periodic_File = Xila.Drive->open(Periodic_File("2.xdf"));
             break;
         case 2:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("3")));
+            Periodic_File = Xila.Drive->open(Periodic_File("3.xdf"));
             break;
         case 3:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("4")));
+            Periodic_File = Xila.Drive->open(Periodic_File("4.xdf"));
             break;
         case 4:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("5")));
+            Periodic_File = Xila.Drive->open(Periodic_File("5.xdf"));
             break;
         case 5:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("6")));
+            Periodic_File = Xila.Drive->open(Periodic_File("6.xdf"));
             break;
         case 6:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("7")));
+            Periodic_File = Xila.Drive->open(Periodic_File("7.xdf"));
             break;
         case 7:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("8")));
+            Periodic_File = Xila.Drive->open(Periodic_File("8.xdf"));
             break;
         case 8:
-            Periodic_File = Xila.Drive->open((Data_Registry_Path("9")));
+            Periodic_File = Xila.Drive->open(Periodic_File("9.xdf"));
             break;
         default:
             return;
             break;
         }
+
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
         // -- Deserialize file
         if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
