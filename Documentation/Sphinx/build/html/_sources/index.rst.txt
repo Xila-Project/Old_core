@@ -3,40 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome
-=======
+Xila Documentation
+==================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Table Of Contents
    
+   Get Started
+   Software Reference
+   Hardware Reference
+   Contribution
+   About
 
-   
 
-Get Started
-===========
+This is the documentation for Xila. Xila is a micro operating system that work on embedded devices such as the ESP-32.
 
-A.P.I. References
-=================
-
-Hardware References
-===================
-
-FUCK
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-Docs
-====
-
-.. doxygenclass:: Xila_Class
-   :members:
-
-About
-=====
+This document describes how to use, developp and contribute to the project.
 
