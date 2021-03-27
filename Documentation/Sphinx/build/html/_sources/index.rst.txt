@@ -9,11 +9,6 @@ Welcome
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-   Welcome
-   Install
-   Support
-
-
    
 
    
@@ -27,7 +22,7 @@ A.P.I. References
 Hardware References
 ===================
 
-
+FUCK
 
 Indices and tables
 ==================

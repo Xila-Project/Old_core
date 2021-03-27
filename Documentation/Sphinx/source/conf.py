@@ -17,6 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
+
 project = 'Xila'
 copyright = '2021, Alix ANNERAUD'
 author = 'Alix ANNERAUD'
@@ -27,13 +28,23 @@ author = 'Alix ANNERAUD'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
+
+import subprocess, os
+
+read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+
+if read_the_docs_build:
+
+    subprocess.call('cd ../../Doxygen; doxygen', shell=True)
+
+
 extensions = [
     'breathe'
 ]
 
 # Breathe configuration
 
-breathe_projects = { "Xila": "C:/Users/alixa/github/Xila Embedded/Documentation/Doxygen/xml" }
+breathe_projects = { "Xila": "../../Doxygen/xml" }
 breathe_default_project = "Xila"
 
 
