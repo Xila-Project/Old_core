@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_internet___browser___class_1_1cache_struct" kind="struct" language="C++" prot="private">
+    <compoundname>Internet_Browser_Class::cacheStruct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1cache_struct_1a5cb31c274f4a08c00251b688a9379833" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Internet_Browser_Class::cacheStruct::pagePtr</definition>
+        <argsstring></argsstring>
+        <name>pagePtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="132" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1cache_struct_1a7988d200e68e1267be66c2823f5c6d81" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Internet_Browser_Class::cacheStruct::lastPage</definition>
+        <argsstring></argsstring>
+        <name>lastPage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="132" column="25" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1cache_struct_1aa5735bc43b34744f7d718dd0bf9bd865" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Internet_Browser_Class::cacheStruct::index[PAGEINDEXSIZE]</definition>
+        <argsstring>[PAGEINDEXSIZE]</argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="133" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1cache_struct_1ad281495d0e2a718bdf12e476d0cdeeb1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Internet_Browser_Class::cacheStruct::pageState[PAGEINDEXSIZE]</definition>
+        <argsstring>[PAGEINDEXSIZE]</argsstring>
+        <name>pageState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="134" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="130" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="131" bodyend="135"/>
+    <listofallmembers>
+      <member refid="struct_internet___browser___class_1_1cache_struct_1aa5735bc43b34744f7d718dd0bf9bd865" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::cacheStruct</scope><name>index</name></member>
+      <member refid="struct_internet___browser___class_1_1cache_struct_1a7988d200e68e1267be66c2823f5c6d81" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::cacheStruct</scope><name>lastPage</name></member>
+      <member refid="struct_internet___browser___class_1_1cache_struct_1a5cb31c274f4a08c00251b688a9379833" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::cacheStruct</scope><name>pagePtr</name></member>
+      <member refid="struct_internet___browser___class_1_1cache_struct_1ad281495d0e2a718bdf12e476d0cdeeb1" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::cacheStruct</scope><name>pageState</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

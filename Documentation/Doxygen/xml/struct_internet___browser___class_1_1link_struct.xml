@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_internet___browser___class_1_1link_struct" kind="struct" language="C++" prot="private">
+    <compoundname>Internet_Browser_Class::linkStruct</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1link_struct_1a570ec4b3a4c878bfa6c817ae64eaf737" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Internet_Browser_Class::linkStruct::linkPtr</definition>
+        <argsstring></argsstring>
+        <name>linkPtr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="141" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1link_struct_1a24ded7b7a82a564409d8ba94ea50df83" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Internet_Browser_Class::linkStruct::lastLink</definition>
+        <argsstring></argsstring>
+        <name>lastLink</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="141" column="25" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_internet___browser___class_1_1link_struct_1ada57ca14eb72304bfe5c0be975dc66eb" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Internet_Browser_Class::linkStruct::index[LINKINDEXSIZE]</definition>
+        <argsstring>[LINKINDEXSIZE]</argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="142" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" line="139" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp" bodystart="140" bodyend="143"/>
+    <listofallmembers>
+      <member refid="struct_internet___browser___class_1_1link_struct_1ada57ca14eb72304bfe5c0be975dc66eb" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::linkStruct</scope><name>index</name></member>
+      <member refid="struct_internet___browser___class_1_1link_struct_1a24ded7b7a82a564409d8ba94ea50df83" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::linkStruct</scope><name>lastLink</name></member>
+      <member refid="struct_internet___browser___class_1_1link_struct_1a570ec4b3a4c878bfa6c817ae64eaf737" prot="public" virt="non-virtual"><scope>Internet_Browser_Class::linkStruct</scope><name>linkPtr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

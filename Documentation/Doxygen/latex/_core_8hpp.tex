@@ -1,0 +1,95 @@
+\hypertarget{_core_8hpp}{}\doxysection{C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\+Core.hpp File Reference}
+\label{_core_8hpp}\index{C:/Users/alixa/github/Xila Embedded/Code/Operating\_System/Espressif\_32/include/Core/Core.hpp@{C:/Users/alixa/github/Xila Embedded/Code/Operating\_System/Espressif\_32/include/Core/Core.hpp}}
+
+
+Xila\textquotesingle{}s core header file.  
+
+
+{\ttfamily \#include \char`\"{}Arduino.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SD\+\_\+\+MMC.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}FS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SD.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SPI.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+log.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Update.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$Arduino\+Json.\+h$>$}\newline
+{\ttfamily \#include $<$Stream\+Utils.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Configuration.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Path.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Instruction.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Software.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Software\+\_\+\+Handle.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Driver/\+Display.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Driver/\+Keyboard.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Driver/\+Sound.\+hpp\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Driver/\+Battery.\+hpp\char`\"{}}\newline
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_xila___class}{Xila\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Core class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a87ce8b6d9b61454018d19be7496d1bdb}\label{_core_8hpp_a87ce8b6d9b61454018d19be7496d1bdb}} 
+\#define {\bfseries SYSTEM\+\_\+\+STATE\+\_\+\+STANDALONE}~1
+\item 
+\mbox{\Hypertarget{_core_8hpp_ab1f2e6dcd01154e4e86b9be50b3a079a}\label{_core_8hpp_ab1f2e6dcd01154e4e86b9be50b3a079a}} 
+\#define {\bfseries SYSTEM\+\_\+\+STATE\+\_\+\+NORMAL}~0
+\item 
+\mbox{\Hypertarget{_core_8hpp_af677e62ba528643b043368a0a1a0e4c9}\label{_core_8hpp_af677e62ba528643b043368a0a1a0e4c9}} 
+\#define {\bfseries SOFTWARE\+\_\+\+EMBEDDED}~0
+\item 
+\mbox{\Hypertarget{_core_8hpp_a8c4eb67a97c87557f83bdcc986f97c5a}\label{_core_8hpp_a8c4eb67a97c87557f83bdcc986f97c5a}} 
+\#define {\bfseries SOFTWARE\+\_\+\+STANDALONE}~1
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a11d27d48782d022edbe77fdad3040e1f}\label{_core_8hpp_a11d27d48782d022edbe77fdad3040e1f}} 
+typedef uint16\+\_\+t {\bfseries Xila\+\_\+\+Event}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a0670554f8495135fe4c71c3fb0437bae}\label{_core_8hpp_a0670554f8495135fe4c71c3fb0437bae}} 
+typedef uint16\+\_\+t {\bfseries Xila\+\_\+\+Command}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}\label{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}} 
+typedef tm {\bfseries Xila\+\_\+\+Time}
+\item 
+\mbox{\Hypertarget{_core_8hpp_ae15b037dce01fcaa55e44c7ebb549427}\label{_core_8hpp_ae15b037dce01fcaa55e44c7ebb549427}} 
+typedef void $\ast$ {\bfseries Xila\+\_\+\+Task\+\_\+\+Handle}
+\item 
+\mbox{\Hypertarget{_core_8hpp_aba4e4c9a9399ea695307d81b394bd0c9}\label{_core_8hpp_aba4e4c9a9399ea695307d81b394bd0c9}} 
+typedef void($\ast$ {\bfseries Xila\+\_\+\+Task\+\_\+\+Function}) (void $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a7c041a032a8922d2aa39e1ed463782a9}\label{_core_8hpp_a7c041a032a8922d2aa39e1ed463782a9}} 
+\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} {\bfseries Shell\+\_\+\+Handle}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Xila\textquotesingle{}s core header file. 
+
+\begin{DoxyAuthor}{Author}
+Alix ANNERAUD 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+MIT License 
+\end{DoxyCopyright}
+\begin{DoxyVersion}{Version}
+0.\+1.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+21/05/2020
+\end{DoxyDate}
+Gather all the parts used by Xila core. \hypertarget{_shell_8hpp_License}{}\doxysubsection{License}\label{_shell_8hpp_License}
+Copyright (c) 2020 Alix ANNERAUD
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \char`\"{}\+AS IS\char`\"{}, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 

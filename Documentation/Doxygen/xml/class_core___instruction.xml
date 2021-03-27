@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_core___instruction" kind="class" language="C++" prot="public">
+    <compoundname>Core_Instruction</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_core___instruction_1a79397877bc4f738ce66b2e4e56625a81" prot="public" static="no" mutable="no">
+        <type>void(*</type>
+        <definition>void(* Core_Instruction::Function_Pointer) (Core_Instruction *)</definition>
+        <argsstring>)(Core_Instruction *)</argsstring>
+        <name>Function_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="9" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_core___instruction_1a62d96f44f366407b4161962aaa09f2fd" prot="public" static="no" mutable="no">
+        <type>void **</type>
+        <definition>void** Core_Instruction::Function_Arguments</definition>
+        <argsstring></argsstring>
+        <name>Function_Arguments</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="10" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_core___instruction_1afa5fc08e59223eb8db20309ea5574b2a" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* Core_Instruction::Return_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Return_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="11" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_core___instruction_1a2f1b4bc00655a3e7b36bf64f176a350a" prot="public" static="no" mutable="no">
+        <type>SemaphoreHandle_t</type>
+        <definition>SemaphoreHandle_t Core_Instruction::Executed</definition>
+        <argsstring></argsstring>
+        <name>Executed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="12" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_core___instruction_1a94a716ab9d5efd2f8d0c6d4dd87d0f8d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Core_Instruction::Core_Instruction</definition>
+        <argsstring>(void(*)(Core_Instruction *), void **, uint8_t)</argsstring>
+        <name>Core_Instruction</name>
+        <param>
+          <type>void(*)(<ref refid="class_core___instruction" kindref="compound">Core_Instruction</ref> *)</type>
+        </param>
+        <param>
+          <type>void **</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="13" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_core___instruction_1a068d951abbc174086d9504a4f61cecc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Core_Instruction::~Core_Instruction</definition>
+        <argsstring>()</argsstring>
+        <name>~Core_Instruction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="14" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Instruction.hpp" bodystart="7" bodyend="15"/>
+    <listofallmembers>
+      <member refid="class_core___instruction_1a94a716ab9d5efd2f8d0c6d4dd87d0f8d" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>Core_Instruction</name></member>
+      <member refid="class_core___instruction_1a2f1b4bc00655a3e7b36bf64f176a350a" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>Executed</name></member>
+      <member refid="class_core___instruction_1a62d96f44f366407b4161962aaa09f2fd" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>Function_Arguments</name></member>
+      <member refid="class_core___instruction_1a79397877bc4f738ce66b2e4e56625a81" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>Function_Pointer</name></member>
+      <member refid="class_core___instruction_1afa5fc08e59223eb8db20309ea5574b2a" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>Return_Pointer</name></member>
+      <member refid="class_core___instruction_1a068d951abbc174086d9504a4f61cecc2" prot="public" virt="non-virtual"><scope>Core_Instruction</scope><name>~Core_Instruction</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -38,8 +38,9 @@ Here's features which are already implemented :
 
 - Release a "stable" version
 - Add external video support (bitluni's VGA ? / FabGL ?).
-- Get rid of proprietary Nextion Display (Retro-ingenering ? Gamebuino 3 ?)
+- Support LVGL graphics which would allow more flexibility, animations etc. But maybe require a more powerfull board with more space and ram(ESP32-WROVER or Teensy ?).
 - Comment proprely the code
+- Create a documentation
 
 ## Installation
 

@@ -1,0 +1,2086 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_tiny___basic___class" kind="class" language="C++" prot="public">
+    <compoundname>Tiny_Basic_Class</compoundname>
+    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+    <innerclass refid="struct_tiny___basic___class_1_1stack__for__frame" prot="protected">Tiny_Basic_Class::stack_for_frame</innerclass>
+    <innerclass refid="struct_tiny___basic___class_1_1stack__gosub__frame" prot="protected">Tiny_Basic_Class::stack_gosub_frame</innerclass>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>@0</name>
+        <enumvalue id="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a501c5f290a350e22da5098eb7d06314e" prot="protected">
+          <name>kStreamSerial</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a5b06b72a273d7798a50efb4ce358e204" prot="protected">
+          <name>kStreamEEProm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76aa295f1cd6db643c91fb83cd86b236bbc" prot="protected">
+          <name>kStreamFile</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a6c4f8959fdedf8dda632c3bbbf2b86a4" prot="protected">
+          <name>kStreamXila</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="164" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="165" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9e" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>@1</name>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ead3e7d3a3e14a2e2d2206d62fb10b4470" prot="protected">
+          <name>KW_LIST</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea67abd1c3078943b308c7e73cece5cb67" prot="protected">
+          <name>KW_LOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eacf07602b950271ca3b9ad24457a2c40e" prot="protected">
+          <name>KW_NEW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eac859b218b597e7ff5a77df2547e3a086" prot="protected">
+          <name>KW_RUN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea9d7a8a9bc9d54ffcb1980dfe6472c676" prot="protected">
+          <name>KW_SAVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eae910c8f3f5dd04e69a0433a23315d6e7" prot="protected">
+          <name>KW_NEXT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8afaab460f97f2ac7a777c839d1c8bd1" prot="protected">
+          <name>KW_LET</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea7c035d9d1d1e7d47cc981956966a20c1" prot="protected">
+          <name>KW_IF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea97def649676e854524e9808c22a95d60" prot="protected">
+          <name>KW_GOTO</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea01f49d9733cd743545dc382007b2cdc0" prot="protected">
+          <name>KW_GOSUB</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea148a62e4f171168cd410d19335bf6f48" prot="protected">
+          <name>KW_RETURN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eab40448d9c4bb6e1d68b9aed9145e64fe" prot="protected">
+          <name>KW_REM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaacd1d1f860a117af31de4cb093a7c1ba" prot="protected">
+          <name>KW_FOR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea0920a1b4638eb11338249f85a3afdae3" prot="protected">
+          <name>KW_INPUT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa62c78af457e007221918cf2735531b5" prot="protected">
+          <name>KW_PRINT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea23d01a1fd6a9aff2b9c2cd768cdfe5a3" prot="protected">
+          <name>KW_POKE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eadbe91f49ad6e1873e28f6b97c6ac53c0" prot="protected">
+          <name>KW_STOP</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea048ea208955599cc50743ae48e30e714" prot="protected">
+          <name>KW_BYE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa11a240a6f775f3790cb8da7827c5fbf" prot="protected">
+          <name>KW_FILES</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eabd6afde848c217bb7e1aa399fcc7d181" prot="protected">
+          <name>KW_DELETE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa19f78ecfa0801fb19c69a8e6d883e8b" prot="protected">
+          <name>KW_MEM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaad061c6a752e87ad11a787119d41dbda" prot="protected">
+          <name>KW_QMARK</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea634ac0366977af5558d3f7375f11c0ae" prot="protected">
+          <name>KW_QUOTE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eafec4e1f5bd294a82e99f28b7a4bf6970" prot="protected">
+          <name>KW_AWRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8d867b3c94acef7f8b258de5903a7649" prot="protected">
+          <name>KW_DWRITE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eabbfccd83b5786f6865a794698ba5c033" prot="protected">
+          <name>KW_DELAY</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eae827d4ecdf2055428fbf6658f9d62bd3" prot="protected">
+          <name>KW_END</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1d19e4cb8ba5b235ff3d9c2d41d7dc2e" prot="protected">
+          <name>KW_RSEED</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea18a178960339d377be58a8b938acde36" prot="protected">
+          <name>KW_CHAIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa1c183aefabd0fe8ca5770f8a3344cb9" prot="protected">
+          <name>KW_CLEAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1ea390ccc99686b50fb08f90102c2660" prot="protected">
+          <name>KW_SERCOM</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea649ac33a41ca0af25d900a52fa890644" prot="protected">
+          <name>KW_NLIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaaac53b88340eca09fd0a7db692a167ad" prot="protected">
+          <name>KW_DRAWPIX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eac5df8e3fc61b3587ca517bd026d7a278" prot="protected">
+          <name>KW_DRAWLINE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea775868e9e239ee67e70b36092b29ea8e" prot="protected">
+          <name>KW_DRAWROW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea9e0618fbf640790df36e917767fa398d" prot="protected">
+          <name>KW_DRAWCOL</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea306968f78e9a2e9a694139496027ff81" prot="protected">
+          <name>KW_DRAWRECT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea79f81b3f62c3c0c58c5a425b180f7a4a" prot="protected">
+          <name>KW_DRAWCIRC</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8237d50be041e3356e9d7a74dc7be7f3" prot="protected">
+          <name>KW_DRAWCHAR</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea24eb287a67083705eeb037fadbb2ae8e" prot="protected">
+          <name>KW_GETPIX</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaf105d4e33edb6534ba9be4e93224baa7" prot="protected">
+          <name>KW_TONEW</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1c2a7759ed78f95a9a62eba3b1834fe7" prot="protected">
+          <name>KW_TONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea35291ab1bfe030e54051d49e0e09c7e5" prot="protected">
+          <name>KW_NOTONE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea0eff2fdd8d5204fbf4e18dcb54fa1e60" prot="protected">
+          <name>KW_ECHAIN</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1c332593533a39f98e54b7a8a5e67a18" prot="protected">
+          <name>KW_ELIST</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eace1295141bdcb05f83dd48b01324a292" prot="protected">
+          <name>KW_ELOAD</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea3efd195aa7fcef6927ecf5dbe9a71e83" prot="protected">
+          <name>KW_EFORMAT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea81af9690d27f17c808a22a118a949183" prot="protected">
+          <name>KW_ESAVE</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea3fe076e87d54d8aebb38e81cc89f8aaa" prot="protected">
+          <name>KW_WIFI</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa35030338d8bc0ecde5d65f2ac060522" prot="protected">
+          <name>KW_DEFAULT</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="190" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="191" bodyend="242"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Picture</name>
+        <enumvalue id="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328a9171f6ccae45001f9e4c731f70d6f22d" prot="public">
+          <name>Icon_32</name>
+          <initializer>= Xila.Tiny_Basic</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="379" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="380" bodyend="382"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_tiny___basic___class_1aab20e0b2d71e1c8168038311716fe93c" prot="protected" static="yes" mutable="no">
+        <type><ref refid="class_tiny___basic___class" kindref="compound">Tiny_Basic_Class</ref> *</type>
+        <definition>Tiny_Basic_Class* Tiny_Basic_Class::Instance_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Instance_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="153" column="29" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aee9b4af94f641645927de0b461b94944" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::keywords[238]</definition>
+        <argsstring>[238]</argsstring>
+        <name>keywords</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="274" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="274" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a6badb1bc88aa0b0192dbb90675a146f0" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::to_tab[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>to_tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="276" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="276" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a4bdd7ca0ff004110451369195a7b0ac1" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::step_tab[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>step_tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="278" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aa83c32a72166f43e83177976fb269280" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::relop_tab[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>relop_tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="280" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a434d046641172513c5801f3619314d4a" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::highlow_tab[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>highlow_tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="282" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="282" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a1156bd0c8cc43b5d3e30994ecbc33cbd" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::okmsg[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>okmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="295" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="295" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a156723c6fa0bc23ce3d620e643ac231f" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::whatmsg[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>whatmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="296" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="296" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a47332fbe1dee375bd019ab4743d90d79" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::howmsg[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>howmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="297" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a4f478bf8a4b00185a10ed80b14113834" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::sorrymsg[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>sorrymsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="298" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a6e44cf9064edd22e5dfb7d2f345a5582" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::initmsg[21]</definition>
+        <argsstring>[21]</argsstring>
+        <name>initmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="299" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="299" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1af6939b5a9a614c7dc5cd78d0cd1327a0" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::lameName[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>lameName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="300" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="300" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a7135ae7a4b240004a0cf0ee61cbf2177" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::memorymsg[13]</definition>
+        <argsstring>[13]</argsstring>
+        <name>memorymsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="301" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aa8920700971480ba545eb332b4cf5902" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::eeprommsg[21]</definition>
+        <argsstring>[21]</argsstring>
+        <name>eeprommsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="303" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aa818a5a2d750a6d654b49134f5d28a50" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::eepromamsg[25]</definition>
+        <argsstring>[25]</argsstring>
+        <name>eepromamsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="304" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="304" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a376d3382be2c5b1dc4c3f03b19f9a31d" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::breakmsg[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>breakmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="306" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="306" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a6941d3c07deb7074df47afc36f7556f4" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::unimplimentedmsg[14]</definition>
+        <argsstring>[14]</argsstring>
+        <name>unimplimentedmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="307" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a909864f0f8bf1367647a8c5f0eb84cff" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::backspacemsg[4]</definition>
+        <argsstring>[4]</argsstring>
+        <name>backspacemsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="308" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a4982b092349cbe3931d22067fb6efa55" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::indentmsg[5]</definition>
+        <argsstring>[5]</argsstring>
+        <name>indentmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="309" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a8d24338c53cfd87d393b572a972a1453" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::sderrormsg[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>sderrormsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="310" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="310" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a34ae055f9841ba402e998cde06c65697" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::sdfilemsg[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>sdfilemsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="311" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="311" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aed0b8b7563015dde5ca17c99e19bad0a" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::dirextmsg[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>dirextmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="312" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="312" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a0b59bafb7d72ae3af8f7abb4d72f55fb" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::slashmsg[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>slashmsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="313" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a5a5e878e40145dcfed839cac2d7727ae" prot="protected" static="yes" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::spacemsg[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>spacemsg</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="314" column="32" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="314" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_tiny___basic___class_1ac34b75e2b5f039b278ea6681c0d43eaf" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Tiny_Basic_Class::Lines[15][69]</definition>
+        <argsstring>[15][69]</argsstring>
+        <name>Lines</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="155" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ab230bf27822b3aed21896f6f04ba75b2" prot="protected" static="no" mutable="no">
+        <type>boolean</type>
+        <definition>boolean Tiny_Basic_Class::inhibitOutput</definition>
+        <argsstring></argsstring>
+        <name>inhibitOutput</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="159" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a9ccff9e9e92f992ba35aab4bcff1d879" prot="protected" static="no" mutable="no">
+        <type>boolean</type>
+        <definition>boolean Tiny_Basic_Class::runAfterLoad</definition>
+        <argsstring></argsstring>
+        <name>runAfterLoad</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="160" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a74be3f95465c30987e9f48e18f44f80e" prot="protected" static="no" mutable="no">
+        <type>boolean</type>
+        <definition>boolean Tiny_Basic_Class::triggerRun</definition>
+        <argsstring></argsstring>
+        <name>triggerRun</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="161" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a7cc9f49af6fadf271badc452cd23b977" prot="protected" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::inStream</definition>
+        <argsstring></argsstring>
+        <name>inStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="171" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="171" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aa6279bc1a991437bb8faf4f12cb88525" prot="protected" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::outStream</definition>
+        <argsstring></argsstring>
+        <name>outStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="172" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="172" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a8127bcd49b17e0c16a61a0f5caa44dcb" prot="protected" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::program[PROG_RAM]</definition>
+        <argsstring>[PROG_RAM]</argsstring>
+        <name>program</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="178" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ab8a40c03841cedaefbbae534505f7c77" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::txtpos</definition>
+        <argsstring></argsstring>
+        <name>txtpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="179" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a45fb99ff1017320fbc7da0741c3253b9" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char * Tiny_Basic_Class::list_line</definition>
+        <argsstring></argsstring>
+        <name>list_line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="179" column="26" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1abbf41e6bba8541accdeabce314fa7460" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char * Tiny_Basic_Class::tmptxtpos</definition>
+        <argsstring></argsstring>
+        <name>tmptxtpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="179" column="36" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a32cd19b879ff694f3bc4e3f192f09abd" prot="protected" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::expression_error</definition>
+        <argsstring></argsstring>
+        <name>expression_error</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="180" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="180" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a3b285ff32882c55f66810885510e2ed0" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::tempsp</definition>
+        <argsstring></argsstring>
+        <name>tempsp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="181" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1af478128a020ef0904426734e874c719e" prot="protected" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Tiny_Basic_Class::eepos</definition>
+        <argsstring></argsstring>
+        <name>eepos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="183" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aa2a5e58225545ad71e79938002656a17" prot="protected" static="no" mutable="no">
+        <type>const unsigned char</type>
+        <definition>const unsigned char Tiny_Basic_Class::func_tab[21]</definition>
+        <argsstring>[21]</argsstring>
+        <name>func_tab</name>
+        <initializer>= {
+        &apos;P&apos;, &apos;E&apos;, &apos;E&apos;, &apos;K&apos; + 0x80,
+        &apos;A&apos;, &apos;B&apos;, &apos;S&apos; + 0x80,
+        &apos;A&apos;, &apos;R&apos;, &apos;E&apos;, &apos;A&apos;, &apos;D&apos; + 0x80,
+        &apos;D&apos;, &apos;R&apos;, &apos;E&apos;, &apos;A&apos;, &apos;D&apos; + 0x80,
+        &apos;R&apos;, &apos;N&apos;, &apos;D&apos; + 0x80,
+        0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="261" column="25" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="261" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a55a77536b19f8b15a34317a7da2c49ae" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Tiny_Basic_Class::fp</definition>
+        <argsstring></argsstring>
+        <name>fp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="269" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="269" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a43496c2f536de41cc84a979efa358326" prot="protected" static="no" mutable="no">
+        <type>boolean</type>
+        <definition>boolean Tiny_Basic_Class::sd_is_initialized</definition>
+        <argsstring></argsstring>
+        <name>sd_is_initialized</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="272" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="272" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ac856ba10f2c696e39e37db1d75e797db" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::stack_limit</definition>
+        <argsstring></argsstring>
+        <name>stack_limit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="284" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a14adb7a872f7efef646487e1b97ba1f4" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::program_start</definition>
+        <argsstring></argsstring>
+        <name>program_start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="285" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a9e1f6e5a1d52248bd3bc1659c1a31865" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::program_end</definition>
+        <argsstring></argsstring>
+        <name>program_end</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="286" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a35e86a04d36c5d04fd9762144c2081ed" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::variables_begin</definition>
+        <argsstring></argsstring>
+        <name>variables_begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="287" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ab74f26ea5f48fdd2e6a0c9fbd5ad8f18" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::current_line</definition>
+        <argsstring></argsstring>
+        <name>current_line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="288" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="288" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a608879babe4390c43c92b16b2bb5213d" prot="protected" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::sp</definition>
+        <argsstring></argsstring>
+        <name>sp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="289" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a09530edd7d4944bab024166fc73e8abd" prot="protected" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::table_index</definition>
+        <argsstring></argsstring>
+        <name>table_index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="291" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="291" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a55e24dbd70ee11fbebdde0d8cf2734b0" prot="protected" static="no" mutable="no">
+        <type>LINENUM</type>
+        <definition>LINENUM Tiny_Basic_Class::linenum</definition>
+        <argsstring></argsstring>
+        <name>linenum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="293" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a3092d0e222eafc203bbfaa2ddf814f10" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Tiny_Basic_Class::Temporary_Input[190]</definition>
+        <argsstring>[190]</argsstring>
+        <name>Temporary_Input</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="323" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="323" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a1f86963a5630db05144dc331b586adc4" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Tiny_Basic_Class::Current_Position</definition>
+        <argsstring></argsstring>
+        <name>Current_Position</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="324" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="324" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1a77ab47ef6e9a5ad712fc892b3370cb7e" prot="protected" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Tiny_Basic_Class::Current_Command</definition>
+        <argsstring></argsstring>
+        <name>Current_Command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="326" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="326" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ae58574b243bb6e5004085187d4da1074" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Tiny_Basic_Class::Temporary_Char</definition>
+        <argsstring></argsstring>
+        <name>Temporary_Char</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="327" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="327" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1aec169b6996636be29c63c8975c78907e" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Tiny_Basic_Class::Current_Line</definition>
+        <argsstring></argsstring>
+        <name>Current_Line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="331" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_tiny___basic___class_1ae9945813832fe2ff5450a28c6574f499" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Tiny_Basic_Class::Current_Column</definition>
+        <argsstring></argsstring>
+        <name>Current_Column</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="333" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="333" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_tiny___basic___class_1a762ec85f804b36cbfec650efa40ac13e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::cmd_Files</definition>
+        <argsstring>()</argsstring>
+        <name>cmd_Files</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="270" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a35dd231de3cb26453322010073bd888d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::filenameWord</definition>
+        <argsstring>()</argsstring>
+        <name>filenameWord</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="271" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ab74f1a6eaf53c171f5ab3b7c6f0d8df4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Read_Command</definition>
+        <argsstring>()</argsstring>
+        <name>Read_Command</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="321" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1acfce9e05db004b9ac51470c5eb8326ba" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Clear</definition>
+        <argsstring>()</argsstring>
+        <name>Clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="329" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ae68595af4a4e797523b7a8ca159aff39" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Refresh_Interface</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Interface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="335" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7af0b4c45f72daee68004cc7415f980b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Scroll</definition>
+        <argsstring>()</argsstring>
+        <name>Scroll</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="336" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a1a68a1924cdd727e3a783b824442726c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Rectangle</definition>
+        <argsstring>(uint16_t const &amp;X_Coordinate, uint16_t const &amp;Y_Coordinate, uint16_t const &amp;Heigh, uint16_t const &amp;Widht, uint16_t const &amp;Color, uint16_t const &amp;Fill_Color)</argsstring>
+        <name>Draw_Rectangle</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Heigh</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Widht</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Fill_Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="337" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1afb88d15184e3c3500c7ff9279211b3dd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Line</definition>
+        <argsstring>(uint16_t const &amp;X_Start, uint16_t const &amp;Y_Start, uint16_t const &amp;X_End, uint16_t const &amp;Y_End, uint16_t const &amp;Color)</argsstring>
+        <name>Draw_Line</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Start</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Start</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_End</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_End</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="338" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a1d9cc027f4e45277fde9d4e74dc753ef" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Row</definition>
+        <argsstring>(uint16_t const &amp;X_Start, uint16_t const &amp;Y_Coordinate, uint16_t const &amp;X_End, uint16_t const &amp;Color)</argsstring>
+        <name>Draw_Row</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Start</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_End</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="339" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ae8b89e5deb8b551fad465fa9107cd2d4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Column</definition>
+        <argsstring>(uint16_t const &amp;X_Coordinate, uint16_t const &amp;Y_Start, uint16_t const &amp;Y_End, uint16_t const &amp;Color)</argsstring>
+        <name>Draw_Column</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Start</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_End</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="340" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1aec830979792b1615f18a9cf994fad556" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Pixel</definition>
+        <argsstring>(uint16_t const &amp;X_Coordinate, uint16_t const &amp;Y_Coordinate, uint16_t const &amp;Color)</argsstring>
+        <name>Draw_Pixel</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="341" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1af8f80b8e64d7e1750c5d95530f105819" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Circle</definition>
+        <argsstring>(uint16_t const &amp;X_Coordinate, uint16_t const &amp;Y_Coordinate, uint16_t const Radius, uint16_t const &amp;Color, uint16_t const &amp;Fill_Color)</argsstring>
+        <name>Draw_Circle</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const</type>
+          <declname>Radius</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Fill_Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="342" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a0be097f907ba40b7018074ec8bf9e55a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Draw_Char</definition>
+        <argsstring>(uint16_t const &amp;X_Coordinate, uint16_t const &amp;Y_Coordinate, char const *Char)</argsstring>
+        <name>Draw_Char</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>X_Coordinate</declname>
+        </param>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Y_Coordinate</declname>
+        </param>
+        <param>
+          <type>char const *</type>
+          <declname>Char</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="343" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a42e798951e66bc41c3b382962fbae627" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::ignore_blanks</definition>
+        <argsstring>()</argsstring>
+        <name>ignore_blanks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="347" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a6808b4547707c4e28e1daa10bd6481e8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::scantable</definition>
+        <argsstring>(const unsigned char *)</argsstring>
+        <name>scantable</name>
+        <param>
+          <type>const unsigned char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="348" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a0df4c950382e9bca2acbd6293fbaeff7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::pushb</definition>
+        <argsstring>(unsigned char)</argsstring>
+        <name>pushb</name>
+        <param>
+          <type>unsigned char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="349" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a004983466bd06dd6d4945f23c65d5d13" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::popb</definition>
+        <argsstring>()</argsstring>
+        <name>popb</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="350" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a6a27e6e544bdff36575dc4cb50a3cbbd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::printnum</definition>
+        <argsstring>(int)</argsstring>
+        <name>printnum</name>
+        <param>
+          <type>int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="351" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a75726d81e46b70d8be9461be16ef3255" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::printUnum</definition>
+        <argsstring>(unsigned int)</argsstring>
+        <name>printUnum</name>
+        <param>
+          <type>unsigned int</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="352" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a0707176d2188ab3293eb8e48de9d6ee4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned short</type>
+        <definition>unsigned short Tiny_Basic_Class::testnum</definition>
+        <argsstring>()</argsstring>
+        <name>testnum</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="353" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a6a8d5804a21fe1eea2db8510944a2219" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::print_quoted_string</definition>
+        <argsstring>()</argsstring>
+        <name>print_quoted_string</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="354" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7779c4567a7d2ffb36c1f8a2e9f1ec49" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::printmsgNoNL</definition>
+        <argsstring>(const unsigned char *)</argsstring>
+        <name>printmsgNoNL</name>
+        <param>
+          <type>const unsigned char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="355" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ac420bcc43ca10f3cbed8272622206790" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::printmsg</definition>
+        <argsstring>(const unsigned char *)</argsstring>
+        <name>printmsg</name>
+        <param>
+          <type>const unsigned char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="356" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ac5c94b4c895c49e86d742652e4451acd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::getln</definition>
+        <argsstring>(char prompt)</argsstring>
+        <name>getln</name>
+        <param>
+          <type>char</type>
+          <declname>prompt</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="357" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a5a79b213316a74b3cdda933f2418f998" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::findline</definition>
+        <argsstring>()</argsstring>
+        <name>findline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="358" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1af7d843960cf69a596425cd1fe8b79e7d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::toUppercaseBuffer</definition>
+        <argsstring>()</argsstring>
+        <name>toUppercaseBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="359" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ac1f827369e11a28dceaad6251c2429ff" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::printline</definition>
+        <argsstring>()</argsstring>
+        <name>printline</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="360" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ad7af11caa5e6973e199ada2f80e5b4de" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::expr4</definition>
+        <argsstring>()</argsstring>
+        <name>expr4</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="361" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a461c2d9c71b5a556e13ada76ef9de8b9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::expr3</definition>
+        <argsstring>()</argsstring>
+        <name>expr3</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="362" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a5badb2271ec68a8160d3dc2d8e55d02a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::expr2</definition>
+        <argsstring>()</argsstring>
+        <name>expr2</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="363" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7e869821466d51930832f268272fee43" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::expression</definition>
+        <argsstring>()</argsstring>
+        <name>expression</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="364" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a87cc90af0f068771e70d4513b4a0edd2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Tiny_Basic_Class::isValidFnChar</definition>
+        <argsstring>(char)</argsstring>
+        <name>isValidFnChar</name>
+        <param>
+          <type>char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="365" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7c23c576e44c31003bdba71820092006" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::line_terminator</definition>
+        <argsstring>()</argsstring>
+        <name>line_terminator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="366" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ae330d13fb1f976414db93bca29c04524" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::setup</definition>
+        <argsstring>()</argsstring>
+        <name>setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="367" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a8380eba5bc5bf3a59cacccabccd684c2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char Tiny_Basic_Class::breakcheck</definition>
+        <argsstring>()</argsstring>
+        <name>breakcheck</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="368" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1af20581f048b3e5dfb4a475778eed01f3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Tiny_Basic_Class::inchar</definition>
+        <argsstring>()</argsstring>
+        <name>inchar</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="369" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a0eb90f5b26ebf1bb2eafdec191874012" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::outchar</definition>
+        <argsstring>(unsigned char)</argsstring>
+        <name>outchar</name>
+        <param>
+          <type>unsigned char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="370" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a914ecef86fd52b4762d11d0ec0f49c0a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Tiny_Basic_Class::initSD</definition>
+        <argsstring>()</argsstring>
+        <name>initSD</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="371" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1ac8bd7604cd5f16d921b56bd6174c07a7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Loop</definition>
+        <argsstring>()</argsstring>
+        <name>Loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="373" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a77c278decb7d8dd2a1a57e5be93610d9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Tiny_Basic_Class::Setup</definition>
+        <argsstring>()</argsstring>
+        <name>Setup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="374" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_tiny___basic___class_1a239e637caf8ac9ea8324b204c4d84f14" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
+        <definition>static Software_Class* Tiny_Basic_Class::Load</definition>
+        <argsstring>()</argsstring>
+        <name>Load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="377" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7e50ac1158f209c0c81d9e5ca3e4c0e4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Tiny_Basic_Class::Main_Task</definition>
+        <argsstring>(void *pvParameters)</argsstring>
+        <name>Main_Task</name>
+        <param>
+          <type>void *</type>
+          <declname>pvParameters</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="384" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_tiny___basic___class_1a0741d1391945980ac1e650d85d2e5684" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Tiny_Basic_Class::Tiny_Basic_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Tiny_Basic_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="386" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_tiny___basic___class_1a7fa09a117487013040e4d7df68a28c24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Tiny_Basic_Class::~Tiny_Basic_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Tiny_Basic_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="387" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+      </node>
+      <node id="1">
+        <label>Tiny_Basic_Class</label>
+        <link refid="class_tiny___basic___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Tiny_Basic_Class</label>
+        <link refid="class_tiny___basic___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>Instance_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="150" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="151" bodyend="388"/>
+    <listofallmembers>
+      <member refid="class_tiny___basic___class_1a909864f0f8bf1367647a8c5f0eb84cff" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>backspacemsg</name></member>
+      <member refid="class_tiny___basic___class_1a8380eba5bc5bf3a59cacccabccd684c2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>breakcheck</name></member>
+      <member refid="class_tiny___basic___class_1a376d3382be2c5b1dc4c3f03b19f9a31d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>breakmsg</name></member>
+      <member refid="class_tiny___basic___class_1acfce9e05db004b9ac51470c5eb8326ba" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Clear</name></member>
+      <member refid="class_tiny___basic___class_1a762ec85f804b36cbfec650efa40ac13e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>cmd_Files</name></member>
+      <member refid="class_tiny___basic___class_1ae9945813832fe2ff5450a28c6574f499" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Column</name></member>
+      <member refid="class_tiny___basic___class_1a77ab47ef6e9a5ad712fc892b3370cb7e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Command</name></member>
+      <member refid="class_tiny___basic___class_1aec169b6996636be29c63c8975c78907e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Line</name></member>
+      <member refid="class_tiny___basic___class_1ab74f26ea5f48fdd2e6a0c9fbd5ad8f18" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>current_line</name></member>
+      <member refid="class_tiny___basic___class_1a1f86963a5630db05144dc331b586adc4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Position</name></member>
+      <member refid="class_tiny___basic___class_1aed0b8b7563015dde5ca17c99e19bad0a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>dirextmsg</name></member>
+      <member refid="class_tiny___basic___class_1a0be097f907ba40b7018074ec8bf9e55a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Char</name></member>
+      <member refid="class_tiny___basic___class_1af8f80b8e64d7e1750c5d95530f105819" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Circle</name></member>
+      <member refid="class_tiny___basic___class_1ae8b89e5deb8b551fad465fa9107cd2d4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Column</name></member>
+      <member refid="class_tiny___basic___class_1afb88d15184e3c3500c7ff9279211b3dd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Line</name></member>
+      <member refid="class_tiny___basic___class_1aec830979792b1615f18a9cf994fad556" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Pixel</name></member>
+      <member refid="class_tiny___basic___class_1a1a68a1924cdd727e3a783b824442726c" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Rectangle</name></member>
+      <member refid="class_tiny___basic___class_1a1d9cc027f4e45277fde9d4e74dc753ef" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Row</name></member>
+      <member refid="class_tiny___basic___class_1af478128a020ef0904426734e874c719e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>eepos</name></member>
+      <member refid="class_tiny___basic___class_1aa818a5a2d750a6d654b49134f5d28a50" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>eepromamsg</name></member>
+      <member refid="class_tiny___basic___class_1aa8920700971480ba545eb332b4cf5902" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>eeprommsg</name></member>
+      <member refid="class_tiny___basic___class_1a5badb2271ec68a8160d3dc2d8e55d02a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>expr2</name></member>
+      <member refid="class_tiny___basic___class_1a461c2d9c71b5a556e13ada76ef9de8b9" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>expr3</name></member>
+      <member refid="class_tiny___basic___class_1ad7af11caa5e6973e199ada2f80e5b4de" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>expr4</name></member>
+      <member refid="class_tiny___basic___class_1a7e869821466d51930832f268272fee43" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>expression</name></member>
+      <member refid="class_tiny___basic___class_1a32cd19b879ff694f3bc4e3f192f09abd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>expression_error</name></member>
+      <member refid="class_tiny___basic___class_1a35dd231de3cb26453322010073bd888d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>filenameWord</name></member>
+      <member refid="class_tiny___basic___class_1a5a79b213316a74b3cdda933f2418f998" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>findline</name></member>
+      <member refid="class_tiny___basic___class_1a55a77536b19f8b15a34317a7da2c49ae" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>fp</name></member>
+      <member refid="class_tiny___basic___class_1aa2a5e58225545ad71e79938002656a17" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>func_tab</name></member>
+      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_tiny___basic___class_1ac5c94b4c895c49e86d742652e4451acd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>getln</name></member>
+      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_tiny___basic___class_1a434d046641172513c5801f3619314d4a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>highlow_tab</name></member>
+      <member refid="class_tiny___basic___class_1a47332fbe1dee375bd019ab4743d90d79" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>howmsg</name></member>
+      <member refid="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328a9171f6ccae45001f9e4c731f70d6f22d" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Icon_32</name></member>
+      <member refid="class_tiny___basic___class_1a42e798951e66bc41c3b382962fbae627" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>ignore_blanks</name></member>
+      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Image</name></member>
+      <member refid="class_tiny___basic___class_1af20581f048b3e5dfb4a475778eed01f3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inchar</name></member>
+      <member refid="class_tiny___basic___class_1a4982b092349cbe3931d22067fb6efa55" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>indentmsg</name></member>
+      <member refid="class_tiny___basic___class_1ab230bf27822b3aed21896f6f04ba75b2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inhibitOutput</name></member>
+      <member refid="class_tiny___basic___class_1a6e44cf9064edd22e5dfb7d2f345a5582" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>initmsg</name></member>
+      <member refid="class_tiny___basic___class_1a914ecef86fd52b4762d11d0ec0f49c0a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>initSD</name></member>
+      <member refid="class_tiny___basic___class_1aab20e0b2d71e1c8168038311716fe93c" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Instance_Pointer</name></member>
+      <member refid="class_tiny___basic___class_1a7cc9f49af6fadf271badc452cd23b977" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inStream</name></member>
+      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_tiny___basic___class_1a87cc90af0f068771e70d4513b4a0edd2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>isValidFnChar</name></member>
+      <member refid="class_tiny___basic___class_1aee9b4af94f641645927de0b461b94944" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>keywords</name></member>
+      <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a5b06b72a273d7798a50efb4ce358e204" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>kStreamEEProm</name></member>
+      <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76aa295f1cd6db643c91fb83cd86b236bbc" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>kStreamFile</name></member>
+      <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a501c5f290a350e22da5098eb7d06314e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>kStreamSerial</name></member>
+      <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a6c4f8959fdedf8dda632c3bbbf2b86a4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>kStreamXila</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eafec4e1f5bd294a82e99f28b7a4bf6970" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_AWRITE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea048ea208955599cc50743ae48e30e714" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_BYE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea18a178960339d377be58a8b938acde36" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_CHAIN</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa1c183aefabd0fe8ca5770f8a3344cb9" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_CLEAR</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa35030338d8bc0ecde5d65f2ac060522" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DEFAULT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eabbfccd83b5786f6865a794698ba5c033" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DELAY</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eabd6afde848c217bb7e1aa399fcc7d181" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DELETE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8237d50be041e3356e9d7a74dc7be7f3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWCHAR</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea79f81b3f62c3c0c58c5a425b180f7a4a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWCIRC</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea9e0618fbf640790df36e917767fa398d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWCOL</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eac5df8e3fc61b3587ca517bd026d7a278" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWLINE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaaac53b88340eca09fd0a7db692a167ad" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWPIX</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea306968f78e9a2e9a694139496027ff81" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWRECT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea775868e9e239ee67e70b36092b29ea8e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DRAWROW</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8d867b3c94acef7f8b258de5903a7649" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_DWRITE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea0eff2fdd8d5204fbf4e18dcb54fa1e60" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_ECHAIN</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea3efd195aa7fcef6927ecf5dbe9a71e83" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_EFORMAT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1c332593533a39f98e54b7a8a5e67a18" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_ELIST</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eace1295141bdcb05f83dd48b01324a292" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_ELOAD</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eae827d4ecdf2055428fbf6658f9d62bd3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_END</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea81af9690d27f17c808a22a118a949183" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_ESAVE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa11a240a6f775f3790cb8da7827c5fbf" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_FILES</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaacd1d1f860a117af31de4cb093a7c1ba" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_FOR</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea24eb287a67083705eeb037fadbb2ae8e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_GETPIX</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea01f49d9733cd743545dc382007b2cdc0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_GOSUB</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea97def649676e854524e9808c22a95d60" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_GOTO</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea7c035d9d1d1e7d47cc981956966a20c1" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_IF</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea0920a1b4638eb11338249f85a3afdae3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_INPUT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea8afaab460f97f2ac7a777c839d1c8bd1" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_LET</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ead3e7d3a3e14a2e2d2206d62fb10b4470" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_LIST</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea67abd1c3078943b308c7e73cece5cb67" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_LOAD</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa19f78ecfa0801fb19c69a8e6d883e8b" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_MEM</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eacf07602b950271ca3b9ad24457a2c40e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_NEW</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eae910c8f3f5dd04e69a0433a23315d6e7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_NEXT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea649ac33a41ca0af25d900a52fa890644" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_NLIST</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea35291ab1bfe030e54051d49e0e09c7e5" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_NOTONE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea23d01a1fd6a9aff2b9c2cd768cdfe5a3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_POKE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaa62c78af457e007221918cf2735531b5" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_PRINT</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaad061c6a752e87ad11a787119d41dbda" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_QMARK</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea634ac0366977af5558d3f7375f11c0ae" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_QUOTE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eab40448d9c4bb6e1d68b9aed9145e64fe" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_REM</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea148a62e4f171168cd410d19335bf6f48" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_RETURN</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1d19e4cb8ba5b235ff3d9c2d41d7dc2e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_RSEED</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eac859b218b597e7ff5a77df2547e3a086" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_RUN</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea9d7a8a9bc9d54ffcb1980dfe6472c676" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_SAVE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1ea390ccc99686b50fb08f90102c2660" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_SERCOM</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eadbe91f49ad6e1873e28f6b97c6ac53c0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_STOP</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea1c2a7759ed78f95a9a62eba3b1834fe7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_TONE</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9eaf105d4e33edb6534ba9be4e93224baa7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_TONEW</name></member>
+      <member refid="class_tiny___basic___class_1abad98d7f5af3e792bd3aacef20bc8c9ea3fe076e87d54d8aebb38e81cc89f8aaa" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>KW_WIFI</name></member>
+      <member refid="class_tiny___basic___class_1af6939b5a9a614c7dc5cd78d0cd1327a0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>lameName</name></member>
+      <member refid="class_tiny___basic___class_1a7c23c576e44c31003bdba71820092006" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>line_terminator</name></member>
+      <member refid="class_tiny___basic___class_1a55e24dbd70ee11fbebdde0d8cf2734b0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>linenum</name></member>
+      <member refid="class_tiny___basic___class_1ac34b75e2b5f039b278ea6681c0d43eaf" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Lines</name></member>
+      <member refid="class_tiny___basic___class_1a45fb99ff1017320fbc7da0741c3253b9" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>list_line</name></member>
+      <member refid="class_tiny___basic___class_1a239e637caf8ac9ea8324b204c4d84f14" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Load</name></member>
+      <member refid="class_tiny___basic___class_1ac8bd7604cd5f16d921b56bd6174c07a7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Loop</name></member>
+      <member refid="class_tiny___basic___class_1a7e50ac1158f209c0c81d9e5ca3e4c0e4" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Main_Task</name></member>
+      <member refid="class_tiny___basic___class_1a7135ae7a4b240004a0cf0ee61cbf2177" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>memorymsg</name></member>
+      <member refid="class_tiny___basic___class_1a1156bd0c8cc43b5d3e30994ecbc33cbd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>okmsg</name></member>
+      <member refid="class_tiny___basic___class_1a0eb90f5b26ebf1bb2eafdec191874012" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>outchar</name></member>
+      <member refid="class_tiny___basic___class_1aa6279bc1a991437bb8faf4f12cb88525" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>outStream</name></member>
+      <member refid="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Picture</name></member>
+      <member refid="class_tiny___basic___class_1a004983466bd06dd6d4945f23c65d5d13" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>popb</name></member>
+      <member refid="class_tiny___basic___class_1a6a8d5804a21fe1eea2db8510944a2219" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>print_quoted_string</name></member>
+      <member refid="class_tiny___basic___class_1ac1f827369e11a28dceaad6251c2429ff" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>printline</name></member>
+      <member refid="class_tiny___basic___class_1ac420bcc43ca10f3cbed8272622206790" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>printmsg</name></member>
+      <member refid="class_tiny___basic___class_1a7779c4567a7d2ffb36c1f8a2e9f1ec49" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>printmsgNoNL</name></member>
+      <member refid="class_tiny___basic___class_1a6a27e6e544bdff36575dc4cb50a3cbbd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>printnum</name></member>
+      <member refid="class_tiny___basic___class_1a75726d81e46b70d8be9461be16ef3255" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>printUnum</name></member>
+      <member refid="class_tiny___basic___class_1a8127bcd49b17e0c16a61a0f5caa44dcb" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>program</name></member>
+      <member refid="class_tiny___basic___class_1a9e1f6e5a1d52248bd3bc1659c1a31865" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>program_end</name></member>
+      <member refid="class_tiny___basic___class_1a14adb7a872f7efef646487e1b97ba1f4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>program_start</name></member>
+      <member refid="class_tiny___basic___class_1a0df4c950382e9bca2acbd6293fbaeff7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>pushb</name></member>
+      <member refid="class_tiny___basic___class_1ab74f1a6eaf53c171f5ab3b7c6f0d8df4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Read_Command</name></member>
+      <member refid="class_tiny___basic___class_1ae68595af4a4e797523b7a8ca159aff39" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Refresh_Interface</name></member>
+      <member refid="class_tiny___basic___class_1aa83c32a72166f43e83177976fb269280" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>relop_tab</name></member>
+      <member refid="class_tiny___basic___class_1a9ccff9e9e92f992ba35aab4bcff1d879" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>runAfterLoad</name></member>
+      <member refid="class_tiny___basic___class_1a6808b4547707c4e28e1daa10bd6481e8" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>scantable</name></member>
+      <member refid="class_tiny___basic___class_1a7af0b4c45f72daee68004cc7415f980b" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Scroll</name></member>
+      <member refid="class_tiny___basic___class_1a43496c2f536de41cc84a979efa358326" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sd_is_initialized</name></member>
+      <member refid="class_tiny___basic___class_1a8d24338c53cfd87d393b572a972a1453" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sderrormsg</name></member>
+      <member refid="class_tiny___basic___class_1a34ae055f9841ba402e998cde06c65697" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sdfilemsg</name></member>
+      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Tiny_Basic_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_tiny___basic___class_1ae330d13fb1f976414db93bca29c04524" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>setup</name></member>
+      <member refid="class_tiny___basic___class_1a77c278decb7d8dd2a1a57e5be93610d9" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Setup</name></member>
+      <member refid="class_tiny___basic___class_1a0b59bafb7d72ae3af8f7abb4d72f55fb" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>slashmsg</name></member>
+      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Software_Class</name></member>
+      <member refid="class_tiny___basic___class_1a4f478bf8a4b00185a10ed80b14113834" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sorrymsg</name></member>
+      <member refid="class_tiny___basic___class_1a608879babe4390c43c92b16b2bb5213d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sp</name></member>
+      <member refid="class_tiny___basic___class_1a5a5e878e40145dcfed839cac2d7727ae" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>spacemsg</name></member>
+      <member refid="class_tiny___basic___class_1ac856ba10f2c696e39e37db1d75e797db" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>stack_limit</name></member>
+      <member refid="class_tiny___basic___class_1a4bdd7ca0ff004110451369195a7b0ac1" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>step_tab</name></member>
+      <member refid="class_tiny___basic___class_1a09530edd7d4944bab024166fc73e8abd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>table_index</name></member>
+      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_tiny___basic___class_1ae58574b243bb6e5004085187d4da1074" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Temporary_Char</name></member>
+      <member refid="class_tiny___basic___class_1a3092d0e222eafc203bbfaa2ddf814f10" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Temporary_Input</name></member>
+      <member refid="class_tiny___basic___class_1a3b285ff32882c55f66810885510e2ed0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>tempsp</name></member>
+      <member refid="class_tiny___basic___class_1a0707176d2188ab3293eb8e48de9d6ee4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>testnum</name></member>
+      <member refid="class_tiny___basic___class_1a0741d1391945980ac1e650d85d2e5684" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Tiny_Basic_Class</name></member>
+      <member refid="class_tiny___basic___class_1abbf41e6bba8541accdeabce314fa7460" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>tmptxtpos</name></member>
+      <member refid="class_tiny___basic___class_1a6badb1bc88aa0b0192dbb90675a146f0" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>to_tab</name></member>
+      <member refid="class_tiny___basic___class_1af7d843960cf69a596425cd1fe8b79e7d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>toUppercaseBuffer</name></member>
+      <member refid="class_tiny___basic___class_1a74be3f95465c30987e9f48e18f44f80e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>triggerRun</name></member>
+      <member refid="class_tiny___basic___class_1ab8a40c03841cedaefbbae534505f7c77" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>txtpos</name></member>
+      <member refid="class_tiny___basic___class_1a6941d3c07deb7074df47afc36f7556f4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>unimplimentedmsg</name></member>
+      <member refid="class_tiny___basic___class_1a35e86a04d36c5d04fd9762144c2081ed" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>variables_begin</name></member>
+      <member refid="class_tiny___basic___class_1a156723c6fa0bc23ce3d620e643ac231f" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>whatmsg</name></member>
+      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Tiny_Basic_Class</scope><name>~Software_Class</name></member>
+      <member refid="class_tiny___basic___class_1a7fa09a117487013040e4d7df68a28c24" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>~Tiny_Basic_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

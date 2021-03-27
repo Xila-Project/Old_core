@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_f630f6d906c9e2216ac09aab82d6a6a6" kind="dir">
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/Operating_System</compoundname>
+    <innerdir refid="dir_c835fe620200b699d42cbdcca78f9004">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/"/>
+  </compounddef>
+</doxygen>

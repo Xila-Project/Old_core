@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_keymap___class" kind="struct" language="C++" prot="public">
+    <compoundname>Keymap_Class</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_keymap___class_1a756f45a9a5ac974a990f739efa2bb75d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keymap_Class::noshift[PS2_KEYMAP_SIZE]</definition>
+        <argsstring>[PS2_KEYMAP_SIZE]</argsstring>
+        <name>noshift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="163" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keymap___class_1ad20d7e0ea7ead99b09412ca878cbca5f" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keymap_Class::shift[PS2_KEYMAP_SIZE]</definition>
+        <argsstring>[PS2_KEYMAP_SIZE]</argsstring>
+        <name>shift</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="164" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keymap___class_1a4e49f1ccdf5fa4239810898c146fd44f" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int Keymap_Class::uses_altgr</definition>
+        <argsstring></argsstring>
+        <name>uses_altgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="165" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_keymap___class_1a506f9bfa43462a7c76b902d2fdf36ef9" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keymap_Class::altgr[PS2_KEYMAP_SIZE]</definition>
+        <argsstring>[PS2_KEYMAP_SIZE]</argsstring>
+        <name>altgr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="173" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="173" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="161" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="162" bodyend="174"/>
+    <listofallmembers>
+      <member refid="struct_keymap___class_1a506f9bfa43462a7c76b902d2fdf36ef9" prot="public" virt="non-virtual"><scope>Keymap_Class</scope><name>altgr</name></member>
+      <member refid="struct_keymap___class_1a756f45a9a5ac974a990f739efa2bb75d" prot="public" virt="non-virtual"><scope>Keymap_Class</scope><name>noshift</name></member>
+      <member refid="struct_keymap___class_1ad20d7e0ea7ead99b09412ca878cbca5f" prot="public" virt="non-virtual"><scope>Keymap_Class</scope><name>shift</name></member>
+      <member refid="struct_keymap___class_1a4e49f1ccdf5fa4239810898c146fd44f" prot="public" virt="non-virtual"><scope>Keymap_Class</scope><name>uses_altgr</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

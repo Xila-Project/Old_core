@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_software___class" kind="class" language="C++" prot="public">
+    <compoundname>Software_Class</compoundname>
+    <derivedcompoundref refid="class_calculator___class" prot="public" virt="non-virtual">Calculator_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_clock___class" prot="public" virt="non-virtual">Clock_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_internet___browser___class" prot="public" virt="non-virtual">Internet_Browser_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_music___player___class" prot="public" virt="non-virtual">Music_Player_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_oscilloscope___class" prot="private" virt="non-virtual">Oscilloscope_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_paint___class" prot="protected" virt="non-virtual">Paint_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_periodic___class" prot="protected" virt="non-virtual">Periodic_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_piano___class" prot="public" virt="non-virtual">Piano_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_picture___viewer___class" prot="public" virt="non-virtual">Picture_Viewer_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_pong___class" prot="public" virt="non-virtual">Pong_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_shell___class" prot="public" virt="non-virtual">Shell_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_simon___class" prot="public" virt="non-virtual">Simon_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_template___class" prot="public" virt="non-virtual">Template_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_text___editor___class" prot="public" virt="non-virtual">Text_Editor_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_tiny___basic___class" prot="public" virt="non-virtual">Tiny_Basic_Class</derivedcompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Image</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="51" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="52" bodyend="54"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_software___class_1ae78527cb1127d8a7388009bbf44b1342" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Software_Class::Current_Instruction</definition>
+        <argsstring></argsstring>
+        <name>Current_Instruction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="20" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" static="no" mutable="no">
+        <type>TaskHandle_t</type>
+        <definition>TaskHandle_t Software_Class::Task_Handle</definition>
+        <argsstring></argsstring>
+        <name>Task_Handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="29" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> *</type>
+        <definition>Software_Handle_Class* Software_Class::Handle_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Handle_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="35" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" static="no" mutable="no">
+        <type>QueueHandle_t</type>
+        <definition>QueueHandle_t Software_Class::Instruction_Queue_Handle</definition>
+        <argsstring></argsstring>
+        <name>Instruction_Queue_Handle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="37" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <param>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="56" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Software_Handle_Class</definition>
+        <argsstring></argsstring>
+        <name>Software_Handle_Class</name>
+        <param>
+          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="57" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="58" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Software_Class::Software_Class</definition>
+        <argsstring>(Software_Handle_Class &amp;Software_Handle, uint8_t Queue_Size=DEFAULT_QUEUE_SIZE)</argsstring>
+        <name>Software_Class</name>
+        <param>
+          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Queue_Size</declname>
+          <defval>DEFAULT_QUEUE_SIZE</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="24" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual Software_Class::~Software_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Software_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="25" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Software_Class::Send_Instruction</definition>
+        <argsstring>(uint16_t)</argsstring>
+        <name>Send_Instruction</name>
+        <param>
+          <type>uint16_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="41" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Software_Class::Send_Instruction</definition>
+        <argsstring>(char, char)</argsstring>
+        <name>Send_Instruction</name>
+        <param>
+          <type>char</type>
+        </param>
+        <param>
+          <type>char</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="42" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void Software_Class::Set_Variable</definition>
+        <argsstring>(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size=0)</argsstring>
+        <name>Set_Variable</name>
+        <reimplementedby refid="class_music___player___class_1aeb6ba5ed4993c72dcd1046bfd09a2d51">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_clock___class_1ab7a7769859c5db13e5061f6eaf6bd9e1">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_shell___class_1af81e4ca4076742b5a1e8facaa9d7aa28">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_text___editor___class_1a21ad47897d2ec7e3e8bdd4d0e945a624">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_periodic___class_1a1e4b8f53b0e30b6c82db8f0570a81442">Set_Variable</reimplementedby>
+        <param>
+          <type>const void *</type>
+          <declname>Variable</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Adress</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Size</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="44" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t Software_Class::Get_Instruction</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Instruction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="46" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>Music_Player_Class</label>
+        <link refid="class_music___player___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Oscilloscope_Class</label>
+        <link refid="class_oscilloscope___class"/>
+        <childnode refid="1" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Paint_Class</label>
+        <link refid="class_paint___class"/>
+        <childnode refid="1" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>Picture_Viewer_Class</label>
+        <link refid="class_picture___viewer___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Template_Class</label>
+        <link refid="class_template___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+      </node>
+      <node id="3">
+        <label>Clock_Class</label>
+        <link refid="class_clock___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Shell_Class</label>
+        <link refid="class_shell___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Piano_Class</label>
+        <link refid="class_piano___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Internet_Browser_Class</label>
+        <link refid="class_internet___browser___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Pong_Class</label>
+        <link refid="class_pong___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>Tiny_Basic_Class</label>
+        <link refid="class_tiny___basic___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Calculator_Class</label>
+        <link refid="class_calculator___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Simon_Class</label>
+        <link refid="class_simon___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Text_Editor_Class</label>
+        <link refid="class_text___editor___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Periodic_Class</label>
+        <link refid="class_periodic___class"/>
+        <childnode refid="1" relation="protected-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Handle_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="17" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="18" bodyend="59"/>
+    <listofallmembers>
+      <member refid="class_software___class_1ae78527cb1127d8a7388009bbf44b1342" prot="private" virt="non-virtual"><scope>Software_Class</scope><name>Current_Instruction</name></member>
+      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Software_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Software_Class</name></member>
+      <member refid="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Software_Handle_Class</name></member>
+      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Xila_Class</name></member>
+      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Software_Class</scope><name>~Software_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

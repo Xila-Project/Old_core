@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_3beaa7c625ff830a574a9c02fe31a900" kind="dir">
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include</compoundname>
+    <innerdir refid="dir_ca10673b39fa6346158d39be54281a2e">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core</innerdir>
+    <innerdir refid="dir_22a1c40ca344a5dfb4052ba455e74bfc">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver</innerdir>
+    <innerdir refid="dir_4dfcbda69d771c4926c94aba72502670">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software</innerdir>
+    <innerfile refid="_configuration_8hpp">Configuration.hpp</innerfile>
+    <innerfile refid="_xila_8hpp">Xila.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/"/>
+  </compounddef>
+</doxygen>

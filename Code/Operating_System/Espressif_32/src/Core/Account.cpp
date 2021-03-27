@@ -64,10 +64,17 @@ Xila_Event Xila_Class::Change_Password(const char *Target_User, const char *Pass
   return Success;
 }
 
+/** */
+
 Xila_Event Xila_Class::Logout()
 {
-  memset(Current_Username, '\0', sizeof(Current_Username));
-  User_Session = Disconnected;
+  if (User_Session != Disconnected)
+  {
+    
+    memset(Current_Username, '\0', sizeof(Current_Username));
+    User_Session = Disconnected;
+  }
+
   return Success;
 }
 

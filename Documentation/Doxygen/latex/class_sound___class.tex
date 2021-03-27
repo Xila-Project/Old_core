@@ -1,0 +1,200 @@
+\hypertarget{class_sound___class}{}\doxysection{Sound\+\_\+\+Class Class Reference}
+\label{class_sound___class}\index{Sound\_Class@{Sound\_Class}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_aceff2c69ca067795c72115862a9cf089}\label{class_sound___class_aceff2c69ca067795c72115862a9cf089}} 
+enum {\bfseries Event} \{ \newline
+{\bfseries Success} = 1
+, {\bfseries Failed\+\_\+\+To\+\_\+\+Get\+\_\+\+RTC\+\_\+\+Period}
+, {\bfseries Failed\+\_\+\+To\+\_\+\+Open\+\_\+\+File}
+, {\bfseries Failed\+\_\+\+To\+\_\+\+Get\+\_\+\+Metadata}
+, \newline
+{\bfseries Failed\+\_\+\+To\+\_\+\+Load\+\_\+\+ULP\+\_\+\+Program}
+, {\bfseries Failed\+\_\+\+To\+\_\+\+Create\+\_\+\+Task}
+, {\bfseries Not\+\_\+\+RIFF\+\_\+\+Compliant}
+, {\bfseries Not\+\_\+\+WAVE\+\_\+\+Compliant}
+, \newline
+{\bfseries Incompatible\+\_\+\+Block\+\_\+\+ID}
+, {\bfseries Not\+\_\+\+A\+\_\+\+PCM\+\_\+\+File}
+, {\bfseries Unsupported\+\_\+\+Bit\+\_\+\+Depth}
+, {\bfseries Unsupported\+\_\+\+Sampling\+\_\+\+Rate}
+, \newline
+{\bfseries Unsupported\+\_\+\+Channel\+\_\+\+Number}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_a8b238065f358334f4c02c689bb9c7741}\label{class_sound___class_a8b238065f358334f4c02c689bb9c7741}} 
+void {\bfseries Set\+\_\+\+Output\+\_\+\+Channel} (uint8\+\_\+t Number\+\_\+\+Output\+\_\+\+Channel)
+\item 
+\mbox{\Hypertarget{class_sound___class_a1a9dd1179168cb456876f361b757d6f3}\label{class_sound___class_a1a9dd1179168cb456876f361b757d6f3}} 
+void {\bfseries Set\+\_\+\+Volume} (uint16\+\_\+t)
+\item 
+\mbox{\Hypertarget{class_sound___class_a7364ac4d35ca3921bd93c5d80c6f09a0}\label{class_sound___class_a7364ac4d35ca3921bd93c5d80c6f09a0}} 
+uint8\+\_\+t {\bfseries Get\+\_\+\+Volume} ()
+\item 
+\mbox{\Hypertarget{class_sound___class_acfb0438607e82fbad3f64b4b9800d78a}\label{class_sound___class_acfb0438607e82fbad3f64b4b9800d78a}} 
+void {\bfseries Set\+\_\+\+File\+\_\+\+System} (fs\+::\+FS \&File\+\_\+\+System)
+\item 
+\mbox{\Hypertarget{class_sound___class_adb8f7dedf9d1d53292d4092ac008839d}\label{class_sound___class_adb8f7dedf9d1d53292d4092ac008839d}} 
+void {\bfseries Set\+\_\+\+Balance} (uint8\+\_\+t)
+\item 
+\mbox{\Hypertarget{class_sound___class_a4b4c874dff3201203ba105304ea44eaf}\label{class_sound___class_a4b4c874dff3201203ba105304ea44eaf}} 
+uint8\+\_\+t {\bfseries Play} (File \&File\+\_\+\+To\+\_\+\+Play)
+\item 
+\mbox{\Hypertarget{class_sound___class_ad276eda7561a190273430a7aed5d848d}\label{class_sound___class_ad276eda7561a190273430a7aed5d848d}} 
+uint8\+\_\+t {\bfseries Play} (const char $\ast$File\+\_\+\+Path\+\_\+\+Or\+\_\+\+Host, const char $\ast$User=\char`\"{}\char`\"{}, const char $\ast$Password=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{class_sound___class_a7587e18c3558f2c7b92d53207b6fc9fc}\label{class_sound___class_a7587e18c3558f2c7b92d53207b6fc9fc}} 
+uint8\+\_\+t {\bfseries Resume} ()
+\item 
+\mbox{\Hypertarget{class_sound___class_ad71d4a9f4841c1e2eec6b0040fbc5df3}\label{class_sound___class_ad71d4a9f4841c1e2eec6b0040fbc5df3}} 
+void {\bfseries Pause} ()
+\item 
+\mbox{\Hypertarget{class_sound___class_af1921bcaeea42f931558849961fc8f60}\label{class_sound___class_af1921bcaeea42f931558849961fc8f60}} 
+void {\bfseries Mute} ()
+\item 
+\mbox{\Hypertarget{class_sound___class_a52822aa71a8524c221f2ec90102f81b3}\label{class_sound___class_a52822aa71a8524c221f2ec90102f81b3}} 
+void {\bfseries Stop} ()
+\item 
+\mbox{\Hypertarget{class_sound___class_a5b6487b3f67f3141d67d250e9ac8eac5}\label{class_sound___class_a5b6487b3f67f3141d67d250e9ac8eac5}} 
+uint8\+\_\+t {\bfseries Get\+\_\+\+State} ()
+\item 
+void \mbox{\hyperlink{class_sound___class_a82ef27d54e34c195f8d52b241434d118}{Set\+\_\+\+Current\+\_\+\+Time}} (uint32\+\_\+t Time)
+\begin{DoxyCompactList}\small\item\em A function that set current time of playing file. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{class_sound___class_abc5f4541f0d9cb01d8f9c9db974b0849}{Get\+\_\+\+Current\+\_\+\+Time}} ()
+\begin{DoxyCompactList}\small\item\em A function that return the current file playing time. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{class_sound___class_a6cd8071fabfc930ee09c52323a828d1c}{Get\+\_\+\+Total\+\_\+\+Time}} ()
+\begin{DoxyCompactList}\small\item\em A function that return the current file playing total time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_sound___class_af2758500a113c9778b5e5db4212e8b3e}\label{class_sound___class_af2758500a113c9778b5e5db4212e8b3e}} 
+void {\bfseries Set\+\_\+\+Offset\+\_\+\+Time} (int16\+\_\+t Time)
+\item 
+void \mbox{\hyperlink{class_sound___class_ae866ce21af756c6412f80d18f892c640}{Tone}} (uint16\+\_\+t const \&Frequency, uint32\+\_\+t const \&Duration=0, uint8\+\_\+t const \&Pin=0x\+FF)
+\begin{DoxyCompactList}\small\item\em Function that tone. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_sound___class_a4090768f6d7b6500af3ce61cc87c49ca}\label{class_sound___class_a4090768f6d7b6500af3ce61cc87c49ca}} 
+void {\bfseries No\+\_\+\+Tone} (uint8\+\_\+t const \&Pin=0x\+FF)
+\item 
+\mbox{\Hypertarget{class_sound___class_a674223741418ac713a13b24aa4ea645f}\label{class_sound___class_a674223741418ac713a13b24aa4ea645f}} 
+void {\bfseries Loop} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_a5682ae9257d6e7b54b30bd41b0d7313a}\label{class_sound___class_a5682ae9257d6e7b54b30bd41b0d7313a}} 
+enum {\bfseries State} \{ {\bfseries Stopped}
+, {\bfseries Playing}
+, {\bfseries Paused}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_a9375fe01d531c125af6a59e414d0ad9a}\label{class_sound___class_a9375fe01d531c125af6a59e414d0ad9a}} 
+static void {\bfseries Sound\+\_\+\+Task} (void $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_a2c94b09d7c59d96b64db79e5d6917ee1}\label{class_sound___class_a2c94b09d7c59d96b64db79e5d6917ee1}} 
+uint8\+\_\+t {\bfseries Custom\+\_\+\+Pin}
+\item 
+\mbox{\Hypertarget{class_sound___class_a410c1fc65c3279690abfaa429d1d70e5}\label{class_sound___class_a410c1fc65c3279690abfaa429d1d70e5}} 
+Audio {\bfseries Audio\+\_\+\+Driver}
+\item 
+\mbox{\Hypertarget{class_sound___class_a8e71cb1c4884c778c5704ad608dda8f3}\label{class_sound___class_a8e71cb1c4884c778c5704ad608dda8f3}} 
+File {\bfseries Music\+\_\+\+File}
+\item 
+\mbox{\Hypertarget{class_sound___class_a0d4a0bfa19298bf33913e85ef893da12}\label{class_sound___class_a0d4a0bfa19298bf33913e85ef893da12}} 
+fs\+::\+FS $\ast$ {\bfseries File\+\_\+\+System}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_abfb48828032fc612d81696367ad01f0d}\label{class_sound___class_abfb48828032fc612d81696367ad01f0d}} 
+static const uint8\+\_\+t {\bfseries Left\+\_\+\+Channel} = 0
+\item 
+\mbox{\Hypertarget{class_sound___class_abbd517af60f2925de4b101a27916bcfe}\label{class_sound___class_abbd517af60f2925de4b101a27916bcfe}} 
+static const uint8\+\_\+t {\bfseries Right\+\_\+\+Channel} = 1
+\item 
+\mbox{\Hypertarget{class_sound___class_a7688660774c804946a098e676aa24a22}\label{class_sound___class_a7688660774c804946a098e676aa24a22}} 
+static const uint8\+\_\+t {\bfseries Custom\+\_\+\+Channel} = 2
+\item 
+\mbox{\Hypertarget{class_sound___class_add1e9d221019b8132c34ba1dcccd38fa}\label{class_sound___class_add1e9d221019b8132c34ba1dcccd38fa}} 
+static \mbox{\hyperlink{class_sound___class}{Sound\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_sound___class_a41bc3dbfdf579bdb9446f64b46aec9aa}\label{class_sound___class_a41bc3dbfdf579bdb9446f64b46aec9aa}} 
+void {\bfseries audio\+\_\+eof\+\_\+mp3} (const char $\ast$)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_sound___class_abc5f4541f0d9cb01d8f9c9db974b0849}\label{class_sound___class_abc5f4541f0d9cb01d8f9c9db974b0849}} 
+\index{Sound\_Class@{Sound\_Class}!Get\_Current\_Time@{Get\_Current\_Time}}
+\index{Get\_Current\_Time@{Get\_Current\_Time}!Sound\_Class@{Sound\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_Current\_Time()}{Get\_Current\_Time()}}
+{\footnotesize\ttfamily uint32\+\_\+t Sound\+\_\+\+Class\+::\+Get\+\_\+\+Current\+\_\+\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function that return the current file playing time. 
+
+\begin{DoxyReturn}{Returns}
+Current file playling time in millisecond. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_sound___class_a6cd8071fabfc930ee09c52323a828d1c}\label{class_sound___class_a6cd8071fabfc930ee09c52323a828d1c}} 
+\index{Sound\_Class@{Sound\_Class}!Get\_Total\_Time@{Get\_Total\_Time}}
+\index{Get\_Total\_Time@{Get\_Total\_Time}!Sound\_Class@{Sound\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_Total\_Time()}{Get\_Total\_Time()}}
+{\footnotesize\ttfamily uint32\+\_\+t Sound\+\_\+\+Class\+::\+Get\+\_\+\+Total\+\_\+\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function that return the current file playing total time. 
+
+\begin{DoxyReturn}{Returns}
+Current file playing total time in millisecond. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_sound___class_a82ef27d54e34c195f8d52b241434d118}\label{class_sound___class_a82ef27d54e34c195f8d52b241434d118}} 
+\index{Sound\_Class@{Sound\_Class}!Set\_Current\_Time@{Set\_Current\_Time}}
+\index{Set\_Current\_Time@{Set\_Current\_Time}!Sound\_Class@{Sound\_Class}}
+\doxysubsubsection{\texorpdfstring{Set\_Current\_Time()}{Set\_Current\_Time()}}
+{\footnotesize\ttfamily void Sound\+\_\+\+Class\+::\+Set\+\_\+\+Current\+\_\+\+Time (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Time }\end{DoxyParamCaption})}
+
+
+
+A function that set current time of playing file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Time} & Time to set in millisecond. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_sound___class_ae866ce21af756c6412f80d18f892c640}\label{class_sound___class_ae866ce21af756c6412f80d18f892c640}} 
+\index{Sound\_Class@{Sound\_Class}!Tone@{Tone}}
+\index{Tone@{Tone}!Sound\_Class@{Sound\_Class}}
+\doxysubsubsection{\texorpdfstring{Tone()}{Tone()}}
+{\footnotesize\ttfamily void Sound\+\_\+\+Class\+::\+Tone (\begin{DoxyParamCaption}\item[{uint16\+\_\+t const \&}]{Frequency,  }\item[{uint32\+\_\+t const \&}]{Duration = {\ttfamily 0},  }\item[{uint8\+\_\+t const \&}]{Pin = {\ttfamily 0xFF} }\end{DoxyParamCaption})}
+
+
+
+Function that tone. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Frequency} & Frequency to tone \\
+\hline
+{\em Duration} & Duration to tone (empty or 0 to infinite tone) \\
+\hline
+{\em Pin} & Pin to tone (left empty to play on default output pin)\\
+\hline
+\end{DoxyParams}
+Function that tone and block music playing 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Driver/Sound.\+hpp\end{DoxyCompactItemize}

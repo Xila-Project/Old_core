@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct_tiny___basic___class_1_1stack__for__frame" kind="struct" language="C++" prot="protected">
+    <compoundname>Tiny_Basic_Class::stack_for_frame</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1a64c113e457d4d42f4461e3f5eb2a0941" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Tiny_Basic_Class::stack_for_frame::frame_type</definition>
+        <argsstring></argsstring>
+        <name>frame_type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="246" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="246" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1a360a81ab791e5fe8f679f18bce878338" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Tiny_Basic_Class::stack_for_frame::for_var</definition>
+        <argsstring></argsstring>
+        <name>for_var</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="247" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1a88e9a9372456db2b4c7111d76c08b009" prot="public" static="no" mutable="no">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::stack_for_frame::terminal</definition>
+        <argsstring></argsstring>
+        <name>terminal</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="248" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1ae8c5ab4e6d8ae4af18cb227686bf4f0f" prot="public" static="no" mutable="no">
+        <type>short int</type>
+        <definition>short int Tiny_Basic_Class::stack_for_frame::step</definition>
+        <argsstring></argsstring>
+        <name>step</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="249" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1a6bd519b2d6356e8154b3d96315d1198b" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::stack_for_frame::current_line</definition>
+        <argsstring></argsstring>
+        <name>current_line</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="250" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_tiny___basic___class_1_1stack__for__frame_1aa5aedc456085c44ec8c29d455c76264b" prot="public" static="no" mutable="no">
+        <type>unsigned char *</type>
+        <definition>unsigned char* Tiny_Basic_Class::stack_for_frame::txtpos</definition>
+        <argsstring></argsstring>
+        <name>txtpos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="251" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" line="244" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp" bodystart="245" bodyend="252"/>
+    <listofallmembers>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1a6bd519b2d6356e8154b3d96315d1198b" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>current_line</name></member>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1a360a81ab791e5fe8f679f18bce878338" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>for_var</name></member>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1a64c113e457d4d42f4461e3f5eb2a0941" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>frame_type</name></member>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1ae8c5ab4e6d8ae4af18cb227686bf4f0f" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>step</name></member>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1a88e9a9372456db2b4c7111d76c08b009" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>terminal</name></member>
+      <member refid="struct_tiny___basic___class_1_1stack__for__frame_1aa5aedc456085c44ec8c29d455c76264b" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class::stack_for_frame</scope><name>txtpos</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

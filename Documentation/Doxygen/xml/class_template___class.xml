@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_template___class" kind="class" language="C++" prot="public">
+    <compoundname>Template_Class</compoundname>
+    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_template___class_1a3060033c791e363c275a088ee9766b69" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Picture</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="14" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" bodystart="15" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_template___class_1a17b387d3d881b580194c02a6f4b4df60" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Pages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="19" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" bodystart="20" bodyend="22"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_template___class_1a7c477341eebc0d1597de686f7b09b575" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
+        <definition>static Software_Class* Template_Class::Load</definition>
+        <argsstring>()</argsstring>
+        <name>Load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="9" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_template___class_1abcccd07aa12048995bcc6bbb2a5c7802" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Template_Class::Startup</definition>
+        <argsstring>()</argsstring>
+        <name>Startup</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="10" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_template___class_1ab113a7fe8614450b54ed705b540ef6a0" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Template_Class::Background</definition>
+        <argsstring>()</argsstring>
+        <name>Background</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="11" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_template___class_1a194e8e9a3090ef9196ca8ae3ea910e8e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Template_Class::Shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>Shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="12" column="17"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Template_Class</label>
+        <link refid="class_template___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Template_Class</label>
+        <link refid="class_template___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp" bodystart="7" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_template___class_1ab113a7fe8614450b54ed705b540ef6a0" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Background</name></member>
+      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_template___class_1a7c477341eebc0d1597de686f7b09b575" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Load</name></member>
+      <member refid="class_template___class_1a17b387d3d881b580194c02a6f4b4df60" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Pages</name></member>
+      <member refid="class_template___class_1a3060033c791e363c275a088ee9766b69" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Picture</name></member>
+      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Template_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_template___class_1a194e8e9a3090ef9196ca8ae3ea910e8e" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Shutdown</name></member>
+      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Software_Class</name></member>
+      <member refid="class_template___class_1abcccd07aa12048995bcc6bbb2a5c7802" prot="public" virt="non-virtual"><scope>Template_Class</scope><name>Startup</name></member>
+      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Template_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Template_Class</scope><name>~Software_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

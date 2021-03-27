@@ -1,0 +1,683 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_clock___class" kind="class" language="C++" prot="public">
+    <compoundname>Clock_Class</compoundname>
+    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+      <sectiondef kind="private-type">
+      <memberdef kind="enum" id="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89" prot="private" static="no" strong="no">
+        <type></type>
+        <name>Tabs</name>
+        <enumvalue id="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a9b3447c75d1c36560a9bb9ccfc7bcf7d" prot="private">
+          <name>Clock</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a37fea2cb606c69f2a78f69d962d9d21c" prot="private">
+          <name>Alarm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a778affc6a4d4a7f0beaee97c17cf336b" prot="private">
+          <name>Timer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89af0392dde2564ace5d9d3c7e92bc5318f" prot="private">
+          <name>Chronometer</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="19" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="20" bodyend="25"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_clock___class_1a1d901bafa0f7136037a247856028dfdc" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Picture</name>
+        <enumvalue id="class_clock___class_1a1d901bafa0f7136037a247856028dfdca63a7bc45abe92ca4c306b63498462448" prot="public">
+          <name>Icon_32</name>
+          <initializer>= Xila.Clock</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="109" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="110" bodyend="112"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_clock___class_1a8478ef5aaf2d503ac076323ef4fd3616" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_clock___class" kindref="compound">Clock_Class</ref> *</type>
+        <definition>Clock_Class* Clock_Class::Instance_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Instance_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="13" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a356894f3f458afd439c13ce1474d2f5d" prot="private" static="yes" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Clock_Class::Next_Alarm</definition>
+        <argsstring></argsstring>
+        <name>Next_Alarm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="58" column="21" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_clock___class_1a567b0138182b59e8343666172c49e6f7" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Current_Tab</definition>
+        <argsstring></argsstring>
+        <name>Current_Tab</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="16" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1adec4e8b62387be64a8644185e1b9891d" prot="private" static="no" mutable="no">
+        <type>Xila_Time</type>
+        <definition>Xila_Time Clock_Class::Time</definition>
+        <argsstring></argsstring>
+        <name>Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="17" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a228f66ce3600fe8d538d959de79f5f46" prot="private" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char Clock_Class::Days[7][10]</definition>
+        <argsstring>[7][10]</argsstring>
+        <name>Days</name>
+        <initializer>= {
+        &quot;Monday&quot;,
+        &quot;Tuesday&quot;,
+        &quot;Wednesday&quot;,
+        &quot;Thursday&quot;,
+        &quot;Friday&quot;,
+        &quot;Saturday&quot;,
+        &quot;Sunday&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="29" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1ac6ea252dfe57d2522511f341c03a7076" prot="private" static="no" mutable="no">
+        <type>const char</type>
+        <definition>const char Clock_Class::Months[12][10]</definition>
+        <argsstring>[12][10]</argsstring>
+        <name>Months</name>
+        <initializer>{
+        &quot;January&quot;,
+        &quot;February&quot;,
+        &quot;March&quot;,
+        &quot;April&quot;,
+        &quot;May&quot;,
+        &quot;June&quot;,
+        &quot;July&quot;,
+        &quot;August&quot;,
+        &quot;September&quot;,
+        &quot;October&quot;,
+        &quot;November&quot;,
+        &quot;December&quot;}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="38" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a332a0219cc0bd853ae803f3adecd2f8e" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Clock_Class::Alarm_Exist[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>Alarm_Exist</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="53" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a179b1b19ed3e4d30f8e03df014f6d79c" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Clock_Class::Alarm_Hour[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>Alarm_Hour</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="54" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a16cab1da847154d331d8d7ff27dc9b1f" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Clock_Class::Alarm_Minute[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>Alarm_Minute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="55" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a8b91cb766ea4c0de9da57ab9e344e1ff" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Clock_Class::Alarm_Enabled[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>Alarm_Enabled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="56" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1afc4f138ad765eb8667d46a9120355301" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Clock_Class::Alarm_Title[6][10]</definition>
+        <argsstring>[6][10]</argsstring>
+        <name>Alarm_Title</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="57" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a04f9766e45a45545712848838fbc0b3c" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="69" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="69" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1ad87e40f0ce62e13ad4d8ac65791fa206" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Clock_Class::Inital_Time</definition>
+        <argsstring></argsstring>
+        <name>Inital_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="73" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1ac4978f5e2faccdd1fea6d9f581868b53" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Clock_Class::Paused_Time</definition>
+        <argsstring></argsstring>
+        <name>Paused_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="74" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1ab0def5f84f509c32f6b7b028855b46db" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Clock_Class::Last_Update</definition>
+        <argsstring></argsstring>
+        <name>Last_Update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="75" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a2afde703c035fd63901b1fbc7ae5cadc" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Clock_Class::Temporary_Time</definition>
+        <argsstring></argsstring>
+        <name>Temporary_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="77" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a77d9ec51331356ff5db8956afae3a57e" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Hours</definition>
+        <argsstring></argsstring>
+        <name>Hours</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="81" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a2b7466bd6395b7606dc786bcdc778aeb" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Minutes</definition>
+        <argsstring></argsstring>
+        <name>Minutes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="81" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a348e903e93ddcad1cdf8aa659433198f" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Seconds</definition>
+        <argsstring></argsstring>
+        <name>Seconds</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="81" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a05717260634960ec299043d2382f98cd" prot="private" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Clock_Class::Temporary_Char_Array[40]</definition>
+        <argsstring>[40]</argsstring>
+        <name>Temporary_Char_Array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="83" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1a9b17c36f4ab200b4cb6967262d3f8707" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="84" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_clock___class_1ae9f9961e7805bc549189a423befa4aab" prot="private" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Clock_Class::Selected_Alarm</definition>
+        <argsstring></argsstring>
+        <name>Selected_Alarm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="100" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_clock___class_1aedb0b571f89488ce0bc6836e4747aaf7" prot="private" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Clock_Class::Main_Task</definition>
+        <argsstring>(void *)</argsstring>
+        <name>Main_Task</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="11" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_clock___class_1a4e577324a7acaf59f68607c29341270c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Refresh_Clock</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Clock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="86" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a1291bec5ca45292f95b0571b7ae56e28" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Refresh_Alarms</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Alarms</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="88" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a95844e44e3a63afd09ea856146f003a8" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Refresh_Alarm</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Alarm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="89" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a3ebaead09f854aab26ddb493fbda9780" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Refresh_Timer</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Timer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="91" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a68718cd4d51dc0afa9a490adeea3c355" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Refresh_Chronometer</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Chronometer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="93" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a9335c77f7661610e829a888be22407b3" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Add_Alarm</definition>
+        <argsstring>()</argsstring>
+        <name>Add_Alarm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="95" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a5161602232c613c63209fcb3b48c9939" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Delete_Alarm</definition>
+        <argsstring>()</argsstring>
+        <name>Delete_Alarm</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="96" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1ab7a7769859c5db13e5061f6eaf6bd9e1" prot="private" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Clock_Class::Set_Variable</definition>
+        <argsstring>(const void *, uint8_t, uint8_t, uint8_t=0)</argsstring>
+        <name>Set_Variable</name>
+        <reimplements refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c">Set_Variable</reimplements>
+        <param>
+          <type>const void *</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="98" column="10"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_clock___class_1a78111a9e8e487c83cce909b470a1353e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
+        <definition>static Software_Class* Clock_Class::Load</definition>
+        <argsstring>()</argsstring>
+        <name>Load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="103" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1ad4767386f71d414a5b4c36e3d2ae5198" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Clock_Class::Startup_Function</definition>
+        <argsstring>()</argsstring>
+        <name>Startup_Function</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="105" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1a1caaf2cf754eddb8fcf54bcd1317bdd6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Clock_Class::Background_Task</definition>
+        <argsstring>(void *)</argsstring>
+        <name>Background_Task</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="107" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_clock___class_1a5ec554f9e0d51c9ba9e9602b2886afc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Clock_Class::Clock_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Clock_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="114" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_clock___class_1aae4196ffaeb2256b64925272e70caae4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Clock_Class::~Clock_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Clock_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="115" column="5"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+      </node>
+      <node id="1">
+        <label>Clock_Class</label>
+        <link refid="class_clock___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Clock_Class</label>
+        <link refid="class_clock___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="8" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="9" bodyend="116"/>
+    <listofallmembers>
+      <member refid="class_clock___class_1a9335c77f7661610e829a888be22407b3" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Add_Alarm</name></member>
+      <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a37fea2cb606c69f2a78f69d962d9d21c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm</name></member>
+      <member refid="class_clock___class_1a8b91cb766ea4c0de9da57ab9e344e1ff" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm_Enabled</name></member>
+      <member refid="class_clock___class_1a332a0219cc0bd853ae803f3adecd2f8e" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm_Exist</name></member>
+      <member refid="class_clock___class_1a179b1b19ed3e4d30f8e03df014f6d79c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm_Hour</name></member>
+      <member refid="class_clock___class_1a16cab1da847154d331d8d7ff27dc9b1f" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm_Minute</name></member>
+      <member refid="class_clock___class_1afc4f138ad765eb8667d46a9120355301" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Alarm_Title</name></member>
+      <member refid="class_clock___class_1a1caaf2cf754eddb8fcf54bcd1317bdd6" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Background_Task</name></member>
+      <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89af0392dde2564ace5d9d3c7e92bc5318f" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Chronometer</name></member>
+      <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a9b3447c75d1c36560a9bb9ccfc7bcf7d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Clock</name></member>
+      <member refid="class_clock___class_1a5ec554f9e0d51c9ba9e9602b2886afc3" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Clock_Class</name></member>
+      <member refid="class_clock___class_1a567b0138182b59e8343666172c49e6f7" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Current_Tab</name></member>
+      <member refid="class_clock___class_1a228f66ce3600fe8d538d959de79f5f46" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Days</name></member>
+      <member refid="class_clock___class_1a5161602232c613c63209fcb3b48c9939" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Delete_Alarm</name></member>
+      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_clock___class_1a77d9ec51331356ff5db8956afae3a57e" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Hours</name></member>
+      <member refid="class_clock___class_1a1d901bafa0f7136037a247856028dfdca63a7bc45abe92ca4c306b63498462448" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Icon_32</name></member>
+      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Image</name></member>
+      <member refid="class_clock___class_1ad87e40f0ce62e13ad4d8ac65791fa206" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Inital_Time</name></member>
+      <member refid="class_clock___class_1a8478ef5aaf2d503ac076323ef4fd3616" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Instance_Pointer</name></member>
+      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_clock___class_1ab0def5f84f509c32f6b7b028855b46db" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Last_Update</name></member>
+      <member refid="class_clock___class_1a78111a9e8e487c83cce909b470a1353e" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Load</name></member>
+      <member refid="class_clock___class_1aedb0b571f89488ce0bc6836e4747aaf7" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Main_Task</name></member>
+      <member refid="class_clock___class_1a2b7466bd6395b7606dc786bcdc778aeb" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Minutes</name></member>
+      <member refid="class_clock___class_1ac6ea252dfe57d2522511f341c03a7076" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Months</name></member>
+      <member refid="class_clock___class_1a356894f3f458afd439c13ce1474d2f5d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Next_Alarm</name></member>
+      <member refid="class_clock___class_1a9b17c36f4ab200b4cb6967262d3f8707" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Offset</name></member>
+      <member refid="class_clock___class_1ac4978f5e2faccdd1fea6d9f581868b53" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Paused_Time</name></member>
+      <member refid="class_clock___class_1a1d901bafa0f7136037a247856028dfdc" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Picture</name></member>
+      <member refid="class_clock___class_1a95844e44e3a63afd09ea856146f003a8" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Alarm</name></member>
+      <member refid="class_clock___class_1a1291bec5ca45292f95b0571b7ae56e28" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Alarms</name></member>
+      <member refid="class_clock___class_1a68718cd4d51dc0afa9a490adeea3c355" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Chronometer</name></member>
+      <member refid="class_clock___class_1a4e577324a7acaf59f68607c29341270c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Clock</name></member>
+      <member refid="class_clock___class_1a3ebaead09f854aab26ddb493fbda9780" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Timer</name></member>
+      <member refid="class_clock___class_1a348e903e93ddcad1cdf8aa659433198f" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Seconds</name></member>
+      <member refid="class_clock___class_1ae9f9961e7805bc549189a423befa4aab" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Selected_Alarm</name></member>
+      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_clock___class_1ab7a7769859c5db13e5061f6eaf6bd9e1" prot="private" virt="virtual"><scope>Clock_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Software_Class</name></member>
+      <member refid="class_clock___class_1ad4767386f71d414a5b4c36e3d2ae5198" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Startup_Function</name></member>
+      <member refid="class_clock___class_1a04f9766e45a45545712848838fbc0b3c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>State</name></member>
+      <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Tabs</name></member>
+      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_clock___class_1a05717260634960ec299043d2382f98cd" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Temporary_Char_Array</name></member>
+      <member refid="class_clock___class_1a2afde703c035fd63901b1fbc7ae5cadc" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Temporary_Time</name></member>
+      <member refid="class_clock___class_1adec4e8b62387be64a8644185e1b9891d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Time</name></member>
+      <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a778affc6a4d4a7f0beaee97c17cf336b" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Timer</name></member>
+      <member refid="class_clock___class_1aae4196ffaeb2256b64925272e70caae4" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>~Clock_Class</name></member>
+      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Clock_Class</scope><name>~Software_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

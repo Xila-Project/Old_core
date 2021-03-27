@@ -15,9 +15,12 @@
  * https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope
  */
 
+
 class Oscilloscope_Class : private Software_Class
 {
 protected:
+    
+
     static Oscilloscope_Class *Instance_Pointer;
 
     TaskHandle_t SigmaDelta_Handle;
@@ -97,8 +100,10 @@ protected:
 
     void Run();
 
+    
     inline long adRead(short, short, int);
 
+ 
     void Refresh_Waveform();
 
     void Refresh_Interface();

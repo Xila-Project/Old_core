@@ -1,0 +1,422 @@
+\hypertarget{class_tiny___basic___class}{}\doxysection{Tiny\+\_\+\+Basic\+\_\+\+Class Class Reference}
+\label{class_tiny___basic___class}\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+Inheritance diagram for Tiny\+\_\+\+Basic\+\_\+\+Class\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_tiny___basic___class}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_tiny___basic___class_1_1stack__for__frame}{stack\+\_\+for\+\_\+frame}}
+\item 
+struct \mbox{\hyperlink{struct_tiny___basic___class_1_1stack__gosub__frame}{stack\+\_\+gosub\+\_\+frame}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a052d277da0dbbfa8b3c7d959656fa328}\label{class_tiny___basic___class_a052d277da0dbbfa8b3c7d959656fa328}} 
+enum {\bfseries Picture} \{ {\bfseries Icon\+\_\+32} = Xila.\+Tiny\+\_\+\+Basic
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a239e637caf8ac9ea8324b204c4d84f14}\label{class_tiny___basic___class_a239e637caf8ac9ea8324b204c4d84f14}} 
+static \mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}} $\ast$ {\bfseries Load} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7e50ac1158f209c0c81d9e5ca3e4c0e4}\label{class_tiny___basic___class_a7e50ac1158f209c0c81d9e5ca3e4c0e4}} 
+static void {\bfseries Main\+\_\+\+Task} (void $\ast$pv\+Parameters)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a16cd8d56debbbb7d1447362aae75da76}\label{class_tiny___basic___class_a16cd8d56debbbb7d1447362aae75da76}} 
+enum \{ {\bfseries k\+Stream\+Serial} = 0
+, {\bfseries k\+Stream\+EEProm}
+, {\bfseries k\+Stream\+File}
+, {\bfseries k\+Stream\+Xila}
+ \}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_abad98d7f5af3e792bd3aacef20bc8c9e}\label{class_tiny___basic___class_abad98d7f5af3e792bd3aacef20bc8c9e}} 
+enum \{ \newline
+{\bfseries KW\+\_\+\+LIST} = 0
+, {\bfseries KW\+\_\+\+LOAD}
+, {\bfseries KW\+\_\+\+NEW}
+, {\bfseries KW\+\_\+\+RUN}
+, \newline
+{\bfseries KW\+\_\+\+SAVE}
+, {\bfseries KW\+\_\+\+NEXT}
+, {\bfseries KW\+\_\+\+LET}
+, {\bfseries KW\+\_\+\+IF}
+, \newline
+{\bfseries KW\+\_\+\+GOTO}
+, {\bfseries KW\+\_\+\+GOSUB}
+, {\bfseries KW\+\_\+\+RETURN}
+, {\bfseries KW\+\_\+\+REM}
+, \newline
+{\bfseries KW\+\_\+\+FOR}
+, {\bfseries KW\+\_\+\+INPUT}
+, {\bfseries KW\+\_\+\+PRINT}
+, {\bfseries KW\+\_\+\+POKE}
+, \newline
+{\bfseries KW\+\_\+\+STOP}
+, {\bfseries KW\+\_\+\+BYE}
+, {\bfseries KW\+\_\+\+FILES}
+, {\bfseries KW\+\_\+\+DELETE}
+, \newline
+{\bfseries KW\+\_\+\+MEM}
+, {\bfseries KW\+\_\+\+QMARK}
+, {\bfseries KW\+\_\+\+QUOTE}
+, {\bfseries KW\+\_\+\+AWRITE}
+, \newline
+{\bfseries KW\+\_\+\+DWRITE}
+, {\bfseries KW\+\_\+\+DELAY}
+, {\bfseries KW\+\_\+\+END}
+, {\bfseries KW\+\_\+\+RSEED}
+, \newline
+{\bfseries KW\+\_\+\+CHAIN}
+, {\bfseries KW\+\_\+\+CLEAR}
+, {\bfseries KW\+\_\+\+SERCOM}
+, {\bfseries KW\+\_\+\+NLIST}
+, \newline
+{\bfseries KW\+\_\+\+DRAWPIX}
+, {\bfseries KW\+\_\+\+DRAWLINE}
+, {\bfseries KW\+\_\+\+DRAWROW}
+, {\bfseries KW\+\_\+\+DRAWCOL}
+, \newline
+{\bfseries KW\+\_\+\+DRAWRECT}
+, {\bfseries KW\+\_\+\+DRAWCIRC}
+, {\bfseries KW\+\_\+\+DRAWCHAR}
+, {\bfseries KW\+\_\+\+GETPIX}
+, \newline
+{\bfseries KW\+\_\+\+TONEW}
+, {\bfseries KW\+\_\+\+TONE}
+, {\bfseries KW\+\_\+\+NOTONE}
+, {\bfseries KW\+\_\+\+ECHAIN}
+, \newline
+{\bfseries KW\+\_\+\+ELIST}
+, {\bfseries KW\+\_\+\+ELOAD}
+, {\bfseries KW\+\_\+\+EFORMAT}
+, {\bfseries KW\+\_\+\+ESAVE}
+, \newline
+{\bfseries KW\+\_\+\+WIFI}
+, {\bfseries KW\+\_\+\+DEFAULT}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a762ec85f804b36cbfec650efa40ac13e}\label{class_tiny___basic___class_a762ec85f804b36cbfec650efa40ac13e}} 
+void {\bfseries cmd\+\_\+\+Files} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a35dd231de3cb26453322010073bd888d}\label{class_tiny___basic___class_a35dd231de3cb26453322010073bd888d}} 
+unsigned char $\ast$ {\bfseries filename\+Word} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ab74f1a6eaf53c171f5ab3b7c6f0d8df4}\label{class_tiny___basic___class_ab74f1a6eaf53c171f5ab3b7c6f0d8df4}} 
+void {\bfseries Read\+\_\+\+Command} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_acfce9e05db004b9ac51470c5eb8326ba}\label{class_tiny___basic___class_acfce9e05db004b9ac51470c5eb8326ba}} 
+void {\bfseries Clear} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae68595af4a4e797523b7a8ca159aff39}\label{class_tiny___basic___class_ae68595af4a4e797523b7a8ca159aff39}} 
+void {\bfseries Refresh\+\_\+\+Interface} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7af0b4c45f72daee68004cc7415f980b}\label{class_tiny___basic___class_a7af0b4c45f72daee68004cc7415f980b}} 
+void {\bfseries Scroll} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a1a68a1924cdd727e3a783b824442726c}\label{class_tiny___basic___class_a1a68a1924cdd727e3a783b824442726c}} 
+void {\bfseries Draw\+\_\+\+Rectangle} (uint16\+\_\+t const \&X\+\_\+\+Coordinate, uint16\+\_\+t const \&Y\+\_\+\+Coordinate, uint16\+\_\+t const \&Heigh, uint16\+\_\+t const \&Widht, uint16\+\_\+t const \&Color, uint16\+\_\+t const \&Fill\+\_\+\+Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_afb88d15184e3c3500c7ff9279211b3dd}\label{class_tiny___basic___class_afb88d15184e3c3500c7ff9279211b3dd}} 
+void {\bfseries Draw\+\_\+\+Line} (uint16\+\_\+t const \&X\+\_\+\+Start, uint16\+\_\+t const \&Y\+\_\+\+Start, uint16\+\_\+t const \&X\+\_\+\+End, uint16\+\_\+t const \&Y\+\_\+\+End, uint16\+\_\+t const \&Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a1d9cc027f4e45277fde9d4e74dc753ef}\label{class_tiny___basic___class_a1d9cc027f4e45277fde9d4e74dc753ef}} 
+void {\bfseries Draw\+\_\+\+Row} (uint16\+\_\+t const \&X\+\_\+\+Start, uint16\+\_\+t const \&Y\+\_\+\+Coordinate, uint16\+\_\+t const \&X\+\_\+\+End, uint16\+\_\+t const \&Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae8b89e5deb8b551fad465fa9107cd2d4}\label{class_tiny___basic___class_ae8b89e5deb8b551fad465fa9107cd2d4}} 
+void {\bfseries Draw\+\_\+\+Column} (uint16\+\_\+t const \&X\+\_\+\+Coordinate, uint16\+\_\+t const \&Y\+\_\+\+Start, uint16\+\_\+t const \&Y\+\_\+\+End, uint16\+\_\+t const \&Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aec830979792b1615f18a9cf994fad556}\label{class_tiny___basic___class_aec830979792b1615f18a9cf994fad556}} 
+void {\bfseries Draw\+\_\+\+Pixel} (uint16\+\_\+t const \&X\+\_\+\+Coordinate, uint16\+\_\+t const \&Y\+\_\+\+Coordinate, uint16\+\_\+t const \&Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_af8f80b8e64d7e1750c5d95530f105819}\label{class_tiny___basic___class_af8f80b8e64d7e1750c5d95530f105819}} 
+void {\bfseries Draw\+\_\+\+Circle} (uint16\+\_\+t const \&X\+\_\+\+Coordinate, uint16\+\_\+t const \&Y\+\_\+\+Coordinate, uint16\+\_\+t const Radius, uint16\+\_\+t const \&Color, uint16\+\_\+t const \&Fill\+\_\+\+Color)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a0be097f907ba40b7018074ec8bf9e55a}\label{class_tiny___basic___class_a0be097f907ba40b7018074ec8bf9e55a}} 
+void {\bfseries Draw\+\_\+\+Char} (uint16\+\_\+t const \&X\+\_\+\+Coordinate, uint16\+\_\+t const \&Y\+\_\+\+Coordinate, char const $\ast$Char)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a42e798951e66bc41c3b382962fbae627}\label{class_tiny___basic___class_a42e798951e66bc41c3b382962fbae627}} 
+void {\bfseries ignore\+\_\+blanks} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6808b4547707c4e28e1daa10bd6481e8}\label{class_tiny___basic___class_a6808b4547707c4e28e1daa10bd6481e8}} 
+void {\bfseries scantable} (const unsigned char $\ast$)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a0df4c950382e9bca2acbd6293fbaeff7}\label{class_tiny___basic___class_a0df4c950382e9bca2acbd6293fbaeff7}} 
+void {\bfseries pushb} (unsigned char)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a004983466bd06dd6d4945f23c65d5d13}\label{class_tiny___basic___class_a004983466bd06dd6d4945f23c65d5d13}} 
+unsigned char {\bfseries popb} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6a27e6e544bdff36575dc4cb50a3cbbd}\label{class_tiny___basic___class_a6a27e6e544bdff36575dc4cb50a3cbbd}} 
+void {\bfseries printnum} (int)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a75726d81e46b70d8be9461be16ef3255}\label{class_tiny___basic___class_a75726d81e46b70d8be9461be16ef3255}} 
+void {\bfseries print\+Unum} (unsigned int)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a0707176d2188ab3293eb8e48de9d6ee4}\label{class_tiny___basic___class_a0707176d2188ab3293eb8e48de9d6ee4}} 
+unsigned short {\bfseries testnum} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6a8d5804a21fe1eea2db8510944a2219}\label{class_tiny___basic___class_a6a8d5804a21fe1eea2db8510944a2219}} 
+unsigned char {\bfseries print\+\_\+quoted\+\_\+string} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7779c4567a7d2ffb36c1f8a2e9f1ec49}\label{class_tiny___basic___class_a7779c4567a7d2ffb36c1f8a2e9f1ec49}} 
+void {\bfseries printmsg\+No\+NL} (const unsigned char $\ast$)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac420bcc43ca10f3cbed8272622206790}\label{class_tiny___basic___class_ac420bcc43ca10f3cbed8272622206790}} 
+void {\bfseries printmsg} (const unsigned char $\ast$)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac5c94b4c895c49e86d742652e4451acd}\label{class_tiny___basic___class_ac5c94b4c895c49e86d742652e4451acd}} 
+void {\bfseries getln} (char prompt)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a5a79b213316a74b3cdda933f2418f998}\label{class_tiny___basic___class_a5a79b213316a74b3cdda933f2418f998}} 
+unsigned char $\ast$ {\bfseries findline} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_af7d843960cf69a596425cd1fe8b79e7d}\label{class_tiny___basic___class_af7d843960cf69a596425cd1fe8b79e7d}} 
+void {\bfseries to\+Uppercase\+Buffer} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac1f827369e11a28dceaad6251c2429ff}\label{class_tiny___basic___class_ac1f827369e11a28dceaad6251c2429ff}} 
+void {\bfseries printline} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ad7af11caa5e6973e199ada2f80e5b4de}\label{class_tiny___basic___class_ad7af11caa5e6973e199ada2f80e5b4de}} 
+short int {\bfseries expr4} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a461c2d9c71b5a556e13ada76ef9de8b9}\label{class_tiny___basic___class_a461c2d9c71b5a556e13ada76ef9de8b9}} 
+short int {\bfseries expr3} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a5badb2271ec68a8160d3dc2d8e55d02a}\label{class_tiny___basic___class_a5badb2271ec68a8160d3dc2d8e55d02a}} 
+short int {\bfseries expr2} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7e869821466d51930832f268272fee43}\label{class_tiny___basic___class_a7e869821466d51930832f268272fee43}} 
+short int {\bfseries expression} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a87cc90af0f068771e70d4513b4a0edd2}\label{class_tiny___basic___class_a87cc90af0f068771e70d4513b4a0edd2}} 
+int {\bfseries is\+Valid\+Fn\+Char} (char)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7c23c576e44c31003bdba71820092006}\label{class_tiny___basic___class_a7c23c576e44c31003bdba71820092006}} 
+void {\bfseries line\+\_\+terminator} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae330d13fb1f976414db93bca29c04524}\label{class_tiny___basic___class_ae330d13fb1f976414db93bca29c04524}} 
+void {\bfseries setup} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a8380eba5bc5bf3a59cacccabccd684c2}\label{class_tiny___basic___class_a8380eba5bc5bf3a59cacccabccd684c2}} 
+unsigned char {\bfseries breakcheck} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_af20581f048b3e5dfb4a475778eed01f3}\label{class_tiny___basic___class_af20581f048b3e5dfb4a475778eed01f3}} 
+int {\bfseries inchar} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a0eb90f5b26ebf1bb2eafdec191874012}\label{class_tiny___basic___class_a0eb90f5b26ebf1bb2eafdec191874012}} 
+void {\bfseries outchar} (unsigned char)
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a914ecef86fd52b4762d11d0ec0f49c0a}\label{class_tiny___basic___class_a914ecef86fd52b4762d11d0ec0f49c0a}} 
+bool {\bfseries init\+SD} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac8bd7604cd5f16d921b56bd6174c07a7}\label{class_tiny___basic___class_ac8bd7604cd5f16d921b56bd6174c07a7}} 
+void {\bfseries Loop} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a77c278decb7d8dd2a1a57e5be93610d9}\label{class_tiny___basic___class_a77c278decb7d8dd2a1a57e5be93610d9}} 
+void {\bfseries Setup} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac34b75e2b5f039b278ea6681c0d43eaf}\label{class_tiny___basic___class_ac34b75e2b5f039b278ea6681c0d43eaf}} 
+char {\bfseries Lines} \mbox{[}15\mbox{]}\mbox{[}69\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ab230bf27822b3aed21896f6f04ba75b2}\label{class_tiny___basic___class_ab230bf27822b3aed21896f6f04ba75b2}} 
+boolean {\bfseries inhibit\+Output}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a9ccff9e9e92f992ba35aab4bcff1d879}\label{class_tiny___basic___class_a9ccff9e9e92f992ba35aab4bcff1d879}} 
+boolean {\bfseries run\+After\+Load}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a74be3f95465c30987e9f48e18f44f80e}\label{class_tiny___basic___class_a74be3f95465c30987e9f48e18f44f80e}} 
+boolean {\bfseries trigger\+Run}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7cc9f49af6fadf271badc452cd23b977}\label{class_tiny___basic___class_a7cc9f49af6fadf271badc452cd23b977}} 
+unsigned char {\bfseries in\+Stream}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aa6279bc1a991437bb8faf4f12cb88525}\label{class_tiny___basic___class_aa6279bc1a991437bb8faf4f12cb88525}} 
+unsigned char {\bfseries out\+Stream}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a8127bcd49b17e0c16a61a0f5caa44dcb}\label{class_tiny___basic___class_a8127bcd49b17e0c16a61a0f5caa44dcb}} 
+unsigned char {\bfseries program} \mbox{[}PROG\+\_\+\+RAM\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ab8a40c03841cedaefbbae534505f7c77}\label{class_tiny___basic___class_ab8a40c03841cedaefbbae534505f7c77}} 
+unsigned char $\ast$ {\bfseries txtpos}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a45fb99ff1017320fbc7da0741c3253b9}\label{class_tiny___basic___class_a45fb99ff1017320fbc7da0741c3253b9}} 
+unsigned char $\ast$ {\bfseries list\+\_\+line}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_abbf41e6bba8541accdeabce314fa7460}\label{class_tiny___basic___class_abbf41e6bba8541accdeabce314fa7460}} 
+unsigned char $\ast$ {\bfseries tmptxtpos}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a32cd19b879ff694f3bc4e3f192f09abd}\label{class_tiny___basic___class_a32cd19b879ff694f3bc4e3f192f09abd}} 
+unsigned char {\bfseries expression\+\_\+error}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a3b285ff32882c55f66810885510e2ed0}\label{class_tiny___basic___class_a3b285ff32882c55f66810885510e2ed0}} 
+unsigned char $\ast$ {\bfseries tempsp}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_af478128a020ef0904426734e874c719e}\label{class_tiny___basic___class_af478128a020ef0904426734e874c719e}} 
+int {\bfseries eepos}
+\item 
+const unsigned char {\bfseries func\+\_\+tab} \mbox{[}21\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a55a77536b19f8b15a34317a7da2c49ae}\label{class_tiny___basic___class_a55a77536b19f8b15a34317a7da2c49ae}} 
+File {\bfseries fp}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a43496c2f536de41cc84a979efa358326}\label{class_tiny___basic___class_a43496c2f536de41cc84a979efa358326}} 
+boolean {\bfseries sd\+\_\+is\+\_\+initialized}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ac856ba10f2c696e39e37db1d75e797db}\label{class_tiny___basic___class_ac856ba10f2c696e39e37db1d75e797db}} 
+unsigned char $\ast$ {\bfseries stack\+\_\+limit}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a14adb7a872f7efef646487e1b97ba1f4}\label{class_tiny___basic___class_a14adb7a872f7efef646487e1b97ba1f4}} 
+unsigned char $\ast$ {\bfseries program\+\_\+start}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a9e1f6e5a1d52248bd3bc1659c1a31865}\label{class_tiny___basic___class_a9e1f6e5a1d52248bd3bc1659c1a31865}} 
+unsigned char $\ast$ {\bfseries program\+\_\+end}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a35e86a04d36c5d04fd9762144c2081ed}\label{class_tiny___basic___class_a35e86a04d36c5d04fd9762144c2081ed}} 
+unsigned char $\ast$ {\bfseries variables\+\_\+begin}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ab74f26ea5f48fdd2e6a0c9fbd5ad8f18}\label{class_tiny___basic___class_ab74f26ea5f48fdd2e6a0c9fbd5ad8f18}} 
+unsigned char $\ast$ {\bfseries current\+\_\+line}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a608879babe4390c43c92b16b2bb5213d}\label{class_tiny___basic___class_a608879babe4390c43c92b16b2bb5213d}} 
+unsigned char $\ast$ {\bfseries sp}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a09530edd7d4944bab024166fc73e8abd}\label{class_tiny___basic___class_a09530edd7d4944bab024166fc73e8abd}} 
+unsigned char {\bfseries table\+\_\+index}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a55e24dbd70ee11fbebdde0d8cf2734b0}\label{class_tiny___basic___class_a55e24dbd70ee11fbebdde0d8cf2734b0}} 
+LINENUM {\bfseries linenum}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}\label{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}} 
+char {\bfseries Temporary\+\_\+\+Input} \mbox{[}190\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a1f86963a5630db05144dc331b586adc4}\label{class_tiny___basic___class_a1f86963a5630db05144dc331b586adc4}} 
+uint8\+\_\+t {\bfseries Current\+\_\+\+Position} = 0
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a77ab47ef6e9a5ad712fc892b3370cb7e}\label{class_tiny___basic___class_a77ab47ef6e9a5ad712fc892b3370cb7e}} 
+uint16\+\_\+t {\bfseries Current\+\_\+\+Command}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}\label{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}} 
+char {\bfseries Temporary\+\_\+\+Char}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aec169b6996636be29c63c8975c78907e}\label{class_tiny___basic___class_aec169b6996636be29c63c8975c78907e}} 
+uint8\+\_\+t {\bfseries Current\+\_\+\+Line}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae9945813832fe2ff5450a28c6574f499}\label{class_tiny___basic___class_ae9945813832fe2ff5450a28c6574f499}} 
+uint8\+\_\+t {\bfseries Current\+\_\+\+Column}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aab20e0b2d71e1c8168038311716fe93c}\label{class_tiny___basic___class_aab20e0b2d71e1c8168038311716fe93c}} 
+static \mbox{\hyperlink{class_tiny___basic___class}{Tiny\+\_\+\+Basic\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aee9b4af94f641645927de0b461b94944}\label{class_tiny___basic___class_aee9b4af94f641645927de0b461b94944}} 
+static const unsigned char {\bfseries keywords} \mbox{[}238\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6badb1bc88aa0b0192dbb90675a146f0}\label{class_tiny___basic___class_a6badb1bc88aa0b0192dbb90675a146f0}} 
+static const unsigned char {\bfseries to\+\_\+tab} \mbox{[}3\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a4bdd7ca0ff004110451369195a7b0ac1}\label{class_tiny___basic___class_a4bdd7ca0ff004110451369195a7b0ac1}} 
+static const unsigned char {\bfseries step\+\_\+tab} \mbox{[}5\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aa83c32a72166f43e83177976fb269280}\label{class_tiny___basic___class_aa83c32a72166f43e83177976fb269280}} 
+static const unsigned char {\bfseries relop\+\_\+tab} \mbox{[}12\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a434d046641172513c5801f3619314d4a}\label{class_tiny___basic___class_a434d046641172513c5801f3619314d4a}} 
+static const unsigned char {\bfseries highlow\+\_\+tab} \mbox{[}12\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a1156bd0c8cc43b5d3e30994ecbc33cbd}\label{class_tiny___basic___class_a1156bd0c8cc43b5d3e30994ecbc33cbd}} 
+static const unsigned char {\bfseries okmsg} \mbox{[}3\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a156723c6fa0bc23ce3d620e643ac231f}\label{class_tiny___basic___class_a156723c6fa0bc23ce3d620e643ac231f}} 
+static const unsigned char {\bfseries whatmsg} \mbox{[}7\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a47332fbe1dee375bd019ab4743d90d79}\label{class_tiny___basic___class_a47332fbe1dee375bd019ab4743d90d79}} 
+static const unsigned char {\bfseries howmsg} \mbox{[}5\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a4f478bf8a4b00185a10ed80b14113834}\label{class_tiny___basic___class_a4f478bf8a4b00185a10ed80b14113834}} 
+static const unsigned char {\bfseries sorrymsg} \mbox{[}7\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6e44cf9064edd22e5dfb7d2f345a5582}\label{class_tiny___basic___class_a6e44cf9064edd22e5dfb7d2f345a5582}} 
+static const unsigned char {\bfseries initmsg} \mbox{[}21\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_af6939b5a9a614c7dc5cd78d0cd1327a0}\label{class_tiny___basic___class_af6939b5a9a614c7dc5cd78d0cd1327a0}} 
+static const unsigned char {\bfseries lame\+Name} \mbox{[}5\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a7135ae7a4b240004a0cf0ee61cbf2177}\label{class_tiny___basic___class_a7135ae7a4b240004a0cf0ee61cbf2177}} 
+static const unsigned char {\bfseries memorymsg} \mbox{[}13\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aa8920700971480ba545eb332b4cf5902}\label{class_tiny___basic___class_aa8920700971480ba545eb332b4cf5902}} 
+static const unsigned char {\bfseries eeprommsg} \mbox{[}21\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aa818a5a2d750a6d654b49134f5d28a50}\label{class_tiny___basic___class_aa818a5a2d750a6d654b49134f5d28a50}} 
+static const unsigned char {\bfseries eepromamsg} \mbox{[}25\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a376d3382be2c5b1dc4c3f03b19f9a31d}\label{class_tiny___basic___class_a376d3382be2c5b1dc4c3f03b19f9a31d}} 
+static const unsigned char {\bfseries breakmsg} \mbox{[}7\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a6941d3c07deb7074df47afc36f7556f4}\label{class_tiny___basic___class_a6941d3c07deb7074df47afc36f7556f4}} 
+static const unsigned char {\bfseries unimplimentedmsg} \mbox{[}14\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a909864f0f8bf1367647a8c5f0eb84cff}\label{class_tiny___basic___class_a909864f0f8bf1367647a8c5f0eb84cff}} 
+static const unsigned char {\bfseries backspacemsg} \mbox{[}4\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a4982b092349cbe3931d22067fb6efa55}\label{class_tiny___basic___class_a4982b092349cbe3931d22067fb6efa55}} 
+static const unsigned char {\bfseries indentmsg} \mbox{[}5\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a8d24338c53cfd87d393b572a972a1453}\label{class_tiny___basic___class_a8d24338c53cfd87d393b572a972a1453}} 
+static const unsigned char {\bfseries sderrormsg} \mbox{[}15\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a34ae055f9841ba402e998cde06c65697}\label{class_tiny___basic___class_a34ae055f9841ba402e998cde06c65697}} 
+static const unsigned char {\bfseries sdfilemsg} \mbox{[}15\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aed0b8b7563015dde5ca17c99e19bad0a}\label{class_tiny___basic___class_aed0b8b7563015dde5ca17c99e19bad0a}} 
+static const unsigned char {\bfseries dirextmsg} \mbox{[}6\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a0b59bafb7d72ae3af8f7abb4d72f55fb}\label{class_tiny___basic___class_a0b59bafb7d72ae3af8f7abb4d72f55fb}} 
+static const unsigned char {\bfseries slashmsg} \mbox{[}2\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a5a5e878e40145dcfed839cac2d7727ae}\label{class_tiny___basic___class_a5a5e878e40145dcfed839cac2d7727ae}} 
+static const unsigned char {\bfseries spacemsg} \mbox{[}2\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tiny___basic___class_aa2a5e58225545ad71e79938002656a17}\label{class_tiny___basic___class_aa2a5e58225545ad71e79938002656a17}} 
+\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}!func\_tab@{func\_tab}}
+\index{func\_tab@{func\_tab}!Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+\doxysubsubsection{\texorpdfstring{func\_tab}{func\_tab}}
+{\footnotesize\ttfamily const unsigned char Tiny\+\_\+\+Basic\+\_\+\+Class\+::func\+\_\+tab\mbox{[}21\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{        \textcolor{charliteral}{'P'}, \textcolor{charliteral}{'E'}, \textcolor{charliteral}{'E'}, \textcolor{charliteral}{'K'} + 0x80,}
+\DoxyCodeLine{        \textcolor{charliteral}{'A'}, \textcolor{charliteral}{'B'}, \textcolor{charliteral}{'S'} + 0x80,}
+\DoxyCodeLine{        \textcolor{charliteral}{'A'}, \textcolor{charliteral}{'R'}, \textcolor{charliteral}{'E'}, \textcolor{charliteral}{'A'}, \textcolor{charliteral}{'D'} + 0x80,}
+\DoxyCodeLine{        \textcolor{charliteral}{'D'}, \textcolor{charliteral}{'R'}, \textcolor{charliteral}{'E'}, \textcolor{charliteral}{'A'}, \textcolor{charliteral}{'D'} + 0x80,}
+\DoxyCodeLine{        \textcolor{charliteral}{'R'}, \textcolor{charliteral}{'N'}, \textcolor{charliteral}{'D'} + 0x80,}
+\DoxyCodeLine{        0\}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Software/Tiny\+\_\+\+Basic.\+hpp\end{DoxyCompactItemize}

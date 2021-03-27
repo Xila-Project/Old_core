@@ -576,6 +576,15 @@ public:
     void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
 
     Xila_Event Check_Credentials(const char *, const char *);
+    
+    /**
+     * @brief A function that allow to add user.
+     * 
+     * @param Username Username of new user
+     * @param Password 
+     *
+     * @return Xila_Event::Success or Xila_Event::Error
+     */
     Xila_Event Add_User(const char *Username, const char *Password);
     Xila_Event Delete_User(const char *);
     Xila_Event Change_Password(const char *, const char *);

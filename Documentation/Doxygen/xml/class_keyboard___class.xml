@@ -1,0 +1,410 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_keyboard___class" kind="class" language="C++" prot="public">
+    <compoundname>Keyboard_Class</compoundname>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_keyboard___class_1a273398dc2c32c7a18334e957a0377eed" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_keyboard___class" kindref="compound">Keyboard_Class</ref> *</type>
+        <definition>Keyboard_Class* Keyboard_Class::Keyboard_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Keyboard_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="179" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1aa3c4ee63ec72d888950c5f36f350cfa2" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>volatile uint8_t Keyboard_Class::buffer[BUFFER_SIZE]</definition>
+        <argsstring>[BUFFER_SIZE]</argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="181" column="29" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="181" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1aeae2ed500e6f50a74d6178fab1fb7a0e" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>volatile uint8_t Keyboard_Class::head</definition>
+        <argsstring></argsstring>
+        <name>head</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="182" column="29" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a2829e95236168c2524625fbd51a980c5" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>volatile uint8_t Keyboard_Class::tail</definition>
+        <argsstring></argsstring>
+        <name>tail</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="182" column="34" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a640bc7c89e2cbc9f9bb210e182f38785" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keyboard_Class::DataPin</definition>
+        <argsstring></argsstring>
+        <name>DataPin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="183" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1aaf4d04d3667f7c73aecd494c85cdf04e" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keyboard_Class::irq_num</definition>
+        <argsstring></argsstring>
+        <name>irq_num</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="184" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a9da956a96090130157b132124079f7bb" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keyboard_Class::CharBuffer</definition>
+        <argsstring></argsstring>
+        <name>CharBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="185" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a200b35d5b3dada30dc27bf9d5fe5a74b" prot="private" static="yes" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Keyboard_Class::UTF8next</definition>
+        <argsstring></argsstring>
+        <name>UTF8next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="186" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1ae48f17e1a470a50838878b9c3d339dba" prot="private" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref> *</type>
+        <definition>const Keymap_Class* Keyboard_Class::keymap</definition>
+        <argsstring></argsstring>
+        <name>keymap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="187" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_keyboard___class_1a9b49997affbae8b23d9aad806760aea0" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_US</definition>
+        <argsstring></argsstring>
+        <name>Keymap_US</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="202" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a6e12110c59b82bd7bcd9563b53ab2c4f" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_German</definition>
+        <argsstring></argsstring>
+        <name>Keymap_German</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="203" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a6232aebe572b426829a2d66058cd81c9" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_French</definition>
+        <argsstring></argsstring>
+        <name>Keymap_French</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="204" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="204" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1acc2f7fb01d0689d51405962910e4932e" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_Spanish</definition>
+        <argsstring></argsstring>
+        <name>Keymap_Spanish</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="205" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="205" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1a27527caf8961bd6da2ee3ac67352dc21" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_Italian</definition>
+        <argsstring></argsstring>
+        <name>Keymap_Italian</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="206" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_keyboard___class_1abfb1302a6223e34cab475820fd1a7602" prot="public" static="yes" mutable="no">
+        <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref></type>
+        <definition>const Keymap_Class Keyboard_Class::Keymap_UK</definition>
+        <argsstring></argsstring>
+        <name>Keymap_UK</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="207" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_keyboard___class_1a7a31067ba89b9bc1bbf758e595e110ac" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Keyboard_Class::Interrupt_Handler</definition>
+        <argsstring>()</argsstring>
+        <name>Interrupt_Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="209" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1ad510af8f0f58800af5a92b200780ff92" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>static uint8_t Keyboard_Class::get_scan_code</definition>
+        <argsstring>()</argsstring>
+        <name>get_scan_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="210" column="27"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_keyboard___class_1a8fc44f927193cc2740f6ccd4b8c7f35f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char</type>
+        <definition>char Keyboard_Class::get_iso8859_code</definition>
+        <argsstring>()</argsstring>
+        <name>get_iso8859_code</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="211" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1aa81bcd38c984124e0afe41aae0623c46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Keyboard_Class::Keyboard_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Keyboard_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Purpose: Provides an easy access to PS2 keyboards Author: Christian Weichel This constructor does basically nothing. Please call the begin(int,int) method before using any other method of this class. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="222" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1aa609468eb72e0a015d9a6fea26fe1784" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Keyboard_Class::begin</definition>
+        <argsstring>(uint8_t dataPin, uint8_t irq_pin, const Keymap_Class &amp;map=Keymap_US)</argsstring>
+        <name>begin</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>dataPin</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>irq_pin</declname>
+        </param>
+        <param>
+          <type>const <ref refid="struct_keymap___class" kindref="compound">Keymap_Class</ref> &amp;</type>
+          <declname>map</declname>
+          <defval>Keymap_US</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Starts the keyboard &quot;service&quot; by registering the external interrupt. setting the pin modes correctly and driving those needed to high. The propably best place to call this method is in the setup routine. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="229" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1ae322dda7d9371ad1453c55fcd37c6090" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Keyboard_Class::available</definition>
+        <argsstring>()</argsstring>
+        <name>available</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns true if there is a char to be read, false if not. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="234" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1aca5da5292ff04cb7bf97a63de81207b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Keyboard_Class::clear</definition>
+        <argsstring>()</argsstring>
+        <name>clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="238" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1a6e072d08248c6456bef8790a33dd25a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Keyboard_Class::readScanCode</definition>
+        <argsstring>(void)</argsstring>
+        <name>readScanCode</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Retutns ps2 scan code. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="243" column="13"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1a9f90b47e651191026a24de1728c132df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Keyboard_Class::read</definition>
+        <argsstring>()</argsstring>
+        <name>read</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns the char last read from the keyboard. If there is no char available, -1 is returned. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="249" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_keyboard___class_1ac9846853abe078e2d892c01baa4dae99" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Keyboard_Class::readUnicode</definition>
+        <argsstring>()</argsstring>
+        <name>readUnicode</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="250" column="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>Keymap_Class</label>
+        <link refid="struct_keymap___class"/>
+      </node>
+      <node id="1">
+        <label>Keyboard_Class</label>
+        <link refid="class_keyboard___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Keymap_French</edgelabel>
+          <edgelabel>Keymap_German</edgelabel>
+          <edgelabel>Keymap_Italian</edgelabel>
+          <edgelabel>Keymap_Spanish</edgelabel>
+          <edgelabel>Keymap_UK</edgelabel>
+          <edgelabel>Keymap_US</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" line="176" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Keyboard.hpp" bodystart="177" bodyend="251"/>
+    <listofallmembers>
+      <member refid="class_keyboard___class_1ae322dda7d9371ad1453c55fcd37c6090" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>available</name></member>
+      <member refid="class_keyboard___class_1aa609468eb72e0a015d9a6fea26fe1784" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>begin</name></member>
+      <member refid="class_keyboard___class_1aa3c4ee63ec72d888950c5f36f350cfa2" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>buffer</name></member>
+      <member refid="class_keyboard___class_1a9da956a96090130157b132124079f7bb" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>CharBuffer</name></member>
+      <member refid="class_keyboard___class_1aca5da5292ff04cb7bf97a63de81207b0" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>clear</name></member>
+      <member refid="class_keyboard___class_1a640bc7c89e2cbc9f9bb210e182f38785" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>DataPin</name></member>
+      <member refid="class_keyboard___class_1a8fc44f927193cc2740f6ccd4b8c7f35f" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>get_iso8859_code</name></member>
+      <member refid="class_keyboard___class_1ad510af8f0f58800af5a92b200780ff92" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>get_scan_code</name></member>
+      <member refid="class_keyboard___class_1aeae2ed500e6f50a74d6178fab1fb7a0e" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>head</name></member>
+      <member refid="class_keyboard___class_1a7a31067ba89b9bc1bbf758e595e110ac" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Interrupt_Handler</name></member>
+      <member refid="class_keyboard___class_1aaf4d04d3667f7c73aecd494c85cdf04e" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>irq_num</name></member>
+      <member refid="class_keyboard___class_1aa81bcd38c984124e0afe41aae0623c46" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keyboard_Class</name></member>
+      <member refid="class_keyboard___class_1a273398dc2c32c7a18334e957a0377eed" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keyboard_Pointer</name></member>
+      <member refid="class_keyboard___class_1ae48f17e1a470a50838878b9c3d339dba" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>keymap</name></member>
+      <member refid="class_keyboard___class_1a6232aebe572b426829a2d66058cd81c9" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_French</name></member>
+      <member refid="class_keyboard___class_1a6e12110c59b82bd7bcd9563b53ab2c4f" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_German</name></member>
+      <member refid="class_keyboard___class_1a27527caf8961bd6da2ee3ac67352dc21" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_Italian</name></member>
+      <member refid="class_keyboard___class_1acc2f7fb01d0689d51405962910e4932e" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_Spanish</name></member>
+      <member refid="class_keyboard___class_1abfb1302a6223e34cab475820fd1a7602" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_UK</name></member>
+      <member refid="class_keyboard___class_1a9b49997affbae8b23d9aad806760aea0" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>Keymap_US</name></member>
+      <member refid="class_keyboard___class_1a9f90b47e651191026a24de1728c132df" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>read</name></member>
+      <member refid="class_keyboard___class_1a6e072d08248c6456bef8790a33dd25a5" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>readScanCode</name></member>
+      <member refid="class_keyboard___class_1ac9846853abe078e2d892c01baa4dae99" prot="public" virt="non-virtual"><scope>Keyboard_Class</scope><name>readUnicode</name></member>
+      <member refid="class_keyboard___class_1a2829e95236168c2524625fbd51a980c5" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>tail</name></member>
+      <member refid="class_keyboard___class_1a200b35d5b3dada30dc27bf9d5fe5a74b" prot="private" virt="non-virtual"><scope>Keyboard_Class</scope><name>UTF8next</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
