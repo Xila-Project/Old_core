@@ -50,7 +50,7 @@
         <name>Picture</name>
         <enumvalue id="class_clock___class_1a1d901bafa0f7136037a247856028dfdca63a7bc45abe92ca4c306b63498462448" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Clock</initializer>
+          <initializer>= Xila.Display.Clock</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>

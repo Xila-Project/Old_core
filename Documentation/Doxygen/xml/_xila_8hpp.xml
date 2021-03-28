@@ -20,79 +20,88 @@
     <includedby refid="_text_01_editor_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</includedby>
     <includedby refid="_tiny___basic_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</includedby>
     <incdepgraph>
-      <node id="6">
+      <node id="9">
         <label>SD.h</label>
       </node>
-      <node id="9">
+      <node id="8">
         <label>stdarg.h</label>
       </node>
       <node id="5">
         <label>FS.h</label>
       </node>
-      <node id="7">
+      <node id="15">
+        <label>Print.h</label>
+      </node>
+      <node id="6">
         <label>SPI.h</label>
       </node>
-      <node id="17">
-        <label>Instruction.hpp</label>
-        <link refid="_instruction_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="4">
+        <label>stdint.h</label>
       </node>
-      <node id="16">
+      <node id="27">
         <label>Path.hpp</label>
         <link refid="_path_8hpp_source"/>
       </node>
-      <node id="13">
+      <node id="19">
+        <label>WiFiSTA.h</label>
+      </node>
+      <node id="14">
         <label>StreamUtils.h</label>
       </node>
-      <node id="20">
+      <node id="30">
         <label>Driver/Display.hpp</label>
         <link refid="_display_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="28">
         <label>Software.hpp</label>
         <link refid="_software_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="31">
         <label>HardwareSerial.h</label>
       </node>
-      <node id="8">
+      <node id="25">
+        <label>WiFiUdp.h</label>
+      </node>
+      <node id="7">
         <label>esp_log.h</label>
       </node>
-      <node id="12">
+      <node id="13">
         <label>ArduinoJson.h</label>
       </node>
-      <node id="22">
-        <label>Driver/Keyboard.hpp</label>
-        <link refid="_keyboard_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="16">
+        <label>IPAddress.h</label>
       </node>
-      <node id="25">
+      <node id="32">
         <label>Driver/Battery.hpp</label>
         <link refid="_battery_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>time.h</label>
+      </node>
+      <node id="21">
+        <label>WiFiScan.h</label>
       </node>
       <node id="2">
         <label>Arduino.h</label>
       </node>
-      <node id="11">
+      <node id="22">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="12">
         <label>Update.h</label>
       </node>
       <node id="1">
@@ -103,7 +112,7 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="4">
+      <node id="10">
         <label>SD_MMC.h</label>
       </node>
       <node id="3">
@@ -145,42 +154,55 @@
         </childnode>
         <childnode refid="20" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
         <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-      </node>
-      <node id="15">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="17">
+        <label>IPv6Address.h</label>
+      </node>
+      <node id="23">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="26">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
         <label>Software_Handle.hpp</label>
         <link refid="_software___handle_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>WiFi.h</label>
-      </node>
-      <node id="23">
-        <label>Driver/Sound.hpp</label>
-        <link refid="_sound_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-      </node>
       <node id="24">
-        <label>Audio.h</label>
+        <label>WiFiServer.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiType.h</label>
+      </node>
+      <node id="20">
+        <label>WiFiAP.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>

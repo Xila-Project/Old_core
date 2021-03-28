@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_nextion___display___class" kind="class" language="C++" prot="public">
     <compoundname>Nextion_Display_Class</compoundname>
+    <derivedcompoundref refid="class_xila___class_1_1_display___class" prot="public" virt="non-virtual">Xila_Class::Display_Class</derivedcompoundref>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123" prot="public" static="no" strong="no">
         <type></type>
@@ -2705,6 +2706,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Nextion_Display_Class</label>
+        <link refid="class_nextion___display___class"/>
+      </node>
+      <node id="2">
+        <label>Xila_Class::Display_Class</label>
+        <link refid="class_xila___class_1_1_display___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
     <collaborationgraph>
       <node id="1">
         <label>Nextion_Display_Class</label>

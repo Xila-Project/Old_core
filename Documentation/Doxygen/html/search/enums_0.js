@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['color_106',['Color',['../class_xila___class.html#aa32cd889a7243fb71a655f02e65fd969',1,'Xila_Class']]]
+  ['color_94',['Color',['../class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923',1,'Xila_Class::Display_Class']]]
 ];

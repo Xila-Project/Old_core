@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_task___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Task_Class</compoundname>
+    <basecompoundref refid="class_xila___class_1_1_module___class" prot="public" virt="non-virtual">Xila_Class::Module_Class</basecompoundref>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_task___class_1a6d7a612dafee15fd2251834cd0fce7a8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Task_Class::Delay</definition>
+        <argsstring>(uint32_t Delay_In_Millisecond)</argsstring>
+        <name>Delay</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>Delay_In_Millisecond</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="652" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_task___class_1ab1f783a816aee43d830ab3a00569f75b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Task_Class::Resume</definition>
+        <argsstring>(Xila_Task_Handle Task_To_Resume)</argsstring>
+        <name>Resume</name>
+        <param>
+          <type>Xila_Task_Handle</type>
+          <declname>Task_To_Resume</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="655" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_task___class_1a065138b41ce931e63a4f5747c873023d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Task_Class::Suspend</definition>
+        <argsstring>(Xila_Task_Handle Task_To_Suspend=NULL)</argsstring>
+        <name>Suspend</name>
+        <param>
+          <type>Xila_Task_Handle</type>
+          <declname>Task_To_Suspend</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="656" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_task___class_1a6326828e5d5103a63e81c9b8cd5ff7e8" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Task_Class::Delete</definition>
+        <argsstring>(Xila_Task_Handle Task_To_Delete=NULL)</argsstring>
+        <name>Delete</name>
+        <param>
+          <type>Xila_Task_Handle</type>
+          <declname>Task_To_Delete</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="657" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_task___class_1acb0ef79745cc3479ac1dfa25c1806a30" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Task_Class::Create</definition>
+        <argsstring>(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters=NULL, Xila_Task_Handle *Task_Handle=NULL)</argsstring>
+        <name>Create</name>
+        <param>
+          <type>Xila_Task_Function</type>
+          <declname>Task_Function</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Task_Name</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>Stack_Size</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>pvParameters</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>Xila_Task_Handle *</type>
+          <declname>Task_Handle</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="658" column="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Task management class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Task_Class</label>
+        <link refid="class_xila___class_1_1_task___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Task_Class</label>
+        <link refid="class_xila___class_1_1_task___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="648" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="649" bodyend="660"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_task___class_1acb0ef79745cc3479ac1dfa25c1806a30" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Create</name></member>
+      <member refid="class_xila___class_1_1_task___class_1a6d7a612dafee15fd2251834cd0fce7a8" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Delay</name></member>
+      <member refid="class_xila___class_1_1_task___class_1a6326828e5d5103a63e81c9b8cd5ff7e8" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Delete</name></member>
+      <member refid="class_xila___class_1_1_task___class_1ab1f783a816aee43d830ab3a00569f75b" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Resume</name></member>
+      <member refid="class_xila___class_1_1_task___class_1a065138b41ce931e63a4f5747c873023d" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Suspend</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

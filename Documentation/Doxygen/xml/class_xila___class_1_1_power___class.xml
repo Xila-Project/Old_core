@@ -1,0 +1,257 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_power___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Power_Class</compoundname>
+    <basecompoundref refid="class_battery___class" prot="public" virt="non-virtual">Battery_Class</basecompoundref>
+    <basecompoundref refid="class_xila___class_1_1_module___class" prot="public" virt="non-virtual">Xila_Class::Module_Class</basecompoundref>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_power___class_1a726846a600449c551065840e4d665b70" prot="protected" static="no" mutable="no">
+        <type>portMUX_TYPE</type>
+        <definition>portMUX_TYPE Xila_Class::Power_Class::Button_Mutex</definition>
+        <argsstring></argsstring>
+        <name>Button_Mutex</name>
+        <initializer>= portMUX_INITIALIZER_UNLOCKED</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="394" column="22" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="394" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_power___class_1aad9c824e3d1d500e283b67221b92787a" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>volatile uint8_t Xila_Class::Power_Class::Button_Counter</definition>
+        <argsstring></argsstring>
+        <name>Button_Counter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="395" column="26" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1a3c103405c9e9034bd68eece27a204905" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void IRAM_ATTR</type>
+        <definition>static void IRAM_ATTR Xila_Class::Power_Class::Button_Handler</definition>
+        <argsstring>()</argsstring>
+        <name>Button_Handler</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="393" column="31"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1a80836e70cd2de6ef80ae268b0ce3c1cd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Check_Button</definition>
+        <argsstring>()</argsstring>
+        <name>Check_Button</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="396" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1ae6f21a9771d8976618ff04f4a3df69d8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::First_Start_Routine</definition>
+        <argsstring>()</argsstring>
+        <name>First_Start_Routine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="398" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1ab87daf01d48cec0c0f4dd8e3212eba24" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Second_Start_Routine</definition>
+        <argsstring>()</argsstring>
+        <name>Second_Start_Routine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="399" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1aeb41f4654a7a978e32c6760697348e7e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Shutdown</definition>
+        <argsstring>()</argsstring>
+        <name>Shutdown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="401" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1ac2938c49c6534b7ee80d93e37db8dfa8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Restart</definition>
+        <argsstring>()</argsstring>
+        <name>Restart</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="402" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1af1adaddebfdbe1743387ccf4da62cbad" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Hibernate</definition>
+        <argsstring>()</argsstring>
+        <name>Hibernate</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="403" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1a9b4719f1ead21dbdbc3401973993775d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Deep_Sleep</definition>
+        <argsstring>()</argsstring>
+        <name>Deep_Sleep</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="404" column="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1a68ec6049e47c1b1b3fba789247577ed1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Power_Class::Power_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Power_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="408" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1a6764b09960fed1ace0bf11eaca72b3af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="410" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_power___class_1aeabb88fa0d2be415f8217d88dee99de4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Power_Class::Start</definition>
+        <argsstring>(Software_Handle_Class *Software_Package, uint8_t Size)</argsstring>
+        <name>Start</name>
+        <param>
+          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> *</type>
+          <declname>Software_Package</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="412" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Xila_Class::Power_Class</label>
+        <link refid="class_xila___class_1_1_power___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+      <node id="2">
+        <label>Battery_Class</label>
+        <link refid="class_battery___class"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Xila_Class::Power_Class</label>
+        <link refid="class_xila___class_1_1_power___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+      <node id="2">
+        <label>Battery_Class</label>
+        <link refid="class_battery___class"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="390" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="391" bodyend="414"/>
+    <listofallmembers>
+      <member refid="class_battery___class_1a5e0e4fed2ef553deec45fc76cb252a63" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Battery_Class</name></member>
+      <member refid="class_xila___class_1_1_power___class_1aad9c824e3d1d500e283b67221b92787a" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Button_Counter</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a3c103405c9e9034bd68eece27a204905" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Button_Handler</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a726846a600449c551065840e4d665b70" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Button_Mutex</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a80836e70cd2de6ef80ae268b0ce3c1cd" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Check_Button</name></member>
+      <member refid="class_battery___class_1af77db5de4dbb8c97f5e48b3f28f472e4" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Conversion_Factor</name></member>
+      <member refid="class_battery___class_1a5a0e3a29958bf7134fb468f160cc931f" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Current_Level</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a9b4719f1ead21dbdbc3401973993775d" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Deep_Sleep</name></member>
+      <member refid="class_xila___class_1_1_power___class_1ae6f21a9771d8976618ff04f4a3df69d8" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>First_Start_Routine</name></member>
+      <member refid="class_battery___class_1af057a80088a2d03c0d723f9e36f24f23" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Get_Charge_Level</name></member>
+      <member refid="class_xila___class_1_1_power___class_1af1adaddebfdbe1743387ccf4da62cbad" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Hibernate</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a68ec6049e47c1b1b3fba789247577ed1" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Power_Class</name></member>
+      <member refid="class_xila___class_1_1_power___class_1ac2938c49c6534b7ee80d93e37db8dfa8" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Restart</name></member>
+      <member refid="class_xila___class_1_1_power___class_1ab87daf01d48cec0c0f4dd8e3212eba24" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Second_Start_Routine</name></member>
+      <member refid="class_battery___class_1aaad566d864e165c8ab95bf915f5f24ad" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Sensing_Pin</name></member>
+      <member refid="class_xila___class_1_1_power___class_1aeb41f4654a7a978e32c6760697348e7e" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Shutdown</name></member>
+      <member refid="class_xila___class_1_1_power___class_1a6764b09960fed1ace0bf11eaca72b3af" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Start</name></member>
+      <member refid="class_xila___class_1_1_power___class_1aeabb88fa0d2be415f8217d88dee99de4" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Start</name></member>
+      <member refid="class_battery___class_1a655f97c0c0299d68f55ffe5c2cdb1b4a" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Voltage_Table</name></member>
+      <member refid="class_battery___class_1adf18415926a31c0a52de7f195d06a5c4" prot="public" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>~Battery_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

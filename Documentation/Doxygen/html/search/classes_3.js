@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['keyboard_5fclass_61',['Keyboard_Class',['../class_keyboard___class.html',1,'']]],
-  ['keymap_5fclass_62',['Keymap_Class',['../struct_keymap___class.html',1,'']]]
+  ['dialog_5fclass_57',['Dialog_Class',['../class_xila___class_1_1_dialog___class.html',1,'Xila_Class']]],
+  ['display_5fclass_58',['Display_Class',['../class_xila___class_1_1_display___class.html',1,'Xila_Class']]]
 ];

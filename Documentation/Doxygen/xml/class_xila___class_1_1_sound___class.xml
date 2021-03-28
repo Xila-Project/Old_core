@@ -1,0 +1,702 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_sound___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Sound_Class</compoundname>
+    <basecompoundref refid="class_xila___class_1_1_module___class" prot="public" virt="non-virtual">Xila_Class::Module_Class</basecompoundref>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5e" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>State</name>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea8a29733d7215952bb234dd129fed8fed" prot="protected">
+          <name>Stopped</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5eae38ff8be87f47eb1fb6361a4b2f5bdcf" prot="protected">
+          <name>Playing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea61cab649e8b17418a223039c5906c321" prot="protected">
+          <name>Paused</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="520" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="521" bodyend="525"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Event</name>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ae9cf1abfe8e7341e3356f055e1d71f68" prot="public">
+          <name>Failed_To_Get_RTC_Period</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a9d670ce4019937daf9ac4cca99cb20e4" prot="public">
+          <name>Failed_To_Open_File</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344abecafa4634d1b96301a6a09a3cb4b732" prot="public">
+          <name>Failed_To_Get_Metadata</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ac4d89cbc8fe62c8d174357d1e4765a64" prot="public">
+          <name>Failed_To_Load_ULP_Program</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a60cab6d8a083c88b08d8d9c3f5647b9f" prot="public">
+          <name>Failed_To_Create_Task</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a18b79bf11d1b2ccc638dbbd35e530db1" prot="public">
+          <name>Not_RIFF_Compliant</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a44bbe5c06ee9401e53cc7c8270bc75da" prot="public">
+          <name>Not_WAVE_Compliant</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a1a2ac8fab31a728648d375c093de7555" prot="public">
+          <name>Incompatible_Block_ID</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a5e3f6e3b6c023d9f6cc9fb69ea478358" prot="public">
+          <name>Not_A_PCM_File</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab2deb53f2c7368e9989ddbbae482cb47" prot="public">
+          <name>Unsupported_Bit_Depth</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a3d03222afe09a6cae7d93c45f214b8b1" prot="public">
+          <name>Unsupported_Sampling_Rate</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab7b5dcb69064697ea849ca6e52bbbaf8" prot="public">
+          <name>Unsupported_Channel_Number</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="538" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="539" bodyend="552"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1a94f9d22e642ce6c780f9fb756b7bb36a" prot="protected" static="yes" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t Xila_Class::Sound_Class::Left_Channel</definition>
+        <argsstring></argsstring>
+        <name>Left_Channel</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="508" column="30" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="508" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1ae0b5ee7c9097ff2901c27923c955de2a" prot="protected" static="yes" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t Xila_Class::Sound_Class::Right_Channel</definition>
+        <argsstring></argsstring>
+        <name>Right_Channel</name>
+        <initializer>= 1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="509" column="30" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="509" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1a541511cb60ca964e48a840ea005092d1" prot="protected" static="yes" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t Xila_Class::Sound_Class::Custom_Channel</definition>
+        <argsstring></argsstring>
+        <name>Custom_Channel</name>
+        <initializer>= 2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="510" column="30" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="510" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1a4a5aee297aad39aa4708d2c31d43544c" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Custom_Pin</definition>
+        <argsstring></argsstring>
+        <name>Custom_Pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="512" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="512" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1a8f500e346202feebac92ab77493125cc" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Xila_Class::Sound_Class::Music_File</definition>
+        <argsstring></argsstring>
+        <name>Music_File</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="516" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="516" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_sound___class_1a9d82f3b1b77fd31f10fc9d812b6e5128" prot="protected" static="no" mutable="no">
+        <type>fs::FS *</type>
+        <definition>fs::FS* Xila_Class::Sound_Class::File_System</definition>
+        <argsstring></argsstring>
+        <name>File_System</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="518" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="518" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1aec29e12e045cf52b3ced1a675c122166" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Xila_Class::Sound_Class::Sound_Task</definition>
+        <argsstring>(void *)</argsstring>
+        <name>Sound_Task</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="532" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1ab740639934eca8bbae54a73448f58056" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Sound_Class::Save_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Save_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="534" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a6b3abd6131f9c6afa28239ee68de33e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Sound_Class::Load_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Load_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="535" column="20"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Sound_Class::Sound_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Sound_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="554" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a3431aa8f7549a598bba85254013c4766" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Sound_Class::~Sound_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Sound_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="555" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a620979421eaffe3855b6825f4fb887e0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_Output_Channel</definition>
+        <argsstring>(uint8_t Number_Output_Channel)</argsstring>
+        <name>Set_Output_Channel</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Number_Output_Channel</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="557" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1ad335fe9c75edaa6ce281f617227b8375" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_Volume</definition>
+        <argsstring>(uint16_t)</argsstring>
+        <name>Set_Volume</name>
+        <param>
+          <type>uint16_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="559" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a6ff91eed9eb1dd826ad2eba29b31b6c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Get_Volume</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Volume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="560" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a7d2abce0c911a105f30bbff2795dbae1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_File_System</definition>
+        <argsstring>(fs::FS &amp;File_System)</argsstring>
+        <name>Set_File_System</name>
+        <param>
+          <type>fs::FS &amp;</type>
+          <declname>File_System</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="562" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a0d825db7c724bfd5f13390443a6cfebe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_Balance</definition>
+        <argsstring>(uint8_t)</argsstring>
+        <name>Set_Balance</name>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="564" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a6431df53f50f2a27cb47ccba414083fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Play</definition>
+        <argsstring>(File &amp;File_To_Play)</argsstring>
+        <name>Play</name>
+        <param>
+          <type>File &amp;</type>
+          <declname>File_To_Play</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="566" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a2e394ab13953021ec402386a7186201d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Play</definition>
+        <argsstring>(const char *File_Path_Or_Host, const char *User=&quot;&quot;, const char *Password=&quot;&quot;)</argsstring>
+        <name>Play</name>
+        <param>
+          <type>const char *</type>
+          <declname>File_Path_Or_Host</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>User</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Password</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="567" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a1468e07779e332ca44dc59cd0b5f69e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Resume</definition>
+        <argsstring>()</argsstring>
+        <name>Resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="569" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1af269c6d66abee34fdcb7ff67d1eaf8c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Pause</definition>
+        <argsstring>()</argsstring>
+        <name>Pause</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="570" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a5de940e5b1e53e42cb8c5f8b9aa55237" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Mute</definition>
+        <argsstring>()</argsstring>
+        <name>Mute</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="571" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1aeeb2e3bc8757951e2a799af07a649a08" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Stop</definition>
+        <argsstring>()</argsstring>
+        <name>Stop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="572" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a5c7124241329ea0c7610d118b7087e5d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_Current_Time</definition>
+        <argsstring>(uint32_t Time)</argsstring>
+        <name>Set_Current_Time</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>Time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="574" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a11cea489c89cd820f7882919e2c16cc6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Sound_Class::Get_Current_Time</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Current_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="575" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1acb33994cde05a4c61d09a935075a31bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Sound_Class::Get_Total_Time</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Total_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="576" column="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a353f51b56febd8281c38848dbd5b8d56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Set_Offset_Time</definition>
+        <argsstring>(int16_t Time)</argsstring>
+        <name>Set_Offset_Time</name>
+        <param>
+          <type>int16_t</type>
+          <declname>Time</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="577" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a114b95e43e5f5a3056075b453ee6ec8f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Sound_Class::Get_State</definition>
+        <argsstring>()</argsstring>
+        <name>Get_State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="578" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a2bfb28fd75125245a976de6ab8201195" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Tone</definition>
+        <argsstring>(uint16_t const &amp;Frequency, uint32_t const &amp;Duration=0, uint8_t const &amp;Pin=0xFF)</argsstring>
+        <name>Tone</name>
+        <param>
+          <type>uint16_t const &amp;</type>
+          <declname>Frequency</declname>
+        </param>
+        <param>
+          <type>uint32_t const &amp;</type>
+          <declname>Duration</declname>
+          <defval>0</defval>
+        </param>
+        <param>
+          <type>uint8_t const &amp;</type>
+          <declname>Pin</declname>
+          <defval>0xFF</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="580" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a6bb8c02187efa7d88caea1a498f7c963" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::No_Tone</definition>
+        <argsstring>(uint8_t const &amp;Pin=0xFF)</argsstring>
+        <name>No_Tone</name>
+        <param>
+          <type>uint8_t const &amp;</type>
+          <declname>Pin</declname>
+          <defval>0xFF</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="581" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_sound___class_1a2689264049e6b579b2f448ef63d6287f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Sound_Class::Loop</definition>
+        <argsstring>()</argsstring>
+        <name>Loop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="583" column="14"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_sound___class_1a41bc3dbfdf579bdb9446f64b46aec9aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void audio_eof_mp3</definition>
+        <argsstring>(const char *)</argsstring>
+        <name>audio_eof_mp3</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="585" column="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sound class API. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Xila_Class::Sound_Class</label>
+        <link refid="class_xila___class_1_1_sound___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Xila_Class::Sound_Class</label>
+        <link refid="class_xila___class_1_1_sound___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Xila_Class::Module_Class</label>
+        <link refid="class_xila___class_1_1_module___class"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="505" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="506" bodyend="586"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_sound___class_1a41bc3dbfdf579bdb9446f64b46aec9aa" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>audio_eof_mp3</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a541511cb60ca964e48a840ea005092d1" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Custom_Channel</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a4a5aee297aad39aa4708d2c31d43544c" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Custom_Pin</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Event</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a60cab6d8a083c88b08d8d9c3f5647b9f" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Failed_To_Create_Task</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344abecafa4634d1b96301a6a09a3cb4b732" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Failed_To_Get_Metadata</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ae9cf1abfe8e7341e3356f055e1d71f68" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Failed_To_Get_RTC_Period</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ac4d89cbc8fe62c8d174357d1e4765a64" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Failed_To_Load_ULP_Program</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a9d670ce4019937daf9ac4cca99cb20e4" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Failed_To_Open_File</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a9d82f3b1b77fd31f10fc9d812b6e5128" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>File_System</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a11cea489c89cd820f7882919e2c16cc6" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Get_Current_Time</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a114b95e43e5f5a3056075b453ee6ec8f" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Get_State</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1acb33994cde05a4c61d09a935075a31bb" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Get_Total_Time</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a6ff91eed9eb1dd826ad2eba29b31b6c0" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Get_Volume</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a1a2ac8fab31a728648d375c093de7555" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Incompatible_Block_ID</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a94f9d22e642ce6c780f9fb756b7bb36a" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Left_Channel</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a6b3abd6131f9c6afa28239ee68de33e3" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a2689264049e6b579b2f448ef63d6287f" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Loop</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a8f500e346202feebac92ab77493125cc" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Music_File</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a5de940e5b1e53e42cb8c5f8b9aa55237" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Mute</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a6bb8c02187efa7d88caea1a498f7c963" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>No_Tone</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a5e3f6e3b6c023d9f6cc9fb69ea478358" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Not_A_PCM_File</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a18b79bf11d1b2ccc638dbbd35e530db1" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Not_RIFF_Compliant</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a44bbe5c06ee9401e53cc7c8270bc75da" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Not_WAVE_Compliant</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1af269c6d66abee34fdcb7ff67d1eaf8c5" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Pause</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea61cab649e8b17418a223039c5906c321" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Paused</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a6431df53f50f2a27cb47ccba414083fe" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Play</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a2e394ab13953021ec402386a7186201d" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Play</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5eae38ff8be87f47eb1fb6361a4b2f5bdcf" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Playing</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a1468e07779e332ca44dc59cd0b5f69e9" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Resume</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1ae0b5ee7c9097ff2901c27923c955de2a" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Right_Channel</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1ab740639934eca8bbae54a73448f58056" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a0d825db7c724bfd5f13390443a6cfebe" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_Balance</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a5c7124241329ea0c7610d118b7087e5d" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_Current_Time</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7d2abce0c911a105f30bbff2795dbae1" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_File_System</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a353f51b56febd8281c38848dbd5b8d56" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_Offset_Time</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a620979421eaffe3855b6825f4fb887e0" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_Output_Channel</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1ad335fe9c75edaa6ce281f617227b8375" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Set_Volume</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Sound_Class</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1aec29e12e045cf52b3ced1a675c122166" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Sound_Task</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5e" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>State</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1aeeb2e3bc8757951e2a799af07a649a08" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Stop</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea8a29733d7215952bb234dd129fed8fed" prot="protected" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Stopped</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a2bfb28fd75125245a976de6ab8201195" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Tone</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab2deb53f2c7368e9989ddbbae482cb47" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Unsupported_Bit_Depth</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab7b5dcb69064697ea849ca6e52bbbaf8" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Unsupported_Channel_Number</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a3d03222afe09a6cae7d93c45f214b8b1" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>Unsupported_Sampling_Rate</name></member>
+      <member refid="class_xila___class_1_1_sound___class_1a3431aa8f7549a598bba85254013c4766" prot="public" virt="non-virtual"><scope>Xila_Class::Sound_Class</scope><name>~Sound_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

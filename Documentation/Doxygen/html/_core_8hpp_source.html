@@ -72,599 +72,720 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="_core_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#ifndef CORE_H_INCLUDED</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define CORE_H_INCLUDED</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">//                          Include Necessary Libraries                       //</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifndef CORE_H_INCLUDED</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define CORE_H_INCLUDED</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &quot;Arduino.h&quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#error Xila requires a C++ complier, pleas echange file extension to .cc or .cpp</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;SD_MMC.h&quot;</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &quot;FS.h&quot;</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &quot;SD.h&quot;</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;SPI.h&quot;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">//                          Include Necessary Libraries                       //</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &quot;Arduino.h&quot;</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &quot;esp_log.h&quot;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &quot;FS.h&quot;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;time.h&quot;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;Update.h&quot;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;ArduinoJson.h&gt;</span> <span class="comment">//used to store registries</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;StreamUtils.h&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &quot;SPI.h&quot;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &quot;esp_log.h&quot;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;stdarg.h&gt;</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;WiFi.h&quot;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">//                          Include All Project File                          //</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &quot;SD.h&quot;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &quot;SD_MMC.h&quot;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &quot;time.h&quot;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &quot;Update.h&quot;</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// Main compile-time configuration file</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &quot;Configuration.hpp&quot;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">// Path list</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &quot;Path.hpp&quot;</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// Other part of the core</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &quot;Instruction.hpp&quot;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &quot;Software.hpp&quot;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &quot;Software_Handle.hpp&quot;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// Registry management library</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;ArduinoJson.h&gt;</span> <span class="comment">//used to store registries</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;StreamUtils.h&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// WiFi libraries</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &quot;Print.h&quot;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &quot;IPAddress.h&quot;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &quot;IPv6Address.h&quot;</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">// Driver files</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &quot;Driver/Display.hpp&quot;</span>  <span class="comment">// Nextion display driver (maybe create a library for each driver)</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#include &quot;Driver/Keyboard.hpp&quot;</span> <span class="comment">// PS2 keyboard driver</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#include &quot;Driver/Sound.hpp&quot;</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#include &quot;Driver/Battery.hpp&quot;</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#include &quot;WiFiType.h&quot;</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#include &quot;WiFiSTA.h&quot;</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#include &quot;WiFiAP.h&quot;</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#include &quot;WiFiScan.h&quot;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#include &quot;WiFiGeneric.h&quot;</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//                                Define Const                                //</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#include &quot;WiFiClient.h&quot;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#include &quot;WiFiServer.h&quot;</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#include &quot;WiFiUdp.h&quot;</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// Event  (used to interract with the event handler)</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">typedef</span> uint16_t Xila_Event;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">typedef</span> uint16_t Xila_Command;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">typedef</span> tm Xila_Time;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">void</span>* Xila_Task_Handle;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">typedef</span> void (*Xila_Task_Function)(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">//                          Include All Project File                          //</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">// Main compile-time configuration file</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#include &quot;Configuration.hpp&quot;</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">// Path list</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#include &quot;Path.hpp&quot;</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// System state</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#define SYSTEM_STATE_STANDALONE 1</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#define SYSTEM_STATE_NORMAL 0</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// Other part of the core</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#include &quot;Software.hpp&quot;</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#include &quot;Software_Handle.hpp&quot;</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// Software type</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#define SOFTWARE_EMBEDDED 0</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#define SOFTWARE_STANDALONE 1</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// Driver files</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#include &quot;Driver/Display.hpp&quot;</span> <span class="comment">// Nextion display driver (maybe create a library for each driver)</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#include &quot;Driver/Battery.hpp&quot;</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">// Alignement</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">//                                Define Const                                //</span></div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">//                         Define Xila Core API                               //</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> Shell_Handle;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="class_xila___class.html">  106</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_xila___class.html">Xila_Class</a></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// Instance pointer</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// Sound hal</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    None,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    Success = 1,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    Error,</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    Warning,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    Information,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    Question,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    Button_1 = 0x31, <span class="comment">//&lt; Button 1 reply, by default : Yes</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    Button_2 = 0x32, <span class="comment">//&lt; Button 2 reply by default : No</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    Button_3 = 0x33, <span class="comment">//&lt; Button 3 reply by default : Cancel (returned also by close button)</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    Default_Yes = Button_1,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    Default_No = Button_2,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    Default_Cancel = Button_3,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;} Xila_Event;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">static</span> <a class="code" href="class_xila___class.html">Xila_Class</a> *Instance_Pointer;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="class_xila___class.html#afc6746afeefaa37338272af832e20649">  121</a></span>&#160;    <span class="keywordtype">char</span> <a class="code" href="class_xila___class.html#afc6746afeefaa37338272af832e20649">Device_Name</a>[24];</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> Low_RAM_Threshold = 2000;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="comment">//User attribute</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">char</span> Current_Username[9];</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    uint8_t User_Session;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">enum</span> Session_State</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        Disconnected,</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        Logged,</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        Locked</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    };</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">typedef</span> uint16_t Xila_Instruction;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keyword">typedef</span> tm Xila_Time;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">void</span> *Xila_Task_Handle;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">typedef</span> void (*Xila_Task_Function)(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="comment">// System state</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#define SYSTEM_STATE_STANDALONE 1</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#define SYSTEM_STATE_NORMAL 0</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">// Software type</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#define SOFTWARE_EMBEDDED 0</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="preprocessor">#define SOFTWARE_STANDALONE 1</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// Alignement</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">//                         Define Xila Core API                               //</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">//----------------------------------------------------------------------------//</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <a class="code" href="class_software___class.html">Software_Class</a> *Open_Software_Pointer[8] = {NULL};</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// Open_Software_Pointer[0] : Current running software</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="comment">// Open_Software_Pointer[1] : Shell slot</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// Open_Softwaer_Pointer[2 - 7] : Other openned software</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {NULL};</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">// Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="comment">// Shell short cut</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">void</span> *Shell_Return_Item;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    Xila_Event Shell_Return;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordtype">void</span> Maximize_Shell();</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordtype">void</span> Execute_Shell(Xila_Command <span class="keyword">const</span> &amp;Command);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// Display</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">char</span> Tag;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_String_Data_From_Display(<span class="keyword">const</span> <span class="keywordtype">char</span> *, uint8_t);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_Numeric_Data_From_Display(uint32_t);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_Event_From_Display(uint8_t);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// Serial print</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    uint8_t Remaining_Spaces;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="comment">//Software management</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    uint8_t Get_Software_Handle_Pointer(<span class="keyword">const</span> <span class="keywordtype">char</span> *Software_Name);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="keyword">extern</span> <a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> Shell_Handle;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">class </span><a class="code" href="class_shell___class.html">Shell_Class</a>;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="class_xila___class.html">  145</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_xila___class.html">Xila_Class</a></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;{</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="class_xila___class.html#a819acce7599d01577959a75715e8f896">  152</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="class_xila___class.html">Xila_Class</a> *<a class="code" href="class_xila___class.html#a819acce7599d01577959a75715e8f896">Instance_Pointer</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_module___class.html">  158</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_shell___class.html">Shell_Class</a>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    };</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment">//===============================================================================</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">// Power button</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="comment">//========================================================================================</span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keyword">enum</span> Image_Offset</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    {</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        Shell = 0,</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        Calculator = 20,</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        Clock = 21,</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        Internet_Browser = 22,</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        Music_Player = 23,</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        Oscilloscope = 32,</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        Paint = 33,</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        Periodic = 34,</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        Piano = 36,</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        Picture_Viewer = 40,</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        Pong = 41,</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        Simon = 42,</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        Text_Editor = 43,</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        Tiny_Basic = 44</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    };</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keyword">enum</span> Pages_Offset</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    {</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    };</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    uint32_t Last_Watchdog_Feed;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    uint8_t Watchdog_Reminder;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="class_xila___class.html#a1519c7fb0bd2bab54f192bd575023d97">  198</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#a1519c7fb0bd2bab54f192bd575023d97">Feed_Watchdog</a>();</div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_account___class.html">  172</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_account___class.html">Account_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keywordtype">char</span> Current_Username[9];</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        uint8_t State;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">enum</span> Session_State</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        {</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            Disconnected,</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            Logged,</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            Locked</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        };</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        Xila_Event Add_User(<span class="keyword">const</span> <span class="keywordtype">char</span> *Username, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        Xila_Event Delete_User(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        Xila_Event Change_Password(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        Xila_Event Change_Username(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        Xila_Event Set_Autologin(<span class="keywordtype">bool</span> Enable);</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="class_xila___class.html#a09036764690737599465461ebd8dc14f">  205</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#a09036764690737599465461ebd8dc14f">Delay</a>(uint32_t Delay_In_Millisecond);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        Xila_Event Check_Credentials(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        Xila_Event Login(<span class="keyword">const</span> <span class="keywordtype">char</span> *Username_To_Check = NULL, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password_To_Check = NULL);</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        Xila_Event Logout();</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        Xila_Event Lock();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> *Get_Current_Username();</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">void</span> Check_Watchdog();</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        uint8_t Get_State();</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
-<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6f">  212</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6f">Font</a></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    {</div>
-<div class="line"><a name="l00214"></a><span class="lineno"><a class="line" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa6be088c4449c9ecd81716631d5098529">  214</a></span>&#160;        <a class="code" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa6be088c4449c9ecd81716631d5098529">Regular_16</a> = 0, </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        Mono_16,</div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fab5e3dbb49384d13b2040eddb5301c325">  216</a></span>&#160;        <a class="code" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fab5e3dbb49384d13b2040eddb5301c325">Regular_24</a>, </div>
-<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa32ff39c267d9579d2737105de2bf8c5f">  217</a></span>&#160;        <a class="code" href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa32ff39c267d9579d2737105de2bf8c5f">Regular_32</a>,  </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        Regular_48</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    };</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> IRAM_ATTR Power_Button_Handler();</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    portMUX_TYPE Power_Button_Mutex = portMUX_INITIALIZER_UNLOCKED;</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <span class="keyword">volatile</span> uint8_t Power_Button_Counter;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <a class="code" href="class_xila___class_1_1_account___class.html">Account_Class</a>();</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    } Account;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="comment">//=====================================================================</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_clipboard___class.html">  221</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_clipboard___class.html">Clipboard_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    {</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        File Clipboard_File;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        uint8_t Split_Number[8];</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">void</span> Check_Power_Button();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="comment">// -- Task management -- //</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keywordtype">void</span> Task_Resume(Xila_Task_Handle Task_To_Resume);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    <span class="keywordtype">void</span> Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordtype">void</span> Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    Xila_Event Task_Create(Xila_Task_Function Task_Function, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters = NULL, Xila_Task_Handle* Task_Handle = NULL);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="comment">// -- Software management -- //</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        Xila_Event Copy(uint64_t <span class="keyword">const</span> &amp;Value_To_Copy);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        Xila_Event Copy(<span class="keyword">const</span> <span class="keywordtype">char</span> *Char_Array_To_Copy, <span class="keywordtype">size_t</span> Char_Array_Lenght = 0);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        Xila_Event Copy(String <span class="keyword">const</span> &amp;String_To_Copy); <span class="comment">// deprecated : only for compatibility purpose</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        Xila_Event Paste(uint64_t &amp;Value_To_Paste);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        Xila_Event Paste(<span class="keywordtype">char</span> *Char_Array_To_Paste, <span class="keywordtype">size_t</span> Char_Array_Lenght);</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        Xila_Event Paste(String &amp;String_To_Paste);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    } Clipboard;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keyword">inline</span> uint8_t Seek_Open_Software_Handle(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;);</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="comment">//=====================================================================</span></div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
-<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="class_xila___class.html#ac4a8feec533321d38ffe492b7bf3beef">  246</a></span>&#160;    Xila_Event <a class="code" href="class_xila___class.html#ac4a8feec533321d38ffe492b7bf3beef">Software_Open</a>(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="class_xila___class.html#aa0cac4f9a9a1f774c6116a5f5cdca245">  253</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#aa0cac4f9a9a1f774c6116a5f5cdca245">Software_Close</a>(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno"><a class="line" href="class_xila___class.html#a0ffc09d11c809b2ed6177f110fba3ce2">  259</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#a0ffc09d11c809b2ed6177f110fba3ce2">Force_Software_Close</a>();</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="class_xila___class.html#ab6a6a5f06b7ee9f70e457533255f8442">  264</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#ab6a6a5f06b7ee9f70e457533255f8442">Software_Minimize</a>(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span>&amp; Software_Handle);</div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_dialog___class.html">  245</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_dialog___class.html">Dialog_Class</a></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;    {</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <a class="code" href="class_software___class.html">Software_Class</a> *Caller_Software_Pointer;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        Xila_Event State;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        SemaphoreHandle_t Semaphore;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        uint32_t Long[2];</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordtype">void</span> *Pointer;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        Xila_Event Event(<span class="keyword">const</span> __FlashStringHelper *, uint8_t, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL);</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        Xila_Event Color_Picker(uint16_t &amp;Color);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        Xila_Event Open_File(File &amp;File_To_Open);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        Xila_Event Open_Folder(File &amp;Folder_To_Open);</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        Xila_Event Save_File(File &amp;File_To_Save);</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        Xila_Event Keyboard(<span class="keywordtype">char</span> *Char_Array_To_Get, <span class="keywordtype">size_t</span> Char_Array_Size = 189, <span class="keywordtype">bool</span> Masked_Input = <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="comment">// to do : Xila_Event Keyboard_Difalog(float&amp; Number_To_Get) (and more overload);</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        Xila_Event Keypad(<span class="keywordtype">float</span> &amp;Number_To_Get);</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <a class="code" href="class_xila___class_1_1_dialog___class.html">Dialog_Class</a>();</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno"><a class="line" href="class_xila___class.html#a42200934553de12cb88bd861f8412d19">  271</a></span>&#160;    Xila_Event <a class="code" href="class_xila___class.html#a42200934553de12cb88bd861f8412d19">Software_Maximize</a>(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    <span class="keywordtype">void</span> Add_Software_Handle(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;); <span class="comment">//private shortcut</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keyword">enum</span> Font_16</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        State_Button = 127,</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        Left_Arrow,</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        Right_Arrow,</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        Up_Arrow,</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        Down_Arrow,</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        Battery_Empty,</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        Battery_Low,</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        Battery_Medium,</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        Battery_High,</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        WiFi_Low,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        WiFi_Medium,</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        WiFi_High,</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        Bluetooth,</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        Sound_Mute,</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        Sound_Low,</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        Sound_Medium,</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        Sound_High,</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    };</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">enum</span> Font_32</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        Exclamation_Mark = 127,</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        Question_Mark,</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        Cross</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    };</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno"><a class="line" href="class_xila___class.html#aa32cd889a7243fb71a655f02e65fd969">  307</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_xila___class.html#aa32cd889a7243fb71a655f02e65fd969">Color</a></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    {</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        Black,</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        White = 65535,</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        Light_Grey = 33808,</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        Dark_Grey = 16904,</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        Red = 57344,</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        Blue = 1300,</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        Green = 34308,</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        Yellow = 64896</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    };</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <a class="code" href="class_xila___class.html">Xila_Class</a>();</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;    ~<a class="code" href="class_xila___class.html">Xila_Class</a>();</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="comment">// Drivers</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="comment">// WiFi</span></div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="comment">//WiFiClass* WiFi = &amp;WiFi;</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="comment">// Display</span></div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <a class="code" href="class_nextion___display___class.html">Nextion_Display_Class</a> Display;</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="comment">// Sound</span></div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <a class="code" href="class_sound___class.html">Sound_Class</a> Sound;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="comment">// Battery</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <a class="code" href="class_battery___class.html">Battery_Class</a> Battery;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">// Input</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <a class="code" href="class_keyboard___class.html">Keyboard_Class</a> Keyboard;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;<span class="comment">// Disk</span></div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="preprocessor">#if SD_MODE == 0</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    fs::SDMMCFS* Drive = &amp;SD_MMC;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;<span class="preprocessor">#elif SD_MODE == 1</span></div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    fs::SDFS* Drive = &amp;SD;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="comment">// WiFi</span></div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno"><a class="line" href="class_xila___class.html#acd236a639e393204a5fff5195e2c8c79">  349</a></span>&#160;    Xila_Event <a class="code" href="class_xila___class.html#acd236a639e393204a5fff5195e2c8c79">WiFi_Connect</a>();</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160; </div>
-<div class="line"><a name="l00358"></a><span class="lineno"><a class="line" href="class_xila___class.html#a19ff6f1213a7b0eb1ab50477ff5beb34">  358</a></span>&#160;    Xila_Event <a class="code" href="class_xila___class.html#a19ff6f1213a7b0eb1ab50477ff5beb34">WiFi_Connect</a>(<span class="keywordtype">char</span> *Name, <span class="keywordtype">char</span> *Password);</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    <span class="comment">// -- System state -- //</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
-<div class="line"><a name="l00375"></a><span class="lineno"><a class="line" href="class_xila___class.html#ac4bedcdbcd037ac29d420bb0543cc072">  375</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#ac4bedcdbcd037ac29d420bb0543cc072">Start</a>(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> *Software_Package, uint8_t Size); <span class="comment">// reload system from the dump file</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
-<div class="line"><a name="l00382"></a><span class="lineno"><a class="line" href="class_xila___class.html#afa5db0ab2385ff9c1d73aa0fafcafd05">  382</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#afa5db0ab2385ff9c1d73aa0fafcafd05">Start</a>();</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    } Dialog;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160; </div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="comment">//===============================================================================</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html">  276</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_display___class.html">Display_Class</a> : <span class="keyword">public</span> <a class="code" href="class_nextion___display___class.html">Nextion_Display_Class</a>, <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    {</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        uint8_t Brightness;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        uint16_t Standby_Time;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        uint8_t Receive_Pin;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        uint8_t Send_Pin;</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordtype">char</span> Tag = 0;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_String_Data_From_Display(<span class="keyword">const</span> <span class="keywordtype">char</span> *, uint8_t);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_Numeric_Data_From_Display(uint32_t);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Incomming_Event_From_Display(uint8_t);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923">  298</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923">Color</a></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        {</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            Black,</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            White = 65535,</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            Light_Grey = 33808,</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;            Dark_Grey = 16904,</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            Red = 57344,</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;            Blue = 1300,</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            Green = 34308,</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            Yellow = 64896</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        };</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
+<div class="line"><a name="l00313"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a2dc1dbb3fbb0cefc255a8aa617137288">  313</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_display___class.html#a2dc1dbb3fbb0cefc255a8aa617137288">Font_16</a></div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        {</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            State_Button = 127,</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            Left_Arrow,</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            Right_Arrow,</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            Up_Arrow,</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            Down_Arrow,</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            Battery_Empty,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            Battery_Low,</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            Battery_Medium,</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            Battery_High,</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;            WiFi_Low,</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;            WiFi_Medium,</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;            WiFi_High,</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;            Bluetooth,</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;            Sound_Mute,</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;            Sound_Low,</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;            Sound_Medium,</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;            Sound_High,</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        };</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        <span class="keyword">enum</span> Font_32</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            Exclamation_Mark = 127,</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            Question_Mark,</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            Cross</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        };</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">  345</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Image_Offset</a></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;        {</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            Shell = 0,</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;            Calculator = 20,</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            Clock = 21,</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;            Image_Viewer = 22,</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            Internet_Browser = 23,</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;            Music_Player = 24,</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;            Oscilloscope = 33,</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            Paint = 34,</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            Periodic = 35,</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;            Piano = 37,</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            Pong = 41,</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;            Simon = 42,</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;            Text_Editor = 43,</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            Tiny_Basic = 44</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        };</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160; </div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keyword">enum</span> Pages_Offset</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        {</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        };</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">  371</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">Font</a></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        {</div>
+<div class="line"><a name="l00373"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800">  373</a></span>&#160;            <a class="code" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800">Regular_16</a> = 0, </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            Mono_16,</div>
+<div class="line"><a name="l00375"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38">  375</a></span>&#160;            <a class="code" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38">Regular_24</a>, </div>
+<div class="line"><a name="l00376"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb">  376</a></span>&#160;            <a class="code" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb">Regular_32</a>, </div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            Regular_48</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        };</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        <span class="keyword">friend</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160; </div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    } Display;</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keyword">enum</span> Panic_Code</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    {</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;        Damaged_System_Registry,</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        Installation_Conflict,</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        System_Drive_Failure,</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        Low_Memory</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    };</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="class_xila___class.html#ad7a4f6e7337654e939a6912c732c0148">  397</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_xila___class.html#ad7a4f6e7337654e939a6912c732c0148">Shutdown</a>(); <span class="comment">// private</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    <span class="keywordtype">void</span> Check_System_Drive();</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="comment">//========================================================================</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_power___class.html">  390</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_power___class.html">Power_Class</a> : <span class="keyword">public</span> <a class="code" href="class_battery___class.html">Battery_Class</a>, <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordtype">void</span> <span class="keyword">static</span> IRAM_ATTR Button_Handler();</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        portMUX_TYPE Button_Mutex = portMUX_INITIALIZER_UNLOCKED;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        <span class="keyword">volatile</span> uint8_t Button_Counter;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordtype">void</span> Check_Button();</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> First_Start_Routine();</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> Second_Start_Routine();</div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> First_Start_Routine();</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> Second_Start_Routine();</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160; </div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <span class="keywordtype">void</span> Restart(); <span class="comment">// private</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordtype">void</span> Hibernate(); <span class="comment">// private</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160; </div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keywordtype">void</span> Deep_Sleep();</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    </div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keywordtype">void</span> Loop();</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <span class="keywordtype">void</span> Shutdown();</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        <span class="keywordtype">void</span> Restart();</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="keywordtype">void</span> Hibernate();</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <span class="keywordtype">void</span> Deep_Sleep();</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160; </div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        <span class="comment">/* data */</span></div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        <a class="code" href="class_xila___class_1_1_power___class.html">Power_Class</a>();</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        <span class="keywordtype">void</span> Start();</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160; </div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        <span class="keywordtype">void</span> Start(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> *Software_Package, uint8_t Size); <span class="comment">// reload system from the dump file</span></div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    <span class="comment">//inline void Log_Error(Software_Handle_Class const&amp;, ...); try to implement variadic function</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    } Power;</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="comment">// -- Log</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="comment">/*inline void Log_Error(Software_Handle_Class const&amp;); </span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">    inline void Log_Warning(Software_Handle_Class const&amp;);</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">    inline void Log_Information(Software_Handle_Class const&amp;); // describe normal flow of events</span></div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">    inline void Log_Debug(Software_Handle_Class const&amp;); // extra information (values, pointers, sizes, etc...)</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">    inline void Log_Verbose(Software_Handle_Class const&amp;);*/</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160; </div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="comment">// -- Registry modification methods -- //</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160; </div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    Xila_Event Load_Time_Registry();</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;    Xila_Event Load_Keyboard_Registry();</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    Xila_Event Load_Display_Registry();</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    Xila_Event Load_Network_Registry();</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;    Xila_Event Load_Account_Registry();</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;    Xila_Event Load_System_Registry();</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    Xila_Event Load_Sound_Registry();</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160; </div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    Xila_Event Set_Time_Registry(<span class="keyword">const</span> <span class="keywordtype">char</span> *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    Xila_Event Set_Keyboard_Registry(uint8_t Data_Pin = 0xFF, uint8_t Interrupt_Pin = 0xFF, uint8_t Keymap = 0xFF);</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;    Xila_Event Set_Network_Registry(uint8_t WiFi_Enabled = 0xFF, <span class="keyword">const</span> <span class="keywordtype">char</span> *WiFi_Name = NULL, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password = NULL);</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    Xila_Event Set_Account_Registry(<span class="keyword">const</span> <span class="keywordtype">char</span> *Autologin_Account = NULL);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    Xila_Event Set_System_Registry(<span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="class_xila___class.html#afc6746afeefaa37338272af832e20649">Device_Name</a>);</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160; </div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;    int32_t GMT_Offset;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    int16_t Daylight_Offset;</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160; </div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    uint8_t Keyboard_Data_Pin;</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    uint8_t Keyboard_Interrupt_Pin;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;    uint8_t Keyboard_Keymap;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="comment">//=========================================================================================</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_software___management___class.html">  422</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_software___management___class.html">Software_Management_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    {</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;        uint32_t Watchdog_Timer;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;        uint8_t Watchdog_State;</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160; </div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        <span class="keywordtype">void</span> Check_Watchdog();</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
+<div class="line"><a name="l00438"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb">  438</a></span>&#160;        <a class="code" href="class_software___class.html">Software_Class</a> *<a class="code" href="class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb">Open_Software_Pointer</a>[8] = {NULL};</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
+<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_software___management___class.html#a3532bf897db9b9eee02702755c21b0b6">  444</a></span>&#160;        <a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> *<a class="code" href="class_xila___class_1_1_software___management___class.html#a3532bf897db9b9eee02702755c21b0b6">Software_Handle_Pointer</a>[MAXIMUM_SOFTWARE] = {NULL};</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;        <span class="comment">// Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160; </div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        <span class="keywordtype">void</span> Maximize_Shell();</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        <span class="keywordtype">void</span> Execute_Shell(Xila_Instruction <span class="keyword">const</span> &amp;Command);</div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">char</span> *Get_Device_Name();</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno"><a class="line" href="class_xila___class.html#a4b7bfd1f39ba68696595ea283ec20173">  459</a></span>&#160;    Xila_Event <a class="code" href="class_xila___class.html#a4b7bfd1f39ba68696595ea283ec20173">Load_Executable</a>(File Executable_File, uint8_t Type = <span class="charliteral">&#39;M&#39;</span>);</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="comment">//Xila_Event Update();</span></div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160; </div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    Xila_Event Create_Dump();</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    Xila_Event Load_Dump();</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160; </div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;    uint8_t System_State;</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;    <span class="keyword">enum</span> System_States</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        Default,</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        New_Installation,</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    };</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    <span class="keywordtype">void</span> Save_System_State();    <span class="comment">// Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a &quot;GOSH.GSF&quot;</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    <span class="keywordtype">void</span> Restore_System_State(); <span class="comment">// private :</span></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;    <span class="comment">// -- Time management</span></div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;    Xila_Time Time;</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;    time_t Now;</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keywordtype">char</span> NTP_Server[32];</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00455"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_software___management___class.html#a3839f7622fb5e631dc4283cbf582ee59">  455</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_software___management___class.html#a3839f7622fb5e631dc4283cbf582ee59">Instructions</a></div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        {</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;            <span class="comment">// -- General instructions</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;            Idle = 0,</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;            <span class="comment">// -- Software state instructions</span></div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;            Open_Software = <span class="charliteral">&#39;O&#39;</span>,</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;            Close_Software = <span class="charliteral">&#39;C&#39;</span>,</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;            Maximize_Software = <span class="charliteral">&#39;M&#39;</span>,</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;            Minimize_Software = <span class="charliteral">&#39;m&#39;</span>,</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;            <span class="comment">// -- System state instructions</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;            Shutting_down = 200,</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;            Restarting,</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;            Hibernating = <span class="charliteral">&#39;H&#39;</span>,</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;            Watchdog = <span class="charliteral">&#39;W&#39;</span>,</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;            <span class="comment">// -- Shell specials instructions</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;            Install_Dialog = <span class="charliteral">&#39;I&#39;</span>,      <span class="comment">// Open installation form</span></div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;            Desk = <span class="charliteral">&#39;D&#39;</span>,                <span class="comment">// Open desk</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;            Open_File_Dialog = <span class="charliteral">&#39;f&#39;</span>,    <span class="comment">// Open open file dialog</span></div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;            Open_Folder_Dialog = <span class="charliteral">&#39;F&#39;</span>,  <span class="comment">// Open open folder dialog</span></div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;            Save_File_Dialog = <span class="charliteral">&#39;e&#39;</span>,    <span class="comment">// Open save file dialog</span></div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;            Keyboard_Dialog = <span class="charliteral">&#39;K&#39;</span>,     <span class="comment">// Open keyboard dialog</span></div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;            Keypad_Dialog = <span class="charliteral">&#39;k&#39;</span>,       <span class="comment">// Open keyapd dialog</span></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;            Color_Picker_Dialog = <span class="charliteral">&#39;c&#39;</span>, <span class="comment">// Open color picker dialog</span></div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;            Power_Dialog = <span class="charliteral">&#39;P&#39;</span>,        <span class="comment">// Open power dialog</span></div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;            Event = <span class="charliteral">&#39;E&#39;</span>,               <span class="comment">// Open event dialog</span></div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;        };</div>
 <div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160; </div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    <span class="keywordtype">void</span> Synchronise_Time();</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    <span class="keywordtype">void</span> Refresh_Header();</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    Xila_Time Get_Time();</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160; </div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160; </div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;    Xila_Event Get_File_Name(File <span class="keyword">const</span> &amp;File, <span class="keywordtype">char</span>* File_Name, <span class="keywordtype">size_t</span> Size); <span class="comment">// Temporary fix to file name issues</span></div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;    uint32_t Count_Files(File&amp; Folder); <span class="comment">// return the number of files inside a folder</span></div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;        <span class="keywordtype">void</span> Feed_Watchdog(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160; </div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;        <span class="keyword">inline</span> uint8_t Seek_Open_Software_Handle(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;);</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;        Xila_Event Open(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;        <span class="keywordtype">void</span> Close(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;        <span class="keywordtype">void</span> Force_Close();</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;        <span class="keywordtype">void</span> Minimize(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;Software_Handle);</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160; </div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;    <span class="comment">// Display callback functions</span></div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;        Xila_Event Maximize(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> <span class="keyword">const</span> &amp;);</div>
 <div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160; </div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160; </div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    <span class="comment">// -- Prefixs used to differienciate exchanged data between display, core and software</span></div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    <span class="keyword">enum</span> Prefixs</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;    {</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        Instruction = <span class="charliteral">&#39;#&#39;</span>,</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;        Variable_String_Local = <span class="charliteral">&#39;s&#39;</span>, <span class="comment">// </span></div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;        Variable_String_Global = <span class="charliteral">&#39;S&#39;</span>, <span class="comment">// Unused : redirected to Variable_String_Local</span></div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;        Variable_Long_Local = <span class="charliteral">&#39;l&#39;</span>,</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;        Variable_Long_Global = <span class="charliteral">&#39;L&#39;</span> <span class="comment">// Unused : redirected to Variable_Long_Local</span></div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    };</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;    <span class="comment">// -- Instructions used by the core (with the prefix &quot;#&quot;)</span></div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160; </div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keyword">enum</span> Instructions</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    {</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;        <span class="comment">// -- General instructions</span></div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        Idle = 0,</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;        <span class="keywordtype">void</span> Add_Handle(<a class="code" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;); <span class="comment">//protected shortcut</span></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;        <a class="code" href="class_xila___class_1_1_software___management___class.html">Software_Management_Class</a>();</div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160; </div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    } Software;</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    <span class="comment">//=========================================================================</span></div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
+<div class="line"><a name="l00505"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_sound___class.html">  505</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_sound___class.html">Sound_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    {</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;        <span class="keyword">const</span> <span class="keyword">static</span> uint8_t Left_Channel = 0;</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;        <span class="keyword">const</span> <span class="keyword">static</span> uint8_t Right_Channel = 1;</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;        <span class="keyword">const</span> <span class="keyword">static</span> uint8_t Custom_Channel = 2;</div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160; </div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;        <span class="comment">// -- Software state instructions</span></div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;        Open = <span class="charliteral">&#39;O&#39;</span>,</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        Close = <span class="charliteral">&#39;C&#39;</span>,</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;        Maximize = <span class="charliteral">&#39;M&#39;</span>,</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        Minimize = <span class="charliteral">&#39;m&#39;</span>,</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;        <span class="comment">// -- System state instructions</span></div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        Shutting_down = 200,</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;        Restarting,</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        Hibernating = <span class="charliteral">&#39;H&#39;</span>,</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160; </div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;        Watchdog = <span class="charliteral">&#39;W&#39;</span>,</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160; </div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;        <span class="comment">// -- Shell specials instructions</span></div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        Install_Dialog = <span class="charliteral">&#39;I&#39;</span>,   <span class="comment">// Open installation form</span></div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;        Desk = <span class="charliteral">&#39;D&#39;</span>,             <span class="comment">// Open desk</span></div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        Open_File = <span class="charliteral">&#39;f&#39;</span>,        <span class="comment">// Open open file dialog</span></div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        Open_Folder = <span class="charliteral">&#39;F&#39;</span>,      <span class="comment">// Open open folder dialog</span></div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        Save_File = <span class="charliteral">&#39;e&#39;</span>,        <span class="comment">// Open save file dialog</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        Virtual_Keyboard = <span class="charliteral">&#39;K&#39;</span>, <span class="comment">// Open keyboard dialog</span></div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;        Virtual_Keypad = <span class="charliteral">&#39;k&#39;</span>,   <span class="comment">// Open keyapd dialog</span></div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        Color_Picker = <span class="charliteral">&#39;c&#39;</span>,     <span class="comment">// Open color picker dialog</span></div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;        Power = <span class="charliteral">&#39;P&#39;</span>,            <span class="comment">// Open power dialog</span></div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        Event = <span class="charliteral">&#39;E&#39;</span>,            <span class="comment">// Open event dialog</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160; </div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    };</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160; </div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    <span class="comment">// Serial communication macro</span></div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160; </div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;    <span class="keywordtype">void</span> Horizontal_Separator();</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;    <span class="keywordtype">void</span> Print_Line(<span class="keyword">const</span> <span class="keywordtype">char</span> *, uint8_t <span class="keyword">const</span> &amp; = 0);</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;    <span class="keywordtype">void</span> Print_Line(<span class="keyword">const</span> __FlashStringHelper *, uint8_t <span class="keyword">const</span> &amp; = 0);</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;    <span class="keywordtype">void</span> Print_Line();</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160; </div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;    <span class="comment">//</span></div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160; </div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;    <span class="comment">/* Virtual Memory</span></div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="comment">    void Set_Variable(char const &amp;, String const &amp;, uint16_t = 0, Software_Handle_Class * = NULL);</span></div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="comment">    void Get_Variable(char const &amp;, String &amp;, uint16_t = 0, Software_Handle_Class * = NULL);</span></div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="comment">    void Set_Variable(uint8_t const &amp;, const char *, uint16_t, Software_Handle_Class * = NULL);</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="comment">    void Get_Variable(uint8_t const &amp;, char *, uint16_t, Software_Handle_Class * = NULL);</span></div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;<span class="comment">    void Set_Variable(uint8_t const &amp;, uint8_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="comment">    void Get_Variable(uint8_t const &amp;, uint8_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="comment">    void Set_Variable(uint8_t const &amp;, uint16_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="comment">    void Get_Variable(uint8_t const &amp;, uint16_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="comment">    void Set_Variable(uint8_t const &amp;, uint32_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="comment">    void Get_Variable(uint8_t const &amp;, uint32_t*, uint16_t const&amp;, Software_Handle_Class* = NULL);</span></div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="comment">    void Set_Variable(char const &amp;, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);</span></div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="comment">    void Get_Variable(char const &amp;, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);*/</span></div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;        uint8_t Custom_Pin;</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160; </div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;        <span class="comment">// Metadata</span></div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;        File Music_File;</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160; </div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;        fs::FS *File_System;</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;        <span class="keyword">enum</span> State</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;        {</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;            Stopped,</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;            Playing,</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;            Paused</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        };</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="comment">// 0 : stopped</span></div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;        <span class="comment">// 1 : playing</span></div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;        <span class="comment">// 2 : paused</span></div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;        <span class="comment">// 3 : tone</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160; </div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;        <span class="keyword">static</span> <span class="keywordtype">void</span> Sound_Task(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160; </div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160; </div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;        <span class="keyword">enum</span> Event</div>
+<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;        {</div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;            Failed_To_Get_RTC_Period,</div>
+<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;            Failed_To_Open_File,</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            Failed_To_Get_Metadata,</div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            Failed_To_Load_ULP_Program,</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;            Failed_To_Create_Task,</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;            Not_RIFF_Compliant,</div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;            Not_WAVE_Compliant,</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;            Incompatible_Block_ID,</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;            Not_A_PCM_File,</div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;            Unsupported_Bit_Depth,</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;            Unsupported_Sampling_Rate,</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;            Unsupported_Channel_Number,</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;        };</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160; </div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;        <a class="code" href="class_xila___class_1_1_sound___class.html">Sound_Class</a>();</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;        ~<a class="code" href="class_xila___class_1_1_sound___class.html">Sound_Class</a>();</div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160; </div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;        <span class="keywordtype">void</span> Set_Output_Channel(uint8_t Number_Output_Channel);</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;        <span class="keywordtype">void</span> Set_Volume(uint16_t); <span class="comment">// volume between 0 and 255</span></div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;        uint8_t Get_Volume();</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160; </div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;        <span class="keywordtype">void</span> Set_File_System(fs::FS &amp;File_System);</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160; </div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;        <span class="keywordtype">void</span> Set_Balance(uint8_t);</div>
 <div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160; </div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="keywordtype">char</span> *Get_Current_Username()</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    {</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;        <span class="keywordflow">return</span> Current_Username;</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    }</div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160; </div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    <span class="comment">/*void Registry_Find(File &amp;Registry_File, const char *Key_Name, char *Key_Value_To_Get, uint16_t const &amp;Column = 0);</span></div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="comment">    char *Registry_Read(File &amp;Registry_File, uint16_t const &amp;Line_Number, uint16_t const &amp;Column_Number);</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="comment">    void Registry_Write(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &amp;Key_Value_To_Get);</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="comment">    void Registry_Add(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &amp;Key_Value_To_Set);</span></div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="comment">    void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &amp;Key_Value_To_Set);</span></div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="comment">    void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160; </div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    Xila_Event Check_Credentials(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    Xila_Event Add_User(<span class="keyword">const</span> <span class="keywordtype">char</span> *Username, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password);</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    Xila_Event Delete_User(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    Xila_Event Change_Password(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;    Xila_Event Change_Username(<span class="keyword">const</span> <span class="keywordtype">char</span> *, <span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160; </div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    Xila_Event Login(<span class="keyword">const</span> <span class="keywordtype">char</span> *Username_To_Check = NULL, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password_To_Check = NULL);</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    Xila_Event Logout();</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    Xila_Event Lock();</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;        uint8_t Play(File &amp;File_To_Play);</div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;        uint8_t Play(<span class="keyword">const</span> <span class="keywordtype">char</span> *File_Path_Or_Host, <span class="keyword">const</span> <span class="keywordtype">char</span> *User = <span class="stringliteral">&quot;&quot;</span>, <span class="keyword">const</span> <span class="keywordtype">char</span> *Password = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160; </div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;        uint8_t Resume();</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;        <span class="keywordtype">void</span> Pause();</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;        <span class="keywordtype">void</span> Mute();</div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;        <span class="keywordtype">void</span> Stop();</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160; </div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;        <span class="keywordtype">void</span> Set_Current_Time(uint32_t Time);</div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;        uint32_t Get_Current_Time();</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;        uint32_t Get_Total_Time();</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;        <span class="keywordtype">void</span> Set_Offset_Time(int16_t Time);</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;        uint8_t Get_State();</div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;        <span class="keywordtype">void</span> Tone(uint16_t <span class="keyword">const</span> &amp;Frequency, uint32_t <span class="keyword">const</span> &amp;Duration = 0, uint8_t <span class="keyword">const</span> &amp;Pin = 0xFF);</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;        <span class="keywordtype">void</span> No_Tone(uint8_t <span class="keyword">const</span> &amp;Pin = 0xFF); <span class="comment">// no tone (0xFF default pins)</span></div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160; </div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;        <span class="keywordtype">void</span> Loop();</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;        <span class="keyword">friend</span> <span class="keywordtype">void</span> audio_eof_mp3(<span class="keyword">const</span> <span class="keywordtype">char</span> *);</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;    } Sound;</div>
 <div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160; </div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    <span class="comment">// System dialogs</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    <span class="comment">//======================================================================</span></div>
 <div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160; </div>
-<div class="line"><a name="l00594"></a><span class="lineno"><a class="line" href="class_xila___class.html#a06d94309474af53256cc33fd0013e35f">  594</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="class_xila___class.html#a06d94309474af53256cc33fd0013e35f">Events</a></div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    {</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;        None,</div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;        Error,</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;        Warning,</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;        Information,</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;        Question,</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        Success,</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        Button_1 = 0x31,    <span class="comment">//&lt; Button 1 reply, by default : Yes</span></div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;        Button_2 = 0x32,    <span class="comment">//&lt; Button 2 reply by default : No</span></div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        Button_3 = 0x33,    <span class="comment">//&lt; Button 3 reply by default : Cancel (returned also by close button)</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;        Default_Yes = Button_1,</div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        Default_No = Button_2,</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        Default_Cancel = Button_3,  </div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    };</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160; </div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="keywordtype">void</span> Panic_Handler(uint32_t Panic_Code);</div>
+<div class="line"><a name="l00593"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_system___class.html">  593</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_system___class.html">System_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    {</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00599"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_system___class.html#a45d66d24db04e7347ca4fd9c142c2706">  599</a></span>&#160;        <span class="keywordtype">char</span> <a class="code" href="class_xila___class_1_1_system___class.html#a45d66d24db04e7347ca4fd9c142c2706">Device_Name</a>[24];</div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160; </div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;        Xila_Event Create_Dump();</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;        Xila_Event Load_Dump();</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160; </div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;        Xila_Event Load_Executable(File Executable_File, uint8_t Type = <span class="charliteral">&#39;M&#39;</span>);</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160; </div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;        <span class="keyword">enum</span> System_States</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;        {</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;            Default,</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;            New_Installation,</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;        } State;</div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160; </div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    Xila_Event Event_Dialog(<span class="keyword">const</span> __FlashStringHelper *, uint8_t, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL);</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;    Xila_Event Color_Picker_Dialog(uint16_t &amp;<a class="code" href="class_xila___class.html#aa32cd889a7243fb71a655f02e65fd969">Color</a>);</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    Xila_Event Open_File_Dialog(File &amp;File_To_Open);</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    Xila_Event Open_Folder_Dialog(File &amp;Folder_To_Open);</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;    Xila_Event Save_File_Dialog(File &amp;File_To_Save);</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    Xila_Event Keyboard_Dialog(<span class="keywordtype">char</span> *Char_Array_To_Get, <span class="keywordtype">size_t</span> Char_Array_Size = 189, <span class="keywordtype">bool</span> Masked_Input = <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;    <span class="comment">// to do : Xila_Event Keyboard_Difalog(float&amp; Number_To_Get) (and more overload);</span></div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    Xila_Event Keypad_Dialog(<span class="keywordtype">float</span> &amp;Number_To_Get);</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160; </div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    uint32_t Dialog_Long[2];</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <span class="keywordtype">void</span> *Dialog_Pointer;</div>
+<div class="line"><a name="l00615"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_system___class.html#afcfa67143b7a1611f8a593aa141776db">  615</a></span>&#160;        <span class="keyword">enum</span> <a class="code" href="class_xila___class_1_1_system___class.html#afcfa67143b7a1611f8a593aa141776db">Panic_Code</a></div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;        {</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;            Damaged_System_Registry,</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;            Installation_Conflict,</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;            System_Drive_Failure,</div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;            Low_Memory,</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;            Memory_Corruption,</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;        };</div>
 <div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160; </div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    uint32_t Random();</div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;    uint32_t Random(uint32_t Upper_Bound);</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160; </div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;    <a class="code" href="class_software___class.html">Software_Class</a> *Caller_Software_Pointer;</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160; </div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;    Xila_Event Dialog_State;</div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160; </div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;    SemaphoreHandle_t Dialog_Semaphore;</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160; </div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;    File *File_Dialog_Reply;</div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160; </div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    Xila_Event Set_Autologin();</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160; </div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    uint16_t Standby_Display_Time;</div>
-<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;    uint32_t Standby_System_Time;</div>
-<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160; </div>
-<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;    Xila_Event Copy_File(File &amp;Origin_File, File &amp;Destination_File);</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160; </div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;    <span class="comment">// Copy paste</span></div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160; </div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;    File Clipboard_File;</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;    uint8_t Split_Number[8];</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160; </div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    Xila_Event Copy(uint64_t <span class="keyword">const</span> &amp;Value_To_Copy);</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    Xila_Event Copy(<span class="keyword">const</span> <span class="keywordtype">char</span> *Char_Array_To_Copy, <span class="keywordtype">size_t</span> Char_Array_Lenght = 0);</div>
-<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    Xila_Event Copy(String <span class="keyword">const</span> &amp;String_To_Copy); <span class="comment">// deprecated : only for compatibility purpose</span></div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;        <span class="keywordtype">void</span> Panic_Handler(uint32_t <a class="code" href="class_xila___class_1_1_system___class.html#afcfa67143b7a1611f8a593aa141776db">Panic_Code</a>);</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160; </div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160; </div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">char</span> *Get_Device_Name();</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160; </div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;        uint32_t Random();</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;        uint32_t Random(uint32_t Upper_Bound);</div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);</div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160; </div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;        <span class="keywordtype">void</span> Refresh_Header();</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160; </div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;        <a class="code" href="class_xila___class_1_1_system___class.html">System_Class</a>();</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160; </div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;    } System;</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160; </div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;    <span class="comment">//===============================================================================</span></div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160; </div>
+<div class="line"><a name="l00648"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_task___class.html">  648</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_task___class.html">Task_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;    {</div>
+<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;        <span class="keywordtype">void</span> Delay(uint32_t Delay_In_Millisecond);</div>
 <div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160; </div>
-<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;    Xila_Event Paste(uint64_t &amp;Value_To_Paste);</div>
-<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;    Xila_Event Paste(<span class="keywordtype">char</span> *Char_Array_To_Paste, <span class="keywordtype">size_t</span> Char_Array_Lenght);</div>
-<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;    Xila_Event Paste(String &amp;String_To_Paste);</div>
-<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160; </div>
-<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;    <span class="comment">// Background jobs</span></div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;        <span class="comment">// -- Task management -- //</span></div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;        <span class="keywordtype">void</span> Resume(Xila_Task_Handle Task_To_Resume);</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> Suspend(Xila_Task_Handle Task_To_Suspend = NULL);</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> Delete(Xila_Task_Handle Task_To_Delete = NULL);</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;        <span class="keyword">inline</span> Xila_Event Create(Xila_Task_Function Task_Function, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL);</div>
 <div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160; </div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    uint32_t Last_Execution;</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;    uint8_t Background_Function_Counter;</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160; </div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;    <span class="keywordtype">void</span> Execute_Startup_Function();</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160; </div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;    <span class="comment">// System&#39;s task :</span></div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;    xTaskHandle Core_Task_Handle;</div>
-<div class="line"><a name="l00667"></a><span class="lineno">  667</span>&#160;    <span class="comment">//QueueHandle_t Core_Instruction_Queue_Handle;</span></div>
-<div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Core_Task(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Idle_Task_Software_Core(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Idle_Task_System_Core(<span class="keywordtype">void</span> *);</div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160; </div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_shell___class.html">Shell_Class</a>;</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_software___handle___class.html">Software_Handle_Class</a>;</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;};</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160; </div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;    } Task;</div>
+<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160; </div>
+<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;    <span class="comment">//=================================================================================</span></div>
+<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160; </div>
+<div class="line"><a name="l00668"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_time___class.html">  668</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_time___class.html">Time_Class</a></div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;    {</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;        int32_t GMT_Offset;</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;        int16_t Daylight_Offset;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160; </div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;        Xila_Time Current_Time;</div>
+<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;        time_t Now;</div>
+<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;        <span class="keywordtype">char</span> NTP_Server[32];</div>
+<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160; </div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160; </div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;        Xila_Time Get_Time();</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160; </div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;        <span class="keywordtype">void</span> Synchronise();</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160; </div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160; </div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;    } Time;</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160; </div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    <span class="comment">//===============================================================================</span></div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160; </div>
+<div class="line"><a name="l00696"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_wi_fi___class.html">  696</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_wi_fi___class.html">WiFi_Class</a> : <span class="keyword">public</span> WiFiGenericClass, <span class="keyword">public</span> WiFiSTAClass, <span class="keyword">public</span> WiFiScanClass, <span class="keyword">public</span> WiFiAPClass, <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;    {</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;        <span class="keywordtype">bool</span> prov_enable;</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        <span class="keywordtype">char</span> Password[82];</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160; </div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;        <span class="keywordtype">void</span> printDiag(Print &amp;dest);</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160; </div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;        <span class="keywordtype">void</span> enableProv(<span class="keywordtype">bool</span> status);</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;        <span class="keywordtype">bool</span> isProvEnabled();</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160; </div>
+<div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;        <a class="code" href="class_xila___class_1_1_wi_fi___class.html">WiFi_Class</a>();</div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160; </div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;        <span class="keyword">using</span> WiFiGenericClass::channel;</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160; </div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;        <span class="keyword">using</span> WiFiSTAClass::BSSID;</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;        <span class="keyword">using</span> WiFiSTAClass::BSSIDstr;</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;        <span class="keyword">using</span> WiFiSTAClass::RSSI;</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;        <span class="keyword">using</span> WiFiSTAClass::SSID;</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160; </div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;        <span class="keyword">using</span> WiFiScanClass::BSSID;</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;        <span class="keyword">using</span> WiFiScanClass::BSSIDstr;</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;        <span class="keyword">using</span> WiFiScanClass::channel;</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;        <span class="keyword">using</span> WiFiScanClass::encryptionType;</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;        <span class="keyword">using</span> WiFiScanClass::RSSI;</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;        <span class="keyword">using</span> WiFiScanClass::SSID;</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160; </div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;        <span class="keywordtype">void</span> Set_Credentials(<span class="keywordtype">char</span> *Name, <span class="keywordtype">char</span> *Password);</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160; </div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160; </div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span>WiFiClient;</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span>WiFiServer;</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span>WiFiUDP;</div>
+<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160; </div>
+<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160; </div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    } WiFi;</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160; </div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;    <span class="keywordtype">void</span> Loop();</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160; </div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;<span class="preprocessor">#if SD_MODE == 0</span></div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160; </div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;    fs::SDMMCFS *Drive = &amp;SD_MMC;</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;<span class="preprocessor">#elif SD_MODE == 1</span></div>
+<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;    fs::SDFS *Drive = &amp;SD;</div>
+<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160; </div>
+<div class="line"><a name="l00750"></a><span class="lineno"><a class="line" href="class_xila___class_1_1_keyboard___class.html">  750</a></span>&#160;    <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_keyboard___class.html">Keyboard_Class</a> : <span class="keyword">public</span> <a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a></div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;    {</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;        Xila_Event Load_Registry();</div>
+<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> Begin();</div>
+<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160; </div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;        Xila_Event Save_Registry();</div>
+<div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160; </div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> Read();</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;        <span class="keyword">inline</span> uint8_t Available();</div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> Read_Raw();</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;        <span class="keyword">inline</span> uint8_t Available_Raw();</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;        <span class="keyword">inline</span> uint8_t Get_Modifiers();</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160; </div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;        <span class="keyword">inline</span> <span class="keywordtype">void</span> Clear_Buffers();</div>
+<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160; </div>
+<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_xila___class_1_1_module___class.html">Module_Class</a>;</div>
+<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160; </div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    } Keyboard;</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160; </div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;    Xila_Event Load_System_Registry();</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;    Xila_Event Load_Sound_Registry();</div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160; </div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);</div>
+<div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160; </div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;    <span class="comment">//Xila_Event Update();</span></div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160; </div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <span class="keywordtype">void</span> Save_System_State();    <span class="comment">// protected : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a &quot;GOSH.GSF&quot;</span></div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    <span class="keywordtype">void</span> Restore_System_State(); <span class="comment">// protected :</span></div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160; </div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;    Xila_Event Get_File_Name(File <span class="keyword">const</span> &amp;File, <span class="keywordtype">char</span> *File_Name, <span class="keywordtype">size_t</span> Size); <span class="comment">// Temporary fix to file name issues</span></div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;    uint32_t Count_Files(File &amp;Folder);                                       <span class="comment">// return the number of files inside a folder</span></div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160; </div>
+<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;    <span class="comment">// -- Prefixs used to differienciate exchanged data between display, core and software</span></div>
+<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;    <span class="keyword">enum</span> Prefixs</div>
+<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;    {</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;        Instruction = <span class="charliteral">&#39;#&#39;</span>,</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160; </div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;        Variable_String_Local = <span class="charliteral">&#39;s&#39;</span>,  <span class="comment">//</span></div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;        Variable_String_Global = <span class="charliteral">&#39;S&#39;</span>, <span class="comment">// Unused : redirected to Variable_String_Local</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;        Variable_Long_Local = <span class="charliteral">&#39;l&#39;</span>,</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;        Variable_Long_Global = <span class="charliteral">&#39;L&#39;</span> <span class="comment">// Unused : redirected to Variable_Long_Local</span></div>
+<div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;    };</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160; </div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;    Xila_Event Copy_File(File &amp;Origin_File, File &amp;Destination_File);</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160; </div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    <span class="comment">// System&#39;s task :</span></div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;    xTaskHandle Core_Task_Handle;</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> Core_Task(<span class="keywordtype">void</span> *);</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160; </div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    <a class="code" href="class_xila___class.html">Xila_Class</a>();</div>
+<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;    ~<a class="code" href="class_xila___class.html">Xila_Class</a>();</div>
+<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160; </div>
+<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_shell___class.html">Shell_Class</a>;</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;};</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160; </div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclass_battery___class_html"><div class="ttname"><a href="class_battery___class.html">Battery_Class</a></div><div class="ttdef"><b>Definition:</b> Battery.hpp:28</div></div>
-<div class="ttc" id="aclass_keyboard___class_html"><div class="ttname"><a href="class_keyboard___class.html">Keyboard_Class</a></div><div class="ttdef"><b>Definition:</b> Keyboard.hpp:177</div></div>
 <div class="ttc" id="aclass_nextion___display___class_html"><div class="ttname"><a href="class_nextion___display___class.html">Nextion_Display_Class</a></div><div class="ttdef"><b>Definition:</b> Display.hpp:31</div></div>
 <div class="ttc" id="aclass_shell___class_html"><div class="ttname"><a href="class_shell___class.html">Shell_Class</a></div><div class="ttdef"><b>Definition:</b> Shell.hpp:31</div></div>
 <div class="ttc" id="aclass_software___class_html"><div class="ttname"><a href="class_software___class.html">Software_Class</a></div><div class="ttdef"><b>Definition:</b> Software.hpp:18</div></div>
 <div class="ttc" id="aclass_software___handle___class_html"><div class="ttname"><a href="class_software___handle___class.html">Software_Handle_Class</a></div><div class="ttdef"><b>Definition:</b> Software_Handle.hpp:17</div></div>
-<div class="ttc" id="aclass_sound___class_html"><div class="ttname"><a href="class_sound___class.html">Sound_Class</a></div><div class="ttdef"><b>Definition:</b> Sound.hpp:23</div></div>
-<div class="ttc" id="aclass_xila___class_html"><div class="ttname"><a href="class_xila___class.html">Xila_Class</a></div><div class="ttdoc">Core class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:107</div></div>
-<div class="ttc" id="aclass_xila___class_html_a06d94309474af53256cc33fd0013e35f"><div class="ttname"><a href="class_xila___class.html#a06d94309474af53256cc33fd0013e35f">Xila_Class::Events</a></div><div class="ttdeci">Events</div><div class="ttdoc">All kinds of events returned by Core API.</div><div class="ttdef"><b>Definition:</b> Core.hpp:595</div></div>
-<div class="ttc" id="aclass_xila___class_html_a09036764690737599465461ebd8dc14f"><div class="ttname"><a href="class_xila___class.html#a09036764690737599465461ebd8dc14f">Xila_Class::Delay</a></div><div class="ttdeci">void Delay(uint32_t Delay_In_Millisecond)</div><div class="ttdoc">A delay function.</div></div>
-<div class="ttc" id="aclass_xila___class_html_a0ffc09d11c809b2ed6177f110fba3ce2"><div class="ttname"><a href="class_xila___class.html#a0ffc09d11c809b2ed6177f110fba3ce2">Xila_Class::Force_Software_Close</a></div><div class="ttdeci">void Force_Software_Close()</div><div class="ttdoc">Function that close roughly the current running software.</div></div>
-<div class="ttc" id="aclass_xila___class_html_a1519c7fb0bd2bab54f192bd575023d97"><div class="ttname"><a href="class_xila___class.html#a1519c7fb0bd2bab54f192bd575023d97">Xila_Class::Feed_Watchdog</a></div><div class="ttdeci">void Feed_Watchdog()</div><div class="ttdoc">A function that feed watchdog.</div></div>
-<div class="ttc" id="aclass_xila___class_html_a19ff6f1213a7b0eb1ab50477ff5beb34"><div class="ttname"><a href="class_xila___class.html#a19ff6f1213a7b0eb1ab50477ff5beb34">Xila_Class::WiFi_Connect</a></div><div class="ttdeci">Xila_Event WiFi_Connect(char *Name, char *Password)</div><div class="ttdoc">Function that allow to connect WiFi.</div></div>
-<div class="ttc" id="aclass_xila___class_html_a42200934553de12cb88bd861f8412d19"><div class="ttname"><a href="class_xila___class.html#a42200934553de12cb88bd861f8412d19">Xila_Class::Software_Maximize</a></div><div class="ttdeci">Xila_Event Software_Maximize(Software_Handle_Class const &amp;)</div><div class="ttdoc">Function used to maxmize the software.</div></div>
-<div class="ttc" id="aclass_xila___class_html_a4b7bfd1f39ba68696595ea283ec20173"><div class="ttname"><a href="class_xila___class.html#a4b7bfd1f39ba68696595ea283ec20173">Xila_Class::Load_Executable</a></div><div class="ttdeci">Xila_Event Load_Executable(File Executable_File, uint8_t Type='M')</div></div>
-<div class="ttc" id="aclass_xila___class_html_aa0cac4f9a9a1f774c6116a5f5cdca245"><div class="ttname"><a href="class_xila___class.html#aa0cac4f9a9a1f774c6116a5f5cdca245">Xila_Class::Software_Close</a></div><div class="ttdeci">void Software_Close(Software_Handle_Class const &amp;Software_Handle)</div><div class="ttdoc">Function used to close a Software.</div></div>
-<div class="ttc" id="aclass_xila___class_html_aa32cd889a7243fb71a655f02e65fd969"><div class="ttname"><a href="class_xila___class.html#aa32cd889a7243fb71a655f02e65fd969">Xila_Class::Color</a></div><div class="ttdeci">Color</div><div class="ttdoc">Default system colors.</div><div class="ttdef"><b>Definition:</b> Core.hpp:308</div></div>
-<div class="ttc" id="aclass_xila___class_html_aada6f4f1e03dbd5b4b91015dad3f2f6f"><div class="ttname"><a href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6f">Xila_Class::Font</a></div><div class="ttdeci">Font</div><div class="ttdef"><b>Definition:</b> Core.hpp:213</div></div>
-<div class="ttc" id="aclass_xila___class_html_aada6f4f1e03dbd5b4b91015dad3f2f6fa32ff39c267d9579d2737105de2bf8c5f"><div class="ttname"><a href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa32ff39c267d9579d2737105de2bf8c5f">Xila_Class::Regular_32</a></div><div class="ttdeci">@ Regular_32</div><div class="ttdef"><b>Definition:</b> Core.hpp:217</div></div>
-<div class="ttc" id="aclass_xila___class_html_aada6f4f1e03dbd5b4b91015dad3f2f6fa6be088c4449c9ecd81716631d5098529"><div class="ttname"><a href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fa6be088c4449c9ecd81716631d5098529">Xila_Class::Regular_16</a></div><div class="ttdeci">@ Regular_16</div><div class="ttdef"><b>Definition:</b> Core.hpp:214</div></div>
-<div class="ttc" id="aclass_xila___class_html_aada6f4f1e03dbd5b4b91015dad3f2f6fab5e3dbb49384d13b2040eddb5301c325"><div class="ttname"><a href="class_xila___class.html#aada6f4f1e03dbd5b4b91015dad3f2f6fab5e3dbb49384d13b2040eddb5301c325">Xila_Class::Regular_24</a></div><div class="ttdeci">@ Regular_24</div><div class="ttdef"><b>Definition:</b> Core.hpp:216</div></div>
-<div class="ttc" id="aclass_xila___class_html_ab6a6a5f06b7ee9f70e457533255f8442"><div class="ttname"><a href="class_xila___class.html#ab6a6a5f06b7ee9f70e457533255f8442">Xila_Class::Software_Minimize</a></div><div class="ttdeci">void Software_Minimize(Software_Handle_Class const &amp;Software_Handle)</div><div class="ttdoc">Function used to minimize the currently running software, and then maximize Shell.</div></div>
-<div class="ttc" id="aclass_xila___class_html_ac4a8feec533321d38ffe492b7bf3beef"><div class="ttname"><a href="class_xila___class.html#ac4a8feec533321d38ffe492b7bf3beef">Xila_Class::Software_Open</a></div><div class="ttdeci">Xila_Event Software_Open(Software_Handle_Class const &amp;Software_Handle)</div><div class="ttdoc">Function used to open a Software.</div></div>
-<div class="ttc" id="aclass_xila___class_html_ac4bedcdbcd037ac29d420bb0543cc072"><div class="ttname"><a href="class_xila___class.html#ac4bedcdbcd037ac29d420bb0543cc072">Xila_Class::Start</a></div><div class="ttdeci">void Start(Software_Handle_Class *Software_Package, uint8_t Size)</div><div class="ttdoc">Function handle deep-sleep wakeup, initialize the core, start software etc.</div></div>
-<div class="ttc" id="aclass_xila___class_html_acd236a639e393204a5fff5195e2c8c79"><div class="ttname"><a href="class_xila___class.html#acd236a639e393204a5fff5195e2c8c79">Xila_Class::WiFi_Connect</a></div><div class="ttdeci">Xila_Event WiFi_Connect()</div><div class="ttdoc">Function that allow to connect WiFi.</div></div>
-<div class="ttc" id="aclass_xila___class_html_ad7a4f6e7337654e939a6912c732c0148"><div class="ttname"><a href="class_xila___class.html#ad7a4f6e7337654e939a6912c732c0148">Xila_Class::Shutdown</a></div><div class="ttdeci">void Shutdown()</div><div class="ttdoc">Function shutdown the system.</div></div>
-<div class="ttc" id="aclass_xila___class_html_afa5db0ab2385ff9c1d73aa0fafcafd05"><div class="ttname"><a href="class_xila___class.html#afa5db0ab2385ff9c1d73aa0fafcafd05">Xila_Class::Start</a></div><div class="ttdeci">void Start()</div><div class="ttdoc">Function that handle deep-sleep wakeup, initialize the, start software etc.</div></div>
-<div class="ttc" id="aclass_xila___class_html_afc6746afeefaa37338272af832e20649"><div class="ttname"><a href="class_xila___class.html#afc6746afeefaa37338272af832e20649">Xila_Class::Device_Name</a></div><div class="ttdeci">char Device_Name[24]</div><div class="ttdef"><b>Definition:</b> Core.hpp:121</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_account___class_html"><div class="ttname"><a href="class_xila___class_1_1_account___class.html">Xila_Class::Account_Class</a></div><div class="ttdoc">Account management class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:173</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_clipboard___class_html"><div class="ttname"><a href="class_xila___class_1_1_clipboard___class.html">Xila_Class::Clipboard_Class</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:222</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_dialog___class_html"><div class="ttname"><a href="class_xila___class_1_1_dialog___class.html">Xila_Class::Dialog_Class</a></div><div class="ttdoc">Class that bring together all system dialogs.</div><div class="ttdef"><b>Definition:</b> Core.hpp:246</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html"><div class="ttname"><a href="class_xila___class_1_1_display___class.html">Xila_Class::Display_Class</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:277</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a22fbf46b6efc6641c2ae561f4145e25b"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Xila_Class::Display_Class::Image_Offset</a></div><div class="ttdeci">Image_Offset</div><div class="ttdoc">All image offset, used by included software to keep track of picture offset.</div><div class="ttdef"><b>Definition:</b> Core.hpp:346</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a2dc1dbb3fbb0cefc255a8aa617137288"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a2dc1dbb3fbb0cefc255a8aa617137288">Xila_Class::Display_Class::Font_16</a></div><div class="ttdeci">Font_16</div><div class="ttdoc">All font special characters are listed here.</div><div class="ttdef"><b>Definition:</b> Core.hpp:314</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a3ce91234cfaaf25e4039e42c3dd79281"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">Xila_Class::Display_Class::Font</a></div><div class="ttdeci">Font</div><div class="ttdef"><b>Definition:</b> Core.hpp:372</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800">Xila_Class::Display_Class::Regular_16</a></div><div class="ttdeci">@ Regular_16</div><div class="ttdef"><b>Definition:</b> Core.hpp:373</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb">Xila_Class::Display_Class::Regular_32</a></div><div class="ttdeci">@ Regular_32</div><div class="ttdef"><b>Definition:</b> Core.hpp:376</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38">Xila_Class::Display_Class::Regular_24</a></div><div class="ttdeci">@ Regular_24</div><div class="ttdef"><b>Definition:</b> Core.hpp:375</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_display___class_html_aabbeeb03f3d1b07bbf2c63c3b6a28923"><div class="ttname"><a href="class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923">Xila_Class::Display_Class::Color</a></div><div class="ttdeci">Color</div><div class="ttdoc">Default system colors.</div><div class="ttdef"><b>Definition:</b> Core.hpp:299</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_keyboard___class_html"><div class="ttname"><a href="class_xila___class_1_1_keyboard___class.html">Xila_Class::Keyboard_Class</a></div><div class="ttdoc">Keyboard class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:751</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_module___class_html"><div class="ttname"><a href="class_xila___class_1_1_module___class.html">Xila_Class::Module_Class</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:159</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_power___class_html"><div class="ttname"><a href="class_xila___class_1_1_power___class.html">Xila_Class::Power_Class</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:391</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_software___management___class_html"><div class="ttname"><a href="class_xila___class_1_1_software___management___class.html">Xila_Class::Software_Management_Class</a></div><div class="ttdoc">Software management class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:423</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_software___management___class_html_a3532bf897db9b9eee02702755c21b0b6"><div class="ttname"><a href="class_xila___class_1_1_software___management___class.html#a3532bf897db9b9eee02702755c21b0b6">Xila_Class::Software_Management_Class::Software_Handle_Pointer</a></div><div class="ttdeci">Software_Handle_Class * Software_Handle_Pointer[MAXIMUM_SOFTWARE]</div><div class="ttdoc">All software handle pointers.</div><div class="ttdef"><b>Definition:</b> Core.hpp:444</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_software___management___class_html_a3839f7622fb5e631dc4283cbf582ee59"><div class="ttname"><a href="class_xila___class_1_1_software___management___class.html#a3839f7622fb5e631dc4283cbf582ee59">Xila_Class::Software_Management_Class::Instructions</a></div><div class="ttdeci">Instructions</div><div class="ttdoc">Instructions used by the core (with the prefix &quot;#&quot;)</div><div class="ttdef"><b>Definition:</b> Core.hpp:456</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_software___management___class_html_a850554c697f81055e79c5394fbb6dcfb"><div class="ttname"><a href="class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb">Xila_Class::Software_Management_Class::Open_Software_Pointer</a></div><div class="ttdeci">Software_Class * Open_Software_Pointer[8]</div><div class="ttdoc">All openned software.</div><div class="ttdef"><b>Definition:</b> Core.hpp:438</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_sound___class_html"><div class="ttname"><a href="class_xila___class_1_1_sound___class.html">Xila_Class::Sound_Class</a></div><div class="ttdoc">Sound class API.</div><div class="ttdef"><b>Definition:</b> Core.hpp:506</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_system___class_html"><div class="ttname"><a href="class_xila___class_1_1_system___class.html">Xila_Class::System_Class</a></div><div class="ttdoc">System module API.</div><div class="ttdef"><b>Definition:</b> Core.hpp:594</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_system___class_html_a45d66d24db04e7347ca4fd9c142c2706"><div class="ttname"><a href="class_xila___class_1_1_system___class.html#a45d66d24db04e7347ca4fd9c142c2706">Xila_Class::System_Class::Device_Name</a></div><div class="ttdeci">char Device_Name[24]</div><div class="ttdoc">Device name used as Network hostname ...</div><div class="ttdef"><b>Definition:</b> Core.hpp:599</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_system___class_html_afcfa67143b7a1611f8a593aa141776db"><div class="ttname"><a href="class_xila___class_1_1_system___class.html#afcfa67143b7a1611f8a593aa141776db">Xila_Class::System_Class::Panic_Code</a></div><div class="ttdeci">Panic_Code</div><div class="ttdoc">Panic codes used by the panic handler (&quot;Grey screen&quot;).</div><div class="ttdef"><b>Definition:</b> Core.hpp:616</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_task___class_html"><div class="ttname"><a href="class_xila___class_1_1_task___class.html">Xila_Class::Task_Class</a></div><div class="ttdoc">Task management class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:649</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_time___class_html"><div class="ttname"><a href="class_xila___class_1_1_time___class.html">Xila_Class::Time_Class</a></div><div class="ttdef"><b>Definition:</b> Core.hpp:669</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_wi_fi___class_html"><div class="ttname"><a href="class_xila___class_1_1_wi_fi___class.html">Xila_Class::WiFi_Class</a></div><div class="ttdoc">WiFi API class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:697</div></div>
+<div class="ttc" id="aclass_xila___class_html"><div class="ttname"><a href="class_xila___class.html">Xila_Class</a></div><div class="ttdoc">Core class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:146</div></div>
+<div class="ttc" id="aclass_xila___class_html_a819acce7599d01577959a75715e8f896"><div class="ttname"><a href="class_xila___class.html#a819acce7599d01577959a75715e8f896">Xila_Class::Instance_Pointer</a></div><div class="ttdeci">static Xila_Class * Instance_Pointer</div><div class="ttdoc">Current instance pointer. Help to prevent from corruption.</div><div class="ttdef"><b>Definition:</b> Core.hpp:152</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

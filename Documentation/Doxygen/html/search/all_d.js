@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['pages_24',['Pages',['../class_shell___class.html#a4ac787675c50864d1e81fd12196a02ba',1,'Shell_Class']]],
-  ['paint_5fclass_25',['Paint_Class',['../class_paint___class.html',1,'']]],
-  ['periodic_5fclass_26',['Periodic_Class',['../class_periodic___class.html',1,'']]],
-  ['piano_5fclass_27',['Piano_Class',['../class_piano___class.html',1,'']]],
-  ['picture_5fviewer_5fclass_28',['Picture_Viewer_Class',['../class_picture___viewer___class.html',1,'']]],
-  ['pong_5fclass_29',['Pong_Class',['../class_pong___class.html',1,'']]]
+  ['task_5fclass_45',['Task_Class',['../class_xila___class_1_1_task___class.html',1,'Xila_Class']]],
+  ['template_5fclass_46',['Template_Class',['../class_template___class.html',1,'']]],
+  ['text_5feditor_5fclass_47',['Text_Editor_Class',['../class_text___editor___class.html',1,'']]],
+  ['time_5fclass_48',['Time_Class',['../class_xila___class_1_1_time___class.html',1,'Xila_Class']]],
+  ['tiny_5fbasic_5fclass_49',['Tiny_Basic_Class',['../class_tiny___basic___class.html',1,'']]]
 ];

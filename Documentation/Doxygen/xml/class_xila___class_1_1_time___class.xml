@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_time___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Time_Class</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_time___class_1a895a56663559631d73d5a190390925cc" prot="protected" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t Xila_Class::Time_Class::GMT_Offset</definition>
+        <argsstring></argsstring>
+        <name>GMT_Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="672" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="672" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_time___class_1a1fe8d3d64d06d1f6091f9b33059c459d" prot="protected" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t Xila_Class::Time_Class::Daylight_Offset</definition>
+        <argsstring></argsstring>
+        <name>Daylight_Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="673" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="673" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_time___class_1a6643c7c34c629a959170322756dd5030" prot="protected" static="no" mutable="no">
+        <type>Xila_Time</type>
+        <definition>Xila_Time Xila_Class::Time_Class::Current_Time</definition>
+        <argsstring></argsstring>
+        <name>Current_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="675" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="675" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_time___class_1a29430551197ace822ac914168c6304ae" prot="protected" static="no" mutable="no">
+        <type>time_t</type>
+        <definition>time_t Xila_Class::Time_Class::Now</definition>
+        <argsstring></argsstring>
+        <name>Now</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="676" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="676" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_time___class_1ace5418e9537114530b3c429a4c834270" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Xila_Class::Time_Class::NTP_Server[32]</definition>
+        <argsstring>[32]</argsstring>
+        <name>NTP_Server</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="677" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="677" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_time___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Module_Class</definition>
+        <argsstring></argsstring>
+        <name>Module_Class</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_module___class" kindref="compound">Module_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="686" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="686" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_time___class_1a685033e3deaa7d39a006846c0af8ca08" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Time_Class::Load_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Load_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="671" column="20"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_time___class_1acea2f630559418261fc0521eccf4431c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Time_Class::Save_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Save_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="680" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_time___class_1a67c92c4afcd6988e00e88e41884cf098" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Time</type>
+        <definition>Xila_Time Xila_Class::Time_Class::Get_Time</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="682" column="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_time___class_1ad5fd5a4309eb17115741f0b74d4a65ba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Time_Class::Synchronise</definition>
+        <argsstring>()</argsstring>
+        <name>Synchronise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="684" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="668" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="669" bodyend="688"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_time___class_1a6643c7c34c629a959170322756dd5030" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Current_Time</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a1fe8d3d64d06d1f6091f9b33059c459d" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Daylight_Offset</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a67c92c4afcd6988e00e88e41884cf098" prot="public" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Get_Time</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a895a56663559631d73d5a190390925cc" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>GMT_Offset</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a685033e3deaa7d39a006846c0af8ca08" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Module_Class</name></member>
+      <member refid="class_xila___class_1_1_time___class_1a29430551197ace822ac914168c6304ae" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Now</name></member>
+      <member refid="class_xila___class_1_1_time___class_1ace5418e9537114530b3c429a4c834270" prot="protected" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>NTP_Server</name></member>
+      <member refid="class_xila___class_1_1_time___class_1acea2f630559418261fc0521eccf4431c" prot="public" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_time___class_1ad5fd5a4309eb17115741f0b74d4a65ba" prot="public" virt="non-virtual"><scope>Xila_Class::Time_Class</scope><name>Synchronise</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

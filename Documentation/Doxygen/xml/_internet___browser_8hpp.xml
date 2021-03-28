@@ -5,82 +5,91 @@
     <includes refid="_xila_8hpp" local="yes">Xila.hpp</includes>
     <includes local="yes">WiFiClientSecure.h</includes>
     <incdepgraph>
-      <node id="7">
+      <node id="10">
         <label>SD.h</label>
       </node>
-      <node id="10">
+      <node id="9">
         <label>stdarg.h</label>
       </node>
       <node id="6">
         <label>FS.h</label>
       </node>
-      <node id="8">
+      <node id="16">
+        <label>Print.h</label>
+      </node>
+      <node id="7">
         <label>SPI.h</label>
       </node>
-      <node id="18">
-        <label>Instruction.hpp</label>
-        <link refid="_instruction_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="5">
+        <label>stdint.h</label>
       </node>
-      <node id="17">
+      <node id="28">
         <label>Path.hpp</label>
         <link refid="_path_8hpp_source"/>
       </node>
-      <node id="27">
+      <node id="34">
         <label>WiFiClientSecure.h</label>
       </node>
-      <node id="14">
+      <node id="20">
+        <label>WiFiSTA.h</label>
+      </node>
+      <node id="15">
         <label>StreamUtils.h</label>
       </node>
-      <node id="21">
+      <node id="31">
         <label>Driver/Display.hpp</label>
         <link refid="_display_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="29">
         <label>Software.hpp</label>
         <link refid="_software_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="32">
         <label>HardwareSerial.h</label>
       </node>
-      <node id="9">
+      <node id="26">
+        <label>WiFiUdp.h</label>
+      </node>
+      <node id="8">
         <label>esp_log.h</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>ArduinoJson.h</label>
       </node>
-      <node id="23">
-        <label>Driver/Keyboard.hpp</label>
-        <link refid="_keyboard_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="17">
+        <label>IPAddress.h</label>
       </node>
-      <node id="26">
+      <node id="33">
         <label>Driver/Battery.hpp</label>
         <link refid="_battery_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>time.h</label>
+      </node>
+      <node id="22">
+        <label>WiFiScan.h</label>
       </node>
       <node id="3">
         <label>Arduino.h</label>
       </node>
-      <node id="12">
+      <node id="23">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="13">
         <label>Update.h</label>
       </node>
       <node id="2">
@@ -91,7 +100,7 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="5">
+      <node id="11">
         <label>SD_MMC.h</label>
       </node>
       <node id="4">
@@ -133,49 +142,62 @@
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
         <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-      </node>
-      <node id="16">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="9" relation="include">
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="18">
+        <label>IPv6Address.h</label>
+      </node>
+      <node id="24">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="27">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp_source"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
         <label>Software_Handle.hpp</label>
         <link refid="_software___handle_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="15">
-        <label>WiFi.h</label>
-      </node>
-      <node id="24">
-        <label>Driver/Sound.hpp</label>
-        <link refid="_sound_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
       <node id="25">
-        <label>Audio.h</label>
+        <label>WiFiServer.h</label>
+      </node>
+      <node id="19">
+        <label>WiFiType.h</label>
+      </node>
+      <node id="21">
+        <label>WiFiAP.h</label>
       </node>
       <node id="1">
         <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp</label>
         <link refid="_internet___browser_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
     </incdepgraph>

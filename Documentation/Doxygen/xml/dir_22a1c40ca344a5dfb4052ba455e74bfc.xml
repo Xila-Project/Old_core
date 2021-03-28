@@ -4,8 +4,6 @@
     <compoundname>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver</compoundname>
     <innerfile refid="_battery_8hpp">Battery.hpp</innerfile>
     <innerfile refid="_display_8hpp">Display.hpp</innerfile>
-    <innerfile refid="_keyboard_8hpp">Keyboard.hpp</innerfile>
-    <innerfile refid="_sound_8hpp">Sound.hpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

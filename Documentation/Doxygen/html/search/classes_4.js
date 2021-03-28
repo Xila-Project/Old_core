@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['music_5fplayer_5fclass_63',['Music_Player_Class',['../class_music___player___class.html',1,'']]]
+  ['internet_5fbrowser_5fclass_59',['Internet_Browser_Class',['../class_internet___browser___class.html',1,'']]]
 ];

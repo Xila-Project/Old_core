@@ -6,31 +6,65 @@ Xila\textquotesingle{}s core header file.
 
 
 {\ttfamily \#include \char`\"{}Arduino.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}SD\+\_\+\+MMC.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include \char`\"{}FS.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}SD.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}SPI.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}esp\+\_\+log.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$stdarg.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}SD.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}SD\+\_\+\+MMC.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}time.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Update.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$Arduino\+Json.\+h$>$}\newline
 {\ttfamily \#include $<$Stream\+Utils.\+h$>$}\newline
-{\ttfamily \#include \char`\"{}Wi\+Fi.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Print.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IPAddress.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IPv6\+Address.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Type.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+STA.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+AP.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Scan.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Generic.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Client.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Server.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Wi\+Fi\+Udp.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Configuration.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Path.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Instruction.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Software.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Software\+\_\+\+Handle.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Driver/\+Display.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Driver/\+Keyboard.\+hpp\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Driver/\+Sound.\+hpp\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}Driver/\+Battery.\+hpp\char`\"{}}\newline
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \mbox{\hyperlink{class_xila___class}{Xila\+\_\+\+Class}}
-\begin{DoxyCompactList}\small\item\em Core class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Core class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_module___class}{Xila\+\_\+\+Class\+::\+Module\+\_\+\+Class}}
+\item 
+class \mbox{\hyperlink{class_xila___class_1_1_account___class}{Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Account management class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_clipboard___class}{Xila\+\_\+\+Class\+::\+Clipboard\+\_\+\+Class}}
+\item 
+class \mbox{\hyperlink{class_xila___class_1_1_dialog___class}{Xila\+\_\+\+Class\+::\+Dialog\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Class that bring together all system dialogs. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_display___class}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class}}
+\item 
+class \mbox{\hyperlink{class_xila___class_1_1_power___class}{Xila\+\_\+\+Class\+::\+Power\+\_\+\+Class}}
+\item 
+class \mbox{\hyperlink{class_xila___class_1_1_software___management___class}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Management\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Software management class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_sound___class}{Xila\+\_\+\+Class\+::\+Sound\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Sound class API. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_system___class}{Xila\+\_\+\+Class\+::\+System\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em System module API. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_task___class}{Xila\+\_\+\+Class\+::\+Task\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Task management class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_time___class}{Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class}}
+\item 
+class \mbox{\hyperlink{class_xila___class_1_1_wi_fi___class}{Xila\+\_\+\+Class\+::\+Wi\+Fi\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Wi\+Fi API class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_keyboard___class}{Xila\+\_\+\+Class\+::\+Keyboard\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Keyboard class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -49,11 +83,8 @@ class \mbox{\hyperlink{class_xila___class}{Xila\+\_\+\+Class}}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{_core_8hpp_a11d27d48782d022edbe77fdad3040e1f}\label{_core_8hpp_a11d27d48782d022edbe77fdad3040e1f}} 
-typedef uint16\+\_\+t {\bfseries Xila\+\_\+\+Event}
-\item 
-\mbox{\Hypertarget{_core_8hpp_a0670554f8495135fe4c71c3fb0437bae}\label{_core_8hpp_a0670554f8495135fe4c71c3fb0437bae}} 
-typedef uint16\+\_\+t {\bfseries Xila\+\_\+\+Command}
+\mbox{\Hypertarget{_core_8hpp_a3cfd626b3ba6fb3b475d9ab0832b9458}\label{_core_8hpp_a3cfd626b3ba6fb3b475d9ab0832b9458}} 
+typedef uint16\+\_\+t {\bfseries Xila\+\_\+\+Instruction}
 \item 
 \mbox{\Hypertarget{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}\label{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}} 
 typedef tm {\bfseries Xila\+\_\+\+Time}
@@ -63,6 +94,27 @@ typedef void $\ast$ {\bfseries Xila\+\_\+\+Task\+\_\+\+Handle}
 \item 
 \mbox{\Hypertarget{_core_8hpp_aba4e4c9a9399ea695307d81b394bd0c9}\label{_core_8hpp_aba4e4c9a9399ea695307d81b394bd0c9}} 
 typedef void($\ast$ {\bfseries Xila\+\_\+\+Task\+\_\+\+Function}) (void $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{_core_8hpp_a3191e5c57f0e58ee760e513cf047df0b}\label{_core_8hpp_a3191e5c57f0e58ee760e513cf047df0b}} 
+enum {\bfseries Xila\+\_\+\+Event} \{ \newline
+{\bfseries None}
+, {\bfseries Success} = 1
+, {\bfseries Error}
+, {\bfseries Warning}
+, \newline
+{\bfseries Information}
+, {\bfseries Question}
+, {\bfseries Button\+\_\+1} = 0x31
+, {\bfseries Button\+\_\+2} = 0x32
+, \newline
+{\bfseries Button\+\_\+3} = 0x33
+, {\bfseries Default\+\_\+\+Yes} = Button\+\_\+1
+, {\bfseries Default\+\_\+\+No} = Button\+\_\+2
+, {\bfseries Default\+\_\+\+Cancel} = Button\+\_\+3
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
@@ -76,18 +128,18 @@ typedef void($\ast$ {\bfseries Xila\+\_\+\+Task\+\_\+\+Function}) (void $\ast$)
 Xila\textquotesingle{}s core header file. 
 
 \begin{DoxyAuthor}{Author}
-Alix ANNERAUD 
+Alix ANNERAUD (\href{mailto:alix.anneraud@outlook.fr}{\texttt{ alix.\+anneraud@outlook.\+fr}}) 
 \end{DoxyAuthor}
-\begin{DoxyCopyright}{Copyright}
-MIT License 
-\end{DoxyCopyright}
 \begin{DoxyVersion}{Version}
-0.\+1.\+0 
+0.\+1 
 \end{DoxyVersion}
 \begin{DoxyDate}{Date}
-21/05/2020
+28-\/03-\/2021
 \end{DoxyDate}
-Gather all the parts used by Xila core. \hypertarget{_shell_8hpp_License}{}\doxysubsection{License}\label{_shell_8hpp_License}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2021
+\end{DoxyCopyright}
+Gather all the parts used by Xila core.\hypertarget{_core_8hpp_MIT}{}\doxysubsection{License}\label{_core_8hpp_MIT}
 Copyright (c) 2020 Alix ANNERAUD
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \char`\"{}\+Software\char`\"{}), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions\+: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.

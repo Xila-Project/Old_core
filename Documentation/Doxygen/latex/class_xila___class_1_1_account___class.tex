@@ -1,0 +1,94 @@
+\hypertarget{class_xila___class_1_1_account___class}{}\doxysection{Xila\+\_\+\+Class\+::Account\+\_\+\+Class Class Reference}
+\label{class_xila___class_1_1_account___class}\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+
+
+Account management class.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+Inheritance diagram for Xila\+\_\+\+Class\+::Account\+\_\+\+Class\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_xila___class_1_1_account___class}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a787729d00bfa77a2eb90506a0807db15}\label{class_xila___class_1_1_account___class_a787729d00bfa77a2eb90506a0807db15}} 
+enum {\bfseries Session\+\_\+\+State} \{ {\bfseries Disconnected}
+, {\bfseries Logged}
+, {\bfseries Locked}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_aa7949505056ae44eee47dbca47cd3cd5}\label{class_xila___class_1_1_account___class_aa7949505056ae44eee47dbca47cd3cd5}} 
+Xila\+\_\+\+Event {\bfseries Add\+\_\+\+User} (const char $\ast$Username, const char $\ast$Password)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a62319daaae2952887d30e5c3bb9da55e}\label{class_xila___class_1_1_account___class_a62319daaae2952887d30e5c3bb9da55e}} 
+Xila\+\_\+\+Event {\bfseries Delete\+\_\+\+User} (const char $\ast$)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a77de4f2ea3d3c5f3d3fc3a82637d6000}\label{class_xila___class_1_1_account___class_a77de4f2ea3d3c5f3d3fc3a82637d6000}} 
+Xila\+\_\+\+Event {\bfseries Change\+\_\+\+Password} (const char $\ast$, const char $\ast$)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a0dbd63fb4884685c5a587ee0d97aa03f}\label{class_xila___class_1_1_account___class_a0dbd63fb4884685c5a587ee0d97aa03f}} 
+Xila\+\_\+\+Event {\bfseries Change\+\_\+\+Username} (const char $\ast$, const char $\ast$)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a493695a95ad8d66d8e515e25d4508282}\label{class_xila___class_1_1_account___class_a493695a95ad8d66d8e515e25d4508282}} 
+Xila\+\_\+\+Event {\bfseries Set\+\_\+\+Autologin} (bool Enable)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ac63a6a33590272d7151a92ab25c96f4d}\label{class_xila___class_1_1_account___class_ac63a6a33590272d7151a92ab25c96f4d}} 
+Xila\+\_\+\+Event {\bfseries Check\+\_\+\+Credentials} (const char $\ast$, const char $\ast$)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_aa7caf7c5e86252bd894eb8ed08e96b72}\label{class_xila___class_1_1_account___class_aa7caf7c5e86252bd894eb8ed08e96b72}} 
+Xila\+\_\+\+Event {\bfseries Login} (const char $\ast$Username\+\_\+\+To\+\_\+\+Check=NULL, const char $\ast$Password\+\_\+\+To\+\_\+\+Check=NULL)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_af19360ef1fb7df718216fcaa89d0012a}\label{class_xila___class_1_1_account___class_af19360ef1fb7df718216fcaa89d0012a}} 
+Xila\+\_\+\+Event {\bfseries Logout} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_aad287be46c58a221d39271c0c6912117}\label{class_xila___class_1_1_account___class_aad287be46c58a221d39271c0c6912117}} 
+Xila\+\_\+\+Event {\bfseries Lock} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_aaf2cad61bc88312aa71e12b6465ea908}\label{class_xila___class_1_1_account___class_aaf2cad61bc88312aa71e12b6465ea908}} 
+const char $\ast$ {\bfseries Get\+\_\+\+Current\+\_\+\+Username} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}\label{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}} 
+uint8\+\_\+t {\bfseries Get\+\_\+\+State} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a5f5a3c76336f91f41f1b3e72de03108a}\label{class_xila___class_1_1_account___class_a5f5a3c76336f91f41f1b3e72de03108a}} 
+friend {\bfseries Module\+\_\+\+Class}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ae3cf87ef0459dd8db703a4dfad6e53a4}\label{class_xila___class_1_1_account___class_ae3cf87ef0459dd8db703a4dfad6e53a4}} 
+Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Registry} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a1da393cf0f74ed012f4a08f6dcf3dc81}\label{class_xila___class_1_1_account___class_a1da393cf0f74ed012f4a08f6dcf3dc81}} 
+Xila\+\_\+\+Event {\bfseries Save\+\_\+\+Registry} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ae6736ab0abe4073f9455d5b40442ba71}\label{class_xila___class_1_1_account___class_ae6736ab0abe4073f9455d5b40442ba71}} 
+char {\bfseries Current\+\_\+\+Username} \mbox{[}9\mbox{]}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a476f0ca8df6e274652e7be1e27e41965}\label{class_xila___class_1_1_account___class_a476f0ca8df6e274652e7be1e27e41965}} 
+uint8\+\_\+t {\bfseries State}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Account management class. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}

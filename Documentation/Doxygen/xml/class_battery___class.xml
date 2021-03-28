@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_battery___class" kind="class" language="C++" prot="public">
     <compoundname>Battery_Class</compoundname>
+    <derivedcompoundref refid="class_xila___class_1_1_power___class" prot="public" virt="non-virtual">Xila_Class::Power_Class</derivedcompoundref>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="class_battery___class_1aaad566d864e165c8ab95bf915f5f24ad" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -116,6 +117,18 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Xila_Class::Power_Class</label>
+        <link refid="class_xila___class_1_1_power___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Battery_Class</label>
+        <link refid="class_battery___class"/>
+      </node>
+    </inheritancegraph>
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Battery.hpp" line="27" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Battery.hpp" bodystart="28" bodyend="143"/>
     <listofallmembers>
       <member refid="class_battery___class_1a5e0e4fed2ef553deec45fc76cb252a63" prot="public" virt="non-virtual"><scope>Battery_Class</scope><name>Battery_Class</name></member>

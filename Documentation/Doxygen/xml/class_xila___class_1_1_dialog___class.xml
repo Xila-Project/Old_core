@@ -1,0 +1,295 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_dialog___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Dialog_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_dialog___class_1afc8aa87eff41045abdc52474880a769a" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
+        <definition>Software_Class* Xila_Class::Dialog_Class::Caller_Software_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Caller_Software_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="248" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="248" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_dialog___class_1aa51002785e98d947b84d30d06efae51b" prot="protected" static="no" mutable="no">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="249" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="249" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_dialog___class_1ac640f89de5f083df7b82e5f28a4f4f5b" prot="protected" static="no" mutable="no">
+        <type>SemaphoreHandle_t</type>
+        <definition>SemaphoreHandle_t Xila_Class::Dialog_Class::Semaphore</definition>
+        <argsstring></argsstring>
+        <name>Semaphore</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="250" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="250" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_dialog___class_1ab24d15e6fef1458e7c925fe47814eaed" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Dialog_Class::Long[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Long</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="251" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_dialog___class_1aa18726cb9d3566b3bf96f02df410af4d" prot="protected" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* Xila_Class::Dialog_Class::Pointer</definition>
+        <argsstring></argsstring>
+        <name>Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="252" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="252" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_dialog___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Module_Class</definition>
+        <argsstring></argsstring>
+        <name>Module_Class</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_module___class" kindref="compound">Module_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="266" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="266" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1a010fcdcd0454eb3b8e382986d15c71ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Event</definition>
+        <argsstring>(const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</argsstring>
+        <name>Event</name>
+        <param>
+          <type>const __FlashStringHelper *</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="255" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1ae535be024984009ab77a0b4e354e4150" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Color_Picker</definition>
+        <argsstring>(uint16_t &amp;Color)</argsstring>
+        <name>Color_Picker</name>
+        <param>
+          <type>uint16_t &amp;</type>
+          <declname>Color</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="256" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1abaafa54cb59bf25448ac360fceef7b45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Open_File</definition>
+        <argsstring>(File &amp;File_To_Open)</argsstring>
+        <name>Open_File</name>
+        <param>
+          <type>File &amp;</type>
+          <declname>File_To_Open</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="257" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1a62fdc281561bbb7e17a53afb5376fac2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Open_Folder</definition>
+        <argsstring>(File &amp;Folder_To_Open)</argsstring>
+        <name>Open_Folder</name>
+        <param>
+          <type>File &amp;</type>
+          <declname>Folder_To_Open</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="258" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1aafa62c5367026c71cb7507650cff420a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Save_File</definition>
+        <argsstring>(File &amp;File_To_Save)</argsstring>
+        <name>Save_File</name>
+        <param>
+          <type>File &amp;</type>
+          <declname>File_To_Save</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="259" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1a82b9dae5eb3db77d4c49c74af8b80f46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Keyboard</definition>
+        <argsstring>(char *Char_Array_To_Get, size_t Char_Array_Size=189, bool Masked_Input=false)</argsstring>
+        <name>Keyboard</name>
+        <param>
+          <type>char *</type>
+          <declname>Char_Array_To_Get</declname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <declname>Char_Array_Size</declname>
+          <defval>189</defval>
+        </param>
+        <param>
+          <type>bool</type>
+          <declname>Masked_Input</declname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="260" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1ae739d38adc44cc469f701bbb33771032" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Xila_Event</type>
+        <definition>Xila_Event Xila_Class::Dialog_Class::Keypad</definition>
+        <argsstring>(float &amp;Number_To_Get)</argsstring>
+        <name>Keypad</name>
+        <param>
+          <type>float &amp;</type>
+          <declname>Number_To_Get</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="262" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_dialog___class_1ac9af401cab2f74416ad356103449f4ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Dialog_Class::Dialog_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Dialog_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="264" column="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Class that bring together all system dialogs. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>Xila_Class::Dialog_Class</label>
+        <link refid="class_xila___class_1_1_dialog___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Caller_Software_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="245" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="246" bodyend="268"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_dialog___class_1afc8aa87eff41045abdc52474880a769a" prot="protected" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Caller_Software_Pointer</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1ae535be024984009ab77a0b4e354e4150" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Color_Picker</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1ac9af401cab2f74416ad356103449f4ab" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Dialog_Class</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1a010fcdcd0454eb3b8e382986d15c71ed" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Event</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1a82b9dae5eb3db77d4c49c74af8b80f46" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Keyboard</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1ae739d38adc44cc469f701bbb33771032" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Keypad</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1ab24d15e6fef1458e7c925fe47814eaed" prot="protected" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Long</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Module_Class</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1abaafa54cb59bf25448ac360fceef7b45" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Open_File</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1a62fdc281561bbb7e17a53afb5376fac2" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Open_Folder</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1aa18726cb9d3566b3bf96f02df410af4d" prot="protected" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Pointer</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1aafa62c5367026c71cb7507650cff420a" prot="public" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Save_File</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1ac640f89de5f083df7b82e5f28a4f4f5b" prot="protected" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>Semaphore</name></member>
+      <member refid="class_xila___class_1_1_dialog___class_1aa51002785e98d947b84d30d06efae51b" prot="protected" virt="non-virtual"><scope>Xila_Class::Dialog_Class</scope><name>State</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
