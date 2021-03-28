@@ -19,9 +19,10 @@ What You Need
 
 Hardware :
 
+* A computer
 * An **ESP-32 DOIT DEVKIT V1** is recommanded, but all kind of ESP-32 will do the job.
 * A USB USB Cable (USB A to USB B Micro).
-* A computer
+
   
 Software :
 
@@ -50,14 +51,13 @@ Software
 Start To Developp
 =================
 
-There are multiple way to create software for Xila.
 
 Arduino IDE
 -----------
 
 `Click here <https://>`_ to download latest Xila release. Then, in the Arduino IDE, go in ``Sketch``, ``Include Library`` and ``Add .ZIP Library...`` and select the downloaded file.
 
-You can now try the examples sketches, or start developping your own software.
+You can now try the examples sketches, or start writting your own software.
 
 Platform IO
 -----------

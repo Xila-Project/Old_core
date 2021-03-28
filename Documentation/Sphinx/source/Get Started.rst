@@ -51,7 +51,6 @@ Software
 Start To Developp
 =================
 
-There are multiple way to create software for Xila.
 
 Arduino IDE
 -----------
