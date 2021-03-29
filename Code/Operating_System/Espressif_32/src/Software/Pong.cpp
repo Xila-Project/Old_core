@@ -37,8 +37,8 @@ void Pong_Class::Main_Task(void* pvParameters)
             case Idle:
                 Xila.Task.Delay(20);
                 break;
-            case Xila.Watchdog:
-                Xila.Feed_Watchdog();
+            case Watchdog:
+                
                 break;
             case Instruction('C', 'l'):
                 Xila.Software.Close(Pong_Handle);

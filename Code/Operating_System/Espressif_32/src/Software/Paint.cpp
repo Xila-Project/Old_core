@@ -61,7 +61,7 @@ void Paint_Class::Main_Task(void *pvParameters)
             Xila.Task.Delay(30);
             break;
         case Watchdog:
-            Xila.Software.Feed_Watchdog();
+            
             break;
         case Open:
             Xila.Display.Set_Current_Page(F("Paint"));

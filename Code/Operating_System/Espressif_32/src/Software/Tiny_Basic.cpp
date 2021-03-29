@@ -152,7 +152,7 @@ void Tiny_Basic_Class::Read_Command()
   case Open:
     break;
   case Minimize:
-    Xila.Task_Suspend();
+    
     break;
   case Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
@@ -162,7 +162,7 @@ void Tiny_Basic_Class::Read_Command()
     Xila.Task.Delete(NULL);
     break;
   case Instruction('K', 'I'):
-    Xila.Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
+    Xila.Dialog.Keyboard(Temporary_Input, sizeof(Temporary_Input));
     Refresh_Interface();
     break;
   default:
@@ -268,7 +268,7 @@ void Tiny_Basic_Class::Draw_Circle(uint16_t const &X_Coordinate, uint16_t const 
 
 void Tiny_Basic_Class::Draw_Char(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, char const *Char)
 {
-  Xila.Display.Draw_Text(X_Coordinate, Y_Coordinate, 16, 8, Xila.Regular_16, Xila.White, Xila.Dark_Grey, 1, 1, 0, Char);
+  Xila.Display.Draw_Text(X_Coordinate, Y_Coordinate, 16, 8, Xila.Display.Regular_16, Xila.Display.White, Xila.Display.Dark_Grey, 1, 1, 0, Char);
 }
 
 /***************************************************************************/
@@ -910,13 +910,14 @@ unsigned char Tiny_Basic_Class::breakcheck()
 {
   if (inStream == kStreamXila)
   {
+    /*
     if (Xila.Keyboard.available())
     {
       if (Xila.Keyboard.read() == PS2_ESC)
       {
         return 1;
       }
-    }
+    }*/
   }
   else
   {
@@ -963,10 +964,10 @@ int Tiny_Basic_Class::inchar()
     {
       Read_Command();
 
-      if (Xila.Keyboard.available())
+      if (Xila.Keyboard.Available())
       {
-        Temporary_Char = Xila.Keyboard.read();
-        if (Temporary_Char == PS2_ENTER)
+        Temporary_Char = Xila.Keyboard.Read();
+        /*if (Temporary_Char == PS2_ENTER)
         {
           Xila.Display.Click(F("ENTER_BUT"), 0);
         }
@@ -977,7 +978,7 @@ int Tiny_Basic_Class::inchar()
         else
         {
           Xila.Display.Add_Text(F("INPUT_VAR"), &Temporary_Char);
-        }
+        }*/
       }
 
       if (Temporary_Input[Current_Position] != '\0')

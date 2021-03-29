@@ -179,7 +179,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Calculator
+        Icon_32 = Xila.Display.Calculator
     };
 
     static Software_Class *Load();

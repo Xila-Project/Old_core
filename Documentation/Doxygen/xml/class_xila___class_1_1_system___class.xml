@@ -81,9 +81,9 @@
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" prot="protected" static="no" mutable="no">
         <type>char</type>
-        <definition>char Xila_Class::System_Class::Device_Name[24]</definition>
+        <definition>char Xila_Class::System_Class::Name[24]</definition>
         <argsstring>[24]</argsstring>
-        <name>Device_Name</name>
+        <name>Name</name>
         <briefdescription>
 <para>Device name used as Network hostname ... </para>
         </briefdescription>
@@ -208,9 +208,9 @@
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
-        <definition>const char* Xila_Class::System_Class::Get_Device_Name</definition>
+        <definition>const char* Xila_Class::System_Class::Get_Name</definition>
         <argsstring>()</argsstring>
-        <name>Get_Device_Name</name>
+        <name>Get_Name</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -331,8 +331,8 @@
       <member refid="class_xila___class_1_1_system___class_1aefed3b933636fc9e38f0b3a1918230a8" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Create_Dump</name></member>
       <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbae851bcdfa9fbe6b5dd192b19124e4418" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Damaged_System_Registry</name></member>
       <member refid="class_xila___class_1_1_system___class_1a41f8c1a8c54d782edcbc94e0c343c9f6a19ca4cea89adc177d1b9932dd1b4c0fe" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Default</name></member>
-      <member refid="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Device_Name</name></member>
-      <member refid="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" prot="public" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Get_Device_Name</name></member>
+      <member refid="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Name</name></member>
+      <member refid="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" prot="public" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Get_Name</name></member>
       <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba33e5f9a385c08b6ba348c81cbc108257" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Installation_Conflict</name></member>
       <member refid="class_xila___class_1_1_system___class_1afcac85b832c69630c61279822cd703dc" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Load_Dump</name></member>
       <member refid="class_xila___class_1_1_system___class_1aa4ca448038c2acbfd7b479208f849d6a" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Load_Executable</name></member>

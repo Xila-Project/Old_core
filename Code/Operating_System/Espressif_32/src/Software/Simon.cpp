@@ -33,11 +33,8 @@ void Simon_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0:
+        case Idle:
             Xila.Task.Delay(30);
-            break;
-        case Xila.Watchdog:
-            Xila.Feed_Watchdog();
             break;
         case Close:
             Instance_Pointer->Save_Registry();
@@ -323,6 +320,6 @@ void Simon_Class::Generate_Sequence()
     Speed = 1000;
     for (uint8_t i = 0; i < (MAXIMUM_LEVEL - 1); i++)
     {
-        Sequence[i] = uint8_t(Xila.Random() % 4);
+        Sequence[i] = uint8_t(Xila.System.Random() % 4);
     }
 }

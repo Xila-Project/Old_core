@@ -67,7 +67,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'F'): // OF : open file
             Instance_Pointer->File_To_Edit.close();
-            Open_File_Dialog(Instance_Pointer->File_To_Edit);
+            Xila.Dialog.Open_File(Instance_Pointer->File_To_Edit);
             if (Instance_Pointer->File_To_Edit)
             {
                 Instance_Pointer->Scan();

@@ -1,13 +1,13 @@
 #include "Software/Picture_Viewer.hpp"
 
-Picture_Viewer_Class *Picture_Viewer_Class::Instance_Pointer = NULL;
+Image_Viewer_Class *Image_Viewer_Class::Instance_Pointer = NULL;
 
-Picture_Viewer_Class::Picture_Viewer_Class() : Software_Class(Picture_Viewer_Handle)
+Image_Viewer_Class::Image_Viewer_Class() : Software_Class(Image_Viewer_Handle)
 {
     Xila.Task.Create(Main_Task, "Picture viewer", Memory_Chunk(5), NULL, &Task_Handle);
 }
 
-Picture_Viewer_Class::~Picture_Viewer_Class()
+Image_Viewer_Class::~Image_Viewer_Class()
 {
     if (Instance_Pointer != this)
     {
@@ -17,17 +17,17 @@ Picture_Viewer_Class::~Picture_Viewer_Class()
     Image_File.close();
 }
 
-Software_Class* Picture_Viewer_Class::Load()
+Software_Class* Image_Viewer_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
     }
-    Instance_Pointer = new Picture_Viewer_Class();
+    Instance_Pointer = new Image_Viewer_Class();
     return Instance_Pointer;
 }
 
-void Picture_Viewer_Class::Main_Task(void *pvParameters)
+void Image_Viewer_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)
@@ -50,17 +50,15 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
-        case Xila.Watchdog:
-            Xila.Feed_Watchdog();
-            break;
+
         case Instruction('C', 'l'):
-            Xila.Software.Close(Picture_Viewer_Handle);
+            Xila.Software.Close(Image_Viewer_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Picture_Viewer_Handle);
+            Xila.Software.Minimize(Image_Viewer_Handle);
             break;
         case Instruction('O', 'I'):
-            Open_File_Dialog(Instance_Pointer->Image_File);
+            Xila.Dialog.Open_File(Instance_Pointer->Image_File);
             if (!Instance_Pointer->Image_File)
             {
                 Verbose_Print_Line("Failed to open file.");
@@ -83,7 +81,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
     }
 }
 
-void Picture_Viewer_Class::Get_Metadata()
+void Image_Viewer_Class::Get_Metadata()
 {
     Image_File.seek(0x00);
     uint8_t Temporary_Char_Array_1[4] = {'B', 'M'};
@@ -139,7 +137,7 @@ void Picture_Viewer_Class::Get_Metadata()
     Serial.println(Color_Depth);
 }
 
-void Picture_Viewer_Class::Draw_Image()
+void Image_Viewer_Class::Draw_Image()
 {
     Xila.Task.Delay(20);
     Image_File.seek(Offset);

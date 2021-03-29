@@ -57,7 +57,7 @@ Xila_Class::WiFi_Class::WiFi_Class()
     prov_enable = false;
 }
 
-Xila_Event Xila_Class::WiFi_Class::Save_Registry()
+Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     JsonObject WiFi_Registry = Network_Registry["WiFi"];
@@ -74,7 +74,7 @@ Xila_Event Xila_Class::WiFi_Class::Save_Registry()
     return Success;
 }
 
-Xila_Event Xila_Class::WiFi_Class::Load_Registry()
+Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.open(Network_Registry_Path);
     DynamicJsonDocument Network_Registry(512);

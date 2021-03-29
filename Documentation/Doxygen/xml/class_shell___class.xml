@@ -507,9 +507,9 @@
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a428472096127f7e0b86558520b418c27" prot="protected" static="no" mutable="no">
         <type>char</type>
-        <definition>char Shell_Class::Device_Name[25]</definition>
+        <definition>char Shell_Class::Name[25]</definition>
         <argsstring>[25]</argsstring>
-        <name>Device_Name</name>
+        <name>Name</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -1135,9 +1135,9 @@
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Open_File_Dialog</definition>
+        <definition>Xila_Event Shell_Class::Dialog_Open_File</definition>
         <argsstring>(File &amp;)</argsstring>
-        <name>Open_File_Dialog</name>
+        <name>Dialog_Open_File</name>
         <param>
           <type>File &amp;</type>
         </param>
@@ -1721,7 +1721,7 @@
       <member refid="class_shell___class_1ad32f2099fe3506a6764ab254ebcbd61a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Background</name></member>
       <member refid="class_shell___class_1aa9b5f4a44af1a711de86aaa91143882c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Commands</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25e545cf5dda53d5a2a95f20b372ada5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Detail</name></member>
-      <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Device_Name</name></member>
+      <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Name</name></member>
       <member refid="class_shell___class_1a25cccfbd52c2805827e898ac5e4476a5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dock</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa1abe92fdcd3fdacbd62b8a40d998ce9f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer</name></member>
       <member refid="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer_Commands</name></member>
@@ -1775,7 +1775,7 @@
       <member refid="class_shell___class_1a8668670c4abd2d2e65a436212ee62a8d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Color_Picker</name></member>
       <member refid="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Desk</name></member>
       <member refid="class_shell___class_1ac771e065871b064e28479c24f681304a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Drawer</name></member>
-      <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Dialog</name></member>
+      <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_File</name></member>
       <member refid="class_shell___class_1a44df5724bef36546c6872d51e2107007" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager</name></member>
       <member refid="class_shell___class_1a5fb721eeb084d0dac5c9ca1974ecc262" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager_Detail</name></member>
       <member refid="class_shell___class_1a8873ccbedb49df3907ccf95a74c79ef7" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Folder_Dialog</name></member>

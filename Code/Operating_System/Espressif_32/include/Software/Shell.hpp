@@ -1,37 +1,41 @@
-/**
- * @file Shell.hpp
- * @brief Xila's user interface header file.
- * @author Alix ANNERAUD
- * @copyright MIT License
- * @version 0.1.0
- * @date 21/05/2020
- * @details Xila user interface software.
- * @section License
- * 
- * Copyright (c) 2020 Alix ANNERAUD
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
-*/
+///
+/// @file Shell.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Xila's user interface header file.
+/// @version 0.1.0
+/// @date 21-05-2020
+/// @details Xila user interface software.
+///
+/// @section License
+///
+/// Copyright (c) 2020 Alix ANNERAUD
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+/// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+///
+/// @copyright Copyright (c) 2021
+///
+
 #ifndef SHELL_HPP_INCLUDED
 #define SHELL_HPP_INCLUDED
 
 #include "Xila.hpp"
 
-
-/**
- * @class Shell_Class Shell.hpp
- * 
- * @
-*/
+///
+/// @brief Shell class
+///
+/// @details Main inter
+///
 class Shell_Class : public Software_Class
 {
 protected:
-    // -- Variable
+    // -- Attributes
 
+    ///
+    /// @brief Instance pointer, help to keep track of current instance.
+    ///
     static Shell_Class *Instance_Pointer;
 
     float Temporary_Float;
@@ -48,7 +52,6 @@ protected:
     uint8_t Brightness;
 
     uint16_t Standby_Display_Time;
-    uint16_t Standby_System_Time;
 
     // -- Preferences system attributes
 
@@ -57,8 +60,8 @@ protected:
     int32_t GMT_Offset;      // -- Shared with install wizard
     int16_t Daylight_Offset; // -- Shared with install wizard
 
-    char NTP_Server[sizeof(Xila.NTP_Server)];
-    char Device_Name[25]; // -- Shared with install wizard
+    char NTP_Server[sizeof(Xila.Time.NTP_Server)];
+    char Name[25]; // -- Shared with install wizard
 
     char Username[9];    // -- Shared with install wizard and login
     char Password_1[25]; // -- Shared with install wizard and login
@@ -78,15 +81,17 @@ protected:
     char Temporary_Char[14];
 
     // -- Desk variables
-    int32_t Desk_Background;
-    /**
-     * -1 = Default desk background
-     * 0 - 65535 : Custom color
-    */
 
-    /**
-     * @enum Pages
-     */
+    ///
+    /// @brief Desk background
+    ///
+    /// @details Desk image when < 0 and Custom color when > 0 (color code itself).
+    ///
+    int32_t Desk_Background;
+
+    ///
+     /// @brief Pages
+     /// 
     enum Pages
     {
         About = 20,
@@ -161,16 +166,15 @@ protected:
     inline void Keyboard_Commands();
     inline void Keypad_Commands();
 
+    // -- Custom dialog boxes (Shell cannot)
 
-    // -- Custom dialog boxes
-
-    Xila_Event Keyboard_Dialog(char *, size_t, bool = false);
-    Xila_Event Keypad_Dialog(float& Number_To_Get);
-    Xila_Event Dialog.Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-    Xila_Event Color_Picker_Dialog(uint16_t&);
-    Xila_Event Open_File_Dialog(File&);
-    Xila_Event Save_File_Dialog(File&);
-    Xila_Event Open_Folder_Dialog(File&);
+    Xila_Class::Event Keyboard_Dialog(char *, size_t, bool = false);
+    Xila_Class::Event Keypad_Dialog(float &Number_To_Get);
+    Xila_Class::Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    Xila_Class::Event Color_Picker_Dialog(uint16_t &);
+    Xila_Class::Event Open_File_Dialog(File &);
+    Xila_Class::Event Save_File_Dialog(File &);
+    Xila_Class::Event Open_Folder_Dialog(File &);
 
     // -- Shutdown
 
@@ -187,7 +191,7 @@ protected:
     void File_Manager_Commands();
 
     // -- Drawer
-    
+
     void Open_Drawer();
     void Refresh_Drawer();
     void Open_From_Drawer(uint8_t);
@@ -195,16 +199,14 @@ protected:
 
     // -- Registry management
 
-    Xila_Event Save_Registry();
-    Xila_Event Load_Registry();
+    Xila_Class::Event Save_Registry();
+    Xila_Class::Event Load_Registry();
 
     // -- Installation wizard methods
 
     void Refresh_Install();
 
     inline void Open_Install();
-
-    inline void Idle();
 
     //
 
@@ -238,7 +240,7 @@ protected:
     uint8_t Mode;
 
     // -- File manager methods
-    
+
     void Select_Item();
     void Open_File_Manager();
 
@@ -247,12 +249,8 @@ protected:
     void Make_File();
     void Go_Parent();
 
-
-
-
     void Refresh_File_Manager_Detail();
     void Open_File_Manager_Detail();
-    
 
     //
 
@@ -267,7 +265,7 @@ public:
 
     enum Images
     {
-        Empty_16 = Xila.Shell,
+        Empty_16 = Xila.Display.Shell,
         File_16,
         Folder_16,
         Copy_24,

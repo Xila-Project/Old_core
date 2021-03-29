@@ -119,7 +119,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Open_File();
             break;
         case Instruction('O', 'F'):
-            Instance_Pointer->Open_Folder();
+            Instance_Pointer->Dialog_Open_Folder();
             break;
         case Instruction('R', 'e'):
             Instance_Pointer->Refresh_Interface();
@@ -158,11 +158,11 @@ void Music_Player_Class::Open_File()
     Send_Instruction('R', 'e');
 }
 
-void Music_Player_Class::Open_Folder()
+void Music_Player_Class::Dialog_Open_Folder()
 {
     Stop();
     Music_Folder.close();
-    Xila.Dialog.Open_Folder(Music_Folder);
+    Xila.Dialog.Dialog_Open_Folder(Music_Folder);
     if (Music_Folder && Music_Folder.isDirectory())
     {
         Generate_Queue();

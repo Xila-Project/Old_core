@@ -117,8 +117,8 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case Idle: //idle
             Xila.Task.Delay(20);
             break;
-        case Xila.Watchdog:
-            Xila.Feed_Watchdog();
+        case Watchdog:
+            
             Verbose_Print_Line("Feed watchdog");
             break;
         case Instruction('C', 'l'):
@@ -571,7 +571,7 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
         break;
     case Random:
         Clear();
-        dtostrf(Xila.Random(), sizeof(Numbers[State]), 0, Numbers[State]);
+        dtostrf(Xila.System.Random(), sizeof(Numbers[State]), 0, Numbers[State]);
         Decimal_Point[State] = false;
         break;
     case Point:

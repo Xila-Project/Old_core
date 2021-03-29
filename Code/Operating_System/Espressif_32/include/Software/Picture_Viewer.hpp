@@ -3,10 +3,10 @@
 
 #include "Xila.hpp"
 
-class Picture_Viewer_Class : public Software_Class
+class Image_Viewer_Class : public Software_Class
 {
 private:
-    static Picture_Viewer_Class* Instance_Pointer;
+    static Image_Viewer_Class* Instance_Pointer;
 
     void Get_Metadata();
     void Draw_Image();
@@ -32,12 +32,12 @@ public:
     static void Background();
     static void Shutdown();
 
-    Picture_Viewer_Class();
-    ~Picture_Viewer_Class();
+    Image_Viewer_Class();
+    ~Image_Viewer_Class();
 
     enum Pictures
     {
-        Icon_32 = Xila.Picture_Viewer
+        Icon_32 = Xila.Display.Image_Viewer
     };
 
     enum Pages
@@ -46,6 +46,6 @@ public:
     };
 };
 
-Software_Handle_Class Picture_Viewer_Handle("Picture viewer", Picture_Viewer_Class::Icon_32, Picture_Viewer_Class::Load);
+Software_Handle_Class Image_Viewer_Handle("Picture viewer", Image_Viewer_Class::Icon_32, Image_Viewer_Class::Load);
 
 #endif

@@ -109,7 +109,7 @@ $(function() {
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    int16_t Daylight_Offset; <span class="comment">// -- Shared with install wizard</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">char</span> NTP_Server[<span class="keyword">sizeof</span>(Xila.NTP_Server)];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">char</span> Device_Name[25]; <span class="comment">// -- Shared with install wizard</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">char</span> Name[25]; <span class="comment">// -- Shared with install wizard</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">char</span> Username[9];    <span class="comment">// -- Shared with install wizard and login</span></div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">char</span> Password_1[25]; <span class="comment">// -- Shared with install wizard and login</span></div>
@@ -211,7 +211,7 @@ $(function() {
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    Xila_Event Keypad_Dialog(<span class="keywordtype">float</span>&amp; Number_To_Get);</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    Xila_Event Dialog.Event(<span class="keyword">const</span> __FlashStringHelper *, uint8_t, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL, <span class="keyword">const</span> __FlashStringHelper * = NULL);</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    Xila_Event Color_Picker_Dialog(uint16_t&amp;);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    Xila_Event Open_File_Dialog(File&amp;);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    Xila_Event Dialog_Open_File(File&amp;);</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    Xila_Event Save_File_Dialog(File&amp;);</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    Xila_Event Open_Folder_Dialog(File&amp;);</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>

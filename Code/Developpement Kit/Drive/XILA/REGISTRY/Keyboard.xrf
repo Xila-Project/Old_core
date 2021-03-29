@@ -1,0 +1,6 @@
+{
+    "Registry": "Keyboard",
+    "Data Pin": 19,
+    "Clock Pin": 18,
+    "Keymap": 0
+}

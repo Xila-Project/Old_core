@@ -96,7 +96,7 @@
           </detaileddescription>
         </enumvalue>
         <enumvalue id="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" prot="public">
-          <name>Open_File_Dialog</name>
+          <name>Dialog_Open_File</name>
           <initializer>= &apos;f&apos;</initializer>
           <briefdescription>
           </briefdescription>
@@ -509,7 +509,7 @@
       <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a69026d6ca50176eba57286de1c203840" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Minimize_Software</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Module_Class</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1add3b62bee5e5566414d8c86c445a462b" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open_File_Dialog</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Dialog_Open_File</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a4697d779d84b5a74f53ccf9d1456e12c" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open_Folder_Dialog</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a105c879526ffbbceb97a71ec566fa64d" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open_Software</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a850554c697f81055e79c5394fbb6dcfb" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open_Software_Pointer</name></member>

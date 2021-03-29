@@ -11,7 +11,7 @@
 
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
+Xila_Class::Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 {
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -34,7 +34,7 @@ Xila_Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
   return Success;
 }
 
-Xila_Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght)
+Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght)
 {
   Xila.Drive.remove(Clipboard_Path);
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
@@ -58,7 +58,7 @@ Xila_Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, siz
   return Success;
 }
 
-Xila_Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy)
+Xila_Class::Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy)
 {
   Xila.Drive.remove(Clipboard_Path);
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
@@ -75,7 +75,7 @@ Xila_Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy)
   return Success;
 }
 
-Xila_Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
+Xila_Class::Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 {
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -92,7 +92,7 @@ Xila_Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
   return Success;
 }
 
-Xila_Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght)
+Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght)
 {
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -115,7 +115,7 @@ Xila_Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t 
   return Success;
 }
 
-Xila_Event Xila_Class::Clipboard_Class::Paste(String &String_To_Paste)
+Xila_Class::Event Xila_Class::Clipboard_Class::Paste(String &String_To_Paste)
 {
   Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)

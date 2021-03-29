@@ -39,6 +39,7 @@ class Software_Class
 {
 private:
     uint16_t Current_Instruction;
+    uint32_t Last_Watchdog_Feed;
 
 protected:
     ///
@@ -59,23 +60,29 @@ protected:
         Hibernate = 'H',
         Watchdog = 'W',
         // -- Shell specials instructions
-        Install_Dialog = 'I',      // Open installation form
+
         Desk = 'D',                // Open desk
-        Open_File_Dialog = 'f',    // Open open file dialog
-        Open_Folder_Dialog = 'F',  // Open open folder dialog
-        Save_File_Dialog = 'e',    // Open save file dialog
-        Keyboard_Dialog = 'K',     // Open keyboard dialog
-        Keypad_Dialog = 'k',       // Open keyapd dialog
-        Color_Picker_Dialog = 'c', // Open color picker dialog
-        Power_Dialog = 'P',        // Open power dialog
-        Event = 'E',               // Open event dialog
+        Dialog_Install = 'I',      // Open installation form
+        Dialog_Open_File = 'f',    // Open open file dialog
+        Dialog_Open_Folder = 'F',  // Open open folder dialog
+        Dialog_Save_File = 'e',    // Open save file dialog
+        Dialog_Keyboard = 'K',     // Open keyboard dialog
+        Dialog_Keypad = 'k',       // Open keyapd dialog
+        Dialog_Color_Picker = 'c', // Open color picker dialog
+        Dialog_Power = 'P',        // Open power dialog
+        Dialog_Event = 'E',               // Open event dialog
     };
+   
 
     Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
     virtual ~Software_Class();
 
     TaskHandle_t Task_Handle;
-    Software_Handle_Class *Handle_Pointer;
+
+    ///
+     /// @brief Software handle pointer
+     /// 
+    Software_Handle_Class* Handle;
     QueueHandle_t Instruction_Queue_Handle;
 
     void Send_Instruction(uint16_t);
@@ -84,9 +91,6 @@ protected:
     virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
     uint16_t Get_Instruction();
-
-public:
-
 
     friend class Xila_Class;
     friend class Software_Handle_Class;

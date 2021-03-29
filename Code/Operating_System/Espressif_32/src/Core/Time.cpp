@@ -1,43 +1,45 @@
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Time_Class::Save_Registry()
+
+
+Xila_Class::Time_Class::Time_Class()
+    : GMT_Offset(0),
+      Daylight_Offset(0)
 {
-  File Temporary_File = Xila.Drive.open(Regional_Registry_Path, FILE_WRITE);
-  DynamicJsonDocument Regional_Registry(512);
-  JsonObject Time = Regional_Registry["Time"];
-  Time["GMT Offset"] = GMT_Offset;
-  Time["Daylight Offset"] = Daylight_Offset;
-  Time["NTP Server"] = NTP_Server;
-  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-  if (serializeJson(Regional_Registry, Temporary_File) == 0)
-  {
-    Temporary_File.close();
-    return Xila.Error;
-  }
-  Temporary_File.close();
-  return Xila.Success;
+  strcpy(NTP_Server, "pool.ntp.org");
 }
 
-Xila_Event Xila_Class::Time_Class::Load_Registry()
+Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
+{
+  File Temporary_File = Xila.Drive.open(Time_Registry_Path, FILE_WRITE);
+  DynamicJsonDocument Time_Registry(512);
+  Time_Registry["GMT Offset"] = GMT_Offset;
+  Time_Registry["Daylight Offset"] = Daylight_Offset;
+  Time_Registry["NTP Server"] = NTP_Server;
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
+  if (serializeJson(Time_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
+  return Success;
+}
+
+Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
 {
 
-  File Temporary_File = Xila.Drive.open(Regional_Registry_Path);
-  DynamicJsonDocument Regional_Registry(512);
-  if (deserializeJson(Regional_Registry, Temporary_File) != DeserializationError::Ok)
+  File Temporary_File = Xila.Drive.open(Time_Registry_Path);
+  DynamicJsonDocument Time_Registry(512);
+  if (deserializeJson(Time_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
     return Error;
   }
-  if (strcmp("Regional", Regional_Registry["Registry"]) != 0)
-  {
-    Temporary_File.close();
-    return Error;
-  }
-  JsonObject Time = Regional_Registry["Time"];
-  GMT_Offset = Time["GMT Offset"];
-  Daylight_Offset = Time["Daylight Offset"];
-  strlcpy(NTP_Server, Time["NTP Server"], sizeof(NTP_Server));
-  
+  GMT_Offset = Time_Registry["GMT Offset"];
+  Daylight_Offset = Time_Registry["Daylight Offset"];
+  strlcpy(NTP_Server, Time_Registry["NTP Server"], sizeof(NTP_Server));
+
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   Temporary_File.close();
   return Success;

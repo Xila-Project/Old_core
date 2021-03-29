@@ -94,42 +94,23 @@ extern "C"
 //----------------------------------------------------------------------------//
 
 // Configuration file (at compile time)
-#include "Configuration.hpp"    // default values
-#include "Path.hpp"             // Path list
+#include "Configuration.hpp" // default values
+#include "Path.hpp"          // Path list
 
 // Other part of the core
+
 #include "Software.hpp"
 #include "Software_Handle.hpp"
+
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
 ///
-/// @brief Xila event type
-///
-typedef enum Xila_Event
-{
-    None,
-    Success = 1,
-    Error,
-    Warning,
-    Information,
-    Question,
-    Button_1 = 0x31, //< Button 1 reply, by default : Yes
-    Button_2 = 0x32, //< Button 2 reply by default : No
-    Button_3 = 0x33, //< Button 3 reply by default : Cancel (returned also by close button)
-    Default_Yes = Button_1,
-    Default_No = Button_2,
-    Default_Cancel = Button_3,
-};
-
-///
 /// @brief Xila time class
 ///
 typedef tm Xila_Time;
-
-
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -149,12 +130,43 @@ class Shell_Class;
 class Xila_Class
 {
 protected:
+    //==============================================================================//
+    //                                    Attributes                                //
+    //==============================================================================//
+
     ///
     /// @brief Current instance pointer. Help to prevent from corruption.
     ///
     static Xila_Class *Instance_Pointer;
 
 public:
+    //==============================================================================//
+    //                              Enumerations                                    //
+    //==============================================================================//
+
+    ///
+    /// @brief Xila event type
+    ///
+    typedef enum
+    {
+        None,
+        Success = 1,
+        Error,
+        Warning,
+        Information,
+        Question,
+        Button_1 = 0x31, //< Button 1 reply, by default : Yes
+        Button_2 = 0x32, //< Button 2 reply by default : No
+        Button_3 = 0x33, //< Button 3 reply by default : Cancel (returned also by close button)
+        Default_Yes = Button_1,
+        Default_No = Button_2,
+        Default_Cancel = Button_3,
+    } Event;
+
+    //==============================================================================//
+    //                                  Modules                                     //
+    //==============================================================================//
+
     ///
     /// @brief Account management class
     ///
@@ -164,8 +176,8 @@ public:
         char Current_Username[9];
         uint8_t State;
 
-        Xila_Event Load_Registry();
-        Xila_Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
 
     public:
         ///
@@ -178,16 +190,16 @@ public:
             Locked
         };
 
-        Xila_Event Add_User(const char *Username, const char *Password);
-        Xila_Event Delete_User(const char *);
-        Xila_Event Change_Password(const char *, const char *);
-        Xila_Event Change_Username(const char *, const char *);
-        Xila_Event Set_Autologin(bool Enable);
+        Xila_Class::Event Add(const char *Username, const char *Password);
+        Xila_Class::Event Delete(const char *);
+        Xila_Class::Event Change_Password(const char *, const char *);
+        Xila_Class::Event Change_Username(const char *, const char *);
+        Xila_Class::Event Set_Autologin(bool Enable);
 
-        Xila_Event Check_Credentials(const char *, const char *);
-        Xila_Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-        Xila_Event Logout();
-        Xila_Event Lock();
+        Xila_Class::Event Check_Credentials(const char *, const char *);
+        Xila_Class::Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+        Xila_Class::Event Logout();
+        Xila_Class::Event Lock();
 
         const char *Get_Current_Username();
 
@@ -196,7 +208,7 @@ public:
         Account_Class();
 
         friend class Xila_Class;
-
+        friend class Shell_Class;
     } Account;
 
     //==============================================================================//
@@ -211,15 +223,16 @@ public:
         uint8_t Split_Number[8];
 
     public:
-        Xila_Event Copy(uint64_t const &Value_To_Copy);
-        Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
-        Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
+        Xila_Class::Event Copy(uint64_t const &Value_To_Copy);
+        Xila_Class::Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+        Xila_Class::Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
 
-        Xila_Event Paste(uint64_t &Value_To_Paste);
-        Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
-        Xila_Event Paste(String &String_To_Paste);
+        Xila_Class::Event Paste(uint64_t &Value_To_Paste);
+        Xila_Class::Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+        Xila_Class::Event Paste(String &String_To_Paste);
 
         friend class Xila_Class;
+        friend class Shell_Class;
     } Clipboard;
 
     //==============================================================================//
@@ -230,25 +243,47 @@ public:
     class Dialog_Class
     {
     protected:
-        Software_Class *Caller_Software_Pointer;
-        Xila_Event State;
+        // -- Attributes
+
+        ///
+        /// @brief Caller software pointer
+        ///
+        Software_Class *Caller_Software;
+
+        ///
+        /// @brief Dialog state
+        ///
+        Xila_Class::Event State;
+
+        ///
+        /// @brief Dialog semaphore (avoid to have multiple dialog boxes at the same time);
+        ///
         SemaphoreHandle_t Semaphore;
+
+        ///
+        /// @brief Multi purpose long variable (for exemple : text size in keyboard dialog)
+        ///
         uint32_t Long[2];
+
+        ///
+        /// @brief Dialog data pointer.
+        ///
         void *Pointer;
 
     public:
-        Xila_Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-        Xila_Event Color_Picker(uint16_t &Color);
-        Xila_Event Open_File(File &File_To_Open);
-        Xila_Event Open_Folder(File &Folder_To_Open);
-        Xila_Event Save_File(File &File_To_Save);
-        Xila_Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-        // to do : Xila_Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
-        Xila_Event Keypad(float &Number_To_Get);
+        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Xila_Class::Event Color_Picker(uint16_t &Color);
+        Xila_Class::Event Open_File(File &File_To_Open);
+        Xila_Class::Event Dialog_Open_Folder(File &Folder_To_Open);
+        Xila_Class::Event Save_File(File &File_To_Save);
+        Xila_Class::Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
+        // to do : Xila_Class::Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
+        Xila_Class::Event Keypad(float &Number_To_Get);
 
         Dialog_Class();
 
         friend class Xila_Class;
+        friend class Shell_Class;
     } Dialog;
 
     //==============================================================================//
@@ -266,8 +301,8 @@ public:
 
         char Tag = 0;
 
-        Xila_Event Load_Registry();
-        Xila_Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
 
     public:
         ///
@@ -377,6 +412,7 @@ public:
         static void Incomming_Event_From_Display(uint8_t);
 
         friend class Xila_Class;
+        friend class Shell_Class;
     } Display;
 
     //==============================================================================//
@@ -402,11 +438,12 @@ public:
 
         //Custom
 
-        Xila_Event Copy(File &Origin_File, File &Destination_File);
-        Xila_Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
+        Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
+        Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
         uint16_t Count_Files(File &Folder);
 
         friend class Xila_Class;
+        friend class Shell_Class;
     };
 
 #elif SD_MODE == 1
@@ -430,11 +467,12 @@ public:
 
         //Custom
 
-        Xila_Event Copy(File &Origin_File, File &Destination_File);
-        Xila_Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
+        Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
+        Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
         uint16_t Count_Files(File &Folder);
 
         friend class Xila_Class;
+        friend class Shell_Class;
     } Drive;
 
 #endif
@@ -445,21 +483,43 @@ public:
     class Keyboard_Class
     {
     protected:
-        Xila_Event Load_Registry();
+        // -- Methods
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+
+        enum Key_Maps
+        {
+            American,
+            German,
+            French,
+            Spanish,
+            Italian,
+            English
+        };
+
+        uint8_t Key_Map;
+
+        uint8_t Data_Pin;
+        uint8_t Clock_Pin;
+
         inline void Begin();
 
     public:
-        Xila_Event Save_Registry();
+        // -- Methods
+        uint8_t Read();
+        uint8_t Read_Raw();
 
-        inline unsigned char Read();
-        inline uint8_t Available();
-        inline unsigned char Read_Raw();
-        inline uint8_t Available_Raw();
-        inline uint8_t Get_Modifiers();
+        uint8_t Available();
 
-        inline void Clear_Buffers();
+        void Clear();
 
+        // -- Keyboard constructor / destructor
+
+        Keyboard_Class();
+
+        // -- Friendship
         friend class Xila_Class;
+        friend class Shell_Class;
 
     } Keyboard;
 
@@ -471,30 +531,22 @@ public:
     class Power_Class : public Battery_Class
     {
     protected:
+        // -- Attributes
         volatile uint8_t Button_Counter;
         portMUX_TYPE Button_Mutex;
 
+        // -- Methods
         void static IRAM_ATTR Button_Handler();
 
         void Check_Button();
 
-        void First_Start_Routine();
-        void Second_Start_Routine();
-
-        void Execute_Startup_Function();
-
-        void Shutdown();
-        void Restart();
-        void Hibernate();
-        void Deep_Sleep();
-
     public:
-        void Start();
-        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
-
+        // -- Constructors / Destructors
         Power_Class();
 
+        // -- Friendship
         friend Xila_Class;
+        friend class Shell_Class;
     } Power;
 
     //==============================================================================//
@@ -513,15 +565,15 @@ public:
         ///
         /// @brief Openned software pointer array
         ///
-        /// Openned_Software[0] : Maximized software
-        /// Openned_Software[1 - 7] : All openned software (Slot 1 is for Shell)
+        /// Openned[0] : Maximized software
+        /// Openned[1 - 7] : All openned software (Slot 1 is for Shell)
         ///
-        Software_Class *Openned_Software[8] = {NULL};
+        Software_Class *Openned[8] = {NULL};
 
         ///
         /// @brief All software handle pointers.
         ///
-        Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {NULL};
+        Software_Handle_Class *Handle[MAXIMUM_SOFTWARE] = {NULL};
 
         void Maximize_Shell();
         void Execute_Shell(Xila_Instruction const &Command);
@@ -529,12 +581,12 @@ public:
         inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
         void Add_Handle(Software_Handle_Class &);
 
-        void Force_Close();
+        Xila_Class::Event Force_Close(Software_Handle_Class const &Software_Handle);
 
     public:
-        Xila_Event Open(Software_Handle_Class const &Software_Handle);
+        Xila_Class::Event Open(Software_Handle_Class const &Software_Handle);
         void Minimize(Software_Handle_Class const &Software_Handle);
-        Xila_Event Maximize(Software_Handle_Class const &);
+        Xila_Class::Event Maximize(Software_Handle_Class const &);
         void Close(Software_Handle_Class const &Software_Handle);
 
         void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
@@ -542,6 +594,7 @@ public:
         Software_Management_Class();
 
         friend class Xila_Class;
+        friend class Shell_Class;
 
     } Software;
 
@@ -575,8 +628,8 @@ public:
         // 2 : paused
         // 3 : tone
 
-        Xila_Event Save_Registry();
-        Xila_Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+        Xila_Class::Event Load_Registry();
 
     public:
         enum Event
@@ -625,7 +678,9 @@ public:
         ~Sound_Class();
 
         friend void audio_eof_mp3(const char *);
+
         friend Xila_Class;
+        friend class Shell_Class;
     } Sound;
 
     //==============================================================================//
@@ -642,15 +697,15 @@ public:
         ///
         /// @brief Device name used as Network hostname ...
         ///
-        char Device_Name[24];
+        char Name[24];
 
-        Xila_Event Load_Registry();
-        Xila_Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
 
-        Xila_Event Create_Dump();
-        Xila_Event Load_Dump();
+        Xila_Class::Event Create_Dump();
+        Xila_Class::Event Load_Dump();
 
-        Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
+        Xila_Class::Event Load_Executable(File Executable_File, uint8_t Type = 'M');
 
         enum System_States
         {
@@ -674,13 +729,26 @@ public:
         void Panic_Handler(Panic_Code Panic_Code);
 
     public:
-        const char *Get_Device_Name();
+        const char *Get_Name();
 
         uint32_t Get_Free_Heap();
 
-        uint32_t Random();
-        uint32_t Random(uint32_t Upper_Bound);
-        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);
+        void First_Start_Routine();
+        void Second_Start_Routine();
+
+        void Execute_Startup_Function();
+
+        void Shutdown();
+        void Restart();
+        void Hibernate();
+        void Deep_Sleep();
+
+        void Start();
+        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
+
+        uint32_t Random() const;
+        uint32_t Random(uint32_t Upper_Bound) const;
+        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound) const;
 
         void Refresh_Header();
 
@@ -689,6 +757,7 @@ public:
         System_Class();
 
         friend class Xila_Class;
+        friend class Shell_Class;
     } System;
 
     //==============================================================================//
@@ -710,18 +779,19 @@ public:
             Driver_Task
         };
 
-        Xila_Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle);
+        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle);
 
     public:
         // -- Task management -- //
-        Xila_Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL);
-        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
-        void Resume(Xila_Task_Handle Task_To_Resume);
-        void Delete(Xila_Task_Handle Task_To_Delete = NULL);
+        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL) const;
+        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL) const;
+        void Resume(Xila_Task_Handle Task_To_Resume) const;
+        void Delete(Xila_Task_Handle Task_To_Delete = NULL) const;
 
-        void Delay(uint32_t Delay_In_Millisecond);
+        void Delay(uint32_t Delay_In_Millisecond) const;
 
         friend Xila_Class;
+        friend class Shell_Class;
     } Task;
 
     //==============================================================================//
@@ -732,7 +802,7 @@ public:
     class Time_Class
     {
     protected:
-        Xila_Event Load_Registry();
+        // -- Attributes
         int32_t GMT_Offset;
         int16_t Daylight_Offset;
 
@@ -740,12 +810,24 @@ public:
         time_t Now;
         char NTP_Server[32];
 
+        // -- Methods
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+
     public:
-        Xila_Event Save_Registry();
+        // -- Methods
         Xila_Time Get_Time();
         void Synchronise();
 
+        uint32_t Milliseconds() const;
+
+        // -- Time constructor / destructor
+
+        Time_Class();
+
+        // -- Friendship
         friend class Xila_Class;
+        friend class Shell_Class;
 
     } Time;
 
@@ -784,14 +866,15 @@ public:
 
         void Set_Credentials(const char *Name, const char *Password);
 
-        Xila_Event Load_Registry();
-        Xila_Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
 
         friend class WiFiClient;
         friend class WiFiServer;
         friend class WiFiUDP;
 
         friend Xila_Class;
+        friend class Shell_Class;
 
     } WiFi;
 
@@ -799,8 +882,11 @@ public:
 
     Xila_Class();
     ~Xila_Class();
-
-    friend class Shell_Class;
 };
+
+
+#include "Task.hpp"
+#include "Time.hpp"
+#include "System.hpp"
 
 #endif

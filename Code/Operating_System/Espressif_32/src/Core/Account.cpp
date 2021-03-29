@@ -19,7 +19,7 @@ Xila_Class::Account_Class::Account_Class()
 #endif
 }
 
-Xila_Event Xila_Class::Account_Class::Load_Registry()
+Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.open(Account_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -33,7 +33,7 @@ Xila_Event Xila_Class::Account_Class::Load_Registry()
   return Success;
 }
 
-Xila_Event Xila_Class::Account_Class::Save_Registry()
+Xila_Class::Event Xila_Class::Account_Class::Save_Registry()
 {
   return Success;
 }
@@ -42,9 +42,9 @@ Xila_Event Xila_Class::Account_Class::Save_Registry()
  * @brief 
  * 
  * @param Enable 
- * @return Xila_Event 
+ * @return Xila_Class::Event 
  */
-Xila_Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
+Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.open(Account_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -56,6 +56,7 @@ Xila_Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
   Account_Registry["Autologin"] = Current_Username;
   serializeJson(Account_Registry, Temporary_File);
   Temporary_File.close();
+  return Success;
 }
 
 /**
@@ -84,9 +85,9 @@ const char *Xila_Class::Account_Class::Get_Current_Username()
      * @param Username Username of new user
      * @param Password 
      *
-     * @return Xila_Event::Success or Xila_Event::Error
+     * @return Xila_Class::Event::Success or Xila_Class::Event::Error
      */
-Xila_Event Xila_Class::Account_Class::Add_User(const char *Username, const char *Password)
+Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
   if (Xila.Drive.exists(Users_Directory_Path + String(Username)))
   {
@@ -111,7 +112,7 @@ Xila_Event Xila_Class::Account_Class::Add_User(const char *Username, const char 
   return Success;
 }
 
-Xila_Event Xila_Class::Account_Class::Delete_User(const char *Target_User)
+Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[17];
   strcpy(Temporary_Path, Users_Directory_Path);
@@ -123,7 +124,7 @@ Xila_Event Xila_Class::Account_Class::Delete_User(const char *Target_User)
   return Error;
 }
 
-Xila_Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
+Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   if (!Xila.Drive.rename(Users_Directory_Path + String(Target_User), Users_Directory_Path + String(New_Username)))
   {
@@ -136,7 +137,7 @@ Xila_Event Xila_Class::Account_Class::Change_Username(const char *Target_User, c
   return Success;
 }
 
-Xila_Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
+Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   File Temporary_File = Xila.Drive.open(Users_Directory_Path + String(Target_User) + "/Registry/User.xrf");
   DynamicJsonDocument User_Registry(DEFAULT_REGISTRY_SIZE);
@@ -151,7 +152,7 @@ Xila_Event Xila_Class::Account_Class::Change_Password(const char *Target_User, c
 
 /** */
 
-Xila_Event Xila_Class::Account_Class::Logout()
+Xila_Class::Event Xila_Class::Account_Class::Logout()
 {
   if (State != Disconnected)
   {
@@ -163,7 +164,7 @@ Xila_Event Xila_Class::Account_Class::Logout()
   return Success;
 }
 
-Xila_Event Xila_Class::Account_Class::Lock()
+Xila_Class::Event Xila_Class::Account_Class::Lock()
 {
   if (State == Logged)
   {
@@ -172,7 +173,7 @@ Xila_Event Xila_Class::Account_Class::Lock()
   return Success;
 }
 
-Xila_Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Xila.Drive.exists(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf"))
   {
@@ -202,7 +203,7 @@ Xila_Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_
   return Error;
 }
 
-Xila_Event Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
   {

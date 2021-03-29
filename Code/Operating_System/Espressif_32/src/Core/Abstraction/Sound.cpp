@@ -19,7 +19,6 @@
 
 #include "Core/Core.hpp"
 
-#define SD_IMPL 0
 #include "Audio.h"
 
 Audio Audio_Driver;
@@ -46,8 +45,8 @@ Xila_Class::Sound_Class::~Sound_Class()
 ///
 /// @brief
 ///
-/// @return Xila_Event
-Xila_Event Xila_Class::Sound_Class::Load_Registry()
+/// @return Xila_Class::Event
+Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.open(Sound_Registry_Path);
     DynamicJsonDocument Sound_Registry(256);
@@ -61,7 +60,7 @@ Xila_Event Xila_Class::Sound_Class::Load_Registry()
     return Success;
 }
 
-Xila_Event Xila_Class::Sound_Class::Save_Registry()
+Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.open(Sound_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Sound_Registry(256);

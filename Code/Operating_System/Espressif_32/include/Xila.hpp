@@ -16,47 +16,6 @@
 || For ESP-32                                                                 ||
 || Version : 0.1.0 - Alix ANNERAUD - MIT Licence - 2020                       ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||                                    Wiring :                                ||
-||  - Power button :                                                          ||
-|| Side 1 : GND                                                               ||
-|| Side 2 : 39                                                                ||
-||  - Battery :                                                               ||
-|| 5V -> Vin                                                                  ||
-|| GND -> GND                                                                 ||
-|| VBat -> P36                                                                ||
-||  - Display (Nextion) :                                                     ||
-|| NPN Transistor Base -> 27                                                  ||
-|| Red -> 5v                                                                  ||
-|| Blue -> P16                                                                ||
-|| Yellow -> P17                                                              ||
-|| Black -> GND                                                               ||
-||  - SD Card (SDIO Mode) :                                                   ||
-|| Clock -> 14                                                                ||
-|| Command -> 15                                                              ||
-|| Data 0 -> 2                                                                ||
-|| Data 1 -> 4                                                                ||
-|| Data 2 -> 12                                                               ||
-|| Data 3 -> 13                                                               ||
-|| VCC -> 3.3v                                                                ||
-|| GND -> GND                                                                 ||
-||  - SD Card (SPI Mode) :                                                    ||
-|| MISO -> 19                                                                 ||
-|| MOSI -> 23                                                                 ||
-|| SCK -> 18                                                                  ||
-|| CS -> 5                                                                    ||
-|| VCC -> 3.3v                                                                ||
-|| GND -> GND                                                                 ||
-||  - Debbugger (ESP-Prog)                                                    ||
-|| MTCK -> 13                                                                 ||
-|| MTMS -> 14                                                                 ||
-|| MTDI -> 12                                                                 ||
-|| MTDO -> 15                                                                 ||
-||  - Keyboard :
-|| Ground -> Ground
-|| Data ->
-|| Clock ->
-|| 5V ->
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                                  Project Files :                           ||
 ||  - GalaxOS.hpp/cpp : "hub" files                                           ||
 ||  - Core :                                                                  ||

@@ -15,7 +15,7 @@ void setup()
     */
 
     // start with default software package
-    Xila.Power.Start();
+    Xila.System.Start();
 
     // External :
     // Xila.Start_External();

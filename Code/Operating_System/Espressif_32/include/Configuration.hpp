@@ -12,7 +12,7 @@
 #define USB_SERIAL_SPEED 115200
 
 
-#define DEFAULT_DEVICE_NAME "ESP32"
+#define Default_Name "Xila"
 
 // Software
 
@@ -40,8 +40,8 @@
 #define VERSION_REVISION 0
 
 //
-#define DEFAULT_KEYBOARD_DATA 19
-#define DEFAULT_KEYBOARD_CLOCK 18
+#define Default_Keyboard_Data 19
+#define Default_Keyboard_Clock 18
 
 //  Drive retrocompatibility
 #define DRIVE_VERSION_MAJOR 0
@@ -70,7 +70,7 @@
 
 // Watchdog 
 
-#define WATCHDOG_THRESHOLD_TIME 5000  // ms
+#define Watchdog_Threshold_Time 5000  // ms
 
 // -- Default registry values --
 

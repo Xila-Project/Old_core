@@ -36,11 +36,8 @@ void Piano_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0: //idle state
+        case Idle: //idle state
             Xila.Task.Delay(10);
-            break;
-        case Watchdog:
-            Xila.Task.Feed_Watchdog();
             break;
         case Open:
             Xila.Display.Set_Current_Page(F("Piano"));

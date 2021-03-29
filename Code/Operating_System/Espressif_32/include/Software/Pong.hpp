@@ -20,7 +20,7 @@ class Pong_Class : public Software_Class
 
     enum Image
     {
-        Icon_32 = Xila.Pong
+        Icon_32 = Xila.Display.Pong
     };
 
     static Software_Class* Load();

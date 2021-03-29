@@ -11,7 +11,7 @@
 
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Display_Class::Load_Registry()
+Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     Verbose_Print_Line("> Load display registry ...");
     File Temporary_File = Xila.Drive.open(Display_Registry_Path);
@@ -26,7 +26,7 @@ Xila_Event Xila_Class::Display_Class::Load_Registry()
     return Success;
 }
 
-Xila_Event Xila_Class::Display_Class::Save_Registry()
+Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.open(Display_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
@@ -52,17 +52,17 @@ Xila_Event Xila_Class::Display_Class::Save_Registry()
  /// @param Size 
 void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
-    while (Xila.Software.Openned_Software[0] == NULL)
+    while (Xila.Software.Openned[0] == NULL)
     {
         Xila.Task.Delay(20);
     }
     switch (Received_Data[0])
     {
     case Xila.Display.Instruction:
-        Xila.Software.Openned_Software[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
+        Xila.Software.Openned[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
         break;
     case Xila.Display.Variable_String:
-        Xila.Software.Openned_Software[0]->Set_Variable(Received_Data + 2, Variable_String, Received_Data[1]);
+        Xila.Software.Openned[0]->Set_Variable(Received_Data + 2, Variable_String, Received_Data[1]);
         Xila.Display.Tag = '\0';
         break;
     case Xila.Display.Variable_Long:
@@ -78,7 +78,7 @@ void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Rec
 {
     if (Xila.Display.Tag != '\0')
     {
-        Xila.Software.Openned_Software[0]->Set_Variable(&Received_Data, Xila.Display.Variable_Long, Xila.Display.Tag);
+        Xila.Software.Openned[0]->Set_Variable(&Received_Data, Xila.Display.Variable_Long, Xila.Display.Tag);
         Xila.Display.Tag = '\0';
     }
     else
@@ -100,5 +100,5 @@ void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
     default:
         break;
     }
-    //Openned_Software[0]->Send_Instruction((uint16_t)Event_Code);
+    //Openned[0]->Send_Instruction((uint16_t)Event_Code);
 }

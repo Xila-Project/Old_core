@@ -154,7 +154,7 @@
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Configuration.hpp" line="10" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Configuration.hpp" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_configuration_8hpp_1a9dae37b6b57e30542ac5d55a27d6e46c" prot="public" static="no">
-        <name>DEFAULT_DEVICE_NAME</name>
+        <name>DEFAULT_Name</name>
         <initializer>&quot;ESP32&quot;</initializer>
         <briefdescription>
         </briefdescription>
@@ -647,7 +647,7 @@
 <codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USB_SERIAL_SPEED<sp/>115200</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_DEVICE_NAME<sp/>&quot;ESP32&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_Name<sp/>&quot;ESP32&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
 <codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Software</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="16"><highlight class="normal"></highlight></codeline>

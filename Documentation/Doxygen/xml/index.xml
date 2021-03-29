@@ -788,7 +788,7 @@
     <member refid="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" kind="variable"><name>GMT_Offset</name></member>
     <member refid="class_shell___class_1a4061f2d99cc584ac8ce1f7c7ce1f3dc5" kind="variable"><name>Daylight_Offset</name></member>
     <member refid="class_shell___class_1a308103ffae78e31a33e9de09e4715632" kind="variable"><name>NTP_Server</name></member>
-    <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" kind="variable"><name>Device_Name</name></member>
+    <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" kind="variable"><name>Name</name></member>
     <member refid="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" kind="variable"><name>Username</name></member>
     <member refid="class_shell___class_1a33ed9ee17d75a2d78068e3ace71e546f" kind="variable"><name>Password_1</name></member>
     <member refid="class_shell___class_1aa9f1265875f9fbe18f7e25e6bf019e13" kind="variable"><name>Password_2</name></member>
@@ -833,7 +833,7 @@
     <member refid="class_shell___class_1afad9ea2aa92dcf0b60acc95df82f3fe2" kind="function"><name>Keypad_Dialog</name></member>
     <member refid="class_shell___class_1ab4fb2ea2b233b1a10de0da585a75cee3" kind="function"><name>Event</name></member>
     <member refid="class_shell___class_1a759fb2f3e7b415c96c7070e082e86a56" kind="function"><name>Color_Picker_Dialog</name></member>
-    <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" kind="function"><name>Open_File_Dialog</name></member>
+    <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" kind="function"><name>Dialog_Open_File</name></member>
     <member refid="class_shell___class_1aff0dcd1b94eb09c3c52f5afc1d3ef822" kind="function"><name>Save_File_Dialog</name></member>
     <member refid="class_shell___class_1a8873ccbedb49df3907ccf95a74c79ef7" kind="function"><name>Open_Folder_Dialog</name></member>
     <member refid="class_shell___class_1a3c2bb50a4533b59fc8de0110fe248cde" kind="function"><name>Open_Shutdown</name></member>
@@ -944,7 +944,7 @@
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a42d43150e607b9ea0babc2d2bff0feda" kind="enumvalue"><name>Watchdog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59aa770c48c76cc8306d7bace5a0f8447c6" kind="enumvalue"><name>Install_Dialog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a9d50e48abc821eeb4c1ae59e3343f6fe" kind="enumvalue"><name>Desk</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" kind="enumvalue"><name>Open_File_Dialog</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" kind="enumvalue"><name>Dialog_Open_File</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a4697d779d84b5a74f53ccf9d1456e12c" kind="enumvalue"><name>Open_Folder_Dialog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a8995b8cab311371deccd2e46c91d93b9" kind="enumvalue"><name>Save_File_Dialog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab573d97eb11252e9b5772f6ea0ebb26d" kind="enumvalue"><name>Keyboard_Dialog</name></member>
@@ -1043,7 +1043,7 @@
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba05a84c6de7189e6492b2a22d30f6bf13" kind="enumvalue"><name>System_Drive_Failure</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba7e427101ea77ff86a14eda6a492d0cc7" kind="enumvalue"><name>Low_Memory</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbae2ee2db8c805ddead0ae4caeddf712a0" kind="enumvalue"><name>Memory_Corruption</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" kind="variable"><name>Device_Name</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" kind="variable"><name>Name</name></member>
     <member refid="class_xila___class_1_1_system___class_1a87831ba1edad52c9cece341c76954043" kind="variable"><name>State</name></member>
     <member refid="class_xila___class_1_1_system___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
     <member refid="class_xila___class_1_1_system___class_1aefed3b933636fc9e38f0b3a1918230a8" kind="function"><name>Create_Dump</name></member>
@@ -1051,7 +1051,7 @@
     <member refid="class_xila___class_1_1_system___class_1aa4ca448038c2acbfd7b479208f849d6a" kind="function"><name>Load_Executable</name></member>
     <member refid="class_xila___class_1_1_system___class_1a99418345d14c4d3698c13e2db43dab5a" kind="function"><name>Panic_Handler</name></member>
     <member refid="class_xila___class_1_1_system___class_1afa40025365ac0bda34748419ca9e5446" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" kind="function"><name>Get_Device_Name</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" kind="function"><name>Get_Name</name></member>
     <member refid="class_xila___class_1_1_system___class_1a3030d7d9631954de1ca16b4792e81e8d" kind="function"><name>Random</name></member>
     <member refid="class_xila___class_1_1_system___class_1aa30a1dd2e92bdc0dbe10f679909facc3" kind="function"><name>Random</name></member>
     <member refid="class_xila___class_1_1_system___class_1aadf728c03da8e1aa5f2fd03383e6d634" kind="function"><name>Random</name></member>
@@ -1318,7 +1318,7 @@
   </compound>
   <compound refid="_configuration_8hpp" kind="file"><name>Configuration.hpp</name>
     <member refid="_configuration_8hpp_1a47fcd7cb76cd608e86fcf1541ae4d1c4" kind="define"><name>USB_SERIAL_SPEED</name></member>
-    <member refid="_configuration_8hpp_1a9dae37b6b57e30542ac5d55a27d6e46c" kind="define"><name>DEFAULT_DEVICE_NAME</name></member>
+    <member refid="_configuration_8hpp_1a9dae37b6b57e30542ac5d55a27d6e46c" kind="define"><name>DEFAULT_Name</name></member>
     <member refid="_configuration_8hpp_1a941289951c233e44bd0bc7064036f04e" kind="define"><name>LOW_RAM_THRESHOLD</name></member>
     <member refid="_configuration_8hpp_1ab7e405aea12847663b10f5ab5b27ae88" kind="define"><name>MAXIMUM_SOFTWARE</name></member>
     <member refid="_configuration_8hpp_1ab1bc6cc3ffaa43fda3986a924496dedb" kind="define"><name>DISPLAY_SWITCH_PIN</name></member>

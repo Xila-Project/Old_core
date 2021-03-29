@@ -37,8 +37,8 @@ extern "C"
 ///
 /// @param Origin_File File to duplicate
 /// @param Destination_File File to write
-/// @return Xila_Event::Success or Xila_Event::Error
-Xila_Event Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_File)
+/// @return Xila_Class::Event::Success or Xila_Class::Event::Error
+Xila_Class::Event Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
@@ -86,8 +86,8 @@ uint16_t Xila_Class::Drive_Class::Count_Files(File &Folder)
  /// @param File 
  /// @param File_Name 
  /// @param Size 
- /// @return Xila_Event 
-Xila_Event Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
+ /// @return Xila_Class::Event 
+Xila_Class::Event Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
 {
   const char *Temporary_File_Name = File.name();
   if (File_Name == NULL)

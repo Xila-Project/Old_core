@@ -375,7 +375,7 @@ void Oscilloscope_Class::Check_Commands()
 		Xila.Task.Delete();
 		break;
 	case Watchdog: //reset watchdog
-		Xila.Feed_Watchdog();
+		
 		break;
 	case Instruction('C', 'l'):
 		Xila.Software.Close(Oscilloscope_Handle);

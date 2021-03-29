@@ -5,62 +5,56 @@ Xila_Class::Dialog_Class::Dialog_Class()
   Semaphore = xSemaphoreCreateMutex();
 }
 
-Xila_Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
+Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
-
   Verbose_Print_Line("Keyboard dialog");
-
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
-  // -- Initalize variable
+  // -- Initialize attributes
   State = Xila.None;
   Pointer = Char_Array_To_Get;
   Long[0] = Char_Array_Size - 1;
   Long[1] = Masked_Input;
-  // --
-  Xila.Software.Openned_Software[0] = NULL;
-
+  // -- Maximzie shell
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Keyboard_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Keyboard);
   // -- Tasks suspended here
   while (State == Xila.None)
   {
     Xila.Task.Delay(20);
   }
   // -- Retore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
-
-  //
+  // -- Clear attributes
   Pointer = NULL;
   Long[0] = 0;
   Long[1] = 0;
-  Caller_Software_Pointer = NULL;
-  //
+  Xila.Dialog.Caller_Software = NULL;
+  // -- Wait 5 ms to switch page
   Xila.Task.Delay(5);
-
-  //
+  // -- Give semaphore back and return dialog result
   xSemaphoreGive(Semaphore);
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
+Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   //
   State = None;
   Pointer = &Number_To_Get;
 
   // --
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Keypad_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Keypad);
 
   // -- Tasks suspended here
   while (State == Xila.None)
@@ -68,60 +62,60 @@ Xila_Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
     Xila.Task.Delay(20);
   }
 
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   //
   Pointer = NULL;
   Long[0] = 0;
   Long[1] = 0;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   //
   xSemaphoreGive(Semaphore);
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
+Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
 
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
   // --
   State = None;
   Pointer = &Color;
   // --
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Color_Picker_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Color_Picker);
   // -- Tasks suspended here
   while (State == Xila.None)
   {
     Xila.Task.Delay(20);
   }
   // -- Retore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   //
   Pointer = NULL;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   //
   xSemaphoreGive(Semaphore);
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
 
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp")); // save app page id
   // -- Initalize variable
   State = None;
   Pointer = NULL;
   // -- Open
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Display.Set_Current_Page(F("Shell_Event"));
   Xila.Software.Maximize(Shell_Handle);
   // Currently handle by the core, but will be soon mooved to shell
@@ -179,13 +173,13 @@ Xila_Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, u
     Xila.Task.Delay(20);
   }
   // -- Restore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   //
   Pointer = NULL;
   Long[0] = 0;
   Long[1] = 0;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   //
 
   Xila.Task.Delay(60);
@@ -194,23 +188,23 @@ Xila_Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, u
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
+Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
 
   Verbose_Print_Line("Open file dialog");
 
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
   // -- Initalize variable
   Pointer = &File_To_Open;
   State = None;
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   // --
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Open_File_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Open_File);
   // -- Tasks suspended here
   while (State == Xila.None)
   {
@@ -221,31 +215,31 @@ Xila_Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
     File_To_Open = *(File *)Pointer;
   }
   // -- Retore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   // --
   Pointer = NULL;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   //
   xSemaphoreGive(Semaphore);
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
+Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
 
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
   // -- Intiliaze attributes
   Pointer = &File_To_Save;
   State = None;
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   // --
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Save_File_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Save_File);
   // -- Tasks suspended here
   while (State == Xila.None)
   {
@@ -256,32 +250,32 @@ Xila_Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
     File_To_Save = *(File *)Pointer;
   }
   // -- Retore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   // -- Reset attributes
   Pointer = NULL;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   //
 
   xSemaphoreGive(Semaphore);
   return State;
 }
 
-Xila_Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
+Xila_Class::Event Xila_Class::Dialog_Class::Dialog_Open_Folder(File &Folder_To_Open)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
 
   // -- Save context
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
   // --
   Pointer = &Folder_To_Open;
   State = None;
-  Caller_Software_Pointer = Xila.Software.Openned_Software[0];
+  Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   // --
-  Xila.Software.Openned_Software[0] = NULL;
+  Xila.Software.Openned[0] = NULL;
   Xila.Software.Maximize(Shell_Handle);
-  Xila.Software.Openned_Software[1]->Send_Instruction(Software_Class::Open_Folder_Dialog);
+  Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Open_Folder);
   // -- Tasks suspended here
   while (State == None)
   {
@@ -292,11 +286,11 @@ Xila_Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
     Folder_To_Open = *(File *)Pointer;
   }
   // -- Retore software state
-  Xila.Software.Openned_Software[0] = Caller_Software_Pointer;
+  Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
   //
   Pointer = NULL;
-  Caller_Software_Pointer = NULL;
+  Xila.Dialog.Caller_Software = NULL;
   xSemaphoreGive(Semaphore);
   return State;
 }

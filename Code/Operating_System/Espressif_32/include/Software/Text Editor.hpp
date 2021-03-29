@@ -8,13 +8,13 @@ class Text_Editor_Class : public Software_Class
 protected:
     static Text_Editor_Class *Instance_Pointer;
 
-    static void Main_Task(void *);
-
     File File_To_Edit;
 
     uint8_t Mode;
 
     uint32_t Offset;
+
+    static void Main_Task(void *);
 
     void Open_File(File File_To_Open);
 
@@ -24,7 +24,7 @@ protected:
 
     void Scan();
 
-    void Set_Variable(const void*, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
 public:
     Text_Editor_Class();
@@ -40,7 +40,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Text_Editor
+        Icon_32 = Xila.Display.Text_Editor
     };
 
     static Software_Class *Load();

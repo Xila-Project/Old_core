@@ -24,7 +24,8 @@
 #define Display_Registry_Path Registry("Display")
 #define Network_Registry_Path Registry("Network")
 #define Account_Registry_Path Registry("Account")
-#define Regional_Registry_Path Registry("Regional")
+#define Time_Registry_Path Registry("Time")
+#define Keyboard_Registry_Path Registry("Keyboard")
 #define Software_Registry_Path Registry("Software")
 #define Sound_Registry_Path Registry("Sound")
 

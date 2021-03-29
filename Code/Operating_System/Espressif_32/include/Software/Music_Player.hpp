@@ -53,7 +53,7 @@ protected:
 
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t);
 
-    void Open_Folder();
+    void Dialog_Open_Folder();
     void Open_File();
 
     void Set_Time();
