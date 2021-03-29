@@ -80,7 +80,7 @@
 ||                                                                            ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                               Credit to :                                  ||
-|| Sound : Benjamin Mastripolito (https://benpm.github.io - https://freesound.org/people/Lemoncreme/sounds/231578)||
+|| Sound : Benjamin Mastripolito (https://benpm.github.io - https://freeSound.org/people/Lemoncreme/sounds/231578)||
 || Michalhol : Keyboard Library (https://github.com/michalhol/ps2kbdlib)      ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 

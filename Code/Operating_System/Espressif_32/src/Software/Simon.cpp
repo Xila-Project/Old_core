@@ -5,7 +5,7 @@ Simon_Class *Simon_Class::Instance_Pointer = NULL;
 Simon_Class::Simon_Class() : Software_Class(Simon_Handle),
                              Speed(0)
 {
-    Xila.Task_Create(Main_Task, "Simon Task", Memory_Chunk(5), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Simon Task", Memory_Chunk(5), NULL, &Task_Handle);
 }
 
 Simon_Class::~Simon_Class()
@@ -34,17 +34,17 @@ void Simon_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case 0:
-            Xila.Delay(30);
+            Xila.Task.Delay(30);
             break;
         case Xila.Watchdog:
             Xila.Feed_Watchdog();
             break;
-        case Xila.Close:
+        case Close:
             Instance_Pointer->Save_Registry();
             delete Instance_Pointer;
-            Xila.Task_Delete();
+            Xila.Task.Delete();
             break;
-        case Xila.Open:
+        case Open:
             Instance_Pointer->Load_Registry();
             Xila.Display.Set_Current_Page(F("Simon"));
             Instance_Pointer->Current_Level[0] = 0;
@@ -52,17 +52,17 @@ void Simon_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Speed = 0;
             Instance_Pointer->Refresh_Interface();
             break;
-        case Xila.Maximize:
+        case Maximize:
             Xila.Display.Set_Current_Page(F("Simon"));
             Instance_Pointer->Refresh_Interface();
             break;
-        case Xila.Minimize:
+        case Minimize:
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Simon_Handle);
+            Xila.Software.Minimize(Simon_Handle);
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Simon_Handle);
+            Xila.Software.Close(Simon_Handle);
             break;
         case Instruction('R', 'e'):
             Instance_Pointer->Press(Red);
@@ -111,11 +111,11 @@ void Simon_Class::Refresh_Interface()
 void Simon_Class::Load_Registry()
 {
     memset(Scores, '\0', sizeof(Scores));
-    File Temporary_File = Xila.Drive->open(Simon_Registry_Path);
+    File Temporary_File = Xila.Drive.open(Simon_Registry_Path);
     DynamicJsonDocument Simon_Registry(256);
     if (deserializeJson(Simon_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Xila.Event_Dialog(F("Failed to load registry."), Xila.Error);
+        Xila.Dialog.Event(F("Failed to load registry."), Xila.Error);
         Temporary_File.close();
         return;
     }
@@ -131,7 +131,7 @@ void Simon_Class::Load_Registry()
 
 void Simon_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive->open(Simon_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.open(Simon_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Simon_Registry(256);
     Simon_Registry["Scores"][0] = Scores[0];
     Simon_Registry["Scores"][1] = Scores[1];
@@ -143,7 +143,7 @@ void Simon_Class::Save_Registry()
 
     if (serializeJson(Simon_Registry, Temporary_File) == 0)
     {
-        Xila.Event_Dialog(F("Failed to save registry."), Xila.Error);
+        Xila.Dialog.Event(F("Failed to save registry."), Xila.Error);
         Temporary_File.close();
         return;
     }
@@ -182,7 +182,7 @@ void Simon_Class::Press(uint8_t Color)
     if (Sequence[Current_Level[1]] != Color)
     {
         Verbose_Print_Line("Wrong color");
-        Xila.Event_Dialog(F("Game over !"), Xila.Information);
+        Xila.Dialog.Event(F("Game over !"), Xila.Information);
         Refresh_Interface();
         Game_Over();
         return;
@@ -217,7 +217,7 @@ void Simon_Class::Reset()
 
 void Simon_Class::Win()
 {
-    Xila.Event_Dialog(F("Well done ! You have max out the game."), Xila.Information);
+    Xila.Dialog.Event(F("Well done ! You have max out the game."), Xila.Information);
     Scores[7] = Current_Level[0];
     Refresh_Interface();
     Save_Registry();
@@ -281,34 +281,34 @@ void Simon_Class::Show_Sequence()
         case Red:
             Xila.Display.Set_Background_Color(F("RED_BUT"), 40960);
             Xila.Sound.Tone(523, Speed);
-            Xila.Delay(Speed);
+            Xila.Task.Delay(Speed);
             Xila.Display.Set_Background_Color(F("RED_BUT"), 57344);
-            Xila.Delay(200);
+            Xila.Task.Delay(200);
             break;
         case Green:
             Xila.Display.Set_Background_Color(F("GREEN_BUT"), 17408);
             Xila.Sound.Tone(659, Speed);
-            Xila.Delay(Speed);
+            Xila.Task.Delay(Speed);
             Xila.Display.Set_Background_Color(F("GREEN_BUT"), 34308);
-            Xila.Delay(200);
+            Xila.Task.Delay(200);
             break;
         case Blue:
             Xila.Display.Set_Background_Color(F("BLUE_BUT"), 780);
             Xila.Sound.Tone(784, Speed);
-            Xila.Delay(Speed);
+            Xila.Task.Delay(Speed);
             Xila.Display.Set_Background_Color(F("BLUE_BUT"), 1300);
-            Xila.Delay(200);
+            Xila.Task.Delay(200);
             break;
         case Yellow:
             Xila.Display.Set_Background_Color(F("YELLOW_BUT"), 48000);
             Xila.Sound.Tone(988, Speed);
-            Xila.Delay(Speed);
+            Xila.Task.Delay(Speed);
             Xila.Display.Set_Background_Color(F("YELLOW_BUT"), 64896);
-            Xila.Delay(200);
+            Xila.Task.Delay(200);
 
             break;
         default:
-            Xila.Event_Dialog(F("Exception in the generated sequence."), Xila.Error);
+            Xila.Dialog.Event(F("Exception in the generated sequence."), Xila.Error);
             Refresh_Interface();
             Reset();
             break;

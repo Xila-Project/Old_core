@@ -6,7 +6,7 @@ Pong_Class::Pong_Class() : Software_Class(Pong_Handle),
                             Player_1_Score(0),
                             Player_2_Score(0)
 {
-    Xila.Task_Create(Main_Task, "Pong", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Pong", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Pong_Class::~Pong_Class()
@@ -34,30 +34,30 @@ void Pong_Class::Main_Task(void* pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-            case Xila.Idle:
-                Xila.Delay(20);
+            case Idle:
+                Xila.Task.Delay(20);
                 break;
             case Xila.Watchdog:
                 Xila.Feed_Watchdog();
                 break;
             case Instruction('C', 'l'):
-                Xila.Software_Close(Pong_Handle);
+                Xila.Software.Close(Pong_Handle);
                 break;
             case Instruction('M', 'i'):
-                Xila.Software_Minimize(Pong_Handle);
+                Xila.Software.Minimize(Pong_Handle);
                 break;
-            case Xila.Close:
+            case Close:
                 delete Instance_Pointer;
-                Xila.Task_Delete();
+                Xila.Task.Delete();
                 break;
-            case Xila.Maximize:
+            case Maximize:
                 Xila.Display.Set_Current_Page(F("Pong"));
                 Instance_Pointer->Refresh_Interface();
                 break;
-            case Xila.Open:
+            case Open:
                 Xila.Display.Set_Current_Page(F("Pong"));
                 break;
-            case Xila.Minimize:
+            case Minimize:
                 break;
             case Instruction('S', '1'):
                 Instance_Pointer->Player_1_Score++;

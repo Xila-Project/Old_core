@@ -183,7 +183,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Internet_Browser
+        Icon_32 = Xila.Display.Internet_Browser
     };
 
     static void Main_Task(void *pvParameters);

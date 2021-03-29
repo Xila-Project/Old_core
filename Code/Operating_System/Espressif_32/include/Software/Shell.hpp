@@ -166,7 +166,7 @@ protected:
 
     Xila_Event Keyboard_Dialog(char *, size_t, bool = false);
     Xila_Event Keypad_Dialog(float& Number_To_Get);
-    Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+    Xila_Event Dialog.Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
     Xila_Event Color_Picker_Dialog(uint16_t&);
     Xila_Event Open_File_Dialog(File&);
     Xila_Event Save_File_Dialog(File&);

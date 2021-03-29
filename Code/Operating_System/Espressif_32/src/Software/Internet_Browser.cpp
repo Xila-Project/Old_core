@@ -24,7 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Brows
 
   textContent = {0, 0, false};
 
-  Xila.Task_Create(Main_Task, "Internet_Browser", Memory_Chunk(8), NULL, &Task_Handle);
+  Xila.Task.Create(Main_Task, "Internet_Browser", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()
@@ -45,40 +45,40 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
     switch (Instance_Pointer->Get_Instruction())
     {
     case 0:
-      Xila.Delay(20);
+      Xila.Task.Delay(20);
       //Idle : nothing to do
       break;
-    case Xila.Open:
+    case Open:
       Verbose_Print_Line("Open");
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
 
       break;
-    case Xila.Maximize: // NULL + M : Maximize
+    case Maximize: // NULL + M : Maximize
       Verbose_Print_Line("Maxmize");
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       //do something when
       break;
 
-    case Xila.Minimize: // NULL + m : Minimize
+    case Minimize: // NULL + m : Minimize
       break;
 
     case Instruction('M', 'i'):
-      Xila.Software_Minimize(Internet_Browser_Handle);
+      Xila.Software.Maximize(Internet_Browser_Handle);
       break;
 
     case Instruction('C', 'l'):
-      Xila.Software_Close(Internet_Browser_Handle);
+      Xila.Software.Close(Internet_Browser_Handle);
       break;
 
-    case Xila.Close: // NULL + C : Close
+    case Close: // NULL + C : Close
       delete Instance_Pointer;
-      Xila.Task_Delete();
+      Xila.Task.Delete();
       break;
 
     case Instruction('K', 'U'):
-      Xila.Keyboard_Dialog(Instance_Pointer->URL, sizeof(URL));
+      Xila.Dialog.Keyboard(Instance_Pointer->URL, sizeof(URL));
       Instance_Pointer->Display_Page();
       break;
     case Instruction('P', 'D'): //PD
@@ -109,7 +109,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       //error handle
       break;
     }
-    Xila.Delay(10);
+    Xila.Task.Delay(10);
   }
 }
 
@@ -123,7 +123,7 @@ void Internet_Browser_Class::Go_Home()
   strcpy(URL, "*");
   if (!Display_Page())
   {
-    Xila.Event_Dialog(F("Display home page failed."), Xila.Error);
+    Xila.Dialog.Event(F("Display home page failed."), Xila.Error);
     Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
   Cache_File.flush();
@@ -142,7 +142,7 @@ void Internet_Browser_Class::Go_URL()
   {
     Cache_File.close();
     Client.stop();
-    Xila.Event_Dialog(F("Download or caching failed."), Xila.Error);
+    Xila.Dialog.Event(F("Download or caching failed."), Xila.Error);
     Serial.println(F("Download & Caching Failed !"));
     memset(Server, '\0', sizeof(Server));
     Server[0] = '*';
@@ -153,7 +153,7 @@ void Internet_Browser_Class::Go_URL()
   }
   if (!Display_Page())
   {
-    Xila.Event_Dialog(F("Display page failed."), Xila.Error);
+    Xila.Dialog.Event(F("Display page failed."), Xila.Error);
     Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
 }
@@ -203,23 +203,23 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = Xila.Drive->open(Internet_Browser_File("Cache.xdf"), FILE_WRITE);
+  Cache_File = Xila.Drive.open(Internet_Browser_File("Cache.xdf"), FILE_WRITE);
   if (!Cache_File)
   {
-    Xila.Event_Dialog(F("Cache file open failed."), Xila.Error);
+    Xila.Dialog.Event(F("Cache file open failed."), Xila.Error);
     return 0;
   }
 
-  Xila.Delay(100);
+  Xila.Task.Delay(100);
   if (WiFi.status() != WL_CONNECTED)
   {
-    Xila.Event_Dialog(F("Download failed : WiFi is not not connected."), Xila.Error);
+    Xila.Dialog.Event(F("Download failed : WiFi is not not connected."), Xila.Error);
     return 0;
   }
 
   if (URLserver[0] == '*') // Should never get an * here
   {
-    Xila.Event_Dialog(F("Invalid URL."), Xila.Error);
+    Xila.Dialog.Event(F("Invalid URL."), Xila.Error);
     return 0;
   }
 
@@ -235,23 +235,23 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
   }
   else
   {
-    Xila.Event_Dialog(F("Download failed : Cannot connect to the website."), Xila.Error);
+    Xila.Dialog.Event(F("Download failed : Cannot connect to the website."), Xila.Error);
     //error handle : reset ?
     return 0;
   }
 
-  Xila.Delay(500);
+  Xila.Task.Delay(500);
 
   byte Wait = 0;
   while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
   {
-    Xila.Delay(50);
+    Xila.Task.Delay(50);
     Wait++;
   }
   if ((!Client.available()) && (!Client.connected()))
   {
     //error handle
-    Xila.Event_Dialog(F("Connection timeout."), Xila.Error);
+    Xila.Dialog.Event(F("Connection timeout."), Xila.Error);
     return 0;
   }
 
@@ -290,12 +290,12 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     }
     else if (outputChar == 1) //cannot find the file lenght, stop
     {
-      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
+      Xila.Dialog.Event(F("Failed to parse page."), Xila.Error);
       fileLength = 0;
     }
     else
     {
-      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
+      Xila.Dialog.Event(F("Failed to parse page."), Xila.Error);
       fileLength = 0;
     }
 
@@ -305,7 +305,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
     outputChar = Find_Until(generalBuffer, false);
     if (outputChar == 0) //cannot find the body
     {
-      Xila.Event_Dialog(F("Failed to parse page."), Xila.Error);
+      Xila.Dialog.Event(F("Failed to parse page."), Xila.Error);
       return 0;
     }
     else
@@ -331,12 +331,12 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       Wait = 0;
       while ((Wait < 100) && (!Client.available())) //wait 5 sec unti timeout
       {
-        Xila.Delay(50);
+        Xila.Task.Delay(50);
       }
       if ((!Client.available()) && (!Client.connected()))
       {
         //error handle
-        Xila.Event_Dialog(F("The connection has timed out."), Xila.Error);
+        Xila.Dialog.Event(F("The connection has timed out."), Xila.Error);
         Display_Page();
         Client.stop();
         Cache_File.flush();
@@ -790,7 +790,7 @@ void Internet_Browser_Class::Load_Page()
     pageLinks.lastLink = 0;
 
     Serial.println(F("Download & caching failed"));
-    Xila.Event_Dialog(F("Download or caching failed."), Xila.Error);
+    Xila.Dialog.Event(F("Download or caching failed."), Xila.Error);
     Xila.Display.Set_Current_Page(F("Internet_Brow"));
   }
 
@@ -897,17 +897,17 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     Xila.Display.Set_Text(F("URL_TXT"), F("Home Page"));
-    Cache_File = Xila.Drive->open(Internet_Browser_File("Homepage.xdf"));
+    Cache_File = Xila.Drive.open(Internet_Browser_File("Homepage.xdf"));
   }
   else
   {
     Xila.Display.Set_Text("URL_TXT", URL);
-    Cache_File = Xila.Drive->open(Internet_Browser_File("Cache.xdf"));
+    Cache_File = Xila.Drive.open(Internet_Browser_File("Cache.xdf"));
   }
 
   if (!Cache_File)
   {
-    Xila.Event_Dialog(F("Failed to open cache file."), Xila.Error);
+    Xila.Dialog.Event(F("Failed to open cache file."), Xila.Error);
 
     Serial.println(F("Failed to open cache !"));
     memcpy(Server, "*\0", 2);
@@ -917,7 +917,7 @@ byte Internet_Browser_Class::Display_Page()
   if (!Cache_File.seek(filePtr))
   {
     //error handle
-    Xila.Event_Dialog(F("Seek failure in cache file."), Xila.Error);
+    Xila.Dialog.Event(F("Seek failure in cache file."), Xila.Error);
 
     Serial.println(F("Seek failture"));
     return 0;

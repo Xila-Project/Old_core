@@ -15,7 +15,7 @@ void setup()
     */
 
     // start with default software package
-    Xila.Start();
+    Xila.Power.Start();
 
     // External :
     // Xila.Start_External();
@@ -23,5 +23,5 @@ void setup()
 
 void loop()
 {
-    Xila.Task_Delete(NULL);
+    Xila.Task.Delete(NULL);
 }

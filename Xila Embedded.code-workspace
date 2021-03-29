@@ -26,7 +26,13 @@
 			"memory": "cpp",
 			"istream": "cpp",
 			"cstdio": "cpp",
-			"typeinfo": "cpp"
+			"typeinfo": "cpp",
+			"deque": "cpp",
+			"string": "cpp",
+			"unordered_map": "cpp",
+			"unordered_set": "cpp",
+			"vector": "cpp",
+			"ctime": "cpp"
 		}
 	}
 }

@@ -8,7 +8,7 @@ Ultrasonic_Class::Ultrasonic_Class() : Software_Class(Ultrasonic_Handle),
                                        Offset(0),
                                        Shape(0)
 {
-  Xila.Task_Create(Main_Task, "Ultrasonic Task", Memory_Chunk(4), NULL, &Task_Handle);
+  Xila.Task.Create(Main_Task, "Ultrasonic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Ultrasonic_Class::~Ultrasonic_Class()
@@ -57,19 +57,19 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
     {
     case 0x0000: // IDLE : measure
       Instance_Pointer->Read();
-      Xila.Delay(10);
+      Xila.Task.Delay(10);
       break;
-    case Xila.Open:
+    case Open:
       Xila.Display.Set_Current_Page(F("Ultrasonic"));
       break;
-    case Xila.Close:
+    case Close:
       delete Instance_Pointer;
       vTaskDelete(NULL);
       break;
-    case Xila.Minimize:
+    case Minimize:
       vTaskSuspend(NULL);
       break;
-    case Xila.Maximize:
+    case Maximize:
       Xila.Display.Set_Current_Page(F("Ultrasonic"));
       break;
     case Instruction('N', 'S'): // NS
@@ -127,7 +127,7 @@ void Ultrasonic_Class::Main_Task(void *pvParameters)
     default:
       break;
     }
-    Xila.Delay(10);
+    Xila.Task.Delay(10);
   }
 }
 

@@ -7,7 +7,7 @@ Piano_Class::Piano_Class() : Software_Class(Piano_Handle),
                              Duration(200),
                              MIDI_Output(false)
 {
-    Xila.Task_Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Piano_Class::~Piano_Class()
@@ -37,29 +37,29 @@ void Piano_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case 0: //idle state
-            Xila.Delay(10);
+            Xila.Task.Delay(10);
             break;
-        case Xila.Watchdog:
-            Xila.Feed_Watchdog();
+        case Watchdog:
+            Xila.Task.Feed_Watchdog();
             break;
-        case Xila.Open:
+        case Open:
             Xila.Display.Set_Current_Page(F("Piano"));
             break;
-        case Xila.Maximize:
+        case Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
             Instance_Pointer->Refresh_Interface();
             break;
-        case Xila.Minimize:
+        case Minimize:
             break;
-        case Xila.Close:
+        case Close:
             delete Instance_Pointer;
-            Xila.Task_Delete();
+            Xila.Task.Delete();
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Piano_Handle);
+            Xila.Software.Close(Piano_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Piano_Handle);
+            Xila.Software.Minimize(Piano_Handle);
             break;
         case Instruction('C', ' '): //C
             Instance_Pointer->Press_Key(0);
@@ -158,7 +158,7 @@ void Piano_Class::Main_Task(void *pvParameters)
         default:
             break;
         }
-        Xila.Delay(10);
+        Xila.Task.Delay(10);
     }
 }
 

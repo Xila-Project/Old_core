@@ -4,7 +4,7 @@ Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
 Periodic_Class::Periodic_Class() : Software_Class(Periodic_Handle)
 {
-    Xila.Task_Create(Main_Task, "Periodic Task", Memory_Chunk(6), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Periodic Task", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
 Periodic_Class::~Periodic_Class()
@@ -45,21 +45,21 @@ void Periodic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Ad
 void Periodic_Class::Main_Task(void *pvParamters)
 {
     (void)pvParamters;
-    Xila.Delay(10);
+    Xila.Task.Delay(10);
     while (1)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
         case 0: //Idle state
-            Xila.Delay(30);
+            Xila.Task.Delay(30);
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Periodic_Handle);
+            Xila.Software.Close(Periodic_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Periodic_Handle);
+            Xila.Software.Minimize(Periodic_Handle);
             break;
-        case Xila.Maximize:
+        case Maximize:
             if (Instance_Pointer->Tab == 0)
             {
                 Xila.Display.Set_Current_Page(F("Periodic_Main"));
@@ -71,15 +71,15 @@ void Periodic_Class::Main_Task(void *pvParamters)
                 Instance_Pointer->Get_Data();
             }
             break;
-        case Xila.Open:
+        case Open:
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
             Instance_Pointer->Tab = 0;
             break;
-        case Xila.Close:
+        case Close:
             delete Instance_Pointer;
-            Xila.Task_Delete();
+            Xila.Task.Delete();
             break;
-        case Xila.Minimize:
+        case Minimize:
             break;
         case Instruction('G', 'M'): //GM
             Instance_Pointer->Get_Atom_Name();
@@ -171,13 +171,13 @@ void Periodic_Class::Get_Atom_Name()
         DynamicJsonDocument Filter(256);
         Filter[Line_String][Column_String] = true;
         // -- Open file and initlize the buffer
-        Periodic_File = Xila.Drive->open(Periodic_File("Index.xdf"));
+        Periodic_File = Xila.Drive.open(Periodic_File("Index.xdf"));
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 256);
         // -- Deserialize file
         if (deserializeJson(Index, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
             // -- Show an error and return if periodic index is corrupted
-            Xila.Event_Dialog(F("Failed to open periodic index."), Xila.Error);
+            Xila.Dialog.Event(F("Failed to open periodic index."), Xila.Error);
             return;
         }
     }
@@ -224,31 +224,31 @@ void Periodic_Class::Get_Main_Data()
         switch (Line)
         {
         case 0:
-            Periodic_File = Xila.Drive->open(Periodic_File("1.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("1.xdf"));
             break;
         case 1:
-            Periodic_File = Xila.Drive->open(Periodic_File("2.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("2.xdf"));
             break;
         case 2:
-            Periodic_File = Xila.Drive->open(Periodic_File("3.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("3.xdf"));
             break;
         case 3:
-            Periodic_File = Xila.Drive->open(Periodic_File("4.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("4.xdf"));
             break;
         case 4:
-            Periodic_File = Xila.Drive->open(Periodic_File("5.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("5.xdf"));
             break;
         case 5:
-            Periodic_File = Xila.Drive->open(Periodic_File("6.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("6.xdf"));
             break;
         case 6:
-            Periodic_File = Xila.Drive->open(Periodic_File("7.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("7.xdf"));
             break;
         case 7:
-            Periodic_File = Xila.Drive->open(Periodic_File("8.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("8.xdf"));
             break;
         case 8:
-            Periodic_File = Xila.Drive->open(Periodic_File("9.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("9.xdf"));
             break;
         default:
             return;
@@ -258,7 +258,7 @@ void Periodic_Class::Get_Main_Data()
         ReadBufferingStream Periodic_File_Buffer(Periodic_File, 512);
         if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
-            Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
+            Xila.Dialog.Event(F("Failed to read element informations."), Xila.Error);
             Periodic_File.close();
             return;
         }
@@ -286,7 +286,7 @@ void Periodic_Class::Get_Main_Data()
     // -- Name
     if (Current_Atom_Object["name"].as<char *>() == NULL)
     {
-        Xila.Event_Dialog(F("Failed to load element datas"), Xila.Error);
+        Xila.Dialog.Event(F("Failed to load element datas"), Xila.Error);
         return;
     }
     else
@@ -362,31 +362,31 @@ void Periodic_Class::Get_Data()
         switch (Line)
         {
         case 0:
-            Periodic_File = Xila.Drive->open(Periodic_File("1.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("1.xdf"));
             break;
         case 1:
-            Periodic_File = Xila.Drive->open(Periodic_File("2.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("2.xdf"));
             break;
         case 2:
-            Periodic_File = Xila.Drive->open(Periodic_File("3.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("3.xdf"));
             break;
         case 3:
-            Periodic_File = Xila.Drive->open(Periodic_File("4.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("4.xdf"));
             break;
         case 4:
-            Periodic_File = Xila.Drive->open(Periodic_File("5.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("5.xdf"));
             break;
         case 5:
-            Periodic_File = Xila.Drive->open(Periodic_File("6.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("6.xdf"));
             break;
         case 6:
-            Periodic_File = Xila.Drive->open(Periodic_File("7.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("7.xdf"));
             break;
         case 7:
-            Periodic_File = Xila.Drive->open(Periodic_File("8.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("8.xdf"));
             break;
         case 8:
-            Periodic_File = Xila.Drive->open(Periodic_File("9.xdf"));
+            Periodic_File = Xila.Drive.open(Periodic_File("9.xdf"));
             break;
         default:
             return;
@@ -398,7 +398,7 @@ void Periodic_Class::Get_Data()
         if (deserializeJson(Data_Registry, Periodic_File_Buffer, DeserializationOption::Filter(Filter)) != DeserializationError::Ok)
         {
             // -- Show an error and return if data file is corrupted
-            Xila.Event_Dialog(F("Failed to read element informations."), Xila.Error);
+            Xila.Dialog.Event(F("Failed to read element informations."), Xila.Error);
             Periodic_File.close();
             return;
         }
@@ -421,7 +421,7 @@ void Periodic_Class::Get_Data()
     // Name
     if (Current_Atom_Object["name"].as<char *>() == NULL)
     {
-        Xila.Event_Dialog(F("Failed to load element datas"), Xila.Error);
+        Xila.Dialog.Event(F("Failed to load element datas"), Xila.Error);
         return;
     }
     else

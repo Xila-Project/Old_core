@@ -4,7 +4,7 @@ Picture_Viewer_Class *Picture_Viewer_Class::Instance_Pointer = NULL;
 
 Picture_Viewer_Class::Picture_Viewer_Class() : Software_Class(Picture_Viewer_Handle)
 {
-    Xila.Task_Create(Main_Task, "Picture viewer", Memory_Chunk(5), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Picture viewer", Memory_Chunk(5), NULL, &Task_Handle);
 }
 
 Picture_Viewer_Class::~Picture_Viewer_Class()
@@ -34,33 +34,33 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Xila.Idle:
-            Xila.Delay(30);
+        case Idle:
+            Xila.Task.Delay(30);
             break;
-        case Xila.Open:
+        case Open:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
             break;
-        case Xila.Close:
+        case Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Xila.Maximize:
+        case Maximize:
             Xila.Display.Set_Current_Page(F("Pictviewer"));
             Instance_Pointer->Send_Instruction('D', 'I');
             break;
-        case Xila.Minimize:
+        case Minimize:
             break;
         case Xila.Watchdog:
             Xila.Feed_Watchdog();
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Picture_Viewer_Handle);
+            Xila.Software.Close(Picture_Viewer_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Picture_Viewer_Handle);
+            Xila.Software.Minimize(Picture_Viewer_Handle);
             break;
         case Instruction('O', 'I'):
-            Xila.Open_File_Dialog(Instance_Pointer->Image_File);
+            Open_File_Dialog(Instance_Pointer->Image_File);
             if (!Instance_Pointer->Image_File)
             {
                 Verbose_Print_Line("Failed to open file.");
@@ -79,7 +79,7 @@ void Picture_Viewer_Class::Main_Task(void *pvParameters)
 
             break;
         }
-        Xila.Delay(20);
+        Xila.Task.Delay(20);
     }
 }
 
@@ -92,7 +92,7 @@ void Picture_Viewer_Class::Get_Metadata()
 
     if (memcmp(Temporary_Char_Array_1, Temporary_Char_Array_2, 2) != 0)
     {
-        Xila.Event_Dialog(F("Corrupted bitmap file."), Xila.Error);
+        Xila.Dialog.Event(F("Corrupted bitmap file."), Xila.Error);
         Xila.Display.Set_Current_Page(F("Pictviewer"));
     }
 
@@ -141,7 +141,7 @@ void Picture_Viewer_Class::Get_Metadata()
 
 void Picture_Viewer_Class::Draw_Image()
 {
-    Xila.Delay(20);
+    Xila.Task.Delay(20);
     Image_File.seek(Offset);
     Xila.Display.Set_Text(F("FILENAME_TXT"), Image_File.name());
     Xila.Display.Set_Value(F("WIDTH_VAR"), Width);
@@ -149,7 +149,7 @@ void Picture_Viewer_Class::Draw_Image()
     Xila.Display.Set_Value(F("SIZE_NUM"), Size);
     Xila.Display.Set_Trigger(F("DRAW_TIM"), true);
 
-    Xila.Delay(20);
+    Xila.Task.Delay(20);
 //    uint16_t Red, Green, Blue;
 
     if (Color_Depth == 1)
@@ -218,13 +218,13 @@ void Picture_Viewer_Class::Draw_Image()
             Serial.println(Color[0])
         }*/
 
-        Xila.Delay(1000);
+        Xila.Task.Delay(1000);
         Xila.Display.Set_Reparse_Mode(0);
     }
     else
     {
         Xila.Display.Set_Reparse_Mode(0);
-        Xila.Event_Dialog(F("Unsupported bitmap file."), Xila.Error);
+        Xila.Dialog.Event(F("Unsupported bitmap file."), Xila.Error);
         Xila.Display.Set_Current_Page(F("Pictviewer"));
     }
 }

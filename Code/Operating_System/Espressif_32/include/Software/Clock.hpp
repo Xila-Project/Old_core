@@ -108,7 +108,7 @@ public:
 
     enum Picture
     {
-        Icon_32 = Xila.Clock
+        Icon_32 = Xila.Display.Clock
     };
 
     Clock_Class();

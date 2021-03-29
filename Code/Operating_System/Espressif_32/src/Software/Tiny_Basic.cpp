@@ -113,7 +113,7 @@ Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle),
                                        sd_is_initialized(true)
 {
   memset(Lines, '\0', sizeof(Lines));
-  Xila.Task_Create(Main_Task, "TinyBasic", Memory_Chunk(4), NULL, &Task_Handle);
+  Xila.Task.Create(Main_Task, "TinyBasic", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Tiny_Basic_Class::~Tiny_Basic_Class()
@@ -149,17 +149,17 @@ void Tiny_Basic_Class::Read_Command()
 {
   switch (Instance_Pointer->Get_Instruction())
   {
-  case Xila.Open:
+  case Open:
     break;
-  case Xila.Minimize:
+  case Minimize:
     Xila.Task_Suspend();
     break;
-  case Xila.Maximize:
+  case Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
     break;
-  case Xila.Close:
+  case Close:
     delete Instance_Pointer;
-    Xila.Task_Delete(NULL);
+    Xila.Task.Delete(NULL);
     break;
   case Instruction('K', 'I'):
     Xila.Keyboard_Dialog(Temporary_Input, sizeof(Temporary_Input));
@@ -884,10 +884,10 @@ void Tiny_Basic_Class::Setup()
 
   initSD();
 
-  if (Xila.Drive->exists(AUTORUN_FILE))
+  if (Xila.Drive.exists(AUTORUN_FILE))
   {
     program_end = program_start;
-    fp = Xila.Drive->open(AUTORUN_FILE);
+    fp = Xila.Drive.open(AUTORUN_FILE);
     inStream = kStreamFile;
     inhibitOutput = true;
     runAfterLoad = true;
@@ -1052,7 +1052,7 @@ boolean Tiny_Basic_Class::initSD()
   // an output, even when your shield uses another line for CS
   //pinMode(10, OUTPUT); // change this to 53 on a mega
 
-  if ( !Xila.Drive->begin( SD_CS )) {
+  if ( !Xila.Drive.begin( SD_CS )) {
     // failed
     printmsg( sderrormsg );
     return false;
@@ -1081,7 +1081,7 @@ boolean Tiny_Basic_Class::initSD()
 
 void Tiny_Basic_Class::cmd_Files()
 {
-  File dir = Xila.Drive->open("/");
+  File dir = Xila.Drive.open("/");
   dir.seek(0);
 
   while (true)
@@ -1330,7 +1330,7 @@ interperateAtTxtpos:
   {
     expression_error = 0;
     val = expression();
-    Xila.Delay(val);
+    Xila.Task.Delay(val);
     goto execnextline;
   }
   case KW_FILES:
@@ -1968,7 +1968,7 @@ load:
       goto qwhat;
 
     // check if file exists
-    if (!Xila.Drive->exists((char *)filename))
+    if (!Xila.Drive.exists((char *)filename))
     {
       // file is missing
       printmsg(sdfilemsg);
@@ -1976,7 +1976,7 @@ load:
     else
     {
       // file exists so open it
-      fp = Xila.Drive->open((const char *)filename);
+      fp = Xila.Drive.open((const char *)filename);
       inStream = kStreamFile;
       inhibitOutput = true;
     }
@@ -2000,13 +2000,13 @@ save:
     Serial.println((char *)filename);
 
     // remove the old file if it exists
-    if (Xila.Drive->exists((char *)filename))
+    if (Xila.Drive.exists((char *)filename))
     {
-      Xila.Drive->remove((char *)filename);
+      Xila.Drive.remove((char *)filename);
     }
 
     // open the file, switch over to file output
-    fp = Xila.Drive->open((const char *)filename, FILE_WRITE);
+    fp = Xila.Drive.open((const char *)filename, FILE_WRITE);
 
     if (fp == (File)NULL)
     {
@@ -2048,9 +2048,9 @@ delfile:
     Serial.println((char *)filename);
 
     // remove the file if it exists
-    if (Xila.Drive->exists((char *)filename))
+    if (Xila.Drive.exists((char *)filename))
     {
-      Xila.Drive->remove((char *)filename);
+      Xila.Drive.remove((char *)filename);
     }
     goto warmstart;
   }

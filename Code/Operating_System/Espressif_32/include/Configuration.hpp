@@ -2,6 +2,8 @@
 #ifndef CONFIGURATION_HPP_INCLUDED
 #define CONFIGURATION_HPP_INCLUDED
 
+#include "SD_MMC.h"
+
 #include  "esp_log.h"
 
 // -- Default value
@@ -13,6 +15,8 @@
 #define DEFAULT_DEVICE_NAME "ESP32"
 
 // Software
+
+#define Low_Memory_Threshold 2000
 
 #define MAXIMUM_SOFTWARE 20
 
@@ -35,6 +39,10 @@
 #define VERSION_MINOR 1
 #define VERSION_REVISION 0
 
+//
+#define DEFAULT_KEYBOARD_DATA 19
+#define DEFAULT_KEYBOARD_CLOCK 18
+
 //  Drive retrocompatibility
 #define DRIVE_VERSION_MAJOR 0
 #define DRIVE_VERSION_MINOR 1
@@ -53,11 +61,6 @@
 #define MAXIMUM_PASSWORD_LENGHT 24
 #define MAXIMUM_USERNAME_LENGHT 8
 
-// 
-#define IDLE_TASK_PRIORITY 0
-#define SOFTWARE_TASK_PRIOITY 1
-#define SYSTEM_TASK_PRIORITY 2
-#define DRIVER_TASK_PRIORITY 3
 
 //
 #define DEFAULT_QUEUE_SIZE 16
@@ -67,8 +70,7 @@
 
 // Watchdog 
 
-#define WATCHDOG_INITAL_TIME 4000   // ms
-#define WATCHDOG_MAXIMUM_TIME 6000  // ms
+#define WATCHDOG_THRESHOLD_TIME 5000  // ms
 
 // -- Default registry values --
 

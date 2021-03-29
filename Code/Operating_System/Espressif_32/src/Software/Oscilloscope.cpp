@@ -4,7 +4,7 @@ Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle)
 {
-	Xila.Task_Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
+	Xila.Task.Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()
@@ -43,7 +43,7 @@ void Oscilloscope_Class::Refresh_Interface()
 		if (Current_Channel == 0)
 		{
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 0"));
-			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Blue);
+			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Blue);
 
 			strcpy(Temporary_Char_Array, "Range: ");
 			strcat(Temporary_Char_Array, Ranges[range0]);
@@ -58,7 +58,7 @@ void Oscilloscope_Class::Refresh_Interface()
 		else
 		{
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 1"));
-			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Yellow);
+			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Yellow);
 
 			strcpy(Temporary_Char_Array, "Range: ");
 			strcat(Temporary_Char_Array, Ranges[range1]);
@@ -356,32 +356,32 @@ void Oscilloscope_Class::Check_Commands()
 	switch (Get_Instruction())
 	{
 	Verbose_Print_Line("Check commands");
-	case Xila.Idle:
-		Xila.Delay(20);
+	case Idle:
+		Xila.Task.Delay(20);
 		Refresh_Interface();
 		Run();
 		break;
-	case Xila.Open:
+	case Open:
 		Xila.Display.Set_Current_Page(F("Oscilloscope"));
 		break;
-	case Xila.Maximize:
+	case Maximize:
 		Xila.Display.Set_Current_Page(F("Oscilloscope"));
 		Refresh_Interface();
 		break;
-	case Xila.Minimize:
+	case Minimize:
 		break;
-	case Xila.Close:
+	case Close:
 		delete Instance_Pointer;
-		Xila.Task_Delete();
+		Xila.Task.Delete();
 		break;
-	case Xila.Watchdog: //reset watchdog
+	case Watchdog: //reset watchdog
 		Xila.Feed_Watchdog();
 		break;
 	case Instruction('C', 'l'):
-		Xila.Software_Close(Oscilloscope_Handle);
+		Xila.Software.Close(Oscilloscope_Handle);
 		break;
 	case Instruction('M', 'i'):
-		Xila.Software_Minimize(Oscilloscope_Handle);
+		Xila.Software.Minimize(Oscilloscope_Handle);
 		break;
 	case Instruction('S', 't'): // SA : Start
 		Start = true;
@@ -394,13 +394,13 @@ void Oscilloscope_Class::Check_Commands()
 		{
 			Current_Channel = 1;
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 1"));
-			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Yellow);
+			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Yellow);
 		}
 		else
 		{
 			Current_Channel = 0;
 			Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 0"));
-			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Blue);
+			Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Blue);
 		}
 		break;
 	case Instruction('P', 'C'): // previous channel

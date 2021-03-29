@@ -51,7 +51,7 @@ protected:
     uint8_t Return_Code;
 
 public:
-    enum Error
+    enum Errors
     {
         Invalid_Instruction = 0x00,
         Invalid_Component_ID = 0x02,
@@ -74,7 +74,7 @@ public:
         Update_Failed = 0x25
     };
 
-    enum Information
+    enum Informations
     {
         Startup = 0x07,
         Instruction_Successfull = 0x01,
@@ -93,7 +93,7 @@ public:
         Update_Succeed = 0x69
     };
 
-    enum Color
+    enum Colors
     {
         Black = 0,
         Blue = 31,
@@ -103,7 +103,7 @@ public:
         White = 65535
     };
 
-    enum Alignement
+    enum Alignements
     {
         Top = 0,
         Bottom = 3,
@@ -112,7 +112,7 @@ public:
         Center = 0
     };
 
-    enum Background
+    enum Backgrounds
     {
         Crop_Image = 0,
         Solid_Color = 1,

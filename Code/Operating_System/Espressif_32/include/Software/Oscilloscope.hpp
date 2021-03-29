@@ -124,7 +124,7 @@ public:
 
     enum Picture_ID
     {
-        Icon_32 = Xila.Oscilloscope
+        Icon_32 = Xila.Display.Oscilloscope
     };
 
     Oscilloscope_Class();

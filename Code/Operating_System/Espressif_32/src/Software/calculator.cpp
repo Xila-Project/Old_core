@@ -5,7 +5,7 @@ Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle),
                                        State(0xFF)
 {
-    Xila.Task_Create(Main_Task, "Calculator", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Calculator", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Calculator_Class::~Calculator_Class()
@@ -114,33 +114,33 @@ void Calculator_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Xila.Idle: //idle
-            Xila.Delay(20);
+        case Idle: //idle
+            Xila.Task.Delay(20);
             break;
         case Xila.Watchdog:
             Xila.Feed_Watchdog();
             Verbose_Print_Line("Feed watchdog");
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Calculator_Handle);
+            Xila.Software.Close(Calculator_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Calculator_Handle);
+            Xila.Software.Minimize(Calculator_Handle);
             break;
-        case Xila.Close:
+        case Close:
             Verbose_Print_Line("Close calc");
             delete Instance_Pointer;
-            Xila.Task_Delete();
+            Xila.Task.Delete();
             break;
-        case Xila.Maximize:
+        case Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Refresh_Interface();
             Instance_Pointer->Refresh_Keys();
             break;
-        case Xila.Minimize:
+        case Minimize:
             Verbose_Print_Line("Minimize");
             break;
-        case Xila.Open:
+        case Open:
             Instance_Pointer->Clear_All();
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Refresh_Interface();
@@ -1059,7 +1059,7 @@ void Calculator_Class::Compute()
 
 void Calculator_Class::Error()
 {
-    Xila.Event_Dialog(F("Cannot calculate, please check input calculation."), Xila.Error);
+    Xila.Dialog.Event(F("Cannot calculate, please check input calculation."), Xila.Error);
     Clear();
 }
 

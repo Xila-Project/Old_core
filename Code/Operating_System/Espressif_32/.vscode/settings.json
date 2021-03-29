@@ -1,5 +1,6 @@
 {
     "files.associations": {
+        "*.XRF": "json",
         "system_error": "cpp",
         "array": "cpp",
         "functional": "cpp",
@@ -7,7 +8,9 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "algorithm": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "*.tcc": "cpp",
+        "fstream": "cpp"
     },
     "C_Cpp.dimInactiveRegions": false
 }

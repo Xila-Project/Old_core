@@ -6,7 +6,7 @@ uint32_t Clock_Class::Next_Alarm = 0;
 Clock_Class::Clock_Class() : Software_Class(Clock_Handle),
                              Current_Tab(Clock)
 {
-    Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Background_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Clock_Class::~Clock_Class()
@@ -30,7 +30,7 @@ Software_Class *Clock_Class::Load()
 
 void Clock_Class::Startup_Function()
 {
-    Xila.Task_Create(Background_Task, "Clock Task", Memory_Chunk(2));
+    Xila.Task.Create(Background_Task, "Clock Task", Memory_Chunk(2));
 }
 
 void Clock_Class::Background_Task(void *pvParameters)
@@ -39,16 +39,16 @@ void Clock_Class::Background_Task(void *pvParameters)
     {
         if (Next_Alarm == 0)
         {
-            vTaskDelay(pdMS_TO_TICKS(10000));
+            Xila.Task.Delay(10000);
         }
         else
         {
             if (Next_Alarm < millis())
             {
-                Xila.Software_Open(Clock_Handle);
+                Xila.Software.Open(Clock_Handle);
                 Instance_Pointer->Send_Instruction(Instruction('R', 'i'));
             }
-            vTaskDelay(pdMS_TO_TICKS(1000));
+            Xila.Task.Delay(1000);
         }
     }
 }
@@ -68,7 +68,7 @@ void Clock_Class::Refresh_Timer()
         {
             if (millis() >= Inital_Time)
             {
-                File Ringtone_File = Xila.Drive->open(Clock_File("Ringtone.wav"));
+                File Ringtone_File = Xila.Drive.open(Clock_File("Ringtone.wav"));
                 Xila.Sound.Play(Ringtone_File); // play something
             }
         }
@@ -109,7 +109,7 @@ void Clock_Class::Refresh_Chronometer()
 
 void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
 {
-    if (Type == Xila.Variable_Long_Local)
+    if (Type == Xila.Display.Variable_Long)
     {
         if (Adress == 'H')
         {
@@ -254,7 +254,7 @@ void Clock_Class::Add_Alarm()
 
 void Clock_Class::Refresh_Clock()
 {
-    Time = Xila.Get_Time();
+    Time = Xila.Time.Get_Time();
     // Set time
     Temporary_Char_Array[0] = (Time.tm_hour / 10) + 48;
     Temporary_Char_Array[1] = (Time.tm_hour % 10) + 48;
@@ -309,7 +309,7 @@ void Clock_Class::Refresh_Clock()
     Temporary_Char_Array[Offset + 3] = (Time.tm_year % 10) + 48;
     Temporary_Char_Array[Offset + 4] = '\0';
     Xila.Display.Set_Text(F("DATE_TXT"), String(Temporary_Char_Array));
-    Xila.Delay(500);
+    Xila.Task.Delay(500);
 }
 
 void Clock_Class::Main_Task(void *pvParameters)
@@ -321,7 +321,7 @@ void Clock_Class::Main_Task(void *pvParameters)
         case Clock:
             switch (Instance_Pointer->Get_Instruction())
             {
-            case Xila.Idle: // IDLE
+            case Idle: // IDLE
                 Instance_Pointer->Refresh_Clock();
                 break;
             case Instruction('O', 'A'):
@@ -342,23 +342,23 @@ void Clock_Class::Main_Task(void *pvParameters)
             case Instruction('R', 'i'): // Ring
                 break;
             case Instruction('C', 'l'):
-                Xila.Software_Close(Clock_Handle);
+                Xila.Software.Close(Clock_Handle);
                 break;
             case Instruction('M', 'i'):
-                Xila.Software_Minimize(Clock_Handle);
+                Xila.Software.Minimize(Clock_Handle);
                 break;
-            case Xila.Open:
+            case Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Xila.Close:
+            case Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Xila.Minimize:
+            case Minimize:
                 break;
-            case Xila.Maximize:
+            case Maximize:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
@@ -476,19 +476,19 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case Instruction('R', 'i'): // Ring
                 break;
-            case Xila.Open:
+            case Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Xila.Close:
+            case Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Xila.Minimize:
+            case Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Xila.Maximize:
+            case Maximize:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 break;
             default:
@@ -566,19 +566,19 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case 0x5249: // Ring
                 break;
-            case Xila.Open:
+            case Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Xila.Close:
+            case Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Xila.Minimize:
+            case Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Xila.Maximize:
+            case Maximize:
                 if (Instance_Pointer->Current_Tab == Clock)
                 {
                     Xila.Display.Set_Current_Page(F("Clock"));
@@ -668,19 +668,19 @@ void Clock_Class::Main_Task(void *pvParameters)
                 break;
             case 0x5249: // Ring
                 break;
-            case Xila.Open:
+            case Open:
                 Xila.Display.Set_Current_Page(F("Clock"));
                 Instance_Pointer->Current_Tab = Clock;
                 Instance_Pointer->Refresh_Clock();
                 break;
-            case Xila.Close:
+            case Close:
                 delete Instance_Pointer;
                 vTaskDelete(NULL);
                 break;
-            case Xila.Minimize:
+            case Minimize:
                 vTaskSuspend(NULL);
                 break;
-            case Xila.Maximize:
+            case Maximize:
                 if (Instance_Pointer->Current_Tab == Clock)
                 {
                     Xila.Display.Set_Current_Page(F("Clock"));
@@ -703,6 +703,6 @@ void Clock_Class::Main_Task(void *pvParameters)
             }
             break;
         }
-        Xila.Delay(20);
+        Xila.Task.Delay(20);
     }
 }

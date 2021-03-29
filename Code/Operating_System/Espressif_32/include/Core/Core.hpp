@@ -1,95 +1,135 @@
-/**
- * @file Core.hpp
- * @brief Xila's core header file.
- * @author Alix ANNERAUD
- * @copyright MIT License
- * @version 0.1.0
- * @date 21/05/2020
- * @details Gather all the parts used by Xila core.
- * @section License
- * 
- * Copyright (c) 2020 Alix ANNERAUD
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
-*/
-
+///
+/// @file Core.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Xila's core header file.
+/// @version 0.1
+/// @date 28-03-2021
+///
+/// @copyright Copyright (c) 2021
+///
+/// @details Gather all the parts used by Xila core.
+///
+/// @section MIT License
+///
+///  Copyright (c) 2020 Alix ANNERAUD
+///
+/// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+/// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+///
+/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+///
 #ifndef CORE_H_INCLUDED
 #define CORE_H_INCLUDED
 
-//----------------------------------------------------------------------------//
-//                          Include Necessary Libraries                       //
-//----------------------------------------------------------------------------//
+#ifdef __cplusplus
 
+#else
 
+#error Xila requires a C++ complier, pleas echange file extension to .cc or .cpp
 
+#endif
+
+//============================================================================//
+//                          Include required libraries                        //
+//============================================================================//
+
+// -- C++ standard library
+#include <stdint.h>
+
+// -- Arduino framework
 #include "Arduino.h"
 
-
-
-
-#include "SD_MMC.h"
+// -- File system library
 #include "FS.h"
-#include "SD.h"
+#include "ff.h"
+// -- SD SPI
+#include "vfs_api.h"
+#include "sd_diskio.h"
+#include "ff.h"
+// -- SD MMC
+#include "vfs_api.h"
+extern "C"
+{
+#include <sys/unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+#include "esp_vfs_fat.h"
+#include "driver/sdmmc_host.h"
+#include "driver/sdmmc_defs.h"
+#include "sdmmc_cmd.h"
+}
+
+// -- SPI library
 #include "SPI.h"
 
-#include "esp_log.h"
-
-#include <stdarg.h>
-
+// -- Time library
 #include "time.h"
+
+// -- ESP 32 update
 #include "Update.h"
 
+// -- Registry management library
 #include <ArduinoJson.h> //used to store registries
 #include <StreamUtils.h>
 
-#include "WiFi.h"
+// WiFi libraries
+#include "Print.h"
+#include "IPAddress.h"
+#include "IPv6Address.h"
+#include "WiFiType.h"
+#include "WiFiSTA.h"
+#include "WiFiAP.h"
+#include "WiFiScan.h"
+#include "WiFiGeneric.h"
+#include "WiFiClient.h"
+#include "WiFiServer.h"
+#include "WiFiUdp.h"
+
+// Driver files
+#include "Driver/Display.hpp"
+#include "Driver/Battery.hpp"
 
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
 
-// Main compile-time configuration file
-#include "Configuration.hpp"
-// Path list
-#include "Path.hpp"
+// Configuration file (at compile time)
+#include "Configuration.hpp"    // default values
+#include "Path.hpp"             // Path list
 
 // Other part of the core
-#include "Instruction.hpp"
 #include "Software.hpp"
 #include "Software_Handle.hpp"
-
-// Driver files
-#include "Driver/Display.hpp"  // Nextion display driver (maybe create a library for each driver)
-#include "Driver/Keyboard.hpp" // PS2 keyboard driver
-#include "Driver/Sound.hpp"
-#include "Driver/Battery.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
 //----------------------------------------------------------------------------//
 
-// Event  (used to interract with the event handler)
+///
+/// @brief Xila event type
+///
+typedef enum Xila_Event
+{
+    None,
+    Success = 1,
+    Error,
+    Warning,
+    Information,
+    Question,
+    Button_1 = 0x31, //< Button 1 reply, by default : Yes
+    Button_2 = 0x32, //< Button 2 reply by default : No
+    Button_3 = 0x33, //< Button 3 reply by default : Cancel (returned also by close button)
+    Default_Yes = Button_1,
+    Default_No = Button_2,
+    Default_Cancel = Button_3,
+};
 
-typedef uint16_t Xila_Event;
-typedef uint16_t Xila_Command;
+///
+/// @brief Xila time class
+///
 typedef tm Xila_Time;
-typedef void* Xila_Task_Handle;
 
-typedef void (*Xila_Task_Function)(void *);
 
-// System state
-#define SYSTEM_STATE_STANDALONE 1
-#define SYSTEM_STATE_NORMAL 0
-
-// Software type
-#define SOFTWARE_EMBEDDED 0
-#define SOFTWARE_STANDALONE 1
-
-// Alignement
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -97,589 +137,670 @@ typedef void (*Xila_Task_Function)(void *);
 
 extern Software_Handle_Class Shell_Handle;
 
-/**
- * @class Xila_Class
- * @brief Core class.
- * 
- * Contain all core parts and include also its API which is used by external software.
- */
+class Shell_Class;
+
+///
+/// @class Xila_Class
+///
+/// @brief Core class.
+///
+/// @details Contain all core A.P.I. and modules to make the kernel working.
+///
 class Xila_Class
 {
-
 protected:
-    // Instance pointer
-
-    // Sound hal
-
-    
-
+    ///
+    /// @brief Current instance pointer. Help to prevent from corruption.
+    ///
     static Xila_Class *Instance_Pointer;
 
-    /**
-     * Device name used as Network hostname ...
-    */
-    char Device_Name[24];
-
-    const int Low_RAM_Threshold = 2000;
-
-    //User attribute
-    char Current_Username[9];
-
-    uint8_t User_Session;
-    enum Session_State
-    {
-        Disconnected,
-        Logged,
-        Locked
-    };
-
-    Software_Class *Open_Software_Pointer[8] = {NULL};
-    // Open_Software_Pointer[0] : Current running software
-    // Open_Software_Pointer[1] : Shell slot
-    // Open_Softwaer_Pointer[2 - 7] : Other openned software
-
-    Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {NULL};
-    // Software_Handle_Pointer[0 - MAXIMUM_SOFTWARE] : other software handle
-
-    // Shell short cut
-
-    void *Shell_Return_Item;
-    Xila_Event Shell_Return;
-
-    void Maximize_Shell();
-    void Execute_Shell(Xila_Command const &Command);
-
-    // Display
-    char Tag;
-    static void Incomming_String_Data_From_Display(const char *, uint8_t);
-    static void Incomming_Numeric_Data_From_Display(uint32_t);
-    static void Incomming_Event_From_Display(uint8_t);
-
-    // Serial print
-
-    uint8_t Remaining_Spaces;
-
-    //Software management
-
-    uint8_t Get_Software_Handle_Pointer(const char *Software_Name);
-
-    // Power button
-
 public:
-    enum Image_Offset
+    ///
+    /// @brief Account management class
+    ///
+    class Account_Class
     {
-        Shell = 0,
-        Calculator = 20,
-        Clock = 21,
-        Internet_Browser = 22,
-        Music_Player = 23,
-        Oscilloscope = 32,
-        Paint = 33,
-        Periodic = 34,
-        Piano = 36,
-        Picture_Viewer = 40,
-        Pong = 41,
-        Simon = 42,
-        Text_Editor = 43,
-        Tiny_Basic = 44
+    protected:
+        char Current_Username[9];
+        uint8_t State;
+
+        Xila_Event Load_Registry();
+        Xila_Event Save_Registry();
+
+    public:
+        ///
+        /// @brief Session state type
+        ///
+        enum Session_State
+        {
+            Disconnected,
+            Logged,
+            Locked
+        };
+
+        Xila_Event Add_User(const char *Username, const char *Password);
+        Xila_Event Delete_User(const char *);
+        Xila_Event Change_Password(const char *, const char *);
+        Xila_Event Change_Username(const char *, const char *);
+        Xila_Event Set_Autologin(bool Enable);
+
+        Xila_Event Check_Credentials(const char *, const char *);
+        Xila_Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+        Xila_Event Logout();
+        Xila_Event Lock();
+
+        const char *Get_Current_Username();
+
+        uint8_t Get_State();
+
+        Account_Class();
+
+        friend class Xila_Class;
+
+    } Account;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Clipboard module
+    ///
+    class Clipboard_Class
+    {
+    protected:
+        File Clipboard_File;
+        uint8_t Split_Number[8];
+
+    public:
+        Xila_Event Copy(uint64_t const &Value_To_Copy);
+        Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+        Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
+
+        Xila_Event Paste(uint64_t &Value_To_Paste);
+        Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+        Xila_Event Paste(String &String_To_Paste);
+
+        friend class Xila_Class;
+    } Clipboard;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Dialog class
+    ///
+    class Dialog_Class
+    {
+    protected:
+        Software_Class *Caller_Software_Pointer;
+        Xila_Event State;
+        SemaphoreHandle_t Semaphore;
+        uint32_t Long[2];
+        void *Pointer;
+
+    public:
+        Xila_Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Xila_Event Color_Picker(uint16_t &Color);
+        Xila_Event Open_File(File &File_To_Open);
+        Xila_Event Open_Folder(File &Folder_To_Open);
+        Xila_Event Save_File(File &File_To_Save);
+        Xila_Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
+        // to do : Xila_Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
+        Xila_Event Keypad(float &Number_To_Get);
+
+        Dialog_Class();
+
+        friend class Xila_Class;
+    } Dialog;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Display class
+    ///
+    class Display_Class : public Nextion_Display_Class
+    {
+    protected:
+        uint8_t Brightness;
+        uint16_t Standby_Time;
+        uint8_t Receive_Pin;
+        uint8_t Send_Pin;
+
+        char Tag = 0;
+
+        Xila_Event Load_Registry();
+        Xila_Event Save_Registry();
+
+    public:
+        ///
+        /// @brief Prefixs used to differienciate exchanged data between display, core and software
+        ///
+        enum Prefixs
+        {
+            Instruction = '#',
+            Variable_String = 's',
+            Variable_Long = 'l',
+        };
+
+        ///
+        /// @brief Default system colors.
+        ///
+        enum Color
+        {
+            Black,
+            White = 65535,
+            Light_Grey = 33808,
+            Dark_Grey = 16904,
+            Red = 57344,
+            Blue = 1300,
+            Green = 34308,
+            Yellow = 64896
+        };
+
+        ///
+        /// @brief Xila_16 special characters list.
+        ///
+        enum Xila_16
+        {
+            State_Button = 127,
+            Left_Arrow,
+            Right_Arrow,
+            Up_Arrow,
+            Down_Arrow,
+            Battery_Empty,
+            Battery_Low,
+            Battery_Medium,
+            Battery_High,
+            WiFi_Low,
+            WiFi_Medium,
+            WiFi_High,
+            Bluetooth,
+            Sound_Mute,
+            Sound_Low,
+            Sound_Medium,
+            Sound_High,
+        };
+
+        ///
+        /// @brief Xila_32 special characters list.
+        ///
+        enum Font_32
+        {
+            Exclamation_Mark = 127,
+            Question_Mark,
+            Cross
+        };
+
+        ///
+        /// @brief Image offsets list.
+        ///
+        /// @details All image offset, used by included software to keep track of picture offset
+        ///
+        enum Image_Offset
+        {
+            Shell = 0,
+            Calculator = 20,
+            Clock = 21,
+            Image_Viewer = 22,
+            Internet_Browser = 23,
+            Music_Player = 24,
+            Oscilloscope = 33,
+            Paint = 34,
+            Periodic = 35,
+            Piano = 37,
+            Pong = 41,
+            Simon = 42,
+            Text_Editor = 43,
+            Tiny_Basic = 44
+        };
+
+        ///
+        /// @brief Pages list
+        ///
+        enum Pages_Offset
+        {
+
+        };
+
+        ///
+        /// @brief Font list
+        ///
+        enum Font
+        {
+            Regular_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
+            Mono_16,
+            Regular_24, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
+            Regular_32, /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
+            Regular_48
+        };
+
+        static void Incomming_String_Data_From_Display(const char *, uint8_t);
+        static void Incomming_Numeric_Data_From_Display(uint32_t);
+        static void Incomming_Event_From_Display(uint8_t);
+
+        friend class Xila_Class;
+    } Display;
+
+    //==============================================================================//
+
+#if SD_MODE == 0
+
+    ///
+    /// @brief Drive class (SD MMC)
+    ///
+    class Drive_Class : public FS
+    {
+    protected:
+        sdmmc_card_t *_card;
+
+    public:
+        Drive_Class(FSImpltPtr impl);
+        bool begin(const char *mountpoint = "/sdcard", bool mode1bit = false);
+        void end();
+        sdcard_type_t cardType();
+        uint64_t cardSize();
+        uint64_t totalBytes();
+        uint64_t usedBytes();
+
+        //Custom
+
+        Xila_Event Copy(File &Origin_File, File &Destination_File);
+        Xila_Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
+        uint16_t Count_Files(File &Folder);
+
+        friend class Xila_Class;
     };
 
-    enum Pages_Offset
+#elif SD_MODE == 1
+
+    ///
+    /// @brief Drive class (SD SPI)
+    ///
+    class Drive_Class : public FS
     {
+    protected:
+        uint8_t _pdrv;
 
-    };
+    public:
+        Drive_Class(FSImplPtr impl);
+        bool begin(uint8_t ssPin = SS, SPIClass &spi = SPI, uint32_t frequency = 4000000, const char *mountpoint = "/sd", uint8_t max_files = 5);
+        void end();
+        sdcard_type_t cardType();
+        uint64_t cardSize();
+        uint64_t totalBytes();
+        uint64_t usedBytes();
 
-    uint32_t Last_Watchdog_Feed;
-    uint8_t Watchdog_Reminder;
+        //Custom
 
-    /**
-     * @brief A function that feed watchdog
-     */
-    void Feed_Watchdog();
+        Xila_Event Copy(File &Origin_File, File &Destination_File);
+        Xila_Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
+        uint16_t Count_Files(File &Folder);
 
-    /**
-    * @brief A delay function.
-    * @param Delay_In_Millisecond
-    * @details A delay function that behave exactly like delay() but reset also Xila watchdog (check if an app is frozen)
-    */
-    void Delay(uint32_t Delay_In_Millisecond);
+        friend class Xila_Class;
+    } Drive;
 
-    void Check_Watchdog();
+#endif
 
-    /**
-     * @enum Font identifier
-    */
-    enum Font
+    ///
+    /// @brief Keyboard class
+    ///
+    class Keyboard_Class
     {
-        Regular_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
-        Mono_16,
-        Regular_24, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
-        Regular_32,  /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
-        Regular_48
-    };
+    protected:
+        Xila_Event Load_Registry();
+        inline void Begin();
 
-    static void IRAM_ATTR Power_Button_Handler();
+    public:
+        Xila_Event Save_Registry();
 
-    portMUX_TYPE Power_Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
+        inline unsigned char Read();
+        inline uint8_t Available();
+        inline unsigned char Read_Raw();
+        inline uint8_t Available_Raw();
+        inline uint8_t Get_Modifiers();
 
-    volatile uint8_t Power_Button_Counter;
+        inline void Clear_Buffers();
 
-    void Check_Power_Button();
+        friend class Xila_Class;
 
-    // -- Task management -- //
+    } Keyboard;
 
-    void Task_Resume(Xila_Task_Handle Task_To_Resume);
+    //==============================================================================//
 
-    void Task_Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
-    void Task_Delete(Xila_Task_Handle Task_To_Delete = NULL);
-    Xila_Event Task_Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle* Task_Handle = NULL);
-
-    // -- Software management -- //
-
-    inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
-
-    /**
-     * @brief Function used to open a Software.
-     * 
-     * @param Software_Handle The software's handle to open 
-     */
-    Xila_Event Software_Open(Software_Handle_Class const &Software_Handle);
-
-    /**
-     * @brief Function used to close a Software.
-     * 
-     * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
-     */
-    void Software_Close(Software_Handle_Class const &Software_Handle);
-
-    /**
-     * @brief Function that close roughly the current running software.
-     * @details Delete manualy the main software task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables ...).
-     */
-    void Force_Software_Close();
-
-    /**
-     * @brief Function used to minimize the currently running software, and then maximize Shell.
-     */
-    void Software_Minimize(Software_Handle_Class const& Software_Handle);
-
-    /**
-     * @brief Function used to maxmize the software.
-     * 
-     * @param Software_Handle The software's handle to maxmize.
-     */
-    Xila_Event Software_Maximize(Software_Handle_Class const &);
-
-    void Add_Software_Handle(Software_Handle_Class &); //private shortcut
-
-    enum Font_16
+    ///
+    /// @brief Power management module
+    ///
+    class Power_Class : public Battery_Class
     {
-        State_Button = 127,
-        Left_Arrow,
-        Right_Arrow,
-        Up_Arrow,
-        Down_Arrow,
-        Battery_Empty,
-        Battery_Low,
-        Battery_Medium,
-        Battery_High,
-        WiFi_Low,
-        WiFi_Medium,
-        WiFi_High,
-        Bluetooth,
-        Sound_Mute,
-        Sound_Low,
-        Sound_Medium,
-        Sound_High,
-    };
+    protected:
+        volatile uint8_t Button_Counter;
+        portMUX_TYPE Button_Mutex;
 
-    enum Font_32
-    {
-        Exclamation_Mark = 127,
-        Question_Mark,
-        Cross
-    };
+        void static IRAM_ATTR Button_Handler();
 
-    /**
-     * @enum Color
-     * @brief Default system colors.
-     */
-    enum Color
+        void Check_Button();
+
+        void First_Start_Routine();
+        void Second_Start_Routine();
+
+        void Execute_Startup_Function();
+
+        void Shutdown();
+        void Restart();
+        void Hibernate();
+        void Deep_Sleep();
+
+    public:
+        void Start();
+        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
+
+        Power_Class();
+
+        friend Xila_Class;
+    } Power;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Software management module
+    ///
+    class Software_Management_Class
     {
-        Black,
-        White = 65535,
-        Light_Grey = 33808,
-        Dark_Grey = 16904,
-        Red = 57344,
-        Blue = 1300,
-        Green = 34308,
-        Yellow = 64896
-    };
+    protected:
+        uint32_t Watchdog_Timer;
+        uint8_t Watchdog_State;
+
+        void Check_Watchdog();
+
+        ///
+        /// @brief Openned software pointer array
+        ///
+        /// Openned_Software[0] : Maximized software
+        /// Openned_Software[1 - 7] : All openned software (Slot 1 is for Shell)
+        ///
+        Software_Class *Openned_Software[8] = {NULL};
+
+        ///
+        /// @brief All software handle pointers.
+        ///
+        Software_Handle_Class *Software_Handle_Pointer[MAXIMUM_SOFTWARE] = {NULL};
+
+        void Maximize_Shell();
+        void Execute_Shell(Xila_Instruction const &Command);
+
+        inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
+        void Add_Handle(Software_Handle_Class &);
+
+        void Force_Close();
+
+    public:
+        Xila_Event Open(Software_Handle_Class const &Software_Handle);
+        void Minimize(Software_Handle_Class const &Software_Handle);
+        Xila_Event Maximize(Software_Handle_Class const &);
+        void Close(Software_Handle_Class const &Software_Handle);
+
+        void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
+
+        Software_Management_Class();
+
+        friend class Xila_Class;
+
+    } Software;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Sound class API
+    ///
+    class Sound_Class
+    {
+    protected:
+        const static uint8_t Left_Channel = 0;
+        const static uint8_t Right_Channel = 1;
+        const static uint8_t Custom_Channel = 2;
+
+        Xila_Task_Handle Task_Handle;
+
+        uint8_t Custom_Pin;
+
+        File Music_File;
+
+        enum State
+        {
+            Stopped,
+            Playing,
+            Paused
+        };
+
+        // 0 : stopped
+        // 1 : playing
+        // 2 : paused
+        // 3 : tone
+
+        Xila_Event Save_Registry();
+        Xila_Event Load_Registry();
+
+    public:
+        enum Event
+        {
+            Failed_To_Get_RTC_Period,
+            Failed_To_Open_File,
+            Failed_To_Get_Metadata,
+            Failed_To_Load_ULP_Program,
+            Failed_To_Create_Task,
+            Not_RIFF_Compliant,
+            Not_WAVE_Compliant,
+            Incompatible_Block_ID,
+            Not_A_PCM_File,
+            Unsupported_Bit_Depth,
+            Unsupported_Sampling_Rate,
+            Unsupported_Channel_Number,
+        };
+
+        void Set_Output_Channel(uint8_t Number_Output_Channel);
+
+        void Set_Volume(uint16_t); // volume between 0 and 255
+        uint8_t Get_Volume();
+
+        void Set_Balance(uint8_t);
+
+        uint8_t Play(File &File_To_Play);
+        uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
+
+        uint8_t Resume();
+        void Pause();
+        void Mute();
+        void Stop();
+
+        void Set_Current_Time(uint32_t Time);
+        uint32_t Get_Current_Time();
+        uint32_t Get_Total_Time();
+        void Set_Offset_Time(int16_t Time);
+        uint8_t Get_State();
+
+        void Tone(uint16_t const &Frequency, uint32_t const &Duration = 0, uint8_t const &Pin = 0xFF);
+        void No_Tone(uint8_t const &Pin = 0xFF); // no tone (0xFF default pins)
+
+        static void Task(void *);
+
+        Sound_Class();
+        ~Sound_Class();
+
+        friend void audio_eof_mp3(const char *);
+        friend Xila_Class;
+    } Sound;
+
+    //==============================================================================//
+
+    ///
+    /// @brief System module API
+    ///
+    class System_Class
+    {
+    protected:
+        // System's task :
+        Xila_Task_Handle Task_Handle;
+
+        ///
+        /// @brief Device name used as Network hostname ...
+        ///
+        char Device_Name[24];
+
+        Xila_Event Load_Registry();
+        Xila_Event Save_Registry();
+
+        Xila_Event Create_Dump();
+        Xila_Event Load_Dump();
+
+        Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
+
+        enum System_States
+        {
+            Default,
+            New_Installation,
+        } State;
+
+        ///
+        /// @brief Panic codes used by the panic handler ("Grey screen").
+        ///
+        enum Panic_Code
+        {
+            Missing_System_Files,
+            Damaged_System_Registry,
+            Installation_Conflict,
+            System_Drive_Failure,
+            Low_Memory,
+            Memory_Corruption,
+        };
+
+        void Panic_Handler(Panic_Code Panic_Code);
+
+    public:
+        const char *Get_Device_Name();
+
+        uint32_t Get_Free_Heap();
+
+        uint32_t Random();
+        uint32_t Random(uint32_t Upper_Bound);
+        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);
+
+        void Refresh_Header();
+
+        static void Task(void *);
+
+        System_Class();
+
+        friend class Xila_Class;
+    } System;
+
+    //==============================================================================//
+
+    ///
+    /// @brief Task management module
+    ///
+    class Task_Class
+    {
+    protected:
+        ///
+        /// @brief Tasks priorities.
+        ///
+        enum Priorities
+        {
+            Idle_Task = 0,
+            Software_Task,
+            System_Task,
+            Driver_Task
+        };
+
+        Xila_Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle);
+
+    public:
+        // -- Task management -- //
+        Xila_Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL);
+        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL);
+        void Resume(Xila_Task_Handle Task_To_Resume);
+        void Delete(Xila_Task_Handle Task_To_Delete = NULL);
+
+        void Delay(uint32_t Delay_In_Millisecond);
+
+        friend Xila_Class;
+    } Task;
+
+    //==============================================================================//
+
+    ///
+    /// @brief
+    ///
+    class Time_Class
+    {
+    protected:
+        Xila_Event Load_Registry();
+        int32_t GMT_Offset;
+        int16_t Daylight_Offset;
+
+        Xila_Time Current_Time;
+        time_t Now;
+        char NTP_Server[32];
+
+    public:
+        Xila_Event Save_Registry();
+        Xila_Time Get_Time();
+        void Synchronise();
+
+        friend class Xila_Class;
+
+    } Time;
+
+    //==============================================================================//
+
+    ///
+    /// @brief WiFi class
+    ///
+    class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass
+    {
+    protected:
+        bool prov_enable;
+        char Password[82];
+
+    public:
+        void printDiag(Print &dest);
+
+        void enableProv(bool status);
+        bool isProvEnabled();
+
+        WiFi_Class();
+
+        using WiFiGenericClass::channel;
+
+        using WiFiSTAClass::BSSID;
+        using WiFiSTAClass::BSSIDstr;
+        using WiFiSTAClass::RSSI;
+        using WiFiSTAClass::SSID;
+
+        using WiFiScanClass::BSSID;
+        using WiFiScanClass::BSSIDstr;
+        using WiFiScanClass::channel;
+        using WiFiScanClass::encryptionType;
+        using WiFiScanClass::RSSI;
+        using WiFiScanClass::SSID;
+
+        void Set_Credentials(const char *Name, const char *Password);
+
+        Xila_Event Load_Registry();
+        Xila_Event Save_Registry();
+
+        friend class WiFiClient;
+        friend class WiFiServer;
+        friend class WiFiUDP;
+
+        friend Xila_Class;
+
+    } WiFi;
+
+    //==============================================================================//
 
     Xila_Class();
     ~Xila_Class();
 
-    // Drivers
-
-    // WiFi
-
-    //WiFiClass* WiFi = &WiFi;
-
-    // Display
-    Nextion_Display_Class Display;
-    // Sound
-    Sound_Class Sound;
-    // Battery
-    Battery_Class Battery;
-    // Input
-    Keyboard_Class Keyboard;
-// Disk
-#if SD_MODE == 0
-    fs::SDMMCFS* Drive = &SD_MMC;
-#elif SD_MODE == 1
-    fs::SDFS* Drive = &SD;
-#endif
-    // WiFi
-
-    /**
-     * @brief Function that allow to connect WiFi.
-     * @return Xila.Success if it succed to connect, and Xila.Error if not.
-     * @details Function that connect to already registered access point.
-     */
-    Xila_Event WiFi_Connect();
-
-    /**
-     * @brief Function that allow to connect WiFi.
-     * @param Name SSID of the access point.
-     * @param Password Password of the access point.
-     * @return Xila.Success if it succed to connect, and Xila.Error if not.
-     * @details Function that that try to connect to the given access point, and if succed, save credential into network registry.
-     */
-    Xila_Event WiFi_Connect(char *Name, char *Password);
-
-    // -- System state -- //
-
-    /**
-    * @brief Function handle deep-sleep wakeup, initialize the core, start software etc.
-    * @param Software_Package Software that Xila need to load. 
-    * @details Function steps :
-    * 1) Check if the wakeup reasing is linked to a power button press, or undefined (power reset) and if not, go to sleep.
-    * 2) Create an interrupt for the power button.
-    * 3) Initalize display.
-    * 4) Initalize system drive.
-    * 5) Load registries (display, sound, keyboard, network, time).
-    * 6) Play sound and animation.
-    * 7) Load software handles.
-    * 8) Execute software startup function (Shell and other software).
-    */
-    void Start(Software_Handle_Class *Software_Package, uint8_t Size); // reload system from the dump file
-
-    /**
-     * @brief Function that handle deep-sleep wakeup, initialize the, start software etc.
-     * @details Function steps :
-     * 1) Cheeck if the wa
-     */
-    void Start();
-
-    enum Panic_Code
-    {
-        Damaged_System_Registry,
-        Installation_Conflict,
-        System_Drive_Failure,
-        Low_Memory
-    };
-
-    /**
-     * @brief Function shutdown the system.
-     * @details Function that execute, before making 
-     * 
-     */
-    void Shutdown(); // private
-
-    void Check_System_Drive();
-
-    inline void First_Start_Routine();
-    inline void Second_Start_Routine();
-    
-
-    void Restart(); // private
-
-    void Hibernate(); // private
-
-    void Deep_Sleep();
-  
-    
-    void Loop();
-
-    //inline void Log_Error(Software_Handle_Class const&, ...); try to implement variadic function
-
-    // -- Log
-    /*inline void Log_Error(Software_Handle_Class const&); 
-    inline void Log_Warning(Software_Handle_Class const&);
-    inline void Log_Information(Software_Handle_Class const&); // describe normal flow of events
-    inline void Log_Debug(Software_Handle_Class const&); // extra information (values, pointers, sizes, etc...)
-    inline void Log_Verbose(Software_Handle_Class const&);*/
-
-
-
-    // -- Registry modification methods -- //
-
-    Xila_Event Load_Time_Registry();
-    Xila_Event Load_Keyboard_Registry();
-    Xila_Event Load_Display_Registry();
-    Xila_Event Load_Network_Registry();
-    Xila_Event Load_Account_Registry();
-    Xila_Event Load_System_Registry();
-    Xila_Event Load_Sound_Registry();
-
-    Xila_Event Set_Time_Registry(const char *NTP_Server = NULL, int32_t GMT_Offset = 0xFFFFFFFF, int16_t Daylight_Offset = 0xFFFF);
-    Xila_Event Set_Keyboard_Registry(uint8_t Data_Pin = 0xFF, uint8_t Interrupt_Pin = 0xFF, uint8_t Keymap = 0xFF);
-    Xila_Event Set_Display_Registry(uint8_t Brighness = 0xFF, uint16_t Standby_Time = 0xFFFF, uint8_t Receive_Pin = 0xFF, uint8_t Send_Pin = 0xFF);
-    Xila_Event Set_Network_Registry(uint8_t WiFi_Enabled = 0xFF, const char *WiFi_Name = NULL, const char *Password = NULL);
-    Xila_Event Set_Account_Registry(const char *Autologin_Account = NULL);
-    Xila_Event Set_System_Registry(const char *Device_Name);
-    Xila_Event Set_Sound_Registry(uint8_t Volume = 0xFF);
-
-    int32_t GMT_Offset;
-    int16_t Daylight_Offset;
-
-    uint8_t Keyboard_Data_Pin;
-    uint8_t Keyboard_Interrupt_Pin;
-    uint8_t Keyboard_Keymap;
-
-    const char *Get_Device_Name();
-
-    /**
-     * 
-     *@param Executable_File : Executable file
-     *@param Type : Type ('M' for MCU or 'D' for Display)
-     *
-     * @return 
-    */
-    Xila_Event Load_Executable(File Executable_File, uint8_t Type = 'M');
-
-    //Xila_Event Update();
-
-    Xila_Event Create_Dump();
-    Xila_Event Load_Dump();
-
-    uint8_t System_State;
-
-    enum System_States
-    {
-        Default,
-        New_Installation,
-    };
-
-    void Save_System_State();    // Private : method Save system state in a file, in case of binary loading or hiberte, in order to restore the last system state. Start routine check always if a "GOSH.GSF"
-    void Restore_System_State(); // private :
-
-    // -- Time management
-    Xila_Time Time;
-    time_t Now;
-    char NTP_Server[32];
-
-    void Synchronise_Time();
-    void Refresh_Header();
-    Xila_Time Get_Time();
-
-
-    Xila_Event Get_File_Name(File const &File, char* File_Name, size_t Size); // Temporary fix to file name issues
-    uint32_t Count_Files(File& Folder); // return the number of files inside a folder
-
-
-    // Display callback functions
-
-
-    // -- Prefixs used to differienciate exchanged data between display, core and software
-    enum Prefixs
-    {
-        Instruction = '#',
-
-        Variable_String_Local = 's', // 
-        Variable_String_Global = 'S', // Unused : redirected to Variable_String_Local
-        Variable_Long_Local = 'l',
-        Variable_Long_Global = 'L' // Unused : redirected to Variable_Long_Local
-    };
-
-    // -- Instructions used by the core (with the prefix "#")
-
-    enum Instructions
-    {
-        // -- General instructions
-        Idle = 0,
-
-        // -- Software state instructions
-        Open = 'O',
-        Close = 'C',
-        Maximize = 'M',
-        Minimize = 'm',
-        // -- System state instructions
-        Shutting_down = 200,
-        Restarting,
-        Hibernating = 'H',
-
-        Watchdog = 'W',
-
-        // -- Shell specials instructions
-        Install_Dialog = 'I',   // Open installation form
-        Desk = 'D',             // Open desk
-        Open_File = 'f',        // Open open file dialog
-        Open_Folder = 'F',      // Open open folder dialog
-        Save_File = 'e',        // Open save file dialog
-        Virtual_Keyboard = 'K', // Open keyboard dialog
-        Virtual_Keypad = 'k',   // Open keyapd dialog
-        Color_Picker = 'c',     // Open color picker dialog
-        Power = 'P',            // Open power dialog
-        Event = 'E',            // Open event dialog
-
-    };
-
-    // Serial communication macro
-
-    void Horizontal_Separator();
-    void Print_Line(const char *, uint8_t const & = 0);
-    void Print_Line(const __FlashStringHelper *, uint8_t const & = 0);
-    void Print_Line();
-
-    //
-
-    /* Virtual Memory
-    void Set_Variable(char const &, String const &, uint16_t = 0, Software_Handle_Class * = NULL);
-    void Get_Variable(char const &, String &, uint16_t = 0, Software_Handle_Class * = NULL);
-
-    void Set_Variable(uint8_t const &, const char *, uint16_t, Software_Handle_Class * = NULL);
-    void Get_Variable(uint8_t const &, char *, uint16_t, Software_Handle_Class * = NULL);
-
-    void Set_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint8_t*, uint16_t const&, Software_Handle_Class* = NULL);
-
-    void Set_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint16_t*, uint16_t const&, Software_Handle_Class* = NULL);
-
-    void Set_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
-    void Get_Variable(uint8_t const &, uint32_t*, uint16_t const&, Software_Handle_Class* = NULL);
-
-    void Set_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);
-    void Get_Variable(char const &, uint32_t *, uint16_t = 0, Software_Handle_Class * = NULL);*/
-
-    char *Get_Current_Username()
-    {
-        return Current_Username;
-    }
-
-    /*void Registry_Find(File &Registry_File, const char *Key_Name, char *Key_Value_To_Get, uint16_t const &Column = 0);
-    char *Registry_Read(File &Registry_File, uint16_t const &Line_Number, uint16_t const &Column_Number);
-    void Registry_Write(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Get);
-    void Registry_Add(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
-    void Registry_Modify(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name, String &Key_Value_To_Set);
-    void Registry_Delete(const __FlashStringHelper *Path, const __FlashStringHelper *Key_Name);*/
-
-    Xila_Event Check_Credentials(const char *, const char *);
-    
-    /**
-     * @brief A function that allow to add user.
-     * 
-     * @param Username Username of new user
-     * @param Password 
-     *
-     * @return Xila_Event::Success or Xila_Event::Error
-     */
-    Xila_Event Add_User(const char *Username, const char *Password);
-    Xila_Event Delete_User(const char *);
-    Xila_Event Change_Password(const char *, const char *);
-    Xila_Event Change_Username(const char *, const char *);
-
-    Xila_Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-    Xila_Event Logout();
-    Xila_Event Lock();
-
-    // System dialogs
-
-    /**
-     * @enum Events
-     * @brief All kinds of events returned by Core API.
-     */
-    enum Events
-    {
-        None,
-        Error,
-        Warning,
-        Information,
-        Question,
-        Success,
-        Button_1 = 0x31,    //< Button 1 reply, by default : Yes
-        Button_2 = 0x32,    //< Button 2 reply by default : No
-        Button_3 = 0x33,    //< Button 3 reply by default : Cancel (returned also by close button)
-        Default_Yes = Button_1,
-        Default_No = Button_2,
-        Default_Cancel = Button_3,  
-    };
-
-    void Panic_Handler(uint32_t Panic_Code);
-
-    Xila_Event Event_Dialog(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-    Xila_Event Color_Picker_Dialog(uint16_t &Color);
-    Xila_Event Open_File_Dialog(File &File_To_Open);
-    Xila_Event Open_Folder_Dialog(File &Folder_To_Open);
-    Xila_Event Save_File_Dialog(File &File_To_Save);
-    Xila_Event Keyboard_Dialog(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-    // to do : Xila_Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
-    Xila_Event Keypad_Dialog(float &Number_To_Get);
-
-    uint32_t Dialog_Long[2];
-    void *Dialog_Pointer;
-
-    uint32_t Random();
-    uint32_t Random(uint32_t Upper_Bound);
-    uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);
-
-    Software_Class *Caller_Software_Pointer;
-
-    Xila_Event Dialog_State;
-
-    SemaphoreHandle_t Dialog_Semaphore;
-
-    File *File_Dialog_Reply;
-
-    Xila_Event Set_Autologin();
-
-    uint16_t Standby_Display_Time;
-    uint32_t Standby_System_Time;
-
-    Xila_Event Copy_File(File &Origin_File, File &Destination_File);
-
-    // Copy paste
-
-private:
-    File Clipboard_File;
-    uint8_t Split_Number[8];
-
-public:
-    Xila_Event Copy(uint64_t const &Value_To_Copy);
-    Xila_Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
-    Xila_Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
-
-    Xila_Event Paste(uint64_t &Value_To_Paste);
-    Xila_Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
-    Xila_Event Paste(String &String_To_Paste);
-
-    // Background jobs
-
-    uint32_t Last_Execution;
-    uint8_t Background_Function_Counter;
-
-    void Execute_Startup_Function();
-
-    // System's task :
-    xTaskHandle Core_Task_Handle;
-    //QueueHandle_t Core_Instruction_Queue_Handle;
-    static void Core_Task(void *);
-    static void Idle_Task_Software_Core(void *);
-    static void Idle_Task_System_Core(void *);
-
     friend class Shell_Class;
-    friend class Software_Handle_Class;
 };
 
 #endif

@@ -1,8 +1,19 @@
+/**
+ * @file Clipboard.cpp
+ * @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ * @brief 
+ * @version 0.1
+ * @date 2021-03-28
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+
 #include "Core/Core.hpp"
 
-Xila_Event Xila_Class::Copy(uint64_t const &Value_To_Copy)
+Xila_Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 {
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -23,10 +34,10 @@ Xila_Event Xila_Class::Copy(uint64_t const &Value_To_Copy)
   return Success;
 }
 
-Xila_Event Xila_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght)
+Xila_Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght)
 {
-  Drive->remove(Clipboard_Path);
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Xila.Drive.remove(Clipboard_Path);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -47,10 +58,10 @@ Xila_Event Xila_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Le
   return Success;
 }
 
-Xila_Event Xila_Class::Copy(String const &String_To_Copy)
+Xila_Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy)
 {
-  Drive->remove(Clipboard_Path);
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Xila.Drive.remove(Clipboard_Path);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -64,9 +75,9 @@ Xila_Event Xila_Class::Copy(String const &String_To_Copy)
   return Success;
 }
 
-Xila_Event Xila_Class::Paste(uint64_t &Value_To_Paste)
+Xila_Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 {
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -81,9 +92,9 @@ Xila_Event Xila_Class::Paste(uint64_t &Value_To_Paste)
   return Success;
 }
 
-Xila_Event Xila_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght)
+Xila_Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght)
 {
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -104,9 +115,9 @@ Xila_Event Xila_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght
   return Success;
 }
 
-Xila_Event Xila_Class::Paste(String &String_To_Paste)
+Xila_Event Xila_Class::Clipboard_Class::Paste(String &String_To_Paste)
 {
-  Clipboard_File = Drive->open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Xila.Drive.open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;

@@ -4,8 +4,8 @@ Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 
 Text_Editor_Class::Text_Editor_Class() : Software_Class(Text_Editor_Handle)
 {
-    Xila.Task_Create(Main_Task, "Text Editor Task", 4 * 1024, NULL, &Task_Handle);
-    Send_Instruction(Xila.Open);
+    Xila.Task.Create(Main_Task, "Text Editor Task", 4 * 1024, NULL, &Task_Handle);
+    Send_Instruction(Open);
 }
 
 Text_Editor_Class::~Text_Editor_Class()
@@ -35,23 +35,23 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
         {
         case 0:
             // IDLE : nothing to do
-            Xila.Delay(20);
+            Xila.Task.Delay(20);
             break;
-        case Xila.Close:
+        case Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Xila.Maximize:
-        case Xila.Open:
+        case Maximize:
+        case Open:
             Xila.Display.Set_Current_Page(F("Text_Editor"));
             break;
-        case Xila.Minimize:
+        case Minimize:
             break;
         case Instruction('C', 'l'):
-            Xila.Software_Close(Text_Editor_Handle);
+            Xila.Software.Close(Text_Editor_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software_Minimize(Text_Editor_Handle);
+            Xila.Software.Minimize(Text_Editor_Handle);
             Instance_Pointer->Refresh_Interface();
             break;
         case Instruction('S', 'U'): // SU : scroll up
@@ -67,7 +67,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'F'): // OF : open file
             Instance_Pointer->File_To_Edit.close();
-            Xila.Open_File_Dialog(Instance_Pointer->File_To_Edit);
+            Open_File_Dialog(Instance_Pointer->File_To_Edit);
             if (Instance_Pointer->File_To_Edit)
             {
                 Instance_Pointer->Scan();
@@ -113,7 +113,7 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
     switch (Adress)
     {
     case 'S':
-        if (Type == Xila.Variable_Long_Local)
+        if (Type == Xila.Display.Variable_Long)
         {
             Offset = *(uint8_t *)Variable;
             Offset = (Offset * File_To_Edit.size()) / 176;
@@ -129,7 +129,7 @@ void Text_Editor_Class::Refresh_Interface()
 {
     if (!File_To_Edit)
     {
-        Xila.Event_Dialog(F("Failed to read file."), Xila.Error);
+        Xila.Dialog.Event(F("Failed to read file."), Xila.Error);
         return;
     }
     File_To_Edit.seek(Offset);
@@ -174,7 +174,7 @@ void Text_Editor_Class::Refresh_Interface()
             }
             Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-            Xila.Delay(10);
+            Xila.Task.Delay(10);
             Line_Number++;
             Column_Number = 0;
             sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
@@ -183,7 +183,7 @@ void Text_Editor_Class::Refresh_Interface()
         {
             Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-            Xila.Delay(10);
+            Xila.Task.Delay(10);
             Line_Number++;
             Column_Number = 0;
             sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
