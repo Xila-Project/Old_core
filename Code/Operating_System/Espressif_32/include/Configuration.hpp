@@ -80,7 +80,7 @@
 
 #if CORE_DEBUG_LEVEL <= 1 // release mode
 
-#define BATTERY_CHECKING 1  // enable battery checking
+#define BATTERY_CHECKING 0  // enable battery checking
 #define ANIMATION 1         // enable animation
 #define LOGIN 1             // used to bypass login form during debugging session
 #define WATCHDOG 0          // Disable esp32 watchdog - managed by core

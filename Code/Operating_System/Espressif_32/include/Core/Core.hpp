@@ -59,6 +59,8 @@ extern "C"
 #include "sdmmc_cmd.h"
 }
 
+#include "SD_MMC.h"
+
 // -- SPI library
 #include "SPI.h"
 
@@ -428,7 +430,7 @@ public:
         sdmmc_card_t *_card;
 
     public:
-        Drive_Class(FSImpltPtr impl);
+        Drive_Class(FSImplPtr impl);
         bool begin(const char *mountpoint = "/sdcard", bool mode1bit = false);
         void end();
         sdcard_type_t cardType();
@@ -444,7 +446,7 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
-    };
+    } Drive;
 
 #elif SD_MODE == 1
 

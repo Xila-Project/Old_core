@@ -369,8 +369,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Check if the battery level is enough to start.
 
-#if BATTERY_CHECKING == 1
-  if (Battery.Get_Charge_Level() <= 3)
+#if BATTERY_CHECKING == 0
+  if (Xila.Power.Get_Charge_Level() <= 3)
   {
     Deep_Sleep();
   }
