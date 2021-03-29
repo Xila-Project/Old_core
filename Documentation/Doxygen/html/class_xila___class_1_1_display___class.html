@@ -70,14 +70,19 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_xila___class_1_1_display___class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Xila_Class::Display_Class Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Display class.  
+ <a href="class_xila___class_1_1_display___class.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Xila_Class::Display_Class:</div>
 <div class="dyncontent">
@@ -85,12 +90,17 @@ Inheritance diagram for Xila_Class::Display_Class:</div>
   <img src="class_xila___class_1_1_display___class.png" usemap="#Xila_5FClass::Display_5FClass_map" alt=""/>
   <map id="Xila_5FClass::Display_5FClass_map" name="Xila_5FClass::Display_5FClass_map">
 <area href="class_nextion___display___class.html" alt="Nextion_Display_Class" shape="rect" coords="0,0,158,24"/>
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="168,0,326,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a203329d1e9822751a63c0173204c0e13"><td class="memItemLeft" align="right" valign="top"><a id="a203329d1e9822751a63c0173204c0e13"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a203329d1e9822751a63c0173204c0e13">Prefixs</a> { <b>Instruction</b> = '#'
+, <b>Variable_String</b> = 's'
+, <b>Variable_Long</b> = 'l'
+ }</td></tr>
+<tr class="memdesc:a203329d1e9822751a63c0173204c0e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prefixs used to differienciate exchanged data between display, core and software. <br /></td></tr>
+<tr class="separator:a203329d1e9822751a63c0173204c0e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aabbeeb03f3d1b07bbf2c63c3b6a28923"><td class="memItemLeft" align="right" valign="top"><a id="aabbeeb03f3d1b07bbf2c63c3b6a28923"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923">Color</a> { <br />
 &#160;&#160;<b>Black</b>
 , <b>White</b> = 65535
@@ -105,7 +115,7 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aabbeeb03f3d1b07bbf2c63c3b6a28923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default system colors. <br /></td></tr>
 <tr class="separator:aabbeeb03f3d1b07bbf2c63c3b6a28923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dc1dbb3fbb0cefc255a8aa617137288"><td class="memItemLeft" align="right" valign="top"><a id="a2dc1dbb3fbb0cefc255a8aa617137288"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a2dc1dbb3fbb0cefc255a8aa617137288">Font_16</a> { <br />
+<tr class="memitem:a2e1f0bee85d550b517e57ba0532a078c"><td class="memItemLeft" align="right" valign="top"><a id="a2e1f0bee85d550b517e57ba0532a078c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a2e1f0bee85d550b517e57ba0532a078c">Xila_16</a> { <br />
 &#160;&#160;<b>State_Button</b> = 127
 , <b>Left_Arrow</b>
 , <b>Right_Arrow</b>
@@ -129,14 +139,15 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>Sound_High</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a2dc1dbb3fbb0cefc255a8aa617137288"><td class="mdescLeft">&#160;</td><td class="mdescRight">All font special characters are listed here. <br /></td></tr>
-<tr class="separator:a2dc1dbb3fbb0cefc255a8aa617137288"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91be037084ced30430b419abf0af3583"><td class="memItemLeft" align="right" valign="top"><a id="a91be037084ced30430b419abf0af3583"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Font_32</b> { <b>Exclamation_Mark</b> = 127
+<tr class="memdesc:a2e1f0bee85d550b517e57ba0532a078c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila_16 special characters list. <br /></td></tr>
+<tr class="separator:a2e1f0bee85d550b517e57ba0532a078c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91be037084ced30430b419abf0af3583"><td class="memItemLeft" align="right" valign="top"><a id="a91be037084ced30430b419abf0af3583"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a91be037084ced30430b419abf0af3583">Font_32</a> { <b>Exclamation_Mark</b> = 127
 , <b>Question_Mark</b>
 , <b>Cross</b>
  }</td></tr>
+<tr class="memdesc:a91be037084ced30430b419abf0af3583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila_32 special characters list. <br /></td></tr>
 <tr class="separator:a91be037084ced30430b419abf0af3583"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22fbf46b6efc6641c2ae561f4145e25b"><td class="memItemLeft" align="right" valign="top"><a id="a22fbf46b6efc6641c2ae561f4145e25b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Image_Offset</a> { <br />
+<tr class="memitem:a22fbf46b6efc6641c2ae561f4145e25b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Image_Offset</a> { <br />
 &#160;&#160;<b>Shell</b> = 0
 , <b>Calculator</b> = 20
 , <b>Clock</b> = 21
@@ -156,9 +167,10 @@ Public Types</h2></td></tr>
 , <b>Tiny_Basic</b> = 44
 <br />
  }</td></tr>
-<tr class="memdesc:a22fbf46b6efc6641c2ae561f4145e25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">All image offset, used by included software to keep track of picture offset. <br /></td></tr>
+<tr class="memdesc:a22fbf46b6efc6641c2ae561f4145e25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image offsets list.  <a href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">More...</a><br /></td></tr>
 <tr class="separator:a22fbf46b6efc6641c2ae561f4145e25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memItemLeft" align="right" valign="top"><a id="a0b5d3c5200502843f9a7a0ea581c9ed4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Pages_Offset</b> </td></tr>
+<tr class="memitem:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memItemLeft" align="right" valign="top"><a id="a0b5d3c5200502843f9a7a0ea581c9ed4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a0b5d3c5200502843f9a7a0ea581c9ed4">Pages_Offset</a> </td></tr>
+<tr class="memdesc:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pages list. <br /></td></tr>
 <tr class="separator:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce91234cfaaf25e4039e42c3dd79281"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">Font</a> { <br />
 &#160;&#160;<a class="el" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800">Regular_16</a> = 0
@@ -169,9 +181,10 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>Regular_48</b>
 <br />
  }</td></tr>
+<tr class="memdesc:a3ce91234cfaaf25e4039e42c3dd79281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Font list.  <a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">More...</a><br /></td></tr>
 <tr class="separator:a3ce91234cfaaf25e4039e42c3dd79281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_class_nextion___display___class"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_nextion___display___class')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a></td></tr>
-<tr class="memitem:ad208e42379fca0e1e390568b8eab1123 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="ad208e42379fca0e1e390568b8eab1123"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Error</b> { <br />
+<tr class="memitem:af8fd899e55a5c4c4204c09edb814efb1 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="af8fd899e55a5c4c4204c09edb814efb1"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Errors</b> { <br />
 &#160;&#160;<b>Invalid_Instruction</b> = 0x00
 , <b>Invalid_Component_ID</b> = 0x02
 , <b>Invalid_Page_ID</b> = 0x03
@@ -197,8 +210,8 @@ Public Types</h2></td></tr>
 , <b>Update_Failed</b> = 0x25
 <br />
  }</td></tr>
-<tr class="separator:ad208e42379fca0e1e390568b8eab1123 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2bab68914a2d1f2b73f274346b33b1 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="abd2bab68914a2d1f2b73f274346b33b1"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Information</b> { <br />
+<tr class="separator:af8fd899e55a5c4c4204c09edb814efb1 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad99edd7a79e29f206b29b54c851ca77d inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="ad99edd7a79e29f206b29b54c851ca77d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Informations</b> { <br />
 &#160;&#160;<b>Startup</b> = 0x07
 , <b>Instruction_Successfull</b> = 0x01
 , <b>Touch_Event</b> = 0x65
@@ -219,8 +232,8 @@ Public Types</h2></td></tr>
 , <b>Update_Succeed</b> = 0x69
 <br />
  }</td></tr>
-<tr class="separator:abd2bab68914a2d1f2b73f274346b33b1 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab83822b43696d2df2cb4b12db33ff034 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="ab83822b43696d2df2cb4b12db33ff034"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Color</b> { <br />
+<tr class="separator:ad99edd7a79e29f206b29b54c851ca77d inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea45ec3147b10eff7e340e3ab2a58b33 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="aea45ec3147b10eff7e340e3ab2a58b33"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Colors</b> { <br />
 &#160;&#160;<b>Black</b> = 0
 , <b>Blue</b> = 31
 , <b>Green</b> = 2016
@@ -230,8 +243,8 @@ Public Types</h2></td></tr>
 , <b>White</b> = 65535
 <br />
  }</td></tr>
-<tr class="separator:ab83822b43696d2df2cb4b12db33ff034 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c3278b01cead0402eb2d79fdea566c2 inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a0c3278b01cead0402eb2d79fdea566c2"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Alignement</b> { <br />
+<tr class="separator:aea45ec3147b10eff7e340e3ab2a58b33 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4516c9325a5142f2e33b78a3b71156ec inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a4516c9325a5142f2e33b78a3b71156ec"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Alignements</b> { <br />
 &#160;&#160;<b>Top</b> = 0
 , <b>Bottom</b> = 3
 , <b>Left</b> = 0
@@ -240,13 +253,13 @@ Public Types</h2></td></tr>
 &#160;&#160;<b>Center</b> = 0
 <br />
  }</td></tr>
-<tr class="separator:a0c3278b01cead0402eb2d79fdea566c2 inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6e65022c95e35c37039a98ff8ea1b4b inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="ab6e65022c95e35c37039a98ff8ea1b4b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Background</b> { <b>Crop_Image</b> = 0
+<tr class="separator:a4516c9325a5142f2e33b78a3b71156ec inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29443363f0791bc7b63936a92f228eea inherit pub_types_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a29443363f0791bc7b63936a92f228eea"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Backgrounds</b> { <b>Crop_Image</b> = 0
 , <b>Solid_Color</b> = 1
 , <b>Image</b> = 2
 , <b>None</b> = 3
  }</td></tr>
-<tr class="separator:ab6e65022c95e35c37039a98ff8ea1b4b inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a29443363f0791bc7b63936a92f228eea inherit pub_types_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -270,24 +283,14 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>Default_Callba
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>Default_Callback_Function_Event</b> (uint8_t)</td></tr>
 <tr class="separator:a9657ab4db565d76900eb4b7a4681b47f inherit pub_static_methods_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7b0a969d9e5dacfe0fce154f525c81d4"><td class="memItemLeft" align="right" valign="top"><a id="a7b0a969d9e5dacfe0fce154f525c81d4"></a>
-friend&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td></tr>
-<tr class="separator:a7b0a969d9e5dacfe0fce154f525c81d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_attribs_class_nextion___display___class"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_nextion___display___class')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a></td></tr>
-<tr class="memitem:adf649612c4bd79be731b7897ea3f293d inherit pub_attribs_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="adf649612c4bd79be731b7897ea3f293d"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Page_History</b> [5]</td></tr>
-<tr class="separator:adf649612c4bd79be731b7897ea3f293d inherit pub_attribs_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad8a054b5583ed0cfff8064d142f71e93"><td class="memItemLeft" align="right" valign="top"><a id="ad8a054b5583ed0cfff8064d142f71e93"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
-<tr class="separator:ad8a054b5583ed0cfff8064d142f71e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac76c042040739c1108f5de3f34f97c93"><td class="memItemLeft" align="right" valign="top"><a id="ac76c042040739c1108f5de3f34f97c93"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
-<tr class="separator:ac76c042040739c1108f5de3f34f97c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4634dd85c9ecc3919ac2bf616472ce69"><td class="memItemLeft" align="right" valign="top"><a id="a4634dd85c9ecc3919ac2bf616472ce69"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="separator:a4634dd85c9ecc3919ac2bf616472ce69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="memItemLeft" align="right" valign="top"><a id="a57a1a229e2cf6b56a00374fbd4b7f57e"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="separator:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_nextion___display___class"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_nextion___display___class')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a></td></tr>
 <tr class="memitem:a0006ac147b9f3e71dfac5f9574c8034b inherit pro_methods_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a0006ac147b9f3e71dfac5f9574c8034b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_End</b> ()</td></tr>
@@ -347,6 +350,15 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_String</b> 
 <tr class="memitem:a77921e865015549df108fa9e48b74792 inherit pro_attribs_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a77921e865015549df108fa9e48b74792"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Return_Code</b></td></tr>
 <tr class="separator:a77921e865015549df108fa9e48b74792 inherit pro_attribs_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a527e2efc7210a2147182df1fde98a42c"><td class="memItemLeft" align="right" valign="top"><a id="a527e2efc7210a2147182df1fde98a42c"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a527e2efc7210a2147182df1fde98a42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -642,12 +654,18 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Update</b> (File U
 <tr class="memitem:afe95732e83ac976760c19c7855e2e0ec inherit pub_methods_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="afe95732e83ac976760c19c7855e2e0ec"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Loop</b> ()</td></tr>
 <tr class="separator:afe95732e83ac976760c19c7855e2e0ec inherit pub_methods_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_attribs_class_nextion___display___class"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_class_nextion___display___class')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a></td></tr>
+<tr class="memitem:adf649612c4bd79be731b7897ea3f293d inherit pub_attribs_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="adf649612c4bd79be731b7897ea3f293d"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Page_History</b> [5]</td></tr>
+<tr class="separator:adf649612c4bd79be731b7897ea3f293d inherit pub_attribs_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_class_nextion___display___class"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_nextion___display___class')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a></td></tr>
 <tr class="memitem:a557e9962e4942c75b76d58f57ddfd35f inherit pub_static_attribs_class_nextion___display___class"><td class="memItemLeft" align="right" valign="top"><a id="a557e9962e4942c75b76d58f57ddfd35f"></a>
 static <a class="el" href="class_nextion___display___class.html">Nextion_Display_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Instance_Pointer</b></td></tr>
 <tr class="separator:a557e9962e4942c75b76d58f57ddfd35f inherit pub_static_attribs_class_nextion___display___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Display class. </p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="a3ce91234cfaaf25e4039e42c3dd79281"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ce91234cfaaf25e4039e42c3dd79281">&#9670;&nbsp;</a></span>Font</h2>
 
@@ -659,7 +677,8 @@ static <a class="el" href="class_nextion___display___class.html">Nextion_Display
         </tr>
       </table>
 </div><div class="memdoc">
-<p>identifier </p>
+
+<p>Font list. </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800"></a>Regular_16&#160;</td><td class="fielddoc"><p>Roboto Regular 16 px (+ special character), main font used almost everywhere. </p>
 </td></tr>
@@ -668,6 +687,23 @@ static <a class="el" href="class_nextion___display___class.html">Nextion_Display
 <tr><td class="fieldname"><a id="a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb"></a>Regular_32&#160;</td><td class="fielddoc"><p>Roboto Regular 32 px (+ special character), secondary font used sometimes. </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<a id="a22fbf46b6efc6641c2ae561f4145e25b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22fbf46b6efc6641c2ae561f4145e25b">&#9670;&nbsp;</a></span>Image_Offset</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Xila_Class::Display_Class::Image_Offset</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Image offsets list. </p>
+<p>All image offset, used by included software to keep track of picture offset </p>
 
 </div>
 </div>

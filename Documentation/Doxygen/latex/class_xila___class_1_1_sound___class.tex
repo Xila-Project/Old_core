@@ -9,12 +9,6 @@ Sound class API.
 
 {\ttfamily \#include $<$Core.\+hpp$>$}
 
-Inheritance diagram for Xila\+\_\+\+Class\+::Sound\+\_\+\+Class\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_xila___class_1_1_sound___class}
-\end{center}
-\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -47,9 +41,6 @@ void {\bfseries Set\+\_\+\+Volume} (uint16\+\_\+t)
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a6ff91eed9eb1dd826ad2eba29b31b6c0}\label{class_xila___class_1_1_sound___class_a6ff91eed9eb1dd826ad2eba29b31b6c0}} 
 uint8\+\_\+t {\bfseries Get\+\_\+\+Volume} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a7d2abce0c911a105f30bbff2795dbae1}\label{class_xila___class_1_1_sound___class_a7d2abce0c911a105f30bbff2795dbae1}} 
-void {\bfseries Set\+\_\+\+File\+\_\+\+System} (fs\+::\+FS \&File\+\_\+\+System)
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a0d825db7c724bfd5f13390443a6cfebe}\label{class_xila___class_1_1_sound___class_a0d825db7c724bfd5f13390443a6cfebe}} 
 void {\bfseries Set\+\_\+\+Balance} (uint8\+\_\+t)
@@ -92,9 +83,18 @@ void {\bfseries Tone} (uint16\+\_\+t const \&Frequency, uint32\+\_\+t const \&Du
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a6bb8c02187efa7d88caea1a498f7c963}\label{class_xila___class_1_1_sound___class_a6bb8c02187efa7d88caea1a498f7c963}} 
 void {\bfseries No\+\_\+\+Tone} (uint8\+\_\+t const \&Pin=0x\+FF)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a2689264049e6b579b2f448ef63d6287f}\label{class_xila___class_1_1_sound___class_a2689264049e6b579b2f448ef63d6287f}} 
-void {\bfseries Loop} ()
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a83d75526061756ef01111eb7ba324129}\label{class_xila___class_1_1_sound___class_a83d75526061756ef01111eb7ba324129}} 
+static void {\bfseries Task} (void $\ast$)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a845bc9825f6c5b0904823a209e90d588}\label{class_xila___class_1_1_sound___class_a845bc9825f6c5b0904823a209e90d588}} 
+friend {\bfseries Xila\+\_\+\+Class}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
@@ -108,29 +108,23 @@ enum {\bfseries State} \{ {\bfseries Stopped}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_ab740639934eca8bbae54a73448f58056}\label{class_xila___class_1_1_sound___class_ab740639934eca8bbae54a73448f58056}} 
-Xila\+\_\+\+Event {\bfseries Save\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a80a3ec224409e3c52093afe4deca445b}\label{class_xila___class_1_1_sound___class_a80a3ec224409e3c52093afe4deca445b}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a6b3abd6131f9c6afa28239ee68de33e3}\label{class_xila___class_1_1_sound___class_a6b3abd6131f9c6afa28239ee68de33e3}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Registry} ()
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Protected Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_aec29e12e045cf52b3ced1a675c122166}\label{class_xila___class_1_1_sound___class_aec29e12e045cf52b3ced1a675c122166}} 
-static void {\bfseries Sound\+\_\+\+Task} (void $\ast$)
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_ace40cc5c81319ad4c0c61993cc894ca5}\label{class_xila___class_1_1_sound___class_ace40cc5c81319ad4c0c61993cc894ca5}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_aa092b0e56f47b72be9c01363de9a9f52}\label{class_xila___class_1_1_sound___class_aa092b0e56f47b72be9c01363de9a9f52}} 
+Xila\+\_\+\+Task\+\_\+\+Handle {\bfseries Task\+\_\+\+Handle}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a4a5aee297aad39aa4708d2c31d43544c}\label{class_xila___class_1_1_sound___class_a4a5aee297aad39aa4708d2c31d43544c}} 
 uint8\+\_\+t {\bfseries Custom\+\_\+\+Pin}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a8f500e346202feebac92ab77493125cc}\label{class_xila___class_1_1_sound___class_a8f500e346202feebac92ab77493125cc}} 
 File {\bfseries Music\+\_\+\+File}
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a9d82f3b1b77fd31f10fc9d812b6e5128}\label{class_xila___class_1_1_sound___class_a9d82f3b1b77fd31f10fc9d812b6e5128}} 
-fs\+::\+FS $\ast$ {\bfseries File\+\_\+\+System}
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -146,6 +140,9 @@ static const uint8\+\_\+t {\bfseries Custom\+\_\+\+Channel} = 2
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_sound___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_sound___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_sound___class_a41bc3dbfdf579bdb9446f64b46aec9aa}\label{class_xila___class_1_1_sound___class_a41bc3dbfdf579bdb9446f64b46aec9aa}} 
 void {\bfseries audio\+\_\+eof\+\_\+mp3} (const char $\ast$)

@@ -9,7 +9,7 @@
         <name>Picture_ID</name>
         <enumvalue id="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918eaaa775fc8988a24fc05d38209d850ea41" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Oscilloscope</initializer>
+          <initializer>= Xila.Display.Oscilloscope</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -823,7 +823,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">

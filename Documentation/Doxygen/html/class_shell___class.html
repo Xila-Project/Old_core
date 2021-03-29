@@ -77,6 +77,9 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
+<p>Shell class.  
+ <a href="class_shell___class.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="_shell_8hpp_source.html">Shell.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Shell_Class:</div>
@@ -84,14 +87,14 @@ Inheritance diagram for Shell_Class:</div>
  <div class="center">
   <img src="class_shell___class.png" usemap="#Shell_5FClass_map" alt=""/>
   <map id="Shell_5FClass_map" name="Shell_5FClass_map">
-<area href="class_software___class.html" alt="Software_Class" shape="rect" coords="0,0,100,24"/>
+<area href="class_software___class.html" title="Software class." alt="Software_Class" shape="rect" coords="0,0,100,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a00ce6998c73a63fb4f046e2122af5ae6"><td class="memItemLeft" align="right" valign="top"><a id="a00ce6998c73a63fb4f046e2122af5ae6"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Images</b> { <br />
-&#160;&#160;<b>Empty_16</b> = Xila.Shell
+&#160;&#160;<b>Empty_16</b> = Xila.Display.Shell
 , <b>File_16</b>
 , <b>Folder_16</b>
 , <b>Copy_24</b>
@@ -117,9 +120,6 @@ Public Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a00ce6998c73a63fb4f046e2122af5ae6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_software___class')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
-<tr class="memitem:ab442acb139fe3dfcccee5c0adce71245 inherit pub_types_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ab442acb139fe3dfcccee5c0adce71245"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> </td></tr>
-<tr class="separator:ab442acb139fe3dfcccee5c0adce71245 inherit pub_types_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -132,7 +132,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>Startup</b> ()
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
-<tr class="memitem:a4ac787675c50864d1e81fd12196a02ba"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shell___class.html#a4ac787675c50864d1e81fd12196a02ba">Pages</a> { <br />
+<tr class="memitem:a4ac787675c50864d1e81fd12196a02ba"><td class="memItemLeft" align="right" valign="top"><a id="a4ac787675c50864d1e81fd12196a02ba"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shell___class.html#a4ac787675c50864d1e81fd12196a02ba">Pages</a> { <br />
 &#160;&#160;<b>About</b> = 20
 , <b>Color_Picker</b>
 , <b>Desk</b>
@@ -157,6 +157,7 @@ Protected Types</h2></td></tr>
 , <b>Welcome</b>
 <br />
  }</td></tr>
+<tr class="memdesc:a4ac787675c50864d1e81fd12196a02ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pages. <br /></td></tr>
 <tr class="separator:a4ac787675c50864d1e81fd12196a02ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a39b26c5c89b9e76ea4d23a4783d1b5b0"><td class="memItemLeft" align="right" valign="top"><a id="a39b26c5c89b9e76ea4d23a4783d1b5b0"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>File_Manager_Operation</b> { <br />
 &#160;&#160;<b>Browse</b>
@@ -171,6 +172,35 @@ Protected Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a39b26c5c89b9e76ea4d23a4783d1b5b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_types_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
+<tr class="memitem:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a884c783d1a51660296ca9dbbad63dd30"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a884c783d1a51660296ca9dbbad63dd30">Instructions</a> { <br />
+&#160;&#160;<b>Idle</b> = 0
+, <b>Open</b> = 'O'
+, <b>Close</b> = 'C'
+, <b>Maximize</b> = 'M'
+, <br />
+&#160;&#160;<b>Minimize</b> = 'm'
+, <b>Shutdown</b> = 200
+, <b>Restart</b>
+, <b>Hibernate</b> = 'H'
+, <br />
+&#160;&#160;<b>Watchdog</b> = 'W'
+, <b>Desk</b> = 'D'
+, <b>Dialog_Install</b> = 'I'
+, <b>Dialog_Open_File</b> = 'f'
+, <br />
+&#160;&#160;<b>Dialog_Open_Folder</b> = 'F'
+, <b>Dialog_Save_File</b> = 'e'
+, <b>Dialog_Keyboard</b> = 'K'
+, <b>Dialog_Keypad</b> = 'k'
+, <br />
+&#160;&#160;<b>Dialog_Color_Picker</b> = 'c'
+, <b>Dialog_Power</b> = 'P'
+, <b>Dialog_Event</b> = 'E'
+<br />
+ }</td></tr>
+<tr class="memdesc:a884c783d1a51660296ca9dbbad63dd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructions used by the core (with the prefix "#") <br /></td></tr>
+<tr class="separator:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -249,27 +279,27 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Keyboard_Commands</b>
 <tr class="memitem:a44db328f15cfed2dec36742c28dbcc4d"><td class="memItemLeft" align="right" valign="top"><a id="a44db328f15cfed2dec36742c28dbcc4d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Keypad_Commands</b> ()</td></tr>
 <tr class="separator:a44db328f15cfed2dec36742c28dbcc4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cc44969603fd85e299eb6e68a49ba62"><td class="memItemLeft" align="right" valign="top"><a id="a0cc44969603fd85e299eb6e68a49ba62"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Keyboard_Dialog</b> (char *, size_t, bool=false)</td></tr>
-<tr class="separator:a0cc44969603fd85e299eb6e68a49ba62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afad9ea2aa92dcf0b60acc95df82f3fe2"><td class="memItemLeft" align="right" valign="top"><a id="afad9ea2aa92dcf0b60acc95df82f3fe2"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Keypad_Dialog</b> (float &amp;Number_To_Get)</td></tr>
-<tr class="separator:afad9ea2aa92dcf0b60acc95df82f3fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4fb2ea2b233b1a10de0da585a75cee3"><td class="memItemLeft" align="right" valign="top"><a id="ab4fb2ea2b233b1a10de0da585a75cee3"></a>
-Xila_Event Dialog&#160;</td><td class="memItemRight" valign="bottom"><b>Event</b> (const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</td></tr>
-<tr class="separator:ab4fb2ea2b233b1a10de0da585a75cee3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a759fb2f3e7b415c96c7070e082e86a56"><td class="memItemLeft" align="right" valign="top"><a id="a759fb2f3e7b415c96c7070e082e86a56"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Color_Picker_Dialog</b> (uint16_t &amp;)</td></tr>
-<tr class="separator:a759fb2f3e7b415c96c7070e082e86a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53543d3ffcda2832b897706847e1daa3"><td class="memItemLeft" align="right" valign="top"><a id="a53543d3ffcda2832b897706847e1daa3"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Dialog_Open_File</b> (File &amp;)</td></tr>
-<tr class="separator:a53543d3ffcda2832b897706847e1daa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff0dcd1b94eb09c3c52f5afc1d3ef822"><td class="memItemLeft" align="right" valign="top"><a id="aff0dcd1b94eb09c3c52f5afc1d3ef822"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_File_Dialog</b> (File &amp;)</td></tr>
-<tr class="separator:aff0dcd1b94eb09c3c52f5afc1d3ef822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8873ccbedb49df3907ccf95a74c79ef7"><td class="memItemLeft" align="right" valign="top"><a id="a8873ccbedb49df3907ccf95a74c79ef7"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Folder_Dialog</b> (File &amp;)</td></tr>
-<tr class="separator:a8873ccbedb49df3907ccf95a74c79ef7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4aec89ff83e7eb4531d30c5aed6f9f3"><td class="memItemLeft" align="right" valign="top"><a id="ac4aec89ff83e7eb4531d30c5aed6f9f3"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Keyboard_Dialog</b> (char *, size_t, bool=false)</td></tr>
+<tr class="separator:ac4aec89ff83e7eb4531d30c5aed6f9f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbe6bf686de84e02bd03267c3acdf3fe"><td class="memItemLeft" align="right" valign="top"><a id="abbe6bf686de84e02bd03267c3acdf3fe"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Keypad_Dialog</b> (float &amp;Number_To_Get)</td></tr>
+<tr class="separator:abbe6bf686de84e02bd03267c3acdf3fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad96e9e705f9b148736cb0a760c9f7ca5"><td class="memItemLeft" align="right" valign="top"><a id="ad96e9e705f9b148736cb0a760c9f7ca5"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Event_Dialog</b> (const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</td></tr>
+<tr class="separator:ad96e9e705f9b148736cb0a760c9f7ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abffffbc2e7475ee097947fe76282addc"><td class="memItemLeft" align="right" valign="top"><a id="abffffbc2e7475ee097947fe76282addc"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Color_Picker_Dialog</b> (uint16_t &amp;)</td></tr>
+<tr class="separator:abffffbc2e7475ee097947fe76282addc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ea91b967dbc47f40c7a5e25d109bb93"><td class="memItemLeft" align="right" valign="top"><a id="a7ea91b967dbc47f40c7a5e25d109bb93"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Open_File_Dialog</b> (File &amp;)</td></tr>
+<tr class="separator:a7ea91b967dbc47f40c7a5e25d109bb93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40e60ebe6e4d9993fb9df109a1c14119"><td class="memItemLeft" align="right" valign="top"><a id="a40e60ebe6e4d9993fb9df109a1c14119"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_File_Dialog</b> (File &amp;)</td></tr>
+<tr class="separator:a40e60ebe6e4d9993fb9df109a1c14119"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3f0f856deba4fd84ea8dff7da3af08a"><td class="memItemLeft" align="right" valign="top"><a id="aa3f0f856deba4fd84ea8dff7da3af08a"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Folder_Dialog</b> (File &amp;)</td></tr>
+<tr class="separator:aa3f0f856deba4fd84ea8dff7da3af08a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c2bb50a4533b59fc8de0110fe248cde"><td class="memItemLeft" align="right" valign="top"><a id="a3c2bb50a4533b59fc8de0110fe248cde"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Shutdown</b> ()</td></tr>
 <tr class="separator:a3c2bb50a4533b59fc8de0110fe248cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -303,21 +333,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_From_Drawer</b> 
 <tr class="memitem:a671d5d788bfac294e8b8554e6f8744f9"><td class="memItemLeft" align="right" valign="top"><a id="a671d5d788bfac294e8b8554e6f8744f9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Drawer_Commands</b> ()</td></tr>
 <tr class="separator:a671d5d788bfac294e8b8554e6f8744f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2d66fa5e739390bdc1a18e17f547e44"><td class="memItemLeft" align="right" valign="top"><a id="ab2d66fa5e739390bdc1a18e17f547e44"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
-<tr class="separator:ab2d66fa5e739390bdc1a18e17f547e44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6a0cfd1463eea42a6ed0b77ad141464"><td class="memItemLeft" align="right" valign="top"><a id="ac6a0cfd1463eea42a6ed0b77ad141464"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
-<tr class="separator:ac6a0cfd1463eea42a6ed0b77ad141464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb385fced24c5e45ad43852881bb34a4"><td class="memItemLeft" align="right" valign="top"><a id="abb385fced24c5e45ad43852881bb34a4"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="separator:abb385fced24c5e45ad43852881bb34a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b0a4ca82013ee3a4e3613ea8c963dce"><td class="memItemLeft" align="right" valign="top"><a id="a1b0a4ca82013ee3a4e3613ea8c963dce"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="separator:a1b0a4ca82013ee3a4e3613ea8c963dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d0e382ce5b95a936068164ada3a5663"><td class="memItemLeft" align="right" valign="top"><a id="a2d0e382ce5b95a936068164ada3a5663"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Refresh_Install</b> ()</td></tr>
 <tr class="separator:a2d0e382ce5b95a936068164ada3a5663"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a161c33912dfd16ee08a45402b3821833"><td class="memItemLeft" align="right" valign="top"><a id="a161c33912dfd16ee08a45402b3821833"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Install</b> ()</td></tr>
 <tr class="separator:a161c33912dfd16ee08a45402b3821833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20ca95344a93863256f3a6422b5e79b4"><td class="memItemLeft" align="right" valign="top"><a id="a20ca95344a93863256f3a6422b5e79b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Idle</b> ()</td></tr>
-<tr class="separator:a20ca95344a93863256f3a6422b5e79b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebaa8556e42fe269f484640088e89957"><td class="memItemLeft" align="right" valign="top"><a id="aebaa8556e42fe269f484640088e89957"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Item</b> ()</td></tr>
 <tr class="separator:aebaa8556e42fe269f484640088e89957"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -394,9 +421,6 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Brightness</b></td
 <tr class="memitem:a0b7ae244b7629c875da5ccbf6f835806"><td class="memItemLeft" align="right" valign="top"><a id="a0b7ae244b7629c875da5ccbf6f835806"></a>
 uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Standby_Display_Time</b></td></tr>
 <tr class="separator:a0b7ae244b7629c875da5ccbf6f835806"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a733f303e2044d5b83b9de31bf41fb9fc"><td class="memItemLeft" align="right" valign="top"><a id="a733f303e2044d5b83b9de31bf41fb9fc"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Standby_System_Time</b></td></tr>
-<tr class="separator:a733f303e2044d5b83b9de31bf41fb9fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10f64e9f77783beeb0fa50ca2e729374"><td class="memItemLeft" align="right" valign="top"><a id="a10f64e9f77783beeb0fa50ca2e729374"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Autologin</b></td></tr>
 <tr class="separator:a10f64e9f77783beeb0fa50ca2e729374"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -406,12 +430,12 @@ int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>GMT_Offset</b></td
 <tr class="memitem:a4061f2d99cc584ac8ce1f7c7ce1f3dc5"><td class="memItemLeft" align="right" valign="top"><a id="a4061f2d99cc584ac8ce1f7c7ce1f3dc5"></a>
 int16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Daylight_Offset</b></td></tr>
 <tr class="separator:a4061f2d99cc584ac8ce1f7c7ce1f3dc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a308103ffae78e31a33e9de09e4715632"><td class="memItemLeft" align="right" valign="top"><a id="a308103ffae78e31a33e9de09e4715632"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>NTP_Server</b> [sizeof(Xila.NTP_Server)]</td></tr>
-<tr class="separator:a308103ffae78e31a33e9de09e4715632"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a428472096127f7e0b86558520b418c27"><td class="memItemLeft" align="right" valign="top"><a id="a428472096127f7e0b86558520b418c27"></a>
+<tr class="memitem:a988863903fe9a252449d5644a91396a8"><td class="memItemLeft" align="right" valign="top"><a id="a988863903fe9a252449d5644a91396a8"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>NTP_Server</b> [sizeof(Xila.Time.NTP_Server)]</td></tr>
+<tr class="separator:a988863903fe9a252449d5644a91396a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ff4c764d4b8e9518f0c126bcbd00b7a"><td class="memItemLeft" align="right" valign="top"><a id="a4ff4c764d4b8e9518f0c126bcbd00b7a"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b> [25]</td></tr>
-<tr class="separator:a428472096127f7e0b86558520b418c27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a4ff4c764d4b8e9518f0c126bcbd00b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1c85bf3595ff2402efb7db15e644c35"><td class="memItemLeft" align="right" valign="top"><a id="ab1c85bf3595ff2402efb7db15e644c35"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>Username</b> [9]</td></tr>
 <tr class="separator:ab1c85bf3595ff2402efb7db15e644c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -436,8 +460,8 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Automatic_Login</b
 <tr class="memitem:a716dcd2b8108a74e88d4da3d5e86a535"><td class="memItemLeft" align="right" valign="top"><a id="a716dcd2b8108a74e88d4da3d5e86a535"></a>
 char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_Char</b> [14]</td></tr>
 <tr class="separator:a716dcd2b8108a74e88d4da3d5e86a535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad32f2099fe3506a6764ab254ebcbd61a"><td class="memItemLeft" align="right" valign="top"><a id="ad32f2099fe3506a6764ab254ebcbd61a"></a>
-int32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Desk_Background</b></td></tr>
+<tr class="memitem:ad32f2099fe3506a6764ab254ebcbd61a"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shell___class.html#ad32f2099fe3506a6764ab254ebcbd61a">Desk_Background</a></td></tr>
+<tr class="memdesc:ad32f2099fe3506a6764ab254ebcbd61a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desk background.  <a href="class_shell___class.html#ad32f2099fe3506a6764ab254ebcbd61a">More...</a><br /></td></tr>
 <tr class="separator:ad32f2099fe3506a6764ab254ebcbd61a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90063c4083b8396e99ce5806f3f6ee7d"><td class="memItemLeft" align="right" valign="top"><a id="a90063c4083b8396e99ce5806f3f6ee7d"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Offset</b></td></tr>
@@ -461,9 +485,10 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Mode</b></td></tr>
 <tr class="memitem:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a35a3ffe6fe26e0ffda529bd5073bf55a"></a>
 TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
 <tr class="separator:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab792f9ce4aeaad05155a0d737b784bbf inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ab792f9ce4aeaad05155a0d737b784bbf"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Handle_Pointer</b></td></tr>
-<tr class="separator:ab792f9ce4aeaad05155a0d737b784bbf inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a879e342f5718521f638b2e962089cf58"></a>
+<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a879e342f5718521f638b2e962089cf58">Handle</a></td></tr>
+<tr class="memdesc:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software handle pointer. <br /></td></tr>
+<tr class="separator:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a6757f8c8a69d1a682a1efce55dad9a98"></a>
 QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_Queue_Handle</b></td></tr>
 <tr class="separator:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -471,14 +496,16 @@ QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a063ea2c25a067974478814912d5dd892"><td class="memItemLeft" align="right" valign="top"><a id="a063ea2c25a067974478814912d5dd892"></a>
-static <a class="el" href="class_shell___class.html">Shell_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Instance_Pointer</b></td></tr>
+static <a class="el" href="class_shell___class.html">Shell_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_shell___class.html#a063ea2c25a067974478814912d5dd892">Instance_Pointer</a></td></tr>
+<tr class="memdesc:a063ea2c25a067974478814912d5dd892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instance pointer, help to keep track of current instance. <br /></td></tr>
 <tr class="separator:a063ea2c25a067974478814912d5dd892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>@ </p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a4ac787675c50864d1e81fd12196a02ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ac787675c50864d1e81fd12196a02ba">&#9670;&nbsp;</a></span>Pages</h2>
+<div class="textblock"><p>Shell class. </p>
+<p>Main inter </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="ad32f2099fe3506a6764ab254ebcbd61a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad32f2099fe3506a6764ab254ebcbd61a">&#9670;&nbsp;</a></span>Desk_Background</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -487,7 +514,7 @@ static <a class="el" href="class_shell___class.html">Shell_Class</a> *&#160;</td
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="class_shell___class.html#a4ac787675c50864d1e81fd12196a02ba">Shell_Class::Pages</a></td>
+          <td class="memname">int32_t Shell_Class::Desk_Background</td>
         </tr>
       </table>
   </td>
@@ -496,7 +523,9 @@ static <a class="el" href="class_shell___class.html">Shell_Class</a> *&#160;</td
   </tr>
 </table>
 </div><div class="memdoc">
-<p>-1 = Default desk background 0 - 65535 : Custom color </p>
+
+<p>Desk background. </p>
+<p>Desk image when &lt; 0 and Custom color when &gt; 0 (color code itself). </p>
 
 </div>
 </div>

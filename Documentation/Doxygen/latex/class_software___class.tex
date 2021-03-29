@@ -1,17 +1,50 @@
 \hypertarget{class_software___class}{}\doxysection{Software\+\_\+\+Class Class Reference}
 \label{class_software___class}\index{Software\_Class@{Software\_Class}}
+
+
+Software class.  
+
+
+
+
+{\ttfamily \#include $<$Software.\+hpp$>$}
+
 Inheritance diagram for Software\+\_\+\+Class\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[height=12.000000cm]{class_software___class}
 \end{center}
 \end{figure}
-\doxysubsection*{Public Types}
+\doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_software___class_ab442acb139fe3dfcccee5c0adce71245}\label{class_software___class_ab442acb139fe3dfcccee5c0adce71245}} 
-enum {\bfseries Image} 
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_software___class_a884c783d1a51660296ca9dbbad63dd30}\label{class_software___class_a884c783d1a51660296ca9dbbad63dd30}} 
+enum \mbox{\hyperlink{class_software___class_a884c783d1a51660296ca9dbbad63dd30}{Instructions}} \{ \newline
+{\bfseries Idle} = 0
+, {\bfseries Open} = \textquotesingle{}O\textquotesingle{}
+, {\bfseries Close} = \textquotesingle{}C\textquotesingle{}
+, {\bfseries Maximize} = \textquotesingle{}M\textquotesingle{}
+, \newline
+{\bfseries Minimize} = \textquotesingle{}m\textquotesingle{}
+, {\bfseries Shutdown} = 200
+, {\bfseries Restart}
+, {\bfseries Hibernate} = \textquotesingle{}H\textquotesingle{}
+, \newline
+{\bfseries Watchdog} = \textquotesingle{}W\textquotesingle{}
+, {\bfseries Desk} = \textquotesingle{}D\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Install} = \textquotesingle{}I\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Open\+\_\+\+File} = \textquotesingle{}f\textquotesingle{}
+, \newline
+{\bfseries Dialog\+\_\+\+Open\+\_\+\+Folder} = \textquotesingle{}F\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Save\+\_\+\+File} = \textquotesingle{}e\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Keyboard} = \textquotesingle{}K\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Keypad} = \textquotesingle{}k\textquotesingle{}
+, \newline
+{\bfseries Dialog\+\_\+\+Color\+\_\+\+Picker} = \textquotesingle{}c\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Power} = \textquotesingle{}P\textquotesingle{}
+, {\bfseries Dialog\+\_\+\+Event} = \textquotesingle{}E\textquotesingle{}
+ \}
+\begin{DoxyCompactList}\small\item\em Instructions used by the core (with the prefix \char`\"{}\#\char`\"{}) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,9 +69,9 @@ uint16\+\_\+t {\bfseries Get\+\_\+\+Instruction} ()
 \mbox{\Hypertarget{class_software___class_a35a3ffe6fe26e0ffda529bd5073bf55a}\label{class_software___class_a35a3ffe6fe26e0ffda529bd5073bf55a}} 
 Task\+Handle\+\_\+t {\bfseries Task\+\_\+\+Handle}
 \item 
-\mbox{\Hypertarget{class_software___class_ab792f9ce4aeaad05155a0d737b784bbf}\label{class_software___class_ab792f9ce4aeaad05155a0d737b784bbf}} 
-\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} $\ast$ {\bfseries Handle\+\_\+\+Pointer}
-\item 
+\mbox{\Hypertarget{class_software___class_a879e342f5718521f638b2e962089cf58}\label{class_software___class_a879e342f5718521f638b2e962089cf58}} 
+\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_software___class_a879e342f5718521f638b2e962089cf58}{Handle}}
+\begin{DoxyCompactList}\small\item\em Software handle pointer. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_software___class_a6757f8c8a69d1a682a1efce55dad9a98}\label{class_software___class_a6757f8c8a69d1a682a1efce55dad9a98}} 
 Queue\+Handle\+\_\+t {\bfseries Instruction\+\_\+\+Queue\+\_\+\+Handle}
 \end{DoxyCompactItemize}
@@ -55,6 +88,11 @@ class {\bfseries Software\+\_\+\+Handle\+\_\+\+Class}
 class {\bfseries Shell\+\_\+\+Class}
 \end{DoxyCompactItemize}
 
+
+\doxysubsection{Detailed Description}
+Software class. 
+
+This API is used by core in order to echange with software. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

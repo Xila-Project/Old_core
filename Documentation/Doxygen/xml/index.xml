@@ -7,18 +7,19 @@
     <member refid="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a47b9478888ba067575004b6a857f1c0a" kind="enumvalue"><name>Locked</name></member>
     <member refid="class_xila___class_1_1_account___class_1ae6736ab0abe4073f9455d5b40442ba71" kind="variable"><name>Current_Username</name></member>
     <member refid="class_xila___class_1_1_account___class_1a476f0ca8df6e274652e7be1e27e41965" kind="variable"><name>State</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a5f5a3c76336f91f41f1b3e72de03108a" kind="variable"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_account___class_1ae3cf87ef0459dd8db703a4dfad6e53a4" kind="function"><name>Load_Registry</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a1da393cf0f74ed012f4a08f6dcf3dc81" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_xila___class_1_1_account___class_1aa7949505056ae44eee47dbca47cd3cd5" kind="function"><name>Add_User</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a62319daaae2952887d30e5c3bb9da55e" kind="function"><name>Delete_User</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a77de4f2ea3d3c5f3d3fc3a82637d6000" kind="function"><name>Change_Password</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a0dbd63fb4884685c5a587ee0d97aa03f" kind="function"><name>Change_Username</name></member>
-    <member refid="class_xila___class_1_1_account___class_1a493695a95ad8d66d8e515e25d4508282" kind="function"><name>Set_Autologin</name></member>
-    <member refid="class_xila___class_1_1_account___class_1ac63a6a33590272d7151a92ab25c96f4d" kind="function"><name>Check_Credentials</name></member>
-    <member refid="class_xila___class_1_1_account___class_1aa7caf7c5e86252bd894eb8ed08e96b72" kind="function"><name>Login</name></member>
-    <member refid="class_xila___class_1_1_account___class_1af19360ef1fb7df718216fcaa89d0012a" kind="function"><name>Logout</name></member>
-    <member refid="class_xila___class_1_1_account___class_1aad287be46c58a221d39271c0c6912117" kind="function"><name>Lock</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a0e5ba763e38f904b6ea35dc0a29254ba" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_account___class_1ab006894bfabd826caa28b054d3a3c944" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a417966457997ef4624236d0c813ee31b" kind="function"><name>Add</name></member>
+    <member refid="class_xila___class_1_1_account___class_1ab9fff9eff5bbd9bc3aa13b3c65712f98" kind="function"><name>Delete</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a20e8399f793d8b30eb5672a83003e693" kind="function"><name>Change_Password</name></member>
+    <member refid="class_xila___class_1_1_account___class_1ad337741a3a0e0a44640d9f1d9fec2c35" kind="function"><name>Change_Username</name></member>
+    <member refid="class_xila___class_1_1_account___class_1aaff807ed1d55e77972324ce7c5601d7e" kind="function"><name>Set_Autologin</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a4f871525bbf69e7c1506c3952c4d362f" kind="function"><name>Check_Credentials</name></member>
+    <member refid="class_xila___class_1_1_account___class_1ab64be6eed8b9350de791edd73e1fd302" kind="function"><name>Login</name></member>
+    <member refid="class_xila___class_1_1_account___class_1a43d5bb3c65fedc527b1adee77ba2994d" kind="function"><name>Logout</name></member>
+    <member refid="class_xila___class_1_1_account___class_1afd8147a2fd67ab514b30fce66e39b6c4" kind="function"><name>Lock</name></member>
     <member refid="class_xila___class_1_1_account___class_1aaf2cad61bc88312aa71e12b6465ea908" kind="function"><name>Get_Current_Username</name></member>
     <member refid="class_xila___class_1_1_account___class_1acb227ba96c2fb7fda33acf0d4288fc44" kind="function"><name>Get_State</name></member>
     <member refid="class_xila___class_1_1_account___class_1abcb0807150cdae5620aa512ebd7c9130" kind="function"><name>Account_Class</name></member>
@@ -151,13 +152,14 @@
   <compound refid="class_xila___class_1_1_clipboard___class" kind="class"><name>Xila_Class::Clipboard_Class</name>
     <member refid="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" kind="variable"><name>Clipboard_File</name></member>
     <member refid="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" kind="variable"><name>Split_Number</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1afa29e509f1cfe3afbb6aaf2863a91119" kind="function"><name>Copy</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1acaaa9eb16d84080c92be8c5e7db72632" kind="function"><name>Copy</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1a0e85a9b4982556e0adb441888593bd74" kind="function"><name>Copy</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1ad7e2a83886b43a14b39483e20aa845b1" kind="function"><name>Paste</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1ae49cf4be9d954caacfbebd606d2bc1a3" kind="function"><name>Paste</name></member>
-    <member refid="class_xila___class_1_1_clipboard___class_1aea6040712647a1d68d1188a7dd942f7f" kind="function"><name>Paste</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df" kind="function"><name>Copy</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a8700cea7b6a0c9e3bf5437c7696ff19d" kind="function"><name>Copy</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70" kind="function"><name>Copy</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60" kind="function"><name>Paste</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1aef64774b921f99d314b87bfe3079373a" kind="function"><name>Paste</name></member>
+    <member refid="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452" kind="function"><name>Paste</name></member>
   </compound>
   <compound refid="class_clock___class" kind="class"><name>Clock_Class</name>
     <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89" kind="enum"><name>Tabs</name></member>
@@ -205,22 +207,27 @@
     <member refid="class_clock___class_1aae4196ffaeb2256b64925272e70caae4" kind="function"><name>~Clock_Class</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_dialog___class" kind="class"><name>Xila_Class::Dialog_Class</name>
-    <member refid="class_xila___class_1_1_dialog___class_1afc8aa87eff41045abdc52474880a769a" kind="variable"><name>Caller_Software_Pointer</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1aa51002785e98d947b84d30d06efae51b" kind="variable"><name>State</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a3c61fe122a6dc0c02e3c1e05bceb68f8" kind="variable"><name>Caller_Software</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a4b5da0243ca2eadc2b2bb57344fd8a0d" kind="variable"><name>State</name></member>
     <member refid="class_xila___class_1_1_dialog___class_1ac640f89de5f083df7b82e5f28a4f4f5b" kind="variable"><name>Semaphore</name></member>
     <member refid="class_xila___class_1_1_dialog___class_1ab24d15e6fef1458e7c925fe47814eaed" kind="variable"><name>Long</name></member>
     <member refid="class_xila___class_1_1_dialog___class_1aa18726cb9d3566b3bf96f02df410af4d" kind="variable"><name>Pointer</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1a010fcdcd0454eb3b8e382986d15c71ed" kind="function"><name>Event</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1ae535be024984009ab77a0b4e354e4150" kind="function"><name>Color_Picker</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1abaafa54cb59bf25448ac360fceef7b45" kind="function"><name>Open_File</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1a62fdc281561bbb7e17a53afb5376fac2" kind="function"><name>Open_Folder</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1aafa62c5367026c71cb7507650cff420a" kind="function"><name>Save_File</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1a82b9dae5eb3db77d4c49c74af8b80f46" kind="function"><name>Keyboard</name></member>
-    <member refid="class_xila___class_1_1_dialog___class_1ae739d38adc44cc469f701bbb33771032" kind="function"><name>Keypad</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a683c0c79216f507192381e2fbb885477" kind="function"><name>Event</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1ad60d7c54fe28aad6b35067ab58a7c8fb" kind="function"><name>Color_Picker</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1ad53677ec7e9fabd8cb4dc000582a41f9" kind="function"><name>Open_File</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a4bd35aec61c6fc95f6eabdb89066c488" kind="function"><name>Dialog_Open_Folder</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a9268e1048075105085b32ce8b0ee50b3" kind="function"><name>Save_File</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1ae47369bcf92f323772cab1f55db0420b" kind="function"><name>Keyboard</name></member>
+    <member refid="class_xila___class_1_1_dialog___class_1a4555b3714359c51b0e883b5f402f3778" kind="function"><name>Keypad</name></member>
     <member refid="class_xila___class_1_1_dialog___class_1ac9af401cab2f74416ad356103449f4ab" kind="function"><name>Dialog_Class</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_display___class" kind="class"><name>Xila_Class::Display_Class</name>
+    <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13" kind="enum"><name>Prefixs</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a608764d130070810c32132ea622b1e96" kind="enumvalue"><name>Instruction</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a956b0168bb8859462d44f5ccfc8895c2" kind="enumvalue"><name>Variable_String</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a8181f316f01f035f9835801b99bd9d6c" kind="enumvalue"><name>Variable_Long</name></member>
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923" kind="enum"><name>Color</name></member>
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a49d424ba001518095f3e597a3a556e90" kind="enumvalue"><name>Black</name></member>
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a61fef475272dde7e829a728cc1ff1688" kind="enumvalue"><name>White</name></member>
@@ -230,24 +237,24 @@
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a944a3d05f62acee350e91e154882c6c8" kind="enumvalue"><name>Blue</name></member>
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923afacad8f22cbb5f9141a0c48d7be93ac4" kind="enumvalue"><name>Green</name></member>
     <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aef694bc59d3872cde5ba8ec1c833da88" kind="enumvalue"><name>Yellow</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288" kind="enum"><name>Font_16</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a1e32c6f795c81dfa3a57bca536c4b260" kind="enumvalue"><name>State_Button</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288af7f649f74a86082c41eaa776bd1756ec" kind="enumvalue"><name>Left_Arrow</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a467d199f899f161d46b0e57f1a0bc38d" kind="enumvalue"><name>Right_Arrow</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a17d5f793a8ec7f71b58f67bd2a36159b" kind="enumvalue"><name>Up_Arrow</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288abc14537125339869313093eda9ea2cba" kind="enumvalue"><name>Down_Arrow</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a9a52166bee7ec5ef5af87ffcb2db4a98" kind="enumvalue"><name>Battery_Empty</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288aef90c53609b402da5ddc2c4b7d0c6ceb" kind="enumvalue"><name>Battery_Low</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a78f2e38894568ec4b0a8d4ac5102fc75" kind="enumvalue"><name>Battery_Medium</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288ae8154db63805bcbfce60a622f30780d2" kind="enumvalue"><name>Battery_High</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a5307e86305c05016bbf182dd26f3c8f3" kind="enumvalue"><name>WiFi_Low</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a345820f01c5df6d52ee614eae3070873" kind="enumvalue"><name>WiFi_Medium</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288abc80724152258d89621277c958b60bae" kind="enumvalue"><name>WiFi_High</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a39c091fb6cdf76ec0a1869bbc6613ecd" kind="enumvalue"><name>Bluetooth</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a7c208a80580abd5094ffe3bc6fd6560f" kind="enumvalue"><name>Sound_Mute</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288aca7f5ca6649a8e0e9c4c1c3ae67e7621" kind="enumvalue"><name>Sound_Low</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288ae8bb620c01da9e077cec9022c03c22d6" kind="enumvalue"><name>Sound_Medium</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a2dc1dbb3fbb0cefc255a8aa617137288a6757b93b332e3407b6075cdbb888f381" kind="enumvalue"><name>Sound_High</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078c" kind="enum"><name>Xila_16</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca1e32c6f795c81dfa3a57bca536c4b260" kind="enumvalue"><name>State_Button</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caf7f649f74a86082c41eaa776bd1756ec" kind="enumvalue"><name>Left_Arrow</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca467d199f899f161d46b0e57f1a0bc38d" kind="enumvalue"><name>Right_Arrow</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca17d5f793a8ec7f71b58f67bd2a36159b" kind="enumvalue"><name>Up_Arrow</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc14537125339869313093eda9ea2cba" kind="enumvalue"><name>Down_Arrow</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca9a52166bee7ec5ef5af87ffcb2db4a98" kind="enumvalue"><name>Battery_Empty</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caef90c53609b402da5ddc2c4b7d0c6ceb" kind="enumvalue"><name>Battery_Low</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca78f2e38894568ec4b0a8d4ac5102fc75" kind="enumvalue"><name>Battery_Medium</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8154db63805bcbfce60a622f30780d2" kind="enumvalue"><name>Battery_High</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca5307e86305c05016bbf182dd26f3c8f3" kind="enumvalue"><name>WiFi_Low</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca345820f01c5df6d52ee614eae3070873" kind="enumvalue"><name>WiFi_Medium</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc80724152258d89621277c958b60bae" kind="enumvalue"><name>WiFi_High</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca39c091fb6cdf76ec0a1869bbc6613ecd" kind="enumvalue"><name>Bluetooth</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca7c208a80580abd5094ffe3bc6fd6560f" kind="enumvalue"><name>Sound_Mute</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caca7f5ca6649a8e0e9c4c1c3ae67e7621" kind="enumvalue"><name>Sound_Low</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8bb620c01da9e077cec9022c03c22d6" kind="enumvalue"><name>Sound_Medium</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca6757b93b332e3407b6075cdbb888f381" kind="enumvalue"><name>Sound_High</name></member>
     <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583" kind="enum"><name>Font_32</name></member>
     <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583afd42d36d29a359db353d07135985177d" kind="enumvalue"><name>Exclamation_Mark</name></member>
     <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583a7b24a50cce644b140512ac0cc773ddcc" kind="enumvalue"><name>Question_Mark</name></member>
@@ -279,12 +286,53 @@
     <member refid="class_xila___class_1_1_display___class_1ab0d08564089335c0fa55ba8d4320b71f" kind="variable"><name>Receive_Pin</name></member>
     <member refid="class_xila___class_1_1_display___class_1a5f055fb6c05e33fa47c294a9b1058988" kind="variable"><name>Send_Pin</name></member>
     <member refid="class_xila___class_1_1_display___class_1aa8e80cec54791f0f41437a30eed3a00f" kind="variable"><name>Tag</name></member>
-    <member refid="class_xila___class_1_1_display___class_1a7b0a969d9e5dacfe0fce154f525c81d4" kind="variable"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_display___class_1ad8a054b5583ed0cfff8064d142f71e93" kind="function"><name>Load_Registry</name></member>
-    <member refid="class_xila___class_1_1_display___class_1ac76c042040739c1108f5de3f34f97c93" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a4634dd85c9ecc3919ac2bf616472ce69" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_display___class_1a57a1a229e2cf6b56a00374fbd4b7f57e" kind="function"><name>Save_Registry</name></member>
     <member refid="class_xila___class_1_1_display___class_1a1491dbd1cc364a946317499769eb66bc" kind="function"><name>Incomming_String_Data_From_Display</name></member>
     <member refid="class_xila___class_1_1_display___class_1a86bbf72f4c071a2bcf2bb0de0757d8ee" kind="function"><name>Incomming_Numeric_Data_From_Display</name></member>
     <member refid="class_xila___class_1_1_display___class_1a3a346f1407296a42d8a0ae101e870fd4" kind="function"><name>Incomming_Event_From_Display</name></member>
+  </compound>
+  <compound refid="class_xila___class_1_1_drive___class" kind="class"><name>Xila_Class::Drive_Class</name>
+    <member refid="class_xila___class_1_1_drive___class_1ae0eea181cf6055108978cf21f2c25fc2" kind="variable"><name>_card</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a1aabcfd6925c13ee66bb80c6b7f1aa65" kind="function"><name>Drive_Class</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a76e014bb8534c1523c14e6bf08b73a8b" kind="function"><name>begin</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a2166f814c80e1141c8267b9e62a7e3eb" kind="function"><name>end</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1ad0798311ef43a4ec603f41d6472d6605" kind="function"><name>cardType</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1aafbdc8055885e882d3d3eb34070e2bfe" kind="function"><name>cardSize</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a29f9fa2e79bfba2dab8caf3ff3f8ac32" kind="function"><name>totalBytes</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a3709bbd39cdeb46680e8324a755b4746" kind="function"><name>usedBytes</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb" kind="function"><name>Copy</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a0e7c3a756ca4751a1d1f8e09e5809821" kind="function"><name>Get_Name</name></member>
+    <member refid="class_xila___class_1_1_drive___class_1a269e05fe820f5bee67df0f76a5e42c46" kind="function"><name>Count_Files</name></member>
+  </compound>
+  <compound refid="class_image___viewer___class" kind="class"><name>Image_Viewer_Class</name>
+    <member refid="class_image___viewer___class_1afbfc510c7ae3581991f0af3eec96e47a" kind="enum"><name>Pictures</name></member>
+    <member refid="class_image___viewer___class_1afbfc510c7ae3581991f0af3eec96e47aa5a0046eb10cc2768ab0c32d041248339" kind="enumvalue"><name>Icon_32</name></member>
+    <member refid="class_image___viewer___class_1adb63eaa166b5bfdc6acd58c5fe6a3992" kind="enum"><name>Pages</name></member>
+    <member refid="class_image___viewer___class_1adb63eaa166b5bfdc6acd58c5fe6a3992acb685399697dfb98faae15dabe6f60d2" kind="enumvalue"><name>Main</name></member>
+    <member refid="class_image___viewer___class_1aaf8a3498f7c2f07a028c27a39f95ef4a" kind="variable"><name>Instance_Pointer</name></member>
+    <member refid="class_image___viewer___class_1a1c5cabf0653ca87233f5ee3f9bdbc88c" kind="variable"><name>Color_Planes</name></member>
+    <member refid="class_image___viewer___class_1a2a6119a76e4b1d8fd0d554f9cc49dbf9" kind="variable"><name>Header_Size</name></member>
+    <member refid="class_image___viewer___class_1aba50e2766738fc09333c5557762ce0d8" kind="variable"><name>Size</name></member>
+    <member refid="class_image___viewer___class_1a30648daf0c9498416b336bc9ab86ed90" kind="variable"><name>Width</name></member>
+    <member refid="class_image___viewer___class_1af728c1713c43afb5a6ff6e6fe83901b8" kind="variable"><name>Height</name></member>
+    <member refid="class_image___viewer___class_1aad3d05570396e3e2ed6cc2eaf507fc5d" kind="variable"><name>Color</name></member>
+    <member refid="class_image___viewer___class_1a9adc7a49f912a73301c4b7233335fdae" kind="variable"><name>Offset</name></member>
+    <member refid="class_image___viewer___class_1ae06deda4f7f4e258114da84567c2bf67" kind="variable"><name>Color_Depth</name></member>
+    <member refid="class_image___viewer___class_1af0b2f34fa007a8a93b35c3be4f949d3d" kind="variable"><name>Image_File</name></member>
+    <member refid="class_image___viewer___class_1a0b71dfc398f175671d5f63ef5ea5abd5" kind="function"><name>Get_Metadata</name></member>
+    <member refid="class_image___viewer___class_1a4158e7ca65f1aa1f5d968849556bc43f" kind="function"><name>Draw_Image</name></member>
+    <member refid="class_image___viewer___class_1a76caf8721588edd78da6396de1137337" kind="function"><name>Main_Task</name></member>
+    <member refid="class_image___viewer___class_1a94a8897142da1cfa3ff8843cd89b50dd" kind="function"><name>Load</name></member>
+    <member refid="class_image___viewer___class_1a7d375bb552e02f97de7899c08d09f381" kind="function"><name>Startup</name></member>
+    <member refid="class_image___viewer___class_1ae21d4633f6d1e60ce074d5afc3f8fa17" kind="function"><name>Background</name></member>
+    <member refid="class_image___viewer___class_1a3f082ec4dac9cb466cfc712e49faf080" kind="function"><name>Shutdown</name></member>
+    <member refid="class_image___viewer___class_1aef2812599593377fec619c84ff108f2f" kind="function"><name>Image_Viewer_Class</name></member>
+    <member refid="class_image___viewer___class_1ac076ce5856e3a445a17f72728e588aec" kind="function"><name>~Image_Viewer_Class</name></member>
   </compound>
   <compound refid="class_internet___browser___class" kind="class"><name>Internet_Browser_Class</name>
     <member refid="class_internet___browser___class_1af00a939cada6e3d71f394aa91a6b7efd" kind="enum"><name>Page_ID</name></member>
@@ -323,24 +371,31 @@
     <member refid="class_internet___browser___class_1a473fab42959764504a0305e1a9fad993" kind="function"><name>Load</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_keyboard___class" kind="class"><name>Xila_Class::Keyboard_Class</name>
-    <member refid="class_xila___class_1_1_keyboard___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1a13bc641d9e5851dda598182484e6f25d" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fd" kind="enum"><name>Key_Maps</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda5f671e22cb5ed8c76a25a6c2f3d389c9" kind="enumvalue"><name>American</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaf79ad31ad315b8b24f6e37f19c974b1d" kind="enumvalue"><name>German</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda694ce0db8088cb7d14787795ad6ea7a8" kind="enumvalue"><name>French</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda53397633bba4f8d84782dd769e925524" kind="enumvalue"><name>Spanish</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaef0538a956f7f58ea17a1e4f4ecae9b7" kind="enumvalue"><name>Italian</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda9e68663ccdbe04cf35372009905e119d" kind="enumvalue"><name>English</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ad7693efe2d49979ccc3f3931ca17f126" kind="variable"><name>Key_Map</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a8f2b87855e32b0ae3ae4be730c0107df" kind="variable"><name>Data_Pin</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1aa017c3800f4f0e810e3427215936d84a" kind="variable"><name>Clock_Pin</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a43f3cb3ddaf195cba6d21a46539c0680" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ac9e9097217975b9a6135b694c18d4541" kind="function"><name>Save_Registry</name></member>
     <member refid="class_xila___class_1_1_keyboard___class_1aec340d46f2696be0640358ee3dbfc2f7" kind="function"><name>Begin</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1abe62e14bb9219504a9def7a70487ee55" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1a641f8b4cae0599ac70066d01ae65c4d5" kind="function"><name>Read</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ab40f14720fab39739bcda6d8c80f8d87" kind="function"><name>Read</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1ac269b7a11486d82f887cd272fbdb5470" kind="function"><name>Read_Raw</name></member>
     <member refid="class_xila___class_1_1_keyboard___class_1a645529449d17418cf12b08c5f2e22f37" kind="function"><name>Available</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1aba4c8fb038e50bca99c84c8a1d808366" kind="function"><name>Read_Raw</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1a9cbaf16fb42b1729baa781d7cadf49a5" kind="function"><name>Available_Raw</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1ab1db8e1e6002f458d97569c4d19b543e" kind="function"><name>Get_Modifiers</name></member>
-    <member refid="class_xila___class_1_1_keyboard___class_1a60c5767c5deb06ddb7b6ec2c1f67dab7" kind="function"><name>Clear_Buffers</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a54a28063306921b5e94196d857b00575" kind="function"><name>Clear</name></member>
+    <member refid="class_xila___class_1_1_keyboard___class_1a481cb3e4f39f7d592ff89cce98d9e3da" kind="function"><name>Keyboard_Class</name></member>
   </compound>
   <compound refid="struct_internet___browser___class_1_1link_struct" kind="struct"><name>Internet_Browser_Class::linkStruct</name>
     <member refid="struct_internet___browser___class_1_1link_struct_1a570ec4b3a4c878bfa6c817ae64eaf737" kind="variable"><name>linkPtr</name></member>
     <member refid="struct_internet___browser___class_1_1link_struct_1a24ded7b7a82a564409d8ba94ea50df83" kind="variable"><name>lastLink</name></member>
     <member refid="struct_internet___browser___class_1_1link_struct_1ada57ca14eb72304bfe5c0be975dc66eb" kind="variable"><name>index</name></member>
-  </compound>
-  <compound refid="class_xila___class_1_1_module___class" kind="class"><name>Xila_Class::Module_Class</name>
-    <member refid="class_xila___class_1_1_module___class_1a885c0322eaff6b6f44a002e4453c14ca" kind="variable"><name>Shell_Class</name></member>
   </compound>
   <compound refid="class_music___player___class" kind="class"><name>Music_Player_Class</name>
     <member refid="class_music___player___class_1a22ffa1d0fca9dff29ff3bfe1a306322e" kind="enum"><name>Music_State</name></member>
@@ -378,7 +433,7 @@
     <member refid="class_music___player___class_1aa2e7575e5d81b4e34ba058ec6c87a674" kind="function"><name>Pause</name></member>
     <member refid="class_music___player___class_1a184d8cdd803de7013bdded294e5fff91" kind="function"><name>Refresh_Queue</name></member>
     <member refid="class_music___player___class_1aeb6ba5ed4993c72dcd1046bfd09a2d51" kind="function"><name>Set_Variable</name></member>
-    <member refid="class_music___player___class_1ac3b85c97a159a144f0f30a642eeae886" kind="function"><name>Open_Folder</name></member>
+    <member refid="class_music___player___class_1a82fcc924aa5eb6e1a3c321e2e6507c1f" kind="function"><name>Dialog_Open_Folder</name></member>
     <member refid="class_music___player___class_1acd913f28a457b8db7afa120e2d0dedf0" kind="function"><name>Open_File</name></member>
     <member refid="class_music___player___class_1a4b5b2c343cf3dcf730e7c0d42c0de5b7" kind="function"><name>Set_Time</name></member>
     <member refid="class_music___player___class_1a8c761f366f9c9c95cb8c5604682ff89f" kind="function"><name>Play</name></member>
@@ -395,60 +450,60 @@
     <member refid="class_music___player___class_1a4db8dfbe8f3f43ab1c0827b5d1810b0e" kind="function"><name>Load</name></member>
   </compound>
   <compound refid="class_nextion___display___class" kind="class"><name>Nextion_Display_Class</name>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123" kind="enum"><name>Error</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123addb9a9c035cfb956bc22240e24fe848f" kind="enumvalue"><name>Invalid_Instruction</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a566f27d3db12fd56a46e730f4ee4603b" kind="enumvalue"><name>Invalid_Component_ID</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ae99c51dd61cfefa3aec1b1c7c8d3ea54" kind="enumvalue"><name>Invalid_Page_ID</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a69344526ffb17729117d8cf41d192335" kind="enumvalue"><name>Invalid_Picture_ID</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a345ab236d6215ce3a208d1a8e28d7d2e" kind="enumvalue"><name>Invalid_Font_ID</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a71b2128a154a1baaa578a0e179aa999a" kind="enumvalue"><name>Invalid_File_Operation</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aea20cf4aa2e2431d8252b42a650bd377" kind="enumvalue"><name>Invalid_CRC</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a1743d076d1637511ee09ebe3298f3ed1" kind="enumvalue"><name>Invalid_Baud_Rate_Setting</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af8d0096d764478048a6e21cbbbca5465" kind="enumvalue"><name>Invalid_Waveform_ID_Or_Channel</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ab4d850573387494f4465d57b122615b2" kind="enumvalue"><name>Invalid_Variable_Name_Or_Attribue</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a6e5fa556c180cf58248bc0524ff5a02c" kind="enumvalue"><name>Invalid_Variable_Operation</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a9b88e4eebcb070840b43e986fe8690e0" kind="enumvalue"><name>Fail_To_Assign</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" kind="enumvalue"><name>Fail_EEPROM_Operation</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af279d18c58fa9e59afd190b3aebfaea6" kind="enumvalue"><name>Invalid_Quantity_Of_Parameters</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aa65fc4dd51195e868a8a609b3ac16f56" kind="enumvalue"><name>IO_Operation_Failed</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a7264e136fd92defb340c1cf8a77d8dd3" kind="enumvalue"><name>Invalid_Escape_Character</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aad345e6d216f35be53d570516478ff55" kind="enumvalue"><name>Too_Long_Variable_Name</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a835109ef764a0c388d885fc6ecffa47a" kind="enumvalue"><name>Serial_Buffer_Overflow</name></member>
-    <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aed6f953dd7b3f18e7294a00b9d0c0d4a" kind="enumvalue"><name>Update_Failed</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1" kind="enum"><name>Information</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6a2a350dc2c773d654f14a37ef4f0db1" kind="enumvalue"><name>Startup</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a41a6bf1b0d9f8109be82e6f649a90ae6" kind="enumvalue"><name>Instruction_Successfull</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1ab743d8f4a776ba50968bc9af40fef630" kind="enumvalue"><name>Touch_Event</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa0db76cd0739907b60f28e828c9fe05c" kind="enumvalue"><name>Current_Page_Number</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6789a7717524f8489a8b691b9ac4d0b9" kind="enumvalue"><name>Touch_Coordinate_Awake</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a76f5022b51c25a2a81c3e19df709efe6" kind="enumvalue"><name>Touch_Coordinate_Sleep</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a921c27a491d15f953ede320d1e5413af" kind="enumvalue"><name>String_Data_Enclosed</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a815e054027ad4a163edca7375521f406" kind="enumvalue"><name>Numeric_Data_Enclosed</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a2da6267de758a1d1c9455d973b3ffc37" kind="enumvalue"><name>Auto_Entered_Sleep_Mode</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6d13c7aa7edcb9ea1c45961b3df15269" kind="enumvalue"><name>Auto_Wake_From_Sleep_Mode</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a17ee6bc87daef9efad395f8bb6cb9487" kind="enumvalue"><name>Ready</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6bca8f979d951761a0f15093a95cf30f" kind="enumvalue"><name>Start_Upgrade_From_SD</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a18a11de58d8441d600555cc8e77a2065" kind="enumvalue"><name>Transparent_Data_Finished</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa3d2122a6fd4faa815172eb7a49e47d0" kind="enumvalue"><name>Transparent_Data_Ready</name></member>
-    <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1af417e15accbf7960533b604cb473ee39" kind="enumvalue"><name>Update_Succeed</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034" kind="enum"><name>Color</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034aafb9c267a503ff7d66e355831ca6cc87" kind="enumvalue"><name>Black</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a12eb52673c6da0253eb8ff777424bf4e" kind="enumvalue"><name>Blue</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a4a69beb319a27626390e9b125c93f365" kind="enumvalue"><name>Green</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a94ab41c6a1febada63a317743667a9df" kind="enumvalue"><name>Yellow</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a35ccb0f42ad61bb08d802a174f4411c1" kind="enumvalue"><name>Red</name></member>
-    <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034ad2255221a719f74a11de508d1faff13d" kind="enumvalue"><name>White</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2" kind="enum"><name>Alignement</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a9373e5afb32606a18cd3c5f811d0bdb7" kind="enumvalue"><name>Top</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2af62f3b2ff5ceefae0dbe54b9e69419bd" kind="enumvalue"><name>Bottom</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ac7a124f42c0938d7b64cb943bdd67ead" kind="enumvalue"><name>Left</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ae75477239ed8ef8311a162a0befd031d" kind="enumvalue"><name>Right</name></member>
-    <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a6f1f419963d30c5d713dd4ebaab01012" kind="enumvalue"><name>Center</name></member>
-    <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4b" kind="enum"><name>Background</name></member>
-    <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4bab8fe0f344bc258482efd1f752be389d9" kind="enumvalue"><name>Crop_Image</name></member>
-    <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba31deb23171451dfa21b58f8103ef8044" kind="enumvalue"><name>Solid_Color</name></member>
-    <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba8adc687c748afa479f5f3de5a0bfc7b2" kind="enumvalue"><name>Image</name></member>
-    <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba0bcd1982dbff05916965d0cafdb776f6" kind="enumvalue"><name>None</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1" kind="enum"><name>Errors</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1addb9a9c035cfb956bc22240e24fe848f" kind="enumvalue"><name>Invalid_Instruction</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a566f27d3db12fd56a46e730f4ee4603b" kind="enumvalue"><name>Invalid_Component_ID</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ae99c51dd61cfefa3aec1b1c7c8d3ea54" kind="enumvalue"><name>Invalid_Page_ID</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a69344526ffb17729117d8cf41d192335" kind="enumvalue"><name>Invalid_Picture_ID</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a345ab236d6215ce3a208d1a8e28d7d2e" kind="enumvalue"><name>Invalid_Font_ID</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a71b2128a154a1baaa578a0e179aa999a" kind="enumvalue"><name>Invalid_File_Operation</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aea20cf4aa2e2431d8252b42a650bd377" kind="enumvalue"><name>Invalid_CRC</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a1743d076d1637511ee09ebe3298f3ed1" kind="enumvalue"><name>Invalid_Baud_Rate_Setting</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af8d0096d764478048a6e21cbbbca5465" kind="enumvalue"><name>Invalid_Waveform_ID_Or_Channel</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ab4d850573387494f4465d57b122615b2" kind="enumvalue"><name>Invalid_Variable_Name_Or_Attribue</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a6e5fa556c180cf58248bc0524ff5a02c" kind="enumvalue"><name>Invalid_Variable_Operation</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a9b88e4eebcb070840b43e986fe8690e0" kind="enumvalue"><name>Fail_To_Assign</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" kind="enumvalue"><name>Fail_EEPROM_Operation</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af279d18c58fa9e59afd190b3aebfaea6" kind="enumvalue"><name>Invalid_Quantity_Of_Parameters</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aa65fc4dd51195e868a8a609b3ac16f56" kind="enumvalue"><name>IO_Operation_Failed</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a7264e136fd92defb340c1cf8a77d8dd3" kind="enumvalue"><name>Invalid_Escape_Character</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aad345e6d216f35be53d570516478ff55" kind="enumvalue"><name>Too_Long_Variable_Name</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a835109ef764a0c388d885fc6ecffa47a" kind="enumvalue"><name>Serial_Buffer_Overflow</name></member>
+    <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aed6f953dd7b3f18e7294a00b9d0c0d4a" kind="enumvalue"><name>Update_Failed</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77d" kind="enum"><name>Informations</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6a2a350dc2c773d654f14a37ef4f0db1" kind="enumvalue"><name>Startup</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da41a6bf1b0d9f8109be82e6f649a90ae6" kind="enumvalue"><name>Instruction_Successfull</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77dab743d8f4a776ba50968bc9af40fef630" kind="enumvalue"><name>Touch_Event</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa0db76cd0739907b60f28e828c9fe05c" kind="enumvalue"><name>Current_Page_Number</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6789a7717524f8489a8b691b9ac4d0b9" kind="enumvalue"><name>Touch_Coordinate_Awake</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da76f5022b51c25a2a81c3e19df709efe6" kind="enumvalue"><name>Touch_Coordinate_Sleep</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da921c27a491d15f953ede320d1e5413af" kind="enumvalue"><name>String_Data_Enclosed</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da815e054027ad4a163edca7375521f406" kind="enumvalue"><name>Numeric_Data_Enclosed</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da2da6267de758a1d1c9455d973b3ffc37" kind="enumvalue"><name>Auto_Entered_Sleep_Mode</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6d13c7aa7edcb9ea1c45961b3df15269" kind="enumvalue"><name>Auto_Wake_From_Sleep_Mode</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da17ee6bc87daef9efad395f8bb6cb9487" kind="enumvalue"><name>Ready</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6bca8f979d951761a0f15093a95cf30f" kind="enumvalue"><name>Start_Upgrade_From_SD</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da18a11de58d8441d600555cc8e77a2065" kind="enumvalue"><name>Transparent_Data_Finished</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa3d2122a6fd4faa815172eb7a49e47d0" kind="enumvalue"><name>Transparent_Data_Ready</name></member>
+    <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daf417e15accbf7960533b604cb473ee39" kind="enumvalue"><name>Update_Succeed</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33" kind="enum"><name>Colors</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33aafb9c267a503ff7d66e355831ca6cc87" kind="enumvalue"><name>Black</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a12eb52673c6da0253eb8ff777424bf4e" kind="enumvalue"><name>Blue</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a4a69beb319a27626390e9b125c93f365" kind="enumvalue"><name>Green</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a94ab41c6a1febada63a317743667a9df" kind="enumvalue"><name>Yellow</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a35ccb0f42ad61bb08d802a174f4411c1" kind="enumvalue"><name>Red</name></member>
+    <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33ad2255221a719f74a11de508d1faff13d" kind="enumvalue"><name>White</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ec" kind="enum"><name>Alignements</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca9373e5afb32606a18cd3c5f811d0bdb7" kind="enumvalue"><name>Top</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecaf62f3b2ff5ceefae0dbe54b9e69419bd" kind="enumvalue"><name>Bottom</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecac7a124f42c0938d7b64cb943bdd67ead" kind="enumvalue"><name>Left</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecae75477239ed8ef8311a162a0befd031d" kind="enumvalue"><name>Right</name></member>
+    <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca6f1f419963d30c5d713dd4ebaab01012" kind="enumvalue"><name>Center</name></member>
+    <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eea" kind="enum"><name>Backgrounds</name></member>
+    <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaab8fe0f344bc258482efd1f752be389d9" kind="enumvalue"><name>Crop_Image</name></member>
+    <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa31deb23171451dfa21b58f8103ef8044" kind="enumvalue"><name>Solid_Color</name></member>
+    <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa8adc687c748afa479f5f3de5a0bfc7b2" kind="enumvalue"><name>Image</name></member>
+    <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa0bcd1982dbff05916965d0cafdb776f6" kind="enumvalue"><name>None</name></member>
     <member refid="class_nextion___display___class_1a60c504cd9a5667dbbd3ef6a9dec9f4c5" kind="variable"><name>Nextion_Serial</name></member>
     <member refid="class_nextion___display___class_1adec1ee2e0f48c3afde019083e74c84e2" kind="variable"><name>Serial_Semaphore</name></member>
     <member refid="class_nextion___display___class_1afa4e5c2046bcda04a848a31fa0202529" kind="variable"><name>Callback_Function_String_Data</name></member>
@@ -676,31 +731,6 @@
     <member refid="class_piano___class_1a89d1452e1026785d7b08fef7c0029a41" kind="function"><name>Load</name></member>
     <member refid="class_piano___class_1aac7ef13f1f32ad8c2dd91d6f37f6196a" kind="function"><name>Main_Task</name></member>
   </compound>
-  <compound refid="class_picture___viewer___class" kind="class"><name>Picture_Viewer_Class</name>
-    <member refid="class_picture___viewer___class_1ac04129be43d2f5e1ef1a68a5d2deef15" kind="enum"><name>Pictures</name></member>
-    <member refid="class_picture___viewer___class_1ac04129be43d2f5e1ef1a68a5d2deef15a0925df7cace37a30d9d6b9ebc3907180" kind="enumvalue"><name>Icon_32</name></member>
-    <member refid="class_picture___viewer___class_1a4eaaace1ad445495bea4f59edac137d1" kind="enum"><name>Pages</name></member>
-    <member refid="class_picture___viewer___class_1a4eaaace1ad445495bea4f59edac137d1a571f10490305c05ffb6a4c45d5746c8e" kind="enumvalue"><name>Main</name></member>
-    <member refid="class_picture___viewer___class_1ab0463094fc199b110e5e85d089f94c42" kind="variable"><name>Instance_Pointer</name></member>
-    <member refid="class_picture___viewer___class_1a79e837299ba7c289da61091844efefca" kind="variable"><name>Color_Planes</name></member>
-    <member refid="class_picture___viewer___class_1a4bcb0f41eeb9cadf1533c00959fbb7f1" kind="variable"><name>Header_Size</name></member>
-    <member refid="class_picture___viewer___class_1a0c365f84936c1138b8aaf3c4f2095f36" kind="variable"><name>Size</name></member>
-    <member refid="class_picture___viewer___class_1adad7fe3c0481321babc9d13422b90059" kind="variable"><name>Width</name></member>
-    <member refid="class_picture___viewer___class_1a82436585efe77ff0337e43913314912f" kind="variable"><name>Height</name></member>
-    <member refid="class_picture___viewer___class_1ae1ad34cc096deaa35c6f1f5a719d6746" kind="variable"><name>Color</name></member>
-    <member refid="class_picture___viewer___class_1aa3b5e6caaae51889a22f75fd05b34f99" kind="variable"><name>Offset</name></member>
-    <member refid="class_picture___viewer___class_1a20b7799e6dacfda212f4c600a5d139eb" kind="variable"><name>Color_Depth</name></member>
-    <member refid="class_picture___viewer___class_1a36541a5451990053944beef5f63bfeb5" kind="variable"><name>Image_File</name></member>
-    <member refid="class_picture___viewer___class_1a7eff108d13ba5c3ed144b6e19045e4b6" kind="function"><name>Get_Metadata</name></member>
-    <member refid="class_picture___viewer___class_1aa1c437dac49a18371034428cbe5bc0c0" kind="function"><name>Draw_Image</name></member>
-    <member refid="class_picture___viewer___class_1a1e6aaa96f6b9671fba733220a021a0a6" kind="function"><name>Main_Task</name></member>
-    <member refid="class_picture___viewer___class_1ade02f08c70b1df97fe938005b014252c" kind="function"><name>Load</name></member>
-    <member refid="class_picture___viewer___class_1a3cdac9997fd461aaacb9f4054094d8e8" kind="function"><name>Startup</name></member>
-    <member refid="class_picture___viewer___class_1ac72750aad144fc4bc028e08fb5d1d34a" kind="function"><name>Background</name></member>
-    <member refid="class_picture___viewer___class_1adf527d0906fe9b14ae35435c1cfa918a" kind="function"><name>Shutdown</name></member>
-    <member refid="class_picture___viewer___class_1a6f774a05f5d89e997f6b81feeed76833" kind="function"><name>Picture_Viewer_Class</name></member>
-    <member refid="class_picture___viewer___class_1aeda6d9c10ce02b8a30a8acbdade18edd" kind="function"><name>~Picture_Viewer_Class</name></member>
-  </compound>
   <compound refid="class_pong___class" kind="class"><name>Pong_Class</name>
     <member refid="class_pong___class_1a85096c1c7507c5742a8301bd0332a335" kind="enum"><name>Image</name></member>
     <member refid="class_pong___class_1a85096c1c7507c5742a8301bd0332a335a7b326ec134b8ecda8e3c0d036545365d" kind="enumvalue"><name>Icon_32</name></member>
@@ -714,19 +744,13 @@
     <member refid="class_pong___class_1acade881ff35dd8f1c56f2b1e82271dc9" kind="function"><name>Load</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_power___class" kind="class"><name>Xila_Class::Power_Class</name>
-    <member refid="class_xila___class_1_1_power___class_1a726846a600449c551065840e4d665b70" kind="variable"><name>Button_Mutex</name></member>
     <member refid="class_xila___class_1_1_power___class_1aad9c824e3d1d500e283b67221b92787a" kind="variable"><name>Button_Counter</name></member>
+    <member refid="class_xila___class_1_1_power___class_1a726846a600449c551065840e4d665b70" kind="variable"><name>Button_Mutex</name></member>
+    <member refid="class_xila___class_1_1_power___class_1a48dc895b1f7212d39c7dcf2f6e9b8923" kind="variable"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_power___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
     <member refid="class_xila___class_1_1_power___class_1a3c103405c9e9034bd68eece27a204905" kind="function"><name>Button_Handler</name></member>
     <member refid="class_xila___class_1_1_power___class_1a80836e70cd2de6ef80ae268b0ce3c1cd" kind="function"><name>Check_Button</name></member>
-    <member refid="class_xila___class_1_1_power___class_1ae6f21a9771d8976618ff04f4a3df69d8" kind="function"><name>First_Start_Routine</name></member>
-    <member refid="class_xila___class_1_1_power___class_1ab87daf01d48cec0c0f4dd8e3212eba24" kind="function"><name>Second_Start_Routine</name></member>
-    <member refid="class_xila___class_1_1_power___class_1aeb41f4654a7a978e32c6760697348e7e" kind="function"><name>Shutdown</name></member>
-    <member refid="class_xila___class_1_1_power___class_1ac2938c49c6534b7ee80d93e37db8dfa8" kind="function"><name>Restart</name></member>
-    <member refid="class_xila___class_1_1_power___class_1af1adaddebfdbe1743387ccf4da62cbad" kind="function"><name>Hibernate</name></member>
-    <member refid="class_xila___class_1_1_power___class_1a9b4719f1ead21dbdbc3401973993775d" kind="function"><name>Deep_Sleep</name></member>
     <member refid="class_xila___class_1_1_power___class_1a68ec6049e47c1b1b3fba789247577ed1" kind="function"><name>Power_Class</name></member>
-    <member refid="class_xila___class_1_1_power___class_1a6764b09960fed1ace0bf11eaca72b3af" kind="function"><name>Start</name></member>
-    <member refid="class_xila___class_1_1_power___class_1aeabb88fa0d2be415f8217d88dee99de4" kind="function"><name>Start</name></member>
   </compound>
   <compound refid="class_shell___class" kind="class"><name>Shell_Class</name>
     <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02ba" kind="enum"><name>Pages</name></member>
@@ -783,12 +807,11 @@
     <member refid="class_shell___class_1ae6716b951b99010cbfbc9853f234cfbd" kind="variable"><name>Current_Path</name></member>
     <member refid="class_shell___class_1a7fe10550045b9fc4731da7cf018a5bef" kind="variable"><name>Brightness</name></member>
     <member refid="class_shell___class_1a0b7ae244b7629c875da5ccbf6f835806" kind="variable"><name>Standby_Display_Time</name></member>
-    <member refid="class_shell___class_1a733f303e2044d5b83b9de31bf41fb9fc" kind="variable"><name>Standby_System_Time</name></member>
     <member refid="class_shell___class_1a10f64e9f77783beeb0fa50ca2e729374" kind="variable"><name>Autologin</name></member>
     <member refid="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" kind="variable"><name>GMT_Offset</name></member>
     <member refid="class_shell___class_1a4061f2d99cc584ac8ce1f7c7ce1f3dc5" kind="variable"><name>Daylight_Offset</name></member>
-    <member refid="class_shell___class_1a308103ffae78e31a33e9de09e4715632" kind="variable"><name>NTP_Server</name></member>
-    <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" kind="variable"><name>Name</name></member>
+    <member refid="class_shell___class_1a988863903fe9a252449d5644a91396a8" kind="variable"><name>NTP_Server</name></member>
+    <member refid="class_shell___class_1a4ff4c764d4b8e9518f0c126bcbd00b7a" kind="variable"><name>Name</name></member>
     <member refid="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" kind="variable"><name>Username</name></member>
     <member refid="class_shell___class_1a33ed9ee17d75a2d78068e3ace71e546f" kind="variable"><name>Password_1</name></member>
     <member refid="class_shell___class_1aa9f1265875f9fbe18f7e25e6bf019e13" kind="variable"><name>Password_2</name></member>
@@ -829,13 +852,13 @@
     <member refid="class_shell___class_1a28f899ffd8601756c44eba64094053db" kind="function"><name>Event_Commands</name></member>
     <member refid="class_shell___class_1accee7dead6bc9eb1bd6d73c2a9684d81" kind="function"><name>Keyboard_Commands</name></member>
     <member refid="class_shell___class_1a44db328f15cfed2dec36742c28dbcc4d" kind="function"><name>Keypad_Commands</name></member>
-    <member refid="class_shell___class_1a0cc44969603fd85e299eb6e68a49ba62" kind="function"><name>Keyboard_Dialog</name></member>
-    <member refid="class_shell___class_1afad9ea2aa92dcf0b60acc95df82f3fe2" kind="function"><name>Keypad_Dialog</name></member>
-    <member refid="class_shell___class_1ab4fb2ea2b233b1a10de0da585a75cee3" kind="function"><name>Event</name></member>
-    <member refid="class_shell___class_1a759fb2f3e7b415c96c7070e082e86a56" kind="function"><name>Color_Picker_Dialog</name></member>
-    <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" kind="function"><name>Dialog_Open_File</name></member>
-    <member refid="class_shell___class_1aff0dcd1b94eb09c3c52f5afc1d3ef822" kind="function"><name>Save_File_Dialog</name></member>
-    <member refid="class_shell___class_1a8873ccbedb49df3907ccf95a74c79ef7" kind="function"><name>Open_Folder_Dialog</name></member>
+    <member refid="class_shell___class_1ac4aec89ff83e7eb4531d30c5aed6f9f3" kind="function"><name>Keyboard_Dialog</name></member>
+    <member refid="class_shell___class_1abbe6bf686de84e02bd03267c3acdf3fe" kind="function"><name>Keypad_Dialog</name></member>
+    <member refid="class_shell___class_1ad96e9e705f9b148736cb0a760c9f7ca5" kind="function"><name>Event_Dialog</name></member>
+    <member refid="class_shell___class_1abffffbc2e7475ee097947fe76282addc" kind="function"><name>Color_Picker_Dialog</name></member>
+    <member refid="class_shell___class_1a7ea91b967dbc47f40c7a5e25d109bb93" kind="function"><name>Open_File_Dialog</name></member>
+    <member refid="class_shell___class_1a40e60ebe6e4d9993fb9df109a1c14119" kind="function"><name>Save_File_Dialog</name></member>
+    <member refid="class_shell___class_1aa3f0f856deba4fd84ea8dff7da3af08a" kind="function"><name>Open_Folder_Dialog</name></member>
     <member refid="class_shell___class_1a3c2bb50a4533b59fc8de0110fe248cde" kind="function"><name>Open_Shutdown</name></member>
     <member refid="class_shell___class_1a62a04d2f6dc15c9655dc00926a1d383a" kind="function"><name>Shutdown_Commands</name></member>
     <member refid="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" kind="function"><name>Open_Desk</name></member>
@@ -847,11 +870,10 @@
     <member refid="class_shell___class_1a5e95d35484b19d88e9facc43fdcca6e2" kind="function"><name>Refresh_Drawer</name></member>
     <member refid="class_shell___class_1a1c9ad246d935e55b4d2eeefe8f0757f0" kind="function"><name>Open_From_Drawer</name></member>
     <member refid="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" kind="function"><name>Drawer_Commands</name></member>
-    <member refid="class_shell___class_1ab2d66fa5e739390bdc1a18e17f547e44" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_shell___class_1ac6a0cfd1463eea42a6ed0b77ad141464" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_shell___class_1abb385fced24c5e45ad43852881bb34a4" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_shell___class_1a1b0a4ca82013ee3a4e3613ea8c963dce" kind="function"><name>Load_Registry</name></member>
     <member refid="class_shell___class_1a2d0e382ce5b95a936068164ada3a5663" kind="function"><name>Refresh_Install</name></member>
     <member refid="class_shell___class_1a161c33912dfd16ee08a45402b3821833" kind="function"><name>Open_Install</name></member>
-    <member refid="class_shell___class_1a20ca95344a93863256f3a6422b5e79b4" kind="function"><name>Idle</name></member>
     <member refid="class_shell___class_1aebaa8556e42fe269f484640088e89957" kind="function"><name>Open_Item</name></member>
     <member refid="class_shell___class_1a960924d5be7e9b29091494398dc4dbf0" kind="function"><name>Open_Login</name></member>
     <member refid="class_shell___class_1a017b7a2395301a96be2bb0b863b0467c" kind="function"><name>Open_Load</name></member>
@@ -901,10 +923,30 @@
     <member refid="class_simon___class_1a57a1eb87e4dde1945863f715868dfa8c" kind="function"><name>~Simon_Class</name></member>
   </compound>
   <compound refid="class_software___class" kind="class"><name>Software_Class</name>
-    <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" kind="enum"><name>Image</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" kind="enum"><name>Instructions</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" kind="enumvalue"><name>Idle</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" kind="enumvalue"><name>Open</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" kind="enumvalue"><name>Close</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" kind="enumvalue"><name>Maximize</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" kind="enumvalue"><name>Minimize</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" kind="enumvalue"><name>Shutdown</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" kind="enumvalue"><name>Restart</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" kind="enumvalue"><name>Hibernate</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" kind="enumvalue"><name>Watchdog</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" kind="enumvalue"><name>Desk</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" kind="enumvalue"><name>Dialog_Install</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" kind="enumvalue"><name>Dialog_Open_File</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" kind="enumvalue"><name>Dialog_Open_Folder</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" kind="enumvalue"><name>Dialog_Save_File</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" kind="enumvalue"><name>Dialog_Keyboard</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" kind="enumvalue"><name>Dialog_Keypad</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" kind="enumvalue"><name>Dialog_Color_Picker</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" kind="enumvalue"><name>Dialog_Power</name></member>
+    <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" kind="enumvalue"><name>Dialog_Event</name></member>
     <member refid="class_software___class_1ae78527cb1127d8a7388009bbf44b1342" kind="variable"><name>Current_Instruction</name></member>
+    <member refid="class_software___class_1ad50e9526e0ec44abe4f325800a9b89f6" kind="variable"><name>Last_Watchdog_Feed</name></member>
     <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" kind="variable"><name>Task_Handle</name></member>
-    <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" kind="variable"><name>Handle_Pointer</name></member>
+    <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" kind="variable"><name>Handle</name></member>
     <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" kind="variable"><name>Instruction_Queue_Handle</name></member>
     <member refid="class_software___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
     <member refid="class_software___class_1ad9466adbefb635014881db44fa5cedba" kind="friend"><name>Software_Handle_Class</name></member>
@@ -917,10 +959,8 @@
     <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" kind="function"><name>Get_Instruction</name></member>
   </compound>
   <compound refid="class_software___handle___class" kind="class"><name>Software_Handle_Class</name>
-    <member refid="class_software___handle___class_1aa98161c40a93f1e84107b66664e903e5" kind="enum"><name>Software_Type</name></member>
-    <member refid="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" kind="variable"><name>Icon</name></member>
-    <member refid="class_software___handle___class_1ad350b21f047cbabdaf3f78540c0534c2" kind="variable"><name>Type</name></member>
     <member refid="class_software___handle___class_1a92c8b2288a7ef0f1f2b85989f358c9b3" kind="variable"><name>Name</name></member>
+    <member refid="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" kind="variable"><name>Icon</name></member>
     <member refid="class_software___handle___class_1a74220aca2282a4a765e76cd62a60112b" kind="variable"><name>Load_Function_Pointer</name></member>
     <member refid="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" kind="variable"><name>Startup_Function_Pointer</name></member>
     <member refid="class_software___handle___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
@@ -932,42 +972,23 @@
     <member refid="class_software___handle___class_1adc99c6df21bb321deae69b2685e9b6f5" kind="function"><name>~Software_Handle_Class</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_software___management___class" kind="class"><name>Xila_Class::Software_Management_Class</name>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59" kind="enum"><name>Instructions</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a1c5c6882ab5e82c20b5829bbd11fc2e8" kind="enumvalue"><name>Idle</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a105c879526ffbbceb97a71ec566fa64d" kind="enumvalue"><name>Open_Software</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a01d555c5c0238d62085b2d59bc2a3f73" kind="enumvalue"><name>Close_Software</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a56eb82dafbc45fcdadf2d04cfb115625" kind="enumvalue"><name>Maximize_Software</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a69026d6ca50176eba57286de1c203840" kind="enumvalue"><name>Minimize_Software</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a20c976240199bd9b5e3cb90da5c5e586" kind="enumvalue"><name>Shutting_down</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59aad798d9713acbfe04f17bf8ae02a0022" kind="enumvalue"><name>Restarting</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ad3f6ecad97e05c0aba9626c1ba525b2b" kind="enumvalue"><name>Hibernating</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a42d43150e607b9ea0babc2d2bff0feda" kind="enumvalue"><name>Watchdog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59aa770c48c76cc8306d7bace5a0f8447c6" kind="enumvalue"><name>Install_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a9d50e48abc821eeb4c1ae59e3343f6fe" kind="enumvalue"><name>Desk</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab3b425369dc8843534229777cb370e53" kind="enumvalue"><name>Dialog_Open_File</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a4697d779d84b5a74f53ccf9d1456e12c" kind="enumvalue"><name>Open_Folder_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a8995b8cab311371deccd2e46c91d93b9" kind="enumvalue"><name>Save_File_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ab573d97eb11252e9b5772f6ea0ebb26d" kind="enumvalue"><name>Keyboard_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59aa67e38db0199278447069bda035200df" kind="enumvalue"><name>Keypad_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ae9b3b920f9ff35d791504215882806f0" kind="enumvalue"><name>Color_Picker_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59a32bf65fd58bf1b570de26b1f27eb9d24" kind="enumvalue"><name>Power_Dialog</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3839f7622fb5e631dc4283cbf582ee59ac452709673841943c176edb6151fb555" kind="enumvalue"><name>Event</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a9cbf906b8f2c5565e8a1e0feae6c9d4d" kind="variable"><name>Watchdog_Timer</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a71be35d10c4c33d846943315d585f078" kind="variable"><name>Watchdog_State</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a850554c697f81055e79c5394fbb6dcfb" kind="variable"><name>Open_Software_Pointer</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3532bf897db9b9eee02702755c21b0b6" kind="variable"><name>Software_Handle_Pointer</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a673eee284fc7c4973490bcf9506ed96a" kind="variable"><name>Openned</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a76f9add6987b1bebdd82c8637eba5ec3" kind="variable"><name>Handle</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a09fdce2ac534f4f3b069d7c535da7256" kind="function"><name>Check_Watchdog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1af4f3093670807673a56880192a0f15c1" kind="function"><name>Maximize_Shell</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a065c647c3132538bb520a85dfce67622" kind="function"><name>Execute_Shell</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1ab5bc96ad22da6bf8447ea1693aa149b4" kind="function"><name>Feed_Watchdog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a993daf439e596d36acf33ba1d03c8ea9" kind="function"><name>Seek_Open_Software_Handle</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1add3b62bee5e5566414d8c86c445a462b" kind="function"><name>Open</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a9b33b36b5fbb9770865d12f5e02d8018" kind="function"><name>Close</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1ad56747f131838b6e9660c6e5c53e0443" kind="function"><name>Force_Close</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a95f2085f21fddcf6c95e4b6f87dae1a0" kind="function"><name>Minimize</name></member>
-    <member refid="class_xila___class_1_1_software___management___class_1a473cb856e40b44ac2fd1c51a496fdf79" kind="function"><name>Maximize</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1ac7d74af7165b791a8fb7493ed51e23f1" kind="function"><name>Add_Handle</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1ac6e9b649a9839e7ec11ae28780bee6fb" kind="function"><name>Force_Close</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a5cdeb697f73dfdd5aaf027c9c7d7eddc" kind="function"><name>Open</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a95f2085f21fddcf6c95e4b6f87dae1a0" kind="function"><name>Minimize</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a3b2b5f467a2959cd8a7b4ef8c0f2aee5" kind="function"><name>Maximize</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1a9b33b36b5fbb9770865d12f5e02d8018" kind="function"><name>Close</name></member>
+    <member refid="class_xila___class_1_1_software___management___class_1ab5bc96ad22da6bf8447ea1693aa149b4" kind="function"><name>Feed_Watchdog</name></member>
     <member refid="class_xila___class_1_1_software___management___class_1a351d89798b3b5c91cdb10515cb1e2bb0" kind="function"><name>Software_Management_Class</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_sound___class" kind="class"><name>Xila_Class::Sound_Class</name>
@@ -991,18 +1012,17 @@
     <member refid="class_xila___class_1_1_sound___class_1a94f9d22e642ce6c780f9fb756b7bb36a" kind="variable"><name>Left_Channel</name></member>
     <member refid="class_xila___class_1_1_sound___class_1ae0b5ee7c9097ff2901c27923c955de2a" kind="variable"><name>Right_Channel</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a541511cb60ca964e48a840ea005092d1" kind="variable"><name>Custom_Channel</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1aa092b0e56f47b72be9c01363de9a9f52" kind="variable"><name>Task_Handle</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a4a5aee297aad39aa4708d2c31d43544c" kind="variable"><name>Custom_Pin</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a8f500e346202feebac92ab77493125cc" kind="variable"><name>Music_File</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a9d82f3b1b77fd31f10fc9d812b6e5128" kind="variable"><name>File_System</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1aec29e12e045cf52b3ced1a675c122166" kind="function"><name>Sound_Task</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1ab740639934eca8bbae54a73448f58056" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a6b3abd6131f9c6afa28239ee68de33e3" kind="function"><name>Load_Registry</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff" kind="function"><name>Sound_Class</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a3431aa8f7549a598bba85254013c4766" kind="function"><name>~Sound_Class</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a845bc9825f6c5b0904823a209e90d588" kind="variable"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a41bc3dbfdf579bdb9446f64b46aec9aa" kind="friend"><name>audio_eof_mp3</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a80a3ec224409e3c52093afe4deca445b" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1ace40cc5c81319ad4c0c61993cc894ca5" kind="function"><name>Load_Registry</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a620979421eaffe3855b6825f4fb887e0" kind="function"><name>Set_Output_Channel</name></member>
     <member refid="class_xila___class_1_1_sound___class_1ad335fe9c75edaa6ce281f617227b8375" kind="function"><name>Set_Volume</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a6ff91eed9eb1dd826ad2eba29b31b6c0" kind="function"><name>Get_Volume</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a7d2abce0c911a105f30bbff2795dbae1" kind="function"><name>Set_File_System</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a0d825db7c724bfd5f13390443a6cfebe" kind="function"><name>Set_Balance</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a6431df53f50f2a27cb47ccba414083fe" kind="function"><name>Play</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a2e394ab13953021ec402386a7186201d" kind="function"><name>Play</name></member>
@@ -1017,8 +1037,9 @@
     <member refid="class_xila___class_1_1_sound___class_1a114b95e43e5f5a3056075b453ee6ec8f" kind="function"><name>Get_State</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a2bfb28fd75125245a976de6ab8201195" kind="function"><name>Tone</name></member>
     <member refid="class_xila___class_1_1_sound___class_1a6bb8c02187efa7d88caea1a498f7c963" kind="function"><name>No_Tone</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a2689264049e6b579b2f448ef63d6287f" kind="function"><name>Loop</name></member>
-    <member refid="class_xila___class_1_1_sound___class_1a41bc3dbfdf579bdb9446f64b46aec9aa" kind="friend"><name>audio_eof_mp3</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff" kind="function"><name>Sound_Class</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a3431aa8f7549a598bba85254013c4766" kind="function"><name>~Sound_Class</name></member>
+    <member refid="class_xila___class_1_1_sound___class_1a83d75526061756ef01111eb7ba324129" kind="function"><name>Task</name></member>
   </compound>
   <compound refid="struct_tiny___basic___class_1_1stack__for__frame" kind="struct"><name>Tiny_Basic_Class::stack_for_frame</name>
     <member refid="struct_tiny___basic___class_1_1stack__for__frame_1a64c113e457d4d42f4461e3f5eb2a0941" kind="variable"><name>frame_type</name></member>
@@ -1038,32 +1059,55 @@
     <member refid="class_xila___class_1_1_system___class_1a41f8c1a8c54d782edcbc94e0c343c9f6a19ca4cea89adc177d1b9932dd1b4c0fe" kind="enumvalue"><name>Default</name></member>
     <member refid="class_xila___class_1_1_system___class_1a41f8c1a8c54d782edcbc94e0c343c9f6a5811840d2b71a8126f893fa6abccb664" kind="enumvalue"><name>New_Installation</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776db" kind="enum"><name>Panic_Code</name></member>
+    <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbafbae5e30e9c5e7506d421cebb048c8b1" kind="enumvalue"><name>Missing_System_Files</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbae851bcdfa9fbe6b5dd192b19124e4418" kind="enumvalue"><name>Damaged_System_Registry</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba33e5f9a385c08b6ba348c81cbc108257" kind="enumvalue"><name>Installation_Conflict</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba05a84c6de7189e6492b2a22d30f6bf13" kind="enumvalue"><name>System_Drive_Failure</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dba7e427101ea77ff86a14eda6a492d0cc7" kind="enumvalue"><name>Low_Memory</name></member>
     <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbae2ee2db8c805ddead0ae4caeddf712a0" kind="enumvalue"><name>Memory_Corruption</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" kind="variable"><name>Name</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a84ec342abf30f5a79d4bc883deded2ab" kind="variable"><name>Task_Handle</name></member>
+    <member refid="class_xila___class_1_1_system___class_1abe1d228b2178edb314868869549768df" kind="variable"><name>Name</name></member>
     <member refid="class_xila___class_1_1_system___class_1a87831ba1edad52c9cece341c76954043" kind="variable"><name>State</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_system___class_1aefed3b933636fc9e38f0b3a1918230a8" kind="function"><name>Create_Dump</name></member>
-    <member refid="class_xila___class_1_1_system___class_1afcac85b832c69630c61279822cd703dc" kind="function"><name>Load_Dump</name></member>
-    <member refid="class_xila___class_1_1_system___class_1aa4ca448038c2acbfd7b479208f849d6a" kind="function"><name>Load_Executable</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a99418345d14c4d3698c13e2db43dab5a" kind="function"><name>Panic_Handler</name></member>
-    <member refid="class_xila___class_1_1_system___class_1afa40025365ac0bda34748419ca9e5446" kind="function"><name>Save_Registry</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a9ac59b765eaf5dd6b690d4c9bd4529c4" kind="function"><name>Get_Name</name></member>
-    <member refid="class_xila___class_1_1_system___class_1a3030d7d9631954de1ca16b4792e81e8d" kind="function"><name>Random</name></member>
-    <member refid="class_xila___class_1_1_system___class_1aa30a1dd2e92bdc0dbe10f679909facc3" kind="function"><name>Random</name></member>
-    <member refid="class_xila___class_1_1_system___class_1aadf728c03da8e1aa5f2fd03383e6d634" kind="function"><name>Random</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_system___class_1af4fcdb39e66aec32ea01ddc9728ed70d" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a5013c52976a80c0a4666b3e63da001cf" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_system___class_1ac49f72b793db5c142517145e6093c447" kind="function"><name>Create_Dump</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a4a3ee109288842604fe1d719105a3f77" kind="function"><name>Load_Dump</name></member>
+    <member refid="class_xila___class_1_1_system___class_1abefbebb61b2f577c7f83910f5d886afc" kind="function"><name>Load_Executable</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a96f3b3f9bceae6af625c4f7e454262de" kind="function"><name>Panic_Handler</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a2b8af2f84bca342a6777525b532f1e5e" kind="function"><name>Get_Name</name></member>
+    <member refid="class_xila___class_1_1_system___class_1ab05bd003fe67739427e17826f5c52322" kind="function"><name>Get_Free_Heap</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a1544c6a7f57a011c98170ac2169aa782" kind="function"><name>First_Start_Routine</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a61de79a583c025ef94816add2d946e09" kind="function"><name>Second_Start_Routine</name></member>
+    <member refid="class_xila___class_1_1_system___class_1ab4d3605f0e05e7a59310b9eef55ddb20" kind="function"><name>Execute_Startup_Function</name></member>
+    <member refid="class_xila___class_1_1_system___class_1afa8381f7d491d3e84d648ec55dd7c08e" kind="function"><name>Shutdown</name></member>
+    <member refid="class_xila___class_1_1_system___class_1aa62d535cf5cd7ef97fecea0e142ee7e5" kind="function"><name>Restart</name></member>
+    <member refid="class_xila___class_1_1_system___class_1afbbc6b35ceb316842c50f12968b1abc5" kind="function"><name>Hibernate</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a4485793f3b757292696dd197202f1f39" kind="function"><name>Deep_Sleep</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a82ff50079477272431931981d3ed967c" kind="function"><name>Start</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a8b311ca50f7e998d76b9557c5b1834e1" kind="function"><name>Start</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a9d5a5c9f451de58d5d54040dc72168b4" kind="function"><name>Random</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a2094f61c9bb86f24905084e30dba069b" kind="function"><name>Random</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a1a22d5f743c9ea9ff3f6301cb19fcd23" kind="function"><name>Random</name></member>
     <member refid="class_xila___class_1_1_system___class_1a332890e008438669c624c579031c6c06" kind="function"><name>Refresh_Header</name></member>
     <member refid="class_xila___class_1_1_system___class_1ae4aa4ac898ea84745fa59a2445afff2b" kind="function"><name>System_Class</name></member>
+    <member refid="class_xila___class_1_1_system___class_1a4d9355c7743c90bdfef4e25fda9ac9fd" kind="function"><name>Task</name></member>
   </compound>
   <compound refid="class_xila___class_1_1_task___class" kind="class"><name>Xila_Class::Task_Class</name>
-    <member refid="class_xila___class_1_1_task___class_1a6d7a612dafee15fd2251834cd0fce7a8" kind="function"><name>Delay</name></member>
-    <member refid="class_xila___class_1_1_task___class_1ab1f783a816aee43d830ab3a00569f75b" kind="function"><name>Resume</name></member>
-    <member refid="class_xila___class_1_1_task___class_1a065138b41ce931e63a4f5747c873023d" kind="function"><name>Suspend</name></member>
-    <member refid="class_xila___class_1_1_task___class_1a6326828e5d5103a63e81c9b8cd5ff7e8" kind="function"><name>Delete</name></member>
-    <member refid="class_xila___class_1_1_task___class_1acb0ef79745cc3479ac1dfa25c1806a30" kind="function"><name>Create</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a7e7dd4de25da6f0ebd8fb4e0431fe4f2" kind="enum"><name>Priorities</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a7e7dd4de25da6f0ebd8fb4e0431fe4f2a28430c8ac9fc8a3a54c7d10845d8f250" kind="enumvalue"><name>Idle_Task</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a7e7dd4de25da6f0ebd8fb4e0431fe4f2aa79ea72ffb67cbc241919d2925c87228" kind="enumvalue"><name>Software_Task</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a7e7dd4de25da6f0ebd8fb4e0431fe4f2ac401df069c83f48ad7bad535f6485918" kind="enumvalue"><name>System_Task</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a7e7dd4de25da6f0ebd8fb4e0431fe4f2a4cdbc5ef7c58a9992fb9cf02a515a294" kind="enumvalue"><name>Driver_Task</name></member>
+    <member refid="class_xila___class_1_1_task___class_1aeaba298f428e1e39b697dc073d86320d" kind="variable"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a3a88df96dc6a40788b7157bf7f89105c" kind="function"><name>Create</name></member>
+    <member refid="class_xila___class_1_1_task___class_1aceeef49b7e1599da4e406edf54550c77" kind="function"><name>Create</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a48d07593d1b60d458648e66251d8327b" kind="function"><name>Suspend</name></member>
+    <member refid="class_xila___class_1_1_task___class_1aace4cf5143016c6ffd1f053eaca93b0d" kind="function"><name>Resume</name></member>
+    <member refid="class_xila___class_1_1_task___class_1aa750a2c2168865a2f45be7c6d0127f72" kind="function"><name>Delete</name></member>
+    <member refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" kind="function"><name>Delay</name></member>
   </compound>
   <compound refid="class_template___class" kind="class"><name>Template_Class</name>
     <member refid="class_template___class_1a3060033c791e363c275a088ee9766b69" kind="enum"><name>Picture</name></member>
@@ -1101,11 +1145,14 @@
     <member refid="class_xila___class_1_1_time___class_1a6643c7c34c629a959170322756dd5030" kind="variable"><name>Current_Time</name></member>
     <member refid="class_xila___class_1_1_time___class_1a29430551197ace822ac914168c6304ae" kind="variable"><name>Now</name></member>
     <member refid="class_xila___class_1_1_time___class_1ace5418e9537114530b3c429a4c834270" kind="variable"><name>NTP_Server</name></member>
-    <member refid="class_xila___class_1_1_time___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
-    <member refid="class_xila___class_1_1_time___class_1a685033e3deaa7d39a006846c0af8ca08" kind="function"><name>Load_Registry</name></member>
-    <member refid="class_xila___class_1_1_time___class_1acea2f630559418261fc0521eccf4431c" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_time___class_1a527e2efc7210a2147182df1fde98a42c" kind="friend"><name>Xila_Class</name></member>
+    <member refid="class_xila___class_1_1_time___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_time___class_1adc8305e55fcfdef8c799d908bc6a0878" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_time___class_1a6a2527eac161aff9a51993929b135b1f" kind="function"><name>Save_Registry</name></member>
     <member refid="class_xila___class_1_1_time___class_1a67c92c4afcd6988e00e88e41884cf098" kind="function"><name>Get_Time</name></member>
     <member refid="class_xila___class_1_1_time___class_1ad5fd5a4309eb17115741f0b74d4a65ba" kind="function"><name>Synchronise</name></member>
+    <member refid="class_xila___class_1_1_time___class_1a220cf1fec16936a143f7f56e62f8d32c" kind="function"><name>Milliseconds</name></member>
+    <member refid="class_xila___class_1_1_time___class_1ad49dc253858436952c429f26746822d0" kind="function"><name>Time_Class</name></member>
   </compound>
   <compound refid="class_tiny___basic___class" kind="class"><name>Tiny_Basic_Class</name>
     <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76" kind="enum"><name>@0</name></member>
@@ -1271,55 +1318,50 @@
     <member refid="class_xila___class_1_1_wi_fi___class_1a345922aa4e6447b6555ffad19e236898" kind="friend"><name>WiFiClient</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1a98a487eb7fb049868f04e033efbed38f" kind="friend"><name>WiFiServer</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1a1909b07c4430e2aee6044220367ad022" kind="friend"><name>WiFiUDP</name></member>
-    <member refid="class_xila___class_1_1_wi_fi___class_1a3acfa568e938e9ef7ec29fbcf744a15f" kind="friend"><name>Module_Class</name></member>
+    <member refid="class_xila___class_1_1_wi_fi___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
+    <member refid="class_xila___class_1_1_wi_fi___class_1a26aac88a64c8b6b8c119c53d55955615" kind="variable"><name>Xila_Class</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1a1af8500f31f33b12091eaeed3ddc8a7a" kind="function"><name>printDiag</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1a7322e3b7df7b38d830fe6e13fdb10a05" kind="function"><name>enableProv</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1ad738d1a7fcf7dcdb032999848e131972" kind="function"><name>isProvEnabled</name></member>
     <member refid="class_xila___class_1_1_wi_fi___class_1a563e42ec40f00e25479edd59e3fc9e45" kind="function"><name>WiFi_Class</name></member>
-    <member refid="class_xila___class_1_1_wi_fi___class_1ab5ce593e9561bd713956766538e26c3e" kind="function"><name>Set_Credentials</name></member>
-    <member refid="class_xila___class_1_1_wi_fi___class_1a0d26b572539c074208e1ec3a8c44f578" kind="function"><name>Load_Registry</name></member>
-    <member refid="class_xila___class_1_1_wi_fi___class_1a44e5dd4b08831d97b46e26f8fb8ce4e2" kind="function"><name>Save_Registry</name></member>
+    <member refid="class_xila___class_1_1_wi_fi___class_1aade0b120caadb7f8883d6b67635a049d" kind="function"><name>Set_Credentials</name></member>
+    <member refid="class_xila___class_1_1_wi_fi___class_1a7663be1a0fff6cb5c8c7c8d78735714b" kind="function"><name>Load_Registry</name></member>
+    <member refid="class_xila___class_1_1_wi_fi___class_1a6c71a9c6ef7b5c874e7f7c8a1716fc31" kind="function"><name>Save_Registry</name></member>
   </compound>
   <compound refid="class_xila___class" kind="class"><name>Xila_Class</name>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26" kind="enum"><name>Prefixs</name></member>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a97c2e9a28bf16dbfbd7e2ae379461e97" kind="enumvalue"><name>Instruction</name></member>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26abc2af57fa83cde9d1d1dc4d52d6a68f3" kind="enumvalue"><name>Variable_String_Local</name></member>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a724f1fe01eb8d280bc5e4d534548c6fb" kind="enumvalue"><name>Variable_String_Global</name></member>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a0cab74501eb37c9d2a8afe55bd55587d" kind="enumvalue"><name>Variable_Long_Local</name></member>
-    <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a112929cfccd7803cd66b1e547ccaf9bb" kind="enumvalue"><name>Variable_Long_Global</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kind="enum"><name>Event</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123abb779d65772c4e3bfbda820caccf20ab" kind="enumvalue"><name>None</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aee07a60c567f17f3d8e2ad35c3d60f94" kind="enumvalue"><name>Success</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ac91f464ae2171337aa4e6a5d521b8c44" kind="enumvalue"><name>Error</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a7d8c8166f86663b37f28e4ee66cb0ef4" kind="enumvalue"><name>Warning</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ada4b318681e303f0c28caa40f90bdb54" kind="enumvalue"><name>Information</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a8f56918c8cffe668dcb27d88d071e778" kind="enumvalue"><name>Question</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a85073382db539a42ee155584736615f2" kind="enumvalue"><name>Button_1</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a192e96390fe505bca5763459211d6728" kind="enumvalue"><name>Button_2</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123add4725a2366110938a27b442f1a11071" kind="enumvalue"><name>Button_3</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aca9a7795d4fae8f70c709c97990cd472" kind="enumvalue"><name>Default_Yes</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a0ab35c3f8f1ce531f0c916d3d6f749a2" kind="enumvalue"><name>Default_No</name></member>
+    <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a09cbdbc45fd7ca78a5085535dc8adf76" kind="enumvalue"><name>Default_Cancel</name></member>
     <member refid="class_xila___class_1a819acce7599d01577959a75715e8f896" kind="variable"><name>Instance_Pointer</name></member>
-    <member refid="class_xila___class_1aba44a1a760f489904cff565a576ef045" kind="variable"><name>Account</name></member>
-    <member refid="class_xila___class_1ab5de246de40d063383e6318b4d2d6e42" kind="variable"><name>Clipboard</name></member>
+    <member refid="class_xila___class_1a9756907a0e1d19b9bd9ac7e38081aa0c" kind="variable"><name>Account</name></member>
+    <member refid="class_xila___class_1ac4630168b985e6b69f4b78c67310685d" kind="variable"><name>Clipboard</name></member>
     <member refid="class_xila___class_1afca0b4b7fdd50f3ef793fbffe15b2a8e" kind="variable"><name>Dialog</name></member>
     <member refid="class_xila___class_1aaa717d29b6093ed7430950c0df2132d5" kind="variable"><name>Display</name></member>
+    <member refid="class_xila___class_1ae66fa2f34ee7a99d3393c7e93eb413f1" kind="variable"><name>Keyboard</name></member>
     <member refid="class_xila___class_1a34dc05ff081b3da12f98ee2e6d8a2892" kind="variable"><name>Power</name></member>
-    <member refid="class_xila___class_1ac12e9a51e2c2d87c87b2b1109470e26e" kind="variable"><name>Software</name></member>
-    <member refid="class_xila___class_1a55afee017f19a70423120f39a57555ee" kind="variable"><name>Sound</name></member>
-    <member refid="class_xila___class_1a28c2543b73f345ae4c35f8a6aa701176" kind="variable"><name>System</name></member>
-    <member refid="class_xila___class_1a677983551556dbff2aa48bd1a3977825" kind="variable"><name>Task</name></member>
+    <member refid="class_xila___class_1a8a7c74ce60d60d2c317a238b848a79f7" kind="variable"><name>Software</name></member>
+    <member refid="class_xila___class_1a927733174694a16dfe6d25c76451803c" kind="variable"><name>Sound</name></member>
+    <member refid="class_xila___class_1a23d7b1265f02c0bc5f39beb957eee872" kind="variable"><name>System</name></member>
+    <member refid="class_xila___class_1a50b924629c89e12107e9d7eac2113748" kind="variable"><name>Task</name></member>
     <member refid="class_xila___class_1a70b6e878a8e3470def70916c65c72dcc" kind="variable"><name>Time</name></member>
     <member refid="class_xila___class_1a999c4030676b171129381b86dbaa7746" kind="variable"><name>WiFi</name></member>
-    <member refid="class_xila___class_1ac8749810fcc46327d5ed1d4458c726b4" kind="variable"><name>Drive</name></member>
-    <member refid="class_xila___class_1aff7c8b94b1eaeafac5fdf88da566539d" kind="variable"><name>Keyboard</name></member>
-    <member refid="class_xila___class_1a0f8a8c35d6b491f3f0d28bc183900e08" kind="variable"><name>Core_Task_Handle</name></member>
-    <member refid="class_xila___class_1a993b38fc160773525ee5c3dfcf033710" kind="friend"><name>Shell_Class</name></member>
-    <member refid="class_xila___class_1a4949996f802df3f6d5d0e17ead8e580e" kind="function"><name>Loop</name></member>
-    <member refid="class_xila___class_1a2c372b49e481282b9d371c0b1ce71e6c" kind="function"><name>Load_System_Registry</name></member>
-    <member refid="class_xila___class_1a9877c8d208bd172c0c464e3911dc22f3" kind="function"><name>Load_Sound_Registry</name></member>
-    <member refid="class_xila___class_1a332e12a31bc6a2dd0f246b200c9327b3" kind="function"><name>Set_Sound_Registry</name></member>
-    <member refid="class_xila___class_1a8167c0ba469192dcc9c99e6216ac4912" kind="function"><name>Save_System_State</name></member>
-    <member refid="class_xila___class_1ad2d28620f99f79aafbd35dc27082bdac" kind="function"><name>Restore_System_State</name></member>
-    <member refid="class_xila___class_1a88c350f1f60398c09081fbd30c6c8664" kind="function"><name>Get_File_Name</name></member>
-    <member refid="class_xila___class_1a9d837281bf4421f2cef26cc829dee6b2" kind="function"><name>Count_Files</name></member>
-    <member refid="class_xila___class_1ae1aee8c076948d2cc42e671c22d0bbc2" kind="function"><name>Copy_File</name></member>
     <member refid="class_xila___class_1a2b64bf0efcb16111acfd4039669d3781" kind="function"><name>Xila_Class</name></member>
     <member refid="class_xila___class_1a069d5d3497a54258f0e37945aebeaac8" kind="function"><name>~Xila_Class</name></member>
-    <member refid="class_xila___class_1a65ad31b9170b2884b9ba26b6c05df49b" kind="function"><name>Core_Task</name></member>
   </compound>
   <compound refid="_configuration_8hpp" kind="file"><name>Configuration.hpp</name>
     <member refid="_configuration_8hpp_1a47fcd7cb76cd608e86fcf1541ae4d1c4" kind="define"><name>USB_SERIAL_SPEED</name></member>
-    <member refid="_configuration_8hpp_1a9dae37b6b57e30542ac5d55a27d6e46c" kind="define"><name>DEFAULT_Name</name></member>
-    <member refid="_configuration_8hpp_1a941289951c233e44bd0bc7064036f04e" kind="define"><name>LOW_RAM_THRESHOLD</name></member>
+    <member refid="_configuration_8hpp_1a17cb37149acf724489e376b08d9dbeb7" kind="define"><name>Default_Name</name></member>
+    <member refid="_configuration_8hpp_1a7197ef1efc56362193f5d2671a297d0e" kind="define"><name>Low_Memory_Threshold</name></member>
     <member refid="_configuration_8hpp_1ab7e405aea12847663b10f5ab5b27ae88" kind="define"><name>MAXIMUM_SOFTWARE</name></member>
     <member refid="_configuration_8hpp_1ab1bc6cc3ffaa43fda3986a924496dedb" kind="define"><name>DISPLAY_SWITCH_PIN</name></member>
     <member refid="_configuration_8hpp_1a4341c2a45c65fd3616f0eb15d36b115d" kind="define"><name>POWER_BUTTON_PIN</name></member>
@@ -1331,8 +1373,8 @@
     <member refid="_configuration_8hpp_1a1a53b724b6de666faa8a9e0d06d1055f" kind="define"><name>VERSION_MAJOR</name></member>
     <member refid="_configuration_8hpp_1ae0cb52afb79b185b1bf82c7e235f682b" kind="define"><name>VERSION_MINOR</name></member>
     <member refid="_configuration_8hpp_1a33a65555d48ca9380ac4a16a52b37277" kind="define"><name>VERSION_REVISION</name></member>
-    <member refid="_configuration_8hpp_1aa8b9e8be1bb6f70671cca24ccff3bee0" kind="define"><name>DEFAULT_KEYBOARD_DATA</name></member>
-    <member refid="_configuration_8hpp_1ad91bff5f7a2ce397385fb6e52c355b85" kind="define"><name>DEFAULT_KEYBOARD_CLOCK</name></member>
+    <member refid="_configuration_8hpp_1a62b6f41811fc5a5274faff1a54c2aaa5" kind="define"><name>Default_Keyboard_Data</name></member>
+    <member refid="_configuration_8hpp_1a48b1d135b35ce224f1a56574079ba9a6" kind="define"><name>Default_Keyboard_Clock</name></member>
     <member refid="_configuration_8hpp_1a488ac15b2d582583ddb67876813e3004" kind="define"><name>DRIVE_VERSION_MAJOR</name></member>
     <member refid="_configuration_8hpp_1a72eb786de4e3fb95db34121fd3d48165" kind="define"><name>DRIVE_VERSION_MINOR</name></member>
     <member refid="_configuration_8hpp_1a7f368defcf118acfd47e6f990f0e2742" kind="define"><name>DRIVE_VERSION_REVISION</name></member>
@@ -1343,13 +1385,9 @@
     <member refid="_configuration_8hpp_1ac52c6eea69836125841a916d58463192" kind="define"><name>SYSTEM_CORE</name></member>
     <member refid="_configuration_8hpp_1af3c7499e7e32cae0662f06bb1daa6133" kind="define"><name>MAXIMUM_PASSWORD_LENGHT</name></member>
     <member refid="_configuration_8hpp_1ab75d3a86788a4b68e8445ac6938bff5a" kind="define"><name>MAXIMUM_USERNAME_LENGHT</name></member>
-    <member refid="_configuration_8hpp_1a1de3e0f121217b19f7730206535503af" kind="define"><name>IDLE_TASK_PRIORITY</name></member>
-    <member refid="_configuration_8hpp_1a6e968b4dc436b5a22bc02dd2455be413" kind="define"><name>SOFTWARE_TASK_PRIOITY</name></member>
-    <member refid="_configuration_8hpp_1ada690eef53d4d43b44a9e2cec658ec8e" kind="define"><name>SYSTEM_TASK_PRIORITY</name></member>
-    <member refid="_configuration_8hpp_1a5ec8e0e6e83f08843950eb938cc5f423" kind="define"><name>DRIVER_TASK_PRIORITY</name></member>
     <member refid="_configuration_8hpp_1a9bb74553a93bc7f4c7c94a6b0e1d07dc" kind="define"><name>DEFAULT_QUEUE_SIZE</name></member>
     <member refid="_configuration_8hpp_1a7165a7a4c2d0d8395d0720a50550ae44" kind="define"><name>Memory_Chunk</name></member>
-    <member refid="_configuration_8hpp_1acc698a952c4ababbd7e25731c9d7f4e3" kind="define"><name>WATCHDOG_THRESHOLD_TIME</name></member>
+    <member refid="_configuration_8hpp_1ae2e191d1d0c03b9f67fd5fed591837e7" kind="define"><name>Watchdog_Threshold_Time</name></member>
     <member refid="_configuration_8hpp_1a3628f90f768c312cdd6a621272fee732" kind="define"><name>DEFAULT_SOUND_REGISTRY_VOLUME</name></member>
     <member refid="_configuration_8hpp_1a77d41a75ef26fc13970280f1b6cef1c0" kind="define"><name>BATTERY_CHECKING</name></member>
     <member refid="_configuration_8hpp_1ae0f4b4082cdef8bfca513b184c819a53" kind="define"><name>ANIMATION</name></member>
@@ -1363,27 +1401,7 @@
     <member refid="_configuration_8hpp_1af08f96923bb7289011957ec45944a469" kind="define"><name>USB_SERIAL</name></member>
   </compound>
   <compound refid="_core_8hpp" kind="file"><name>Core.hpp</name>
-    <member refid="_core_8hpp_1a87ce8b6d9b61454018d19be7496d1bdb" kind="define"><name>SYSTEM_STATE_STANDALONE</name></member>
-    <member refid="_core_8hpp_1ab1f2e6dcd01154e4e86b9be50b3a079a" kind="define"><name>SYSTEM_STATE_NORMAL</name></member>
-    <member refid="_core_8hpp_1af677e62ba528643b043368a0a1a0e4c9" kind="define"><name>SOFTWARE_EMBEDDED</name></member>
-    <member refid="_core_8hpp_1a8c4eb67a97c87557f83bdcc986f97c5a" kind="define"><name>SOFTWARE_STANDALONE</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0b" kind="enum"><name>Xila_Event</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0bac9d3e887722f2bc482bcca9d41c512af" kind="enumvalue"><name>None</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0bafdfbdf3247bd36a1f17270d5cec74c9c" kind="enumvalue"><name>Success</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba4dfd42ec49d09d8c6555c218301cc30f" kind="enumvalue"><name>Error</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba48f2bb70fceb692a2dedd8cea496c44b" kind="enumvalue"><name>Warning</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba90354ba4cd508f063e51c1a039993441" kind="enumvalue"><name>Information</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba7b638c492f8984833ab510ad89e0dada" kind="enumvalue"><name>Question</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba90953fe99b5012089a9f53913be583fc" kind="enumvalue"><name>Button_1</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba2a7acb766eae393f7ee50c8542a68ce1" kind="enumvalue"><name>Button_2</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba6548be91a489b9a41c849298f1ac59f5" kind="enumvalue"><name>Button_3</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0bab2063f46d5f80b94a74627c9cb14d9f8" kind="enumvalue"><name>Default_Yes</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba60686eb72e67e2ace557507700d170b3" kind="enumvalue"><name>Default_No</name></member>
-    <member refid="_core_8hpp_1a3191e5c57f0e58ee760e513cf047df0ba5b8df11de03122b49a3d397b38284007" kind="enumvalue"><name>Default_Cancel</name></member>
-    <member refid="_core_8hpp_1a3cfd626b3ba6fb3b475d9ab0832b9458" kind="typedef"><name>Xila_Instruction</name></member>
     <member refid="_core_8hpp_1a890d627f9711c419a0c9cbd324afee85" kind="typedef"><name>Xila_Time</name></member>
-    <member refid="_core_8hpp_1ae15b037dce01fcaa55e44c7ebb549427" kind="typedef"><name>Xila_Task_Handle</name></member>
-    <member refid="_core_8hpp_1aba4e4c9a9399ea695307d81b394bd0c9" kind="typedef"><name>Xila_Task_Function</name></member>
     <member refid="_core_8hpp_1a7c041a032a8922d2aa39e1ed463782a9" kind="variable"><name>Shell_Handle</name></member>
   </compound>
   <compound refid="_path_8hpp" kind="file"><name>Path.hpp</name>
@@ -1405,7 +1423,8 @@
     <member refid="_path_8hpp_1a8d0e09c733ca0b9aeb15cf7c6b598f23" kind="define"><name>Display_Registry_Path</name></member>
     <member refid="_path_8hpp_1a3c81e8cdd9cf361661fedd8f42ebdda7" kind="define"><name>Network_Registry_Path</name></member>
     <member refid="_path_8hpp_1a2569cf6741147ac8893f4a8b0a1eb787" kind="define"><name>Account_Registry_Path</name></member>
-    <member refid="_path_8hpp_1a5675ff1b71bc87f178525e2432c0958f" kind="define"><name>Regional_Registry_Path</name></member>
+    <member refid="_path_8hpp_1a8f81befb0213e22df14f6febf2a4ed17" kind="define"><name>Time_Registry_Path</name></member>
+    <member refid="_path_8hpp_1adaf205c41029680c9e14fca6be02c8eb" kind="define"><name>Keyboard_Registry_Path</name></member>
     <member refid="_path_8hpp_1a600a17ab45ef13425b53f345b45f0c62" kind="define"><name>Software_Registry_Path</name></member>
     <member refid="_path_8hpp_1a7238a301fe1df1545a79a098a80afc1d" kind="define"><name>Sound_Registry_Path</name></member>
     <member refid="_path_8hpp_1abcdd10f8d6df81e9a210f9631239b4cd" kind="define"><name>Startup_Sound_Path</name></member>
@@ -1423,12 +1442,21 @@
     <member refid="_software_8hpp_1ac49a22c6d8ef3265aa1efdb34f386028" kind="define"><name>SOFTWARE_TYPE_COMPILED</name></member>
     <member refid="_software_8hpp_1ab4bc88ebda5d44fb015f2883cdfbbdd4" kind="define"><name>SOFTWARE_TYPE_INTERPRETED</name></member>
     <member refid="_software_8hpp_1a15b0ebe8d663abdffd08c0346f5ffedc" kind="define"><name>Instruction</name></member>
+    <member refid="_software_8hpp_1ae15b037dce01fcaa55e44c7ebb549427" kind="typedef"><name>Xila_Task_Handle</name></member>
+    <member refid="_software_8hpp_1aba4e4c9a9399ea695307d81b394bd0c9" kind="typedef"><name>Xila_Task_Function</name></member>
+    <member refid="_software_8hpp_1a3cfd626b3ba6fb3b475d9ab0832b9458" kind="typedef"><name>Xila_Instruction</name></member>
     <member refid="_software_8hpp_1afa9f4d12efb2f1c73c0196f671c8a92d" kind="variable"><name>Xila</name></member>
   </compound>
   <compound refid="_software___handle_8hpp" kind="file"><name>Software_Handle.hpp</name>
     <member refid="_software___handle_8hpp_1a0bf46f3555c31ea0a184c137333f9620" kind="define"><name>SOTFWARE_HANDLE_HPP_INCLUDED</name></member>
     <member refid="_software___handle_8hpp_1afa9f4d12efb2f1c73c0196f671c8a92d" kind="variable"><name>Xila</name></member>
     <member refid="_software___handle_8hpp_1ac1eea9718308454bb6b6b4cd8c74333b" kind="function"><name>operator==</name></member>
+  </compound>
+  <compound refid="_system_8hpp" kind="file"><name>System.hpp</name>
+  </compound>
+  <compound refid="_task_8hpp" kind="file"><name>Task.hpp</name>
+  </compound>
+  <compound refid="_time_8hpp" kind="file"><name>Time.hpp</name>
   </compound>
   <compound refid="_battery_8hpp" kind="file"><name>Battery.hpp</name>
   </compound>
@@ -1505,7 +1533,7 @@
     <member refid="_piano_8hpp_1ace918c732c4f0a7ad89d4298fac3afcd" kind="variable"><name>Piano_Handle</name></member>
   </compound>
   <compound refid="_picture___viewer_8hpp" kind="file"><name>Picture_Viewer.hpp</name>
-    <member refid="_picture___viewer_8hpp_1abacb81ce7d8c7f523067a5865216f445" kind="variable"><name>Picture_Viewer_Handle</name></member>
+    <member refid="_picture___viewer_8hpp_1a8d47b5a24814fe73b25433422250a425" kind="variable"><name>Image_Viewer_Handle</name></member>
   </compound>
   <compound refid="_pong_8hpp" kind="file"><name>Pong.hpp</name>
     <member refid="_pong_8hpp_1a0c5a4238ba1360a8b0b5ef4eec50bbee" kind="variable"><name>Pong_Handle</name></member>

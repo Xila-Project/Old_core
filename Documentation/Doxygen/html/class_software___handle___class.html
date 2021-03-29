@@ -64,7 +64,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -74,36 +73,30 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:aa98161c40a93f1e84107b66664e903e5"><td class="memItemLeft" align="right" valign="top"><a id="aa98161c40a93f1e84107b66664e903e5"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Software_Type</b> </td></tr>
-<tr class="separator:aa98161c40a93f1e84107b66664e903e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a5920e3be3e558f2502bfd7a07469fc48"><td class="memItemLeft" align="right" valign="top"><a id="a5920e3be3e558f2502bfd7a07469fc48"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Is_Equal</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle_To_Compare) const</td></tr>
 <tr class="separator:a5920e3be3e558f2502bfd7a07469fc48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9883b011b1bd62fc7fdfec867d20aee9"><td class="memItemLeft" align="right" valign="top"><a id="a9883b011b1bd62fc7fdfec867d20aee9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Software_Handle_Class</b> (const char *Software_Name, uint8_t Icon_ID, <a class="el" href="class_software___class.html">Software_Class</a> *(*Load_Function_Pointer)(), void(*Startup_Function_Pointer)()=NULL)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Software_Handle_Class</b> (const char *Software_Name, uint8_t Icon_ID, <a class="el" href="class_software___class.html">Software_Class</a> *(*<a class="el" href="class_software___handle___class.html#a74220aca2282a4a765e76cd62a60112b">Load_Function_Pointer</a>)(), void(*<a class="el" href="class_software___handle___class.html#a341079b79c4c604629b58c9ce9cbcb9a">Startup_Function_Pointer</a>)()=NULL)</td></tr>
 <tr class="separator:a9883b011b1bd62fc7fdfec867d20aee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:ad123dede2db9c71ddd8eacb85d962802"><td class="memItemLeft" align="right" valign="top"><a id="ad123dede2db9c71ddd8eacb85d962802"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Icon</b></td></tr>
-<tr class="separator:ad123dede2db9c71ddd8eacb85d962802"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad350b21f047cbabdaf3f78540c0534c2"><td class="memItemLeft" align="right" valign="top"><a id="ad350b21f047cbabdaf3f78540c0534c2"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Type</b></td></tr>
-<tr class="separator:ad350b21f047cbabdaf3f78540c0534c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92c8b2288a7ef0f1f2b85989f358c9b3"><td class="memItemLeft" align="right" valign="top"><a id="a92c8b2288a7ef0f1f2b85989f358c9b3"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b> [24]</td></tr>
+char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___handle___class.html#a92c8b2288a7ef0f1f2b85989f358c9b3">Name</a> [24]</td></tr>
+<tr class="memdesc:a92c8b2288a7ef0f1f2b85989f358c9b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software name. <br /></td></tr>
 <tr class="separator:a92c8b2288a7ef0f1f2b85989f358c9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74220aca2282a4a765e76cd62a60112b"><td class="memItemLeft" align="right" valign="top"><a id="a74220aca2282a4a765e76cd62a60112b"></a>
-<a class="el" href="class_software___class.html">Software_Class</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Function_Pointer</b> )()</td></tr>
+<tr class="memitem:ad123dede2db9c71ddd8eacb85d962802"><td class="memItemLeft" align="right" valign="top"><a id="ad123dede2db9c71ddd8eacb85d962802"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___handle___class.html#ad123dede2db9c71ddd8eacb85d962802">Icon</a></td></tr>
+<tr class="memdesc:ad123dede2db9c71ddd8eacb85d962802"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software icon. <br /></td></tr>
+<tr class="separator:ad123dede2db9c71ddd8eacb85d962802"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74220aca2282a4a765e76cd62a60112b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_software___class.html">Software_Class</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___handle___class.html#a74220aca2282a4a765e76cd62a60112b">Load_Function_Pointer</a> )()</td></tr>
+<tr class="memdesc:a74220aca2282a4a765e76cd62a60112b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer called by Xila to load software.  <a href="class_software___handle___class.html#a74220aca2282a4a765e76cd62a60112b">More...</a><br /></td></tr>
 <tr class="separator:a74220aca2282a4a765e76cd62a60112b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a341079b79c4c604629b58c9ce9cbcb9a"><td class="memItemLeft" align="right" valign="top"><a id="a341079b79c4c604629b58c9ce9cbcb9a"></a>
-void(*&#160;</td><td class="memItemRight" valign="bottom"><b>Startup_Function_Pointer</b> )()</td></tr>
+<tr class="memitem:a341079b79c4c604629b58c9ce9cbcb9a"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___handle___class.html#a341079b79c4c604629b58c9ce9cbcb9a">Startup_Function_Pointer</a> )()</td></tr>
+<tr class="memdesc:a341079b79c4c604629b58c9ce9cbcb9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function pointer that is called by Xila at startup.  <a href="class_software___handle___class.html#a341079b79c4c604629b58c9ce9cbcb9a">More...</a><br /></td></tr>
 <tr class="separator:a341079b79c4c604629b58c9ce9cbcb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -118,6 +111,57 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Software_Class</b></
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
 <tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a74220aca2282a4a765e76cd62a60112b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74220aca2282a4a765e76cd62a60112b">&#9670;&nbsp;</a></span>Load_Function_Pointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_software___class.html">Software_Class</a>*(* Software_Handle_Class::Load_Function_Pointer) ()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function pointer called by Xila to load software. </p>
+<p>Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue. </p>
+
+</div>
+</div>
+<a id="a341079b79c4c604629b58c9ce9cbcb9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341079b79c4c604629b58c9ce9cbcb9a">&#9670;&nbsp;</a></span>Startup_Function_Pointer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void(* Software_Handle_Class::Startup_Function_Pointer) ()</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function pointer that is called by Xila at startup. </p>
+<p>That is usefull when you whan to start a background task, or launch your application at the startup. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_software___handle_8hpp_source.html">Software_Handle.hpp</a></li>
 </ul>

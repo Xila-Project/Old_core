@@ -108,7 +108,7 @@
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" line="16" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_clock___class_1adec4e8b62387be64a8644185e1b9891d" prot="private" static="no" mutable="no">
-        <type>Xila_Time</type>
+        <type><ref refid="_core_8hpp_1a890d627f9711c419a0c9cbd324afee85" kindref="member">Xila_Time</ref></type>
         <definition>Xila_Time Clock_Class::Time</definition>
         <argsstring></argsstring>
         <name>Time</name>
@@ -607,7 +607,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="1">
@@ -637,24 +637,40 @@
       <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89af0392dde2564ace5d9d3c7e92bc5318f" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Chronometer</name></member>
       <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a9b3447c75d1c36560a9bb9ccfc7bcf7d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Clock</name></member>
       <member refid="class_clock___class_1a5ec554f9e0d51c9ba9e9602b2886afc3" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Clock_Class</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Close</name></member>
       <member refid="class_clock___class_1a567b0138182b59e8343666172c49e6f7" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Current_Tab</name></member>
       <member refid="class_clock___class_1a228f66ce3600fe8d538d959de79f5f46" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Days</name></member>
       <member refid="class_clock___class_1a5161602232c613c63209fcb3b48c9939" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Delete_Alarm</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Hibernate</name></member>
       <member refid="class_clock___class_1a77d9ec51331356ff5db8956afae3a57e" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Hours</name></member>
       <member refid="class_clock___class_1a1d901bafa0f7136037a247856028dfdca63a7bc45abe92ca4c306b63498462448" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Icon_32</name></member>
-      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Idle</name></member>
       <member refid="class_clock___class_1ad87e40f0ce62e13ad4d8ac65791fa206" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Inital_Time</name></member>
       <member refid="class_clock___class_1a8478ef5aaf2d503ac076323ef4fd3616" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Instructions</name></member>
       <member refid="class_clock___class_1ab0def5f84f509c32f6b7b028855b46db" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Last_Update</name></member>
       <member refid="class_clock___class_1a78111a9e8e487c83cce909b470a1353e" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Load</name></member>
       <member refid="class_clock___class_1aedb0b571f89488ce0bc6836e4747aaf7" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Minimize</name></member>
       <member refid="class_clock___class_1a2b7466bd6395b7606dc786bcdc778aeb" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Minutes</name></member>
       <member refid="class_clock___class_1ac6ea252dfe57d2522511f341c03a7076" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Months</name></member>
       <member refid="class_clock___class_1a356894f3f458afd439c13ce1474d2f5d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Next_Alarm</name></member>
       <member refid="class_clock___class_1a9b17c36f4ab200b4cb6967262d3f8707" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Offset</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Open</name></member>
       <member refid="class_clock___class_1ac4978f5e2faccdd1fea6d9f581868b53" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Paused_Time</name></member>
       <member refid="class_clock___class_1a1d901bafa0f7136037a247856028dfdc" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Picture</name></member>
       <member refid="class_clock___class_1a95844e44e3a63afd09ea856146f003a8" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Alarm</name></member>
@@ -662,11 +678,13 @@
       <member refid="class_clock___class_1a68718cd4d51dc0afa9a490adeea3c355" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Chronometer</name></member>
       <member refid="class_clock___class_1a4e577324a7acaf59f68607c29341270c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Clock</name></member>
       <member refid="class_clock___class_1a3ebaead09f854aab26ddb493fbda9780" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Refresh_Timer</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Restart</name></member>
       <member refid="class_clock___class_1a348e903e93ddcad1cdf8aa659433198f" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Seconds</name></member>
       <member refid="class_clock___class_1ae9f9961e7805bc549189a423befa4aab" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Selected_Alarm</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_clock___class_1ab7a7769859c5db13e5061f6eaf6bd9e1" prot="private" virt="virtual"><scope>Clock_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Shutdown</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Software_Class</name></member>
       <member refid="class_clock___class_1ad4767386f71d414a5b4c36e3d2ae5198" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>Startup_Function</name></member>
       <member refid="class_clock___class_1a04f9766e45a45545712848838fbc0b3c" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>State</name></member>
@@ -676,6 +694,7 @@
       <member refid="class_clock___class_1a2afde703c035fd63901b1fbc7ae5cadc" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Temporary_Time</name></member>
       <member refid="class_clock___class_1adec4e8b62387be64a8644185e1b9891d" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Time</name></member>
       <member refid="class_clock___class_1abaca08d89fe3dc2d81be4432ec6d0e89a778affc6a4d4a7f0beaee97c17cf336b" prot="private" virt="non-virtual"><scope>Clock_Class</scope><name>Timer</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Clock_Class</scope><name>Watchdog</name></member>
       <member refid="class_clock___class_1aae4196ffaeb2256b64925272e70caae4" prot="public" virt="non-virtual"><scope>Clock_Class</scope><name>~Clock_Class</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Clock_Class</scope><name>~Software_Class</name></member>
     </listofallmembers>

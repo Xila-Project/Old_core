@@ -64,7 +64,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -73,6 +73,11 @@ $(function() {
 <div class="title">Software_Class Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Software class.  
+ <a href="class_software___class.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_software_8hpp_source.html">Software.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Software_Class:</div>
 <div class="dyncontent">
@@ -81,15 +86,15 @@ Inheritance diagram for Software_Class:</div>
   <map id="Software_5FClass_map" name="Software_5FClass_map">
 <area href="class_calculator___class.html" alt="Calculator_Class" shape="rect" coords="156,56,302,80"/>
 <area href="class_clock___class.html" alt="Clock_Class" shape="rect" coords="156,112,302,136"/>
-<area href="class_internet___browser___class.html" alt="Internet_Browser_Class" shape="rect" coords="156,168,302,192"/>
-<area href="class_music___player___class.html" alt="Music_Player_Class" shape="rect" coords="156,224,302,248"/>
-<area href="class_oscilloscope___class.html" alt="Oscilloscope_Class" shape="rect" coords="156,280,302,304"/>
-<area href="class_paint___class.html" alt="Paint_Class" shape="rect" coords="156,336,302,360"/>
-<area href="class_periodic___class.html" alt="Periodic_Class" shape="rect" coords="156,392,302,416"/>
-<area href="class_piano___class.html" alt="Piano_Class" shape="rect" coords="156,448,302,472"/>
-<area href="class_picture___viewer___class.html" alt="Picture_Viewer_Class" shape="rect" coords="156,504,302,528"/>
+<area href="class_image___viewer___class.html" alt="Image_Viewer_Class" shape="rect" coords="156,168,302,192"/>
+<area href="class_internet___browser___class.html" alt="Internet_Browser_Class" shape="rect" coords="156,224,302,248"/>
+<area href="class_music___player___class.html" alt="Music_Player_Class" shape="rect" coords="156,280,302,304"/>
+<area href="class_oscilloscope___class.html" alt="Oscilloscope_Class" shape="rect" coords="156,336,302,360"/>
+<area href="class_paint___class.html" alt="Paint_Class" shape="rect" coords="156,392,302,416"/>
+<area href="class_periodic___class.html" alt="Periodic_Class" shape="rect" coords="156,448,302,472"/>
+<area href="class_piano___class.html" alt="Piano_Class" shape="rect" coords="156,504,302,528"/>
 <area href="class_pong___class.html" alt="Pong_Class" shape="rect" coords="156,560,302,584"/>
-<area href="class_shell___class.html" alt="Shell_Class" shape="rect" coords="156,616,302,640"/>
+<area href="class_shell___class.html" title="Shell class." alt="Shell_Class" shape="rect" coords="156,616,302,640"/>
 <area href="class_simon___class.html" alt="Simon_Class" shape="rect" coords="156,672,302,696"/>
 <area href="class_template___class.html" alt="Template_Class" shape="rect" coords="156,728,302,752"/>
 <area href="class_text___editor___class.html" alt="Text_Editor_Class" shape="rect" coords="156,784,302,808"/>
@@ -97,10 +102,36 @@ Inheritance diagram for Software_Class:</div>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab442acb139fe3dfcccee5c0adce71245"><td class="memItemLeft" align="right" valign="top"><a id="ab442acb139fe3dfcccee5c0adce71245"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> </td></tr>
-<tr class="separator:ab442acb139fe3dfcccee5c0adce71245"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:a884c783d1a51660296ca9dbbad63dd30"><td class="memItemLeft" align="right" valign="top"><a id="a884c783d1a51660296ca9dbbad63dd30"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a884c783d1a51660296ca9dbbad63dd30">Instructions</a> { <br />
+&#160;&#160;<b>Idle</b> = 0
+, <b>Open</b> = 'O'
+, <b>Close</b> = 'C'
+, <b>Maximize</b> = 'M'
+, <br />
+&#160;&#160;<b>Minimize</b> = 'm'
+, <b>Shutdown</b> = 200
+, <b>Restart</b>
+, <b>Hibernate</b> = 'H'
+, <br />
+&#160;&#160;<b>Watchdog</b> = 'W'
+, <b>Desk</b> = 'D'
+, <b>Dialog_Install</b> = 'I'
+, <b>Dialog_Open_File</b> = 'f'
+, <br />
+&#160;&#160;<b>Dialog_Open_Folder</b> = 'F'
+, <b>Dialog_Save_File</b> = 'e'
+, <b>Dialog_Keyboard</b> = 'K'
+, <b>Dialog_Keypad</b> = 'k'
+, <br />
+&#160;&#160;<b>Dialog_Color_Picker</b> = 'c'
+, <b>Dialog_Power</b> = 'P'
+, <b>Dialog_Event</b> = 'E'
+<br />
+ }</td></tr>
+<tr class="memdesc:a884c783d1a51660296ca9dbbad63dd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructions used by the core (with the prefix "#") <br /></td></tr>
+<tr class="separator:a884c783d1a51660296ca9dbbad63dd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -125,9 +156,10 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a35a3ffe6fe26e0ffda529bd5073bf55a"><td class="memItemLeft" align="right" valign="top"><a id="a35a3ffe6fe26e0ffda529bd5073bf55a"></a>
 TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
 <tr class="separator:a35a3ffe6fe26e0ffda529bd5073bf55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab792f9ce4aeaad05155a0d737b784bbf"><td class="memItemLeft" align="right" valign="top"><a id="ab792f9ce4aeaad05155a0d737b784bbf"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Handle_Pointer</b></td></tr>
-<tr class="separator:ab792f9ce4aeaad05155a0d737b784bbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879e342f5718521f638b2e962089cf58"><td class="memItemLeft" align="right" valign="top"><a id="a879e342f5718521f638b2e962089cf58"></a>
+<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a879e342f5718521f638b2e962089cf58">Handle</a></td></tr>
+<tr class="memdesc:a879e342f5718521f638b2e962089cf58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software handle pointer. <br /></td></tr>
+<tr class="separator:a879e342f5718521f638b2e962089cf58"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6757f8c8a69d1a682a1efce55dad9a98"><td class="memItemLeft" align="right" valign="top"><a id="a6757f8c8a69d1a682a1efce55dad9a98"></a>
 QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_Queue_Handle</b></td></tr>
 <tr class="separator:a6757f8c8a69d1a682a1efce55dad9a98"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -144,7 +176,10 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Software_Handle_Clas
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
 <tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Software class. </p>
+<p>This API is used by core in order to echange with software. </p>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_software_8hpp_source.html">Software.hpp</a></li>
 </ul>
 </div><!-- contents -->

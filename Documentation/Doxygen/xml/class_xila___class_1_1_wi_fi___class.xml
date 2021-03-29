@@ -6,7 +6,6 @@
     <basecompoundref prot="public" virt="non-virtual">WiFiSTAClass</basecompoundref>
     <basecompoundref prot="public" virt="non-virtual">WiFiScanClass</basecompoundref>
     <basecompoundref prot="public" virt="non-virtual">WiFiAPClass</basecompoundref>
-    <basecompoundref refid="class_xila___class_1_1_module___class" prot="public" virt="non-virtual">Xila_Class::Module_Class</basecompoundref>
     <includes refid="_core_8hpp" local="no">Core.hpp</includes>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="class_xila___class_1_1_wi_fi___class_1a4b5d032bfe66de0120ee7e5efadde9d7" prot="protected" static="no" mutable="no">
@@ -20,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="699" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="699" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="842" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="842" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_wi_fi___class_1a615108837438a1417be0612ebc7dc5f8" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -33,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="700" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="700" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="843" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="843" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -51,7 +50,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="729" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="729" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="872" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="872" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_wi_fi___class_1a98a487eb7fb049868f04e033efbed38f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -67,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="730" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="730" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="873" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="873" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_wi_fi___class_1a1909b07c4430e2aee6044220367ad022" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -83,15 +82,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="731" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="731" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="874" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="874" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="friend" id="class_xila___class_1_1_wi_fi___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="class_xila___class_1_1_wi_fi___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
-        <definition>friend class Module_Class</definition>
+        <definition>friend class Shell_Class</definition>
         <argsstring></argsstring>
-        <name>Module_Class</name>
+        <name>Shell_Class</name>
         <param>
-          <type><ref refid="class_xila___class_1_1_module___class" kindref="compound">Module_Class</ref></type>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -99,7 +98,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="733" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="733" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="877" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="877" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_wi_fi___class_1a26aac88a64c8b6b8c119c53d55955615" prot="public" static="no" mutable="no">
+        <type>friend</type>
+        <definition>friend Xila_Class::WiFi_Class::Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="876" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="876" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -118,7 +132,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="703" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="846" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a7322e3b7df7b38d830fe6e13fdb10a05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -135,7 +149,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="705" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="848" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1ad738d1a7fcf7dcdb032999848e131972" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -148,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="706" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="849" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a563e42ec40f00e25479edd59e3fc9e45" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -161,19 +175,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="708" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="851" column="9"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1ab5ce593e9561bd713956766538e26c3e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1aade0b120caadb7f8883d6b67635a049d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void Xila_Class::WiFi_Class::Set_Credentials</definition>
-        <argsstring>(char *Name, char *Password)</argsstring>
+        <argsstring>(const char *Name, const char *Password)</argsstring>
         <name>Set_Credentials</name>
         <param>
-          <type>char *</type>
+          <type>const char *</type>
           <declname>Name</declname>
         </param>
         <param>
-          <type>char *</type>
+          <type>const char *</type>
           <declname>Password</declname>
         </param>
         <briefdescription>
@@ -182,11 +196,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="724" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="867" column="14"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a0d26b572539c074208e1ec3a8c44f578" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::WiFi_Class::Load_Registry</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a7663be1a0fff6cb5c8c7c8d78735714b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry</definition>
         <argsstring>()</argsstring>
         <name>Load_Registry</name>
         <briefdescription>
@@ -195,11 +209,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="726" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="869" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a44e5dd4b08831d97b46e26f8fb8ce4e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::WiFi_Class::Save_Registry</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_wi_fi___class_1a6c71a9c6ef7b5c874e7f7c8a1716fc31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry</definition>
         <argsstring>()</argsstring>
         <name>Save_Registry</name>
         <briefdescription>
@@ -208,11 +222,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="727" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="870" column="27"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>WiFi API class. </para>
+<para>WiFi class. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -229,10 +243,6 @@
       <node id="5">
         <label>WiFiAPClass</label>
       </node>
-      <node id="6">
-        <label>Xila_Class::Module_Class</label>
-        <link refid="class_xila___class_1_1_module___class"/>
-      </node>
       <node id="1">
         <label>Xila_Class::WiFi_Class</label>
         <link refid="class_xila___class_1_1_wi_fi___class"/>
@@ -243,8 +253,6 @@
         <childnode refid="4" relation="public-inheritance">
         </childnode>
         <childnode refid="5" relation="public-inheritance">
-        </childnode>
-        <childnode refid="6" relation="public-inheritance">
         </childnode>
       </node>
     </inheritancegraph>
@@ -261,10 +269,6 @@
       <node id="5">
         <label>WiFiAPClass</label>
       </node>
-      <node id="6">
-        <label>Xila_Class::Module_Class</label>
-        <link refid="class_xila___class_1_1_module___class"/>
-      </node>
       <node id="1">
         <label>Xila_Class::WiFi_Class</label>
         <link refid="class_xila___class_1_1_wi_fi___class"/>
@@ -276,25 +280,24 @@
         </childnode>
         <childnode refid="5" relation="public-inheritance">
         </childnode>
-        <childnode refid="6" relation="public-inheritance">
-        </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="696" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="697" bodyend="735"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="839" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="840" bodyend="879"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_wi_fi___class_1a7322e3b7df7b38d830fe6e13fdb10a05" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>enableProv</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1ad738d1a7fcf7dcdb032999848e131972" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>isProvEnabled</name></member>
-      <member refid="class_xila___class_1_1_wi_fi___class_1a0d26b572539c074208e1ec3a8c44f578" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Load_Registry</name></member>
-      <member refid="class_xila___class_1_1_wi_fi___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Module_Class</name></member>
+      <member refid="class_xila___class_1_1_wi_fi___class_1a7663be1a0fff6cb5c8c7c8d78735714b" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Load_Registry</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a615108837438a1417be0612ebc7dc5f8" prot="protected" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Password</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a1af8500f31f33b12091eaeed3ddc8a7a" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>printDiag</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a4b5d032bfe66de0120ee7e5efadde9d7" prot="protected" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>prov_enable</name></member>
-      <member refid="class_xila___class_1_1_wi_fi___class_1a44e5dd4b08831d97b46e26f8fb8ce4e2" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Save_Registry</name></member>
-      <member refid="class_xila___class_1_1_wi_fi___class_1ab5ce593e9561bd713956766538e26c3e" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Set_Credentials</name></member>
+      <member refid="class_xila___class_1_1_wi_fi___class_1a6c71a9c6ef7b5c874e7f7c8a1716fc31" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_wi_fi___class_1aade0b120caadb7f8883d6b67635a049d" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Set_Credentials</name></member>
+      <member refid="class_xila___class_1_1_wi_fi___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Shell_Class</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a563e42ec40f00e25479edd59e3fc9e45" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>WiFi_Class</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a345922aa4e6447b6555ffad19e236898" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>WiFiClient</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a98a487eb7fb049868f04e033efbed38f" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>WiFiServer</name></member>
       <member refid="class_xila___class_1_1_wi_fi___class_1a1909b07c4430e2aee6044220367ad022" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>WiFiUDP</name></member>
+      <member refid="class_xila___class_1_1_wi_fi___class_1a26aac88a64c8b6b8c119c53d55955615" prot="public" virt="non-virtual"><scope>Xila_Class::WiFi_Class</scope><name>Xila_Class</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

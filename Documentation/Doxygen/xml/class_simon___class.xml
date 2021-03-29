@@ -50,7 +50,7 @@
         <name>Images</name>
         <enumvalue id="class_simon___class_1a2d7c7ca53e63ada66ec5e63dbf45fca6adfe8fdbc5b5fe7b4514d7fa060bb6881" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Simon</initializer>
+          <initializer>= Xila.Display.Simon</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -360,7 +360,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -380,26 +380,43 @@
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp" line="10" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp" bodystart="11" bodyend="65"/>
     <listofallmembers>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1a1ded61676b67492d6129cb06c8afd36a" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Blue</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Close</name></member>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Colors</name></member>
       <member refid="class_simon___class_1ac74f6c5e1a456d6797d08ee5162f457b" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Current_Level</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_simon___class_1a09d4da0529609aa83b51c00b8d936aec" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Game_Over</name></member>
       <member refid="class_simon___class_1a3e06a7c06f544308e7e390fd15780d02" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Generate_Sequence</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Get_Instruction</name></member>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1a9c090c797ff16523a1b0463029f3fd75" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Green</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Hibernate</name></member>
       <member refid="class_simon___class_1a2d7c7ca53e63ada66ec5e63dbf45fca6adfe8fdbc5b5fe7b4514d7fa060bb6881" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Icon_32</name></member>
-      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Idle</name></member>
       <member refid="class_simon___class_1a2d7c7ca53e63ada66ec5e63dbf45fca6" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Images</name></member>
       <member refid="class_simon___class_1a27470bb03358bb36393eab8d210579a7" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Instructions</name></member>
       <member refid="class_simon___class_1ace29c094d45c4852a708e8ef5fb3d771" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Load</name></member>
       <member refid="class_simon___class_1a14660184d21fc988b54e7e9b8c37bdb1" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Load_Registry</name></member>
       <member refid="class_simon___class_1a6511d9ea217522c35691e630ea609793" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Minimize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Open</name></member>
       <member refid="class_simon___class_1a3328ffeb4393368c89c7fd524b8e83aa" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Pages</name></member>
       <member refid="class_simon___class_1af9d8e77117aa2ac95812440718eae2ac" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Press</name></member>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1a98459ac691e0092e5002cebf9d2dfc9d" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Red</name></member>
       <member refid="class_simon___class_1a3902049e2798efdc392ca05a3925fd14" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Refresh_Interface</name></member>
       <member refid="class_simon___class_1a0b1ce72552856571b385f755a0811e88" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Reset</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Restart</name></member>
       <member refid="class_simon___class_1ac2050ca2889dbc74b95883789832be0c" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Save_Registry</name></member>
       <member refid="class_simon___class_1a280c48a1e5250a8be9851f885bf4fda0" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Scores</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Send_Instruction</name></member>
@@ -407,11 +424,13 @@
       <member refid="class_simon___class_1adcabc60ab22162c5a7636223f1443e17" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Sequence</name></member>
       <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Simon_Class</scope><name>Set_Variable</name></member>
       <member refid="class_simon___class_1a0e8324dcf6df13a0334ebea8969a31f4" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Show_Sequence</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Shutdown</name></member>
       <member refid="class_simon___class_1a57a87844e3cba96a577fcaa44d0a2b0b" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Simon_Class</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Software_Class</name></member>
       <member refid="class_simon___class_1a96745283d4e8e0cf4d9324395f5e14cb" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Sort_Scores</name></member>
       <member refid="class_simon___class_1ad4d870f8c77977a37c28413c37331262" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>Speed</name></member>
       <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Simon_Class</scope><name>Watchdog</name></member>
       <member refid="class_simon___class_1af55e346f0b20c015c86c3f2075657d4e" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Win</name></member>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1a053be3a9670bc3e47b6aadc0dfc733a9" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Yellow</name></member>
       <member refid="class_simon___class_1a57a1eb87e4dde1945863f715868dfa8c" prot="public" virt="non-virtual"><scope>Simon_Class</scope><name>~Simon_Class</name></member>

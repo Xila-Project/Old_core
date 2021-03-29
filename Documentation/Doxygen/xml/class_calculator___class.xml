@@ -488,7 +488,7 @@
         <name>Image</name>
         <enumvalue id="class_calculator___class_1a84889db82477bb44471bd504427890f6ac6e12e993e1d250760d5c905557c5426" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Calculator</initializer>
+          <initializer>= Xila.Display.Calculator</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1150,7 +1150,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -1196,6 +1196,7 @@
       <member refid="class_calculator___class_1ad77b793cf67ccccfb6d7fe4b80ee60e0" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Calculator_Class</name></member>
       <member refid="class_calculator___class_1a1d35c811d8803f9a8074edbee87f9566" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Clear</name></member>
       <member refid="class_calculator___class_1a5b01d5636b39209b433474120343dfe9" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Clear_All</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Close</name></member>
       <member refid="class_calculator___class_1a0afc784e17612318e76b68c5d643ad76" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Compute</name></member>
       <member refid="class_calculator___class_1a0261d76740bcb1c90a7abd5075c3fa23" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Compute_Secondary</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaea8777d66f820c71d6f33a12f10aa153" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Cosecant</name></member>
@@ -1209,6 +1210,16 @@
       <member refid="class_calculator___class_1a16a0be14946f1b1a69a3d0968cdf7e78ae765bb1bc805e7c1ed8c7084fa467c4a" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Degree</name></member>
       <member refid="class_calculator___class_1ab524e81cec52802846df107028612bad" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Degree_To_Radian</name></member>
       <member refid="class_calculator___class_1a7526b5f417e755e1d3baec84872b0d83" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Delete_Number</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa913de28faaf3962e787af1151d47ab2e" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Division</name></member>
       <member refid="class_calculator___class_1a072eb1dcd26a9e792e16733f13e6e995" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Ending_Character</name></member>
       <member refid="class_calculator___class_1add226128a5db04b756e4e63a6ceba5b6" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Error</name></member>
@@ -1217,7 +1228,8 @@
       <member refid="class_calculator___class_1a63a27184cc9a1871f11d1106fe3d925b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>fact</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa065351996cf14e67d0dce40a349541e0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Factorial</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Hibernate</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6aba5f68aadcbcdd7550a95f275dea13ee40" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa7e111ef0f1c8005f6e59b5d6972600f4" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Cosecant</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaf0cf146df4faf28748d3e94817b28eb3" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Cosine</name></member>
@@ -1226,20 +1238,24 @@
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afab1a28aea2d2f531ec9e32d2feda73045" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Sine</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaa30ca8e821dc8607e2c56fa58dd95f53" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Tangent</name></member>
       <member refid="class_calculator___class_1a84889db82477bb44471bd504427890f6ac6e12e993e1d250760d5c905557c5426" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Icon_32</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Idle</name></member>
       <member refid="class_calculator___class_1a84889db82477bb44471bd504427890f6" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Image</name></member>
       <member refid="class_calculator___class_1ae0ede1acf396cac66d339b8b59355f0c" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Instructions</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa007d6682447461d4d7e61a07b74e53f0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Inverse</name></member>
       <member refid="class_calculator___class_1aa5d5e938c27bdc7a3f86ef00f609608f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Keys_Mode</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6ab" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Keys_Mode_Definition</name></member>
       <member refid="class_calculator___class_1ac7f54284aed3d55815c4a6b309637b03" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Load</name></member>
       <member refid="class_calculator___class_1a8211d8ef060f3102c5ed287107f3e962" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Maximize</name></member>
       <member refid="class_calculator___class_1a0565f0d77a3db7b2f5adffa404f523b9" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afac8c3b1367ac36eb80be8e612e444c1f1" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Add</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaffe641d20cca0688ed5a2d1fe337ecc0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Clear</name></member>
       <member refid="class_calculator___class_1a9900614954e94e93161cd57e3d961693" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Operation</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa294f8a40136eb5df3a90fe8e13bbf07b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Read</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa2c8227a89aa6bf976871f3a5e6cceeaa" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Substract</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Minimize</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa924e3e48bf209ddd56355c6147300f2b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Modulo</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afac0b1309862561df13d33fe91914da227" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Multiplication</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa2a1ea7fdc83c1b7fc51aa6a88f1025f6" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Natural_Logarithm</name></member>
@@ -1247,6 +1263,7 @@
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa1ba4d1175b65c3f0cdabbe37828391fb" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>None</name></member>
       <member refid="class_calculator___class_1a09eb39e2d2df58844eeb605d663007f7" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Numbers</name></member>
       <member refid="class_calculator___class_1af89aba35bb125cedf27c56cbd5081c3a" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Numbers_After_Point</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Open</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504af" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Operation</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea849bc1df5b61f6c3ff1de3f3f142e9a8" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Pi</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea8720e70eecef42ca16f67929c3176707" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Point</name></member>
@@ -1258,6 +1275,7 @@
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea3dfc602b797ffe45464255bb1eebee44" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Random</name></member>
       <member refid="class_calculator___class_1a60e03f67e2107515d4726ed3a3ff90bd" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Refresh_Interface</name></member>
       <member refid="class_calculator___class_1ab580d31e3847c4f45edb8f8e1b16489f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Refresh_Keys</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Restart</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa9b7cb054cb1de6f10e3e7fe1d5f73463" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Root</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa8978e1c8f9d3d49f2877d0dda349ada0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Secant</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6abafc848c943cd87ee943eb99490af39b45" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Second</name></member>
@@ -1267,6 +1285,7 @@
       <member refid="class_calculator___class_1a9d4445d59a10f7a16d3ff805b290c0cb" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Set_Primary_Operator</name></member>
       <member refid="class_calculator___class_1ad4c36683532cb3c7a8325b826cc95066" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Set_Secondary_Operator</name></member>
       <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Shutdown</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa89604864f182d5f45671854f90364147" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Sine</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Software_Class</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534e" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Special_Number</name></member>
@@ -1284,6 +1303,7 @@
       <member refid="class_calculator___class_1a30537457962b0264b36a7505d6754cf5" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Char_Array</name></member>
       <member refid="class_calculator___class_1ab5cce4df4aea71ad4f40b6f9162a82b0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Current_Position</name></member>
       <member refid="class_calculator___class_1a6c692ba2923e424deb80f859d42c3459" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Numbers</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Watchdog</name></member>
       <member refid="class_calculator___class_1a96c95fd0672e210ea62ca8386d7af0fb" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>~Calculator_Class</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>~Software_Class</name></member>
     </listofallmembers>

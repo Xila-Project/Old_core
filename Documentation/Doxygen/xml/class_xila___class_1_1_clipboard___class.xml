@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_xila___class_1_1_clipboard___class" kind="class" language="C++" prot="public">
     <compoundname>Xila_Class::Clipboard_Class</compoundname>
-    <basecompoundref refid="class_xila___class_1_1_module___class" prot="public" virt="non-virtual">Xila_Class::Module_Class</basecompoundref>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
       <sectiondef kind="protected-attrib">
       <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" prot="protected" static="no" mutable="no">
         <type>File</type>
@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="224" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="224" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="222" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="222" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -28,17 +28,17 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="225" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="225" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="223" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="223" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
-      <memberdef kind="friend" id="class_xila___class_1_1_clipboard___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="class_xila___class_1_1_clipboard___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
-        <definition>friend class Module_Class</definition>
+        <definition>friend class Xila_Class</definition>
         <argsstring></argsstring>
-        <name>Module_Class</name>
+        <name>Xila_Class</name>
         <param>
-          <type><ref refid="class_xila___class_1_1_module___class" kindref="compound">Module_Class</ref></type>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
         </param>
         <briefdescription>
         </briefdescription>
@@ -46,13 +46,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="236" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="236" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="234" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="234" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_xila___class_1_1_clipboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="235" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="235" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1afa29e509f1cfe3afbb6aaf2863a91119" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Copy</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
         <argsstring>(uint64_t const &amp;Value_To_Copy)</argsstring>
         <name>Copy</name>
         <param>
@@ -65,11 +81,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="228" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="226" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1acaaa9eb16d84080c92be8c5e7db72632" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Copy</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a8700cea7b6a0c9e3bf5437c7696ff19d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
         <argsstring>(const char *Char_Array_To_Copy, size_t Char_Array_Lenght=0)</argsstring>
         <name>Copy</name>
         <param>
@@ -87,11 +103,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="229" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="227" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a0e85a9b4982556e0adb441888593bd74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Copy</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
         <argsstring>(String const &amp;String_To_Copy)</argsstring>
         <name>Copy</name>
         <param>
@@ -104,11 +120,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="230" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="228" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1ad7e2a83886b43a14b39483e20aa845b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Paste</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
         <argsstring>(uint64_t &amp;Value_To_Paste)</argsstring>
         <name>Paste</name>
         <param>
@@ -121,11 +137,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="232" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="230" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1ae49cf4be9d954caacfbebd606d2bc1a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Paste</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1aef64774b921f99d314b87bfe3079373a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
         <argsstring>(char *Char_Array_To_Paste, size_t Char_Array_Lenght)</argsstring>
         <name>Paste</name>
         <param>
@@ -142,11 +158,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="233" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="231" column="27"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1aea6040712647a1d68d1188a7dd942f7f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Clipboard_Class::Paste</definition>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
         <argsstring>(String &amp;String_To_Paste)</argsstring>
         <name>Paste</name>
         <param>
@@ -159,48 +175,26 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="234" column="20"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="232" column="27"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Clipboard module. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <inheritancegraph>
-      <node id="2">
-        <label>Xila_Class::Module_Class</label>
-        <link refid="class_xila___class_1_1_module___class"/>
-      </node>
-      <node id="1">
-        <label>Xila_Class::Clipboard_Class</label>
-        <link refid="class_xila___class_1_1_clipboard___class"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-    </inheritancegraph>
-    <collaborationgraph>
-      <node id="2">
-        <label>Xila_Class::Module_Class</label>
-        <link refid="class_xila___class_1_1_module___class"/>
-      </node>
-      <node id="1">
-        <label>Xila_Class::Clipboard_Class</label>
-        <link refid="class_xila___class_1_1_clipboard___class"/>
-        <childnode refid="2" relation="public-inheritance">
-        </childnode>
-      </node>
-    </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="221" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="222" bodyend="237"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="219" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="220" bodyend="236"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" prot="protected" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Clipboard_File</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1afa29e509f1cfe3afbb6aaf2863a91119" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1acaaa9eb16d84080c92be8c5e7db72632" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1a0e85a9b4982556e0adb441888593bd74" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1a3acfa568e938e9ef7ec29fbcf744a15f" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Module_Class</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1ad7e2a83886b43a14b39483e20aa845b1" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1ae49cf4be9d954caacfbebd606d2bc1a3" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1aea6040712647a1d68d1188a7dd942f7f" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a8700cea7b6a0c9e3bf5437c7696ff19d" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1aef64774b921f99d314b87bfe3079373a" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Shell_Class</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" prot="protected" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Split_Number</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Xila_Class</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

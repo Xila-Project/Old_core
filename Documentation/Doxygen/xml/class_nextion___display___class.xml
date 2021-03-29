@@ -4,10 +4,10 @@
     <compoundname>Nextion_Display_Class</compoundname>
     <derivedcompoundref refid="class_xila___class_1_1_display___class" prot="public" virt="non-virtual">Xila_Class::Display_Class</derivedcompoundref>
       <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1" prot="public" static="no" strong="no">
         <type></type>
-        <name>Error</name>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123addb9a9c035cfb956bc22240e24fe848f" prot="public">
+        <name>Errors</name>
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1addb9a9c035cfb956bc22240e24fe848f" prot="public">
           <name>Invalid_Instruction</name>
           <initializer>= 0x00</initializer>
           <briefdescription>
@@ -15,7 +15,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a566f27d3db12fd56a46e730f4ee4603b" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a566f27d3db12fd56a46e730f4ee4603b" prot="public">
           <name>Invalid_Component_ID</name>
           <initializer>= 0x02</initializer>
           <briefdescription>
@@ -23,7 +23,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ae99c51dd61cfefa3aec1b1c7c8d3ea54" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ae99c51dd61cfefa3aec1b1c7c8d3ea54" prot="public">
           <name>Invalid_Page_ID</name>
           <initializer>= 0x03</initializer>
           <briefdescription>
@@ -31,7 +31,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a69344526ffb17729117d8cf41d192335" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a69344526ffb17729117d8cf41d192335" prot="public">
           <name>Invalid_Picture_ID</name>
           <initializer>= 0x04</initializer>
           <briefdescription>
@@ -39,7 +39,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a345ab236d6215ce3a208d1a8e28d7d2e" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a345ab236d6215ce3a208d1a8e28d7d2e" prot="public">
           <name>Invalid_Font_ID</name>
           <initializer>= 0x05</initializer>
           <briefdescription>
@@ -47,7 +47,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a71b2128a154a1baaa578a0e179aa999a" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a71b2128a154a1baaa578a0e179aa999a" prot="public">
           <name>Invalid_File_Operation</name>
           <initializer>= 0x06</initializer>
           <briefdescription>
@@ -55,7 +55,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aea20cf4aa2e2431d8252b42a650bd377" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aea20cf4aa2e2431d8252b42a650bd377" prot="public">
           <name>Invalid_CRC</name>
           <initializer>= 0x09</initializer>
           <briefdescription>
@@ -63,7 +63,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a1743d076d1637511ee09ebe3298f3ed1" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a1743d076d1637511ee09ebe3298f3ed1" prot="public">
           <name>Invalid_Baud_Rate_Setting</name>
           <initializer>= 0x11</initializer>
           <briefdescription>
@@ -71,7 +71,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af8d0096d764478048a6e21cbbbca5465" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af8d0096d764478048a6e21cbbbca5465" prot="public">
           <name>Invalid_Waveform_ID_Or_Channel</name>
           <initializer>= 0x12</initializer>
           <briefdescription>
@@ -79,7 +79,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ab4d850573387494f4465d57b122615b2" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ab4d850573387494f4465d57b122615b2" prot="public">
           <name>Invalid_Variable_Name_Or_Attribue</name>
           <initializer>= 0x1A</initializer>
           <briefdescription>
@@ -87,7 +87,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a6e5fa556c180cf58248bc0524ff5a02c" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a6e5fa556c180cf58248bc0524ff5a02c" prot="public">
           <name>Invalid_Variable_Operation</name>
           <initializer>= 0x1B</initializer>
           <briefdescription>
@@ -95,7 +95,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a9b88e4eebcb070840b43e986fe8690e0" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a9b88e4eebcb070840b43e986fe8690e0" prot="public">
           <name>Fail_To_Assign</name>
           <initializer>= 0x1C</initializer>
           <briefdescription>
@@ -103,7 +103,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" prot="public">
           <name>Fail_EEPROM_Operation</name>
           <initializer>= 0x1D</initializer>
           <briefdescription>
@@ -111,7 +111,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af279d18c58fa9e59afd190b3aebfaea6" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af279d18c58fa9e59afd190b3aebfaea6" prot="public">
           <name>Invalid_Quantity_Of_Parameters</name>
           <initializer>= 0x1E</initializer>
           <briefdescription>
@@ -119,7 +119,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aa65fc4dd51195e868a8a609b3ac16f56" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aa65fc4dd51195e868a8a609b3ac16f56" prot="public">
           <name>IO_Operation_Failed</name>
           <initializer>= 0x1F</initializer>
           <briefdescription>
@@ -127,7 +127,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a7264e136fd92defb340c1cf8a77d8dd3" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a7264e136fd92defb340c1cf8a77d8dd3" prot="public">
           <name>Invalid_Escape_Character</name>
           <initializer>= 0x20</initializer>
           <briefdescription>
@@ -135,7 +135,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aad345e6d216f35be53d570516478ff55" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aad345e6d216f35be53d570516478ff55" prot="public">
           <name>Too_Long_Variable_Name</name>
           <initializer>= 0x23</initializer>
           <briefdescription>
@@ -143,7 +143,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a835109ef764a0c388d885fc6ecffa47a" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a835109ef764a0c388d885fc6ecffa47a" prot="public">
           <name>Serial_Buffer_Overflow</name>
           <initializer>= 0x24</initializer>
           <briefdescription>
@@ -151,7 +151,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aed6f953dd7b3f18e7294a00b9d0c0d4a" prot="public">
+        <enumvalue id="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aed6f953dd7b3f18e7294a00b9d0c0d4a" prot="public">
           <name>Update_Failed</name>
           <initializer>= 0x25</initializer>
           <briefdescription>
@@ -167,10 +167,10 @@
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" line="54" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" bodystart="55" bodyend="75"/>
       </memberdef>
-      <memberdef kind="enum" id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77d" prot="public" static="no" strong="no">
         <type></type>
-        <name>Information</name>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6a2a350dc2c773d654f14a37ef4f0db1" prot="public">
+        <name>Informations</name>
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6a2a350dc2c773d654f14a37ef4f0db1" prot="public">
           <name>Startup</name>
           <initializer>= 0x07</initializer>
           <briefdescription>
@@ -178,7 +178,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a41a6bf1b0d9f8109be82e6f649a90ae6" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da41a6bf1b0d9f8109be82e6f649a90ae6" prot="public">
           <name>Instruction_Successfull</name>
           <initializer>= 0x01</initializer>
           <briefdescription>
@@ -186,7 +186,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1ab743d8f4a776ba50968bc9af40fef630" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77dab743d8f4a776ba50968bc9af40fef630" prot="public">
           <name>Touch_Event</name>
           <initializer>= 0x65</initializer>
           <briefdescription>
@@ -194,7 +194,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa0db76cd0739907b60f28e828c9fe05c" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa0db76cd0739907b60f28e828c9fe05c" prot="public">
           <name>Current_Page_Number</name>
           <initializer>= 0x66</initializer>
           <briefdescription>
@@ -202,7 +202,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6789a7717524f8489a8b691b9ac4d0b9" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6789a7717524f8489a8b691b9ac4d0b9" prot="public">
           <name>Touch_Coordinate_Awake</name>
           <initializer>= 0x67</initializer>
           <briefdescription>
@@ -210,7 +210,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a76f5022b51c25a2a81c3e19df709efe6" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da76f5022b51c25a2a81c3e19df709efe6" prot="public">
           <name>Touch_Coordinate_Sleep</name>
           <initializer>= 0x68</initializer>
           <briefdescription>
@@ -218,7 +218,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a921c27a491d15f953ede320d1e5413af" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da921c27a491d15f953ede320d1e5413af" prot="public">
           <name>String_Data_Enclosed</name>
           <initializer>= 0x70</initializer>
           <briefdescription>
@@ -226,7 +226,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a815e054027ad4a163edca7375521f406" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da815e054027ad4a163edca7375521f406" prot="public">
           <name>Numeric_Data_Enclosed</name>
           <initializer>= 0x71</initializer>
           <briefdescription>
@@ -234,7 +234,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a2da6267de758a1d1c9455d973b3ffc37" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da2da6267de758a1d1c9455d973b3ffc37" prot="public">
           <name>Auto_Entered_Sleep_Mode</name>
           <initializer>= 0x86</initializer>
           <briefdescription>
@@ -242,7 +242,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6d13c7aa7edcb9ea1c45961b3df15269" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6d13c7aa7edcb9ea1c45961b3df15269" prot="public">
           <name>Auto_Wake_From_Sleep_Mode</name>
           <initializer>= 0x87</initializer>
           <briefdescription>
@@ -250,7 +250,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a17ee6bc87daef9efad395f8bb6cb9487" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da17ee6bc87daef9efad395f8bb6cb9487" prot="public">
           <name>Ready</name>
           <initializer>= 0x88</initializer>
           <briefdescription>
@@ -258,7 +258,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6bca8f979d951761a0f15093a95cf30f" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6bca8f979d951761a0f15093a95cf30f" prot="public">
           <name>Start_Upgrade_From_SD</name>
           <initializer>= 0x89</initializer>
           <briefdescription>
@@ -266,7 +266,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a18a11de58d8441d600555cc8e77a2065" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da18a11de58d8441d600555cc8e77a2065" prot="public">
           <name>Transparent_Data_Finished</name>
           <initializer>= 0xFD</initializer>
           <briefdescription>
@@ -274,7 +274,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa3d2122a6fd4faa815172eb7a49e47d0" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa3d2122a6fd4faa815172eb7a49e47d0" prot="public">
           <name>Transparent_Data_Ready</name>
           <initializer>= 0xFE</initializer>
           <briefdescription>
@@ -282,7 +282,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1af417e15accbf7960533b604cb473ee39" prot="public">
+        <enumvalue id="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daf417e15accbf7960533b604cb473ee39" prot="public">
           <name>Update_Succeed</name>
           <initializer>= 0x69</initializer>
           <briefdescription>
@@ -298,10 +298,10 @@
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" line="77" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" bodystart="78" bodyend="94"/>
       </memberdef>
-      <memberdef kind="enum" id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33" prot="public" static="no" strong="no">
         <type></type>
-        <name>Color</name>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034aafb9c267a503ff7d66e355831ca6cc87" prot="public">
+        <name>Colors</name>
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33aafb9c267a503ff7d66e355831ca6cc87" prot="public">
           <name>Black</name>
           <initializer>= 0</initializer>
           <briefdescription>
@@ -309,7 +309,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a12eb52673c6da0253eb8ff777424bf4e" prot="public">
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a12eb52673c6da0253eb8ff777424bf4e" prot="public">
           <name>Blue</name>
           <initializer>= 31</initializer>
           <briefdescription>
@@ -317,7 +317,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a4a69beb319a27626390e9b125c93f365" prot="public">
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a4a69beb319a27626390e9b125c93f365" prot="public">
           <name>Green</name>
           <initializer>= 2016</initializer>
           <briefdescription>
@@ -325,7 +325,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a94ab41c6a1febada63a317743667a9df" prot="public">
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a94ab41c6a1febada63a317743667a9df" prot="public">
           <name>Yellow</name>
           <initializer>= 65504</initializer>
           <briefdescription>
@@ -333,7 +333,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a35ccb0f42ad61bb08d802a174f4411c1" prot="public">
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a35ccb0f42ad61bb08d802a174f4411c1" prot="public">
           <name>Red</name>
           <initializer>= 63488</initializer>
           <briefdescription>
@@ -341,7 +341,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034ad2255221a719f74a11de508d1faff13d" prot="public">
+        <enumvalue id="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33ad2255221a719f74a11de508d1faff13d" prot="public">
           <name>White</name>
           <initializer>= 65535</initializer>
           <briefdescription>
@@ -357,10 +357,10 @@
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" line="96" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" bodystart="97" bodyend="104"/>
       </memberdef>
-      <memberdef kind="enum" id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ec" prot="public" static="no" strong="no">
         <type></type>
-        <name>Alignement</name>
-        <enumvalue id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a9373e5afb32606a18cd3c5f811d0bdb7" prot="public">
+        <name>Alignements</name>
+        <enumvalue id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca9373e5afb32606a18cd3c5f811d0bdb7" prot="public">
           <name>Top</name>
           <initializer>= 0</initializer>
           <briefdescription>
@@ -368,7 +368,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2af62f3b2ff5ceefae0dbe54b9e69419bd" prot="public">
+        <enumvalue id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecaf62f3b2ff5ceefae0dbe54b9e69419bd" prot="public">
           <name>Bottom</name>
           <initializer>= 3</initializer>
           <briefdescription>
@@ -376,7 +376,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ac7a124f42c0938d7b64cb943bdd67ead" prot="public">
+        <enumvalue id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecac7a124f42c0938d7b64cb943bdd67ead" prot="public">
           <name>Left</name>
           <initializer>= 0</initializer>
           <briefdescription>
@@ -384,7 +384,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ae75477239ed8ef8311a162a0befd031d" prot="public">
+        <enumvalue id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecae75477239ed8ef8311a162a0befd031d" prot="public">
           <name>Right</name>
           <initializer>= 2</initializer>
           <briefdescription>
@@ -392,7 +392,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a6f1f419963d30c5d713dd4ebaab01012" prot="public">
+        <enumvalue id="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca6f1f419963d30c5d713dd4ebaab01012" prot="public">
           <name>Center</name>
           <initializer>= 0</initializer>
           <briefdescription>
@@ -408,10 +408,10 @@
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" line="106" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Driver/Display.hpp" bodystart="107" bodyend="113"/>
       </memberdef>
-      <memberdef kind="enum" id="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4b" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eea" prot="public" static="no" strong="no">
         <type></type>
-        <name>Background</name>
-        <enumvalue id="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4bab8fe0f344bc258482efd1f752be389d9" prot="public">
+        <name>Backgrounds</name>
+        <enumvalue id="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaab8fe0f344bc258482efd1f752be389d9" prot="public">
           <name>Crop_Image</name>
           <initializer>= 0</initializer>
           <briefdescription>
@@ -419,7 +419,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba31deb23171451dfa21b58f8103ef8044" prot="public">
+        <enumvalue id="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa31deb23171451dfa21b58f8103ef8044" prot="public">
           <name>Solid_Color</name>
           <initializer>= 1</initializer>
           <briefdescription>
@@ -427,7 +427,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba8adc687c748afa479f5f3de5a0bfc7b2" prot="public">
+        <enumvalue id="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa8adc687c748afa479f5f3de5a0bfc7b2" prot="public">
           <name>Image</name>
           <initializer>= 2</initializer>
           <briefdescription>
@@ -435,7 +435,7 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba0bcd1982dbff05916965d0cafdb776f6" prot="public">
+        <enumvalue id="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa0bcd1982dbff05916965d0cafdb776f6" prot="public">
           <name>None</name>
           <initializer>= 3</initializer>
           <briefdescription>
@@ -2732,28 +2732,28 @@
       <member refid="class_nextion___display___class_1af20a12e63a9cffdbe4d508cb03c7ed5b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Add_Text</name></member>
       <member refid="class_nextion___display___class_1a35349bd0c6abd2c5430dc5fc0e717364" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Add_Value_Waveform</name></member>
       <member refid="class_nextion___display___class_1ac0b0db97e1c190adcf5b69d4a478939d" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Adress</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Alignement</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ec" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Alignements</name></member>
       <member refid="class_nextion___display___class_1a29e50c8346a5c59cb6b55db2a5d34601" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Argument_Separator</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a2da6267de758a1d1c9455d973b3ffc37" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Auto_Entered_Sleep_Mode</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6d13c7aa7edcb9ea1c45961b3df15269" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Auto_Wake_From_Sleep_Mode</name></member>
-      <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Background</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da2da6267de758a1d1c9455d973b3ffc37" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Auto_Entered_Sleep_Mode</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6d13c7aa7edcb9ea1c45961b3df15269" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Auto_Wake_From_Sleep_Mode</name></member>
+      <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eea" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Backgrounds</name></member>
       <member refid="class_nextion___display___class_1ac111ed5dcdc16144cb90127efb67af35" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Begin</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034aafb9c267a503ff7d66e355831ca6cc87" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Black</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a12eb52673c6da0253eb8ff777424bf4e" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Blue</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2af62f3b2ff5ceefae0dbe54b9e69419bd" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Bottom</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33aafb9c267a503ff7d66e355831ca6cc87" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Black</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a12eb52673c6da0253eb8ff777424bf4e" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Blue</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecaf62f3b2ff5ceefae0dbe54b9e69419bd" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Bottom</name></member>
       <member refid="class_nextion___display___class_1a724af45665628103cb07b2a26f9e8b64" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Calibrate</name></member>
       <member refid="class_nextion___display___class_1afcd54571f74a48cb25c04cf7e652b5b1" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Callback_Function_Event</name></member>
       <member refid="class_nextion___display___class_1a740b9ebfff8c6b4fb680186d1c29b48c" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Callback_Function_Numeric_Data</name></member>
       <member refid="class_nextion___display___class_1afa4e5c2046bcda04a848a31fa0202529" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Callback_Function_String_Data</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a6f1f419963d30c5d713dd4ebaab01012" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Center</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca6f1f419963d30c5d713dd4ebaab01012" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Center</name></member>
       <member refid="class_nextion___display___class_1a4b0793820fa5513a34fbf27103b45160" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Clear</name></member>
       <member refid="class_nextion___display___class_1adbf93600cc8dcd9b1f9eaf0cb5e4af40" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Clear_Waveform</name></member>
       <member refid="class_nextion___display___class_1a0d5eb3bb2cff73c54ca0763fba1d71f8" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Click</name></member>
       <member refid="class_nextion___display___class_1a4007095af2114d631b07e157605af9eb" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Click</name></member>
       <member refid="class_nextion___display___class_1a0358c245f200ba7550ef58c7c68c41a5" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Click</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Color</name></member>
-      <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4bab8fe0f344bc258482efd1f752be389d9" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Crop_Image</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa0db76cd0739907b60f28e828c9fe05c" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Current_Page_Number</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Colors</name></member>
+      <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaab8fe0f344bc258482efd1f752be389d9" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Crop_Image</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa0db76cd0739907b60f28e828c9fe05c" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Current_Page_Number</name></member>
       <member refid="class_nextion___display___class_1abaa322282b8fe105898fa1082bcd4496" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Cursor_X</name></member>
       <member refid="class_nextion___display___class_1a6e3e8636573dc53e5eacfea9a4ffc575" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Cursor_Y</name></member>
       <member refid="class_nextion___display___class_1a9657ab4db565d76900eb4b7a4681b47f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Default_Callback_Function_Event</name></member>
@@ -2773,58 +2773,58 @@
       <member refid="class_nextion___display___class_1a907a20cda07f77e291ac6b436888bfb5" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Draw_Text</name></member>
       <member refid="class_nextion___display___class_1acae17b93df803d5569dd37eedaded851" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Draw_Text</name></member>
       <member refid="class_nextion___display___class_1a142e1db572fe4d62e0f064334edad0a8" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Enable_Touch_Event</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Error</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Fail_EEPROM_Operation</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a9b88e4eebcb070840b43e986fe8690e0" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Fail_To_Assign</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Errors</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a4c6f9fe9e9ae6dfd1a44a74ff1d5a106" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Fail_EEPROM_Operation</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a9b88e4eebcb070840b43e986fe8690e0" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Fail_To_Assign</name></member>
       <member refid="class_nextion___display___class_1af9fdeb261044ffa2aa4d9fb5ee552838" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Get</name></member>
       <member refid="class_nextion___display___class_1ab6d951db714733dc8e162e1680ebb63b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Get_Adress</name></member>
       <member refid="class_nextion___display___class_1a887a2575c3fe4a02e4ca6008d4f7f0a2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Get_Backlight</name></member>
       <member refid="class_nextion___display___class_1a7c633226561af503d14572b5dfcf88ad" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Get_Current_Page</name></member>
       <member refid="class_nextion___display___class_1a582591123ab51e1c70c391e45705710e" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Get_Free_Buffer</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a4a69beb319a27626390e9b125c93f365" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Green</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a4a69beb319a27626390e9b125c93f365" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Green</name></member>
       <member refid="class_nextion___display___class_1ae2439f09f4fc60dfcff2b014ecd1497b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Hide</name></member>
       <member refid="class_nextion___display___class_1ab93a2c3c7a5af678eb0e2be8f2e7d013" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Hide</name></member>
       <member refid="class_nextion___display___class_1adf016084deedef54f156c94f76816874" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Hide</name></member>
-      <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba8adc687c748afa479f5f3de5a0bfc7b2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Image</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Information</name></member>
+      <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa8adc687c748afa479f5f3de5a0bfc7b2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Image</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Informations</name></member>
       <member refid="class_nextion___display___class_1a557e9962e4942c75b76d58f57ddfd35f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_nextion___display___class_1a0006ac147b9f3e71dfac5f9574c8034b" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Instruction_End</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a41a6bf1b0d9f8109be82e6f649a90ae6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Instruction_Successfull</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a1743d076d1637511ee09ebe3298f3ed1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Baud_Rate_Setting</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a566f27d3db12fd56a46e730f4ee4603b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Component_ID</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aea20cf4aa2e2431d8252b42a650bd377" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_CRC</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a7264e136fd92defb340c1cf8a77d8dd3" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Escape_Character</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a71b2128a154a1baaa578a0e179aa999a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_File_Operation</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a345ab236d6215ce3a208d1a8e28d7d2e" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Font_ID</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123addb9a9c035cfb956bc22240e24fe848f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Instruction</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ae99c51dd61cfefa3aec1b1c7c8d3ea54" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Page_ID</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a69344526ffb17729117d8cf41d192335" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Picture_ID</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af279d18c58fa9e59afd190b3aebfaea6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Quantity_Of_Parameters</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123ab4d850573387494f4465d57b122615b2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Variable_Name_Or_Attribue</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a6e5fa556c180cf58248bc0524ff5a02c" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Variable_Operation</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123af8d0096d764478048a6e21cbbbca5465" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Waveform_ID_Or_Channel</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aa65fc4dd51195e868a8a609b3ac16f56" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>IO_Operation_Failed</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ac7a124f42c0938d7b64cb943bdd67ead" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Left</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da41a6bf1b0d9f8109be82e6f649a90ae6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Instruction_Successfull</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a1743d076d1637511ee09ebe3298f3ed1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Baud_Rate_Setting</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a566f27d3db12fd56a46e730f4ee4603b" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Component_ID</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aea20cf4aa2e2431d8252b42a650bd377" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_CRC</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a7264e136fd92defb340c1cf8a77d8dd3" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Escape_Character</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a71b2128a154a1baaa578a0e179aa999a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_File_Operation</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a345ab236d6215ce3a208d1a8e28d7d2e" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Font_ID</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1addb9a9c035cfb956bc22240e24fe848f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Instruction</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ae99c51dd61cfefa3aec1b1c7c8d3ea54" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Page_ID</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a69344526ffb17729117d8cf41d192335" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Picture_ID</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af279d18c58fa9e59afd190b3aebfaea6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Quantity_Of_Parameters</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1ab4d850573387494f4465d57b122615b2" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Variable_Name_Or_Attribue</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a6e5fa556c180cf58248bc0524ff5a02c" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Variable_Operation</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1af8d0096d764478048a6e21cbbbca5465" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Invalid_Waveform_ID_Or_Channel</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aa65fc4dd51195e868a8a609b3ac16f56" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>IO_Operation_Failed</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecac7a124f42c0938d7b64cb943bdd67ead" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Left</name></member>
       <member refid="class_nextion___display___class_1afe95732e83ac976760c19c7855e2e0ec" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Loop</name></member>
       <member refid="class_nextion___display___class_1a54074af2838b72857bb17e2d33dae789" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Nextion_Display_Class</name></member>
       <member refid="class_nextion___display___class_1a60c504cd9a5667dbbd3ef6a9dec9f4c5" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Nextion_Serial</name></member>
-      <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba0bcd1982dbff05916965d0cafdb776f6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>None</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a815e054027ad4a163edca7375521f406" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Numeric_Data_Enclosed</name></member>
+      <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa0bcd1982dbff05916965d0cafdb776f6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>None</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da815e054027ad4a163edca7375521f406" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Numeric_Data_Enclosed</name></member>
       <member refid="class_nextion___display___class_1adf649612c4bd79be731b7897ea3f293d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Page_History</name></member>
       <member refid="class_nextion___display___class_1acb22a89ce65a5510b4ccc6fb93ef0121" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Purge</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a17ee6bc87daef9efad395f8bb6cb9487" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Ready</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da17ee6bc87daef9efad395f8bb6cb9487" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Ready</name></member>
       <member refid="class_nextion___display___class_1a7da04fd4aca8c836fdf6a6a8f33f86a7" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Reboot</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a35ccb0f42ad61bb08d802a174f4411c1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Red</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a35ccb0f42ad61bb08d802a174f4411c1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Red</name></member>
       <member refid="class_nextion___display___class_1a0ece4f79824a8374bfd8384dde96666d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Refresh</name></member>
       <member refid="class_nextion___display___class_1a89ab7c32c0aef5f4a561f25637f74589" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Refresh</name></member>
       <member refid="class_nextion___display___class_1ab57a7c5135585e03a6b8eb37f51cde3a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Refresh_Current_Page</name></member>
       <member refid="class_nextion___display___class_1a8f6ec4364e2d8b210dc17b68ddd3f093" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Resume_Execution</name></member>
       <member refid="class_nextion___display___class_1a77921e865015549df108fa9e48b74792" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Return_Code</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2ae75477239ed8ef8311a162a0befd031d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Right</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156ecae75477239ed8ef8311a162a0befd031d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Right</name></member>
       <member refid="class_nextion___display___class_1a7883c13d513c7fe2a66f42d37f7bc8ec" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Send_Raw</name></member>
       <member refid="class_nextion___display___class_1a11a240133f2596c7465bd4cee7a55b8d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Send_Raw</name></member>
       <member refid="class_nextion___display___class_1a06dbb425e0afffbbd7c5ce230505da5a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Send_Raw</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123a835109ef764a0c388d885fc6ecffa47a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Serial_Buffer_Overflow</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1a835109ef764a0c388d885fc6ecffa47a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Serial_Buffer_Overflow</name></member>
       <member refid="class_nextion___display___class_1adec1ee2e0f48c3afde019083e74c84e2" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Serial_Semaphore</name></member>
       <member refid="class_nextion___display___class_1a291ce4b87cb3b15d2bcac342d39724f1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Set_Adress</name></member>
       <member refid="class_nextion___display___class_1ad66e481e079e56797b395e5a7be740d1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Set_Autowake</name></member>
@@ -2874,31 +2874,31 @@
       <member refid="class_nextion___display___class_1a12b921e10453a3eca1d64580cfe834fb" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Show</name></member>
       <member refid="class_nextion___display___class_1a7aa1d8422837324ef37286fa01c1117c" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Show</name></member>
       <member refid="class_nextion___display___class_1acd50b15c5b2e6b59263d244d8a2323bb" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Sleep</name></member>
-      <member refid="class_nextion___display___class_1ab6e65022c95e35c37039a98ff8ea1b4ba31deb23171451dfa21b58f8103ef8044" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Solid_Color</name></member>
+      <member refid="class_nextion___display___class_1a29443363f0791bc7b63936a92f228eeaa31deb23171451dfa21b58f8103ef8044" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Solid_Color</name></member>
       <member refid="class_nextion___display___class_1a563ddac71bbe62360191ae668d742011" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Start_Sending_Realtime_Coordinate</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6bca8f979d951761a0f15093a95cf30f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Start_Upgrade_From_SD</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6bca8f979d951761a0f15093a95cf30f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Start_Upgrade_From_SD</name></member>
       <member refid="class_nextion___display___class_1aaca8238b861ca4434bf1e8fe49086c44" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Start_Waveform_Refresh</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6a2a350dc2c773d654f14a37ef4f0db1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Startup</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6a2a350dc2c773d654f14a37ef4f0db1" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Startup</name></member>
       <member refid="class_nextion___display___class_1a64c252c6d2342a59a262bbe30c4cdc7a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Stop_Execution</name></member>
       <member refid="class_nextion___display___class_1a0e49b9d4e8fb655b7a904ae4ae6cd9d0" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Stop_Sending_Realtime_Coordinate</name></member>
       <member refid="class_nextion___display___class_1a71bf02cf9c2e1f1dbbc0769b97633dff" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Stop_Waveform_Refresh</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a921c27a491d15f953ede320d1e5413af" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>String_Data_Enclosed</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da921c27a491d15f953ede320d1e5413af" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>String_Data_Enclosed</name></member>
       <member refid="class_nextion___display___class_1a9c5b4ba24a1286e2b0bcf0505245d17f" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Temporary_File</name></member>
       <member refid="class_nextion___display___class_1a1c466f4a1e83561ec9768e5cd35c441a" prot="protected" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Temporary_String</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aad345e6d216f35be53d570516478ff55" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Too_Long_Variable_Name</name></member>
-      <member refid="class_nextion___display___class_1a0c3278b01cead0402eb2d79fdea566c2a9373e5afb32606a18cd3c5f811d0bdb7" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Top</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a6789a7717524f8489a8b691b9ac4d0b9" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Coordinate_Awake</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a76f5022b51c25a2a81c3e19df709efe6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Coordinate_Sleep</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1ab743d8f4a776ba50968bc9af40fef630" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Event</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1a18a11de58d8441d600555cc8e77a2065" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Transparent_Data_Finished</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1aa3d2122a6fd4faa815172eb7a49e47d0" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Transparent_Data_Ready</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aad345e6d216f35be53d570516478ff55" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Too_Long_Variable_Name</name></member>
+      <member refid="class_nextion___display___class_1a4516c9325a5142f2e33b78a3b71156eca9373e5afb32606a18cd3c5f811d0bdb7" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Top</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da6789a7717524f8489a8b691b9ac4d0b9" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Coordinate_Awake</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da76f5022b51c25a2a81c3e19df709efe6" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Coordinate_Sleep</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77dab743d8f4a776ba50968bc9af40fef630" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Touch_Event</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77da18a11de58d8441d600555cc8e77a2065" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Transparent_Data_Finished</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daa3d2122a6fd4faa815172eb7a49e47d0" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Transparent_Data_Ready</name></member>
       <member refid="class_nextion___display___class_1a151c7dc49033372d0539f887554f7f16" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Update</name></member>
-      <member refid="class_nextion___display___class_1ad208e42379fca0e1e390568b8eab1123aed6f953dd7b3f18e7294a00b9d0c0d4a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Update_Failed</name></member>
-      <member refid="class_nextion___display___class_1abd2bab68914a2d1f2b73f274346b33b1af417e15accbf7960533b604cb473ee39" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Update_Succeed</name></member>
+      <member refid="class_nextion___display___class_1af8fd899e55a5c4c4204c09edb814efb1aed6f953dd7b3f18e7294a00b9d0c0d4a" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Update_Failed</name></member>
+      <member refid="class_nextion___display___class_1ad99edd7a79e29f206b29b54c851ca77daf417e15accbf7960533b604cb473ee39" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Update_Succeed</name></member>
       <member refid="class_nextion___display___class_1aafa5bae0c6f65ecb527579fb965ed07f" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Wake_Up</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034ad2255221a719f74a11de508d1faff13d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>White</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33ad2255221a719f74a11de508d1faff13d" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>White</name></member>
       <member refid="class_nextion___display___class_1ac9fe77dca5962070a155c2b3fe95be91" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Write</name></member>
-      <member refid="class_nextion___display___class_1ab83822b43696d2df2cb4b12db33ff034a94ab41c6a1febada63a317743667a9df" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Yellow</name></member>
+      <member refid="class_nextion___display___class_1aea45ec3147b10eff7e340e3ab2a58b33a94ab41c6a1febada63a317743667a9df" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>Yellow</name></member>
       <member refid="class_nextion___display___class_1a8dbf3f1799af7e31a8ea7a779f025b51" prot="public" virt="non-virtual"><scope>Nextion_Display_Class</scope><name>~Nextion_Display_Class</name></member>
     </listofallmembers>
   </compounddef>

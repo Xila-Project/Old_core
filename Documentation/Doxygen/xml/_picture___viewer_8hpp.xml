@@ -4,62 +4,79 @@
     <compoundname>Picture_Viewer.hpp</compoundname>
     <includes refid="_xila_8hpp" local="yes">Xila.hpp</includes>
     <incdepgraph>
-      <node id="10">
-        <label>SD.h</label>
+      <node id="11">
+        <label>sys/stat.h</label>
       </node>
-      <node id="9">
-        <label>stdarg.h</label>
+      <node id="42">
+        <label>Task.hpp</label>
+        <link refid="_task_8hpp"/>
       </node>
       <node id="6">
         <label>FS.h</label>
       </node>
-      <node id="16">
+      <node id="8">
+        <label>vfs_api.h</label>
+      </node>
+      <node id="22">
         <label>Print.h</label>
       </node>
-      <node id="7">
+      <node id="17">
         <label>SPI.h</label>
+      </node>
+      <node id="15">
+        <label>driver/sdmmc_defs.h</label>
       </node>
       <node id="5">
         <label>stdint.h</label>
       </node>
-      <node id="28">
+      <node id="39">
         <label>Path.hpp</label>
         <link refid="_path_8hpp_source"/>
       </node>
-      <node id="20">
+      <node id="43">
+        <label>Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="26">
         <label>WiFiSTA.h</label>
       </node>
-      <node id="15">
+      <node id="21">
         <label>StreamUtils.h</label>
       </node>
-      <node id="31">
-        <label>Driver/Display.hpp</label>
-        <link refid="_display_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
+      <node id="10">
+        <label>sys/unistd.h</label>
       </node>
-      <node id="29">
+      <node id="40">
         <label>Software.hpp</label>
         <link refid="_software_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
+        <label>Driver/Display.hpp</label>
+        <link refid="_display_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
         <label>HardwareSerial.h</label>
       </node>
-      <node id="26">
+      <node id="32">
         <label>WiFiUdp.h</label>
       </node>
-      <node id="8">
+      <node id="37">
         <label>esp_log.h</label>
+      </node>
+      <node id="13">
+        <label>esp_vfs_fat.h</label>
       </node>
       <node id="1">
         <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Picture_Viewer.hpp</label>
@@ -67,31 +84,38 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="20">
         <label>ArduinoJson.h</label>
       </node>
-      <node id="17">
+      <node id="23">
         <label>IPAddress.h</label>
       </node>
-      <node id="33">
+      <node id="44">
+        <label>System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="14">
+        <label>driver/sdmmc_host.h</label>
+      </node>
+      <node id="38">
         <label>Driver/Battery.hpp</label>
         <link refid="_battery_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="18">
         <label>time.h</label>
       </node>
-      <node id="22">
+      <node id="28">
         <label>WiFiScan.h</label>
       </node>
       <node id="3">
         <label>Arduino.h</label>
       </node>
-      <node id="23">
+      <node id="29">
         <label>WiFiGeneric.h</label>
       </node>
-      <node id="13">
+      <node id="19">
         <label>Update.h</label>
       </node>
       <node id="2">
@@ -102,15 +126,21 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="7">
+        <label>ff.h</label>
+      </node>
+      <node id="9">
+        <label>sd_diskio.h</label>
+      </node>
+      <node id="36">
         <label>SD_MMC.h</label>
       </node>
       <node id="4">
         <label>Core/Core.hpp</label>
         <link refid="_core_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
@@ -164,44 +194,70 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
         <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="18">
-        <label>IPv6Address.h</label>
-      </node>
-      <node id="24">
-        <label>WiFiClient.h</label>
-      </node>
-      <node id="27">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
+      <node id="16">
+        <label>sdmmc_cmd.h</label>
+      </node>
+      <node id="24">
+        <label>IPv6Address.h</label>
+      </node>
       <node id="30">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="35">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
         <label>Software_Handle.hpp</label>
         <link refid="_software___handle_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="31">
         <label>WiFiServer.h</label>
       </node>
-      <node id="19">
+      <node id="25">
         <label>WiFiType.h</label>
       </node>
-      <node id="21">
+      <node id="27">
         <label>WiFiAP.h</label>
       </node>
+      <node id="12">
+        <label>dirent.h</label>
+      </node>
     </incdepgraph>
-    <innerclass refid="class_picture___viewer___class" prot="public">Picture_Viewer_Class</innerclass>
+    <innerclass refid="class_image___viewer___class" prot="public">Image_Viewer_Class</innerclass>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="_picture___viewer_8hpp_1abacb81ce7d8c7f523067a5865216f445" prot="public" static="no" mutable="no">
+      <memberdef kind="variable" id="_picture___viewer_8hpp_1a8d47b5a24814fe73b25433422250a425" prot="public" static="no" mutable="no">
         <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref></type>
-        <definition>Software_Handle_Class Picture_Viewer_Handle(&quot;Picture viewer&quot;, Picture_Viewer_Class::Icon_32, Picture_Viewer_Class::Load)</definition>
-        <argsstring>(&quot;Picture viewer&quot;, Picture_Viewer_Class::Icon_32, Picture_Viewer_Class::Load)</argsstring>
-        <name>Picture_Viewer_Handle</name>
+        <definition>Software_Handle_Class Image_Viewer_Handle(&quot;Picture viewer&quot;, Image_Viewer_Class::Icon_32, Image_Viewer_Class::Load)</definition>
+        <argsstring>(&quot;Picture viewer&quot;, Image_Viewer_Class::Icon_32, Image_Viewer_Class::Load)</argsstring>
+        <name>Image_Viewer_Handle</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -221,10 +277,10 @@
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Xila.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6" refid="class_picture___viewer___class" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_picture___viewer___class" kindref="compound">Picture_Viewer_Class</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref></highlight></codeline>
+<codeline lineno="6" refid="class_image___viewer___class" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_image___viewer___class" kindref="compound">Image_Viewer_Class</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref></highlight></codeline>
 <codeline lineno="7"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_picture___viewer___class" kindref="compound">Picture_Viewer_Class</ref>*<sp/>Instance_Pointer;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_image___viewer___class" kindref="compound">Image_Viewer_Class</ref>*<sp/>Instance_Pointer;</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Get_Metadata();</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Draw_Image();</highlight></codeline>
@@ -250,12 +306,12 @@
 <codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Background();</highlight></codeline>
 <codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Shutdown();</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_picture___viewer___class" kindref="compound">Picture_Viewer_Class</ref>();</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_picture___viewer___class" kindref="compound">Picture_Viewer_Class</ref>();</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_image___viewer___class" kindref="compound">Image_Viewer_Class</ref>();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_image___viewer___class" kindref="compound">Image_Viewer_Class</ref>();</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Pictures</highlight></codeline>
 <codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Icon_32<sp/>=<sp/>Xila.Picture_Viewer</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Icon_32<sp/>=<sp/>Xila.Display.Image_Viewer</highlight></codeline>
 <codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Pages</highlight></codeline>
@@ -264,7 +320,7 @@
 <codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="47"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/>Picture_Viewer_Handle(</highlight><highlight class="stringliteral">&quot;Picture<sp/>viewer&quot;</highlight><highlight class="normal">,<sp/>Picture_Viewer_Class::Icon_32,<sp/>Picture_Viewer_Class::Load);</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/>Image_Viewer_Handle(</highlight><highlight class="stringliteral">&quot;Picture<sp/>viewer&quot;</highlight><highlight class="normal">,<sp/>Image_Viewer_Class::Icon_32,<sp/>Image_Viewer_Class::Load);</highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight></codeline>
 <codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>

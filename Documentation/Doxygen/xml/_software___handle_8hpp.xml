@@ -168,30 +168,10 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>a</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>1st software handle to compare. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>b</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>2nd software handle to compare.</para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>1 if software handle are identical and 0 if not. </para>
-</simplesect>
-</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="55" column="6" declfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" declline="55" declcolumn="6"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="53" column="6" declfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" declline="53" declcolumn="6"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -204,47 +184,37 @@
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Arduino.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>;</highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___class" kindref="compound">Software_Class</ref>;</highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_xila___class" kindref="compound">Xila_Class</ref>;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>;<sp/></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___class" kindref="compound">Software_Class</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_xila___class" kindref="compound">Xila_Class</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Forward<sp/>declaration</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="class_xila___class" kindref="compound">Xila_Class</ref><sp/>Xila;</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
 <codeline lineno="16" refid="class_software___handle___class" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="comment">//Software<sp/>&quot;descriptor&quot;<sp/>class,<sp/>used<sp/>interaly<sp/>to<sp/>load<sp/>the<sp/>software</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="17"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>Icon;</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>Type;</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>Name[24];<sp/></highlight><highlight class="comment">//used<sp/>to<sp/>identify<sp/>the<sp/>software,</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="22"><highlight class="normal"></highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref><sp/>*(*Load_Function_Pointer)();<sp/></highlight><highlight class="comment">//function<sp/>called<sp/>by<sp/>the<sp/>core<sp/>to<sp/>load<sp/>software<sp/>and<sp/>return<sp/>loaded<sp/>software<sp/>(construct<sp/>class,<sp/>open<sp/>executable<sp/>etc...)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>void<sp/>(*Startup_Function_Pointer)();</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Software_Class*<sp/>Load_Function(Software_Handle_Class*);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_software___handle___class_1a92c8b2288a7ef0f1f2b85989f358c9b3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="class_software___handle___class_1a92c8b2288a7ef0f1f2b85989f358c9b3" kindref="member">Name</ref>[24];<sp/></highlight><highlight class="comment">//used<sp/>to<sp/>identify<sp/>the<sp/>software,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" kindref="member">Icon</ref>;</highlight></codeline>
 <codeline lineno="28"><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>Is_Equal(<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>Software_Handle_To_Compare)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Software_Type</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>();</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>Software_Name,<sp/>uint8_t<sp/>Icon_ID,<sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref><sp/>*(*Load_Function_Pointer)(),<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*Startup_Function_Pointer)()<sp/>=<sp/>NULL);</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>();</highlight></codeline>
+<codeline lineno="33" refid="class_software___handle___class_1a74220aca2282a4a765e76cd62a60112b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref><sp/>*(*Load_Function_Pointer)();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>void<sp/>(*<ref refid="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" kindref="member">Startup_Function_Pointer</ref>)();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>Is_Equal(<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;Software_Handle_To_Compare)<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_xila___class" kindref="compound">Xila_Class</ref>;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___class" kindref="compound">Software_Class</ref>;</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_shell___class" kindref="compound">Shell_Class</ref>;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>a,<sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>b);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Software_Name,<sp/>uint8_t<sp/>Icon_ID,<sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref><sp/>*(*<ref refid="class_software___handle___class_1a74220aca2282a4a765e76cd62a60112b" kindref="member">Load_Function_Pointer</ref>)(),<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>(*<ref refid="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" kindref="member">Startup_Function_Pointer</ref>)()<sp/>=<sp/>NULL);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref>();</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_xila___class" kindref="compound">Xila_Class</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_software___class" kindref="compound">Software_Class</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">friend</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_shell___class" kindref="compound">Shell_Class</ref>;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>operator==(<ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;a,<sp/><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>&amp;b);</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp"/>
   </compounddef>

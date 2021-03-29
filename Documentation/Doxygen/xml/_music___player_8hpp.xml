@@ -4,62 +4,79 @@
     <compoundname>Music_Player.hpp</compoundname>
     <includes refid="_xila_8hpp" local="yes">Xila.hpp</includes>
     <incdepgraph>
-      <node id="10">
-        <label>SD.h</label>
+      <node id="11">
+        <label>sys/stat.h</label>
       </node>
-      <node id="9">
-        <label>stdarg.h</label>
+      <node id="42">
+        <label>Task.hpp</label>
+        <link refid="_task_8hpp"/>
       </node>
       <node id="6">
         <label>FS.h</label>
       </node>
-      <node id="16">
+      <node id="8">
+        <label>vfs_api.h</label>
+      </node>
+      <node id="22">
         <label>Print.h</label>
       </node>
-      <node id="7">
+      <node id="17">
         <label>SPI.h</label>
+      </node>
+      <node id="15">
+        <label>driver/sdmmc_defs.h</label>
       </node>
       <node id="5">
         <label>stdint.h</label>
       </node>
-      <node id="28">
+      <node id="39">
         <label>Path.hpp</label>
         <link refid="_path_8hpp_source"/>
       </node>
-      <node id="20">
+      <node id="43">
+        <label>Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="26">
         <label>WiFiSTA.h</label>
       </node>
-      <node id="15">
+      <node id="21">
         <label>StreamUtils.h</label>
       </node>
-      <node id="31">
-        <label>Driver/Display.hpp</label>
-        <link refid="_display_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
+      <node id="10">
+        <label>sys/unistd.h</label>
       </node>
-      <node id="29">
+      <node id="40">
         <label>Software.hpp</label>
         <link refid="_software_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="33">
+        <label>Driver/Display.hpp</label>
+        <link refid="_display_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
         <label>HardwareSerial.h</label>
       </node>
-      <node id="26">
+      <node id="32">
         <label>WiFiUdp.h</label>
       </node>
-      <node id="8">
+      <node id="37">
         <label>esp_log.h</label>
+      </node>
+      <node id="13">
+        <label>esp_vfs_fat.h</label>
       </node>
       <node id="1">
         <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp</label>
@@ -67,31 +84,38 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="20">
         <label>ArduinoJson.h</label>
       </node>
-      <node id="17">
+      <node id="23">
         <label>IPAddress.h</label>
       </node>
-      <node id="33">
+      <node id="44">
+        <label>System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="14">
+        <label>driver/sdmmc_host.h</label>
+      </node>
+      <node id="38">
         <label>Driver/Battery.hpp</label>
         <link refid="_battery_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="18">
         <label>time.h</label>
       </node>
-      <node id="22">
+      <node id="28">
         <label>WiFiScan.h</label>
       </node>
       <node id="3">
         <label>Arduino.h</label>
       </node>
-      <node id="23">
+      <node id="29">
         <label>WiFiGeneric.h</label>
       </node>
-      <node id="13">
+      <node id="19">
         <label>Update.h</label>
       </node>
       <node id="2">
@@ -102,15 +126,21 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="7">
+        <label>ff.h</label>
+      </node>
+      <node id="9">
+        <label>sd_diskio.h</label>
+      </node>
+      <node id="36">
         <label>SD_MMC.h</label>
       </node>
       <node id="4">
         <label>Core/Core.hpp</label>
         <link refid="_core_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
@@ -164,35 +194,61 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
         <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="18">
-        <label>IPv6Address.h</label>
-      </node>
-      <node id="24">
-        <label>WiFiClient.h</label>
-      </node>
-      <node id="27">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
       </node>
+      <node id="16">
+        <label>sdmmc_cmd.h</label>
+      </node>
+      <node id="24">
+        <label>IPv6Address.h</label>
+      </node>
       <node id="30">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="35">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp_source"/>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
         <label>Software_Handle.hpp</label>
         <link refid="_software___handle_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="31">
         <label>WiFiServer.h</label>
       </node>
-      <node id="19">
+      <node id="25">
         <label>WiFiType.h</label>
       </node>
-      <node id="21">
+      <node id="27">
         <label>WiFiAP.h</label>
+      </node>
+      <node id="12">
+        <label>dirent.h</label>
       </node>
     </incdepgraph>
     <innerclass refid="class_music___player___class" prot="public">Music_Player_Class</innerclass>
@@ -284,7 +340,7 @@
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Set_Variable(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*,<sp/>uint8_t,<sp/>uint8_t,<sp/>uint8_t);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"></highlight></codeline>
-<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Open_Folder();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Dialog_Open_Folder();</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Open_File();</highlight></codeline>
 <codeline lineno="58"><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Set_Time();</highlight></codeline>
@@ -313,7 +369,7 @@
 <codeline lineno="82"><highlight class="normal"></highlight></codeline>
 <codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Picture</highlight></codeline>
 <codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Music_Player_Icon_32<sp/>=<sp/>Xila.Music_Player,</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Music_Player_Icon_32<sp/>=<sp/>Xila.Display.Music_Player,</highlight></codeline>
 <codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Loop_32,</highlight></codeline>
 <codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Pause_32,</highlight></codeline>
 <codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Play_32,</highlight></codeline>

@@ -69,48 +69,108 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-types">Protected Types</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_xila___class_1_1_task___class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Xila_Class::Task_Class Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Task management class.  
+<p>Task management module.  
  <a href="class_xila___class_1_1_task___class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Xila_Class::Task_Class:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_xila___class_1_1_task___class.png" usemap="#Xila_5FClass::Task_5FClass_map" alt=""/>
-  <map id="Xila_5FClass::Task_5FClass_map" name="Xila_5FClass::Task_5FClass_map">
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="0,0,158,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6d7a612dafee15fd2251834cd0fce7a8"><td class="memItemLeft" align="right" valign="top"><a id="a6d7a612dafee15fd2251834cd0fce7a8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Delay</b> (uint32_t Delay_In_Millisecond)</td></tr>
-<tr class="separator:a6d7a612dafee15fd2251834cd0fce7a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1f783a816aee43d830ab3a00569f75b"><td class="memItemLeft" align="right" valign="top"><a id="ab1f783a816aee43d830ab3a00569f75b"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Resume</b> (Xila_Task_Handle Task_To_Resume)</td></tr>
-<tr class="separator:ab1f783a816aee43d830ab3a00569f75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a065138b41ce931e63a4f5747c873023d"><td class="memItemLeft" align="right" valign="top"><a id="a065138b41ce931e63a4f5747c873023d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Suspend</b> (Xila_Task_Handle Task_To_Suspend=NULL)</td></tr>
-<tr class="separator:a065138b41ce931e63a4f5747c873023d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6326828e5d5103a63e81c9b8cd5ff7e8"><td class="memItemLeft" align="right" valign="top"><a id="a6326828e5d5103a63e81c9b8cd5ff7e8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> (Xila_Task_Handle Task_To_Delete=NULL)</td></tr>
-<tr class="separator:a6326828e5d5103a63e81c9b8cd5ff7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb0ef79745cc3479ac1dfa25c1806a30"><td class="memItemLeft" align="right" valign="top"><a id="acb0ef79745cc3479ac1dfa25c1806a30"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters=NULL, Xila_Task_Handle *Task_Handle=NULL)</td></tr>
-<tr class="separator:acb0ef79745cc3479ac1dfa25c1806a30"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceeef49b7e1599da4e406edf54550c77"><td class="memItemLeft" align="right" valign="top"><a id="aceeef49b7e1599da4e406edf54550c77"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters=NULL, Xila_Task_Handle *Task_Handle=NULL) const</td></tr>
+<tr class="separator:aceeef49b7e1599da4e406edf54550c77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48d07593d1b60d458648e66251d8327b"><td class="memItemLeft" align="right" valign="top"><a id="a48d07593d1b60d458648e66251d8327b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Suspend</b> (Xila_Task_Handle Task_To_Suspend=NULL) const</td></tr>
+<tr class="separator:a48d07593d1b60d458648e66251d8327b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aace4cf5143016c6ffd1f053eaca93b0d"><td class="memItemLeft" align="right" valign="top"><a id="aace4cf5143016c6ffd1f053eaca93b0d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Resume</b> (Xila_Task_Handle Task_To_Resume) const</td></tr>
+<tr class="separator:aace4cf5143016c6ffd1f053eaca93b0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa750a2c2168865a2f45be7c6d0127f72"><td class="memItemLeft" align="right" valign="top"><a id="aa750a2c2168865a2f45be7c6d0127f72"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> (Xila_Task_Handle Task_To_Delete=NULL) const</td></tr>
+<tr class="separator:aa750a2c2168865a2f45be7c6d0127f72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a65d70162c95dfd3ac8b4683e913ce9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_task___class.html#a1a65d70162c95dfd3ac8b4683e913ce9">Delay</a> (uint32_t Delay_In_Millisecond) const</td></tr>
+<tr class="memdesc:a1a65d70162c95dfd3ac8b4683e913ce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">A delay function.  <a href="class_xila___class_1_1_task___class.html#a1a65d70162c95dfd3ac8b4683e913ce9">More...</a><br /></td></tr>
+<tr class="separator:a1a65d70162c95dfd3ac8b4683e913ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aeaba298f428e1e39b697dc073d86320d"><td class="memItemLeft" align="right" valign="top"><a id="aeaba298f428e1e39b697dc073d86320d"></a>
+friend&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:aeaba298f428e1e39b697dc073d86320d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
+Protected Types</h2></td></tr>
+<tr class="memitem:a7e7dd4de25da6f0ebd8fb4e0431fe4f2"><td class="memItemLeft" align="right" valign="top"><a id="a7e7dd4de25da6f0ebd8fb4e0431fe4f2"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_task___class.html#a7e7dd4de25da6f0ebd8fb4e0431fe4f2">Priorities</a> { <b>Idle_Task</b> = 0
+, <b>Software_Task</b>
+, <b>System_Task</b>
+, <b>Driver_Task</b>
+ }</td></tr>
+<tr class="memdesc:a7e7dd4de25da6f0ebd8fb4e0431fe4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tasks priorities. <br /></td></tr>
+<tr class="separator:a7e7dd4de25da6f0ebd8fb4e0431fe4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3a88df96dc6a40788b7157bf7f89105c"><td class="memItemLeft" align="right" valign="top"><a id="a3a88df96dc6a40788b7157bf7f89105c"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Create</b> (Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle)</td></tr>
+<tr class="separator:a3a88df96dc6a40788b7157bf7f89105c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Task management class. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<div class="textblock"><p>Task management module. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1a65d70162c95dfd3ac8b4683e913ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a65d70162c95dfd3ac8b4683e913ce9">&#9670;&nbsp;</a></span>Delay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Task_Class::Delay </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>Delay_In_Millisecond</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A delay function. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Delay_In_Millisecond</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>A delay function that behave exactly like delay() </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+<li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_task_8hpp_source.html">Task.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

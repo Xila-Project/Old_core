@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['open_5fsoftware_5fpointer_20',['Open_Software_Pointer',['../class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb',1,'Xila_Class::Software_Management_Class']]],
-  ['oscilloscope_2ehpp_21',['Oscilloscope.hpp',['../_oscilloscope_8hpp.html',1,'']]],
-  ['oscilloscope_5fclass_22',['Oscilloscope_Class',['../class_oscilloscope___class.html',1,'']]]
+  ['load_5ffunction_5fpointer_24',['Load_Function_Pointer',['../class_software___handle___class.html#a74220aca2282a4a765e76cd62a60112b',1,'Software_Handle_Class']]],
+  ['long_25',['Long',['../class_xila___class_1_1_dialog___class.html#ab24d15e6fef1458e7c925fe47814eaed',1,'Xila_Class::Dialog_Class']]]
 ];

@@ -70,9 +70,10 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
@@ -86,15 +87,6 @@ $(function() {
  <a href="class_xila___class_1_1_sound___class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Xila_Class::Sound_Class:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_xila___class_1_1_sound___class.png" usemap="#Xila_5FClass::Sound_5FClass_map" alt=""/>
-  <map id="Xila_5FClass::Sound_5FClass_map" name="Xila_5FClass::Sound_5FClass_map">
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="0,0,158,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -128,9 +120,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Volume</b> (uint1
 <tr class="memitem:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memItemLeft" align="right" valign="top"><a id="a6ff91eed9eb1dd826ad2eba29b31b6c0"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Volume</b> ()</td></tr>
 <tr class="separator:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d2abce0c911a105f30bbff2795dbae1"><td class="memItemLeft" align="right" valign="top"><a id="a7d2abce0c911a105f30bbff2795dbae1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_File_System</b> (fs::FS &amp;File_System)</td></tr>
-<tr class="separator:a7d2abce0c911a105f30bbff2795dbae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d825db7c724bfd5f13390443a6cfebe"><td class="memItemLeft" align="right" valign="top"><a id="a0d825db7c724bfd5f13390443a6cfebe"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Balance</b> (uint8_t)</td></tr>
 <tr class="separator:a0d825db7c724bfd5f13390443a6cfebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,9 +162,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Tone</b> (uint16_t co
 <tr class="memitem:a6bb8c02187efa7d88caea1a498f7c963"><td class="memItemLeft" align="right" valign="top"><a id="a6bb8c02187efa7d88caea1a498f7c963"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>No_Tone</b> (uint8_t const &amp;Pin=0xFF)</td></tr>
 <tr class="separator:a6bb8c02187efa7d88caea1a498f7c963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2689264049e6b579b2f448ef63d6287f"><td class="memItemLeft" align="right" valign="top"><a id="a2689264049e6b579b2f448ef63d6287f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Loop</b> ()</td></tr>
-<tr class="separator:a2689264049e6b579b2f448ef63d6287f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a83d75526061756ef01111eb7ba324129"><td class="memItemLeft" align="right" valign="top"><a id="a83d75526061756ef01111eb7ba324129"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>Task</b> (void *)</td></tr>
+<tr class="separator:a83d75526061756ef01111eb7ba324129"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a845bc9825f6c5b0904823a209e90d588"><td class="memItemLeft" align="right" valign="top"><a id="a845bc9825f6c5b0904823a209e90d588"></a>
+friend&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a845bc9825f6c5b0904823a209e90d588"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -187,30 +185,24 @@ Protected Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab740639934eca8bbae54a73448f58056"><td class="memItemLeft" align="right" valign="top"><a id="ab740639934eca8bbae54a73448f58056"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
-<tr class="separator:ab740639934eca8bbae54a73448f58056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b3abd6131f9c6afa28239ee68de33e3"><td class="memItemLeft" align="right" valign="top"><a id="a6b3abd6131f9c6afa28239ee68de33e3"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
-<tr class="separator:a6b3abd6131f9c6afa28239ee68de33e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:aec29e12e045cf52b3ced1a675c122166"><td class="memItemLeft" align="right" valign="top"><a id="aec29e12e045cf52b3ced1a675c122166"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Sound_Task</b> (void *)</td></tr>
-<tr class="separator:aec29e12e045cf52b3ced1a675c122166"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80a3ec224409e3c52093afe4deca445b"><td class="memItemLeft" align="right" valign="top"><a id="a80a3ec224409e3c52093afe4deca445b"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="separator:a80a3ec224409e3c52093afe4deca445b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace40cc5c81319ad4c0c61993cc894ca5"><td class="memItemLeft" align="right" valign="top"><a id="ace40cc5c81319ad4c0c61993cc894ca5"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="separator:ace40cc5c81319ad4c0c61993cc894ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:aa092b0e56f47b72be9c01363de9a9f52"><td class="memItemLeft" align="right" valign="top"><a id="aa092b0e56f47b72be9c01363de9a9f52"></a>
+Xila_Task_Handle&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
+<tr class="separator:aa092b0e56f47b72be9c01363de9a9f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5aee297aad39aa4708d2c31d43544c"><td class="memItemLeft" align="right" valign="top"><a id="a4a5aee297aad39aa4708d2c31d43544c"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Custom_Pin</b></td></tr>
 <tr class="separator:a4a5aee297aad39aa4708d2c31d43544c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f500e346202feebac92ab77493125cc"><td class="memItemLeft" align="right" valign="top"><a id="a8f500e346202feebac92ab77493125cc"></a>
 File&#160;</td><td class="memItemRight" valign="bottom"><b>Music_File</b></td></tr>
 <tr class="separator:a8f500e346202feebac92ab77493125cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d82f3b1b77fd31f10fc9d812b6e5128"><td class="memItemLeft" align="right" valign="top"><a id="a9d82f3b1b77fd31f10fc9d812b6e5128"></a>
-fs::FS *&#160;</td><td class="memItemRight" valign="bottom"><b>File_System</b></td></tr>
-<tr class="separator:a9d82f3b1b77fd31f10fc9d812b6e5128"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
@@ -226,6 +218,9 @@ static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Custo
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="memItemLeft" align="right" valign="top"><a id="a41bc3dbfdf579bdb9446f64b46aec9aa"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>audio_eof_mp3</b> (const char *)</td></tr>
 <tr class="separator:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>

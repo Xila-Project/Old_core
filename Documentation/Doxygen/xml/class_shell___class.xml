@@ -136,13 +136,13 @@
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Pages. </para>
         </briefdescription>
         <detaileddescription>
-<para>-1 = Default desk background 0 - 65535 : Custom color </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="90" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="91" bodyend="110"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="95" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="96" bodyend="115"/>
       </memberdef>
       <memberdef kind="enum" id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0" prot="protected" static="no" strong="no">
         <type></type>
@@ -209,7 +209,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="225" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="226" bodyend="235"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="227" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="228" bodyend="237"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-type">
@@ -218,7 +218,7 @@
         <name>Images</name>
         <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a803abf7ca4a555dfb91ee0f09e4320df" prot="public">
           <name>Empty_16</name>
-          <initializer>= Xila.Shell</initializer>
+          <initializer>= Xila.Display.Shell</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -356,7 +356,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="268" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="269" bodyend="289"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="266" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="267" bodyend="287"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-attrib">
@@ -366,12 +366,13 @@
         <argsstring></argsstring>
         <name>Instance_Pointer</name>
         <briefdescription>
+<para>Instance pointer, help to keep track of current instance. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="35" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="35" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="39" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -386,7 +387,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="37" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="37" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="41" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a261f44ec1dd53c4b89359b7008bc7ded" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -399,7 +400,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="43" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="43" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="47" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ae6716b951b99010cbfbc9853f234cfbd" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -412,7 +413,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="44" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="44" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="48" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a7fe10550045b9fc4731da7cf018a5bef" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -425,7 +426,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="48" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="48" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="52" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="52" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a0b7ae244b7629c875da5ccbf6f835806" prot="protected" static="no" mutable="no">
         <type>uint16_t</type>
@@ -438,20 +439,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="50" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="50" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a733f303e2044d5b83b9de31bf41fb9fc" prot="protected" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t Shell_Class::Standby_System_Time</definition>
-        <argsstring></argsstring>
-        <name>Standby_System_Time</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="51" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="51" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="54" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="54" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a10f64e9f77783beeb0fa50ca2e729374" prot="protected" static="no" mutable="no">
         <type>bool</type>
@@ -464,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="55" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="55" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="58" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="58" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" prot="protected" static="no" mutable="no">
         <type>int32_t</type>
@@ -477,7 +465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="57" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="57" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="60" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a4061f2d99cc584ac8ce1f7c7ce1f3dc5" prot="protected" static="no" mutable="no">
         <type>int16_t</type>
@@ -490,12 +478,12 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="58" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="58" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="61" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="61" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a308103ffae78e31a33e9de09e4715632" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_shell___class_1a988863903fe9a252449d5644a91396a8" prot="protected" static="no" mutable="no">
         <type>char</type>
-        <definition>char Shell_Class::NTP_Server[sizeof(Xila.NTP_Server)]</definition>
-        <argsstring>[sizeof(Xila.NTP_Server)]</argsstring>
+        <definition>char Shell_Class::NTP_Server[sizeof(Xila.Time.NTP_Server)]</definition>
+        <argsstring>[sizeof(Xila.Time.NTP_Server)]</argsstring>
         <name>NTP_Server</name>
         <briefdescription>
         </briefdescription>
@@ -503,9 +491,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="60" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="60" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="63" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="63" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a428472096127f7e0b86558520b418c27" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_shell___class_1a4ff4c764d4b8e9518f0c126bcbd00b7a" prot="protected" static="no" mutable="no">
         <type>char</type>
         <definition>char Shell_Class::Name[25]</definition>
         <argsstring>[25]</argsstring>
@@ -516,7 +504,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="61" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="61" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="64" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="64" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -529,7 +517,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="63" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="63" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="66" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="66" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a33ed9ee17d75a2d78068e3ace71e546f" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -542,7 +530,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="64" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="64" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="67" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="67" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1aa9f1265875f9fbe18f7e25e6bf019e13" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -555,7 +543,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="65" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="65" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="68" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ad4d9d1b17be48dec4edad53b8a3f8691" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -568,7 +556,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="69" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="69" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="72" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="72" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a0b7b6bb79009ea3d3671aaf70619e7e1" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -581,7 +569,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="70" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="70" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="73" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="73" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1aa3f64926972e354b35c07db0d9b3dd52" prot="protected" static="no" mutable="no">
         <type>uint32_t</type>
@@ -594,7 +582,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="74" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="74" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="77" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="77" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1af922cad00bec83733fbb839d6f9ac33e" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -607,7 +595,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="76" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="76" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="79" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a716dcd2b8108a74e88d4da3d5e86a535" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -620,7 +608,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="78" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="78" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="81" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="81" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ad32f2099fe3506a6764ab254ebcbd61a" prot="protected" static="no" mutable="no">
         <type>int32_t</type>
@@ -628,12 +616,14 @@
         <argsstring></argsstring>
         <name>Desk_Background</name>
         <briefdescription>
+<para>Desk background. </para>
         </briefdescription>
         <detaileddescription>
+<para>Desk image when &lt; 0 and Custom color when &gt; 0 (color code itself). </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="81" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="81" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="90" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="90" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a90063c4083b8396e99ce5806f3f6ee7d" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -646,7 +636,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="112" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="112" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="117" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ae86955278c9a09888bb46f4561324762" prot="protected" static="no" mutable="no">
         <type>uint16_t</type>
@@ -659,7 +649,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="150" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="150" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="155" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="155" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1afaf0ac7eed2e5ce3bd58852a6362a16f" prot="protected" static="no" mutable="no">
         <type>File</type>
@@ -672,7 +662,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="219" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="219" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="221" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="221" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1ad565042d62d51bea76db4f6b537e2a28" prot="protected" static="no" mutable="no">
         <type>File</type>
@@ -685,7 +675,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="221" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="221" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="223" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="223" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a4e2a28b6909cab23a0dfe98ebb916b3b" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -698,7 +688,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="223" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="223" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="225" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="225" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1a0ced6fb6fe204423a6774d727a2a9101" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -711,7 +701,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="238" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="238" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="240" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="240" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -726,7 +716,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="118" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="123" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1acdb4cdfd8863e8cd67cdb1e3cf8e42cc" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -739,7 +729,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="122" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="127" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aeff33b1d828feedd1b084f404179827a" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -752,7 +742,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="126" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="131" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a3cee5d0649f9813a201b304526131353" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -765,7 +755,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="127" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="132" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1abb06f24b6f7a2c720854438ec5df5126" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -778,7 +768,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="128" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="133" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af54002738e0e3ec767362ce446b7ce36" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -791,7 +781,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="129" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="134" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a91aa49cea49b5363541b4e2fc7f3cfa0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -804,7 +794,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="131" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="136" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a5dc451ea7403ba76e291f9b946784c65" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -817,7 +807,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="132" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="137" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a1177c5b97518f4b519b7f5f08670c583" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -830,7 +820,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="133" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="138" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1abbb0e4852014f70b2c66d1d0cd807973" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -843,7 +833,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="134" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="139" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af0b9c8a201dc7cd37329e5df902a25b4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -856,7 +846,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="136" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="141" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1ad540997389dd27223bb645151584173e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -869,7 +859,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="137" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="142" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a48725d3fd40ba5490cba5c72b531c78a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -882,7 +872,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="138" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="143" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1ac46de12e6f50546e1350cedfa2eadf9b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -895,7 +885,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="139" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="144" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1acda963f253b183c50c7c1f0ff5442e91" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -908,7 +898,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="143" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="148" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aa9b5f4a44af1a711de86aaa91143882c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -921,7 +911,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="144" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="149" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a25cccfbd52c2805827e898ac5e4476a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -940,7 +930,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="146" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="151" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af495dc4bdf070a5db7562ec7bd801c2e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -953,7 +943,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="151" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="156" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a8668670c4abd2d2e65a436212ee62a8d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -966,7 +956,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="155" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="160" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a7845590facdf8084b5757ad396e65a77" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -979,7 +969,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="156" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="161" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a3298e08982285d5b0d7255fcea6dbd41" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -992,7 +982,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="157" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="162" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a616814c5b01c7c0b542d2311592a219f" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1005,7 +995,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="159" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="164" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a28f899ffd8601756c44eba64094053db" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1018,7 +1008,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="160" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="165" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1accee7dead6bc9eb1bd6d73c2a9684d81" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1031,7 +1021,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="161" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="166" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a44db328f15cfed2dec36742c28dbcc4d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1044,11 +1034,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="162" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="167" column="17"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a0cc44969603fd85e299eb6e68a49ba62" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Keyboard_Dialog</definition>
+      <memberdef kind="function" id="class_shell___class_1ac4aec89ff83e7eb4531d30c5aed6f9f3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Keyboard_Dialog</definition>
         <argsstring>(char *, size_t, bool=false)</argsstring>
         <name>Keyboard_Dialog</name>
         <param>
@@ -1067,11 +1057,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="167" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="171" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1afad9ea2aa92dcf0b60acc95df82f3fe2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Keypad_Dialog</definition>
+      <memberdef kind="function" id="class_shell___class_1abbe6bf686de84e02bd03267c3acdf3fe" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Keypad_Dialog</definition>
         <argsstring>(float &amp;Number_To_Get)</argsstring>
         <name>Keypad_Dialog</name>
         <param>
@@ -1084,13 +1074,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="168" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="172" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ab4fb2ea2b233b1a10de0da585a75cee3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event Dialog</type>
-        <definition>Xila_Event Dialog Shell_Class::Event</definition>
+      <memberdef kind="function" id="class_shell___class_1ad96e9e705f9b148736cb0a760c9f7ca5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Event_Dialog</definition>
         <argsstring>(const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</argsstring>
-        <name>Event</name>
+        <name>Event_Dialog</name>
         <param>
           <type>const __FlashStringHelper *</type>
         </param>
@@ -1115,11 +1105,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="169" column="22"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="173" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a759fb2f3e7b415c96c7070e082e86a56" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Color_Picker_Dialog</definition>
+      <memberdef kind="function" id="class_shell___class_1abffffbc2e7475ee097947fe76282addc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Color_Picker_Dialog</definition>
         <argsstring>(uint16_t &amp;)</argsstring>
         <name>Color_Picker_Dialog</name>
         <param>
@@ -1131,13 +1121,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="170" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="174" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Dialog_Open_File</definition>
+      <memberdef kind="function" id="class_shell___class_1a7ea91b967dbc47f40c7a5e25d109bb93" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Open_File_Dialog</definition>
         <argsstring>(File &amp;)</argsstring>
-        <name>Dialog_Open_File</name>
+        <name>Open_File_Dialog</name>
         <param>
           <type>File &amp;</type>
         </param>
@@ -1147,11 +1137,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="171" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="175" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aff0dcd1b94eb09c3c52f5afc1d3ef822" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Save_File_Dialog</definition>
+      <memberdef kind="function" id="class_shell___class_1a40e60ebe6e4d9993fb9df109a1c14119" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Save_File_Dialog</definition>
         <argsstring>(File &amp;)</argsstring>
         <name>Save_File_Dialog</name>
         <param>
@@ -1163,11 +1153,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="172" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="176" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a8873ccbedb49df3907ccf95a74c79ef7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Open_Folder_Dialog</definition>
+      <memberdef kind="function" id="class_shell___class_1aa3f0f856deba4fd84ea8dff7da3af08a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Open_Folder_Dialog</definition>
         <argsstring>(File &amp;)</argsstring>
         <name>Open_Folder_Dialog</name>
         <param>
@@ -1179,7 +1169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="173" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="177" column="23"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a3c2bb50a4533b59fc8de0110fe248cde" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1192,7 +1182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="177" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="181" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a62a04d2f6dc15c9655dc00926a1d383a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1205,7 +1195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="178" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="182" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1218,7 +1208,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="182" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="186" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a2191c5a892e95ad09372157310c1b0fd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1231,7 +1221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="184" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="188" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a850c309f442b275cd327c23929efb090" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1244,7 +1234,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="185" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="189" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1ac7021607cedfcfc6b09017f63b917a75" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1257,7 +1247,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="186" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="190" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a13e4743872f3246d8c90478faace85fb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1270,7 +1260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="187" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="191" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1ac771e065871b064e28479c24f681304a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1283,7 +1273,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="191" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="195" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a5e95d35484b19d88e9facc43fdcca6e2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1296,7 +1286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="192" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="196" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a1c9ad246d935e55b4d2eeefe8f0757f0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1312,7 +1302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="193" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="197" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1325,11 +1315,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="194" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="198" column="10"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ab2d66fa5e739390bdc1a18e17f547e44" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Save_Registry</definition>
+      <memberdef kind="function" id="class_shell___class_1abb385fced24c5e45ad43852881bb34a4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Save_Registry</definition>
         <argsstring>()</argsstring>
         <name>Save_Registry</name>
         <briefdescription>
@@ -1338,11 +1328,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="198" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="202" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac6a0cfd1463eea42a6ed0b77ad141464" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Shell_Class::Load_Registry</definition>
+      <memberdef kind="function" id="class_shell___class_1a1b0a4ca82013ee3a4e3613ea8c963dce" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Load_Registry</definition>
         <argsstring>()</argsstring>
         <name>Load_Registry</name>
         <briefdescription>
@@ -1351,7 +1341,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="199" column="16"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="203" column="23"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a2d0e382ce5b95a936068164ada3a5663" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1364,7 +1354,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="203" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="207" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a161c33912dfd16ee08a45402b3821833" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1377,20 +1367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="205" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a20ca95344a93863256f3a6422b5e79b4" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Idle</definition>
-        <argsstring>()</argsstring>
-        <name>Idle</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="207" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="209" column="17"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aebaa8556e42fe269f484640088e89957" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1403,7 +1380,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="211" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="213" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a960924d5be7e9b29091494398dc4dbf0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1416,7 +1393,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="213" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="215" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a017b7a2395301a96be2bb0b863b0467c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1433,7 +1410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="215" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="217" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aee4d9bf879ca3d55e7c97b6f26c25a2f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1446,7 +1423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="217" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="219" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1add333db65c6598f963f086d9448221a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1459,7 +1436,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="242" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="244" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a44df5724bef36546c6872d51e2107007" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1472,7 +1449,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="243" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="245" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1afc903a3829d1658da6f5944bfe4464f1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1485,7 +1462,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="245" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="247" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a77d6ecde96047450b0a84277312bdeb8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1498,7 +1475,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="246" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="248" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af36f47b698704efcfc3f4420a4598bb1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1511,7 +1488,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="247" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="249" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a11cd37a71ef7da98730459efcf45416f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1524,7 +1501,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="248" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="250" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af960a6aafee38f2f59e682b3281dac7d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1537,7 +1514,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="253" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="252" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a5fb721eeb084d0dac5c9ca1974ecc262" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1550,7 +1527,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="254" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="253" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1af81e4ca4076742b5a1e8facaa9d7aa28" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -1577,7 +1554,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="259" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="257" column="10"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
@@ -1595,7 +1572,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="261" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="259" column="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -1610,7 +1587,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="264" column="27"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="262" column="27"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1ac9eb3c8e413e9dee25374ca00d07980c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1623,7 +1600,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="266" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="264" column="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -1638,7 +1615,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="291" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="289" column="5"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aeb037889004da185736ab8e052ba78bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -1651,13 +1628,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="292" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="290" column="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Shell class. </para>
     </briefdescription>
     <detaileddescription>
-<para>@ </para>
+<para>Main inter </para>
     </detaileddescription>
     <inheritancegraph>
       <node id="2">
@@ -1676,7 +1654,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="1">
@@ -1696,7 +1674,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="30" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="31" bodyend="293"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="31" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="32" bodyend="291"/>
     <listofallmembers>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa45b4274c1ff6894f8e24d0164c9ffdad" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>About</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a8c9783e2497846a1f665de1c961d38d3" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Alix_Fait_Grr_Icon_64</name></member>
@@ -1705,9 +1683,10 @@
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a983dcbce0309c57416b08b98af5bff45" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Background_Picture_480</name></member>
       <member refid="class_shell___class_1a7fe10550045b9fc4731da7cf018a5bef" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Brightness</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0ad0a8c53ba7f37cde0e5ca6177d87ab8f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Browse</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Close</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa8daa56ff8a9bba837d04142f3a39dcf2" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker</name></member>
       <member refid="class_shell___class_1a616814c5b01c7c0b542d2311592a219f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker_Commands</name></member>
-      <member refid="class_shell___class_1a759fb2f3e7b415c96c7070e082e86a56" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker_Dialog</name></member>
+      <member refid="class_shell___class_1abffffbc2e7475ee097947fe76282addc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker_Dialog</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0af36c5c39014d46770202fe3489706c96" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Copy</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ad7cd23425a6800c98d27a6bbabbb9f6e" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Copy_24</name></member>
       <member refid="class_shell___class_1ae86955278c9a09888bb46f4561324762" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Current_Command</name></member>
@@ -1721,15 +1700,23 @@
       <member refid="class_shell___class_1ad32f2099fe3506a6764ab254ebcbd61a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Background</name></member>
       <member refid="class_shell___class_1aa9b5f4a44af1a711de86aaa91143882c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Commands</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25e545cf5dda53d5a2a95f20b372ada5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Detail</name></member>
-      <member refid="class_shell___class_1a428472096127f7e0b86558520b418c27" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Name</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_shell___class_1a25cccfbd52c2805827e898ac5e4476a5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dock</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa1abe92fdcd3fdacbd62b8a40d998ce9f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer</name></member>
       <member refid="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer_Commands</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a803abf7ca4a555dfb91ee0f09e4320df" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Empty_16</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a52a686168635a796c7d390a44a014d86" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Empty_32</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa292be7a0f349222b21b34126c1018cf6" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event</name></member>
-      <member refid="class_shell___class_1ab4fb2ea2b233b1a10de0da585a75cee3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event</name></member>
       <member refid="class_shell___class_1a28f899ffd8601756c44eba64094053db" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event_Commands</name></member>
+      <member refid="class_shell___class_1ad96e9e705f9b148736cb0a760c9f7ca5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event_Dialog</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a1c60d5cd811e70958887f5da7fc60765" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>File_16</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a6e3d5d2dbd1d756953fcf964594d9b08" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_32</name></member>
       <member refid="class_shell___class_1a13e4743872f3246d8c90478faace85fb" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Commands</name></member>
@@ -1740,24 +1727,25 @@
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Get_Instruction</name></member>
       <member refid="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>GMT_Offset</name></member>
       <member refid="class_shell___class_1a11cd37a71ef7da98730459efcf45416f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Go_Parent</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Hibernate</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aa56e8c395f3d5e734c6a251d1946ff96" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Home_24</name></member>
-      <member refid="class_shell___class_1a20ca95344a93863256f3a6422b5e79b4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Idle</name></member>
-      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Idle</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Images</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baac8f665b88d4b0f6bf7918d62573695fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Install</name></member>
       <member refid="class_shell___class_1a850c309f442b275cd327c23929efb090" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Install_Commands</name></member>
       <member refid="class_shell___class_1a063ea2c25a067974478814912d5dd892" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instructions</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baabf7d294ecfb15c3ffb98b2df1af82ad8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard</name></member>
       <member refid="class_shell___class_1accee7dead6bc9eb1bd6d73c2a9684d81" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard_Commands</name></member>
-      <member refid="class_shell___class_1a0cc44969603fd85e299eb6e68a49ba62" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard_Dialog</name></member>
+      <member refid="class_shell___class_1ac4aec89ff83e7eb4531d30c5aed6f9f3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard_Dialog</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa3c5f051b9e5d09190aa722e2d2d25127" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad</name></member>
       <member refid="class_shell___class_1a44db328f15cfed2dec36742c28dbcc4d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad_Commands</name></member>
-      <member refid="class_shell___class_1afad9ea2aa92dcf0b60acc95df82f3fe2" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad_Dialog</name></member>
+      <member refid="class_shell___class_1abbe6bf686de84e02bd03267c3acdf3fe" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad_Dialog</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baaf4ad4bfd37ce193948c78768f7189ac5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load</name></member>
       <member refid="class_shell___class_1ac7021607cedfcfc6b09017f63b917a75" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Commands</name></member>
-      <member refid="class_shell___class_1ac6a0cfd1463eea42a6ed0b77ad141464" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_shell___class_1a1b0a4ca82013ee3a4e3613ea8c963dce" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Registry</name></member>
       <member refid="class_shell___class_1a922831f00d85e355322d572c6f06b9cb" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Shell</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa2597e5f1949523105d492e0ecc7ba127" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Login</name></member>
       <member refid="class_shell___class_1a2191c5a892e95ad09372157310c1b0fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Login_Commands</name></member>
@@ -1765,20 +1753,24 @@
       <member refid="class_shell___class_1af495dc4bdf070a5db7562ec7bd801c2e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Main_Commands</name></member>
       <member refid="class_shell___class_1a7f2c9c60ddf030d6f2bd4558a3a408e4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Main_Task</name></member>
       <member refid="class_shell___class_1af36f47b698704efcfc3f4420a4598bb1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Make_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Minimize</name></member>
       <member refid="class_shell___class_1a0ced6fb6fe204423a6774d727a2a9101" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Mode</name></member>
+      <member refid="class_shell___class_1a4ff4c764d4b8e9518f0c126bcbd00b7a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Name</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a0aa601a36734bea438c77f6d7bad7975" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>New_File</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6abe5de53892327b971072ade3222b42e5" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>New_File_24</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a23a67814c48465280db2a7740dbdc12b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>New_Folder</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ae8df41a844bbf29555e91e7303f73b4b" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>New_Folder_24</name></member>
-      <member refid="class_shell___class_1a308103ffae78e31a33e9de09e4715632" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>NTP_Server</name></member>
+      <member refid="class_shell___class_1a988863903fe9a252449d5644a91396a8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>NTP_Server</name></member>
       <member refid="class_shell___class_1a90063c4083b8396e99ce5806f3f6ee7d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Offset</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open</name></member>
       <member refid="class_shell___class_1a8668670c4abd2d2e65a436212ee62a8d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Color_Picker</name></member>
       <member refid="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Desk</name></member>
       <member refid="class_shell___class_1ac771e065871b064e28479c24f681304a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Drawer</name></member>
-      <member refid="class_shell___class_1a53543d3ffcda2832b897706847e1daa3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_shell___class_1a7ea91b967dbc47f40c7a5e25d109bb93" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Dialog</name></member>
       <member refid="class_shell___class_1a44df5724bef36546c6872d51e2107007" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager</name></member>
       <member refid="class_shell___class_1a5fb721eeb084d0dac5c9ca1974ecc262" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager_Detail</name></member>
-      <member refid="class_shell___class_1a8873ccbedb49df3907ccf95a74c79ef7" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Folder_Dialog</name></member>
+      <member refid="class_shell___class_1aa3f0f856deba4fd84ea8dff7da3af08a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Folder_Dialog</name></member>
       <member refid="class_shell___class_1a1c9ad246d935e55b4d2eeefe8f0757f0" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_From_Drawer</name></member>
       <member refid="class_shell___class_1a161c33912dfd16ee08a45402b3821833" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Install</name></member>
       <member refid="class_shell___class_1aebaa8556e42fe269f484640088e89957" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Item</name></member>
@@ -1819,9 +1811,10 @@
       <member refid="class_shell___class_1abbb0e4852014f70b2c66d1d0cd807973" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Preferences_System</name></member>
       <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0abf128aa0d2742cb92bfbb298b55c3688" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Rename</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a44a33af37ec66cc543dd492dbc9dd28e" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Rename_24</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Restart</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a96b47373e0bf0a512696d932249c21d3" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Root_24</name></member>
-      <member refid="class_shell___class_1aff0dcd1b94eb09c3c52f5afc1d3ef822" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_File_Dialog</name></member>
-      <member refid="class_shell___class_1ab2d66fa5e739390bdc1a18e17f547e44" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_shell___class_1a40e60ebe6e4d9993fb9df109a1c14119" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_File_Dialog</name></member>
+      <member refid="class_shell___class_1abb385fced24c5e45ad43852881bb34a4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_Registry</name></member>
       <member refid="class_shell___class_1add333db65c6598f963f086d9448221a5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Select_Item</name></member>
       <member refid="class_shell___class_1afaf0ac7eed2e5ce3bd58852a6362a16f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Selected_Item</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Send_Instruction</name></member>
@@ -1833,7 +1826,6 @@
       <member refid="class_shell___class_1a62a04d2f6dc15c9655dc00926a1d383a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Shutdown_Commands</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Software_Class</name></member>
       <member refid="class_shell___class_1a0b7ae244b7629c875da5ccbf6f835806" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Standby_Display_Time</name></member>
-      <member refid="class_shell___class_1a733f303e2044d5b83b9de31bf41fb9fc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Standby_System_Time</name></member>
       <member refid="class_shell___class_1ac9eb3c8e413e9dee25374ca00d07980c" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Startup</name></member>
       <member refid="class_shell___class_1acdb4cdfd8863e8cd67cdb1e3cf8e42cc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>System_Update</name></member>
       <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Task_Handle</name></member>
@@ -1843,6 +1835,7 @@
       <member refid="class_shell___class_1aa3f64926972e354b35c07db0d9b3dd52" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Variable</name></member>
       <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aed362b8a1c37cfa1d2d53babe9307824" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Trash_24</name></member>
       <member refid="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Username</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Watchdog</name></member>
       <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa4eae6d53a502aa55575d71389fa4ba65" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Welcome</name></member>
       <member refid="class_shell___class_1ad4d9d1b17be48dec4edad53b8a3f8691" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>WiFi_Name</name></member>
       <member refid="class_shell___class_1a0b7b6bb79009ea3d3671aaf70619e7e1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>WiFi_Password</name></member>

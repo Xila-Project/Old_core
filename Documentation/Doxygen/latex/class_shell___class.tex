@@ -2,6 +2,11 @@
 \label{class_shell___class}\index{Shell\_Class@{Shell\_Class}}
 
 
+Shell class.  
+
+
+
+
 {\ttfamily \#include $<$Shell.\+hpp$>$}
 
 Inheritance diagram for Shell\+\_\+\+Class\+:\begin{figure}[H]
@@ -15,7 +20,7 @@ Inheritance diagram for Shell\+\_\+\+Class\+:\begin{figure}[H]
 \item 
 \mbox{\Hypertarget{class_shell___class_a00ce6998c73a63fb4f046e2122af5ae6}\label{class_shell___class_a00ce6998c73a63fb4f046e2122af5ae6}} 
 enum {\bfseries Images} \{ \newline
-{\bfseries Empty\+\_\+16} = Xila.\+Shell
+{\bfseries Empty\+\_\+16} = Xila.\+Display.\+Shell
 , {\bfseries File\+\_\+16}
 , {\bfseries Folder\+\_\+16}
 , {\bfseries Copy\+\_\+24}
@@ -52,6 +57,7 @@ static void {\bfseries Startup} ()
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
 \item 
+\mbox{\Hypertarget{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}\label{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}} 
 enum \mbox{\hyperlink{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}{Pages}} \{ \newline
 {\bfseries About} = 20
 , {\bfseries Color\+\_\+\+Picker}
@@ -76,7 +82,7 @@ enum \mbox{\hyperlink{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}{Pag
 {\bfseries Preferences\+\_\+\+System}
 , {\bfseries Welcome}
  \}
-\item 
+\begin{DoxyCompactList}\small\item\em Pages. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_shell___class_a39b26c5c89b9e76ea4d23a4783d1b5b0}\label{class_shell___class_a39b26c5c89b9e76ea4d23a4783d1b5b0}} 
 enum {\bfseries File\+\_\+\+Manager\+\_\+\+Operation} \{ \newline
 {\bfseries Browse}
@@ -168,26 +174,26 @@ void {\bfseries Keyboard\+\_\+\+Commands} ()
 \mbox{\Hypertarget{class_shell___class_a44db328f15cfed2dec36742c28dbcc4d}\label{class_shell___class_a44db328f15cfed2dec36742c28dbcc4d}} 
 void {\bfseries Keypad\+\_\+\+Commands} ()
 \item 
-\mbox{\Hypertarget{class_shell___class_a0cc44969603fd85e299eb6e68a49ba62}\label{class_shell___class_a0cc44969603fd85e299eb6e68a49ba62}} 
-Xila\+\_\+\+Event {\bfseries Keyboard\+\_\+\+Dialog} (char $\ast$, size\+\_\+t, bool=false)
+\mbox{\Hypertarget{class_shell___class_ac4aec89ff83e7eb4531d30c5aed6f9f3}\label{class_shell___class_ac4aec89ff83e7eb4531d30c5aed6f9f3}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Keyboard\+\_\+\+Dialog} (char $\ast$, size\+\_\+t, bool=false)
 \item 
-\mbox{\Hypertarget{class_shell___class_afad9ea2aa92dcf0b60acc95df82f3fe2}\label{class_shell___class_afad9ea2aa92dcf0b60acc95df82f3fe2}} 
-Xila\+\_\+\+Event {\bfseries Keypad\+\_\+\+Dialog} (float \&Number\+\_\+\+To\+\_\+\+Get)
+\mbox{\Hypertarget{class_shell___class_abbe6bf686de84e02bd03267c3acdf3fe}\label{class_shell___class_abbe6bf686de84e02bd03267c3acdf3fe}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Keypad\+\_\+\+Dialog} (float \&Number\+\_\+\+To\+\_\+\+Get)
 \item 
-\mbox{\Hypertarget{class_shell___class_ab4fb2ea2b233b1a10de0da585a75cee3}\label{class_shell___class_ab4fb2ea2b233b1a10de0da585a75cee3}} 
-Xila\+\_\+\+Event Dialog {\bfseries Event} (const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$, uint8\+\_\+t, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL)
+\mbox{\Hypertarget{class_shell___class_ad96e9e705f9b148736cb0a760c9f7ca5}\label{class_shell___class_ad96e9e705f9b148736cb0a760c9f7ca5}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Event\+\_\+\+Dialog} (const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$, uint8\+\_\+t, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL, const \+\_\+\+\_\+\+Flash\+String\+Helper $\ast$=NULL)
 \item 
-\mbox{\Hypertarget{class_shell___class_a759fb2f3e7b415c96c7070e082e86a56}\label{class_shell___class_a759fb2f3e7b415c96c7070e082e86a56}} 
-Xila\+\_\+\+Event {\bfseries Color\+\_\+\+Picker\+\_\+\+Dialog} (uint16\+\_\+t \&)
+\mbox{\Hypertarget{class_shell___class_abffffbc2e7475ee097947fe76282addc}\label{class_shell___class_abffffbc2e7475ee097947fe76282addc}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Color\+\_\+\+Picker\+\_\+\+Dialog} (uint16\+\_\+t \&)
 \item 
-\mbox{\Hypertarget{class_shell___class_a53543d3ffcda2832b897706847e1daa3}\label{class_shell___class_a53543d3ffcda2832b897706847e1daa3}} 
-Xila\+\_\+\+Event {\bfseries Open\+\_\+\+File\+\_\+\+Dialog} (File \&)
+\mbox{\Hypertarget{class_shell___class_a7ea91b967dbc47f40c7a5e25d109bb93}\label{class_shell___class_a7ea91b967dbc47f40c7a5e25d109bb93}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Open\+\_\+\+File\+\_\+\+Dialog} (File \&)
 \item 
-\mbox{\Hypertarget{class_shell___class_aff0dcd1b94eb09c3c52f5afc1d3ef822}\label{class_shell___class_aff0dcd1b94eb09c3c52f5afc1d3ef822}} 
-Xila\+\_\+\+Event {\bfseries Save\+\_\+\+File\+\_\+\+Dialog} (File \&)
+\mbox{\Hypertarget{class_shell___class_a40e60ebe6e4d9993fb9df109a1c14119}\label{class_shell___class_a40e60ebe6e4d9993fb9df109a1c14119}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+File\+\_\+\+Dialog} (File \&)
 \item 
-\mbox{\Hypertarget{class_shell___class_a8873ccbedb49df3907ccf95a74c79ef7}\label{class_shell___class_a8873ccbedb49df3907ccf95a74c79ef7}} 
-Xila\+\_\+\+Event {\bfseries Open\+\_\+\+Folder\+\_\+\+Dialog} (File \&)
+\mbox{\Hypertarget{class_shell___class_aa3f0f856deba4fd84ea8dff7da3af08a}\label{class_shell___class_aa3f0f856deba4fd84ea8dff7da3af08a}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Open\+\_\+\+Folder\+\_\+\+Dialog} (File \&)
 \item 
 \mbox{\Hypertarget{class_shell___class_a3c2bb50a4533b59fc8de0110fe248cde}\label{class_shell___class_a3c2bb50a4533b59fc8de0110fe248cde}} 
 void {\bfseries Open\+\_\+\+Shutdown} ()
@@ -222,20 +228,17 @@ void {\bfseries Open\+\_\+\+From\+\_\+\+Drawer} (uint8\+\_\+t)
 \mbox{\Hypertarget{class_shell___class_a671d5d788bfac294e8b8554e6f8744f9}\label{class_shell___class_a671d5d788bfac294e8b8554e6f8744f9}} 
 void {\bfseries Drawer\+\_\+\+Commands} ()
 \item 
-\mbox{\Hypertarget{class_shell___class_ab2d66fa5e739390bdc1a18e17f547e44}\label{class_shell___class_ab2d66fa5e739390bdc1a18e17f547e44}} 
-Xila\+\_\+\+Event {\bfseries Save\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_shell___class_abb385fced24c5e45ad43852881bb34a4}\label{class_shell___class_abb385fced24c5e45ad43852881bb34a4}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
 \item 
-\mbox{\Hypertarget{class_shell___class_ac6a0cfd1463eea42a6ed0b77ad141464}\label{class_shell___class_ac6a0cfd1463eea42a6ed0b77ad141464}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_shell___class_a1b0a4ca82013ee3a4e3613ea8c963dce}\label{class_shell___class_a1b0a4ca82013ee3a4e3613ea8c963dce}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
 \item 
 \mbox{\Hypertarget{class_shell___class_a2d0e382ce5b95a936068164ada3a5663}\label{class_shell___class_a2d0e382ce5b95a936068164ada3a5663}} 
 void {\bfseries Refresh\+\_\+\+Install} ()
 \item 
 \mbox{\Hypertarget{class_shell___class_a161c33912dfd16ee08a45402b3821833}\label{class_shell___class_a161c33912dfd16ee08a45402b3821833}} 
 void {\bfseries Open\+\_\+\+Install} ()
-\item 
-\mbox{\Hypertarget{class_shell___class_a20ca95344a93863256f3a6422b5e79b4}\label{class_shell___class_a20ca95344a93863256f3a6422b5e79b4}} 
-void {\bfseries Idle} ()
 \item 
 \mbox{\Hypertarget{class_shell___class_aebaa8556e42fe269f484640088e89957}\label{class_shell___class_aebaa8556e42fe269f484640088e89957}} 
 void {\bfseries Open\+\_\+\+Item} ()
@@ -300,9 +303,6 @@ uint8\+\_\+t {\bfseries Brightness}
 \mbox{\Hypertarget{class_shell___class_a0b7ae244b7629c875da5ccbf6f835806}\label{class_shell___class_a0b7ae244b7629c875da5ccbf6f835806}} 
 uint16\+\_\+t {\bfseries Standby\+\_\+\+Display\+\_\+\+Time}
 \item 
-\mbox{\Hypertarget{class_shell___class_a733f303e2044d5b83b9de31bf41fb9fc}\label{class_shell___class_a733f303e2044d5b83b9de31bf41fb9fc}} 
-uint16\+\_\+t {\bfseries Standby\+\_\+\+System\+\_\+\+Time}
-\item 
 \mbox{\Hypertarget{class_shell___class_a10f64e9f77783beeb0fa50ca2e729374}\label{class_shell___class_a10f64e9f77783beeb0fa50ca2e729374}} 
 bool {\bfseries Autologin}
 \item 
@@ -312,11 +312,11 @@ int32\+\_\+t {\bfseries GMT\+\_\+\+Offset}
 \mbox{\Hypertarget{class_shell___class_a4061f2d99cc584ac8ce1f7c7ce1f3dc5}\label{class_shell___class_a4061f2d99cc584ac8ce1f7c7ce1f3dc5}} 
 int16\+\_\+t {\bfseries Daylight\+\_\+\+Offset}
 \item 
-\mbox{\Hypertarget{class_shell___class_a308103ffae78e31a33e9de09e4715632}\label{class_shell___class_a308103ffae78e31a33e9de09e4715632}} 
-char {\bfseries NTP\+\_\+\+Server} \mbox{[}sizeof(Xila.\+NTP\+\_\+\+Server)\mbox{]}
+\mbox{\Hypertarget{class_shell___class_a988863903fe9a252449d5644a91396a8}\label{class_shell___class_a988863903fe9a252449d5644a91396a8}} 
+char {\bfseries NTP\+\_\+\+Server} \mbox{[}sizeof(Xila.\+Time.\+NTP\+\_\+\+Server)\mbox{]}
 \item 
-\mbox{\Hypertarget{class_shell___class_a428472096127f7e0b86558520b418c27}\label{class_shell___class_a428472096127f7e0b86558520b418c27}} 
-char {\bfseries Device\+\_\+\+Name} \mbox{[}25\mbox{]}
+\mbox{\Hypertarget{class_shell___class_a4ff4c764d4b8e9518f0c126bcbd00b7a}\label{class_shell___class_a4ff4c764d4b8e9518f0c126bcbd00b7a}} 
+char {\bfseries Name} \mbox{[}25\mbox{]}
 \item 
 \mbox{\Hypertarget{class_shell___class_ab1c85bf3595ff2402efb7db15e644c35}\label{class_shell___class_ab1c85bf3595ff2402efb7db15e644c35}} 
 char {\bfseries Username} \mbox{[}9\mbox{]}
@@ -342,9 +342,8 @@ uint8\+\_\+t {\bfseries Automatic\+\_\+\+Login}
 \mbox{\Hypertarget{class_shell___class_a716dcd2b8108a74e88d4da3d5e86a535}\label{class_shell___class_a716dcd2b8108a74e88d4da3d5e86a535}} 
 char {\bfseries Temporary\+\_\+\+Char} \mbox{[}14\mbox{]}
 \item 
-\mbox{\Hypertarget{class_shell___class_ad32f2099fe3506a6764ab254ebcbd61a}\label{class_shell___class_ad32f2099fe3506a6764ab254ebcbd61a}} 
-int32\+\_\+t {\bfseries Desk\+\_\+\+Background}
-\item 
+int32\+\_\+t \mbox{\hyperlink{class_shell___class_ad32f2099fe3506a6764ab254ebcbd61a}{Desk\+\_\+\+Background}}
+\begin{DoxyCompactList}\small\item\em Desk background. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_shell___class_a90063c4083b8396e99ce5806f3f6ee7d}\label{class_shell___class_a90063c4083b8396e99ce5806f3f6ee7d}} 
 uint8\+\_\+t {\bfseries Offset}
 \item 
@@ -367,21 +366,27 @@ uint8\+\_\+t {\bfseries Mode}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_shell___class_a063ea2c25a067974478814912d5dd892}\label{class_shell___class_a063ea2c25a067974478814912d5dd892}} 
-static \mbox{\hyperlink{class_shell___class}{Shell\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer}
-\end{DoxyCompactItemize}
+static \mbox{\hyperlink{class_shell___class}{Shell\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_shell___class_a063ea2c25a067974478814912d5dd892}{Instance\+\_\+\+Pointer}}
+\begin{DoxyCompactList}\small\item\em Instance pointer, help to keep track of current instance. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-@ 
+Shell class. 
 
-\doxysubsection{Member Enumeration Documentation}
-\mbox{\Hypertarget{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}\label{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}} 
-\index{Shell\_Class@{Shell\_Class}!Pages@{Pages}}
-\index{Pages@{Pages}!Shell\_Class@{Shell\_Class}}
-\doxysubsubsection{\texorpdfstring{Pages}{Pages}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{class_shell___class_a4ac787675c50864d1e81fd12196a02ba}{Shell\+\_\+\+Class\+::\+Pages}}\hspace{0.3cm}{\ttfamily [protected]}}
+Main inter 
 
--\/1 = Default desk background 0 -\/ 65535 \+: Custom color 
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_shell___class_ad32f2099fe3506a6764ab254ebcbd61a}\label{class_shell___class_ad32f2099fe3506a6764ab254ebcbd61a}} 
+\index{Shell\_Class@{Shell\_Class}!Desk\_Background@{Desk\_Background}}
+\index{Desk\_Background@{Desk\_Background}!Shell\_Class@{Shell\_Class}}
+\doxysubsubsection{\texorpdfstring{Desk\_Background}{Desk\_Background}}
+{\footnotesize\ttfamily int32\+\_\+t Shell\+\_\+\+Class\+::\+Desk\+\_\+\+Background\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Desk background. 
+
+Desk image when $<$ 0 and Custom color when $>$ 0 (color code itself). 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

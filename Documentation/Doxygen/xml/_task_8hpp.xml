@@ -1,0 +1,174 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_task_8hpp" kind="file" language="C++">
+    <compoundname>Task.hpp</compoundname>
+    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp</includedby>
+    <invincdepgraph>
+      <node id="1">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp</label>
+        <link refid="_shell_8hpp"/>
+      </node>
+      <node id="4">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+      </node>
+      <node id="17">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</label>
+        <link refid="_text_01_editor_8hpp_source"/>
+      </node>
+      <node id="18">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</label>
+        <link refid="_tiny___basic_8hpp_source"/>
+      </node>
+      <node id="5">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp</label>
+        <link refid="_clock_8hpp_source"/>
+      </node>
+      <node id="13">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Periodic.hpp</label>
+        <link refid="_periodic_8hpp_source"/>
+      </node>
+      <node id="12">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Picture_Viewer.hpp</label>
+        <link refid="_picture___viewer_8hpp_source"/>
+      </node>
+      <node id="7">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp</label>
+        <link refid="_music___player_8hpp_source"/>
+      </node>
+      <node id="9">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Paint.hpp</label>
+        <link refid="_paint_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp</label>
+        <link refid="_simon_8hpp_source"/>
+      </node>
+      <node id="16">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp</label>
+        <link refid="_software___template_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp</label>
+        <link refid="_oscilloscope_8hpp"/>
+      </node>
+      <node id="3">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp</label>
+        <link refid="_core_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Piano.hpp</label>
+        <link refid="_piano_8hpp_source"/>
+      </node>
+      <node id="6">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp</label>
+        <link refid="_internet___browser_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Alix ANNERAUD (<ulink url="mailto:alix.anneraud@outlook.fr">alix.anneraud@outlook.fr</ulink>) </para>
+</simplesect>
+<simplesect kind="version"><para>0.1 </para>
+</simplesect>
+<simplesect kind="date"><para>29-03-2021</para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2021 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#ifndef<sp/>TASK_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#define<sp/>TASK_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Xila_Class::Task_Class::Resume(Xila_Task_Handle<sp/>Task_To_Resume)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="15"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/>vTaskResume(Task_To_Resume);</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Xila_Class::Task_Class::Suspend(Xila_Task_Handle<sp/>Task_To_Suspend)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="20"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/>vTaskSuspend(Task_To_Suspend);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref><sp/>Xila_Class::Task_Class::Create(Xila_Task_Function<sp/>Task_Function,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Task_Name,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>Stack_Size,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters,<sp/>Xila_Task_Handle<sp/>*Task_Handle)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="25"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(xTaskCreatePinnedToCore(Task_Function,<sp/>Task_Name,<sp/>Stack_Size,<sp/>pvParameters,<sp/>Software_Task,<sp/>Task_Handle,<sp/>tskNO_AFFINITY)<sp/>!=<sp/>pdPASS)</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Error;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Success;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref><sp/>Xila_Class::Task_Class::Create(Xila_Task_Function<sp/>Task_Function,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Task_Name,<sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>Stack_Size,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*pvParameters,<sp/>uint16_t<sp/>Priority,<sp/>Xila_Task_Handle<sp/>*Task_Handle)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(xTaskCreatePinnedToCore(Task_Function,<sp/>Task_Name,<sp/>Stack_Size,<sp/>pvParameters,<sp/>Priority,<sp/>Task_Handle,<sp/>tskNO_AFFINITY)<sp/>!=<sp/>pdPASS)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Error;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Success;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Xila_Class::Task_Class::Delete(Xila_Task_Handle<sp/>Task_To_Delete)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="43"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/>vTaskDelete(Task_To_Delete);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" kindref="member">Xila_Class::Task_Class::Delay</ref>(uint32_t<sp/>Delay_In_Millisecond)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="53"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/>Xila.Task.<ref refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" kindref="member">Delay</ref>(Delay_In_Millisecond);</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#endif</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Task.hpp"/>
+  </compounddef>
+</doxygen>

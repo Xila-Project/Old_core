@@ -313,9 +313,9 @@
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="26" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="define" id="_path_8hpp_1a5675ff1b71bc87f178525e2432c0958f" prot="public" static="no">
-        <name>Regional_Registry_Path</name>
-        <initializer>Registry(&quot;Regional&quot;)</initializer>
+      <memberdef kind="define" id="_path_8hpp_1a8f81befb0213e22df14f6febf2a4ed17" prot="public" static="no">
+        <name>Time_Registry_Path</name>
+        <initializer>Registry(&quot;Time&quot;)</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -323,6 +323,17 @@
         <inbodydescription>
         </inbodydescription>
         <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="27" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_path_8hpp_1adaf205c41029680c9e14fca6be02c8eb" prot="public" static="no">
+        <name>Keyboard_Registry_Path</name>
+        <initializer>Registry(&quot;Keyboard&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="28" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a600a17ab45ef13425b53f345b45f0c62" prot="public" static="no">
         <name>Software_Registry_Path</name>
@@ -333,7 +344,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="28" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="28" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="29" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a7238a301fe1df1545a79a098a80afc1d" prot="public" static="no">
         <name>Sound_Registry_Path</name>
@@ -344,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="29" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="29" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="30" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1abcdd10f8d6df81e9a210f9631239b4cd" prot="public" static="no">
         <name>Startup_Sound_Path</name>
@@ -355,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="31" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="31" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="32" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="32" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1ae9de8792df43ab6a3790b45041c5d1a0" prot="public" static="no">
         <name>Shutdown_Sound_Path</name>
@@ -366,7 +377,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="32" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="32" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="33" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a4dceef4adbd439db6f9c7bf44d3274e2" prot="public" static="no">
         <name>Login_Sound_Path</name>
@@ -377,7 +388,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="33" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="33" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="34" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a32cf5dca140ace07fef406f0b49b69a5" prot="public" static="no">
         <name>Dump_Registry_Path</name>
@@ -388,7 +399,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="35" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="35" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="36" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1aa165452f9e4d06cff13a424a7e176915" prot="public" static="no">
         <name>Clipboard_Path</name>
@@ -399,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="36" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="36" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="37" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a21d6f850b525d8bbb2f4301549bbdbae" prot="public" static="no">
         <name>Test_Path</name>
@@ -410,7 +421,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="37" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="37" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="38" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="38" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a0cc0cd80a8d78562e02eb2ec06ac0197" prot="public" static="no">
         <name>Display_Executable_Path</name>
@@ -421,7 +432,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="39" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="39" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="40" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a668713f6a6b743df18390d286ac8b05d" prot="public" static="no">
         <name>Microcontroller_Executable_Path</name>
@@ -432,7 +443,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="40" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="40" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" line="41" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -466,24 +477,25 @@
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Display_Registry_Path<sp/>Registry(&quot;Display&quot;</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Network_Registry_Path<sp/>Registry(&quot;Network&quot;</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Account_Registry_Path<sp/>Registry(&quot;Account&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Regional_Registry_Path<sp/>Registry(&quot;Regional&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Software_Registry_Path<sp/>Registry(&quot;Software&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Sound_Registry_Path<sp/>Registry(&quot;Sound&quot;</highlight><highlight class="normal">)</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Startup_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Startup&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Shutdown_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Shutdown&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Login_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Login&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Dump_Registry_Path<sp/>Temporary_Directory_Path<sp/>&quot;Dump&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Clipboard_Path<sp/>Temporary_Directory_Path<sp/>&quot;Clipboar&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Test_Path<sp/>Temporary_Directory_Path<sp/>&quot;Test&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Display_Executable_Path<sp/>Executable_Directory_Path<sp/>&quot;Xila_D&quot;</highlight><highlight class="normal"><sp/>Executable_File_Extension</highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Microcontroller_Executable_Path<sp/>Executable_Directory_Path<sp/>&quot;Xila_M&quot;</highlight><highlight class="normal"><sp/>Executable_File_Extension</highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>String_Concat</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Time_Registry_Path<sp/>Registry(&quot;Time&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Keyboard_Registry_Path<sp/>Registry(&quot;Keyboard&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Software_Registry_Path<sp/>Registry(&quot;Software&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Sound_Registry_Path<sp/>Registry(&quot;Sound&quot;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Startup_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Startup&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Shutdown_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Shutdown&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Login_Sound_Path<sp/>Sounds_Directory_Path<sp/>&quot;Login&quot;</highlight><highlight class="normal"><sp/>Sound_File_Extension</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Dump_Registry_Path<sp/>Temporary_Directory_Path<sp/>&quot;Dump&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Clipboard_Path<sp/>Temporary_Directory_Path<sp/>&quot;Clipboar&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Test_Path<sp/>Temporary_Directory_Path<sp/>&quot;Test&quot;</highlight><highlight class="normal"><sp/>Data_File_Extension</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Display_Executable_Path<sp/>Executable_Directory_Path<sp/>&quot;Xila_D&quot;</highlight><highlight class="normal"><sp/>Executable_File_Extension</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>Microcontroller_Executable_Path<sp/>Executable_Directory_Path<sp/>&quot;Xila_M&quot;</highlight><highlight class="normal"><sp/>Executable_File_Extension</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#undef<sp/>String_Concat</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Path.hpp"/>
   </compounddef>

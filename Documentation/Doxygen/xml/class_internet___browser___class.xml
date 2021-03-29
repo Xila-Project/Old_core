@@ -24,7 +24,7 @@
         <name>Image</name>
         <enumvalue id="class_internet___browser___class_1ad53b23669b57642a242c20dc09bf1f3bac3de05096fa74c8a924528d64aeb4556" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Internet_Browser</initializer>
+          <initializer>= Xila.Display.Internet_Browser</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -512,7 +512,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -535,6 +535,17 @@
       <member refid="class_internet___browser___class_1aa838a8dc9a541c4972219fa87df6d800" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Cache_File</name></member>
       <member refid="class_internet___browser___class_1ad2c8c02010a6368edeaecda67fe8a92c" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Cache_URL</name></member>
       <member refid="class_internet___browser___class_1a4426ad396ae24e694f13737f32035dde" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Client</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Close</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_internet___browser___class_1a323595929d9f9638a2766bbee1bc22ea" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Display_Page</name></member>
       <member refid="class_internet___browser___class_1ad2d4d5e9389486731037ba002596d5f2" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>displayLinkIndex</name></member>
       <member refid="class_internet___browser___class_1aed2f3cd4a243e2759547f271e7b13b19" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>displayPageIndex</name></member>
@@ -544,34 +555,43 @@
       <member refid="class_internet___browser___class_1a86cc6ffd1e5c68efac6d042d7ab4783d" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Go_Home</name></member>
       <member refid="class_internet___browser___class_1af9ce7e0d6c099b1629044c4b02b5128a" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Go_Link</name></member>
       <member refid="class_internet___browser___class_1a109edd31b4d366f357f11e55ab30e74e" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Go_URL</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Handle</name></member>
       <member refid="class_internet___browser___class_1a44532166e59a5045931e8245a03899cd" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Hash_Out</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Hibernate</name></member>
       <member refid="class_internet___browser___class_1ad53b23669b57642a242c20dc09bf1f3bac3de05096fa74c8a924528d64aeb4556" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Icon_32</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Idle</name></member>
       <member refid="class_internet___browser___class_1ad53b23669b57642a242c20dc09bf1f3b" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Image</name></member>
       <member refid="class_internet___browser___class_1a400819af15433b0b3059c9d282dc02fb" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Instructions</name></member>
       <member refid="class_internet___browser___class_1a407db5489f41f2208be2e6a1b9aa305b" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Internet_Browser_Class</name></member>
       <member refid="class_internet___browser___class_1a473fab42959764504a0305e1a9fad993" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Load</name></member>
       <member refid="class_internet___browser___class_1a61da42dae3949d70cb21dd03f32e7b88" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Load_Page</name></member>
       <member refid="class_internet___browser___class_1a6f271eaf2fbfd9c3cb49b742df1dc5e5" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>lowerCase</name></member>
       <member refid="class_internet___browser___class_1a6454cac0702a56f573fa47fbd3e993af" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Minimize</name></member>
       <member refid="class_internet___browser___class_1a15d2ef351aeb0b233cf9e7880d3bffe2" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Next_Link</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Open</name></member>
       <member refid="class_internet___browser___class_1a9c0f896de3d5c799b0c6949109a3295c" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Page_Down</name></member>
       <member refid="class_internet___browser___class_1af00a939cada6e3d71f394aa91a6b7efd" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Page_ID</name></member>
       <member refid="class_internet___browser___class_1a66900f76d7c35305b54c87b9afe50f70" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Page_Up</name></member>
       <member refid="class_internet___browser___class_1afa0737824878398b3c0a9dd79bd32e2c" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>pageLinks</name></member>
       <member refid="class_internet___browser___class_1a3b2e289f1ebbee5237d2349bc13e35f7" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Path</name></member>
       <member refid="class_internet___browser___class_1a6421f17cf83e56960ee9e60ab20e2cd8" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Previous_Link</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Restart</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_internet___browser___class_1a35b0f0f598a4f8f8810b59ef7ff84d81" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Server</name></member>
       <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Internet_Browser_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Shutdown</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Software_Class</name></member>
       <member refid="class_internet___browser___class_1a94fa03724fa98ab0c5d4b2ee2f9fded1" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Split_URL</name></member>
       <member refid="class_internet___browser___class_1a9b586859633c8064bc5afae8a2fde30f" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Store_URL</name></member>
       <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Task_Handle</name></member>
       <member refid="class_internet___browser___class_1aa5ec997dacf835495862090236fb3a56" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>textContent</name></member>
       <member refid="class_internet___browser___class_1a66c86e6a99e647685c1fefaf697f0a7f" prot="private" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>URL</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>Watchdog</name></member>
       <member refid="class_internet___browser___class_1addc19a9144f0143955004e68ee1be8d9" prot="public" virt="non-virtual"><scope>Internet_Browser_Class</scope><name>~Internet_Browser_Class</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Internet_Browser_Class</scope><name>~Software_Class</name></member>
     </listofallmembers>

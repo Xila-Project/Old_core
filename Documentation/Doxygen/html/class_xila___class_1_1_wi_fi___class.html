@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_xila___class_1_1_wi_fi___class-members.html">List of all members</a>  </div>
@@ -77,7 +78,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>WiFi API class.  
+<p>WiFi class.  
  <a href="class_xila___class_1_1_wi_fi___class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
@@ -85,11 +86,8 @@ $(function() {
 Inheritance diagram for Xila_Class::WiFi_Class:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="class_xila___class_1_1_wi_fi___class.png" usemap="#Xila_5FClass::WiFi_5FClass_map" alt=""/>
-  <map id="Xila_5FClass::WiFi_5FClass_map" name="Xila_5FClass::WiFi_5FClass_map">
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="672,0,830,24"/>
-  </map>
-</div></div>
+  <img src="class_xila___class_1_1_wi_fi___class.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -102,15 +100,21 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>enableProv</b> (bool 
 <tr class="memitem:ad738d1a7fcf7dcdb032999848e131972"><td class="memItemLeft" align="right" valign="top"><a id="ad738d1a7fcf7dcdb032999848e131972"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isProvEnabled</b> ()</td></tr>
 <tr class="separator:ad738d1a7fcf7dcdb032999848e131972"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5ce593e9561bd713956766538e26c3e"><td class="memItemLeft" align="right" valign="top"><a id="ab5ce593e9561bd713956766538e26c3e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Credentials</b> (char *Name, char *Password)</td></tr>
-<tr class="separator:ab5ce593e9561bd713956766538e26c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d26b572539c074208e1ec3a8c44f578"><td class="memItemLeft" align="right" valign="top"><a id="a0d26b572539c074208e1ec3a8c44f578"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
-<tr class="separator:a0d26b572539c074208e1ec3a8c44f578"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44e5dd4b08831d97b46e26f8fb8ce4e2"><td class="memItemLeft" align="right" valign="top"><a id="a44e5dd4b08831d97b46e26f8fb8ce4e2"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
-<tr class="separator:a44e5dd4b08831d97b46e26f8fb8ce4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aade0b120caadb7f8883d6b67635a049d"><td class="memItemLeft" align="right" valign="top"><a id="aade0b120caadb7f8883d6b67635a049d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Credentials</b> (const char *Name, const char *Password)</td></tr>
+<tr class="separator:aade0b120caadb7f8883d6b67635a049d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7663be1a0fff6cb5c8c7c8d78735714b"><td class="memItemLeft" align="right" valign="top"><a id="a7663be1a0fff6cb5c8c7c8d78735714b"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="separator:a7663be1a0fff6cb5c8c7c8d78735714b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c71a9c6ef7b5c874e7f7c8a1716fc31"><td class="memItemLeft" align="right" valign="top"><a id="a6c71a9c6ef7b5c874e7f7c8a1716fc31"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="separator:a6c71a9c6ef7b5c874e7f7c8a1716fc31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a26aac88a64c8b6b8c119c53d55955615"><td class="memItemLeft" align="right" valign="top"><a id="a26aac88a64c8b6b8c119c53d55955615"></a>
+friend&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a26aac88a64c8b6b8c119c53d55955615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -132,12 +136,12 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>WiFiServer</b></td><
 <tr class="memitem:a1909b07c4430e2aee6044220367ad022"><td class="memItemLeft" align="right" valign="top"><a id="a1909b07c4430e2aee6044220367ad022"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>WiFiUDP</b></td></tr>
 <tr class="separator:a1909b07c4430e2aee6044220367ad022"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3acfa568e938e9ef7ec29fbcf744a15f"><td class="memItemLeft" align="right" valign="top"><a id="a3acfa568e938e9ef7ec29fbcf744a15f"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td></tr>
-<tr class="separator:a3acfa568e938e9ef7ec29fbcf744a15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>WiFi API class. </p>
+<div class="textblock"><p>WiFi class. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
 </ul>

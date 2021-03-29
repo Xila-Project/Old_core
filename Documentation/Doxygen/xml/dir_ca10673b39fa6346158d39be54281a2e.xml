@@ -6,6 +6,9 @@
     <innerfile refid="_path_8hpp">Path.hpp</innerfile>
     <innerfile refid="_software_8hpp">Software.hpp</innerfile>
     <innerfile refid="_software___handle_8hpp">Software_Handle.hpp</innerfile>
+    <innerfile refid="_system_8hpp">System.hpp</innerfile>
+    <innerfile refid="_task_8hpp">Task.hpp</innerfile>
+    <innerfile refid="_time_8hpp">Time.hpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

@@ -70,9 +70,9 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="class_xila___class_1_1_account___class-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Xila_Class::Account_Class Class Reference</div>  </div>
@@ -83,53 +83,45 @@ $(function() {
  <a href="class_xila___class_1_1_account___class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Xila_Class::Account_Class:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_xila___class_1_1_account___class.png" usemap="#Xila_5FClass::Account_5FClass_map" alt=""/>
-  <map id="Xila_5FClass::Account_5FClass_map" name="Xila_5FClass::Account_5FClass_map">
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="0,0,163,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a787729d00bfa77a2eb90506a0807db15"><td class="memItemLeft" align="right" valign="top"><a id="a787729d00bfa77a2eb90506a0807db15"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Session_State</b> { <b>Disconnected</b>
+<tr class="memitem:a787729d00bfa77a2eb90506a0807db15"><td class="memItemLeft" align="right" valign="top"><a id="a787729d00bfa77a2eb90506a0807db15"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_account___class.html#a787729d00bfa77a2eb90506a0807db15">Session_State</a> { <b>Disconnected</b>
 , <b>Logged</b>
 , <b>Locked</b>
  }</td></tr>
+<tr class="memdesc:a787729d00bfa77a2eb90506a0807db15"><td class="mdescLeft">&#160;</td><td class="mdescRight">Session state type. <br /></td></tr>
 <tr class="separator:a787729d00bfa77a2eb90506a0807db15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa7949505056ae44eee47dbca47cd3cd5"><td class="memItemLeft" align="right" valign="top"><a id="aa7949505056ae44eee47dbca47cd3cd5"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Add_User</b> (const char *Username, const char *Password)</td></tr>
-<tr class="separator:aa7949505056ae44eee47dbca47cd3cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62319daaae2952887d30e5c3bb9da55e"><td class="memItemLeft" align="right" valign="top"><a id="a62319daaae2952887d30e5c3bb9da55e"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Delete_User</b> (const char *)</td></tr>
-<tr class="separator:a62319daaae2952887d30e5c3bb9da55e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77de4f2ea3d3c5f3d3fc3a82637d6000"><td class="memItemLeft" align="right" valign="top"><a id="a77de4f2ea3d3c5f3d3fc3a82637d6000"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Change_Password</b> (const char *, const char *)</td></tr>
-<tr class="separator:a77de4f2ea3d3c5f3d3fc3a82637d6000"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0dbd63fb4884685c5a587ee0d97aa03f"><td class="memItemLeft" align="right" valign="top"><a id="a0dbd63fb4884685c5a587ee0d97aa03f"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Change_Username</b> (const char *, const char *)</td></tr>
-<tr class="separator:a0dbd63fb4884685c5a587ee0d97aa03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a493695a95ad8d66d8e515e25d4508282"><td class="memItemLeft" align="right" valign="top"><a id="a493695a95ad8d66d8e515e25d4508282"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Autologin</b> (bool Enable)</td></tr>
-<tr class="separator:a493695a95ad8d66d8e515e25d4508282"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac63a6a33590272d7151a92ab25c96f4d"><td class="memItemLeft" align="right" valign="top"><a id="ac63a6a33590272d7151a92ab25c96f4d"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Check_Credentials</b> (const char *, const char *)</td></tr>
-<tr class="separator:ac63a6a33590272d7151a92ab25c96f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7caf7c5e86252bd894eb8ed08e96b72"><td class="memItemLeft" align="right" valign="top"><a id="aa7caf7c5e86252bd894eb8ed08e96b72"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Login</b> (const char *Username_To_Check=NULL, const char *Password_To_Check=NULL)</td></tr>
-<tr class="separator:aa7caf7c5e86252bd894eb8ed08e96b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af19360ef1fb7df718216fcaa89d0012a"><td class="memItemLeft" align="right" valign="top"><a id="af19360ef1fb7df718216fcaa89d0012a"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Logout</b> ()</td></tr>
-<tr class="separator:af19360ef1fb7df718216fcaa89d0012a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad287be46c58a221d39271c0c6912117"><td class="memItemLeft" align="right" valign="top"><a id="aad287be46c58a221d39271c0c6912117"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Lock</b> ()</td></tr>
-<tr class="separator:aad287be46c58a221d39271c0c6912117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a417966457997ef4624236d0c813ee31b"><td class="memItemLeft" align="right" valign="top"><a id="a417966457997ef4624236d0c813ee31b"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Add</b> (const char *Username, const char *Password)</td></tr>
+<tr class="separator:a417966457997ef4624236d0c813ee31b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9fff9eff5bbd9bc3aa13b3c65712f98"><td class="memItemLeft" align="right" valign="top"><a id="ab9fff9eff5bbd9bc3aa13b3c65712f98"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Delete</b> (const char *)</td></tr>
+<tr class="separator:ab9fff9eff5bbd9bc3aa13b3c65712f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20e8399f793d8b30eb5672a83003e693"><td class="memItemLeft" align="right" valign="top"><a id="a20e8399f793d8b30eb5672a83003e693"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Change_Password</b> (const char *, const char *)</td></tr>
+<tr class="separator:a20e8399f793d8b30eb5672a83003e693"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad337741a3a0e0a44640d9f1d9fec2c35"><td class="memItemLeft" align="right" valign="top"><a id="ad337741a3a0e0a44640d9f1d9fec2c35"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Change_Username</b> (const char *, const char *)</td></tr>
+<tr class="separator:ad337741a3a0e0a44640d9f1d9fec2c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaff807ed1d55e77972324ce7c5601d7e"><td class="memItemLeft" align="right" valign="top"><a id="aaff807ed1d55e77972324ce7c5601d7e"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Autologin</b> (bool Enable)</td></tr>
+<tr class="separator:aaff807ed1d55e77972324ce7c5601d7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f871525bbf69e7c1506c3952c4d362f"><td class="memItemLeft" align="right" valign="top"><a id="a4f871525bbf69e7c1506c3952c4d362f"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Check_Credentials</b> (const char *, const char *)</td></tr>
+<tr class="separator:a4f871525bbf69e7c1506c3952c4d362f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab64be6eed8b9350de791edd73e1fd302"><td class="memItemLeft" align="right" valign="top"><a id="ab64be6eed8b9350de791edd73e1fd302"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Login</b> (const char *Username_To_Check=NULL, const char *Password_To_Check=NULL)</td></tr>
+<tr class="separator:ab64be6eed8b9350de791edd73e1fd302"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43d5bb3c65fedc527b1adee77ba2994d"><td class="memItemLeft" align="right" valign="top"><a id="a43d5bb3c65fedc527b1adee77ba2994d"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Logout</b> ()</td></tr>
+<tr class="separator:a43d5bb3c65fedc527b1adee77ba2994d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd8147a2fd67ab514b30fce66e39b6c4"><td class="memItemLeft" align="right" valign="top"><a id="afd8147a2fd67ab514b30fce66e39b6c4"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Lock</b> ()</td></tr>
+<tr class="separator:afd8147a2fd67ab514b30fce66e39b6c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf2cad61bc88312aa71e12b6465ea908"><td class="memItemLeft" align="right" valign="top"><a id="aaf2cad61bc88312aa71e12b6465ea908"></a>
 const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Current_Username</b> ()</td></tr>
 <tr class="separator:aaf2cad61bc88312aa71e12b6465ea908"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,20 +129,14 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Current_U
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_State</b> ()</td></tr>
 <tr class="separator:acb227ba96c2fb7fda33acf0d4288fc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a5f5a3c76336f91f41f1b3e72de03108a"><td class="memItemLeft" align="right" valign="top"><a id="a5f5a3c76336f91f41f1b3e72de03108a"></a>
-friend&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td></tr>
-<tr class="separator:a5f5a3c76336f91f41f1b3e72de03108a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae3cf87ef0459dd8db703a4dfad6e53a4"><td class="memItemLeft" align="right" valign="top"><a id="ae3cf87ef0459dd8db703a4dfad6e53a4"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
-<tr class="separator:ae3cf87ef0459dd8db703a4dfad6e53a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1da393cf0f74ed012f4a08f6dcf3dc81"><td class="memItemLeft" align="right" valign="top"><a id="a1da393cf0f74ed012f4a08f6dcf3dc81"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
-<tr class="separator:a1da393cf0f74ed012f4a08f6dcf3dc81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e5ba763e38f904b6ea35dc0a29254ba"><td class="memItemLeft" align="right" valign="top"><a id="a0e5ba763e38f904b6ea35dc0a29254ba"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="separator:a0e5ba763e38f904b6ea35dc0a29254ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab006894bfabd826caa28b054d3a3c944"><td class="memItemLeft" align="right" valign="top"><a id="ab006894bfabd826caa28b054d3a3c944"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="separator:ab006894bfabd826caa28b054d3a3c944"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -160,6 +146,15 @@ char&#160;</td><td class="memItemRight" valign="bottom"><b>Current_Username</b> 
 <tr class="memitem:a476f0ca8df6e274652e7be1e27e41965"><td class="memItemLeft" align="right" valign="top"><a id="a476f0ca8df6e274652e7be1e27e41965"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>State</b></td></tr>
 <tr class="separator:a476f0ca8df6e274652e7be1e27e41965"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a527e2efc7210a2147182df1fde98a42c"><td class="memItemLeft" align="right" valign="top"><a id="a527e2efc7210a2147182df1fde98a42c"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a527e2efc7210a2147182df1fde98a42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Account management class. </p>

@@ -2,75 +2,30 @@
 \label{class_xila___class_1_1_software___management___class}\index{Xila\_Class::Software\_Management\_Class@{Xila\_Class::Software\_Management\_Class}}
 
 
-Software management class.  
+Software management module.  
 
 
 
 
 {\ttfamily \#include $<$Core.\+hpp$>$}
 
-Inheritance diagram for Xila\+\_\+\+Class\+::Software\+\_\+\+Management\+\_\+\+Class\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_xila___class_1_1_software___management___class}
-\end{center}
-\end{figure}
-\doxysubsection*{Public Types}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a3839f7622fb5e631dc4283cbf582ee59}\label{class_xila___class_1_1_software___management___class_a3839f7622fb5e631dc4283cbf582ee59}} 
-enum \mbox{\hyperlink{class_xila___class_1_1_software___management___class_a3839f7622fb5e631dc4283cbf582ee59}{Instructions}} \{ \newline
-{\bfseries Idle} = 0
-, {\bfseries Open\+\_\+\+Software} = \textquotesingle{}O\textquotesingle{}
-, {\bfseries Close\+\_\+\+Software} = \textquotesingle{}C\textquotesingle{}
-, {\bfseries Maximize\+\_\+\+Software} = \textquotesingle{}M\textquotesingle{}
-, \newline
-{\bfseries Minimize\+\_\+\+Software} = \textquotesingle{}m\textquotesingle{}
-, {\bfseries Shutting\+\_\+down} = 200
-, {\bfseries Restarting}
-, {\bfseries Hibernating} = \textquotesingle{}H\textquotesingle{}
-, \newline
-{\bfseries Watchdog} = \textquotesingle{}W\textquotesingle{}
-, {\bfseries Install\+\_\+\+Dialog} = \textquotesingle{}I\textquotesingle{}
-, {\bfseries Desk} = \textquotesingle{}D\textquotesingle{}
-, {\bfseries Open\+\_\+\+File\+\_\+\+Dialog} = \textquotesingle{}f\textquotesingle{}
-, \newline
-{\bfseries Open\+\_\+\+Folder\+\_\+\+Dialog} = \textquotesingle{}F\textquotesingle{}
-, {\bfseries Save\+\_\+\+File\+\_\+\+Dialog} = \textquotesingle{}e\textquotesingle{}
-, {\bfseries Keyboard\+\_\+\+Dialog} = \textquotesingle{}K\textquotesingle{}
-, {\bfseries Keypad\+\_\+\+Dialog} = \textquotesingle{}k\textquotesingle{}
-, \newline
-{\bfseries Color\+\_\+\+Picker\+\_\+\+Dialog} = \textquotesingle{}c\textquotesingle{}
-, {\bfseries Power\+\_\+\+Dialog} = \textquotesingle{}P\textquotesingle{}
-, {\bfseries Event} = \textquotesingle{}E\textquotesingle{}
- \}
-\begin{DoxyCompactList}\small\item\em Instructions used by the core (with the prefix \char`\"{}\#\char`\"{}) \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ab5bc96ad22da6bf8447ea1693aa149b4}\label{class_xila___class_1_1_software___management___class_ab5bc96ad22da6bf8447ea1693aa149b4}} 
-void {\bfseries Feed\+\_\+\+Watchdog} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a993daf439e596d36acf33ba1d03c8ea9}\label{class_xila___class_1_1_software___management___class_a993daf439e596d36acf33ba1d03c8ea9}} 
-uint8\+\_\+t {\bfseries Seek\+\_\+\+Open\+\_\+\+Software\+\_\+\+Handle} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_add3b62bee5e5566414d8c86c445a462b}\label{class_xila___class_1_1_software___management___class_add3b62bee5e5566414d8c86c445a462b}} 
-Xila\+\_\+\+Event {\bfseries Open} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a9b33b36b5fbb9770865d12f5e02d8018}\label{class_xila___class_1_1_software___management___class_a9b33b36b5fbb9770865d12f5e02d8018}} 
-void {\bfseries Close} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ad56747f131838b6e9660c6e5c53e0443}\label{class_xila___class_1_1_software___management___class_ad56747f131838b6e9660c6e5c53e0443}} 
-void {\bfseries Force\+\_\+\+Close} ()
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a5cdeb697f73dfdd5aaf027c9c7d7eddc}\label{class_xila___class_1_1_software___management___class_a5cdeb697f73dfdd5aaf027c9c7d7eddc}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Open} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a95f2085f21fddcf6c95e4b6f87dae1a0}\label{class_xila___class_1_1_software___management___class_a95f2085f21fddcf6c95e4b6f87dae1a0}} 
 void {\bfseries Minimize} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a473cb856e40b44ac2fd1c51a496fdf79}\label{class_xila___class_1_1_software___management___class_a473cb856e40b44ac2fd1c51a496fdf79}} 
-Xila\+\_\+\+Event {\bfseries Maximize} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&)
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a3b2b5f467a2959cd8a7b4ef8c0f2aee5}\label{class_xila___class_1_1_software___management___class_a3b2b5f467a2959cd8a7b4ef8c0f2aee5}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Maximize} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&)
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ac7d74af7165b791a8fb7493ed51e23f1}\label{class_xila___class_1_1_software___management___class_ac7d74af7165b791a8fb7493ed51e23f1}} 
-void {\bfseries Add\+\_\+\+Handle} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} \&)
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a9b33b36b5fbb9770865d12f5e02d8018}\label{class_xila___class_1_1_software___management___class_a9b33b36b5fbb9770865d12f5e02d8018}} 
+void {\bfseries Close} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ab5bc96ad22da6bf8447ea1693aa149b4}\label{class_xila___class_1_1_software___management___class_ab5bc96ad22da6bf8447ea1693aa149b4}} 
+void {\bfseries Feed\+\_\+\+Watchdog} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
@@ -83,6 +38,15 @@ void {\bfseries Maximize\+\_\+\+Shell} ()
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a065c647c3132538bb520a85dfce67622}\label{class_xila___class_1_1_software___management___class_a065c647c3132538bb520a85dfce67622}} 
 void {\bfseries Execute\+\_\+\+Shell} (Xila\+\_\+\+Instruction const \&Command)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a993daf439e596d36acf33ba1d03c8ea9}\label{class_xila___class_1_1_software___management___class_a993daf439e596d36acf33ba1d03c8ea9}} 
+uint8\+\_\+t {\bfseries Seek\+\_\+\+Open\+\_\+\+Software\+\_\+\+Handle} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ac7d74af7165b791a8fb7493ed51e23f1}\label{class_xila___class_1_1_software___management___class_ac7d74af7165b791a8fb7493ed51e23f1}} 
+void {\bfseries Add\+\_\+\+Handle} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} \&)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_ac6e9b649a9839e7ec11ae28780bee6fb}\label{class_xila___class_1_1_software___management___class_ac6e9b649a9839e7ec11ae28780bee6fb}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Force\+\_\+\+Close} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} const \&Software\+\_\+\+Handle)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -93,34 +57,37 @@ uint32\+\_\+t {\bfseries Watchdog\+\_\+\+Timer}
 \mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a71be35d10c4c33d846943315d585f078}\label{class_xila___class_1_1_software___management___class_a71be35d10c4c33d846943315d585f078}} 
 uint8\+\_\+t {\bfseries Watchdog\+\_\+\+State}
 \item 
-\mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___management___class_a850554c697f81055e79c5394fbb6dcfb}{Open\+\_\+\+Software\+\_\+\+Pointer}} \mbox{[}8\mbox{]} = \{NULL\}
-\begin{DoxyCompactList}\small\item\em All openned software. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a3532bf897db9b9eee02702755c21b0b6}\label{class_xila___class_1_1_software___management___class_a3532bf897db9b9eee02702755c21b0b6}} 
-\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___management___class_a3532bf897db9b9eee02702755c21b0b6}{Software\+\_\+\+Handle\+\_\+\+Pointer}} \mbox{[}MAXIMUM\+\_\+\+SOFTWARE\mbox{]} = \{NULL\}
+\mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___management___class_a673eee284fc7c4973490bcf9506ed96a}{Openned}} \mbox{[}8\mbox{]} = \{NULL\}
+\begin{DoxyCompactList}\small\item\em Openned software pointer array. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a76f9add6987b1bebdd82c8637eba5ec3}\label{class_xila___class_1_1_software___management___class_a76f9add6987b1bebdd82c8637eba5ec3}} 
+\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___management___class_a76f9add6987b1bebdd82c8637eba5ec3}{Handle}} \mbox{[}MAXIMUM\+\_\+\+SOFTWARE\mbox{]} = \{NULL\}
 \begin{DoxyCompactList}\small\item\em All software handle pointers. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a3acfa568e938e9ef7ec29fbcf744a15f}\label{class_xila___class_1_1_software___management___class_a3acfa568e938e9ef7ec29fbcf744a15f}} 
-class {\bfseries Module\+\_\+\+Class}
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_software___management___class_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_software___management___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Software management class. 
+Software management module. 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a850554c697f81055e79c5394fbb6dcfb}\label{class_xila___class_1_1_software___management___class_a850554c697f81055e79c5394fbb6dcfb}} 
-\index{Xila\_Class::Software\_Management\_Class@{Xila\_Class::Software\_Management\_Class}!Open\_Software\_Pointer@{Open\_Software\_Pointer}}
-\index{Open\_Software\_Pointer@{Open\_Software\_Pointer}!Xila\_Class::Software\_Management\_Class@{Xila\_Class::Software\_Management\_Class}}
-\doxysubsubsection{\texorpdfstring{Open\_Software\_Pointer}{Open\_Software\_Pointer}}
-{\footnotesize\ttfamily \mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}}$\ast$ Xila\+\_\+\+Class\+::\+Software\+\_\+\+Management\+\_\+\+Class\+::\+Open\+\_\+\+Software\+\_\+\+Pointer\mbox{[}8\mbox{]} = \{NULL\}\hspace{0.3cm}{\ttfamily [protected]}}
+\mbox{\Hypertarget{class_xila___class_1_1_software___management___class_a673eee284fc7c4973490bcf9506ed96a}\label{class_xila___class_1_1_software___management___class_a673eee284fc7c4973490bcf9506ed96a}} 
+\index{Xila\_Class::Software\_Management\_Class@{Xila\_Class::Software\_Management\_Class}!Openned@{Openned}}
+\index{Openned@{Openned}!Xila\_Class::Software\_Management\_Class@{Xila\_Class::Software\_Management\_Class}}
+\doxysubsubsection{\texorpdfstring{Openned}{Openned}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}}$\ast$ Xila\+\_\+\+Class\+::\+Software\+\_\+\+Management\+\_\+\+Class\+::\+Openned\mbox{[}8\mbox{]} = \{NULL\}\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
-All openned software. 
+Openned software pointer array. 
 
-Open\+\_\+\+Software\+\_\+\+Pointer\mbox{[}0\mbox{]} \+: Current running software Open\+\_\+\+Software\+\_\+\+Pointer\mbox{[}1\mbox{]} \+: Shell slot Open\+\_\+\+Softwaer\+\_\+\+Pointer\mbox{[}2 -\/ 7\mbox{]} \+: Other openned software 
+Openned\mbox{[}0\mbox{]} \+: Maximized software Openned\mbox{[}1 -\/ 7\mbox{]} \+: All openned software (Slot 1 is for Shell) 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

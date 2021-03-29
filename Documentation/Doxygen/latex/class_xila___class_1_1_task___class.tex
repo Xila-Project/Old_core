@@ -2,42 +2,82 @@
 \label{class_xila___class_1_1_task___class}\index{Xila\_Class::Task\_Class@{Xila\_Class::Task\_Class}}
 
 
-Task management class.  
+Task management module.  
 
 
 
 
 {\ttfamily \#include $<$Core.\+hpp$>$}
 
-Inheritance diagram for Xila\+\_\+\+Class\+::Task\+\_\+\+Class\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_xila___class_1_1_task___class}
-\end{center}
-\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_task___class_a6d7a612dafee15fd2251834cd0fce7a8}\label{class_xila___class_1_1_task___class_a6d7a612dafee15fd2251834cd0fce7a8}} 
-void {\bfseries Delay} (uint32\+\_\+t Delay\+\_\+\+In\+\_\+\+Millisecond)
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_aceeef49b7e1599da4e406edf54550c77}\label{class_xila___class_1_1_task___class_aceeef49b7e1599da4e406edf54550c77}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Create} (Xila\+\_\+\+Task\+\_\+\+Function Task\+\_\+\+Function, const char $\ast$Task\+\_\+\+Name, size\+\_\+t Stack\+\_\+\+Size, void $\ast$pv\+Parameters=NULL, Xila\+\_\+\+Task\+\_\+\+Handle $\ast$Task\+\_\+\+Handle=NULL) const
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_task___class_ab1f783a816aee43d830ab3a00569f75b}\label{class_xila___class_1_1_task___class_ab1f783a816aee43d830ab3a00569f75b}} 
-void {\bfseries Resume} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Resume)
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_a48d07593d1b60d458648e66251d8327b}\label{class_xila___class_1_1_task___class_a48d07593d1b60d458648e66251d8327b}} 
+void {\bfseries Suspend} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Suspend=NULL) const
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_task___class_a065138b41ce931e63a4f5747c873023d}\label{class_xila___class_1_1_task___class_a065138b41ce931e63a4f5747c873023d}} 
-void {\bfseries Suspend} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Suspend=NULL)
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_aace4cf5143016c6ffd1f053eaca93b0d}\label{class_xila___class_1_1_task___class_aace4cf5143016c6ffd1f053eaca93b0d}} 
+void {\bfseries Resume} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Resume) const
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_task___class_a6326828e5d5103a63e81c9b8cd5ff7e8}\label{class_xila___class_1_1_task___class_a6326828e5d5103a63e81c9b8cd5ff7e8}} 
-void {\bfseries Delete} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Delete=NULL)
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_aa750a2c2168865a2f45be7c6d0127f72}\label{class_xila___class_1_1_task___class_aa750a2c2168865a2f45be7c6d0127f72}} 
+void {\bfseries Delete} (Xila\+\_\+\+Task\+\_\+\+Handle Task\+\_\+\+To\+\_\+\+Delete=NULL) const
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_task___class_acb0ef79745cc3479ac1dfa25c1806a30}\label{class_xila___class_1_1_task___class_acb0ef79745cc3479ac1dfa25c1806a30}} 
-Xila\+\_\+\+Event {\bfseries Create} (Xila\+\_\+\+Task\+\_\+\+Function Task\+\_\+\+Function, const char $\ast$Task\+\_\+\+Name, size\+\_\+t Stack\+\_\+\+Size, void $\ast$pv\+Parameters=NULL, Xila\+\_\+\+Task\+\_\+\+Handle $\ast$Task\+\_\+\+Handle=NULL)
+void \mbox{\hyperlink{class_xila___class_1_1_task___class_a1a65d70162c95dfd3ac8b4683e913ce9}{Delay}} (uint32\+\_\+t Delay\+\_\+\+In\+\_\+\+Millisecond) const
+\begin{DoxyCompactList}\small\item\em A delay function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_aeaba298f428e1e39b697dc073d86320d}\label{class_xila___class_1_1_task___class_aeaba298f428e1e39b697dc073d86320d}} 
+friend {\bfseries Xila\+\_\+\+Class}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_a7e7dd4de25da6f0ebd8fb4e0431fe4f2}\label{class_xila___class_1_1_task___class_a7e7dd4de25da6f0ebd8fb4e0431fe4f2}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_task___class_a7e7dd4de25da6f0ebd8fb4e0431fe4f2}{Priorities}} \{ {\bfseries Idle\+\_\+\+Task} = 0
+, {\bfseries Software\+\_\+\+Task}
+, {\bfseries System\+\_\+\+Task}
+, {\bfseries Driver\+\_\+\+Task}
+ \}
+\begin{DoxyCompactList}\small\item\em Tasks priorities. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_a3a88df96dc6a40788b7157bf7f89105c}\label{class_xila___class_1_1_task___class_a3a88df96dc6a40788b7157bf7f89105c}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Create} (Xila\+\_\+\+Task\+\_\+\+Function Task\+\_\+\+Function, const char $\ast$Task\+\_\+\+Name, size\+\_\+t Stack\+\_\+\+Size, void $\ast$pv\+Parameters, uint16\+\_\+t Priority, Xila\+\_\+\+Task\+\_\+\+Handle $\ast$Task\+\_\+\+Handle)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_task___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Task management class. 
+Task management module. 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_task___class_a1a65d70162c95dfd3ac8b4683e913ce9}\label{class_xila___class_1_1_task___class_a1a65d70162c95dfd3ac8b4683e913ce9}} 
+\index{Xila\_Class::Task\_Class@{Xila\_Class::Task\_Class}!Delay@{Delay}}
+\index{Delay@{Delay}!Xila\_Class::Task\_Class@{Xila\_Class::Task\_Class}}
+\doxysubsubsection{\texorpdfstring{Delay()}{Delay()}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Task\+\_\+\+Class\+::\+Delay (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Delay\+\_\+\+In\+\_\+\+Millisecond }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+A delay function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Delay\+\_\+\+In\+\_\+\+Millisecond} & \\
+\hline
+\end{DoxyParams}
+A delay function that behave exactly like delay() 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_task_8hpp}{Task.\+hpp}}\end{DoxyCompactItemize}

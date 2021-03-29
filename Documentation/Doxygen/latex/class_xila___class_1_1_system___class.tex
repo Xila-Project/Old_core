@@ -9,32 +9,59 @@ System module API.
 
 {\ttfamily \#include $<$Core.\+hpp$>$}
 
-Inheritance diagram for Xila\+\_\+\+Class\+::System\+\_\+\+Class\+:\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[height=2.000000cm]{class_xila___class_1_1_system___class}
-\end{center}
-\end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_afa40025365ac0bda34748419ca9e5446}\label{class_xila___class_1_1_system___class_afa40025365ac0bda34748419ca9e5446}} 
-Xila\+\_\+\+Event {\bfseries Save\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a2b8af2f84bca342a6777525b532f1e5e}\label{class_xila___class_1_1_system___class_a2b8af2f84bca342a6777525b532f1e5e}} 
+const char $\ast$ {\bfseries Get\+\_\+\+Name} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_a9ac59b765eaf5dd6b690d4c9bd4529c4}\label{class_xila___class_1_1_system___class_a9ac59b765eaf5dd6b690d4c9bd4529c4}} 
-const char $\ast$ {\bfseries Get\+\_\+\+Device\+\_\+\+Name} ()
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_ab05bd003fe67739427e17826f5c52322}\label{class_xila___class_1_1_system___class_ab05bd003fe67739427e17826f5c52322}} 
+uint32\+\_\+t {\bfseries Get\+\_\+\+Free\+\_\+\+Heap} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_a3030d7d9631954de1ca16b4792e81e8d}\label{class_xila___class_1_1_system___class_a3030d7d9631954de1ca16b4792e81e8d}} 
-uint32\+\_\+t {\bfseries Random} ()
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a1544c6a7f57a011c98170ac2169aa782}\label{class_xila___class_1_1_system___class_a1544c6a7f57a011c98170ac2169aa782}} 
+void {\bfseries First\+\_\+\+Start\+\_\+\+Routine} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_aa30a1dd2e92bdc0dbe10f679909facc3}\label{class_xila___class_1_1_system___class_aa30a1dd2e92bdc0dbe10f679909facc3}} 
-uint32\+\_\+t {\bfseries Random} (uint32\+\_\+t Upper\+\_\+\+Bound)
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a61de79a583c025ef94816add2d946e09}\label{class_xila___class_1_1_system___class_a61de79a583c025ef94816add2d946e09}} 
+void {\bfseries Second\+\_\+\+Start\+\_\+\+Routine} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_aadf728c03da8e1aa5f2fd03383e6d634}\label{class_xila___class_1_1_system___class_aadf728c03da8e1aa5f2fd03383e6d634}} 
-uint32\+\_\+t {\bfseries Random} (uint32\+\_\+t Low\+\_\+\+Bound, uint32\+\_\+t Upper\+\_\+\+Bound)
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_ab4d3605f0e05e7a59310b9eef55ddb20}\label{class_xila___class_1_1_system___class_ab4d3605f0e05e7a59310b9eef55ddb20}} 
+void {\bfseries Execute\+\_\+\+Startup\+\_\+\+Function} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_afa8381f7d491d3e84d648ec55dd7c08e}\label{class_xila___class_1_1_system___class_afa8381f7d491d3e84d648ec55dd7c08e}} 
+void {\bfseries Shutdown} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_aa62d535cf5cd7ef97fecea0e142ee7e5}\label{class_xila___class_1_1_system___class_aa62d535cf5cd7ef97fecea0e142ee7e5}} 
+void {\bfseries Restart} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_afbbc6b35ceb316842c50f12968b1abc5}\label{class_xila___class_1_1_system___class_afbbc6b35ceb316842c50f12968b1abc5}} 
+void {\bfseries Hibernate} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a4485793f3b757292696dd197202f1f39}\label{class_xila___class_1_1_system___class_a4485793f3b757292696dd197202f1f39}} 
+void {\bfseries Deep\+\_\+\+Sleep} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a82ff50079477272431931981d3ed967c}\label{class_xila___class_1_1_system___class_a82ff50079477272431931981d3ed967c}} 
+void {\bfseries Start} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a8b311ca50f7e998d76b9557c5b1834e1}\label{class_xila___class_1_1_system___class_a8b311ca50f7e998d76b9557c5b1834e1}} 
+void {\bfseries Start} (\mbox{\hyperlink{class_software___handle___class}{Software\+\_\+\+Handle\+\_\+\+Class}} $\ast$Software\+\_\+\+Package, uint8\+\_\+t Size)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a9d5a5c9f451de58d5d54040dc72168b4}\label{class_xila___class_1_1_system___class_a9d5a5c9f451de58d5d54040dc72168b4}} 
+uint32\+\_\+t {\bfseries Random} () const
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a2094f61c9bb86f24905084e30dba069b}\label{class_xila___class_1_1_system___class_a2094f61c9bb86f24905084e30dba069b}} 
+uint32\+\_\+t {\bfseries Random} (uint32\+\_\+t Upper\+\_\+\+Bound) const
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a1a22d5f743c9ea9ff3f6301cb19fcd23}\label{class_xila___class_1_1_system___class_a1a22d5f743c9ea9ff3f6301cb19fcd23}} 
+uint32\+\_\+t {\bfseries Random} (uint32\+\_\+t Low\+\_\+\+Bound, uint32\+\_\+t Upper\+\_\+\+Bound) const
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_system___class_a332890e008438669c624c579031c6c06}\label{class_xila___class_1_1_system___class_a332890e008438669c624c579031c6c06}} 
 void {\bfseries Refresh\+\_\+\+Header} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a4d9355c7743c90bdfef4e25fda9ac9fd}\label{class_xila___class_1_1_system___class_a4d9355c7743c90bdfef4e25fda9ac9fd}} 
+static void {\bfseries Task} (void $\ast$)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
@@ -46,34 +73,44 @@ enum {\bfseries System\+\_\+\+States} \{ {\bfseries Default}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}\label{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}} 
 enum \mbox{\hyperlink{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}{Panic\+\_\+\+Code}} \{ \newline
-{\bfseries Damaged\+\_\+\+System\+\_\+\+Registry}
+{\bfseries Missing\+\_\+\+System\+\_\+\+Files}
+, {\bfseries Damaged\+\_\+\+System\+\_\+\+Registry}
 , {\bfseries Installation\+\_\+\+Conflict}
 , {\bfseries System\+\_\+\+Drive\+\_\+\+Failure}
-, {\bfseries Low\+\_\+\+Memory}
 , \newline
-{\bfseries Memory\+\_\+\+Corruption}
+{\bfseries Low\+\_\+\+Memory}
+, {\bfseries Memory\+\_\+\+Corruption}
  \}
 \begin{DoxyCompactList}\small\item\em Panic codes used by the panic handler (\char`\"{}\+Grey screen\char`\"{}). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_aefed3b933636fc9e38f0b3a1918230a8}\label{class_xila___class_1_1_system___class_aefed3b933636fc9e38f0b3a1918230a8}} 
-Xila\+\_\+\+Event {\bfseries Create\+\_\+\+Dump} ()
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_af4fcdb39e66aec32ea01ddc9728ed70d}\label{class_xila___class_1_1_system___class_af4fcdb39e66aec32ea01ddc9728ed70d}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_afcac85b832c69630c61279822cd703dc}\label{class_xila___class_1_1_system___class_afcac85b832c69630c61279822cd703dc}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Dump} ()
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a5013c52976a80c0a4666b3e63da001cf}\label{class_xila___class_1_1_system___class_a5013c52976a80c0a4666b3e63da001cf}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_aa4ca448038c2acbfd7b479208f849d6a}\label{class_xila___class_1_1_system___class_aa4ca448038c2acbfd7b479208f849d6a}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Executable} (File Executable\+\_\+\+File, uint8\+\_\+t Type=\textquotesingle{}M\textquotesingle{})
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_ac49f72b793db5c142517145e6093c447}\label{class_xila___class_1_1_system___class_ac49f72b793db5c142517145e6093c447}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Create\+\_\+\+Dump} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_a99418345d14c4d3698c13e2db43dab5a}\label{class_xila___class_1_1_system___class_a99418345d14c4d3698c13e2db43dab5a}} 
-void {\bfseries Panic\+\_\+\+Handler} (uint32\+\_\+t \mbox{\hyperlink{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}{Panic\+\_\+\+Code}})
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a4a3ee109288842604fe1d719105a3f77}\label{class_xila___class_1_1_system___class_a4a3ee109288842604fe1d719105a3f77}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Dump} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_abefbebb61b2f577c7f83910f5d886afc}\label{class_xila___class_1_1_system___class_abefbebb61b2f577c7f83910f5d886afc}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Executable} (File Executable\+\_\+\+File, uint8\+\_\+t Type=\textquotesingle{}M\textquotesingle{})
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a96f3b3f9bceae6af625c4f7e454262de}\label{class_xila___class_1_1_system___class_a96f3b3f9bceae6af625c4f7e454262de}} 
+void {\bfseries Panic\+\_\+\+Handler} (\mbox{\hyperlink{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}{Panic\+\_\+\+Code}} \mbox{\hyperlink{class_xila___class_1_1_system___class_afcfa67143b7a1611f8a593aa141776db}{Panic\+\_\+\+Code}})
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_a45d66d24db04e7347ca4fd9c142c2706}\label{class_xila___class_1_1_system___class_a45d66d24db04e7347ca4fd9c142c2706}} 
-char \mbox{\hyperlink{class_xila___class_1_1_system___class_a45d66d24db04e7347ca4fd9c142c2706}{Device\+\_\+\+Name}} \mbox{[}24\mbox{]}
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a84ec342abf30f5a79d4bc883deded2ab}\label{class_xila___class_1_1_system___class_a84ec342abf30f5a79d4bc883deded2ab}} 
+Xila\+\_\+\+Task\+\_\+\+Handle {\bfseries Task\+\_\+\+Handle}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_abe1d228b2178edb314868869549768df}\label{class_xila___class_1_1_system___class_abe1d228b2178edb314868869549768df}} 
+char \mbox{\hyperlink{class_xila___class_1_1_system___class_abe1d228b2178edb314868869549768df}{Name}} \mbox{[}24\mbox{]}
 \begin{DoxyCompactList}\small\item\em Device name used as Network hostname ... \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_xila___class_1_1_system___class_a87831ba1edad52c9cece341c76954043}\label{class_xila___class_1_1_system___class_a87831ba1edad52c9cece341c76954043}} 
 enum Xila\+\_\+\+Class\+::\+System\+\_\+\+Class\+::\+System\+\_\+\+States {\bfseries State}
@@ -81,14 +118,18 @@ enum Xila\+\_\+\+Class\+::\+System\+\_\+\+Class\+::\+System\+\_\+\+States {\bfse
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_system___class_a3acfa568e938e9ef7ec29fbcf744a15f}\label{class_xila___class_1_1_system___class_a3acfa568e938e9ef7ec29fbcf744a15f}} 
-class {\bfseries Module\+\_\+\+Class}
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_system___class_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_system___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_system___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 System module API. 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_system_8hpp}{System.\+hpp}}\end{DoxyCompactItemize}

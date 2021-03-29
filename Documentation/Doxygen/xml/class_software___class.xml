@@ -4,30 +4,183 @@
     <compoundname>Software_Class</compoundname>
     <derivedcompoundref refid="class_calculator___class" prot="public" virt="non-virtual">Calculator_Class</derivedcompoundref>
     <derivedcompoundref refid="class_clock___class" prot="public" virt="non-virtual">Clock_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_image___viewer___class" prot="public" virt="non-virtual">Image_Viewer_Class</derivedcompoundref>
     <derivedcompoundref refid="class_internet___browser___class" prot="public" virt="non-virtual">Internet_Browser_Class</derivedcompoundref>
     <derivedcompoundref refid="class_music___player___class" prot="public" virt="non-virtual">Music_Player_Class</derivedcompoundref>
     <derivedcompoundref refid="class_oscilloscope___class" prot="private" virt="non-virtual">Oscilloscope_Class</derivedcompoundref>
     <derivedcompoundref refid="class_paint___class" prot="protected" virt="non-virtual">Paint_Class</derivedcompoundref>
     <derivedcompoundref refid="class_periodic___class" prot="protected" virt="non-virtual">Periodic_Class</derivedcompoundref>
     <derivedcompoundref refid="class_piano___class" prot="public" virt="non-virtual">Piano_Class</derivedcompoundref>
-    <derivedcompoundref refid="class_picture___viewer___class" prot="public" virt="non-virtual">Picture_Viewer_Class</derivedcompoundref>
     <derivedcompoundref refid="class_pong___class" prot="public" virt="non-virtual">Pong_Class</derivedcompoundref>
     <derivedcompoundref refid="class_shell___class" prot="public" virt="non-virtual">Shell_Class</derivedcompoundref>
     <derivedcompoundref refid="class_simon___class" prot="public" virt="non-virtual">Simon_Class</derivedcompoundref>
     <derivedcompoundref refid="class_template___class" prot="public" virt="non-virtual">Template_Class</derivedcompoundref>
     <derivedcompoundref refid="class_text___editor___class" prot="public" virt="non-virtual">Text_Editor_Class</derivedcompoundref>
     <derivedcompoundref refid="class_tiny___basic___class" prot="public" virt="non-virtual">Tiny_Basic_Class</derivedcompoundref>
-      <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" static="no" strong="no">
+    <includes refid="_software_8hpp" local="no">Software.hpp</includes>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" static="no" strong="no">
         <type></type>
-        <name>Image</name>
+        <name>Instructions</name>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected">
+          <name>Idle</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected">
+          <name>Open</name>
+          <initializer>= &apos;O&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected">
+          <name>Close</name>
+          <initializer>= &apos;C&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected">
+          <name>Maximize</name>
+          <initializer>= &apos;M&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected">
+          <name>Minimize</name>
+          <initializer>= &apos;m&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected">
+          <name>Shutdown</name>
+          <initializer>= 200</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected">
+          <name>Restart</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected">
+          <name>Hibernate</name>
+          <initializer>= &apos;H&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected">
+          <name>Watchdog</name>
+          <initializer>= &apos;W&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected">
+          <name>Desk</name>
+          <initializer>= &apos;D&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected">
+          <name>Dialog_Install</name>
+          <initializer>= &apos;I&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected">
+          <name>Dialog_Open_File</name>
+          <initializer>= &apos;f&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected">
+          <name>Dialog_Open_Folder</name>
+          <initializer>= &apos;F&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected">
+          <name>Dialog_Save_File</name>
+          <initializer>= &apos;e&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected">
+          <name>Dialog_Keyboard</name>
+          <initializer>= &apos;K&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected">
+          <name>Dialog_Keypad</name>
+          <initializer>= &apos;k&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected">
+          <name>Dialog_Color_Picker</name>
+          <initializer>= &apos;c&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected">
+          <name>Dialog_Power</name>
+          <initializer>= &apos;P&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected">
+          <name>Dialog_Event</name>
+          <initializer>= &apos;E&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
+<para>Instructions used by the core (with the prefix &quot;#&quot;) </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="51" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="52" bodyend="54"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="48" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="49" bodyend="74"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -42,7 +195,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="20" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="20" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="41" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_software___class_1ad50e9526e0ec44abe4f325800a9b89f6" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Software_Class::Last_Watchdog_Feed</definition>
+        <argsstring></argsstring>
+        <name>Last_Watchdog_Feed</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="42" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="42" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -57,20 +223,21 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="29" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="29" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="80" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="80" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" static="no" mutable="no">
         <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> *</type>
-        <definition>Software_Handle_Class* Software_Class::Handle_Pointer</definition>
+        <definition>Software_Handle_Class* Software_Class::Handle</definition>
         <argsstring></argsstring>
-        <name>Handle_Pointer</name>
+        <name>Handle</name>
         <briefdescription>
+<para>Software handle pointer. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="35" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="35" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="85" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" static="no" mutable="no">
         <type>QueueHandle_t</type>
@@ -83,11 +250,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="37" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="37" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="86" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="86" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
-      <memberdef kind="friend" id="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
         <definition>friend class Xila_Class</definition>
         <argsstring></argsstring>
@@ -101,9 +268,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="56" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="56" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="95" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="95" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="friend" id="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
         <definition>friend class Software_Handle_Class</definition>
         <argsstring></argsstring>
@@ -117,9 +284,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="57" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="57" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="96" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="96" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="friend" id="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="friend" id="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
         <definition>friend class Shell_Class</definition>
         <argsstring></argsstring>
@@ -133,7 +300,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="58" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="58" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="97" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="97" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -157,7 +324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="24" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="77" column="5"/>
       </memberdef>
       <memberdef kind="function" id="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -170,7 +337,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="25" column="13"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="78" column="13"/>
       </memberdef>
       <memberdef kind="function" id="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -186,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="41" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="88" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -205,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="42" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="89" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -240,7 +407,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="44" column="18"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="91" column="18"/>
       </memberdef>
       <memberdef kind="function" id="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -253,36 +420,32 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="46" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="93" column="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
+<para>Software class. </para>
     </briefdescription>
     <detaileddescription>
+<para>This API is used by core in order to echange with software. </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="5">
+      <node id="6">
         <label>Music_Player_Class</label>
         <link refid="class_music___player___class"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="6">
+      <node id="7">
         <label>Oscilloscope_Class</label>
         <link refid="class_oscilloscope___class"/>
         <childnode refid="1" relation="private-inheritance">
         </childnode>
       </node>
-      <node id="7">
+      <node id="8">
         <label>Paint_Class</label>
         <link refid="class_paint___class"/>
         <childnode refid="1" relation="protected-inheritance">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>Picture_Viewer_Class</label>
-        <link refid="class_picture___viewer___class"/>
-        <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
       <node id="14">
@@ -307,13 +470,13 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Piano_Class</label>
         <link refid="class_piano___class"/>
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>Internet_Browser_Class</label>
         <link refid="class_internet___browser___class"/>
         <childnode refid="1" relation="public-inheritance">
@@ -349,7 +512,13 @@
         <childnode refid="1" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="8">
+      <node id="4">
+        <label>Image_Viewer_Class</label>
+        <link refid="class_image___viewer___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
         <label>Periodic_Class</label>
         <link refid="class_periodic___class"/>
         <childnode refid="1" relation="protected-inheritance">
@@ -361,7 +530,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="2">
@@ -372,21 +541,41 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="17" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="18" bodyend="59"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" line="38" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software.hpp" bodystart="39" bodyend="98"/>
     <listofallmembers>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Close</name></member>
       <member refid="class_software___class_1ae78527cb1127d8a7388009bbf44b1342" prot="private" virt="non-virtual"><scope>Software_Class</scope><name>Current_Instruction</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Handle_Pointer</name></member>
-      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Image</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Hibernate</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Idle</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Instructions</name></member>
+      <member refid="class_software___class_1ad50e9526e0ec44abe4f325800a9b89f6" prot="private" virt="non-virtual"><scope>Software_Class</scope><name>Last_Watchdog_Feed</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Minimize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Open</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Restart</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Software_Class</scope><name>Set_Variable</name></member>
-      <member refid="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_software___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Shutdown</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Software_Class</name></member>
-      <member refid="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Software_Handle_Class</name></member>
+      <member refid="class_software___class_1ad9466adbefb635014881db44fa5cedba" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Software_Handle_Class</name></member>
       <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Task_Handle</name></member>
-      <member refid="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Software_Class</scope><name>Xila_Class</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Watchdog</name></member>
+      <member refid="class_software___class_1a527e2efc7210a2147182df1fde98a42c" prot="protected" virt="non-virtual"><scope>Software_Class</scope><name>Xila_Class</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Software_Class</scope><name>~Software_Class</name></member>
     </listofallmembers>
   </compounddef>

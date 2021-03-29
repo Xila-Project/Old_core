@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['device_5fname_90',['Name',['../class_xila___class_1_1_system___class.html#a45d66d24db04e7347ca4fd9c142c2706',1,'Xila_Class::System_Class']]]
+  ['caller_5fsoftware_114',['Caller_Software',['../class_xila___class_1_1_dialog___class.html#a3c61fe122a6dc0c02e3c1e05bceb68f8',1,'Xila_Class::Dialog_Class']]]
 ];

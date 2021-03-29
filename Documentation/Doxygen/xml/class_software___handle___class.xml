@@ -2,58 +2,34 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_software___handle___class" kind="class" language="C++" prot="public">
     <compoundname>Software_Handle_Class</compoundname>
-      <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_software___handle___class_1aa98161c40a93f1e84107b66664e903e5" prot="public" static="no" strong="no">
-        <type></type>
-        <name>Software_Type</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="34" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="35" bodyend="37"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Software_Handle_Class::Icon</definition>
-        <argsstring></argsstring>
-        <name>Icon</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="19" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="19" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_software___handle___class_1ad350b21f047cbabdaf3f78540c0534c2" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Software_Handle_Class::Type</definition>
-        <argsstring></argsstring>
-        <name>Type</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="20" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="20" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="class_software___handle___class_1a92c8b2288a7ef0f1f2b85989f358c9b3" prot="protected" static="no" mutable="no">
         <type>char</type>
         <definition>char Software_Handle_Class::Name[24]</definition>
         <argsstring>[24]</argsstring>
         <name>Name</name>
         <briefdescription>
+<para>Software name. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="21" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="21" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="22" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Software_Handle_Class::Icon</definition>
+        <argsstring></argsstring>
+        <name>Icon</name>
+        <briefdescription>
+<para>Software icon. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="27" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_software___handle___class_1a74220aca2282a4a765e76cd62a60112b" prot="protected" static="no" mutable="no">
         <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *(*</type>
@@ -61,12 +37,14 @@
         <argsstring>)()</argsstring>
         <name>Load_Function_Pointer</name>
         <briefdescription>
+<para>Function pointer called by Xila to load software. </para>
         </briefdescription>
         <detaileddescription>
+<para>Function allocate memory and return allocated software memory pointer and then send an &quot;Open&quot; instruction in the queue. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="23" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="23" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="33" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" prot="protected" static="no" mutable="no">
         <type>void(*</type>
@@ -74,12 +52,14 @@
         <argsstring>)()</argsstring>
         <name>Startup_Function_Pointer</name>
         <briefdescription>
+<para>Function pointer that is called by Xila at startup. </para>
         </briefdescription>
         <detaileddescription>
+<para>That is usefull when you whan to start a background task, or launch your application at the startup. </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="25" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="25" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="39" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -97,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="44" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="44" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="48" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_software___handle___class_1a8894e9c966204d5d35ce13687fefb137" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -113,7 +93,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="45" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="45" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="49" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_software___handle___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -129,7 +109,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="46" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="46" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="50" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="50" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -148,7 +128,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="31" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="42" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_software___handle___class_1a19968a623e9c0eee1f674e707c7b30a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -161,7 +141,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="40" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="44" column="5"/>
       </memberdef>
       <memberdef kind="function" id="class_software___handle___class_1a9883b011b1bd62fc7fdfec867d20aee9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -191,7 +171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="41" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="45" column="5"/>
       </memberdef>
       <memberdef kind="function" id="class_software___handle___class_1adc99c6df21bb321deae69b2685e9b6f5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -204,7 +184,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="42" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="46" column="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -216,7 +196,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="1" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="1">
@@ -227,7 +207,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="16" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="17" bodyend="47"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" line="16" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Software_Handle.hpp" bodystart="17" bodyend="51"/>
     <listofallmembers>
       <member refid="class_software___handle___class_1ad123dede2db9c71ddd8eacb85d962802" prot="protected" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Icon</name></member>
       <member refid="class_software___handle___class_1a5920e3be3e558f2502bfd7a07469fc48" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Is_Equal</name></member>
@@ -237,9 +217,7 @@
       <member refid="class_software___handle___class_1a8894e9c966204d5d35ce13687fefb137" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Software_Class</name></member>
       <member refid="class_software___handle___class_1a19968a623e9c0eee1f674e707c7b30a3" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Software_Handle_Class</name></member>
       <member refid="class_software___handle___class_1a9883b011b1bd62fc7fdfec867d20aee9" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Software_Handle_Class</name></member>
-      <member refid="class_software___handle___class_1aa98161c40a93f1e84107b66664e903e5" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Software_Type</name></member>
       <member refid="class_software___handle___class_1a341079b79c4c604629b58c9ce9cbcb9a" prot="protected" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Startup_Function_Pointer</name></member>
-      <member refid="class_software___handle___class_1ad350b21f047cbabdaf3f78540c0534c2" prot="protected" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Type</name></member>
       <member refid="class_software___handle___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>Xila_Class</name></member>
       <member refid="class_software___handle___class_1adc99c6df21bb321deae69b2685e9b6f5" prot="public" virt="non-virtual"><scope>Software_Handle_Class</scope><name>~Software_Handle_Class</name></member>
     </listofallmembers>

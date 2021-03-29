@@ -15,86 +15,58 @@ Core class.
 class \mbox{\hyperlink{class_xila___class_1_1_account___class}{Account\+\_\+\+Class}}
 \begin{DoxyCompactList}\small\item\em Account management class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_clipboard___class}{Clipboard\+\_\+\+Class}}
-\item 
+\begin{DoxyCompactList}\small\item\em Clipboard module. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_dialog___class}{Dialog\+\_\+\+Class}}
-\begin{DoxyCompactList}\small\item\em Class that bring together all system dialogs. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Dialog class. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_display___class}{Display\+\_\+\+Class}}
-\item 
+\begin{DoxyCompactList}\small\item\em Display class. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{class_xila___class_1_1_drive___class}{Drive\+\_\+\+Class}}
+\begin{DoxyCompactList}\small\item\em Drive class (SD MMC) \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_keyboard___class}{Keyboard\+\_\+\+Class}}
 \begin{DoxyCompactList}\small\item\em Keyboard class. \end{DoxyCompactList}\item 
-class \mbox{\hyperlink{class_xila___class_1_1_module___class}{Module\+\_\+\+Class}}
-\item 
 class \mbox{\hyperlink{class_xila___class_1_1_power___class}{Power\+\_\+\+Class}}
-\item 
+\begin{DoxyCompactList}\small\item\em Power management module. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_software___management___class}{Software\+\_\+\+Management\+\_\+\+Class}}
-\begin{DoxyCompactList}\small\item\em Software management class. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Software management module. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_sound___class}{Sound\+\_\+\+Class}}
 \begin{DoxyCompactList}\small\item\em Sound class API. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_system___class}{System\+\_\+\+Class}}
 \begin{DoxyCompactList}\small\item\em System module API. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_task___class}{Task\+\_\+\+Class}}
-\begin{DoxyCompactList}\small\item\em Task management class. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Task management module. \end{DoxyCompactList}\item 
 class \mbox{\hyperlink{class_xila___class_1_1_time___class}{Time\+\_\+\+Class}}
 \item 
 class \mbox{\hyperlink{class_xila___class_1_1_wi_fi___class}{Wi\+Fi\+\_\+\+Class}}
-\begin{DoxyCompactList}\small\item\em Wi\+Fi API class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Wi\+Fi class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_aeed134678d9f4af5e67636ba88375e26}\label{class_xila___class_aeed134678d9f4af5e67636ba88375e26}} 
-enum {\bfseries Prefixs} \{ \newline
-{\bfseries Instruction} = \textquotesingle{}\#\textquotesingle{}
-, {\bfseries Variable\+\_\+\+String\+\_\+\+Local} = \textquotesingle{}s\textquotesingle{}
-, {\bfseries Variable\+\_\+\+String\+\_\+\+Global} = \textquotesingle{}S\textquotesingle{}
-, {\bfseries Variable\+\_\+\+Long\+\_\+\+Local} = \textquotesingle{}l\textquotesingle{}
+\mbox{\Hypertarget{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}\label{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}} 
+enum \mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Event}} \{ \newline
+{\bfseries None}
+, {\bfseries Success} = 1
+, {\bfseries Error}
+, {\bfseries Warning}
 , \newline
-{\bfseries Variable\+\_\+\+Long\+\_\+\+Global} = \textquotesingle{}L\textquotesingle{}
+{\bfseries Information}
+, {\bfseries Question}
+, {\bfseries Button\+\_\+1} = 0x31
+, {\bfseries Button\+\_\+2} = 0x32
+, \newline
+{\bfseries Button\+\_\+3} = 0x33
+, {\bfseries Default\+\_\+\+Yes} = Button\+\_\+1
+, {\bfseries Default\+\_\+\+No} = Button\+\_\+2
+, {\bfseries Default\+\_\+\+Cancel} = Button\+\_\+3
  \}
-\end{DoxyCompactItemize}
-\doxysubsection*{Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_xila___class_a4949996f802df3f6d5d0e17ead8e580e}\label{class_xila___class_a4949996f802df3f6d5d0e17ead8e580e}} 
-void {\bfseries Loop} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_a2c372b49e481282b9d371c0b1ce71e6c}\label{class_xila___class_a2c372b49e481282b9d371c0b1ce71e6c}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+System\+\_\+\+Registry} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_a9877c8d208bd172c0c464e3911dc22f3}\label{class_xila___class_a9877c8d208bd172c0c464e3911dc22f3}} 
-Xila\+\_\+\+Event {\bfseries Load\+\_\+\+Sound\+\_\+\+Registry} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_a332e12a31bc6a2dd0f246b200c9327b3}\label{class_xila___class_a332e12a31bc6a2dd0f246b200c9327b3}} 
-Xila\+\_\+\+Event {\bfseries Set\+\_\+\+Sound\+\_\+\+Registry} (uint8\+\_\+t Volume=0x\+FF)
-\item 
-\mbox{\Hypertarget{class_xila___class_a8167c0ba469192dcc9c99e6216ac4912}\label{class_xila___class_a8167c0ba469192dcc9c99e6216ac4912}} 
-void {\bfseries Save\+\_\+\+System\+\_\+\+State} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_ad2d28620f99f79aafbd35dc27082bdac}\label{class_xila___class_ad2d28620f99f79aafbd35dc27082bdac}} 
-void {\bfseries Restore\+\_\+\+System\+\_\+\+State} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_a88c350f1f60398c09081fbd30c6c8664}\label{class_xila___class_a88c350f1f60398c09081fbd30c6c8664}} 
-Xila\+\_\+\+Event {\bfseries Get\+\_\+\+File\+\_\+\+Name} (File const \&File, char $\ast$File\+\_\+\+Name, size\+\_\+t Size)
-\item 
-\mbox{\Hypertarget{class_xila___class_a9d837281bf4421f2cef26cc829dee6b2}\label{class_xila___class_a9d837281bf4421f2cef26cc829dee6b2}} 
-uint32\+\_\+t {\bfseries Count\+\_\+\+Files} (File \&Folder)
-\item 
-\mbox{\Hypertarget{class_xila___class_ae1aee8c076948d2cc42e671c22d0bbc2}\label{class_xila___class_ae1aee8c076948d2cc42e671c22d0bbc2}} 
-Xila\+\_\+\+Event {\bfseries Copy\+\_\+\+File} (File \&Origin\+\_\+\+File, File \&Destination\+\_\+\+File)
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_xila___class_a65ad31b9170b2884b9ba26b6c05df49b}\label{class_xila___class_a65ad31b9170b2884b9ba26b6c05df49b}} 
-static void {\bfseries Core\+\_\+\+Task} (void $\ast$)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Xila event type. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_aba44a1a760f489904cff565a576ef045}\label{class_xila___class_aba44a1a760f489904cff565a576ef045}} 
-\mbox{\hyperlink{class_xila___class_1_1_account___class}{Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class}} {\bfseries Account}
+\mbox{\Hypertarget{class_xila___class_a9756907a0e1d19b9bd9ac7e38081aa0c}\label{class_xila___class_a9756907a0e1d19b9bd9ac7e38081aa0c}} 
+class \mbox{\hyperlink{class_xila___class_1_1_account___class}{Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class}} {\bfseries Account}
 \item 
-\mbox{\Hypertarget{class_xila___class_ab5de246de40d063383e6318b4d2d6e42}\label{class_xila___class_ab5de246de40d063383e6318b4d2d6e42}} 
-\mbox{\hyperlink{class_xila___class_1_1_clipboard___class}{Xila\+\_\+\+Class\+::\+Clipboard\+\_\+\+Class}} {\bfseries Clipboard}
+\mbox{\Hypertarget{class_xila___class_ac4630168b985e6b69f4b78c67310685d}\label{class_xila___class_ac4630168b985e6b69f4b78c67310685d}} 
+class \mbox{\hyperlink{class_xila___class_1_1_clipboard___class}{Xila\+\_\+\+Class\+::\+Clipboard\+\_\+\+Class}} {\bfseries Clipboard}
 \item 
 \mbox{\Hypertarget{class_xila___class_afca0b4b7fdd50f3ef793fbffe15b2a8e}\label{class_xila___class_afca0b4b7fdd50f3ef793fbffe15b2a8e}} 
 class \mbox{\hyperlink{class_xila___class_1_1_dialog___class}{Xila\+\_\+\+Class\+::\+Dialog\+\_\+\+Class}} {\bfseries Dialog}
@@ -102,35 +74,29 @@ class \mbox{\hyperlink{class_xila___class_1_1_dialog___class}{Xila\+\_\+\+Class\
 \mbox{\Hypertarget{class_xila___class_aaa717d29b6093ed7430950c0df2132d5}\label{class_xila___class_aaa717d29b6093ed7430950c0df2132d5}} 
 \mbox{\hyperlink{class_xila___class_1_1_display___class}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class}} {\bfseries Display}
 \item 
+\mbox{\Hypertarget{class_xila___class_ae66fa2f34ee7a99d3393c7e93eb413f1}\label{class_xila___class_ae66fa2f34ee7a99d3393c7e93eb413f1}} 
+class \mbox{\hyperlink{class_xila___class_1_1_keyboard___class}{Xila\+\_\+\+Class\+::\+Keyboard\+\_\+\+Class}} {\bfseries Keyboard}
+\item 
 \mbox{\Hypertarget{class_xila___class_a34dc05ff081b3da12f98ee2e6d8a2892}\label{class_xila___class_a34dc05ff081b3da12f98ee2e6d8a2892}} 
 \mbox{\hyperlink{class_xila___class_1_1_power___class}{Xila\+\_\+\+Class\+::\+Power\+\_\+\+Class}} {\bfseries Power}
 \item 
-\mbox{\Hypertarget{class_xila___class_ac12e9a51e2c2d87c87b2b1109470e26e}\label{class_xila___class_ac12e9a51e2c2d87c87b2b1109470e26e}} 
-\mbox{\hyperlink{class_xila___class_1_1_software___management___class}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Management\+\_\+\+Class}} {\bfseries Software}
+\mbox{\Hypertarget{class_xila___class_a8a7c74ce60d60d2c317a238b848a79f7}\label{class_xila___class_a8a7c74ce60d60d2c317a238b848a79f7}} 
+class \mbox{\hyperlink{class_xila___class_1_1_software___management___class}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Management\+\_\+\+Class}} {\bfseries Software}
 \item 
-\mbox{\Hypertarget{class_xila___class_a55afee017f19a70423120f39a57555ee}\label{class_xila___class_a55afee017f19a70423120f39a57555ee}} 
-\mbox{\hyperlink{class_xila___class_1_1_sound___class}{Xila\+\_\+\+Class\+::\+Sound\+\_\+\+Class}} {\bfseries Sound}
+\mbox{\Hypertarget{class_xila___class_a927733174694a16dfe6d25c76451803c}\label{class_xila___class_a927733174694a16dfe6d25c76451803c}} 
+class \mbox{\hyperlink{class_xila___class_1_1_sound___class}{Xila\+\_\+\+Class\+::\+Sound\+\_\+\+Class}} {\bfseries Sound}
 \item 
-\mbox{\Hypertarget{class_xila___class_a28c2543b73f345ae4c35f8a6aa701176}\label{class_xila___class_a28c2543b73f345ae4c35f8a6aa701176}} 
-\mbox{\hyperlink{class_xila___class_1_1_system___class}{Xila\+\_\+\+Class\+::\+System\+\_\+\+Class}} {\bfseries System}
+\mbox{\Hypertarget{class_xila___class_a23d7b1265f02c0bc5f39beb957eee872}\label{class_xila___class_a23d7b1265f02c0bc5f39beb957eee872}} 
+class \mbox{\hyperlink{class_xila___class_1_1_system___class}{Xila\+\_\+\+Class\+::\+System\+\_\+\+Class}} {\bfseries System}
 \item 
-\mbox{\Hypertarget{class_xila___class_a677983551556dbff2aa48bd1a3977825}\label{class_xila___class_a677983551556dbff2aa48bd1a3977825}} 
-\mbox{\hyperlink{class_xila___class_1_1_task___class}{Xila\+\_\+\+Class\+::\+Task\+\_\+\+Class}} {\bfseries Task}
+\mbox{\Hypertarget{class_xila___class_a50b924629c89e12107e9d7eac2113748}\label{class_xila___class_a50b924629c89e12107e9d7eac2113748}} 
+class \mbox{\hyperlink{class_xila___class_1_1_task___class}{Xila\+\_\+\+Class\+::\+Task\+\_\+\+Class}} {\bfseries Task}
 \item 
 \mbox{\Hypertarget{class_xila___class_a70b6e878a8e3470def70916c65c72dcc}\label{class_xila___class_a70b6e878a8e3470def70916c65c72dcc}} 
 class \mbox{\hyperlink{class_xila___class_1_1_time___class}{Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class}} {\bfseries Time}
 \item 
 \mbox{\Hypertarget{class_xila___class_a999c4030676b171129381b86dbaa7746}\label{class_xila___class_a999c4030676b171129381b86dbaa7746}} 
 \mbox{\hyperlink{class_xila___class_1_1_wi_fi___class}{Xila\+\_\+\+Class\+::\+Wi\+Fi\+\_\+\+Class}} {\bfseries Wi\+Fi}
-\item 
-\mbox{\Hypertarget{class_xila___class_ac8749810fcc46327d5ed1d4458c726b4}\label{class_xila___class_ac8749810fcc46327d5ed1d4458c726b4}} 
-fs\+::\+SDMMCFS $\ast$ {\bfseries Drive} = \&SD\+\_\+\+MMC
-\item 
-\mbox{\Hypertarget{class_xila___class_aff7c8b94b1eaeafac5fdf88da566539d}\label{class_xila___class_aff7c8b94b1eaeafac5fdf88da566539d}} 
-\mbox{\hyperlink{class_xila___class_1_1_keyboard___class}{Xila\+\_\+\+Class\+::\+Keyboard\+\_\+\+Class}} {\bfseries Keyboard}
-\item 
-\mbox{\Hypertarget{class_xila___class_a0f8a8c35d6b491f3f0d28bc183900e08}\label{class_xila___class_a0f8a8c35d6b491f3f0d28bc183900e08}} 
-x\+Task\+Handle {\bfseries Core\+\_\+\+Task\+\_\+\+Handle}
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -138,18 +104,12 @@ x\+Task\+Handle {\bfseries Core\+\_\+\+Task\+\_\+\+Handle}
 \mbox{\Hypertarget{class_xila___class_a819acce7599d01577959a75715e8f896}\label{class_xila___class_a819acce7599d01577959a75715e8f896}} 
 static \mbox{\hyperlink{class_xila___class}{Xila\+\_\+\+Class}} $\ast$ \mbox{\hyperlink{class_xila___class_a819acce7599d01577959a75715e8f896}{Instance\+\_\+\+Pointer}}
 \begin{DoxyCompactList}\small\item\em Current instance pointer. Help to prevent from corruption. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Friends}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{class_xila___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_a993b38fc160773525ee5c3dfcf033710}} 
-class {\bfseries Shell\+\_\+\+Class}
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Core class. 
 
-Contain all core parts and include also its API which is used by external software. 
+Contain all core A.\+P.\+I. and modules to make the kernel working. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

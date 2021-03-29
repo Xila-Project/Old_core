@@ -7,8 +7,8 @@
     <innerclass refid="class_xila___class_1_1_clipboard___class" prot="public">Xila_Class::Clipboard_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_dialog___class" prot="public">Xila_Class::Dialog_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_display___class" prot="public">Xila_Class::Display_Class</innerclass>
+    <innerclass refid="class_xila___class_1_1_drive___class" prot="public">Xila_Class::Drive_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_keyboard___class" prot="public">Xila_Class::Keyboard_Class</innerclass>
-    <innerclass refid="class_xila___class_1_1_module___class" prot="protected">Xila_Class::Module_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_power___class" prot="public">Xila_Class::Power_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_software___management___class" prot="public">Xila_Class::Software_Management_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_sound___class" prot="public">Xila_Class::Sound_Class</innerclass>
@@ -17,56 +17,108 @@
     <innerclass refid="class_xila___class_1_1_time___class" prot="public">Xila_Class::Time_Class</innerclass>
     <innerclass refid="class_xila___class_1_1_wi_fi___class" prot="public">Xila_Class::WiFi_Class</innerclass>
       <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26" prot="public" static="no" strong="no">
+      <memberdef kind="enum" id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" prot="public" static="no" strong="no">
         <type></type>
-        <name>Prefixs</name>
-        <enumvalue id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a97c2e9a28bf16dbfbd7e2ae379461e97" prot="public">
-          <name>Instruction</name>
-          <initializer>= &apos;#&apos;</initializer>
+        <name>Event</name>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123abb779d65772c4e3bfbda820caccf20ab" prot="public">
+          <name>None</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26abc2af57fa83cde9d1d1dc4d52d6a68f3" prot="public">
-          <name>Variable_String_Local</name>
-          <initializer>= &apos;s&apos;</initializer>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aee07a60c567f17f3d8e2ad35c3d60f94" prot="public">
+          <name>Success</name>
+          <initializer>= 1</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a724f1fe01eb8d280bc5e4d534548c6fb" prot="public">
-          <name>Variable_String_Global</name>
-          <initializer>= &apos;S&apos;</initializer>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ac91f464ae2171337aa4e6a5d521b8c44" prot="public">
+          <name>Error</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a0cab74501eb37c9d2a8afe55bd55587d" prot="public">
-          <name>Variable_Long_Local</name>
-          <initializer>= &apos;l&apos;</initializer>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a7d8c8166f86663b37f28e4ee66cb0ef4" prot="public">
+          <name>Warning</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a112929cfccd7803cd66b1e547ccaf9bb" prot="public">
-          <name>Variable_Long_Global</name>
-          <initializer>= &apos;L&apos;</initializer>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ada4b318681e303f0c28caa40f90bdb54" prot="public">
+          <name>Information</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a8f56918c8cffe668dcb27d88d071e778" prot="public">
+          <name>Question</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a85073382db539a42ee155584736615f2" prot="public">
+          <name>Button_1</name>
+          <initializer>= 0x31</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a192e96390fe505bca5763459211d6728" prot="public">
+          <name>Button_2</name>
+          <initializer>= 0x32</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123add4725a2366110938a27b442f1a11071" prot="public">
+          <name>Button_3</name>
+          <initializer>= 0x33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aca9a7795d4fae8f70c709c97990cd472" prot="public">
+          <name>Default_Yes</name>
+          <initializer>= Button_1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a0ab35c3f8f1ce531f0c916d3d6f749a2" prot="public">
+          <name>Default_No</name>
+          <initializer>= Button_2</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a09cbdbc45fd7ca78a5085535dc8adf76" prot="public">
+          <name>Default_Cancel</name>
+          <initializer>= Button_3</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Xila event type. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="785" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="786" bodyend="793"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="150" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="151" bodyend="164"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-attrib">
@@ -82,13 +134,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="152" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="152" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="140" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="140" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="class_xila___class_1aba44a1a760f489904cff565a576ef045" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_account___class" kindref="compound">Xila_Class::Account_Class</ref></type>
-        <definition>Xila_Class::Account_Class Xila_Class::Account</definition>
+      <memberdef kind="variable" id="class_xila___class_1a9756907a0e1d19b9bd9ac7e38081aa0c" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_account___class" kindref="compound">Xila_Class::Account_Class</ref></type>
+        <definition>class Xila_Class::Account_Class Xila_Class::Account</definition>
         <argsstring></argsstring>
         <name>Account</name>
         <briefdescription>
@@ -97,11 +149,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="213" column="13"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="212" column="13"/>
       </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1ab5de246de40d063383e6318b4d2d6e42" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_clipboard___class" kindref="compound">Xila_Class::Clipboard_Class</ref></type>
-        <definition>Xila_Class::Clipboard_Class Xila_Class::Clipboard</definition>
+      <memberdef kind="variable" id="class_xila___class_1ac4630168b985e6b69f4b78c67310685d" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_clipboard___class" kindref="compound">Xila_Class::Clipboard_Class</ref></type>
+        <definition>class Xila_Class::Clipboard_Class Xila_Class::Clipboard</definition>
         <argsstring></argsstring>
         <name>Clipboard</name>
         <briefdescription>
@@ -110,7 +162,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="237" column="15"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="236" column="15"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1afca0b4b7fdd50f3ef793fbffe15b2a8e" prot="public" static="no" mutable="no">
         <type>class <ref refid="class_xila___class_1_1_dialog___class" kindref="compound">Xila_Class::Dialog_Class</ref></type>
@@ -123,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="268" column="12"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="287" column="12"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1aaa717d29b6093ed7430950c0df2132d5" prot="public" static="no" mutable="no">
         <type><ref refid="class_xila___class_1_1_display___class" kindref="compound">Xila_Class::Display_Class</ref></type>
@@ -136,7 +188,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="382" column="13"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="416" column="13"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1ae66fa2f34ee7a99d3393c7e93eb413f1" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_keyboard___class" kindref="compound">Xila_Class::Keyboard_Class</ref></type>
+        <definition>class Xila_Class::Keyboard_Class Xila_Class::Keyboard</definition>
+        <argsstring></argsstring>
+        <name>Keyboard</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="524" column="14"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1a34dc05ff081b3da12f98ee2e6d8a2892" prot="public" static="no" mutable="no">
         <type><ref refid="class_xila___class_1_1_power___class" kindref="compound">Xila_Class::Power_Class</ref></type>
@@ -149,11 +214,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="414" column="11"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="550" column="11"/>
       </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1ac12e9a51e2c2d87c87b2b1109470e26e" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_software___management___class" kindref="compound">Xila_Class::Software_Management_Class</ref></type>
-        <definition>Xila_Class::Software_Management_Class Xila_Class::Software</definition>
+      <memberdef kind="variable" id="class_xila___class_1a8a7c74ce60d60d2c317a238b848a79f7" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_software___management___class" kindref="compound">Xila_Class::Software_Management_Class</ref></type>
+        <definition>class Xila_Class::Software_Management_Class Xila_Class::Software</definition>
         <argsstring></argsstring>
         <name>Software</name>
         <briefdescription>
@@ -162,11 +227,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="498" column="14"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="599" column="14"/>
       </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1a55afee017f19a70423120f39a57555ee" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_sound___class" kindref="compound">Xila_Class::Sound_Class</ref></type>
-        <definition>Xila_Class::Sound_Class Xila_Class::Sound</definition>
+      <memberdef kind="variable" id="class_xila___class_1a927733174694a16dfe6d25c76451803c" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_sound___class" kindref="compound">Xila_Class::Sound_Class</ref></type>
+        <definition>class Xila_Class::Sound_Class Xila_Class::Sound</definition>
         <argsstring></argsstring>
         <name>Sound</name>
         <briefdescription>
@@ -175,11 +240,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="586" column="11"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="684" column="11"/>
       </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1a28c2543b73f345ae4c35f8a6aa701176" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_system___class" kindref="compound">Xila_Class::System_Class</ref></type>
-        <definition>Xila_Class::System_Class Xila_Class::System</definition>
+      <memberdef kind="variable" id="class_xila___class_1a23d7b1265f02c0bc5f39beb957eee872" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_system___class" kindref="compound">Xila_Class::System_Class</ref></type>
+        <definition>class Xila_Class::System_Class Xila_Class::System</definition>
         <argsstring></argsstring>
         <name>System</name>
         <briefdescription>
@@ -188,11 +253,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="640" column="12"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="761" column="12"/>
       </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1a677983551556dbff2aa48bd1a3977825" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_task___class" kindref="compound">Xila_Class::Task_Class</ref></type>
-        <definition>Xila_Class::Task_Class Xila_Class::Task</definition>
+      <memberdef kind="variable" id="class_xila___class_1a50b924629c89e12107e9d7eac2113748" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_xila___class_1_1_task___class" kindref="compound">Xila_Class::Task_Class</ref></type>
+        <definition>class Xila_Class::Task_Class Xila_Class::Task</definition>
         <argsstring></argsstring>
         <name>Task</name>
         <briefdescription>
@@ -201,7 +266,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="660" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="795" column="10"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1a70b6e878a8e3470def70916c65c72dcc" prot="public" static="no" mutable="no">
         <type>class <ref refid="class_xila___class_1_1_time___class" kindref="compound">Xila_Class::Time_Class</ref></type>
@@ -214,7 +279,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="688" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="832" column="10"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1a999c4030676b171129381b86dbaa7746" prot="public" static="no" mutable="no">
         <type><ref refid="class_xila___class_1_1_wi_fi___class" kindref="compound">Xila_Class::WiFi_Class</ref></type>
@@ -227,214 +292,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="735" column="10"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1ac8749810fcc46327d5ed1d4458c726b4" prot="public" static="no" mutable="no">
-        <type>fs::SDMMCFS *</type>
-        <definition>fs::SDMMCFS* Xila_Class::Drive</definition>
-        <argsstring></argsstring>
-        <name>Drive</name>
-        <initializer>= &amp;SD_MMC</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="741" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="741" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1aff7c8b94b1eaeafac5fdf88da566539d" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class_1_1_keyboard___class" kindref="compound">Xila_Class::Keyboard_Class</ref></type>
-        <definition>Xila_Class::Keyboard_Class Xila_Class::Keyboard</definition>
-        <argsstring></argsstring>
-        <name>Keyboard</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="769" column="14"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1a0f8a8c35d6b491f3f0d28bc183900e08" prot="public" static="no" mutable="no">
-        <type>xTaskHandle</type>
-        <definition>xTaskHandle Xila_Class::Core_Task_Handle</definition>
-        <argsstring></argsstring>
-        <name>Core_Task_Handle</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="798" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="798" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="friend">
-      <memberdef kind="friend" id="class_xila___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>class</type>
-        <definition>friend class Shell_Class</definition>
-        <argsstring></argsstring>
-        <name>Shell_Class</name>
-        <param>
-          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="804" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="804" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="879" column="10"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_xila___class_1a4949996f802df3f6d5d0e17ead8e580e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Loop</definition>
-        <argsstring>()</argsstring>
-        <name>Loop</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="737" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a2c372b49e481282b9d371c0b1ce71e6c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Load_System_Registry</definition>
-        <argsstring>()</argsstring>
-        <name>Load_System_Registry</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="771" column="16"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a9877c8d208bd172c0c464e3911dc22f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Load_Sound_Registry</definition>
-        <argsstring>()</argsstring>
-        <name>Load_Sound_Registry</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="772" column="16"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a332e12a31bc6a2dd0f246b200c9327b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Set_Sound_Registry</definition>
-        <argsstring>(uint8_t Volume=0xFF)</argsstring>
-        <name>Set_Sound_Registry</name>
-        <param>
-          <type>uint8_t</type>
-          <declname>Volume</declname>
-          <defval>0xFF</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="774" column="16"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a8167c0ba469192dcc9c99e6216ac4912" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Save_System_State</definition>
-        <argsstring>()</argsstring>
-        <name>Save_System_State</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="778" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1ad2d28620f99f79aafbd35dc27082bdac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Restore_System_State</definition>
-        <argsstring>()</argsstring>
-        <name>Restore_System_State</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="779" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a88c350f1f60398c09081fbd30c6c8664" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Get_File_Name</definition>
-        <argsstring>(File const &amp;File, char *File_Name, size_t Size)</argsstring>
-        <name>Get_File_Name</name>
-        <param>
-          <type>File const &amp;</type>
-          <declname>File</declname>
-        </param>
-        <param>
-          <type>char *</type>
-          <declname>File_Name</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>Size</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="781" column="16"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1a9d837281bf4421f2cef26cc829dee6b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>uint32_t</type>
-        <definition>uint32_t Xila_Class::Count_Files</definition>
-        <argsstring>(File &amp;Folder)</argsstring>
-        <name>Count_Files</name>
-        <param>
-          <type>File &amp;</type>
-          <declname>Folder</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="782" column="14"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1ae1aee8c076948d2cc42e671c22d0bbc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Xila_Event</type>
-        <definition>Xila_Event Xila_Class::Copy_File</definition>
-        <argsstring>(File &amp;Origin_File, File &amp;Destination_File)</argsstring>
-        <name>Copy_File</name>
-        <param>
-          <type>File &amp;</type>
-          <declname>Origin_File</declname>
-        </param>
-        <param>
-          <type>File &amp;</type>
-          <declname>Destination_File</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="795" column="16"/>
-      </memberdef>
       <memberdef kind="function" id="class_xila___class_1a2b64bf0efcb16111acfd4039669d3781" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Xila_Class::Xila_Class</definition>
@@ -446,7 +307,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="801" column="5"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="883" column="5"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1a069d5d3497a54258f0e37945aebeaac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -459,143 +320,105 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="802" column="5"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="class_xila___class_1a65ad31b9170b2884b9ba26b6c05df49b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>static void Xila_Class::Core_Task</definition>
-        <argsstring>(void *)</argsstring>
-        <name>Core_Task</name>
-        <param>
-          <type>void *</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="799" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="884" column="5"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
 <para>Core class. </para>
     </briefdescription>
     <detaileddescription>
-<para>Contain all core parts and include also its API which is used by external software. </para>
+<para>Contain all core A.P.I. and modules to make the kernel working. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="8">
+      <node id="7">
         <label>Nextion_Display_Class</label>
         <link refid="class_nextion___display___class"/>
-        <childnode refid="8" relation="usage">
+        <childnode refid="7" relation="usage">
           <edgelabel>Instance_Pointer</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="8">
         <label>Xila_Class::Dialog_Class</label>
         <link refid="class_xila___class_1_1_dialog___class"/>
-        <childnode refid="6" relation="usage">
-          <edgelabel>Caller_Software_Pointer</edgelabel>
-        </childnode>
-      </node>
-      <node id="11">
-        <label>Xila_Class::Sound_Class</label>
-        <link refid="class_xila___class_1_1_sound___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>Xila_Class::Account_Class</label>
-        <link refid="class_xila___class_1_1_account___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>WiFiGenericClass</label>
-      </node>
-      <node id="6">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
         <childnode refid="5" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
-        </childnode>
-      </node>
-      <node id="19">
-        <label>WiFiSTAClass</label>
-      </node>
-      <node id="5">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
-        <childnode refid="6" relation="usage">
-          <edgelabel>Load_Function_Pointer</edgelabel>
-        </childnode>
-      </node>
-      <node id="20">
-        <label>WiFiScanClass</label>
-      </node>
-      <node id="21">
-        <label>WiFiAPClass</label>
-      </node>
-      <node id="16">
-        <label>Xila_Class::Keyboard_Class</label>
-        <link refid="class_xila___class_1_1_keyboard___class"/>
-        <childnode refid="3" relation="public-inheritance">
+          <edgelabel>Caller_Software</edgelabel>
         </childnode>
       </node>
       <node id="10">
+        <label>Xila_Class::Sound_Class</label>
+        <link refid="class_xila___class_1_1_sound___class"/>
+      </node>
+      <node id="14">
+        <label>Xila_Class::Account_Class</label>
+        <link refid="class_xila___class_1_1_account___class"/>
+      </node>
+      <node id="16">
+        <label>WiFiGenericClass</label>
+      </node>
+      <node id="5">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
+      <node id="17">
+        <label>WiFiSTAClass</label>
+      </node>
+      <node id="4">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="18">
+        <label>WiFiScanClass</label>
+      </node>
+      <node id="19">
+        <label>WiFiAPClass</label>
+      </node>
+      <node id="20">
+        <label>Xila_Class::Keyboard_Class</label>
+        <link refid="class_xila___class_1_1_keyboard___class"/>
+      </node>
+      <node id="9">
         <label>Xila_Class::Time_Class</label>
         <link refid="class_xila___class_1_1_time___class"/>
       </node>
-      <node id="7">
+      <node id="6">
         <label>Xila_Class::Display_Class</label>
         <link refid="class_xila___class_1_1_display___class"/>
-        <childnode refid="8" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-      </node>
-      <node id="4">
-        <label>Xila_Class::Software_Management_Class</label>
-        <link refid="class_xila___class_1_1_software___management___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>Software_Handle_Pointer</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>Open_Software_Pointer</edgelabel>
-        </childnode>
-      </node>
-      <node id="13">
-        <label>Xila_Class::Power_Class</label>
-        <link refid="class_xila___class_1_1_power___class"/>
-        <childnode refid="14" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="public-inheritance">
+        <childnode refid="7" relation="public-inheritance">
         </childnode>
       </node>
       <node id="3">
-        <label>Xila_Class::Module_Class</label>
-        <link refid="class_xila___class_1_1_module___class"/>
+        <label>Xila_Class::Software_Management_Class</label>
+        <link refid="class_xila___class_1_1_software___management___class"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Openned</edgelabel>
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Xila_Class::Power_Class</label>
+        <link refid="class_xila___class_1_1_power___class"/>
+        <childnode refid="13" relation="public-inheritance">
+        </childnode>
       </node>
       <node id="2">
         <label>Xila_Class::System_Class</label>
         <link refid="class_xila___class_1_1_system___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
-      <node id="14">
+      <node id="13">
         <label>Battery_Class</label>
         <link refid="class_battery___class"/>
       </node>
-      <node id="22">
+      <node id="21">
         <label>Xila_Class::Task_Class</label>
         <link refid="class_xila___class_1_1_task___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
       <node id="1">
         <label>Xila_Class</label>
@@ -603,97 +426,87 @@
         <childnode refid="2" relation="usage">
           <edgelabel>System</edgelabel>
         </childnode>
-        <childnode refid="4" relation="usage">
+        <childnode refid="3" relation="usage">
           <edgelabel>Software</edgelabel>
         </childnode>
-        <childnode refid="7" relation="usage">
+        <childnode refid="6" relation="usage">
           <edgelabel>Display</edgelabel>
         </childnode>
-        <childnode refid="9" relation="usage">
+        <childnode refid="8" relation="usage">
           <edgelabel>Dialog</edgelabel>
         </childnode>
         <childnode refid="1" relation="usage">
           <edgelabel>Instance_Pointer</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="9" relation="usage">
           <edgelabel>Time</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="10" relation="usage">
           <edgelabel>Sound</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="11" relation="usage">
           <edgelabel>Clipboard</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="12" relation="usage">
           <edgelabel>Power</edgelabel>
         </childnode>
-        <childnode refid="15" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>Account</edgelabel>
         </childnode>
-        <childnode refid="16" relation="usage">
-          <edgelabel>Keyboard</edgelabel>
-        </childnode>
-        <childnode refid="17" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>WiFi</edgelabel>
         </childnode>
-        <childnode refid="22" relation="usage">
+        <childnode refid="20" relation="usage">
+          <edgelabel>Keyboard</edgelabel>
+        </childnode>
+        <childnode refid="21" relation="usage">
           <edgelabel>Task</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="11">
         <label>Xila_Class::Clipboard_Class</label>
         <link refid="class_xila___class_1_1_clipboard___class"/>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
-      <node id="17">
+      <node id="15">
         <label>Xila_Class::WiFi_Class</label>
         <link refid="class_xila___class_1_1_wi_fi___class"/>
+        <childnode refid="16" relation="public-inheritance">
+        </childnode>
+        <childnode refid="17" relation="public-inheritance">
+        </childnode>
         <childnode refid="18" relation="public-inheritance">
         </childnode>
         <childnode refid="19" relation="public-inheritance">
         </childnode>
-        <childnode refid="20" relation="public-inheritance">
-        </childnode>
-        <childnode refid="21" relation="public-inheritance">
-        </childnode>
-        <childnode refid="3" relation="public-inheritance">
-        </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="145" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="146" bodyend="805"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="130" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="131" bodyend="885"/>
     <listofallmembers>
-      <member refid="class_xila___class_1aba44a1a760f489904cff565a576ef045" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Account</name></member>
-      <member refid="class_xila___class_1ab5de246de40d063383e6318b4d2d6e42" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Clipboard</name></member>
-      <member refid="class_xila___class_1ae1aee8c076948d2cc42e671c22d0bbc2" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Copy_File</name></member>
-      <member refid="class_xila___class_1a65ad31b9170b2884b9ba26b6c05df49b" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Core_Task</name></member>
-      <member refid="class_xila___class_1a0f8a8c35d6b491f3f0d28bc183900e08" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Core_Task_Handle</name></member>
-      <member refid="class_xila___class_1a9d837281bf4421f2cef26cc829dee6b2" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Count_Files</name></member>
+      <member refid="class_xila___class_1a9756907a0e1d19b9bd9ac7e38081aa0c" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Account</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a85073382db539a42ee155584736615f2" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Button_1</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a192e96390fe505bca5763459211d6728" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Button_2</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123add4725a2366110938a27b442f1a11071" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Button_3</name></member>
+      <member refid="class_xila___class_1ac4630168b985e6b69f4b78c67310685d" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Clipboard</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a09cbdbc45fd7ca78a5085535dc8adf76" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Default_Cancel</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a0ab35c3f8f1ce531f0c916d3d6f749a2" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Default_No</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aca9a7795d4fae8f70c709c97990cd472" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Default_Yes</name></member>
       <member refid="class_xila___class_1afca0b4b7fdd50f3ef793fbffe15b2a8e" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Dialog</name></member>
       <member refid="class_xila___class_1aaa717d29b6093ed7430950c0df2132d5" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Display</name></member>
-      <member refid="class_xila___class_1ac8749810fcc46327d5ed1d4458c726b4" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Drive</name></member>
-      <member refid="class_xila___class_1a88c350f1f60398c09081fbd30c6c8664" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Get_File_Name</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ac91f464ae2171337aa4e6a5d521b8c44" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Error</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Event</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123ada4b318681e303f0c28caa40f90bdb54" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Information</name></member>
       <member refid="class_xila___class_1a819acce7599d01577959a75715e8f896" prot="protected" virt="non-virtual"><scope>Xila_Class</scope><name>Instance_Pointer</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a97c2e9a28bf16dbfbd7e2ae379461e97" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Instruction</name></member>
-      <member refid="class_xila___class_1aff7c8b94b1eaeafac5fdf88da566539d" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Keyboard</name></member>
-      <member refid="class_xila___class_1a9877c8d208bd172c0c464e3911dc22f3" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Load_Sound_Registry</name></member>
-      <member refid="class_xila___class_1a2c372b49e481282b9d371c0b1ce71e6c" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Load_System_Registry</name></member>
-      <member refid="class_xila___class_1a4949996f802df3f6d5d0e17ead8e580e" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Loop</name></member>
+      <member refid="class_xila___class_1ae66fa2f34ee7a99d3393c7e93eb413f1" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Keyboard</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123abb779d65772c4e3bfbda820caccf20ab" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>None</name></member>
       <member refid="class_xila___class_1a34dc05ff081b3da12f98ee2e6d8a2892" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Power</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Prefixs</name></member>
-      <member refid="class_xila___class_1ad2d28620f99f79aafbd35dc27082bdac" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Restore_System_State</name></member>
-      <member refid="class_xila___class_1a8167c0ba469192dcc9c99e6216ac4912" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Save_System_State</name></member>
-      <member refid="class_xila___class_1a332e12a31bc6a2dd0f246b200c9327b3" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Set_Sound_Registry</name></member>
-      <member refid="class_xila___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Shell_Class</name></member>
-      <member refid="class_xila___class_1ac12e9a51e2c2d87c87b2b1109470e26e" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Software</name></member>
-      <member refid="class_xila___class_1a55afee017f19a70423120f39a57555ee" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Sound</name></member>
-      <member refid="class_xila___class_1a28c2543b73f345ae4c35f8a6aa701176" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>System</name></member>
-      <member refid="class_xila___class_1a677983551556dbff2aa48bd1a3977825" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Task</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a8f56918c8cffe668dcb27d88d071e778" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Question</name></member>
+      <member refid="class_xila___class_1a8a7c74ce60d60d2c317a238b848a79f7" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Software</name></member>
+      <member refid="class_xila___class_1a927733174694a16dfe6d25c76451803c" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Sound</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123aee07a60c567f17f3d8e2ad35c3d60f94" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Success</name></member>
+      <member refid="class_xila___class_1a23d7b1265f02c0bc5f39beb957eee872" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>System</name></member>
+      <member refid="class_xila___class_1a50b924629c89e12107e9d7eac2113748" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Task</name></member>
       <member refid="class_xila___class_1a70b6e878a8e3470def70916c65c72dcc" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Time</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a112929cfccd7803cd66b1e547ccaf9bb" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Variable_Long_Global</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a0cab74501eb37c9d2a8afe55bd55587d" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Variable_Long_Local</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26a724f1fe01eb8d280bc5e4d534548c6fb" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Variable_String_Global</name></member>
-      <member refid="class_xila___class_1aeed134678d9f4af5e67636ba88375e26abc2af57fa83cde9d1d1dc4d52d6a68f3" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Variable_String_Local</name></member>
+      <member refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123a7d8c8166f86663b37f28e4ee66cb0ef4" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Warning</name></member>
       <member refid="class_xila___class_1a999c4030676b171129381b86dbaa7746" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>WiFi</name></member>
       <member refid="class_xila___class_1a2b64bf0efcb16111acfd4039669d3781" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>Xila_Class</name></member>
       <member refid="class_xila___class_1a069d5d3497a54258f0e37945aebeaac8" prot="public" virt="non-virtual"><scope>Xila_Class</scope><name>~Xila_Class</name></member>

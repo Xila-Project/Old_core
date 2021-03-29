@@ -77,7 +77,7 @@ Inheritance diagram for Template_Class:</div>
  <div class="center">
   <img src="class_template___class.png" usemap="#Template_5FClass_map" alt=""/>
   <map id="Template_5FClass_map" name="Template_5FClass_map">
-<area href="class_software___class.html" alt="Software_Class" shape="rect" coords="0,0,100,24"/>
+<area href="class_software___class.html" title="Software class." alt="Software_Class" shape="rect" coords="0,0,100,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -87,9 +87,6 @@ Public Types</h2></td></tr>
 <tr class="separator:a3060033c791e363c275a088ee9766b69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17b387d3d881b580194c02a6f4b4df60"><td class="memItemLeft" align="right" valign="top"><a id="a17b387d3d881b580194c02a6f4b4df60"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Pages</b> </td></tr>
 <tr class="separator:a17b387d3d881b580194c02a6f4b4df60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pub_types_class_software___class')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
-<tr class="memitem:ab442acb139fe3dfcccee5c0adce71245 inherit pub_types_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ab442acb139fe3dfcccee5c0adce71245"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Image</b> </td></tr>
-<tr class="separator:ab442acb139fe3dfcccee5c0adce71245 inherit pub_types_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -108,6 +105,35 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>Shutdown</b> (
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_types_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
+<tr class="memitem:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a884c783d1a51660296ca9dbbad63dd30"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a884c783d1a51660296ca9dbbad63dd30">Instructions</a> { <br />
+&#160;&#160;<b>Idle</b> = 0
+, <b>Open</b> = 'O'
+, <b>Close</b> = 'C'
+, <b>Maximize</b> = 'M'
+, <br />
+&#160;&#160;<b>Minimize</b> = 'm'
+, <b>Shutdown</b> = 200
+, <b>Restart</b>
+, <b>Hibernate</b> = 'H'
+, <br />
+&#160;&#160;<b>Watchdog</b> = 'W'
+, <b>Desk</b> = 'D'
+, <b>Dialog_Install</b> = 'I'
+, <b>Dialog_Open_File</b> = 'f'
+, <br />
+&#160;&#160;<b>Dialog_Open_Folder</b> = 'F'
+, <b>Dialog_Save_File</b> = 'e'
+, <b>Dialog_Keyboard</b> = 'K'
+, <b>Dialog_Keypad</b> = 'k'
+, <br />
+&#160;&#160;<b>Dialog_Color_Picker</b> = 'c'
+, <b>Dialog_Power</b> = 'P'
+, <b>Dialog_Event</b> = 'E'
+<br />
+ }</td></tr>
+<tr class="memdesc:a884c783d1a51660296ca9dbbad63dd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructions used by the core (with the prefix "#") <br /></td></tr>
+<tr class="separator:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
 <tr class="memitem:ae53a7fa8b6d0eab6d51a1a92d8e3d510 inherit pro_methods_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ae53a7fa8b6d0eab6d51a1a92d8e3d510"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Software_Class</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;Software_Handle, uint8_t Queue_Size=DEFAULT_QUEUE_SIZE)</td></tr>
@@ -128,9 +154,10 @@ uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Instruction</
 <tr class="memitem:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a35a3ffe6fe26e0ffda529bd5073bf55a"></a>
 TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
 <tr class="separator:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab792f9ce4aeaad05155a0d737b784bbf inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ab792f9ce4aeaad05155a0d737b784bbf"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Handle_Pointer</b></td></tr>
-<tr class="separator:ab792f9ce4aeaad05155a0d737b784bbf inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a879e342f5718521f638b2e962089cf58"></a>
+<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a879e342f5718521f638b2e962089cf58">Handle</a></td></tr>
+<tr class="memdesc:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software handle pointer. <br /></td></tr>
+<tr class="separator:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a6757f8c8a69d1a682a1efce55dad9a98"></a>
 QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_Queue_Handle</b></td></tr>
 <tr class="separator:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>

@@ -49,7 +49,7 @@
         <name>Image</name>
         <enumvalue id="class_text___editor___class_1a9edf2cae6de3854db123572919eba875a17b402933b78cabe5d07c7f6af6a3734" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Text_Editor</initializer>
+          <initializer>= Xila.Display.Text_Editor</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -91,7 +91,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="13" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="13" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="11" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_text___editor___class_1af25d535f781aeff58fa8493cb729e3d2" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="15" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="15" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="13" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_text___editor___class_1a695e10b32bb04a192b8b503615e4ceac" prot="protected" static="no" mutable="no">
         <type>uint32_t</type>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="17" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="17" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="15" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
@@ -135,7 +135,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="11" column="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="17" column="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -287,7 +287,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -309,31 +309,51 @@
     </collaborationgraph>
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp" bodystart="7" bodyend="47"/>
     <listofallmembers>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Close</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_text___editor___class_1aeeca8218707497239a98f09a16c6e040" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>File_To_Edit</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Hibernate</name></member>
       <member refid="class_text___editor___class_1a9edf2cae6de3854db123572919eba875a17b402933b78cabe5d07c7f6af6a3734" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Icon_32</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Idle</name></member>
       <member refid="class_text___editor___class_1a9edf2cae6de3854db123572919eba875" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Image</name></member>
       <member refid="class_text___editor___class_1aab0158b247943dc58d00648e852be699" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Instructions</name></member>
       <member refid="class_text___editor___class_1a00ba65800730e44a4a4f0554d6c3b5b4" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Load</name></member>
       <member refid="class_text___editor___class_1ab7cfcbd22994bfdfaad6b0f3f94a688cad6b6dcd3081f2683be92847452b0bcff" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>MacOS</name></member>
       <member refid="class_text___editor___class_1a0c16a7b36f20ac2f41180e5172f5fb37" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Minimize</name></member>
       <member refid="class_text___editor___class_1ab7cfcbd22994bfdfaad6b0f3f94a688c" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Mode</name></member>
       <member refid="class_text___editor___class_1af25d535f781aeff58fa8493cb729e3d2" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Mode</name></member>
       <member refid="class_text___editor___class_1a695e10b32bb04a192b8b503615e4ceac" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Offset</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Open</name></member>
       <member refid="class_text___editor___class_1aad45bc88350ab32c777da5e624c2e4d8" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Open_File</name></member>
       <member refid="class_text___editor___class_1a9aff243b92de3944638b36eb65de5de1" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Print_Line</name></member>
       <member refid="class_text___editor___class_1a733dcec2a7fdac9851543664a097024b" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Refresh_Interface</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Restart</name></member>
       <member refid="class_text___editor___class_1a5260f47a9ad1782817f9fe140393c7ba" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Scan</name></member>
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_text___editor___class_1a21ad47897d2ec7e3e8bdd4d0e945a624" prot="protected" virt="virtual"><scope>Text_Editor_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Shutdown</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Software_Class</name></member>
       <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Task_Handle</name></member>
       <member refid="class_text___editor___class_1af0332b478c5b399ddd6043341b88eeb7" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Text_Editor_Class</name></member>
       <member refid="class_text___editor___class_1ab7cfcbd22994bfdfaad6b0f3f94a688ca20daa2d4a27570c39d78678eca5b3f9e" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Undefined</name></member>
       <member refid="class_text___editor___class_1ab7cfcbd22994bfdfaad6b0f3f94a688ca9838de74990a4f0179b3c92cc61b5425" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Unix</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Watchdog</name></member>
       <member refid="class_text___editor___class_1ab7cfcbd22994bfdfaad6b0f3f94a688cab7a0b255223343802e165d26aecddf5a" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Windows</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Text_Editor_Class</scope><name>~Software_Class</name></member>
       <member refid="class_text___editor___class_1a0e5cb52ad6c8c14e8e059fe0b3a7827e" prot="public" virt="non-virtual"><scope>Text_Editor_Class</scope><name>~Text_Editor_Class</name></member>

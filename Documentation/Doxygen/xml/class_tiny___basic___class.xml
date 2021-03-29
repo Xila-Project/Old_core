@@ -415,7 +415,7 @@
         <name>Picture</name>
         <enumvalue id="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328a9171f6ccae45001f9e4c731f70d6f22d" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Tiny_Basic</initializer>
+          <initializer>= Xila.Display.Tiny_Basic</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1895,7 +1895,7 @@
         <label>Software_Class</label>
         <link refid="class_software___class"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>Handle_Pointer</edgelabel>
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
       <node id="3">
@@ -1921,12 +1921,23 @@
       <member refid="class_tiny___basic___class_1a8380eba5bc5bf3a59cacccabccd684c2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>breakcheck</name></member>
       <member refid="class_tiny___basic___class_1a376d3382be2c5b1dc4c3f03b19f9a31d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>breakmsg</name></member>
       <member refid="class_tiny___basic___class_1acfce9e05db004b9ac51470c5eb8326ba" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Clear</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Close</name></member>
       <member refid="class_tiny___basic___class_1a762ec85f804b36cbfec650efa40ac13e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>cmd_Files</name></member>
       <member refid="class_tiny___basic___class_1ae9945813832fe2ff5450a28c6574f499" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Column</name></member>
       <member refid="class_tiny___basic___class_1a77ab47ef6e9a5ad712fc892b3370cb7e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Command</name></member>
-      <member refid="class_tiny___basic___class_1aec169b6996636be29c63c8975c78907e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Line</name></member>
       <member refid="class_tiny___basic___class_1ab74f26ea5f48fdd2e6a0c9fbd5ad8f18" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>current_line</name></member>
+      <member refid="class_tiny___basic___class_1aec169b6996636be29c63c8975c78907e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Line</name></member>
       <member refid="class_tiny___basic___class_1a1f86963a5630db05144dc331b586adc4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Current_Position</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_tiny___basic___class_1aed0b8b7563015dde5ca17c99e19bad0a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>dirextmsg</name></member>
       <member refid="class_tiny___basic___class_1a0be097f907ba40b7018074ec8bf9e55a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Char</name></member>
       <member refid="class_tiny___basic___class_1af8f80b8e64d7e1750c5d95530f105819" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Draw_Circle</name></member>
@@ -1949,12 +1960,13 @@
       <member refid="class_tiny___basic___class_1aa2a5e58225545ad71e79938002656a17" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>func_tab</name></member>
       <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Get_Instruction</name></member>
       <member refid="class_tiny___basic___class_1ac5c94b4c895c49e86d742652e4451acd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>getln</name></member>
-      <member refid="class_software___class_1ab792f9ce4aeaad05155a0d737b784bbf" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Handle_Pointer</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Hibernate</name></member>
       <member refid="class_tiny___basic___class_1a434d046641172513c5801f3619314d4a" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>highlow_tab</name></member>
       <member refid="class_tiny___basic___class_1a47332fbe1dee375bd019ab4743d90d79" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>howmsg</name></member>
       <member refid="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328a9171f6ccae45001f9e4c731f70d6f22d" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Icon_32</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Idle</name></member>
       <member refid="class_tiny___basic___class_1a42e798951e66bc41c3b382962fbae627" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>ignore_blanks</name></member>
-      <member refid="class_software___class_1ab442acb139fe3dfcccee5c0adce71245" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Image</name></member>
       <member refid="class_tiny___basic___class_1af20581f048b3e5dfb4a475778eed01f3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inchar</name></member>
       <member refid="class_tiny___basic___class_1a4982b092349cbe3931d22067fb6efa55" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>indentmsg</name></member>
       <member refid="class_tiny___basic___class_1ab230bf27822b3aed21896f6f04ba75b2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inhibitOutput</name></member>
@@ -1963,6 +1975,7 @@
       <member refid="class_tiny___basic___class_1aab20e0b2d71e1c8168038311716fe93c" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_tiny___basic___class_1a7cc9f49af6fadf271badc452cd23b977" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>inStream</name></member>
       <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Instructions</name></member>
       <member refid="class_tiny___basic___class_1a87cc90af0f068771e70d4513b4a0edd2" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>isValidFnChar</name></member>
       <member refid="class_tiny___basic___class_1aee9b4af94f641645927de0b461b94944" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>keywords</name></member>
       <member refid="class_tiny___basic___class_1a16cd8d56debbbb7d1447362aae75da76a5b06b72a273d7798a50efb4ce358e204" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>kStreamEEProm</name></member>
@@ -2027,8 +2040,11 @@
       <member refid="class_tiny___basic___class_1a239e637caf8ac9ea8324b204c4d84f14" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Load</name></member>
       <member refid="class_tiny___basic___class_1ac8bd7604cd5f16d921b56bd6174c07a7" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Loop</name></member>
       <member refid="class_tiny___basic___class_1a7e50ac1158f209c0c81d9e5ca3e4c0e4" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Maximize</name></member>
       <member refid="class_tiny___basic___class_1a7135ae7a4b240004a0cf0ee61cbf2177" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>memorymsg</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Minimize</name></member>
       <member refid="class_tiny___basic___class_1a1156bd0c8cc43b5d3e30994ecbc33cbd" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>okmsg</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Open</name></member>
       <member refid="class_tiny___basic___class_1a0eb90f5b26ebf1bb2eafdec191874012" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>outchar</name></member>
       <member refid="class_tiny___basic___class_1aa6279bc1a991437bb8faf4f12cb88525" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>outStream</name></member>
       <member refid="class_tiny___basic___class_1a052d277da0dbbfa8b3c7d959656fa328" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Picture</name></member>
@@ -2046,6 +2062,7 @@
       <member refid="class_tiny___basic___class_1ab74f1a6eaf53c171f5ab3b7c6f0d8df4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Read_Command</name></member>
       <member refid="class_tiny___basic___class_1ae68595af4a4e797523b7a8ca159aff39" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Refresh_Interface</name></member>
       <member refid="class_tiny___basic___class_1aa83c32a72166f43e83177976fb269280" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>relop_tab</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Restart</name></member>
       <member refid="class_tiny___basic___class_1a9ccff9e9e92f992ba35aab4bcff1d879" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>runAfterLoad</name></member>
       <member refid="class_tiny___basic___class_1a6808b4547707c4e28e1daa10bd6481e8" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>scantable</name></member>
       <member refid="class_tiny___basic___class_1a7af0b4c45f72daee68004cc7415f980b" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Scroll</name></member>
@@ -2055,8 +2072,9 @@
       <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Tiny_Basic_Class</scope><name>Set_Variable</name></member>
-      <member refid="class_tiny___basic___class_1ae330d13fb1f976414db93bca29c04524" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>setup</name></member>
       <member refid="class_tiny___basic___class_1a77c278decb7d8dd2a1a57e5be93610d9" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Setup</name></member>
+      <member refid="class_tiny___basic___class_1ae330d13fb1f976414db93bca29c04524" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>setup</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Shutdown</name></member>
       <member refid="class_tiny___basic___class_1a0b59bafb7d72ae3af8f7abb4d72f55fb" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>slashmsg</name></member>
       <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Software_Class</name></member>
       <member refid="class_tiny___basic___class_1a4f478bf8a4b00185a10ed80b14113834" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>sorrymsg</name></member>
@@ -2078,6 +2096,7 @@
       <member refid="class_tiny___basic___class_1ab8a40c03841cedaefbbae534505f7c77" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>txtpos</name></member>
       <member refid="class_tiny___basic___class_1a6941d3c07deb7074df47afc36f7556f4" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>unimplimentedmsg</name></member>
       <member refid="class_tiny___basic___class_1a35e86a04d36c5d04fd9762144c2081ed" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>variables_begin</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>Watchdog</name></member>
       <member refid="class_tiny___basic___class_1a156723c6fa0bc23ce3d620e643ac231f" prot="protected" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>whatmsg</name></member>
       <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Tiny_Basic_Class</scope><name>~Software_Class</name></member>
       <member refid="class_tiny___basic___class_1a7fa09a117487013040e4d7df68a28c24" prot="public" virt="non-virtual"><scope>Tiny_Basic_Class</scope><name>~Tiny_Basic_Class</name></member>

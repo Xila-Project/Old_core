@@ -20,88 +20,112 @@
     <includedby refid="_text_01_editor_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</includedby>
     <includedby refid="_tiny___basic_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</includedby>
     <incdepgraph>
-      <node id="9">
-        <label>SD.h</label>
+      <node id="10">
+        <label>sys/stat.h</label>
       </node>
-      <node id="8">
-        <label>stdarg.h</label>
+      <node id="41">
+        <label>Task.hpp</label>
+        <link refid="_task_8hpp"/>
       </node>
       <node id="5">
         <label>FS.h</label>
       </node>
-      <node id="15">
+      <node id="7">
+        <label>vfs_api.h</label>
+      </node>
+      <node id="21">
         <label>Print.h</label>
       </node>
-      <node id="6">
+      <node id="16">
         <label>SPI.h</label>
+      </node>
+      <node id="14">
+        <label>driver/sdmmc_defs.h</label>
       </node>
       <node id="4">
         <label>stdint.h</label>
       </node>
-      <node id="27">
+      <node id="38">
         <label>Path.hpp</label>
         <link refid="_path_8hpp_source"/>
       </node>
-      <node id="19">
+      <node id="42">
+        <label>Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="25">
         <label>WiFiSTA.h</label>
       </node>
-      <node id="14">
+      <node id="20">
         <label>StreamUtils.h</label>
       </node>
-      <node id="30">
-        <label>Driver/Display.hpp</label>
-        <link refid="_display_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="31" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
+      <node id="9">
+        <label>sys/unistd.h</label>
       </node>
-      <node id="28">
+      <node id="39">
         <label>Software.hpp</label>
         <link refid="_software_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="32">
+        <label>Driver/Display.hpp</label>
+        <link refid="_display_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
         <label>HardwareSerial.h</label>
       </node>
-      <node id="25">
+      <node id="31">
         <label>WiFiUdp.h</label>
       </node>
-      <node id="7">
+      <node id="36">
         <label>esp_log.h</label>
       </node>
-      <node id="13">
+      <node id="12">
+        <label>esp_vfs_fat.h</label>
+      </node>
+      <node id="19">
         <label>ArduinoJson.h</label>
       </node>
-      <node id="16">
+      <node id="22">
         <label>IPAddress.h</label>
       </node>
-      <node id="32">
+      <node id="43">
+        <label>System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="13">
+        <label>driver/sdmmc_host.h</label>
+      </node>
+      <node id="37">
         <label>Driver/Battery.hpp</label>
         <link refid="_battery_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="17">
         <label>time.h</label>
       </node>
-      <node id="21">
+      <node id="27">
         <label>WiFiScan.h</label>
       </node>
       <node id="2">
         <label>Arduino.h</label>
       </node>
-      <node id="22">
+      <node id="28">
         <label>WiFiGeneric.h</label>
       </node>
-      <node id="12">
+      <node id="18">
         <label>Update.h</label>
       </node>
       <node id="1">
@@ -112,15 +136,21 @@
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="6">
+        <label>ff.h</label>
+      </node>
+      <node id="8">
+        <label>sd_diskio.h</label>
+      </node>
+      <node id="35">
         <label>SD_MMC.h</label>
       </node>
       <node id="3">
         <label>Core/Core.hpp</label>
         <link refid="_core_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
         <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -174,35 +204,61 @@
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-      </node>
-      <node id="17">
-        <label>IPv6Address.h</label>
-      </node>
-      <node id="23">
-        <label>WiFiClient.h</label>
-      </node>
-      <node id="26">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="7" relation="include">
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
+      <node id="15">
+        <label>sdmmc_cmd.h</label>
+      </node>
+      <node id="23">
+        <label>IPv6Address.h</label>
+      </node>
       <node id="29">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="34">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp_source"/>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
         <label>Software_Handle.hpp</label>
         <link refid="_software___handle_8hpp_source"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="30">
         <label>WiFiServer.h</label>
       </node>
-      <node id="18">
+      <node id="24">
         <label>WiFiType.h</label>
       </node>
-      <node id="20">
+      <node id="26">
         <label>WiFiAP.h</label>
+      </node>
+      <node id="11">
+        <label>dirent.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -313,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" line="87" column="19" declfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" declline="87" declcolumn="19"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" line="46" column="19" declfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" declline="46" declcolumn="19"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -339,77 +395,36 @@
 <codeline lineno="16"><highlight class="comment">||<sp/>For<sp/>ESP-32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
 <codeline lineno="17"><highlight class="comment">||<sp/>Version<sp/>:<sp/>0.1.0<sp/>-<sp/>Alix<sp/>ANNERAUD<sp/>-<sp/>MIT<sp/>Licence<sp/>-<sp/>2020<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
 <codeline lineno="18"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
-<codeline lineno="19"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Wiring<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="20"><highlight class="comment">||<sp/><sp/>-<sp/>Power<sp/>button<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="21"><highlight class="comment">||<sp/>Side<sp/>1<sp/>:<sp/>GND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="22"><highlight class="comment">||<sp/>Side<sp/>2<sp/>:<sp/>39<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="23"><highlight class="comment">||<sp/><sp/>-<sp/>Battery<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="24"><highlight class="comment">||<sp/>5V<sp/>-&gt;<sp/>Vin<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="25"><highlight class="comment">||<sp/>GND<sp/>-&gt;<sp/>GND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="26"><highlight class="comment">||<sp/>VBat<sp/>-&gt;<sp/>P36<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="27"><highlight class="comment">||<sp/><sp/>-<sp/>Display<sp/>(Nextion)<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="28"><highlight class="comment">||<sp/>NPN<sp/>Transistor<sp/>Base<sp/>-&gt;<sp/>27<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="29"><highlight class="comment">||<sp/>Red<sp/>-&gt;<sp/>5v<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="30"><highlight class="comment">||<sp/>Blue<sp/>-&gt;<sp/>P16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="31"><highlight class="comment">||<sp/>Yellow<sp/>-&gt;<sp/>P17<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="32"><highlight class="comment">||<sp/>Black<sp/>-&gt;<sp/>GND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="33"><highlight class="comment">||<sp/><sp/>-<sp/>SD<sp/>Card<sp/>(SDIO<sp/>Mode)<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="34"><highlight class="comment">||<sp/>Clock<sp/>-&gt;<sp/>14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="35"><highlight class="comment">||<sp/>Command<sp/>-&gt;<sp/>15<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="36"><highlight class="comment">||<sp/>Data<sp/>0<sp/>-&gt;<sp/>2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="37"><highlight class="comment">||<sp/>Data<sp/>1<sp/>-&gt;<sp/>4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="38"><highlight class="comment">||<sp/>Data<sp/>2<sp/>-&gt;<sp/>12<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="39"><highlight class="comment">||<sp/>Data<sp/>3<sp/>-&gt;<sp/>13<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="40"><highlight class="comment">||<sp/>VCC<sp/>-&gt;<sp/>3.3v<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="41"><highlight class="comment">||<sp/>GND<sp/>-&gt;<sp/>GND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="42"><highlight class="comment">||<sp/><sp/>-<sp/>SD<sp/>Card<sp/>(SPI<sp/>Mode)<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="43"><highlight class="comment">||<sp/>MISO<sp/>-&gt;<sp/>19<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="44"><highlight class="comment">||<sp/>MOSI<sp/>-&gt;<sp/>23<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="45"><highlight class="comment">||<sp/>SCK<sp/>-&gt;<sp/>18<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="46"><highlight class="comment">||<sp/>CS<sp/>-&gt;<sp/>5<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="47"><highlight class="comment">||<sp/>VCC<sp/>-&gt;<sp/>3.3v<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="48"><highlight class="comment">||<sp/>GND<sp/>-&gt;<sp/>GND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="49"><highlight class="comment">||<sp/><sp/>-<sp/>Debbugger<sp/>(ESP-Prog)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="50"><highlight class="comment">||<sp/>MTCK<sp/>-&gt;<sp/>13<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="51"><highlight class="comment">||<sp/>MTMS<sp/>-&gt;<sp/>14<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="52"><highlight class="comment">||<sp/>MTDI<sp/>-&gt;<sp/>12<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="53"><highlight class="comment">||<sp/>MTDO<sp/>-&gt;<sp/>15<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="54"><highlight class="comment">||<sp/><sp/>-<sp/>Keyboard<sp/>:</highlight></codeline>
-<codeline lineno="55"><highlight class="comment">||<sp/>Ground<sp/>-&gt;<sp/>Ground</highlight></codeline>
-<codeline lineno="56"><highlight class="comment">||<sp/>Data<sp/>-&gt;</highlight></codeline>
-<codeline lineno="57"><highlight class="comment">||<sp/>Clock<sp/>-&gt;</highlight></codeline>
-<codeline lineno="58"><highlight class="comment">||<sp/>5V<sp/>-&gt;</highlight></codeline>
-<codeline lineno="59"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
-<codeline lineno="60"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Project<sp/>Files<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="61"><highlight class="comment">||<sp/><sp/>-<sp/>GalaxOS.hpp/cpp<sp/>:<sp/>&quot;hub&quot;<sp/>files<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="62"><highlight class="comment">||<sp/><sp/>-<sp/>Core<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="63"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Core.hpp/cpp<sp/>:<sp/>core<sp/>features<sp/>(driver,<sp/>user,<sp/>virtual<sp/>mem,<sp/>APIs<sp/>etc.)<sp/>||</highlight></codeline>
-<codeline lineno="64"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Software.hpp/cpp<sp/>:<sp/>Definition<sp/>of<sp/>external&apos;s<sp/>software<sp/>API<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="65"><highlight class="comment">||<sp/><sp/>-<sp/>Drivers<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="66"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Display.hpp/cpp<sp/>:<sp/>Display<sp/>hardware<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="67"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Keyboard.hpp/cpp<sp/>:<sp/>Keyboard<sp/>hardawre<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="68"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Sound.hpp/cpp<sp/>:<sp/>Sound<sp/>hardware<sp/>abstraction<sp/>layer<sp/>(use<sp/>ULP<sp/>proc)<sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="69"><highlight class="comment">||<sp/><sp/>-<sp/>Software<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="70"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Shell.hpp/cpp<sp/>:<sp/>Main<sp/>UI<sp/>Software<sp/>(with<sp/>high<sp/>priviliege)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="71"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>TinyBasic.hpp/cpp<sp/>:<sp/>Basic<sp/>emulator,<sp/>used<sp/>by<sp/>core<sp/>to<sp/>run<sp/>Basic<sp/>script||</highlight></codeline>
-<codeline lineno="72"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Internet_Browser.hpp/cpp<sp/>:<sp/>Primitive<sp/>internet<sp/>browser<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="73"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Oscilloscope.hpp/cpp<sp/>:<sp/>Primitive<sp/>oscilloscope<sp/>application<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="74"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Signal_Generator.hpp/cpp<sp/>:<sp/>Primitive<sp/>signal<sp/>generator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="75"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Calculator.hpp/cpp<sp/>:<sp/>Basic<sp/>scientific<sp/>calculator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="76"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Music_Player<sp/>:<sp/>Basic<sp/>musiplayer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="77"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Paint.hpp/cpp<sp/>:<sp/>Basic<sp/>paint<sp/>software<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="78"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Ultrasonic.hpp/cpp<sp/>:<sp/>An<sp/>ultrasonic<sp/>meter<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="79"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Periodic.hpp/cpp<sp/>:<sp/><sp/>The<sp/>periodic<sp/>table<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="80"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="81"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
-<codeline lineno="82"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Credit<sp/>to<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="83"><highlight class="comment">||<sp/>Sound<sp/>:<sp/>Benjamin<sp/>Mastripolito<sp/>(https://benpm.github.io<sp/>-<sp/>https://freesound.org/people/Lemoncreme/sounds/231578)||</highlight></codeline>
-<codeline lineno="84"><highlight class="comment">||<sp/>Michalhol<sp/>:<sp/>Keyboard<sp/>Library<sp/>(https://github.com/michalhol/ps2kbdlib)<sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="85"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="86"><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="class_xila___class" kindref="compound">Xila_Class</ref><sp/>Xila;</highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Project<sp/>Files<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">||<sp/><sp/>-<sp/>GalaxOS.hpp/cpp<sp/>:<sp/>&quot;hub&quot;<sp/>files<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">||<sp/><sp/>-<sp/>Core<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Core.hpp/cpp<sp/>:<sp/>core<sp/>features<sp/>(driver,<sp/>user,<sp/>virtual<sp/>mem,<sp/>APIs<sp/>etc.)<sp/>||</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Software.hpp/cpp<sp/>:<sp/>Definition<sp/>of<sp/>external&apos;s<sp/>software<sp/>API<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">||<sp/><sp/>-<sp/>Drivers<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Display.hpp/cpp<sp/>:<sp/>Display<sp/>hardware<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="26"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Keyboard.hpp/cpp<sp/>:<sp/>Keyboard<sp/>hardawre<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="27"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Sound.hpp/cpp<sp/>:<sp/>Sound<sp/>hardware<sp/>abstraction<sp/>layer<sp/>(use<sp/>ULP<sp/>proc)<sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="28"><highlight class="comment">||<sp/><sp/>-<sp/>Software<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="29"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Shell.hpp/cpp<sp/>:<sp/>Main<sp/>UI<sp/>Software<sp/>(with<sp/>high<sp/>priviliege)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="30"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>TinyBasic.hpp/cpp<sp/>:<sp/>Basic<sp/>emulator,<sp/>used<sp/>by<sp/>core<sp/>to<sp/>run<sp/>Basic<sp/>script||</highlight></codeline>
+<codeline lineno="31"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Internet_Browser.hpp/cpp<sp/>:<sp/>Primitive<sp/>internet<sp/>browser<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="32"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Oscilloscope.hpp/cpp<sp/>:<sp/>Primitive<sp/>oscilloscope<sp/>application<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="33"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Signal_Generator.hpp/cpp<sp/>:<sp/>Primitive<sp/>signal<sp/>generator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="34"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Calculator.hpp/cpp<sp/>:<sp/>Basic<sp/>scientific<sp/>calculator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="35"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Music_Player<sp/>:<sp/>Basic<sp/>musiplayer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="36"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Paint.hpp/cpp<sp/>:<sp/>Basic<sp/>paint<sp/>software<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="37"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Ultrasonic.hpp/cpp<sp/>:<sp/>An<sp/>ultrasonic<sp/>meter<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="38"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Periodic.hpp/cpp<sp/>:<sp/><sp/>The<sp/>periodic<sp/>table<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="39"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="40"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
+<codeline lineno="41"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Credit<sp/>to<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="42"><highlight class="comment">||<sp/>Sound<sp/>:<sp/>Benjamin<sp/>Mastripolito<sp/>(https://benpm.github.io<sp/>-<sp/>https://freeSound.org/people/Lemoncreme/sounds/231578)||</highlight></codeline>
+<codeline lineno="43"><highlight class="comment">||<sp/>Michalhol<sp/>:<sp/>Keyboard<sp/>Library<sp/>(https://github.com/michalhol/ps2kbdlib)<sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="44"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="class_xila___class" kindref="compound">Xila_Class</ref><sp/>Xila;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp"/>
   </compounddef>

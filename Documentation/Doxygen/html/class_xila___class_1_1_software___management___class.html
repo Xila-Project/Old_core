@@ -68,7 +68,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -79,77 +78,28 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>Software management class.  
+<p>Software management module.  
  <a href="class_xila___class_1_1_software___management___class.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Xila_Class::Software_Management_Class:</div>
-<div class="dyncontent">
- <div class="center">
-  <img src="class_xila___class_1_1_software___management___class.png" usemap="#Xila_5FClass::Software_5FManagement_5FClass_map" alt=""/>
-  <map id="Xila_5FClass::Software_5FManagement_5FClass_map" name="Xila_5FClass::Software_5FManagement_5FClass_map">
-<area href="class_xila___class_1_1_module___class.html" alt="Xila_Class::Module_Class" shape="rect" coords="0,0,245,24"/>
-  </map>
-</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a3839f7622fb5e631dc4283cbf582ee59"><td class="memItemLeft" align="right" valign="top"><a id="a3839f7622fb5e631dc4283cbf582ee59"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html#a3839f7622fb5e631dc4283cbf582ee59">Instructions</a> { <br />
-&#160;&#160;<b>Idle</b> = 0
-, <b>Open_Software</b> = 'O'
-, <b>Close_Software</b> = 'C'
-, <b>Maximize_Software</b> = 'M'
-, <br />
-&#160;&#160;<b>Minimize_Software</b> = 'm'
-, <b>Shutting_down</b> = 200
-, <b>Restarting</b>
-, <b>Hibernating</b> = 'H'
-, <br />
-&#160;&#160;<b>Watchdog</b> = 'W'
-, <b>Install_Dialog</b> = 'I'
-, <b>Desk</b> = 'D'
-, <b>Dialog_Open_File</b> = 'f'
-, <br />
-&#160;&#160;<b>Open_Folder_Dialog</b> = 'F'
-, <b>Save_File_Dialog</b> = 'e'
-, <b>Keyboard_Dialog</b> = 'K'
-, <b>Keypad_Dialog</b> = 'k'
-, <br />
-&#160;&#160;<b>Color_Picker_Dialog</b> = 'c'
-, <b>Power_Dialog</b> = 'P'
-, <b>Event</b> = 'E'
-<br />
- }</td></tr>
-<tr class="memdesc:a3839f7622fb5e631dc4283cbf582ee59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructions used by the core (with the prefix "#") <br /></td></tr>
-<tr class="separator:a3839f7622fb5e631dc4283cbf582ee59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab5bc96ad22da6bf8447ea1693aa149b4"><td class="memItemLeft" align="right" valign="top"><a id="ab5bc96ad22da6bf8447ea1693aa149b4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Feed_Watchdog</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
-<tr class="separator:ab5bc96ad22da6bf8447ea1693aa149b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a993daf439e596d36acf33ba1d03c8ea9"><td class="memItemLeft" align="right" valign="top"><a id="a993daf439e596d36acf33ba1d03c8ea9"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Seek_Open_Software_Handle</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;)</td></tr>
-<tr class="separator:a993daf439e596d36acf33ba1d03c8ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add3b62bee5e5566414d8c86c445a462b"><td class="memItemLeft" align="right" valign="top"><a id="add3b62bee5e5566414d8c86c445a462b"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
-<tr class="separator:add3b62bee5e5566414d8c86c445a462b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b33b36b5fbb9770865d12f5e02d8018"><td class="memItemLeft" align="right" valign="top"><a id="a9b33b36b5fbb9770865d12f5e02d8018"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Close</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
-<tr class="separator:a9b33b36b5fbb9770865d12f5e02d8018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad56747f131838b6e9660c6e5c53e0443"><td class="memItemLeft" align="right" valign="top"><a id="ad56747f131838b6e9660c6e5c53e0443"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Force_Close</b> ()</td></tr>
-<tr class="separator:ad56747f131838b6e9660c6e5c53e0443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cdeb697f73dfdd5aaf027c9c7d7eddc"><td class="memItemLeft" align="right" valign="top"><a id="a5cdeb697f73dfdd5aaf027c9c7d7eddc"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
+<tr class="separator:a5cdeb697f73dfdd5aaf027c9c7d7eddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95f2085f21fddcf6c95e4b6f87dae1a0"><td class="memItemLeft" align="right" valign="top"><a id="a95f2085f21fddcf6c95e4b6f87dae1a0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Minimize</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
 <tr class="separator:a95f2085f21fddcf6c95e4b6f87dae1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a473cb856e40b44ac2fd1c51a496fdf79"><td class="memItemLeft" align="right" valign="top"><a id="a473cb856e40b44ac2fd1c51a496fdf79"></a>
-Xila_Event&#160;</td><td class="memItemRight" valign="bottom"><b>Maximize</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;)</td></tr>
-<tr class="separator:a473cb856e40b44ac2fd1c51a496fdf79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7d74af7165b791a8fb7493ed51e23f1"><td class="memItemLeft" align="right" valign="top"><a id="ac7d74af7165b791a8fb7493ed51e23f1"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Add_Handle</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;)</td></tr>
-<tr class="separator:ac7d74af7165b791a8fb7493ed51e23f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b2b5f467a2959cd8a7b4ef8c0f2aee5"><td class="memItemLeft" align="right" valign="top"><a id="a3b2b5f467a2959cd8a7b4ef8c0f2aee5"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Maximize</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;)</td></tr>
+<tr class="separator:a3b2b5f467a2959cd8a7b4ef8c0f2aee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b33b36b5fbb9770865d12f5e02d8018"><td class="memItemLeft" align="right" valign="top"><a id="a9b33b36b5fbb9770865d12f5e02d8018"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Close</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
+<tr class="separator:a9b33b36b5fbb9770865d12f5e02d8018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5bc96ad22da6bf8447ea1693aa149b4"><td class="memItemLeft" align="right" valign="top"><a id="ab5bc96ad22da6bf8447ea1693aa149b4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Feed_Watchdog</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
+<tr class="separator:ab5bc96ad22da6bf8447ea1693aa149b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -162,6 +112,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Maximize_Shell</b> ()
 <tr class="memitem:a065c647c3132538bb520a85dfce67622"><td class="memItemLeft" align="right" valign="top"><a id="a065c647c3132538bb520a85dfce67622"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Execute_Shell</b> (Xila_Instruction const &amp;Command)</td></tr>
 <tr class="separator:a065c647c3132538bb520a85dfce67622"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993daf439e596d36acf33ba1d03c8ea9"><td class="memItemLeft" align="right" valign="top"><a id="a993daf439e596d36acf33ba1d03c8ea9"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Seek_Open_Software_Handle</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;)</td></tr>
+<tr class="separator:a993daf439e596d36acf33ba1d03c8ea9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7d74af7165b791a8fb7493ed51e23f1"><td class="memItemLeft" align="right" valign="top"><a id="ac7d74af7165b791a8fb7493ed51e23f1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Add_Handle</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;)</td></tr>
+<tr class="separator:ac7d74af7165b791a8fb7493ed51e23f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6e9b649a9839e7ec11ae28780bee6fb"><td class="memItemLeft" align="right" valign="top"><a id="ac6e9b649a9839e7ec11ae28780bee6fb"></a>
+<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Force_Close</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> const &amp;Software_Handle)</td></tr>
+<tr class="separator:ac6e9b649a9839e7ec11ae28780bee6fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -171,25 +130,28 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Watchdog_Timer</b
 <tr class="memitem:a71be35d10c4c33d846943315d585f078"><td class="memItemLeft" align="right" valign="top"><a id="a71be35d10c4c33d846943315d585f078"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Watchdog_State</b></td></tr>
 <tr class="separator:a71be35d10c4c33d846943315d585f078"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a850554c697f81055e79c5394fbb6dcfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_software___class.html">Software_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb">Open_Software_Pointer</a> [8] = {NULL}</td></tr>
-<tr class="memdesc:a850554c697f81055e79c5394fbb6dcfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">All openned software.  <a href="class_xila___class_1_1_software___management___class.html#a850554c697f81055e79c5394fbb6dcfb">More...</a><br /></td></tr>
-<tr class="separator:a850554c697f81055e79c5394fbb6dcfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3532bf897db9b9eee02702755c21b0b6"><td class="memItemLeft" align="right" valign="top"><a id="a3532bf897db9b9eee02702755c21b0b6"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html#a3532bf897db9b9eee02702755c21b0b6">Software_Handle_Pointer</a> [MAXIMUM_SOFTWARE] = {NULL}</td></tr>
-<tr class="memdesc:a3532bf897db9b9eee02702755c21b0b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">All software handle pointers. <br /></td></tr>
-<tr class="separator:a3532bf897db9b9eee02702755c21b0b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a673eee284fc7c4973490bcf9506ed96a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_software___class.html">Software_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html#a673eee284fc7c4973490bcf9506ed96a">Openned</a> [8] = {NULL}</td></tr>
+<tr class="memdesc:a673eee284fc7c4973490bcf9506ed96a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Openned software pointer array.  <a href="class_xila___class_1_1_software___management___class.html#a673eee284fc7c4973490bcf9506ed96a">More...</a><br /></td></tr>
+<tr class="separator:a673eee284fc7c4973490bcf9506ed96a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76f9add6987b1bebdd82c8637eba5ec3"><td class="memItemLeft" align="right" valign="top"><a id="a76f9add6987b1bebdd82c8637eba5ec3"></a>
+<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html#a76f9add6987b1bebdd82c8637eba5ec3">Handle</a> [MAXIMUM_SOFTWARE] = {NULL}</td></tr>
+<tr class="memdesc:a76f9add6987b1bebdd82c8637eba5ec3"><td class="mdescLeft">&#160;</td><td class="mdescRight">All software handle pointers. <br /></td></tr>
+<tr class="separator:a76f9add6987b1bebdd82c8637eba5ec3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a3acfa568e938e9ef7ec29fbcf744a15f"><td class="memItemLeft" align="right" valign="top"><a id="a3acfa568e938e9ef7ec29fbcf744a15f"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td></tr>
-<tr class="separator:a3acfa568e938e9ef7ec29fbcf744a15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a527e2efc7210a2147182df1fde98a42c"><td class="memItemLeft" align="right" valign="top"><a id="a527e2efc7210a2147182df1fde98a42c"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a527e2efc7210a2147182df1fde98a42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
+<tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Software management class. </p>
+<div class="textblock"><p>Software management module. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a850554c697f81055e79c5394fbb6dcfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a850554c697f81055e79c5394fbb6dcfb">&#9670;&nbsp;</a></span>Open_Software_Pointer</h2>
+<a id="a673eee284fc7c4973490bcf9506ed96a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a673eee284fc7c4973490bcf9506ed96a">&#9670;&nbsp;</a></span>Openned</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +160,7 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_software___class.html">Software_Class</a>* Xila_Class::Software_Management_Class::Open_Software_Pointer[8] = {NULL}</td>
+          <td class="memname"><a class="el" href="class_software___class.html">Software_Class</a>* Xila_Class::Software_Management_Class::Openned[8] = {NULL}</td>
         </tr>
       </table>
   </td>
@@ -208,8 +170,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Module_Class</b></td
 </table>
 </div><div class="memdoc">
 
-<p>All openned software. </p>
-<p>Open_Software_Pointer[0] : Current running software Open_Software_Pointer[1] : Shell slot Open_Softwaer_Pointer[2 - 7] : Other openned software </p>
+<p>Openned software pointer array. </p>
+<p>Openned[0] : Maximized software Openned[1 - 7] : All openned software (Slot 1 is for Shell) </p>
 
 </div>
 </div>
