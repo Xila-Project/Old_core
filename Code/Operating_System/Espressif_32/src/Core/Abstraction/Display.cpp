@@ -91,10 +91,10 @@ void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)
     {
-    case Nextion_Display_Class::Current_Page_Number:
+    case Current_Page_Number:
         Xila.System.Refresh_Header();
         break;
-    case Nextion_Display_Class::Serial_Buffer_Overflow:
+    case Serial_Buffer_Overflow:
         Verbose_Print_Line("Display buffer overflow");
         break;
     default:

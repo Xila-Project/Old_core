@@ -69,8 +69,8 @@
 #include "WiFiUdp.h"
 
 // Driver files
-#include "Driver/Display.hpp"
-#include "Driver/Battery.hpp"
+#include "Nextion_Library.hpp"
+#include "Battery_Library.hpp"
 
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
@@ -272,7 +272,7 @@ public:
     ///
     /// @brief Display class
     ///
-    class Display_Class : public Nextion_Display_Class
+    class Display_Class : public Nextion_Class
     {
     protected:
         uint8_t Brightness;
