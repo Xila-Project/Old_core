@@ -35,7 +35,7 @@ read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
 
 if read_the_docs_build:
 
-    subprocess.call('cd ../../Doxygen; doxygen', shell=True)
+    subprocess.call('cd ../Doxygen; doxygen', shell=True)
 
 
 extensions = [
@@ -44,7 +44,7 @@ extensions = [
 
 # Breathe configuration
 
-breathe_projects = { "Xila": "../../Doxygen/xml" }
+breathe_projects = { "Xila": "../Doxygen/xml" }
 breathe_default_project = "Xila"
 
 
@@ -55,8 +55,6 @@ templates_path = ['_templates']
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
-
-master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
