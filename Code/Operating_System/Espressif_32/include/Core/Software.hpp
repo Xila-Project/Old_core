@@ -3,8 +3,9 @@
 
 #include "Arduino.h"
 #include "Configuration.hpp"
+#include "Software_Handle.hpp"
 
-class Software_Handle_Class;    // Forward declaration
+//class Software_Handle_Class;    // Forward declaration
 
 ///
 /// @brief Xila task handle type

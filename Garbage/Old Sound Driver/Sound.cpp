@@ -330,7 +330,7 @@ uint8_t Sound_Class::Start_ULP()
     int retAddress1 = 13;
     int retAddress2 = 13;
 
-    Serial.print("Real RTC clock : ");
+    Serial.Serial.print("Real RTC clock : ");
     Serial.println(rtc_fast_freq_hz);
 
     if (Bits_Per_Sample != 8)

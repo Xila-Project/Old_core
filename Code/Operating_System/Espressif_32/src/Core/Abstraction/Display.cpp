@@ -14,21 +14,25 @@
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     Verbose_Print_Line("> Load display registry ...");
-    File Temporary_File = Xila.Drive.open(Display_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Display_Registry_Path);
+    Verbose_Print_Line("a");
     DynamicJsonDocument Display_Registry(256);
+    Verbose_Print_Line("b");
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
         return Error;
     }
+    Verbose_Print_Line("d");
     Brightness = Display_Registry["Brightness"];
+    Verbose_Print_Line("e");
     Temporary_File.close();
     return Success;
 }
 
 Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.open(Display_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Display_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
     Display_Registry["Brightness"] = Brightness;
     Display_Registry["Receive Pin"] = Receive_Pin;

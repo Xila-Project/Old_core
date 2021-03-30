@@ -41,25 +41,6 @@
 
 // -- File system library
 #include "FS.h"
-#include "ff.h"
-// -- SD SPI
-#include "vfs_api.h"
-#include "sd_diskio.h"
-#include "ff.h"
-// -- SD MMC
-#include "vfs_api.h"
-extern "C"
-{
-#include <sys/unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include "esp_vfs_fat.h"
-#include "driver/sdmmc_host.h"
-#include "driver/sdmmc_defs.h"
-#include "sdmmc_cmd.h"
-}
-
-#include "SD_MMC.h"
 
 // -- SPI library
 #include "SPI.h"
@@ -102,8 +83,6 @@ extern "C"
 // Other part of the core
 
 #include "Software.hpp"
-#include "Software_Handle.hpp"
-
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -418,25 +397,49 @@ public:
     } Display;
 
     //==============================================================================//
-
-#if SD_MODE == 0
-
     ///
-    /// @brief Drive class (SD MMC)
+    /// @brief Drive class
     ///
-    class Drive_Class : public FS
+    class Drive_Class
     {
     protected:
-        sdmmc_card_t *_card;
+        void End();
 
     public:
-        Drive_Class(FSImplPtr impl);
-        bool begin(const char *mountpoint = "/sdcard", bool mode1bit = false);
-        void end();
-        sdcard_type_t cardType();
-        uint64_t cardSize();
-        uint64_t totalBytes();
-        uint64_t usedBytes();
+        typedef enum
+        {
+            CARD_NONE,
+            CARD_MMC,
+            CARD_SD,
+            CARD_SDHC,
+            CARD_UNKNOWN
+        } Sd_Card_Type;
+
+        bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
+
+        uint64_t Card_Size();
+        Sd_Card_Type Card_Type();
+
+        bool Exists(const char *Path);
+        bool Exists(const String &Path);
+
+        bool Make_Directory(const char *Path);
+        bool Make_Directory(const String &Path);
+
+        bool Remove_Directory(const char *Path);
+        bool Remove_Directory(const String &Path);
+
+        File Open(const char *Path, const char *Mode = "r");
+        File Open(const String &Path, const char *Mode = "r");
+
+        bool Remove(const char *Path);
+        bool Remove(const String &Path);
+
+        bool Rename(const char *Path_From, const char *Path_To);
+        bool Rename(const String &Path_From, const String &Path_To);
+
+        uint64_t Total_Bytes();
+        uint64_t Used_Bytes();
 
         //Custom
 
@@ -444,41 +447,15 @@ public:
         Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
         uint16_t Count_Files(File &Folder);
 
+        // -- Constructor
+        Drive_Class();
+
+        // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
     } Drive;
 
-#elif SD_MODE == 1
-
-    ///
-    /// @brief Drive class (SD SPI)
-    ///
-    class Drive_Class : public FS
-    {
-    protected:
-        uint8_t _pdrv;
-
-    public:
-        Drive_Class(FSImplPtr impl);
-        bool begin(uint8_t ssPin = SS, SPIClass &spi = SPI, uint32_t frequency = 4000000, const char *mountpoint = "/sd", uint8_t max_files = 5);
-        void end();
-        sdcard_type_t cardType();
-        uint64_t cardSize();
-        uint64_t totalBytes();
-        uint64_t usedBytes();
-
-        //Custom
-
-        Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
-        Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
-        uint16_t Count_Files(File &Folder);
-
-        friend class Xila_Class;
-        friend class Shell_Class;
-    } Drive;
-
-#endif
-
+    //==============================================================================//
     ///
     /// @brief Keyboard class
     ///
@@ -633,6 +610,8 @@ public:
         Xila_Class::Event Save_Registry();
         Xila_Class::Event Load_Registry();
 
+        void Begin();
+
     public:
         enum Event
         {
@@ -665,7 +644,7 @@ public:
         void Mute();
         void Stop();
 
-        void Set_Current_Time(uint32_t Time);
+        void Set_Current_Time(uint16_t Time);
         uint32_t Get_Current_Time();
         uint32_t Get_Total_Time();
         void Set_Offset_Time(int16_t Time);
@@ -885,7 +864,6 @@ public:
     Xila_Class();
     ~Xila_Class();
 };
-
 
 #include "Task.hpp"
 #include "Time.hpp"

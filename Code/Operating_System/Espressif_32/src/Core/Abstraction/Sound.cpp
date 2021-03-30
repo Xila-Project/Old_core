@@ -21,6 +21,13 @@
 
 #include "Audio.h"
 
+#if SD_MODE == 0
+#define Audio_Drive SD_MMC
+#elif SD_MODE == 1
+#define Audio_Drive SD
+#endif
+
+
 Audio Audio_Driver;
 
 ///
@@ -29,9 +36,7 @@ Audio Audio_Driver;
 Xila_Class::Sound_Class::Sound_Class()
     : Custom_Pin(0xFF)
 {
-    Audio_Driver.setInternalDAC(true);
-    Audio_Driver.setBalance(0);
-    Audio_Driver.setVolume(21);
+   
 }
 
 ///
@@ -42,13 +47,23 @@ Xila_Class::Sound_Class::~Sound_Class()
     Instance_Pointer = NULL;
 }
 
+void Xila_Class::Sound_Class::Begin()
+{
+    Set_Volume(21);
+    pinMode(35, OUTPUT);
+    pinMode(36, OUTPUT);
+    /*Audio_Driver.setInternalDAC(true);
+    Audio_Driver.setBalance(0);*/
+}
+
 ///
 /// @brief
 ///
 /// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.open(Sound_Registry_Path);
+    Verbose_Print_Line("Load sound registry");
+    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path);
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -62,7 +77,7 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 
 Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.open(Sound_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Sound_Registry(256);
     Sound_Registry["Volume"] = Get_Volume();
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
@@ -102,7 +117,7 @@ uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char 
     else if (File_Path_Or_Host[0] == '/')
     {
         Verbose_Print_Line("Play from sd");
-        if (Audio_Driver.connecttoFS(Xila.Drive, File_Path_Or_Host) != true)
+        if (Audio_Driver.connecttoFS(Audio_Drive, File_Path_Or_Host) != true)
         {
             return false;
         }
@@ -152,10 +167,9 @@ uint32_t Xila_Class::Sound_Class::Get_Total_Time()
  *
  * @param Time Time to set in millisecond.
  */
-void Xila_Class::Sound_Class::Set_Current_Time(uint32_t Time)
+void Xila_Class::Sound_Class::Set_Current_Time(uint16_t Time)
 {
-    Audio_Driver.setFilePos(0);
-    Audio_Driver.setTimeOffset(Time);
+    Audio_Driver.setAudioPlayPosition(Time);
 }
 
 /**
@@ -234,7 +248,7 @@ uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
 
     Music_File = File_To_Play;
 
-    if (Audio_Driver.connecttoFS(Xila.Drive, File_To_Play.name()) != true)
+    if (Audio_Driver.connecttoFS(Audio_Drive, File_To_Play.name()) != true)
     {
         return Failed_To_Open_File;
     }

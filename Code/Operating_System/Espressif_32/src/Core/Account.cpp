@@ -21,7 +21,7 @@ Xila_Class::Account_Class::Account_Class()
 
 Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 {
-  File Temporary_File = Xila.Drive.open(Account_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Account_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -46,7 +46,7 @@ Xila_Class::Event Xila_Class::Account_Class::Save_Registry()
  */
 Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
-  File Temporary_File = Xila.Drive.open(Account_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Account_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -89,17 +89,17 @@ const char *Xila_Class::Account_Class::Get_Current_Username()
      */
 Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
-  if (Xila.Drive.exists(Users_Directory_Path + String(Username)))
+  if (Xila.Drive.Exists(Users_Directory_Path + String(Username)))
   {
     return Error;
   }
 
-  Xila.Drive.mkdir(Users_Directory_Path + String(Username) + "/Registry");
-  Xila.Drive.mkdir(Users_Directory_Path + String(Username) + "/Desk");
-  Xila.Drive.mkdir(Users_Directory_Path + String(Username) + "/Images");
-  Xila.Drive.mkdir(Users_Directory_Path + String(Username) + "/Document");
-  Xila.Drive.mkdir(Users_Directory_Path + String(Username) + "/Musics");
-  File Temporary_File = Xila.Drive.open(Users_Directory_Path + String(Username) + "/Registry/User.xrf", FILE_WRITE);
+  Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Registry");
+  Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Desk");
+  Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Images");
+  Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Document");
+  Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Musics");
+  File Temporary_File = Xila.Drive.Open(Users_Directory_Path + String(Username) + "/Registry/User.xrf", FILE_WRITE);
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -117,7 +117,7 @@ Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
   char Temporary_Path[17];
   strcpy(Temporary_Path, Users_Directory_Path);
   strlcat(Temporary_Path, Target_User, sizeof(Temporary_Path));
-  if (Xila.Drive.rmdir(Temporary_Path))
+  if (Xila.Drive.Remove_Directory(Temporary_Path))
   {
     return Success;
   }
@@ -126,7 +126,7 @@ Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 
 Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
-  if (!Xila.Drive.rename(Users_Directory_Path + String(Target_User), Users_Directory_Path + String(New_Username)))
+  if (!Xila.Drive.Rename(Users_Directory_Path + String(Target_User), Users_Directory_Path + String(New_Username)))
   {
     return Error;
   }
@@ -139,7 +139,7 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_
 
 Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
-  File Temporary_File = Xila.Drive.open(Users_Directory_Path + String(Target_User) + "/Registry/User.xrf");
+  File Temporary_File = Xila.Drive.Open(Users_Directory_Path + String(Target_User) + "/Registry/User.xrf");
   DynamicJsonDocument User_Registry(DEFAULT_REGISTRY_SIZE);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -175,9 +175,9 @@ Xila_Class::Event Xila_Class::Account_Class::Lock()
 
 Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-  if (Xila.Drive.exists(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf"))
+  if (Xila.Drive.Exists(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf"))
   {
-    File Temporary_File = Xila.Drive.open(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf");
+    File Temporary_File = Xila.Drive.Open(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf");
     DynamicJsonDocument User_Registry(256);
     if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {

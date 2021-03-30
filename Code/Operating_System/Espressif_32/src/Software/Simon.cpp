@@ -108,7 +108,7 @@ void Simon_Class::Refresh_Interface()
 void Simon_Class::Load_Registry()
 {
     memset(Scores, '\0', sizeof(Scores));
-    File Temporary_File = Xila.Drive.open(Simon_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Simon_Registry_Path);
     DynamicJsonDocument Simon_Registry(256);
     if (deserializeJson(Simon_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -128,7 +128,7 @@ void Simon_Class::Load_Registry()
 
 void Simon_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.open(Simon_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Simon_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Simon_Registry(256);
     Simon_Registry["Scores"][0] = Scores[0];
     Simon_Registry["Scores"][1] = Scores[1];

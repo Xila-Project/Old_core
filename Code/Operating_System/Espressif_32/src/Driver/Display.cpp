@@ -873,8 +873,8 @@ uint8_t Nextion_Display_Class::Update(File Update_File)
         }
     }
     char Temporary_String[5] = "";
-    Serial.readBytes(Temporary_String, sizeof(String));
-    if (strcmp(Temporary_String, "comok") != 0)
+    Nextion_Serial.readBytes(Temporary_String, sizeof(Temporary_String));
+    if (memcmp(Temporary_String, "comok", sizeof(Temporary_String)) != 0)
     {
         return Update_Failed;
     }

@@ -877,17 +877,17 @@ void Tiny_Basic_Class::Setup()
 {
   Xila.Display.Set_Current_Page(F("Tiny_Basic"));
 
-  /*Serial.begin(CONSOLE_BAUD); // opens serial port
-  Serial.println();*/
+  /*begin(CONSOLE_BAUD); // opens serial port
+  println();*/
 
   printmsg(initmsg);
 
   initSD();
 
-  if (Xila.Drive.exists(AUTORUN_FILE))
+  if (Xila.Drive.Exists(AUTORUN_FILE))
   {
     program_end = program_start;
-    fp = Xila.Drive.open(AUTORUN_FILE);
+    fp = Xila.Drive.Open(AUTORUN_FILE);
     inStream = kStreamFile;
     inhibitOutput = true;
     runAfterLoad = true;
@@ -1082,7 +1082,7 @@ boolean Tiny_Basic_Class::initSD()
 
 void Tiny_Basic_Class::cmd_Files()
 {
-  File dir = Xila.Drive.open("/");
+  File dir = Xila.Drive.Open("/");
   dir.seek(0);
 
   while (true)
@@ -1969,7 +1969,7 @@ load:
       goto qwhat;
 
     // check if file exists
-    if (!Xila.Drive.exists((char *)filename))
+    if (!Xila.Drive.Exists((char *)filename))
     {
       // file is missing
       printmsg(sdfilemsg);
@@ -1977,7 +1977,7 @@ load:
     else
     {
       // file exists so open it
-      fp = Xila.Drive.open((const char *)filename);
+      fp = Xila.Drive.Open((const char *)filename);
       inStream = kStreamFile;
       inhibitOutput = true;
     }
@@ -2001,13 +2001,13 @@ save:
     Serial.println((char *)filename);
 
     // remove the old file if it exists
-    if (Xila.Drive.exists((char *)filename))
+    if (Xila.Drive.Exists((char *)filename))
     {
-      Xila.Drive.remove((char *)filename);
+      Xila.Drive.Remove((char *)filename);
     }
 
     // open the file, switch over to file output
-    fp = Xila.Drive.open((const char *)filename, FILE_WRITE);
+    fp = Xila.Drive.Open((const char *)filename, FILE_WRITE);
 
     if (fp == (File)NULL)
     {
@@ -2049,9 +2049,9 @@ delfile:
     Serial.println((char *)filename);
 
     // remove the file if it exists
-    if (Xila.Drive.exists((char *)filename))
+    if (Xila.Drive.Exists((char *)filename) )
     {
-      Xila.Drive.remove((char *)filename);
+      Xila.Drive.Remove((char *)filename);
     }
     goto warmstart;
   }

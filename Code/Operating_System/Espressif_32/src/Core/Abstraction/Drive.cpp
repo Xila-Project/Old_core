@@ -10,25 +10,242 @@
 
 #include "Core/Core.hpp"
 
-// SD
-#include "vfs_api.h"
-#include "sd_diskio.h"
-#include "ff.h"
 
-// SD MMC
-#include "vfs_api.h"
+#include "Core/Core.hpp"
 
-extern "C"
+#include "SD.h"
+#include "SD_MMC.h"
+
+Xila_Class::Drive_Class::Drive_Class()
 {
-#include <sys/unistd.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include "esp_vfs_fat.h"
-#include "driver/sdmmc_host.h"
-#include "driver/sdmmc_defs.h"
-#include "sdmmc_cmd.h"
+
 }
-#include "ff.h"
+
+#if SD_MODE == 0
+
+bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char * Mount_Point, uint8_t Maximum_Files)
+{
+    return SD_MMC.begin(Mount_Point, false, false);
+}
+
+uint64_t Xila_Class::Drive_Class::Card_Size()
+{
+    return SD_MMC.cardSize();
+}
+
+Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Card_Type()
+{
+    switch (SD_MMC.cardType())
+    {
+    case sdcard_type_t::CARD_NONE:
+        return CARD_NONE;
+        break;
+    case sdcard_type_t::CARD_MMC:
+        return CARD_MMC;
+        break;
+    case sdcard_type_t::CARD_SD:
+        return CARD_SD;
+        break;
+    case sdcard_type_t::CARD_SDHC:
+        return CARD_SDHC;
+        break;
+    case sdcard_type_t::CARD_UNKNOWN:
+        return CARD_UNKNOWN;
+        break;
+    }
+    return CARD_UNKNOWN;
+}
+
+void Xila_Class::Drive_Class::End()
+{
+    SD_MMC.end();
+}
+
+bool Xila_Class::Drive_Class::Exists(const char* Path)
+{
+    return SD_MMC.exists(Path);
+}
+
+bool Xila_Class::Drive_Class::Exists(const String& Path)
+{
+    return SD_MMC.exists(Path);
+}
+
+bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
+{
+    return SD_MMC.mkdir(Path);
+}
+
+bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
+{
+    return SD_MMC.mkdir(Path);
+}
+
+File Xila_Class::Drive_Class::Open(const char* Path, const char* Mode)
+{
+    return SD_MMC.open(Path, Mode);
+}
+
+File Xila_Class::Drive_Class::Open(const String& Path, const char* Mode)
+{
+    return SD_MMC.open(Path, Mode);
+}
+
+bool Xila_Class::Drive_Class::Remove(const char* Path)
+{
+    return SD_MMC.remove(Path);
+}
+
+bool Xila_Class::Drive_Class::Remove(const String& Path)
+{
+    return SD_MMC.remove(Path);
+}
+
+bool Xila_Class::Drive_Class::Rename(const char* Path_From, const char* Path_To)
+{
+    return SD_MMC.rename(Path_From, Path_To);
+}
+
+bool Xila_Class::Drive_Class::Rename(const String& Path_From, const String& Path_To)
+{
+    return SD_MMC.rename(Path_From, Path_To);
+}
+
+bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
+{
+    return SD_MMC.rmdir(Path);
+}
+
+bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
+{
+    return SD_MMC.rmdir(Path);
+}
+
+uint64_t Xila_Class::Drive_Class::Total_Bytes()
+{
+    return SD_MMC.totalBytes();
+}
+
+uint64_t Xila_Class::Drive_Class::Used_Bytes()
+{
+    return SD_MMC.usedBytes();
+}
+
+//==============================================================================//
+//                              SD SPI                                          //
+//==============================================================================//
+
+#elif SD_MODE == 1
+
+bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char * Mount_Point, uint8_t Maximum_Files)
+{
+    return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);
+}
+
+uint64_t Xila_Class::Drive_Class::Card_Size()
+{
+    return SD.cardSize();
+}
+
+Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Card_Type()
+{
+    switch (SD.cardType())
+    {
+    case sdcard_type_t::CARD_NONE:
+        return CARD_NONE;
+        break;
+    case sdcard_type_t::CARD_MMC:
+        return CARD_MMC;
+        break;
+    case sdcard_type_t::CARD_SD:
+        return CARD_SD;
+        break;
+    case sdcard_type_t::CARD_SDHC:
+        return CARD_SDHC;
+        break;
+    case sdcard_type_t::CARD_UNKNOWN:
+        return CARD_UNKNOWN;
+        break;
+    }
+    return CARD_UNKNOWN;
+}
+
+void Xila_Class::Drive_Class::End()
+{
+    SD.end();
+}
+
+bool Xila_Class::Drive_Class::Exists(const char* Path)
+{
+    return SD.exists(Path);
+}
+
+bool Xila_Class::Drive_Class::Exists(const String& Path)
+{
+    return SD.exists(Path);
+}
+
+bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
+{
+    return SD.mkdir(Path);
+}
+
+bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
+{
+    return SD.mkdir(Path);
+}
+
+File Xila_Class::Drive_Class::Open(const char* Path, const char* Mode)
+{
+    return SD.open(Path, Mode);
+}
+
+File Xila_Class::Drive_Class::Open(const String& Path, const char* Mode)
+{
+    return SD.open(Path, Mode);
+}
+
+bool Xila_Class::Drive_Class::Remove(const char* Path)
+{
+    return SD.remove(Path);
+}
+
+bool Xila_Class::Drive_Class::Remove(const String& Path)
+{
+    return SD.remove(Path);
+}
+
+bool Xila_Class::Drive_Class::Rename(const char* Path_From, const char* Path_To)
+{
+    return SD.rename(Path_From, Path_To);
+}
+
+bool Xila_Class::Drive_Class::Rename(const String& Path_From, const String& Path_To)
+{
+    return SD.rename(Path_From, Path_To);
+}
+
+bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
+{
+    return SD.rmdir(Path);
+}
+
+bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
+{
+    return SD.rmdir(Path);
+}
+
+uint64_t Xila_Class::Drive_Class::Total_Bytes()
+{
+    return SD.totalBytes();
+}
+
+uint64_t Xila_Class::Drive_Class::Used_Bytes()
+{
+    return SD.usedBytes();
+}
+
+#endif
 
 // Custom methods
 
@@ -116,230 +333,3 @@ Xila_Class::Event Xila_Class::Drive_Class::Get_Name(File const &File, char *File
   }
   return Success;
 }
-
-
-#if SD_MODE == 0
-
-Xila_Class::Drive_Class::Drive_Class(FSImplPtr impl)
-    : FS(impl),
-      _card(NULL)
-{
-}
-
-bool Xila_Class::Drive_Class::begin(const char *mountpoint, bool mode1bit)
-{
-    if (_card)
-    {
-        return true;
-    }
-    //mount
-    sdmmc_slot_config_t slot_config = SDMMC_SLOT_CONFIG_DEFAULT();
-    sdmmc_host_t host = {
-        .flags = SDMMC_HOST_FLAG_4BIT,
-        .slot = SDMMC_HOST_SLOT_1,
-        .max_freq_khz = SDMMC_FREQ_DEFAULT,
-        .io_voltage = 3.3f,
-        .init = &sdmmc_host_init,
-        .set_bus_width = &sdmmc_host_set_bus_width,
-        .get_bus_width = &sdmmc_host_get_slot_width,
-        .set_bus_ddr_mode = &sdmmc_host_set_bus_ddr_mode,
-        .set_card_clk = &sdmmc_host_set_card_clk,
-        .do_transaction = &sdmmc_host_do_transaction,
-        .deinit = &sdmmc_host_deinit,
-        .io_int_enable = &sdmmc_host_io_int_enable,
-        .io_int_wait = &sdmmc_host_io_int_wait,
-        .command_timeout_ms = 0};
-    host.max_freq_khz = SDMMC_FREQ_HIGHSPEED;
-#ifdef BOARD_HAS_1BIT_SDMMC
-    mode1bit = true;
-#endif
-    if (mode1bit)
-    {
-        host.flags = SDMMC_HOST_FLAG_1BIT; //use 1-line SD mode
-        slot_config.width = 1;
-    }
-
-    esp_vfs_fat_sdmmc_mount_config_t mount_config = {
-        .format_if_mount_failed = false,
-        .max_files = 5,
-        .allocation_unit_size = 0};
-
-    esp_err_t ret = esp_vfs_fat_sdmmc_mount(mountpoint, &host, &slot_config, &mount_config, &_card);
-    if (ret != ESP_OK)
-    {
-        if (ret == ESP_FAIL)
-        {
-            log_e("Failed to mount filesystem. If you want the card to be formatted, set format_if_mount_failed = true.");
-        }
-        else if (ret == ESP_ERR_INVALID_STATE)
-        {
-            _impl->mountpoint(mountpoint);
-            log_w("SD Already mounted");
-            return true;
-        }
-        else
-        {
-            log_e("Failed to initialize the card (%d). Make sure SD card lines have pull-up resistors in place.", ret);
-        }
-        _card = NULL;
-        return false;
-    }
-    _impl->mountpoint(mountpoint);
-    return true;
-}
-
-void Xila_Class::Drive_Class::end()
-{
-    if (_card)
-    {
-        esp_vfs_fat_sdmmc_unmount();
-        _impl->mountpoint(NULL);
-        _card = NULL;
-    }
-}
-
-sdcard_type_t Xila_Class::Drive_Class::cardType()
-{
-    if (!_card)
-    {
-        return CARD_NONE;
-    }
-    return (_card->ocr & SD_OCR_SDHC_CAP) ? CARD_SDHC : CARD_SD;
-}
-
-uint64_t Xila_Class::Drive_Class::cardSize()
-{
-    if (!_card)
-    {
-        return 0;
-    }
-    return (uint64_t)_card->csd.capacity * _card->csd.sector_size;
-}
-
-uint64_t Xila_Class::Drive_Class::totalBytes()
-{
-    FATFS *fsinfo;
-    DWORD fre_clust;
-    if (f_getfree("0:", &fre_clust, &fsinfo) != 0)
-        return 0;
-    uint64_t size = ((uint64_t)(fsinfo->csize)) * (fsinfo->n_fatent - 2)
-#if _MAX_SS != 512
-                    * (fsinfo->ssize);
-#else
-                    * 512;
-#endif
-    return size;
-}
-
-uint64_t Xila_Class::Drive_Class::usedBytes()
-{
-    FATFS *fsinfo;
-    DWORD fre_clust;
-    if (f_getfree("0:", &fre_clust, &fsinfo) != 0)
-        return 0;
-    uint64_t size = ((uint64_t)(fsinfo->csize)) * ((fsinfo->n_fatent - 2) - (fsinfo->free_clst))
-#if _MAX_SS != 512
-                    * (fsinfo->ssize);
-#else
-                    * 512;
-#endif
-    return size;
-}
-
-#elif SD_MODE == 1
-
-Xila_Class::Drive_Class::Drive_Class(FSImplPtr impl) : FS(impl),
-                                                       _pdrv(0xFF)
-{
-}
-
-bool Xila_Class::Drive_Class::begin(uint8_t ssPin, SPIClass &spi, uint32_t frequency, const char *mountpoint, uint8_t max_files)
-{
-    if (_pdrv != 0xFF)
-    {
-        return true;
-    }
-
-    spi.begin();
-
-    _pdrv = sdcard_init(ssPin, &spi, frequency);
-    if (_pdrv == 0xFF)
-    {
-        return false;
-    }
-
-    if (!sdcard_mount(_pdrv, mountpoint, max_files))
-    {
-        sdcard_unmount(_pdrv);
-        sdcard_uninit(_pdrv);
-        _pdrv = 0xFF;
-        return false;
-    }
-
-    _impl->mountpoint(mountpoint);
-    return true;
-}
-
-void Xila_Class::Drive_Class::end()
-{
-    if (_pdrv != 0xFF)
-    {
-        _impl->mountpoint(NULL);
-        sdcard_unmount(_pdrv);
-
-        sdcard_uninit(_pdrv);
-        _pdrv = 0xFF;
-    }
-}
-
-sdcard_type_t Xila_Class::Drive_Class::cardType()
-{
-    if (_pdrv == 0xFF)
-    {
-        return CARD_NONE;
-    }
-    return sdcard_type(_pdrv);
-}
-
-uint64_t Xila_Class::Drive_Class::cardSize()
-{
-    if (_pdrv == 0xFF)
-    {
-        return 0;
-    }
-    size_t sectors = sdcard_num_sectors(_pdrv);
-    size_t sectorSize = sdcard_sector_size(_pdrv);
-    return (uint64_t)sectors * sectorSize;
-}
-
-uint64_t Xila_Class::Drive_Class::totalBytes()
-{
-    FATFS *fsinfo;
-    DWORD fre_clust;
-    if (f_getfree("0:", &fre_clust, &fsinfo) != 0)
-        return 0;
-    uint64_t size = ((uint64_t)(fsinfo->csize)) * (fsinfo->n_fatent - 2)
-#if _MAX_SS != 512
-                    * (fsinfo->ssize);
-#else
-                    * 512;
-#endif
-    return size;
-}
-
-uint64_t Xila_Class::Drive_Class::usedBytes()
-{
-    FATFS *fsinfo;
-    DWORD fre_clust;
-    if (f_getfree("0:", &fre_clust, &fsinfo) != 0)
-        return 0;
-    uint64_t size = ((uint64_t)(fsinfo->csize)) * ((fsinfo->n_fatent - 2) - (fsinfo->free_clst))
-#if _MAX_SS != 512
-                    * (fsinfo->ssize);
-#else
-                    * 512;
-#endif
-    return size;
-}
-
-#endif

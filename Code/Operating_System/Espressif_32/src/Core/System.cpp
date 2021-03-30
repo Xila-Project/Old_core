@@ -12,7 +12,7 @@ Xila_Class::System_Class::System_Class()
 Xila_Class::Event Xila_Class::System_Class::Load_Registry()
 {
   Verbose_Print_Line("> Load system registry");
-  File Temporary_File = Xila.Drive.open(System_Registry_Path);
+  File Temporary_File = Xila.Drive.Open(System_Registry_Path);
 
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
@@ -48,7 +48,7 @@ void Xila_Class::System_Class::Task(void *)
   while (1)
   {
 
-    Xila.Software.Check_Watchdog(); // check if current running software is not frozen
+    //Xila.Software.Check_Watchdog(); // check if current running software is not frozen
     Xila.Time.Synchronise();        // Time synchro
 
     if ((millis() - Last_Header_Refresh) > 10000) // Refresh header every ~10000 ms
@@ -156,7 +156,7 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
   vTaskSuspendAll();
   Xila.Display.Set_Current_Page(F("Core_Panic"));
   char Temporary_String[23];
-  sprintf(Temporary_String, "Error code %X", Panic_Code);
+  printf(Temporary_String, "Error code %X", Panic_Code);
 
   Xila.Display.Set_Text(F("ERRORCODE_TXT"), Temporary_String);
   while (digitalRead(POWER_BUTTON_PIN) == HIGH)
@@ -167,7 +167,7 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 
 Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 {
-  File Temporary_File = Xila.Drive.open(System_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(System_Registry_Path, FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
   System_Registry["Device Name"] = Name;
   if (serializeJson(System_Registry, Temporary_File) == 0)
@@ -184,7 +184,7 @@ Xila_Class::Event Xila_Class::System_Class::Create_Dump()
 {
   Xila.Software.Minimize(*Xila.Software.Openned[0]->Handle);
 
-  File Dump_File = Xila.Drive.open(Dump_Registry_Path, FILE_WRITE);
+  File Dump_File = Xila.Drive.Open(Dump_Registry_Path, FILE_WRITE);
 
   if (!Dump_File)
   {
@@ -233,9 +233,9 @@ Xila_Class::Event Xila_Class::System_Class::Create_Dump()
 
 Xila_Class::Event Xila_Class::System_Class::Load_Dump()
 {
-  if (Xila.Drive.exists(Dump_Registry_Path))
+  if (Xila.Drive.Exists(Dump_Registry_Path))
   {
-    File Dump_File = Xila.Drive.open(Dump_Registry_Path);
+    File Dump_File = Xila.Drive.Open(Dump_Registry_Path);
     char Temporary_Software_Name[24];
     for (uint8_t i = 0; i < 7; i++)
     {
@@ -355,10 +355,11 @@ void Xila_Class::System_Class::Refresh_Header()
 }
 
 ///
-/// @brief
+/// @brief First
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
+  Verbose_Print_Line("> First start routine");
   // -- Check if the power button was press or the power supply plugged.
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
@@ -369,7 +370,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Check if the battery level is enough to start.
 
-#if BATTERY_CHECKING == 0
+#if BATTERY_CHECKING == 1
   if (Xila.Power.Get_Charge_Level() <= 3)
   {
     Deep_Sleep();
@@ -384,10 +385,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 #if WATCHDOG == 0
   rtc_wdt_protect_off();
   rtc_wdt_disable();
-#endif
-
-#if USB_SERIAL == 1
-  Serial.begin(USB_SERIAL_SPEED);
 #endif
 
   // -- Initialize display. -- //
@@ -414,11 +411,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   pinMode(13, INPUT_PULLUP);
 #endif
 
-  if (!Xila.Drive.begin() || Xila.Drive.cardType() == CARD_NONE)
+  if (!Xila.Drive.Begin() || Xila.Drive.Card_Type() == Xila.Drive.CARD_NONE)
   {
+    Verbose_Print_Line("Failed to initalize drive");
     Xila.Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
   }
-  while (!Xila.Drive.begin() || Xila.Drive.cardType() == CARD_NONE)
+  while (!Xila.Drive.Begin() || Xila.Drive.Card_Type() == Xila.Drive.CARD_NONE)
   {
     Xila.Task.Delay(50);
   }
@@ -428,8 +426,9 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Check system integrity -- //
 
-  if (!Xila.Drive.exists(Xila_Directory_Path) || !Xila.Drive.exists(Software_Directory_Path))
+  if (!Xila.Drive.Exists(Xila_Directory_Path) || !Xila.Drive.Exists(Software_Directory_Path))
   {
+    Verbose_Print_Line("Corrupted installation");
     Xila.System.Panic_Handler(Xila.System.Missing_System_Files);
   }
 
@@ -439,18 +438,21 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (Returned_Data != Success)
   {
+    Verbose_Print_Line("smt with load registyr");
 
     if (Returned_Data == Error)
     {
+      Verbose_Print_Line("Damaged system registry");
       Xila.System.Panic_Handler(Xila.System.Damaged_System_Registry);
     }
     else if (Returned_Data == 2)
     {
+      Verbose_Print_Line("Installation conflic");
       Xila.System.Panic_Handler(Xila.System.Installation_Conflict);
     }
     else if (Returned_Data == 3) // new installation
     {
-      File Temporary_File = Xila.Drive.open(Display_Executable_Path);
+      File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
       if (Xila.Display.Update(Temporary_File) != Xila.Display.Update_Succeed)
       {
         Verbose_Print("Display update failed");
@@ -478,10 +480,13 @@ inline void Xila_Class::System_Class::First_Start_Routine()
     Verbose_Print_Line("Failed to load sound registry");
   }
 
-  Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(3), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
+  Xila.Sound.Begin();
+
+  //Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(10), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
 
   // -- Play startup sound
-  Xila.Sound.Play((Startup_Sound_Path));
+
+  //Xila.Sound.Play(Startup_Sound_Path);
   // -- Load display registry
 
   Returned_Data = Xila.Display.Load_Registry();
@@ -516,8 +521,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   {
     Verbose_Print_Line("Failed to play keyboard registry");
   }
-
-  Xila.Task.Create(Xila.System.Task, "Core Task", Memory_Chunk(3), NULL, Xila.Task.System_Task, &Xila.System.Task_Handle);
 }
 
 ///
@@ -525,6 +528,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 ///
 inline void Xila_Class::System_Class::Second_Start_Routine()
 {
+  Verbose_Print_Line("Second start routine");
+
   Xila.System.Load_Dump();
 
 #if ANIMATION == 1
@@ -540,10 +545,12 @@ inline void Xila_Class::System_Class::Second_Start_Routine()
 
   Xila.Task.Delay(500);
 
-  if (!Xila.Drive.exists(Users_Directory_Path))
+  if (!Xila.Drive.Exists(Users_Directory_Path))
   {
     Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Install);
   }
+
+  Xila.Task.Create(Xila.System.Task, "Core Task", Memory_Chunk(4), NULL, Xila.Task.System_Task, &Xila.System.Task_Handle);
 }
 
 /**
@@ -585,6 +592,12 @@ void Xila_Class::System_Class::Start(Software_Handle_Class *Software_Package, ui
      */
 void Xila_Class::System_Class::Start()
 {
+#if USB_SERIAL == 1
+  Serial.begin(USB_SERIAL_SPEED);
+#endif
+
+  Verbose_Print_Line("Start");
+
   if (Xila.System.Task_Handle != NULL) // Already started
   {
     return;
@@ -632,6 +645,7 @@ void Xila_Class::System_Class::Start()
 ///
 inline void Xila_Class::System_Class::Execute_Startup_Function()
 {
+
   (*Shell_Handle.Startup_Function_Pointer)();
 
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
@@ -693,7 +707,7 @@ void Xila_Class::System_Class::Shutdown()
   Xila.Sound.Save_Registry();
 
   //
-  Xila.Drive.end();
+  Xila.Drive.End();
 
   Xila.Task.Delay(4000);
 
@@ -746,7 +760,7 @@ void Xila_Class::System_Class::Restart()
 
   Xila.Sound.Save_Registry();
 
-  Xila.Drive.end();
+  Xila.Drive.End();
 
   Xila.Task.Delay(4000);
 

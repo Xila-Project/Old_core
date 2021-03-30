@@ -18,7 +18,7 @@
 
 #define Low_Memory_Threshold 2000
 
-#define MAXIMUM_SOFTWARE 20
+#define MAXIMUM_SOFTWARE 30
 
 // Pin configuration
 

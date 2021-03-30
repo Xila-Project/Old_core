@@ -8,8 +8,10 @@
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
 Software_Class::Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size)
-    : Handle(&Software_Handle),
+    : Last_Watchdog_Feed(millis()),
+      Handle(&Software_Handle),
       Instruction_Queue_Handle(NULL)
+
 {
   if (Queue_Size != 0)
   {
@@ -46,6 +48,9 @@ uint16_t Software_Class::Get_Instruction()
     Current_Instruction = 0;
   }
   Last_Watchdog_Feed = millis();
+  Serial.print(Handle->Name);
+  Serial.print(":");
+  Serial.println(Current_Instruction, HEX);
   return Current_Instruction;
 }
 

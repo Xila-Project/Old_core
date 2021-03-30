@@ -1,0 +1,22 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.XRF": "json",
+			"system_error": "cpp",
+			"array": "cpp",
+			"functional": "cpp",
+			"tuple": "cpp",
+			"type_traits": "cpp",
+			"utility": "cpp",
+			"algorithm": "cpp",
+			"string": "cpp",
+			"*.tcc": "cpp",
+			"fstream": "cpp"
+		}
+	}
+}

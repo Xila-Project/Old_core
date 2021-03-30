@@ -203,7 +203,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
   Serial.print(F("\nOpening cache... "));
 
-  Cache_File = Xila.Drive.open(Internet_Browser_File("Cache.xdf"), FILE_WRITE);
+  Cache_File = Xila.Drive.Open(Internet_Browser_File("Cache.xdf"), FILE_WRITE);
   if (!Cache_File)
   {
     Xila.Dialog.Event(F("Cache file open failed."), Xila.Error);
@@ -897,12 +897,12 @@ byte Internet_Browser_Class::Display_Page()
   if (Server[0] == '*')
   {
     Xila.Display.Set_Text(F("URL_TXT"), F("Home Page"));
-    Cache_File = Xila.Drive.open(Internet_Browser_File("Homepage.xdf"));
+    Cache_File = Xila.Drive.Open(Internet_Browser_File("Homepage.xdf"));
   }
   else
   {
     Xila.Display.Set_Text("URL_TXT", URL);
-    Cache_File = Xila.Drive.open(Internet_Browser_File("Cache.xdf"));
+    Cache_File = Xila.Drive.Open(Internet_Browser_File("Cache.xdf"));
   }
 
   if (!Cache_File)
@@ -944,7 +944,7 @@ byte Internet_Browser_Class::Display_Page()
   // Loop through cache fizle
   while ((filePtr <= Cache_File.size()) && (Cursor_Y < 272 - 1) && (c != 0))
   {
-    if (Width_Count >= 449) //print if auto return to line (max 56 normal)
+    if (Width_Count >= 449) //Serial.print if auto return to line (max 56 normal)
     {
       Text_To_Print[Text_Char_Count] = '\0';
       Serial.println(Text_To_Print);
@@ -1060,7 +1060,7 @@ byte Internet_Browser_Class::Display_Page()
         break;
 
       case TAG_LINK1:          // Start of an anchor tag. The actual URL follows
-        invisiblePrint = true; // Turn off printing while the URL is loading
+        invisiblePrint = true; // Turn off Serial.printing while the URL is loading
 
         if ((buildingIndex) && (currentLink < LINKINDEXSIZE))
         {
@@ -1079,7 +1079,7 @@ byte Internet_Browser_Class::Display_Page()
         {
           Current_Color = 65532; // Link color : blue
         }
-        invisiblePrint = false; // Turn on printing again
+        invisiblePrint = false; // Turn on Serial.printing again
 
         break;
 
@@ -1101,7 +1101,7 @@ byte Internet_Browser_Class::Display_Page()
 
         // List entry tag
       case TAG_LIST:
-        //tftLCD.write(127); print del char ???
+        //tftLCD.write(127); Serial.print del char ???
         break;
 
         // Horizontal rule tag

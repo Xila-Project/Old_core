@@ -28,7 +28,7 @@
 #define SCRIPTTAGEND 5880 // </script>
 #define PIP 546           // <pip> custom tag
 
-// Use non-printable ASCII characters for tag codes
+// Use non-Serial.printable ASCII characters for tag codes
 #define TAG_CR 14       // ~
 #define TAG_HEADING1 15 // [
 #define TAG_HEADING2 16 // ]

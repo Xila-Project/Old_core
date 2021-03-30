@@ -64,7 +64,7 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
     WiFi_Registry["Name"] = SSID();
     WiFi_Registry["Password"] = Password;
     WiFi_Registry["State"] = status();
-    File Temporary_File = Xila.Drive.open(Network_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Network_Registry_Path);
     if (serializeJson(Network_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -76,7 +76,8 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
 
 Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.open(Network_Registry_Path);
+    Verbose_Print_Line("Load wifi registry");
+    File Temporary_File = Xila.Drive.Open((Network_Registry_Path));
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -84,25 +85,12 @@ Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
         return Error;
     }
     JsonObject WiFi_Registry = Network_Registry["WiFi"];
-    if (WiFi_Registry["State"] != (uint8_t)wl_status_t::WL_DISCONNECTED)
-    {
-        strlcpy(this->Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
-        Set_Credentials(WiFi_Registry["Name"].as<char*>(), Password);
-    }
-    
+    strlcpy(this->Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
+    char Temporary_Char[33];
+    strlcpy(Temporary_Char, WiFi_Registry["Name"] | "\0", sizeof(Temporary_Char));
+    Set_Credentials(Temporary_Char, Password);
+   
 
-    for (uint8_t i = 0; i <= 50; i++)
-    {
-        if (i == 50)
-        {
-            return Error;
-        }
-        else if (status() == WL_CONNECTED)
-        {
-            break;
-        }
-        Xila.Task.Delay(100);
-    }
     Temporary_File.close();
     return Success;
 }

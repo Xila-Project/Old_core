@@ -11,7 +11,7 @@ Xila_Class::Time_Class::Time_Class()
 
 Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 {
-  File Temporary_File = Xila.Drive.open(Time_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Time_Registry_Path, FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
   Time_Registry["GMT Offset"] = GMT_Offset;
   Time_Registry["Daylight Offset"] = Daylight_Offset;
@@ -28,8 +28,8 @@ Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 
 Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
 {
-
-  File Temporary_File = Xila.Drive.open(Time_Registry_Path);
+  Verbose_Print_Line("Load time registry");
+  File Temporary_File = Xila.Drive.Open(Time_Registry_Path);
   DynamicJsonDocument Time_Registry(512);
   if (deserializeJson(Time_Registry, Temporary_File) != DeserializationError::Ok)
   {

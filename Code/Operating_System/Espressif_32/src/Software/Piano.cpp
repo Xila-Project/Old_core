@@ -183,13 +183,13 @@ void Piano_Class::Press_Key(uint8_t Note)
     Refresh_Interface();
     /*if (MIDI_Output == true)
     {
-        Serial.write(144);
-        Serial.write(Note);
-        Serial.write(128);
+        write(144);
+        write(Note);
+        write(128);
         delay(Duration);
-        Serial.write(128);
-        Serial.write(Note);
-        Serial.write(128);
+        write(128);
+        write(Note);
+        write(128);
     }*/
 }
 void Piano_Class::Release_Key()
