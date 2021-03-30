@@ -47,22 +47,22 @@ void Xila_Class::System_Class::Task(void *)
   uint32_t Last_Header_Refresh = 0;
   while (1)
   {
-
-    //Xila.Software.Check_Watchdog(); // check if current running software is not frozen
-    Xila.Time.Synchronise();        // Time synchro
+    Xila.Software.Check_Watchdog(); // check if current running software is not frozen
+    Xila.Time.Synchronise(); // Time synchro
 
     if ((millis() - Last_Header_Refresh) > 10000) // Refresh header every ~10000 ms
     {
       if (Xila.System.Get_Free_Heap() < Low_Memory_Threshold)
       {
         Xila.System.Panic_Handler(Low_Memory);
+        Xila.System.Refresh_Header(); // Header refreshing
       }
 
-      Xila.System.Refresh_Header(); // Header refreshing
       Last_Header_Refresh = millis();
 
       if (Xila.Software.Openned[0] == NULL)
       {
+        Verbose_Print_Line("Corrupted shell");
         Xila.Task.Delay(40);
         if (Xila.Software.Openned[0] == NULL)
         {
@@ -235,7 +235,7 @@ Xila_Class::Event Xila_Class::System_Class::Load_Dump()
 {
   if (Xila.Drive.Exists(Dump_Registry_Path))
   {
-    File Dump_File = Xila.Drive.Open(Dump_Registry_Path);
+    File Dump_File = Xila.Drive.Open((Dump_Registry_Path));
     char Temporary_Software_Name[24];
     for (uint8_t i = 0; i < 7; i++)
     {
@@ -267,6 +267,7 @@ const char *Xila_Class::System_Class::Get_Name()
 
 void Xila_Class::System_Class::Refresh_Header()
 {
+  Verbose_Print_Line("Refresh header");
 
   static char Temporary_Char_Array[6];
 
@@ -434,6 +435,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Load system registry -- //
 
+  Returned_Data = Success;
+
   Returned_Data = Xila.System.Load_Registry();
 
   if (Returned_Data != Success)
@@ -482,11 +485,11 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   Xila.Sound.Begin();
 
-  //Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(10), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
+  Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(10), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
 
   // -- Play startup sound
 
-  //Xila.Sound.Play(Startup_Sound_Path);
+  Xila.Sound.Play(Startup_Sound_Path);
   // -- Load display registry
 
   Returned_Data = Xila.Display.Load_Registry();
@@ -515,7 +518,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Load Keyboard Registry
 
-  Returned_Data = Xila.Keyboard.Load_Registry();
+  //Returned_Data = Xila.Keyboard.Load_Registry();
 
   if (Returned_Data != Success)
   {
@@ -526,7 +529,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 ///
 /// @brief
 ///
-inline void Xila_Class::System_Class::Second_Start_Routine()
+void Xila_Class::System_Class::Second_Start_Routine()
 {
   Verbose_Print_Line("Second start routine");
 
@@ -535,6 +538,7 @@ inline void Xila_Class::System_Class::Second_Start_Routine()
 #if ANIMATION == 1
   Xila.Task.Delay(3000);
 #endif
+
   Xila.Display.Set_Value(F("STATE_VAR"), 2);
 
 #if ANIMATION == 1
@@ -545,12 +549,19 @@ inline void Xila_Class::System_Class::Second_Start_Routine()
 
   Xila.Task.Delay(500);
 
+  Verbose_Print_Line("Exists ?");
+
   if (!Xila.Drive.Exists(Users_Directory_Path))
   {
+    Verbose_Print_Line("Not existing");
     Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Install);
   }
 
+  Verbose_Print_Line("Create task function");
+
   Xila.Task.Create(Xila.System.Task, "Core Task", Memory_Chunk(4), NULL, Xila.Task.System_Task, &Xila.System.Task_Handle);
+
+  Xila.Task.Delete(); // delete main task
 }
 
 /**
@@ -643,20 +654,23 @@ void Xila_Class::System_Class::Start()
 ///
 /// @brief
 ///
-inline void Xila_Class::System_Class::Execute_Startup_Function()
+void Xila_Class::System_Class::Execute_Startup_Function()
 {
 
   (*Shell_Handle.Startup_Function_Pointer)();
 
   for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
   {
-    if (Xila.Software.Handle[i] != NULL)
+    Serial.print(i);
+    Serial.print(":");
+    /*if (Xila.Software.Handle[i] != NULL)
     {
       if (Xila.Software.Handle[i]->Startup_Function_Pointer != NULL)
       {
+        Serial.println("L");
         (*Xila.Software.Handle[i]->Startup_Function_Pointer)();
       }
-    }
+    }*/
   }
 }
 

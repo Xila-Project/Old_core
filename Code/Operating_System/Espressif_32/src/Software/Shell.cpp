@@ -28,7 +28,7 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Mode(0)
 {
     Desk_Background = -1;
-    //Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
 Shell_Class::~Shell_Class()
@@ -56,6 +56,7 @@ void Shell_Class::Startup()
     Verbose_Print_Line("> Open_Shell");
 
     Xila.Software.Open(Shell_Handle);
+    Verbose_Print_Line("> Shell openned successfully");
 }
 
 // -- Main shell methods -- //
@@ -65,7 +66,6 @@ void Shell_Class::Main_Task(void *pvParameters)
     (void)pvParameters;
     while (1)
     {
-        Serial.print(Xila.Display.Get_Current_Page());
         switch (Xila.Display.Get_Current_Page())
         {
         case About:
@@ -132,7 +132,6 @@ void Shell_Class::Main_Task(void *pvParameters)
 
 void Shell_Class::Main_Commands()
 {
-    Serial.println(Current_Command);
     switch (Current_Command)
     {
     case Idle:
@@ -338,6 +337,9 @@ Xila_Class::Event Shell_Class::Save_Registry()
 void Shell_Class::Refresh_File_Manager()
 {
     Verbose_Print_Line("Refresh file manager");
+    Serial.print(Mode);
+    Serial.print(":");
+    Serial.println(Operation);
     Temporary_Item = Xila.Drive.Open(Current_Path);
 
     if (Temporary_Item)

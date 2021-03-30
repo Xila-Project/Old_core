@@ -19,9 +19,10 @@ Xila_Class::Power_Class::Power_Class()
 
 void IRAM_ATTR Xila_Class::Power_Class::Button_Handler()
 {
+    Verbose_Print_Line("Button triggered");
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
     Xila.Power.Button_Counter = 1;
-    Verbose_Print_Line("Button triggered");
+
     vTaskExitCritical(&Xila.Power.Button_Mutex);
 }
 
@@ -34,4 +35,3 @@ void Xila_Class::Power_Class::Check_Button()
         Button_Counter = 0;
     }
 }
-

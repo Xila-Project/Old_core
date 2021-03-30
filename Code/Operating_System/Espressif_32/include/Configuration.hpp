@@ -98,7 +98,7 @@
 #define BATTERY_CHECKING 0          // disable battery checking
 #define ANIMATION 0                 // disable animation
 #define LOGIN 0                     // used to bypass login form during debugging session
-#define WATCHDOG 0                  // Disable esp32 watchdog - managed by core
+#define WATCHDOG 1                  // Disable esp32 watchdog - managed by core
 
 #define SD_MODE 1                   // SD spi mode
 #define STACK_OVERFLOW_DETECTION 0  // 

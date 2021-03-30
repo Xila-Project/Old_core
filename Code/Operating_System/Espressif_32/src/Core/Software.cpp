@@ -48,9 +48,6 @@ uint16_t Software_Class::Get_Instruction()
     Current_Instruction = 0;
   }
   Last_Watchdog_Feed = millis();
-  Serial.print(Handle->Name);
-  Serial.print(":");
-  Serial.println(Current_Instruction, HEX);
   return Current_Instruction;
 }
 

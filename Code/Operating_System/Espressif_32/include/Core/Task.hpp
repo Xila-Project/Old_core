@@ -51,7 +51,7 @@ inline void Xila_Class::Task_Class::Delete(Xila_Task_Handle Task_To_Delete) cons
     */
 inline void Xila_Class::Task_Class::Delay(uint32_t Delay_In_Millisecond) const
 {
-  Xila.Task.Delay(Delay_In_Millisecond);
+  vTaskDelay(pdMS_TO_TICKS(Delay_In_Millisecond));
 }
 
  #endif

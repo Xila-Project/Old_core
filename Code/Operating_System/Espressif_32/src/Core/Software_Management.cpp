@@ -64,8 +64,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
   Verbose_Print_Line("Open software ...");
   // -- if software handle is shell handle, reopen it or maximize it
 
-  uint8_t i = 2;
-
   if (Software_Handle == Shell_Handle)
   {
     if (Openned[1] != NULL)
@@ -81,6 +79,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
     }
   }
 
+  uint8_t i = 2;
   // -- checking if software is already openned
   for (i = 2; i < 8; i++)
   {
@@ -293,10 +292,9 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
         Xila.Task.Delete(Openned[i]->Task_Handle);
         delete Openned[i];
         Openned[i] = NULL;
-        
+
         return Success;
       }
-
     }
   }
   return Error;
@@ -308,6 +306,7 @@ void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &So
   {
     if (Handle[i] == NULL)
     {
+      Serial.print(i);
       Handle[i] = &Software_Handle_To_Add;
       return;
     }
