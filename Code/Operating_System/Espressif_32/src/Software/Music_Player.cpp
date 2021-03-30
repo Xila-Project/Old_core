@@ -12,7 +12,8 @@ Software_Class *Music_Player_Class::Load()
     return Instance_Pointer;
 }
 
-Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle)
+Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
+State(Stopped)
 {
     Xila.Task.Create(Main_Task, "Music Player", Memory_Chunk(5), NULL, &Task_Handle);
 }
@@ -57,6 +58,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Open:
             Xila.Display.Set_Current_Page(F("Music_Player"));
+            Instance_Pointer->Stop();
             Instance_Pointer->Refresh_Interface();
             break;
         case Maximize:

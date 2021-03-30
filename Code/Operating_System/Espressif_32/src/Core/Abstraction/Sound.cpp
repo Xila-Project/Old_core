@@ -27,7 +27,6 @@
 #define Audio_Drive SD
 #endif
 
-
 Audio Audio_Driver;
 
 ///
@@ -36,7 +35,6 @@ Audio Audio_Driver;
 Xila_Class::Sound_Class::Sound_Class()
     : Custom_Pin(0xFF)
 {
-   
 }
 
 ///
@@ -52,14 +50,15 @@ void Xila_Class::Sound_Class::Begin()
     Set_Volume(21);
     pinMode(35, OUTPUT);
     pinMode(36, OUTPUT);
-    /*Audio_Driver.setInternalDAC(true);
-    Audio_Driver.setBalance(0);*/
+    Audio_Driver.setInternalDAC(true);
+    Audio_Driver.setBalance(0);
 }
 
 ///
 /// @brief
 ///
 /// @return Xila_Class::Event
+///
 Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 {
     Verbose_Print_Line("Load sound registry");
@@ -287,11 +286,17 @@ void Xila_Class::Sound_Class::Mute()
     Audio_Driver.setVolume(0);
 }
 
-void Xila_Class::Sound_Class::Task(void*)
+void Xila_Class::Sound_Class::Task(void *)
 {
+    uint8_t i = 0;
     while (1)
     {
-        Audio_Driver.loop();
+
+        for (i = 0; i < 255; i++)
+        {
+            Audio_Driver.loop();
+            
+        }
         Xila.Task.Delay(10);
     }
 }

@@ -21,7 +21,7 @@ protected:
 
     uint8_t State;
 
-    enum Music_State
+    enum States
     {
         Stopped,
         Playing,

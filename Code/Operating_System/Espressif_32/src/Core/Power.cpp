@@ -14,15 +14,13 @@
 Xila_Class::Power_Class::Power_Class()
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
-    Button_Counter = false;
+    Button_Counter = 0;
 }
 
 void IRAM_ATTR Xila_Class::Power_Class::Button_Handler()
 {
-    Verbose_Print_Line("Button triggered");
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
     Xila.Power.Button_Counter = 1;
-
     vTaskExitCritical(&Xila.Power.Button_Mutex);
 }
 
@@ -30,7 +28,7 @@ void Xila_Class::Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
-        Xila.Software.Execute_Shell(Software_Class::Dialog_Power);
+        Xila.Software.Send_Instruction_Shell(Software_Class::Dialog_Power);
         Xila.Software.Maximize(Shell_Handle);
         Button_Counter = 0;
     }

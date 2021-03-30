@@ -19,13 +19,18 @@ Xila_Class::Software_Management_Class::Software_Management_Class()
 
 void Xila_Class::Software_Management_Class::Check_Watchdog()
 {
-  for (uint8_t i = 1; i < sizeof(Openned) / sizeof(Openned[0]); i++)
+  for (uint8_t i = 1; i < (sizeof(Openned) / sizeof(Openned[0])); i++)
   {
     if (Openned[i] != NULL)
     {
       if (Xila.Time.Milliseconds() - Openned[i]->Last_Watchdog_Feed > Watchdog_Threshold_Time)
       {
+        Verbose_Print("Watchdog triggered :");
+        Serial.println(*Openned[i]->Handle->Name);
         Xila.Software.Force_Close(*Openned[i]->Handle);
+        Xila.Task.Delay(100);
+        Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
+        Xila.Software.Open(Shell_Handle);
       }
     }
   }
@@ -204,7 +209,7 @@ void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const
     }
   }
 
-  Execute_Shell(Software_Class::Desk);
+  Send_Instruction_Shell(Software_Class::Desk);
   Maximize(Shell_Handle);
 }
 
@@ -292,7 +297,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
         Xila.Task.Delete(Openned[i]->Task_Handle);
         delete Openned[i];
         Openned[i] = NULL;
-
         return Success;
       }
     }
@@ -315,7 +319,7 @@ void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &So
 
 // -- Shell shortcut -- //
 
-void Xila_Class::Software_Management_Class::Execute_Shell(Xila_Instruction const &Command)
+void Xila_Class::Software_Management_Class::Send_Instruction_Shell(Xila_Instruction const &Command)
 {
   Openned[1]->Send_Instruction(Command);
 }

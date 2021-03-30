@@ -24,6 +24,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, si
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   // -- Retore software state
@@ -208,6 +209,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+        Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)
@@ -243,6 +245,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+        Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)
@@ -279,6 +282,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Dialog_Open_Folder(File &Folder_To_O
   // -- Tasks suspended here
   while (State == None)
   {
+        Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)

@@ -29,10 +29,12 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
 {
     Desk_Background = -1;
     Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
+
 }
 
 Shell_Class::~Shell_Class()
 {
+    Verbose_Print_Line("Delete shell");
     if (Instance_Pointer != this)
     {
         delete Instance_Pointer;
@@ -56,7 +58,6 @@ void Shell_Class::Startup()
     Verbose_Print_Line("> Open_Shell");
 
     Xila.Software.Open(Shell_Handle);
-    Verbose_Print_Line("> Shell openned successfully");
 }
 
 // -- Main shell methods -- //
@@ -152,7 +153,7 @@ void Shell_Class::Main_Commands()
         break;
     case Instruction('O', 'D'):
     case Open:
-    case Desk: // "OD" Open Desk page & load it
+    case Software_Class::Desk: // "OD" Open Desk page & load it
         Open_Desk();
         break;
     case Instruction('O', 'd'): // "Od" Open drawer
@@ -225,7 +226,7 @@ void Shell_Class::Main_Commands()
     default:
         Verbose_Print(F("Unknow instruction :"));
 
-        Serial.print(Current_Command);
+        Serial.print(Current_Command, HEX);
         Serial.print('|');
         Serial.println(Xila.Display.Get_Current_Page());
         break;
@@ -245,6 +246,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
             Brightness = *(uint8_t *)Variable;
             break;
         case 'V':
+            Serial.print(*(uint8_t *)Variable);
             Xila.Sound.Set_Volume(*(uint8_t *)Variable);
             break;
         default:
@@ -337,9 +339,10 @@ Xila_Class::Event Shell_Class::Save_Registry()
 void Shell_Class::Refresh_File_Manager()
 {
     Verbose_Print_Line("Refresh file manager");
-    Serial.print(Mode);
+    Serial.print(Mode, HEX);
     Serial.print(":");
     Serial.println(Operation);
+    Serial.println(Current_Path);
     Temporary_Item = Xila.Drive.Open(Current_Path);
 
     if (Temporary_Item)
@@ -416,6 +419,7 @@ void Shell_Class::Refresh_File_Manager()
 
                 for (uint8_t i = 1; i <= 30; i++)
                 {
+     
                     Item = Temporary_Item.openNextFile();
 
                     // -- Check if offset is correct, if not, reset offset and rewind directory
@@ -1037,7 +1041,7 @@ void Shell_Class::File_Manager_Commands()
     case Instruction('H', 'D'): // open home directory
         Operation = Browse;
         memset(Current_Path, '\0', sizeof(Current_Path));
-        strlcpy(Current_Path, Users_Directory_Path, sizeof(Current_Path));
+        strlcpy(Current_Path, Users_Directory_Path "/", sizeof(Current_Path));
         strlcat(Current_Path, Xila.Account.Current_Username, sizeof(Current_Path));
         Refresh_File_Manager();
         break;
@@ -1428,12 +1432,13 @@ void Shell_Class::Preferences_Hardware_Commands()
             Xila.Display.Set_Current_Page(Preferences_Hardware);
             break;
         }
-        static uint8_t Buffer[512];
+        static uint8_t Buffer[512] = {255};
         uint16_t i;
         double Time = millis();
 
         for (i = 0; i < 2048; i++)
         {
+            Last_Watchdog_Feed = millis();
             Temporary_Item.write(Buffer, sizeof(Buffer));
         }
 
@@ -1457,6 +1462,7 @@ void Shell_Class::Preferences_Hardware_Commands()
         Time = millis();
         while (Length)
         {
+            Last_Watchdog_Feed = millis();
             if (Length > 512)
             {
                 Temporary_Item.read(Buffer, sizeof(Buffer));
@@ -1914,6 +1920,7 @@ Xila_Class::Event Shell_Class::Open_File_Dialog(File &File_To_Open)
 
     while (Xila.Dialog.State == Xila.None)
     {
+        Last_Watchdog_Feed = millis();
         File_Manager_Commands();
     }
     if (Xila.Dialog.State == Xila.Button_1)

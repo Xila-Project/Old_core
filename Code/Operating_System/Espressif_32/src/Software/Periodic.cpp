@@ -115,6 +115,7 @@ void Periodic_Class::Get_Atom_Name()
     case 0:
         if (Column > 0 && Column < 17)
         {
+            Current_Atom_Name[0] = 0xFF;
             return;
         }
         break;
@@ -122,6 +123,7 @@ void Periodic_Class::Get_Atom_Name()
     case 2:
         if (Column > 1 && Column < 12)
         {
+            Current_Atom_Name[0] = 0xFF;
             return;
         }
         break;
@@ -132,6 +134,7 @@ void Periodic_Class::Get_Atom_Name()
     case 6:
         if (Column == 2)
         {
+            Current_Atom_Name[0] = 0xFF;
             return;
         }
         break;
@@ -139,10 +142,15 @@ void Periodic_Class::Get_Atom_Name()
     case 8:
         if (Column < 3)
         {
+            Current_Atom_Name[0] = 0xFF;
             return;
         }
         break;
     }
+
+    Serial.print(Line);
+    Serial.print("|");
+    Serial.println(Column);
 
     char Line_String[2], Column_String[3];
 
@@ -200,6 +208,10 @@ void Periodic_Class::Get_Atom_Name()
 
 void Periodic_Class::Get_Main_Data()
 {
+    if (Current_Atom_Name[0] == 0xFF)
+    {
+        return;
+    }
 
     Serial.println(Current_Atom_Name);
 
@@ -345,6 +357,13 @@ void Periodic_Class::Get_Main_Data()
 
 void Periodic_Class::Get_Data()
 {
+
+    if (Current_Atom_Name[0] == 0xFF)
+    {
+        return;
+    }
+
+
     if (Current_Atom_Name[0] == '\0')
     {
         Xila.Display.Set_Current_Page(F("Periodic_Main"));

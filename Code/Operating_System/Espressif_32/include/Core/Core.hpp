@@ -555,7 +555,7 @@ public:
         Software_Handle_Class *Handle[MAXIMUM_SOFTWARE] = {NULL};
 
         void Maximize_Shell();
-        void Execute_Shell(Xila_Instruction const &Command);
+        void Send_Instruction_Shell(Xila_Instruction const &Command);
 
         inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
         void Add_Handle(Software_Handle_Class &);

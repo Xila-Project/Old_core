@@ -42,6 +42,9 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             vTaskDelete(NULL);
             break;
         case Maximize:
+            Xila.Display.Set_Current_Page(F("Text_Editor"));
+            Instance_Pointer->Refresh_Interface();
+            break;
         case Open:
             Xila.Display.Set_Current_Page(F("Text_Editor"));
             break;
@@ -52,7 +55,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Text_Editor_Handle);
-            Instance_Pointer->Refresh_Interface();
+
             break;
         case Instruction('S', 'U'): // SU : scroll up
             Instance_Pointer->Offset += 55;
@@ -68,11 +71,9 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
         case Instruction('O', 'F'): // OF : open file
             Instance_Pointer->File_To_Edit.close();
             Xila.Dialog.Open_File(Instance_Pointer->File_To_Edit);
-            if (Instance_Pointer->File_To_Edit)
-            {
-                Instance_Pointer->Scan();
-                Instance_Pointer->Refresh_Interface();
-            }
+            Instance_Pointer->Scan();
+            Instance_Pointer->Refresh_Interface();
+
             break;
         case Instruction('S', 'F'): // SF : Scan file
             Instance_Pointer->Scan();
@@ -85,6 +86,12 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
 
 void Text_Editor_Class::Scan()
 {
+    if (!File_To_Edit)
+    {
+        Xila.Dialog.Event(F("Failed to read file."), Xila.Error);
+        return;
+    }
+
     Offset = 0;
     if (File_To_Edit.find(0x0D))
     {
@@ -127,21 +134,24 @@ void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t
 
 void Text_Editor_Class::Refresh_Interface()
 {
+    char Line_Name[11] = "LINE _TXT";
+    uint8_t Line_Number = 0;
+
     if (!File_To_Edit)
     {
-        Xila.Dialog.Event(F("Failed to read file."), Xila.Error);
+        for (; Line_Number < 14; Line_Number++)
+        {
+            Line_Name[4] = '0' + Line_Number;
+            Xila.Display.Set_Text(Line_Name, "");
+        }
         return;
     }
+
     File_To_Edit.seek(Offset);
     char Temporary_Character;
     char Temporary_Char_Array[56];
-
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
-
-
-    char Line_Name[11] = "LINE01_TXT";
-    uint8_t Line_Number = 1;
     uint8_t Column_Number = 0;
     char Line_Ending = 0x0D;
 
@@ -160,37 +170,47 @@ void Text_Editor_Class::Refresh_Interface()
     {
         Temporary_Character = File_To_Edit.read();
 
-        if (Line_Number > 15)
+        if (Line_Number > 14)
         {
+            Verbose_Print_Line("Max line");
             break;
         }
         Serial.write(Temporary_Character);
 
         if (Temporary_Character == Line_Ending)
         {
+
             if (Mode == Windows) // skip 0x0A char
             {
                 File_To_Edit.read();
             }
+            Xila.Task.Delay(5);
+
+            Line_Name[4] = 'A' + Line_Number;
             Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-            Xila.Task.Delay(10);
             Line_Number++;
             Column_Number = 0;
-            sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
         }
         else if (Column_Number >= 55)
         {
+            Xila.Task.Delay(5);
+            Line_Name[4] = 'A' + Line_Number;
             Xila.Display.Set_Text(Line_Name, Temporary_Char_Array);
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
-            Xila.Task.Delay(10);
             Line_Number++;
             Column_Number = 0;
-            sprintf(Line_Name, "LINE%02i_TXT", Line_Number);
         }
-        else if (isPrintable(Temporary_Character))
+        else
         {
-            Temporary_Char_Array[Column_Number++] = Temporary_Character;
+            if (isPrintable(Temporary_Character))
+            {
+                Temporary_Char_Array[Column_Number++] = Temporary_Character;
+            }
+            else
+            {
+                Temporary_Char_Array[Column_Number++] = Xila.Display.State_Button;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
 // Creative Commons Attribution-ShareAlike 3.0 liscence
 // https://github.com/Bowserinator/Periodic-Table-JSON
 
-#define Periodic_File(name) Software_Directory_Path "Periodic/" name
+#define Periodic_File(name) Software_Directory_Path "/Periodic/" name
 
 class Periodic_Class : protected Software_Class
 {

@@ -10,7 +10,6 @@
 
 #include "Core/Core.hpp"
 
-
 #include "Core/Core.hpp"
 
 #include "SD.h"
@@ -18,12 +17,11 @@
 
 Xila_Class::Drive_Class::Drive_Class()
 {
-
 }
 
 #if SD_MODE == 0
 
-bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char * Mount_Point, uint8_t Maximum_Files)
+bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD_MMC.begin(Mount_Point, false, false);
 }
@@ -61,12 +59,12 @@ void Xila_Class::Drive_Class::End()
     SD_MMC.end();
 }
 
-bool Xila_Class::Drive_Class::Exists(const char* Path)
+bool Xila_Class::Drive_Class::Exists(const char *Path)
 {
     return SD_MMC.exists(Path);
 }
 
-bool Xila_Class::Drive_Class::Exists(const String& Path)
+bool Xila_Class::Drive_Class::Exists(const String &Path)
 {
     return SD_MMC.exists(Path);
 }
@@ -81,32 +79,32 @@ bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
     return SD_MMC.mkdir(Path);
 }
 
-File Xila_Class::Drive_Class::Open(const char* Path, const char* Mode)
+File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
 
-File Xila_Class::Drive_Class::Open(const String& Path, const char* Mode)
+File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
 
-bool Xila_Class::Drive_Class::Remove(const char* Path)
+bool Xila_Class::Drive_Class::Remove(const char *Path)
 {
     return SD_MMC.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Remove(const String& Path)
+bool Xila_Class::Drive_Class::Remove(const String &Path)
 {
     return SD_MMC.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Rename(const char* Path_From, const char* Path_To)
+bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD_MMC.rename(Path_From, Path_To);
 }
 
-bool Xila_Class::Drive_Class::Rename(const String& Path_From, const String& Path_To)
+bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD_MMC.rename(Path_From, Path_To);
 }
@@ -137,7 +135,7 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 
 #elif SD_MODE == 1
 
-bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char * Mount_Point, uint8_t Maximum_Files)
+bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);
 }
@@ -175,12 +173,12 @@ void Xila_Class::Drive_Class::End()
     SD.end();
 }
 
-bool Xila_Class::Drive_Class::Exists(const char* Path)
+bool Xila_Class::Drive_Class::Exists(const char *Path)
 {
     return SD.exists(Path);
 }
 
-bool Xila_Class::Drive_Class::Exists(const String& Path)
+bool Xila_Class::Drive_Class::Exists(const String &Path)
 {
     return SD.exists(Path);
 }
@@ -195,32 +193,32 @@ bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
     return SD.mkdir(Path);
 }
 
-File Xila_Class::Drive_Class::Open(const char* Path, const char* Mode)
+File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
 
-File Xila_Class::Drive_Class::Open(const String& Path, const char* Mode)
+File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
 
-bool Xila_Class::Drive_Class::Remove(const char* Path)
+bool Xila_Class::Drive_Class::Remove(const char *Path)
 {
     return SD.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Remove(const String& Path)
+bool Xila_Class::Drive_Class::Remove(const String &Path)
 {
     return SD.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Rename(const char* Path_From, const char* Path_To)
+bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
 
-bool Xila_Class::Drive_Class::Rename(const String& Path_From, const String& Path_To)
+bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
@@ -298,38 +296,36 @@ uint16_t Xila_Class::Drive_Class::Count_Files(File &Folder)
 }
 
 ///
- /// @brief 
- /// 
- /// @param File 
- /// @param File_Name 
- /// @param Size 
- /// @return Xila_Class::Event 
+/// @brief
+///
+/// @param File
+/// @param File_Name
+/// @param Size
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
 {
-  const char *Temporary_File_Name = File.name();
-  if (File_Name == NULL)
-  {
-    Verbose_Print_Line("NULL file name pointer !");
-    return Error;
-  }
-  if (File_Name == NULL)
-  {
-    return Error;
-  }
-
-  memset(File_Name, '\0', Size);
-
-  if (!File)
-  {
-    return Error;
-  }
-  for (uint8_t i = (strlen(File_Name) - 1); i >= 0; i--)
-  {
-    if (File_Name[i] == '/')
+    if (!File)
     {
-      strlcpy(File_Name, Temporary_File_Name + i + 1, Size);
-      break;
+        return Error;
     }
-  }
-  return Success;
+    if (File.name() == NULL)
+    {
+        return Error;
+    }
+
+    const char *Temporary_File_Name = File.name();
+    memset(File_Name, '\0', Size);
+    if (!File)
+    {
+        return Error;
+    }
+    for (uint8_t i = (strlen(Temporary_File_Name) - 1); i >= 0; i--)
+    {
+        if (Temporary_File_Name[i] == '/')
+        {
+            strlcpy(File_Name, Temporary_File_Name + i + 1, Size);
+            break;
+        }
+    }
+    return Success;
 }

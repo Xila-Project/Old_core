@@ -4,7 +4,7 @@
 #include "Xila.hpp"
 #include "WiFiClientSecure.h"
 
-#define Internet_Browser_File(name)  Software_Directory_Path "/Intebrow/" name
+#define Internet_Browser_File(name)  Software_Directory_Path "/Internet/" name
 
 #define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
