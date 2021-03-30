@@ -1,0 +1,757 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_display___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Display_Class</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Nextion_Display_Class</basecompoundref>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Prefixs</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a608764d130070810c32132ea622b1e96" prot="public">
+          <name>Instruction</name>
+          <initializer>= &apos;#&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a956b0168bb8859462d44f5ccfc8895c2" prot="public">
+          <name>Variable_String</name>
+          <initializer>= &apos;s&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a8181f316f01f035f9835801b99bd9d6c" prot="public">
+          <name>Variable_Long</name>
+          <initializer>= &apos;l&apos;</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Prefixs used to differienciate exchanged data between display, core and software. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="292" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="293" bodyend="297"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Color</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a49d424ba001518095f3e597a3a556e90" prot="public">
+          <name>Black</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a61fef475272dde7e829a728cc1ff1688" prot="public">
+          <name>White</name>
+          <initializer>= 65535</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aa1b47917701ab96a9829661a07b0feb0" prot="public">
+          <name>Light_Grey</name>
+          <initializer>= 33808</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a33e2ca8dbf8464130638ba78640c4d4b" prot="public">
+          <name>Dark_Grey</name>
+          <initializer>= 16904</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a4ffdaa7f6a341310ab9cff120de140c9" prot="public">
+          <name>Red</name>
+          <initializer>= 57344</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a944a3d05f62acee350e91e154882c6c8" prot="public">
+          <name>Blue</name>
+          <initializer>= 1300</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923afacad8f22cbb5f9141a0c48d7be93ac4" prot="public">
+          <name>Green</name>
+          <initializer>= 34308</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aef694bc59d3872cde5ba8ec1c833da88" prot="public">
+          <name>Yellow</name>
+          <initializer>= 64896</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Default system colors. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="302" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="303" bodyend="312"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078c" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Xila_16</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca1e32c6f795c81dfa3a57bca536c4b260" prot="public">
+          <name>State_Button</name>
+          <initializer>= 127</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caf7f649f74a86082c41eaa776bd1756ec" prot="public">
+          <name>Left_Arrow</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca467d199f899f161d46b0e57f1a0bc38d" prot="public">
+          <name>Right_Arrow</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca17d5f793a8ec7f71b58f67bd2a36159b" prot="public">
+          <name>Up_Arrow</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc14537125339869313093eda9ea2cba" prot="public">
+          <name>Down_Arrow</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca9a52166bee7ec5ef5af87ffcb2db4a98" prot="public">
+          <name>Battery_Empty</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caef90c53609b402da5ddc2c4b7d0c6ceb" prot="public">
+          <name>Battery_Low</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca78f2e38894568ec4b0a8d4ac5102fc75" prot="public">
+          <name>Battery_Medium</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8154db63805bcbfce60a622f30780d2" prot="public">
+          <name>Battery_High</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca5307e86305c05016bbf182dd26f3c8f3" prot="public">
+          <name>WiFi_Low</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca345820f01c5df6d52ee614eae3070873" prot="public">
+          <name>WiFi_Medium</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc80724152258d89621277c958b60bae" prot="public">
+          <name>WiFi_High</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca39c091fb6cdf76ec0a1869bbc6613ecd" prot="public">
+          <name>Bluetooth</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca7c208a80580abd5094ffe3bc6fd6560f" prot="public">
+          <name>Sound_Mute</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caca7f5ca6649a8e0e9c4c1c3ae67e7621" prot="public">
+          <name>Sound_Low</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8bb620c01da9e077cec9022c03c22d6" prot="public">
+          <name>Sound_Medium</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca6757b93b332e3407b6075cdbb888f381" prot="public">
+          <name>Sound_High</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Xila_16 special characters list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="317" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="318" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Font_32</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583afd42d36d29a359db353d07135985177d" prot="public">
+          <name>Exclamation_Mark</name>
+          <initializer>= 127</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583a7b24a50cce644b140512ac0cc773ddcc" prot="public">
+          <name>Question_Mark</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583ac20a1b953496e61d6ed2cd31fd4bbc8f" prot="public">
+          <name>Cross</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Xila_32 special characters list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="341" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="342" bodyend="346"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25b" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Image_Offset</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25badc3435a2f539b21d95c40adc33dcd8c4" prot="public">
+          <name>Shell</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba97180ab3e3e925d187ec60ec380bed0a" prot="public">
+          <name>Calculator</name>
+          <initializer>= 20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bab8bfa1b39c285bc2c3ebc303ebda0ded" prot="public">
+          <name>Clock</name>
+          <initializer>= 21</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bab6d07b4741f02bf570acf6428df25ed4" prot="public">
+          <name>Image_Viewer</name>
+          <initializer>= 22</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba18698b263ebf2c54e8c52ced889ef66e" prot="public">
+          <name>Internet_Browser</name>
+          <initializer>= 23</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba0c36e7abe0f8f768d410547fb76b86f8" prot="public">
+          <name>Music_Player</name>
+          <initializer>= 24</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25badb44c564c76bb13184bf268c54d8fa3f" prot="public">
+          <name>Oscilloscope</name>
+          <initializer>= 33</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba3e4a7c3be8ff83cd720259e0acccffde" prot="public">
+          <name>Paint</name>
+          <initializer>= 34</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25babf270c6247cc05f1b2a6654f14f2df0a" prot="public">
+          <name>Periodic</name>
+          <initializer>= 35</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba97694dbae0adbd984fa3f9d142b014ae" prot="public">
+          <name>Piano</name>
+          <initializer>= 37</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba5c17f5b8bcdf9f24f0dbb184e616236c" prot="public">
+          <name>Pong</name>
+          <initializer>= 41</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba94746a2122deccb912393546df5fb1b6" prot="public">
+          <name>Simon</name>
+          <initializer>= 42</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25baa1b70150f2c185e41d0bc2714f895f8d" prot="public">
+          <name>Text_Editor</name>
+          <initializer>= 43</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25baef9560acf3cd6fc91323ff0fccd9d420" prot="public">
+          <name>Tiny_Basic</name>
+          <initializer>= 44</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Image offsets list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>All image offset, used by included software to keep track of picture offset </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="353" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="354" bodyend="369"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Pages_Offset</name>
+        <briefdescription>
+<para>Pages list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="374" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="375" bodyend="377"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Font</name>
+        <enumvalue id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800" prot="public">
+          <name>Regular_16</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Roboto Regular 16 px (+ special character), main font used almost everywhere. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a39ecaccad98438c57d2d864f92afc1e9" prot="public">
+          <name>Mono_16</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38" prot="public">
+          <name>Regular_24</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Robot Regular 24 px (+ special character), secondary font used sometimes. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb" prot="public">
+          <name>Regular_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>Roboto Regular 32 px (+ special character), secondary font used sometimes. </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a52bb5db557ab811c0deaf2be864b278a" prot="public">
+          <name>Regular_48</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Font list. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="382" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="383" bodyend="389"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_display___class_1a9547130bbb2fadfbc5970230e08246c1" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Display_Class::Brightness</definition>
+        <argsstring></argsstring>
+        <name>Brightness</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="278" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="278" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_display___class_1a79e4d1eab2728495e1906fdac7cdabf3" prot="protected" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Xila_Class::Display_Class::Standby_Time</definition>
+        <argsstring></argsstring>
+        <name>Standby_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="279" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_display___class_1ab0d08564089335c0fa55ba8d4320b71f" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Display_Class::Receive_Pin</definition>
+        <argsstring></argsstring>
+        <name>Receive_Pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="280" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="280" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_display___class_1a5f055fb6c05e33fa47c294a9b1058988" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Display_Class::Send_Pin</definition>
+        <argsstring></argsstring>
+        <name>Send_Pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="281" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_display___class_1aa8e80cec54791f0f41437a30eed3a00f" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Xila_Class::Display_Class::Tag</definition>
+        <argsstring></argsstring>
+        <name>Tag</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="283" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="283" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_display___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <param>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="395" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="395" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_xila___class_1_1_display___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="396" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_display___class_1a4634dd85c9ecc3919ac2bf616472ce69" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Display_Class::Load_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Load_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="285" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_display___class_1a57a1a229e2cf6b56a00374fbd4b7f57e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Display_Class::Save_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Save_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="286" column="27"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_xila___class_1_1_display___class_1a1491dbd1cc364a946317499769eb66bc" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Xila_Class::Display_Class::Incomming_String_Data_From_Display</definition>
+        <argsstring>(const char *, uint8_t)</argsstring>
+        <name>Incomming_String_Data_From_Display</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="391" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_display___class_1a86bbf72f4c071a2bcf2bb0de0757d8ee" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display</definition>
+        <argsstring>(uint32_t)</argsstring>
+        <name>Incomming_Numeric_Data_From_Display</name>
+        <param>
+          <type>uint32_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="392" column="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_display___class_1a3a346f1407296a42d8a0ae101e870fd4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Xila_Class::Display_Class::Incomming_Event_From_Display</definition>
+        <argsstring>(uint8_t)</argsstring>
+        <name>Incomming_Event_From_Display</name>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="393" column="21"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Display class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>Nextion_Display_Class</label>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Display_Class</label>
+        <link refid="class_xila___class_1_1_display___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Nextion_Display_Class</label>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Display_Class</label>
+        <link refid="class_xila___class_1_1_display___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="275" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="276" bodyend="397"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca9a52166bee7ec5ef5af87ffcb2db4a98" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Battery_Empty</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8154db63805bcbfce60a622f30780d2" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Battery_High</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caef90c53609b402da5ddc2c4b7d0c6ceb" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Battery_Low</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca78f2e38894568ec4b0a8d4ac5102fc75" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Battery_Medium</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a49d424ba001518095f3e597a3a556e90" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Black</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a944a3d05f62acee350e91e154882c6c8" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Blue</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca39c091fb6cdf76ec0a1869bbc6613ecd" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Bluetooth</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a9547130bbb2fadfbc5970230e08246c1" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Brightness</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba97180ab3e3e925d187ec60ec380bed0a" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Calculator</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bab8bfa1b39c285bc2c3ebc303ebda0ded" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Clock</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Color</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583ac20a1b953496e61d6ed2cd31fd4bbc8f" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Cross</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a33e2ca8dbf8464130638ba78640c4d4b" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Dark_Grey</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc14537125339869313093eda9ea2cba" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Down_Arrow</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583afd42d36d29a359db353d07135985177d" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Exclamation_Mark</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Font</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Font_32</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923afacad8f22cbb5f9141a0c48d7be93ac4" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Green</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25b" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Image_Offset</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bab6d07b4741f02bf570acf6428df25ed4" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Image_Viewer</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3a346f1407296a42d8a0ae101e870fd4" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Incomming_Event_From_Display</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a86bbf72f4c071a2bcf2bb0de0757d8ee" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Incomming_Numeric_Data_From_Display</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a1491dbd1cc364a946317499769eb66bc" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Incomming_String_Data_From_Display</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a608764d130070810c32132ea622b1e96" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Instruction</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba18698b263ebf2c54e8c52ced889ef66e" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Internet_Browser</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caf7f649f74a86082c41eaa776bd1756ec" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Left_Arrow</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aa1b47917701ab96a9829661a07b0feb0" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Light_Grey</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a4634dd85c9ecc3919ac2bf616472ce69" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a39ecaccad98438c57d2d864f92afc1e9" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Mono_16</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba0c36e7abe0f8f768d410547fb76b86f8" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Music_Player</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25badb44c564c76bb13184bf268c54d8fa3f" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Oscilloscope</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Pages_Offset</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba3e4a7c3be8ff83cd720259e0acccffde" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Paint</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25babf270c6247cc05f1b2a6654f14f2df0a" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Periodic</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba97694dbae0adbd984fa3f9d142b014ae" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Piano</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba5c17f5b8bcdf9f24f0dbb184e616236c" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Pong</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Prefixs</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583a7b24a50cce644b140512ac0cc773ddcc" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Question_Mark</name></member>
+      <member refid="class_xila___class_1_1_display___class_1ab0d08564089335c0fa55ba8d4320b71f" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Receive_Pin</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a4ffdaa7f6a341310ab9cff120de140c9" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Red</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Regular_16</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Regular_24</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Regular_32</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a52bb5db557ab811c0deaf2be864b278a" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Regular_48</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca467d199f899f161d46b0e57f1a0bc38d" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Right_Arrow</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a57a1a229e2cf6b56a00374fbd4b7f57e" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a5f055fb6c05e33fa47c294a9b1058988" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Send_Pin</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25badc3435a2f539b21d95c40adc33dcd8c4" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Shell</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba94746a2122deccb912393546df5fb1b6" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Simon</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca6757b93b332e3407b6075cdbb888f381" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Sound_High</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078caca7f5ca6649a8e0e9c4c1c3ae67e7621" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Sound_Low</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cae8bb620c01da9e077cec9022c03c22d6" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Sound_Medium</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca7c208a80580abd5094ffe3bc6fd6560f" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Sound_Mute</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a79e4d1eab2728495e1906fdac7cdabf3" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Standby_Time</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca1e32c6f795c81dfa3a57bca536c4b260" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>State_Button</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aa8e80cec54791f0f41437a30eed3a00f" prot="protected" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Tag</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25baa1b70150f2c185e41d0bc2714f895f8d" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Text_Editor</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25baef9560acf3cd6fc91323ff0fccd9d420" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Tiny_Basic</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca17d5f793a8ec7f71b58f67bd2a36159b" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Up_Arrow</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a8181f316f01f035f9835801b99bd9d6c" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Variable_Long</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a956b0168bb8859462d44f5ccfc8895c2" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Variable_String</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a61fef475272dde7e829a728cc1ff1688" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>White</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078cabc80724152258d89621277c958b60bae" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>WiFi_High</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca5307e86305c05016bbf182dd26f3c8f3" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>WiFi_Low</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078ca345820f01c5df6d52ee614eae3070873" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>WiFi_Medium</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a2e1f0bee85d550b517e57ba0532a078c" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Xila_16</name></member>
+      <member refid="class_xila___class_1_1_display___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Xila_Class</name></member>
+      <member refid="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aef694bc59d3872cde5ba8ec1c833da88" prot="public" virt="non-virtual"><scope>Xila_Class::Display_Class</scope><name>Yellow</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

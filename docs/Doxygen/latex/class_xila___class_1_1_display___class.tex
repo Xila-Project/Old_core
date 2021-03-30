@@ -1,0 +1,195 @@
+\hypertarget{class_xila___class_1_1_display___class}{}\doxysection{Xila\+\_\+\+Class\+::Display\+\_\+\+Class Class Reference}
+\label{class_xila___class_1_1_display___class}\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+
+
+Display class.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+Inheritance diagram for Xila\+\_\+\+Class\+::Display\+\_\+\+Class\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_xila___class_1_1_display___class}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a203329d1e9822751a63c0173204c0e13}\label{class_xila___class_1_1_display___class_a203329d1e9822751a63c0173204c0e13}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a203329d1e9822751a63c0173204c0e13}{Prefixs}} \{ {\bfseries Instruction} = \textquotesingle{}\#\textquotesingle{}
+, {\bfseries Variable\+\_\+\+String} = \textquotesingle{}s\textquotesingle{}
+, {\bfseries Variable\+\_\+\+Long} = \textquotesingle{}l\textquotesingle{}
+ \}
+\begin{DoxyCompactList}\small\item\em Prefixs used to differienciate exchanged data between display, core and software. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_aabbeeb03f3d1b07bbf2c63c3b6a28923}\label{class_xila___class_1_1_display___class_aabbeeb03f3d1b07bbf2c63c3b6a28923}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_aabbeeb03f3d1b07bbf2c63c3b6a28923}{Color}} \{ \newline
+{\bfseries Black}
+, {\bfseries White} = 65535
+, {\bfseries Light\+\_\+\+Grey} = 33808
+, {\bfseries Dark\+\_\+\+Grey} = 16904
+, \newline
+{\bfseries Red} = 57344
+, {\bfseries Blue} = 1300
+, {\bfseries Green} = 34308
+, {\bfseries Yellow} = 64896
+ \}
+\begin{DoxyCompactList}\small\item\em Default system colors. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}\label{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}{Xila\+\_\+16}} \{ \newline
+{\bfseries State\+\_\+\+Button} = 127
+, {\bfseries Left\+\_\+\+Arrow}
+, {\bfseries Right\+\_\+\+Arrow}
+, {\bfseries Up\+\_\+\+Arrow}
+, \newline
+{\bfseries Down\+\_\+\+Arrow}
+, {\bfseries Battery\+\_\+\+Empty}
+, {\bfseries Battery\+\_\+\+Low}
+, {\bfseries Battery\+\_\+\+Medium}
+, \newline
+{\bfseries Battery\+\_\+\+High}
+, {\bfseries Wi\+Fi\+\_\+\+Low}
+, {\bfseries Wi\+Fi\+\_\+\+Medium}
+, {\bfseries Wi\+Fi\+\_\+\+High}
+, \newline
+{\bfseries Bluetooth}
+, {\bfseries Sound\+\_\+\+Mute}
+, {\bfseries Sound\+\_\+\+Low}
+, {\bfseries Sound\+\_\+\+Medium}
+, \newline
+{\bfseries Sound\+\_\+\+High}
+ \}
+\begin{DoxyCompactList}\small\item\em Xila\+\_\+16 special characters list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a91be037084ced30430b419abf0af3583}\label{class_xila___class_1_1_display___class_a91be037084ced30430b419abf0af3583}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a91be037084ced30430b419abf0af3583}{Font\+\_\+32}} \{ {\bfseries Exclamation\+\_\+\+Mark} = 127
+, {\bfseries Question\+\_\+\+Mark}
+, {\bfseries Cross}
+ \}
+\begin{DoxyCompactList}\small\item\em Xila\+\_\+32 special characters list. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a22fbf46b6efc6641c2ae561f4145e25b}{Image\+\_\+\+Offset}} \{ \newline
+{\bfseries Shell} = 0
+, {\bfseries Calculator} = 20
+, {\bfseries Clock} = 21
+, {\bfseries Image\+\_\+\+Viewer} = 22
+, \newline
+{\bfseries Internet\+\_\+\+Browser} = 23
+, {\bfseries Music\+\_\+\+Player} = 24
+, {\bfseries Oscilloscope} = 33
+, {\bfseries Paint} = 34
+, \newline
+{\bfseries Periodic} = 35
+, {\bfseries Piano} = 37
+, {\bfseries Pong} = 41
+, {\bfseries Simon} = 42
+, \newline
+{\bfseries Text\+\_\+\+Editor} = 43
+, {\bfseries Tiny\+\_\+\+Basic} = 44
+ \}
+\begin{DoxyCompactList}\small\item\em Image offsets list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}\label{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}{Pages\+\_\+\+Offset}} 
+\begin{DoxyCompactList}\small\item\em Pages list. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281}{Font}} \{ \newline
+\mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800}{Regular\+\_\+16}} = 0
+, {\bfseries Mono\+\_\+16}
+, \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38}{Regular\+\_\+24}}
+, \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb}{Regular\+\_\+32}}
+, \newline
+{\bfseries Regular\+\_\+48}
+ \}
+\begin{DoxyCompactList}\small\item\em Font list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a1491dbd1cc364a946317499769eb66bc}\label{class_xila___class_1_1_display___class_a1491dbd1cc364a946317499769eb66bc}} 
+static void {\bfseries Incomming\+\_\+\+String\+\_\+\+Data\+\_\+\+From\+\_\+\+Display} (const char $\ast$, uint8\+\_\+t)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a86bbf72f4c071a2bcf2bb0de0757d8ee}\label{class_xila___class_1_1_display___class_a86bbf72f4c071a2bcf2bb0de0757d8ee}} 
+static void {\bfseries Incomming\+\_\+\+Numeric\+\_\+\+Data\+\_\+\+From\+\_\+\+Display} (uint32\+\_\+t)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3a346f1407296a42d8a0ae101e870fd4}\label{class_xila___class_1_1_display___class_a3a346f1407296a42d8a0ae101e870fd4}} 
+static void {\bfseries Incomming\+\_\+\+Event\+\_\+\+From\+\_\+\+Display} (uint8\+\_\+t)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}\label{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}\label{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a9547130bbb2fadfbc5970230e08246c1}\label{class_xila___class_1_1_display___class_a9547130bbb2fadfbc5970230e08246c1}} 
+uint8\+\_\+t {\bfseries Brightness}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a79e4d1eab2728495e1906fdac7cdabf3}\label{class_xila___class_1_1_display___class_a79e4d1eab2728495e1906fdac7cdabf3}} 
+uint16\+\_\+t {\bfseries Standby\+\_\+\+Time}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_ab0d08564089335c0fa55ba8d4320b71f}\label{class_xila___class_1_1_display___class_ab0d08564089335c0fa55ba8d4320b71f}} 
+uint8\+\_\+t {\bfseries Receive\+\_\+\+Pin}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a5f055fb6c05e33fa47c294a9b1058988}\label{class_xila___class_1_1_display___class_a5f055fb6c05e33fa47c294a9b1058988}} 
+uint8\+\_\+t {\bfseries Send\+\_\+\+Pin}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_aa8e80cec54791f0f41437a30eed3a00f}\label{class_xila___class_1_1_display___class_aa8e80cec54791f0f41437a30eed3a00f}} 
+char {\bfseries Tag} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_display___class_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_display___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Display class. 
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281}\label{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Font@{Font}}
+\index{Font@{Font}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Font}{Font}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Font}}}
+
+
+
+Font list. 
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Regular\_16@{Regular\_16}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Regular\_16@{Regular\_16}}}\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800}\label{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800}} 
+Regular\+\_\+16&Roboto Regular 16 px (+ special character), main font used almost everywhere. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Regular\_24@{Regular\_24}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Regular\_24@{Regular\_24}}}\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38}\label{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38}} 
+Regular\+\_\+24&Robot Regular 24 px (+ special character), secondary font used sometimes. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Regular\_32@{Regular\_32}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Regular\_32@{Regular\_32}}}\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb}\label{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb}} 
+Regular\+\_\+32&Roboto Regular 32 px (+ special character), secondary font used sometimes. \\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a22fbf46b6efc6641c2ae561f4145e25b}\label{class_xila___class_1_1_display___class_a22fbf46b6efc6641c2ae561f4145e25b}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Image\_Offset@{Image\_Offset}}
+\index{Image\_Offset@{Image\_Offset}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Image\_Offset}{Image\_Offset}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a22fbf46b6efc6641c2ae561f4145e25b}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Image\+\_\+\+Offset}}}
+
+
+
+Image offsets list. 
+
+All image offset, used by included software to keep track of picture offset 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}

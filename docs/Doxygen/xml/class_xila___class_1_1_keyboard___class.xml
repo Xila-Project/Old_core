@@ -1,0 +1,273 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_keyboard___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Keyboard_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fd" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>Key_Maps</name>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda5f671e22cb5ed8c76a25a6c2f3d389c9" prot="protected">
+          <name>American</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaf79ad31ad315b8b24f6e37f19c974b1d" prot="protected">
+          <name>German</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda694ce0db8088cb7d14787795ad6ea7a8" prot="protected">
+          <name>French</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda53397633bba4f8d84782dd769e925524" prot="protected">
+          <name>Spanish</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaef0538a956f7f58ea17a1e4f4ecae9b7" prot="protected">
+          <name>Italian</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda9e68663ccdbe04cf35372009905e119d" prot="protected">
+          <name>English</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="469" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="470" bodyend="477"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_keyboard___class_1ad7693efe2d49979ccc3f3931ca17f126" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Key_Map</definition>
+        <argsstring></argsstring>
+        <name>Key_Map</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="479" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="479" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_keyboard___class_1a8f2b87855e32b0ae3ae4be730c0107df" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Data_Pin</definition>
+        <argsstring></argsstring>
+        <name>Data_Pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="481" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="481" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_keyboard___class_1aa017c3800f4f0e810e3427215936d84a" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Clock_Pin</definition>
+        <argsstring></argsstring>
+        <name>Clock_Pin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="482" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="482" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_keyboard___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <param>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="500" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="500" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_xila___class_1_1_keyboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="501" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="501" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a43f3cb3ddaf195cba6d21a46539c0680" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Load_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="466" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1ac9e9097217975b9a6135b694c18d4541" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Save_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="467" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1aec340d46f2696be0640358ee3dbfc2f7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Keyboard_Class::Begin</definition>
+        <argsstring>()</argsstring>
+        <name>Begin</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="484" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1ab40f14720fab39739bcda6d8c80f8d87" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Read</definition>
+        <argsstring>()</argsstring>
+        <name>Read</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="488" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1ac269b7a11486d82f887cd272fbdb5470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Read_Raw</definition>
+        <argsstring>()</argsstring>
+        <name>Read_Raw</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="489" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a645529449d17418cf12b08c5f2e22f37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Keyboard_Class::Available</definition>
+        <argsstring>()</argsstring>
+        <name>Available</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="491" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a54a28063306921b5e94196d857b00575" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Keyboard_Class::Clear</definition>
+        <argsstring>()</argsstring>
+        <name>Clear</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="493" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a481cb3e4f39f7d592ff89cce98d9e3da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Keyboard_Class::Keyboard_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Keyboard_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="497" column="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Keyboard class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="462" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="463" bodyend="503"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda5f671e22cb5ed8c76a25a6c2f3d389c9" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>American</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a645529449d17418cf12b08c5f2e22f37" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Available</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1aec340d46f2696be0640358ee3dbfc2f7" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Begin</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a54a28063306921b5e94196d857b00575" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Clear</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1aa017c3800f4f0e810e3427215936d84a" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Clock_Pin</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a8f2b87855e32b0ae3ae4be730c0107df" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Data_Pin</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda9e68663ccdbe04cf35372009905e119d" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>English</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda694ce0db8088cb7d14787795ad6ea7a8" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>French</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaf79ad31ad315b8b24f6e37f19c974b1d" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>German</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fdaef0538a956f7f58ea17a1e4f4ecae9b7" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Italian</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ad7693efe2d49979ccc3f3931ca17f126" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Key_Map</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fd" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Key_Maps</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a481cb3e4f39f7d592ff89cce98d9e3da" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Keyboard_Class</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a43f3cb3ddaf195cba6d21a46539c0680" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ab40f14720fab39739bcda6d8c80f8d87" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Read</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ac269b7a11486d82f887cd272fbdb5470" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Read_Raw</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ac9e9097217975b9a6135b694c18d4541" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1ae0f76bec841385a48c95588a3e4a63fda53397633bba4f8d84782dd769e925524" prot="protected" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Spanish</name></member>
+      <member refid="class_xila___class_1_1_keyboard___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>Xila_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

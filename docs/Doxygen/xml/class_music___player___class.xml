@@ -1,0 +1,726 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_music___player___class" kind="class" language="C++" prot="public">
+    <compoundname>Music_Player_Class</compoundname>
+    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>States</name>
+        <enumvalue id="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296ab01b496288411b10aabf25473a619441" prot="protected">
+          <name>Stopped</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296adc26c4aa70654cb46b5273839123b1e2" prot="protected">
+          <name>Playing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296a4023c0dbc9b106c167c1bf3e4962ed36" prot="protected">
+          <name>Paused</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="24" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="25" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49d" prot="protected" static="no" strong="no">
+        <type></type>
+        <name>Queue_Position</name>
+        <enumvalue id="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49da168aaac5776d8f75c08c90df47894986" prot="protected">
+          <name>Empty</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49da70011b46daf6019e6250e3d025c55045" prot="protected">
+          <name>Current</name>
+          <initializer>= ((sizeof(Queue) / sizeof(uint32_t)) - 2)</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="36" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4a" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Picture</name>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaaad58f0cd9190f8d4c8b69aed4cff05d" prot="public">
+          <name>Music_Player_Icon_32</name>
+          <initializer>= Xila.Display.Music_Player</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaa90d408e04b6b83913d9e1ff9898d5ea" prot="public">
+          <name>Loop_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa3e1ab411e6a4d183dd75cc627cafbc00" prot="public">
+          <name>Pause_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aac4ade29c0bf008d4a31acefd35fda382" prot="public">
+          <name>Play_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aabc62f9f4d25f87de98c75c2423f8b1ac" prot="public">
+          <name>Random_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa2b28e095c98cf90d5b1821f691dbc971" prot="public">
+          <name>Step_Backward_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaf6b0bfa3e0d859f5424c49a0d5ba6b7b" prot="public">
+          <name>Fast_Backward_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa62644de14b070667d4dfd5ff2c2c6877" prot="public">
+          <name>Step_Forward_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa9923d448d9565171d706177784ad1660" prot="public">
+          <name>Fast_Forward_32</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="83" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="84" bodyend="94"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_music___player___class_1aa07641c366367d9466ca01f76a48991b" prot="protected" static="yes" mutable="no">
+        <type><ref refid="class_music___player___class" kindref="compound">Music_Player_Class</ref> *</type>
+        <definition>Music_Player_Class* Music_Player_Class::Instance_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Instance_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="8" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_music___player___class_1a58da0c7c1de0020fc163a40ad9b1bb58" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Music_Player_Class::Temporary_Char_Array[20]</definition>
+        <argsstring>[20]</argsstring>
+        <name>Temporary_Char_Array</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="10" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a9a973f3ad5b09e0b4a781c4af01e860a" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Music_Player_Class::Number_Of_Files</definition>
+        <argsstring></argsstring>
+        <name>Number_Of_Files</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="16" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a3abbe6abea09349f2ef2978a2dd2c36c" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Music_Player_Class::Music_File</definition>
+        <argsstring></argsstring>
+        <name>Music_File</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="18" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1af2090cbf8a1a12db3afd25abccc36b63" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Music_Player_Class::Next_Music_File</definition>
+        <argsstring></argsstring>
+        <name>Next_Music_File</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="19" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a26d0016b7b7e0c2d06061f20a05e2aa3" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Music_Player_Class::Music_Folder</definition>
+        <argsstring></argsstring>
+        <name>Music_Folder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="20" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1aa6afa1ab4e166d339bb106a70172ffa1" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Music_Player_Class::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="22" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a5f1ca8ff979f630c9fa72ae0999dd1a2" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Music_Player_Class::Queue[24]</definition>
+        <argsstring>[24]</argsstring>
+        <name>Queue</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="34" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a118d7c9228e4e90827f8f21c3d25e2dc" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Music_Player_Class::Volume</definition>
+        <argsstring></argsstring>
+        <name>Volume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="42" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a5750410fe60932a01a0fb6f562586783" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Music_Player_Class::Random</definition>
+        <argsstring></argsstring>
+        <name>Random</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="44" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1ac203beb7cfa6465889aba96f3add3f6e" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Music_Player_Class::Loop</definition>
+        <argsstring></argsstring>
+        <name>Loop</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="45" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1a581a774275b4d77ad39ef37bf9e748bf" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Music_Player_Class::Time_To_Set</definition>
+        <argsstring></argsstring>
+        <name>Time_To_Set</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="47" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1af4abfa1035d8f2380b104743c5e72ab4" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Music_Player_Class::Total_Time</definition>
+        <argsstring></argsstring>
+        <name>Total_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="48" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_music___player___class_1afb88381e67fb8741ed40961ef64d8877" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Music_Player_Class::Current_Time</definition>
+        <argsstring></argsstring>
+        <name>Current_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="49" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_music___player___class_1a9d2b3a5f870c515c2461dd748f9965c5" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void Music_Player_Class::Main_Task</definition>
+        <argsstring>(void *)</argsstring>
+        <name>Main_Task</name>
+        <param>
+          <type>void *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="12" column="17"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_music___player___class_1aa2e7575e5d81b4e34ba058ec6c87a674" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Pause</definition>
+        <argsstring>()</argsstring>
+        <name>Pause</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="14" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a184d8cdd803de7013bdded294e5fff91" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Refresh_Queue</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="52" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1aeb6ba5ed4993c72dcd1046bfd09a2d51" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Set_Variable</definition>
+        <argsstring>(const void *, uint8_t, uint8_t, uint8_t)</argsstring>
+        <name>Set_Variable</name>
+        <reimplements refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c">Set_Variable</reimplements>
+        <param>
+          <type>const void *</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <param>
+          <type>uint8_t</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="54" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a82fcc924aa5eb6e1a3c321e2e6507c1f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Dialog_Open_Folder</definition>
+        <argsstring>()</argsstring>
+        <name>Dialog_Open_Folder</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="56" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1acd913f28a457b8db7afa120e2d0dedf0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Open_File</definition>
+        <argsstring>()</argsstring>
+        <name>Open_File</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="57" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a4b5b2c343cf3dcf730e7c0d42c0de5b7" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Set_Time</definition>
+        <argsstring>()</argsstring>
+        <name>Set_Time</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="59" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a8c761f366f9c9c95cb8c5604682ff89f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Play</definition>
+        <argsstring>()</argsstring>
+        <name>Play</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="61" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a0cca34448cea58da70f94af263e9f428" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Generate_Queue</definition>
+        <argsstring>()</argsstring>
+        <name>Generate_Queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="63" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a051d3f0ee1bdd6a4b86cc29fb2d6e47d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Resume</definition>
+        <argsstring>()</argsstring>
+        <name>Resume</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="65" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1aefb6110ae0d3ef40cd65c1c2244d5d05" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Stop</definition>
+        <argsstring>()</argsstring>
+        <name>Stop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="66" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a16b7c6cef21eae4703d02e140ea50cf6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Next_Track</definition>
+        <argsstring>()</argsstring>
+        <name>Next_Track</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="68" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a092a487f54bcbbc46e417c5c251881cd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Last_Track</definition>
+        <argsstring>()</argsstring>
+        <name>Last_Track</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="69" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1af92b309e9e62f5f6254aaeb20b99f5b0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Check_Queue</definition>
+        <argsstring>()</argsstring>
+        <name>Check_Queue</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="71" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1ad85d96ae25dce51200aa2182d66480ad" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Music_Player_Class::Refresh_Interface</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Interface</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="73" column="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a5c3d223b3f77ea60db462cf38a449f6f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Music_Player_Class::Count_Music_File</definition>
+        <argsstring>()</argsstring>
+        <name>Count_Music_File</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="75" column="13"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_music___player___class_1ab692350517c79631b497cb707dd47448" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Music_Player_Class::Music_Player_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Music_Player_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="78" column="5"/>
+      </memberdef>
+      <memberdef kind="function" id="class_music___player___class_1a16d93be77afa6839573a06c6ac6c62d9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Music_Player_Class::~Music_Player_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Music_Player_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="79" column="5"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_music___player___class_1a4db8dfbe8f3f43ab1c0827b5d1810b0e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
+        <definition>static Software_Class* Music_Player_Class::Load</definition>
+        <argsstring>()</argsstring>
+        <name>Load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="81" column="27"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Music_Player_Class</label>
+        <link refid="class_music___player___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>Music_Player_Class</label>
+        <link refid="class_music___player___class"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="1" relation="usage">
+          <edgelabel>Instance_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Software_Class</label>
+        <link refid="class_software___class"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Software_Handle_Class</label>
+        <link refid="class_software___handle___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" line="5" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp" bodystart="6" bodyend="95"/>
+    <listofallmembers>
+      <member refid="class_music___player___class_1af92b309e9e62f5f6254aaeb20b99f5b0" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Check_Queue</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Close</name></member>
+      <member refid="class_music___player___class_1a5c3d223b3f77ea60db462cf38a449f6f" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Count_Music_File</name></member>
+      <member refid="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49da70011b46daf6019e6250e3d025c55045" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Current</name></member>
+      <member refid="class_music___player___class_1afb88381e67fb8741ed40961ef64d8877" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Current_Time</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Desk</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Color_Picker</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Event</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Install</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Keyboard</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Keypad</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Open_File</name></member>
+      <member refid="class_music___player___class_1a82fcc924aa5eb6e1a3c321e2e6507c1f" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Open_Folder</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Power</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Dialog_Save_File</name></member>
+      <member refid="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49da168aaac5776d8f75c08c90df47894986" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Empty</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaf6b0bfa3e0d859f5424c49a0d5ba6b7b" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Fast_Backward_32</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa9923d448d9565171d706177784ad1660" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Fast_Forward_32</name></member>
+      <member refid="class_music___player___class_1a0cca34448cea58da70f94af263e9f428" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Generate_Queue</name></member>
+      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Hibernate</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Idle</name></member>
+      <member refid="class_music___player___class_1aa07641c366367d9466ca01f76a48991b" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Instance_Pointer</name></member>
+      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Instructions</name></member>
+      <member refid="class_music___player___class_1a092a487f54bcbbc46e417c5c251881cd" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Last_Track</name></member>
+      <member refid="class_music___player___class_1a4db8dfbe8f3f43ab1c0827b5d1810b0e" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Load</name></member>
+      <member refid="class_music___player___class_1ac203beb7cfa6465889aba96f3add3f6e" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Loop</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaa90d408e04b6b83913d9e1ff9898d5ea" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Loop_32</name></member>
+      <member refid="class_music___player___class_1a9d2b3a5f870c515c2461dd748f9965c5" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Main_Task</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Maximize</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Minimize</name></member>
+      <member refid="class_music___player___class_1a3abbe6abea09349f2ef2978a2dd2c36c" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Music_File</name></member>
+      <member refid="class_music___player___class_1a26d0016b7b7e0c2d06061f20a05e2aa3" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Music_Folder</name></member>
+      <member refid="class_music___player___class_1ab692350517c79631b497cb707dd47448" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Music_Player_Class</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aaaad58f0cd9190f8d4c8b69aed4cff05d" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Music_Player_Icon_32</name></member>
+      <member refid="class_music___player___class_1af2090cbf8a1a12db3afd25abccc36b63" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Next_Music_File</name></member>
+      <member refid="class_music___player___class_1a16b7c6cef21eae4703d02e140ea50cf6" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Next_Track</name></member>
+      <member refid="class_music___player___class_1a9a973f3ad5b09e0b4a781c4af01e860a" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Number_Of_Files</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Open</name></member>
+      <member refid="class_music___player___class_1acd913f28a457b8db7afa120e2d0dedf0" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Open_File</name></member>
+      <member refid="class_music___player___class_1aa2e7575e5d81b4e34ba058ec6c87a674" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Pause</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa3e1ab411e6a4d183dd75cc627cafbc00" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Pause_32</name></member>
+      <member refid="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296a4023c0dbc9b106c167c1bf3e4962ed36" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Paused</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4a" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Picture</name></member>
+      <member refid="class_music___player___class_1a8c761f366f9c9c95cb8c5604682ff89f" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Play</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aac4ade29c0bf008d4a31acefd35fda382" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Play_32</name></member>
+      <member refid="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296adc26c4aa70654cb46b5273839123b1e2" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Playing</name></member>
+      <member refid="class_music___player___class_1a5f1ca8ff979f630c9fa72ae0999dd1a2" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Queue</name></member>
+      <member refid="class_music___player___class_1a5cc7a2ac509d870dcd92ae63a376c49d" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Queue_Position</name></member>
+      <member refid="class_music___player___class_1a5750410fe60932a01a0fb6f562586783" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Random</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aabc62f9f4d25f87de98c75c2423f8b1ac" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Random_32</name></member>
+      <member refid="class_music___player___class_1ad85d96ae25dce51200aa2182d66480ad" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Refresh_Interface</name></member>
+      <member refid="class_music___player___class_1a184d8cdd803de7013bdded294e5fff91" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Refresh_Queue</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Restart</name></member>
+      <member refid="class_music___player___class_1a051d3f0ee1bdd6a4b86cc29fb2d6e47d" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Resume</name></member>
+      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_music___player___class_1a4b5b2c343cf3dcf730e7c0d42c0de5b7" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Set_Time</name></member>
+      <member refid="class_music___player___class_1aeb6ba5ed4993c72dcd1046bfd09a2d51" prot="protected" virt="virtual"><scope>Music_Player_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Shutdown</name></member>
+      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Software_Class</name></member>
+      <member refid="class_music___player___class_1aa6afa1ab4e166d339bb106a70172ffa1" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>State</name></member>
+      <member refid="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>States</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa2b28e095c98cf90d5b1821f691dbc971" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Step_Backward_32</name></member>
+      <member refid="class_music___player___class_1ade6865d1009b16e5b548cfd9d592fa4aa62644de14b070667d4dfd5ff2c2c6877" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>Step_Forward_32</name></member>
+      <member refid="class_music___player___class_1aefb6110ae0d3ef40cd65c1c2244d5d05" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Stop</name></member>
+      <member refid="class_music___player___class_1a1ab33fce98fefd3e106bd77dc938c296ab01b496288411b10aabf25473a619441" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Stopped</name></member>
+      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_music___player___class_1a58da0c7c1de0020fc163a40ad9b1bb58" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Temporary_Char_Array</name></member>
+      <member refid="class_music___player___class_1a581a774275b4d77ad39ef37bf9e748bf" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Time_To_Set</name></member>
+      <member refid="class_music___player___class_1af4abfa1035d8f2380b104743c5e72ab4" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Total_Time</name></member>
+      <member refid="class_music___player___class_1a118d7c9228e4e90827f8f21c3d25e2dc" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Volume</name></member>
+      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Music_Player_Class</scope><name>Watchdog</name></member>
+      <member refid="class_music___player___class_1a16d93be77afa6839573a06c6ac6c62d9" prot="public" virt="non-virtual"><scope>Music_Player_Class</scope><name>~Music_Player_Class</name></member>
+      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Music_Player_Class</scope><name>~Software_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

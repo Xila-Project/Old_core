@@ -1,0 +1,363 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_account___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Account_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Session_State</name>
+        <enumvalue id="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a7924f884e1856cc1f9c31144622b294a" prot="public">
+          <name>Disconnected</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a31418b06a22fe1272c328619bc67d4e1" prot="public">
+          <name>Logged</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a47b9478888ba067575004b6a857f1c0a" prot="public">
+          <name>Locked</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Session state type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="167" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="168" bodyend="172"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_account___class_1ae6736ab0abe4073f9455d5b40442ba71" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Xila_Class::Account_Class::Current_Username[9]</definition>
+        <argsstring>[9]</argsstring>
+        <name>Current_Username</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="157" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_account___class_1a476f0ca8df6e274652e7be1e27e41965" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Account_Class::State</definition>
+        <argsstring></argsstring>
+        <name>State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="158" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_account___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <param>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="191" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_xila___class_1_1_account___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="192" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1a0e5ba763e38f904b6ea35dc0a29254ba" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Load_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Load_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="160" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1ab006894bfabd826caa28b054d3a3c944" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Save_Registry</definition>
+        <argsstring>()</argsstring>
+        <name>Save_Registry</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="161" column="27"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1a417966457997ef4624236d0c813ee31b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Add</definition>
+        <argsstring>(const char *Username, const char *Password)</argsstring>
+        <name>Add</name>
+        <param>
+          <type>const char *</type>
+          <declname>Username</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Password</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="174" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1ab9fff9eff5bbd9bc3aa13b3c65712f98" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Delete</definition>
+        <argsstring>(const char *)</argsstring>
+        <name>Delete</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="175" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1a20e8399f793d8b30eb5672a83003e693" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Change_Password</definition>
+        <argsstring>(const char *, const char *)</argsstring>
+        <name>Change_Password</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="176" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1ad337741a3a0e0a44640d9f1d9fec2c35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Change_Username</definition>
+        <argsstring>(const char *, const char *)</argsstring>
+        <name>Change_Username</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="177" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1aaff807ed1d55e77972324ce7c5601d7e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Set_Autologin</definition>
+        <argsstring>(bool Enable)</argsstring>
+        <name>Set_Autologin</name>
+        <param>
+          <type>bool</type>
+          <declname>Enable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="178" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1a4f871525bbf69e7c1506c3952c4d362f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Check_Credentials</definition>
+        <argsstring>(const char *, const char *)</argsstring>
+        <name>Check_Credentials</name>
+        <param>
+          <type>const char *</type>
+        </param>
+        <param>
+          <type>const char *</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="180" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1ab64be6eed8b9350de791edd73e1fd302" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Login</definition>
+        <argsstring>(const char *Username_To_Check=NULL, const char *Password_To_Check=NULL)</argsstring>
+        <name>Login</name>
+        <param>
+          <type>const char *</type>
+          <declname>Username_To_Check</declname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Password_To_Check</declname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="181" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1a43d5bb3c65fedc527b1adee77ba2994d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Logout</definition>
+        <argsstring>()</argsstring>
+        <name>Logout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="182" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1afd8147a2fd67ab514b30fce66e39b6c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Account_Class::Lock</definition>
+        <argsstring>()</argsstring>
+        <name>Lock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="183" column="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1aaf2cad61bc88312aa71e12b6465ea908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const char *</type>
+        <definition>const char* Xila_Class::Account_Class::Get_Current_Username</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Current_Username</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="185" column="20"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1acb227ba96c2fb7fda33acf0d4288fc44" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Account_Class::Get_State</definition>
+        <argsstring>()</argsstring>
+        <name>Get_State</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="187" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_account___class_1abcb0807150cdae5620aa512ebd7c9130" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Account_Class::Account_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Account_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="189" column="9"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Account management class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="154" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="155" bodyend="193"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_account___class_1abcb0807150cdae5620aa512ebd7c9130" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Account_Class</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a417966457997ef4624236d0c813ee31b" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Add</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a20e8399f793d8b30eb5672a83003e693" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Change_Password</name></member>
+      <member refid="class_xila___class_1_1_account___class_1ad337741a3a0e0a44640d9f1d9fec2c35" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Change_Username</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a4f871525bbf69e7c1506c3952c4d362f" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Check_Credentials</name></member>
+      <member refid="class_xila___class_1_1_account___class_1ae6736ab0abe4073f9455d5b40442ba71" prot="protected" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Current_Username</name></member>
+      <member refid="class_xila___class_1_1_account___class_1ab9fff9eff5bbd9bc3aa13b3c65712f98" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Delete</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a7924f884e1856cc1f9c31144622b294a" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Disconnected</name></member>
+      <member refid="class_xila___class_1_1_account___class_1aaf2cad61bc88312aa71e12b6465ea908" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Get_Current_Username</name></member>
+      <member refid="class_xila___class_1_1_account___class_1acb227ba96c2fb7fda33acf0d4288fc44" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Get_State</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a0e5ba763e38f904b6ea35dc0a29254ba" prot="protected" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Load_Registry</name></member>
+      <member refid="class_xila___class_1_1_account___class_1afd8147a2fd67ab514b30fce66e39b6c4" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Lock</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a47b9478888ba067575004b6a857f1c0a" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Locked</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15a31418b06a22fe1272c328619bc67d4e1" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Logged</name></member>
+      <member refid="class_xila___class_1_1_account___class_1ab64be6eed8b9350de791edd73e1fd302" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Login</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a43d5bb3c65fedc527b1adee77ba2994d" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Logout</name></member>
+      <member refid="class_xila___class_1_1_account___class_1ab006894bfabd826caa28b054d3a3c944" prot="protected" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Save_Registry</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a787729d00bfa77a2eb90506a0807db15" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Session_State</name></member>
+      <member refid="class_xila___class_1_1_account___class_1aaff807ed1d55e77972324ce7c5601d7e" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Set_Autologin</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a476f0ca8df6e274652e7be1e27e41965" prot="protected" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>State</name></member>
+      <member refid="class_xila___class_1_1_account___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Xila_Class::Account_Class</scope><name>Xila_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

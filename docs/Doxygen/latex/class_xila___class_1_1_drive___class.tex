@@ -1,0 +1,110 @@
+\hypertarget{class_xila___class_1_1_drive___class}{}\doxysection{Xila\+\_\+\+Class\+::Drive\+\_\+\+Class Class Reference}
+\label{class_xila___class_1_1_drive___class}\index{Xila\_Class::Drive\_Class@{Xila\_Class::Drive\_Class}}
+
+
+Drive class.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a7e7d4a3f766198a07fef592597404d5a}\label{class_xila___class_1_1_drive___class_a7e7d4a3f766198a07fef592597404d5a}} 
+enum {\bfseries Sd\+\_\+\+Card\+\_\+\+Type} \{ \newline
+{\bfseries CARD\+\_\+\+NONE}
+, {\bfseries CARD\+\_\+\+MMC}
+, {\bfseries CARD\+\_\+\+SD}
+, {\bfseries CARD\+\_\+\+SDHC}
+, \newline
+{\bfseries CARD\+\_\+\+UNKNOWN}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_ae6ee65e39b64633977e13099011c3673}\label{class_xila___class_1_1_drive___class_ae6ee65e39b64633977e13099011c3673}} 
+bool {\bfseries Begin} (uint8\+\_\+t Slave\+\_\+\+Select\+\_\+\+Pin=SS, SPIClass \&spi=SPI, uint32\+\_\+t Frequency=4000000, const char $\ast$Mount\+\_\+\+Point=\char`\"{}/sd\char`\"{}, uint8\+\_\+t Maximum\+\_\+\+Files=5)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_aba28eecd1868b938b087e4388d559ec5}\label{class_xila___class_1_1_drive___class_aba28eecd1868b938b087e4388d559ec5}} 
+uint64\+\_\+t {\bfseries Card\+\_\+\+Size} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a46f448f8aaa67e40a4ad8adaf2d01d85}\label{class_xila___class_1_1_drive___class_a46f448f8aaa67e40a4ad8adaf2d01d85}} 
+Sd\+\_\+\+Card\+\_\+\+Type {\bfseries Card\+\_\+\+Type} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_afc4521e0d8b8f0aac23af14d9e9239eb}\label{class_xila___class_1_1_drive___class_afc4521e0d8b8f0aac23af14d9e9239eb}} 
+bool {\bfseries Exists} (const char $\ast$Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a6fd45190eb05d644c1dece9ee3b1539d}\label{class_xila___class_1_1_drive___class_a6fd45190eb05d644c1dece9ee3b1539d}} 
+bool {\bfseries Exists} (const String \&Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_af832f7a6daa2dd7345e29393d2e392b3}\label{class_xila___class_1_1_drive___class_af832f7a6daa2dd7345e29393d2e392b3}} 
+bool {\bfseries Make\+\_\+\+Directory} (const char $\ast$Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a59def79d55a887b0d80d470f22c5f110}\label{class_xila___class_1_1_drive___class_a59def79d55a887b0d80d470f22c5f110}} 
+bool {\bfseries Make\+\_\+\+Directory} (const String \&Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_ad951b3ec549f04c18bcd3e0fb1a0acd5}\label{class_xila___class_1_1_drive___class_ad951b3ec549f04c18bcd3e0fb1a0acd5}} 
+bool {\bfseries Remove\+\_\+\+Directory} (const char $\ast$Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_aae929850f2b5dcdddfc46e3ea0651677}\label{class_xila___class_1_1_drive___class_aae929850f2b5dcdddfc46e3ea0651677}} 
+bool {\bfseries Remove\+\_\+\+Directory} (const String \&Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a773c3b5b91558c7202d174011b34b797}\label{class_xila___class_1_1_drive___class_a773c3b5b91558c7202d174011b34b797}} 
+File {\bfseries Open} (const char $\ast$Path, const char $\ast$Mode=\char`\"{}r\char`\"{})
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_afb5c9bb76be7359b6f6325520e9f88b6}\label{class_xila___class_1_1_drive___class_afb5c9bb76be7359b6f6325520e9f88b6}} 
+File {\bfseries Open} (const String \&Path, const char $\ast$Mode=\char`\"{}r\char`\"{})
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a7ba7605ddfbe7ccacfe81a7e49ea576d}\label{class_xila___class_1_1_drive___class_a7ba7605ddfbe7ccacfe81a7e49ea576d}} 
+bool {\bfseries Remove} (const char $\ast$Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_acf12d2dd7fc72d63f35f00c34b4917f3}\label{class_xila___class_1_1_drive___class_acf12d2dd7fc72d63f35f00c34b4917f3}} 
+bool {\bfseries Remove} (const String \&Path)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a5e3a8735ad316065b480222b5d4d7b14}\label{class_xila___class_1_1_drive___class_a5e3a8735ad316065b480222b5d4d7b14}} 
+bool {\bfseries Rename} (const char $\ast$Path\+\_\+\+From, const char $\ast$Path\+\_\+\+To)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_ad0fd69394fc59ad486b3e901a887c7df}\label{class_xila___class_1_1_drive___class_ad0fd69394fc59ad486b3e901a887c7df}} 
+bool {\bfseries Rename} (const String \&Path\+\_\+\+From, const String \&Path\+\_\+\+To)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_aa876b884d05d771a26148570cdf7d07e}\label{class_xila___class_1_1_drive___class_aa876b884d05d771a26148570cdf7d07e}} 
+uint64\+\_\+t {\bfseries Total\+\_\+\+Bytes} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_adb1b4ead65106d185faa8fdda6e838b6}\label{class_xila___class_1_1_drive___class_adb1b4ead65106d185faa8fdda6e838b6}} 
+uint64\+\_\+t {\bfseries Used\+\_\+\+Bytes} ()
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_abaceae5e29238cc061482cac703c86bb}\label{class_xila___class_1_1_drive___class_abaceae5e29238cc061482cac703c86bb}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Copy} (File \&Origin\+\_\+\+File, File \&Destination\+\_\+\+File)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a0e7c3a756ca4751a1d1f8e09e5809821}\label{class_xila___class_1_1_drive___class_a0e7c3a756ca4751a1d1f8e09e5809821}} 
+\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Get\+\_\+\+Name} (File const \&File, char $\ast$File\+\_\+\+Name\+\_\+\+Buffer, size\+\_\+t Size)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a269e05fe820f5bee67df0f76a5e42c46}\label{class_xila___class_1_1_drive___class_a269e05fe820f5bee67df0f76a5e42c46}} 
+uint16\+\_\+t {\bfseries Count\+\_\+\+Files} (File \&Folder)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_ac3f935e3060f0a754e4aea39b0c150bd}\label{class_xila___class_1_1_drive___class_ac3f935e3060f0a754e4aea39b0c150bd}} 
+void {\bfseries End} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_drive___class_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_drive___class_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_drive___class_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Drive class. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}
