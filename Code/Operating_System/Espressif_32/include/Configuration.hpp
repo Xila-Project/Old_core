@@ -24,7 +24,7 @@
 
 #define DISPLAY_SWITCH_PIN 27
 #define POWER_BUTTON_PIN GPIO_NUM_39
-#define BATTERY_SENSING_PIN 36
+#define BATTERY_SENSING_PIN GPIO_NUM_34 // to do : change to 35
 
 // Software
 #define TYPE_BUILTIN_SOFTWARE 0

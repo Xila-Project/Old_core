@@ -59,13 +59,3 @@ void Software_Class::Send_Instruction(Xila_Instruction Instruction)
 {
   xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
 }
-
-///
-/// @brief Convert "readable" instruction into xila instruction and send it.
-///
-/// @param Instruction_Char_1 Instruction first byte
-/// @param Instruction_Char_2 Instruction second byte
-void Software_Class::Send_Instruction(char Instruction_Char_1, char Instruction_Char_2)
-{
-  Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
-}

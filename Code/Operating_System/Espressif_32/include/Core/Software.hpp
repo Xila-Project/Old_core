@@ -32,10 +32,10 @@ extern Xila_Class Xila;
 #define Instruction(x, y) (x * 256 + y)
 
 ///
- /// @brief Software class
- ///
- /// @details This API is used by core in order to echange with software.
- /// 
+/// @brief Software class
+///
+/// @details This API is used by core in order to echange with software.
+///
 class Software_Class
 {
 private:
@@ -71,9 +71,8 @@ protected:
         Dialog_Keypad = 'k',       // Open keyapd dialog
         Dialog_Color_Picker = 'c', // Open color picker dialog
         Dialog_Power = 'P',        // Open power dialog
-        Dialog_Event = 'E',               // Open event dialog
+        Dialog_Event = 'E',        // Open event dialog
     };
-   
 
     Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
     virtual ~Software_Class();
@@ -81,13 +80,22 @@ protected:
     TaskHandle_t Task_Handle;
 
     ///
-     /// @brief Software handle pointer
-     /// 
-    Software_Handle_Class* Handle;
+    /// @brief Software handle pointer
+    ///
+    Software_Handle_Class *Handle;
     QueueHandle_t Instruction_Queue_Handle;
 
     void Send_Instruction(uint16_t);
-    void Send_Instruction(char, char);
+
+    ///
+    /// @brief Convert "readable" instruction into xila instruction and send it.
+    ///
+    /// @param Instruction_Char_1 Instruction first byte
+    /// @param Instruction_Char_2 Instruction second byte
+    inline void Send_Instruction(char Instruction_Char_1, char Instruction_Char_2)
+    {
+        Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
+    }
 
     virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 

@@ -29,8 +29,6 @@ protected:
 
     uint8_t Current_Channel;
 
-    uint32_t Last_Interface_Refresh;
-
     char Temporary_Char_Array[16];
 
     // Constant
@@ -50,14 +48,21 @@ protected:
     const int MODE_ON = 0;
     const int MODE_INV = 1;
     const int MODE_OFF = 2;
+
+
     const char *Modes[3] = {"Normal", "Inverted", "Off"};
     short ch0_mode = MODE_ON;
     short ch1_mode = MODE_OFF;
 
     // Triggering
-    const int TRIG_AUTO = 0;
-    const int TRIG_NORM = 1;
-    const int TRIG_SCAN = 2;
+
+    enum Trig_Modes
+    {
+        TRIG_AUTO = 0,
+        TRIG_NORM = 1,
+        TRIG_SCAN = 2
+    };
+
     const char *TRIG_Modes[3] = {"Automa", "Normal", "Scan"};
     const int TRIG_E_UP = 0;
     const int TRIG_E_DN = 1;
@@ -87,10 +92,10 @@ protected:
     // Trigger edge
     short trig_edge = TRIG_E_UP;
     short trig_ch = 0;
-    short Start = 1;
+    bool Start;
     short menu = 19;
 
-    short data[4][350]; // keep twice of the number of channels to make it a double buffer
+    uint8_t data[4][350]; // keep twice of the number of channels to make it a double buffer
 
     short sample = 0; // index for double buffer
     int amplitude = 0;
@@ -98,9 +103,10 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Run();
 
-    
+    void Trigger();
+    void Sampling();
+
     inline long adRead(short, short, int);
 
  
@@ -108,7 +114,7 @@ protected:
 
     void Refresh_Interface();
 
-    void Check_Commands();
+    void Loop();
 
     friend void Oscilloscope_Task(void *); //main task
     friend void SigmaDelta_Task(void *);   // used to generate sigmadelta signal

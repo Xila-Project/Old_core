@@ -153,6 +153,7 @@ void Text_Editor_Class::Refresh_Interface()
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     uint8_t Column_Number = 0;
+    uint8_t Column_Position = 0;
     char Line_Ending = 0x0D;
 
     switch (Mode)
@@ -191,6 +192,7 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
+            Column_Position = 0;
         }
         else if (Column_Number >= 55)
         {
@@ -200,17 +202,32 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
+            Column_Position = 0;
         }
         else
         {
-            if (isPrintable(Temporary_Character))
+            if (Temporary_Character == '\"')
             {
-                Temporary_Char_Array[Column_Number++] = Temporary_Character;
+                Temporary_Char_Array[Column_Position++] = '\\';
+                Temporary_Char_Array[Column_Position++] = '\"';
+                Column_Number++;
             }
-            else
+            else if (Temporary_Character == '\\')
             {
-                Temporary_Char_Array[Column_Number++] = Xila.Display.State_Button;
+                Temporary_Char_Array[Column_Position++] = '\\';
+                Temporary_Char_Array[Column_Position++] = '\\';
+                Column_Number++;
             }
+            else if (isPrintable(Temporary_Character))
+            {
+                Temporary_Char_Array[Column_Position++] = Temporary_Character;
+                Column_Number++;
+            }
+            /*else
+            {
+                Temporary_Char_Array[Column_Position++] = Xila.Display.State_Button;
+                Column_Number++;
+            }*/
         }
     }
 }

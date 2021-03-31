@@ -11,7 +11,7 @@
 #include "Core/Core.hpp"
 #include "soc/rtc_wdt.h"
 
-Xila_Class::Power_Class::Power_Class()
+Xila_Class::Power_Class::Power_Class() : Battery_Class(BATTERY_SENSING_PIN)
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
     Button_Counter = 0;
