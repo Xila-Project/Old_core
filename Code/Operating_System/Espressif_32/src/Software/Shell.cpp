@@ -105,7 +105,7 @@ void Shell_Class::Main_Task(void *pvParameters)
             break;
         case Load:
             Instance_Pointer->Current_Command = Instance_Pointer->Get_Instruction();
-            Instance_Pointer->Main_Commands();
+            Instance_Pointer->Main_Instructions();
             break;
         case Preferences_Network:
             Instance_Pointer->Preferences_Network_Commands();
@@ -125,18 +125,22 @@ void Shell_Class::Main_Task(void *pvParameters)
         default:
             Xila.Task.Delay(50);
             Instance_Pointer->Current_Command = Instance_Pointer->Get_Instruction();
-            Instance_Pointer->Main_Commands();
+            Instance_Pointer->Main_Instructions();
             break;
         }
     }
 }
 
-void Shell_Class::Main_Commands()
+void Shell_Class::Main_Instructions()
 {
     switch (Current_Command)
     {
     case Idle:
-        Xila.Task.Delay(20);
+        if (Xila.Software.Get_State(Shell_Handle) == Minimized)
+        {
+            Xila.Task.Delay(90);
+        }
+        Xila.Task.Delay(10);
         break;
     case Dialog_Color_Picker:
         Open_Color_Picker();
@@ -720,7 +724,7 @@ void Shell_Class::Desk_Commands()
         Dock(6, 'C');
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -866,7 +870,7 @@ void Shell_Class::Drawer_Commands()
         Open_From_Drawer(14);
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1121,7 +1125,7 @@ void Shell_Class::File_Manager_Commands()
         break;
 
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1254,7 +1258,7 @@ void Shell_Class::Login_Commands()
         }
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1360,7 +1364,7 @@ void Shell_Class::Preferences_Personal_Commands()
         Refresh_Preferences_System();
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1513,7 +1517,7 @@ void Shell_Class::Preferences_Hardware_Commands()
         Refresh_Preferences_Hardware();
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1556,14 +1560,14 @@ void Shell_Class::Preferences_Network_Commands()
         break;
     case Instruction('W', 'A'):
         Xila.WiFi.disconnect();
-        if (Xila.WiFi.softAP(Xila.System.Name, WiFi_Password) != true)
+        if (Xila.WiFi.softAP(Xila.System.Get_Device_Name(), WiFi_Password) != true)
         {
             Event_Dialog(F("Failed to enable the access point."), Xila.Error);
             Refresh_Preferences_Network();
         }
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1582,7 +1586,7 @@ void Shell_Class::Open_Preferences_System()
 
     memset(Username, '\0', sizeof(Username));
     memset(Name, '\0', sizeof(Name));
-    strcpy(Name, Xila.System.Name);
+    strcpy(Name, Xila.System.Get_Device_Name());
     Refresh_Preferences_System();
 }
 
@@ -1631,7 +1635,7 @@ void Shell_Class::Preferences_System_Commands()
         {
             Event_Dialog(F("Failed to save time registry"), Xila.Error);
         }
-        strlcpy(Xila.System.Name, Name, sizeof(Xila.System.Name));
+        strlcpy(Xila.System.Device_Name, Name, sizeof(Xila.System.Device_Name));
         if (Xila.System.Save_Registry() != Xila.Success)
         {
             Event_Dialog(F("Failed to save time registry"), Xila.Error);
@@ -1644,7 +1648,7 @@ void Shell_Class::Preferences_System_Commands()
         System_Update();
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1728,7 +1732,7 @@ void Shell_Class::Shutdown_Commands()
         Xila.System.Shutdown();
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1767,7 +1771,7 @@ void Shell_Class::Color_Picker_Commands()
         Xila.Task.Delay(20);
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -1821,7 +1825,7 @@ void Shell_Class::Event_Commands()
         Xila.Task.Delay(20);
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -2162,7 +2166,7 @@ void Shell_Class::Install_Commands()
 
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -2249,7 +2253,7 @@ void Shell_Class::Keyboard_Commands()
         Xila.Task.Delay(20);
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }
@@ -2352,7 +2356,7 @@ void Shell_Class::Keypad_Commands()
         Xila.Task.Delay(20);
         break;
     default:
-        Main_Commands();
+        Main_Instructions();
         break;
     }
 }

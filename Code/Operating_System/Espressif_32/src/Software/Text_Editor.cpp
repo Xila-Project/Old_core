@@ -27,14 +27,35 @@ Software_Class *Text_Editor_Class::Load()
     return Instance_Pointer;
 }
 
+void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+    switch (Adress)
+    {
+    case 'S':
+        if (Type == Xila.Display.Variable_Long)
+        {
+            Offset = *(uint8_t *)Variable;
+            Offset = (Offset * File_To_Edit.size()) / 176;
+            Send_Instruction('R', 'T');
+        }
+        break;
+    default:
+        break;
+    }
+}
+
 void Text_Editor_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0:
+        case Idle:
             // IDLE : nothing to do
+            if (Xila.Software.Get_State(Text_Editor_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
             Xila.Task.Delay(20);
             break;
         case Close:
@@ -55,15 +76,6 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Text_Editor_Handle);
-
-            break;
-        case Instruction('S', 'U'): // SU : scroll up
-            Instance_Pointer->Offset += 55;
-            Instance_Pointer->Refresh_Interface();
-            break;
-        case Instruction('S', 'D'): // SD : scroll down
-            Instance_Pointer->Offset -= 55;
-            Instance_Pointer->Refresh_Interface();
             break;
         case Instruction('R', 'T'): // RT : refresh text
             Instance_Pointer->Refresh_Interface();
@@ -115,23 +127,6 @@ void Text_Editor_Class::Scan()
     Serial.println(Mode, HEX);
 }
 
-void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
-{
-    switch (Adress)
-    {
-    case 'S':
-        if (Type == Xila.Display.Variable_Long)
-        {
-            Offset = *(uint8_t *)Variable;
-            Offset = (Offset * File_To_Edit.size()) / 176;
-            Send_Instruction('R', 'T');
-        }
-        break;
-    default:
-        break;
-    }
-}
-
 void Text_Editor_Class::Refresh_Interface()
 {
     char Line_Name[11] = "LINE _TXT";
@@ -139,6 +134,8 @@ void Text_Editor_Class::Refresh_Interface()
 
     if (!File_To_Edit)
     {
+        Xila.Display.Set_Value(F("SCROLLBAR_SLI"), 0);
+        Xila.Display.Set_Text(F("FILENAME_TXT"), "");
         for (; Line_Number < 14; Line_Number++)
         {
             Line_Name[4] = '0' + Line_Number;
@@ -149,7 +146,12 @@ void Text_Editor_Class::Refresh_Interface()
 
     File_To_Edit.seek(Offset);
     char Temporary_Character;
-    char Temporary_Char_Array[56];
+    char Temporary_Char_Array[114]; // double to allow 
+    memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
+
+    Xila.Drive.Get_Name(File_To_Edit, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+    Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_Char_Array);
+
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     uint8_t Column_Number = 0;

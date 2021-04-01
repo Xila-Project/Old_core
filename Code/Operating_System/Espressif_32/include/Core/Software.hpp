@@ -38,11 +38,10 @@ extern Xila_Class Xila;
 ///
 class Software_Class
 {
-private:
-    uint16_t Current_Instruction;
-    uint32_t Last_Watchdog_Feed;
-
 protected:
+    Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
+    virtual ~Software_Class();
+
     ///
     /// @brief Instructions used by the core (with the prefix "#")
     ///
@@ -74,8 +73,11 @@ protected:
         Dialog_Event = 'E',        // Open event dialog
     };
 
-    Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
-    virtual ~Software_Class();
+    typedef enum
+    {
+        Minimized,
+        Maximized
+    } State;
 
     TaskHandle_t Task_Handle;
 
@@ -83,7 +85,6 @@ protected:
     /// @brief Software handle pointer
     ///
     Software_Handle_Class *Handle;
-    QueueHandle_t Instruction_Queue_Handle;
 
     void Send_Instruction(uint16_t);
 
@@ -104,6 +105,11 @@ protected:
     friend class Xila_Class;
     friend class Software_Handle_Class;
     friend class Shell_Class;
+
+private:
+    uint16_t Current_Instruction;
+    QueueHandle_t Instruction_Queue_Handle;
+    uint32_t Last_Watchdog_Feed;
 };
 
 #endif

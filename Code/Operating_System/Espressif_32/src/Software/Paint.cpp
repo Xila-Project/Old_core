@@ -57,12 +57,14 @@ void Paint_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0:
-            Xila.Task.Delay(30);
+        case Idle:
+            if (Xila.Software.Get_State(Paint_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
+            Xila.Task.Delay(20);
             break;
-        case Watchdog:
-            
-            break;
+
         case Open:
             Xila.Display.Set_Current_Page(F("Paint"));
             Instance_Pointer->Color_Palette[0] = 0;

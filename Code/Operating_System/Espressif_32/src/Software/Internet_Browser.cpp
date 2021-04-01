@@ -44,8 +44,12 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
   {
     switch (Instance_Pointer->Get_Instruction())
     {
-    case 0:
-      Xila.Task.Delay(20);
+    case Idle:
+      if (Xila.Software.Get_State(Internet_Browser_Handle) == Minimized)
+      {
+        Xila.Task.Delay(90);
+      }
+      Xila.Task.Delay(10);
       //Idle : nothing to do
       break;
     case Open:

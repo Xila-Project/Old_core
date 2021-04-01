@@ -153,7 +153,7 @@ protected:
     // -- Global scope
 
     uint16_t Current_Command;
-    void Main_Commands();
+    void Main_Instructions();
 
     // -- Dialog boxes method
 

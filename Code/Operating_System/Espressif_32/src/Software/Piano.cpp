@@ -37,6 +37,10 @@ void Piano_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case Idle: //idle state
+            if (Xila.Software.Get_State(Piano_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
             Xila.Task.Delay(10);
             break;
         case Open:

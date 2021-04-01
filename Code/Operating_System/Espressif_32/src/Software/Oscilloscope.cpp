@@ -3,7 +3,7 @@
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle),
-Start(false)
+										   Start(false)
 {
 	Xila.Task.Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
 }
@@ -42,12 +42,22 @@ void Oscilloscope_Class::Loop()
 		{
 		case Idle:
 			Verbose_Print_Line("Idle");
-			Xila.Task.Delay(40);
-			if (trig_mode != TRIG_SCAN)
+			if (Xila.Software.Get_State(Oscilloscope_Handle) == Minimized)
 			{
-				Send_Instruction('T', 'r');
+				Xila.Task.Delay(90);
 			}
-			Send_Instruction('S', 'a');
+			else
+			{
+				Xila.Task.Delay(10);
+				if (Start)
+				{
+					if (trig_mode != TRIG_SCAN)
+					{
+						Send_Instruction('T', 'r');
+					}
+					Send_Instruction('S', 'a');
+				}
+			}
 			break;
 		case Open:
 			Start = false;

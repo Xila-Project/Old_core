@@ -97,8 +97,6 @@ typedef tm Xila_Time;
 //                         Define Xila Core API                               //
 //----------------------------------------------------------------------------//
 
-extern Software_Handle_Class Shell_Handle;
-
 class Shell_Class;
 
 ///
@@ -128,7 +126,7 @@ public:
     ///
     /// @brief Xila event type
     ///
-    typedef enum
+    typedef enum : uint8_t
     {
         None,
         Success = 1,
@@ -153,23 +151,16 @@ public:
     ///
     class Account_Class
     {
-    protected:
-        char Current_Username[9];
-        uint8_t State;
-
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
-
     public:
         ///
         /// @brief Session state type
         ///
-        enum Session_State
+        typedef enum : uint8_t
         {
             Disconnected,
             Logged,
             Locked
-        };
+        } Session_State;
 
         Xila_Class::Event Add(const char *Username, const char *Password);
         Xila_Class::Event Delete(const char *);
@@ -190,6 +181,14 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+
+    protected:
+        char Current_Username[9];
+        Session_State State;
+
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+
     } Account;
 
     //==============================================================================//
@@ -509,6 +508,18 @@ public:
     ///
     class Power_Class : public Battery_Class
     {
+
+    public:
+        // -- Constructors / Destructors
+        Power_Class();
+
+        // -- Friendship
+        friend Xila_Class;
+        friend class Shell_Class;
+
+        Xila_Class::Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+
     protected:
         // -- Attributes
         volatile uint8_t Button_Counter;
@@ -519,13 +530,6 @@ public:
 
         void Check_Button();
 
-    public:
-        // -- Constructors / Destructors
-        Power_Class();
-
-        // -- Friendship
-        friend Xila_Class;
-        friend class Shell_Class;
     } Power;
 
     //==============================================================================//
@@ -535,6 +539,21 @@ public:
     ///
     class Software_Management_Class
     {
+    public:
+        Software_Class::State Get_State(Software_Handle_Class const& Software_Handle);
+
+        Xila_Class::Event Open(Software_Handle_Class const &Software_Handle);
+        void Minimize(Software_Handle_Class const &Software_Handle);
+        Xila_Class::Event Maximize(Software_Handle_Class const &);
+        void Close(Software_Handle_Class const &Software_Handle);
+
+        void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
+
+        Software_Management_Class();
+
+        friend class Xila_Class;
+        friend class Shell_Class;
+
     protected:
         uint32_t Watchdog_Timer;
         uint8_t Watchdog_State;
@@ -562,19 +581,6 @@ public:
 
         Xila_Class::Event Force_Close(Software_Handle_Class const &Software_Handle);
 
-    public:
-        Xila_Class::Event Open(Software_Handle_Class const &Software_Handle);
-        void Minimize(Software_Handle_Class const &Software_Handle);
-        Xila_Class::Event Maximize(Software_Handle_Class const &);
-        void Close(Software_Handle_Class const &Software_Handle);
-
-        void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
-
-        Software_Management_Class();
-
-        friend class Xila_Class;
-        friend class Shell_Class;
-
     } Software;
 
     //==============================================================================//
@@ -584,35 +590,10 @@ public:
     ///
     class Sound_Class
     {
-    protected:
-        const static uint8_t Left_Channel = 0;
-        const static uint8_t Right_Channel = 1;
-        const static uint8_t Custom_Channel = 2;
-
-        Xila_Task_Handle Task_Handle;
-
-        uint8_t Custom_Pin;
-
-        File Music_File;
-
-        enum State
-        {
-            Stopped,
-            Playing,
-            Paused
-        };
-
-        // 0 : stopped
-        // 1 : playing
-        // 2 : paused
-        // 3 : tone
-
-        Xila_Class::Event Save_Registry();
-        Xila_Class::Event Load_Registry();
-
-        void Begin();
-
     public:
+        Sound_Class();
+        ~Sound_Class();
+
         enum Event
         {
             Failed_To_Get_RTC_Period,
@@ -627,6 +608,13 @@ public:
             Unsupported_Bit_Depth,
             Unsupported_Sampling_Rate,
             Unsupported_Channel_Number,
+        };
+
+        enum State
+        {
+            Stopped,
+            Playing,
+            Paused
         };
 
         void Set_Output_Channel(uint8_t Number_Output_Channel);
@@ -655,13 +643,35 @@ public:
 
         static void Task(void *);
 
-        Sound_Class();
-        ~Sound_Class();
-
         friend void audio_eof_mp3(const char *);
 
         friend Xila_Class;
         friend class Shell_Class;
+
+        enum Channels
+        {
+            Left_Channel = 0,
+            Right_Channel = 1,
+            Custom_Channel = 2
+        };
+
+    protected:
+        Xila_Task_Handle Task_Handle;
+
+        uint8_t Custom_Pin;
+
+        File Music_File;
+
+        // 0 : stopped
+        // 1 : playing
+        // 2 : paused
+        // 3 : tone
+
+        Xila_Class::Event Save_Registry();
+        Xila_Class::Event Load_Registry();
+
+        void Begin();
+
     } Sound;
 
     //==============================================================================//
@@ -671,6 +681,32 @@ public:
     ///
     class System_Class
     {
+    public:
+        System_Class();
+        ~System_Class();
+
+        const char *Get_Device_Name();
+
+        uint32_t Get_Free_Heap();
+
+        void Start();
+        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
+
+        void Shutdown();
+        void Restart();
+        void Hibernate();
+
+        uint32_t Random() const;
+        uint32_t Random(uint32_t Upper_Bound) const;
+        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound) const;
+
+        void Refresh_Header();
+
+        static void Task(void *);
+
+        friend class Xila_Class;
+        friend class Shell_Class;
+
     protected:
         // System's task :
         Xila_Task_Handle Task_Handle;
@@ -678,12 +714,14 @@ public:
         ///
         /// @brief Device name used as Network hostname ...
         ///
-        char Name[24];
+        char Device_Name[24];
+
+        void Deep_Sleep();
 
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
 
-        Xila_Class::Event Create_Dump();
+        Xila_Class::Event Save_Dump();
         Xila_Class::Event Load_Dump();
 
         Xila_Class::Event Load_Executable(File Executable_File, uint8_t Type = 'M');
@@ -703,42 +741,17 @@ public:
             Damaged_System_Registry,
             Installation_Conflict,
             System_Drive_Failure,
+            Failed_To_Update_Display,
             Low_Memory,
             Memory_Corruption,
         };
 
         void Panic_Handler(Panic_Code Panic_Code);
 
-    public:
-        const char *Get_Name();
-
-        uint32_t Get_Free_Heap();
-
         void First_Start_Routine();
         void Second_Start_Routine();
 
         void Execute_Startup_Function();
-
-        void Shutdown();
-        void Restart();
-        void Hibernate();
-        void Deep_Sleep();
-
-        void Start();
-        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
-
-        uint32_t Random() const;
-        uint32_t Random(uint32_t Upper_Bound) const;
-        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound) const;
-
-        void Refresh_Header();
-
-        static void Task(void *);
-
-        System_Class();
-
-        friend class Xila_Class;
-        friend class Shell_Class;
     } System;
 
     //==============================================================================//

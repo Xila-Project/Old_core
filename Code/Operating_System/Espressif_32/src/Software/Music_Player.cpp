@@ -48,7 +48,11 @@ void Music_Player_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case Idle:
-            Xila.Task.Delay(20);
+            if (Xila.Software.Get_State(Music_Player_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
+            Xila.Task.Delay(10);
             break;
         case Close:
             Instance_Pointer->Stop();

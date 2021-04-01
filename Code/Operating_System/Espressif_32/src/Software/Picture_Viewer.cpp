@@ -35,7 +35,11 @@ void Image_Viewer_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case Idle:
-            Xila.Task.Delay(30);
+            if (Xila.Software.Get_State(Image_Viewer_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
+            Xila.Task.Delay(10);
             break;
         case Open:
             Xila.Display.Set_Current_Page(F("Pictviewer"));

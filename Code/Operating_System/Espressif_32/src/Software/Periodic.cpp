@@ -50,8 +50,12 @@ void Periodic_Class::Main_Task(void *pvParamters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case 0: //Idle state
-            Xila.Task.Delay(30);
+        case Idle: //Idle state
+            if (Xila.Software.Get_State(Periodic_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
+            Xila.Task.Delay(10);
             break;
         case Instruction('C', 'l'):
             Xila.Software.Close(Periodic_Handle);

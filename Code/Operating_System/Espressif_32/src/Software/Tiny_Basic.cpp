@@ -145,17 +145,26 @@ void Tiny_Basic_Class::Main_Task(void *pvParameters)
   }
 }
 
-void Tiny_Basic_Class::Read_Command()
+void Tiny_Basic_Class::Read_Instructions()
 {
-  switch (Instance_Pointer->Get_Instruction())
+  switch (Get_Instruction())
   {
+  case Idle:
+    if (Xila.Software.Get_State(Tiny_Basic_Handle) == Minimized)
+    {
+      Xila.Task.Delay(90);
+    }
+    vTaskDelay(10);
+    break;
   case Open:
+    Xila.Display.Set_Current_Page(F("Tiny_Basic"));
     break;
   case Minimize:
     
     break;
   case Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
+    Refresh_Interface();
     break;
   case Close:
     delete Instance_Pointer;
@@ -806,7 +815,7 @@ unsigned char *Tiny_Basic_Class::filenameWord()
 /***************************************************************************/
 void Tiny_Basic_Class::line_terminator()
 {
-  Read_Command();
+  Read_Instructions();
   if (outStream == kStreamXila)
   {
     if (Current_Line < 14)
@@ -962,7 +971,7 @@ int Tiny_Basic_Class::inchar()
   case (kStreamXila): // Xila (keyboard and display)
     while (1)
     {
-      Read_Command();
+      Read_Instructions();
 
       if (Xila.Keyboard.Available())
       {
@@ -1083,7 +1092,7 @@ boolean Tiny_Basic_Class::initSD()
 void Tiny_Basic_Class::cmd_Files()
 {
   File dir = Xila.Drive.Open("/");
-  dir.seek(0);
+  dir.rewindDirectory();
 
   while (true)
   {

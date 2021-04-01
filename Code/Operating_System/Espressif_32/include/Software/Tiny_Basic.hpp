@@ -318,7 +318,8 @@ protected:
 
     // custom function
 
-    void Read_Command();
+
+    void Read_Instructions();
 
     char Temporary_Input[190];
     uint8_t Current_Position = 0;

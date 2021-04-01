@@ -115,12 +115,13 @@ void Calculator_Class::Main_Task(void *pvParameters)
         switch (Instance_Pointer->Get_Instruction())
         {
         case Idle: //idle
-            Xila.Task.Delay(20);
+            if (Xila.Software.Get_State(Calculator_Handle) == Minimized)
+            {
+                Xila.Task.Delay(90);
+            }
+            Xila.Task.Delay(10);
             break;
-        case Watchdog:
-            
-            Verbose_Print_Line("Feed watchdog");
-            break;
+
         case Instruction('C', 'l'):
             Xila.Software.Close(Calculator_Handle);
             break;

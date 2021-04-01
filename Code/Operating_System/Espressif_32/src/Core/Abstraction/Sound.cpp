@@ -33,7 +33,8 @@ Audio Audio_Driver;
 /// @brief Construct a new Xila_Class::Sound_Class::Sound_Class object
 ///
 Xila_Class::Sound_Class::Sound_Class()
-    : Custom_Pin(0xFF)
+    : Task_Handle(NULL),
+      Custom_Pin(0xFF)
 {
 }
 
@@ -52,6 +53,7 @@ void Xila_Class::Sound_Class::Begin()
     pinMode(36, OUTPUT);
     Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
+    Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(4), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
 }
 
 ///
@@ -69,16 +71,16 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
-    Set_Volume(Sound_Registry["Volume"]);
+    Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
     Temporary_File.close();
     return Success;
 }
 
 Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Sound_Registry(256);
     Sound_Registry["Volume"] = Get_Volume();
+    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path, FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -295,7 +297,6 @@ void Xila_Class::Sound_Class::Task(void *)
         for (i = 0; i < 255; i++)
         {
             Audio_Driver.loop();
-            
         }
         Xila.Task.Delay(10);
     }

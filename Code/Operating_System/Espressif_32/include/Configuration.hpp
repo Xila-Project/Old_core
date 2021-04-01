@@ -12,7 +12,7 @@
 #define USB_SERIAL_SPEED 115200
 
 
-#define Default_Name "Xila"
+#define Default_Device_Name "Xila"
 
 // Software
 
@@ -22,17 +22,20 @@
 
 // Pin configuration
 
-#define DISPLAY_SWITCH_PIN 27
+#define Default_Battery_Conversion_Factor 2
+#define Default_Battery_Minimum_Voltage 2500
+#define Default_Battery_Maximum_Voltage 4200
+
+#define DISPLAY_SWITCH_PIN GPIO_NUM_27
 #define POWER_BUTTON_PIN GPIO_NUM_39
-#define BATTERY_SENSING_PIN GPIO_NUM_34 // to do : change to 35
+#define Default_Battery_Sensing_Pin GPIO_NUM_34 // to do : change to 35
 
-// Software
-#define TYPE_BUILTIN_SOFTWARE 0
-#define TYPE_EXTERNAL_SOFTWARE 1
-#define TYPE_EMULATED_SOFTWARE 2
 
-// Json document
-#define DEFAULT_REGISTRY_SIZE 256
+
+#define Default_Volume_Level 255
+#define Default_Registry_Size 512
+
+
 
 // Versionning
 #define VERSION_MAJOR 0
