@@ -257,7 +257,6 @@ public:
         Xila_Class::Event Dialog_Open_Folder(File &Folder_To_Open);
         Xila_Class::Event Save_File(File &File_To_Save);
         Xila_Class::Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-        // to do : Xila_Class::Event Keyboard_Difalog(float& Number_To_Get) (and more overload);
         Xila_Class::Event Keypad(float &Number_To_Get);
 
         Dialog_Class();
@@ -273,18 +272,10 @@ public:
     ///
     class Display_Class : public Nextion_Class
     {
-    protected:
-        uint8_t Brightness;
-        uint16_t Standby_Time;
-        uint8_t Receive_Pin;
-        uint8_t Send_Pin;
-
-        char Tag = 0;
-
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
-
     public:
+        Display_Class();
+        ~Display_Class();
+
         ///
         /// @brief Prefixs used to differienciate exchanged data between display, core and software
         ///
@@ -393,6 +384,16 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+
+    protected:
+        uint16_t Standby_Time;
+        uint8_t Receive_Pin, Transmit_Pin, Brightness;
+
+        char Tag = 0;
+
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+
     } Display;
 
     //==============================================================================//
@@ -465,6 +466,14 @@ public:
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
 
+        uint8_t Key_Map;
+
+        uint8_t Data_Pin;
+        uint8_t Clock_Pin;
+
+        inline void Begin();
+
+    public:
         enum Key_Maps
         {
             American,
@@ -475,14 +484,40 @@ public:
             English
         };
 
-        uint8_t Key_Map;
+        enum Special_Keys
+        {
+            Tab = 9,
+            Enter = 13,
+            Backspace = 127,
+            Escape = 27,
+            Insert = 0,
+            Delete = 127,
+            Home = 0,
+            End = 0,
+            Page_Up = 25,
+            Page_Down = 26,
+            Arrow_Up = 11,
+            Arrow_Down = 10,
+            Arrow_Left = 8,
+            Arrow_Right = 21,
+            F1 = 0,
+            F2 = 0,
+            F3 = 0,
+            F4 = 0,
+            F5 = 0,
+            F6 = 0,
+            F7 = 0,
+            F8 = 0,
+            F9 = 0,
+            F10 = 0,
+            F11 = 0,
+            F12 = 0,
+            Scroll = 0,
+            Euro_Sign = 0,
+            // Custom regional keys
+            Inverted_Exclamation = 161
+        };
 
-        uint8_t Data_Pin;
-        uint8_t Clock_Pin;
-
-        inline void Begin();
-
-    public:
         // -- Methods
         uint8_t Read();
         uint8_t Read_Raw();
@@ -540,7 +575,9 @@ public:
     class Software_Management_Class
     {
     public:
-        Software_Class::State Get_State(Software_Handle_Class const& Software_Handle);
+        Software_Management_Class();
+
+        Software_Class::State Get_State(Software_Handle_Class const &Software_Handle);
 
         Xila_Class::Event Open(Software_Handle_Class const &Software_Handle);
         void Minimize(Software_Handle_Class const &Software_Handle);
@@ -549,14 +586,14 @@ public:
 
         void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
 
-        Software_Management_Class();
-
         friend class Xila_Class;
         friend class Shell_Class;
 
     protected:
         uint32_t Watchdog_Timer;
         uint8_t Watchdog_State;
+
+        void Defrag_Oppened();
 
         void Check_Watchdog();
 
@@ -638,8 +675,8 @@ public:
         void Set_Offset_Time(int16_t Time);
         uint8_t Get_State();
 
-        void Tone(uint16_t const &Frequency, uint32_t const &Duration = 0, uint8_t const &Pin = 0xFF);
-        void No_Tone(uint8_t const &Pin = 0xFF); // no tone (0xFF default pins)
+        void Tone(uint16_t Frequency, uint32_t Duration = 0, uint8_t Pin = 0xFF);
+        void No_Tone(uint8_t Pin = 0xFF); // no tone (0xFF default pins)
 
         static void Task(void *);
 

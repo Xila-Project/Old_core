@@ -19,13 +19,30 @@ Xila_Class::Software_Management_Class::Software_Management_Class()
   Watchdog_State = 0;
 }
 
-Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const& Software_Handle)
+Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const &Software_Handle)
 {
-  if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer adress to be faster
+  if (Openned[0]->Handle != NULL)
   {
-    return Software_Class::Maximized;
+    if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer adress to be faster
+    {
+      return Software_Class::Maximized;
+    }
   }
   return Software_Class::Minimized;
+}
+
+void Xila_Class::Software_Management_Class::Defrag_Oppened()
+{
+  /*uint8_t i, j;
+  for (i = 2; i < (sizeof(Openned) / sizeof(Openned[0]); i++)
+  {
+    for (j = (sizeof(Openned) / sizeof(Openned[0])); j >= 2; j--)
+    {
+      
+
+    }
+    if (j )
+  }*/
 }
 
 void Xila_Class::Software_Management_Class::Check_Watchdog()
@@ -34,7 +51,7 @@ void Xila_Class::Software_Management_Class::Check_Watchdog()
   {
     if (Openned[i] != NULL)
     {
-      if (Xila.Time.Milliseconds() - Openned[i]->Last_Watchdog_Feed > Watchdog_Threshold_Time)
+      if (Xila.Time.Milliseconds() - Openned[i]->Last_Watchdog_Feed > Openned[i]->Watchdog_Timeout || Openned[i]->Watchdog_Timeout > Maximum_Watchdog_Timeout)
       {
         Verbose_Print("Watchdog triggered :");
         Serial.println(*Openned[i]->Handle->Name);
@@ -205,7 +222,7 @@ void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const
     if (*Openned[0]->Handle == Software_Handle)
     {
       Openned[0]->Send_Instruction(Software_Class::Minimize); // -- Inform software that its minimized
-      Xila.Task.Delay(10); // -- purge time
+      Xila.Task.Delay(10);                                    // -- purge time
       Openned[0] = NULL;
     }
     else
@@ -263,7 +280,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
           else
           {
             Openned[0]->Send_Instruction(Software_Class::Minimize); // -- Inform software that its minimized
-           
+
             Xila.Task.Delay(10); // -- purge time
             Openned[0] = NULL;
           }
@@ -277,6 +294,9 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
   }
   return Error;
 }
+
+
+
 
 ///
 /// @brief Function that close roughly the current running software.
@@ -294,13 +314,19 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
       if (*Openned[i]->Handle == Software_Handle)
       {
 
+        Xila.Task.Delete(Openned[i]->Task_Handle);
+        Xila.Task.Delay(10);
         // -- Don't forget to remove maximized pointer.
         if (*Openned[0]->Handle == Software_Handle)
         {
           Openned[0] = NULL;
         }
+        if (*Openned[1]->Handle == Software_Handle)
+        {
+          Openned[1] = NULL;
+        }
 
-        Xila.Task.Delete(Openned[i]->Task_Handle);
+        
         delete Openned[i];
         Openned[i] = NULL;
         return Success;

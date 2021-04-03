@@ -3,7 +3,8 @@
 Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
 Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle),
-                                       State(0xFF)
+                                       State(0xFF),
+                                       Keys_Mode(0)
 {
     Xila.Task.Create(Main_Task, "Calculator", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -18,7 +19,7 @@ Calculator_Class::~Calculator_Class()
 }
 
 Software_Class *Calculator_Class::Load()
-{  
+{
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
@@ -58,6 +59,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
         break;
     case Memory_Read:
         Clear_All();
+        
         dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
         Refresh_Interface();
         break;
@@ -667,14 +669,35 @@ void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
 {
     if (State > 1)
     {
-        memset(Numbers[0], 0, sizeof(Numbers[0]));
-        memset(Numbers[1], 0, sizeof(Numbers[1]));
-        strcpy(Numbers[0], Numbers[2]);
-        Exponent[0] = Exponent[2];
+        memset(Numbers[0], '\0', sizeof(Numbers[0]));
+        memset(Numbers[1], '\0', sizeof(Numbers[1]));
+        Secondary_Operator[1] = None;
+        Secondary_Operator[0] = None;
+
+        Decimal_Point[1] = 0;
+        Current_Position[1] = 1;
+        Exponent[1] = 0;
+
+        if (Numbers[2][0] == '-')
+        {
+            memcpy(Numbers[0], Numbers[2], sizeof(Numbers[0]));
+        }
+        else
+        {
+            memcpy(Numbers[0] + 1, Numbers[2], sizeof(Numbers[0]));
+            Numbers[0][0] = '0';
+        }
+
         Decimal_Point[0] = Decimal_Point[2];
+        Exponent[0] = Exponent[2];
         Current_Position[0] = Current_Position[2];
-        Secondary_Operator[1] = 0;
-        Primary_Operator = 0;
+        // -- Clear result
+        memset(Numbers[2], '\0', sizeof(Numbers[2]));
+        Exponent[2] = 0;
+        Decimal_Point[2] = 0;
+        Current_Position[2] = 0;
+
+        Primary_Operator = None;
         State = 0;
     }
     Secondary_Operator[State] = Operator_To_Set;
@@ -1235,7 +1258,7 @@ void Calculator_Class::Refresh_Interface()
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Cosine:
-            strcpy(Temporary_Char_Array, "ASinH(");
+            strcpy(Temporary_Char_Array, "ACosH(");
 
             Ending_Character[0] = ')';
             break;
@@ -1373,44 +1396,38 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Secant:
             strlcat(Temporary_Char_Array, "Sec(", sizeof(Temporary_Char_Array));
-Ending_Character[0] = ')';
+            Ending_Character[0] = ')';
             break;
         case Cosecant:
             strlcat(Temporary_Char_Array, "Csc(", sizeof(Temporary_Char_Array));
-Ending_Character[0] = ')';
+            Ending_Character[0] = ')';
             break;
         case Cotangent:
             strlcat(Temporary_Char_Array, "Cot(", sizeof(Temporary_Char_Array));
-Ending_Character[0] = ')';
+            Ending_Character[0] = ')';
             break;
         case Arc_Sine:
             strlcat(Temporary_Char_Array, "ASin(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Cosine:
             strlcat(Temporary_Char_Array, "ACos(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Tangent:
             strlcat(Temporary_Char_Array, "ATan(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Secant:
             strlcat(Temporary_Char_Array, "ASec(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Cosecant:
             strlcat(Temporary_Char_Array, "ACsc(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Cotangent:
             strlcat(Temporary_Char_Array, "ACot(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Hyperbolic_Sine:
@@ -1435,46 +1452,37 @@ Ending_Character[0] = ')';
             break;
         case Hyperbolic_Cosecant:
             strlcat(Temporary_Char_Array, "CscH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Hyperbolic_Cotangent:
             strlcat(Temporary_Char_Array, "CotH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Sine:
             strlcat(Temporary_Char_Array, "ASinH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Cosine:
-            strlcat(Temporary_Char_Array, "ASinH(", sizeof(Temporary_Char_Array));
-
+            strlcat(Temporary_Char_Array, "ACosH(", sizeof(Temporary_Char_Array));
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Tangent:
             strlcat(Temporary_Char_Array, "ATanH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Secant:
             strlcat(Temporary_Char_Array, "ASecH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Cotangent:
             strlcat(Temporary_Char_Array, "ACotH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Arc_Hyperbolic_Cosecant:
             strlcat(Temporary_Char_Array, "ACscH(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Factorial:
-
             Ending_Character[0] = '!';
             break;
         /*case Logarithm:
@@ -1488,7 +1496,7 @@ Ending_Character[0] = ')';
             break;
         case Binary_Logarithm:
             strlcat(Temporary_Char_Array, "Log2(", sizeof(Temporary_Char_Array));
-Ending_Character[0] = ')';
+            Ending_Character[0] = ')';
             break;
         case Squared:;
             Ending_Character[0] = 0xB2;
@@ -1513,33 +1521,27 @@ Ending_Character[0] = ')';
             break;
         case Power_2:
             strlcat(Temporary_Char_Array, "2^(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
         case Inverse:
             strlcat(Temporary_Char_Array, "1/(", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = ')';
             break;
 
         case Absolute:
             strlcat(Temporary_Char_Array, "|", sizeof(Temporary_Char_Array));
-
             Ending_Character[0] = '|';
             break;
         default:
-
             break;
         }
         switch (Numbers[1][0])
         {
         case Pi:
             strlcat(Temporary_Char_Array, "Pi", sizeof(Temporary_Char_Array));
-
             break;
         case Neper_Constant:
             strlcat(Temporary_Char_Array, "e", sizeof(Temporary_Char_Array));
-
             break;
         case '-':
             strlcat(Temporary_Char_Array, Numbers[1], sizeof(Temporary_Char_Array));

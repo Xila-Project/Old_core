@@ -4,7 +4,7 @@
 #include "Xila.hpp"
 #include "WiFiClientSecure.h"
 
-#define Internet_Browser_File(name)  Software_Directory_Path "/Internet/" name
+#define Internet_Browser_File(name) Software_Directory_Path "/Internet/" name
 
 #define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
@@ -115,6 +115,19 @@ static const uint16_t tag_codes[] = {
 
 class Internet_Browser_Class : public Software_Class
 {
+public:
+    Internet_Browser_Class();
+    ~Internet_Browser_Class();
+
+    enum Image
+    {
+        Icon_32 = Xila.Display.Internet_Browser
+    };
+
+    static void Main_Task(void *pvParameters);
+
+    static Software_Class *Load();
+
 private:
     char Server[30];
     char Path[60];
@@ -126,6 +139,7 @@ private:
     {
 
     };
+
 
     struct cacheStruct
     {
@@ -174,23 +188,8 @@ private:
     void Next_Link();
     void Previous_Link();
     void Load_Page();
-    void Go_URL();
     void Go_Home();
-
-public:
-    Internet_Browser_Class();
-    ~Internet_Browser_Class();
-
-    enum Image
-    {
-        Icon_32 = Xila.Display.Internet_Browser
-    };
-
-    static void Main_Task(void *pvParameters);
-
-    static Software_Class *Load();
 };
-
 
 Software_Handle_Class Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Icon_32, Internet_Browser_Class::Load);
 

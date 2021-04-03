@@ -85,8 +85,8 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             Xila.Dialog.Open_File(Instance_Pointer->File_To_Edit);
             Instance_Pointer->Scan();
             Instance_Pointer->Refresh_Interface();
-
             break;
+        
         case Instruction('S', 'F'): // SF : Scan file
             Instance_Pointer->Scan();
             break;
@@ -146,7 +146,7 @@ void Text_Editor_Class::Refresh_Interface()
 
     File_To_Edit.seek(Offset);
     char Temporary_Character;
-    char Temporary_Char_Array[114]; // double to allow 
+    char Temporary_Char_Array[114]; // double to allow
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     Xila.Drive.Get_Name(File_To_Edit, Temporary_Char_Array, sizeof(Temporary_Char_Array));
@@ -178,6 +178,7 @@ void Text_Editor_Class::Refresh_Interface()
             Verbose_Print_Line("Max line");
             break;
         }
+
         Serial.write(Temporary_Character);
 
         if (Temporary_Character == Line_Ending)
@@ -231,5 +232,10 @@ void Text_Editor_Class::Refresh_Interface()
                 Column_Number++;
             }*/
         }
+    }
+    for (; Line_Number <= 14; Line_Number++)
+    {
+        Line_Name[4] = 'A' + Line_Number;
+        Xila.Display.Set_Text(Line_Name, "");
     }
 }

@@ -52,7 +52,6 @@ void Clock_Class::Main_Task(void *pvParameters)
             break;
         default:
             Instance_Pointer->Current_Instruction = Instance_Pointer->Get_Instruction();
-            Serial.println(Instance_Pointer->Current_Instruction, HEX);
             Instance_Pointer->Main_Instructions();
             break;
         }

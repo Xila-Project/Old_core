@@ -5,9 +5,9 @@
 PS2Keyboard PS2_Keyboard();
 
 Xila_Class::Keyboard_Class::Keyboard_Class()
-    : Key_Map(American),
-      Data_Pin(Default_Keyboard_Data),
-      Clock_Pin(Default_Keyboard_Clock)
+    : Key_Map(Default_Keyboard_Layout),
+      Data_Pin(Default_Keyboard_Data_Pin),
+      Clock_Pin(Default_Keyboard_Clock_Pin)
 {
 }
 
@@ -23,11 +23,18 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
-    Data_Pin = Keyboard_Registry["Data Pin"];
-    Clock_Pin = Keyboard_Registry["Clock Pin"];
-    Key_Map = Keyboard_Registry["Key Map"];
     Temporary_File.close();
-
+    if (strcmp(Keyboard_Registry["Registry"], "Keyboard") != 0)
+    {
+        return Error;
+    }
+    Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
+    Serial.println(Data_Pin);
+    Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
+    Serial.println(Clock_Pin);
+    Key_Map = Keyboard_Registry["Key Map"] | Default_Keyboard_Layout;
+    Serial.println(Key_Map);
+    Begin();
     return Success;
 }
 
@@ -44,7 +51,6 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
         return Error;
     }
     Temporary_File.close();
-    return Success;
     return Success;
 }
 

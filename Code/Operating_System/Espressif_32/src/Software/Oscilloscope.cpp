@@ -37,27 +37,23 @@ void Oscilloscope_Class::Loop()
 {
 	while (1)
 	{
-		Verbose_Print_Line("Instruction");
-		switch (Get_Instruction())
+		uint16_t Current_Instruction = Get_Instruction();
+		if (Current_Instruction != Idle)
+		{
+			Serial.println(Current_Instruction, HEX);
+		}
+		switch (Current_Instruction)
 		{
 		case Idle:
-			Verbose_Print_Line("Idle");
 			if (Xila.Software.Get_State(Oscilloscope_Handle) == Minimized)
 			{
 				Xila.Task.Delay(90);
 			}
 			else
 			{
-				Xila.Task.Delay(10);
-				if (Start)
-				{
-					if (trig_mode != TRIG_SCAN)
-					{
-						Send_Instruction('T', 'r');
-					}
-					Send_Instruction('S', 'a');
-				}
+				Send_Instruction('S', 'a');
 			}
+			Xila.Task.Delay(10);
 			break;
 		case Open:
 			Start = false;
@@ -74,9 +70,6 @@ void Oscilloscope_Class::Loop()
 		case Close:
 			delete Instance_Pointer;
 			Xila.Task.Delete();
-			break;
-		case Instruction('T', 'r'):
-			Trigger();
 			break;
 		case Instruction('S', 'a'):
 			Sampling();
@@ -451,10 +444,12 @@ void Oscilloscope_Class::Refresh_Waveform()
 		if (ch0_mode != MODE_OFF)
 		{
 			Xila.Display.Add_Value_Waveform(Waveform_ID, 0, data[sample + 0], SAMPLES);
+			Xila.Task.Delay(100);
 		}
 		if (ch1_mode != MODE_OFF)
 		{
 			Xila.Display.Add_Value_Waveform(Waveform_ID, 1, data[sample + 1], SAMPLES);
+			Xila.Task.Delay(100);
 		}
 	}
 }
@@ -536,7 +531,7 @@ void Oscilloscope_Class::SigmaDelta_Task(void *parameter)
 	vTaskDelete(NULL);
 }*/
 
-void Oscilloscope_Class::Trigger()
+void Oscilloscope_Class::Sampling()
 {
 	Serial.print("Trig mode :");
 	Serial.println(trig_mode);
@@ -544,6 +539,10 @@ void Oscilloscope_Class::Trigger()
 	Serial.println(trig_ch);
 	Verbose_Print("Trig edge:");
 	Serial.println(trig_edge);
+	Serial.print("Rate :");
+	Serial.println(rate);
+	Serial.print("Start :");
+	Serial.println(Start);
 
 	if (trig_mode != TRIG_SCAN)
 	{
@@ -565,39 +564,28 @@ void Oscilloscope_Class::Trigger()
 			{
 				if (ad >= trig_lv && ad > oad)
 				{
-					return;
+					break;
 				}
 			}
 			else
 			{
 				if (ad <= trig_lv && ad < oad)
 				{
-					return;
+					break;
 				}
 			}
 			oad = ad;
 
-			//Check_Commands();
-
 			if (trig_mode == TRIG_SCAN)
 			{
-				return;
+				break;
 			}
 			if (trig_mode == TRIG_AUTO && (millis() - st) > 100)
 			{
-				return;
+				break;
 			}
 		}
 	}
-}
-
-void Oscilloscope_Class::Sampling()
-{
-
-	Serial.print("Rate :");
-	Serial.println(rate);
-	Serial.print("Start :");
-	Serial.println(Start);
 
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
@@ -660,12 +648,7 @@ void Oscilloscope_Class::Sampling()
 				//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 			}
 		}
-		Xila.Task.Delay(20);
 		Send_Instruction('R', 'W');
-		return;
-		//Refresh_Waveform();
-		//Check_Commands();
-		//Refresh_Interface();
 	}
 	else if (Start)
 	{ // 5ms - 500ms sampling
@@ -696,7 +679,7 @@ void Oscilloscope_Class::Sampling()
 		{
 			while ((st - micros()) < r_[rate - 6])
 			{
-				//Check_Commands();
+
 				if (rate < 6)
 				{
 					break;
@@ -722,11 +705,6 @@ void Oscilloscope_Class::Sampling()
 			//data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
 			//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 		}
-		Xila.Task.Delay(20);
 		Send_Instruction('R', 'W');
-		return;
-
-		//Refresh_Waveform();
-		//Refresh_Interface();
 	}
 }

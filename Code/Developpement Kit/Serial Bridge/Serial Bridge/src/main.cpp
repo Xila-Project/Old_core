@@ -24,7 +24,8 @@ void Serial_Handler(void *pvParameters)
     {
         if (Serial.available())
         {
-            Serial_1.write(Serial.read());
+            
+            Serial_1.print(Serial.read(), HEX);
         }
     }
 }
@@ -35,7 +36,7 @@ void Serial_1_Handler(void *pvParameters)
     {
         if (Serial_1.available())
         {
-            Serial.write(Serial_1.read());
+            Serial.print(Serial_1.read(), HEX);
         }
     }
 }

@@ -86,7 +86,7 @@ protected:
     ///
     Software_Handle_Class *Handle;
 
-    void Send_Instruction(uint16_t);
+    void Send_Instruction(Xila_Instruction Intruction);
 
     ///
     /// @brief Convert "readable" instruction into xila instruction and send it.
@@ -100,16 +100,18 @@ protected:
 
     virtual void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
-    uint16_t Get_Instruction();
+    Xila_Instruction Get_Instruction();
+
+    void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
     friend class Xila_Class;
-    friend class Software_Handle_Class;
     friend class Shell_Class;
 
 private:
     uint16_t Current_Instruction;
     QueueHandle_t Instruction_Queue_Handle;
     uint32_t Last_Watchdog_Feed;
+    uint16_t Watchdog_Timeout;
 };
 
 #endif

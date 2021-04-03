@@ -7,6 +7,8 @@ Xila_Class::Dialog_Class::Dialog_Class()
   Semaphore = xSemaphoreCreateMutex();
 }
 
+
+
 Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
@@ -62,6 +64,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
 
@@ -94,6 +97,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   // -- Retore software state
@@ -173,6 +177,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   // -- Tasks is suspended here
   while (Xila.Dialog.State == Xila.None)
   {
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }
   // -- Restore software state
@@ -211,6 +216,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
+    
     Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
     Xila.Task.Delay(20);
   }

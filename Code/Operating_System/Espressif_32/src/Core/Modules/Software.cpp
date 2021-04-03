@@ -11,7 +11,8 @@ Software_Class::Software_Class(Software_Handle_Class &Software_Handle, uint8_t Q
     : Handle(&Software_Handle),
       Current_Instruction(Idle),
       Instruction_Queue_Handle(NULL),
-      Last_Watchdog_Feed(millis())
+      Last_Watchdog_Feed(millis()),
+      Watchdog_Timeout(Default_Watchdog_Timeout)
 {
   if (Queue_Size != 0)
   {
@@ -41,7 +42,19 @@ void Software_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Ad
 {
 }
 
-uint16_t Software_Class::Get_Instruction()
+///
+/// @brief
+///
+/// @param Watchdog_Timeout
+void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
+{
+  if (Watchdog_Timeout <= Maximum_Watchdog_Timeout)
+  {
+    this->Watchdog_Timeout = Watchdog_Timeout;
+  }
+}
+
+Xila_Instruction Software_Class::Get_Instruction()
 {
   if (xQueueReceive(Instruction_Queue_Handle, &Current_Instruction, 0) != pdTRUE)
   {

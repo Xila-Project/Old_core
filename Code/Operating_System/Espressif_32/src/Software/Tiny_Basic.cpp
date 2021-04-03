@@ -145,9 +145,22 @@ void Tiny_Basic_Class::Main_Task(void *pvParameters)
   }
 }
 
+void Tiny_Basic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+  if (Type == Xila.Display.Variable_String)
+  {
+    strlcpy(Temporary_Input, (char *)Variable, sizeof(Temporary_Input));
+  }
+}
+
 void Tiny_Basic_Class::Read_Instructions()
 {
-  switch (Get_Instruction())
+  Xila_Instruction Current_Instruction = Get_Instruction();
+  if (Current_Instruction != Idle)
+  {
+    Serial.println(Current_Instruction, HEX);
+  }
+  switch (Current_Instruction)
   {
   case Idle:
     if (Xila.Software.Get_State(Tiny_Basic_Handle) == Minimized)
@@ -158,20 +171,32 @@ void Tiny_Basic_Class::Read_Instructions()
     break;
   case Open:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
+    Xila.Keyboard.Clear();
+    Send_Instruction('R', 'e');
     break;
   case Minimize:
-    
     break;
   case Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
-    Refresh_Interface();
+    Xila.Keyboard.Clear();
+    Send_Instruction('R', 'e');
     break;
   case Close:
     delete Instance_Pointer;
     Xila.Task.Delete(NULL);
     break;
+
+  case Instruction('M', 'i'):
+    Xila.Software.Minimize(Tiny_Basic_Handle);
+    break;
+  case Instruction('C', 'l'):
+    Xila.Software.Close(Tiny_Basic_Handle);
+    break;
   case Instruction('K', 'I'):
     Xila.Dialog.Keyboard(Temporary_Input, sizeof(Temporary_Input));
+    Send_Instruction('R', 'e');
+    break;
+  case Instruction('R', 'e'):
     Refresh_Interface();
     break;
   default:
@@ -449,6 +474,7 @@ void Tiny_Basic_Class::printmsgNoNL(const unsigned char *msg)
 void Tiny_Basic_Class::printmsg(const unsigned char *msg)
 {
   printmsgNoNL(msg);
+  Verbose_Print_Line("printmsg lineterminator");
   line_terminator();
 }
 
@@ -466,6 +492,7 @@ void Tiny_Basic_Class::getln(char prompt)
     case NL:
     //break;
     case CR:
+      Verbose_Print_Line("getln lineterminator");
       line_terminator();
       // Terminate all strings with a NL
       txtpos[0] = NL;
@@ -544,6 +571,7 @@ void Tiny_Basic_Class::printline()
     list_line++;
   }
   list_line++;
+  Verbose_Print_Line("printline lineterminator");
   line_terminator();
 }
 
@@ -919,14 +947,13 @@ unsigned char Tiny_Basic_Class::breakcheck()
 {
   if (inStream == kStreamXila)
   {
-    /*
-    if (Xila.Keyboard.available())
+    if (Xila.Keyboard.Available())
     {
-      if (Xila.Keyboard.read() == PS2_ESC)
+      if (Xila.Keyboard.Read() == Xila.Keyboard.Escape)
       {
         return 1;
       }
-    }*/
+    }
   }
   else
   {
@@ -972,32 +999,38 @@ int Tiny_Basic_Class::inchar()
     while (1)
     {
       Read_Instructions();
-
       if (Xila.Keyboard.Available())
       {
-        Temporary_Char = Xila.Keyboard.Read();
-        /*if (Temporary_Char == PS2_ENTER)
+        char Temporary_Char[2];
+        Temporary_Char[0] = Xila.Keyboard.Read();
+        Temporary_Char[1] = '\0';
+        switch (Temporary_Char[0])
         {
+        case Xila.Keyboard.Enter:
           Xila.Display.Click(F("ENTER_BUT"), 0);
-        }
-        else if (Temporary_Char == PS2_BACKSPACE)
-        {
+          break;
+        case Xila.Keyboard.Backspace:
           Xila.Display.Delete_Text(F("INPUT_TXT"), 1);
+          break;
+        case '\\':
+          Xila.Display.Add_Text(F("INPUT_VAR"), "\\\\");
+          break;
+        case '\"':
+          Xila.Display.Add_Text(F("INPUT_VAR"), "\\\"");
+          break;
+        default:
+          if (isPrintable(Temporary_Char[0]))
+          {
+            Xila.Display.Add_Text(F("INPUT_VAR"), Temporary_Char);
+          }
+          break;
         }
-        else
-        {
-          Xila.Display.Add_Text(F("INPUT_VAR"), &Temporary_Char);
-        }*/
       }
-
-      if (Temporary_Input[Current_Position] != '\0')
+      if (isPrintable(Temporary_Input[Current_Position++]))
       {
         return Temporary_Input[Current_Position++];
       }
     }
-    break;
-  default:
-    break;
   }
 
 inchar_loadfinish:
@@ -1035,6 +1068,7 @@ void Tiny_Basic_Class::outchar(unsigned char c)
   case kStreamXila:
     if (Current_Column >= 68)
     {
+      Verbose_Print_Line("kStreamXila lineterminator");
       line_terminator();
     }
     Lines[Current_Line][Current_Column] = c;
@@ -1129,6 +1163,7 @@ void Tiny_Basic_Class::cmd_Files()
       }
       printUnum(entry.size());
     }
+    Verbose_Print_Line("cmdfile lineterminator");
     line_terminator();
     entry.close();
   }
@@ -1146,7 +1181,7 @@ void Tiny_Basic_Class::Loop()
   boolean alsoWait = false;
   int val;
 
-  Xila.Sound.No_Tone(kPiezoPin);
+  Xila.Sound.No_Tone();
 
   // configure program space
   program_start = program;
@@ -1305,6 +1340,7 @@ qwhat:
     printline();
     *txtpos = tmp;
   }
+  Verbose_Print_Line("qwhat lineterminator");
   line_terminator();
   goto prompt;
 
@@ -1814,6 +1850,7 @@ print:
   // If we have an empty list then just put out a NL
   if (*txtpos == ':')
   {
+    Verbose_Print_Line("print lineterminator");
     line_terminator();
     txtpos++;
     goto run_next_statement;
@@ -1859,6 +1896,7 @@ print:
     }
     else if (*txtpos == NL || *txtpos == ':')
     {
+      Verbose_Print_Line("print2 lineterminator");
       line_terminator(); // The end of the print statement
       break;
     }
@@ -1948,7 +1986,7 @@ dwrite:
 }
   goto run_next_statement;
 
-/*pinmode: // PINMODE <pin>, I/O
+  /*pinmode: // PINMODE <pin>, I/O
   goto unimplemented;*/
 
   /*************************************************/
@@ -2058,7 +2096,7 @@ delfile:
     Serial.println((char *)filename);
 
     // remove the file if it exists
-    if (Xila.Drive.Exists((char *)filename) )
+    if (Xila.Drive.Exists((char *)filename))
     {
       Xila.Drive.Remove((char *)filename);
     }
@@ -2686,7 +2724,7 @@ wifi:
 }
 
 tonestop:
-  Xila.Sound.No_Tone(kPiezoPin);
+  Xila.Sound.No_Tone();
   goto run_next_statement;
 
 tonegen:
@@ -2717,7 +2755,7 @@ tonegen:
   if (freq == 0 || duration == 0)
     goto tonestop;
 
-  Xila.Sound.Tone(kPiezoPin, freq, duration);
+  Xila.Sound.Tone(freq, duration);
   if (alsoWait)
   {
     delay(duration);

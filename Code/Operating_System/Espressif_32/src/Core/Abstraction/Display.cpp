@@ -11,6 +11,15 @@
 
 #include "Core/Core.hpp"
 
+Xila_Class::Display_Class::Display_Class()
+    : Nextion_Class()
+{
+}
+
+Xila_Class::Display_Class::~Display_Class()
+{
+}
+
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     Verbose_Print_Line("> Load display registry ...");
@@ -21,7 +30,22 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
-    Brightness = Display_Registry["Brightness"];
+    if (strcmp(Display_Registry["Registry"], "Display") != 0)
+    {
+        Temporary_File.close();
+        return Error;
+    }
+    Standby_Time = Display_Registry["Standby Time"] | Default_Display_Standby_Time;
+    Serial.println(Standby_Time);
+    Receive_Pin = Display_Registry["Receive Pin"] | Default_Display_Receive_Pin;
+    Serial.println(Receive_Pin);
+    Transmit_Pin = Display_Registry["Transmit Pin"] | Default_Display_Transmit_Pin;
+    Serial.println(Transmit_Pin);
+    Serial.println(Display_Registry["Baud Rate"].as<uint32_t>());
+    Serial.println(Display_Registry["Brightness"].as<byte>());
+    Xila.Display.Begin(Display_Registry["Baud Rate"] | Default_Display_Baud_Rate, Receive_Pin, Transmit_Pin);
+    Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
+    Xila.Display.Set_Standby_Touch_Timer(Standby_Time);
     Temporary_File.close();
     return Success;
 }
@@ -30,9 +54,10 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Display_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
+    Display_Registry["Registry"] = "Display";
     Display_Registry["Brightness"] = Brightness;
     Display_Registry["Receive Pin"] = Receive_Pin;
-    Display_Registry["Send Pin"] = Send_Pin;
+    Display_Registry["Transmit Pin"] = Transmit_Pin;
     Display_Registry["Standby Time"] = Standby_Time;
     if (serializeJson(Display_Registry, Temporary_File) == 0)
     {
@@ -46,10 +71,10 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 // Callback function for display
 
 ///
- /// @brief Incomming display string data
- /// 
- /// @param Received_Data 
- /// @param Size 
+/// @brief Incomming display string data
+///
+/// @param Received_Data
+/// @param Size
 void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
     while (Xila.Software.Openned[0] == NULL)
@@ -80,10 +105,6 @@ void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Rec
     {
         Xila.Software.Openned[0]->Set_Variable(&Received_Data, Xila.Display.Variable_Long, Xila.Display.Tag);
         Xila.Display.Tag = '\0';
-    }
-    else
-    {
-        Xila.Dialog.Event(F("Unexpected Numeric Data Return From Display"), Error);
     }
 }
 

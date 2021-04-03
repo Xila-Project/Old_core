@@ -1,6 +1,8 @@
 {
     "Registry": "Display",
-    "Brightness": 75,
-    "Receive Pin": 17,
-    "Send Pin": 16
+    "Standby Time": 30,
+    "Baud Rate": 921600,
+    "Brightness": 100,
+    "Receive Pin": 16,
+    "Transmit Pin": 17
 }

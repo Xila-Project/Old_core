@@ -138,15 +138,15 @@ protected:
     void Refresh_Preferences_Network();
     void Refresh_Preferences_System();
 
-    void Preferences_Hardware_Commands();
-    void Preferences_Network_Commands();
-    void Preferences_Personal_Commands();
-    void Preferences_System_Commands();
+    void Preferences_Hardware_Instructions();
+    void Preferences_Network_Instructions();
+    void Preferences_Personal_Instructions();
+    void Preferences_System_Instructions();
 
     // -- Desk methods
 
     void Refresh_Desk();
-    void Desk_Commands();
+    void Desk_Instructions();
 
     void Dock(uint8_t, uint8_t);
 
@@ -161,10 +161,10 @@ protected:
     inline void Open_Keypad();
     inline void Open_Keyboard();
 
-    inline void Color_Picker_Commands();
-    inline void Event_Commands();
-    inline void Keyboard_Commands();
-    inline void Keypad_Commands();
+    inline void Color_Picker_Instructions();
+    inline void Event_Instructions();
+    inline void Keyboard_Instructions();
+    inline void Keypad_Instructions();
 
     // -- Custom dialog boxes (Shell cannot)
 
@@ -179,23 +179,23 @@ protected:
     // -- Shutdown
 
     inline void Open_Shutdown();
-    void Shutdown_Commands();
+    void Shutdown_Instructions();
 
     // -- Desk
 
     void Open_Desk();
 
-    void Login_Commands();
-    void Install_Commands();
-    void Load_Commands();
-    void File_Manager_Commands();
+    void Login_Instructions();
+    void Install_Instructions();
+    void Load_Instructions();
+    void File_Manager_Instructions();
 
     // -- Drawer
 
     void Open_Drawer();
     void Refresh_Drawer();
     void Open_From_Drawer(uint8_t);
-    void Drawer_Commands();
+    void Drawer_Instructions();
 
     // -- Registry management
 

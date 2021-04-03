@@ -192,7 +192,7 @@ void Xila_Class::Sound_Class::Set_Offset_Time(int16_t Time)
   *
  * @details Function that tone and block music playing
  */
-void Xila_Class::Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Duration, uint8_t const &Pin)
+void Xila_Class::Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_t Pin)
 {
 
     if (Pin == 0xFF)
@@ -221,18 +221,15 @@ void Xila_Class::Sound_Class::Tone(uint16_t const &Frequency, uint32_t const &Du
  * 
  * @param Pin 
  */
-void Xila_Class::Sound_Class::No_Tone(uint8_t const &Pin)
+void Xila_Class::Sound_Class::No_Tone(uint8_t Pin)
 {
     if (Pin == 0xFF)
     {
-        ledcWrite(Left_Channel, 0);
-        ledcWrite(Right_Channel, 0);
         ledcDetachPin(25);
         ledcDetachPin(26);
     }
     else
     {
-        ledcWrite(Custom_Channel, 0);
         ledcDetachPin(Custom_Pin);
     }
 }

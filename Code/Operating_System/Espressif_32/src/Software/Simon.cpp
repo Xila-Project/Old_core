@@ -277,6 +277,7 @@ void Simon_Class::Show_Sequence()
 {
     for (uint8_t i = 0; i < Current_Level[0]; i++)
     {
+        Get_Instruction();
         switch (Sequence[i])
         {
         case Red:

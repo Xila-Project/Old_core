@@ -333,6 +333,8 @@ protected:
 
     uint8_t Current_Column;
     
+    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+
     void Refresh_Interface();
     void Scroll();
     void Draw_Rectangle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Heigh, uint16_t const& Widht, uint16_t const& Color, uint16_t const& Fill_Color); //interface between xila display lib and tinybasic

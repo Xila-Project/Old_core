@@ -20,31 +20,38 @@
 
 #define MAXIMUM_SOFTWARE 30
 
-// Pin configuration
+#define POWER_BUTTON_PIN GPIO_NUM_39
+
+// Battery
 
 #define Default_Battery_Conversion_Factor 2
 #define Default_Battery_Minimum_Voltage 2500
 #define Default_Battery_Maximum_Voltage 4200
-
-#define DISPLAY_SWITCH_PIN GPIO_NUM_27
-#define POWER_BUTTON_PIN GPIO_NUM_39
 #define Default_Battery_Sensing_Pin GPIO_NUM_34 // to do : change to 35
 
+//
 
+#define Default_Display_Receive_Pin GPIO_NUM_16
+#define Default_Display_Transmit_Pin GPIO_NUM_17
+#define Default_Display_Baud_Rate 921600
+#define Default_Display_Brightness 100
+#define Default_Display_Standby_Time 30
 
+// Sounds
 #define Default_Volume_Level 255
 #define Default_Registry_Size 512
 
-
+// Keyboard
+#define Default_Keyboard_Data_Pin 32
+#define Default_Keyboard_Clock_Pin 33
+#define Default_Keyboard_Layout American
 
 // Versionning
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 1
 #define VERSION_REVISION 0
 
-//
-#define Default_Keyboard_Data 19
-#define Default_Keyboard_Clock 18
+
 
 //  Drive retrocompatibility
 #define DRIVE_VERSION_MAJOR 0
@@ -73,7 +80,8 @@
 
 // Watchdog 
 
-#define Watchdog_Threshold_Time 5000  // ms
+#define Default_Watchdog_Timeout 5000  // ms
+#define Maximum_Watchdog_Timeout 30000
 
 // -- Default registry values --
 

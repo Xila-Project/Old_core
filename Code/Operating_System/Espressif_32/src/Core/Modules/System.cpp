@@ -137,15 +137,8 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
       return Xila.Error;
     }
 
-    // -- Initialize display. -- //
-
-    pinMode(DISPLAY_SWITCH_PIN, OUTPUT);
-    digitalWrite(DISPLAY_SWITCH_PIN, HIGH);
-
-    Xila.Display.Set_Callback_Function_Numeric_Data(&Xila.Display.Incomming_Numeric_Data_From_Display);
-    Xila.Display.Set_Callback_Function_String_Data(&Xila.Display.Incomming_String_Data_From_Display);
-    Xila.Display.Set_Callback_Function_Event(&Xila.Display.Incomming_Event_From_Display);
     Xila.Display.Begin();
+
     Xila.Display.Wake_Up();
     Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
     Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
@@ -252,8 +245,6 @@ const char *Xila_Class::System_Class::Get_Device_Name()
 
 void Xila_Class::System_Class::Refresh_Header()
 {
-  Verbose_Print_Line("Refresh header");
-
   static char Temporary_Char_Array[6];
 
   // -- Update clock
@@ -373,20 +364,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   rtc_wdt_disable();
 #endif
 
-  // -- Initialize display. -- //
-
-  pinMode(DISPLAY_SWITCH_PIN, OUTPUT);
-  digitalWrite(DISPLAY_SWITCH_PIN, HIGH);
-
-  Xila.Display.Set_Callback_Function_Numeric_Data(Xila.Display.Incomming_Numeric_Data_From_Display);
-  Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incomming_String_Data_From_Display);
-  Xila.Display.Set_Callback_Function_Event(Xila.Display.Incomming_Event_From_Display);
-  Xila.Display.Begin();
-
-  Xila.Display.Wake_Up();
-  Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
-  Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
-
   // -- Initialize drive. -- //
 
 #if SD_MODE == 0
@@ -409,6 +386,28 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   Xila.Display.Set_Text(F("EVENT_TXT"), F(""));
 
   Xila_Class::Event Returned_Data;
+
+  
+  // -- Initialize display. -- //
+
+  Xila.Display.Set_Callback_Function_Numeric_Data(Xila.Display.Incomming_Numeric_Data_From_Display);
+  Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incomming_String_Data_From_Display);
+  Xila.Display.Set_Callback_Function_Event(Xila.Display.Incomming_Event_From_Display);
+
+  //Xila.Display.Begin();
+
+  if (Xila.Display.Load_Registry() != Success)
+  {
+    Verbose_Print_Line("Failed to load display registry");
+    Xila.Display.Save_Registry();
+  }
+    Xila.Display.Wake_Up();
+
+  Xila.Display.Set_Touch_Wake_Up(true);
+  Xila.Display.Set_Serial_Wake_Up(false);
+
+  Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
+  Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
 
   // -- Check system integrity -- //
 
@@ -436,13 +435,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   // -- Play startup sound
 
   Xila.Sound.Play((Startup_Sound_Path));
-  // -- Load display registry
-
-  if (Xila.Display.Load_Registry() != Success)
-  {
-    Verbose_Print_Line("Failed to load display registry");
-    Xila.Display.Save_Registry();
-  }
 
   // WiFi :
 
@@ -466,10 +458,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
     Xila.Keyboard.Save_Registry(); // recreate a keyboard registry with default values
   }
 
-  if (Returned_Data != Success)
-  {
-    Verbose_Print_Line("Failed to play keyboard registry");
-  }
 }
 
 ///
