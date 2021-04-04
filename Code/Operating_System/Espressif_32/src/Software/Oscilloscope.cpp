@@ -37,12 +37,7 @@ void Oscilloscope_Class::Loop()
 {
 	while (1)
 	{
-		uint16_t Current_Instruction = Get_Instruction();
-		if (Current_Instruction != Idle)
-		{
-			Serial.println(Current_Instruction, HEX);
-		}
-		switch (Current_Instruction)
+		switch (Get_Instruction())
 		{
 		case Idle:
 			if (Xila.Software.Get_State(Oscilloscope_Handle) == Minimized)
@@ -51,9 +46,12 @@ void Oscilloscope_Class::Loop()
 			}
 			else
 			{
-				Send_Instruction('S', 'a');
+				if (Start)
+				{
+					Send_Instruction('S', 'a');
+				}
 			}
-			Xila.Task.Delay(10);
+			Xila.Task.Delay(20);
 			break;
 		case Open:
 			Start = false;
@@ -71,6 +69,39 @@ void Oscilloscope_Class::Loop()
 			delete Instance_Pointer;
 			Xila.Task.Delete();
 			break;
+		case Instruction('k', 'P'):
+			if (Current_Channel == 0)
+			{
+				float Temporary_Float = ad_ch0;
+				Xila.Dialog.Keypad(Temporary_Float);
+				if (Temporary_Float > 39 || Temporary_Float < 0)
+				{
+					ad_ch0 = Default_Channel_0_Pin;
+				}
+				else
+				{
+					ad_ch0 = (uint8_t)Temporary_Float;
+				}
+			}
+			else if (Current_Channel == 1)
+			{
+				float Temporary_Float = ad_ch1;
+				Xila.Dialog.Keypad(Temporary_Float);
+				if (ad_ch1 > 39 || ad_ch1 < 0)
+				{
+					ad_ch1 = Default_Channel_1_Pin;
+				}
+				else
+				{
+					ad_ch1 = (uint8_t)Temporary_Float;
+				}
+			}
+			Send_Instruction('R', 'e');
+			break;
+		case Instruction('T', 'r'):
+			Trigger();
+			break;
+
 		case Instruction('S', 'a'):
 			Sampling();
 			break;
@@ -92,22 +123,19 @@ void Oscilloscope_Class::Loop()
 			break;
 		case Instruction('S', 't'): // SA : Start
 			Start = !Start;
-			Refresh_Interface();
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('N', 'C'): // next channel
 			if (Current_Channel == 0)
 			{
 				Current_Channel = 1;
-				Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 1"));
-				Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Yellow);
 			}
 			else
 			{
 				Current_Channel = 0;
-				Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 0"));
-				Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Blue);
 			}
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('P', 'C'): // previous channel
 			if (Current_Channel == 1)
@@ -118,33 +146,15 @@ void Oscilloscope_Class::Loop()
 			{
 				Current_Channel = 1;
 			}
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('R', '-'):
-			if (Current_Channel == 0)
-			{
-				if (range0 > RANGE_MIN)
-				{
-					range0--;
-					Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range0]) + "/D");
-				}
-			}
-			else
-			{
-				if (range1 > RANGE_MIN)
-				{
-					range1--;
-					Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range1]) + "/D");
-				}
-			}
-			break;
-		case Instruction('R', '+'): //SR : switch range
 			if (Current_Channel == 0)
 			{
 				if (range0 < RANGE_MAX)
 				{
 					range0++;
 				}
-				Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range0]) + "/D");
 			}
 			else
 			{
@@ -152,11 +162,27 @@ void Oscilloscope_Class::Loop()
 				{
 					range1++;
 				}
-
-				Xila.Display.Set_Text(F("RANGE_TXT"), "Range: " + String(Ranges[range1]) + "/D");
 			}
+			Send_Instruction('R', 'e');
 			break;
 
+		case Instruction('R', '+'): //SR : switch range
+			if (Current_Channel == 0)
+			{
+				if (range0 > RANGE_MIN)
+				{
+					range0--;
+				}
+			}
+			else
+			{
+				if (range1 > RANGE_MIN)
+				{
+					range1--;
+				}
+			}
+			Send_Instruction('R', 'e');
+			break;
 		case Instruction('N', 'M'): //next mode
 			if (Current_Channel == 0)
 			{
@@ -168,7 +194,6 @@ void Oscilloscope_Class::Loop()
 				{
 					ch0_mode = MODE_ON;
 				}
-				Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch0_mode]));
 			}
 			else
 			{
@@ -180,8 +205,8 @@ void Oscilloscope_Class::Loop()
 				{
 					ch1_mode = MODE_ON;
 				}
-				Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch1_mode]));
 			}
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('P', 'M'): //previous mode
@@ -195,7 +220,6 @@ void Oscilloscope_Class::Loop()
 				{
 					ch0_mode = MODE_OFF;
 				}
-				Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch0_mode]));
 			}
 			else
 			{
@@ -207,8 +231,8 @@ void Oscilloscope_Class::Loop()
 				{
 					ch1_mode = MODE_OFF;
 				}
-				Xila.Display.Set_Text(F("MODE_TXT"), "Mode: " + String(Modes[ch1_mode]));
 			}
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('O', '+'): //O+
@@ -218,7 +242,6 @@ void Oscilloscope_Class::Loop()
 				{
 					ch0_off += 4096 / VREF[range0];
 				}
-				Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch0_off));
 			}
 			else
 			{
@@ -226,8 +249,8 @@ void Oscilloscope_Class::Loop()
 				{
 					ch1_off += 4096 / VREF[range1];
 				}
-				Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch1_off));
 			}
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('O', '-'): //O-
 			if (Current_Channel == 0)
@@ -236,7 +259,6 @@ void Oscilloscope_Class::Loop()
 				{
 					ch0_off -= 4096 / VREF[range0];
 				}
-				Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch0_off));
 			}
 			else
 			{
@@ -244,33 +266,31 @@ void Oscilloscope_Class::Loop()
 				{
 					ch1_off -= 4096 / VREF[range1];
 				}
-				Xila.Display.Set_Text(F("OFFSET_TXT"), "Offset: " + String(ch1_off));
 			}
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('N', 'c'): //next trig channel
 			if (trig_ch == 0)
 			{
 				trig_ch = 1;
-				Xila.Display.Set_Text(F("TCHANNEL_TXT"), F("Channel: 1"));
 			}
 			else
 			{
 				trig_ch = 0;
-				Xila.Display.Set_Text(F("TCHANNEL_TXT"), F("Channel: 0"));
 			}
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('P', 'c'): // previous trig channel
 			if (trig_ch == 0)
 			{
 				trig_ch = 1;
-				Xila.Display.Set_Text(F("TCHANNEL_TXT"), F("Channel: 1"));
 			}
 			else
 			{
 				trig_ch = 0;
-				Xila.Display.Set_Text(F("TCHANNEL_TXT"), F("Channel: 0"));
 			}
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('N', 'm'): // next trig mode
 			if (trig_mode < TRIG_SCAN)
@@ -281,7 +301,7 @@ void Oscilloscope_Class::Loop()
 			{
 				trig_mode = TRIG_AUTO;
 			}
-			Xila.Display.Set_Text(F("TMODE_TXT"), "Mode: " + String(TRIG_Modes[trig_mode]));
+			Send_Instruction('R', 'e');
 			break;
 		case Instruction('P', 'm'): // previous trig mode
 			if (trig_mode > TRIG_AUTO)
@@ -292,7 +312,7 @@ void Oscilloscope_Class::Loop()
 			{
 				trig_mode = TRIG_SCAN;
 			}
-			Xila.Display.Set_Text(F("TMODE_TXT"), "Mode: " + String(TRIG_Modes[trig_mode]));
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('L', '+'): // L+ : Switch trigger level (thresold)
@@ -300,7 +320,7 @@ void Oscilloscope_Class::Loop()
 			{
 				trig_lv++;
 			}
-			Xila.Display.Set_Text(F("TLEVEL_TXT"), "Level: " + String(trig_lv));
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('L', '-'): // L- : Switch trigger level (thresold)
@@ -308,34 +328,31 @@ void Oscilloscope_Class::Loop()
 			{
 				trig_lv--;
 			}
-			Xila.Display.Set_Text(F("TLEVEL_TXT"), "Level: " + String(trig_lv));
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('N', 'E'): // next trigger edge
 			if (trig_edge == TRIG_E_UP)
 			{
 				trig_edge = TRIG_E_DN;
-				Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Up"));
 			}
 			else
 			{
 				trig_edge = TRIG_E_UP;
-				Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Down"));
 			}
-
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('P', 'E'): // next trigger edge
 			if (trig_edge == TRIG_E_UP)
 			{
 				trig_edge = TRIG_E_DN;
-				Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Up"));
 			}
 			else
 			{
 				trig_edge = TRIG_E_UP;
-				Xila.Display.Set_Text(F("TEDGE_TXT"), F("Edge: Down"));
 			}
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('r', '+'):
@@ -343,7 +360,7 @@ void Oscilloscope_Class::Loop()
 			{
 				rate++;
 			}
-			Xila.Display.Set_Text(F("TRATE_TXT"), "Rate: " + String(Rates[rate]) + "/Div");
+			Send_Instruction('R', 'e');
 			break;
 
 		case Instruction('r', '-'):
@@ -351,7 +368,7 @@ void Oscilloscope_Class::Loop()
 			{
 				rate--;
 			}
-			Xila.Display.Set_Text(F("TRATE_TXT"), "Rate: " + String(Rates[rate]) + "/Div");
+			Send_Instruction('R', 'e');
 			break;
 
 		default:
@@ -363,6 +380,7 @@ void Oscilloscope_Class::Loop()
 
 void Oscilloscope_Class::Refresh_Interface()
 {
+
 	memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
 	if (Start)
@@ -389,6 +407,9 @@ void Oscilloscope_Class::Refresh_Interface()
 		Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
 		sprintf(Temporary_Char_Array, "Offset: %i", ch0_off);
 		Xila.Display.Set_Text(F("OFFSET_TXT"), Temporary_Char_Array);
+
+		sprintf(Temporary_Char_Array, "Pin: %i", ad_ch0);
+		Xila.Display.Set_Text(F("PIN_TXT"), Temporary_Char_Array);
 	}
 	else
 	{
@@ -404,6 +425,9 @@ void Oscilloscope_Class::Refresh_Interface()
 		Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
 		sprintf(Temporary_Char_Array, "Offset: %i", ch1_off);
 		Xila.Display.Set_Text(F("OFFSET_TXT"), Temporary_Char_Array);
+
+		sprintf(Temporary_Char_Array, "Pin: %i", ad_ch1);
+		Xila.Display.Set_Text(F("PIN_TXT"), Temporary_Char_Array);
 	}
 
 	strcpy(Temporary_Char_Array, "Rate: ");
@@ -411,7 +435,7 @@ void Oscilloscope_Class::Refresh_Interface()
 
 	Xila.Display.Set_Text(F("RATE_TXT"), Temporary_Char_Array);
 
-	sprintf(Temporary_Char_Array, "Mode: %i", trig_mode);
+	sprintf(Temporary_Char_Array, "Mode: %s", TRIG_Modes[trig_mode]);
 	Xila.Display.Set_Text(F("TMODE_TXT"), Temporary_Char_Array);
 	sprintf(Temporary_Char_Array, "Level: %i", trig_lv);
 	Xila.Display.Set_Text(F("TLEVEL_TXT"), Temporary_Char_Array);
@@ -433,7 +457,7 @@ void Oscilloscope_Class::Refresh_Waveform()
 {
 
 	Verbose_Print_Line("Refresh waveform");
-	if (!Start)
+	if (Start)
 	{
 		Serial.print(ch0_mode);
 		Serial.print('/');
@@ -444,39 +468,13 @@ void Oscilloscope_Class::Refresh_Waveform()
 		if (ch0_mode != MODE_OFF)
 		{
 			Xila.Display.Add_Value_Waveform(Waveform_ID, 0, data[sample + 0], SAMPLES);
-			Xila.Task.Delay(100);
 		}
 		if (ch1_mode != MODE_OFF)
 		{
 			Xila.Display.Add_Value_Waveform(Waveform_ID, 1, data[sample + 1], SAMPLES);
-			Xila.Task.Delay(100);
 		}
 	}
 }
-
-long Oscilloscope_Class::adRead(short ch, short mode, int off)
-{
-	long a = analogRead(ch);
-
-	a += off; // add offset
-	if (ch == ad_ch0)
-	{
-		a *= VREF[range0]; //multiply by the volt range
-	}
-	else
-	{
-		a *= VREF[range1];
-	}
-
-	a = (((a + off) * VREF[(ch == ad_ch0) ? range0 : range1]) / 10000UL) + 30;
-	a = ((a >= LCD_HEIGHT) ? LCD_HEIGHT : a);
-	if (mode == MODE_INV)
-	{
-		return LCD_HEIGHT - a;
-	}
-	return a;
-}
-
 /*void Oscilloscope_Class::SigmaDelta_Task(void *pvParameters)
 {
 	sigmaDeltaSetup(0, 312500);
@@ -531,19 +529,8 @@ void Oscilloscope_Class::SigmaDelta_Task(void *parameter)
 	vTaskDelete(NULL);
 }*/
 
-void Oscilloscope_Class::Sampling()
+void Oscilloscope_Class::Trigger()
 {
-	Serial.print("Trig mode :");
-	Serial.println(trig_mode);
-	Verbose_Print("Trig ch:");
-	Serial.println(trig_ch);
-	Verbose_Print("Trig edge:");
-	Serial.println(trig_edge);
-	Serial.print("Rate :");
-	Serial.println(rate);
-	Serial.print("Start :");
-	Serial.println(Start);
-
 	if (trig_mode != TRIG_SCAN)
 	{
 		unsigned long st = millis();
@@ -586,19 +573,21 @@ void Oscilloscope_Class::Sampling()
 			}
 		}
 	}
+}
+
+void Oscilloscope_Class::Sampling()
+{
 
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
 	{
-		Verbose_Print_Line("fast sampling");
 		(sample == 0) ? (sample = 2) : (sample = 0); // change the index for the double buffer
 
 		if (rate == 0) // full speed, channel 0 only
 		{
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				//data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-				data[sample + 1][i] = (uint8_t)i;
+				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
 			}
 			for (int i = 0; i < SAMPLES; i++)
 			{
@@ -609,8 +598,7 @@ void Oscilloscope_Class::Sampling()
 		{
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
-				data[sample + 1][i] = (uint8_t)i;
+				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 			}
 			for (int i = 0; i < SAMPLES; i++)
 			{
@@ -621,31 +609,24 @@ void Oscilloscope_Class::Sampling()
 		{
 			for (int i = 0; i < SAMPLES; i++)
 			{
-
-				data[sample + 0][i] = (uint8_t)i;
-				data[sample + 1][i] = (uint8_t)i;
-
-				//data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-				//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 			}
 		}
 		else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
 		{
-			const unsigned long r_[] = {(uint32_t)(5000 / DOTS_DIV), (uint32_t)(10000 / DOTS_DIV), (uint32_t)(20000 / DOTS_DIV)};
+			const unsigned long r_[] = {5000 / DOTS_DIV, 10000 / DOTS_DIV, 20000 / DOTS_DIV};
 			unsigned long st = micros();
 			unsigned long r = r_[rate - 3];
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				while ((st - micros()) < r) // micros delay
+				while ((st - micros()) < r)
 				{
 					;
 				}
 				st += r;
-				data[sample + 0][i] = (uint8_t)i;
-				data[sample + 1][i] = (uint8_t)i;
-
-				//data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-				//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+				data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+				data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 			}
 		}
 		Send_Instruction('R', 'W');
@@ -653,7 +634,6 @@ void Oscilloscope_Class::Sampling()
 	else if (Start)
 	{ // 5ms - 500ms sampling
 		// copy currently showing data to another
-		Verbose_Print_Line("Start slow sampling");
 		if (sample == 0)
 		{
 			for (int i = 0; i < SAMPLES; i++)
@@ -671,15 +651,14 @@ void Oscilloscope_Class::Sampling()
 			}
 		}
 
-		const unsigned long r_[] = {(uint32_t)(50000 / DOTS_DIV), (uint32_t)(100000 / DOTS_DIV), (uint32_t)(200000 / DOTS_DIV),
-									(uint32_t)(500000 / DOTS_DIV), (uint32_t)(1000000 / DOTS_DIV), (uint32_t)(2000000 / DOTS_DIV),
-									(uint32_t)(5000000 / DOTS_DIV), (uint32_t)(10000000 / DOTS_DIV)};
+		const unsigned long r_[] = {50000 / DOTS_DIV, 100000 / DOTS_DIV, 200000 / DOTS_DIV,
+									500000 / DOTS_DIV, 1000000 / DOTS_DIV, 2000000 / DOTS_DIV,
+									5000000 / DOTS_DIV, 10000000 / DOTS_DIV};
 		unsigned long st = micros();
 		for (int i = 0; i < SAMPLES; i++)
 		{
 			while ((st - micros()) < r_[rate - 6])
 			{
-
 				if (rate < 6)
 				{
 					break;
@@ -699,11 +678,8 @@ void Oscilloscope_Class::Sampling()
 				i--;
 				continue;
 			}
-			data[sample + 0][i] = (uint8_t)i;
-			data[sample + 1][i] = (uint8_t)i;
-
-			//data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
-			//data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
+			data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
+			data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 		}
 		Send_Instruction('R', 'W');
 	}

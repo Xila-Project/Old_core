@@ -2252,7 +2252,11 @@ void Shell_Class::Keyboard_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
-        Xila.Dialog.State = Xila.Button_1;
+        Xila.Dialog.State = Xila.Default_Yes;
+        Xila.Task.Delay(20);
+        break;
+    case Instruction('C', 'a'):
+        Xila.Dialog.State = Xila.Default_Cancel;
         Xila.Task.Delay(20);
         break;
     default:
@@ -2355,7 +2359,11 @@ void Shell_Class::Keypad_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
-        Xila.Dialog.State = Xila.Button_1;
+        Xila.Dialog.State = Xila.Default_Yes;
+        Xila.Task.Delay(20);
+        break;
+    case Instruction('C', 'a'):
+        Xila.Dialog.State = Xila.Default_Cancel;
         Xila.Task.Delay(20);
         break;
     default:

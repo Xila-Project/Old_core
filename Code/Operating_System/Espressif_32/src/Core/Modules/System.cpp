@@ -401,8 +401,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
     Verbose_Print_Line("Failed to load display registry");
     Xila.Display.Save_Registry();
   }
-    Xila.Display.Wake_Up();
-
+  Xila.Display.Wake_Up();
   Xila.Display.Set_Touch_Wake_Up(true);
   Xila.Display.Set_Serial_Wake_Up(false);
 

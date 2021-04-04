@@ -15,12 +15,12 @@
  * https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope
  */
 
+#define Default_Channel_0_Pin 35
+#define Default_Channel_1_Pin 36
 
 class Oscilloscope_Class : private Software_Class
 {
 protected:
-    
-
     static Oscilloscope_Class *Instance_Pointer;
 
     TaskHandle_t SigmaDelta_Handle;
@@ -38,8 +38,8 @@ protected:
     const int SAMPLES = 350;
     const int DOTS_DIV = 75;
 
-    int ad_ch0 = 35; // Analog 35 pin for channel 0
-    int ad_ch1 = 36; // Analog 36 pin for channel 1
+    uint8_t ad_ch0 = 35; // Analog 35 pin for channel 0
+    uint8_t ad_ch1 = 36; // Analog 36 pin for channel 1
 
     const long VREF[5] = {250, 500, 1250, 2500, 5000};
     const int MILLIVOL_per_dot[5] = {33, 17, 6, 3, 2};
@@ -48,7 +48,6 @@ protected:
     const int MODE_ON = 0;
     const int MODE_INV = 1;
     const int MODE_OFF = 2;
-
 
     const char *Modes[3] = {"Normal", "Inverted", "Off"};
     short ch0_mode = MODE_ON;
@@ -103,12 +102,31 @@ protected:
 
     ///////////////////////////////////////////////////////////////////////////////////////////////
 
-
+    void Trigger();
     void Sampling();
 
-    inline long adRead(short, short, int);
+    inline long adRead(uint8_t ch, short mode, int off)
+    {
+        long a = analogRead(ch);
 
- 
+        a += off; // add offset
+        if (ch == ad_ch0)
+        {
+            a = ((VREF[range0] * a) / 10000) + 30;
+        }
+        else
+        {
+            a = ((VREF[range1] * a) / 10000) + 30;
+        }
+
+        if (a > LCD_HEIGHT)
+        {
+            a = LCD_HEIGHT;
+        }
+
+        return a;
+    }
+
     void Refresh_Waveform();
 
     void Refresh_Interface();
@@ -119,10 +137,8 @@ protected:
     friend void SigmaDelta_Task(void *);   // used to generate sigmadelta signal
 
 public:
+    static void Main_Task(void *);
 
-    static void Main_Task(void*);
-    
-    
     //static void SigmaDelta_Task(void*);
 
     static Software_Class *Load();
