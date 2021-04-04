@@ -44,7 +44,6 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-
 // Adafruit ESP32 Feather PINS used for TFT Featherwing components
 #define SCK_PIN 5   // SPI
 #define MISO_PIN 18 // SPI
@@ -91,11 +90,6 @@
 #endif
 
 #include <EEPROM.h> /* NOTE: case sensitive */
-
-
-#ifdef ENABLE_WIFI
-#include <WiFi.h>
-#endif
 
 #ifdef ENABLE_TONES
 #define TONE_RAM (40) /* I/O buffer */
@@ -149,10 +143,32 @@ typedef short unsigned LINENUM;
 
 class Tiny_Basic_Class : public Software_Class
 {
-protected:
-    static Tiny_Basic_Class* Instance_Pointer;
+public:
+    Tiny_Basic_Class();
+    ~Tiny_Basic_Class();
 
-    char Lines[15][69];
+    static Software_Class *Load();
+
+    enum Picture
+    {
+        Icon_32 = Xila.Display.Tiny_Basic //currently empty
+    };
+
+    static void Main_Task(void *pvParameters);
+
+protected:
+    static Tiny_Basic_Class *Instance_Pointer;
+
+    QueueHandle_t Input_Queue;
+
+    bool Refresh_Flag;
+
+    char Temporary_Input[190];
+    char Temporary_Char;
+
+    char Line_Name[10];
+
+    char Lines[14][69];
 
     ////////////////////
 
@@ -170,8 +186,6 @@ protected:
     };
     unsigned char inStream;
     unsigned char outStream;
-
-
 
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -313,38 +327,33 @@ protected:
     static const unsigned char slashmsg[2];
     static const unsigned char spacemsg[2];
 
-    
     //void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     // custom function
 
-
-    void Read_Instructions();
-
-    char Temporary_Input[190];
-    uint8_t Current_Position = 0;
-
     uint16_t Current_Command;
-    char Temporary_Char;
+    void Read_Instructions();   
 
-    void Clear(); // uniplemented yet
+    void Copy_Input();
+
+    void Clear();
 
     uint8_t Current_Line;
-
     uint8_t Current_Column;
-    
+
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     void Refresh_Interface();
-    void Scroll();
-    void Draw_Rectangle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Heigh, uint16_t const& Widht, uint16_t const& Color, uint16_t const& Fill_Color); //interface between xila display lib and tinybasic
-    void Draw_Line(uint16_t const& X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
-    void Draw_Row(uint16_t const& X_Start, uint16_t const& Y_Coordinate, uint16_t const& X_End, uint16_t const& Color);
-    void Draw_Column(uint16_t const& X_Coordinate, uint16_t const& Y_Start, uint16_t const& Y_End, uint16_t const& Color);
-    void Draw_Pixel(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const& Color);
-    void Draw_Circle(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, uint16_t const Radius, uint16_t const& Color, uint16_t const& Fill_Color);
-    void Draw_Char(uint16_t const& X_Coordinate, uint16_t const& Y_Coordinate, char const* Char);
     
+    void Scroll();
+    void Draw_Rectangle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Heigh, uint16_t const &Widht, uint16_t const &Color, uint16_t const &Fill_Color); //interface between xila display lib and tinybasic
+    void Draw_Line(uint16_t const &X_Start, uint16_t const &Y_Start, uint16_t const &X_End, uint16_t const &Y_End, uint16_t const &Color);
+    void Draw_Row(uint16_t const &X_Start, uint16_t const &Y_Coordinate, uint16_t const &X_End, uint16_t const &Color);
+    void Draw_Column(uint16_t const &X_Coordinate, uint16_t const &Y_Start, uint16_t const &Y_End, uint16_t const &Color);
+    void Draw_Pixel(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const &Color);
+    void Draw_Circle(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, uint16_t const Radius, uint16_t const &Color, uint16_t const &Fill_Color);
+    void Draw_Char(uint16_t const &X_Coordinate, uint16_t const &Y_Coordinate, char const *Char);
+
     // base function
 
     void ignore_blanks();
@@ -375,19 +384,6 @@ protected:
 
     void Loop();
     void Setup();
-
-public:
-    static Software_Class* Load();
-
-    enum Picture
-    {
-        Icon_32 = Xila.Display.Tiny_Basic //currently empty
-    };
-
-    static void Main_Task(void *pvParameters);
-
-    Tiny_Basic_Class();
-    ~Tiny_Basic_Class();
 };
 
 void Tiny_Basic_Task(void *);

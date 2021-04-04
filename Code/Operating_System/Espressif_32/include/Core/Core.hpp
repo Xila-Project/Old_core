@@ -466,7 +466,7 @@ public:
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
 
-        uint8_t Key_Map;
+        uint8_t Layout;
 
         uint8_t Data_Pin;
         uint8_t Clock_Pin;
@@ -474,7 +474,7 @@ public:
         inline void Begin();
 
     public:
-        enum Key_Maps
+        enum Layouts
         {
             American,
             German,

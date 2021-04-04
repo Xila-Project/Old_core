@@ -2188,7 +2188,7 @@ void Shell_Class::Open_Keyboard()
     Xila.Display.Set_Current_Page(Keyboard);
     Xila.Display.Set_Value(F("MAXLENGTH_VAR"), Xila.Dialog.Long[0]);
     Xila.Display.Set_Text(F("INPUT_VAR"), (char *)Xila.Dialog.Pointer);
-    Xila.Display.Set_Input_Type(F("INPUT_TXT"), Xila.Dialog.Long[1]);
+    Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)Xila.Dialog.Long[1]);
     Xila.Keyboard.Clear();
 }
 

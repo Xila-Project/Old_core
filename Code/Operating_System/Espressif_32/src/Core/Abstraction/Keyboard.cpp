@@ -5,7 +5,7 @@
 PS2Keyboard PS2_Keyboard();
 
 Xila_Class::Keyboard_Class::Keyboard_Class()
-    : Key_Map(Default_Keyboard_Layout),
+    : Layout(Default_Keyboard_Layout),
       Data_Pin(Default_Keyboard_Data_Pin),
       Clock_Pin(Default_Keyboard_Clock_Pin)
 {
@@ -32,8 +32,8 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
     Serial.println(Data_Pin);
     Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
     Serial.println(Clock_Pin);
-    Key_Map = Keyboard_Registry["Key Map"] | Default_Keyboard_Layout;
-    Serial.println(Key_Map);
+    Layout = Keyboard_Registry["Keymap"] | Default_Keyboard_Layout;
+    Serial.println(Layout);
     Begin();
     return Success;
 }
@@ -44,7 +44,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
     DynamicJsonDocument Keyboard_Registry(256);
     Keyboard_Registry["Data Pin"] = Data_Pin;
     Keyboard_Registry["Clock Pin"] = Clock_Pin;
-    Keyboard_Registry["Key Map"] = Key_Map;
+    Keyboard_Registry["Key Map"] = Layout;
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -56,7 +56,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
 
 void Xila_Class::Keyboard_Class::Begin()
 {
-    switch (Key_Map)
+    switch (Layout)
     {
     case American:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_US);

@@ -82,11 +82,13 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('O', 'F'): // OF : open file
             Instance_Pointer->File_To_Edit.close();
-            Xila.Dialog.Open_File(Instance_Pointer->File_To_Edit);
-            Instance_Pointer->Scan();
-            Instance_Pointer->Refresh_Interface();
+            if (Xila.Dialog.Open_File(Instance_Pointer->File_To_Edit) == Xila.Default_Yes)
+            {
+                Instance_Pointer->Scan();
+                Instance_Pointer->Refresh_Interface();
+            }
             break;
-        
+
         case Instruction('S', 'F'): // SF : Scan file
             Instance_Pointer->Scan();
             break;
@@ -145,8 +147,11 @@ void Text_Editor_Class::Refresh_Interface()
     }
 
     File_To_Edit.seek(Offset);
+
     char Temporary_Character;
-    char Temporary_Char_Array[114]; // double to allow
+    
+    char Temporary_Char_Array[56]; // double to allow
+
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     Xila.Drive.Get_Name(File_To_Edit, Temporary_Char_Array, sizeof(Temporary_Char_Array));
@@ -155,7 +160,6 @@ void Text_Editor_Class::Refresh_Interface()
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
     uint8_t Column_Number = 0;
-    uint8_t Column_Position = 0;
     char Line_Ending = 0x0D;
 
     switch (Mode)
@@ -195,7 +199,7 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
-            Column_Position = 0;
+
         }
         else if (Column_Number >= 55)
         {
@@ -205,32 +209,15 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
-            Column_Position = 0;
+
         }
         else
         {
-            if (Temporary_Character == '\"')
+            if (isPrintable(Temporary_Character))
             {
-                Temporary_Char_Array[Column_Position++] = '\\';
-                Temporary_Char_Array[Column_Position++] = '\"';
-                Column_Number++;
+                Temporary_Char_Array[Column_Number++] = Temporary_Character;
+
             }
-            else if (Temporary_Character == '\\')
-            {
-                Temporary_Char_Array[Column_Position++] = '\\';
-                Temporary_Char_Array[Column_Position++] = '\\';
-                Column_Number++;
-            }
-            else if (isPrintable(Temporary_Character))
-            {
-                Temporary_Char_Array[Column_Position++] = Temporary_Character;
-                Column_Number++;
-            }
-            /*else
-            {
-                Temporary_Char_Array[Column_Position++] = Xila.Display.State_Button;
-                Column_Number++;
-            }*/
         }
     }
     for (; Line_Number <= 14; Line_Number++)

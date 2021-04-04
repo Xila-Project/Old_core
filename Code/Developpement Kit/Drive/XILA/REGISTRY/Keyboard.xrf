@@ -2,5 +2,5 @@
     "Registry": "Keyboard",
     "Data Pin": 32,
     "Clock Pin": 33,
-    "Keymap": 2
+    "Layout": 2
 }
