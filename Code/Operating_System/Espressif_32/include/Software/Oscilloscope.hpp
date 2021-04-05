@@ -33,10 +33,10 @@ protected:
 
     // Constant
 
-    const int LCD_WIDTH = 340;
-    const int LCD_HEIGHT = 250;
-    const int SAMPLES = 350;
-    const int DOTS_DIV = 75;
+    const uint16_t LCD_WIDTH = 340;
+    const uint16_t LCD_HEIGHT = 250;
+    const uint16_t SAMPLES = 350;
+    const uint16_t Dots_Per_Division = 75;
 
     uint8_t ad_ch0 = 35; // Analog 35 pin for channel 0
     uint8_t ad_ch1 = 36; // Analog 36 pin for channel 1
@@ -107,7 +107,7 @@ protected:
 
     inline long adRead(uint8_t ch, short mode, int off)
     {
-        long a = analogRead(ch);
+        long a = Xila.GPIO.Analog_Read(ch);
 
         a += off; // add offset
         if (ch == ad_ch0)
@@ -145,7 +145,7 @@ public:
 
     enum Picture_ID
     {
-        Icon_32 = Xila.Display.Oscilloscope
+        Icon_32 = Xila.Display.Oscilloscope_Images
     };
 
     Oscilloscope_Class();

@@ -53,8 +53,43 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             {
                 Xila.Task.Delay(90);
             }
+            else
+            {
+                while (Xila.Keyboard.Available())
+                {
+                    switch (Xila.Keyboard.Read())
+                    {
+                    case ' ':
+                        Instance_Pointer->Send_Instruction('P', 'P');
+                        break;
+                    case 'L':
+                    case 'l':
+                        Instance_Pointer->Send_Instruction('L', 'o');
+                        break;
+                    case 'R':
+                    case 'r':
+                        Instance_Pointer->Send_Instruction('R', 'a');
+                        break;
+                    case Xila.Keyboard.Arrow_Left:
+                        Instance_Pointer->Send_Instruction('F', 'F');
+                        break;
+                    case Xila.Keyboard.Arrow_Right:
+                        Instance_Pointer->Send_Instruction('F', 'B');
+                        break;
+                    case Xila.Keyboard.Arrow_Up:
+                        Xila.Display.Click(F("VOLUMEUP_TXT"), 0);
+                        break;
+                    case Xila.Keyboard.Arrow_Down:
+                        Xila.Display.Click(F("VOLUMEDOWN_TXT"), 0);
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
             Xila.Task.Delay(10);
             break;
+        case Restart: case Shutdown:
         case Close:
             Instance_Pointer->Stop();
             Instance_Pointer->Music_Folder.close();
@@ -149,10 +184,10 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Last_Track();
             break;
         case Instruction('F', 'F'):
-            Xila.Sound.Set_Offset_Time(10);
+            Xila.Sound.Set_Time_Offset(10);
             break;
         case Instruction('F', 'B'):
-            Xila.Sound.Set_Offset_Time(-10);
+            Xila.Sound.Set_Time_Offset(-10);
             break;
 
         case Instruction('L', 'o'):
@@ -336,7 +371,7 @@ void Music_Player_Class::Refresh_Interface()
     Xila.Display.Set_Value(F("VOLUME_SLI"), Volume);
 
     Current_Time = Xila.Sound.Get_Current_Time();
-    Total_Time = Xila.Sound.Get_Total_Time();
+    Total_Time = Xila.Sound.Get_Duration();
 
     sprintf(Temporary_Char_Array, "%i:%02d", (Current_Time / 60), (Current_Time % 60));
     Xila.Display.Set_Text(F("TIME_TXT"), Temporary_Char_Array);

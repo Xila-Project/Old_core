@@ -44,7 +44,7 @@ class Periodic_Class : protected Software_Class
 
         enum Image
         {
-            Icon_32 = Xila.Display.Periodic
+            Icon_32 = Xila.Display.Periodic_Images
         };
 
 };

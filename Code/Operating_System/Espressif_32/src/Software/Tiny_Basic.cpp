@@ -244,6 +244,7 @@ void Tiny_Basic_Class::Read_Instructions()
     Xila.Display.Set_Text(F("INPUT_VAR"), Temporary_Input);
     Send_Instruction('R', 'e');
     break;
+  case Restart: case Shutdown:
   case Close:
     delete Instance_Pointer;
     Xila.Task.Delete(NULL);
@@ -705,10 +706,10 @@ short int Tiny_Basic_Class::expr4()
         return -a;
       return a;
     case FUNC_AREAD:
-      pinMode(a, INPUT);
-      return analogRead(a);
+      Xila.GPIO.Set_Mode(a, INPUT);
+      return Xila.GPIO.Analog_Read(a);
     case FUNC_DREAD:
-      pinMode(a, INPUT);
+      Xila.GPIO.Set_Mode(a, INPUT);
       return digitalRead(a);
     case FUNC_RND:
       return (random(a));
@@ -1091,7 +1092,7 @@ boolean Tiny_Basic_Class::initSD()
 
   // due to the way the SD Library works, pin 10 always needs to be
   // an output, even when your shield uses another line for CS
-  //pinMode(10, OUTPUT); // change this to 53 on a mega
+  //Xila.GPIO.Set_Mode(10, OUTPUT); // change this to 53 on a mega
 
   if ( !Xila.Drive.begin( SD_CS )) {
     // failed
@@ -1971,7 +1972,7 @@ dwrite:
     if (expression_error)
       goto qwhat;
   }
-  pinMode(pinNo, OUTPUT);
+  Xila.GPIO.Set_Mode(pinNo, OUTPUT);
   if (isDigital)
   {
     digitalWrite(pinNo, value);

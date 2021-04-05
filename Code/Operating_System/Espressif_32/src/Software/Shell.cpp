@@ -139,6 +139,21 @@ void Shell_Class::Main_Instructions()
         {
             Xila.Task.Delay(90);
         }
+        else
+        {
+            while (Xila.Keyboard.Available())
+            {
+                switch (Xila.Keyboard.Read())
+                {
+                case Xila.Keyboard.Escape:
+                    Xila.Display.Click('M', 'i');
+                    break;
+                
+                default:
+                    break;
+                }
+            }
+        }
         Xila.Task.Delay(10);
         break;
     case Dialog_Color_Picker:
@@ -156,6 +171,10 @@ void Shell_Class::Main_Instructions()
         break;
     case Instruction('O', 'D'):
     case Open:
+        if (Xila.Account.Get_State() == Xila.Account.Logged)
+        {
+            Load_Registry();
+        }
     case Software_Class::Desk: // "OD" Open Desk page & load it
         Open_Desk();
         break;
@@ -189,7 +208,7 @@ void Shell_Class::Main_Instructions()
     case Dialog_Event:
         // -- Already openend
         break;
-    case Shutdown:
+    case Software_Class::Shutdown:
         Open_Load(Shutdown);
         Save_Registry();
         break;
@@ -307,14 +326,17 @@ Xila_Class::Event Shell_Class::Load_Registry()
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Temporary_Item) != DeserializationError::Ok)
     {
+        Temporary_Item.close();
         return Xila.Error;
     }
 
-    /*if (strcmp("Shell", Shell_Registry["Registry"]) != 0)
+    if (strcmp("Shell", Shell_Registry["Registry"]) != 0)
     {
+        Temporary_Item.close();
         return Xila.Error;
-    }*/
-    Desk_Background = Shell_Registry["Desk Background"] | -1;
+    }
+
+    Desk_Background = Shell_Registry["Desk Background"] | Default_Background;
 
     Serial.println(Desk_Background);
 
@@ -539,6 +561,7 @@ void Shell_Class::Refresh_File_Manager()
     }
     else
     {
+        Verbose_Print_Line('Failed to open path');
         if (Mode == 0) // Currently cannot open multiple dialog boxes at the same time
         {
             Event_Dialog(F("Failed to open path."), Xila.Error);
@@ -1226,7 +1249,7 @@ void Shell_Class::Login_Instructions()
         break;
 
     case Instruction('L', 'o'): // Lo : Login with entred username and password
-        if (Xila.Account.Check_Credentials(Username, Password_1) == Xila.Success)
+        if (Xila.Account.Login(Username, Password_1) == Xila.Success)
         {
             if (Xila.Account.State == Xila.Account.Locked && (strcmp(Xila.Account.Current_Username, Username) != 0)) // if a preced user was connected and we connect from a new user, have to close all of it's software.
             {
@@ -1239,7 +1262,7 @@ void Shell_Class::Login_Instructions()
                 }
             }
 
-            strcpy(Xila.Account.Current_Username, Username);
+            Xila.Sound.Play(Sounds("Login.wav"));
 
             Open_Load(Login);
 
@@ -1689,9 +1712,9 @@ void Shell_Class::System_Update()
         Refresh_Preferences_System();
         return;
     }
-    if (Xila.System.Load_Executable(Temporary_File, 'D') != Xila.Success)
+    if (Xila.Display.Update(Temporary_File) != Xila.Success)
     {
-        Event_Dialog(F("Failed to update"), Xila.Error);
+        Xila.System.Restart();
         Refresh_Preferences_System();
         return;
     }
@@ -1702,9 +1725,9 @@ void Shell_Class::System_Update()
         Refresh_Preferences_System();
         return;
     }
-    if (Xila.System.Load_Executable(Temporary_File, 'M') != Xila.Success)
+    if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
     {
-        Event_Dialog(F("Failed to update"), Xila.Error);
+        Xila.System.Restart();
         Refresh_Preferences_System();
         return;
     }
@@ -2225,12 +2248,10 @@ Xila_Class::Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t C
 
 void Shell_Class::Keyboard_Instructions()
 {
-    if (Xila.Keyboard.Available())
+    while (Xila.Keyboard.Available())
     {
-        char Char_Array[2];
-        Char_Array[0] = Xila.Keyboard.Read();
-        Char_Array[1] = '\0';
-        switch (Char_Array[0])
+        char Temporary_Char = Xila.Keyboard.Read();
+        switch (Temporary_Char)
         {
         case Xila.Keyboard.Enter:
             Xila.Display.Click(F("b210"), 0);
@@ -2241,9 +2262,10 @@ void Shell_Class::Keyboard_Instructions()
         case Xila.Keyboard.Tab:
             Xila.Display.Click(F("b201"), 0);
         default:
-            if (isPrintable(Char_Array[0]))
+            if (isPrintable(Temporary_Char))
             {
-                Xila.Display.Add_Text(F("INPUT_VAR"), Char_Array);
+                Xila.Display.Set_Text(F("T_VAR"), Temporary_Char);
+                Xila.Display.Click(F("K_HOT"), 0);
             }
             break;
         }

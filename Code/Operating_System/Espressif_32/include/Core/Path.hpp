@@ -13,27 +13,24 @@
 #define Sound_File_Extension ".wav"
 #define Basic_File_Extension ".bas"
 
-#define Registry_Directory_Path Xila_Directory_Path "/Registry"
-#define Registry(name) Registry_Directory_Path "/" name Registry_File_Extension //shortcut
 
+
+
+// -- Main system directory
 #define Temporary_Directory_Path Xila_Directory_Path "/Temporary"
 #define Sounds_Directory_Path Xila_Directory_Path "/Sounds"
 #define Executable_Directory_Path Xila_Directory_Path "/Executab"
+#define Variable_Directory_Path Xila_Directory_Path "/Variable"
+#define Registry_Directory_Path Xila_Directory_Path "/Registry"
 
-#define System_Registry_Path Registry("System")
-#define Display_Registry_Path Registry("Display")
-#define Network_Registry_Path Registry("Network")
-#define Account_Registry_Path Registry("Account")
-#define Time_Registry_Path Registry("Time")
-#define Keyboard_Registry_Path Registry("Keyboard")
-#define Software_Registry_Path Registry("Software")
-#define Sound_Registry_Path Registry("Sound")
-
-#define Startup_Sound_Path Sounds_Directory_Path "/Startup" Sound_File_Extension
-#define Shutdown_Sound_Path Sounds_Directory_Path "/Shutdown" Sound_File_Extension
-#define Login_Sound_Path Sounds_Directory_Path "/Login" Sound_File_Extension
+#define Registry(name) Registry_Directory_Path "/" name Registry_File_Extension //shortcut
+#define Variable(name) Variable_Directory_Path "/" name
+#define Sounds(name) Sounds_Directory_Path "/" name
+#define Executable(name) Executable_Directory_Path "/" name
+#define Temporary(name) Temporary_Directory_Path "/" name
 
 #define Dump_Registry_Path Temporary_Directory_Path "/Dump" Data_File_Extension
+
 #define Clipboard_Path Temporary_Directory_Path "/Clipboar" Data_File_Extension
 #define Test_Path Temporary_Directory_Path "/Test" Data_File_Extension
 

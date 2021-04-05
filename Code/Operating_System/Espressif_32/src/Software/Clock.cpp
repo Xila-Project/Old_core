@@ -445,6 +445,7 @@ void Clock_Class::Main_Instructions()
         break;
     case Minimize:
         break;
+    case Restart: case Shutdown:
     case Close:
         Save_Registry();
         delete Instance_Pointer;

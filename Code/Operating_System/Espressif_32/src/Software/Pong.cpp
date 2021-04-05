@@ -41,19 +41,23 @@ void Pong_Class::Main_Task(void *pvParameters)
             }
             else
             {
-                if (Xila.Keyboard.Available())
+                while (Xila.Keyboard.Available())
                 {
                     switch (Xila.Keyboard.Read())
                     {
+                    case 'a':
                     case 'A':
                         Xila.Display.Send_Raw(F("PADDLE1_SLI.val+=15"));
                         break;
+                    case 'q':
                     case 'Q':
                         Xila.Display.Send_Raw(F("PADDLE1_SLI.val-=15"));
                         break;
+                    case 'p':
                     case 'P':
                         Xila.Display.Send_Raw(F("PADDLE2_SLI.val+=15"));
                         break;
+                    case 'm':
                     case 'M':
                         Xila.Display.Send_Raw(F("PADDLE2_SLI.val-=15"));
                         break;
@@ -71,6 +75,7 @@ void Pong_Class::Main_Task(void *pvParameters)
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Pong_Handle);
             break;
+        case Restart: case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();

@@ -48,9 +48,6 @@
 // -- Time library
 #include "time.h"
 
-// -- ESP 32 update
-#include "Update.h"
-
 // -- Registry management library
 #include <ArduinoJson.h> //used to store registries
 #include <StreamUtils.h>
@@ -108,17 +105,14 @@ class Shell_Class;
 ///
 class Xila_Class
 {
-protected:
-    //==============================================================================//
-    //                                    Attributes                                //
-    //==============================================================================//
-
-    ///
-    /// @brief Current instance pointer. Help to prevent from corruption.
-    ///
-    static Xila_Class *Instance_Pointer;
-
 public:
+    //==============================================================================//
+    //                                 Constructors                                 //
+    //==============================================================================//
+
+    Xila_Class();
+    ~Xila_Class();
+
     //==============================================================================//
     //                              Enumerations                                    //
     //==============================================================================//
@@ -128,9 +122,8 @@ public:
     ///
     typedef enum : uint8_t
     {
-        None,
-        Success = 1,
-        Error,
+        Success = true,
+        Error = false,
         Warning,
         Information,
         Question,
@@ -140,6 +133,7 @@ public:
         Default_Yes = Button_1,
         Default_No = Button_2,
         Default_Cancel = Button_3,
+        None
     } Event;
 
     //==============================================================================//
@@ -198,10 +192,6 @@ public:
     ///
     class Clipboard_Class
     {
-    protected:
-        File Clipboard_File;
-        uint8_t Split_Number[8];
-
     public:
         Xila_Class::Event Copy(uint64_t const &Value_To_Copy);
         Xila_Class::Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
@@ -213,6 +203,10 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+
+    protected:
+        File Clipboard_File;
+        uint8_t Split_Number[8];
     } Clipboard;
 
     //==============================================================================//
@@ -222,6 +216,20 @@ public:
     ///
     class Dialog_Class
     {
+    public:
+        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Xila_Class::Event Color_Picker(uint16_t &Color);
+        Xila_Class::Event Open_File(File &File_To_Open);
+        Xila_Class::Event Dialog_Open_Folder(File &Folder_To_Open);
+        Xila_Class::Event Save_File(File &File_To_Save);
+        Xila_Class::Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
+        Xila_Class::Event Keypad(float &Number_To_Get);
+
+        Dialog_Class();
+
+        friend class Xila_Class;
+        friend class Shell_Class;
+
     protected:
         // -- Attributes
 
@@ -249,20 +257,6 @@ public:
         /// @brief Dialog data pointer.
         ///
         void *Pointer;
-
-    public:
-        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-        Xila_Class::Event Color_Picker(uint16_t &Color);
-        Xila_Class::Event Open_File(File &File_To_Open);
-        Xila_Class::Event Dialog_Open_Folder(File &Folder_To_Open);
-        Xila_Class::Event Save_File(File &File_To_Save);
-        Xila_Class::Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-        Xila_Class::Event Keypad(float &Number_To_Get);
-
-        Dialog_Class();
-
-        friend class Xila_Class;
-        friend class Shell_Class;
     } Dialog;
 
     //==============================================================================//
@@ -342,20 +336,19 @@ public:
         ///
         enum Image_Offset
         {
-            Shell = 0,
-            Calculator = 20,
-            Clock = 21,
-            Image_Viewer = 22,
-            Internet_Browser = 23,
-            Music_Player = 24,
-            Oscilloscope = 33,
-            Paint = 34,
-            Periodic = 35,
-            Piano = 37,
-            Pong = 41,
-            Simon = 42,
-            Text_Editor = 43,
-            Tiny_Basic = 44
+            Shell_Images = 0,
+            Calculator_Images = 20,
+            Clock_Images,
+            Internet_Browser_Images,
+            Music_Player_Images,
+            Oscilloscope_Images = 32,
+            Paint_Images,
+            Periodic_Images,
+            Piano_Images = 36,
+            Pong_Images = 40,
+            Simon_Images,
+            Text_Editor_Images,
+            Tiny_Basic_Images
         };
 
         ///
@@ -363,7 +356,20 @@ public:
         ///
         enum Pages_Offset
         {
-
+            Core_Pages = 0,
+            Shell_Pages = 5,
+            Calculator_Pages = 23,
+            Clock_Pages,
+            Text_Editor_Pages = 28,
+            Paint_Pages,
+            Internet_Browser_Pages,
+            Music_Player_Pages,
+            Oscilloscope_Pages,
+            Periodic_Pages,
+            Piano_Pages = 35,
+            Pong_Pages,
+            Simon_Pages,
+            Tiny_Basic_Pages
         };
 
         ///
@@ -402,9 +408,6 @@ public:
     ///
     class Drive_Class
     {
-    protected:
-        void End();
-
     public:
         typedef enum
         {
@@ -453,7 +456,89 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+
+    protected:
+        void End();
+
     } Drive;
+
+    //==============================================================================//
+
+    ///
+    /// @brief GPIO management class
+    ///
+    class GPIO_Class
+    {
+    public:
+        GPIO_Class();
+
+        // -- Pin mode
+        void Set_Mode(uint8_t Pin, uint8_t Mode);
+
+        Xila_Class::Event Valid_Output_Pin(uint8_t Pin);
+
+        // -- Digital
+        void Digital_Write(uint8_t Pin, uint8_t State);
+        int16_t Digital_Read(uint8_t Pin);
+
+        Xila_Class::Event Valid_Digital_Pin(uint8_t Pin);
+
+        // -- Analog
+        uint16_t Analog_Read(uint8_t Pin);
+        uint32_t Analog_Read_Milli_Volts(uint8_t Pin);
+
+        void Set_Voltage_Reference_Pin(uint8_t Pin);
+        void Set_Read_Resolutions(uint8_t Bits_Resolution);
+        void Set_Width(uint8_t Bits_Width);
+        void Set_Clock_Divider(uint8_t Clock_Divider);
+
+        void Set_Attenuation(uint8_t Attenuation);
+        void Set_Attenuation(uint8_t Pin, uint8_t Attenuation);
+
+        // -- Interrupts
+        void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode);
+        void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void*), void* Argument, int16_t Mode);
+        void Detech_Interrupt(uint8_t Pin);
+
+        enum Digital_States : uint8_t
+        {
+            Low = LOW,
+            High = HIGH,
+
+        };
+
+        enum Modes : uint8_t
+        {
+            Input = 0x01,
+            Output = 0x02,
+            Pull_Up = 0x04,
+            Input_Pull_Up = 0x05,
+            Pull_Down = 0x08,
+            Input_Pull_Down = 0x09,
+            Open_Drain = 0x10,
+            Output_Open_Drain = 0x12,
+            Special = 0xF0,
+            Function_1 = 0x00,
+            Function_2 = 0x20,
+            Function_3 = 0x40,
+            Function_4 = 0x60,
+            Function_5 = 0x80,
+            Function_6 = 0xA0,
+            Analog = 0xC0
+        };
+
+        enum Interrupt_Modes : uint8_t
+        {
+            Disabled = 0x00,
+            Rising = 0x01,
+            Falling = 0x02,
+            Change = 0x03,
+            On_Low = 0x04,
+            On_High = 0x05,
+            On_Low_WE = 0x0C,
+            On_High_WE = 0x0D
+        };
+    } GPIO;
 
     //==============================================================================//
     ///
@@ -461,19 +546,11 @@ public:
     ///
     class Keyboard_Class
     {
-    protected:
-        // -- Methods
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
-
-        uint8_t Layout;
-
-        uint8_t Data_Pin;
-        uint8_t Clock_Pin;
-
-        inline void Begin();
-
     public:
+        // -- Keyboard constructor / destructor
+
+        Keyboard_Class();
+
         enum Layouts
         {
             American,
@@ -515,7 +592,101 @@ public:
             Scroll = 0,
             Euro_Sign = 0,
             // Custom regional keys
-            Inverted_Exclamation = 161
+            Inverted_Exclamation = 161,
+            Cent_Sign,
+            Pound_Sign,
+            Currency_Sign,
+            Yen_Sign,
+            Broken_Bar,
+            Secontion_Sign,
+            Diaeresis,
+            Copyright_Sign,
+            Feminine_Ordinal,
+            Left_Double_Angle_Quote,
+            Not_Sign,
+            Hyphen,
+            Registered_Sign,
+            Macron,
+            Degree_Sign,
+            Plus_Minus_Sign,
+            Superscript_Two,
+            Superscript_Three,
+            Acute_Accent,
+            Micro_Sign,
+            Pilcrow_Sign,
+            Middle_Dot,
+            Cedilla,
+            Superscript_One,
+            Masculine_Ordinal,
+            Right_Double_Angle_Quote,
+            Fraction_One_Quarter,
+            Fraction_One_Half,
+            Fraction_Three_Quarters,
+            Inverted_Question_Mark,
+            A_Grave,
+            A_Acute,
+            A_Circumflex,
+            A_Tilde,
+            A_Diaeresis,
+            A_Ring_Above,
+            AE,
+            C_Cedilla,
+            E_Grave,
+            E_Acute,
+            E_Circumflex,
+            E_Diaeresis,
+            I_Grave,
+            I_Acute,
+            I_Circumflex,
+            I_Diaeresis,
+            Eth,
+            N_Tilde,
+            O_Grave,
+            O_Acute,
+            O_Circumflex,
+            O_Tilde,
+            O_Diaeresis,
+            Multiplication,
+            O_Stroke,
+            U_Grave,
+            U_Acute,
+            U_Circumflex,
+            U_Diaeresis,
+            Y_Acute,
+            Thorn,
+            Sharp_S,
+            a_Grave,
+            a_Acute,
+            a_Circumflex,
+            a_Tilde,
+            a_Diaeresis,
+            a_Ring_Above,
+            ae,
+            c_Cedilla,
+            e_Grave,
+            e_Acute,
+            e_Circumflex,
+            e_Diaeresis,
+            i_Grave,
+            i_Acute,
+            i_Circumflex,
+            i_Diaeresis,
+            eth,
+            n_Tilde,
+            o_Grave,
+            o_Acute,
+            o_Circumflex,
+            o_Tilde,
+            o_Diaeresis,
+            Division,
+            o_Stroke,
+            u_Grave,
+            u_Acute,
+            u_Circumflex,
+            u_Diaeresis,
+            y_Acute,
+            thorn,
+            y_Diaeresis
         };
 
         // -- Methods
@@ -526,13 +697,21 @@ public:
 
         void Clear();
 
-        // -- Keyboard constructor / destructor
-
-        Keyboard_Class();
-
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+
+    protected:
+        // -- Methods
+        Xila_Class::Event Load_Registry();
+        Xila_Class::Event Save_Registry();
+
+        uint8_t Layout;
+
+        uint8_t Data_Pin;
+        uint8_t Clock_Pin;
+
+        inline void Begin();
 
     } Keyboard;
 
@@ -564,6 +743,8 @@ public:
         void static IRAM_ATTR Button_Handler();
 
         void Check_Button();
+
+        void Deep_Sleep();
 
     } Power;
 
@@ -608,7 +789,7 @@ public:
         ///
         /// @brief All software handle pointers.
         ///
-        Software_Handle_Class *Handle[MAXIMUM_SOFTWARE] = {NULL};
+        Software_Handle_Class *Handle[Maximum_Software] = {NULL};
 
         void Maximize_Shell();
         void Send_Instruction_Shell(Xila_Instruction const &Command);
@@ -630,6 +811,65 @@ public:
     public:
         Sound_Class();
         ~Sound_Class();
+
+        void Set_Channels(uint8_t Channels);
+
+        void Set_Volume(uint16_t); // volume between 0 and 255
+        uint8_t Get_Volume();
+
+        void Set_Balance(uint8_t);
+
+        uint8_t Play(File &File_To_Play);
+        uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
+
+        void Set_Loop(bool Loop);
+
+        uint32_t Get_File_Size();
+        uint32_t Get_File_Position();
+        bool Set_File_Position(uint32_t Position);
+        bool Set_File_Seek(const float Speed);
+
+        uint32_t Get_Sample_Rate();
+        uint8_t Get_Bit_Resolution();
+        uint8_t Get_Channels();
+        uint32_t Get_Bit_Rate();
+
+        uint8_t Get_Data_Mode();
+        void Set_Data_Mode(uint8_t Data_Mode);
+
+        uint32_t Stream_Available();
+
+        void Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass);
+
+        void Set_Output(uint8_t Output);
+
+        enum Outputs : uint8_t
+        {
+            Internal_DAC,
+            External_DAC
+        };
+
+        uint8_t Resume();
+        void Pause();
+        void Mute();
+        void Stop();
+
+        void Set_Current_Time(uint16_t Time);
+        uint32_t Get_Current_Time();
+        uint32_t Get_Duration();
+
+        bool Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin = (-1));
+        void Set_Balance(int8_t Balance = 0);
+
+        uint32_t Get_Total_Time();
+
+        void Set_Time_Offset(int16_t Time);
+        uint8_t Get_State();
+
+        void Tone(uint16_t Frequency, uint32_t Duration = 0, uint8_t Pin = 0xFF);
+        void No_Tone(uint8_t Pin = 0xFF); // no tone (0xFF default pins)
+
+        static void Task(void *);
 
         enum Event
         {
@@ -653,32 +893,6 @@ public:
             Playing,
             Paused
         };
-
-        void Set_Output_Channel(uint8_t Number_Output_Channel);
-
-        void Set_Volume(uint16_t); // volume between 0 and 255
-        uint8_t Get_Volume();
-
-        void Set_Balance(uint8_t);
-
-        uint8_t Play(File &File_To_Play);
-        uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
-
-        uint8_t Resume();
-        void Pause();
-        void Mute();
-        void Stop();
-
-        void Set_Current_Time(uint16_t Time);
-        uint32_t Get_Current_Time();
-        uint32_t Get_Total_Time();
-        void Set_Offset_Time(int16_t Time);
-        uint8_t Get_State();
-
-        void Tone(uint16_t Frequency, uint32_t Duration = 0, uint8_t Pin = 0xFF);
-        void No_Tone(uint8_t Pin = 0xFF); // no tone (0xFF default pins)
-
-        static void Task(void *);
 
         friend void audio_eof_mp3(const char *);
 
@@ -753,15 +967,15 @@ public:
         ///
         char Device_Name[24];
 
-        void Deep_Sleep();
-
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
 
         Xila_Class::Event Save_Dump();
         Xila_Class::Event Load_Dump();
 
-        Xila_Class::Event Load_Executable(File Executable_File, uint8_t Type = 'M');
+        Xila_Class::Event Load_Executable(File Executable_File);
+
+        void Second_Sleep_Routine();
 
         enum System_States
         {
@@ -798,6 +1012,19 @@ public:
     ///
     class Task_Class
     {
+
+    public:
+        // -- Task management -- //
+        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL) const;
+        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL) const;
+        void Resume(Xila_Task_Handle Task_To_Resume) const;
+        void Delete(Xila_Task_Handle Task_To_Delete = NULL) const;
+
+        void Delay(uint32_t Delay_In_Millisecond) const;
+
+        friend Xila_Class;
+        friend class Shell_Class;
+
     protected:
         ///
         /// @brief Tasks priorities.
@@ -812,17 +1039,6 @@ public:
 
         Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle);
 
-    public:
-        // -- Task management -- //
-        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL) const;
-        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL) const;
-        void Resume(Xila_Task_Handle Task_To_Resume) const;
-        void Delete(Xila_Task_Handle Task_To_Delete = NULL) const;
-
-        void Delay(uint32_t Delay_In_Millisecond) const;
-
-        friend Xila_Class;
-        friend class Shell_Class;
     } Task;
 
     //==============================================================================//
@@ -832,6 +1048,23 @@ public:
     ///
     class Time_Class
     {
+
+    public:
+        // -- Methods
+        Xila_Time Get_Time();
+        void Synchronise();
+
+        uint32_t Milliseconds() const;
+        int64_t Microseconds() const;
+
+        // -- Time constructor / destructor
+
+        Time_Class();
+
+        // -- Friendship
+        friend class Xila_Class;
+        friend class Shell_Class;
+
     protected:
         // -- Attributes
         int32_t GMT_Offset;
@@ -844,22 +1077,6 @@ public:
         // -- Methods
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
-
-    public:
-        // -- Methods
-        Xila_Time Get_Time();
-        void Synchronise();
-
-        uint32_t Milliseconds() const;
-
-        // -- Time constructor / destructor
-
-        Time_Class();
-
-        // -- Friendship
-        friend class Xila_Class;
-        friend class Shell_Class;
-
     } Time;
 
     //==============================================================================//
@@ -869,9 +1086,6 @@ public:
     ///
     class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass
     {
-    protected:
-        bool prov_enable;
-        char Password[82];
 
     public:
         void printDiag(Print &dest);
@@ -907,16 +1121,27 @@ public:
         friend Xila_Class;
         friend class Shell_Class;
 
+    protected:
+        bool prov_enable;
+        char Password[82];
+
     } WiFi;
 
+protected:
+    //==============================================================================//
+    //                                    Attributes                                //
     //==============================================================================//
 
-    Xila_Class();
-    ~Xila_Class();
+    ///
+    /// @brief Current instance pointer. Help to prevent from corruption.
+    ///
+    static Xila_Class *Instance_Pointer;
 };
 
 #include "Task.hpp"
 #include "Time.hpp"
 #include "System.hpp"
+
+#include "Core/Abstraction/GPIO.hpp"
 
 #endif

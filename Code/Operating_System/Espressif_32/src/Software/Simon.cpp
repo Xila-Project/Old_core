@@ -40,6 +40,7 @@ void Simon_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(10);
             break;
+        case Restart: case Shutdown:
         case Close:
             Instance_Pointer->Save_Registry();
             delete Instance_Pointer;

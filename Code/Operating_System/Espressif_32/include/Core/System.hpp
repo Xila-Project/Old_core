@@ -46,9 +46,3 @@ inline uint32_t Xila_Class::System_Class::Random(uint32_t Lower_Bound, uint32_t 
     long diff = Upper_Bound - Lower_Bound;
     return Random(diff) + Lower_Bound;
 }
-
-inline void Xila_Class::System_Class::Deep_Sleep()
-{
-  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
-  esp_deep_sleep_start();
-}

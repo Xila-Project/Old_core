@@ -100,7 +100,7 @@ public:
 
     enum Picture
     {
-        Music_Player_Icon_32 = Xila.Display.Music_Player,
+        Music_Player_Icon_32 = Xila.Display.Music_Player_Images,
         Loop_32,
         Pause_32,
         Play_32,

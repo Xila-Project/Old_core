@@ -14,11 +14,17 @@
 
 #define Default_Device_Name "Xila"
 
+#define Maximum_GPIO 40
+
+// Account
+
+#define Default_Autologin_Account ""
+
 // Software
 
 #define Low_Memory_Threshold 2000
 
-#define MAXIMUM_SOFTWARE 30
+#define Maximum_Software 30
 
 #define POWER_BUTTON_PIN GPIO_NUM_39
 
@@ -39,6 +45,13 @@
 
 // Sounds
 #define Default_Volume_Level 255
+#define Default_I2S_Clock_Pin
+#define Default_I2S_Word_Select_Pin
+#define Default_I2S_Data_Pin
+#define Default_Sound_Mode
+
+
+
 #define Default_Registry_Size 512
 
 // Keyboard
@@ -94,7 +107,6 @@
 #define BATTERY_CHECKING 0  // enable battery checking
 #define ANIMATION 1         // enable animation
 #define LOGIN 1             // used to bypass login form during debugging session
-#define WATCHDOG 0          // Disable esp32 watchdog - managed by core
 #define SD_MODE 0           // SD mmc mode
 #define STACK_OVERFLOW_DETECTION 0
 
@@ -109,7 +121,6 @@
 #define BATTERY_CHECKING 0          // disable battery checking
 #define ANIMATION 0                 // disable animation
 #define LOGIN 0                     // used to bypass login form during debugging session
-#define WATCHDOG 1                  // Disable esp32 watchdog - managed by core
 
 #define SD_MODE 1                   // SD spi mode
 #define STACK_OVERFLOW_DETECTION 0  // 

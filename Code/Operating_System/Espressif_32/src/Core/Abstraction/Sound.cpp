@@ -49,8 +49,8 @@ Xila_Class::Sound_Class::~Sound_Class()
 void Xila_Class::Sound_Class::Begin()
 {
     Set_Volume(21);
-    pinMode(35, OUTPUT);
-    pinMode(36, OUTPUT);
+    Xila.GPIO.Set_Mode(35, OUTPUT);
+    Xila.GPIO.Set_Mode(36, OUTPUT);
     Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
     Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(4), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
@@ -64,7 +64,7 @@ void Xila_Class::Sound_Class::Begin()
 Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 {
     Verbose_Print_Line("Load sound registry");
-    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -80,7 +80,7 @@ Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(256);
     Sound_Registry["Volume"] = Get_Volume();
-    File Temporary_File = Xila.Drive.Open(Sound_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -143,6 +143,11 @@ uint8_t Xila_Class::Sound_Class::Get_State()
     return Audio_Driver.isRunning();
 }
 
+void Xila_Class::Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass)
+{
+    Audio_Driver.setTone(Gain_Low_Pass, Gain_Band_Pass, Gain_High_Pass);
+}
+
 /**
  * @brief A function that return the current file playing time.
  *    
@@ -153,14 +158,31 @@ uint32_t Xila_Class::Sound_Class::Get_Current_Time()
     return Audio_Driver.getAudioCurrentTime();
 }
 
+void Xila_Class::Sound_Class::Set_Output(uint8_t Output)
+{
+    if (Output == Internal_DAC)
+    {
+        Audio_Driver.setInternalDAC(true);
+    }
+    else
+    {
+        Audio_Driver.setInternalDAC(false);
+    }
+}
+
 /**
  * @brief A method that return total playing time.
  * 
  * @return uint32_t Total time in seconds of current playing file.
  */
-uint32_t Xila_Class::Sound_Class::Get_Total_Time()
+uint32_t Xila_Class::Sound_Class::Get_Duration()
 {
     return Audio_Driver.getAudioFileDuration();
+}
+
+uint32_t Xila_Class::Sound_Class::Get_Total_Time()
+{
+    return Audio_Driver.getTotalPlayingTime();
 }
 
 /**
@@ -178,7 +200,7 @@ void Xila_Class::Sound_Class::Set_Current_Time(uint16_t Time)
  * 
  * @param Time Offset time in second.
  */
-void Xila_Class::Sound_Class::Set_Offset_Time(int16_t Time)
+void Xila_Class::Sound_Class::Set_Time_Offset(int16_t Time)
 {
     Audio_Driver.setTimeOffset(Time);
 }
@@ -254,6 +276,83 @@ uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
     return Success;
 }
 
+void Xila_Class::Sound_Class::Set_Loop(bool Loop)
+{
+    Audio_Driver.setFileLoop(Loop);
+}
+
+uint32_t Xila_Class::Sound_Class::Get_File_Size()
+{
+    return Audio_Driver.getFileSize();
+}
+
+uint32_t Xila_Class::Sound_Class::Get_File_Position()
+{
+    return Audio_Driver.getFilePos();
+}
+
+bool Xila_Class::Sound_Class::Set_File_Position(uint32_t Position)
+{
+    return Audio_Driver.setFilePos(Position);
+}
+
+bool Xila_Class::Sound_Class::Set_File_Seek(const float Speed)
+{
+    return Audio_Driver.audioFileSeek(Speed);
+}
+
+uint32_t Xila_Class::Sound_Class::Get_Sample_Rate()
+{
+    return Audio_Driver.getSampleRate();
+}
+
+uint8_t Xila_Class::Sound_Class::Get_Bit_Resolution()
+{
+    return Audio_Driver.getBitsPerSample();
+}
+
+uint8_t Xila_Class::Sound_Class::Get_Channels()
+{
+    return Audio_Driver.getChannels();
+}
+
+uint32_t Xila_Class::Sound_Class::Get_Bit_Rate()
+{
+    return Audio_Driver.getBitRate();
+}
+
+void Xila_Class::Sound_Class::Set_Balance(int8_t Balance)
+{
+    Audio_Driver.setBalance(Balance);
+}
+
+void Xila_Class::Sound_Class::Set_Channels(uint8_t Channels)
+{
+    if (Channels > 1)
+    {
+        Audio_Driver.forceMono(false);
+    }
+    else
+    {
+        Audio_Driver.forceMono(true);
+    }
+}
+
+uint8_t Xila_Class::Sound_Class::Get_Data_Mode()
+{
+    return Audio_Driver.getDatamode();
+}
+
+void Xila_Class::Sound_Class::Set_Data_Mode(uint8_t Data_Mode)
+{
+    Audio_Driver.setDatamode(Data_Mode);
+}
+
+uint32_t Xila_Class::Sound_Class::Stream_Available()
+{
+    return Audio_Driver.streamavail();
+}
+
 uint8_t Xila_Class::Sound_Class::Resume()
 {
     if (!Audio_Driver.isRunning())
@@ -283,6 +382,11 @@ void Xila_Class::Sound_Class::Stop()
 void Xila_Class::Sound_Class::Mute()
 {
     Audio_Driver.setVolume(0);
+}
+
+bool Xila_Class::Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin)
+{
+    return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
 }
 
 void Xila_Class::Sound_Class::Task(void *)

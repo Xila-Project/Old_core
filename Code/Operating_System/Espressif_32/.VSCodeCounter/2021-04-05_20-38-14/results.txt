@@ -1,0 +1,51 @@
+Date : 2021-04-05 20:38:14
+Directory : c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include
+Total : 24 files,  2135 codes, 568 comments, 834 blanks, all 3537 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| C++      |         24 |      2,135 |        568 |        834 |      3,537 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                          | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                             |         24 |      2,135 |        568 |        834 |      3,537 |
+| Core                                                                                                          |          8 |        921 |        303 |        305 |      1,529 |
+| Core\Abstraction                                                                                              |          1 |        108 |          9 |         20 |        137 |
+| Software                                                                                                      |         14 |      1,139 |        208 |        476 |      1,823 |
++---------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                      | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Configuration.hpp              | C++      |         69 |         19 |         49 |        137 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Abstraction\GPIO.hpp      | C++      |        108 |          9 |         20 |        137 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Core.hpp                  | C++      |        616 |        212 |        225 |      1,053 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Path.hpp                  | C++      |         28 |          1 |         13 |         42 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Software.hpp              | C++      |         65 |         30 |         22 |        117 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Software_Handle.hpp       | C++      |         25 |         19 |         11 |         55 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\System.hpp                | C++      |         36 |          9 |          3 |         48 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Task.hpp                  | C++      |         35 |         14 |          8 |         57 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Core\Time.hpp                  | C++      |          8 |          9 |          3 |         20 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Calculator.hpp        | C++      |        130 |         11 |         49 |        190 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Clock.hpp             | C++      |         97 |         11 |         49 |        157 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Internet_Browser.hpp  | C++      |        135 |         21 |         40 |        196 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Music_Player.hpp      | C++      |         70 |         12 |         34 |        116 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Oscilloscope.hpp      | C++      |         91 |         25 |         40 |        156 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Paint.hpp             | C++      |         22 |         13 |         14 |         49 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Periodic.hpp          | C++      |         30 |          3 |         21 |         54 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Piano.hpp             | C++      |         26 |          0 |         12 |         38 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Pong.hpp              | C++      |         21 |          0 |         11 |         32 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Shell.hpp             | C++      |        156 |         60 |         81 |        297 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Simon.hpp             | C++      |         45 |          0 |         24 |         69 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Software_Template.hpp | C++      |         18 |          0 |          7 |         25 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Text Editor.hpp       | C++      |         34 |          0 |         17 |         51 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Software\Tiny_Basic.hpp        | C++      |        264 |         52 |         77 |        393 |
+| c:\Users\alixa\github\Xila Embedded\Code\Operating_System\Espressif_32\include\Xila.hpp                       | C++      |          6 |         38 |          4 |         48 |
+| Total                                                                                                         |          |      2,135 |        568 |        834 |      3,537 |
++---------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

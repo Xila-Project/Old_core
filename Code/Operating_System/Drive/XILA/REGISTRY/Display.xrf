@@ -1,0 +1,8 @@
+{
+    "Registry": "Display",
+    "Standby Time": 30,
+    "Baud Rate": 921600,
+    "Brightness": 100,
+    "Receive Pin": 16,
+    "Transmit Pin": 17
+}

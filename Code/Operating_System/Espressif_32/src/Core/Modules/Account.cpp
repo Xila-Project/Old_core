@@ -21,14 +21,14 @@ Xila_Class::Account_Class::Account_Class()
 
 Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Account_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
     return Error;
   }
-  strlcpy(Current_Username, Account_Registry["Autologin"], sizeof(Current_Username));
+  strlcpy(Current_Username, Account_Registry["Autologin"] | Default_Autologin_Account, sizeof(Current_Username));
   Temporary_File.close();
   return Success;
 }
@@ -46,7 +46,7 @@ Xila_Class::Event Xila_Class::Account_Class::Save_Registry()
  */
 Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
-  File Temporary_File = Xila.Drive.Open(Account_Registry_Path, FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {

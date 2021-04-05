@@ -151,7 +151,7 @@ public:
 
     enum Picture
     {
-        Icon_32 = Xila.Display.Tiny_Basic //currently empty
+        Icon_32 = Xila.Display.Tiny_Basic_Images //currently empty
     };
 
     static void Main_Task(void *pvParameters);

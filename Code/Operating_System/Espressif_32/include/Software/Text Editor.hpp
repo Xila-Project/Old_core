@@ -40,7 +40,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Display.Text_Editor
+        Icon_32 = Xila.Display.Text_Editor_Images
     };
 
     static Software_Class *Load();

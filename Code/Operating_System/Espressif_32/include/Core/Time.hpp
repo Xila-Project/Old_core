@@ -11,5 +11,10 @@
 
  inline uint32_t Xila_Class::Time_Class::Milliseconds() const
 {
-  return millis();
+  return (uint32_t)(esp_timer_get_time() / 1000ULL);
+}
+
+inline int64_t Xila_Class::Time_Class::Microseconds() const
+{
+  return esp_timer_get_time();
 }

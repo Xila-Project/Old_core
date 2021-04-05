@@ -29,7 +29,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Display.Piano,
+        Icon_32 = Xila.Display.Piano_Images,
     };
     
     static void Main_Task(void *pvParameters);

@@ -23,7 +23,7 @@ Xila_Class::Display_Class::~Display_Class()
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     Verbose_Print_Line("> Load display registry ...");
-    File Temporary_File = Xila.Drive.Open(Display_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -44,6 +44,9 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
     Serial.println(Display_Registry["Baud Rate"].as<uint32_t>());
     Serial.println(Display_Registry["Brightness"].as<byte>());
     Xila.Display.Begin(Display_Registry["Baud Rate"] | Default_Display_Baud_Rate, Receive_Pin, Transmit_Pin);
+    Xila.Display.Set_Touch_Wake_Up(true);
+    Xila.Display.Set_Serial_Wake_Up(false);
+
     Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
     Xila.Display.Set_Standby_Touch_Timer(Standby_Time);
     Temporary_File.close();
@@ -52,7 +55,7 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 
 Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Display_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
     Display_Registry["Registry"] = "Display";
     Display_Registry["Brightness"] = Brightness;

@@ -13,7 +13,8 @@
 
 extern Software_Handle_Class Shell_Handle;
 
-Xila_Class::Power_Class::Power_Class() : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
+Xila_Class::Power_Class::Power_Class()
+    : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
     Button_Counter = 0;
@@ -29,7 +30,7 @@ Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
         return Error;
     }
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
-    Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Registry"] | Default_Battery_Maximum_Voltage);
+    Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
 
     Temporary_File.close();
@@ -69,4 +70,10 @@ void Xila_Class::Power_Class::Check_Button()
         Xila.Software.Maximize(Shell_Handle);
         Button_Counter = 0;
     }
+}
+
+void Xila_Class::Power_Class::Deep_Sleep()
+{
+  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
+  esp_deep_sleep_start();
 }

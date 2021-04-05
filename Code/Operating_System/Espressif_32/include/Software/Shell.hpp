@@ -23,6 +23,8 @@
 
 #include "Xila.hpp"
 
+#define Default_Background -1
+
 ///
 /// @brief Shell class
 ///
@@ -94,7 +96,7 @@ protected:
      /// 
     enum Pages
     {
-        About = 20,
+        About = Xila.Display.Shell_Pages,
         Color_Picker, // color picker
         Desk,
         Drawer,
@@ -265,7 +267,7 @@ public:
 
     enum Images
     {
-        Empty_16 = Xila.Display.Shell,
+        Empty_16 = Xila.Display.Shell_Images,
         File_16,
         Folder_16,
         Copy_24,

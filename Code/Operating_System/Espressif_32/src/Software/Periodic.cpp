@@ -79,6 +79,7 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
             Instance_Pointer->Tab = 0;
             break;
+        case Restart: case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();

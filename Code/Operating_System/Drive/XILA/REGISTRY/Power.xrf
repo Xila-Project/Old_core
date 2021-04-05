@@ -1,0 +1,6 @@
+{
+    "Conversion Factor" : 2,
+    "Sensing Pin" : 34,
+    "Minimum Voltage" : 2500,
+    "Maximum Voltage" : 4200
+}

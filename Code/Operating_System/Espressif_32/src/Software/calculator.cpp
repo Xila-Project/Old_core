@@ -128,83 +128,109 @@ void Calculator_Class::Main_Task(void *pvParameters)
                     switch (Xila.Keyboard.Read())
                     {
                     case '0':
-                        Xila.Display.Click(F("ZERO_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '0');
                         break;
                     case '1':
-                        Xila.Display.Click(F("ONE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '1');
                         break;
                     case '2':
-                        Xila.Display.Click(F("TWO_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '2');
                         break;
                     case '3':
-                        Xila.Display.Click(F("THREE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '3');
                         break;
                     case '4':
-                        Xila.Display.Click(F("FOUR_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '4');
                         break;
                     case '5':
-                        Xila.Display.Click(F("FIVE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '5');
                         break;
                     case '6':
-                        Xila.Display.Click(F("SIX_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '6');
                         break;
                     case '7':
-                        Xila.Display.Click(F("SEVEN_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '7');
                         break;
                     case '8':
-                        Xila.Display.Click(F("EIGHT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '8');
                         break;
                     case '9':
-                        Xila.Display.Click(F("NINE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('N', '9');
+                        break;
+                    case '=':
+                    case Xila.Keyboard.Enter:
+                        Instance_Pointer->Send_Instruction('E', 'q');
                         break;
                     case Xila.Keyboard.Backspace:
-                        Xila.Display.Click(F("CLEAR_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('C', 'E');
                         break;
                     case '-':
-                        Xila.Display.Click(F("SUBSTRACT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('S', 'u');
                         break;
                     case '+':
-                        Xila.Display.Click(F("ADD_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('A', 'd');
                         break;
                     case '*':
-                        Xila.Display.Click(F("MULTIPLY_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('M', 'u');
                         break;
                     case ':':
                     case '/':
-                        Xila.Display.Click(F("DIVIDE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('D', 'i');
                         break;
                     case 'S':
-                        Xila.Display.Click(F("SINE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('S', 'i');
                         break;
                     case 'C':
-                        Xila.Display.Click(F("COSINE_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('C', 'o');
                         break;
                     case 'T':
-                        Xila.Display.Click(F("TANGENT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('T', 'a');
                         break;
                     case 's':
-                        Xila.Display.Click(F("SECANT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('S', 'e');
                         break;
                     case 'c':
-                        Xila.Display.Click(F("COSECANT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('C', 's');
                         break;
                     case 't':
-                        Xila.Display.Click(F("COTANGENT_BUT"), 0);
-                        break;
-                    case '=':
-                        Xila.Display.Click(F("EQUAL_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('C', 't');
                         break;
                     case '.':
-                        Xila.Display.Click(F("POINT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('P', 'o');
                         break;
+                    case 'f':
                     case 'F':
-                        Xila.Display.Click(F("FACTORIAL_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('F', 'a');
                         break;
                     case '^':
-                        Xila.Display.Click(F("EXPONANT_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('P', 'w');
                         break;
                     case '%':
-                        Xila.Display.Click(F("MODULO_BUT"), 0);
+                        Instance_Pointer->Send_Instruction('M', 'o');
+                        break;
+                    case 'r':
+                    case 'R':
+                        Instance_Pointer->Send_Instruction('R', 'a');
+                        break;
+                    case 'i':
+                    case 'I':
+                        Instance_Pointer->Send_Instruction('I', 'n');
+                        break;
+                    case 'a':
+                    case 'A':
+                        Instance_Pointer->Send_Instruction('R', 'a');
+                        break;
+                    case 'h':
+                    case 'H':
+                        Instance_Pointer->Send_Instruction('S', 'H');
+                        break;
+                    case 'p':
+                    case 'P':
+                        Instance_Pointer->Send_Instruction('P', 'i');
+                        break;
+                    case 'E':
+                    case 'e':
+                        Instance_Pointer->Send_Instruction('e', 'x');
                         break;
                     default:
                         break;
@@ -220,6 +246,8 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Calculator_Handle);
             break;
+        case Restart:
+        case Shutdown:
         case Close:
             Verbose_Print_Line("Close calc");
             delete Instance_Pointer;

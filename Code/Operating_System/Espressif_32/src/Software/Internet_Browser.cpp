@@ -37,6 +37,17 @@ Internet_Browser_Class::~Internet_Browser_Class()
   Instance_Pointer = NULL;
 }
 
+void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+{
+  if (Type == Xila.Display.Variable_Long && Adress == 'S')
+  {
+    if (Cache_File)
+    {
+      textContent.index[textContent.pagePtr] = Cache_File.size() - *(uint16_t*)Variable;
+    }
+  }
+}
+
 void Internet_Browser_Class::Main_Task(void *pvParameters)
 {
   (void)pvParameters;
@@ -48,6 +59,42 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       if (Xila.Software.Get_State(Internet_Browser_Handle) == Minimized)
       {
         Xila.Task.Delay(90);
+      }
+      else
+      {
+        while (Xila.Keyboard.Available())
+        {
+          switch (Xila.Keyboard.Read())
+          {
+          case Xila.Keyboard.Arrow_Up:
+            Instance_Pointer->Send_Instruction('P', 'U');
+            break;
+          case Xila.Keyboard.Arrow_Down:
+            Instance_Pointer->Send_Instruction('P', 'D');
+            break;
+          case Xila.Keyboard.Arrow_Right:
+            Instance_Pointer->Send_Instruction('N', 'L');
+            break;
+          case Xila.Keyboard.Arrow_Left:
+            Instance_Pointer->Send_Instruction('P', 'L');
+            break;
+          case Xila.Keyboard.Enter:
+            Instance_Pointer->Send_Instruction('G', 'L');
+            break;
+          case Xila.Keyboard.Escape:
+            Instance_Pointer->Send_Instruction('M', 'i');
+            break;
+          case 'H':
+          case 'h':
+            Instance_Pointer->Send_Instruction('H', 'o');
+            break;
+          case ' ':
+            Instance_Pointer->Send_Instruction('K', 'U');
+            break;
+          default:
+            break;
+          }
+        }
       }
       Instance_Pointer->Set_Watchdog_Timeout();
       Xila.Task.Delay(10);
@@ -65,6 +112,8 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Send_Instruction('H', 'o');
       break;
+    case Restart:
+    case Shutdown:
     case Close: // NULL + C : Close
       delete Instance_Pointer;
       Xila.Task.Delete();
@@ -81,7 +130,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
     case Instruction('D', 'i'):
       if (!Instance_Pointer->Display_Page())
       {
-        Xila.Dialog.Event(F("Display home page failed."), Xila.Error);
+        Xila.Dialog.Event(F("Display page failed."), Xila.Error);
       }
 
       break;
@@ -679,30 +728,24 @@ void Internet_Browser_Class::Go_Link()
 void Internet_Browser_Class::Page_Up()
 {
   Verbose_Print("\n>> Page Up : ");
-  Serial.print(textContent.pagePtr);
+  Serial.print(textContent.index[textContent.pagePtr]);
   Serial.print("::");
-  Serial.println(textContent.pagePtr);
-
+  Serial.println(Cache_File.size());
   if (textContent.pagePtr > 0)
   {
     textContent.pagePtr--;
     pageLinks.lastLink = 0;
-    Verbose_Print("Page up to page ");
-    Serial.println(textContent.pagePtr);
     pageLinks.linkPtr = 0;
-
     Send_Instruction('D', 'i');
   }
-  else
-  { // Can't got up any further
-    Verbose_Print_Line("Cancelled");
-  }
-  return;
 }
 
 void Internet_Browser_Class::Page_Down()
 {
   Verbose_Print("\n>> Page Down : ");
+  Serial.print(textContent.index[textContent.pagePtr]);
+  Serial.print("::");
+  Serial.println(Cache_File.size());
   if (textContent.pagePtr < textContent.lastPage)
   {
     textContent.pagePtr++;
@@ -810,56 +853,31 @@ void Internet_Browser_Class::displayLinkIndex()
     c = Cache_File.read();
     while ((c != TAG_LINK2) && (j++ < 100))
     {
-      Serial.write(c);
       c = Cache_File.read();
     }
-    Serial.println();
   }
-  Serial.println();
-}
-
-void Internet_Browser_Class::displayPageIndex()
-{
-  Verbose_Print("\nPage index:");
-  Verbose_Print("\npagePtr:\t");
-  Serial.println(textContent.pagePtr);
-  Verbose_Print("lastPage:\t");
-  Serial.println(textContent.lastPage);
-  Verbose_Print_Line("Page Index");
-
-  for (byte i = 0; i <= textContent.lastPage; i++)
-  {
-
-    Verbose_Print("\t");
-    Serial.println(textContent.index[i]);
-  }
-  Serial.println();
 }
 
 byte Internet_Browser_Class::Display_Page()
 {
-  Serial.println();
-  Verbose_Print("Display cached page :");
-  Serial.println(textContent.pagePtr);
-
-  Xila.Display.Hide(F("LOAD_BAR"));
-  Xila.Display.Hide(F("LOAD_TXT"));
-
   uint16_t filePtr = textContent.index[textContent.pagePtr]; // Pointer into cached file
   uint8_t c = 1;                                             // Input character
   uint16_t count = 0;                                        // Character count for page index building
   uint16_t Last_Color = 65535;                               // Two level stack to remember colour state
   uint16_t Current_Color = 65535;
-
   boolean invisiblePrint = false;                    // Turn off output (for URLs, etc)
   uint8_t currentLink = 0;                           // Curretly highlightd link of the page
   boolean buildingIndex = (pageLinks.lastLink == 0); // True if this page's URL haven't been index yet
   uint16_t Cursor_Y;
-  char Text_To_Print[144];
-
+  char Text_To_Print[66];
   uint8_t Text_Char_Count;
 
+  Xila.Display.Hide(F("LOAD_BAR"));
+  Xila.Display.Hide(F("LOAD_TXT"));
   Xila.Display.Refresh(F("PANEL_TXT"));
+
+  Xila.Display.Set_Maximum_Value(F("SCROLL_SLI"), Cache_File.size());
+  Xila.Display.Set_Value(F("SCROLL_SLI"), Cache_File.size() - filePtr);
 
   //Draw header
 
@@ -916,95 +934,51 @@ byte Internet_Browser_Class::Display_Page()
   {
     if (Text_Char_Count >= 65) //Serial.print if auto return to line (max 65 normal)
     {
-      Text_To_Print[Text_Char_Count] = '\0';
-      Serial.println(Text_To_Print);
-      Verbose_Print("Color : ");
-      Serial.println(Current_Color);
-
       switch (Current_Color)
       {
       case 65534: //Bold style
-
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
         Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-
-        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 1, 65535, 16904, 0, 1, 1, Text_To_Print);
-
         Current_Color = Last_Color;
-
         break;
-
       case 65533: //Highlight style
-
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
         Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-
-        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 34308, 16904, 0, 1, 1, Text_To_Print);
-
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
-
       case 65532: //Link style
-
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
         Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-
-        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 1300, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         Last_Color = 65535;
         break;
-
       case 65531: //Heading style
 
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
         Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, 64896, 16904, 0, 1, 1, Text_To_Print);
         Current_Color = Last_Color;
         break;
-
       default:
-
         Xila.Display.Set_Value(F("C_VAR"), Current_Color);
         Xila.Display.Set_Text(F("T_VAR"), Text_To_Print);
-
-        //Xila.Display.Draw_Text(4, Cursor_Y, 456, 14, 0, Current_Color, 16904, 0, 1, 1, Text_To_Print);
         break;
       }
-
       Xila.Display.Click(F("D_HOT"), 0);
-
       Cursor_Y += 14; //new line
-
       Text_Char_Count = 0;
-
       memset(Text_To_Print, '\0', sizeof(Text_To_Print));
     }
-
     c = Cache_File.read();
     filePtr++;
     count++;
-
     // Print only visible ASCII characters
     if (c > 31)
     {
       if (!invisiblePrint)
       {
         // Print only if in visible mode (supresses URLs)
-        switch (c)
-        {
-        case '\\':
-          Text_To_Print[Text_Char_Count++] = '\\';
-          Text_To_Print[Text_Char_Count++] = '\\';
-          break;
-        case '\"':
-          Text_To_Print[Text_Char_Count++] = '\\';
-          Text_To_Print[Text_Char_Count++] = '\"';
-          break;
-        default:
-          Text_To_Print[Text_Char_Count++] = c;
-          break;
-        }
+        Text_To_Print[Text_Char_Count++] = c;
       }
     }
 
@@ -1163,14 +1137,6 @@ byte Internet_Browser_Class::Find_Until(uint8_t *String_To_Find, boolean termina
   uint8_t currentChar = 0;
   long timeOut = millis() + 5000;
   char c = 0;
-  Verbose_Print("\nLooking for: ");
-
-  for (byte i = 0; String_To_Find[i] != 0; i++)
-  {
-    Serial.write(String_To_Find[i]);
-  }
-  Serial.println('\n');
-
   while (millis() < timeOut)
   {
     if (Client.available())
@@ -1181,12 +1147,10 @@ byte Internet_Browser_Class::Find_Until(uint8_t *String_To_Find, boolean termina
       {
         return 1; // Pre-empted match
       }
-      Serial.write(c);
       if (c == String_To_Find[currentChar])
       {
         if (String_To_Find[++currentChar] == 0)
         {
-          Verbose_Print_Line("[FOUND]");
           return 2; // Found
         }
       }

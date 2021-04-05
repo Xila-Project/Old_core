@@ -84,6 +84,7 @@ void Paint_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
+        case Restart: case Shutdown:
         case Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);

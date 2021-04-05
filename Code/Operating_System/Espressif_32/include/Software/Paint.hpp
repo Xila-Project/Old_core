@@ -38,7 +38,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Display.Paint
+        Icon_32 = Xila.Display.Paint_Images
     };
 
     static void Main_Task(void*);

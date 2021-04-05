@@ -64,7 +64,7 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
     WiFi_Registry["Name"] = SSID();
     WiFi_Registry["Password"] = Password;
     WiFi_Registry["State"] = status();
-    File Temporary_File = Xila.Drive.Open(Network_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Registry("Network"));
     if (serializeJson(Network_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -77,7 +77,7 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
 Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 {
     Verbose_Print_Line("Load wifi registry");
-    File Temporary_File = Xila.Drive.Open((Network_Registry_Path));
+    File Temporary_File = Xila.Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {

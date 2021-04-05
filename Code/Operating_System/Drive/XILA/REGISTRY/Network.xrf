@@ -1,0 +1,15 @@
+{
+    "Registry":"Network",
+    "WiFi":
+    {
+        "Host name": "ESP32",
+        "Name": "Avrupa",
+        "Password": "0769094509",
+        "IP Adress": "",
+        "Subnet Mask": "",
+        "Default Gateway": ""
+    },
+    "Bluetooth":
+    {
+    }
+}

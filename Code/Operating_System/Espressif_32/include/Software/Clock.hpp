@@ -18,7 +18,7 @@ private:
 
     enum Pages
     {
-        Clock = 6,
+        Clock = Xila.Display.Clock_Pages,
         Alarm,
         Chronometer,
         Timer
@@ -148,7 +148,7 @@ public:
 
     enum Picture
     {
-        Icon_32 = Xila.Display.Clock
+        Icon_32 = Xila.Display.Clock_Images
     };
 };
 

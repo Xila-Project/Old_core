@@ -16,7 +16,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
     Verbose_Print_Line("Load keyboard registry");
     // Currently no parameters are stored for keyboard
 
-    File Temporary_File = Xila.Drive.Open(Keyboard_Registry_Path);
+    File Temporary_File = Xila.Drive.Open(Registry("Keyboard"));
     DynamicJsonDocument Keyboard_Registry(256);
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -40,7 +40,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
 
 Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Keyboard_Registry_Path, FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Registry("Keyboard"), FILE_WRITE);
     DynamicJsonDocument Keyboard_Registry(256);
     Keyboard_Registry["Data Pin"] = Data_Pin;
     Keyboard_Registry["Clock Pin"] = Clock_Pin;

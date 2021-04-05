@@ -338,7 +338,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
 
 void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &Software_Handle_To_Add)
 {
-  for (uint8_t i = 0; i < MAXIMUM_SOFTWARE; i++)
+  for (uint8_t i = 0; i < Maximum_Software; i++)
   {
     if (Handle[i] == NULL)
     {

@@ -6,7 +6,7 @@
 
 #define Internet_Browser_File(name) Software_Directory_Path "/Internet/" name
 
-#define PAGEINDEXSIZE 10 // Must small - each page uses 3 bytes
+#define PAGEINDEXSIZE 60 // Must small - each page uses 3 bytes
 #define LINKINDEXSIZE 20 // Must small - each link uses 2 bytes
 #define TIMEOUT 5000     // Timeout on ethernet reads
 
@@ -121,7 +121,7 @@ public:
 
     enum Image
     {
-        Icon_32 = Xila.Display.Internet_Browser
+        Icon_32 = Xila.Display.Internet_Browser_Images
     };
 
     static void Main_Task(void *pvParameters);
@@ -139,7 +139,6 @@ private:
     {
 
     };
-
 
     struct cacheStruct
     {
@@ -177,6 +176,8 @@ private:
     void Split_URL(char *localURL); //split a URL into server / path
 
     byte Find_Until(uint8_t *string, boolean);
+
+    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     //void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 

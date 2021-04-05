@@ -65,6 +65,7 @@ void Oscilloscope_Class::Loop()
 			break;
 		case Minimize:
 			break;
+		case Restart: case Shutdown:
 		case Close:
 			delete Instance_Pointer;
 			Xila.Task.Delete();
@@ -475,59 +476,6 @@ void Oscilloscope_Class::Refresh_Waveform()
 		}
 	}
 }
-/*void Oscilloscope_Class::SigmaDelta_Task(void *pvParameters)
-{
-	sigmaDeltaSetup(0, 312500);
-	sigmaDeltaAttachPin(5, 0);
-	sigmaDeltaWrite(0, 0);
-	while (1)
-	{
-		static uint8_t i = 0;
-		sigmaDeltaWrite(0, i++);
-		delayMicroseconds(50);
-	}
-	vTaskDelete(NULL);
-}*/
-
-/*void ledcAnalogWrite(uint8_t channel, uint32_t value, uint32_t valueMax = 255)
-{
-	uint32_t duty = (8191 / valueMax) * min(value, valueMax);
-	ledcWrite(channel, duty);
-}
-
-// Make a PWM generator task on core 0
-// Signal generator pin 2
-void LedC_Task(void *parameter)
-{
-	ledcSetup(0, 50, 13);
-	ledcAttachPin(2, 0);
-
-	for (;;)
-	{
-		ledcAnalogWrite(0, amplitude);
-		amplitude = amplitude + amplitudeStep;
-		if (amplitude <= 0 || amplitude >= 255)
-		{
-			amplitudeStep = -amplitudeStep;
-		}
-		delay(30);
-	}
-	vTaskDelete(NULL);
-}
-
-void Oscilloscope_Class::SigmaDelta_Task(void *parameter)
-{
-	sigmaDeltaSetup(0, 312500);
-	sigmaDeltaAttachPin(5, 0);
-	sigmaDeltaWrite(0, 0);
-	for (;;)
-	{
-		static uint8_t i = 0;
-		sigmaDeltaWrite(0, i++);
-		delayMicroseconds(50);
-	}
-	vTaskDelete(NULL);
-}*/
 
 void Oscilloscope_Class::Trigger()
 {
@@ -577,7 +525,6 @@ void Oscilloscope_Class::Trigger()
 
 void Oscilloscope_Class::Sampling()
 {
-
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
 	{
@@ -615,12 +562,15 @@ void Oscilloscope_Class::Sampling()
 		}
 		else if (rate >= 3 && rate <= 5) // .5ms, 1ms or 2ms sampling
 		{
-			const unsigned long r_[] = {5000 / DOTS_DIV, 10000 / DOTS_DIV, 20000 / DOTS_DIV};
-			unsigned long st = micros();
+			const uint32_t r_[] = {(uint32_t)5000 / Dots_Per_Division,
+								   (uint32_t)10000 / Dots_Per_Division,
+								   (uint32_t)20000 / Dots_Per_Division};
+
+			unsigned long st = Xila.Time.Microseconds();
 			unsigned long r = r_[rate - 3];
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				while ((st - micros()) < r)
+				while ((st - Xila.Time.Microseconds()) < r)
 				{
 					;
 				}
@@ -651,13 +601,19 @@ void Oscilloscope_Class::Sampling()
 			}
 		}
 
-		const unsigned long r_[] = {50000 / DOTS_DIV, 100000 / DOTS_DIV, 200000 / DOTS_DIV,
-									500000 / DOTS_DIV, 1000000 / DOTS_DIV, 2000000 / DOTS_DIV,
-									5000000 / DOTS_DIV, 10000000 / DOTS_DIV};
-		unsigned long st = micros();
+		const uint32_t r_[] = {(uint32_t)50000 / Dots_Per_Division,
+							   (uint32_t)100000 / Dots_Per_Division,
+							   (uint32_t)200000 / Dots_Per_Division,
+							   (uint32_t)500000 / Dots_Per_Division,
+							   (uint32_t)1000000 / Dots_Per_Division,
+							   (uint32_t)2000000 / Dots_Per_Division,
+							   (uint32_t)5000000 / Dots_Per_Division,
+							   (uint32_t)10000000 / Dots_Per_Division};
+
+		unsigned long st = Xila.Time.Microseconds();
 		for (int i = 0; i < SAMPLES; i++)
 		{
-			while ((st - micros()) < r_[rate - 6])
+			while ((st - Xila.Time.Microseconds()) < r_[rate - 6])
 			{
 				if (rate < 6)
 				{
@@ -669,9 +625,9 @@ void Oscilloscope_Class::Sampling()
 				break;
 			}
 			st += r_[rate - 6];
-			if (st - micros() > r_[rate - 6]) // sampling rate has been changed to shorter interval
+			if (st - Xila.Time.Microseconds() > r_[rate - 6]) // sampling rate has been changed to shorter interval
 			{
-				st = micros();
+				st = Xila.Time.Microseconds();
 			}
 			if (!Start)
 			{
