@@ -32,7 +32,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
     Serial.println(Data_Pin);
     Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
     Serial.println(Clock_Pin);
-    Layout = Keyboard_Registry["Keymap"] | Default_Keyboard_Layout;
+    Layout = Keyboard_Registry["Layout"] | Default_Keyboard_Layout;
     Serial.println(Layout);
     Begin();
     return Success;
@@ -44,7 +44,7 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
     DynamicJsonDocument Keyboard_Registry(256);
     Keyboard_Registry["Data Pin"] = Data_Pin;
     Keyboard_Registry["Clock Pin"] = Clock_Pin;
-    Keyboard_Registry["Key Map"] = Layout;
+    Keyboard_Registry["Layout"] = Layout;
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();

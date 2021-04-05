@@ -59,7 +59,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
         break;
     case Memory_Read:
         Clear_All();
-        
+
         dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
         Refresh_Interface();
         break;
@@ -120,6 +120,96 @@ void Calculator_Class::Main_Task(void *pvParameters)
             if (Xila.Software.Get_State(Calculator_Handle) == Minimized)
             {
                 Xila.Task.Delay(90);
+            }
+            else
+            {
+                while (Xila.Keyboard.Available())
+                {
+                    switch (Xila.Keyboard.Read())
+                    {
+                    case '0':
+                        Xila.Display.Click(F("ZERO_BUT"), 0);
+                        break;
+                    case '1':
+                        Xila.Display.Click(F("ONE_BUT"), 0);
+                        break;
+                    case '2':
+                        Xila.Display.Click(F("TWO_BUT"), 0);
+                        break;
+                    case '3':
+                        Xila.Display.Click(F("THREE_BUT"), 0);
+                        break;
+                    case '4':
+                        Xila.Display.Click(F("FOUR_BUT"), 0);
+                        break;
+                    case '5':
+                        Xila.Display.Click(F("FIVE_BUT"), 0);
+                        break;
+                    case '6':
+                        Xila.Display.Click(F("SIX_BUT"), 0);
+                        break;
+                    case '7':
+                        Xila.Display.Click(F("SEVEN_BUT"), 0);
+                        break;
+                    case '8':
+                        Xila.Display.Click(F("EIGHT_BUT"), 0);
+                        break;
+                    case '9':
+                        Xila.Display.Click(F("NINE_BUT"), 0);
+                        break;
+                    case Xila.Keyboard.Backspace:
+                        Xila.Display.Click(F("CLEAR_BUT"), 0);
+                        break;
+                    case '-':
+                        Xila.Display.Click(F("SUBSTRACT_BUT"), 0);
+                        break;
+                    case '+':
+                        Xila.Display.Click(F("ADD_BUT"), 0);
+                        break;
+                    case '*':
+                        Xila.Display.Click(F("MULTIPLY_BUT"), 0);
+                        break;
+                    case ':':
+                    case '/':
+                        Xila.Display.Click(F("DIVIDE_BUT"), 0);
+                        break;
+                    case 'S':
+                        Xila.Display.Click(F("SINE_BUT"), 0);
+                        break;
+                    case 'C':
+                        Xila.Display.Click(F("COSINE_BUT"), 0);
+                        break;
+                    case 'T':
+                        Xila.Display.Click(F("TANGENT_BUT"), 0);
+                        break;
+                    case 's':
+                        Xila.Display.Click(F("SECANT_BUT"), 0);
+                        break;
+                    case 'c':
+                        Xila.Display.Click(F("COSECANT_BUT"), 0);
+                        break;
+                    case 't':
+                        Xila.Display.Click(F("COTANGENT_BUT"), 0);
+                        break;
+                    case '=':
+                        Xila.Display.Click(F("EQUAL_BUT"), 0);
+                        break;
+                    case '.':
+                        Xila.Display.Click(F("POINT_BUT"), 0);
+                        break;
+                    case 'F':
+                        Xila.Display.Click(F("FACTORIAL_BUT"), 0);
+                        break;
+                    case '^':
+                        Xila.Display.Click(F("EXPONANT_BUT"), 0);
+                        break;
+                    case '%':
+                        Xila.Display.Click(F("MODULO_BUT"), 0);
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
             Xila.Task.Delay(10);
             break;

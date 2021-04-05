@@ -126,7 +126,7 @@ void Text_Editor_Class::Scan()
     {
         Mode = Undefined;
     }
-    Serial.println(Mode, HEX);
+
 }
 
 void Text_Editor_Class::Refresh_Interface()
@@ -183,7 +183,6 @@ void Text_Editor_Class::Refresh_Interface()
             break;
         }
 
-        Serial.write(Temporary_Character);
 
         if (Temporary_Character == Line_Ending)
         {
