@@ -1,13 +1,27 @@
+///
+/// @file Music_Player.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Music player header file
+/// @version 0.1
+/// @date 05-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
+
 #include "Xila.hpp"
 
 #define TIMELINE_SIZE 346
+
+#define Music_Player_File(name) Software_Directory_Path "/MusicPla/" name
 
 class Music_Player_Class : public Software_Class
 {
 protected:
     static Music_Player_Class *Instance_Pointer;
 
-    char Temporary_Char_Array[20];
+    char Temporary_Char_Array[40];
+    char Temporary_File_Name[13];
+    char Temporary_Radio_Link[128];
 
     static void Main_Task(void *);
 
@@ -48,6 +62,7 @@ protected:
     uint32_t Total_Time;
     uint32_t Current_Time;
 
+    uint8_t Set;
 
     void Refresh_Queue();
 
@@ -55,6 +70,9 @@ protected:
 
     void Dialog_Open_Folder();
     void Open_File();
+
+    void Open_Radio(uint8_t);
+    void Set_Radio(uint8_t);
 
     void Set_Time();
 
