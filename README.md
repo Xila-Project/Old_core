@@ -2,86 +2,115 @@
 
 ## Introduction
 
+Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allow the integration of different software in one unique ecosystem and also easy porting (only the HAL of Xila needs to be rewrite). I hope you would like it !
+
+Inspired by :
+- [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer") - [Benjamin HECKENDORN](https://www.benheck.com/ "Benjamin HECKENDORN")
+- [MultiApp Advanced](https://github.com/botofancalin/M5Stack-MultiApp-Advanced "MultiApp Advanced") - [botofancalin](https://github.com/botofancalin "botofancalin")
+- [GadgetOS (ex-PyxisOS)](https://www.skewworks.com/pyxis "GadgetOS (ex-PyxisOS)") - [Skewworks](https://www.skewworks.com "Skewworks")
+
+
+## Table of contents
+
+- [Introduction](#introduction)
+- [Table of contents](#table-of-contents)
+- [Status](#status)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [About](#about)
+
+## Status
+
 [![Build Status](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)     [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest)
 
-Xila is a graphical user interface made for microcontroler, it can be considered as a graphical operating system. But it relay on FreeRTOS API. It's a huge project for a beginner in C++ like me (pls be lenient with me when you read the code). Due fussy character, my has been multiple times fully re-written (I don't count anymore), in order to optimize it and not loose precious ressources. I hope you would like it !
+## Quick start
 
-### Inpired By
+### Using
 
-- [Skewworks](https://www.skewworks.com "Skewworks") : [GadgetOS (ex-PyxisOS)](https://www.skewworks.com/pyxis "GadgetOS (ex-PyxisOS)")
+Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-use "Start to use") to start using Xila.
 
-- [Benjamin Heckendorn](https://www.benheck.com/ "Benjamin Heckendorn") : [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer");
+### Develop
+
+Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-developp "Start to develop") to start to develop software for Xila.
+
+### Contribute
+
+This project is openned to contributions of any kinds.
+
+## Support
+
+Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](xila.alixfaitgrr.fr).
+
+If you have any question or proposition, you can join me :
+- 📫 by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
 
 ## Features
 
-Here's features which are already implemented :
+### Core
 
-- File manager (explorer, create, move, delete ...)
-- Account manager.
-- Internet Browser (I know, it sound totaly silly, but it's for the fun!)
-- Multimeter.
-- Oscilloscope.
-- Function generator.
-- Manage IOs of ESP32.
-- Basic pong game.
-- Periodic Table.
-- Picture viewer (currently only support bitmap).
-- Ultrasonic meter.
-- Clock (rely on NTP Time).
-- Music Player (with ULP processor).
-- Calculator
-- Control Parameter (edit configuration registry, stored in json file ".GCF").
-- PS2 Keyboard support.
-- Multitasking (each opennend app can be minimized and reoppened in his last state).
+Here are the feature that are implemented in the core:
 
-## Roadmap
+- Simple **account manager**.
+- **Multitasking** (background execution, protections against freezing and memory overflow).
+- Safe **shutdown**, **restart**, **lock** and **hibernation** (deep sleep).
+- **Display**, **drive**, **GPIO**, **keyboard**, **network**, **power**, **sounds** and **time** abstraction layers.
+- A simple **dialog box** API (keyboards, events, file, color picker ...).
 
-- Release a "stable" version
-- Add external video support (bitluni's VGA ? / FabGL ?).
-- Support LVGL graphics which would allow more flexibility, animations etc. But maybe require a more powerfull board with more space and ram(ESP32-WROVER or Teensy ?).
-- Comment proprely the code
-- Create a documentation
+### Software
 
-## Installation
+Here are feature that are implemented :
 
-Xila is portable, I you just want to make it run on your SD card, then you just have to copy the code here in the Arduino IDE and then the ESP32 will do the job for you. 
+- A file manager (create, cut, remove ...).
+- A preferences pannel.
+- A scientific calculator.
+- A clock (clock, alarms, chronometer and timer).
+- A text viewer.
+- A paint software.
+- An internet browser.
+- A music player (wav, mp3, m4a and web radio).
+- An oscilloscope.
+- A periodic table.
+- A simple piano.
+- A pong game.
+- A simon game.
+- A tinybasic emulator.
 
-## Developpement
+It's [up to you](#develop) to make this list longer 😉.
 
-Xila main goal was to allow the cohabitation between to programs. If you want to add yours, you have to way to proceed :
+### Roadmap
 
-### External Software
-
-This way is more flexible, because you only generate an executable file, which will be loaded in the ESP32 flash.
-
-I'm currently considering a way to implement code interpeter like Basic to run external programs. (Allow to not rewrite the flash each time we switch software).
-
-### Internal Software
-
-If you want to make your app faster to load and not ruin your ESP32 flash. You can implement your software like a "built-in" one. To understand how to proceed, read the documentation on how to create your own software.
-
-## Hardware
-
-Here's main hadware needed to run Xila :
-
-- NodeMCU-32S (but all esp32 will work fine).
-- Nextion 4.3" Resistive Touch Display (NX4827T043_11)
-- SD Card Reader (4-bit MMC SD or SPI SD)
-
-Additionnaly can be added for more features :
-
-- Old school PS2 keyboard
-- Ultrasonic sensor HC-SR04
-
-## Credit
-
-Here's credit of the sources where I borrow/use code :
-
-- [PIP Internet Browser, Chris ANDERSON](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser, Chris ANDERSON") (Creative Commons Attribution 4.0 Licence :  http://creativecommons.org/licenses/by/4.0/).
-- [ULP Sound, Bitluni](https://github.com/bitluni/ULPSoundESP32 "ULP Sound, Bitluni")
-- [PS2KBDLIB, Michalhol](https://github.com/bitluni/ULPSoundESP32 "PS2KBDLIB, Michalhol") (M.I.T. Licence :  https://mit-license.org/)
+- Finish the documentation.
+- Comment proprely the code.
+- Support LVGL graphics which would allow more flexibility, animations etc. But maybe require a more powerfull board with more memory/flash and ram (ESP32-WROVER or Teensy ?).
+- Port to ESP8266, ESP32-S3, Teensy ...
+- Change how registries works (JSON is handy but inappropriate for this project).
+- Allow software to be removed or added on the fly without any recompilation.
 
 ## About
 
-This software is under [M.I.T. licence](https://mit-license.org/ "M.I.T. licence").
-Alix ANNERAUD - [alixfaitgrr.fr](https://alixfaitgrr.fr "alixfaitgrr.fr") - 2020
+### Depedencies :
+
+Here are dependencies of the project :
+
+- [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32 "ESP32 Arduino Core") - [Espressif](https://github.com/espressif/)
+- [Audio I2S](https://github.com/schreibfaul1/ESP32-audioI2S "ESP32 Audio I2S") - [schreibfaul1](https://github.com/schreibfaul1)
+- [PS2Keyboard](https://github.com/PaulStoffregen/PS2Keyboard "PS2Keyboard") - [Paul STOFFREGEN](https://github.com/PaulStoffregen/ "Paul STOFFREGEN")
+- [ArduinoJson](https://github.com/bblanchon/ArduinoJson "ArduinoJson") - [Benoît BLANCHON](https://github.com/bblanchon/)
+- [StreamUtils](https://github.com/bblanchon/ArduinoStreamUtils/ "StreamUtils") - [Benoît BLANCHON](https://github.com/bblanchon/)
+- [Periodic Table JSON](https://github.com/Bowserinator/Periodic-Table-JSON "Periodic Table JSON") - [Bowserinator](https://github.com/Bowserinator/ "Bowserinator")
+- [Nextion library](https://github.com/AlixANNERAUD/Nextion-Library "Nextion library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
+- [Battery library](https://github.com/AlixANNERAUD/Battery-Library "Battery library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
+
+### Reused Code :
+
+Here are credits to sources where I borrow code :
+
+- [PIP Internet Browser](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser") - [Chris ANDERSON](https://github.com/zigwart/ "Chris ANDERSON") - CC 4.0
+- [ESP32 Oscilloscope](https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope) - [Botofancalin](https://github.com/botofancalin/) - MIT Licence
+- [TinyBasic Plus](https://github.com/BleuLlama/TinyBasicPlus "TinyBasic Plus") - [Scott Lawrence](https://github.com/BleuLlama "Scott Lawrence") / Michael FIELD / Gordon BRANDLY / Jurg WULLSCHLEGER - MIT Licence
+
+### Licence
+
+This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/ "M.I.T. licence").
+
+Alix ANNERAUD - [alixfaitgrr.fr](https://alixfaitgrr.fr "alixfaitgrr.fr")
