@@ -250,6 +250,8 @@ void Music_Player_Class::Open_File()
 
 void Music_Player_Class::Open_Radio(uint8_t Radio)
 {
+    Stop();
+
     Verbose_Print_Line("Open radio");
     File Temporary_File = Xila.Drive.Open(Music_Player_File("Registry.xrf"));
     DynamicJsonDocument Music_Player_Registry(512);
@@ -261,41 +263,49 @@ void Music_Player_Class::Open_Radio(uint8_t Radio)
     }
     Temporary_File.close();
 
+    Verbose_Print_Line("Deserialized");
     if (strcmp(Music_Player_Registry["Registry"], "Music Player") != 0)
     {
+        Verbose_Print_Line("Corrupted registry radi");
         return;
     }
 
+    Verbose_Print_Line("Memset");
     memset(Temporary_Radio_Link, '\0', sizeof(Temporary_Radio_Link));
-
+    Verbose_Print_Line("test");
     switch (Radio)
     {
     case 1:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 1"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 1"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 2:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 2"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 2"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 3:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 3"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 3"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 4:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 4"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 4"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 5:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 5"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 5"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 6:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 6"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 6"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 7:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 7"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 7"] | "", sizeof(Temporary_Radio_Link));
         break;
     case 8:
-        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 8"], sizeof(Temporary_Radio_Link));
+        strlcpy(Temporary_Radio_Link, Music_Player_Registry["Radio 8"] | "", sizeof(Temporary_Radio_Link));
+        break;
+    default:
         break;
     }
+    Verbose_Print("Radio :");
+    Serial.println(Temporary_Radio_Link);
 
+    Set_Watchdog_Timeout(30000);
     if (!Xila.Sound.Play(Temporary_Radio_Link))
     {
         State = Stopped;
@@ -416,31 +426,39 @@ void Music_Player_Class::Refresh_Interface()
         Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
     }
 
-    if (Music_File)
+    if (State == Playing || State == Paused)
     {
-        Xila.Drive.Get_Name(Music_File, Temporary_Char_Array, sizeof(Temporary_Char_Array));
-        Xila.Display.Set_Text(F("FILENAME_TXT"), Temporary_Char_Array);
-    }
 
-    memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
-
-    if (Next_Music_File)
-    {
-        strcpy(Temporary_Char_Array, "   Next : ");
-        Xila.Drive.Get_Name(Next_Music_File, Temporary_File_Name, sizeof(Temporary_File_Name));
-        strlcat(Temporary_Char_Array, Temporary_File_Name, sizeof(Temporary_Char_Array));
-
-        if (Music_Folder)
+        if (Music_File)
         {
-            Xila.Drive.Get_Name(Music_Folder, Temporary_File_Name, sizeof(Temporary_File_Name));
-            strlcat(Temporary_Char_Array, Temporary_File_Name, sizeof(Temporary_Char_Array));
+            Xila.Drive.Get_Name(Music_File, Temporary_Char_Array, sizeof(Temporary_Char_Array));
+            Xila.Display.Set_Text(F("TITLE_TXT"), Temporary_Char_Array);
+
+            memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
+
+            if (Next_Music_File)
+            {
+                strcpy(Temporary_Char_Array, "   Next : ");
+                Xila.Drive.Get_Name(Next_Music_File, Temporary_File_Name, sizeof(Temporary_File_Name));
+                strlcat(Temporary_Char_Array, Temporary_File_Name, sizeof(Temporary_Char_Array));
+
+                if (Music_Folder)
+                {
+                    Xila.Drive.Get_Name(Music_Folder, Temporary_File_Name, sizeof(Temporary_File_Name));
+                    strlcat(Temporary_Char_Array, Temporary_File_Name, sizeof(Temporary_Char_Array));
+                }
+            }
+            else
+            {
+                strcpy(Temporary_Char_Array, "   Next : -");
+            }
+            Xila.Display.Set_Text(F("NEXTFILE_TXT"), Temporary_Char_Array);
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("TITLE_TXT"), Temporary_Radio_Link);
         }
     }
-    else
-    {
-        strcpy(Temporary_Char_Array, "   Next : -");
-    }
-    Xila.Display.Set_Text(F("NEXTFILE_TXT"), Temporary_Char_Array);
 }
 
 void Music_Player_Class::Play()
