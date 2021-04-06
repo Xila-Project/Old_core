@@ -39,7 +39,7 @@ This project is openned to contributions of any kinds.
 
 ## Support
 
-Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](xila.alixfaitgrr.fr).
+Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](https://xila.alixfaitgrr.fr/).
 
 If you have any question or proposition, you can join me :
 - 📫 by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
