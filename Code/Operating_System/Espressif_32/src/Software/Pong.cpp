@@ -6,7 +6,7 @@ Pong_Class::Pong_Class() : Software_Class(Pong_Handle),
                            Player_1_Score(0),
                            Player_2_Score(0)
 {
-    Xila.Task.Create(Main_Task, "Pong", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Pong", Memory_Chunk(2), NULL, &Task_Handle);
 }
 
 Pong_Class::~Pong_Class()

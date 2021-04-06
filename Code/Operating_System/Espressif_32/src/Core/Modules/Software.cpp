@@ -56,6 +56,9 @@ void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
 
 Xila_Instruction Software_Class::Get_Instruction()
 {
+  Serial.print(Handle->Name);
+  Serial.print(':');
+  Serial.println(uxTaskGetStackHighWaterMark(Task_Handle));
   if (xQueueReceive(Instruction_Queue_Handle, &Current_Instruction, 0) != pdTRUE)
   {
     Current_Instruction = 0;

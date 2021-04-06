@@ -28,7 +28,7 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Mode(0)
 {
     Desk_Background = -1;
-    Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Shell_Class::~Shell_Class()
@@ -146,7 +146,7 @@ void Shell_Class::Main_Instructions()
                 switch (Xila.Keyboard.Read())
                 {
                 case Xila.Keyboard.Escape:
-                    Xila.Display.Click('M', 'i');
+                    Xila.Display.Click("CLOSE_BUT", 0);
                     break;
                 
                 default:
@@ -561,7 +561,7 @@ void Shell_Class::Refresh_File_Manager()
     }
     else
     {
-        Verbose_Print_Line('Failed to open path');
+        Verbose_Print_Line("Failed to open path");
         if (Mode == 0) // Currently cannot open multiple dialog boxes at the same time
         {
             Event_Dialog(F("Failed to open path."), Xila.Error);

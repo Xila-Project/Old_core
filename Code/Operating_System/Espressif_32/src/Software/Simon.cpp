@@ -5,7 +5,7 @@ Simon_Class *Simon_Class::Instance_Pointer = NULL;
 Simon_Class::Simon_Class() : Software_Class(Simon_Handle),
                              Speed(0)
 {
-    Xila.Task.Create(Main_Task, "Simon Task", Memory_Chunk(5), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Simon Task", Memory_Chunk(3), NULL, &Task_Handle);
 }
 
 Simon_Class::~Simon_Class()

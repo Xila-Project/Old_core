@@ -3,7 +3,15 @@
 Clock_Class *Clock_Class::Instance_Pointer = NULL;
 uint32_t Clock_Class::Next_Alarm = 0;
 
-Clock_Class::Clock_Class() : Software_Class(Clock_Handle)
+Clock_Class::Clock_Class()
+    : Software_Class(Clock_Handle),
+    Chronometer_State(Stopped),
+    Chronometer_Inital_Time(0),
+    Chronometer_Paused_Time(0),
+    Timer_State(Stopped),
+    Timer_Threshold_Time(0),
+    Timer_Paused_Time(0),
+    Temporary_Time(0)
 {
     Xila.Task.Create(Main_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -167,55 +175,66 @@ void Clock_Class::Save_Registry()
 
 void Clock_Class::Refresh_Timer()
 {
-    if (Timer_State == Stopped)
+    switch (Timer_State)
     {
-
-    }
-    else
-    {
-        Temporary_Time = Timer_Initial_Time - millis();
+    case Stopped:
+        Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+        Xila.Display.Click(F("SETBUTTONS_BUT"), 1);
+        break;
+    case Running:
+        Temporary_Time = Timer_Threshold_Time - millis();
         Temporary_Time /= 1000; //get rid of milliseconds
         Xila.Display.Set_Value(F("SECONDS_NUM"), Temporary_Time % 60);
         Temporary_Time /= 60;
         Xila.Display.Set_Value(F("MINUTES_NUM"), Temporary_Time % 60);
         Xila.Display.Set_Value(F("HOURS_NUM"), Temporary_Time / 60);
-        if (State == Running) // Running
+        Xila.Display.Click(F("SETBUTTONS_BUT"), 0);
+        if (millis() >= Timer_Threshold_Time)
         {
-            if (millis() >= Timer_Initial_Time)
-            {
-                File Ringtone_File = Xila.Drive.Open(Clock_File("Ringtone.wav"));
-                Xila.Sound.Play(Ringtone_File); // play something
-            }
+            Timer_State = Stopped;
+            Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
+            Xila.Dialog.Event(F("Time over."), Xila.Information);
+            Xila.Sound.Stop();
+            Send_Instruction('R', 'e');
         }
+        break;
+    case Paused:
+        Temporary_Time = Timer_Paused_Time + Timer_Threshold_Time - millis();
+        Temporary_Time /= 1000; //get rid of milliseconds
+        Xila.Display.Set_Value(F("SECONDS_NUM"), Temporary_Time % 60);
+        Temporary_Time /= 60;
+        Xila.Display.Set_Value(F("MINUTES_NUM"), Temporary_Time % 60);
+        Xila.Display.Set_Value(F("HOURS_NUM"), Temporary_Time / 60);
+        Xila.Display.Click(F("SETBUTTONS_BUT"), 0);
+        break;
+
+    default:
+        break;
     }
 }
 
 void Clock_Class::Refresh_Chronometer()
 {
     Verbose_Print_Line("Refresh chronomter");
-    if (State == Stopped)
+    switch (Chronometer_State)
     {
+    case Stopped:
         Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
-
         Xila.Display.Set_Value(F("MILLIS_NUM"), 0);
-
         Xila.Display.Set_Value(F("SECOND_NUM"), 0);
         Xila.Display.Set_Value(F("MINUTE_NUM"), 0);
-    }
-    else if (State == Running)
-    {
+        break;
+    case Running:
         Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
         Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
-
         Temporary_Time = millis() - Chronometer_Inital_Time;
         Xila.Display.Set_Value(F("MILLIS_NUM"), Temporary_Time % 1000);
         Temporary_Time /= 1000;
         Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
         Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
-    }
-    else if (State == Paused)
-    {
+        break;
+    case Paused:
         Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
 
@@ -224,6 +243,9 @@ void Clock_Class::Refresh_Chronometer()
         Temporary_Time /= 1000;
         Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
         Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
+        break;
+    default:
+        break;
     }
 }
 
@@ -445,7 +467,8 @@ void Clock_Class::Main_Instructions()
         break;
     case Minimize:
         break;
-    case Restart: case Shutdown:
+    case Restart:
+    case Shutdown:
     case Close:
         Save_Registry();
         delete Instance_Pointer;
@@ -484,10 +507,10 @@ void Clock_Class::Main_Instructions()
 }
 
 void Clock_Class::
-Clock_Instructions()
+    Clock_Instructions()
 {
     Current_Instruction = Instance_Pointer->Get_Instruction();
-    
+
     switch (Current_Instruction)
     {
     case Instruction('R', 'e'):
@@ -522,7 +545,7 @@ void Clock_Class::Delete_Alarm()
 void Clock_Class::Alarm_Instructions()
 {
     Current_Instruction = Instance_Pointer->Get_Instruction();
-    
+
     switch (Current_Instruction)
     {
     case Instruction('R', 'e'):
@@ -590,26 +613,28 @@ void Clock_Class::Chronometer_Instructions()
         Refresh_Next_Alarm();
         break;
     case Instruction('S', 'P'): // SP : Start / Pause
-        if (State == Stopped)   // Stoped -> Running
+        switch (Chronometer_State)
         {
+        case Stopped: // Stoped -> Running
             Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
-            State = Running;
+            Chronometer_State = Running;
             Chronometer_Inital_Time = millis();
-        }
-        else if (State == Paused) // Paused -> Running
-        {
+            break;
+        case Paused: // Paused -> Running
             Chronometer_Inital_Time += (millis() - Chronometer_Paused_Time);
-            State = Running;
+            Chronometer_State = Running;
             Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
-        }
-        else // Running -> Pause
-        {
+        case Running: // Running -> Pause
             Chronometer_Paused_Time = millis();
-            State = Paused;
+            Chronometer_State = Paused;
             Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
             Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+            break;
+        default:
+            break;
         }
+
         Send_Instruction('R', 'e');
         break;
     case Instruction('L', 'R'): //LR : Lap / Reset
@@ -617,7 +642,7 @@ void Clock_Class::Chronometer_Instructions()
         Chronometer_Paused_Time = 0;
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
         Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
-        State = Stopped;
+        Chronometer_State = Stopped;
         Send_Instruction('R', 'e');
         break;
     default:
@@ -635,51 +660,39 @@ void Clock_Class::Timer_Instructions()
         Refresh_Timer();
         Refresh_Next_Alarm();
         break;
-    case Instruction('S', 'P'):     // SP : Start / Pause
-        if (Timer_State == Stopped) //Stopped -> Start
+    case Instruction('S', 'P'): // SP : Start / Pause
+        switch (Timer_State)
         {
-            Timer_State = Running;          
-
-            Timer_Initial_Time = millis();
-            Timer_Initial_Time += (((((Hours * 3600) + Minutes) * 3600) + Seconds) * 1000);
-
+        case Stopped: //Stopped -> Start
+            Timer_State = Running;
+            Timer_Threshold_Time = millis();
+            Timer_Threshold_Time += (((((Hours * 3600) + Minutes) * 3600) + Seconds) * 1000);
+            Xila.Display.Click(F("SETBUTTONS_BUT"), 0);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
-            Xila.Display.Hide(F("REMHOUR_BUT"));
-            Xila.Display.Hide(F("ADDHOUR_BUT"));
-            Xila.Display.Hide(F("REMMIN_BUT"));
-            Xila.Display.Hide(F("ADDMIN_BUT"));
-            Xila.Display.Hide(F("REMSEC_BUT"));
-            Xila.Display.Hide(F("ADDSEC_BUT"));
-        }
-        else if (State == Running) // Running -> Pause
-        {
-
+            break;
+        case Running: // Running -> Pause
             Timer_Paused_Time = millis();
-            State = Paused;
+            Timer_State = Paused;
             Xila.Display.Set_Text(F("START_BUT"), F("Start"));
-        }
-        else // Pause -> Start
-        {
-            State = Running;
-            Timer_Initial_Time += millis() - Timer_Paused_Time;
+            break;
+        case Paused: // Paused -> Start
+            Timer_State = Running;
+            Timer_Threshold_Time += (millis() - Timer_Paused_Time);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+            break;
+        default:
+            break;
         }
+        Send_Instruction('R', 'e');
         break;
     case Instruction('C', 'l'): // CL : clear
         Timer_State = Stopped;
-
         Hours = 0;
         Minutes = 0;
         Seconds = 0;
-
-        Xila.Display.Show(F("REMHOUR_BUT"));
-        Xila.Display.Show(F("ADDHOUR_BUT"));
-        Xila.Display.Show(F("REMMIN_BUT"));
-        Xila.Display.Show(F("ADDMIN_BUT"));
-        Xila.Display.Show(F("REMSEC_BUT"));
-        Xila.Display.Show(F("ADDSEC_BUT"));
-
+        Xila.Display.Click(F("SETBUTTONS_BUT"), 1);
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+        Send_Instruction('R', 'e');
         break;
     default:
         Instance_Pointer->Main_Instructions();

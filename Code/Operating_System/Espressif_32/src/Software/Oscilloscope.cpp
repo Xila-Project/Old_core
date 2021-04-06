@@ -5,7 +5,7 @@ Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle),
 										   Start(false)
 {
-	Xila.Task.Create(Main_Task, "Oscilloscope", Memory_Chunk(8), NULL, &Task_Handle);
+	Xila.Task.Create(Main_Task, "Oscilloscope", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
 Oscilloscope_Class::~Oscilloscope_Class()
@@ -50,6 +50,7 @@ void Oscilloscope_Class::Loop()
 				{
 					Send_Instruction('S', 'a');
 				}
+				Send_Instruction('T', 'r');
 			}
 			Xila.Task.Delay(20);
 			break;
@@ -65,7 +66,8 @@ void Oscilloscope_Class::Loop()
 			break;
 		case Minimize:
 			break;
-		case Restart: case Shutdown:
+		case Shutdown:
+		case Restart:
 		case Close:
 			delete Instance_Pointer;
 			Xila.Task.Delete();
@@ -525,6 +527,7 @@ void Oscilloscope_Class::Trigger()
 
 void Oscilloscope_Class::Sampling()
 {
+	Verbose_Print_Line("Sampling");
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
 	{
@@ -570,7 +573,7 @@ void Oscilloscope_Class::Sampling()
 			unsigned long r = r_[rate - 3];
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				while ((st - Xila.Time.Microseconds()) < r)
+				while ((st - uint32_t(Xila.Time.Microseconds())) < r)
 				{
 					;
 				}

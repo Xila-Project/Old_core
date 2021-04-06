@@ -125,7 +125,7 @@ Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle),
   }
   else
   {
-    Xila.Task.Create(Main_Task, "Tiny Basic Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Tiny Basic Task", Memory_Chunk(6), NULL, &Task_Handle);
   }
 }
 

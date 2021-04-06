@@ -108,7 +108,6 @@ protected:
     inline long adRead(uint8_t ch, short mode, int off)
     {
         long a = Xila.GPIO.Analog_Read(ch);
-
         a += off; // add offset
         if (ch == ad_ch0)
         {
@@ -118,12 +117,10 @@ protected:
         {
             a = ((VREF[range1] * a) / 10000) + 30;
         }
-
         if (a > LCD_HEIGHT)
         {
             a = LCD_HEIGHT;
         }
-
         return a;
     }
 

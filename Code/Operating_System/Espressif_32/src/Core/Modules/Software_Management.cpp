@@ -21,7 +21,7 @@ Xila_Class::Software_Management_Class::Software_Management_Class()
 
 Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const &Software_Handle)
 {
-  if (Openned[0]->Handle != NULL)
+  if (Openned[0] != NULL)
   {
     if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer adress to be faster
     {
@@ -57,8 +57,8 @@ void Xila_Class::Software_Management_Class::Check_Watchdog()
         Serial.println(*Openned[i]->Handle->Name);
         Xila.Software.Force_Close(*Openned[i]->Handle);
         Xila.Task.Delay(100);
-        Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
         Xila.Software.Open(Shell_Handle);
+        Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
       }
     }
   }
@@ -295,9 +295,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
   return Error;
 }
 
-
-
-
 ///
 /// @brief Function that close roughly the current running software.
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
@@ -326,7 +323,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
           Openned[1] = NULL;
         }
 
-        
         delete Openned[i];
         Openned[i] = NULL;
         return Success;

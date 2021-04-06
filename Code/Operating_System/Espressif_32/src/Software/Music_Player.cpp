@@ -71,10 +71,10 @@ void Music_Player_Class::Main_Task(void *pvParameters)
                         Instance_Pointer->Send_Instruction('R', 'a');
                         break;
                     case Xila.Keyboard.Arrow_Left:
-                        Instance_Pointer->Send_Instruction('F', 'F');
+                        Instance_Pointer->Send_Instruction('F', 'B');
                         break;
                     case Xila.Keyboard.Arrow_Right:
-                        Instance_Pointer->Send_Instruction('F', 'B');
+                        Instance_Pointer->Send_Instruction('F', 'F');
                         break;
                     case Xila.Keyboard.Arrow_Up:
                         Xila.Display.Click(F("VOLUMEUP_TXT"), 0);
@@ -89,7 +89,8 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(10);
             break;
-        case Restart: case Shutdown:
+        case Restart:
+        case Shutdown:
         case Close:
             Instance_Pointer->Stop();
             Instance_Pointer->Music_Folder.close();
@@ -406,13 +407,13 @@ void Music_Player_Class::Refresh_Interface()
         Xila.Display.Set_Value(F("TIMELINE_PRO"), 0);
     }
 
-    if (Xila.Sound.Get_State() == false)
+    if (State == Playing)
     {
-        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
     }
     else
     {
-        Xila.Display.Set_Picture(F("PLAY_BUT"), Pause_32);
+        Xila.Display.Set_Picture(F("PLAY_BUT"), Play_32);
     }
 
     if (Music_File)

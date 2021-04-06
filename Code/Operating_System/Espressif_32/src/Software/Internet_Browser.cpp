@@ -24,7 +24,7 @@ Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Brows
 
   textContent = {0, 0, false};
 
-  Xila.Task.Create(Main_Task, "Internet_Browser", Memory_Chunk(8), NULL, &Task_Handle);
+  Xila.Task.Create(Main_Task, "Internet Browser", Memory_Chunk(6), NULL, &Task_Handle);
 }
 
 Internet_Browser_Class::~Internet_Browser_Class()

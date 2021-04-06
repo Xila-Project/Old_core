@@ -59,10 +59,6 @@ private:
     };
     bool Alarm_State[6];
     char Alarm_Title[6][10];
-    
-    
-
-
 
     static uint32_t Next_Alarm; // next alarm in millis();
 
@@ -82,19 +78,13 @@ private:
         Paused
     };
 
-    uint8_t State;
-
-    uint8_t Timer_State;
-    uint32_t Timer_Initial_Time;
-    uint32_t Timer_Paused_Time;
-
-
-    // 0 : Stop
-    // 1 : Running
-    // 2 : Paused
-
+    uint8_t Chronometer_State;
     uint32_t Chronometer_Inital_Time;
     uint32_t Chronometer_Paused_Time;
+
+    uint8_t Timer_State;
+    uint32_t Timer_Threshold_Time;
+    uint32_t Timer_Paused_Time;
 
     uint32_t Temporary_Time;
 
@@ -130,7 +120,7 @@ private:
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
 
     uint8_t Selected_Alarm;
-    
+
     void Select_Alarm(uint8_t Alarm_To_Select);
 
     void Load_Registry();

@@ -7,7 +7,7 @@ Piano_Class::Piano_Class() : Software_Class(Piano_Handle),
                              Duration(200),
                              MIDI_Output(false)
 {
-    Xila.Task.Create(Main_Task, "Piano Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Piano Task", Memory_Chunk(2), NULL, &Task_Handle);
 }
 
 Piano_Class::~Piano_Class()
