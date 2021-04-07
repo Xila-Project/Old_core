@@ -28,11 +28,6 @@ Software_Class *Calculator_Class::Load()
     return Instance_Pointer;
 }
 
-uint16_t Calculator_Class::Numbers_After_Point(double Number) //usefull to know how many number to display, currently unused
-{
-    return 0;
-}
-
 void Calculator_Class::Memory_Operation(uint8_t Operation)
 {
     switch (Operation)
@@ -59,9 +54,9 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
         break;
     case Memory_Read:
         Clear_All();
-
         dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
-        Refresh_Interface();
+        Format_Number(0);
+        Send_Instruction('R', 'I');
         break;
     case Memory_Clear:
         Memory = 0;
@@ -249,22 +244,26 @@ void Calculator_Class::Main_Task(void *pvParameters)
         case Restart:
         case Shutdown:
         case Close:
-            Verbose_Print_Line("Close calc");
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
         case Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));
-            Instance_Pointer->Refresh_Interface();
-            Instance_Pointer->Refresh_Keys();
+            Instance_Pointer->Send_Instruction('R', 'I');
+            Instance_Pointer->Send_Instruction('R', 'K');
             break;
         case Minimize:
-            Verbose_Print_Line("Minimize");
             break;
         case Open:
             Instance_Pointer->Clear_All();
             Xila.Display.Set_Current_Page(F("Calculator"));
+            Instance_Pointer->Send_Instruction('R', 'I');
+            Instance_Pointer->Send_Instruction('R', 'K');
+            break;
+        case Instruction('R', 'I'):
             Instance_Pointer->Refresh_Interface();
+            break;
+        case Instruction('R', 'K'):
             Instance_Pointer->Refresh_Keys();
             break;
         // Number editing keys
@@ -330,34 +329,34 @@ void Calculator_Class::Main_Task(void *pvParameters)
             break;
         case Instruction('C', 'E'): // Clear
             Instance_Pointer->Clear();
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'I');
             break;
 
             // Primary Operator keys
 
-        case 0x4164: //Ad
+        case Instruction('A', 'd'): //Ad
             Instance_Pointer->Set_Primary_Operator(Addition);
             break;
 
-        case 0x5375: //Su
+        case Instruction('S', 'u'): //Su
             Instance_Pointer->Set_Primary_Operator(Substraction);
             break;
 
-        case 0x4D75: //Mu
+        case Instruction('M', 'u'): //Mu
             Instance_Pointer->Set_Primary_Operator(Multiplication);
             break;
 
-        case 0x4469: //Di
+        case Instruction('D', 'i'): //Di
             Instance_Pointer->Set_Primary_Operator(Division);
             break;
 
-        case 0x4D6F: // Mo
+        case Instruction('M', 'o'): // Mo
             Instance_Pointer->Set_Primary_Operator(Modulo);
             break;
-        case 0x5077: // Pw
+        case Instruction('P', 'w'): // Pw
             Instance_Pointer->Set_Primary_Operator(Power);
             break;
-        case 0x526F: // Ro
+        case Instruction('R', 'o'): // Ro
             Instance_Pointer->Set_Primary_Operator(Root);
             break;
         // Memory keys
@@ -380,15 +379,15 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Set_Secondary_Operator(Factorial);
             break;
 
-        case 0x4162: // Ab
+        case Instruction('A', 'b'): // Ab
             Instance_Pointer->Set_Secondary_Operator(Absolute);
             break;
 
-        case 0x5371: // Sq
+        case Instruction('S', 'q'): // Sq
             Instance_Pointer->Set_Secondary_Operator(Squared);
             break;
 
-        case 0x4375: // Cu
+        case Instruction('C', 'u'): // Cu
             Instance_Pointer->Set_Secondary_Operator(Cube);
             break;
 
@@ -414,7 +413,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             {
                 bitWrite(Instance_Pointer->Keys_Mode, Second, 1);
             }
-            Instance_Pointer->Refresh_Keys();
+            Instance_Pointer->Send_Instruction('R', 'K');
             break;
 
         case Instruction('S', 'H'): // Enable hyperbolic
@@ -426,7 +425,7 @@ void Calculator_Class::Main_Task(void *pvParameters)
             {
                 bitWrite(Instance_Pointer->Keys_Mode, Hyperbolic, 1);
             }
-            Instance_Pointer->Refresh_Keys();
+            Instance_Pointer->Send_Instruction('R', 'K');
             break;
 
         case Instruction('S', 'A'): // SA : switch Angle unity to Radian
@@ -444,20 +443,20 @@ void Calculator_Class::Main_Task(void *pvParameters)
 
         // Dual function keys
         case Instruction('e', 'x'): // ex : exp(x) / e (neper constant)
-            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 0)
             {
-                Instance_Pointer->Add_Number(Neper_Constant);
+                Instance_Pointer->Set_Secondary_Operator(Exponential);
             }
             else
             {
-                Instance_Pointer->Set_Secondary_Operator(Exponential);
+                Instance_Pointer->Add_Number(Neper_Constant);
             }
             break;
 
         case Instruction('E', 'E'): // EE : 10^x / 2^x
-            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 0)
             {
-                Instance_Pointer->Add_Number(Power_10);
+                Instance_Pointer->Set_Secondary_Operator(Power_10);
             }
             else
             {
@@ -465,18 +464,18 @@ void Calculator_Class::Main_Task(void *pvParameters)
             }
             break;
         case Instruction('L', 'n'): // Ln : Ln / LogY
-            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 0)
             {
                 Instance_Pointer->Set_Secondary_Operator(Natural_Logarithm);
             }
             else
             {
-                Instance_Pointer->Set_Primary_Operator(Power_2);
+                Instance_Pointer->Set_Primary_Operator(Logarithm);
             }
             break;
 
         case Instruction('L', '1'): // L1 : log10 / log2
-            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 1)
+            if (bitRead(Instance_Pointer->Keys_Mode, Second) == 0)
             {
                 Instance_Pointer->Set_Secondary_Operator(Decimal_Logarithm);
             }
@@ -640,10 +639,39 @@ void Calculator_Class::Main_Task(void *pvParameters)
     }
 }
 
+void Calculator_Class::Format_Number(uint8_t Selected_Number)
+{
+    uint8_t i;
+    // -- Delete unwanted zeros
+    for (i = sizeof(Numbers[Selected_Number]) - 1; i > 0; i--)
+    {
+        if (Numbers[Selected_Number][i] == '0' || Numbers[Selected_Number][i] == '\0')
+        {
+            Numbers[Selected_Number][i] = '\0';
+        }
+        else
+        {
+            if (Numbers[Selected_Number][i] == '.')
+            {
+                Numbers[Selected_Number][i] = '\0';
+            }
+            break;
+        }
+    }
+    // -- Delete unwanted spaces
+    for (i = 0; i < sizeof(Numbers[Selected_Number]); i++)
+    {
+        if (Numbers[Selected_Number][i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Numbers[Selected_Number], Numbers[Selected_Number] + i);
+    Current_Position[Selected_Number] = strlen(Numbers[Selected_Number]);
+}
+
 void Calculator_Class::Add_Number(char const &Number_To_Add)
 {
-    Verbose_Print_Line("Add number");
-
     if (State > 1) // -- If there's a result computed
     {
         // -- Clear calculation
@@ -693,6 +721,7 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
     case Random:
         Clear();
         dtostrf(Xila.System.Random(), sizeof(Numbers[State]), 0, Numbers[State]);
+        Format_Number(State);
         Decimal_Point[State] = false;
         break;
     case Point:
@@ -760,7 +789,7 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
         break;
     }
 
-    Refresh_Interface();
+    Send_Instruction('R', 'I');
 }
 
 void Calculator_Class::Delete_Number()
@@ -780,7 +809,7 @@ void Calculator_Class::Delete_Number()
             break;
         }
     }
-    Refresh_Interface();
+    Send_Instruction('R', 'I');
 }
 
 void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
@@ -819,7 +848,7 @@ void Calculator_Class::Set_Secondary_Operator(char const &Operator_To_Set)
         State = 0;
     }
     Secondary_Operator[State] = Operator_To_Set;
-    Refresh_Interface();
+    Send_Instruction('R', 'I');
 }
 
 void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
@@ -858,7 +887,7 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
     }
     Primary_Operator = Opertor_To_Set;
     State = 1;
-    Refresh_Interface();
+    Send_Instruction('R', 'I');
 }
 
 double Calculator_Class::fact(double Number)
@@ -1055,6 +1084,18 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
         Temporary_Numbers[Selected_Number] = acsch(Temporary_Numbers[Selected_Number]);
         break;
 
+        //
+
+    case Power_2:
+        Temporary_Numbers[Selected_Number] = pow(2, Temporary_Numbers[Selected_Number]);
+        break;
+
+    case Power_10:
+        Temporary_Numbers[Selected_Number] = pow(10, Temporary_Numbers[Selected_Number]);
+        break;
+
+        // Logarithm
+
     case Decimal_Logarithm:
         if (Temporary_Numbers[Selected_Number] <= 0)
         {
@@ -1152,51 +1193,19 @@ void Calculator_Class::Compute()
     case Root:
         Temporary_Numbers[2] = pow(Temporary_Numbers[0], 1 / Temporary_Numbers[1]);
         break;
+    case Logarithm:
+        Temporary_Numbers[2] = log(Temporary_Numbers[1]) / log(Temporary_Numbers[0]);
+        break;
     default: // No primary operator
         Temporary_Numbers[2] = Temporary_Numbers[0];
         break;
     }
 
-    Serial.print("|");
-    Serial.print(Temporary_Numbers[2]);
-
     dtostrf(Temporary_Numbers[2], sizeof(Numbers[2]), POINT_PRECISION, Numbers[2]);
-
-    Serial.println(Numbers[2]);
-
-    uint8_t i;
-    // -- Delete unwanted zeros
-    for (i = sizeof(Numbers[2]) - 1; i > 0; i--)
-    {
-        if (Numbers[2][i] == '0' || Numbers[2][i] == '\0')
-        {
-            Numbers[2][i] = '\0';
-        }
-        else
-        {
-            if (Numbers[2][i] == '.')
-            {
-                Numbers[2][i] = '\0';
-            }
-            break;
-        }
-    }
-    // -- Delete unwanted spaces
-    for (i = 0; i < sizeof(Numbers[2]); i++)
-    {
-        if (Numbers[2][i] != ' ')
-        {
-            break;
-        }
-    }
-    strcpy(Numbers[2], Numbers[2] + i);
-    Current_Position[2] = strlen(Numbers[2]);
-
-    Serial.println(Numbers[2]);
-
+    Format_Number(2);
     // --
     State = 2;
-    Refresh_Interface();
+    Send_Instruction('R', 'I');
 }
 
 void Calculator_Class::Error()
@@ -1397,18 +1406,11 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Arc_Hyperbolic_Cosecant:
             strcpy(Temporary_Char_Array, "ACscH(");
-
             Ending_Character[0] = ')';
             break;
         case Factorial:
-            //;
             Ending_Character[0] = '!';
             break;
-        /*case Logarithm:
-            strcpy(Temporary_Char_Array, "Log(");
-            
-            Ending_Character[0] = ')';
-            break;*/
         case Natural_Logarithm:
             strcpy(Temporary_Char_Array, "Ln(");
             Ending_Character[0] = ')';
@@ -1417,10 +1419,14 @@ void Calculator_Class::Refresh_Interface()
             strcpy(Temporary_Char_Array, "Log2(");
             Ending_Character[0] = ')';
             break;
-        case Squared:;
+        case Decimal_Logarithm:
+            strcpy(Temporary_Char_Array, "Log10(");
+            Ending_Character[0] = ')';
+            break;
+        case Squared:
             Ending_Character[0] = 0xB2;
             break;
-        case Cube:;
+        case Cube:
             Ending_Character[0] = 0xB3;
             break;
         case Square_Root:
@@ -1440,7 +1446,10 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Power_2:
             strcpy(Temporary_Char_Array, "2^(");
-
+            Ending_Character[0] = ')';
+            break;
+        case Power_10:
+            strcpy(Temporary_Char_Array, "10^(");
             Ending_Character[0] = ')';
             break;
         case Inverse:
@@ -1603,11 +1612,11 @@ void Calculator_Class::Refresh_Interface()
         case Factorial:
             Ending_Character[0] = '!';
             break;
-        /*case Logarithm:
-            strlcat(Temporary_Char_Array , "Log(");
-            
+
+        case Decimal_Logarithm:
+            strlcat(Temporary_Char_Array, "Log10(", sizeof(Temporary_Char_Array));
             Ending_Character[0] = ')';
-            break;*/
+            break;
         case Natural_Logarithm:
             strlcat(Temporary_Char_Array, "Ln(", sizeof(Temporary_Char_Array));
             Ending_Character[0] = ')';
@@ -1616,10 +1625,10 @@ void Calculator_Class::Refresh_Interface()
             strlcat(Temporary_Char_Array, "Log2(", sizeof(Temporary_Char_Array));
             Ending_Character[0] = ')';
             break;
-        case Squared:;
+        case Squared:
             Ending_Character[0] = 0xB2;
             break;
-        case Cube:;
+        case Cube:
             Ending_Character[0] = 0xB3;
             break;
         case Square_Root:
@@ -1639,6 +1648,10 @@ void Calculator_Class::Refresh_Interface()
             break;
         case Power_2:
             strlcat(Temporary_Char_Array, "2^(", sizeof(Temporary_Char_Array));
+            Ending_Character[0] = ')';
+            break;
+        case Power_10:
+            strlcat(Temporary_Char_Array, "10^(", sizeof(Temporary_Char_Array));
             Ending_Character[0] = ')';
             break;
         case Inverse:

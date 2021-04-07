@@ -28,7 +28,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, si
   // -- Tasks suspended here
   while (State == Xila.None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   // -- Retore software state
@@ -64,7 +64,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
 
@@ -97,7 +97,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   // -- Retore software state
@@ -177,7 +177,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   // -- Tasks is suspended here
   while (Xila.Dialog.State == Xila.None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   // -- Restore software state
@@ -217,7 +217,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   while (State == Xila.None)
   {
     
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)
@@ -253,7 +253,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)
@@ -290,7 +290,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Dialog_Open_Folder(File &Folder_To_O
   // -- Tasks suspended here
   while (State == None)
   {
-    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = millis();
+    Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
   if (State == Button_1)

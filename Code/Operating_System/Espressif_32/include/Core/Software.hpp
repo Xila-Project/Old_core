@@ -62,7 +62,6 @@ protected:
         // -- Shell specials instructions
 
         Desk = 'D',                // Open desk
-        Dialog_Install = 'I',      // Open installation form
         Dialog_Open_File = 'f',    // Open open file dialog
         Dialog_Open_Folder = 'F',  // Open open folder dialog
         Dialog_Save_File = 'e',    // Open save file dialog

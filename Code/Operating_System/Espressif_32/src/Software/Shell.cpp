@@ -148,7 +148,7 @@ void Shell_Class::Main_Instructions()
                 case Xila.Keyboard.Escape:
                     Xila.Display.Click("CLOSE_BUT", 0);
                     break;
-                
+
                 default:
                     break;
                 }
@@ -171,6 +171,11 @@ void Shell_Class::Main_Instructions()
         break;
     case Instruction('O', 'D'):
     case Open:
+        if (!Xila.Drive.Exists(Users_Directory_Path))
+        {
+            Xila.Display.Set_Current_Page(Welcome);
+            return;
+        }
         if (Xila.Account.Get_State() == Xila.Account.Logged)
         {
             Load_Registry();
@@ -189,9 +194,6 @@ void Shell_Class::Main_Instructions()
         break;
     case Dialog_Keypad:
         Open_Keypad();
-        break;
-    case Dialog_Install:
-        Open_Install();
         break;
     case Dialog_Open_File:
         Mode = Dialog_Open_File;
@@ -1469,15 +1471,15 @@ void Shell_Class::Preferences_Hardware_Instructions()
         }
         static uint8_t Buffer[512] = {255};
         uint16_t i;
-        double Time = millis();
+        double Time = Xila.Time.Milliseconds();
 
         for (i = 0; i < 2048; i++)
         {
-            Last_Watchdog_Feed = millis();
+            Last_Watchdog_Feed = Xila.Time.Milliseconds();
             Temporary_Item.write(Buffer, sizeof(Buffer));
         }
 
-        Time = millis() - Time;
+        Time = Xila.Time.Milliseconds() - Time;
         Time /= 1000;               // convert time in sec
         Time = (2048 * 512) / Time; // divide quantity data copied by the time in sec
         Time = Time / 1000;
@@ -1494,10 +1496,10 @@ void Shell_Class::Preferences_Hardware_Instructions()
         }
 
         size_t Length = Temporary_Item.size();
-        Time = millis();
+        Time = Xila.Time.Milliseconds();
         while (Length)
         {
-            Last_Watchdog_Feed = millis();
+            Last_Watchdog_Feed = Xila.Time.Milliseconds();
             if (Length > 512)
             {
                 Temporary_Item.read(Buffer, sizeof(Buffer));
@@ -1510,7 +1512,7 @@ void Shell_Class::Preferences_Hardware_Instructions()
             }
         }
 
-        Time = millis() - Time;
+        Time = Xila.Time.Milliseconds() - Time;
         Time /= 1000;
         Time = Temporary_Item.size() / Time;
         Time = Time / 1000;
@@ -1528,9 +1530,6 @@ void Shell_Class::Preferences_Hardware_Instructions()
         break;
     case Instruction('D', 'C'):
         Xila.Display.Calibrate();
-        break;
-    case Instruction('S', 'S'):
-        Xila.Sound.Set_Volume((uint8_t)Temporary_Variable[2]);
         break;
     case Instruction('S', 'a'):
         Xila.Display.Brightness = Brightness;
@@ -1676,7 +1675,42 @@ void Shell_Class::Preferences_System_Instructions()
         Xila.Display.Set_Current_Page(About);
         break;
     case Instruction('U', 'p'):
-        System_Update();
+        if (Event_Dialog(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
+        {
+            Refresh_Preferences_System();
+            return;
+        }
+
+        Xila.Display.Set_Current_Page(Load);
+        Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating firmware"));
+        Xila.Display.Set_Text(F("LOAD_TXT"), F("Update"));
+        Xila.Display.Refresh(F("CLOSE_BUT"));
+
+        if (Xila.Drive.Exists(Display_Executable_Path) || Xila.Drive.Exists(Microcontroller_Executable_Path))
+        {
+            Event_Dialog(F("Missing update files."), Xila.Error);
+            Refresh_Preferences_System();
+            return;
+        }
+        else
+        {
+            File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
+            if (Xila.Display.Update(Temporary_File) != Xila.Success)
+            {
+                Xila.System.Restart();
+                Refresh_Preferences_System();
+                return;
+            }
+
+            Temporary_File = Xila.Drive.Open(Microcontroller_Executable_Path);
+            if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
+            {
+                Xila.System.Restart();
+                Refresh_Preferences_System();
+                return;
+            }
+            Xila.System.Restart();
+        }
         break;
     default:
         Main_Instructions();
@@ -1692,47 +1726,6 @@ void Shell_Class::Refresh_Preferences_System()
 
     Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Name);
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
-}
-
-void Shell_Class::System_Update()
-{
-    if (Event_Dialog(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
-    {
-        return;
-    }
-
-    Xila.Display.Set_Current_Page(Load);
-    Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating firmware"));
-    Xila.Display.Set_Text(F("LOAD_TXT"), F("Update"));
-    Xila.Display.Refresh(F("CLOSE_BUT"));
-
-    File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
-    if (!Temporary_File)
-    {
-        Refresh_Preferences_System();
-        return;
-    }
-    if (Xila.Display.Update(Temporary_File) != Xila.Success)
-    {
-        Xila.System.Restart();
-        Refresh_Preferences_System();
-        return;
-    }
-
-    Temporary_File = Xila.Drive.Open(Microcontroller_Executable_Path);
-    if (!Temporary_File)
-    {
-        Refresh_Preferences_System();
-        return;
-    }
-    if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
-    {
-        Xila.System.Restart();
-        Refresh_Preferences_System();
-        return;
-    }
-
-    Xila.System.Restart();
 }
 
 // -- Shutdown -- //
@@ -1956,7 +1949,7 @@ Xila_Class::Event Shell_Class::Open_File_Dialog(File &File_To_Open)
 
     while (Xila.Dialog.State == Xila.None)
     {
-        Last_Watchdog_Feed = millis();
+        Last_Watchdog_Feed = Xila.Time.Milliseconds();
         File_Manager_Instructions();
     }
     if (Xila.Dialog.State == Xila.Button_1)
@@ -2054,13 +2047,14 @@ void Shell_Class::Open_Install()
     GMT_Offset = 0;
     Daylight_Offset = 0;
     memset(Name, '\0', sizeof(Name));
-    strcpy(Name, "ESP32");
+    strcpy(Name, Xila.System.Get_Device_Name());
     memset(Username, '\0', sizeof(Username));
     strcpy(Username, "Username");
     memset(Password_1, '\0', sizeof(Password_1));
     memset(Password_2, '\0', sizeof(Password_2));
     memset(WiFi_Name, '\0', sizeof(WiFi_Name));
     memset(WiFi_Password, '\0', sizeof(WiFi_Password));
+    Refresh_Install();
 }
 
 void Shell_Class::Refresh_Install()
@@ -2084,6 +2078,7 @@ void Shell_Class::Refresh_Install()
     Xila.Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
     Xila.Display.Set_Text(F("WNAMEVAL_TXT"), WiFi_Name);
     Xila.Display.Set_Text(F("WPASSVAL_TXT"), WiFi_Password);
+    Xila.Display.Set_Value(F("AUTOLOGIN_CHE"), Autologin);
 }
 
 void Shell_Class::Install_Instructions()
@@ -2091,6 +2086,13 @@ void Shell_Class::Install_Instructions()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
+    case Dialog_Power:
+    case Instruction('O', 's'):
+        Xila.System.Shutdown();
+        break;
+    case Instruction('I', 'n'):
+        Open_Install();
+        break;
     case Instruction('B', 'a'):
         if (Desk_Background < 0)
         {
@@ -2104,11 +2106,11 @@ void Shell_Class::Install_Instructions()
         break;
     case Instruction('A', 'u'): // -- Enable or disable autologin
         Autologin = !Autologin;
-        Xila.Display.Set_Value(F("AUTOLOGIN_CHE"), Autologin);
+        Refresh_Install();
         break;
-    case Instruction('C', 'C'): // -- Open color picker for desk color
+    case Instruction('C', 'B'): // -- Open color picker for desk color
     {
-        if (Desk_Background < 0)
+        if (Desk_Background < 0 || Desk_Background > 0xFFFF)
         {
             Desk_Background = 16904;
         }

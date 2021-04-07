@@ -21,7 +21,7 @@ protected:
 
     char Temporary_Char_Array[40];
     char Temporary_File_Name[13];
-    char Temporary_Radio_Link[128];
+    char Temporary_Radio_Link[129];
 
     static void Main_Task(void *);
 

@@ -57,7 +57,7 @@ protected:
 
     // -- Preferences system attributes
 
-    bool Autologin;
+    bool Autologin;         // -- Shared with install wizard
 
     int32_t GMT_Offset;      // -- Shared with install wizard
     int16_t Daylight_Offset; // -- Shared with install wizard
@@ -73,12 +73,6 @@ protected:
 
     char WiFi_Name[25];     // -- Shared with install wizard
     char WiFi_Password[65]; // -- Shared with install wizard
-
-    // -
-
-    uint32_t Temporary_Variable[4];
-
-    uint8_t Automatic_Login;
 
     char Temporary_Char[14];
 

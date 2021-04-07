@@ -270,6 +270,8 @@ public:
         Display_Class();
         ~Display_Class();
 
+        uint8_t Get_State();
+
         ///
         /// @brief Prefixs used to differienciate exchanged data between display, core and software
         ///
@@ -392,6 +394,11 @@ public:
         friend class Shell_Class;
 
     protected:
+
+        void Set_State(uint8_t State);
+
+        uint8_t State;
+
         uint16_t Standby_Time;
         uint8_t Receive_Pin, Transmit_Pin, Brightness;
 
@@ -1138,10 +1145,11 @@ protected:
     static Xila_Class *Instance_Pointer;
 };
 
-#include "Task.hpp"
-#include "Time.hpp"
-#include "System.hpp"
+#include "Core/Task.hpp"
+#include "Core/Time.hpp"
+#include "Core/System.hpp"
 
+#include "Core/Abstraction/Display.hpp"
 #include "Core/Abstraction/GPIO.hpp"
 
 #endif

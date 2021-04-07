@@ -68,7 +68,7 @@ private:
     void Switch_Keys_Second();
     void Switch_Keys_Hyperbolic();
 
-    uint16_t Numbers_After_Point(double Number);
+    void Format_Number(uint8_t);
 
 
     void Clear();
@@ -104,31 +104,31 @@ private:
         Neper_Constant = 'N',
         Random = 'R',
         Point = '.',
-        Power_10 = 'E',
         Symbol = 'S'
     };
 
     enum Operation
     {
         None = '\0',
-        Addition = '+',       //main
-        Substraction = '-',   //main
-        Multiplication = '*', //main
-        Division = ':',       //main
-        Modulo = '%',         //main
+        Addition = '+',       //primary
+        Substraction = '-',   //primary
+        Multiplication = '*', //primary
+        Division = ':',       //primary
+        Modulo = '%',         //primary
 
         Factorial = '!',         //secondary
-        Decimal_Logarithm = 'l', //secondary
-        Natural_Logarithm = 'L', //secondary
+        Decimal_Logarithm, //secondary
+        Natural_Logarithm, //secondary
         Binary_Logarithm,        //secondary
 
-        //Logarithm, //primary
+        Logarithm = 'L', //primary
 
         Squared, //secondary
         Cube,    //secondary
 
         Exponential, //secondary
         Power_2, // secondary
+        Power_10,
 
         Power = '^', //primary
 

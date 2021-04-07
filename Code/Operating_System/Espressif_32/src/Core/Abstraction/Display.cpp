@@ -12,7 +12,8 @@
 #include "Core/Core.hpp"
 
 Xila_Class::Display_Class::Display_Class()
-    : Nextion_Class()
+    : Nextion_Class(),
+    State(true)
 {
 }
 
@@ -45,7 +46,7 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
     Serial.println(Display_Registry["Brightness"].as<byte>());
     Xila.Display.Begin(Display_Registry["Baud Rate"] | Default_Display_Baud_Rate, Receive_Pin, Transmit_Pin);
     Xila.Display.Set_Touch_Wake_Up(true);
-    Xila.Display.Set_Serial_Wake_Up(false);
+    Xila.Display.Set_Serial_Wake_Up(true);
 
     Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
     Xila.Display.Set_Standby_Touch_Timer(Standby_Time);
@@ -120,6 +121,13 @@ void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
         break;
     case Serial_Buffer_Overflow:
         Verbose_Print_Line("Display buffer overflow");
+        break;
+    case Auto_Entered_Sleep_Mode:
+        Xila.Display.Set_State(false);
+        break;
+    case Auto_Wake_From_Sleep_Mode:
+        Xila.Display.Set_State(true);
+        Xila.System.Refresh_Header();
         break;
     default:
         break;

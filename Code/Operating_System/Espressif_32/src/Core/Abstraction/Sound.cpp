@@ -395,10 +395,6 @@ void Xila_Class::Sound_Class::Task(void *)
     while (1)
     {
 
-        for (i = 0; i < 255; i++)
-        {
-            Audio_Driver.loop();
-        }
-        Xila.Task.Delay(10);
+        Audio_Driver.loop();
     }
 }

@@ -5,13 +5,14 @@ uint32_t Clock_Class::Next_Alarm = 0;
 
 Clock_Class::Clock_Class()
     : Software_Class(Clock_Handle),
-    Chronometer_State(Stopped),
-    Chronometer_Inital_Time(0),
-    Chronometer_Paused_Time(0),
-    Timer_State(Stopped),
-    Timer_Threshold_Time(0),
-    Timer_Paused_Time(0),
-    Temporary_Time(0)
+      Chronometer_State(Stopped),
+      Chronometer_Inital_Time(0),
+      Chronometer_Paused_Time(0),
+      Timer_State(Stopped),
+      Timer_Threshold_Time(0),
+      Timer_Paused_Time(0),
+      Temporary_Time(0),
+      Selected_Alarm(0)
 {
     Xila.Task.Create(Main_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -72,17 +73,35 @@ void Clock_Class::Background_Task(void *pvParameters)
     {
         if (Next_Alarm == 0)
         {
-            Xila.Task.Delay(30000); // wait 60 seconds
+            Xila.Task.Delay(5000); // wait 30 seconds
         }
         else
         {
-            if (Next_Alarm < millis())
+            Verbose_Print("Next alarm :");
+            Serial.println((Next_Alarm - Xila.Time.Milliseconds()) / 1000);
+            if (Next_Alarm < Xila.Time.Milliseconds())
             {
                 Xila.Software.Open(Clock_Handle);
-                Instance_Pointer->Send_Instruction(Instruction('R', 'i'));
+                Instance_Pointer->Send_Instruction(Instruction('R', 'A'));
             }
             Xila.Task.Delay(1000);
         }
+    }
+}
+
+void Clock_Class::Check_Timer()
+{
+    if (Timer_State == Running && Xila.Time.Milliseconds() >= Timer_Threshold_Time)
+    {
+        if (Xila.Software.Get_State(Clock_Handle) == Minimized)
+        {
+            Xila.Software.Maximize(Clock_Handle);
+        }
+        Timer_State = Stopped;
+        Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
+        Xila.Dialog.Event(F("Time over."), Xila.Information);
+        Xila.Sound.Stop();
+        Send_Instruction('R', 'e');
     }
 }
 
@@ -110,7 +129,7 @@ void Clock_Class::Load_Registry()
     uint8_t i = 0;
     for (JsonObject Alarm : Clock_Registry["Alarms"].as<JsonArray>())
     {
-        strlcpy(Alarm_Title[i], Alarm["Title"], sizeof(Alarm_Title[i]));
+        strlcpy(Alarm_Title[i], Alarm["Title"] | "", sizeof(Alarm_Title[i]));
         Alarm_Hour[i] = Alarm["Hour"];
         Alarm_Minute[i] = Alarm["Minute"];
         Alarm_State[i] = Alarm["State"];
@@ -182,24 +201,18 @@ void Clock_Class::Refresh_Timer()
         Xila.Display.Click(F("SETBUTTONS_BUT"), 1);
         break;
     case Running:
-        Temporary_Time = Timer_Threshold_Time - millis();
+        Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+        Temporary_Time = Timer_Threshold_Time - Xila.Time.Milliseconds();
         Temporary_Time /= 1000; //get rid of milliseconds
         Xila.Display.Set_Value(F("SECONDS_NUM"), Temporary_Time % 60);
         Temporary_Time /= 60;
         Xila.Display.Set_Value(F("MINUTES_NUM"), Temporary_Time % 60);
         Xila.Display.Set_Value(F("HOURS_NUM"), Temporary_Time / 60);
         Xila.Display.Click(F("SETBUTTONS_BUT"), 0);
-        if (millis() >= Timer_Threshold_Time)
-        {
-            Timer_State = Stopped;
-            Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
-            Xila.Dialog.Event(F("Time over."), Xila.Information);
-            Xila.Sound.Stop();
-            Send_Instruction('R', 'e');
-        }
         break;
     case Paused:
-        Temporary_Time = Timer_Paused_Time + Timer_Threshold_Time - millis();
+        Xila.Display.Set_Text(F("START_BUT"), F("Start"));
+        Temporary_Time = Timer_Threshold_Time - Timer_Paused_Time;
         Temporary_Time /= 1000; //get rid of milliseconds
         Xila.Display.Set_Value(F("SECONDS_NUM"), Temporary_Time % 60);
         Temporary_Time /= 60;
@@ -215,7 +228,6 @@ void Clock_Class::Refresh_Timer()
 
 void Clock_Class::Refresh_Chronometer()
 {
-    Verbose_Print_Line("Refresh chronomter");
     switch (Chronometer_State)
     {
     case Stopped:
@@ -228,8 +240,8 @@ void Clock_Class::Refresh_Chronometer()
     case Running:
         Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
         Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
-        Temporary_Time = millis() - Chronometer_Inital_Time;
-        Xila.Display.Set_Value(F("MILLIS_NUM"), Temporary_Time % 1000);
+        Temporary_Time = Xila.Time.Milliseconds() - Chronometer_Inital_Time;
+        Xila.Display.Set_Value(F("MILLIS_NUM"), (Temporary_Time % 1000) / 10);
         Temporary_Time /= 1000;
         Xila.Display.Set_Value(F("SECOND_NUM"), Temporary_Time % 60);
         Xila.Display.Set_Value(F("MINUTE_NUM"), Temporary_Time / 60);
@@ -237,7 +249,6 @@ void Clock_Class::Refresh_Chronometer()
     case Paused:
         Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
-
         Temporary_Time = Chronometer_Paused_Time - Chronometer_Inital_Time;
         Xila.Display.Set_Value(F("MILLIS_NUM"), Temporary_Time % 1000);
         Temporary_Time /= 1000;
@@ -293,28 +304,41 @@ void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 
 void Clock_Class::Refresh_Next_Alarm()
 {
+
     uint16_t Alarm_Delta[8]; // alarms + current time + minimum delta
-    Alarm_Delta[7] = Time.tm_hour * 24 + Time.tm_min;
+    Alarm_Delta[6] = Time.tm_hour * 24 + Time.tm_min;
+    Alarm_Delta[7] = 0xFFFF;
     uint8_t Next_Alarm_Slot = 0;
 
     for (uint8_t i = 0; i < 6; i++)
     {
-        Alarm_Delta[i] = Alarm_Hour[i] * 24 + Alarm_Minute[i];
+        if (Alarm_Title[i] == '\0' || Alarm_State[i] == Disabled)
+        {
+            Alarm_Delta[i] = 0xFFFF;
+        }
+        else
+        {
+            Alarm_Delta[i] = Alarm_Hour[i] * 24 + Alarm_Minute[i];
+        }
     }
 
     for (uint8_t i = 0; i < 6; i++)
     {
-        if (Alarm_Delta[i] <= Alarm_Delta[6])
+        if (Alarm_Delta[i] == 0xFFFF)
         {
-            Alarm_Delta[i] = ((24 * 60) - Alarm_Delta[6]) + Alarm_Delta[i];
         }
         else
         {
-            Alarm_Delta[i] -= Alarm_Delta[6];
+            if (Alarm_Delta[i] <= Alarm_Delta[6])
+            {
+                Alarm_Delta[i] = ((24 * 60) - Alarm_Delta[6]) + Alarm_Delta[i];
+            }
+            else
+            {
+                Alarm_Delta[i] -= Alarm_Delta[6];
+            }
         }
     }
-
-    Alarm_Delta[7] = 0xFFFF;
 
     for (uint8_t i = 0; i < 6; i++)
     {
@@ -330,7 +354,7 @@ void Clock_Class::Refresh_Next_Alarm()
 
     if (Alarm_Delta[7] != 0xFFFF)
     {
-        Next_Alarm = (Alarm_Delta[Next_Alarm_Slot] * 60) * 1000; // next alarm in millis()
+        Next_Alarm = (Alarm_Delta[Next_Alarm_Slot] * 60) * 1000; // next alarm in Xila.Time.Milliseconds()
     }
     else
     {
@@ -351,7 +375,7 @@ void Clock_Class::Refresh_Alarms()
             Xila.Display.Set_Text(Object_Name, "");
             strcpy(Object_Name, "ALARM _RAD");
             Object_Name[5] = i + '0';
-            Xila.Display.Set_Text(Object_Name, "");
+            Xila.Display.Set_Value(Object_Name, 0);
             Xila.Display.Hide(Object_Name);
         }
         else
@@ -386,9 +410,15 @@ void Clock_Class::Refresh_Alarms()
 
 void Clock_Class::Refresh_Alarm()
 {
-    if (Alarm_State[Selected_Alarm] == true)
+    if (Alarm_Title[Selected_Alarm][0] == '\0')
     {
-        Xila.Display.Set_Text(F("TITLE_TXT"), Alarm_Title[Selected_Alarm]);
+        Xila.Display.Set_Text(F("TITLEVAL_TXT"), "");
+        Xila.Display.Set_Value(F("HOURS_NUM"), 0);
+        Xila.Display.Set_Value(F("MINUTES_NUM"), 0);
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("TITLEVAL_TXT"), Alarm_Title[Selected_Alarm]);
         Xila.Display.Set_Value(F("HOURS_NUM"), Alarm_Hour[Selected_Alarm]);
         Xila.Display.Set_Value(F("MINUTES_NUM"), Alarm_Minute[Selected_Alarm]);
         if (Alarm_State[Selected_Alarm] == true)
@@ -400,24 +430,20 @@ void Clock_Class::Refresh_Alarm()
             Xila.Display.Set_Text(F("STATE_BUT"), F("Enable"));
         }
     }
-    else
-    {
-        Xila.Display.Set_Text(F("TITLEVAL_TXT"), "");
-        Xila.Display.Set_Value(F("HOURS_NUM"), 0);
-    }
 }
 
 void Clock_Class::Add_Alarm()
 {
     for (uint8_t i = 0; i < 6; i++)
     {
-        if (Alarm_Title == '\0')
+        if (Alarm_Title[i][0] == '\0')
         {
             Alarm_Hour[i] = 0;
             Alarm_Minute[i] = 0;
             Alarm_State[i] = false;
             strcpy(Alarm_Title[i], "Untitled");
             Selected_Alarm = i;
+            Send_Instruction('R', 'e');
             return;
         }
     }
@@ -438,11 +464,11 @@ void Clock_Class::Refresh_Clock()
     {
         sprintf(Temporary_Char_Array, "%s %ist %s %i", Days[Time.tm_wday], Time.tm_mday, Months[Time.tm_mon], Time.tm_year + 1900);
     }
-    else if (Time.tm_wday == 2)
+    else if (Time.tm_mday == 2)
     {
         sprintf(Temporary_Char_Array, "%s %ind %s %i", Days[Time.tm_wday], Time.tm_mday, Months[Time.tm_mon], Time.tm_year + 1900);
     }
-    else if (Time.tm_wday == 3)
+    else if (Time.tm_mday == 3)
     {
         sprintf(Temporary_Char_Array, "%s %ird %s %i", Days[Time.tm_wday], Time.tm_mday, Months[Time.tm_mon], Time.tm_year + 1900);
     }
@@ -458,7 +484,12 @@ void Clock_Class::Main_Instructions()
     switch (Current_Instruction)
     {
     case Idle:
-        Xila.Task.Delay(40);
+        if (Xila.Software.Get_State(Clock_Handle) == Minimized)
+        {
+            Xila.Task.Delay(200);
+        }
+        Xila.Task.Delay(20);
+        Send_Instruction('C', 'T');
         break;
     case Open:
         Load_Registry();
@@ -478,10 +509,14 @@ void Clock_Class::Main_Instructions()
         Xila.Display.Set_Current_Page(Clock);
         break;
     case Instruction('M', 'i'):
+        Save_Registry();
         Xila.Software.Minimize(Clock_Handle);
         break;
     case Instruction('C', 'l'):
         Xila.Software.Close(Clock_Handle);
+        break;
+    case Instruction('C', 'T'):
+        Check_Timer();
         break;
     case Instruction('O', 'A'):
         Xila.Display.Set_Current_Page(Alarm);
@@ -529,6 +564,7 @@ void Clock_Class::Select_Alarm(uint8_t Alarm_To_Select)
     {
         Selected_Alarm = Alarm_To_Select;
     }
+    Send_Instruction('R', 'e');
 }
 
 void Clock_Class::Delete_Alarm()
@@ -554,32 +590,32 @@ void Clock_Class::Alarm_Instructions()
         Refresh_Next_Alarm();
         break;
     case Instruction('K', 'T'):
-        Xila.Dialog.Keyboard(Alarm_Title[Selected_Alarm], (sizeof(Alarm_Title) / sizeof(Alarm_Title[0])));
-        Refresh_Alarm();
-        Refresh_Alarms();
+        if (Selected_Alarm < 6)
+        {
+            Xila.Dialog.Keyboard(Alarm_Title[Selected_Alarm], sizeof(Alarm_Title[Selected_Alarm]));
+        }
+        Send_Instruction('R', 'e');
         break;
     case Instruction('A', '0'): //Ax : Select alarm
         Select_Alarm(0);
-        Send_Instruction('R', 'e');
         break;
     case Instruction('A', '1'):
-        Instance_Pointer->Select_Alarm(1);
+        Select_Alarm(1);
         break;
     case Instruction('A', '2'):
-        Instance_Pointer->Select_Alarm(2);
+        Select_Alarm(2);
         break;
     case Instruction('A', '3'):
-        Instance_Pointer->Select_Alarm(3);
+        Select_Alarm(3);
         break;
     case Instruction('A', '4'):
-        Instance_Pointer->Select_Alarm(4);
+        Select_Alarm(4);
         break;
     case Instruction('A', '5'):
-        Instance_Pointer->Select_Alarm(5);
+        Select_Alarm(5);
         break;
     case Instruction('A', 'A'): //Add alarm
         Add_Alarm();
-        Send_Instruction('R', 'e');
         break;
     case Instruction('D', 'A'): //Delete alarm
         Delete_Alarm();
@@ -618,15 +654,16 @@ void Clock_Class::Chronometer_Instructions()
         case Stopped: // Stoped -> Running
             Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
             Chronometer_State = Running;
-            Chronometer_Inital_Time = millis();
+            Chronometer_Inital_Time = Xila.Time.Milliseconds();
             break;
         case Paused: // Paused -> Running
-            Chronometer_Inital_Time += (millis() - Chronometer_Paused_Time);
+            Chronometer_Inital_Time += (Xila.Time.Milliseconds() - Chronometer_Paused_Time);
             Chronometer_State = Running;
             Xila.Display.Set_Trigger(F("TIMER_TIM"), true);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
+            break;
         case Running: // Running -> Pause
-            Chronometer_Paused_Time = millis();
+            Chronometer_Paused_Time = Xila.Time.Milliseconds();
             Chronometer_State = Paused;
             Xila.Display.Set_Trigger(F("TIMER_TIM"), false);
             Xila.Display.Set_Text(F("START_BUT"), F("Start"));
@@ -665,19 +702,19 @@ void Clock_Class::Timer_Instructions()
         {
         case Stopped: //Stopped -> Start
             Timer_State = Running;
-            Timer_Threshold_Time = millis();
-            Timer_Threshold_Time += (((((Hours * 3600) + Minutes) * 3600) + Seconds) * 1000);
+            Timer_Threshold_Time = Xila.Time.Milliseconds();
+            Timer_Threshold_Time += (((((Hours * 60) + Minutes) * 60) + Seconds) * 1000);
             Xila.Display.Click(F("SETBUTTONS_BUT"), 0);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
             break;
         case Running: // Running -> Pause
-            Timer_Paused_Time = millis();
+            Timer_Paused_Time = Xila.Time.Milliseconds();
             Timer_State = Paused;
             Xila.Display.Set_Text(F("START_BUT"), F("Start"));
             break;
         case Paused: // Paused -> Start
             Timer_State = Running;
-            Timer_Threshold_Time += (millis() - Timer_Paused_Time);
+            Timer_Threshold_Time += (Xila.Time.Milliseconds() - Timer_Paused_Time);
             Xila.Display.Set_Text(F("START_BUT"), F("Pause"));
             break;
         default:
@@ -685,11 +722,15 @@ void Clock_Class::Timer_Instructions()
         }
         Send_Instruction('R', 'e');
         break;
-    case Instruction('C', 'l'): // CL : clear
+    case Instruction('C', 'L'): // CL : clear
         Timer_State = Stopped;
         Hours = 0;
         Minutes = 0;
         Seconds = 0;
+        Xila.Display.Set_Value(F("HOURS_NUM"), 0);
+        Xila.Display.Set_Value(F("MINUTES_NUM"), 0);
+        Xila.Display.Set_Value(F("SECONDS_NUM"), 0);
+
         Xila.Display.Click(F("SETBUTTONS_BUT"), 1);
         Xila.Display.Set_Text(F("START_BUT"), F("Start"));
         Send_Instruction('R', 'e');

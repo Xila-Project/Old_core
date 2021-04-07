@@ -81,8 +81,10 @@ void Periodic_Class::Main_Task(void *pvParamters)
         case Open:
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
             Instance_Pointer->Tab = 0;
+            Instance_Pointer->Send_Instruction('G', 'M');
             break;
-        case Restart: case Shutdown:
+        case Restart: 
+        case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
@@ -178,7 +180,7 @@ void Periodic_Class::Get_Atom_Name()
         Column_String[2] = '\0';
     }
 
-    uint32_t time = millis();
+    uint32_t time = Xila.Time.Milliseconds();
 
     DynamicJsonDocument Index(256);
 
@@ -210,7 +212,7 @@ void Periodic_Class::Get_Atom_Name()
         strlcpy(Current_Atom_Name, Pair.value().as<char *>(), sizeof(Current_Atom_Name));
     }
 
-    Serial.println(millis() - time);
+    Serial.println(Xila.Time.Milliseconds() - time);
     Periodic_File.close();
 }
 
@@ -231,7 +233,7 @@ void Periodic_Class::Get_Main_Data()
 
     DynamicJsonDocument Data_Registry(512);
 
-    uint32_t time = millis();
+    uint32_t time = Xila.Time.Milliseconds();
 
     {
         DynamicJsonDocument Filter(256);
@@ -297,7 +299,7 @@ void Periodic_Class::Get_Main_Data()
         Current_Atom_Object = Pair.value().as<JsonObject>();
     }
 
-    Serial.println(millis() - time);
+    Serial.println(Xila.Time.Milliseconds() - time);
 
     Verbose_Print_Line("Found");
 

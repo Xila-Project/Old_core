@@ -68,7 +68,7 @@ void Xila_Class::Software_Management_Class::Feed_Watchdog(Software_Handle_Class 
 {
   if (Watchdog_State != 0 && &Software_Handle == Xila.Software.Openned[Watchdog_State]->Handle)
   {
-    Xila.Software.Watchdog_Timer = millis();
+    Xila.Software.Watchdog_Timer = Xila.Time.Milliseconds();
   }
 }
 

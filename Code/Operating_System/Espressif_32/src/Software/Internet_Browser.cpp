@@ -1135,13 +1135,13 @@ uint16_t Internet_Browser_Class::Hash_Out(uint16_t hash)
 byte Internet_Browser_Class::Find_Until(uint8_t *String_To_Find, boolean terminate)
 {
   uint8_t currentChar = 0;
-  long timeOut = millis() + 5000;
+  long timeOut = Xila.Time.Milliseconds() + 5000;
   char c = 0;
-  while (millis() < timeOut)
+  while (Xila.Time.Milliseconds() < timeOut)
   {
     if (Client.available())
     {
-      timeOut = millis() + 5000;
+      timeOut = Xila.Time.Milliseconds() + 5000;
       c = Client.read();
       if (terminate && (c == '<'))
       {

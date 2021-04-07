@@ -60,7 +60,7 @@ private:
     bool Alarm_State[6];
     char Alarm_Title[6][10];
 
-    static uint32_t Next_Alarm; // next alarm in millis();
+    static uint32_t Next_Alarm; // next alarm in Xila.Time.Milliseconds();
 
     // Chronometer
 
@@ -97,6 +97,8 @@ private:
     uint8_t Offset;
 
     Xila_Instruction Current_Instruction;
+
+    void Check_Timer();
 
     void Clock_Instructions();
     void Alarm_Instructions();

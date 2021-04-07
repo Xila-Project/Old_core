@@ -61,7 +61,7 @@ void Xila_Class::System_Class::Task(void *)
     Xila.Power.Check_Button();
     Xila.Display.Loop();
 
-    if ((millis() - Last_Header_Refresh) > 5000) //
+    if ((Xila.Time.Milliseconds() - Last_Header_Refresh) > 5000) //
     {
 
       if (Xila.System.Get_Free_Heap() < Low_Memory_Threshold) // Check memory
@@ -69,12 +69,12 @@ void Xila_Class::System_Class::Task(void *)
         Xila.System.Panic_Handler(Low_Memory);
       }
 
-      if (Xila.Software.Openned[0] == NULL) // Check shell corruption
+      if (Xila.Software.Openned[0] == NULL)
       {
-        Verbose_Print_Line("Corrupted shell");
         Xila.Task.Delay(100);
         if (Xila.Software.Openned[0] == NULL)
         {
+          Xila.Software.Open(Shell_Handle);
           Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
           Xila.Software.Maximize_Shell();
         }
@@ -83,7 +83,7 @@ void Xila_Class::System_Class::Task(void *)
       Xila.Time.Synchronise(); // Time synchro
       Xila.System.Refresh_Header();
 
-      Last_Header_Refresh = millis();
+      Last_Header_Refresh = Xila.Time.Milliseconds();
     }
 
     Xila.Task.Delay(20);
@@ -227,6 +227,10 @@ const char *Xila_Class::System_Class::Get_Device_Name()
 
 void Xila_Class::System_Class::Refresh_Header()
 {
+  if (Xila.Display.Get_State() == false) // if display sleep
+  {
+    return;
+  }
   static char Temporary_Char_Array[6];
 
   // -- Update clock
@@ -446,8 +450,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 ///
 void Xila_Class::System_Class::Second_Start_Routine()
 {
-  Verbose_Print_Line("Second start routine");
-
   Xila.System.Load_Dump();
 
 #if ANIMATION == 1
@@ -474,11 +476,7 @@ void Xila_Class::System_Class::Second_Start_Routine()
     Xila.Display.Wake_Up();
     Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
     Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
-
-    Xila.Software.Openned[1]->Send_Instruction(Software_Class::Dialog_Install);
   }
-
-  Verbose_Print_Line("Create task function");
 
   Xila.Task.Create(Xila.System.Task, "Core Task", Memory_Chunk(4), NULL, Xila.Task.System_Task, &Xila.System.Task_Handle);
 

@@ -225,6 +225,7 @@ void Tiny_Basic_Class::Read_Instructions()
           if (isPrintable(Temporary_Char))
           {
             Xila.Display.Add_Text(F("INPUT_VAR"), Temporary_Char);
+            Xila.Display.Click(F("K_HOT"), 0);
           }
           break;
         }
@@ -1082,34 +1083,6 @@ void Tiny_Basic_Class::outchar(unsigned char c)
 
 boolean Tiny_Basic_Class::initSD()
 {
-  // TODO:  Clean this up - provide option with more detailed diagnostics
-  // if the card is already initialized, we just go with it.
-  // there is no support (yet?) for hot-swap of SD Cards. if you need to
-  // swap, pop the card, reset the arduino.)
-
-  /*
-  if ( sd_is_initialized == true ) return true;
-
-  // due to the way the SD Library works, pin 10 always needs to be
-  // an output, even when your shield uses another line for CS
-  //Xila.GPIO.Set_Mode(10, OUTPUT); // change this to 53 on a mega
-
-  if ( !Xila.Drive.begin( SD_CS )) {
-    // failed
-    printmsg( sderrormsg );
-    return false;
-  }
-  // success - quietly return 0
-  sd_is_initialized = true;
-
-  // and our file redirection flags
-  outStream = kStreamSerial;
-  inStream = kStreamSerial;
-  inhibitOutput = false;
-
-  return false;
-  */
-
   outStream = kStreamXila;
   inStream = kStreamXila;
   inhibitOutput = false;

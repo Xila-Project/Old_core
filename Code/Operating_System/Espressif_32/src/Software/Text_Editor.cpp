@@ -150,7 +150,7 @@ void Text_Editor_Class::Refresh_Interface()
 
     char Temporary_Character;
     
-    char Temporary_Char_Array[56]; // double to allow
+    char Temporary_Char_Array[67]; // double to allow
 
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 
@@ -200,7 +200,7 @@ void Text_Editor_Class::Refresh_Interface()
             Column_Number = 0;
 
         }
-        else if (Column_Number >= 55)
+        else if (Column_Number >= 67)
         {
             Xila.Task.Delay(5);
             Line_Name[4] = 'A' + Line_Number;

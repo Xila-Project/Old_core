@@ -21,6 +21,7 @@ Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
 
 Music_Player_Class::~Music_Player_Class()
 {
+    Stop();
     if (Instance_Pointer != this)
     {
         delete Instance_Pointer;
@@ -77,10 +78,10 @@ void Music_Player_Class::Main_Task(void *pvParameters)
                         Instance_Pointer->Send_Instruction('F', 'F');
                         break;
                     case Xila.Keyboard.Arrow_Up:
-                        Xila.Display.Click(F("VOLUMEUP_TXT"), 0);
+                        Xila.Display.Click(F("VOLUMEUP_BUT"), 0);
                         break;
                     case Xila.Keyboard.Arrow_Down:
-                        Xila.Display.Click(F("VOLUMEDOWN_TXT"), 0);
+                        Xila.Display.Click(F("VOLUMEDOWN_BUT"), 0);
                         break;
                     default:
                         break;

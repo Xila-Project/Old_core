@@ -483,7 +483,7 @@ void Oscilloscope_Class::Trigger()
 {
 	if (trig_mode != TRIG_SCAN)
 	{
-		unsigned long st = millis();
+		unsigned long st = Xila.Time.Milliseconds();
 		short oad = (trig_ch == 0) ? (adRead(ad_ch0, ch0_mode, ch0_off)) : (adRead(ad_ch1, ch1_mode, ch1_off));
 		for (;;)
 		{
@@ -517,7 +517,7 @@ void Oscilloscope_Class::Trigger()
 			{
 				break;
 			}
-			if (trig_mode == TRIG_AUTO && (millis() - st) > 100)
+			if (trig_mode == TRIG_AUTO && (Xila.Time.Milliseconds() - st) > 100)
 			{
 				break;
 			}
@@ -527,7 +527,6 @@ void Oscilloscope_Class::Trigger()
 
 void Oscilloscope_Class::Sampling()
 {
-	Verbose_Print_Line("Sampling");
 	// sample and draw depending on the sampling rate
 	if (rate <= 5 && Start)
 	{
@@ -569,11 +568,11 @@ void Oscilloscope_Class::Sampling()
 								   (uint32_t)10000 / Dots_Per_Division,
 								   (uint32_t)20000 / Dots_Per_Division};
 
-			unsigned long st = Xila.Time.Microseconds();
+			unsigned long st = (uint32_t)Xila.Time.Microseconds();
 			unsigned long r = r_[rate - 3];
 			for (int i = 0; i < SAMPLES; i++)
 			{
-				while ((st - uint32_t(Xila.Time.Microseconds())) < r)
+				while ((st - (uint32_t)Xila.Time.Microseconds()) < r)
 				{
 					;
 				}
@@ -613,10 +612,11 @@ void Oscilloscope_Class::Sampling()
 							   (uint32_t)5000000 / Dots_Per_Division,
 							   (uint32_t)10000000 / Dots_Per_Division};
 
-		unsigned long st = Xila.Time.Microseconds();
+		unsigned long st = (uint32_t)Xila.Time.Microseconds();
+		Set_Watchdog_Timeout(30000);	// Add extra watchdog timeout for sampling
 		for (int i = 0; i < SAMPLES; i++)
 		{
-			while ((st - Xila.Time.Microseconds()) < r_[rate - 6])
+			while ((st - (uint32_t)Xila.Time.Microseconds()) < r_[rate - 6])
 			{
 				if (rate < 6)
 				{
@@ -628,9 +628,9 @@ void Oscilloscope_Class::Sampling()
 				break;
 			}
 			st += r_[rate - 6];
-			if (st - Xila.Time.Microseconds() > r_[rate - 6]) // sampling rate has been changed to shorter interval
+			if (st - (uint32_t)Xila.Time.Microseconds() > r_[rate - 6]) // sampling rate has been changed to shorter interval
 			{
-				st = Xila.Time.Microseconds();
+				st = (uint32_t)Xila.Time.Microseconds();
 			}
 			if (!Start)
 			{
@@ -640,6 +640,7 @@ void Oscilloscope_Class::Sampling()
 			data[sample + 0][i] = adRead(ad_ch0, ch0_mode, ch0_off);
 			data[sample + 1][i] = adRead(ad_ch1, ch1_mode, ch1_off);
 		}
+		Set_Watchdog_Timeout();		// Reset watchdog timeout
 		Send_Instruction('R', 'W');
 	}
 }
