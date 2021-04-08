@@ -2,10 +2,11 @@
 
 Pong_Class *Pong_Class::Instance_Pointer = NULL;
 
-Pong_Class::Pong_Class() : Software_Class(Pong_Handle),
-                           Player_1_Score(0),
-                           Player_2_Score(0)
+Pong_Class::Pong_Class()
+    : Software_Class(Pong_Handle)
 {
+    Scores[0] = 0;
+    Scores[1] = 0;
     Xila.Task.Create(Main_Task, "Pong", Memory_Chunk(2), NULL, &Task_Handle);
 }
 
@@ -75,7 +76,8 @@ void Pong_Class::Main_Task(void *pvParameters)
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Pong_Handle);
             break;
-        case Restart: case Shutdown:
+        case Restart:
+        case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
@@ -83,24 +85,28 @@ void Pong_Class::Main_Task(void *pvParameters)
         case Maximize:
             Xila.Display.Set_Current_Page(F("Pong"));
             Xila.Keyboard.Clear();
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Open:
             Xila.Display.Set_Current_Page(F("Pong"));
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Minimize:
             break;
         case Instruction('S', '1'):
-            Instance_Pointer->Player_1_Score++;
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Scores[0]++;
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Instruction('S', '2'):
-            Instance_Pointer->Player_2_Score++;
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Scores[1]++;
+            Instance_Pointer->Send_Instruction('R', 'e');
+            break;
+        case Instruction('R', 'E'):
+            Instance_Pointer->Scores[0] = 0;
+            Instance_Pointer->Scores[1] = 0;
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Instruction('R', 'e'):
-            Instance_Pointer->Player_1_Score = 0;
-            Instance_Pointer->Player_2_Score = 0;
             Instance_Pointer->Refresh_Interface();
             break;
         }
@@ -109,6 +115,8 @@ void Pong_Class::Main_Task(void *pvParameters)
 
 void Pong_Class::Refresh_Interface()
 {
-    Xila.Display.Set_Value(F("SCORE1_NUM"), Player_1_Score);
-    Xila.Display.Set_Value(F("SCORE2_NUM"), Player_2_Score);
+    sprintf(Temporary_String, "Player 1 : %i", Scores[0]);
+    Xila.Display.Set_Text(F("PLAYER1_TXT"), Temporary_String);
+    sprintf(Temporary_String, "Player 2 : %i", Scores[1]);
+    Xila.Display.Set_Text(F("PLAYER2_TXT"), Temporary_String);
 }

@@ -69,6 +69,9 @@
 #include "Nextion_Library.hpp"
 #include "Battery_Library.hpp"
 
+//
+#include <ArduinoTrace.h>
+
 //----------------------------------------------------------------------------//
 //                          Include All Project File                          //
 //----------------------------------------------------------------------------//
@@ -418,17 +421,17 @@ public:
     public:
         typedef enum
         {
-            CARD_NONE,
-            CARD_MMC,
-            CARD_SD,
-            CARD_SDHC,
-            CARD_UNKNOWN
+            None,
+            SD_MMC,
+            SD_SC,
+            SD_HC,
+            Unknow
         } Sd_Card_Type;
 
         bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
 
-        uint64_t Card_Size();
-        Sd_Card_Type Card_Type();
+        uint64_t Size();
+        Sd_Card_Type Type();
 
         bool Exists(const char *Path);
         bool Exists(const String &Path);
@@ -455,7 +458,7 @@ public:
 
         Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
         Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
-        uint16_t Count_Files(File &Folder);
+        uint16_t Count_Items(File &Folder);
 
         // -- Constructor
         Drive_Class();
@@ -821,7 +824,7 @@ public:
 
         void Set_Channels(uint8_t Channels);
 
-        void Set_Volume(uint16_t); // volume between 0 and 255
+        void Set_Volume(uint8_t Volume); // volume between 0 and 255
         uint8_t Get_Volume();
 
         void Set_Balance(uint8_t);

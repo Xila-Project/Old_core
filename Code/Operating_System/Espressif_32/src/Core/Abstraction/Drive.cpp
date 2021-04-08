@@ -140,32 +140,31 @@ bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uin
     return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);
 }
 
-uint64_t Xila_Class::Drive_Class::Card_Size()
+uint64_t Xila_Class::Drive_Class::Size()
 {
     return SD.cardSize();
 }
 
-Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Card_Type()
+Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 {
     switch (SD.cardType())
     {
     case sdcard_type_t::CARD_NONE:
-        return CARD_NONE;
+        return None;
         break;
     case sdcard_type_t::CARD_MMC:
-        return CARD_MMC;
+        return SD_MMC;
         break;
     case sdcard_type_t::CARD_SD:
-        return CARD_SD;
+        return SD_SC;
         break;
     case sdcard_type_t::CARD_SDHC:
-        return CARD_SDHC;
+        return SD_HC;
         break;
-    case sdcard_type_t::CARD_UNKNOWN:
-        return CARD_UNKNOWN;
+    default:
         break;
     }
-    return CARD_UNKNOWN;
+    return Unknow;
 }
 
 void Xila_Class::Drive_Class::End()
@@ -274,23 +273,20 @@ Xila_Class::Event Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destina
 ///
 /// @param Folder
 /// @return uint16_t return the number of files inside a folder
-uint16_t Xila_Class::Drive_Class::Count_Files(File &Folder)
+uint16_t Xila_Class::Drive_Class::Count_Items(File &Folder)
 {
-    if (Folder)
-    {
-        return 0;
-    }
-    if (!Folder.isDirectory())
+    if (!Folder || !Folder.isDirectory())
     {
         return 0;
     }
     uint32_t i = 0;
+    Folder.rewindDirectory();
     File Temporary_File = Folder.openNextFile();
     while (Temporary_File)
     {
-        i++;
         Temporary_File.close();
         Temporary_File = Folder.openNextFile();
+        i++;
     }
     return i;
 }

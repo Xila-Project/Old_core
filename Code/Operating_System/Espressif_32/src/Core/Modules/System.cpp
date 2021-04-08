@@ -29,10 +29,15 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
     Temporary_File.close();
     return Error;
   }
+  if (strcmp("System", System_Registry["Registry"] | "") == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
 
   JsonObject Version = System_Registry["Version"];
 
-  if (Version["Major"] != VERSION_MAJOR || Version["Minor"] != VERSION_MINOR || Version["Revision"] != VERSION_REVISION)
+  if (Version["Major"] != Version_Major || Version["Minor"] != Version_Minor || Version["Revision"] != Version_Revision)
   {
     Panic_Handler(Installation_Conflict);
   }
@@ -42,6 +47,31 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
   Temporary_File.close();
   return Success;
 }
+
+Xila_Class::Event Xila_Class::System_Class::Save_Registry()
+{
+  File Temporary_File = Xila.Drive.Open(Registry("System"), FILE_WRITE);
+  DynamicJsonDocument System_Registry(256);
+
+  System_Registry["Registry"] = "System";
+  System_Registry["Device Name"] = Device_Name;
+  
+  JsonObject Version = System_Registry.createNestedObject("Version");
+  Version["Major"] = Version_Major;
+  Version["Minor"] = Version_Minor;
+  Version["Revision"] = Version_Revision;
+  
+  
+  if (serializeJson(System_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+
+  Temporary_File.close();
+  return Success;
+}
+
 
 inline uint32_t Xila_Class::System_Class::Get_Free_Heap()
 {
@@ -146,20 +176,6 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
   abort();
 }
 
-Xila_Class::Event Xila_Class::System_Class::Save_Registry()
-{
-  File Temporary_File = Xila.Drive.Open(Registry("System"), FILE_WRITE);
-  DynamicJsonDocument System_Registry(256);
-  System_Registry["Device Name"] = Device_Name;
-  if (serializeJson(System_Registry, Temporary_File) == 0)
-  {
-    Temporary_File.close();
-    return Error;
-  }
-
-  Temporary_File.close();
-  return Success;
-}
 
 Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 {
@@ -354,12 +370,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   Xila.GPIO.Set_Mode(13, INPUT_PULLUP);
 #endif
 
-  if (!Xila.Drive.Begin() || Xila.Drive.Card_Type() == Xila.Drive.CARD_NONE)
+  if (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
     Verbose_Print_Line("Failed to initalize drive");
     Xila.Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
   }
-  while (!Xila.Drive.Begin() || Xila.Drive.Card_Type() == Xila.Drive.CARD_NONE)
+  while (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
     Xila.Task.Delay(50);
   }

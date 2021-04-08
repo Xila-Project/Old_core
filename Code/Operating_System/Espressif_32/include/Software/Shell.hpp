@@ -49,11 +49,7 @@ protected:
     char Current_Item_Name[13];
     char Current_Path[192];
 
-    // -- Hardware
 
-    uint8_t Brightness;
-
-    uint16_t Standby_Display_Time;
 
     // -- Preferences system attributes
 
@@ -75,6 +71,12 @@ protected:
     char WiFi_Password[65]; // -- Shared with install wizard
 
     char Temporary_Char[14];
+
+    char Temporary_Float_String[25];
+
+    // 
+    
+    uint16_t Write_Speed, Read_Speed;
 
     // -- Desk variables
 

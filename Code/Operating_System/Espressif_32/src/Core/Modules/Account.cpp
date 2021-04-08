@@ -89,11 +89,11 @@ const char *Xila_Class::Account_Class::Get_Current_Username()
      */
 Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
-  if (Xila.Drive.Exists(Users_Directory_Path + String(Username)))
+  if (Xila.Drive.Exists(Users_Directory_Path + String("/")+ String(Username)))
   {
     return Error;
   }
-
+  Xila.Drive.Make_Directory(Users_Directory_Path + String("/") + String(Username));
   Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Registry");
   Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Desk");
   Xila.Drive.Make_Directory(Users_Directory_Path + String(Username) + "/Images");
@@ -114,9 +114,8 @@ Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const cha
 
 Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 {
-  char Temporary_Path[17];
-  strcpy(Temporary_Path, Users_Directory_Path);
-  strlcat(Temporary_Path, Target_User, sizeof(Temporary_Path));
+  char Temporary_Path[20];
+  snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
   if (Xila.Drive.Remove_Directory(Temporary_Path))
   {
     return Success;
@@ -126,7 +125,14 @@ Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 
 Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
-  if (!Xila.Drive.Rename(Users_Directory_Path + String(Target_User), Users_Directory_Path + String(New_Username)))
+  char Temporary_Path[20];
+  char Temporary_Target_Path[20];
+  strcpy(Temporary_Path, Users_Directory_Path);
+  strlcat(Temporary_Path, "/", sizeof(Temporary_Path));
+  strcpy(Temporary_Target_Path, Temporary_Path);
+  strlcat(Temporary_Target_Path, Target_User, sizeof(Temporary_Target_Path));
+  strlcat(Temporary_Path, New_Username, sizeof(Temporary_Path));
+  if (!Xila.Drive.Rename(Temporary_Target_Path, Temporary_Path))
   {
     return Error;
   }
@@ -139,7 +145,9 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_
 
 Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
-  File Temporary_File = Xila.Drive.Open(Users_Directory_Path + String(Target_User) + "/Registry/User.xrf");
+  char Temporary_Char[48];
+  snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
+  File Temporary_File = Xila.Drive.Open(Temporary_Char, FILE_WRITE);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -175,9 +183,9 @@ Xila_Class::Event Xila_Class::Account_Class::Lock()
 
 Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-  if (Xila.Drive.Exists(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf"))
-  {
-    File Temporary_File = Xila.Drive.Open(Users_Directory_Path + String(Username_To_Check) + "/Registry/User.xrf");
+    char Temporary_Path[48];
+    snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
+    File Temporary_File = Xila.Drive.Open(Temporary_Path);
     DynamicJsonDocument User_Registry(256);
     if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -198,8 +206,7 @@ Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Usern
 
     Verbose_Print_Line("> Good Credentials ...");
     return Success;
-  }
-  Verbose_Print_Line("> Failed to open user registry");
+ 
   return Error;
 }
 

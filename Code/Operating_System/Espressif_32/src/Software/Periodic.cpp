@@ -474,13 +474,13 @@ void Periodic_Class::Get_Data()
     }
 
     // Appearance
-    if (Current_Atom_Object["color"].as<char *>() == NULL)
+    if (Current_Atom_Object["appearance"].as<char *>() == NULL)
     {
         Xila.Display.Set_Text(F("APPEARANCV_TXT"), F("unknow"));
     }
     else
     {
-        Xila.Display.Set_Text(F("APPEARANCV_TXT"), Current_Atom_Object["color"].as<char *>());
+        Xila.Display.Set_Text(F("APPEARANCV_TXT"), Current_Atom_Object["appearance"].as<char *>());
     }
 
     // Discover

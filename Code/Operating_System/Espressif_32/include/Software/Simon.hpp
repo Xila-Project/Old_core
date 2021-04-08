@@ -3,9 +3,10 @@
 
 #include "Xila.hpp"
 
-#define MAXIMUM_LEVEL 256
+#define Maximum_Level 256
+#define Minimum_Speed 120
 
-#define Simon_Registry_Path Software_Directory_Path "SIMON/REGISTRY.XRF"
+#define Simon_Registry_Path Software_Directory_Path "/Simon/Registry.xrf"
 
 class Simon_Class : public Software_Class
 {
@@ -38,12 +39,14 @@ private:
     void Game_Over();
     void Win();
 
+    
+
 public:
     uint16_t Speed;
     uint8_t Current_Level[2];
-    uint8_t Sequence[MAXIMUM_LEVEL];
+    uint8_t Sequence[Maximum_Level];
 
-    uint8_t Scores[8];
+    uint8_t Scores[8] = {0};
 
     static void Main_Task(void *);
 

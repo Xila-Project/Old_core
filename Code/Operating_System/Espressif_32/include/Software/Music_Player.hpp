@@ -10,7 +10,10 @@
 
 #include "Xila.hpp"
 
-#define TIMELINE_SIZE 346
+#define Timeline_Size 346
+
+#define Next_Queue_Size 16
+#define Last_Queue_Size 16
 
 #define Music_Player_File(name) Software_Directory_Path "/MusicPla/" name
 
@@ -30,7 +33,6 @@ protected:
     uint32_t Number_Of_Files;
 
     File Music_File;
-    File Next_Music_File;
     File Music_Folder;
 
     uint8_t State;
@@ -45,13 +47,8 @@ protected:
     // 1 : play
     // 2 : pause
 
-    uint32_t Queue[24] = {0};
-
-    enum Queue_Position
-    {
-        Empty = 0,
-        Current = ((sizeof(Queue) / sizeof(uint32_t)) - 2),
-    };
+    QueueHandle_t Last_Queue;
+    QueueHandle_t Next_Queue;
 
     uint8_t Volume;
 
@@ -64,15 +61,19 @@ protected:
 
     uint8_t Set;
 
-    void Refresh_Queue();
+    void Open_File(uint16_t);
+    void Open_File();
+
+    void Open_Folder();
+
+        void Open_Radio(uint8_t);
+    void Set_Radio(uint8_t);
 
     void Set_Variable(const void *, uint8_t, uint8_t, uint8_t);
 
-    void Dialog_Open_Folder();
-    void Open_File();
 
-    void Open_Radio(uint8_t);
-    void Set_Radio(uint8_t);
+
+
 
     void Set_Time();
 

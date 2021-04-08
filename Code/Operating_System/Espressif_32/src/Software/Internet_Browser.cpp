@@ -43,7 +43,7 @@ void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, ui
   {
     if (Cache_File)
     {
-      textContent.index[textContent.pagePtr] = Cache_File.size() - *(uint16_t*)Variable;
+      textContent.index[textContent.pagePtr] = Cache_File.size() - *(uint16_t *)Variable;
     }
   }
 }
@@ -172,6 +172,11 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Instance_Pointer->Go_Link();
       break;
     case Instruction('G', 'U'): //GU
+      Instance_Pointer->Split_URL(Instance_Pointer->URL);
+      Instance_Pointer->pageLinks.linkPtr = 0;
+      Instance_Pointer->pageLinks.lastLink = 0;
+      Instance_Pointer->textContent.pagePtr = 0;
+      Instance_Pointer->textContent.lastPage = 0;
       Instance_Pointer->Load_Page();
       break;
     case Instruction('H', 'o'): //HO
@@ -696,32 +701,14 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
 
 void Internet_Browser_Class::Go_Link()
 {
-  Verbose_Print_Line("\n>> Go Link :");
   Build_URL(pageLinks.index[pageLinks.linkPtr]); // Get URL from page index
-  Verbose_Print("Built url: ");
-  Serial.println(URL);
-  Split_URL(URL);
-  Verbose_Print("Split url: ");
-  Serial.print(Server);
-  Verbose_Print(" + ");
-  Serial.println(Path);
-  if (URL[0] != '*') // Load default home page
+  if (URL[0] != '*')                             // Load default home page
   {
     pageLinks.linkPtr = 0;
     pageLinks.lastLink = 0;
     textContent.pagePtr = 0;
     textContent.lastPage = 0;
-    Verbose_Print("Loading URL: ");
-    Serial.print(Server);
-    Serial.println(Path);
-
     Load_Page();
-  }
-  else // Something stuffed up
-  {
-    Cache_File.flush();
-    Serial.println("No URL");
-    return;
   }
 }
 

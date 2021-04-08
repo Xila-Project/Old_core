@@ -40,7 +40,8 @@ void Simon_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(10);
             break;
-        case Restart: case Shutdown:
+        case Restart:
+        case Shutdown:
         case Close:
             Instance_Pointer->Save_Registry();
             delete Instance_Pointer;
@@ -52,11 +53,11 @@ void Simon_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Current_Level[0] = 0;
             Instance_Pointer->Current_Level[1] = 0;
             Instance_Pointer->Speed = 0;
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Maximize:
             Xila.Display.Set_Current_Page(F("Simon"));
-            Instance_Pointer->Refresh_Interface();
+            Instance_Pointer->Send_Instruction('R', 'e');
             break;
         case Minimize:
             break;
@@ -66,17 +67,20 @@ void Simon_Class::Main_Task(void *pvParameters)
         case Instruction('C', 'l'):
             Xila.Software.Close(Simon_Handle);
             break;
-        case Instruction('R', 'e'):
+        case Instruction('P', 'R'):
             Instance_Pointer->Press(Red);
             break;
-        case Instruction('G', 'r'):
+        case Instruction('P', 'G'):
             Instance_Pointer->Press(Green);
             break;
-        case Instruction('B', 'l'):
+        case Instruction('P', 'B'):
             Instance_Pointer->Press(Blue);
             break;
-        case Instruction('Y', 'e'):
+        case Instruction('P', 'Y'):
             Instance_Pointer->Press(Yellow);
+            break;
+        case Instruction('R', 'e'):
+            Instance_Pointer->Refresh_Interface();
             break;
         case Instruction('S', 't'): // start / stop
             if (Instance_Pointer->Speed == 0)
@@ -107,17 +111,21 @@ void Simon_Class::Refresh_Interface()
     Xila.Display.Set_Value(F("SCORE5_NUM"), Scores[4]);
     Xila.Display.Set_Value(F("SCORE6_NUM"), Scores[5]);
     Xila.Display.Set_Value(F("SCORE7_NUM"), Scores[6]);
-    Xila.Display.Set_Value(F("SCORE_NUM"), Current_Level[1]);
+    Xila.Display.Set_Value(F("SCORE_NUM"), Current_Level[0]);
 }
 
 void Simon_Class::Load_Registry()
 {
     memset(Scores, '\0', sizeof(Scores));
     File Temporary_File = Xila.Drive.Open(Simon_Registry_Path);
-    DynamicJsonDocument Simon_Registry(256);
+    DynamicJsonDocument Simon_Registry(512);
     if (deserializeJson(Simon_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Xila.Dialog.Event(F("Failed to load registry."), Xila.Error);
+        Temporary_File.close();
+        return;
+    }
+    if (strcmp("Simon", Simon_Registry["Registry"] | "") == 0)
+    {
         Temporary_File.close();
         return;
     }
@@ -134,7 +142,8 @@ void Simon_Class::Load_Registry()
 void Simon_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Simon_Registry_Path, FILE_WRITE);
-    DynamicJsonDocument Simon_Registry(256);
+    DynamicJsonDocument Simon_Registry(512);
+
     Simon_Registry["Scores"][0] = Scores[0];
     Simon_Registry["Scores"][1] = Scores[1];
     Simon_Registry["Scores"][2] = Scores[2];
@@ -146,8 +155,6 @@ void Simon_Class::Save_Registry()
     if (serializeJson(Simon_Registry, Temporary_File) == 0)
     {
         Xila.Dialog.Event(F("Failed to save registry."), Xila.Error);
-        Temporary_File.close();
-        return;
     }
     Temporary_File.close();
 }
@@ -183,21 +190,17 @@ void Simon_Class::Press(uint8_t Color)
 
     if (Sequence[Current_Level[1]] != Color)
     {
-        Verbose_Print_Line("Wrong color");
         Xila.Dialog.Event(F("Game over !"), Xila.Information);
-        Refresh_Interface();
         Game_Over();
         return;
     }
 
     Current_Level[1]++;
-    Refresh_Interface();
-    Verbose_Print_Line("Correct color");
+    Send_Instruction('R', 'e');
 
     if (Current_Level[1] == Current_Level[0])
     {
-        Verbose_Print_Line("Sequence ending");
-        if (Current_Level[1] >= MAXIMUM_LEVEL)
+        if (Current_Level[1] >= Maximum_Level)
         {
             Win();
             return;
@@ -205,7 +208,10 @@ void Simon_Class::Press(uint8_t Color)
         Current_Level[1] = 0;
         Current_Level[0]++;
         Xila.Display.Set_Value(F("LEVEL_NUM"), Current_Level[0]);
-        Speed -= 20;
+        if (Speed > Minimum_Speed)
+        {
+            Speed -= 20;
+        }
         Show_Sequence();
     }
 }
@@ -221,10 +227,9 @@ void Simon_Class::Win()
 {
     Xila.Dialog.Event(F("Well done ! You have max out the game."), Xila.Information);
     Scores[7] = Current_Level[0];
-    Refresh_Interface();
     Save_Registry();
-    Refresh_Interface();
     Reset();
+    Send_Instruction('R', 'e');
 }
 
 void Simon_Class::Sort_Scores()
@@ -249,20 +254,6 @@ void Simon_Class::Sort_Scores()
     Serial.print(Scores[5]);
     Serial.print(Scores[6]);
     Serial.print(Scores[7]);
-
-    /*
-    for (uint8_t i = 0; i < (sizeof(Scores) - 1); i++)
-    {
-        for (uint8_t j = 0; i < (sizeof(Scores) - (i + 1)); j++)
-        {
-            if (Scores[j] > Scores[j + 1])
-            {
-                uint8_t k = Scores[j];
-                Scores[j] = Scores[j + 1];
-                Scores[j + 1] = k;
-            }
-        }
-    }*/
 }
 
 void Simon_Class::Game_Over()
@@ -270,8 +261,8 @@ void Simon_Class::Game_Over()
     Scores[7] = Current_Level[0];
     Sort_Scores();
     Save_Registry();
-    Refresh_Interface();
     Reset();
+    Send_Instruction('R', 'e');
 }
 
 void Simon_Class::Show_Sequence()
@@ -312,7 +303,7 @@ void Simon_Class::Show_Sequence()
             break;
         default:
             Xila.Dialog.Event(F("Exception in the generated sequence."), Xila.Error);
-            Refresh_Interface();
+            Send_Instruction('R', 'e');
             Reset();
             break;
         }
@@ -324,8 +315,8 @@ void Simon_Class::Generate_Sequence()
     Current_Level[0] = 1;
     Current_Level[1] = 0;
     Speed = 1000;
-    for (uint8_t i = 0; i < (MAXIMUM_LEVEL - 1); i++)
+    for (uint8_t i = 0; i < Maximum_Level; i++)
     {
-        Sequence[i] = uint8_t(Xila.System.Random() % 4);
+        Sequence[i] = uint8_t(Xila.System.Random(4));
     }
 }

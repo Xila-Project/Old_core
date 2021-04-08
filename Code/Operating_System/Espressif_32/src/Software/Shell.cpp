@@ -28,6 +28,8 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
                              Mode(0)
 {
     Desk_Background = -1;
+    Write_Speed = 0;
+    Read_Speed = 0;
     Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
@@ -267,11 +269,16 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         switch (Adress)
         {
         case 'B':
-            Brightness = *(uint8_t *)Variable;
+            if (Type == Xila.Display.Variable_Long)
+            {
+                Xila.Display.Brightness = *(uint8_t *)Variable;
+            }
             break;
         case 'V':
-            Serial.print(*(uint8_t *)Variable);
-            Xila.Sound.Set_Volume(*(uint8_t *)Variable);
+            if (Type == Xila.Display.Variable_Long)
+            {
+                Xila.Sound.Set_Volume(*(uint8_t *)Variable);
+            }
             break;
         default:
             break;
@@ -301,10 +308,7 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         }
         break;
     case Keypad:
-        if (Adress == 'I' && Xila.Dialog.Pointer != NULL)
-        {
-            memcpy(Xila.Dialog.Long, (float *)Variable, sizeof(uint32_t));
-        }
+        strlcpy(Temporary_Float_String, (char *)Variable, sizeof(Temporary_Float_String));
         break;
     case Color_Picker:
         if (Adress == 'C' && Xila.Dialog.Pointer != NULL)
@@ -643,7 +647,7 @@ void Shell_Class::Refresh_File_Manager_Detail()
         Xila.Display.Set_Text(F("TYPEVAL_TXT"), F("File"));
     }
 
-    sprintf(Temporary_Char_Array, "%-ul Bytes\n", Temporary_Item.size());
+    sprintf(Temporary_Char_Array, "%di Bytes\n", Temporary_Item.size());
     dtostrf(Temporary_Item.size(), (sizeof(Temporary_Char_Array) - 6), 0, Temporary_Char_Array);
 
     Xila.Display.Set_Text(F("SIZEVAL_TXT"), Temporary_Char_Array);
@@ -949,6 +953,12 @@ void Shell_Class::File_Manager_Instructions()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
+    case Dialog_Power:
+        if (Mode == 0)
+        {
+            Open_Shutdown();
+        }
+        break;
     case Instruction('R', 'F'): // -- Refresh file manager
         Refresh_File_Manager();
         break;
@@ -959,7 +969,7 @@ void Shell_Class::File_Manager_Instructions()
         }
         else
         {
-            Xila.Dialog.State = Xila.Button_3;
+            Xila.Dialog.State = Xila.Default_Cancel;
         }
         break;
     case Instruction('C', 'o'): // copy file
@@ -984,8 +994,7 @@ void Shell_Class::File_Manager_Instructions()
         else
         {
             Operation = Copy;
-
-            Xila.Display.Set_Picture(F("COPY_BUT"), Cut_24);
+            Xila.Display.Set_Picture(F("COPY_BUT"), Paste_24);
         }
 
         break;
@@ -1011,10 +1020,8 @@ void Shell_Class::File_Manager_Instructions()
         else
         {
             Operation = Cut;
-
-            Xila.Display.Set_Picture(F("CUT_BUT"), Cut_24);
+            Xila.Display.Set_Picture(F("CUT_BUT"), Paste_24);
         }
-
         break;
     case Instruction('D', 'e'):
         Operation = Browse;
@@ -1043,7 +1050,7 @@ void Shell_Class::File_Manager_Instructions()
             if (!Selected_Item.isDirectory())
             {
                 Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Button_1;
+                Xila.Dialog.State = Xila.Default_Yes;
                 Xila.Task.Delay(20);
             }
             break;
@@ -1052,7 +1059,7 @@ void Shell_Class::File_Manager_Instructions()
             if (Selected_Item.isDirectory())
             {
                 Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Button_1;
+                Xila.Dialog.State = Xila.Default_Yes;
                 Xila.Task.Delay(20);
             }
             break;
@@ -1060,7 +1067,7 @@ void Shell_Class::File_Manager_Instructions()
             if (!Selected_Item.isDirectory())
             {
                 Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Button_1;
+                Xila.Dialog.State = Xila.Default_Yes;
                 Xila.Task.Delay(20);
             }
             break;
@@ -1382,6 +1389,23 @@ void Shell_Class::Preferences_Personal_Instructions()
     case Instruction('E', 'A'): // Enable autologin
         Xila.Account.Set_Autologin(1);
         break;
+    case Instruction('N', 'L'):
+        if (Xila.Keyboard.Layout < Xila.Keyboard.Italian)
+        {
+            Xila.Keyboard.Layout++;
+            Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
+        }
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('P', 'L'):
+         if (Xila.Keyboard.Layout > 0)
+        {
+            Xila.Keyboard.Layout--;
+            Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
+        }
+        Send_Instruction('R', 'e');
+        break;
+
     case Instruction('D', 'U'):
         if (Event_Dialog(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
         {
@@ -1416,6 +1440,26 @@ void Shell_Class::Refresh_Preferences_Personal()
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
     Xila.Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
     Xila.Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
+    switch (Xila.Keyboard.Layout)
+    {
+    case Xila.Keyboard.American:
+        Xila.Display.Set_Text(F("LAYOUT_TXT"), F("American"));
+        break;
+    case Xila.Keyboard.German:
+        Xila.Display.Set_Text(F("LAYOUT_TXT"), F("German"));
+        break;
+    case Xila.Keyboard.French:
+        Xila.Display.Set_Text(F("LAYOUT_TXT"), F("French"));
+        break;
+    case Xila.Keyboard.English:
+        Xila.Display.Set_Text(F("LAYOUT_TXT"), F("English"));
+        break;
+    case Xila.Keyboard.Italian:
+        Xila.Display.Set_Text(F("LAYOUT_TXT"), F("Italian"));
+        break;
+    default:
+        break;
+    }
 }
 
 // -- Hardware -- //
@@ -1423,36 +1467,39 @@ void Shell_Class::Refresh_Preferences_Personal()
 void Shell_Class::Open_Preferences_Hardware()
 {
     Xila.Display.Set_Current_Page(Preferences_Hardware);
-    Standby_Display_Time = Xila.Display.Standby_Time;
-    Refresh_Preferences_Hardware();
+    Send_Instruction('R', 'e');
 }
 
 void Shell_Class::Refresh_Preferences_Hardware()
 {
+    Xila.Display.Set_Value(F("BRIGHTNESS_SLI"), Xila.Display.Brightness);
     Xila.Display.Set_Value(F("VOLUME_SLI"), Xila.Sound.Get_Volume());
-    Xila.Display.Set_Value(F("SSTANDBY_NUM"), Standby_Display_Time);
+    Xila.Display.Set_Value(F("STANDBY_NUM"), Xila.Display.Standby_Time);
 
-    switch (Xila.Drive.Card_Type())
+    char Temporary_String[40];
+
+    switch (Xila.Drive.Type())
     {
-    case CARD_NONE:
-        Xila.Display.Set_Text(F("DRIVETYPE_TXT"), F("Drive type : None"));
+    case Xila.Drive.None:
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : None | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
         break;
-    case CARD_SD:
-        Xila.Display.Set_Text(F("DRIVETYPE_TXT"), F("Drive type : SDSC"));
+    case Xila.Drive.SD_SC:
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD SC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
         break;
-    case CARD_SDHC:
-        Xila.Display.Set_Text(F("DRIVETYPE_TXT"), F("Drive type : SDHC"));
+    case Xila.Drive.SD_HC:
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD HC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
         break;
-    case CARD_MMC:
-        Xila.Display.Set_Text(F("DRIVETYPE_TXT"), F("Drive type : MMC"));
+    case Xila.Drive.SD_MMC:
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD MMC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
         break;
-    case CARD_UNKNOWN:
-        Xila.Display.Set_Text(F("DRIVETYPE_TXT"), F("Drive type : Unknow"));
+    case Xila.Drive.Unknow:
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : Unknow | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
         break;
     }
+    Xila.Display.Set_Text(F("DRIVE_TXT"), Temporary_String);
 
-    Xila.Display.Set_Value(F("DRIVESIZE_NUM"), (Xila.Drive.Card_Size() / (1024 * 1024)));
-    //Xila.Display.Set_Value(F("USEDSPACE_NUM"), (Xila.Drive.usedBytes() / (1024 * 1024)));
+    sprintf(Temporary_String, " Speed: Read %i KB/s | Write %i KB/s", Read_Speed, Write_Speed);
+    Xila.Display.Set_Text(F("SPEED_TXT"), Temporary_String);
 }
 
 void Shell_Class::Preferences_Hardware_Instructions()
@@ -1466,7 +1513,7 @@ void Shell_Class::Preferences_Hardware_Instructions()
         if (!Temporary_Item)
         {
             Event_Dialog(F("Failed to start the write test."), Xila.Error);
-            Xila.Display.Set_Current_Page(Preferences_Hardware);
+            Send_Instruction('R', 'e');
             break;
         }
         static uint8_t Buffer[512] = {255};
@@ -1482,16 +1529,15 @@ void Shell_Class::Preferences_Hardware_Instructions()
         Time = Xila.Time.Milliseconds() - Time;
         Time /= 1000;               // convert time in sec
         Time = (2048 * 512) / Time; // divide quantity data copied by the time in sec
-        Time = Time / 1000;
+        Write_Speed = Time / 1000;
 
-        Xila.Display.Set_Value(F("WRITESPEED_NUM"), (uint32_t)Time);
         Temporary_Item.close();
 
         Temporary_Item = Xila.Drive.Open(F(Test_Path));
         if (!Temporary_Item)
         {
             Event_Dialog(F("Failed to start the read test."), Xila.Error);
-            Xila.Display.Set_Current_Page(Preferences_Hardware);
+            Send_Instruction('R', 'e');
             break;
         }
 
@@ -1515,36 +1561,49 @@ void Shell_Class::Preferences_Hardware_Instructions()
         Time = Xila.Time.Milliseconds() - Time;
         Time /= 1000;
         Time = Temporary_Item.size() / Time;
-        Time = Time / 1000;
+        Read_Speed = Time / 1000;
         Temporary_Item.close();
-
-        Xila.Display.Set_Value(F("READSPEED_NUM"), (uint32_t)Time);
         Xila.Drive.Remove(F(Test_Path));
         break;
     }
-    case Instruction('k', 'S'): // -- Input standby display time
-        Temporary_Float = Standby_Display_Time;
-        Keypad_Dialog(Temporary_Float);
-        Standby_Display_Time = Temporary_Float;
+    case Instruction('V', '+'):
+        if (Xila.Sound.Get_Volume() <= 243)
+        {
+            Xila.Sound.Set_Volume(Xila.Sound.Get_Volume() + 12);
+            Send_Instruction('R', 'e');
+        }
+        break;
+    case Instruction('V', '-'):
+        if (Xila.Sound.Get_Volume() >= 12)
+        {
+            Xila.Sound.Set_Volume(Xila.Sound.Get_Volume() - 12);
+            Instance_Pointer->Send_Instruction('R', 'e');
+        }
+        break;
+    case Instruction('S', '+'):
+        Xila.Display.Standby_Time += 5;
+        Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('S', '-'):
+        if (Xila.Display.Standby_Time >= 5)
+        {
+            Xila.Display.Standby_Time -= 5;
+            Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
+        }
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('D', 'S'):
+        Xila.Display.Standby_Time = 0;
+        Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('R', 'e'):
+        Set_Watchdog_Timeout();
         Refresh_Preferences_Hardware();
         break;
     case Instruction('D', 'C'):
         Xila.Display.Calibrate();
-        break;
-    case Instruction('S', 'a'):
-        Xila.Display.Brightness = Brightness;
-        Xila.Display.Standby_Time = Standby_Display_Time;
-        if (Xila.Display.Save_Registry() != Xila.Success)
-        {
-            Event_Dialog(F("Failed to set display registry."), Xila.Error);
-        }
-
-        if (Xila.Sound.Save_Registry() != Xila.Success)
-        {
-            Event_Dialog(F("Failed to set sound registry."), Xila.Error);
-        }
-        // Add standby registry
-        Refresh_Preferences_Hardware();
         break;
     default:
         Main_Instructions();
@@ -1574,27 +1633,30 @@ void Shell_Class::Preferences_Network_Instructions()
     {
     case Instruction('K', 'W'):
         Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
-        Refresh_Preferences_Network();
+        Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'w'):
-        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
-        Refresh_Preferences_Network();
+        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password), true);
+        Send_Instruction('R', 'e');
         break;
     case Instruction('W', 'D'):
-        Xila.WiFi.disconnect();
-        Refresh_Preferences_Network();
+        Xila.WiFi.disconnect(true);
+        Send_Instruction('R', 'e');
         break;
     case Instruction('W', 'C'):
-        Xila.WiFi.Set_Credentials(Name, WiFi_Password);
-        Refresh_Preferences_Network();
+        Xila.WiFi.Set_Credentials(WiFi_Name, WiFi_Password);
+        Send_Instruction('R', 'e');
         break;
-    case Instruction('W', 'A'):
+    case Instruction('W', 'H'):
         Xila.WiFi.disconnect();
         if (Xila.WiFi.softAP(Xila.System.Get_Device_Name(), WiFi_Password) != true)
         {
             Event_Dialog(F("Failed to enable the access point."), Xila.Error);
-            Refresh_Preferences_Network();
         }
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('R', 'e'):
+        Refresh_Preferences_Network();
         break;
     default:
         Main_Instructions();
@@ -1788,11 +1850,12 @@ void Shell_Class::Color_Picker_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
-        Xila.Dialog.State = Xila.Button_1;
+        Xila.Dialog.State = Xila.Default_Yes;
         Xila.Task.Delay(20);
         break;
+    case Dialog_Power:
     case Instruction('C', 'a'):
-        Xila.Dialog.State = Xila.Button_3;
+        Xila.Dialog.State = Xila.Default_Cancel;
         Xila.Task.Delay(20);
         break;
     default:
@@ -2279,6 +2342,7 @@ void Shell_Class::Keyboard_Instructions()
         Xila.Dialog.State = Xila.Default_Yes;
         Xila.Task.Delay(20);
         break;
+    case Dialog_Power:
     case Instruction('C', 'a'):
         Xila.Dialog.State = Xila.Default_Cancel;
         Xila.Task.Delay(20);
@@ -2324,7 +2388,36 @@ Xila_Class::Event Shell_Class::Keypad_Dialog(float &Number_To_Get)
 void Shell_Class::Open_Keypad()
 {
     Xila.Display.Set_Current_Page(Keypad);
-    Xila.Display.Set_Value(F("TEMPORARY_FLO"), Xila.Dialog.Long[0]);
+    memset(Temporary_Float_String, '\0', sizeof(Temporary_Float_String));
+    dtostrf(*(float *)Xila.Dialog.Pointer, sizeof(Temporary_Float_String), 9, Temporary_Float_String);
+    uint8_t i;
+    // -- Delete unwanted zeros
+    for (i = sizeof(Temporary_Float_String) - 1; i > 0; i--)
+    {
+        if (Temporary_Float_String[i] == '0' || Temporary_Float_String[i] == '\0')
+        {
+            Temporary_Float_String[i] = '\0';
+        }
+        else
+        {
+            if (Temporary_Float_String[i] == '.')
+            {
+                Temporary_Float_String[i] = '\0';
+            }
+            break;
+        }
+    }
+    // -- Delete unwanted spaces
+    for (i = 0; i < sizeof(Temporary_Float_String); i++)
+    {
+        if (Temporary_Float_String[i] != ' ')
+        {
+            break;
+        }
+    }
+    strcpy(Temporary_Float_String, Temporary_Float_String + i);
+
+    Xila.Display.Set_Text(F("INPUT_VAR"), Temporary_Float_String);
     Xila.Display.Click(F("CONVERT_HOT"), 0);
     Xila.Keyboard.Clear();
 }
@@ -2383,9 +2476,11 @@ void Shell_Class::Keypad_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
+        *(float *)Xila.Dialog.Pointer = strtof(Temporary_Float_String, NULL);
         Xila.Dialog.State = Xila.Default_Yes;
         Xila.Task.Delay(20);
         break;
+    case Dialog_Power:
     case Instruction('C', 'a'):
         Xila.Dialog.State = Xila.Default_Cancel;
         Xila.Task.Delay(20);

@@ -60,21 +60,21 @@
 #define Default_Keyboard_Layout American
 
 // Versionning
-#define VERSION_MAJOR 0
-#define VERSION_MINOR 1
-#define VERSION_REVISION 0
+#define Version_Major 0
+#define Version_Minor 1
+#define Version_Revision 0
 
 
 
 //  Drive retrocompatibility
-#define DRIVE_VERSION_MAJOR 0
-#define DRIVE_VERSION_MINOR 1
-#define DRIVE_VERSION_REVISION 0
+#define DRIVE_Version_Major 0
+#define DRIVE_Version_Minor 1
+#define DRIVE_Version_Revision 0
 
 // Display retrocompatibility
-#define DISPLAY_VERSION_MAJOR 0
-#define DISPLAY_VERSION_MINOR 1
-#define DISPLAY_VERSION_REVISION 0
+#define DISPLAY_Version_Major 0
+#define DISPLAY_Version_Minor 1
+#define DISPLAY_Version_Revision 0
 
 // Core tasks repartition
 #define SOFTWARE_CORE 0
@@ -86,7 +86,7 @@
 
 
 //
-#define DEFAULT_QUEUE_SIZE 16
+#define Default_Instruction_Queue_Size 16
 
 // Task memory allocation
 #define Memory_Chunk(x) (x * 1024)

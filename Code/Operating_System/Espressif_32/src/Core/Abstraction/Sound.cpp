@@ -53,7 +53,7 @@ void Xila_Class::Sound_Class::Begin()
     Xila.GPIO.Set_Mode(36, OUTPUT);
     Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
-    Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(4), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
+    Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(6), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
 }
 
 ///
@@ -95,18 +95,18 @@ void audio_eof_mp3(const char *Informations)
     Xila.Sound.Stop();
 }
 
-void Xila_Class::Sound_Class::Set_Volume(uint16_t Volume_To_Set)
+void Xila_Class::Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 {
-    Volume_To_Set *= 22;
-    Serial.println(Volume_To_Set);
-    Volume_To_Set = Volume_To_Set >> 8;
-    Serial.println(Volume_To_Set);
+    Volume_To_Set = ((21 * Volume_To_Set) / 255);
+    DUMP(Volume_To_Set);
     Audio_Driver.setVolume(Volume_To_Set);
 }
 
 uint8_t Xila_Class::Sound_Class::Get_Volume()
 {
-    return (Audio_Driver.getVolume() * 256) / 22;
+    uint8_t i = ((Audio_Driver.getVolume() * 255) / 21);
+    DUMP(i);
+    return ((Audio_Driver.getVolume() * 255) / 21);
 }
 
 uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const char *Password)
@@ -262,7 +262,6 @@ uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
 
     if (!File_To_Play)
     {
-        Verbose_Print_Line("Cannot open file");
         return Failed_To_Open_File;
     }
 
@@ -391,10 +390,12 @@ bool Xila_Class::Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Cl
 
 void Xila_Class::Sound_Class::Task(void *)
 {
-    uint8_t i = 0;
     while (1)
     {
-
         Audio_Driver.loop();
+        if (Audio_Driver.isRunning() == false)
+        {
+            Xila.Task.Delay(50);
+        }
     }
 }

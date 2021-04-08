@@ -8,7 +8,9 @@ class Pong_Class : public Software_Class
     protected:
     static Pong_Class* Instance_Pointer;
 
-    uint8_t Player_1_Score, Player_2_Score;
+    char Temporary_String[15];
+
+    uint8_t Scores[2];
 
     void Refresh_Interface();
 

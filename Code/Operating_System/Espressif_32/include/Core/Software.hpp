@@ -39,7 +39,7 @@ extern Xila_Class Xila;
 class Software_Class
 {
 protected:
-    Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = DEFAULT_QUEUE_SIZE);
+    Software_Class(Software_Handle_Class &Software_Handle, uint8_t Queue_Size = Default_Instruction_Queue_Size);
     virtual ~Software_Class();
 
     ///

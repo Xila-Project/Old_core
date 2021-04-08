@@ -225,7 +225,6 @@ void Tiny_Basic_Class::Read_Instructions()
           if (isPrintable(Temporary_Char))
           {
             Xila.Display.Add_Text(F("INPUT_VAR"), Temporary_Char);
-            Xila.Display.Click(F("K_HOT"), 0);
           }
           break;
         }
