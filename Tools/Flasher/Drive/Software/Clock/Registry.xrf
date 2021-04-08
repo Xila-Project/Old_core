@@ -1,0 +1,40 @@
+{
+    "Alarms": [
+        {
+            "Title": "Test alarm",
+            "Hour": 1,
+            "Minute": 2,
+            "State": true
+        },
+        {
+            "Title": "Tesalarm 2",
+            "Hour": 1,
+            "Minute": 2,
+            "State": false
+        },
+        {
+            "Title": "Test alarm",
+            "Hour": 1,
+            "Minute": 2,
+            "State": false
+        },
+        {
+            "Title": "Tesalarm 2",
+            "Hour": 1,
+            "Minute": 2,
+            "State": false
+        },
+        {
+            "Title": "Test alarm",
+            "Hour": 1,
+            "Minute": 2,
+            "State": false
+        },
+        {
+            "Title": "Tesalarm 2",
+            "Hour": 1,
+            "Minute": 2,
+            "State": false
+        }
+    ]
+}
