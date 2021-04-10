@@ -53,8 +53,6 @@ void Xila_Class::Software_Management_Class::Check_Watchdog()
     {
       if (Xila.Time.Milliseconds() - Openned[i]->Last_Watchdog_Feed > Openned[i]->Watchdog_Timeout || Openned[i]->Watchdog_Timeout > Maximum_Watchdog_Timeout)
       {
-        Verbose_Print("Watchdog triggered :");
-        Serial.println(*Openned[i]->Handle->Name);
         Xila.Software.Force_Close(*Openned[i]->Handle);
         Xila.Task.Delay(100);
         Xila.Software.Open(Shell_Handle);
@@ -94,9 +92,6 @@ uint8_t Xila_Class::Software_Management_Class::Seek_Open_Software_Handle(Softwar
      */
 Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Class const &Software_Handle)
 {
-  Verbose_Print_Line("Open software ...");
-  // -- if software handle is shell handle, reopen it or maximize it
-
   if (Software_Handle == Shell_Handle)
   {
     if (Openned[1] != NULL)
@@ -121,9 +116,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
       if (Software_Handle == *Openned[i]->Handle)
       {
         Maximize(*Openned[i]->Handle);
-        Verbose_Print("Maximized software :");
-        Serial.print(Openned[0]->Handle->Name);
-        Serial.println(i);
         return Success;
       }
     }
@@ -144,7 +136,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
 
       if (Openned[i]->Instruction_Queue_Handle == NULL)
       {
-        Verbose_Print_Line("Failed to create queue, close software");
         vTaskDelete(Openned[i]->Task_Handle);
         delete Openned[i];
         Openned[i] = NULL;
@@ -166,7 +157,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
      */
 void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &Software_Handle)
 {
-  Verbose_Print_Line("Close software");
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Openned[i] != NULL)
@@ -199,24 +189,6 @@ void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &S
      */
 void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const &Software_Handle)
 {
-  Verbose_Print_Line("Minimize software");
-
-  if (Openned[0] != NULL)
-  {
-    Verbose_Print("0:");
-    Serial.println(Openned[0]->Handle->Name);
-  }
-  if (Openned[1] != NULL)
-  {
-    Verbose_Print("1:");
-    Serial.println(Openned[1]->Handle->Name);
-  }
-  if (Openned[2] != NULL)
-  {
-    Verbose_Print("2:");
-    Serial.println(Openned[2]->Handle->Name);
-  }
-
   if (Openned[0] != NULL)
   {
     if (*Openned[0]->Handle == Software_Handle)
@@ -242,24 +214,6 @@ void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const
      */
 Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handle_Class const &Software_Handle)
 {
-  Verbose_Print_Line("Maximize software");
-
-  if (Openned[0] != NULL)
-  {
-    Verbose_Print("0:");
-    Serial.println(Openned[0]->Handle->Name);
-  }
-  if (Openned[1] != NULL)
-  {
-    Verbose_Print("1:");
-    Serial.println(Openned[1]->Handle->Name);
-  }
-  if (Openned[3] != NULL)
-  {
-    Verbose_Print("3:");
-    Serial.println(Openned[3]->Handle->Name);
-  }
-
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)
   {
@@ -302,7 +256,6 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
 /// @param Software_Handle
 Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Handle_Class const &Software_Handle)
 {
-  Verbose_Print_Line("Force close software");
   for (uint8_t i = 1; i < 8; i++)
   {
     if (Openned[i] != NULL)
@@ -338,7 +291,6 @@ void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &So
   {
     if (Handle[i] == NULL)
     {
-      Serial.print(i);
       Handle[i] = &Software_Handle_To_Add;
       return;
     }

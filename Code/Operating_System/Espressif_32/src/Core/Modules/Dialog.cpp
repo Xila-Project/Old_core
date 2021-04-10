@@ -12,7 +12,6 @@ Xila_Class::Dialog_Class::Dialog_Class()
 Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
-  Verbose_Print_Line("Keyboard dialog");
   // -- Save context
   Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
@@ -40,7 +39,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, si
   Long[1] = 0;
   Xila.Dialog.Caller_Software = NULL;
   // -- Wait 5 ms to switch page
-  Xila.Task.Delay(5);
+  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   xSemaphoreGive(Semaphore);
   return State;
@@ -70,6 +69,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number_To_Get)
 
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
+
+  Xila.Task.Delay(20);
   //
   Pointer = NULL;
   Long[0] = 0;
@@ -103,6 +104,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
+  
+  Xila.Task.Delay(20);
   //
   Pointer = NULL;
   Xila.Dialog.Caller_Software = NULL;
@@ -199,9 +202,6 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
 Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
-
-  Verbose_Print_Line("Open file dialog");
-
   // -- Save context
   Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
   Xila.Display.Send_Raw(F("PAGE=dp"));
@@ -227,6 +227,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
+  
+  Xila.Task.Delay(20);
   // --
   Pointer = NULL;
   Xila.Dialog.Caller_Software = NULL;
@@ -263,6 +265,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
+  
+  Xila.Task.Delay(20);
   // -- Reset attributes
   Pointer = NULL;
   Xila.Dialog.Caller_Software = NULL;
@@ -300,6 +304,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Dialog_Open_Folder(File &Folder_To_O
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
+
+  Xila.Task.Delay(20);
   //
   Pointer = NULL;
   Xila.Dialog.Caller_Software = NULL;

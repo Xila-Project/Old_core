@@ -3,7 +3,7 @@
 
 #include "Xila.hpp"
 
-#define Maximum_Level 256
+#define Maximum_Level 255
 #define Minimum_Speed 120
 
 #define Simon_Registry_Path Software_Directory_Path "/Simon/Registry.xrf"
@@ -39,7 +39,7 @@ private:
     void Game_Over();
     void Win();
 
-    
+
 
 public:
     uint16_t Speed;

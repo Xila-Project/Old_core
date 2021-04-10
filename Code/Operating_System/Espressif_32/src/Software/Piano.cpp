@@ -52,7 +52,8 @@ void Piano_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
-        case Restart: case Shutdown:
+        case Restart:
+        case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
@@ -172,12 +173,36 @@ void Piano_Class::Refresh_Interface()
     }
     else
     {
-        dtostrf(Note_Frequency[Note_ID], 3, 0, Temporary_Char);
-        Temporary_Char[4] = ' ';
-        Temporary_Char[5] = 'H';
-        Temporary_Char[6] = 'z';
-        Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_Char);
+        snprintf(Temporary_String, sizeof(Temporary_String), "%i Hz", (Note_Frequency[Note_ID] + Offset));
+        Xila.Display.Set_Text(F("FREQVAL_TXT"), Temporary_String);
     }
+}
+
+void Piano_Class::Load_Registry()
+{
+    File Temporary_File = Xila.Drive.Open(Piano_File("Registry"));
+    DynamicJsonDocument Piano_Registry(256);
+    if (deserializeJson(Piano_Registry, Temporary_File) != DeserializationError::Ok)
+    {
+        Temporary_File.close();
+        Save_Registry();
+        return;
+    }
+    Temporary_File.close();
+    Offset = Piano_Registry["Offset"] | 0;
+}
+
+void Piano_Class::Save_Registry()
+{
+    DynamicJsonDocument Piano_Registry(256);
+    Piano_Registry["Offset"] = Offset;
+    File Temporary_File = Xila.Drive.Open(Piano_File("Registry"), FILE_WRITE);
+    if (serializeJson(Piano_Registry, Temporary_File) == 0)
+    {
+        Temporary_File.close();
+        Xila.Dialog.Event(F("Failed to save registry."), Xila.Error);
+    }
+    Temporary_File.close();
 }
 
 void Piano_Class::Press_Key(uint8_t Note)
@@ -186,16 +211,6 @@ void Piano_Class::Press_Key(uint8_t Note)
     Current_Note = Note_Frequency[Note_ID] + Offset;
     Xila.Sound.Tone(Current_Note);
     Refresh_Interface();
-    /*if (MIDI_Output == true)
-    {
-        write(144);
-        write(Note);
-        write(128);
-        delay(Duration);
-        write(128);
-        write(Note);
-        write(128);
-    }*/
 }
 void Piano_Class::Release_Key()
 {

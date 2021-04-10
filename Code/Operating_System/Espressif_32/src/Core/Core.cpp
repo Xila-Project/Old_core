@@ -1,13 +1,12 @@
-/**
- * @file Core.cpp
- * @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- * @brief Main xila componennt declaration
- * @version 0.1
- * @date 2021-03-28
- * 
- * @copyright Copyright (c) 2021
- * 
- */
+///
+/// @file Core.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Xila core component source file.
+/// @version 0.1
+/// @date 08-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
@@ -20,19 +19,20 @@ Xila_Class *Xila_Class::Instance_Pointer = NULL;
 
 Xila_Class Xila;
 
-Xila_Class::Xila_Class() : Account(),
-                           Clipboard(),
-                           Dialog(),
-                           Display(),
-                           Drive(),
-                           GPIO(),
-                           Keyboard(),
-                           Power(),
-                           Software(),
-                           Sound(),
-                           System(),
-                           Time(),
-                           WiFi()
+Xila_Class::Xila_Class()
+    : Account(),
+      Clipboard(),
+      Dialog(),
+      Display(),
+      Drive(),
+      GPIO(),
+      Keyboard(),
+      Power(),
+      Software(),
+      Sound(),
+      System(),
+      Time(),
+      WiFi()
 
 {
   if (Instance_Pointer != NULL)

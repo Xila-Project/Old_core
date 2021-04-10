@@ -77,12 +77,10 @@ void Clock_Class::Background_Task(void *pvParameters)
         }
         else
         {
-            Verbose_Print("Next alarm :");
-            Serial.println((Next_Alarm - Xila.Time.Milliseconds()) / 1000);
             if (Next_Alarm < Xila.Time.Milliseconds())
             {
                 Xila.Software.Open(Clock_Handle);
-                Instance_Pointer->Send_Instruction(Instruction('R', 'A'));
+                Instance_Pointer->Send_Instruction('R', 'A');
             }
             Xila.Task.Delay(1000);
         }
@@ -107,8 +105,6 @@ void Clock_Class::Check_Timer()
 
 void Clock_Class::Load_Registry()
 {
-    Verbose_Print_Line("Load clock registry");
-
     memset(Alarm_Title, '\0', sizeof(Alarm_Title));
 
     for (uint8_t i = 0; i < 6; i++)
@@ -126,6 +122,12 @@ void Clock_Class::Load_Registry()
         Temporary_File.close();
         return;
     }
+    Temporary_File.close();
+    if (strcmp(Clock_Registry["Registry"] | "", "Clock") != 0)
+    {
+        Save_Registry();
+        return;
+    }
     uint8_t i = 0;
     for (JsonObject Alarm : Clock_Registry["Alarms"].as<JsonArray>())
     {
@@ -139,50 +141,53 @@ void Clock_Class::Load_Registry()
             break;
         }
     }
-    Temporary_File.close();
 }
 
 void Clock_Class::Save_Registry()
 {
-    Verbose_Print_Line("Save clock registry");
     DynamicJsonDocument Clock_Registry(512);
+    Clock_Registry["Registry"] = "Clock";
     JsonArray Alarms = Clock_Registry.createNestedArray("Alarms");
-
     JsonObject Alarms_0 = Alarms.createNestedObject();
     Alarms_0["Title"] = Alarm_Title[0];
     Alarms_0["Hours"] = Alarm_Hour[0];
     Alarms_0["Minutes"] = Alarm_Minute[0];
-    Alarms_0["Enabled"] = Alarm_State[0];
+    Alarms_0["State"] = Alarm_State[0];
 
     JsonObject Alarms_1 = Alarms.createNestedObject();
     Alarms_1["Title"] = Alarm_Title[1];
     Alarms_1["Hours"] = Alarm_Hour[1];
     Alarms_1["Minutes"] = Alarm_Minute[1];
-    Alarms_1["Enabled"] = Alarm_State[1];
+    Alarms_1["State"] = Alarm_State[1];
 
     JsonObject Alarms_2 = Alarms.createNestedObject();
     Alarms_2["Title"] = Alarm_Title[2];
     Alarms_2["Hours"] = Alarm_Hour[2];
     Alarms_2["Minutes"] = Alarm_Minute[2];
-    Alarms_2["Enabled"] = Alarm_State[2];
+    Alarms_2["State"] = Alarm_State[2];
 
     JsonObject Alarms_3 = Alarms.createNestedObject();
     Alarms_3["Title"] = Alarm_Title[3];
     Alarms_3["Hours"] = Alarm_Hour[3];
     Alarms_3["Minutes"] = Alarm_Minute[3];
-    Alarms_3["Enabled"] = Alarm_State[3];
+    Alarms_3["State"] = Alarm_State[3];
 
     JsonObject Alarms_4 = Alarms.createNestedObject();
     Alarms_4["Title"] = Alarm_Title[4];
     Alarms_4["Hours"] = Alarm_Hour[4];
     Alarms_4["Minutes"] = Alarm_Minute[4];
-    Alarms_4["Enabled"] = Alarm_State[4];
+    Alarms_4["State"] = Alarm_State[4];
 
     JsonObject Alarms_5 = Alarms.createNestedObject();
     Alarms_5["Title"] = Alarm_Title[5];
     Alarms_5["Hours"] = Alarm_Hour[5];
     Alarms_5["Minutes"] = Alarm_Minute[5];
-    Alarms_5["Enabled"] = Alarm_State[5];
+    Alarms_5["State"] = Alarm_State[5];
+
+    if (!Xila.Drive.Exists(Clock_Directory_Path))
+    {
+        Xila.Drive.Make_Directory(Clock_Directory_Path);
+    }
 
     File Temporary_File = Xila.Drive.Open(Clock_File("Registry.xrf"), FILE_WRITE);
     if (serializeJson(Clock_Registry, Temporary_File) == 0)
@@ -342,19 +347,16 @@ void Clock_Class::Refresh_Next_Alarm()
 
     for (uint8_t i = 0; i < 6; i++)
     {
-        if (Alarm_State[i] == Enabled)
+        if (Alarm_Delta[i] < Alarm_Delta[7] && Alarm_Delta[i] > 1)
         {
-            if (Alarm_Delta[i] < Alarm_Delta[7])
-            {
-                Alarm_Delta[7] = Alarm_Delta[i];
-                Next_Alarm_Slot = i;
-            }
+            Alarm_Delta[7] = Alarm_Delta[i];
+            Next_Alarm_Slot = i;
         }
     }
 
     if (Alarm_Delta[7] != 0xFFFF)
     {
-        Next_Alarm = (Alarm_Delta[Next_Alarm_Slot] * 60) * 1000; // next alarm in Xila.Time.Milliseconds()
+        Next_Alarm = (Alarm_Delta[Next_Alarm_Slot] * 60) * 1000; // next alarm in milliseconds
     }
     else
     {
@@ -535,8 +537,14 @@ void Clock_Class::Main_Instructions()
         Xila.Display.Set_Current_Page(Clock);
         Instance_Pointer->Refresh_Chronometer();
         break;
+    case Instruction('R', 'A'):
+        Next_Alarm = 0;
+        Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
+        Xila.Dialog.Event(F("Time over."), Xila.Information);
+        Xila.Sound.Stop();
+        Send_Instruction('R', 'e');
+        break;
     default:
-        Verbose_Print_Line("Unknow command");
         break;
     }
 }

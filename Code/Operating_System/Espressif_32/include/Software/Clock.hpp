@@ -3,7 +3,8 @@
 
 #include "Xila.hpp"
 
-#define Clock_File(name) Software_Directory_Path "/Clock/" name
+#define Clock_Directory_Path Software_Directory_Path "/Clock"
+#define Clock_File(name) Clock_Directory_Path "/" name
 
 class Clock_Class : public Software_Class
 {

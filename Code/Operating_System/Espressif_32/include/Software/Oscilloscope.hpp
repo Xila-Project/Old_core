@@ -1,19 +1,14 @@
-#include "Xila.hpp"
+///
+ /// @file Oscilloscope.hpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr) - botofancalin
+ /// @brief Oscilloscope software header file.
+ /// @version 0.1
+ /// @date 08-04-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
 
-/**
- * @file Oscilloscope.hpp
- * @brief Oscilloscope Software header file.
- * @author Botofancalin - Alix ANNERAUD (adaptation to Xila)
- * @copyright Botofancalin - Alix ANNERAUD (only rewritten code)
- * @version 0.1.0
- * @date 
- * @details An oscilloscope application
- * @section Licence
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
- * https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope
- */
+#include "Xila.hpp"
 
 #define Default_Channel_0_Pin 35
 #define Default_Channel_1_Pin 36

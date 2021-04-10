@@ -1,4 +1,16 @@
+///
+ /// @file Piano.hpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief Piano software header file.
+ /// @version 0.1.0
+ /// @date 08-04-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #include "Xila.hpp"
+
+#define Piano_File(name) Software_Directory_Path "/Internet/" name
 
 class Piano_Class : public Software_Class
 {
@@ -14,11 +26,14 @@ private:
 
     const uint16_t Note_Frequency[24] = {262, 277, 294, 311, 330, 349, 370, 392, 415, 440, 466, 494, 523, 554, 587, 622, 659, 698, 740, 784, 831, 880, 932, 988};
 
-    char Temporary_Char[7];
+    char Temporary_String[8];
 
     void Press_Key(uint8_t);
     void Release_Key();
     void Refresh_Interface();
+
+    void Load_Registry();
+    void Save_Registry();
 
 public:
 

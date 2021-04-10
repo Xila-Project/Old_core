@@ -1,29 +1,20 @@
-/**
- * @file Display.cpp
- * @brief Xila's display driver source file.
- * @authors bitluni - Alix ANNERAUD
- * @copyright MIT License
- * @version 0.1.0
- * @date 21/05/2020
- * @details Xila display driver, used by the core and softwares to display things.
- * @section License
- * 
- * Copyright (c) 2020 Alix ANNERAUD
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
-*/
+///
+ /// @file Sound.cpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief Xila sound abstraction layer source file.
+ /// @version 0.1.0
+ /// @date 08-04-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
 
 #include "Core/Core.hpp"
 
 #include "Audio.h"
 
-#if SD_MODE == 0
+#if Drive_Mode == 0
 #define Audio_Drive SD_MMC
-#elif SD_MODE == 1
+#elif Drive_Mode == 1
 #define Audio_Drive SD
 #endif
 
@@ -63,10 +54,14 @@ void Xila_Class::Sound_Class::Begin()
 ///
 Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 {
-    Verbose_Print_Line("Load sound registry");
     File Temporary_File = Xila.Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
+    {
+        Temporary_File.close();
+        return Error;
+    }
+    if (strcmp("Sound", Sound_Registry["Registry"] | "") != 0)
     {
         Temporary_File.close();
         return Error;
@@ -79,6 +74,7 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(256);
+    Sound_Registry["Registry"] = "Sound";
     Sound_Registry["Volume"] = Get_Volume();
     File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
@@ -98,14 +94,11 @@ void audio_eof_mp3(const char *Informations)
 void Xila_Class::Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 {
     Volume_To_Set = ((21 * Volume_To_Set) / 255);
-    DUMP(Volume_To_Set);
     Audio_Driver.setVolume(Volume_To_Set);
 }
 
 uint8_t Xila_Class::Sound_Class::Get_Volume()
 {
-    uint8_t i = ((Audio_Driver.getVolume() * 255) / 21);
-    DUMP(i);
     return ((Audio_Driver.getVolume() * 255) / 21);
 }
 
@@ -117,7 +110,6 @@ uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char 
     }
     else if (File_Path_Or_Host[0] == '/')
     {
-        Verbose_Print_Line("Play from sd");
         if (Audio_Driver.connecttoFS(Audio_Drive, File_Path_Or_Host) != true)
         {
             return false;
@@ -258,8 +250,6 @@ void Xila_Class::Sound_Class::No_Tone(uint8_t Pin)
 
 uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
 {
-    Verbose_Print_Line("Play sound");
-
     if (!File_To_Play)
     {
         return Failed_To_Open_File;
@@ -374,7 +364,6 @@ void Xila_Class::Sound_Class::Pause()
 ///
 void Xila_Class::Sound_Class::Stop()
 {
-    Verbose_Print_Line("Stop");
     Audio_Driver.stopSong();
 }
 

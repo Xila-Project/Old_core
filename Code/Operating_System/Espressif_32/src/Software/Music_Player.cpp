@@ -40,8 +40,6 @@ void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_
     if (Adress == 'V' && Type == Xila.Display.Variable_Long)
     {
         Volume = *(uint8_t *)Variable;
-        Verbose_Print("Set volume variable:");
-        Serial.println(Volume);
     }
     else if (Adress == 'T' && Type == Xila.Display.Variable_Long)
     {
@@ -248,14 +246,12 @@ void Music_Player_Class::Main_Task(void *pvParameters)
 
 void Music_Player_Class::Set_Time()
 {
-    Verbose_Print_Line("Set time");
     Xila.Sound.Set_Current_Time((Time_To_Set * Total_Time) / Timeline_Size);
     Send_Instruction('R', 'e');
 }
 
 void Music_Player_Class::Open_File()
 {
-    Verbose_Print_Line("Open file");
     Stop();
     Music_Folder.close();
 
@@ -276,27 +272,19 @@ void Music_Player_Class::Open_Radio(uint8_t Radio)
 {
 
     Stop();
-    Verbose_Print_Line("Open radio");
     File Temporary_File = Xila.Drive.Open(Music_Player_File("Registry.xrf"));
     DynamicJsonDocument Music_Player_Registry(512);
-    Verbose_Print_Line("Deserialize radio");
     if (deserializeJson(Music_Player_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
         return;
     }
     Temporary_File.close();
-
-    Verbose_Print_Line("Deserialized");
-    if (strcmp(Music_Player_Registry["Registry"], "Music Player") != 0)
+    if (strcmp("Music Player", Music_Player_Registry["Registry"] | "") != 0)
     {
-        Verbose_Print_Line("Corrupted registry radi");
         return;
     }
-
-    Verbose_Print_Line("Memset");
     memset(Temporary_Radio_Link, '\0', sizeof(Temporary_Radio_Link));
-    Verbose_Print_Line("test");
     switch (Radio)
     {
     case 1:
@@ -341,7 +329,6 @@ void Music_Player_Class::Open_Radio(uint8_t Radio)
 
 void Music_Player_Class::Set_Radio(uint8_t Radio)
 {
-    Verbose_Print_Line("set radio");
     if (Xila.Dialog.Keyboard(Temporary_Radio_Link, sizeof(Temporary_Radio_Link)) == Xila.Default_Cancel)
     {
         return;
@@ -383,7 +370,6 @@ void Music_Player_Class::Set_Radio(uint8_t Radio)
 
 void Music_Player_Class::Open_Folder()
 {
-    Verbose_Print_Line("Open folder");
     Stop();
     if (Xila.Dialog.Dialog_Open_Folder(Music_Folder) != Xila.Default_Yes)
     {
@@ -482,13 +468,9 @@ void Music_Player_Class::Refresh_Interface()
 
 void Music_Player_Class::Play()
 {
-    Verbose_Print_Line("Play");
-
     Xila.Sound.Set_Current_Time(0);
-
     if (Xila.Sound.Play(Music_File) != Xila.Success)
     {
-        Verbose_Print_Line("Failed to play music");
         Stop();
         Xila.Dialog.Event(F("Cannot play this music file."), Xila.Error);
     }
@@ -496,13 +478,11 @@ void Music_Player_Class::Play()
     {
         State = Playing;
     }
-
     Send_Instruction('R', 'e');
 }
 
 void Music_Player_Class::Stop()
 {
-    Verbose_Print_Line("Stop");
     memset(Temporary_Radio_Link, '\0', sizeof(Temporary_Radio_Link));
     xQueueReset(Next_Queue);
     xQueueReset(Last_Queue);
@@ -515,27 +495,20 @@ void Music_Player_Class::Stop()
 
 void Music_Player_Class::Next_Track()
 {
-    Verbose_Print_Line("Next track");
     if (Music_Folder && Music_Folder.isDirectory())
     {
         uint16_t Next_File;
         if (xQueueReceive(Next_Queue, &Next_File, pdMS_TO_TICKS(10)) != pdTRUE)
         {
-            Verbose_Print_Line("Empty queue !");
             Generate_Queue();
             if (xQueueReceive(Next_Queue, &Next_File, pdMS_TO_TICKS(10)) != pdTRUE)
             {
-                DUMP("Failed to generate queue");
                 Stop();
                 return;
             }
         }
-
-        DUMP(Next_File);
         Open_File(Next_File);
-
         xQueueSend(Last_Queue, &Next_File, pdMS_TO_TICKS(10));
-
         Play();
     }
     else
@@ -546,7 +519,6 @@ void Music_Player_Class::Next_Track()
 
 void Music_Player_Class::Last_Track()
 {
-    Verbose_Print_Line("Last track");
     if (Music_Folder)
     {
 
@@ -577,15 +549,10 @@ void Music_Player_Class::Last_Track()
 
 void Music_Player_Class::Generate_Queue()
 {
-    Verbose_Print_Line("Generate queue");
-
     static uint32_t Folder_Position = 0;
-
     Loop = false;
-
     if (!Music_Folder || !Music_Folder.isDirectory())
     {
-        DUMP("error generate queue");
         return;
     }
 
@@ -593,18 +560,14 @@ void Music_Player_Class::Generate_Queue()
 
     if (File_Count == 0)
     {
-        DUMP("Empty folder");
         return;
     }
-
-    DUMP(File_Count);
 
     if (Random)
     {
         while (xQueueSend(Next_Queue, &Folder_Position, pdMS_TO_TICKS(10)) == pdTRUE)
         {
             Folder_Position = Xila.System.Random(File_Count);
-            DUMP(Folder_Position);
         }
         Folder_Position = 0;
     }
@@ -620,14 +583,12 @@ void Music_Player_Class::Generate_Queue()
             {
                 Folder_Position++;
             }
-            DUMP(Folder_Position);
         }
     }
 }
 
 void Music_Player_Class::Open_File(uint16_t Folder_Position)
 {
-    Verbose_Print_Line("Open file in folder");
     Music_File.close();
     if (!Music_Folder)
     {
@@ -655,7 +616,6 @@ void Music_Player_Class::Open_File(uint16_t Folder_Position)
 
 void Music_Player_Class::Check_Queue()
 {
-    Verbose_Print_Line("Check queue");
     if (Xila.Sound.Get_State() == false && Music_Folder && Music_Folder.isDirectory() && State == Playing)
     {
         Xila.Task.Delay(250);

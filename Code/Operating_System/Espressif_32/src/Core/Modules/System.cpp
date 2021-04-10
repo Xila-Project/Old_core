@@ -20,29 +20,24 @@ Xila_Class::System_Class::~System_Class()
 
 Xila_Class::Event Xila_Class::System_Class::Load_Registry()
 {
-  Verbose_Print_Line("> Load system registry");
-  File Temporary_File = Xila.Drive.Open(Registry("System"));
-
+  File Temporary_File = Xila.Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
     Temporary_File.close();
     return Error;
   }
-  if (strcmp("System", System_Registry["Registry"] | "") == 0)
+  if (strcmp("System", System_Registry["Registry"] | "") != 0)
   {
     Temporary_File.close();
     return Error;
   }
-
   JsonObject Version = System_Registry["Version"];
-
   if (Version["Major"] != Version_Major || Version["Minor"] != Version_Minor || Version["Revision"] != Version_Revision)
   {
     Panic_Handler(Installation_Conflict);
   }
-
-  strlcpy(Xila.System.Device_Name, System_Registry["Device Name"] | Default_Device_Name, sizeof(Xila.System.Device_Name));
+ strlcpy(Xila.System.Device_Name, System_Registry["Device Name"] | Default_Device_Name, sizeof(Xila.System.Device_Name));
   Xila.WiFi.setHostname(Xila.System.Device_Name); // Set hostname
   Temporary_File.close();
   return Success;
@@ -50,28 +45,22 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
 
 Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Registry("System"), FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
-
   System_Registry["Registry"] = "System";
   System_Registry["Device Name"] = Device_Name;
-  
   JsonObject Version = System_Registry.createNestedObject("Version");
   Version["Major"] = Version_Major;
   Version["Minor"] = Version_Minor;
   Version["Revision"] = Version_Revision;
-  
-  
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
     return Error;
   }
-
   Temporary_File.close();
   return Success;
 }
-
 
 inline uint32_t Xila_Class::System_Class::Get_Free_Heap()
 {
@@ -175,7 +164,6 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
   Xila.Task.Delay(10000);
   abort();
 }
-
 
 Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 {
@@ -291,12 +279,6 @@ void Xila_Class::System_Class::Refresh_Header()
 
   if (Temporary_Char_Array[5] <= 15)
   {
-#if BATTERY_CHECKING == 1
-    if (Temporary_Char_Array[5] <= 2)
-    {
-      Shutdown();
-    }
-#endif
     Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Empty);
   }
   else if (Temporary_Char_Array[5] <= 30 && Temporary_Char_Array[5] > 15)
@@ -338,7 +320,6 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
-  Verbose_Print_Line("> First start routine");
   // -- Check if the power button was press or the power supply plugged.
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
@@ -347,22 +328,14 @@ inline void Xila_Class::System_Class::First_Start_Routine()
     Xila.Power.Deep_Sleep();
   }
 
-  // -- Check if the battery level is enough to start.
-
-#if BATTERY_CHECKING == 1
-  if (Xila.Power.Get_Charge_Level() <= 3)
-  {
-    Xila.Power.Deep_Sleep();
-  }
-#endif
-
+  // -- Set power button interrupts
   Xila.GPIO.Set_Mode(POWER_BUTTON_PIN, INPUT);
-  // Temporary disable power button interrupt due to disturbance caused maybe by WiFi
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Xila.Power.Button_Handler, FALLING);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Xila.Power.Press_Button_Handler, FALLING);
+  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Xila.Power.Release_Button_Handler, RISING);
 
   // -- Initialize drive. -- //
 
-#if SD_MODE == 0
+#if Drive_Mode == 0
   Xila.GPIO.Set_Mode(14, INPUT_PULLUP);
   Xila.GPIO.Set_Mode(2, INPUT_PULLUP);
   Xila.GPIO.Set_Mode(4, INPUT_PULLUP);
@@ -372,12 +345,11 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
-    Verbose_Print_Line("Failed to initalize drive");
     Xila.Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
   }
   while (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
-    Xila.Task.Delay(50);
+    Xila.Task.Delay(200);
   }
   Xila.Display.Set_Text(F("EVENT_TXT"), F(""));
 
@@ -387,11 +359,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incomming_String_Data_From_Display);
   Xila.Display.Set_Callback_Function_Event(Xila.Display.Incomming_Event_From_Display);
 
-  //Xila.Display.Begin();
-
   if (Xila.Display.Load_Registry() != Success)
   {
-    Verbose_Print_Line("Failed to load display registry");
     Xila.Display.Save_Registry();
   }
 
@@ -416,7 +385,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   if (Xila.Sound.Load_Registry() != Success)
   {
     Xila.Sound.Save_Registry();
-    Verbose_Print_Line("Failed to load sound registry");
   }
   Xila.Sound.Begin();
 
@@ -435,14 +403,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (Xila.WiFi.Load_Registry() != Success)
   {
-    Verbose_Print_Line("Failed to connect to WiFi");
     Xila.WiFi.Save_Registry();
   }
 
   // -- Time registry
   if (Xila.Time.Load_Registry() != Success)
   {
-    Verbose_Print_Line("Failed to load time registry");
     Xila.Time.Save_Registry();
   }
 
@@ -450,13 +416,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (Xila.Account.Load_Registry() != Success)
   {
-    Xila.Account.Save_Registry();
+    Xila.Account.Set_Autologin(false);
   }
 
   // -- Load Keyboard Registry
   if (Xila.Keyboard.Load_Registry() != Success)
   {
-    Verbose_Print_Line("Load keyboard registry");
     Xila.Keyboard.Save_Registry(); // recreate a keyboard registry with default values
   }
 }
@@ -468,13 +433,13 @@ void Xila_Class::System_Class::Second_Start_Routine()
 {
   Xila.System.Load_Dump();
 
-#if ANIMATION == 1
+#if Animations == 1
   Xila.Task.Delay(3000);
 #endif
 
   Xila.Display.Set_Value(F("STATE_VAR"), 2);
 
-#if ANIMATION == 1
+#if Animations == 1
   Xila.Task.Delay(3000);
 #endif
 
@@ -538,22 +503,15 @@ void Xila_Class::System_Class::Start(Software_Handle_Class *Software_Package, ui
      */
 void Xila_Class::System_Class::Start()
 {
-#if USB_SERIAL == 1
-  Serial.begin(USB_SERIAL_SPEED);
+#if USB_Serial == 1
+  Serial.begin(Default_USB_Serial_Speed);
 #endif
-
-  Verbose_Print_Line("Start");
-
   if (Xila.System.Task_Handle != NULL) // Already started
   {
     return;
   }
 
   First_Start_Routine();
-
-  // -- Load softwares -- //
-
-  Verbose_Print_Line("> Load software ...");
 
   extern Software_Handle_Class Calculator_Handle;
   extern Software_Handle_Class Clock_Handle;
@@ -599,7 +557,6 @@ void Xila_Class::System_Class::Execute_Startup_Function()
     {
       if (Xila.Software.Handle[i]->Startup_Function_Pointer != NULL)
       {
-        Serial.println("L");
         (*Xila.Software.Handle[i]->Startup_Function_Pointer)();
       }
     }
@@ -642,7 +599,6 @@ void Xila_Class::System_Class::Shutdown()
 
 void Xila_Class::System_Class::Second_Sleep_Routine()
 {
-  Xila.Account.Save_Registry();
   Xila.Display.Save_Registry();
   Xila.Keyboard.Save_Registry();
   Xila.Power.Save_Registry();
@@ -650,7 +606,6 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
   Xila.WiFi.Save_Registry();
   Xila.Time.Save_Registry();
   Xila.System.Save_Registry();
-
 
   // Shutdown screen
   Xila.Display.Set_Touch_Wake_Up(false);
@@ -666,10 +621,8 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
   // Disconnect wifi
   Xila.WiFi.disconnect(true);
 
-    //
+  //
   Xila.Drive.End();
-
-
 
   //Set deep sleep
   Xila.Power.Deep_Sleep();

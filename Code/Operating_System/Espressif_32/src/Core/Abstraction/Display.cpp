@@ -23,7 +23,6 @@ Xila_Class::Display_Class::~Display_Class()
 
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
-    Verbose_Print_Line("> Load display registry ...");
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
@@ -31,19 +30,14 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
-    if (strcmp(Display_Registry["Registry"], "Display") != 0)
+    if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
         Temporary_File.close();
         return Error;
     }
     Standby_Time = Display_Registry["Standby Time"] | Default_Display_Standby_Time;
-    Serial.println(Standby_Time);
     Receive_Pin = Display_Registry["Receive Pin"] | Default_Display_Receive_Pin;
-    Serial.println(Receive_Pin);
     Transmit_Pin = Display_Registry["Transmit Pin"] | Default_Display_Transmit_Pin;
-    Serial.println(Transmit_Pin);
-    Serial.println(Display_Registry["Baud Rate"].as<uint32_t>());
-    Serial.println(Display_Registry["Brightness"].as<byte>());
     Xila.Display.Begin(Display_Registry["Baud Rate"] | Default_Display_Baud_Rate, Receive_Pin, Transmit_Pin);
     Xila.Display.Set_Touch_Wake_Up(true);
     Xila.Display.Set_Serial_Wake_Up(true);
@@ -120,7 +114,6 @@ void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
         Xila.System.Refresh_Header();
         break;
     case Serial_Buffer_Overflow:
-        Verbose_Print_Line("Display buffer overflow");
         break;
     case Auto_Entered_Sleep_Mode:
         Xila.Display.Set_State(false);

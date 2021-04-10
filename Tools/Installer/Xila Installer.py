@@ -1,3 +1,4 @@
+
 import os
 import subprocess
 import time
@@ -22,19 +23,9 @@ print('||            Version : 0.1.0 - Alix ANNERAUD - MIT Licence - 2021       
 print('||                                                                            ||')
 print('||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||')
 print('||                                                                            ||')
-input('|| > Press Enter to continue ...                                              ||')
 print('|| > Starting flashing tool ...                                               ||')
 print('||                                                                            ||')
 
-
-Create_Drive = input('|| > Do you want to create a new installation drive ? (Y/N) ')
-if Create_Drive=='Y':
-    print('|| > Please insert the empty drive to initialize.                             ||')
-    Destination_Path = input('|| > Enter the drive letter :')
-    Destination_Path = Destination_Path + ":\\"
-    shutil.copytree('./Drive', Destination_Path)
-
-print('||                                                                            ||')
 Create_Drive = input('|| > Do you to write Xila to an ESP32 ? (Y/N) ')
 if Create_Drive=='Y':
     os.chdir('./Executables')

@@ -28,7 +28,6 @@ Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 
 Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
 {
-  Verbose_Print_Line("Load time registry");
   File Temporary_File = Xila.Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);
   if (deserializeJson(Time_Registry, Temporary_File) != DeserializationError::Ok)

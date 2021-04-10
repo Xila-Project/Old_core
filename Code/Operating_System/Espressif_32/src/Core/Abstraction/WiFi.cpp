@@ -1,15 +1,14 @@
-/**
- * @file Wifi.cpp
- * @author Alix ANNERAUD (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2021-03-28
- * 
- * @copyright Copyright (c) 2021
- * 
- */
+///
+ /// @file WiFi.cpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr) - Espressif
+ /// @brief Xila WiFi abstraction layer source file.
+ /// @version 0.1
+ /// @date 08-04-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
 
-#include "Core/Core.hpp"
+
 
 /*
  ESP8266WiFi.cpp - WiFi library for esp8266
@@ -34,6 +33,8 @@
  Reworked on 28 Dec 2015 by Markus Sattler
 
  */
+
+#include "Core/Core.hpp"
 
 extern "C"
 {
@@ -76,7 +77,6 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
 
 Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 {
-    Verbose_Print_Line("Load wifi registry");
     File Temporary_File = Xila.Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
@@ -84,14 +84,16 @@ Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
+    Temporary_File.close();
+    if (strcmp(Network_Registry["Registry"] | "", "Network") != 0)
+    {
+        return Error;
+    }
     JsonObject WiFi_Registry = Network_Registry["WiFi"];
     strlcpy(this->Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
     char Temporary_Char[33];
     strlcpy(Temporary_Char, WiFi_Registry["Name"] | "\0", sizeof(Temporary_Char));
     Set_Credentials(Temporary_Char, Password);
-   
-
-    Temporary_File.close();
     return Success;
 }
 
@@ -108,6 +110,7 @@ void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Passw
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
     begin(Name, this->Password);
+    #warning remove power button wifi sleep section !
     setSleep(WIFI_PS_NONE);
 }
 

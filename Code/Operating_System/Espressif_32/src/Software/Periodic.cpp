@@ -24,7 +24,6 @@ Software_Class *Periodic_Class::Load()
     if (Instance_Pointer != NULL)
     {
         delete Instance_Pointer;
-        Verbose_Print_Line("Double instance !");
     }
     Instance_Pointer = new Periodic_Class();
     return Instance_Pointer;
@@ -105,8 +104,6 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Instance_Pointer->Get_Main_Data();
             break;
         default:
-            Serial.println(F("Unknow Socket Method ! "));
-            //error handle
             break;
         }
     }
@@ -157,11 +154,6 @@ void Periodic_Class::Get_Atom_Name()
         }
         break;
     }
-
-    Serial.print(Line);
-    Serial.print("|");
-    Serial.println(Column);
-
     char Line_String[2], Column_String[3];
 
     Line_String[0] = Line + '0';
@@ -179,8 +171,6 @@ void Periodic_Class::Get_Atom_Name()
         Column_String[1] = (Column % 10) + '0';
         Column_String[2] = '\0';
     }
-
-    uint32_t time = Xila.Time.Milliseconds();
 
     DynamicJsonDocument Index(256);
 
@@ -212,7 +202,6 @@ void Periodic_Class::Get_Atom_Name()
         strlcpy(Current_Atom_Name, Pair.value().as<char *>(), sizeof(Current_Atom_Name));
     }
 
-    Serial.println(Xila.Time.Milliseconds() - time);
     Periodic_File.close();
 }
 
@@ -223,8 +212,6 @@ void Periodic_Class::Get_Main_Data()
         return;
     }
 
-    Serial.println(Current_Atom_Name);
-
     if (Current_Atom_Name[0] == '\0')
     {
         Xila.Display.Set_Current_Page(F("Periodic_Main"));
@@ -232,8 +219,6 @@ void Periodic_Class::Get_Main_Data()
     }
 
     DynamicJsonDocument Data_Registry(512);
-
-    uint32_t time = Xila.Time.Milliseconds();
 
     {
         DynamicJsonDocument Filter(256);
@@ -290,20 +275,12 @@ void Periodic_Class::Get_Main_Data()
 
     JsonObject Periodic_Object = Data_Registry.as<JsonObject>();
 
-    Verbose_Print_Line("Deserialized");
-
     JsonObject Current_Atom_Object;
 
     for (JsonPair Pair : Periodic_Object)
     {
         Current_Atom_Object = Pair.value().as<JsonObject>();
     }
-
-    Serial.println(Xila.Time.Milliseconds() - time);
-
-    Verbose_Print_Line("Found");
-
-    Verbose_Print_Line("Deserialized");
 
     // -- Name
     if (Current_Atom_Object["name"].as<char *>() == NULL)

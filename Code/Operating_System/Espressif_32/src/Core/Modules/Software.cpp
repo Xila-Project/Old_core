@@ -19,7 +19,7 @@ Software_Class::Software_Class(Software_Handle_Class &Software_Handle, uint8_t Q
     Instruction_Queue_Handle = xQueueCreate(Queue_Size, sizeof(uint16_t));
     if (Instruction_Queue_Handle == NULL)
     {
-      Serial.print(F("Error cannot create software Queue !"));
+      delete this;
     }
     else
     {
@@ -34,7 +34,6 @@ Software_Class::Software_Class(Software_Handle_Class &Software_Handle, uint8_t Q
 ///
 Software_Class::~Software_Class() // Destructor : close
 {
-  Verbose_Print_Line("destructor software");
   vQueueDelete(Instruction_Queue_Handle);
 }
 

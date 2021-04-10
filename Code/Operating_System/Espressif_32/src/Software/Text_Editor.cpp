@@ -179,10 +179,8 @@ void Text_Editor_Class::Refresh_Interface()
 
         if (Line_Number > 14)
         {
-            Verbose_Print_Line("Max line");
             break;
         }
-
 
         if (Temporary_Character == Line_Ending)
         {

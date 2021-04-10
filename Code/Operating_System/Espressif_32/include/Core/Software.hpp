@@ -60,7 +60,6 @@ protected:
         Hibernate = 'H',
         Watchdog = 'W',
         // -- Shell specials instructions
-
         Desk = 'D',                // Open desk
         Dialog_Open_File = 'f',    // Open open file dialog
         Dialog_Open_Folder = 'F',  // Open open folder dialog

@@ -1,22 +1,19 @@
-/**
- * @file Account.cpp
- * @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- * @brief Contains all of the methods of account management module.
- * @version 0.1
- * @date 2021-03-28
- * 
- * @copyright Copyright (c) 2021
- * 
- */
+///
+/// @file Account.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Account management source file.
+/// @version 0.1
+/// @date 08-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
 Xila_Class::Account_Class::Account_Class()
 {
   memset(Current_Username, '\0', sizeof(Current_Username));
-#if LOGIN == 0
-  strlcpy(Current_Username, "ALIX", sizeof(Current_Username));
-#endif
+  strlcpy(Current_Username, Default_Debug_Account, sizeof(Current_Username));
 }
 
 Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
@@ -28,13 +25,12 @@ Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
     Temporary_File.close();
     return Error;
   }
-  strlcpy(Current_Username, Account_Registry["Autologin"] | Default_Autologin_Account, sizeof(Current_Username));
   Temporary_File.close();
-  return Success;
-}
-
-Xila_Class::Event Xila_Class::Account_Class::Save_Registry()
-{
+  if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
+  {
+    return Error;
+  }
+  strlcpy(Current_Username, Account_Registry["Autologin"] | "", sizeof(Current_Username));
   return Success;
 }
 
@@ -48,13 +44,13 @@ Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
-  if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+  Account_Registry["Registry"] = "Account";
+  Account_Registry["Autologin"] = Current_Username;
+  if (serializeJson(Account_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
     return Error;
   }
-  Account_Registry["Autologin"] = Current_Username;
-  serializeJson(Account_Registry, Temporary_File);
   Temporary_File.close();
   return Success;
 }
@@ -89,7 +85,7 @@ const char *Xila_Class::Account_Class::Get_Current_Username()
      */
 Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
-  if (Xila.Drive.Exists(Users_Directory_Path + String("/")+ String(Username)))
+  if (Xila.Drive.Exists(Users_Directory_Path + String("/") + String(Username)))
   {
     return Error;
   }
@@ -103,12 +99,18 @@ Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const cha
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
 
   User_Registry["Registry"] = "User";
   User_Registry["Password"] = Password;
-  serializeJson(User_Registry, Temporary_File);
+  if (serializeJson(User_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
   return Success;
 }
 
@@ -151,10 +153,16 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
+    Temporary_File.close();
     return Error;
   }
   User_Registry["Password"] = Password_To_Set;
-  serializeJson(User_Registry, Temporary_File);
+  if (serializeJson(User_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
   return Success;
 }
 
@@ -183,31 +191,25 @@ Xila_Class::Event Xila_Class::Account_Class::Lock()
 
 Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
-    char Temporary_Path[48];
-    snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
-    File Temporary_File = Xila.Drive.Open(Temporary_Path);
-    DynamicJsonDocument User_Registry(256);
-    if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
-    {
-      return Error;
-    }
-    if (strcmp("User", User_Registry["Registry"]) != 0)
-    {
-      Verbose_Print_Line("> Corrupted registry");
-      return Error;
-    }
-
-    if (strcmp(Password_To_Check, User_Registry["Password"]) != 0)
-    {
-      Verbose_Print_Line("> Wrong Credentials ...");
-
-      return Error;
-    }
-
-    Verbose_Print_Line("> Good Credentials ...");
-    return Success;
- 
-  return Error;
+  char Temporary_Path[48];
+  snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
+  File Temporary_File = Xila.Drive.Open(Temporary_Path);
+  DynamicJsonDocument User_Registry(256);
+  if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.close();
+    return Error;
+  }
+  Temporary_File.close();
+  if (strcmp("User", User_Registry["Registry"] | "") != 0)
+  {
+    return Error;
+  }
+  if (strcmp(Password_To_Check, User_Registry["Password"] | "") != 0)
+  {
+    return Error;
+  }
+  return Success;
 }
 
 Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)

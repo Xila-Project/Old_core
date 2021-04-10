@@ -116,11 +116,9 @@ void Oscilloscope_Class::Loop()
 			break;
 		case Instruction('C', 'l'):
 			Start = false;
-			Verbose_Print_Line("Close");
-			Xila.Software.Close(Oscilloscope_Handle);
+		Xila.Software.Close(Oscilloscope_Handle);
 			break;
 		case Instruction('M', 'i'):
-			Verbose_Print_Line("Minimize");
 			Start = false;
 			Xila.Software.Minimize(Oscilloscope_Handle);
 			break;
@@ -373,9 +371,7 @@ void Oscilloscope_Class::Loop()
 			}
 			Send_Instruction('R', 'e');
 			break;
-
 		default:
-			Verbose_Print_Line("Unknow intruction");
 			break;
 		}
 	}
@@ -458,13 +454,8 @@ void Oscilloscope_Class::Refresh_Interface()
 
 void Oscilloscope_Class::Refresh_Waveform()
 {
-
-	Verbose_Print_Line("Refresh waveform");
 	if (Start)
 	{
-		Serial.print(ch0_mode);
-		Serial.print('/');
-		Serial.println(ch1_mode);
 		Xila.Display.Clear_Waveform(Waveform_ID, 0);
 		Xila.Display.Clear_Waveform(Waveform_ID, 1);
 

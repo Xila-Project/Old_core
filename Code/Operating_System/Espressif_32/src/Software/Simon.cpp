@@ -62,9 +62,11 @@ void Simon_Class::Main_Task(void *pvParameters)
         case Minimize:
             break;
         case Instruction('M', 'i'):
+            Instance_Pointer->Save_Registry();
             Xila.Software.Minimize(Simon_Handle);
             break;
         case Instruction('C', 'l'):
+            Instance_Pointer->Save_Registry();
             Xila.Software.Close(Simon_Handle);
             break;
         case Instruction('P', 'R'):
@@ -161,10 +163,6 @@ void Simon_Class::Save_Registry()
 
 void Simon_Class::Press(uint8_t Color)
 {
-    Serial.print(Current_Level[0]);
-    Serial.print("|");
-    Serial.println(Current_Level[1]);
-
     if (Speed == 0)
     {
         return;
@@ -218,13 +216,15 @@ void Simon_Class::Press(uint8_t Color)
 
 void Simon_Class::Reset()
 {
-    Current_Level[0] = 1;
+    
+    Current_Level[0] = 0;
     Current_Level[1] = 0;
     Speed = 0;
 }
 
 void Simon_Class::Win()
 {
+    
     Xila.Dialog.Event(F("Well done ! You have max out the game."), Xila.Information);
     Scores[7] = Current_Level[0];
     Save_Registry();
@@ -234,30 +234,26 @@ void Simon_Class::Win()
 
 void Simon_Class::Sort_Scores()
 {
+    
     uint8_t Temporary_Byte;
+
     for (uint8_t i = 1; i < sizeof(Scores); i++)
     {
-        if (Scores[i] < Scores[i - 1])
+        if (Scores[i] > Scores[i - 1])
         {
             Temporary_Byte = Scores[i - 1];
             Scores[i - 1] = Scores[i];
             Scores[i] = Temporary_Byte;
-            i = 1;
+            i = 0;
         }
     }
 
-    Serial.print(Scores[0]);
-    Serial.print(Scores[1]);
-    Serial.print(Scores[2]);
-    Serial.print(Scores[3]);
-    Serial.print(Scores[4]);
-    Serial.print(Scores[5]);
-    Serial.print(Scores[6]);
-    Serial.print(Scores[7]);
+  
 }
 
 void Simon_Class::Game_Over()
 {
+    
     Scores[7] = Current_Level[0];
     Sort_Scores();
     Save_Registry();
@@ -267,6 +263,7 @@ void Simon_Class::Game_Over()
 
 void Simon_Class::Show_Sequence()
 {
+    
     for (uint8_t i = 0; i < Current_Level[0]; i++)
     {
         Get_Instruction();
@@ -317,6 +314,6 @@ void Simon_Class::Generate_Sequence()
     Speed = 1000;
     for (uint8_t i = 0; i < Maximum_Level; i++)
     {
-        Sequence[i] = uint8_t(Xila.System.Random(4));
+        Sequence[i] = (uint8_t)Xila.System.Random(4);
     }
 }

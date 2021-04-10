@@ -1153,22 +1153,8 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
 
 void Calculator_Class::Compute()
 {
-    Verbose_Print_Line("Compute");
-
-    Serial.print("|");
-    Serial.print(Numbers[0]);
-    Serial.print("|");
-    Serial.print(Numbers[1]);
-
-    Compute_Secondary(0);
-
-    Serial.print("|");
-    Serial.print(Temporary_Numbers[0]);
-
+    Compute_Secondary(0); 
     Compute_Secondary(1);
-
-    Serial.print("|");
-    Serial.print(Temporary_Numbers[1]);
 
     switch (Primary_Operator)
     {
@@ -1224,7 +1210,6 @@ void Calculator_Class::Degree_To_Radian(uint8_t Selected_Number)
 
 void Calculator_Class::Clear()
 {
-    Verbose_Print_Line("Clear");
     if (State == 1)
     {
         if (Numbers[1][0] == 0)
@@ -1249,7 +1234,6 @@ void Calculator_Class::Clear()
 
 void Calculator_Class::Clear_All()
 {
-    Verbose_Print_Line("Clear all");
     State = 0;
 
     memset(Numbers, '\0', sizeof(Numbers));
@@ -1274,18 +1258,6 @@ void Calculator_Class::Clear_All()
 
 void Calculator_Class::Refresh_Interface()
 {
-    Verbose_Print_Line("Refresh");
-    Serial.print(Numbers[0]);
-    Serial.print("|");
-    Serial.print(Numbers[1]);
-    Serial.print("|");
-    Serial.print(Primary_Operator);
-    Serial.print("|");
-    Serial.print(Secondary_Operator[0]);
-    Serial.print("|");
-    Serial.print(Secondary_Operator[1]);
-    Serial.println("|");
-
     // -- Clear the entire char array
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
 

@@ -19,39 +19,38 @@ Xila_Class::Drive_Class::Drive_Class()
 {
 }
 
-#if SD_MODE == 0
+#if Drive_Mode == 0
 
 bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD_MMC.begin(Mount_Point, false, false);
 }
 
-uint64_t Xila_Class::Drive_Class::Card_Size()
+uint64_t Xila_Class::Drive_Class::Size()
 {
     return SD_MMC.cardSize();
 }
 
-Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Card_Type()
+Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 {
     switch (SD_MMC.cardType())
     {
     case sdcard_type_t::CARD_NONE:
-        return CARD_NONE;
+        return None;
         break;
     case sdcard_type_t::CARD_MMC:
-        return CARD_MMC;
+        return MMC;
         break;
     case sdcard_type_t::CARD_SD:
-        return CARD_SD;
+        return SD_SC;
         break;
     case sdcard_type_t::CARD_SDHC:
-        return CARD_SDHC;
+        return SD_HC;
         break;
-    case sdcard_type_t::CARD_UNKNOWN:
-        return CARD_UNKNOWN;
+    default:
         break;
     }
-    return CARD_UNKNOWN;
+    return Unknow;
 }
 
 void Xila_Class::Drive_Class::End()
@@ -133,7 +132,7 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 //                              SD SPI                                          //
 //==============================================================================//
 
-#elif SD_MODE == 1
+#elif Drive_Mode == 1
 
 bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
@@ -153,7 +152,7 @@ Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
         return None;
         break;
     case sdcard_type_t::CARD_MMC:
-        return SD_MMC;
+        return MMC;
         break;
     case sdcard_type_t::CARD_SD:
         return SD_SC;

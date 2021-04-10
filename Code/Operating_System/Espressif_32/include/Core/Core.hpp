@@ -184,7 +184,6 @@ public:
         Session_State State;
 
         Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
 
     } Account;
 
@@ -422,7 +421,7 @@ public:
         typedef enum
         {
             None,
-            SD_MMC,
+            MMC,
             SD_SC,
             SD_HC,
             Unknow
@@ -747,13 +746,14 @@ public:
     protected:
         // -- Attributes
         volatile uint8_t Button_Counter;
+        volatile uint32_t Button_Timer;
         portMUX_TYPE Button_Mutex;
 
         // -- Methods
-        void static IRAM_ATTR Button_Handler();
+        void static IRAM_ATTR Press_Button_Handler();
+        void static IRAM_ATTR Release_Button_Handler();
 
         void Check_Button();
-
         void Deep_Sleep();
 
     } Power;

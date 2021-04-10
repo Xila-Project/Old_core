@@ -188,10 +188,6 @@ void Tiny_Basic_Class::Copy_Input()
 void Tiny_Basic_Class::Read_Instructions()
 {
   Xila_Instruction Current_Instruction = Get_Instruction();
-  if (Current_Instruction != Idle)
-  {
-    Serial.println(Current_Instruction, HEX);
-  }
   switch (Current_Instruction)
   {
   case Idle:
@@ -538,7 +534,6 @@ void Tiny_Basic_Class::printmsgNoNL(const unsigned char *msg)
 void Tiny_Basic_Class::printmsg(const unsigned char *msg)
 {
   printmsgNoNL(msg);
-  Verbose_Print_Line("printmsg lineterminator");
   line_terminator();
 }
 
@@ -556,7 +551,6 @@ void Tiny_Basic_Class::getln(char prompt)
     case NL:
     //break;
     case CR:
-      Verbose_Print_Line("getln lineterminator");
       line_terminator();
       // Terminate all strings with a NL
       txtpos[0] = NL;
@@ -635,7 +629,6 @@ void Tiny_Basic_Class::printline()
     list_line++;
   }
   list_line++;
-  Verbose_Print_Line("printline lineterminator");
   line_terminator();
 }
 
@@ -1067,7 +1060,6 @@ void Tiny_Basic_Class::outchar(unsigned char c)
     }
     else
     {
-      Verbose_Print_Line("kStreamXila lineterminator");
       line_terminator();
     }
 
@@ -1133,7 +1125,6 @@ void Tiny_Basic_Class::cmd_Files()
       }
       printUnum(entry.size());
     }
-    Verbose_Print_Line("cmdfile lineterminator");
     line_terminator();
     entry.close();
   }
@@ -1310,7 +1301,6 @@ qwhat:
     printline();
     *txtpos = tmp;
   }
-  Verbose_Print_Line("qwhat lineterminator");
   line_terminator();
   goto prompt;
 
@@ -1821,7 +1811,6 @@ print:
   // If we have an empty list then just put out a NL
   if (*txtpos == ':')
   {
-    Verbose_Print_Line("print lineterminator");
     line_terminator();
     txtpos++;
     goto run_next_statement;
@@ -1867,7 +1856,6 @@ print:
     }
     else if (*txtpos == NL || *txtpos == ':')
     {
-      Verbose_Print_Line("print2 lineterminator");
       line_terminator(); // The end of the print statement
       break;
     }
@@ -2012,11 +2000,9 @@ save:
     expression_error = 0;
     filename = filenameWord();
     if (expression_error)
+    {
       goto qwhat;
-
-    // saving filename...
-    Serial.print("Saving: ");
-    Serial.println((char *)filename);
+    }
 
     // remove the old file if it exists
     if (Xila.Drive.Exists((char *)filename))
@@ -2029,7 +2015,6 @@ save:
 
     if (fp == (File)NULL)
     {
-      Serial.println("Open Failed");
       goto qwhat;
     }
     else
@@ -2061,10 +2046,6 @@ delfile:
     filename = filenameWord();
     if (expression_error)
       goto qwhat;
-
-    // deleting filename
-    Serial.print("Deleting: ");
-    Serial.println((char *)filename);
 
     // remove the file if it exists
     if (Xila.Drive.Exists((char *)filename))

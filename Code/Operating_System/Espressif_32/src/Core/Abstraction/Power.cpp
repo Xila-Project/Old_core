@@ -22,18 +22,22 @@ Xila_Class::Power_Class::Power_Class()
 
 Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Power"), FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
         return Error;
     }
+    Temporary_File.close();
+    if (strcmp(Power_Registry["Registry"] | "", "Power") != 0)
+    {
+        return Error;
+    }
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
     Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
 
-    Temporary_File.close();
     return Success;
 }
 
@@ -45,7 +49,7 @@ Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
 
-    File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
+    File Temporary_File = Xila.Drive.Open(Registry("Power"), FILE_WRITE);
     if (serializeJson(Power_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
@@ -55,9 +59,23 @@ Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
     return Success;
 }
 
-void IRAM_ATTR Xila_Class::Power_Class::Button_Handler()
+void IRAM_ATTR Xila_Class::Power_Class::Press_Button_Handler()
 {
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
+    Xila.Power.Button_Timer = Xila.Time.Milliseconds();
+    Xila.Power.Button_Counter = 0;
+    vTaskExitCritical(&Xila.Power.Button_Mutex);
+}
+
+void IRAM_ATTR Xila_Class::Power_Class::Release_Button_Handler()
+{
+    vTaskEnterCritical(&Xila.Power.Button_Mutex);
+    DUMP((Xila.Time.Milliseconds() - Xila.Power.Button_Timer));
+    if (Xila.Power.Button_Timer != 0 && (Xila.Time.Milliseconds() - Xila.Power.Button_Timer) > Default_Button_Long_Press)
+    {
+        ESP.restart();
+    }
+    Xila.Power.Button_Timer = 0;
     Xila.Power.Button_Counter = 1;
     vTaskExitCritical(&Xila.Power.Button_Mutex);
 }

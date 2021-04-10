@@ -62,8 +62,8 @@ protected:
     char Name[25]; // -- Shared with install wizard
 
     char Username[9];    // -- Shared with install wizard and login
-    char Password_1[25]; // -- Shared with install wizard and login
-    char Password_2[25]; // -- Shared with install wizard
+    char Password_1[Maximum_Password_Lenght]; // -- Shared with install wizard and login
+    char Password_2[Maximum_Password_Lenght]; // -- Shared with install wizard
 
     // -- Preferences network attributes
 
@@ -218,7 +218,7 @@ protected:
 
     File Selected_Item;
 
-    File Temporary_Item;
+    File Operation_Item;
 
     uint8_t Operation;
 
@@ -231,6 +231,8 @@ protected:
         Rename,
         Copy,
         Cut,
+        Paste_Copy,
+        Paste_Cut,
         Detail
     };
 
@@ -240,7 +242,7 @@ protected:
     // -- File manager methods
 
     void Select_Item();
-    void Open_File_Manager();
+    void Open_File_Manager(uint8_t i);
 
     void Refresh_Footerbar();
     void Refresh_File_Manager();
@@ -271,8 +273,8 @@ public:
         Home_24,
         New_File_24,
         New_Folder_24,
-        Paste_24,
         Refresh_24,
+        Paste_24,
         Rename_24,
         Root_24,
         Trash_24,
