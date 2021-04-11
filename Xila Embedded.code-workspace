@@ -4,8 +4,12 @@
 			"path": "."
 		},
 		{
-			"name": "Espressif_32",
-			"path": "Code\\Operating_System\\Espressif_32"
+			"name": "Xila",
+			"path": "Code\\Xila"
+		},
+		{
+			"name": "Code",
+			"path": "Code"
 		}
 	],
 	"settings": {
