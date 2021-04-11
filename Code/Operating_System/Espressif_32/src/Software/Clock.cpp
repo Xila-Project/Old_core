@@ -150,38 +150,38 @@ void Clock_Class::Save_Registry()
     JsonArray Alarms = Clock_Registry.createNestedArray("Alarms");
     JsonObject Alarms_0 = Alarms.createNestedObject();
     Alarms_0["Title"] = Alarm_Title[0];
-    Alarms_0["Hours"] = Alarm_Hour[0];
-    Alarms_0["Minutes"] = Alarm_Minute[0];
+    Alarms_0["Hour"] = Alarm_Hour[0];
+    Alarms_0["Minute"] = Alarm_Minute[0];
     Alarms_0["State"] = Alarm_State[0];
 
     JsonObject Alarms_1 = Alarms.createNestedObject();
     Alarms_1["Title"] = Alarm_Title[1];
-    Alarms_1["Hours"] = Alarm_Hour[1];
-    Alarms_1["Minutes"] = Alarm_Minute[1];
+    Alarms_1["Hour"] = Alarm_Hour[1];
+    Alarms_1["Minute"] = Alarm_Minute[1];
     Alarms_1["State"] = Alarm_State[1];
 
     JsonObject Alarms_2 = Alarms.createNestedObject();
     Alarms_2["Title"] = Alarm_Title[2];
-    Alarms_2["Hours"] = Alarm_Hour[2];
-    Alarms_2["Minutes"] = Alarm_Minute[2];
+    Alarms_2["Hour"] = Alarm_Hour[2];
+    Alarms_2["Minute"] = Alarm_Minute[2];
     Alarms_2["State"] = Alarm_State[2];
 
     JsonObject Alarms_3 = Alarms.createNestedObject();
     Alarms_3["Title"] = Alarm_Title[3];
-    Alarms_3["Hours"] = Alarm_Hour[3];
-    Alarms_3["Minutes"] = Alarm_Minute[3];
+    Alarms_3["Hour"] = Alarm_Hour[3];
+    Alarms_3["Minute"] = Alarm_Minute[3];
     Alarms_3["State"] = Alarm_State[3];
 
     JsonObject Alarms_4 = Alarms.createNestedObject();
     Alarms_4["Title"] = Alarm_Title[4];
-    Alarms_4["Hours"] = Alarm_Hour[4];
-    Alarms_4["Minutes"] = Alarm_Minute[4];
+    Alarms_4["Hour"] = Alarm_Hour[4];
+    Alarms_4["Minute"] = Alarm_Minute[4];
     Alarms_4["State"] = Alarm_State[4];
 
     JsonObject Alarms_5 = Alarms.createNestedObject();
     Alarms_5["Title"] = Alarm_Title[5];
-    Alarms_5["Hours"] = Alarm_Hour[5];
-    Alarms_5["Minutes"] = Alarm_Minute[5];
+    Alarms_5["Hour"] = Alarm_Hour[5];
+    Alarms_5["Minute"] = Alarm_Minute[5];
     Alarms_5["State"] = Alarm_State[5];
 
     if (!Xila.Drive.Exists(Clock_Directory_Path))
@@ -538,9 +538,11 @@ void Clock_Class::Main_Instructions()
         Instance_Pointer->Refresh_Chronometer();
         break;
     case Instruction('R', 'A'):
-        Next_Alarm = 0;
         Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
+        Next_Alarm = 0;
+        snprintf(Temporary_Char_Array, sizeof(Temporary_Char_Array), "Alarm : %s", Next_Alarm_Title);
         Xila.Dialog.Event(F("Time over."), Xila.Information);
+        
         Xila.Sound.Stop();
         Send_Instruction('R', 'e');
         break;

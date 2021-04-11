@@ -13,8 +13,13 @@
 
 Xila_Class::Display_Class::Display_Class()
     : Nextion_Class(),
-    State(true)
+      State(true),
+      Brightness(Default_Display_Brightness),
+      Receive_Pin(Default_Display_Receive_Pin),
+      Standby_Time(Default_Display_Standby_Time),
+      Transmit_Pin(Default_Display_Transmit_Pin)
 {
+    Baud_Rate = Default_Display_Baud_Rate;
 }
 
 Xila_Class::Display_Class::~Display_Class()
@@ -30,21 +35,16 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
+    Temporary_File.close();
     if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
-        Temporary_File.close();
         return Error;
     }
     Standby_Time = Display_Registry["Standby Time"] | Default_Display_Standby_Time;
     Receive_Pin = Display_Registry["Receive Pin"] | Default_Display_Receive_Pin;
     Transmit_Pin = Display_Registry["Transmit Pin"] | Default_Display_Transmit_Pin;
-    Xila.Display.Begin(Display_Registry["Baud Rate"] | Default_Display_Baud_Rate, Receive_Pin, Transmit_Pin);
-    Xila.Display.Set_Touch_Wake_Up(true);
-    Xila.Display.Set_Serial_Wake_Up(true);
-
-    Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
-    Xila.Display.Set_Standby_Touch_Timer(Standby_Time);
-    Temporary_File.close();
+    Baud_Rate = Display_Registry["Baud Rate"] | Default_Display_Baud_Rate;
+    Brightness = Display_Registry["Brightness"] | Default_Display_Brightness;
     return Success;
 }
 
@@ -57,6 +57,7 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
     Display_Registry["Receive Pin"] = Receive_Pin;
     Display_Registry["Transmit Pin"] = Transmit_Pin;
     Display_Registry["Standby Time"] = Standby_Time;
+    Display_Registry["Baud Rate"] = Baud_Rate;
     if (serializeJson(Display_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();

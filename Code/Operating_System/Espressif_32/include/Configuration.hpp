@@ -39,13 +39,14 @@
 #define Maximum_Watchdog_Timeout 30000
 #define Default_Instruction_Queue_Size 16
 #define Memory_Chunk(x) (x * 1024)
+#define Default_Software_Name_Length 24
 
 // -- Power
 #define POWER_BUTTON_PIN GPIO_NUM_39
 #define Default_Battery_Conversion_Factor 2
 #define Default_Battery_Minimum_Voltage 2500
 #define Default_Battery_Maximum_Voltage 4200
-#define Default_Battery_Sensing_Pin GPIO_NUM_27
+#define Default_Battery_Sensing_Pin GPIO_NUM_34
 #define Default_Button_Long_Press 8000
 
 // -- Display
@@ -63,16 +64,21 @@
 #define Default_Sound_Mode
 
 // --  Keyboard
-#define Default_Keyboard_Data_Pin GPIO_NUM_34
-#define Default_Keyboard_Clock_Pin GPIO_NUM_35
+#define Default_Keyboard_Data_Pin GPIO_NUM_32
+#define Default_Keyboard_Clock_Pin GPIO_NUM_22
 #define Default_Keyboard_Layout American
+
+// -- Time
+
+#define Default_Daylight_Offset 0
+#define Default_GMT_Offset 0
+#define Default_NTP_Server "pool.ntp.org"
 
 // -- Release configuration
 #if CORE_DEBUG_LEVEL <= 1 // release mode
 
 #define ARDUINOTRACE_ENABLE     0       // Disable ArduinoTrace
 #define Animations              1       // Enable animation
-#define Default_Debug_Account   ""      // No default debug account name
 #define Drive_Mode              0       // SD mmc mode
 #define USB_Serial              0       // Disable USB Serial
 
@@ -82,8 +88,7 @@
 #warning Currently in debug mode.
 
 #define ARDUINOTRACE_ENABLE     1       // Enable ArduinoTrace
-#define Animations              0       // Disable animation
-#define Default_Debug_Account   "User"  // Default debug account name
+#define Animations              1       // Disable animation
 #define Drive_Mode              1       // SD spi mode
 #define USB_Serial              1       // Enable USB Serial
 

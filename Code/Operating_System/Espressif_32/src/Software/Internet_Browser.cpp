@@ -866,8 +866,6 @@ byte Internet_Browser_Class::Display_Page()
   {
     if (Text_Char_Count >= 65) //Serial.print if auto return to line (max 65 normal)
     {
-      DUMP(Text_To_Print);
-      DUMP(Current_Color);
       switch (Current_Color)
       {
       case 65534: //Bold style

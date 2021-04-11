@@ -37,18 +37,17 @@ Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
     Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
-
     return Success;
 }
 
 Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
+    Power_Registry["Registry"] = "Power";
     Power_Registry["Minimum Voltage"] = Get_Minimum_Voltage();
     Power_Registry["Maximum Voltage"] = Get_Maximum_Voltage();
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
-
     File Temporary_File = Xila.Drive.Open(Registry("Power"), FILE_WRITE);
     if (serializeJson(Power_Registry, Temporary_File) == 0)
     {
@@ -73,7 +72,7 @@ void IRAM_ATTR Xila_Class::Power_Class::Release_Button_Handler()
     DUMP((Xila.Time.Milliseconds() - Xila.Power.Button_Timer));
     if (Xila.Power.Button_Timer != 0 && (Xila.Time.Milliseconds() - Xila.Power.Button_Timer) > Default_Button_Long_Press)
     {
-        ESP.restart();
+        Xila.Power.Deep_Sleep();
     }
     Xila.Power.Button_Timer = 0;
     Xila.Power.Button_Counter = 1;
@@ -92,6 +91,8 @@ void Xila_Class::Power_Class::Check_Button()
 
 void Xila_Class::Power_Class::Deep_Sleep()
 {
+
+
   esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
   esp_deep_sleep_start();
 }

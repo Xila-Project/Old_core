@@ -302,7 +302,7 @@ public:
         ///
         /// @brief Xila_16 special characters list.
         ///
-        enum Xila_16
+        enum Xila_16 : uint8_t
         {
             State_Button = 127,
             Left_Arrow,
@@ -310,9 +310,10 @@ public:
             Up_Arrow,
             Down_Arrow,
             Battery_Empty,
-            Battery_Low,
-            Battery_Medium,
-            Battery_High,
+            Battery_Quarter,
+            Battery_Half,
+            Battery_Three_Quarters,
+            Battery_Full,
             WiFi_Low,
             WiFi_Medium,
             WiFi_High,
@@ -401,8 +402,7 @@ public:
 
         uint8_t State;
 
-        uint16_t Standby_Time;
-        uint8_t Receive_Pin, Transmit_Pin, Brightness;
+        uint8_t Brightness, Receive_Pin, Standby_Time, Transmit_Pin;
 
         char Tag = 0;
 

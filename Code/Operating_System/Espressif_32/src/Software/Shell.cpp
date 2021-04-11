@@ -148,9 +148,6 @@ void Shell_Class::Main_Instructions()
     case Dialog_Color_Picker:
         Open_Color_Picker();
         break;
-    case Instruction('L', 'R'):
-        Load_Registry();
-        break;
     case Instruction('O', 's'):
     case Dialog_Power:
         Open_Shutdown();
@@ -158,7 +155,6 @@ void Shell_Class::Main_Instructions()
     case Instruction('O', 'L'): // "OL" : Open Login page
         Open_Login();
         break;
-    case Instruction('O', 'D'):
     case Open:
         if (!Xila.Drive.Exists(Users_Directory_Path))
         {
@@ -169,6 +165,7 @@ void Shell_Class::Main_Instructions()
         {
             Load_Registry();
         }
+    case Instruction('O', 'D'):
     case Software_Class::Desk: // "OD" Open Desk page & load it
         Open_Desk();
         break;
@@ -223,6 +220,9 @@ void Shell_Class::Main_Instructions()
         break;
     case Instruction('O', 'S'): // "OS" : Open system preferencies
         Instance_Pointer->Open_Preferences_System();
+        break;
+    case Instruction('I', 'n'):
+        Open_Install();
         break;
     case Close: // close
         delete Instance_Pointer;
@@ -301,10 +301,9 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
 
 Xila_Class::Event Shell_Class::Load_Registry()
 {
-    Desk_Background = -1;
-
-    File Registry_File = Xila.Drive.Open(Users_Directory_Path + String(Xila.Account.Current_Username) + "/Registry/Shell.xrf");
-
+    char User_Registry_Path[40];
+    snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Xila.Account.Get_Current_Username());
+    File Registry_File = Xila.Drive.Open(User_Registry_Path);
     DynamicJsonDocument Shell_Registry(256);
     if (deserializeJson(Shell_Registry, Registry_File) != DeserializationError::Ok)
     {
@@ -314,6 +313,7 @@ Xila_Class::Event Shell_Class::Load_Registry()
     Registry_File.close();
     if (strcmp("Shell", Shell_Registry["Registry"] | "") != 0)
     {
+        Desk_Background = Default_Background;
         return Xila.Error;
     }
     Desk_Background = Shell_Registry["Desk Background"] | Default_Background;
@@ -322,9 +322,12 @@ Xila_Class::Event Shell_Class::Load_Registry()
 
 Xila_Class::Event Shell_Class::Save_Registry()
 {
-    File Registry_File = Xila.Drive.Open(Users_Directory_Path + String(Xila.Account.Current_Username) + "/Registry/Shell.xrf", FILE_WRITE);
+    char User_Registry_Path[40];
+    snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Xila.Account.Get_Current_Username());
+    File Registry_File = Xila.Drive.Open(User_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Shell_Registry(256);
     deserializeJson(Shell_Registry, Registry_File);
+    Shell_Registry["Registry"] = "Shell";
     Shell_Registry["Desk Background"] = Desk_Background;
     if (serializeJson(Shell_Registry, Registry_File) == 0)
     {
@@ -510,14 +513,16 @@ void Shell_Class::Drawer_Instructions()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-
+    case Instruction('R', 'e'):
+        Refresh_Drawer();
+        break;
     case Instruction('N', 'd'): // Nd : Next drawer items
         if ((Offset + 15) < (sizeof(Xila.Software.Handle) / sizeof(Xila.Software.Handle[1])))
         {
             if (Xila.Software.Handle[Offset + 15] != NULL)
             {
                 Offset += 15;
-                Refresh_Drawer();
+                Send_Instruction('R', 'e');
             }
         }
         break;
@@ -525,7 +530,11 @@ void Shell_Class::Drawer_Instructions()
         if (Offset > 14)
         {
             Offset -= 15;
-            Refresh_Drawer();
+            Send_Instruction('R', 'e');
+        }
+        else
+        {
+            Offset = 0;
         }
         break;
     case Instruction('d', '0'): // dx : Open software from drawer
@@ -587,7 +596,8 @@ void Shell_Class::Open_From_Drawer(uint8_t Slot)
         {
             if (Xila.Software.Open(*Xila.Software.Handle[Slot + Offset]) != Xila.Success)
             {
-                Event_Dialog(F("Failed to open software"), Xila.Error);
+                Event_Dialog(F("Failed to open software."), Xila.Error);
+                Send_Instruction('R', 'e');
             }
         }
         else
@@ -1277,7 +1287,7 @@ void Shell_Class::Login_Instructions()
 
             if (Load_Registry() != Xila.Success)
             {
-                Event_Dialog(F("Failed to load user registry."), Xila.Error);
+                Save_Registry();
             }
 
 #if Animations == 1
@@ -1333,7 +1343,7 @@ void Shell_Class::Preferences_Personal_Instructions()
     {
     case Instruction('C', 'B'):
     {
-        if (Desk_Background < 0)
+        if (Desk_Background < 0 || Desk_Background > 0xFFFF)
         {
             Desk_Background = 16904;
         }
@@ -1400,16 +1410,24 @@ void Shell_Class::Preferences_Personal_Instructions()
         if (Xila.Keyboard.Layout < Xila.Keyboard.English)
         {
             Xila.Keyboard.Layout++;
-            Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
         }
+        else
+        {
+            Xila.Keyboard.Layout = 0;
+        }
+        Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
         Send_Instruction('R', 'e');
         break;
     case Instruction('P', 'L'):
         if (Xila.Keyboard.Layout > 0)
         {
             Xila.Keyboard.Layout--;
-            Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
         }
+        else
+        {
+            Xila.Keyboard.Layout = Xila.Keyboard.English;
+        }
+        Event_Dialog(F("Please restart Xila to apply preferences."), Xila.Information);
         Send_Instruction('R', 'e');
         break;
 
@@ -1440,13 +1458,15 @@ void Shell_Class::Refresh_Preferences_Personal()
 {
     if (Desk_Background < 0)
     {
-        Xila.Display.Click(F("DEFAULTB_RAD"), 0);
+        Xila.Display.Set_Value(F("COLORB_RAD"), 0);
+        Xila.Display.Set_Value(F("DEFAULTB_RAD"), 1);
     }
     else
     {
         Xila.Display.Set_Value(F("COLORB_NUM"), Desk_Background);
         Xila.Display.Set_Background_Color(F("COLORB_NUM"), Desk_Background);
-        Xila.Display.Click(F("COLORB_RAD"), 0);
+        Xila.Display.Set_Value(F("COLORB_RAD"), 1);
+        Xila.Display.Set_Value(F("DEFAULTB_RAD"), 0);
     }
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
     Xila.Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
@@ -1497,19 +1517,19 @@ void Shell_Class::Refresh_Preferences_Hardware()
     switch (Xila.Drive.Type())
     {
     case Xila.Drive.None:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : None | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : None | %i MB", (uint16_t)(Xila.Drive.Size() / (1024 * 1024)));
         break;
     case Xila.Drive.SD_SC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD SC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD SC | %i MB", (uint16_t)(Xila.Drive.Size() / (1024 * 1024)));
         break;
     case Xila.Drive.SD_HC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD HC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD HC | %i MB", (uint16_t)(Xila.Drive.Size() / (1024 * 1024)));
         break;
     case Xila.Drive.MMC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD MMC | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD MMC | %i MB", (uint16_t)(Xila.Drive.Size() / (1024 * 1024)));
         break;
     case Xila.Drive.Unknow:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : Unknow | %i MB", (uint16_t)Xila.Drive.Size() / (1024 * 1024));
+        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : Unknow | %i MB", (uint16_t)(Xila.Drive.Size() / (1024 * 1024)));
         break;
     }
     Xila.Display.Set_Text(F("DRIVE_TXT"), Temporary_String);
@@ -1540,6 +1560,7 @@ void Shell_Class::Preferences_Hardware_Instructions()
 
         for (i = 0; i < 2048; i++)
         {
+            Xila.Task.Delay(1);
             Test_File.write(Buffer, sizeof(Buffer));
         }
 
@@ -1662,14 +1683,6 @@ void Shell_Class::Preferences_Network_Instructions()
         Xila.WiFi.Set_Credentials(WiFi_Name, WiFi_Password);
         Send_Instruction('R', 'e');
         break;
-    case Instruction('W', 'H'):
-        Xila.WiFi.disconnect();
-        if (Xila.WiFi.softAP(Xila.System.Get_Device_Name(), WiFi_Password) != true)
-        {
-            Event_Dialog(F("Failed to enable the access point."), Xila.Error);
-        }
-        Send_Instruction('R', 'e');
-        break;
     case Instruction('R', 'e'):
         Refresh_Preferences_Network();
         break;
@@ -1708,7 +1721,8 @@ void Shell_Class::Preferences_System_Instructions()
         break;
     case Instruction('A', 'N'):
         strlcpy(Xila.System.Device_Name, Name, sizeof(Xila.System.Device_Name));
-        Event_Dialog(F("Please restart Xila to apply changes."), Xila.Error);
+        Xila.System.Save_Registry();
+        Event_Dialog(F("Please restart Xila to apply changes."), Xila.Information);
         Send_Instruction('R', 'e');
         break;
     // -- Time
@@ -1717,22 +1731,27 @@ void Shell_Class::Preferences_System_Instructions()
         Send_Instruction('R', 'e');
         break;
     case Instruction('k', 'O'):
-        Temporary_Float = GMT_Offset;
+    {
+        float Temporary_Float = GMT_Offset;
         Keypad_Dialog(Temporary_Float);
         GMT_Offset = Temporary_Float;
         Send_Instruction('R', 'e');
         break;
+    }
     case Instruction('k', 'o'):
-        Temporary_Float = Daylight_Offset;
+    {
+        float Temporary_Float = Daylight_Offset;
         Keypad_Dialog(Temporary_Float);
         Daylight_Offset = Temporary_Float;
         Send_Instruction('R', 'e');
         break;
+    }
     case Instruction('A', 'T'):
         Xila.Time.GMT_Offset = GMT_Offset;
         Xila.Time.Daylight_Offset = Daylight_Offset;
         strlcpy(Xila.Time.NTP_Server, NTP_Server, sizeof(Xila.Time.NTP_Server));
-        Event_Dialog(F("Please restart Xila to apply changes."), Xila.Error);
+        Xila.Time.Save_Registry();
+        Event_Dialog(F("Please restart Xila to apply changes."), Xila.Information);
         Send_Instruction('R', 'e');
         break;
     // -- Add user
@@ -1760,11 +1779,7 @@ void Shell_Class::Preferences_System_Instructions()
             Send_Instruction('R', 'e');
             return;
         }
-        Xila.Display.Set_Current_Page(Load);
-        Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating firmware"));
-        Xila.Display.Set_Text(F("LOAD_TXT"), F("Update"));
-        Xila.Display.Refresh(F("CLOSE_BUT"));
-        if (Xila.Drive.Exists(Display_Executable_Path) || Xila.Drive.Exists(Microcontroller_Executable_Path))
+        if (!Xila.Drive.Exists(Display_Executable_Path) || !Xila.Drive.Exists(Microcontroller_Executable_Path))
         {
             Event_Dialog(F("Missing update files."), Xila.Error);
             Send_Instruction('R', 'e');
@@ -1772,19 +1787,24 @@ void Shell_Class::Preferences_System_Instructions()
         }
         else
         {
-            File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
+            Xila.Display.Set_Current_Page(Load);
+            Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating Xila"));
+            Xila.Display.Set_Text(F("HEADER_TXT"), F("Update"));
+
+            File Temporary_File = Xila.Drive.Open(Microcontroller_Executable_Path);
+            if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
+            {
+                Xila.System.Restart();
+                return;
+            }
+
+            Temporary_File = Xila.Drive.Open(Display_Executable_Path);
             if (Xila.Display.Update(Temporary_File) != Xila.Success)
             {
                 Xila.System.Restart();
                 return;
             }
 
-            Temporary_File = Xila.Drive.Open(Microcontroller_Executable_Path);
-            if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
-            {
-                Xila.System.Restart();
-                return;
-            }
             Xila.System.Restart();
         }
         break;
@@ -1801,7 +1821,7 @@ void Shell_Class::Refresh_Preferences_System()
 {
     Xila.Display.Set_Text(F("NTPVAL_TXT"), NTP_Server);
     Xila.Display.Set_Value(F("GMTOFFSET_NUM"), GMT_Offset);
-    Xila.Display.Set_Value(F("DAYLIGHTO_NUM"), GMT_Offset);
+    Xila.Display.Set_Value(F("DAYLIGHTO_NUM"), Daylight_Offset);
 
     Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Name);
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
@@ -2124,7 +2144,7 @@ Xila_Class::Event Shell_Class::Open_Folder_Dialog(File &Folder_To_Open)
 void Shell_Class::Open_Install()
 {
     Xila.Display.Set_Current_Page(F("Shell_Install"));
-    Desk_Background = 16904;
+    Desk_Background = -1;
     GMT_Offset = 0;
     Daylight_Offset = 0;
     memset(Name, '\0', sizeof(Name));
@@ -2135,7 +2155,7 @@ void Shell_Class::Open_Install()
     memset(Password_2, '\0', sizeof(Password_2));
     memset(WiFi_Name, '\0', sizeof(WiFi_Name));
     memset(WiFi_Password, '\0', sizeof(WiFi_Password));
-    Refresh_Install();
+    Send_Instruction('R', 'e');
 }
 
 void Shell_Class::Refresh_Install()
@@ -2153,7 +2173,7 @@ void Shell_Class::Refresh_Install()
     }
     Xila.Display.Set_Value(F("GMTOFFSET_NUM"), GMT_Offset);
     Xila.Display.Set_Value(F("DAYLIGHTO_NUM"), Daylight_Offset);
-    Xila.Display.Set_Text(F("DEVICE_TXT"), Name);
+    Xila.Display.Set_Text(F("DEVICEVAL_TXT"), Name);
     Xila.Display.Set_Text(F("USERVAL_TXT"), Username);
     Xila.Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
     Xila.Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
@@ -2169,105 +2189,106 @@ void Shell_Class::Install_Instructions()
     {
     case Dialog_Power:
     case Instruction('O', 's'):
-        Xila.System.Shutdown();
-        break;
-    case Instruction('I', 'n'):
-        Open_Install();
-        break;
-    case Instruction('B', 'a'):
-        if (Desk_Background < 0)
+        if (Event_Dialog(F("Are you sure to cancel the installation and shutdown Xila ?"), Xila.Question) == Xila.Default_Yes)
         {
-            Desk_Background = 16904;
+            Xila.System.Shutdown();
         }
-        else
-        {
-            Desk_Background = -1;
-        }
-        Refresh_Install();
-        break;
-    case Instruction('A', 'u'): // -- Enable or disable autologin
-        Autologin = !Autologin;
-        Refresh_Install();
-        break;
-    case Instruction('C', 'B'): // -- Open color picker for desk color
-    {
-        if (Desk_Background < 0 || Desk_Background > 0xFFFF)
-        {
-            Desk_Background = 16904;
-        }
-        uint16_t Temporary_Color = (uint16_t)Desk_Background;
-        Color_Picker_Dialog(Temporary_Color);
-        Refresh_Install();
-        break;
-    }
-    case Instruction('k', 'O'):
-        Temporary_Float = GMT_Offset;
-        Keypad_Dialog(Temporary_Float);
-        GMT_Offset = Temporary_Float;
-        Refresh_Install();
-        break;
-    case Instruction('k', 'o'): // --
-    {
-        Temporary_Float = Daylight_Offset;
-        Keypad_Dialog(Temporary_Float);
-        Daylight_Offset = Temporary_Float;
-        Refresh_Install();
-        break;
-    }
-    case Instruction('K', 'D'): // -- Device name keyboard input
-        Keyboard_Dialog(Name, sizeof(Name));
-        Refresh_Install();
-        break;
-    case Instruction('K', 'U'): // -- Username keyboard input
-        Keyboard_Dialog(Username, sizeof(Username));
-        Refresh_Install();
-        break;
-    case Instruction('K', 'P'): // -- Password keyboard input
-        Keyboard_Dialog(Password_1, sizeof(Password_1));
-        Refresh_Install();
-        break;
-    case Instruction('K', 'p'): // -- Confirm password keyboard input
-        Keyboard_Dialog(Password_2, sizeof(Password_2));
-        Refresh_Install();
-        break;
-    case Instruction('K', 'W'): // -- WiFi name keyboard input
-        Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
-        Refresh_Install();
-        break;
-    case Instruction('K', 'w'): // -- WiFi password keyboard input
-        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password));
-        Refresh_Install();
+        Send_Instruction('R', 'e');
         break;
     case Instruction('C', 'o'):
-    {
         if (strcmp(Password_1, Password_2) != 0)
         {
-            Event_Dialog(F("Passwords does not correspond !"), Xila.Error);
+            Event_Dialog(F("Passwords does not match."), Xila.Error);
         }
         if (Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
         {
+            if (Xila.Drive.Make_Directory(Users_Directory_Path))
+            {
+                Event_Dialog(F("Cannot make users directory."), Xila.Error);
+            }
             // -- Regional preferences
             Xila.Time.GMT_Offset = GMT_Offset;
             Xila.Time.Daylight_Offset = Daylight_Offset;
             if (Xila.Time.Save_Registry() != Xila.Success)
             {
-                Event_Dialog(F("Cannot set the regional preferences."), Xila.Error);
-                Xila.Display.Set_Current_Page(F("Shell_Install"));
+                Event_Dialog(F("Cannot save the regional registry."), Xila.Error);
             }
-            strlcpy(Xila.Account.Current_Username, Username, sizeof(Xila.Account.Current_Username));
+            // -- User account
             if (Xila.Account.Add(Username, Password_1) != Xila.Success)
             {
                 Event_Dialog(F("Cannot create the user account."), Xila.Error);
             }
             Xila.Account.Login(Username, Password_1);
-            // -- User account preferences
             Xila.Account.Set_Autologin(Autologin);
+            // -- Shell registry
+            Save_Registry();
         }
+        break;
+    case Instruction('D', 'B'):
+        Desk_Background = -1;
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('C', 'B'):
+    {
+        if (Desk_Background < 0 || Desk_Background > 0xFFFF)
+        {
+            Desk_Background = 16904;
+        }
+        uint16_t Temporary_Color = Desk_Background;
+        Color_Picker_Dialog(Temporary_Color);
+        Desk_Background = Temporary_Color;
+        Send_Instruction('R', 'e');
+        break;
     }
-    break;
+    case Instruction('k', 'O'): // -- Keypad for GMT Offset
+    {
+        float Temporary_Float = GMT_Offset;
+        Keypad_Dialog(Temporary_Float);
+        GMT_Offset = (int32_t)Temporary_Float;
+        Send_Instruction('R', 'e');
+        break;
+    }
+    case Instruction('k', 'o'): // -- Keypad for Daylight offset
+    {
+        float Temporary_Float = Daylight_Offset;
+        Keypad_Dialog(Temporary_Float);
+        Daylight_Offset = (int16_t)Temporary_Float;
+        Send_Instruction('R', 'e');
+        break;
+    }
+    case Instruction('K', 'N'): // -- Device name keyboard input
+        Keyboard_Dialog(Name, sizeof(Name));
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'U'): // -- Username keyboard input
+        Keyboard_Dialog(Username, sizeof(Username));
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'P'): // -- Password keyboard input
+        Keyboard_Dialog(Password_1, sizeof(Password_1), true);
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'p'): // -- Confirm password keyboard input
+        Keyboard_Dialog(Password_2, sizeof(Password_2), true);
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('A', 'u'): // -- Enable or disable autologin
+        Autologin = !Autologin;
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'W'): // -- WiFi name keyboard input
+        Keyboard_Dialog(WiFi_Name, sizeof(WiFi_Name));
+        Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'w'): // -- WiFi password keyboard input
+        Keyboard_Dialog(WiFi_Password, sizeof(WiFi_Password), true);
+        Send_Instruction('R', 'e');
+        break;
     case Instruction('W', 'C'): // WiFi connect
         Xila.WiFi.Set_Credentials(WiFi_Name, WiFi_Password);
-
+        break;
+    case Instruction('R', 'e'):
+        Refresh_Install();
         break;
     default:
         Main_Instructions();
@@ -2295,7 +2316,8 @@ Xila_Class::Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t C
     Xila.Dialog.Caller_Software = Instance_Pointer;
     // -- Initialize variable
     Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Long[0] = Char_Array_Size;
+    Xila.Dialog.Long[0] = Char_Array_Size - 1;
+    Xila.Dialog.Long[1] = Masked_Input;
     Xila.Dialog.Pointer = Char_Array_To_Get;
     // -- Open keyboard dialog
     Open_Keyboard();
@@ -2421,7 +2443,6 @@ void Shell_Class::Open_Keypad()
     strcpy(Temporary_Float_String, Temporary_Float_String + i);
 
     Xila.Display.Set_Text(F("INPUT_VAR"), Temporary_Float_String);
-    Xila.Display.Click(F("CONVERT_HOT"), 0);
     Xila.Keyboard.Clear();
 }
 
@@ -2479,6 +2500,8 @@ void Shell_Class::Keypad_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
+        DUMP(Temporary_Float_String);
+
         *(float *)Xila.Dialog.Pointer = strtof(Temporary_Float_String, NULL);
         Xila.Dialog.State = Xila.Default_Yes;
         Xila.Task.Delay(20);

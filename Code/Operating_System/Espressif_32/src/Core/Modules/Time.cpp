@@ -3,16 +3,17 @@
 
 
 Xila_Class::Time_Class::Time_Class()
-    : GMT_Offset(0),
-      Daylight_Offset(0)
+    : GMT_Offset(Default_GMT_Offset),
+      Daylight_Offset(Default_Daylight_Offset)
 {
-  strcpy(NTP_Server, "pool.ntp.org");
+  strcpy(NTP_Server, Default_NTP_Server);
 }
 
 Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Time"), FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
+  Time_Registry["Registry"] = "Time";
   Time_Registry["GMT Offset"] = GMT_Offset;
   Time_Registry["Daylight Offset"] = Daylight_Offset;
   Time_Registry["NTP Server"] = NTP_Server;
@@ -35,12 +36,15 @@ Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
     Temporary_File.close();
     return Error;
   }
-  GMT_Offset = Time_Registry["GMT Offset"];
-  Daylight_Offset = Time_Registry["Daylight Offset"];
-  strlcpy(NTP_Server, Time_Registry["NTP Server"], sizeof(NTP_Server));
-
-  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   Temporary_File.close();
+  if (strcmp("Time", Time_Registry["Registry"] | "") != 0)
+  {
+    return Error;
+  }
+  GMT_Offset = Time_Registry["GMT Offset"] | Default_GMT_Offset;
+  Daylight_Offset = Time_Registry["Daylight Offset"] | Default_Daylight_Offset;
+  strlcpy(NTP_Server, Time_Registry["NTP Server"] | Default_NTP_Server, sizeof(NTP_Server));
+  configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   return Success;
 }
 

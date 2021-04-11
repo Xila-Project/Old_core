@@ -8,7 +8,13 @@ Xila_Class::Dialog_Class::Dialog_Class()
 }
 
 
-
+///
+ /// @brief A method that allow to input text from a virtual keyboard.
+ /// 
+ /// @param Char_Array_To_Get 
+ /// @param Char_Array_Size 
+ /// @param Masked_Input 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);

@@ -40,8 +40,6 @@ protected:
     ///
     static Shell_Class *Instance_Pointer;
 
-    float Temporary_Float;
-
     // Login page variable
 
     // -- File Manager variable
@@ -61,14 +59,14 @@ protected:
     char NTP_Server[sizeof(Xila.Time.NTP_Server)];
     char Name[25]; // -- Shared with install wizard
 
-    char Username[9];    // -- Shared with install wizard and login
-    char Password_1[Maximum_Password_Lenght]; // -- Shared with install wizard and login
-    char Password_2[Maximum_Password_Lenght]; // -- Shared with install wizard
+    char Username[Maximum_Username_Lenght + 1];    // -- Shared with install wizard and login
+    char Password_1[Maximum_Password_Lenght + 1]; // -- Shared with install wizard and login
+    char Password_2[Maximum_Password_Lenght + 1]; // -- Shared with install wizard
 
     // -- Preferences network attributes
 
-    char WiFi_Name[25];     // -- Shared with install wizard
-    char WiFi_Password[65]; // -- Shared with install wizard
+    char WiFi_Name[33];     // -- Shared with install wizard
+    char WiFi_Password[sizeof(Xila.WiFi.Password)]; // -- Shared with install wizard
 
     char Temporary_Char[14];
 

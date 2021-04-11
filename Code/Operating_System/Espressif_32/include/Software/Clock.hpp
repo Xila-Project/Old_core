@@ -62,6 +62,7 @@ private:
     char Alarm_Title[6][10];
 
     static uint32_t Next_Alarm; // next alarm in Xila.Time.Milliseconds();
+    char Next_Alarm_Title[10];
 
     // Chronometer
 
@@ -94,6 +95,7 @@ private:
     uint8_t Hours, Minutes, Seconds;
 
     char Temporary_Char_Array[40];
+
 
     uint8_t Offset;
 

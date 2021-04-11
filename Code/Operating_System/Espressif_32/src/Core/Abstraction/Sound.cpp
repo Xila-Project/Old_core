@@ -27,6 +27,7 @@ Xila_Class::Sound_Class::Sound_Class()
     : Task_Handle(NULL),
       Custom_Pin(0xFF)
 {
+    Set_Volume(Default_Volume_Level);
 }
 
 ///
@@ -39,9 +40,6 @@ Xila_Class::Sound_Class::~Sound_Class()
 
 void Xila_Class::Sound_Class::Begin()
 {
-    Set_Volume(21);
-    Xila.GPIO.Set_Mode(35, OUTPUT);
-    Xila.GPIO.Set_Mode(36, OUTPUT);
     Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
     Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(6), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
@@ -61,13 +59,14 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
         Temporary_File.close();
         return Error;
     }
+    Temporary_File.close();
     if (strcmp("Sound", Sound_Registry["Registry"] | "") != 0)
     {
-        Temporary_File.close();
         return Error;
     }
+    DUMP(Sound_Registry["Volume"].as<uint8_t>());
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
-    Temporary_File.close();
+    DUMP(Get_Volume());
     return Success;
 }
 

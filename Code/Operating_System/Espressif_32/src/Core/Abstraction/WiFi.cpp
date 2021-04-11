@@ -1,14 +1,12 @@
 ///
- /// @file WiFi.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr) - Espressif
- /// @brief Xila WiFi abstraction layer source file.
- /// @version 0.1
- /// @date 08-04-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
-
-
+/// @file WiFi.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr) - Espressif
+/// @brief Xila WiFi abstraction layer source file.
+/// @version 0.1
+/// @date 08-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 /*
  ESP8266WiFi.cpp - WiFi library for esp8266
@@ -58,23 +56,11 @@ Xila_Class::WiFi_Class::WiFi_Class()
     prov_enable = false;
 }
 
-Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
-{
-    DynamicJsonDocument Network_Registry(512);
-    JsonObject WiFi_Registry = Network_Registry["WiFi"];
-    WiFi_Registry["Name"] = SSID();
-    WiFi_Registry["Password"] = Password;
-    WiFi_Registry["State"] = status();
-    File Temporary_File = Xila.Drive.Open(Registry("Network"));
-    if (serializeJson(Network_Registry, Temporary_File) == 0)
-    {
-        Temporary_File.close();
-        return Error;
-    }
-    Temporary_File.close();
-    return Success;
-}
-
+///
+/// @brief
+///
+/// @return Xila_Class::Event
+///
 Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open((Registry("Network")));
@@ -97,6 +83,28 @@ Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
     return Success;
 }
 
+///
+/// @brief
+///
+/// @return Xila_Class::Event
+///
+Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
+{
+    DynamicJsonDocument Network_Registry(512);
+    Network_Registry["Registry"] = "Network";
+    JsonObject WiFi_Registry = Network_Registry.createNestedObject("WiFi");
+    WiFi_Registry["Name"] = SSID();
+    WiFi_Registry["Password"] = Password;
+    File Temporary_File = Xila.Drive.Open(Registry("Network"), FILE_WRITE);
+    if (serializeJson(Network_Registry, Temporary_File) == 0)
+    {
+        Temporary_File.close();
+        return Error;
+    }
+    Temporary_File.close();
+    return Success;
+}
+
 /**
      * @brief Function that allow to connect WiFi.
 
@@ -110,7 +118,7 @@ void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Passw
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
     begin(Name, this->Password);
-    #warning remove power button wifi sleep section !
+#warning remove power button wifi sleep section !
     setSleep(WIFI_PS_NONE);
 }
 

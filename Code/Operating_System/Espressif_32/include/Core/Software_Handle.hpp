@@ -1,6 +1,7 @@
 #ifndef SOFTWARE_HANDLE_HPP_INCLUDED
 #define SOTFWARE_HANDLE_HPP_INCLUDED
 
+#include "Configuration.hpp"
 #include "Arduino.h"
 
 class Software_Handle_Class; // Forward declaration
@@ -19,7 +20,7 @@ protected:
     ///
     /// @brief Software name
     ///
-    char Name[24]; //used to identify the software,
+    char Name[Default_Software_Name_Length]; //used to identify the software,
 
     ///
     /// @brief Software icon

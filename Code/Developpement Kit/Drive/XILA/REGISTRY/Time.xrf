@@ -1,6 +1,0 @@
-{
-    "Registry": "Time",
-    "NTP Server": "pool.ntp.org",
-    "GMT Offset": 3600,
-    "Daylight Offset": 3600
-}
