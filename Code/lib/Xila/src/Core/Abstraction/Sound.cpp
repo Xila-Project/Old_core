@@ -64,9 +64,7 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
     {
         return Error;
     }
-    DUMP(Sound_Registry["Volume"].as<uint8_t>());
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
-    DUMP(Get_Volume());
     return Success;
 }
 

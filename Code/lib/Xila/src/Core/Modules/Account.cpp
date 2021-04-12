@@ -101,16 +101,37 @@ Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const cha
     return Error;
   }
   char Temporary_Path[30];
+  snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", Username);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", Username);
-  Xila.Drive.Make_Directory(Temporary_Path);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", Username);
-  Xila.Drive.Make_Directory(Temporary_Path);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", Username);
-  Xila.Drive.Make_Directory(Temporary_Path);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Musics", Username);
-  Xila.Drive.Make_Directory(Temporary_Path);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
+
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Document", Username);
-  Xila.Drive.Make_Directory(Temporary_Path);
+  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  {
+    return Error;
+  }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", Username);
   File Temporary_File = Xila.Drive.Open(Temporary_Path, FILE_WRITE);
   DynamicJsonDocument User_Registry(256);
@@ -163,11 +184,7 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
   File Temporary_File = Xila.Drive.Open(Temporary_Char, FILE_WRITE);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
-  if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
-  {
-    Temporary_File.close();
-    return Error;
-  }
+  User_Registry["Registry"] = "User";
   User_Registry["Password"] = Password_To_Set;
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {

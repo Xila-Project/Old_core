@@ -47,7 +47,7 @@
 #define Default_Battery_Minimum_Voltage 2500
 #define Default_Battery_Maximum_Voltage 4200
 #define Default_Battery_Sensing_Pin GPIO_NUM_34
-#define Default_Button_Long_Press 8000
+#define Default_Button_Long_Press 4000
 
 // -- Display
 #define Default_Display_Receive_Pin GPIO_NUM_16
@@ -88,7 +88,7 @@
 #warning Currently in debug mode.
 
 #define ARDUINOTRACE_ENABLE     1       // Enable ArduinoTrace
-#define Animations              1       // Disable animation
+#define Animations              0       // Disable animation
 #define Drive_Mode              1       // SD spi mode
 #define USB_Serial              1       // Enable USB Serial
 

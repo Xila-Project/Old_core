@@ -610,8 +610,8 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 ///
 void Xila_Class::System_Class::Shutdown()
 {
-  Xila.Software.Send_Instruction_Shell(Software_Class::Shutdown);
   Xila.Software.Maximize_Shell();
+  Xila.Software.Send_Instruction_Shell(Software_Class::Shutdown);
 
   for (uint8_t i = 2; i < 8; i++)
   {
@@ -636,37 +636,35 @@ void Xila_Class::System_Class::Shutdown()
   }
 
   Second_Sleep_Routine();
+  Xila.Power.Deep_Sleep();
 }
 
 void Xila_Class::System_Class::Second_Sleep_Routine()
 {
-  DUMP(Xila.Display.Save_Registry());
-  DUMP(Xila.Keyboard.Save_Registry());
-  DUMP(Xila.Power.Save_Registry());
-  DUMP(Xila.Sound.Save_Registry());
-  DUMP(Xila.WiFi.Save_Registry());
-  DUMP(Xila.Time.Save_Registry());
-  DUMP(Xila.System.Save_Registry());
+  Xila.Task.Delete(Xila.System.Task_Handle);
+  Xila.Task.Delete(Xila.Sound.Task_Handle);
 
-  // Shutdown screen
-  Xila.Display.Set_Touch_Wake_Up(false);
-  Xila.Display.Set_Serial_Wake_Up(true);
+  Xila.Display.Save_Registry();
+  Xila.Keyboard.Save_Registry();
+  Xila.Power.Save_Registry();
+  Xila.Sound.Save_Registry();
+  Xila.WiFi.Save_Registry();
+  Xila.Time.Save_Registry();
+  Xila.System.Save_Registry();
 
   Xila.Sound.Play(Sounds("Shutdown.wav"));
 
   Xila.Task.Delay(5000);
 
-  //
+  // Shutdown screen
+  Xila.Display.Set_Touch_Wake_Up(false);
+  Xila.Display.Set_Serial_Wake_Up(true);
   Xila.Display.Sleep();
 
   // Disconnect wifi
-  Xila.WiFi.disconnect(true);
-
+  Xila.WiFi.disconnect();
   //
   Xila.Drive.End();
-
-  //Set deep sleep
-  Xila.Power.Deep_Sleep();
 }
 
 void Xila_Class::System_Class::Hibernate()
@@ -699,6 +697,7 @@ void Xila_Class::System_Class::Hibernate()
   }
 
   Second_Sleep_Routine();
+  Xila.Power.Deep_Sleep();
 }
 
 void Xila_Class::System_Class::Restart()
@@ -729,4 +728,5 @@ void Xila_Class::System_Class::Restart()
   }
 
   Second_Sleep_Routine();
+  ESP.restart();
 }

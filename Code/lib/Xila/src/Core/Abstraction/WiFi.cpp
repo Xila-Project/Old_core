@@ -54,6 +54,7 @@ extern "C"
 Xila_Class::WiFi_Class::WiFi_Class()
 {
     prov_enable = false;
+    memset(Password, '\0', sizeof(Password));
 }
 
 ///

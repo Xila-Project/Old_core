@@ -21,7 +21,7 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle),
     Desk_Background = -1;
     Write_Speed = 0;
     Read_Speed = 0;
-    Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(6), NULL, &Task_Handle);
+    Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(8), NULL, &Task_Handle);
 }
 
 Shell_Class::~Shell_Class()
@@ -185,7 +185,7 @@ void Shell_Class::Main_Instructions()
         Open_File_Manager(Dialog_Open_File);
         break;
     case Dialog_Open_Folder:
-        Open_File_Manager(Dialog_Open_File);
+        Open_File_Manager(Dialog_Open_Folder);
         break;
     case Dialog_Save_File:;
         Open_File_Manager(Dialog_Save_File);
@@ -342,7 +342,7 @@ Xila_Class::Event Shell_Class::Save_Registry()
 
 void Shell_Class::Open_Desk()
 {
-    if (Xila.Account.Current_Username[0] == '\0')
+    if (Xila.Account.Get_State() != Xila.Account.Logged)
     {
         Open_Login();
         return;
@@ -1841,18 +1841,23 @@ void Shell_Class::Shutdown_Instructions()
     switch (Current_Command)
     {
     case Instruction('R', 'S'): // RS : Restart system
+        Open_Load(Restart);
+        Save_Registry();
         Xila.System.Restart();
         break;
     case Instruction('H', 'S'): // HS : hibernate sys
+        Open_Load(Hibernate);
+        Save_Registry();
         Xila.System.Hibernate();
         break;
     case Instruction('L', 'S'): // LS : lock system
         Save_Registry();
         Xila.Account.Lock();
-        Open_Login();
+        Send_Instruction('O', 'L');
         break;
     case Instruction('S', 'S'): // SS : shutdown
-        Xila.Display.Set_Current_Page(Load);
+        Open_Load(Shutdown);
+        Save_Registry();
         Xila.System.Shutdown();
         break;
     default:
