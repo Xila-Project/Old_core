@@ -1257,6 +1257,10 @@ void Shell_Class::Login_Instructions()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
+    case Instruction('S', 'u'):
+        Open_Load(Shutdown);
+        Xila.System.Shutdown();
+        break;
     case Instruction('K', 'U'):
         Keyboard_Dialog(Username, sizeof(Username));
         Refresh_Login();

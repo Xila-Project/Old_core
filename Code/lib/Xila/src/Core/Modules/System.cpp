@@ -656,11 +656,6 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 
   Xila.Task.Delay(5000);
 
-  // Shutdown screen
-  Xila.Display.Set_Touch_Wake_Up(false);
-  Xila.Display.Set_Serial_Wake_Up(true);
-  Xila.Display.Sleep();
-
   // Disconnect wifi
   Xila.WiFi.disconnect();
   //
