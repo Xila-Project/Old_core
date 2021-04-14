@@ -26,6 +26,10 @@ Xila_Class::Display_Class::~Display_Class()
 {
 }
 
+///
+ /// @brief Load display registry
+ /// 
+ /// @return Xila_Class::Success or Xila_Class::Error
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
@@ -48,6 +52,10 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
     return Success;
 }
 
+///
+ /// @brief Save display registry
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
@@ -67,13 +75,11 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
     return Success;
 }
 
-// Callback function for display
-
 ///
-/// @brief Incomming display string data
+/// @brief Callback function for display incomming string data
 ///
-/// @param Received_Data
-/// @param Size
+/// @param Received_Data String received data
+/// @param Size Size in bytes of received data
 void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
     while (Xila.Software.Openned[0] == NULL)
@@ -98,6 +104,10 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
     }
 }
 
+///
+ /// @brief Callback function for display incomming numeric data
+ /// 
+ /// @param Received_Data Received numeric data from the display
 void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
     if (Xila.Display.Tag != '\0')
@@ -107,6 +117,10 @@ void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Rec
     }
 }
 
+///
+ /// @brief Callback function for display incomming event
+ /// 
+ /// @param Event_Code Event code
 void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)

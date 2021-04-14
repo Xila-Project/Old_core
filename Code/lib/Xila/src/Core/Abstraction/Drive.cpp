@@ -134,16 +134,34 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 
 #elif Drive_Mode == 1
 
+///
+/// @brief Initalize drive
+///
+/// @param Slave_Select_Pin Slave select pin
+/// @param spi SPI interface
+/// @param Frequency Frequency of the spi bus
+/// @param Mount_Point Mount point
+/// @param Maximum_Files Maximum simulatenous openned files
+/// @return true if the initialization succed
+/// @return false if the initalization failed
 bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);
 }
 
+///
+/// @brief A method that return the drive size
+///
+/// @return uint64_t Drive size in bytes
 uint64_t Xila_Class::Drive_Class::Size()
 {
     return SD.cardSize();
 }
 
+///
+/// @brief A method that return the drive type
+///
+/// @return Xila_Class::Drive_Class::Sd_Card_Type
 Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 {
     switch (SD.cardType())
@@ -166,41 +184,86 @@ Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
     return Unknow;
 }
 
+///
+/// @brief A method that unmount the drive
+///
 void Xila_Class::Drive_Class::End()
 {
     SD.end();
 }
 
+///
+/// @brief A method that return if a file or a folder exist
+///
+/// @param Path Path to the file / folder
+/// @return true if the item exist
+/// @return false if the item doesn't exist
 bool Xila_Class::Drive_Class::Exists(const char *Path)
 {
     return SD.exists(Path);
 }
 
+///
+/// @brief A method that return if a file or a folder exist
+///
+/// @param Path Path to the file / folder
+/// @return true if the item exist
+/// @return false if the item doesn't exist
 bool Xila_Class::Drive_Class::Exists(const String &Path)
 {
     return SD.exists(Path);
 }
 
+///
+/// @brief A method that make directory
+///
+/// @param Path Path to directory
+/// @return true if the operation succeed
+/// @return false if the operation fail
 bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
 {
     return SD.mkdir(Path);
 }
 
+///
+/// @brief A method that make directory
+///
+/// @param Path Path to directory
+/// @return true if the operation succeed
+/// @return false if the operation fail
 bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
 {
     return SD.mkdir(Path);
 }
 
+///
+ /// @brief A method that open file.
+ /// 
+ /// @param Path Path of the file to open
+ /// @param Mode Mode to open path
+ /// @return The openned file instance
 File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
 
+///
+ /// @brief A method that open file
+ /// 
+ /// @param Path Path of the file to open
+ /// @param Mode Mode to open path (FILE_READ or FILE_WRITE)
+ /// @return The openned file instance
 File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
 
+///
+ /// @brief A method that remove file.
+ /// 
+ /// @param Path Path of the file to remove.
+ /// @return true if the operation succeed.
+ /// @return false if the operaton failed.
 bool Xila_Class::Drive_Class::Remove(const char *Path)
 {
     return SD.remove(Path);
