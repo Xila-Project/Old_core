@@ -4,10 +4,6 @@
 			"path": "."
 		},
 		{
-			"name": "Xila",
-			"path": "Code\\Xila"
-		},
-		{
 			"name": "Code",
 			"path": "Code"
 		}

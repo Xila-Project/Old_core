@@ -1211,15 +1211,19 @@ void Shell_Class::Open_Load(uint8_t Mode)
     switch (Mode)
     {
     case Shutdown:
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Shutdown"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Shutdown"));
         Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Shutting down ..."));
         break;
+    case Hibernate:
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Hibernate"));
+        Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Hibernate ..."));
+        break;
     case Login:
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Login"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Login"));
         Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Loading user data ..."));
         break;
     case Restart:
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Restart"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Restart"));
         Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Restarting ..."));
         break;
 
@@ -1239,6 +1243,7 @@ void Shell_Class::Open_Login()
         memset(Password_1, '\0', sizeof(Password_1));
         strcpy(Username, "Username");
         strcpy(Password_1, "Password");
+        Send_Instruction('R', 'e');
     }
     else
     {
@@ -1257,18 +1262,20 @@ void Shell_Class::Login_Instructions()
     Current_Command = Get_Instruction();
     switch (Current_Command)
     {
-    case Instruction('S', 'u'):
+    case Instruction('S', 'h'):
         Open_Load(Shutdown);
         Xila.System.Shutdown();
         break;
     case Instruction('K', 'U'):
+        memset(Username, '\0', sizeof(Username));
         Keyboard_Dialog(Username, sizeof(Username));
-        Refresh_Login();
+        Send_Instruction('R', 'e');
         break;
 
     case Instruction('K', 'P'):
+        memset(Password_1, '\0', sizeof(Password_1));
         Keyboard_Dialog(Password_1, sizeof(Password_1), true);
-        Refresh_Login();
+        Send_Instruction('R', 'e');
         break;
 
     case Instruction('L', 'o'): // Lo : Login with entred username and password
@@ -1308,8 +1315,11 @@ void Shell_Class::Login_Instructions()
         else
         {
             Event_Dialog(F("Wrong credentials !"), Xila.Error);
-            Refresh_Login();
+            Send_Instruction('R', 'e');
         }
+        break;
+    case Instruction('R', 'e'):
+        Refresh_Login();
         break;
     default:
         Main_Instructions();
@@ -1403,11 +1413,11 @@ void Shell_Class::Preferences_Personal_Instructions()
         Send_Instruction('R', 'e');
         break;
     case Instruction('D', 'A'): // Disable autologin
-        Xila.Account.Set_Autologin(0);
+        Xila.Account.Set_Autologin(false);
         Send_Instruction('R', 'e');
         break;
     case Instruction('E', 'A'): // Enable autologin
-        Xila.Account.Set_Autologin(1);
+        Xila.Account.Set_Autologin(true);
         Send_Instruction('R', 'e');
         break;
     case Instruction('N', 'L'):
@@ -1657,6 +1667,7 @@ void Shell_Class::Open_Preferences_Network()
 {
     Xila.Display.Set_Current_Page(Preferences_Network);
     strlcpy(WiFi_Name, Xila.WiFi.SSID().c_str(), sizeof(WiFi_Name));
+    memset(WiFi_Password, '\0', sizeof(WiFi_Password));
 }
 
 void Shell_Class::Refresh_Preferences_Network()
@@ -1812,9 +1823,14 @@ void Shell_Class::Preferences_System_Instructions()
             Xila.System.Restart();
         }
         break;
-    case Instruction('R', 'e'):
+    case Instruction('R', 'e'): // -- Refresh
         Refresh_Preferences_System();
         break;
+
+    case Instruction('G', 'V'): // -- Current version (About)
+        Xila.Display.Set_Text(F("VERSION_TXT"), ("Version : " Version_Major_String "." Version_Minor_String "." Version_Revision_String));
+        break;
+
     default:
         Main_Instructions();
         break;
@@ -1897,12 +1913,10 @@ void Shell_Class::Color_Picker_Instructions()
     {
     case Instruction('V', 'a'):
         Xila.Dialog.State = Xila.Default_Yes;
-        Xila.Task.Delay(20);
         break;
     case Dialog_Power:
     case Instruction('C', 'a'):
         Xila.Dialog.State = Xila.Default_Cancel;
-        Xila.Task.Delay(20);
         break;
     default:
         Main_Instructions();
@@ -1930,7 +1944,7 @@ Xila_Class::Event Shell_Class::Color_Picker_Dialog(uint16_t &Color)
     // -- Retore software state
     Xila.Display.Set_Current_Page(F("PAGE"));
 
-    Xila.Task.Delay(100);
+    Xila.Task.Delay(20);
 
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
@@ -1950,15 +1964,12 @@ void Shell_Class::Event_Instructions()
     {
     case Instruction('B', '1'):
         Xila.Dialog.State = Xila.Button_1;
-        Xila.Task.Delay(20);
         break;
     case Instruction('B', '2'):
-        Xila.Dialog.State = Xila.Button_1;
-        Xila.Task.Delay(20);
+        Xila.Dialog.State = Xila.Button_2;
         break;
     case Instruction('B', '3'):
-        Xila.Dialog.State = Xila.Button_1;
-        Xila.Task.Delay(20);
+        Xila.Dialog.State = Xila.Button_3;
         break;
     default:
         Main_Instructions();
@@ -1980,24 +1991,28 @@ Xila_Class::Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, 
     if (Button_Text_1 != NULL)
     {
         Xila.Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
-        if (Button_Text_2 != NULL)
-        {
-            Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
-        }
-        else
-        {
-            Xila.Display.Set_Text(F("BUTTON2_BUT"), F(""));
-        }
-        if (Button_Text_3 != NULL)
-        {
-            Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
-        }
-        else
-        {
-            Xila.Display.Set_Text(F("BUTTON3_BUT"), F(""));
-        }
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
+    }
+    if (Button_Text_2 != NULL)
+    {
+        Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
     }
 
+    if (Button_Text_3 != NULL)
+    {
+        Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
+    }
     Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
 
     switch (Event_Type)
@@ -2033,7 +2048,7 @@ Xila_Class::Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, 
 
     Xila.Display.Set_Current_Page(F("PAGE")); //go back to app page
 
-    Xila.Task.Delay(100);
+    Xila.Task.Delay(20);
 
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
@@ -2071,6 +2086,8 @@ Xila_Class::Event Shell_Class::Open_File_Dialog(File &File_To_Open)
     //
     Xila.Display.Set_Current_Page(F("PAGE"));
 
+    Xila.Task.Delay(20);
+
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
     Xila.Dialog.Long[1] = 0;
@@ -2103,6 +2120,8 @@ Xila_Class::Event Shell_Class::Save_File_Dialog(File &File_To_Save)
     }
     //
     Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Task.Delay(20);
 
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
@@ -2138,6 +2157,8 @@ Xila_Class::Event Shell_Class::Open_Folder_Dialog(File &Folder_To_Open)
     // -- Retore software state
     Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
     Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Task.Delay(20);
     //
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
@@ -2208,29 +2229,52 @@ void Shell_Class::Install_Instructions()
         if (strcmp(Password_1, Password_2) != 0)
         {
             Event_Dialog(F("Passwords does not match."), Xila.Error);
+            return;
         }
-        if (Event_Dialog(F("Are you sure of the information entered ?"), Xila.Question) != Xila.Button_1)
+
+        if (Event_Dialog(F("Are you sure of these entries ?"), Xila.Question) == Xila.Default_Yes)
         {
-            if (Xila.Drive.Make_Directory(Users_Directory_Path))
+            if (!Xila.Drive.Make_Directory(Users_Directory_Path))
             {
                 Event_Dialog(F("Cannot make users directory."), Xila.Error);
             }
             // -- Regional preferences
             Xila.Time.GMT_Offset = GMT_Offset;
             Xila.Time.Daylight_Offset = Daylight_Offset;
+
+            if (Xila.WiFi.Save_Registry() != Xila.Success)
+            {
+                Event_Dialog(F("Cannot save network registry."), Xila.Error);
+            }
+
             if (Xila.Time.Save_Registry() != Xila.Success)
             {
-                Event_Dialog(F("Cannot save the regional registry."), Xila.Error);
+                Event_Dialog(F("Cannot save regional registry."), Xila.Error);
             }
             // -- User account
             if (Xila.Account.Add(Username, Password_1) != Xila.Success)
             {
-                Event_Dialog(F("Cannot create the user account."), Xila.Error);
+                Event_Dialog(F("Cannot create user account."), Xila.Error);
             }
             Xila.Account.Login(Username, Password_1);
             Xila.Account.Set_Autologin(Autologin);
             // -- Shell registry
             Save_Registry();
+
+            // -- Load
+
+            Open_Load(Login);
+
+#if Animations == 1
+            Xila.Task.Delay(4000);
+#endif
+
+            Xila.Display.Set_Value(F("STATE_VAR"), 2);
+
+#if Animations == 1
+            Xila.Task.Delay(1000);
+#endif
+            Open_Desk();
         }
         break;
     case Instruction('D', 'B'):
@@ -2338,6 +2382,8 @@ Xila_Class::Event Shell_Class::Keyboard_Dialog(char *Char_Array_To_Get, size_t C
 
     Xila.Display.Set_Current_Page(F("PAGE"));
 
+    Xila.Task.Delay(20);
+
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
     Xila.Dialog.Long[1] = 0;
@@ -2376,12 +2422,10 @@ void Shell_Class::Keyboard_Instructions()
     {
     case Instruction('V', 'a'):
         Xila.Dialog.State = Xila.Default_Yes;
-        Xila.Task.Delay(20);
         break;
     case Dialog_Power:
     case Instruction('C', 'a'):
         Xila.Dialog.State = Xila.Default_Cancel;
-        Xila.Task.Delay(20);
         break;
     default:
         Main_Instructions();
@@ -2409,6 +2453,8 @@ Xila_Class::Event Shell_Class::Keypad_Dialog(float &Number_To_Get)
     }
 
     Xila.Display.Set_Current_Page(F("PAGE"));
+
+    Xila.Task.Delay(20);
 
     Xila.Dialog.Pointer = NULL;
     Xila.Dialog.Long[0] = 0;
@@ -2513,12 +2559,10 @@ void Shell_Class::Keypad_Instructions()
 
         *(float *)Xila.Dialog.Pointer = strtof(Temporary_Float_String, NULL);
         Xila.Dialog.State = Xila.Default_Yes;
-        Xila.Task.Delay(20);
         break;
     case Dialog_Power:
     case Instruction('C', 'a'):
         Xila.Dialog.State = Xila.Default_Cancel;
-        Xila.Task.Delay(20);
         break;
     default:
         Main_Instructions();

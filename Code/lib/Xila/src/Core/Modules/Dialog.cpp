@@ -7,14 +7,13 @@ Xila_Class::Dialog_Class::Dialog_Class()
   Semaphore = xSemaphoreCreateMutex();
 }
 
-
 ///
- /// @brief A method that allow to input text from a virtual keyboard.
- /// 
- /// @param Char_Array_To_Get 
- /// @param Char_Array_Size 
- /// @param Masked_Input 
- /// @return Xila_Class::Event 
+/// @brief A method that allow to input text from a virtual keyboard.
+///
+/// @param Char_Array_To_Get
+/// @param Char_Array_Size
+/// @param Masked_Input
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
 {
   xSemaphoreTake(Semaphore, portMAX_DELAY);
@@ -110,7 +109,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
-  
+
   Xila.Task.Delay(20);
   //
   Pointer = NULL;
@@ -139,22 +138,27 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   if (Button_Text_1 != NULL)
   {
     Xila.Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
-    if (Button_Text_2 != NULL)
-    {
-      Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
-    }
-    else
-    {
-      Xila.Display.Set_Text(F("BUTTON2_BUT"), F(""));
-    }
-    if (Button_Text_3 != NULL)
-    {
-      Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
-    }
-    else
-    {
-      Xila.Display.Set_Text(F("BUTTON3_BUT"), F(""));
-    }
+  }
+  else
+  {
+    Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
+  }
+  if (Button_Text_2 != NULL)
+  {
+    Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
+  }
+  else
+  {
+    Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
+  }
+
+  if (Button_Text_3 != NULL)
+  {
+    Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
+  }
+  else
+  {
+    Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
   }
 
   Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
@@ -222,7 +226,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   // -- Tasks suspended here
   while (State == Xila.None)
   {
-    
+
     Xila.Dialog.Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds();
     Xila.Task.Delay(20);
   }
@@ -233,7 +237,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
-  
+
   Xila.Task.Delay(20);
   // --
   Pointer = NULL;
@@ -271,7 +275,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   // -- Retore software state
   Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
   Xila.Display.Set_Current_Page(F("PAGE"));
-  
+
   Xila.Task.Delay(20);
   // -- Reset attributes
   Pointer = NULL;

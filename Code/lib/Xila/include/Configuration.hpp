@@ -25,8 +25,11 @@
 // -- System
 #define Default_Device_Name "Xila"
 #define Version_Major 0
+#define Version_Major_String "0"
 #define Version_Minor 1
+#define Version_Minor_String "1"
 #define Version_Revision 0
+#define Version_Revision_String "0"
 
 // -- Account
 #define Maximum_Password_Lenght 32
@@ -69,7 +72,6 @@
 #define Default_Keyboard_Layout American
 
 // -- Time
-
 #define Default_Daylight_Offset 0
 #define Default_GMT_Offset 0
 #define Default_NTP_Server "pool.ntp.org"
@@ -88,7 +90,7 @@
 #warning Currently in debug mode.
 
 #define ARDUINOTRACE_ENABLE     1       // Enable ArduinoTrace
-#define Animations              0       // Disable animation
+#define Animations              1       // Disable animation
 #define Drive_Mode              1       // SD spi mode
 #define USB_Serial              1       // Enable USB Serial
 

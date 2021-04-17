@@ -69,9 +69,9 @@ void IRAM_ATTR Xila_Class::Power_Class::Press_Button_Handler()
 void IRAM_ATTR Xila_Class::Power_Class::Release_Button_Handler()
 {
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
-    Xila.Power.Button_Timer = Xila.Time.Milliseconds() - Xila.Power.Button_Timer;
-    DUMP(Xila.Power.Button_Timer);
-    if (Xila.Power.Button_Timer != 0 && Xila.Power.Button_Timer > Default_Button_Long_Press)
+    uint32_t Delta = Xila.Time.Milliseconds() - Xila.Power.Button_Timer;
+    DUMP(Delta);
+    if (Xila.Power.Button_Timer != 0 && Delta > Default_Button_Long_Press)
     {
         Xila.Power.Deep_Sleep();
     }
@@ -92,6 +92,7 @@ void Xila_Class::Power_Class::Check_Button()
 
 void Xila_Class::Power_Class::Deep_Sleep()
 {
+    DUMP("Sleep");
     Xila.Display.Set_Serial_Wake_Up(true);
     Xila.Display.Set_Touch_Wake_Up(false);
     Xila.Display.Sleep();

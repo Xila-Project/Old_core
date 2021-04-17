@@ -38,12 +38,11 @@ Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
   return Success;
 }
 
-/**
- * @brief 
- * 
- * @param Enable 
- * @return Xila_Class::Event 
- */
+///
+ /// @brief A method that set autologin and save account registry.
+ /// 
+ /// @param Enable true to enable and false to disable autologin.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);

@@ -74,12 +74,18 @@ void Xila_Class::System_Class::Task(void *)
   Xila.Power.Button_Counter = 0;
   while (1)
   {
-    Xila.Software.Check_Watchdog(); // check if current running software is not frozen
     Xila.Power.Check_Button();
     Xila.Display.Loop();
 
-    if ((Xila.Time.Milliseconds() - Last_Header_Refresh) > 5000) //
+    if ((Xila.Time.Milliseconds() - Last_Header_Refresh) > 4000)
     {
+
+      if (!Xila.Drive.Exists(Xila_Directory_Path) || !Xila.Drive.Exists(Software_Directory_Path))
+      {
+        Xila.System.Panic_Handler(Xila.System.System_Drive_Failure);
+      }
+
+      Xila.Software.Check_Watchdog(); // check if current running software is not frozen
 
       if (Xila.System.Get_Free_Heap() < Low_Memory_Threshold) // Check memory
       {
@@ -153,12 +159,11 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
  */
 void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
-  vTaskSuspendAll();
   Xila.Display.Set_Current_Page(F("Core_Panic"));
   char Temporary_String[23];
-  printf(Temporary_String, "Error code %X", Panic_Code);
-
+  printf(Temporary_String, "Error code : %X", Panic_Code);
   Xila.Display.Set_Text(F("ERRORCODE_TXT"), Temporary_String);
+  vTaskSuspendAll();
   Xila.Task.Delay(10000);
   abort();
 }
@@ -400,11 +405,26 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   }
 
   Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
+
+  /*if (!Xila.Drive.Exists(Users_Directory_Path))
+  {
+
+    File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
+    if (Xila.Display.Update(Temporary_File) != Xila.Display.Update_Succeed)
+    {
+      DUMP("failed to update display");
+      Panic_Handler(Failed_To_Update_Display);
+    }
+
+    Xila.Task.Delay(5000);
+    Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
+  }*/
+
+  Xila.Display.Wake_Up();
   Xila.Display.Set_Touch_Wake_Up(true);
   Xila.Display.Set_Serial_Wake_Up(true);
   Xila.Display.Set_Brightness(Xila.Display.Brightness);
   Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
-
   Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
   Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
 
@@ -485,21 +505,9 @@ void Xila_Class::System_Class::Second_Start_Routine()
   Xila.Task.Delay(3000);
 #endif
 
-  Execute_Startup_Function();
-
   Xila.Task.Delay(500);
 
-  if (!Xila.Drive.Exists(Users_Directory_Path))
-  {
-    File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
-    if (Xila.Display.Update(Temporary_File) != Xila.Display.Update_Succeed)
-    {
-      Panic_Handler(Failed_To_Update_Display);
-    }
-    Xila.Display.Wake_Up();
-    Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
-    Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
-  }
+  Execute_Startup_Function();
 
   Xila.Task.Create(Xila.System.Task, "Core Task", Memory_Chunk(4), NULL, Xila.Task.System_Task, &Xila.System.Task_Handle);
 

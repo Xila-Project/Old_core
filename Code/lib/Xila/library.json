@@ -62,9 +62,8 @@
             "files": "Custom_Software.ino"
         }
     ],
-    "build":
-    {
-        "libLDFMode": "deep+"
+    "build": {
+        "libLDFMode": "chain"
     },
     "frameworks": "arduino",
     "platforms": "espressif32"

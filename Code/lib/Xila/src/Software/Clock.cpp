@@ -115,25 +115,30 @@ void Clock_Class::Load_Registry()
     }
 
     File Temporary_File = Xila.Drive.Open(Clock_File("Registry.xrf"));
-    DynamicJsonDocument Clock_Registry(512);
+    DynamicJsonDocument Clock_Registry(1024);
     if (deserializeJson(Clock_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Save_Registry(); // recreate a registry file;
+        DUMP("");
+        Send_Instruction('S', 'R');
         Temporary_File.close();
         return;
     }
     Temporary_File.close();
     if (strcmp(Clock_Registry["Registry"] | "", "Clock") != 0)
     {
-        Save_Registry();
+        Send_Instruction('S', 'R');
         return;
     }
     uint8_t i = 0;
     for (JsonObject Alarm : Clock_Registry["Alarms"].as<JsonArray>())
     {
         strlcpy(Alarm_Title[i], Alarm["Title"] | "", sizeof(Alarm_Title[i]));
+        
+        DUMP(Alarm["Hour"].as<int>());
         Alarm_Hour[i] = Alarm["Hour"];
+        DUMP(Alarm["Minute"].as<int>());
         Alarm_Minute[i] = Alarm["Minute"];
+        DUMP(Alarm["State"].as<bool>());
         Alarm_State[i] = Alarm["State"];
         i++;
         if (i > 5)
@@ -145,7 +150,7 @@ void Clock_Class::Load_Registry()
 
 void Clock_Class::Save_Registry()
 {
-    DynamicJsonDocument Clock_Registry(512);
+    DynamicJsonDocument Clock_Registry(1024);
     Clock_Registry["Registry"] = "Clock";
     JsonArray Alarms = Clock_Registry.createNestedArray("Alarms");
     JsonObject Alarms_0 = Alarms.createNestedObject();
@@ -542,9 +547,11 @@ void Clock_Class::Main_Instructions()
         Next_Alarm = 0;
         snprintf(Temporary_Char_Array, sizeof(Temporary_Char_Array), "Alarm : %s", Next_Alarm_Title);
         Xila.Dialog.Event(F("Time over."), Xila.Information);
-        
         Xila.Sound.Stop();
         Send_Instruction('R', 'e');
+        break;
+    case Instruction('S', 'R'):
+        Instance_Pointer->Save_Registry();
         break;
     default:
         break;

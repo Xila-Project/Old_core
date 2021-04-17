@@ -49,8 +49,8 @@
 #include "time.h"
 
 // -- Registry management library
-#include <ArduinoJson.h> //used to store registries
-#include <StreamUtils.h>
+#include "ArduinoJson.h" //used to store registries
+#include "StreamUtils.h"
 
 // WiFi libraries
 #include "Print.h"

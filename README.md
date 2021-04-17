@@ -48,7 +48,7 @@ If you have any question or proposition, you can join me :
 
 ### Core
 
-Here are the feature that are implemented in the core:
+Here are the feature that are implemented in the core :
 
 - Simple **account manager**.
 - **Multitasking** (background execution, protections against freezing and memory overflow).
@@ -58,7 +58,7 @@ Here are the feature that are implemented in the core:
 
 ### Software
 
-Here are feature that are implemented :
+Here is a list of included software :
 
 - A file manager (create, cut, remove ...).
 - A preferences pannel.
