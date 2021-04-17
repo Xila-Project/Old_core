@@ -88,7 +88,7 @@ It's [up to you](#develop) to make this list longer 😉.
 
 ## About
 
-### Depedencies :
+### Dependencies :
 
 Here are dependencies of the project :
 
