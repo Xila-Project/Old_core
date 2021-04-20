@@ -1,6 +1,6 @@
 {
     "name": "Xila",
-    "version": "0.1.0",
+    "version": "0.0.1",
     "decription": "A graphical operating system for embedded devices.",
     "keywords": "operating system, user interface, freertos, shell, esp32",
     "repository": {
@@ -54,14 +54,18 @@
         {
             "name": "Default_Software",
             "base": "examples/Default_Software",
-            "files": "Default_Software.ino"
+            "files": ["Default_Software.ino"]
         },
         {
             "name": "Custom_Software",
             "base": "examples/Custom_Software",
-            "files": "Custom_Software.ino"
+            "files": ["Custom_Software.ino"]
         }
     ],
+    "build":
+    {
+        "libLDFMode": "deep"
+    },
     "frameworks": "arduino",
     "platforms": "espressif32"
 }

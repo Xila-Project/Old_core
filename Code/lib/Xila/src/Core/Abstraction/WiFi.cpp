@@ -119,7 +119,6 @@ void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Passw
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
     begin(Name, this->Password);
-#warning remove power button wifi sleep section !
     setSleep(WIFI_PS_NONE);
 }
 

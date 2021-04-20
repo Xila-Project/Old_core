@@ -958,7 +958,7 @@ public:
         uint32_t Get_Free_Heap();
 
         void Start();
-        void Start(Software_Handle_Class *Software_Package, uint8_t Size);
+        void Start(Software_Handle_Class **Software_Package, uint8_t Size);
 
         void Shutdown();
         void Restart();

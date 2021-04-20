@@ -538,7 +538,7 @@ void Xila_Class::System_Class::Second_Start_Routine()
     * 7) Load software handles.
     * 8) Execute software startup function (Shell and other software).
     */
-void Xila_Class::System_Class::Start(Software_Handle_Class *Software_Package, uint8_t Size)
+void Xila_Class::System_Class::Start(Software_Handle_Class** Software_Package, uint8_t Size)
 {
   if (Xila.System.Task_Handle != NULL) // Already started
   {
@@ -551,7 +551,7 @@ void Xila_Class::System_Class::Start(Software_Handle_Class *Software_Package, ui
 
   for (uint8_t i = 0; i < Size; i++)
   {
-    Xila.Software.Add_Handle(Software_Package[i]);
+    Xila.Software.Add_Handle(*Software_Package[i]);
   }
 
   Second_Start_Routine();
