@@ -1,6 +1,6 @@
 {
     "name": "Xila",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "decription": "A graphical operating system for embedded devices.",
     "keywords": "operating system, user interface, freertos, shell, esp32",
     "repository": {
