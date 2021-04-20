@@ -70,14 +70,15 @@ void Pong_Class::Main_Task(void *pvParameters)
             Xila.Task.Delay(10);
             break;
 
+        case Hibernate:
+        case Shutdown:
+        case Restart:
         case Instruction('C', 'l'):
             Xila.Software.Close(Pong_Handle);
             break;
         case Instruction('M', 'i'):
             Xila.Software.Minimize(Pong_Handle);
             break;
-        case Restart:
-        case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();

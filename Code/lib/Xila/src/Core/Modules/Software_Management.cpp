@@ -253,7 +253,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
 /// @brief Function that close roughly the current running software.
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
-/// @param Software_Handle
+/// @param Software_Handle Software handle to close.
 Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Handle_Class const &Software_Handle)
 {
   for (uint8_t i = 1; i < 8; i++)

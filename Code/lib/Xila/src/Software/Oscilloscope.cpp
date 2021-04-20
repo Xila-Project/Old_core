@@ -66,8 +66,7 @@ void Oscilloscope_Class::Loop()
 			break;
 		case Minimize:
 			break;
-		case Shutdown:
-		case Restart:
+
 		case Close:
 			delete Instance_Pointer;
 			Xila.Task.Delete();
@@ -114,6 +113,10 @@ void Oscilloscope_Class::Loop()
 		case Instruction('R', 'e'):
 			Refresh_Interface();
 			break;
+		
+		case Hibernate:
+		case Shutdown:
+		case Restart:
 		case Instruction('C', 'l'):
 			Start = false;
 		Xila.Software.Close(Oscilloscope_Handle);

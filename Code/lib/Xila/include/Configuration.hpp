@@ -24,12 +24,12 @@
 
 // -- System
 #define Default_Device_Name "Xila"
-#define Version_Major 0
-#define Version_Major_String "0"
-#define Version_Minor 1
-#define Version_Minor_String "1"
-#define Version_Revision 0
-#define Version_Revision_String "0"
+#define Xila_Version_Major 0
+#define Xila_Version_Major_String "0"
+#define Xila_Version_Minor 1
+#define Xila_Version_Minor_String "1"
+#define Xila_Version_Revision 0      
+#define Xila_Version_Revision_String "0"
 
 // -- Account
 #define Maximum_Password_Lenght 32
@@ -45,7 +45,7 @@
 #define Default_Software_Name_Length 24
 
 // -- Power
-#define POWER_BUTTON_PIN GPIO_NUM_39
+#define Power_Button_Pin GPIO_NUM_39 // 39 : v1, 35 : v2
 #define Default_Battery_Conversion_Factor 2
 #define Default_Battery_Minimum_Voltage 2500
 #define Default_Battery_Maximum_Voltage 4200
@@ -53,6 +53,8 @@
 #define Default_Button_Long_Press 4000
 
 // -- Display
+
+#define Default_Display_Switching_Pin GPIO_NUM_27
 #define Default_Display_Receive_Pin GPIO_NUM_16
 #define Default_Display_Transmit_Pin GPIO_NUM_17
 #define Default_Display_Baud_Rate 921600
@@ -79,17 +81,24 @@
 // -- Release configuration
 #if CORE_DEBUG_LEVEL <= 1 // release mode
 
+#ifndef ARDUINOTRACE_ENABLE
 #define ARDUINOTRACE_ENABLE     0       // Disable ArduinoTrace
+#endif
+
 #define Animations              1       // Enable animation
 #define Drive_Mode              0       // SD mmc mode
-#define USB_Serial              0       // Disable USB Serial
+#define USB_Serial              1       // Disable USB Serial
 
 // -- Debug configuration
 #else
 
-#warning Currently in debug mode.
+#warning Debug mode.
 
+
+#ifndef ARDUINOTRACE_ENABLE
 #define ARDUINOTRACE_ENABLE     1       // Enable ArduinoTrace
+#endif
+
 #define Animations              1       // Disable animation
 #define Drive_Mode              1       // SD spi mode
 #define USB_Serial              1       // Enable USB Serial

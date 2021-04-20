@@ -116,9 +116,9 @@ void Clock_Class::Load_Registry()
 
     File Temporary_File = Xila.Drive.Open(Clock_File("Registry.xrf"));
     DynamicJsonDocument Clock_Registry(1024);
+
     if (deserializeJson(Clock_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        DUMP("");
         Send_Instruction('S', 'R');
         Temporary_File.close();
         return;
@@ -133,12 +133,9 @@ void Clock_Class::Load_Registry()
     for (JsonObject Alarm : Clock_Registry["Alarms"].as<JsonArray>())
     {
         strlcpy(Alarm_Title[i], Alarm["Title"] | "", sizeof(Alarm_Title[i]));
-        
-        DUMP(Alarm["Hour"].as<int>());
+
         Alarm_Hour[i] = Alarm["Hour"];
-        DUMP(Alarm["Minute"].as<int>());
         Alarm_Minute[i] = Alarm["Minute"];
-        DUMP(Alarm["State"].as<bool>());
         Alarm_State[i] = Alarm["State"];
         i++;
         if (i > 5)
@@ -505,8 +502,6 @@ void Clock_Class::Main_Instructions()
         break;
     case Minimize:
         break;
-    case Restart:
-    case Shutdown:
     case Close:
         Save_Registry();
         delete Instance_Pointer;
@@ -519,6 +514,9 @@ void Clock_Class::Main_Instructions()
         Save_Registry();
         Xila.Software.Minimize(Clock_Handle);
         break;
+    case Hibernate:
+    case Shutdown:
+    case Restart:
     case Instruction('C', 'l'):
         Xila.Software.Close(Clock_Handle);
         break;

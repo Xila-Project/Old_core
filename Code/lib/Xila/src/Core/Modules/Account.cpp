@@ -17,16 +17,19 @@ Xila_Class::Account_Class::Account_Class()
 
 Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
+  File Temporary_File = Xila.Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
+
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
+
     Temporary_File.close();
     return Error;
   }
   Temporary_File.close();
   if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
   {
+
     return Error;
   }
   memset(Current_Username, '\0', sizeof(Current_Username));
@@ -35,6 +38,7 @@ Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
   {
     State = Logged;
   }
+
   return Success;
 }
 
@@ -75,6 +79,11 @@ uint8_t Xila_Class::Account_Class::Get_State()
   return State;
 }
 
+void Xila_Class::Account_Class::Set_State(Session_State State)
+{
+  this->State = State;
+}
+
 /**
  * @brief 
  * 
@@ -83,6 +92,11 @@ uint8_t Xila_Class::Account_Class::Get_State()
 const char *Xila_Class::Account_Class::Get_Current_Username()
 {
   return Current_Username;
+}
+
+void Xila_Class::Account_Class::Set_Current_Username(const char* Username)
+{
+  strlcpy(Current_Username, Username, sizeof(Current_Username));
 }
 
 /**

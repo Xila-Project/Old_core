@@ -110,8 +110,7 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Send_Instruction('H', 'o');
       break;
-    case Restart:
-    case Shutdown:
+
     case Close: // NULL + C : Close
       delete Instance_Pointer;
       Xila.Task.Delete();
@@ -121,6 +120,9 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       Xila.Software.Minimize(Internet_Browser_Handle);
       break;
 
+    case Hibernate:
+    case Shutdown:
+    case Restart:
     case Instruction('C', 'l'):
       Xila.Software.Close(Internet_Browser_Handle);
       break;

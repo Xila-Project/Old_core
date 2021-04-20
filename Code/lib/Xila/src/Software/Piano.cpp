@@ -52,12 +52,14 @@ void Piano_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
-        case Restart:
-        case Shutdown:
+
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
+        		case Hibernate:
+		case Shutdown:
+		case Restart:
         case Instruction('C', 'l'):
             Xila.Software.Close(Piano_Handle);
             break;

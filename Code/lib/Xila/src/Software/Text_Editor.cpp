@@ -58,7 +58,7 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(20);
             break;
-        case Restart: case Shutdown:
+
         case Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
@@ -72,6 +72,9 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
+        		case Hibernate:
+		case Shutdown:
+		case Restart:
         case Instruction('C', 'l'):
             Xila.Software.Close(Text_Editor_Handle);
             break;

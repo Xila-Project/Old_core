@@ -2,10 +2,10 @@
 
 Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
-Periodic_Class::Periodic_Class() 
-: Software_Class(Periodic_Handle),
-X(7),
-Y(30)
+Periodic_Class::Periodic_Class()
+    : Software_Class(Periodic_Handle),
+      X(7),
+      Y(30)
 {
     Xila.Task.Create(Main_Task, "Periodic Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
@@ -59,6 +59,9 @@ void Periodic_Class::Main_Task(void *pvParamters)
             }
             Xila.Task.Delay(10);
             break;
+        case Hibernate:
+        case Shutdown:
+        case Restart:
         case Instruction('C', 'l'):
             Xila.Software.Close(Periodic_Handle);
             break;
@@ -82,8 +85,6 @@ void Periodic_Class::Main_Task(void *pvParamters)
             Instance_Pointer->Tab = 0;
             Instance_Pointer->Send_Instruction('G', 'M');
             break;
-        case Restart: 
-        case Shutdown:
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
@@ -349,7 +350,6 @@ void Periodic_Class::Get_Data()
     {
         return;
     }
-
 
     if (Current_Atom_Name[0] == '\0')
     {

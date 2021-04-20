@@ -240,7 +240,7 @@ void Tiny_Basic_Class::Read_Instructions()
     Xila.Display.Set_Text(F("INPUT_VAR"), Temporary_Input);
     Send_Instruction('R', 'e');
     break;
-  case Restart: case Shutdown:
+
   case Close:
     delete Instance_Pointer;
     Xila.Task.Delete(NULL);
@@ -249,6 +249,9 @@ void Tiny_Basic_Class::Read_Instructions()
   case Instruction('M', 'i'):
     Xila.Software.Minimize(Tiny_Basic_Handle);
     break;
+  case Hibernate:
+  case Shutdown:
+  case Restart:
   case Instruction('C', 'l'):
     Xila.Software.Close(Tiny_Basic_Handle);
     break;

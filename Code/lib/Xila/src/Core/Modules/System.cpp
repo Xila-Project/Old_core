@@ -33,7 +33,7 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
     return Error;
   }
   JsonObject Version = System_Registry["Version"];
-  if (Version["Major"] != Version_Major || Version["Minor"] != Version_Minor || Version["Revision"] != Version_Revision)
+  if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
   {
     Panic_Handler(Installation_Conflict);
   }
@@ -48,9 +48,9 @@ Xila_Class::Event Xila_Class::System_Class::Save_Registry()
   System_Registry["Registry"] = "System";
   System_Registry["Device Name"] = Device_Name;
   JsonObject Version = System_Registry.createNestedObject("Version");
-  Version["Major"] = Version_Major;
-  Version["Minor"] = Version_Minor;
-  Version["Revision"] = Version_Revision;
+  Version["Major"] = Xila_Version_Major;
+  Version["Minor"] = Xila_Version_Minor;
+  Version["Revision"] = Xila_Version_Revision;
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
@@ -160,61 +160,44 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
 void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
   Xila.Display.Set_Current_Page(F("Core_Panic"));
-  char Temporary_String[23];
-  printf(Temporary_String, "Error code : %X", Panic_Code);
+  char Temporary_String[32];
+  snprintf(Temporary_String, sizeof(Temporary_String), "Error code : %X", Panic_Code);
   Xila.Display.Set_Text(F("ERRORCODE_TXT"), Temporary_String);
   vTaskSuspendAll();
-  Xila.Task.Delay(10000);
+  uint32_t Delay_Time = Xila.Time.Milliseconds();
+  while ((Xila.Time.Milliseconds() - Delay_Time) < 5000)
+  {
+  }
   abort();
 }
 
 Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 {
-  Xila.Software.Minimize(*Xila.Software.Openned[0]->Handle);
+  
+
+  DynamicJsonDocument Dump_Registry(Default_Registry_Size);
+
+  JsonArray Software = Dump_Registry.createNestedArray("Software");
+
+  Dump_Registry["Registry"] = "Dump";
+
+  for (uint8_t i = 2; i <= 7; i++)
+  {
+    if (Xila.Software.Openned[i] != NULL)
+    {
+      Software.add(Xila.Software.Openned[i]->Handle->Name);
+    }
+  }
+
+  Dump_Registry["User"] = Xila.Account.Get_Current_Username();
 
   File Dump_File = Xila.Drive.Open(Dump_Registry_Path, FILE_WRITE);
-
-  if (!Dump_File)
+  if (serializeJson(Dump_Registry, Dump_File) == 0)
   {
+    Dump_File.close();
     return Error;
   }
-
-  if (Xila.Software.Openned[2] != NULL)
-  {
-    Dump_File.seek(0 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[2]->Handle->Name, sizeof(Xila.Software.Openned[2]->Handle->Name));
-  }
-  if (Xila.Software.Openned[3] != NULL)
-  {
-    Dump_File.seek(1 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[3]->Handle->Name, sizeof(Xila.Software.Openned[3]->Handle->Name));
-  }
-  if (Xila.Software.Openned[4] != NULL)
-  {
-    Dump_File.seek(2 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[4]->Handle->Name, sizeof(Xila.Software.Openned[4]->Handle->Name));
-  }
-  if (Xila.Software.Openned[5] != NULL)
-  {
-    Dump_File.seek(3 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[5]->Handle->Name, sizeof(Xila.Software.Openned[5]->Handle->Name));
-  }
-  if (Xila.Software.Openned[6] != NULL)
-  {
-    Dump_File.seek(4 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[6]->Handle->Name, sizeof(Xila.Software.Openned[6]->Handle->Name));
-  }
-  if (Xila.Software.Openned[7] != NULL)
-  {
-    Dump_File.seek(5 * sizeof(Default_Software_Name_Length));
-    Dump_File.write((uint8_t *)Xila.Software.Openned[7]->Handle->Name, sizeof(Xila.Software.Openned[7]->Handle->Name));
-  }
-
-  Dump_File.seek(6 * sizeof(Default_Software_Name_Length));
-  Dump_File.write((uint8_t *)Xila.Account.Current_Username, sizeof(Xila.Account.Current_Username));
-
   Dump_File.close();
-
   return Success;
 }
 
@@ -223,22 +206,48 @@ Xila_Class::Event Xila_Class::System_Class::Load_Dump()
   if (Xila.Drive.Exists(Dump_Registry_Path))
   {
     File Dump_File = Xila.Drive.Open((Dump_Registry_Path));
-    char Temporary_Software_Name[24];
-    for (uint8_t i = 0; i < 7; i++)
+    DynamicJsonDocument Dump_Registry(Default_Registry_Size);
+
+    if (deserializeJson(Dump_Registry, Dump_File) != DeserializationError::Ok)
     {
-      Dump_File.seek(i * 24);
-      Dump_File.readBytes(Temporary_Software_Name, sizeof(Temporary_Software_Name));
-      for (uint8_t ii = 0; ii < (sizeof(Xila.Software.Handle) / sizeof(Xila.Software.Handle[0])); ii++)
+      Dump_File.close();
+      Xila.Drive.Remove(Dump_Registry_Path);
+      return Error;
+    }
+    Dump_File.close();
+    Xila.Drive.Remove(Dump_Registry_Path);
+
+    if (strcmp(Dump_Registry["Registry"] | "", "Dump") != 0)
+    {
+      return Error;
+    }
+
+    char Temporary_Software_Name[Default_Software_Name_Length];
+
+    JsonArray Software = Dump_Registry["Software"];
+
+    for (uint8_t i = 0; i < 6; i++)
+    {
+      memset(Temporary_Software_Name, '\0', sizeof(Temporary_Software_Name));
+      strlcpy(Temporary_Software_Name, Software[i] | "", sizeof(Temporary_Software_Name));
+      for (uint8_t j = 0; j < Maximum_Software; j++)
       {
-        if (strcmp(Xila.Software.Handle[ii]->Name, Temporary_Software_Name) == 0)
+        if (Xila.Software.Handle[j] != NULL)
         {
-          Xila.Software.Open(*Xila.Software.Handle[ii]);
+          if (strcmp(Xila.Software.Handle[j]->Name, Temporary_Software_Name) == 0)
+          {
+            Xila.Software.Open(*Xila.Software.Handle[j]);
+          }
         }
       }
     }
 
-    Dump_File.seek(6 * 24);
-    Dump_File.readBytes(Xila.Account.Current_Username, sizeof(Xila.Account.Current_Username));
+    strlcpy(Xila.Account.Current_Username, Dump_Registry["User"] | "", sizeof(Xila.Account.Current_Username));
+    if (Xila.Account.Current_Username[0] != '\0')
+    {
+      Xila.Account.Set_State(Xila.Account.Locked);
+    }
+
     return Success;
   }
   else
@@ -303,12 +312,12 @@ void Xila_Class::System_Class::Refresh_Header()
   if (Temporary_Char_Array[5] <= 5)
   {
     Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Empty);
-    Xila.Display.Set_Background_Color(F("BATTERY_BUT"), Xila.Display.Red);
+    Xila.Display.Set_Font_Color(F("BATTERY_BUT"), Xila.Display.Red);
   }
   else if (Temporary_Char_Array[5] <= 10 && Temporary_Char_Array[5] > 5)
   {
     Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Empty);
-    Xila.Display.Set_Background_Color(F("BATTERY_BUT"), Xila.Display.White);
+    Xila.Display.Set_Font_Color(F("BATTERY_BUT"), Xila.Display.White);
   }
   else if (Temporary_Char_Array[5] <= 35 && Temporary_Char_Array[5] > 10)
   {
@@ -354,7 +363,7 @@ void Xila_Class::System_Class::Refresh_Header()
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
   // -- Check if the power button was press or the power supply plugged.
-  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
+  esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
   if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
@@ -362,9 +371,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   }
 
   // -- Set power button interrupts
-  Xila.GPIO.Set_Mode(POWER_BUTTON_PIN, INPUT);
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Xila.Power.Press_Button_Handler, FALLING);
-  attachInterrupt(digitalPinToInterrupt(POWER_BUTTON_PIN), Xila.Power.Release_Button_Handler, RISING);
+  Xila.GPIO.Set_Mode(Power_Button_Pin, INPUT);
+  Xila.GPIO.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Xila.Power.Button_Interrupt_Handler, Xila.GPIO.Change);
 
   // -- Increase esp32 hardware watchdog timeout
 
@@ -389,6 +397,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   }
   while (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
+    Xila.Drive.End();
     Xila.Task.Delay(200);
   }
   Xila.Display.Set_Text(F("EVENT_TXT"), F(""));
@@ -406,19 +415,17 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
 
-  /*if (!Xila.Drive.Exists(Users_Directory_Path))
+  if (!Xila.Drive.Exists(Users_Directory_Path))
   {
-
     File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
     if (Xila.Display.Update(Temporary_File) != Xila.Display.Update_Succeed)
     {
-      DUMP("failed to update display");
       Panic_Handler(Failed_To_Update_Display);
     }
 
     Xila.Task.Delay(5000);
     Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
-  }*/
+  }
 
   Xila.Display.Wake_Up();
   Xila.Display.Set_Touch_Wake_Up(true);
@@ -452,7 +459,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Play startup sound
 
-  Xila.Sound.Play(Sounds("Startup.mp3"));
+  Xila.Sound.Play(Sounds("Startup.wav"));
 
   // -- Load power registry :
 
@@ -467,6 +474,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   {
     Xila.WiFi.Save_Registry();
   }
+  Xila.WiFi.setSleep(WIFI_PS_NONE);
 
   // -- Time registry
   if (Xila.Time.Load_Registry() != Success)
@@ -493,7 +501,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 ///
 void Xila_Class::System_Class::Second_Start_Routine()
 {
-  Xila.System.Load_Dump();
 
 #if Animations == 1
   Xila.Task.Delay(3000);
@@ -506,6 +513,10 @@ void Xila_Class::System_Class::Second_Start_Routine()
 #endif
 
   Xila.Task.Delay(500);
+
+  Xila.System.Load_Dump();
+
+  Xila.Task.Delay(100);
 
   Execute_Startup_Function();
 
@@ -650,7 +661,6 @@ void Xila_Class::System_Class::Shutdown()
 void Xila_Class::System_Class::Second_Sleep_Routine()
 {
   Xila.Task.Delete(Xila.System.Task_Handle);
-  Xila.Task.Delete(Xila.Sound.Task_Handle);
 
   Xila.Display.Save_Registry();
   Xila.Keyboard.Save_Registry();
@@ -662,21 +672,22 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 
   Xila.Sound.Play(Sounds("Shutdown.wav"));
 
-  Xila.Task.Delay(5000);
+  Xila.Task.Delay(8000);
+
+  Xila.Task.Delete(Xila.Sound.Task_Handle);
 
   // Disconnect wifi
   Xila.WiFi.disconnect();
-  //
-  Xila.Drive.End();
 }
 
 void Xila_Class::System_Class::Hibernate()
 {
+  
   Xila.System.Save_Dump();
-
-  Xila.Software.Send_Instruction_Shell(Software_Class::Hibernate);
+  
   Xila.Software.Maximize_Shell();
-
+  Xila.Software.Send_Instruction_Shell(Software_Class::Hibernate);
+  
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Xila.Software.Openned[i] != NULL)
@@ -688,10 +699,12 @@ void Xila_Class::System_Class::Hibernate()
       {
         if (Xila.Software.Openned[i] == NULL)
         {
+          
           break;
         }
         if (j == 200 && Xila.Software.Openned[i] != NULL)
         {
+          
           Xila.Software.Force_Close(*Xila.Software.Openned[i]->Handle);
         }
         Xila.Task.Delay(20);

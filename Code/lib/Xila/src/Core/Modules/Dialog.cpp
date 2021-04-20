@@ -167,22 +167,22 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   case Error:
     Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Cross);
     Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Red);
-    Xila.Display.Set_Text(F("HEADER_TXT"), F("Error"));
+    Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Error"));
     break;
   case Warning:
     Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
     Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Yellow);
-    Xila.Display.Set_Text(F("HEADER_TXT"), F("Warning"));
+    Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Warning"));
     break;
   case Information:
     Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
     Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Blue);
-    Xila.Display.Set_Text(F("HEADER_TXT"), F("Information"));
+    Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Information"));
     break;
   case Question:
     Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Question_Mark);
     Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Green);
-    Xila.Display.Set_Text(F("HEADER_TXT"), F("Question"));
+    Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Question"));
   default:
     break;
   }

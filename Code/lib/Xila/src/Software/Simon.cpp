@@ -40,8 +40,6 @@ void Simon_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(10);
             break;
-        case Restart:
-        case Shutdown:
         case Close:
             Instance_Pointer->Save_Registry();
             delete Instance_Pointer;
@@ -65,6 +63,9 @@ void Simon_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Save_Registry();
             Xila.Software.Minimize(Simon_Handle);
             break;
+        case Hibernate:
+        case Shutdown:
+        case Restart:
         case Instruction('C', 'l'):
             Instance_Pointer->Save_Registry();
             Xila.Software.Close(Simon_Handle);
@@ -216,7 +217,7 @@ void Simon_Class::Press(uint8_t Color)
 
 void Simon_Class::Reset()
 {
-    
+
     Current_Level[0] = 0;
     Current_Level[1] = 0;
     Speed = 0;
@@ -224,7 +225,7 @@ void Simon_Class::Reset()
 
 void Simon_Class::Win()
 {
-    
+
     Xila.Dialog.Event(F("Well done ! You have max out the game."), Xila.Information);
     Scores[7] = Current_Level[0];
     Save_Registry();
@@ -234,7 +235,7 @@ void Simon_Class::Win()
 
 void Simon_Class::Sort_Scores()
 {
-    
+
     uint8_t Temporary_Byte;
 
     for (uint8_t i = 1; i < sizeof(Scores); i++)
@@ -247,13 +248,11 @@ void Simon_Class::Sort_Scores()
             i = 0;
         }
     }
-
-  
 }
 
 void Simon_Class::Game_Over()
 {
-    
+
     Scores[7] = Current_Level[0];
     Sort_Scores();
     Save_Registry();
@@ -263,7 +262,7 @@ void Simon_Class::Game_Over()
 
 void Simon_Class::Show_Sequence()
 {
-    
+
     for (uint8_t i = 0; i < Current_Level[0]; i++)
     {
         Get_Instruction();

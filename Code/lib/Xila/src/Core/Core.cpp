@@ -41,7 +41,7 @@ Xila_Class::Xila_Class()
   }
   Instance_Pointer = this;
 
-  esp_sleep_enable_ext0_wakeup(POWER_BUTTON_PIN, LOW);
+  esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
 }
 
 Xila_Class::~Xila_Class() // destructor

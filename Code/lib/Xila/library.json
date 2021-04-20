@@ -41,12 +41,12 @@
         },
         {
             "owner": "alix-anneraud",
-            "name": "Battery-Library",
+            "name": "Battery Library",
             "version": "^1.0.0"
         },
         {
             "owner": "alix-anneraud",
-            "name": "Nextion-Library",
+            "name": "Nextion Library",
             "version": "^1.0.0"
         }
     ],
@@ -62,9 +62,6 @@
             "files": "Custom_Software.ino"
         }
     ],
-    "build": {
-        "libLDFMode": "chain"
-    },
     "frameworks": "arduino",
     "platforms": "espressif32"
 }

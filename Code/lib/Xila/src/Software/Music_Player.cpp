@@ -94,8 +94,7 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             }
             Xila.Task.Delay(10);
             break;
-        case Restart:
-        case Shutdown:
+
         case Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
@@ -111,6 +110,9 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             break;
         case Minimize:
             break;
+        case Hibernate:
+        case Shutdown:
+        case Restart:
         case Instruction('C', 'l'):
             Xila.Software.Close(Music_Player_Handle);
             break;

@@ -161,6 +161,7 @@ void Shell_Class::Main_Instructions()
             Xila.Display.Set_Current_Page(Welcome);
             return;
         }
+
         if (Xila.Account.Get_State() == Xila.Account.Logged)
         {
             Load_Registry();
@@ -1236,8 +1237,9 @@ void Shell_Class::Open_Load(uint8_t Mode)
 
 void Shell_Class::Open_Login()
 {
-    if (Xila.Account.State == Xila.Account.Disconnected) // Check if logged
+    if (Xila.Account.Get_State() == Xila.Account.Disconnected) // Check if logged
     {
+
         Xila.Display.Set_Current_Page(Login);
         memset(Username, '\0', sizeof(Username));
         memset(Password_1, '\0', sizeof(Password_1));
@@ -1245,8 +1247,19 @@ void Shell_Class::Open_Login()
         strcpy(Password_1, "Password");
         Send_Instruction('R', 'e');
     }
-    else
+    else if (Xila.Account.Get_State() == Xila.Account.Locked)
     {
+
+        Xila.Display.Set_Current_Page(Login);
+        memset(Username, '\0', sizeof(Username));
+        memset(Password_1, '\0', sizeof(Password_1));
+        strcpy(Username, Xila.Account.Get_Current_Username());
+        strcpy(Password_1, "Password");
+        Send_Instruction('R', 'e');
+    }
+    else if (Xila.Account.Get_State() == Xila.Account.Logged)
+    {
+
         Open_Desk();
     }
 }
@@ -1271,13 +1284,11 @@ void Shell_Class::Login_Instructions()
         Keyboard_Dialog(Username, sizeof(Username));
         Send_Instruction('R', 'e');
         break;
-
     case Instruction('K', 'P'):
         memset(Password_1, '\0', sizeof(Password_1));
         Keyboard_Dialog(Password_1, sizeof(Password_1), true);
         Send_Instruction('R', 'e');
         break;
-
     case Instruction('L', 'o'): // Lo : Login with entred username and password
         if (Xila.Account.Login(Username, Password_1) == Xila.Success)
         {
@@ -1804,7 +1815,7 @@ void Shell_Class::Preferences_System_Instructions()
         {
             Xila.Display.Set_Current_Page(Load);
             Xila.Display.Set_Text(F("MESSAGE_TXT"), F("Updating Xila"));
-            Xila.Display.Set_Text(F("HEADER_TXT"), F("Update"));
+            Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Update"));
 
             File Temporary_File = Xila.Drive.Open(Microcontroller_Executable_Path);
             if (Xila.System.Load_Executable(Temporary_File) != Xila.Success)
@@ -1828,7 +1839,7 @@ void Shell_Class::Preferences_System_Instructions()
         break;
 
     case Instruction('G', 'V'): // -- Current version (About)
-        Xila.Display.Set_Text(F("VERSION_TXT"), ("Version : " Version_Major_String "." Version_Minor_String "." Version_Revision_String));
+        Xila.Display.Set_Text(F("VERSION_TXT"), ("Version : " Xila_Version_Major_String "." Xila_Version_Minor_String "." Xila_Version_Revision_String));
         break;
 
     default:
@@ -1863,11 +1874,13 @@ void Shell_Class::Shutdown_Instructions()
     case Instruction('R', 'S'): // RS : Restart system
         Open_Load(Restart);
         Save_Registry();
+        Set_Watchdog_Timeout(30000);
         Xila.System.Restart();
         break;
     case Instruction('H', 'S'): // HS : hibernate sys
         Open_Load(Hibernate);
         Save_Registry();
+        Set_Watchdog_Timeout(30000);
         Xila.System.Hibernate();
         break;
     case Instruction('L', 'S'): // LS : lock system
@@ -1878,6 +1891,7 @@ void Shell_Class::Shutdown_Instructions()
     case Instruction('S', 'S'): // SS : shutdown
         Open_Load(Shutdown);
         Save_Registry();
+        Set_Watchdog_Timeout(30000);
         Xila.System.Shutdown();
         break;
     default:
@@ -2020,22 +2034,22 @@ Xila_Class::Event Shell_Class::Event_Dialog(const __FlashStringHelper *Message, 
     case Xila.Error:
         Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Cross);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Red);
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Error"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Error"));
         break;
     case Xila.Warning:
         Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Yellow);
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Warning"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Warning"));
         break;
     case Xila.Information:
         Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Blue);
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Information"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Information"));
         break;
     case Xila.Question:
         Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Question_Mark);
         Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Green);
-        Xila.Display.Set_Text(F("HEADER_TXT"), F("Question"));
+        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Question"));
     default:
         break;
     }
@@ -2555,8 +2569,6 @@ void Shell_Class::Keypad_Instructions()
     switch (Current_Command)
     {
     case Instruction('V', 'a'):
-        DUMP(Temporary_Float_String);
-
         *(float *)Xila.Dialog.Pointer = strtof(Temporary_Float_String, NULL);
         Xila.Dialog.State = Xila.Default_Yes;
         break;

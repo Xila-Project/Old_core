@@ -149,6 +149,10 @@ public:
     class Account_Class
     {
     public:
+     
+        // -- Constructor
+        Account_Class();
+
         ///
         /// @brief Session state type
         ///
@@ -170,11 +174,10 @@ public:
         Xila_Class::Event Logout();
         Xila_Class::Event Lock();
 
+        // -- Getter
         const char *Get_Current_Username();
-
         uint8_t Get_State();
 
-        Account_Class();
 
         friend class Xila_Class;
         friend class Shell_Class;
@@ -182,6 +185,10 @@ public:
     protected:
         char Current_Username[9];
         Session_State State;
+
+        // -- Setter
+        void Set_Current_Username(const char* Username);
+        void Set_State(Session_State State);
 
         Xila_Class::Event Load_Registry();
 
@@ -740,6 +747,7 @@ public:
         friend Xila_Class;
         friend class Shell_Class;
 
+        // -- Methods
         Xila_Class::Event Save_Registry();
         Xila_Class::Event Load_Registry();
 
@@ -750,8 +758,7 @@ public:
         portMUX_TYPE Button_Mutex;
 
         // -- Methods
-        void static IRAM_ATTR Press_Button_Handler();
-        void static IRAM_ATTR Release_Button_Handler();
+        void static IRAM_ATTR Button_Interrupt_Handler();
 
         void Check_Button();
         void Deep_Sleep();
