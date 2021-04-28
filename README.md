@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allow the integration of different software in one unique ecosystem and also easy porting (only the HAL of Xila needs to be rewrite). I hope you would like it !
+Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allows the integration of different software in one unique ecosystem and also easy porting (only the HAL of Xila needs to be rewrite). I hope you would like it !
 
 Inspired by :
 - [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer") - [Benjamin HECKENDORN](https://www.benheck.com/ "Benjamin HECKENDORN")
@@ -35,13 +35,13 @@ Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Start
 
 ### Contribute
 
-This project is openned to contributions of any kinds.
+This project is open to contributions of any kinds.
 
 ## Support
 
 Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](https://xila.alixfaitgrr.fr/).
 
-If you have any question or proposition, you can join me :
+If you have any questions or propositions, you can contact me :
 - 📫 by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
 
 ## Features
@@ -80,7 +80,7 @@ It's [up to you](#develop) to make this list longer 😉.
 ### Roadmap
 
 - Finish the documentation.
-- Comment proprely the code.
+- Comment properly the code.
 - Support LVGL graphics which would allow more flexibility, animations etc. But maybe require a more powerfull board with more memory/flash and ram (ESP32-WROVER or Teensy ?).
 - Port to ESP8266, ESP32-S3, Teensy ...
 - Change how registries works (JSON is handy but inappropriate for this project).
