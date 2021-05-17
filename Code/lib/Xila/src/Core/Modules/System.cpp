@@ -173,7 +173,6 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 
 Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 {
-  
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
 
@@ -362,6 +361,14 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
+#if USB_Serial == 1
+  Serial.begin(Default_USB_Serial_Speed);
+#endif
+  if (Xila.System.Task_Handle != NULL) // Already started
+  {
+    return;
+  }
+
   // -- Check if the power button was press or the power supply plugged.
   esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
@@ -427,6 +434,9 @@ inline void Xila_Class::System_Class::First_Start_Routine()
     Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
   }
 
+  Xila.GPIO.Set_Mode(Default_Display_Switching_Pin, Xila.GPIO.Output);
+  Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.High);
+  Xila.Task.Delay(2000);
   Xila.Display.Wake_Up();
   Xila.Display.Set_Touch_Wake_Up(true);
   Xila.Display.Set_Serial_Wake_Up(true);
@@ -538,12 +548,8 @@ void Xila_Class::System_Class::Second_Start_Routine()
     * 7) Load software handles.
     * 8) Execute software startup function (Shell and other software).
     */
-void Xila_Class::System_Class::Start(Software_Handle_Class** Software_Package, uint8_t Size)
+void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, uint8_t Size)
 {
-  if (Xila.System.Task_Handle != NULL) // Already started
-  {
-    return;
-  }
 
   First_Start_Routine();
 
@@ -564,13 +570,6 @@ void Xila_Class::System_Class::Start(Software_Handle_Class** Software_Package, u
      */
 void Xila_Class::System_Class::Start()
 {
-#if USB_Serial == 1
-  Serial.begin(Default_USB_Serial_Speed);
-#endif
-  if (Xila.System.Task_Handle != NULL) // Already started
-  {
-    return;
-  }
 
   First_Start_Routine();
 
@@ -682,12 +681,12 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 
 void Xila_Class::System_Class::Hibernate()
 {
-  
+
   Xila.System.Save_Dump();
-  
+
   Xila.Software.Maximize_Shell();
   Xila.Software.Send_Instruction_Shell(Software_Class::Hibernate);
-  
+
   for (uint8_t i = 2; i < 8; i++)
   {
     if (Xila.Software.Openned[i] != NULL)
@@ -699,12 +698,12 @@ void Xila_Class::System_Class::Hibernate()
       {
         if (Xila.Software.Openned[i] == NULL)
         {
-          
+
           break;
         }
         if (j == 200 && Xila.Software.Openned[i] != NULL)
         {
-          
+
           Xila.Software.Force_Close(*Xila.Software.Openned[i]->Handle);
         }
         Xila.Task.Delay(20);

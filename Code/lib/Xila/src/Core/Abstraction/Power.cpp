@@ -99,7 +99,7 @@ void Xila_Class::Power_Class::Deep_Sleep()
     Xila.Display.Set_Touch_Wake_Up(false);
     Xila.Display.Set_Current_Page(F("Core_Load"));
 
-    Xila.Display.Sleep();
+    Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.Low);
 
     Xila.Drive.End();
 

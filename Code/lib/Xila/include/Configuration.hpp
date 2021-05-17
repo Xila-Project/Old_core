@@ -45,7 +45,7 @@
 #define Default_Software_Name_Length 24
 
 // -- Power
-#define Power_Button_Pin GPIO_NUM_35 // 39 : v1, 35 : v2
+#define Power_Button_Pin GPIO_NUM_35
 #define Default_Battery_Conversion_Factor 2
 #define Default_Battery_Minimum_Voltage 2500
 #define Default_Battery_Maximum_Voltage 4200
