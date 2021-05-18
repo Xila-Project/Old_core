@@ -127,7 +127,8 @@ void Simon_Class::Load_Registry()
         Temporary_File.close();
         return;
     }
-    if (strcmp("Simon", Simon_Registry["Registry"] | "") == 0)
+    Temporary_File.close();
+    if (strcmp("Simon", Simon_Registry["Registry"] | "") != 0)
     {
         Temporary_File.close();
         return;
@@ -146,6 +147,8 @@ void Simon_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Simon_Registry_Path, FILE_WRITE);
     DynamicJsonDocument Simon_Registry(512);
+
+    Simon_Registry["Registry"] = "Simon";
 
     Simon_Registry["Scores"][0] = Scores[0];
     Simon_Registry["Scores"][1] = Scores[1];
