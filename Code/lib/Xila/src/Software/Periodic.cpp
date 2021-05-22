@@ -200,7 +200,7 @@ void Periodic_Class::Get_Atom_Name()
     }
     for (JsonPair Pair : Line_Object)
     {
-        strlcpy(Current_Atom_Name, Pair.value().as<char *>(), sizeof(Current_Atom_Name));
+        strlcpy(Current_Atom_Name, Pair.value().as<const char*>(), sizeof(Current_Atom_Name));
     }
 
     Periodic_File.close();
@@ -284,26 +284,26 @@ void Periodic_Class::Get_Main_Data()
     }
 
     // -- Name
-    if (Current_Atom_Object["name"].as<char *>() == NULL)
+    if (Current_Atom_Object["name"].as<const char*>() == NULL)
     {
         Xila.Dialog.Event(F("Failed to load element datas"), Xila.Error);
         return;
     }
     else
     {
-        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<char *>());
+        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<const char*>());
     }
 
     // -- Symbol
-    if (Current_Atom_Object["symbol"].as<char *>() != NULL)
+    if (Current_Atom_Object["symbol"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<char *>());
+        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<const char*>());
     }
 
     // -- Category
-    if (Current_Atom_Object["category"].as<char *>() != NULL)
+    if (Current_Atom_Object["category"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<char *>());
+        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<const char*>());
     }
 
     // -- Number
@@ -425,45 +425,45 @@ void Periodic_Class::Get_Data()
     uint32_t Temporary_Long;*/
 
     // Name
-    if (Current_Atom_Object["name"].as<char *>() == NULL)
+    if (Current_Atom_Object["name"].as<const char*>() == NULL)
     {
         Xila.Dialog.Event(F("Failed to load element datas"), Xila.Error);
         return;
     }
     else
     {
-        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<char *>());
+        Xila.Display.Set_Text(F("NAMEVAL_TXT"), Current_Atom_Object["name"].as<const char*>());
     }
 
     // -- Symbol
-    if (Current_Atom_Object["symbol"].as<char *>() != NULL)
+    if (Current_Atom_Object["symbol"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<char *>());
+        Xila.Display.Set_Text(F("SYMBOL_TXT"), Current_Atom_Object["symbol"].as<const char*>());
     }
 
     // Atom number
     Xila.Display.Set_Value(F("NUMBER_NUM"), Current_Atom_Object["number"].as<int>());
 
     // Category
-    if (Current_Atom_Object["category"].as<char *>() != NULL)
+    if (Current_Atom_Object["category"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<char *>());
+        Xila.Display.Set_Text(F("CATEGORYVA_TXT"), Current_Atom_Object["category"].as<const char*>());
     }
 
     // Appearance
-    if (Current_Atom_Object["appearance"].as<char *>() == NULL)
+    if (Current_Atom_Object["appearance"].as<const char*>() == NULL)
     {
         Xila.Display.Set_Text(F("APPEARANCV_TXT"), F("unknow"));
     }
     else
     {
-        Xila.Display.Set_Text(F("APPEARANCV_TXT"), Current_Atom_Object["appearance"].as<char *>());
+        Xila.Display.Set_Text(F("APPEARANCV_TXT"), Current_Atom_Object["appearance"].as<const char*>());
     }
 
     // Discover
-    if (Current_Atom_Object["discovered_by"].as<char *>() != NULL)
+    if (Current_Atom_Object["discovered_by"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("DISCOVERV_TXT"), Current_Atom_Object["discovered_by"].as<char *>());
+        Xila.Display.Set_Text(F("DISCOVERV_TXT"), Current_Atom_Object["discovered_by"].as<const char*>());
     }
 
     // Mass
@@ -587,15 +587,15 @@ void Periodic_Class::Get_Data()
     Xila.Display.Set_Text(F("BOILINGVAL_TXT"), Temporary_Char_Array);
 
     // -- Phase at STP
-    if (Current_Atom_Object["phase"].as<char *>() != NULL)
+    if (Current_Atom_Object["phase"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("PHASEVAL_TXT"), Current_Atom_Object["phase"].as<char *>());
+        Xila.Display.Set_Text(F("PHASEVAL_TXT"), Current_Atom_Object["phase"].as<const char*>());
     }
 
     // -- Electron configuration
-    if (Current_Atom_Object["electron_configuration"].as<char *>() != NULL)
+    if (Current_Atom_Object["electron_configuration"].as<const char*>() != NULL)
     {
-        Xila.Display.Set_Text(F("ELECTRONCV_TXT"), Current_Atom_Object["electron_configuration"].as<char *>());
+        Xila.Display.Set_Text(F("ELECTRONCV_TXT"), Current_Atom_Object["electron_configuration"].as<const char*>());
     }
 
     // -- Electronegativity
