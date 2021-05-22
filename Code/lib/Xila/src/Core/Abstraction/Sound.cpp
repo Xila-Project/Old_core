@@ -413,21 +413,6 @@ void Xila_Class::Sound_Class::Set_Channels(uint8_t Channels)
     }
 }
 
-uint8_t Xila_Class::Sound_Class::Get_Data_Mode()
-{
-    return Audio_Driver.getDatamode();
-}
-
-void Xila_Class::Sound_Class::Set_Data_Mode(uint8_t Data_Mode)
-{
-    Audio_Driver.setDatamode(Data_Mode);
-}
-
-uint32_t Xila_Class::Sound_Class::Stream_Available()
-{
-    return Audio_Driver.streamavail();
-}
-
 uint8_t Xila_Class::Sound_Class::Resume()
 {
     if (!Audio_Driver.isRunning())

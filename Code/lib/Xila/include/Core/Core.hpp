@@ -851,10 +851,6 @@ public:
         uint8_t Get_Channels();
         uint32_t Get_Bit_Rate();
 
-        uint8_t Get_Data_Mode();
-        void Set_Data_Mode(uint8_t Data_Mode);
-
-        uint32_t Stream_Available();
 
         void Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass);
 
