@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allows the integration of different software in one unique ecosystem and also easy porting (only the HAL of Xila needs to be rewrite). I hope you would like it !
+Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allows the integration of different software in one unique ecosystem, which is easy to port (only the HAL of Xila needs to be rewrite). I hope you would like it !
 
 Inspired by :
 - [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer") - [Benjamin HECKENDORN](https://www.benheck.com/ "Benjamin HECKENDORN")
