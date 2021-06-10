@@ -37,9 +37,7 @@
 
     
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Getting Started With The Software" href="Software.html" />
-    <link rel="prev" title="Get Started To Use Xila" href="../Use.html" /> 
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,26 +84,23 @@
             
               <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Presentation.html">Presentation of Xila</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../Use.html">Use</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#introduction">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#hardware">Hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#software">Software</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../Use.html#contents">Contents</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Hardware</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Developp.html">Developp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Contribute.html">Contribute</a></li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="Software.html">Software</a></li>
+<p class="caption"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Configuration/Basic.html">Basic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Configuration/Advanced.html">Advanced</a></li>
 </ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#start-to-use">Start To Use</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#start-to-developp">Start To Developp</a></li>
-</ul>
-</li>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Reference/Software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Reference/Hardware.html">Hardware</a></li>
 </ul>
 
             
@@ -154,8 +149,6 @@
     
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../Use.html">Get Started To Use Xila</a> &raquo;</li>
-        
       <li>Getting Started With The Hardware</li>
     
     
@@ -179,23 +172,71 @@
 <h1>Getting Started With The Hardware<a class="headerlink" href="#getting-started-with-the-hardware" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="minimum">
-<h3>Minimum<a class="headerlink" href="#minimum" title="Permalink to this headline">¶</a></h3>
 <p>In order build the reference harware kit, you will need the following parts :</p>
+<p>If you can also buy here pre-built reference kit here, or the assembled PCB.</p>
+</div>
+<div class="section" id="intructions">
+<h2>Intructions<a class="headerlink" href="#intructions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pcb-assembly">
+<h3>PCB Assembly<a class="headerlink" href="#pcb-assembly" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>A computer</p></li>
-<li><p>An <strong>ESP-32 DOIT DEVKIT V1</strong> is recommanded, but all kind of ESP-32 with the same form factor will do the job.</p></li>
-<li><p>A <strong>4.3” Nextion touch display</strong> (all series will works).</p></li>
-<li><p>A <strong>SD Card</strong> (all kinds of SD can work, but it’s recommended to use know brands such as Sandisk, Kingstom etc.</p></li>
+<li><p>Solder all According to this schematic, follow this order to solder the components to the PCB :</p>
+<ul>
+<li><p>SD card slot</p></li>
+<li><p>Resistors</p></li>
+<li><p>Headphone jack</p></li>
+<li><p>Button</p></li>
+<li><p>Interface connector</p></li>
+<li><p>Headers</p></li>
+<li><p>Mosfet transitor</p></li>
+</ul>
+</li>
+<li><p>Clean the PCB using isopropyl alcohol.</p></li>
 </ul>
 </div>
-<div class="section" id="recommended">
-<h3>Recommended<a class="headerlink" href="#recommended" title="Permalink to this headline">¶</a></h3>
-<p>In order to operate fully Xila, you will also need these parts :</p>
+<div class="section" id="case-printing">
+<h3>Case Printing<a class="headerlink" href="#case-printing" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>The <strong>3D printed box</strong> (click here to download the model).</p></li>
-<li><p>An old school <strong>PS2 Keyboard</strong>.</p></li>
-<li></li>
+<li><p>Download here the case files (body + bezel), and load them into your slicer (Cura, Simplify3D, PrusaSlicer …).</p></li>
+<li><p>Set the following settings in the slicer:</p>
+<ul>
+<li><p>Precision : 0.15 mm</p></li>
+<li><p>Adhesion : Yes (Brim)</p></li>
+<li><p>Support : Yes</p></li>
+<li><p>Infill : 40 %</p></li>
+<li><p>Wall thinckness 3.0 mm</p></li>
+</ul>
+</li>
+<li><p>Other parameters depend on the filament you will be using, however it is recommended to use PETG.</p></li>
+<li><p>Once printing is complete, carefully remove all supports.</p></li>
+<li><p>Using the screws, thread the holes without forcing too much.
+If the screwing is too hard, use a drill and a bit to slightly widen the hole.
+Be careful not to go too fat with the mounting hole, you could damage the box.</p></li>
+</ul>
+</div>
+<div class="section" id="display-modifications">
+<h3>Display Modifications<a class="headerlink" href="#display-modifications" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Solder the <strong>2200 µF capacitor</strong> between <strong>+5V</strong> and <strong>GND</strong> pin of the display.</p></li>
+</ul>
+</div>
+<div class="section" id="battery-pcb-modifications">
+<h3>Battery PCB Modifications<a class="headerlink" href="#battery-pcb-modifications" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Cut and strip a dupont wire.</p></li>
+<li><p>Solder this wire directly to the positive pole of the battery board (on the tab that makes contact between the PCB and the battery).</p></li>
+</ul>
+</div>
+<div class="section" id="final-assembly">
+<h3>Final Assembly<a class="headerlink" href="#final-assembly" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Fit and screw the main board in the box.</p></li>
+<li><p>Plug the ESP-32 DOIT DEVKIT V1 in the main board.</p></li>
+<li><p>Fit and screw the battery board in the box.</p></li>
+<li><p>Connect the battery board and the display to the main board according to this schematic : .</p></li>
+<li><p>Fit the lithium battery in its holder (Xila should power up).</p></li>
+<li><p>Fit and screw the display on the box.</p></li>
+<li><p>Fit and screw the bezel over the screen.</p></li>
 </ul>
 </div>
 </div>
@@ -206,10 +247,6 @@
            
           </div>
           <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="Software.html" class="btn btn-neutral float-right" title="Getting Started With The Software" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../Use.html" class="btn btn-neutral float-left" title="Get Started To Use Xila" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-    </div>
 
   <hr/>
 

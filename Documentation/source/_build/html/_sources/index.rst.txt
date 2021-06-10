@@ -1,10 +1,6 @@
-.. Xila documentation master file, created by
-   sphinx-quickstart on Sat Mar 27 16:00:58 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
+******************
 Xila Documentation
-==================
+******************
   
 Xila is an operating system for embedded devices.
 
@@ -16,7 +12,7 @@ Contents
 .. toctree::
    :caption: Introduction
 
-   Presentation of Xila <Introduction/Presentation>
+   Presentation <Introduction/Presentation>
 
 .. toctree::
    :caption: Getting Started   
@@ -30,9 +26,15 @@ Contents
    :caption: Configuration
    :maxdepth: 2
 
+   Basic <Configuration/Basic>
+   Advanced <Configuration/Advanced>
+
 .. toctree::
    :caption: References
    :maxdepth: 2
+
+   Software <Reference/Software>
+   Hardware <Reference/Hardware>
 
 .. toctree::
    :caption: Miscellaneous
