@@ -7,6 +7,9 @@
 
 extern Software_Handle_Class Shell_Handle;
 
+///
+/// @brief Construct a new System_Class object
+///
 Xila_Class::System_Class::System_Class()
 {
   State = Default;
@@ -14,10 +17,17 @@ Xila_Class::System_Class::System_Class()
   strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
 }
 
+///
+/// @brief Destroy the System_Class object
+///
 Xila_Class::System_Class::~System_Class()
 {
 }
 
+///
+/// @brief Load System registry.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::System_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")));
@@ -41,6 +51,10 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
   return Success;
 }
 
+///
+/// @brief Save System registry.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")), FILE_WRITE);
@@ -60,13 +74,17 @@ Xila_Class::Event Xila_Class::System_Class::Save_Registry()
   return Success;
 }
 
+///
+/// @brief Return the amount of free heap.
+///
+/// @return uint32_t
 inline uint32_t Xila_Class::System_Class::Get_Free_Heap()
 {
   return ESP.getFreeHeap();
 }
 
 ///
-/// @brief
+/// @brief System task.
 ///
 void Xila_Class::System_Class::Task(void *)
 {
@@ -114,9 +132,9 @@ void Xila_Class::System_Class::Task(void *)
 }
 
 ///
-/// @brief Update Xila on the MCU
+/// @brief Update Xila on the MCU.
 ///
-/// @param Update_File
+/// @param Update_File Executable file.
 /// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File)
 {
@@ -153,10 +171,10 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
   return Xila.Success;
 }
 
-/**
- * @enum Events
- * @brief All kinds of events returned by Core API.
- */
+///
+/// @brief Handle fatal events that the system cannot recover from.
+///
+/// @param Panic_Code Panic code to handle.
 void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
   Xila.Display.Set_Current_Page(F("Core_Panic"));
@@ -171,6 +189,10 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
   abort();
 }
 
+///
+/// @brief Save system dump.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 {
 
@@ -200,6 +222,10 @@ Xila_Class::Event Xila_Class::System_Class::Save_Dump()
   return Success;
 }
 
+///
+/// @brief Load system dump.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::System_Class::Load_Dump()
 {
   if (Xila.Drive.Exists(Dump_Registry_Path))
@@ -255,11 +281,18 @@ Xila_Class::Event Xila_Class::System_Class::Load_Dump()
   }
 }
 
+///
+/// @brief Return device name.
+///
+/// @return const char* Device name.
 const char *Xila_Class::System_Class::Get_Device_Name()
 {
   return Xila.System.Device_Name;
 }
 
+///
+/// @brief Refresh top header.
+///
 void Xila_Class::System_Class::Refresh_Header()
 {
   if (Xila.Display.Get_State() == false) // if display sleep
@@ -484,7 +517,6 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   {
     Xila.WiFi.Save_Registry();
   }
-  Xila.WiFi.setSleep(WIFI_PS_NONE);
 
   // -- Time registry
   if (Xila.Time.Load_Registry() != Success)
@@ -507,7 +539,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 }
 
 ///
-/// @brief
+/// @brief Second start routine, used in start function.
 ///
 void Xila_Class::System_Class::Second_Start_Routine()
 {
@@ -535,19 +567,11 @@ void Xila_Class::System_Class::Second_Start_Routine()
   Xila.Task.Delete(); // delete main task
 }
 
-/**
-    * @brief Function handle deep-sleep wakeup, initialize the core, start software etc.
-    * @param Software_Package Software that Xila need to load. 
-    * @details Function steps :
-    * 1) Check if the wakeup reasing is linked to a power button press, or undefined (power reset) and if not, go to sleep.
-    * 2) Create an interrupt for the power button.
-    * 3) Initalize display.
-    * 4) Initalize system drive.
-    * 5) Load registries (display, sound, keyboard, network, time).
-    * 6) Play sound and animation.
-    * 7) Load software handles.
-    * 8) Execute software startup function (Shell and other software).
-    */
+///
+/// @brief Handle that start Xila.
+///
+/// @param Software_Package Custom software package.
+/// @param Size Size of the software package.
 void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, uint8_t Size)
 {
 
@@ -563,11 +587,9 @@ void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, u
   Second_Start_Routine();
 }
 
-/**
-     * @brief Function that handle deep-sleep wakeup, initialize the, start software etc.
-     * @details Function steps :
-     * 1) Cheeck if the wa
-     */
+///
+ /// @brief Handle that start Xila.
+ /// 
 void Xila_Class::System_Class::Start()
 {
 
@@ -603,8 +625,8 @@ void Xila_Class::System_Class::Start()
 }
 
 ///
-/// @brief
-///
+ /// @brief Execute software startup function.
+ /// 
 void Xila_Class::System_Class::Execute_Startup_Function()
 {
 
@@ -624,7 +646,7 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 }
 
 ///
-/// @brief Function that shutdown Xila and it's connected devices.
+/// @brief Function that shutdown Xila.
 ///
 void Xila_Class::System_Class::Shutdown()
 {
@@ -657,6 +679,9 @@ void Xila_Class::System_Class::Shutdown()
   Xila.Power.Deep_Sleep();
 }
 
+///
+ /// @brief Second sleep routine called in shutdown function.
+ /// 
 void Xila_Class::System_Class::Second_Sleep_Routine()
 {
   Xila.Task.Delete(Xila.System.Task_Handle);
@@ -679,6 +704,9 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
   Xila.WiFi.disconnect();
 }
 
+///
+ /// @brief Hibernate Xila.
+ /// 
 void Xila_Class::System_Class::Hibernate()
 {
 
@@ -715,6 +743,9 @@ void Xila_Class::System_Class::Hibernate()
   Xila.Power.Deep_Sleep();
 }
 
+///
+ /// @brief Restart Xila.
+ /// 
 void Xila_Class::System_Class::Restart()
 {
   Xila.Software.Send_Instruction_Shell(Software_Class::Restart);

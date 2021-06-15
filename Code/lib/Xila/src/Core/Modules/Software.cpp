@@ -42,9 +42,9 @@ void Software_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Ad
 }
 
 ///
-/// @brief
+/// @brief Set watchdog timeout, by default it's set to 5000 ms.
 ///
-/// @param Watchdog_Timeout
+/// @param Watchdog_Timeout Watchdog timeout in milliseconds.
 void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
 {
   if (Watchdog_Timeout <= Maximum_Watchdog_Timeout)
@@ -53,6 +53,10 @@ void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
   }
 }
 
+///
+ /// @brief Return last instruction from the instructions queue.
+ /// 
+ /// @return Xila_Instruction Software instruction.
 Xila_Instruction Software_Class::Get_Instruction()
 {
   if (xQueueReceive(Instruction_Queue_Handle, &Current_Instruction, 0) != pdTRUE)
@@ -64,9 +68,11 @@ Xila_Instruction Software_Class::Get_Instruction()
 }
 
 ///
-/// @brief
+/// @brief Used to send instructions to software.
 ///
-/// @param Instruction Instruction to send
+/// @param Instruction Instruction to send.
+///
+/// @details It's used by Xila and the software itself to fill the instructions queue.
 void Software_Class::Send_Instruction(Xila_Instruction Instruction)
 {
   xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);

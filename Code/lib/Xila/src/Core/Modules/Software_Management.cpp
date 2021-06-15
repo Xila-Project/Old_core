@@ -13,12 +13,20 @@
 
 extern Software_Handle_Class Shell_Handle;
 
+///
+ /// @brief Construct a new Software_Management_Class object
+ /// 
 Xila_Class::Software_Management_Class::Software_Management_Class()
 {
   Watchdog_Timer = 0;
   Watchdog_State = 0;
 }
 
+///
+ /// @brief 
+ /// 
+ /// @param Software_Handle 
+ /// @return Software_Class::State 
 Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const &Software_Handle)
 {
   if (Openned[0] != NULL)

@@ -2,7 +2,7 @@
 /// @file WiFi.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr) - Espressif
 /// @brief Xila WiFi abstraction layer source file.
-/// @version 0.1
+/// @version 0.1.1
 /// @date 08-04-2021
 ///
 /// @copyright Copyright (c) 2021
@@ -47,10 +47,9 @@ extern "C"
 #include <esp_event_loop.h>
 }
 
-// -----------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------- Debug ------------------------------------------------------
-// -----------------------------------------------------------------------------------------------------------------------
-
+///
+ /// @brief Construct a new WiFi_Class object
+ /// 
 Xila_Class::WiFi_Class::WiFi_Class()
 {
     prov_enable = false;
@@ -58,7 +57,7 @@ Xila_Class::WiFi_Class::WiFi_Class()
 }
 
 ///
-/// @brief
+/// @brief Load WiFi registry.
 ///
 /// @return Xila_Class::Event
 ///
@@ -85,7 +84,7 @@ Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 }
 
 ///
-/// @brief
+/// @brief Save WiFi registry.
 ///
 /// @return Xila_Class::Event
 ///
@@ -106,26 +105,22 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
     return Success;
 }
 
-/**
-     * @brief Function that allow to connect WiFi.
-
-     * @param Name SSID of the access point.
-     * @param Password Password of the access point.
-     *
-     * @details Function that that try to connect to the given access point, and if succed, save credential into network registry.
-     */
+///
+ /// @brief Function that allow to set credentials and connect to a WiFi network.
+ /// 
+ /// @param Name SSID of the access point.
+ /// @param Password Password of the access point.
 void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Password)
 {
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
     begin(Name, this->Password);
-    setSleep(WIFI_PS_NONE);
 }
 
-/**
- * Output WiFi settings to an object derived from Print interface (like Serial).
- * @param p Print interface
- */
+///
+ /// @brief Output WiFi settings to an object derived from Print interface (like Serial).
+ /// 
+ /// @param p Print object to output.
 void Xila_Class::WiFi_Class::printDiag(Print &p)
 {
     const char *modes[] = {"NULL", "STA", "AP", "STA+AP"};
@@ -169,6 +164,10 @@ void Xila_Class::WiFi_Class::printDiag(Print &p)
     p.println(conf.sta.bssid_set);
 }
 
+///
+ /// @brief 
+ /// 
+ /// @param status 
 void Xila_Class::WiFi_Class::enableProv(bool status)
 {
     prov_enable = status;

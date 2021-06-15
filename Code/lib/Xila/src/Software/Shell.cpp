@@ -1702,7 +1702,6 @@ void Shell_Class::Preferences_Network_Instructions()
         break;
     case Instruction('W', 'D'):
         Xila.WiFi.disconnect();
-        Xila.WiFi.setSleep(WIFI_PS_NONE);
         Send_Instruction('R', 'e');
         break;
     case Instruction('W', 'C'):
