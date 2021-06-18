@@ -791,7 +791,7 @@ public:
         uint32_t Watchdog_Timer;
         uint8_t Watchdog_State;
 
-        void Defrag_Oppened();
+        void Defrag();
 
         void Check_Watchdog();
 

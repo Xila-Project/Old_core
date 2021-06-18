@@ -14,8 +14,8 @@
 extern Software_Handle_Class Shell_Handle;
 
 ///
- /// @brief Construct a new Software_Management_Class object
- /// 
+/// @brief Construct a new Software_Management_Class object
+///
 Xila_Class::Software_Management_Class::Software_Management_Class()
 {
   Watchdog_Timer = 0;
@@ -23,10 +23,10 @@ Xila_Class::Software_Management_Class::Software_Management_Class()
 }
 
 ///
- /// @brief 
- /// 
- /// @param Software_Handle 
- /// @return Software_Class::State 
+/// @brief
+///
+/// @param Software_Handle
+/// @return Software_Class::State
 Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const &Software_Handle)
 {
   if (Openned[0] != NULL)
@@ -37,20 +37,6 @@ Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_
     }
   }
   return Software_Class::Minimized;
-}
-
-void Xila_Class::Software_Management_Class::Defrag_Oppened()
-{
-  /*uint8_t i, j;
-  for (i = 2; i < (sizeof(Openned) / sizeof(Openned[0]); i++)
-  {
-    for (j = (sizeof(Openned) / sizeof(Openned[0])); j >= 2; j--)
-    {
-      
-
-    }
-    if (j )
-  }*/
 }
 
 void Xila_Class::Software_Management_Class::Check_Watchdog()
@@ -65,6 +51,33 @@ void Xila_Class::Software_Management_Class::Check_Watchdog()
         Xila.Task.Delay(100);
         Xila.Software.Open(Shell_Handle);
         Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
+      }
+    }
+  }
+}
+
+void Xila_Class::Software_Management_Class::Defrag()
+{
+  for (uint8_t i = 2; i < sizeof(Openned) / sizeof(Openned[0]); i++)
+  {
+    //DUMP(i);
+    if (Openned[i] == NULL)
+    {
+      for (uint8_t j = i + 1; j < sizeof(Openned) / sizeof(Openned[0]); j++)
+      {
+        //DUMP(j);
+        if (Openned[j] != NULL)
+        {
+          Openned[i] = Openned[j];
+          Openned[j] = NULL;
+          break;
+        }
+        
+        if (j >= 7)
+        {
+          return;
+        }
+
       }
     }
   }
@@ -165,7 +178,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
      */
 void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &Software_Handle)
 {
-  for (uint8_t i = 2; i < 8; i++)
+  for (uint8_t i = 2; i < sizeof(Openned) / sizeof(Openned[0]); i++)
   {
     if (Openned[i] != NULL)
     {
@@ -182,6 +195,8 @@ void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &S
         Openned[i]->Send_Instruction(Software_Class::Close);
         Xila.Task.Delay(20);
         Openned[i] = NULL;
+
+        Defrag();
 
         Send_Instruction_Shell(Software_Class::Desk);
         Maximize_Shell();
