@@ -92,7 +92,7 @@ It's [up to you](#develop) to make this list longer 😉.
 
 Here are dependencies of the project :
 
-- [Benjamin MASTRIPOLITO](https://benpm.github.io "Benjamin MASTRIPOLITO") - [Floating synth melody](https://freeSound.org/people/Lemoncreme/sounds/231578 "Floating synth melody").
+- [Benjamin MASTRIPOLITO](https://benpm.github.io "Benjamin MASTRIPOLITO") - [Floating synth melody](https://freeSound.org/people/Lemoncreme/sounds/231578 "Floating synth melody")
 - [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32 "ESP32 Arduino Core") - [Espressif](https://github.com/espressif/)
 - [Audio I2S](https://github.com/schreibfaul1/ESP32-audioI2S "ESP32 Audio I2S") - [schreibfaul1](https://github.com/schreibfaul1)
 - [PS2Keyboard](https://github.com/PaulStoffregen/PS2Keyboard "PS2Keyboard") - [Paul STOFFREGEN](https://github.com/PaulStoffregen/ "Paul STOFFREGEN")
