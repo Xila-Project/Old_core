@@ -1,9 +1,9 @@
-     ____    __  ____
-    / __ \  / / / __ \
-   / /_/ / / / / /_/ /
-  / ____/ / / / ____/
- / /     / / / /
-/_/     /_/ /_/
+ __  __  ___   _          _    
+ \ \/ / |_ _| | |        / \   
+  \  /   | |  | |       / _ \  
+  /  \   | |  | |___   / ___ \ 
+ /_/\_\ |___| |_____| /_/   \_\
+                         
 
 Micro Web Browser - Alix ANNERAUD / Chris ANDERSON 
   Link Menu:
@@ -11,6 +11,6 @@
   Controls :
 Left/right arrow to select links.
 Up/down to scroll through pages.
-Click on "Ok" to.
+Click on "Ok" to access the links.
 Enhanced experience with a PS2 keyboard.
  
