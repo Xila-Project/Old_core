@@ -11,17 +11,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## Unreleased [0.1.1]
 
-- Add mosfet to switch display supply.
-- Modify code for display power management.
-- Increase precision of battery level measurements (update battery library).
-- Fix simon registry loading.
-- Fix deprecated function in Periodic (with "as.<const char*()>" instead of "as.<char*>()").
-- Update sound driver.
-
-
 ### Added
+
+- Add mosfet to switch display supply.
+- Add dock defragmentation.
 
 ### Changed
 
+- Change how display power is managed.
+- Increase precision of battery level readings (update battery library).
+- Fix simon registry loading.
+- Fix deprecated function in Periodic (with "as.<const char*()>" instead of "as.<char*>()").
+- Update sound driver.
+- Modify Internet Browser home page.
+
 ### Removed
+
+- Remove WiFi power sleep mode patch (power button interrupt conflict).
+
+
 
