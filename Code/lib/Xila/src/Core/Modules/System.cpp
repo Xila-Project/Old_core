@@ -75,15 +75,6 @@ Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 }
 
 ///
-/// @brief Return the amount of free heap.
-///
-/// @return uint32_t
-inline uint32_t Xila_Class::System_Class::Get_Free_Heap()
-{
-  return ESP.getFreeHeap();
-}
-
-///
 /// @brief System task.
 ///
 void Xila_Class::System_Class::Task(void *)
@@ -105,7 +96,7 @@ void Xila_Class::System_Class::Task(void *)
 
       Xila.Software.Check_Watchdog(); // check if current running software is not frozen
 
-      if (Xila.System.Get_Free_Heap() < Low_Memory_Threshold) // Check memory
+      if (Xila.Memory.Get_Free_Heap() < Low_Memory_Threshold) // Check memory
       {
         Xila.System.Panic_Handler(Low_Memory);
       }

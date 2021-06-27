@@ -1,12 +1,18 @@
 #include "Core/Core.hpp"
 
-
-
 Xila_Class::Time_Class::Time_Class()
     : GMT_Offset(Default_GMT_Offset),
       Daylight_Offset(Default_Daylight_Offset)
 {
   strcpy(NTP_Server, Default_NTP_Server);
+}
+
+uint32_t IRAM_ATTR Xila_Class::Time_Class::Get_Cycle_Count()
+{
+  uint32_t ccount;
+  __asm__ __volatile__("esync; rsr %0,ccount"
+                       : "=a"(ccount));
+  return ccount;
 }
 
 Xila_Class::Event Xila_Class::Time_Class::Save_Registry()

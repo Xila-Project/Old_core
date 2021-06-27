@@ -46,3 +46,21 @@ inline uint32_t Xila_Class::System_Class::Random(uint32_t Lower_Bound, uint32_t 
     long diff = Upper_Bound - Lower_Bound;
     return Random(diff) + Lower_Bound;
 }
+
+inline uint32_t Xila_Class::System_Class::Get_CPU_Frequency()
+{
+    return getCpuFrequencyMhz();
+}
+
+inline const char* Xila_Class::System_Class::Get_SDK_Version()
+{
+    return esp_get_idf_version();
+}
+
+inline uint64_t Xila_Class::System_Class::Get_eFuse_MAC()
+{
+    uint64_t _chipmacid = 0LL;
+    esp_efuse_mac_get_default((uint8_t*) (&_chipmacid));
+    return _chipmacid;
+}
+

@@ -1,14 +1,13 @@
 ///
- /// @file Configuration.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief Xila configuration header file.
- /// @details Configure few parameters of Xila at compile time.
- /// @version 0.1
- /// @date 09-04-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
-
+/// @file Configuration.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Xila configuration header file.
+/// @details Configure few parameters of Xila at compile time.
+/// @version 0.1
+/// @date 09-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 // Configuration File
 #ifndef CONFIGURATION_HPP_INCLUDED
@@ -27,8 +26,8 @@
 #define Xila_Version_Major 0
 #define Xila_Version_Major_String "0"
 #define Xila_Version_Minor 1
-#define Xila_Version_Minor_String "1"
-#define Xila_Version_Revision 0      
+#define Xila_Version_Minor_String "2"
+#define Xila_Version_Revision 0
 #define Xila_Version_Revision_String "0"
 
 // -- Account
@@ -81,27 +80,22 @@
 // -- Release configuration
 #if CORE_DEBUG_LEVEL <= 1 // release mode
 
-#ifndef ARDUINOTRACE_ENABLE
-#define ARDUINOTRACE_ENABLE     0       // Disable ArduinoTrace
-#endif
+//#define ARDUINOTRACE_ENABLE 0 // Disable ArduinoTrace
 
-#define Animations              1       // Enable animation
-#define Drive_Mode              0       // SD mmc mode
-#define USB_Serial              0       // Disable USB Serial
+#define Animations 1 // Enable animation
+#define Drive_Mode 0 // SD mmc mode
+#define USB_Serial 0 // Disable USB Serial
 
 // -- Debug configuration
 #else
 
 #warning Debug mode.
 
+#define ARDUINOTRACE_ENABLE 1 // Enable ArduinoTrace
 
-#ifndef ARDUINOTRACE_ENABLE
-#define ARDUINOTRACE_ENABLE     1       // Enable ArduinoTrace
-#endif
-
-#define Animations              1       // Disable animation
-#define Drive_Mode              1       // SD spi mode
-#define USB_Serial              1       // Enable USB Serial
+#define Animations 1 // Disable animation
+#define Drive_Mode 1 // SD spi mode
+#define USB_Serial 1 // Enable USB Serial
 
 #endif
 

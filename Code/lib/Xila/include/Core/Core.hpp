@@ -149,7 +149,6 @@ public:
     class Account_Class
     {
     public:
-     
         // -- Constructor
         Account_Class();
 
@@ -178,7 +177,6 @@ public:
         const char *Get_Current_Username();
         uint8_t Get_State();
 
-
         friend class Xila_Class;
         friend class Shell_Class;
 
@@ -187,7 +185,7 @@ public:
         Session_State State;
 
         // -- Setter
-        void Set_Current_Username(const char* Username);
+        void Set_Current_Username(const char *Username);
         void Set_State(Session_State State);
 
         Xila_Class::Event Load_Registry();
@@ -404,7 +402,6 @@ public:
         friend class Shell_Class;
 
     protected:
-
         void Set_State(uint8_t State);
 
         uint8_t State;
@@ -478,8 +475,41 @@ public:
 
     } Drive;
 
-    //==============================================================================//
+    ///=============================================================================//
+    ///
+    /// @brief Flash class
+    ///
+    class Flash_Class
+    {
+    public:
+        // -- Methods
+        uint32_t Get_Size();
+        uint32_t Get_Speed();
+        FlashMode_t Get_Mode();
 
+        Xila_Class::Event Read(uint32_t Offset, uint32_t *Data, size_t Size);
+
+        Xila_Class::Event Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
+
+        uint32_t Get_Sketch_Size();
+        String Get_Sketch_MD5();
+        uint32_t Get_Sketch_Free_Space();
+
+    private:
+        // -- Methods
+        Xila_Class::Event Erase_Sector(uint32_t Sector);
+        Xila_Class::Event Write(uint32_t Offset, uint32_t *Data, size_t Size);
+
+        Xila_Class::Event Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
+        Xila_Class::Event Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
+
+        static uint32_t Sketch_Size(sketchSize_t Response);
+        uint32_t Magic_Size(uint8_t Byte);
+        uint32_t Magic_Speed(uint8_t Byte);
+        FlashMode_t Magic_Mode(uint8_t Byte);
+    };
+
+    //==============================================================================//
     ///
     /// @brief GPIO management class
     ///
@@ -513,7 +543,7 @@ public:
 
         // -- Interrupts
         void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode);
-        void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void*), void* Argument, int16_t Mode);
+        void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode);
         void Detech_Interrupt(uint8_t Pin);
 
         enum Digital_States : uint8_t
@@ -732,7 +762,26 @@ public:
     } Keyboard;
 
     //==============================================================================//
+    ///
+    /// @brief Memory class
+    ///
+    class Memory_Class
+    {
+    public:
+        // -- Methods
 
+        uint32_t Get_Heap_Size();
+        uint32_t Get_Free_Heap();
+        uint32_t Get_Minimum_Free_Heap();
+        uint32_t Get_Maximum_Allocated_Heap();
+
+        uint32_t Get_PSRAM_Size();
+        uint32_t Get_Free_PSRAM();
+        uint32_t Get_Minimum_Free_PSRAM();
+        uint32_t Get_Maximum_Allocated_PSRAM();
+    } Memory;
+
+    //==============================================================================//
     ///
     /// @brief Power management module
     ///
@@ -748,6 +797,7 @@ public:
         friend class Shell_Class;
 
         // -- Methods
+
         Xila_Class::Event Save_Registry();
         Xila_Class::Event Load_Registry();
 
@@ -851,7 +901,6 @@ public:
         uint8_t Get_Channels();
         uint32_t Get_Bit_Rate();
 
-
         void Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass);
 
         void Set_Output(uint8_t Output);
@@ -946,12 +995,19 @@ public:
     class System_Class
     {
     public:
+        // -- Constructors
         System_Class();
         ~System_Class();
 
+        // -- Methods
         const char *Get_Device_Name();
 
-        uint32_t Get_Free_Heap();
+        uint64_t Get_eFuse_MAC();
+        uint8_t Get_Chip_Revision();
+        const char *Get_Chip_Model();
+        uint32_t Get_Chip_Cores();
+        uint32_t Get_CPU_Frequency();
+        const char *Get_SDK_Version();
 
         void Start();
         void Start(Software_Handle_Class **Software_Package, uint8_t Size);
@@ -968,6 +1024,7 @@ public:
 
         static void Task(void *);
 
+        // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
 
@@ -979,6 +1036,8 @@ public:
         /// @brief Device name used as Network hostname ...
         ///
         char Device_Name[24];
+
+        // -- Methods
 
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
@@ -1067,6 +1126,7 @@ public:
         Xila_Time Get_Time();
         void Synchronise();
 
+        uint32_t Get_Cycle_Count();
         uint32_t Milliseconds() const;
         int64_t Microseconds() const;
 
@@ -1157,5 +1217,7 @@ protected:
 
 #include "Core/Abstraction/Display.hpp"
 #include "Core/Abstraction/GPIO.hpp"
+#include "Core/Abstraction/Memory.hpp"
+#include "Core/Abstraction/Flash.hpp"
 
 #endif
