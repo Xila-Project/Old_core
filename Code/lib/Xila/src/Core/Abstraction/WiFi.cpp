@@ -173,6 +173,11 @@ void Xila_Class::WiFi_Class::enableProv(bool status)
     prov_enable = status;
 }
 
+///
+ /// @brief Return prov state.
+ /// 
+ /// @return true 
+ /// @return false 
 bool Xila_Class::WiFi_Class::isProvEnabled()
 {
     return prov_enable;
