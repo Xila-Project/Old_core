@@ -11,7 +11,7 @@
 ///
 /// @section MIT License
 ///
-///  Copyright (c) 2020 Alix ANNERAUD
+/// Copyright (c) 2021 Alix ANNERAUD
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 /// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -52,7 +52,7 @@
 #include "ArduinoJson.h" //used to store registries
 #include "StreamUtils.h"
 
-// WiFi libraries
+// -- WiFi libraries
 #include "Print.h"
 #include "IPAddress.h"
 #include "IPv6Address.h"
@@ -65,18 +65,18 @@
 #include "WiFiServer.h"
 #include "WiFiUdp.h"
 
-// Driver files
+// -- Debug library
+#include <ArduinoTrace.h>
+
+// -- Driver headers
 #include "Nextion_Library.hpp"
 #include "Battery_Library.hpp"
 
-//
-#include <ArduinoTrace.h>
-
 //----------------------------------------------------------------------------//
-//                          Include All Project File                          //
+//                          Include all project file                          //
 //----------------------------------------------------------------------------//
 
-// Configuration file (at compile time)
+// -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
 #include "Path.hpp"          // Path list
 
@@ -193,7 +193,6 @@ public:
     } Account;
 
     //==============================================================================//
-
     ///
     /// @brief Clipboard module
     ///
@@ -763,6 +762,85 @@ public:
 
     //==============================================================================//
     ///
+    /// @brief Mathematics class
+    ///
+
+    class Mathematics_Class
+    {
+    public:
+        const double Pi = PI;
+        const double Euler = EULER;
+      
+
+        // -- Methods -- //
+        double String_To_Float(const char *String); // --
+        char* Float_To_String(double Number, int8_t Width, uint8_t Precision, char* String);
+
+        bool Is_NAN(double Number);
+        bool Is_Infinite(double Number);
+
+        double Copy_Sign(double Number_1, double Number_2);
+        double Floor(double Number);
+        double Modulo(double Number_1, double Number_2);
+        double Greatest_Common_Divisor(double Number_1, double Number_2);
+        double Least_Common_Multiple(double Number_1, double Number_2);
+
+        double Radians(double Degree);
+        double Degrees(double Radian);
+
+        double Factorial(double Number);
+
+        double Combination(double n, double k);
+        double Permutation(double n, double k);
+
+        double Sine(double Number);
+        double Cosine(double Number);
+        double Tangent(double Number);
+        double Secant(double Number);
+        double Cosecant(double Number);
+        double Cotangeant(double Number);
+
+        double Arc_Sine(double Number);
+        double Arc_Cosine(double Number);
+        double Arc_Tangeant(double Number);
+        double Arc_Secant(double Number);
+        double Arc_Cosecant(double Number);
+        double Arc_Cotangeant(double Number);
+
+        double Hyperbolic_Sine(double Number);
+        double Hyperbolic_Cosine(double Number);
+        double Hyperbolic_Tangeant(double Number);
+        double Hyperbolic_Secant(double Number);
+        double Hyperbolic_Cosecant(double Number);
+        double Hyperbolic_Cotangeant(double Number);
+
+        double Arc_Hyperbolic_Sine(double Number);
+        double Arc_Hyperbolic_Cosine(double Number);
+        double Arc_Hyperbolic_Tangeant(double Number);
+        double Arc_Hyperbolic_Secant(double Number);
+        double Arc_Hyperbolic_Cosecant(double Number);
+        double Arc_Hyperbolic_Cotangeant(double Number);
+
+        double Absolute(double Number);
+
+        double Power(double Exponent, double Number);
+        double Square(double Number);
+        double Cube(double Number);
+
+        double Root(double Exponent, double Number);
+        double Square_Root(double Number);
+        double Cubic_Root(double Number);
+
+        double Exponential(double Number);
+
+        double Logarithm(double Base, double Number);
+        double Binary_Logarithm(double Number);
+        double Natural_Logarithm(double Number);
+
+    } Mathematics;
+
+    //==============================================================================//
+    ///
     /// @brief Memory class
     ///
     class Memory_Class
@@ -793,7 +871,7 @@ public:
         Power_Class();
 
         // -- Friendship
-        friend Xila_Class;
+        friend class Xila_Class;
         friend class Shell_Class;
 
         // -- Methods
@@ -958,7 +1036,7 @@ public:
 
         friend void audio_eof_mp3(const char *);
 
-        friend Xila_Class;
+        friend class Xila_Class;
         friend class Shell_Class;
 
         enum Channels
