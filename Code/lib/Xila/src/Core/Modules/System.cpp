@@ -79,31 +79,43 @@ Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 ///
 void Xila_Class::System_Class::Task(void *)
 {
-  uint32_t Last_Header_Refresh = 0;
+  uint32_t Last_Refresh = 0;
   Xila.Power.Button_Counter = 0;
   while (1)
   {
+    // -- Check power button interrupt
     Xila.Power.Check_Button();
+    // -- Execute data from display.
     Xila.Display.Loop();
-
-    if ((Xila.Time.Milliseconds() - Last_Header_Refresh) > 4000)
+    // -- Task to refresh every 4 seconds
+    if ((Xila.Time.Milliseconds() - Last_Refresh) > 4000)
     {
-
+      // -- Check if drive is not disconnected.
       if (!Xila.Drive.Exists(Xila_Directory_Path) || !Xila.Drive.Exists(Software_Directory_Path))
       {
         Xila.System.Panic_Handler(Xila.System.System_Drive_Failure);
       }
-
-      Xila.Software.Check_Watchdog(); // check if current running software is not frozen
-
-      if (Xila.Memory.Get_Free_Heap() < Low_Memory_Threshold) // Check memory
+      // -- Check if running software is not frozen
+      Xila.Software.Check_Watchdog();
+      // -- Check WiFi is connected
+      if (Xila.WiFi.status() != WL_CONNECTED)
+      {
+        Xila.WiFi.Load_Registry();
+      }
+      // -- Check available (prevent memory overflow)
+      if (Xila.Memory.Get_Free_Heap() < Low_Memory_Threshold)
       {
         Xila.System.Panic_Handler(Low_Memory);
       }
-
+      // -- Synchronise time
+      Xila.Time.Synchronise(); // Time synchro
+      // -- Refresh header
+      Xila.System.Refresh_Header();
+      // -- Check if software is currently maximized
       if (Xila.Software.Openned[0] == NULL)
       {
         Xila.Task.Delay(100);
+        // -- If no software is currently maximized, maximize shell.
         if (Xila.Software.Openned[0] == NULL)
         {
           Xila.Software.Open(Shell_Handle);
@@ -111,13 +123,9 @@ void Xila_Class::System_Class::Task(void *)
           Xila.Software.Maximize_Shell();
         }
       }
-
-      Xila.Time.Synchronise(); // Time synchro
-      Xila.System.Refresh_Header();
-
-      Last_Header_Refresh = Xila.Time.Milliseconds();
+      // -- Clear the refresh timer.
+      Last_Refresh = Xila.Time.Milliseconds();
     }
-
     Xila.Task.Delay(20);
   }
 }
@@ -579,8 +587,8 @@ void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, u
 }
 
 ///
- /// @brief Handle that start Xila.
- /// 
+/// @brief Handle that start Xila.
+///
 void Xila_Class::System_Class::Start()
 {
 
@@ -616,8 +624,8 @@ void Xila_Class::System_Class::Start()
 }
 
 ///
- /// @brief Execute software startup function.
- /// 
+/// @brief Execute software startup function.
+///
 void Xila_Class::System_Class::Execute_Startup_Function()
 {
 
@@ -671,8 +679,8 @@ void Xila_Class::System_Class::Shutdown()
 }
 
 ///
- /// @brief Second sleep routine called in shutdown function.
- /// 
+/// @brief Second sleep routine called in shutdown function.
+///
 void Xila_Class::System_Class::Second_Sleep_Routine()
 {
   Xila.Task.Delete(Xila.System.Task_Handle);
@@ -696,8 +704,8 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 }
 
 ///
- /// @brief Hibernate Xila.
- /// 
+/// @brief Hibernate Xila.
+///
 void Xila_Class::System_Class::Hibernate()
 {
 
@@ -735,8 +743,8 @@ void Xila_Class::System_Class::Hibernate()
 }
 
 ///
- /// @brief Restart Xila.
- /// 
+/// @brief Restart Xila.
+///
 void Xila_Class::System_Class::Restart()
 {
   Xila.Software.Send_Instruction_Shell(Software_Class::Restart);
@@ -766,4 +774,39 @@ void Xila_Class::System_Class::Restart()
 
   Second_Sleep_Routine();
   ESP.restart();
+}
+
+uint8_t Xila_Class::System_Class::Get_Chip_Revision()
+{
+  esp_chip_info_t chip_info;
+  esp_chip_info(&chip_info);
+  return chip_info.revision;
+}
+
+const char *Xila_Class::System_Class::Get_Chip_Model()
+{
+  uint32_t chip_ver = REG_GET_FIELD(EFUSE_BLK0_RDATA3_REG, EFUSE_RD_CHIP_VER_PKG);
+  uint32_t pkg_ver = chip_ver & 0x7;
+  switch (pkg_ver)
+  {
+  case EFUSE_RD_CHIP_VER_PKG_ESP32D0WDQ6:
+    return "ESP32-D0WDQ6";
+  case EFUSE_RD_CHIP_VER_PKG_ESP32D0WDQ5:
+    return "ESP32-D0WDQ5";
+  case EFUSE_RD_CHIP_VER_PKG_ESP32D2WDQ5:
+    return "ESP32-D2WDQ5";
+  case EFUSE_RD_CHIP_VER_PKG_ESP32PICOD2:
+    return "ESP32-PICO-D2";
+  case EFUSE_RD_CHIP_VER_PKG_ESP32PICOD4:
+    return "ESP32-PICO-D4";
+  default:
+    return "Unknown";
+  }
+}
+
+uint32_t Xila_Class::System_Class::Get_Chip_Cores()
+{
+  esp_chip_info_t chip_info;
+  esp_chip_info(&chip_info);
+  return chip_info.cores;
 }
