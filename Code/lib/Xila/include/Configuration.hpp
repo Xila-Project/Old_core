@@ -15,6 +15,7 @@
 
 // -- Default values -- //
 
+
 // -- Registry
 #define Default_Registry_Size 512
 
@@ -29,6 +30,8 @@
 #define Xila_Version_Minor_String "2"
 #define Xila_Version_Revision 0
 #define Xila_Version_Revision_String "0"
+
+#define Selected_Language English
 
 // -- Account
 #define Maximum_Password_Lenght 32
