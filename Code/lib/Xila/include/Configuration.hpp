@@ -65,10 +65,10 @@
 
 // -- Sound
 #define Default_Volume_Level 255
-#define Default_I2S_Clock_Pin
-#define Default_I2S_Word_Select_Pin
-#define Default_I2S_Data_Pin
-#define Default_Sound_Mode
+#define Default_I2S_Clock_Pin GPIO_NUM_27
+#define Default_I2S_Word_Select_Pin GPIO_NUM_26
+#define Default_I2S_Data_Pin GPIO_NUM_25
+#define Default_Sound_Output 0
 
 // --  Keyboard
 #define Default_Keyboard_Data_Pin GPIO_NUM_32

@@ -40,7 +40,6 @@ Xila_Class::Sound_Class::~Sound_Class()
 
 void Xila_Class::Sound_Class::Begin()
 {
-    Audio_Driver.setInternalDAC(true);
     Audio_Driver.setBalance(0);
     Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(6), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
 }
@@ -64,15 +63,34 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
     {
         return Error;
     }
+    Output = Sound_Registry["Output"] | Default_Sound_Output;
+    if (Output == Internal_DAC)
+    {
+        Audio_Driver.setInternalDAC();
+        Output = Internal_DAC;
+    }
+    else
+    {
+        Audio_Driver.setInternalDAC(false);
+        Output = External_DAC;
+        Clock_Pin = Sound_Registry["Clock_Pin"] | Default_I2S_Clock_Pin;
+        Word_Select_Pin = Sound_Registry["Word_Select_Pin"] | Default_I2S_Word_Select_Pin;
+        Data_Pin = Sound_Registry["Data_Pin"] | Default_I2S_Data_Pin;
+        Audio_Driver.setPinout(Clock_Pin, Word_Select_Pin, Data_Pin);
+    }
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
     return Success;
 }
 
 Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
-    DynamicJsonDocument Sound_Registry(256);
+    DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";
     Sound_Registry["Volume"] = Get_Volume();
+    Sound_Registry["Output"] = Output;
+    Sound_Registry["Clock_Pin"] = Clock_Pin;
+    Sound_Registry["Word_Select_Pin"] = Word_Select_Pin;
+    Sound_Registry["Data_Pin"] = Data_Pin;
     File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {

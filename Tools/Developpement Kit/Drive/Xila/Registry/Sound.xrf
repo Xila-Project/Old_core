@@ -1,4 +1,8 @@
 {
     "Registry": "Sound",
-    "Volume": 255
+    "Volume": 255,
+    "Output": 0,
+    "Data_Pin": 25,
+    "Word_Select_Pin": 26,
+    "Clock_Pin": 27
 }

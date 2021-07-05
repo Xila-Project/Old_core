@@ -986,9 +986,9 @@ public:
 
         void Set_Output(uint8_t Output);
 
-        enum Outputs : uint8_t
+        enum : uint8_t
         {
-            Internal_DAC,
+            Internal_DAC = 0,
             External_DAC
         };
 
@@ -1050,17 +1050,23 @@ public:
         };
 
     protected:
+
+        // -- Attributes -- //
         Xila_Task_Handle Task_Handle;
 
         uint8_t Custom_Pin;
 
         File Music_File;
 
+        uint8_t Data_Pin, Word_Select_Pin, Clock_Pin;
+        uint8_t Output;
+
         // 0 : stopped
         // 1 : playing
         // 2 : paused
         // 3 : tone
 
+        // -- Methods -- //
         Xila_Class::Event Save_Registry();
         Xila_Class::Event Load_Registry();
 
