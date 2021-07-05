@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add WiFi automatic reconnection.
 - Add dynamic memory management within Shell
 - Add mathematic features to the API.
+- Add external dac implementation.
 
 ### Changed
 
