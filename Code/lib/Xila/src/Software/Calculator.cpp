@@ -54,8 +54,7 @@ void Calculator_Class::Memory_Operation(uint8_t Operation)
         break;
     case Memory_Read:
         Clear_All();
-        dtostrf(Memory, sizeof(Numbers[0]), POINT_PRECISION, Numbers[0]);
-        Format_Number(0);
+        Xila.Mathematics.Float_To_String(Memory, -1, POINT_PRECISION, Numbers[0]);
         Send_Instruction('R', 'I');
         break;
     case Memory_Clear:
@@ -641,37 +640,6 @@ void Calculator_Class::Main_Task(void *pvParameters)
     }
 }
 
-void Calculator_Class::Format_Number(uint8_t Selected_Number)
-{
-    uint8_t i;
-    // -- Delete unwanted zeros
-    for (i = sizeof(Numbers[Selected_Number]) - 1; i > 0; i--)
-    {
-        if (Numbers[Selected_Number][i] == '0' || Numbers[Selected_Number][i] == '\0')
-        {
-            Numbers[Selected_Number][i] = '\0';
-        }
-        else
-        {
-            if (Numbers[Selected_Number][i] == '.')
-            {
-                Numbers[Selected_Number][i] = '\0';
-            }
-            break;
-        }
-    }
-    // -- Delete unwanted spaces
-    for (i = 0; i < sizeof(Numbers[Selected_Number]); i++)
-    {
-        if (Numbers[Selected_Number][i] != ' ')
-        {
-            break;
-        }
-    }
-    strcpy(Numbers[Selected_Number], Numbers[Selected_Number] + i);
-    Current_Position[Selected_Number] = strlen(Numbers[Selected_Number]);
-}
-
 void Calculator_Class::Add_Number(char const &Number_To_Add)
 {
     if (State > 1) // -- If there's a result computed
@@ -722,8 +690,7 @@ void Calculator_Class::Add_Number(char const &Number_To_Add)
         break;
     case Random:
         Clear();
-        dtostrf(Xila.System.Random(), sizeof(Numbers[State]), 0, Numbers[State]);
-        Format_Number(State);
+        Xila.Mathematics.Float_To_String(Xila.System.Random(), -1, 0, Numbers[State]);
         Decimal_Point[State] = false;
         break;
     case Point:
@@ -892,65 +859,6 @@ void Calculator_Class::Set_Primary_Operator(char const &Opertor_To_Set)
     Send_Instruction('R', 'I');
 }
 
-double Calculator_Class::fact(double Number)
-{
-    for (uint8_t i = Number - 1; i > 0; i--)
-    {
-        Number *= i;
-    }
-    return Number;
-}
-
-double Calculator_Class::asech(double Number)
-{
-    double Result = sq(Number);
-    Result = 1 / Result;
-    Result -= 1;
-    Result = sqrt(Result);
-    Result += 1 / Number;
-    Result = log(Number);
-    return Result;
-}
-
-double Calculator_Class::acsch(double Number)
-{
-    double Result = sq(Number);
-    Result = 1 / Result;
-    Result += 1;
-    Result = sqrt(Result);
-    Result += 1 / Number;
-    Result = log(Number);
-    return Result;
-}
-
-double Calculator_Class::acoth(double Number)
-{
-    double Result = Number + 1;
-    Result /= Number - 1;
-    Result = log(Result);
-    Result /= 2;
-    return Result;
-}
-
-double Calculator_Class::asec(double Number)
-{
-    Number = acos(1 / Number);
-    return Number;
-}
-
-double Calculator_Class::acsc(double Number)
-{
-    Number = asin(1 / Number);
-    return Number;
-}
-
-double Calculator_Class::acot(double Number)
-{
-    Number = atan(Number);
-    Number = (PI / 2) - Number;
-    return Number;
-}
-
 void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
 {
     switch (Numbers[Selected_Number][0]) // Set number
@@ -962,40 +870,40 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
         Temporary_Numbers[Selected_Number] = EULER;
         break;
     default:
-        Temporary_Numbers[Selected_Number] = atof(Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.String_To_Float(Numbers[Selected_Number]);
         break;
     }
 
     switch (Secondary_Operator[Selected_Number]) // Apply secondary operator
     {
     case Factorial:
-        Temporary_Numbers[Selected_Number] = fact(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Factorial(Temporary_Numbers[Selected_Number]);
         break;
 
     // Simple trigonometric function
     case Sine:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = sin(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Sine(Temporary_Numbers[Selected_Number]);
         break;
     case Cosine:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = cos(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Cosine(Temporary_Numbers[Selected_Number]);
         break;
     case Tangent:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = tan(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Tangent(Temporary_Numbers[Selected_Number]);
         break;
     case Secant:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = 1 / cos(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Secant(Temporary_Numbers[Selected_Number]);
         break;
     case Cosecant:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = 1 / sin(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Cosecant(Temporary_Numbers[Selected_Number]);
         break;
     case Cotangent:
         Degree_To_Radian(Selected_Number);
-        Temporary_Numbers[Selected_Number] = 1 / tan(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Cotangeant(Temporary_Numbers[Selected_Number]);
         break;
 
         // Arc trigonometric function
@@ -1006,7 +914,7 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = asin(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Sine(Temporary_Numbers[Selected_Number]);
         break;
 
     case Arc_Cosine:
@@ -1015,34 +923,34 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = acos(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Cosine(Temporary_Numbers[Selected_Number]);
         break;
 
     case Arc_Tangent:
-        Temporary_Numbers[Selected_Number] = atan(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Tangent(Temporary_Numbers[Selected_Number]);
         break;
 
     case Arc_Secant:
-        Temporary_Numbers[Selected_Number] = asec(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Secant(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Cosecant:
-        Temporary_Numbers[Selected_Number] = acsc(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Cosecant(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Cotangent:
-        Temporary_Numbers[Selected_Number] = acot(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Cotangent(Temporary_Numbers[Selected_Number]);
         break;
     // Hyperbolic trigonometric function
     case Hyperbolic_Sine:
-        Temporary_Numbers[Selected_Number] = sinh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Sine(Temporary_Numbers[Selected_Number]);
         break;
     case Hyperbolic_Cosine:
-        Temporary_Numbers[Selected_Number] = cosh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Cosine(Temporary_Numbers[Selected_Number]);
         break;
     case Hyperbolic_Tangent:
-        Temporary_Numbers[Selected_Number] = tanh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Tangent(Temporary_Numbers[Selected_Number]);
         break;
     case Hyperbolic_Secant:
-        Temporary_Numbers[Selected_Number] = 1 / cosh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Secant(Temporary_Numbers[Selected_Number]);
         break;
     case Hyperbolic_Cosecant:
         if (Temporary_Numbers[Selected_Number] == 0)
@@ -1050,7 +958,7 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = 1 / sinh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Cosecant(Temporary_Numbers[Selected_Number]);
         break;
     case Hyperbolic_Cotangent:
         if (Temporary_Numbers[Selected_Number] == 0)
@@ -1058,24 +966,24 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = cosh(Temporary_Numbers[Selected_Number]) / sinh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Hyperbolic_Cotangent(Temporary_Numbers[Selected_Number]);
         break;
 
     // Arc Hyperbolic Function
     case Arc_Hyperbolic_Sine:
-        Temporary_Numbers[Selected_Number] = asinh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Sine(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Hyperbolic_Cosine:
-        Temporary_Numbers[Selected_Number] = acosh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Cosine(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Hyperbolic_Tangent:
-        Temporary_Numbers[Selected_Number] = atanh(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Tangent(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Hyperbolic_Secant:
-        Temporary_Numbers[Selected_Number] = asech(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Secant(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Hyperbolic_Cosecant:
-        Temporary_Numbers[Selected_Number] = acsch(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Cosecant(Temporary_Numbers[Selected_Number]);
         break;
     case Arc_Hyperbolic_Cotangent:
         if (Temporary_Numbers[Selected_Number] <= -1 || Temporary_Numbers[Selected_Number] >= 1)
@@ -1083,17 +991,17 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = acsch(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Arc_Hyperbolic_Cotangent(Temporary_Numbers[Selected_Number]);
         break;
 
         //
 
     case Power_2:
-        Temporary_Numbers[Selected_Number] = pow(2, Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Power(2, Temporary_Numbers[Selected_Number]);
         break;
 
     case Power_10:
-        Temporary_Numbers[Selected_Number] = pow(10, Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Power(10, Temporary_Numbers[Selected_Number]);
         break;
 
         // Logarithm
@@ -1104,7 +1012,7 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = log10(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Decimal_Logarithm(Temporary_Numbers[Selected_Number]);
         break;
     case Natural_Logarithm:
         if (Temporary_Numbers[Selected_Number] <= 0)
@@ -1112,7 +1020,7 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = log(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Natural_Logarithm(Temporary_Numbers[Selected_Number]);
         break;
     case Binary_Logarithm:
         if (Temporary_Numbers[Selected_Number] <= 0)
@@ -1120,19 +1028,19 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = log2(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Binary_Logarithm(Temporary_Numbers[Selected_Number]);
         break;
     case Squared:
-        Temporary_Numbers[Selected_Number] = sq(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Square(Temporary_Numbers[Selected_Number]);
         break;
     case Cube:
-        Temporary_Numbers[Selected_Number] = Temporary_Numbers[Selected_Number] * Temporary_Numbers[Selected_Number] * Temporary_Numbers[Selected_Number];
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Cube(Temporary_Numbers[Selected_Number]);
         break;
     case Square_Root:
-        Temporary_Numbers[Selected_Number] = sqrt(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Square_Root(Temporary_Numbers[Selected_Number]);
         break;
     case Cubic_Root:
-        Temporary_Numbers[Selected_Number] = cbrt(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Cubic_Root(Temporary_Numbers[Selected_Number]);
         break;
     case Inverse:
         if (Temporary_Numbers[Selected_Number] == 0)
@@ -1140,13 +1048,13 @@ void Calculator_Class::Compute_Secondary(uint8_t Selected_Number)
             Error();
             return;
         }
-        Temporary_Numbers[Selected_Number] = 1 / Temporary_Numbers[Selected_Number];
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Inverse(Temporary_Numbers[Selected_Number]);
         break;
     case Absolute:
-        Temporary_Numbers[Selected_Number] = abs(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Absolute(Temporary_Numbers[Selected_Number]);
         break;
     case Exponential:
-        Temporary_Numbers[Selected_Number] = exp(Temporary_Numbers[Selected_Number]);
+        Temporary_Numbers[Selected_Number] = Xila.Mathematics.Exponential(Temporary_Numbers[Selected_Number]);
         break;
     default:
         break;
@@ -1173,24 +1081,24 @@ void Calculator_Class::Compute()
         Temporary_Numbers[2] = Temporary_Numbers[0] / Temporary_Numbers[1];
         break;
     case Modulo:
-        Temporary_Numbers[2] = fmod(Temporary_Numbers[0], Temporary_Numbers[1]);
+        Temporary_Numbers[2] = Xila.Mathematics.Modulo(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     case Power:
-        Temporary_Numbers[2] = pow(Temporary_Numbers[0], Temporary_Numbers[1]);
+        Temporary_Numbers[2] = Xila.Mathematics.Power(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     case Root:
-        Temporary_Numbers[2] = pow(Temporary_Numbers[0], 1 / Temporary_Numbers[1]);
+        Temporary_Numbers[2] = Xila.Mathematics.Root(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     case Logarithm:
-        Temporary_Numbers[2] = log(Temporary_Numbers[1]) / log(Temporary_Numbers[0]);
+        Temporary_Numbers[2] = Xila.Mathematics.Logarithm(Temporary_Numbers[0], Temporary_Numbers[1]);
         break;
     default: // No primary operator
         Temporary_Numbers[2] = Temporary_Numbers[0];
         break;
     }
 
-    dtostrf(Temporary_Numbers[2], sizeof(Numbers[2]), POINT_PRECISION, Numbers[2]);
-    Format_Number(2);
+    Xila.Mathematics.Float_To_String(Temporary_Numbers[2], -1, POINT_PRECISION, Numbers[2]);
+
     // --
     State = 2;
     Send_Instruction('R', 'I');

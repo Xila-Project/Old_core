@@ -68,25 +68,12 @@ private:
     void Switch_Keys_Second();
     void Switch_Keys_Hyperbolic();
 
-    void Format_Number(uint8_t);
-
-
     void Clear();
     void Clear_All();
 
     void Compute();
 
     void Compute_Secondary(uint8_t Selected_Number);
-
-    double fact(double Number);
-
-    double asec(double Number);
-    double acsc(double Number);
-    double acot(double Number);
-
-    double asech(double Number);
-    double acsch(double Number);
-    double acoth(double Number);
 
     void Refresh_Interface();
 
