@@ -78,11 +78,11 @@
 
 // -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
-#include "Path.hpp"          // Path list
+#include "Modules/Path.hpp"          // Path list
 
 // Other part of the core
 
-#include "Software.hpp"
+#include "Modules/Software.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -768,9 +768,10 @@ public:
     class Mathematics_Class
     {
     public:
-        const double Pi = PI;
-        const double Euler = EULER;
-      
+        const double Pi = 3.1415926535897932384626433832795;
+        const double Euler = 2.718281828459045235360287471352;
+        const double Degrees_To_Radians = 0.017453292519943295769236907684886;
+        const double Radians_To_Degrees = 57.295779513082320876798154814105;
 
         // -- Methods -- //
         double String_To_Float(const char *String); // --
@@ -785,10 +786,12 @@ public:
         double Greatest_Common_Divisor(double Number_1, double Number_2);
         double Least_Common_Multiple(double Number_1, double Number_2);
 
-        double Radians(double Degree);
-        double Degrees(double Radian);
+        double Radians(double Degrees);
+        double Degrees(double Radians);
 
         double Factorial(double Number);
+        double Absolute(double Number);
+        double Inverse(double Number);
 
         double Combination(double n, double k);
         double Permutation(double n, double k);
@@ -802,32 +805,31 @@ public:
 
         double Arc_Sine(double Number);
         double Arc_Cosine(double Number);
-        double Arc_Tangeant(double Number);
+        double Arc_Tangent(double Number);
         double Arc_Secant(double Number);
         double Arc_Cosecant(double Number);
-        double Arc_Cotangeant(double Number);
+        double Arc_Cotangent(double Number);
 
         double Hyperbolic_Sine(double Number);
         double Hyperbolic_Cosine(double Number);
-        double Hyperbolic_Tangeant(double Number);
+        double Hyperbolic_Tangent(double Number);
         double Hyperbolic_Secant(double Number);
         double Hyperbolic_Cosecant(double Number);
-        double Hyperbolic_Cotangeant(double Number);
+        double Hyperbolic_Cotangent(double Number);
 
         double Arc_Hyperbolic_Sine(double Number);
         double Arc_Hyperbolic_Cosine(double Number);
-        double Arc_Hyperbolic_Tangeant(double Number);
+        double Arc_Hyperbolic_Tangent(double Number);
         double Arc_Hyperbolic_Secant(double Number);
         double Arc_Hyperbolic_Cosecant(double Number);
-        double Arc_Hyperbolic_Cotangeant(double Number);
+        double Arc_Hyperbolic_Cotangent(double Number);
 
-        double Absolute(double Number);
 
-        double Power(double Exponent, double Number);
+        double Power(double Base, double Exponent);
         double Square(double Number);
         double Cube(double Number);
 
-        double Root(double Exponent, double Number);
+        double Root(double Base, double Exponent);
         double Square_Root(double Number);
         double Cubic_Root(double Number);
 
@@ -836,6 +838,7 @@ public:
         double Logarithm(double Base, double Number);
         double Binary_Logarithm(double Number);
         double Natural_Logarithm(double Number);
+        double Decimal_Logarithm(double Number);
 
     } Mathematics;
 
@@ -1289,13 +1292,15 @@ protected:
     static Xila_Class *Instance_Pointer;
 };
 
-#include "Core/Task.hpp"
-#include "Core/Time.hpp"
-#include "Core/System.hpp"
+#include "Core/Modules/Task.hpp"
+#include "Core/Modules/Time.hpp"
+#include "Core/Modules/System.hpp"
+#include "Core/Modules/Mathematics.hpp"
 
 #include "Core/Abstraction/Display.hpp"
 #include "Core/Abstraction/GPIO.hpp"
 #include "Core/Abstraction/Memory.hpp"
 #include "Core/Abstraction/Flash.hpp"
+
 
 #endif

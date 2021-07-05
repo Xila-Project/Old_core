@@ -8,6 +8,9 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#ifndef SYSTEM_HPP_INCLUDED
+#define SYSTEM_HPP_INCLUDED
+
 inline uint32_t Xila_Class::System_Class::Random() const
 {
     return esp_random();
@@ -64,3 +67,4 @@ inline uint64_t Xila_Class::System_Class::Get_eFuse_MAC()
     return _chipmacid;
 }
 
+#endif
