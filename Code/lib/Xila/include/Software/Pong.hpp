@@ -3,7 +3,7 @@
 
 #include "Xila.hpp"
 
-class Pong_Class : public Software_Class
+class Pong_Class : public Xila_Class::Software
 {
     protected:
     static Pong_Class* Instance_Pointer;
@@ -25,10 +25,10 @@ class Pong_Class : public Software_Class
         Icon_32 = Xila.Display.Pong_Images
     };
 
-    static Software_Class* Load();
+    static Xila_Class::Software* Load();
 
 };
 
-Software_Handle_Class Pong_Handle("Pong", Pong_Class::Icon_32, Pong_Class::Load);
+Xila_Class::Software_Handle Pong_Handle("Pong", Pong_Class::Icon_32, Pong_Class::Load);
 
 #endif

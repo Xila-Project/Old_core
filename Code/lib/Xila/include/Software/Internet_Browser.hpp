@@ -113,7 +113,7 @@ static const uint16_t tag_codes[] = {
     388, 60    // Less than
 };
 
-class Internet_Browser_Class : public Software_Class
+class Internet_Browser_Class : public Xila_Class::Software
 {
 public:
     Internet_Browser_Class();
@@ -126,7 +126,7 @@ public:
 
     static void Main_Task(void *pvParameters);
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 
 private:
     char Server[30];
@@ -177,7 +177,7 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
 
     //void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
 
@@ -192,6 +192,6 @@ private:
     void Go_Home();
 };
 
-Software_Handle_Class Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Icon_32, Internet_Browser_Class::Load);
+Xila_Class::Software_Handle Internet_Browser_Handle("Internet Browser", Internet_Browser_Class::Icon_32, Internet_Browser_Class::Load);
 
 #endif

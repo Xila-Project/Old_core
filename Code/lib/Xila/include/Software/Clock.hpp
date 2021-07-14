@@ -6,7 +6,7 @@
 #define Clock_Directory_Path Software_Directory_Path "/Clock"
 #define Clock_File(name) Clock_Directory_Path "/" name
 
-class Clock_Class : public Software_Class
+class Clock_Class : public Xila_Class::Software
 {
 
 private:
@@ -15,7 +15,7 @@ private:
     static Clock_Class *Instance_Pointer;
 
     uint8_t Current_Tab;
-    Xila_Time Time;
+    tm Time;
 
     enum Pages
     {
@@ -99,7 +99,7 @@ private:
 
     uint8_t Offset;
 
-    Xila_Instruction Current_Instruction;
+    Xila_Class::Instruction Current_Instruction;
 
     void Check_Timer();
 
@@ -122,7 +122,7 @@ private:
     void Add_Alarm();
     void Delete_Alarm();
 
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
 
     uint8_t Selected_Alarm;
 
@@ -135,7 +135,7 @@ public:
     Clock_Class();
     ~Clock_Class();
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 
     static void Startup_Function();
 
@@ -147,6 +147,6 @@ public:
     };
 };
 
-Software_Handle_Class Clock_Handle("Clock", Clock_Class::Icon_32, Clock_Class::Load, Clock_Class::Startup_Function);
+Xila_Class::Software_Handle Clock_Handle("Clock", Clock_Class::Icon_32, Clock_Class::Load, Clock_Class::Startup_Function);
 
 #endif

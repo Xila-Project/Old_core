@@ -11,14 +11,17 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-Software_Handle_Class Shell_Handle("Shell", Shell_Class::Images.Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
+Xila_Class::Software_Handle Shell_Handle("Shell", Shell_Class::Images.Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
 
 // -- Initialize shell -- //
 
 Shell_Class *Shell_Class::Instance_Pointer = NULL;
 
-Shell_Class::Shell_Class() : Software_Class(Shell_Handle)
+Shell_Class::Shell_Class() : Xila_Class::Software(Shell_Handle)
 {
+    File_Manager_Pointer = NULL;
+    Preferences_Pointer = NULL;
+    Next_Refresh = 0;
 
     Xila.Task.Create(Main_Task, "Shell Task", Memory_Chunk(8), NULL, &Task_Handle);
 }
@@ -26,7 +29,6 @@ Shell_Class::Shell_Class() : Software_Class(Shell_Handle)
 Shell_Class::~Shell_Class()
 {
     // -- Unload all modules -- //
-    Dialog_Class::Close();
     File_Manager_Class::Close();
     Preferences_Class::Close();
     // -- Check if there's a duplicate
@@ -37,7 +39,7 @@ Shell_Class::~Shell_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Shell_Class::Load_Shell()
+Xila_Class::Software *Shell_Class::Load_Shell()
 {
     if (Instance_Pointer != NULL)
     {
@@ -49,7 +51,7 @@ Software_Class *Shell_Class::Load_Shell()
 
 void Shell_Class::Startup()
 {
-    Xila.Software.Open(Shell_Handle);
+    Xila.Software_Management.Open(Shell_Handle);
 }
 
 // -- Main shell methods -- //
@@ -70,32 +72,34 @@ void Shell_Class::Main_Task(void *)
                 SHELL->Execute_Instruction(SHELL->Get_Instruction());
             }
             break;
-        case Pages.Dialog_Color_Picker:
+        case Pages.Preferences_Personal:
             if (Preferences_Class::State())
             {
-                DIALOG->Execute_Color_Picker_Instruction(SHELL->Get_Instruction());
+                PREFERENCES->Execute_Personal_Instruction(SHELL->Get_Instruction());
             }
             else
             {
                 SHELL->Execute_Instruction(SHELL->Get_Instruction());
             }
             break;
+        case Pages.Preferences_System:
+            if (Preferences_Class::State())
+            {
+                PREFERENCES->Execute_System_Instruction(SHELL->Get_Instruction());
+            }
+            else
+            {
+                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            }
+            break;
+
         case Pages.Desk:
             DESK.Execute_Desk_Instruction(SHELL->Get_Instruction());
             break;
         case Pages.Drawer:
             DESK.Execute_Drawer_Instruction(SHELL->Get_Instruction());
             break;
-        case Pages.Dialog_Event:
-            if (Dialog_Class::State())
-            {
-                DIALOG->Execute_Event_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
+
         case Pages.File_Manager_Main:
         case Pages.File_Manager_Detail:
             if (File_Manager_Class::State())
@@ -127,10 +131,26 @@ void Shell_Class::Main_Task(void *)
                 SHELL->Execute_Instruction(SHELL->Get_Instruction());
             }
             break;
-        case Pages.Dialog_Keyboard:
-            if (Dialog_Class::State())
+        case Pages.Dialog_Color_Picker:
+            COLOR_PICKER.Execute_Instruction(SHELL->Get_Instruction());
+            break;
+        case Pages.Dialog_Event:
+            if (EVENT->State())
             {
-                DIALOG->Execute_Keyboard_Instruction(SHELL->Get_Instruction());
+                EVENT->Execute_Instruction(SHELL->Get_Instruction());
+            }
+            else
+            {
+                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            }
+            break;
+        case Pages.Dialog_Power:
+            POWER.Execute_Instruction(SHELL->Get_Instruction());
+            break;
+        case Pages.Dialog_Keyboard:
+            if (KEYBOARD->State())
+            {
+                KEYBOARD->Execute_Instruction(SHELL->Get_Instruction());
             }
             else
             {
@@ -138,20 +158,34 @@ void Shell_Class::Main_Task(void *)
             }
             break;
         case Pages.Dialog_Keypad:
-            if (Dialog_Class::State())
+            if (KEYPAD->State())
             {
-                DIALOG->Execute_Keypad_Instruction(SHELL->Get_Instruction());
+                KEYPAD->Execute_Instruction(SHELL->Get_Instruction());
             }
             else
             {
                 SHELL->Execute_Instruction(SHELL->Get_Instruction());
             }
             break;
-        case Pages.Login:
-            DESK.Execute_Login_Instruction(SHELL->Get_Instruction());
+        case Pages.Dialog_Login:
+            if (LOGIN->State())
+            {
+                LOGIN->Execute_Instruction(SHELL->Get_Instruction());
+            }
+            else
+            {
+                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            }
             break;
         case Pages.Dialog_Load:
-            SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            if (LOAD->State())
+            {
+                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            }
+            else
+            {
+                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+            }
             break;
         case Pages.Preferences_Network:
             if (Preferences_Class::State())
@@ -163,55 +197,114 @@ void Shell_Class::Main_Task(void *)
                 SHELL->Execute_Instruction(SHELL->Get_Instruction());
             }
             break;
-        case Pages.Preferences_Personal:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_Personal_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Shutdown:
-            if (Dialog_Class::State())
-            {
-                DIALOG->Execute_Shutdown_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Preferences_System:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_System_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
         case Pages.Welcome:
             DESK.Execute_Desk_Instruction(SHELL->Get_Instruction());
             break;
         default:
-            Xila.Task.Delay(50);
             SHELL->Execute_Instruction(SHELL->Get_Instruction());
             break;
         }
     }
 }
 
-void Shell_Class::Execute_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Refresh_Header()
+{
+    // -- Update clock
+    Temporary_Char_Array[0] = Xila.Time.Current_Time.tm_hour / 10;
+    Temporary_Char_Array[0] += 48;
+    Temporary_Char_Array[1] = Xila.Time.Current_Time.tm_hour % 10;
+    Temporary_Char_Array[1] += 48;
+    Temporary_Char_Array[2] = ':';
+    Temporary_Char_Array[3] = Xila.Time.Current_Time.tm_min / 10;
+    Temporary_Char_Array[3] += 48;
+    Temporary_Char_Array[4] = Xila.Time.Current_Time.tm_min % 10;
+    Temporary_Char_Array[4] += 48;
+    Temporary_Char_Array[5] = '\0';
+
+    Xila.Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
+
+    // -- Update connexion
+    Temporary_Char_Array[5] = Xila.WiFi.RSSI();
+
+    if (Xila.WiFi.status() == WL_CONNECTED)
+    {
+        if (Temporary_Char_Array[5] <= -70)
+        {
+            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Low);
+        }
+        if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
+        {
+            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Medium);
+        }
+        else
+        {
+            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_High);
+        }
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("CONNEXION_BUT"), ' ');
+    }
+
+    // -- Update charge level
+    Temporary_Char_Array[5] = Xila.Power.Get_Charge_Level();
+
+    if (Temporary_Char_Array[5] <= 5)
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Empty);
+        Xila.Display.Set_Font_Color(F("BATTERY_BUT"), Xila.Display.Red);
+    }
+    else if (Temporary_Char_Array[5] <= 10 && Temporary_Char_Array[5] > 5)
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Empty);
+        Xila.Display.Set_Font_Color(F("BATTERY_BUT"), Xila.Display.White);
+    }
+    else if (Temporary_Char_Array[5] <= 35 && Temporary_Char_Array[5] > 10)
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Quarter);
+    }
+    else if (Temporary_Char_Array[5] <= 60 && Temporary_Char_Array[5] > 35)
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Half);
+    }
+    else if (Temporary_Char_Array[5] <= 85 && Temporary_Char_Array[5] > 60)
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Three_Quarters);
+    }
+    else // more than 85 %
+    {
+        Xila.Display.Set_Text(F("BATTERY_BUT"), Xila.Display.Battery_Full);
+    }
+
+    // -- Update sound
+    Temporary_Char_Array[5] = Xila.Sound.Get_Volume();
+
+    if (Temporary_Char_Array[5] == 0)
+    {
+        Xila.Display.Set_Text(F("SOUND_BUT"), Xila.Display.Sound_Mute);
+    }
+    else if (Temporary_Char_Array[5] < 86)
+    {
+        Xila.Display.Set_Text(F("SOUND_BUT"), Xila.Display.Sound_Low);
+    }
+    else if (Temporary_Char_Array[5] < 172)
+    {
+        Xila.Display.Set_Text(F("SOUND_BUT"), Xila.Display.Sound_Medium);
+    }
+    else
+    {
+        Xila.Display.Set_Text(F("SOUND_BUT"), Xila.Display.Sound_High);
+    }
+}
+
+void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
-    case Idle:
-        if (Xila.Software.Get_State(Shell_Handle) == Minimized)
+    case Xila.Idle:
+        if (Xila.Software_Management.Get_State(Shell_Handle) == Xila.Minimized)
         {
-            Xila.Task.Delay(90);
+            Xila.Task.Delay(80);
         }
         else
         {
@@ -228,19 +321,23 @@ void Shell_Class::Execute_Instruction(Xila_Instruction Instruction)
                 }
             }
         }
-        Xila.Task.Delay(10);
+        if (Xila.Time.Milliseconds() > Next_Refresh)
+        {
+            Refresh_Header();
+            Next_Refresh = Xila.Time.Milliseconds() + 4000;
+        }
+        Xila.Task.Delay(20);
         break;
-    case Dialog_Color_Picker:
-        DIALOG->Open(Pages.Dialog_Color_Picker);
+    case Xila.Dialog_Color_Picker:
+        Dialog.Color_Picker_Pointer.Open();
         break;
-    case Instruction('O', 's'):
-    case Dialog_Power:
-        DIALOG->Open(Dialog_Power);
+    case Xila.Dialog_Power:
+        Dialog.Power();
         break;
-    case Instruction('O', 'L'): // "OL" : Open Login page
-        Desk.Open(Pages.Login);
+    case Xila.Dialog_Login:
+        Dialog.Login_Pointer->Open(Pages.Dialog_Login);
         break;
-    case Open:
+    case Xila.Open:
         if (!Xila.Drive.Exists(Users_Directory_Path))
         {
             Xila.Display.Set_Current_Page(Pages.Welcome);
@@ -252,71 +349,75 @@ void Shell_Class::Execute_Instruction(Xila_Instruction Instruction)
             Load_Registry();
         }
     case Instruction('O', 'D'):
-    case Software_Class::Desk: // "OD" Open Desk page & load it
-        DESK.Open(Pages.Desk);
+    case Xila.Desk: // "OD" Open Desk page & load it
+        Desk.Open(Pages.Desk);
         break;
     case Instruction('O', 'd'): // "Od" Open drawer
-        DESK.Open(Pages.Drawer);
+        Desk.Open(Pages.Drawer);
         break;
     case Instruction('O', 'A'): // Open about xila
         Xila.Display.Set_Current_Page(Pages.About);
         break;
-    case Dialog_Keyboard:
-        DIALOG->Open(Dialog_Keyboard);
+    case Xila.Dialog_Keyboard:
+        Dialog.Keyboard_Pointer->Open();
         break;
-    case Dialog_Keypad:
-        DIALOG->Open(Dialog_Keypad);
+    case Xila.Dialog_Keypad:
+        Dialog.Keypad_Pointer->Open();
         break;
-    case Dialog_Open_File:
-        FILE_MANAGER->Open(Dialog_Open_File);
+    case Xila.Dialog_Open_File:
+        File_Manager_Pointer->Open(Xila.Dialog_Open_File);
         break;
-    case Dialog_Open_Folder:
-        FILE_MANAGER->Open(Dialog_Open_Folder);
+    case Xila.Dialog_Open_Folder:
+        File_Manager_Pointer->Open(Xila.Dialog_Open_Folder);
         break;
-    case Dialog_Save_File:;
-        FILE_MANAGER->Open(Dialog_Save_File);
+    case Xila.Dialog_Save_File:
+        File_Manager_Pointer->Open(Xila.Dialog_Save_File);
         break;
-    case Dialog_Event:
-        // -- Already openend
+    case Xila.Dialog_Event:
+        Dialog.Event_Pointer->Open();
         break;
-    case Software_Class::Shutdown:
-        DIALOG->Load(Load_Shutdown_Header_String, Load_Shutdown_Message_String);
+    case Xila.Dialog_Load:
+        Dialog.Load_Pointer->Open();
+        break;
+    case Xila.Shutdown:
+        DIALOG.Load(Load_Shutdown_Header_String, Load_Shutdown_Message_String);
         Save_Registry();
         break;
-    case Restart:
-        DIALOG->Load(Load_Restart_Header_String, Load_Restart_Message_String);
+    case Xila.Restart:
+        DIALOG.Load(Load_Restart_Header_String, Load_Restart_Message_String);
         Save_Registry();
         break;
-    case Hibernate:
-        DIALOG->Load(Load_Hibernate_Header_String, Load_Hibernate_Message_String);
+    case Xila.Hibernate:
+        DIALOG.Load(Load_Hibernate_Header_String, Load_Hibernate_Message_String);
         Save_Registry();
         break;
     case Instruction('O', 'F'): // Open file manager
-        FILE_MANAGER->Open(Idle);
+        File_Manager_Class::Open(Xila.Idle);
         break;
 
     case Instruction('O', 'P'): // Open preferiencies (default : personnal)
-        PREFERENCES->Open('P');
+        Preferences_Class::Open(Pages.Preferences_Personal);
         break;
     case Instruction('O', 'H'): // "OH" : Open hardware prefencies
-        PREFERENCES->Open('H');
+        Preferences_Class::Open(Pages.Preferences_Hardware);
         break;
     case Instruction('O', 'N'): // "ON" : Open network
-        PREFERENCES->Open('N');
+        Preferences_Class::Open(Pages.Preferences_Network);
         break;
     case Instruction('O', 'S'): // "OS" : Open system preferencies
-        PREFERENCES->Open('S');
+        Preferences_Class::Open(Pages.Preferences_System);
         break;
     case Instruction('O', 'I'):
-        PREFERENCES->Open('I');
+        Preferences_Class::Open(Pages.Preferences_Install);
         break;
-    case Close: // close
+    case Xila.Close: // close
         delete Instance_Pointer;
         Xila.Task.Delete();
         break;
-    case Minimize: // minimize
+    case Xila.Minimize: // minimize
         break;
-    case Maximize:
+    case Xila.Maximize:
+        Send_Instruction('R', 'e');
         break;
     default:
         break;
@@ -325,8 +426,9 @@ void Shell_Class::Execute_Instruction(Xila_Instruction Instruction)
 
 // -- Set variable -- //
 
-void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
+
     switch (Xila.Display.Get_Current_Page())
     {
     case Pages.Preferences_Hardware:
@@ -334,17 +436,11 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         {
             switch (Adress)
             {
-            case 'B':
-                if (Type == Xila.Display.Variable_Long)
-                {
-                    Xila.Display.Brightness = *(uint8_t *)Variable;
-                }
+            case Adress('B', 'r'):
+                Xila.Display.Brightness = *(uint8_t *)Variable;
                 break;
-            case 'V':
-                if (Type == Xila.Display.Variable_Long)
-                {
-                    Xila.Sound.Set_Volume(*(uint8_t *)Variable);
-                }
+            case Adress('V', 'o'):
+                Xila.Sound.Set_Volume(*(uint8_t *)Variable);
                 break;
             default:
                 break;
@@ -352,11 +448,11 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         }
         break;
     case Pages.File_Manager_Main:
-        if (File_Manager_Class::State())
+        if (File_Manager_Pointer->State())
         {
             switch (Adress)
             {
-            case 'F':
+            case Adress('F', 'i'):
                 if (FILE_MANAGER->Current_Path[1] != '\0')
                 {
                     strcat(FILE_MANAGER->Current_Path, "/");
@@ -364,27 +460,119 @@ void Shell_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
                 strlcat(FILE_MANAGER->Current_Path, (char *)Variable, sizeof(FILE_MANAGER->Current_Path));
                 SHELL->Send_Instruction('R', 'e');
                 break;
+            case Adress('I', 'P'):
+                File_Manager_Pointer->Item_Pointer = (File *)Variable;
+                break;
             default:
                 break;
             }
         }
         break;
     case Pages.Dialog_Keyboard:
-        if (Dialog_Class::State() && Adress == 'I' && Xila.Dialog.Pointer != NULL)
+        if (Dialog.Keyboard_Pointer->State())
         {
-            strlcpy((char *)Xila.Dialog.Pointer, (char *)Variable, Xila.Dialog.Long[0]);
+            switch (Adress)
+            {
+            case Adress('S', 't'): // -- Keyboard
+                Dialog.Keyboard_Pointer->String = (char *)Variable;
+                break;
+            case Adress('S', 'i'):
+                Dialog.Keyboard_Pointer->Size = *(size_t *)Variable;
+                break;
+            case Adress('M', 'a'):
+                Dialog.Keyboard_Pointer->Masked_Input = *(bool *)Variable;
+                break;
+            case Adress('I', 'n'):
+                strlcpy((char *)Dialog.Keyboard_Pointer->String, (char *)Variable, Dialog.Keyboard_Pointer->Size);
+                break;
+            default:
+                break;
+            }
+        }
+        break;
+    case Pages.Dialog_Event:
+        if (Dialog.Event_Pointer->State())
+        {
+            switch (Adress)
+            {
+            case Adress('M', 'e'): // -- Event
+                Dialog.Event_Pointer->Message = (void *)Variable;
+                break;
+            case Adress('M', 'o'):
+                Dialog.Event_Pointer->Mode = *(uint8_t *)Variable;
+                break;
+            case Adress('T', 'y'):
+                Dialog.Event_Pointer->Type = *(uint8_t *)Variable;
+                break;
+            case Adress('B', '1'):
+                Dialog.Event_Pointer->Button_Text[0] = (void *)Variable;
+                break;
+            case Adress('B', '2'):
+                Dialog.Event_Pointer->Button_Text[1] = (void *)Variable;
+                break;
+            case Adress('B', '3'):
+                Dialog.Event_Pointer->Button_Text[2] = (void *)Variable;
+                break;
+            default:
+                break;
+            }
+        }
+        break;
+    case Pages.Dialog_Load:
+        if (Dialog.Load_Pointer->State())
+        {
+            switch (Adress)
+            {
+            case Adress('H', 'e'): // -- Load
+                Dialog.Load_Pointer->Header = (void *)Variable;
+                break;
+            case Adress('M', 'e'):
+                Dialog.Load_Pointer->Message = (void *)Variable;
+                break;
+            case Adress('M', 'o'):
+                Dialog.Load_Pointer->Mode = *(uint8_t *)Variable;
+                break;
+            case Adress('P', 'o'):
+                Dialog.Load_Pointer->Page = *(Xila_Class::Page *)Variable;
+                break;
+            case Adress('S', 'o'):
+                Dialog.Load_Pointer->Caller_Software = (Xila_Class::Software *)Variable;
+                break;
+            case Adress('D', 'u'):
+                Dialog.Load_Pointer->Duration = *(uint32_t *)Variable;
+                break;
+            default:
+                break;
+            }
         }
         break;
     case Pages.Dialog_Keypad:
-        if (Dialog_Class::State() && Adress == 'I')
+        if (Dialog.Keypad_Pointer->State())
         {
-            strlcpy(DIALOG->Temporary_Float_String, (char *)Variable, sizeof(DIALOG->Temporary_Float_String));
+            switch (Adress)
+            {
+            case Adress('N', 'u'):
+                Dialog.Keypad_Pointer->Number = (float *)Variable;
+                break;
+            case Adress('I', 'n'):
+                strlcpy(Dialog.Keypad_Pointer->Temporary_Float_String, (char *)Variable, sizeof(Dialog.Keypad_Pointer->Temporary_Float_String));
+                break;
+            default:
+                break;
+            }
         }
         break;
     case Pages.Dialog_Color_Picker:
-        if (Dialog_Class::State() && Adress == 'C' && Xila.Dialog.Pointer != NULL)
+        switch (Adress)
         {
-            memcpy(Xila.Dialog.Pointer, (uint16_t *)Variable, sizeof(uint16_t));
+        case Adress('C', 'P'):
+            Dialog.Color_Picker_Pointer.Color = (uint16_t *)Variable;
+            break;
+        case Adress('C', 'o'):
+            memcpy(Dialog.Color_Picker_Pointer.Color, (uint16_t *)Variable, sizeof(uint16_t));
+            break;
+        default:
+            break;
         }
         break;
     default:

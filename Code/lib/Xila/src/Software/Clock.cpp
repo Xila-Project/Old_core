@@ -4,7 +4,7 @@ Clock_Class *Clock_Class::Instance_Pointer = NULL;
 uint32_t Clock_Class::Next_Alarm = 0;
 
 Clock_Class::Clock_Class()
-    : Software_Class(Clock_Handle),
+    : Xila_Class::Software(Clock_Handle),
       Chronometer_State(Stopped),
       Chronometer_Inital_Time(0),
       Chronometer_Paused_Time(0),
@@ -26,7 +26,7 @@ Clock_Class::~Clock_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Clock_Class::Load()
+Xila_Class::Software *Clock_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -79,7 +79,7 @@ void Clock_Class::Background_Task(void *pvParameters)
         {
             if (Next_Alarm < Xila.Time.Milliseconds())
             {
-                Xila.Software.Open(Clock_Handle);
+                Xila.Software_Management.Open(Clock_Handle);
                 Instance_Pointer->Send_Instruction('R', 'A');
             }
             Xila.Task.Delay(1000);
@@ -91,9 +91,9 @@ void Clock_Class::Check_Timer()
 {
     if (Timer_State == Running && Xila.Time.Milliseconds() >= Timer_Threshold_Time)
     {
-        if (Xila.Software.Get_State(Clock_Handle) == Minimized)
+        if (Xila.Software_Management.Get_State(Clock_Handle) == Xila.Minimized)
         {
-            Xila.Software.Maximize(Clock_Handle);
+            Xila.Software_Management.Maximize(Clock_Handle);
         }
         Timer_State = Stopped;
         Xila.Sound.Play(Clock_File("Ringtone.wav")); // play something
@@ -267,7 +267,7 @@ void Clock_Class::Refresh_Chronometer()
     }
 }
 
-void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Clock_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
     switch (Xila.Display.Get_Current_Page())
     {
@@ -276,11 +276,10 @@ void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
         {
             switch (Adress)
             {
-
-            case 'H':
+            case Adress('H', 'o'):
                 Alarm_Hour[Selected_Alarm] = *(uint8_t *)Variable;
                 break;
-            case 'M':
+            case Adress('M', 'i'):
                 Alarm_Minute[Selected_Alarm] = *(uint8_t *)Variable;
                 break;
 
@@ -292,13 +291,13 @@ void Clock_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adres
     case Timer:
         switch (Adress)
         {
-        case 'H':
+        case Adress('H', 'o'):
             Hours = *(uint8_t *)Variable;
             break;
-        case 'M':
+        case Adress('M', 'i'):
             Minutes = *(uint8_t *)Variable;
             break;
-        case 'S':
+        case Adress('S', 'e'):
             Seconds = *(uint8_t *)Variable;
         default:
             break;
@@ -487,38 +486,38 @@ void Clock_Class::Main_Instructions()
 {
     switch (Current_Instruction)
     {
-    case Idle:
-        if (Xila.Software.Get_State(Clock_Handle) == Minimized)
+    case Xila.Idle:
+        if (Xila.Software_Management.Get_State(Clock_Handle) == Xila.Minimized)
         {
             Xila.Task.Delay(200);
         }
         Xila.Task.Delay(20);
         Send_Instruction('C', 'T');
         break;
-    case Open:
+    case Xila.Open:
         Load_Registry();
         Refresh_Next_Alarm();
         Xila.Display.Set_Current_Page(Clock);
         break;
-    case Minimize:
+    case Xila.Minimize:
         break;
-    case Close:
+    case Xila.Close:
         Save_Registry();
         delete Instance_Pointer;
         Xila.Task.Delete();
         break;
-    case Maximize:
+    case Xila.Maximize:
         Xila.Display.Set_Current_Page(Clock);
         break;
     case Instruction('M', 'i'):
         Save_Registry();
-        Xila.Software.Minimize(Clock_Handle);
+        Xila.Software_Management.Minimize(Clock_Handle);
         break;
-    case Hibernate:
-    case Shutdown:
-    case Restart:
+    case Xila.Hibernate:
+    case Xila.Shutdown:
+    case Xila.Restart:
     case Instruction('C', 'l'):
-        Xila.Software.Close(Clock_Handle);
+        Xila.Software_Management.Close(Clock_Handle);
         break;
     case Instruction('C', 'T'):
         Check_Timer();

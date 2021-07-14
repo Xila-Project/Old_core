@@ -1,3 +1,13 @@
+///
+ /// @file Keyboard.cpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief 
+ /// @version 0.1
+ /// @date 11-07-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #include "Core/Core.hpp"
 
 #include <PS2Keyboard.h>

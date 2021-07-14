@@ -1,16 +1,16 @@
 # Xila
 
-## Introduction
+## 📰 Introduction
 
 Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allows the integration of different software in one unique ecosystem, which is easy to port (only the HAL of Xila needs to be rewrite). I hope you would like it !
 
-Inspired by :
+💭 Inspired by :
 - [BASIC 80's Pocket Computer](https://www.youtube.com/watch?v=Hjdj14C_jAI "BASIC 80's Pocket Computer") - [Benjamin HECKENDORN](https://www.benheck.com/ "Benjamin HECKENDORN")
 - [MultiApp Advanced](https://github.com/botofancalin/M5Stack-MultiApp-Advanced "MultiApp Advanced") - [botofancalin](https://github.com/botofancalin "botofancalin")
 - [GadgetOS (ex-PyxisOS)](https://www.skewworks.com/pyxis "GadgetOS (ex-PyxisOS)") - [Skewworks](https://www.skewworks.com "Skewworks")
 
 
-## Table of contents
+## 📖 Table of contents
 
 - [Introduction](#introduction)
 - [Table of contents](#table-of-contents)
@@ -19,34 +19,34 @@ Inspired by :
 - [Features](#features)
 - [About](#about)
 
-## Status
+## 🚦 Status
 
 [![Build Status](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)     [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest)
 
-## Quick start
+## ⏩ Quick start
 
-### Using
+### 🔰 Using
 
 Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-use "Start to use") to start using Xila.
 
-### Develop
+### 💻 Develop
 
 Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-developp "Start to develop") to start to develop software for Xila.
 
-### Contribute
+### 🔬 Contribute
 
 This project is open to contributions of any kinds.
 
-## Support
+## 📄 Support
 
 Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](https://xila.alixfaitgrr.fr/).
 
 If you have any questions or propositions, you can contact me :
 - 📫 by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
 
-## Features
+## ✅ Features
 
-### Core
+### ⭕ Core :
 
 Here are the feature that are implemented in the core :
 
@@ -56,7 +56,7 @@ Here are the feature that are implemented in the core :
 - **Display**, **drive**, **GPIO**, **keyboard**, **network**, **power**, **sounds** and **time** abstraction layers.
 - A simple **dialog box** API (keyboards, events, file, color picker ...).
 
-### Software
+### 🟠 Software :
 
 Here is a list of included software :
 
@@ -77,7 +77,7 @@ Here is a list of included software :
 
 It's [up to you](#develop) to make this list longer 😉.
 
-### Roadmap
+### 🚆 Roadmap
 
 - Finish the documentation.
 - Comment properly the code.
@@ -86,9 +86,9 @@ It's [up to you](#develop) to make this list longer 😉.
 - Change how registries works (JSON is handy but inappropriate for this project).
 - Allow software to be removed or added on the fly without any recompilation.
 
-## About
+## ❓ About
 
-### Dependencies :
+### 🔗 Dependencies :
 
 Here are dependencies of the project :
 
@@ -102,7 +102,7 @@ Here are dependencies of the project :
 - [Nextion library](https://github.com/AlixANNERAUD/Nextion-Library "Nextion library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
 - [Battery library](https://github.com/AlixANNERAUD/Battery-Library "Battery library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
 
-### Reused Code :
+### 👓 Reused Code :
 
 Here are credits to sources where I borrow code :
 
@@ -110,7 +110,7 @@ Here are credits to sources where I borrow code :
 - [ESP32 Oscilloscope](https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope) - [Botofancalin](https://github.com/botofancalin/) - MIT Licence
 - [TinyBasic Plus](https://github.com/BleuLlama/TinyBasicPlus "TinyBasic Plus") - [Scott Lawrence](https://github.com/BleuLlama "Scott Lawrence") / Michael FIELD / Gordon BRANDLY / Jurg WULLSCHLEGER - MIT Licence
 
-### Licence
+### 🧾 Licence :
 
 This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/ "M.I.T. licence").
 

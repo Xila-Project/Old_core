@@ -1,3 +1,13 @@
+///
+ /// @file Time.cpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief 
+ /// @version 0.1
+ /// @date 11-07-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #include "Core/Core.hpp"
 
 Xila_Class::Time_Class::Time_Class()
@@ -60,7 +70,7 @@ void Xila_Class::Time_Class::Synchronise()
   localtime_r(&Now, &Current_Time);
 }
 
-Xila_Time Xila_Class::Time_Class::Get_Time()
+tm Xila_Class::Time_Class::Get_Time()
 {
   Synchronise();
   return Current_Time;

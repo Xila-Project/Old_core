@@ -73,10 +73,14 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
     {
         Audio_Driver.setInternalDAC(false);
         Output = External_DAC;
-        Clock_Pin = Sound_Registry["Clock_Pin"] | Default_I2S_Clock_Pin;
-        Word_Select_Pin = Sound_Registry["Word_Select_Pin"] | Default_I2S_Word_Select_Pin;
-        Data_Pin = Sound_Registry["Data_Pin"] | Default_I2S_Data_Pin;
+        Clock_Pin = Sound_Registry["Clock Pin"] | Default_I2S_Clock_Pin;
+        DUMP(Clock_Pin);
+        Word_Select_Pin = Sound_Registry["Word Select Pin"] | Default_I2S_Word_Select_Pin;
+        DUMP(Word_Select_Pin);
+        Data_Pin = Sound_Registry["Data Pin"] | Default_I2S_Data_Pin;
+        DUMP(Data_Pin);
         Audio_Driver.setPinout(Clock_Pin, Word_Select_Pin, Data_Pin);
+        Set_Channels(2);
     }
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
     return Success;
@@ -88,9 +92,9 @@ Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
     Sound_Registry["Registry"] = "Sound";
     Sound_Registry["Volume"] = Get_Volume();
     Sound_Registry["Output"] = Output;
-    Sound_Registry["Clock_Pin"] = Clock_Pin;
-    Sound_Registry["Word_Select_Pin"] = Word_Select_Pin;
-    Sound_Registry["Data_Pin"] = Data_Pin;
+    Sound_Registry["Clock Pin"] = Clock_Pin;
+    Sound_Registry["Word Select Pin"] = Word_Select_Pin;
+    Sound_Registry["Data Pin"] = Data_Pin;
     File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {

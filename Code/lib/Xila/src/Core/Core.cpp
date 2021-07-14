@@ -28,7 +28,7 @@ Xila_Class::Xila_Class()
       GPIO(),
       Keyboard(),
       Power(),
-      Software(),
+      Software_Management(),
       Sound(),
       System(),
       Time(),

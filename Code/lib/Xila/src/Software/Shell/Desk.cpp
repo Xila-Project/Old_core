@@ -22,76 +22,6 @@ Shell_Class::Desk_Class::Desk_Class()
     Background = -1;
 }
 
-void Shell_Class::Desk_Class::Refresh_Login()
-{
-    Xila.Display.Set_Text(F("USERNAME_TXT"), Username);
-    Xila.Display.Set_Text(F("PASSWORD_TXT"), Password);
-}
-
-void Shell_Class::Desk_Class::Execute_Login_Instruction(Xila_Instruction Instruction)
-{
-    switch (Instruction)
-    {
-    case Instruction('S', 'h'):
-        DIALOG->Load(F("Shutdown"), F("Xila is shutting down..."));
-        Xila.System.Shutdown();
-        break;
-    case Instruction('K', 'U'):
-        memset(Username, '\0', sizeof(Username));
-        DIALOG->Keyboard(Username, sizeof(Username));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'P'):
-        memset(Password, '\0', sizeof(Password));
-        DIALOG->Keyboard(Password, sizeof(Password), true);
-        Instance_Pointer->Send_Instruction('R', 'e');
-        break;
-    case Instruction('L', 'o'): // Lo : Login with entred username and password
-        if (Xila.Account.Login(Username, Password) == Xila.Success)
-        {
-            if (Xila.Account.State == Xila.Account.Locked && (strcmp(Xila.Account.Current_Username, Username) != 0)) // if a preced user was connected and we connect from a new user, have to close all of it's software.
-            {
-                for (uint8_t i = 2; i < 8; i++)
-                {
-                    if (Xila.Software.Openned[i] != NULL)
-                    {
-                        Xila.Software.Close(*Xila.Software.Openned[i]->Handle);
-                    }
-                }
-            }
-
-            Xila.Sound.Play(Sounds("Login.wav"));
-
-            DIALOG->Load(Load_Login_Header_String, Load_Login_Message_String);
-
-            if (Instance_Pointer->Load_Registry() != Xila.Success)
-            {
-                Instance_Pointer->Save_Registry();
-            }
-
-#if Animations == 1
-            Xila.Task.Delay(4000);
-#endif
-
-            DIALOG->Close();
-
-            SHELL->Send_Instruction('O', 'D');
-        }
-        else
-        {
-            DIALOG->Event(Event_Error_Wrong_Credentials, Xila.Error);
-            Instance_Pointer->Send_Instruction('R', 'e');
-        }
-        break;
-    case Instruction('R', 'e'):
-        Refresh_Login();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
-}
-
 void Shell_Class::Desk_Class::Logout()
 {
     if (Xila.Account.Current_Username[0] != '\0')
@@ -100,14 +30,14 @@ void Shell_Class::Desk_Class::Logout()
     }
     Xila.Account.Logout();
 
-    DESK.Open(Pages.Login);
+    DESK.Open(Pages.Desk);
 }
 
 // -- Drawer -- //
 
 void Shell_Class::Desk_Class::Refresh_Drawer()
 {
-    if (Xila.Software.Handle[Offset] == NULL)
+    if (Xila.Software_Management.Handle[Offset] == NULL)
     {
         Offset = 0;
     }
@@ -118,9 +48,9 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
 
         Temporary_String[4] = i + 'A';
 
-        if (Xila.Software.Handle[i + Offset] != NULL)
+        if (Xila.Software_Management.Handle[i + Offset] != NULL)
         {
-            Xila.Display.Set_Text(Temporary_String, Xila.Software.Handle[i + Offset]->Name);
+            Xila.Display.Set_Text(Temporary_String, Xila.Software_Management.Handle[i + Offset]->Name);
         }
         else
         {
@@ -135,9 +65,9 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
     {
         Temporary_String[4] = i + 'A';
 
-        if (Xila.Software.Handle[i + Offset] != NULL)
+        if (Xila.Software_Management.Handle[i + Offset] != NULL)
         {
-            Xila.Display.Set_Picture(Temporary_String, Xila.Software.Handle[i + Offset]->Icon);
+            Xila.Display.Set_Picture(Temporary_String, Xila.Software_Management.Handle[i + Offset]->Icon);
         }
         else
         {
@@ -146,7 +76,7 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
     }
 }
 
-void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
@@ -154,9 +84,9 @@ void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Instruction Instru
         Refresh_Drawer();
         break;
     case Instruction('N', 'd'): // Nd : Next drawer items
-        if ((Offset + 15) < (sizeof(Xila.Software.Handle) / sizeof(Xila.Software.Handle[1])))
+        if ((Offset + 15) < (sizeof(Xila.Software_Management.Handle) / sizeof(Xila.Software_Management.Handle[1])))
         {
-            if (Xila.Software.Handle[Offset + 15] != NULL)
+            if (Xila.Software_Management.Handle[Offset + 15] != NULL)
             {
                 Offset += 15;
                 Instance_Pointer->Send_Instruction('R', 'e');
@@ -227,13 +157,13 @@ void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Instruction Instru
 
 void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
 {
-    if ((Slot + Offset) < (sizeof(Xila.Software.Handle) / sizeof(Software_Handle_Class *)))
+    if ((Slot + Offset) < (sizeof(Xila.Software_Management.Handle) / sizeof(Xila_Class::Software_Handle *)))
     {
-        if (Xila.Software.Handle[Slot + Offset] != NULL)
+        if (Xila.Software_Management.Handle[Slot + Offset] != NULL)
         {
-            if (Xila.Software.Open(*Xila.Software.Handle[Slot + Offset]) != Xila.Success)
+            if (Xila.Software_Management.Open(*Xila.Software_Management.Handle[Slot + Offset]) != Xila.Success)
             {
-                DIALOG->Event(Event_Error_Open_Software, Xila.Error);
+                DIALOG.Event(Event_Error_Open_Software, Xila.Error);
                 Instance_Pointer->Send_Instruction('R', 'e');
             }
         }
@@ -250,30 +180,33 @@ void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
 
 // -- Desk -- //
 
-void Shell_Class::Desk_Class::Open(char Mode)
+void Shell_Class::Desk_Class::Open(uint8_t Mode)
 {
+    DUMP("Open desk");
+    DUMP(Mode);
 
     if (Xila.Account.Get_State() != Xila.Account.Logged)
     {
-        Xila.Display.Set_Current_Page(Pages.Login);
-        if (Xila.Account.Get_State() != Xila.Account.Disconnected)
+        Xila.Display.Set_Current_Page(Pages.Desk);
+        Xila.Display.Refresh(F("IMAGEB_TXT"));
+        Xila.Display.Refresh(F("HEADER_TXT"));
+
+        if (DIALOG.Login() != Xila.Success)
         {
-            memset(Username, '\0', sizeof(Username));
-            memset(Password, '\0', sizeof(Password));
-            strcpy(Username, "Username");
-            strcpy(Password, "Password");
+            Xila.System.Shutdown();
+            return;
         }
-        else
+#if Animations == 1
+        Xila.Sound.Play(Sounds("Login.wav"));
+        DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);
+#endif
+        if (Instance_Pointer->Load_Registry() != Xila.Success)
         {
-            memset(Username, '\0', sizeof(Username));
-            memset(Password, '\0', sizeof(Password));
-            strcpy(Username, Xila.Account.Get_Current_Username());
-            strcpy(Password, "Password");
+            Instance_Pointer->Save_Registry();
         }
-        Refresh_Login();
-        return;
     }
-    else if (Mode == Pages.Drawer)
+
+    if (Mode == Pages.Drawer)
     {
         Xila.Display.Set_Current_Page(Pages.Drawer);
         Offset = 0;
@@ -312,9 +245,9 @@ void Shell_Class::Desk_Class::Refresh_Desk()
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
         Temporary_String[4] = Slot - 1 + '0';
-        if (Xila.Software.Openned[Slot] != NULL)
+        if (Xila.Software_Management.Openned[Slot] != NULL)
         {
-            Xila.Display.Set_Picture(Temporary_String, Xila.Software.Openned[Slot]->Handle->Icon);
+            Xila.Display.Set_Picture(Temporary_String, Xila.Software_Management.Openned[Slot]->Handle->Icon);
         }
         else
         {
@@ -323,7 +256,7 @@ void Shell_Class::Desk_Class::Refresh_Desk()
     }
 }
 
-void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
@@ -371,16 +304,16 @@ void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Instruction Instruct
 
 void Shell_Class::Desk_Class::Dock(uint8_t Slot, uint8_t Action)
 {
-    if (Xila.Software.Openned[Slot + 1] == NULL)
+    if (Xila.Software_Management.Openned[Slot + 1] == NULL)
     {
         return;
     }
     if (Action == 'M') // maximize
     {
-        Xila.Software.Maximize(*Xila.Software.Openned[Slot + 1]->Handle);
+        Xila.Software_Management.Maximize(*Xila.Software_Management.Openned[Slot + 1]->Handle);
     }
     else if (Action == 'C')
     {
-        Xila.Software.Close(*Xila.Software.Openned[Slot + 1]->Handle);
+        Xila.Software_Management.Close(*Xila.Software_Management.Openned[Slot + 1]->Handle);
     }
 }

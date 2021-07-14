@@ -13,16 +13,27 @@
 
 Shell_Class::File_Manager_Class::File_Manager_Class()
 {
-    Mode = Idle;
     Offset = 0;
     Operation = Browse;
+    Selected_Item = Xila.Drive.Open(Xila_Directory_Path);
+    Selected_Item.close();
+    Operation_Item = Xila.Drive.Open(Xila_Directory_Path);
+    Operation_Item.close();
+}
+
+Shell_Class::File_Manager_Class::~File_Manager_Class()
+{
+    Selected_Item.close();
+    Operation_Item.close();
 }
 
 // -- File manager state -- //
 
 void Shell_Class::File_Manager_Class::Open(uint8_t Mode)
 {
-    if (FILE_MANAGER == NULL)
+    DUMP("open file manager");
+    DUMP(Mode);
+    if (!State())
     {
         FILE_MANAGER = new File_Manager_Class();
     }
@@ -46,140 +57,48 @@ bool Shell_Class::File_Manager_Class::State()
 
 void Shell_Class::File_Manager_Class::Close()
 {
+    DUMP("close file manager");
     if (State())
     {
         delete FILE_MANAGER;
+        FILE_MANAGER = NULL;
     }
 }
 
-void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Instruction Instruction)
+void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
-    case Dialog_Power:
-        if (Mode == 0)
-        {
-            DIALOG->Open('S');
-        }
-        break;
     case Instruction('R', 'e'): // -- Refresh file manager
         Refresh();
         break;
     case Instruction('C', 'l'):
-        if (Mode == 0)
+        if (Get_Mode() == Xila.Idle)
         {
             SHELL->Send_Instruction('O', 'D');
         }
         else
         {
-            Xila.Dialog.State = Xila.Default_Cancel;
-            Xila.Task.Delay(20);
+            Xila.Dialog.File_Manager_State = Xila.Default_Cancel;
         }
+        Close();
         break;
-    case Instruction('C', 'o'):      // copy file
-        if (Operation == Paste_Copy) //paste
-        {
-            if (Operation_Item.isDirectory())
-            {
-                if (Mode == Idle)
-                {
-                    DIALOG->Event(F("Cannot copy folder."), Xila.Error);
-                }
-                SHELL->Send_Instruction('R', 'e');
-            }
-            else
-            {
-                char Temporary_File_Name[13] = "/";
-                strlcat(Current_Path, Temporary_File_Name, sizeof(Current_Path));
-                File Destination_File = Xila.Drive.Open(Current_Path, FILE_WRITE);
-                SHELL->Set_Watchdog_Timeout(30000);
-
-                if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
-                {
-                    if (Mode == Idle)
-                    {
-                        DIALOG->Event(F("File was copied successfully."), Xila.Error);
-                    }
-                }
-                else
-                {
-                    if (Mode == Idle)
-                    {
-                        DIALOG->Event(F("Failed to copy file."), Xila.Error);
-                    }
-                }
-                SHELL->Set_Watchdog_Timeout();
-                Operation_Item.close();
-                SHELL->Send_Instruction('G', 'P');
-            }
-            Operation_Item.close();
-            Xila.Display.Set_Picture(F("COPY_BUT"), Shell_Class::Images.Copy_24);
-            Operation = Browse;
-        }
-        else
-        {
-            Operation = Browse;
-            Refresh();
-            Operation = Copy;
-        }
-
+    case Instruction('C', 'o'): // copy file
+        Copy_Item();
         break;
     case Instruction('C', 'u'):
-        if (Operation == Paste_Cut) //paste
-        {
-            if (Selected_Item.isDirectory())
-            {
-                if (Mode == Idle)
-                {
-                    DIALOG->Event(F("Cannot cut folder."), Xila.Error);
-                }
-                SHELL->Send_Instruction('R', 'e');
-            }
-            else
-            {
-                char Temporary_File_Name[13] = "/";
-                strlcat(Current_Path, Temporary_File_Name, sizeof(Current_Path));
-                File Destination_File = Xila.Drive.Open(Current_Path, FILE_WRITE);
-                SHELL->Set_Watchdog_Timeout(30000);
-                if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
-                {
-                    if (Mode == Idle)
-                    {
-                        DIALOG->Event(F("File was cut successfully."), Xila.Error);
-                    }
-                }
-                else
-                {
-                    if (Mode == Idle)
-                    {
-                        DIALOG->Event(F("Failed to cut file."), Xila.Error);
-                    }
-                }
-                SHELL->Set_Watchdog_Timeout();
-                Destination_File.close();
-                Operation_Item.close();
-                SHELL->Send_Instruction('G', 'P');
-            }
-            Xila.Display.Set_Picture(F("CUT_BUT"), Images.Cut_24);
-            Operation = Browse;
-        }
-        else
-        {
-            Operation = Browse;
-            Refresh();
-            Operation = Cut;
-        }
+        Cut_Item();
         break;
     case Instruction('D', 'e'):
-        Operation = Browse;
+        Set_Operation(Browse);
         Refresh();
-        Operation = Delete;
+        Set_Operation(Delete);
 
         break;
     case Instruction('R', 'E'):
-        Operation = Browse;
+        Set_Operation(Browse);
         Refresh();
-        Operation = Rename;
+        Set_Operation(Rename);
 
         break;
     case Instruction('N', 'P'):
@@ -191,36 +110,7 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Instruction Instr
         Refresh();
         break;
     case Instruction('V', 'a'):
-        switch (Mode)
-        {
-        case Dialog_Open_File:
-            if (!Selected_Item.isDirectory())
-            {
-                Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Default_Yes;
-                Xila.Task.Delay(20);
-            }
-            break;
-
-        case Dialog_Open_Folder:
-            if (Selected_Item.isDirectory())
-            {
-                Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Default_Yes;
-                Xila.Task.Delay(20);
-            }
-            break;
-        case Dialog_Save_File:
-            if (!Selected_Item.isDirectory())
-            {
-                Xila.Dialog.Pointer = &Selected_Item;
-                Xila.Dialog.State = Xila.Default_Yes;
-                Xila.Task.Delay(20);
-            }
-            break;
-        default:
-            break;
-        }
+        Validate();
         break;
     case Instruction('R', 'D'): // open root directory
         Operation = Browse;
@@ -236,63 +126,15 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Instruction Instr
         Refresh();
         break;
     case Instruction('N', 'f'): // -- Create a new file -- //
-        strcpy(Current_Item_Name, "NEWFILE .TXT");
-        for (uint8_t i = 0; i <= 10; i++)
-        {
-            if (i < 10)
-            {
-                Current_Item_Name[7] = i + '0';
-                if (!Xila.Drive.Exists(String(Current_Path) + String("/") + String(Current_Item_Name)))
-                {
-                    Xila.Drive.Open(String(Current_Path) + String("/") + String(Current_Item_Name), FILE_WRITE).close();
-                    break;
-                }
-            }
-            else
-            {
-                if (Mode == Idle)
-                {
-                    DIALOG->Event(F("Failed to create file."), Xila.Error);
-                }
-                break;
-            }
-        }
-        Refresh();
+        Create_File();
         break;
     case Instruction('N', 'F'): // -- Create a new directory --//
-        strcpy(Current_Item_Name, "NEWDIRE ");
-        for (uint8_t i = 0; i <= 10; i++)
-        {
-            if (i < 10)
-            {
-                Current_Item_Name[7] = i + '0';
-                if (!Xila.Drive.Exists(String(Current_Path) + "/" + String(Current_Item_Name)))
-                {
-                    if (!Xila.Drive.Make_Directory(String(Current_Path) + "/" + String(Current_Item_Name)))
-                    {
-                        if (Mode == Idle)
-                        {
-                            DIALOG->Event(F("Failed to create folder."), Xila.Error);
-                        }
-                    }
-                    break;
-                }
-            }
-            else
-            {
-                if (Mode == Idle)
-                {
-                    DIALOG->Event(F("Failed to create folder."), Xila.Error);
-                }
-                break;
-            }
-        }
-        Refresh();
+        Create_Folder();
         break;
     case Instruction('K', 'P'): // -- Open keyboard to input the path -- //
-        if (Mode == Idle)
+        if (Get_Mode() == Xila.Idle)
         {
-            DIALOG->Keyboard(Current_Path, sizeof(Current_Path));
+            DIALOG.Keyboard(Current_Path, sizeof(Current_Path));
         }
         Refresh();
         break;
@@ -303,12 +145,12 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Instruction Instr
 
         break;
     case Instruction('G', 'D'): // -- Get details on selected item
-        Operation = Browse;
+        Set_Operation(Browse);
         Refresh();
-        Operation = Detail;
+        Set_Operation(Detail);
         break;
     case Instruction('G', 'P'):
-        Operation = Browse;
+        Set_Operation(Browse);
         Go_Parent();
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -319,7 +161,191 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Instruction Instr
     }
 }
 
-// -- File manager -- //
+void Shell_Class::File_Manager_Class::Validate()
+{
+    switch (Get_Mode())
+    {
+    case Xila.Dialog_Open_File:
+        if (!Selected_Item.isDirectory())
+        {
+            Item_Pointer = &Selected_Item;
+            Xila.Dialog.File_Manager_State = Xila.Default_Yes;
+        }
+        break;
+
+    case Xila.Dialog_Open_Folder:
+        if (Selected_Item.isDirectory())
+        {
+            Item_Pointer = &Selected_Item;
+            Xila.Dialog.File_Manager_State = Xila.Default_Yes;
+        }
+        break;
+    case Xila.Dialog_Save_File:
+        if (!Selected_Item.isDirectory())
+        {
+            Item_Pointer = &Selected_Item;
+            Xila.Dialog.File_Manager_State = Xila.Default_Yes;
+        }
+        break;
+    default:
+        break;
+    }
+}
+
+void Shell_Class::File_Manager_Class::Cut_Item()
+{
+    if (Get_Operation() == Paste_Cut) //paste
+    {
+        if (Selected_Item.isDirectory())
+        {
+            if (Get_Mode() == Xila.Idle)
+            {
+                DIALOG.Event(F("Cannot cut folder."), Xila.Error);
+            }
+            SHELL->Send_Instruction('R', 'e');
+        }
+        else
+        {
+            char Temporary_File_Name[13] = "/";
+            strlcat(Current_Path, Temporary_File_Name, sizeof(Current_Path));
+            File Destination_File = Xila.Drive.Open(Current_Path, FILE_WRITE);
+            SHELL->Set_Watchdog_Timeout(30000);
+            if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
+            {
+                if (Get_Mode() == Xila.Idle)
+                {
+                    DIALOG.Event(F("File was cut successfully."), Xila.Error);
+                }
+            }
+            else
+            {
+                if (Get_Mode() == Xila.Idle)
+                {
+                    DIALOG.Event(F("Failed to cut file."), Xila.Error);
+                }
+            }
+            SHELL->Set_Watchdog_Timeout();
+            Destination_File.close();
+            Operation_Item.close();
+            SHELL->Send_Instruction('G', 'P');
+        }
+        Xila.Display.Set_Picture(F("CUT_BUT"), Images.Cut_24);
+        Set_Operation(Browse);
+    }
+    else
+    {
+        Set_Operation(Browse);
+        Refresh();
+        Set_Operation(Cut);
+    }
+}
+
+void Shell_Class::File_Manager_Class::Copy_Item()
+{
+    if (Get_Operation() == Paste_Copy) //paste
+    {
+        if (Operation_Item.isDirectory())
+        {
+            if (Get_Mode() == Xila.Idle)
+            {
+                DIALOG.Event(F("Cannot copy folder."), Xila.Error);
+            }
+            SHELL->Send_Instruction('R', 'e');
+        }
+        else
+        {
+            char Temporary_File_Name[13] = "/";
+            strlcat(Current_Path, Temporary_File_Name, sizeof(Current_Path));
+            File Destination_File = Xila.Drive.Open(Current_Path, FILE_WRITE);
+            SHELL->Set_Watchdog_Timeout(30000);
+
+            if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
+            {
+                if (Get_Mode() == Xila.Idle)
+                {
+                    DIALOG.Event(F("File was copied successfully."), Xila.Information);
+                }
+            }
+            else
+            {
+                if (Get_Mode() == Xila.Idle)
+                {
+                    DIALOG.Event(F("Failed to copy file."), Xila.Error);
+                }
+            }
+            SHELL->Set_Watchdog_Timeout();
+            Operation_Item.close();
+            SHELL->Send_Instruction('G', 'P');
+        }
+        Operation_Item.close();
+        Xila.Display.Set_Picture(F("COPY_BUT"), Shell_Class::Images.Copy_24);
+        Set_Operation(Browse);
+    }
+    else
+    {
+        Set_Operation(Browse);
+        Refresh();
+        Set_Operation(Copy);
+    }
+}
+
+void Shell_Class::File_Manager_Class::Create_File()
+{
+    strcpy(Current_Item_Name, "NEWFILE .TXT");
+    for (uint8_t i = 0; i <= 10; i++)
+    {
+        if (i < 10)
+        {
+            Current_Item_Name[7] = i + '0';
+            if (!Xila.Drive.Exists(String(Current_Path) + String("/") + String(Current_Item_Name)))
+            {
+                Xila.Drive.Open(String(Current_Path) + String("/") + String(Current_Item_Name), FILE_WRITE).close();
+                break;
+            }
+        }
+        else
+        {
+            if (Get_Mode() == Xila.Idle)
+            {
+                DIALOG.Event(F("Failed to create file."), Xila.Error);
+            }
+            break;
+        }
+    }
+    Refresh();
+}
+
+void Shell_Class::File_Manager_Class::Create_Folder()
+{
+    strcpy(Current_Item_Name, "NEWDIRE ");
+    for (uint8_t i = 0; i <= 10; i++)
+    {
+        if (i < 10)
+        {
+            Current_Item_Name[7] = i + '0';
+            if (!Xila.Drive.Exists(String(Current_Path) + "/" + String(Current_Item_Name)))
+            {
+                if (!Xila.Drive.Make_Directory(String(Current_Path) + "/" + String(Current_Item_Name)))
+                {
+                    if (Get_Mode() == Xila.Idle)
+                    {
+                        DIALOG.Event(F("Failed to create folder."), Xila.Error);
+                    }
+                }
+                break;
+            }
+        }
+        else
+        {
+            if (Get_Mode() == Xila.Idle)
+            {
+                DIALOG.Event(F("Failed to create folder."), Xila.Error);
+            }
+            break;
+        }
+    }
+    Refresh();
+}
 
 void Shell_Class::File_Manager_Class::Refresh()
 {
@@ -343,22 +369,22 @@ void Shell_Class::File_Manager_Class::Refresh()
             SHELL->Send_Instruction('G', 'P');
             break;
         case Delete:
-            if (Mode == Idle)
+            if (Get_Mode() == Xila.Idle)
             {
-                if (DIALOG->Event(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
+                if (DIALOG.Event(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
                 {
                     if (Temporary_Item.isDirectory())
                     {
                         if (Xila.Drive.Remove_Directory(Current_Path) != true)
                         {
-                            DIALOG->Event(F("Failed to delete directory."), Xila.Error);
+                            DIALOG.Event(F("Failed to delete directory."), Xila.Error);
                         }
                     }
                     else
                     {
                         if (Xila.Drive.Remove(Current_Path) != true)
                         {
-                            DIALOG->Event(F("Failed to delete file."), Xila.Error);
+                            DIALOG.Event(F("Failed to delete file."), Xila.Error);
                         }
                     }
                 }
@@ -368,13 +394,13 @@ void Shell_Class::File_Manager_Class::Refresh()
             SHELL->Send_Instruction('R', 'e');
             break;
         case Rename:
-            if (Mode == 0)
+            if (Get_Mode() == Xila.Idle)
             {
                 Go_Parent();
                 char Temporary_Input[14];
                 memset(Temporary_Input, '\0', sizeof(Temporary_Input));
                 Xila.Drive.Get_Name(Temporary_Item, Temporary_Input, sizeof(Temporary_Input));
-                DIALOG->Keyboard(Temporary_Input, sizeof(Temporary_Input));
+                DIALOG.Keyboard(Temporary_Input, sizeof(Temporary_Input));
                 Xila.Drive.Rename(Temporary_Item.name(), String(Current_Path) + String(Temporary_Input));
                 Operation = Browse;
             }
@@ -388,6 +414,7 @@ void Shell_Class::File_Manager_Class::Refresh()
             break;
         case Paste_Cut:
         case Paste_Copy:
+        case Browse:
         default:
             if (Temporary_Item.isDirectory())
             {
@@ -484,7 +511,7 @@ void Shell_Class::File_Manager_Class::Refresh()
                     Xila.Task.Delay(5);
                 }
 
-                if (Mode == Dialog_Open_Folder)
+                if (Get_Mode() == Xila.Dialog_Open_Folder)
                 {
                     Selected_Item = Temporary_Item;
                 }
@@ -496,11 +523,11 @@ void Shell_Class::File_Manager_Class::Refresh()
             else // if it is a file
             {
 
-                if (Mode == Dialog_Save_File)
+                if (Get_Mode() == Xila.Dialog_Save_File)
                 {
                     Selected_Item = Temporary_Item;
                 }
-                else if (Mode == Dialog_Open_File)
+                else if (Get_Mode() == Xila.Dialog_Open_File)
                 {
                     Selected_Item = Temporary_Item;
                 }
@@ -514,9 +541,9 @@ void Shell_Class::File_Manager_Class::Refresh()
     }
     else
     {
-        if (Mode == Idle) // Currently cannot open multiple dialog boxes at the same time
+        if (Get_Mode() == Xila.Idle) // Currently cannot open multiple dialog boxes at the same time
         {
-            DIALOG->Event(F("Failed to open path."), Xila.Error);
+            DIALOG.Event(F("Failed to open path."), Xila.Error);
         }
         SHELL->Send_Instruction('R', 'D');
     }
@@ -526,18 +553,18 @@ void Shell_Class::File_Manager_Class::Refresh()
 void Shell_Class::File_Manager_Class::Refresh_Footerbar()
 {
 
-    switch (Mode)
+    switch (Get_Mode())
     {
-    case 0:
+    case Xila.Idle:
         Xila.Display.Click(F("FOOTERBAR_HOT"), 0);
         return;
         break;
-    case Dialog_Save_File:
+    case Xila.Dialog_Save_File:
         Xila.Display.Click(F("FOOTERBAR_HOT"), 1);
         Xila.Display.Set_Text(F("VALIDATE_BUT"), F("Save"));
         break;
-    case Dialog_Open_Folder:
-    case Dialog_Open_File:
+    case Xila.Dialog_Open_Folder:
+    case Xila.Dialog_Open_File:
         Xila.Display.Click(F("FOOTERBAR_HOT"), 1);
         Xila.Display.Set_Text(F("VALIDATE_BUT"), F("Open"));
         break;
@@ -559,7 +586,7 @@ void Shell_Class::File_Manager_Class::Refresh_Footerbar()
 
 void Shell_Class::File_Manager_Class::Go_Parent()
 {
-    for (uint8_t i = sizeof(Current_Path); i >= 0; i--)
+    for (uint8_t i = sizeof(Current_Path) - 1; i >= 0; i--)
     {
 
         if (Current_Path[i] == '/')
@@ -592,9 +619,9 @@ void Shell_Class::File_Manager_Class::Refresh_Detail()
 
     if (!Temporary_Item)
     {
-        if (Mode == Idle)
+        if (Get_Mode() == Xila.Idle)
         {
-            DIALOG->Event(F("Failed to get file informations."), Xila.Error);
+            DIALOG.Event(F("Failed to get file informations."), Xila.Error);
         }
         Open(Mode);
     }
@@ -622,7 +649,7 @@ void Shell_Class::File_Manager_Class::Refresh_Detail()
     Xila.Display.Set_Text(F("SIZEVAL_TXT"), Temporary_Char_Array);
 
     time_t File_Last_Write_Time = Temporary_Item.getLastWrite();
-    Xila_Time *File_Last_Write = localtime(&File_Last_Write_Time);
+    tm *File_Last_Write = localtime(&File_Last_Write_Time);
     sprintf(Temporary_Char_Array, "%02d/%02d/%d %02d:%02d:%02d\n", File_Last_Write->tm_mday, (File_Last_Write->tm_mon) + 1, (File_Last_Write->tm_year) + 1900, File_Last_Write->tm_hour, File_Last_Write->tm_min, File_Last_Write->tm_sec);
 
     Xila.Display.Set_Text(F("LASTWVAL_TXT"), Temporary_Char_Array);

@@ -17,7 +17,7 @@
 
 #define Music_Player_File(name) Software_Directory_Path "/MusicPla/" name
 
-class Music_Player_Class : public Software_Class
+class Music_Player_Class : public Xila_Class::Software
 {
 protected:
     static Music_Player_Class *Instance_Pointer;
@@ -69,11 +69,7 @@ protected:
         void Open_Radio(uint8_t);
     void Set_Radio(uint8_t);
 
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t);
-
-
-
-
+    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
 
     void Set_Time();
 
@@ -97,7 +93,7 @@ public:
     Music_Player_Class();
     ~Music_Player_Class();
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 
     enum Picture
     {
@@ -113,4 +109,4 @@ public:
     };
 };
 
-Software_Handle_Class Music_Player_Handle("Music Player", Music_Player_Class::Music_Player_Icon_32, Music_Player_Class::Load);
+Xila_Class::Software_Handle Music_Player_Handle("Music Player", Music_Player_Class::Music_Player_Icon_32, Music_Player_Class::Load);

@@ -13,7 +13,7 @@
 #define Default_Channel_0_Pin 35
 #define Default_Channel_1_Pin 36
 
-class Oscilloscope_Class : private Software_Class
+class Oscilloscope_Class : private Xila_Class::Software
 {
 protected:
     static Oscilloscope_Class *Instance_Pointer;
@@ -133,7 +133,7 @@ public:
 
     //static void SigmaDelta_Task(void*);
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 
     enum Picture_ID
     {
@@ -144,4 +144,4 @@ public:
     ~Oscilloscope_Class();
 };
 
-Software_Handle_Class Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Icon_32, Oscilloscope_Class::Load);
+Xila_Class::Software_Handle Oscilloscope_Handle("Oscilloscope", Oscilloscope_Class::Icon_32, Oscilloscope_Class::Load);

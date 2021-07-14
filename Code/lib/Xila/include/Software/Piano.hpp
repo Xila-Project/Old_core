@@ -12,7 +12,7 @@
 
 #define Piano_File(name) Software_Directory_Path "/Internet/" name
 
-class Piano_Class : public Software_Class
+class Piano_Class : public Xila_Class::Software
 {
 private:
 
@@ -40,7 +40,7 @@ public:
     Piano_Class();
     ~Piano_Class();
 
-    static Software_Class* Load();
+    static Xila_Class::Software* Load();
 
     enum Image
     {
@@ -50,4 +50,4 @@ public:
     static void Main_Task(void *pvParameters);
 };
 
-Software_Handle_Class Piano_Handle("Piano", Piano_Class::Icon_32, Piano_Class::Load);
+Xila_Class::Software_Handle Piano_Handle("Piano", Piano_Class::Icon_32, Piano_Class::Load);

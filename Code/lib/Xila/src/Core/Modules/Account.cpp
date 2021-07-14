@@ -43,10 +43,10 @@ Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 }
 
 ///
- /// @brief A method that set autologin and save account registry.
- /// 
- /// @param Enable true to enable and false to disable autologin.
- /// @return Xila_Class::Event 
+/// @brief A method that set autologin and save account registry.
+///
+/// @param Enable true to enable and false to disable autologin.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
@@ -94,7 +94,7 @@ const char *Xila_Class::Account_Class::Get_Current_Username()
   return Current_Username;
 }
 
-void Xila_Class::Account_Class::Set_Current_Username(const char* Username)
+void Xila_Class::Account_Class::Set_Current_Username(const char *Username)
 {
   strlcpy(Current_Username, Username, sizeof(Current_Username));
 }
@@ -261,6 +261,18 @@ Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check
     State = Disconnected;
     return Error;
   }
+  // -- If another user was already connected, close all of it's software.
+  if (State == Locked && (strcmp(Xila.Account.Current_Username, Username_To_Check) != 0))
+  {
+    for (uint8_t i = 2; i < 8; i++)
+    {
+      if (Xila.Software_Management.Openned[i] != NULL)
+      {
+        Xila.Software_Management.Close(*Xila.Software_Management.Openned[i]->Handle);
+      }
+    }
+  }
+  //
   strcpy(Current_Username, Username_To_Check);
   State = Logged;
   return Success;

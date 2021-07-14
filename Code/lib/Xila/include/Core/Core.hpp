@@ -78,11 +78,7 @@
 
 // -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
-#include "Modules/Path.hpp"          // Path list
-
-// Other part of the core
-
-#include "Modules/Software.hpp"
+#include "Modules/Path.hpp"  // Path list
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -91,7 +87,12 @@
 ///
 /// @brief Xila time class
 ///
-typedef tm Xila_Time;
+
+//----------------------------------------------------------------------------//
+//
+
+#define Instruction(x, y) (x * 256 + y)
+#define Adress(x, y) (x * 256 + y)
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -117,8 +118,83 @@ public:
     ~Xila_Class();
 
     //==============================================================================//
-    //                              Enumerations                                    //
+    //                              Enumerations & Type definition                  //
     //==============================================================================//
+
+    ///
+    /// @brief Page type.
+    ///
+    typedef uint8_t Page;
+
+    ///
+    /// @brief Image type.
+    ///
+    typedef uint8_t Image;
+
+    ///
+    /// @brief Task handle type
+    ///
+    typedef void *Task_Handle;
+
+    ///
+    /// @brief Task type
+    ///
+    typedef void (*Task_Function)(void *);
+
+    ///
+    /// @brief Xila instruction type.
+    ///
+
+    typedef uint16_t Instruction;
+    ///
+    /// @brief Xila adress type.
+    ///
+    typedef uint16_t Adress;
+
+    ///
+    /// @brief Instructions used by the core (with the prefix "#").
+    ///
+    enum : Xila_Class::Instruction
+    {
+        // -- General instructions
+        Idle = 0,
+        // -- Software state instructions
+        Open = 'O',
+        Close = 'C',
+        Maximize = 'M',
+        Minimize = 'm',
+        // -- System state instructions
+        Shutdown = 200,
+        Restart,
+        Hibernate = 'H',
+        Watchdog = 'W',
+        // -- Shell specials instructions
+        Desk = 'D',                // Open desk
+        Dialog_Open_File = 'f',    // Open open file dialog
+        Dialog_Open_Folder = 'F',  // Open open folder dialog
+        Dialog_Save_File = 'e',    // Open save file dialog
+        Dialog_Keyboard = 'K',     // Open keyboard dialog
+        Dialog_Keypad = 'k',       // Open keyapd dialog
+        Dialog_Color_Picker = 'c', // Open color picker dialog
+        Dialog_Power = 'P',        // Open power dialog
+        Dialog_Event = 'E',        // Open event dialog
+        Dialog_Login = 'L',        // Open login dialog
+        Dialog_Load = 'l'          // Open load dialog
+    };
+
+    enum Variable_Types : uint8_t
+    {
+        Variable_Long = 'l',
+        Variable_String = 's',
+        Pointer = 'p',
+        Other = 'o'
+    };
+
+    typedef enum
+    {
+        Minimized,
+        Maximized
+    } State;
 
     ///
     /// @brief Xila event type
@@ -138,6 +214,104 @@ public:
         Default_Cancel = Button_3,
         None
     } Event;
+
+    class Software_Handle;
+
+    //==============================================================================//
+    ///
+    /// @brief Software class.
+    ///
+    /// @details This API is used by core in order to exchange with software.
+    ///
+    class Software
+    {
+    protected:
+        // -- Constructor / Destructor
+        Software(Xila_Class::Software_Handle &Software_Handle, uint8_t Queue_Size = Default_Instruction_Queue_Size);
+        virtual ~Software();
+
+        // -- Methods
+        void Send_Instruction(Xila_Class::Instruction Intruction);
+
+        ///
+        /// @brief Convert 2 byte char instruction into Xila Instruction and send it.
+        ///
+        /// @param Instruction_Char_1 Instruction first byte
+        /// @param Instruction_Char_2 Instruction second byte
+        inline void Send_Instruction(char Instruction_Char_1, char Instruction_Char_2)
+        {
+            Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
+        }
+
+        virtual void Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable);
+
+        Xila_Class::Instruction Get_Instruction();
+
+        void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
+
+        // -- Attributes
+        TaskHandle_t Task_Handle;
+
+        ///
+        /// @brief Software handle pointer
+        ///
+        Xila_Class::Software_Handle *Handle;
+
+        friend class Xila_Class;
+        friend class Shell_Class;
+
+    private:
+        uint16_t Current_Instruction;
+        QueueHandle_t Instruction_Queue_Handle;
+        uint32_t Last_Watchdog_Feed;
+        uint16_t Watchdog_Timeout;
+    };
+
+    //==============================================================================//
+    ///
+    /// @class Software_Handle
+    ///
+    /// @brief Software handle used by Xila to manage each software.
+    ///
+    class Software_Handle
+    {
+    public:
+        // -- Constructors / Destructor
+        Software_Handle();
+        Software_Handle(const char *Software_Name, uint8_t Icon_ID, Xila_Class::Software *(*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL);
+        ~Software_Handle();
+
+        /// -- Methods -- //
+        bool Is_Equal(Xila_Class::Software_Handle const &Software_Handle_To_Compare) const;
+
+    protected:
+        ///
+        /// @brief Software string name.
+        ///
+        char Name[Default_Software_Name_Length]; //used to identify the software,
+
+        ///
+        /// @brief Software icon.
+        ///
+        uint8_t Icon;
+
+        ///
+        /// @brief Function pointer called by Xila to load software.
+        /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
+        ///
+        Xila_Class::Software *(*Load_Function_Pointer)();
+
+        ///
+        /// @brief Function pointer that is called by Xila at startup.
+        /// @details That is usefull when you whan to start a background task, or launch your application at the startup.
+        ///
+        void (*Startup_Function_Pointer)();
+
+        // -- Friendship
+        friend class Xila_Class;
+        friend class Xila_Class::Software;
+        friend class Shell_Class;
+    };
 
     //==============================================================================//
     //                                  Modules                                     //
@@ -200,11 +374,11 @@ public:
     {
     public:
         Xila_Class::Event Copy(uint64_t const &Value_To_Copy);
-        Xila_Class::Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght = 0);
+        Xila_Class::Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
         Xila_Class::Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
 
         Xila_Class::Event Paste(uint64_t &Value_To_Paste);
-        Xila_Class::Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght);
+        Xila_Class::Event Paste(char *Char_Array_To_Paste, size_t Char_Array_Length);
         Xila_Class::Event Paste(String &String_To_Paste);
 
         friend class Xila_Class;
@@ -216,20 +390,25 @@ public:
     } Clipboard;
 
     //==============================================================================//
-
     ///
     /// @brief Dialog class
     ///
     class Dialog_Class
     {
     public:
-        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Xila_Class::Event Login();
+        Xila_Class::Event Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1 = NULL, const __FlashStringHelper *Button_Text_2 = NULL, const __FlashStringHelper *Button_Text_3 = NULL);
+        Xila_Class::Event Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3);
         Xila_Class::Event Color_Picker(uint16_t &Color);
         Xila_Class::Event Open_File(File &File_To_Open);
-        Xila_Class::Event Dialog_Open_Folder(File &Folder_To_Open);
+        Xila_Class::Event Open_Folder(File &Folder_To_Open);
         Xila_Class::Event Save_File(File &File_To_Save);
-        Xila_Class::Event Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size = 189, bool Masked_Input = false);
-        Xila_Class::Event Keypad(float &Number_To_Get);
+        Xila_Class::Event Keyboard(char *String, size_t Size = 189, bool Masked_Input = false);
+        Xila_Class::Event Keypad(float &Number);
+        void Power();
+        void Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint32_t Duration = 0);
+        void Load(const char *Header, const char *Message, uint32_t Duration = 0);
+        void Close_Load();
 
         Dialog_Class();
 
@@ -240,29 +419,17 @@ public:
         // -- Attributes
 
         ///
-        /// @brief Caller software pointer
+        /// @brief Dialogs state
         ///
-        Software_Class *Caller_Software;
+        Xila_Class::Event Power_State;
+        Xila_Class::Event Keyboard_State;
+        Xila_Class::Event Keypad_State;
+        Xila_Class::Event Color_Picker_State;
+        Xila_Class::Event Event_State;
+        Xila_Class::Event File_Manager_State;
+        Xila_Class::Event Credentials_State;
+        Xila_Class::Event Login_State;
 
-        ///
-        /// @brief Dialog state
-        ///
-        Xila_Class::Event State;
-
-        ///
-        /// @brief Dialog semaphore (avoid to have multiple dialog boxes at the same time);
-        ///
-        SemaphoreHandle_t Semaphore;
-
-        ///
-        /// @brief Multi purpose long variable (for exemple : text size in keyboard dialog)
-        ///
-        uint32_t Long[2];
-
-        ///
-        /// @brief Dialog data pointer.
-        ///
-        void *Pointer;
     } Dialog;
 
     //==============================================================================//
@@ -407,7 +574,7 @@ public:
 
         uint8_t Brightness, Receive_Pin, Standby_Time, Transmit_Pin;
 
-        char Tag = 0;
+        Xila_Class::Adress Current_Adress;
 
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
@@ -775,7 +942,7 @@ public:
 
         // -- Methods -- //
         double String_To_Float(const char *String); // --
-        char* Float_To_String(double Number, int8_t Width, uint8_t Precision, char* String);
+        char *Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String);
 
         bool Is_NAN(double Number);
         bool Is_Infinite(double Number);
@@ -823,7 +990,6 @@ public:
         double Arc_Hyperbolic_Secant(double Number);
         double Arc_Hyperbolic_Cosecant(double Number);
         double Arc_Hyperbolic_Cotangent(double Number);
-
 
         double Power(double Base, double Exponent);
         double Square(double Number);
@@ -897,7 +1063,6 @@ public:
     } Power;
 
     //==============================================================================//
-
     ///
     /// @brief Software management module
     ///
@@ -906,25 +1071,23 @@ public:
     public:
         Software_Management_Class();
 
-        Software_Class::State Get_State(Software_Handle_Class const &Software_Handle);
+        Xila_Class::State Get_State(Xila_Class::Software_Handle const &Software_Handle);
 
-        Xila_Class::Event Open(Software_Handle_Class const &Software_Handle);
-        void Minimize(Software_Handle_Class const &Software_Handle);
-        Xila_Class::Event Maximize(Software_Handle_Class const &);
-        void Close(Software_Handle_Class const &Software_Handle);
+        Xila_Class::Event Open(Xila_Class::Software_Handle const &Software_Handle);
+        void Minimize(Xila_Class::Software_Handle const &Software_Handle);
+        Xila_Class::Event Maximize(Xila_Class::Software_Handle const &);
+        void Close(Xila_Class::Software_Handle const &Software_Handle);
 
-        void Feed_Watchdog(Software_Handle_Class const &Software_Handle);
+        void Feed_Watchdog(Xila_Class::Software_Handle const &Software_Handle);
 
         friend class Xila_Class;
         friend class Shell_Class;
 
     protected:
+        // -- Attributes -- //
+
         uint32_t Watchdog_Timer;
         uint8_t Watchdog_State;
-
-        void Defrag();
-
-        void Check_Watchdog();
 
         ///
         /// @brief Openned software pointer array
@@ -932,22 +1095,31 @@ public:
         /// Openned[0] : Maximized software
         /// Openned[1 - 7] : All openned software (Slot 1 is for Shell)
         ///
-        Software_Class *Openned[8] = {NULL};
+        Xila_Class::Software *Openned[8] = {NULL};
 
         ///
         /// @brief All software handle pointers.
         ///
-        Software_Handle_Class *Handle[Maximum_Software] = {NULL};
+        Xila_Class::Software_Handle *Handle[Maximum_Software] = {NULL};
 
-        void Maximize_Shell();
-        void Send_Instruction_Shell(Xila_Instruction const &Command);
+        // -- Methods -- //
 
-        inline uint8_t Seek_Open_Software_Handle(Software_Handle_Class const &);
-        void Add_Handle(Software_Handle_Class &);
+        void Defrag();
 
-        Xila_Class::Event Force_Close(Software_Handle_Class const &Software_Handle);
+        void Check_Watchdog();
 
-    } Software;
+        void Shell_Maximize();
+        void Shell_Send_Instruction(Xila_Class::Instruction);
+        void Shell_Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+
+        uint8_t Seek_Open_Software_Handle(Xila_Class::Software_Handle const &Software_Handle);
+
+        uint8_t ftware_Handle(Xila_Class::Software_Handle const &);
+        void Add_Handle(Xila_Class::Software_Handle &);
+
+        Xila_Class::Event Force_Close(Xila_Class::Software_Handle const &Software_Handle);
+
+    } Software_Management;
 
     //==============================================================================//
 
@@ -1050,9 +1222,8 @@ public:
         };
 
     protected:
-
         // -- Attributes -- //
-        Xila_Task_Handle Task_Handle;
+        Xila_Class::Task_Handle Task_Handle;
 
         uint8_t Custom_Pin;
 
@@ -1097,7 +1268,7 @@ public:
         const char *Get_SDK_Version();
 
         void Start();
-        void Start(Software_Handle_Class **Software_Package, uint8_t Size);
+        void Start(Xila_Class::Software_Handle **Software_Package, uint8_t Size);
 
         void Shutdown();
         void Restart();
@@ -1117,7 +1288,7 @@ public:
 
     protected:
         // System's task :
-        Xila_Task_Handle Task_Handle;
+        Xila_Class::Task_Handle Task_Handle;
 
         ///
         /// @brief Device name used as Network hostname ...
@@ -1174,10 +1345,10 @@ public:
 
     public:
         // -- Task management -- //
-        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Task_Handle *Task_Handle = NULL) const;
-        void Suspend(Xila_Task_Handle Task_To_Suspend = NULL) const;
-        void Resume(Xila_Task_Handle Task_To_Resume) const;
-        void Delete(Xila_Task_Handle Task_To_Delete = NULL) const;
+        Xila_Class::Event Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
+        void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
+        void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
+        void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
 
         void Delay(uint32_t Delay_In_Millisecond) const;
 
@@ -1196,7 +1367,7 @@ public:
             Driver_Task
         };
 
-        Xila_Class::Event Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle);
+        Xila_Class::Event Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle);
 
     } Task;
 
@@ -1210,7 +1381,7 @@ public:
 
     public:
         // -- Methods
-        Xila_Time Get_Time();
+        tm Get_Time();
         void Synchronise();
 
         uint32_t Get_Cycle_Count();
@@ -1230,7 +1401,7 @@ public:
         int32_t GMT_Offset;
         int16_t Daylight_Offset;
 
-        Xila_Time Current_Time;
+        tm Current_Time;
         time_t Now;
         char NTP_Server[32];
 
@@ -1240,7 +1411,6 @@ public:
     } Time;
 
     //==============================================================================//
-
     ///
     /// @brief WiFi class
     ///
@@ -1287,7 +1457,7 @@ public:
 
     } WiFi;
 
-protected:
+private:
     //==============================================================================//
     //                                    Attributes                                //
     //==============================================================================//
@@ -1298,15 +1468,19 @@ protected:
     static Xila_Class *Instance_Pointer;
 };
 
+bool operator==(Xila_Class::Software_Handle const &a, Xila_Class::Software_Handle const &b);
+
 #include "Core/Modules/Task.hpp"
 #include "Core/Modules/Time.hpp"
 #include "Core/Modules/System.hpp"
 #include "Core/Modules/Mathematics.hpp"
+#include "Core/Modules/Software_Management.hpp"
 
 #include "Core/Abstraction/Display.hpp"
 #include "Core/Abstraction/GPIO.hpp"
 #include "Core/Abstraction/Memory.hpp"
 #include "Core/Abstraction/Flash.hpp"
 
+extern Xila_Class Xila;
 
 #endif

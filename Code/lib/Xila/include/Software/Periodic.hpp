@@ -9,7 +9,7 @@
 
 #define Periodic_File(name) Software_Directory_Path "/Periodic/" name
 
-class Periodic_Class : protected Software_Class
+class Periodic_Class : protected Xila_Class::Software
 {
     protected:
         static Periodic_Class* Instance_Pointer;
@@ -29,9 +29,7 @@ class Periodic_Class : protected Software_Class
         void Get_Data();
         void Get_List();
 
-
-
-        void Set_Variable(const void* Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
+        void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
 
     public:
 
@@ -40,7 +38,7 @@ class Periodic_Class : protected Software_Class
 
         static void Main_Task(void *);
 
-        static Software_Class* Load();
+        static Xila_Class::Software* Load();
 
         enum Image
         {
@@ -49,6 +47,6 @@ class Periodic_Class : protected Software_Class
 
 };
 
-Software_Handle_Class Periodic_Handle("Periodic", Periodic_Class::Icon_32, Periodic_Class::Load);
+Xila_Class::Software_Handle Periodic_Handle("Periodic", Periodic_Class::Icon_32, Periodic_Class::Load);
 
 #endif

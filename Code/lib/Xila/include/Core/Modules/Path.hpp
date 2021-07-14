@@ -1,3 +1,13 @@
+///
+ /// @file Path.hpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief 
+ /// @version 0.2
+ /// @date 11-07-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #ifndef PATH_HPP_INCLUDED
 #define PATH_HPP_INCLUDED
 
@@ -12,9 +22,6 @@
 #define Executable_File_Extension ".xef"
 #define Sound_File_Extension ".wav"
 #define Basic_File_Extension ".bas"
-
-
-
 
 // -- Main system directory
 #define Temporary_Directory_Path Xila_Directory_Path "/Temporary"

@@ -21,6 +21,4 @@
 || Michalhol : Keyboard Library (https://github.com/michalhol/ps2kbdlib)      ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
-extern Xila_Class Xila;
-
 #endif

@@ -2,7 +2,7 @@
 
 Paint_Class *Paint_Class::Instance_Pointer = NULL;
 
-Software_Class *Paint_Class::Load()
+Xila_Class::Software *Paint_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -12,7 +12,7 @@ Software_Class *Paint_Class::Load()
     return Instance_Pointer;
 }
 
-Paint_Class::Paint_Class() : Software_Class(Paint_Handle)
+Paint_Class::Paint_Class() : Xila_Class::Software(Paint_Handle)
 {
     Xila.Task.Create(Main_Task, "Paint Task", Memory_Chunk(2), NULL, &Task_Handle);
 }
@@ -57,15 +57,15 @@ void Paint_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle:
-            if (Xila.Software.Get_State(Paint_Handle) == Minimized)
+        case Xila.Idle:
+            if (Xila.Software_Management.Get_State(Paint_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
             Xila.Task.Delay(20);
             break;
 
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Paint"));
             Instance_Pointer->Color_Palette[0] = 0;
             Instance_Pointer->Color_Palette[1] = 31;
@@ -78,25 +78,25 @@ void Paint_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Current_Color = 0;
             Instance_Pointer->Refresh_Interface();
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Paint"));
             Instance_Pointer->Refresh_Interface();
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
 
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Paint_Handle);
+            Xila.Software_Management.Close(Paint_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Paint_Handle);
+            Xila.Software_Management.Minimize(Paint_Handle);
             break;
         case Instruction('S', '1'):
             Xila.Dialog.Color_Picker(Instance_Pointer->Color_Palette[0]);

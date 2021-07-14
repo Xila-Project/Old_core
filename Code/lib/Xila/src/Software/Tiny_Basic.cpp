@@ -103,7 +103,7 @@ const unsigned char Tiny_Basic_Class::spacemsg[2] = " ";
 Tiny_Basic_Class *Tiny_Basic_Class::Instance_Pointer = NULL;
 #define INSTANCE_POINTER Tiny_Basic_Class::Instance_Pointer
 
-Tiny_Basic_Class::Tiny_Basic_Class() : Software_Class(Tiny_Basic_Handle),
+Tiny_Basic_Class::Tiny_Basic_Class() : Xila_Class::Software(Tiny_Basic_Handle),
                                        inhibitOutput(false),
                                        runAfterLoad(false),
                                        triggerRun(false),
@@ -138,7 +138,7 @@ Tiny_Basic_Class::~Tiny_Basic_Class()
   Instance_Pointer = NULL;
 }
 
-Software_Class *Tiny_Basic_Class::Load()
+Xila_Class::Software *Tiny_Basic_Class::Load()
 {
   if (Instance_Pointer != NULL)
   {
@@ -158,14 +158,11 @@ void Tiny_Basic_Class::Main_Task(void *pvParameters)
   }
 }
 
-void Tiny_Basic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Tiny_Basic_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
-  if (Type == Xila.Display.Variable_String && Adress == 'I')
+  if (Adress == Adress('I', 'n') && Type == Xila.Display.Variable_String && Temporary_Input[0] == '\0')
   {
-    if (Temporary_Input[0] == '\0')
-    {
       strlcpy(Temporary_Input, (char *)Variable, sizeof(Temporary_Input));
-    }
   }
 }
 
@@ -187,11 +184,11 @@ void Tiny_Basic_Class::Copy_Input()
 
 void Tiny_Basic_Class::Read_Instructions()
 {
-  Xila_Instruction Current_Instruction = Get_Instruction();
+  Xila_Class::Instruction Current_Instruction = Get_Instruction();
   switch (Current_Instruction)
   {
-  case Idle:
-    if (Xila.Software.Get_State(Tiny_Basic_Handle) == Minimized)
+  case Xila.Idle:
+    if (Xila.Software_Management.Get_State(Tiny_Basic_Handle) == Xila.Minimized)
     {
       Xila.Task.Delay(90);
     }
@@ -228,32 +225,32 @@ void Tiny_Basic_Class::Read_Instructions()
     }
     vTaskDelay(10);
     break;
-  case Open:
+  case Xila.Open:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
     Xila.Keyboard.Clear();
     Send_Instruction('R', 'e');
     break;
-  case Minimize:
+  case Xila.Minimize:
     break;
-  case Maximize:
+  case Xila.Maximize:
     Xila.Display.Set_Current_Page(F("Tiny_Basic"));
     Xila.Display.Set_Text(F("INPUT_VAR"), Temporary_Input);
     Send_Instruction('R', 'e');
     break;
 
-  case Close:
+  case Xila.Close:
     delete Instance_Pointer;
     Xila.Task.Delete(NULL);
     break;
 
   case Instruction('M', 'i'):
-    Xila.Software.Minimize(Tiny_Basic_Handle);
+    Xila.Software_Management.Minimize(Tiny_Basic_Handle);
     break;
-  case Hibernate:
-  case Shutdown:
-  case Restart:
+  case Xila.Hibernate:
+  case Xila.Shutdown:
+  case Xila.Restart:
   case Instruction('C', 'l'):
-    Xila.Software.Close(Tiny_Basic_Handle);
+    Xila.Software_Management.Close(Tiny_Basic_Handle);
     break;
   case Instruction('C', 'I'): //copy current temporary input into queue
     Copy_Input();

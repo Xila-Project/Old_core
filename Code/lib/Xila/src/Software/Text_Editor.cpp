@@ -1,11 +1,11 @@
-#include "Software/Text Editor.hpp"
+#include "Software/Text_Editor.hpp"
 
 Text_Editor_Class *Text_Editor_Class::Instance_Pointer = NULL;
 
-Text_Editor_Class::Text_Editor_Class() : Software_Class(Text_Editor_Handle)
+Text_Editor_Class::Text_Editor_Class() : Xila_Class::Software(Text_Editor_Handle)
 {
     Xila.Task.Create(Main_Task, "Text Editor Task", Memory_Chunk(3), NULL, &Task_Handle);
-    Send_Instruction(Open);
+    Send_Instruction(Xila.Open);
 }
 
 Text_Editor_Class::~Text_Editor_Class()
@@ -17,7 +17,7 @@ Text_Editor_Class::~Text_Editor_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Text_Editor_Class::Load()
+Xila_Class::Software *Text_Editor_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -27,20 +27,14 @@ Software_Class *Text_Editor_Class::Load()
     return Instance_Pointer;
 }
 
-void Text_Editor_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Text_Editor_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
-    switch (Adress)
+
+    if (Adress == Adress('O', 'f') && Type == Xila.Display.Variable_Long)
     {
-    case 'S':
-        if (Type == Xila.Display.Variable_Long)
-        {
-            Offset = *(uint8_t *)Variable;
-            Offset = (Offset * File_To_Edit.size()) / 176;
-            Send_Instruction('R', 'T');
-        }
-        break;
-    default:
-        break;
+        Offset = *(uint8_t *)Variable;
+        Offset = (Offset * File_To_Edit.size()) / 176;
+        Send_Instruction('R', 'T');
     }
 }
 
@@ -50,36 +44,36 @@ void Text_Editor_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle:
+        case Xila.Idle:
             // IDLE : nothing to do
-            if (Xila.Software.Get_State(Text_Editor_Handle) == Minimized)
+            if (Xila.Software_Management.Get_State(Text_Editor_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
             Xila.Task.Delay(20);
             break;
 
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             vTaskDelete(NULL);
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Text_Editor"));
             Instance_Pointer->Refresh_Interface();
             break;
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Text_Editor"));
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
-        		case Hibernate:
-		case Shutdown:
-		case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Text_Editor_Handle);
+            Xila.Software_Management.Close(Text_Editor_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Text_Editor_Handle);
+            Xila.Software_Management.Minimize(Text_Editor_Handle);
             break;
         case Instruction('R', 'T'): // RT : refresh text
             Instance_Pointer->Refresh_Interface();
@@ -152,7 +146,7 @@ void Text_Editor_Class::Refresh_Interface()
     File_To_Edit.seek(Offset);
 
     char Temporary_Character;
-    
+
     char Temporary_Char_Array[67]; // double to allow
 
     memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
@@ -199,7 +193,6 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
-
         }
         else if (Column_Number >= 67)
         {
@@ -209,14 +202,12 @@ void Text_Editor_Class::Refresh_Interface()
             memset(Temporary_Char_Array, '\0', sizeof(Temporary_Char_Array));
             Line_Number++;
             Column_Number = 0;
-
         }
         else
         {
             if (isPrintable(Temporary_Character))
             {
                 Temporary_Char_Array[Column_Number++] = Temporary_Character;
-
             }
         }
     }

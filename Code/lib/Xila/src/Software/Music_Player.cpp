@@ -2,7 +2,7 @@
 
 Music_Player_Class *Music_Player_Class::Instance_Pointer = NULL;
 
-Software_Class *Music_Player_Class::Load()
+Xila_Class::Software *Music_Player_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -12,7 +12,7 @@ Software_Class *Music_Player_Class::Load()
     return Instance_Pointer;
 }
 
-Music_Player_Class::Music_Player_Class() : Software_Class(Music_Player_Handle),
+Music_Player_Class::Music_Player_Class() : Xila_Class::Software(Music_Player_Handle),
                                            State(Stopped),
                                            Set(false)
 {
@@ -35,13 +35,13 @@ Music_Player_Class::~Music_Player_Class()
     Instance_Pointer = NULL;
 }
 
-void Music_Player_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Music_Player_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
-    if (Adress == 'V' && Type == Xila.Display.Variable_Long)
+    if (Adress == Adress('V', 'o') && Type == Xila.Display.Variable_Long)
     {
         Volume = *(uint8_t *)Variable;
     }
-    else if (Adress == 'T' && Type == Xila.Display.Variable_Long)
+    else if (Adress == Adress('T', 'i') && Type == Xila.Display.Variable_Long)
     {
         Time_To_Set = *(uint32_t *)Variable;
     }
@@ -53,8 +53,8 @@ void Music_Player_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle:
-            if (Xila.Software.Get_State(Music_Player_Handle) == Minimized)
+        case Xila.Idle:
+            if (Xila.Software_Management.Get_State(Music_Player_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
@@ -95,29 +95,29 @@ void Music_Player_Class::Main_Task(void *pvParameters)
             Xila.Task.Delay(10);
             break;
 
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Music_Player"));
             Instance_Pointer->Stop();
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Music_Player"));
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Music_Player_Handle);
+            Xila.Software_Management.Close(Music_Player_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Music_Player_Handle);
+            Xila.Software_Management.Minimize(Music_Player_Handle);
             break;
         case Instruction('S', '1'):
             Instance_Pointer->Set_Radio(1);
@@ -373,7 +373,7 @@ void Music_Player_Class::Set_Radio(uint8_t Radio)
 void Music_Player_Class::Open_Folder()
 {
     Stop();
-    if (Xila.Dialog.Dialog_Open_Folder(Music_Folder) != Xila.Default_Yes)
+    if (Xila.Dialog.Open_Folder(Music_Folder) != Xila.Default_Yes)
     {
         return;
     }

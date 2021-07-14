@@ -50,6 +50,8 @@ Shell_Class::Preferences_Class::Preferences_Class()
 
 void Shell_Class::Preferences_Class::Open(uint8_t Mode)
 {
+    DUMP("open preferences");
+    DUMP(Mode);
     if (!State())
     {
         PREFERENCES = new Preferences_Class();
@@ -80,6 +82,7 @@ void Shell_Class::Preferences_Class::Open(uint8_t Mode)
 
 bool Shell_Class::Preferences_Class::State()
 {
+
     if (PREFERENCES == NULL)
     {
         return false;
@@ -89,18 +92,24 @@ bool Shell_Class::Preferences_Class::State()
 
 void Shell_Class::Preferences_Class::Close()
 {
+    DUMP("close preferences");
     if (State())
     {
         delete PREFERENCES;
+        PREFERENCES = NULL;
     }
 }
 
 // --
 
-void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
+    case Instruction('C', 'l'):
+        SHELL->Send_Instruction('O', 'D');
+        Preferences_Class::Close();
+        break;
     case Instruction('C', 'B'):
     {
         if (DESK.Background < 0 || DESK.Background > 0xFFFF)
@@ -108,7 +117,7 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instructi
             DESK.Background = 16904;
         }
         uint16_t Temporary_Color = DESK.Background;
-        DIALOG->Color_Picker(Temporary_Color);
+        DIALOG.Color_Picker(Temporary_Color);
         DESK.Background = Temporary_Color;
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -118,25 +127,25 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instructi
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'U'):
-        Dialog_Class::Keyboard(Username, sizeof(Username));
+        DIALOG.Keyboard(Username, sizeof(Username));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'P'):
-        Dialog_Class::Keyboard(Password_1, sizeof(Password_1));
+        DIALOG.Keyboard(Password_1, sizeof(Password_1));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'p'):
-        Dialog_Class::Keyboard(Password_2, sizeof(Password_2));
+        DIALOG.Keyboard(Password_2, sizeof(Password_2));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('C', 'U'):
         if (Xila.Account.Change_Username(Xila.Account.Current_Username, Username) != Xila.Success)
         {
-            DIALOG->Event(F("Failed to change username."), Xila.Error);
+            DIALOG.Event(F("Failed to change username."), Xila.Error);
         }
         else
         {
-            DIALOG->Event(F("Username successfully modified."), Xila.Information);
+            DIALOG.Event(F("Username successfully modified."), Xila.Information);
         }
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -145,16 +154,16 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instructi
         {
             if (Xila.Account.Change_Password(Xila.Account.Current_Username, Password_1) != Xila.Success)
             {
-                DIALOG->Event(F("Failed to change password."), Xila.Error);
+                DIALOG.Event(F("Failed to change password."), Xila.Error);
             }
             else
             {
-                DIALOG->Event(F("Password successfully modified."), Xila.Information);
+                DIALOG.Event(F("Password successfully modified."), Xila.Information);
             }
         }
         else
         {
-            DIALOG->Event(F("Passwords doesn't match."), Xila.Error);
+            DIALOG.Event(F("Passwords doesn't match."), Xila.Error);
         }
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -175,7 +184,7 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instructi
         {
             Xila.Keyboard.Layout = 0;
         }
-        DIALOG->Event(F("Please restart Xila to apply preferences."), Xila.Information);
+        DIALOG.Event(F("Please restart Xila to apply preferences."), Xila.Information);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('P', 'L'):
@@ -187,20 +196,20 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Instructi
         {
             Xila.Keyboard.Layout = Xila.Keyboard.English;
         }
-        DIALOG->Event(F("Please restart Xila to apply preferences."), Xila.Information);
+        DIALOG.Event(F("Please restart Xila to apply preferences."), Xila.Information);
         SHELL->Send_Instruction('R', 'e');
         break;
 
     case Instruction('D', 'U'):
-        if (DIALOG->Event(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
+        if (DIALOG.Event(F("Are you sure to delete this user ?"), Xila.Question) == Xila.Button_1)
         {
             if (Xila.Account.Delete(Xila.Account.Current_Username) != Xila.Success)
             {
-                DIALOG->Event(F("Cannot delete user."), Xila.Error);
+                DIALOG.Event(F("Cannot delete user."), Xila.Error);
             }
             else
             {
-                DIALOG->Event(F("User successfully deleted."), Xila.Error);
+                DIALOG.Event(F("User successfully deleted."), Xila.Error);
             }
         }
         SHELL->Send_Instruction('R', 'e');
@@ -292,16 +301,20 @@ void Shell_Class::Preferences_Class::Refresh_Hardware()
     Xila.Display.Set_Text(F("SPEED_TXT"), Temporary_String);
 }
 
-void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
+    case Instruction('C', 'l'):
+        SHELL->Send_Instruction('O', 'D');
+        Preferences_Class::Close();
+        break;
     case Instruction('T', 'D'): // -- Drive testing
     {
         File Test_File = Xila.Drive.Open(F(Test_Path), FILE_WRITE);
         if (!Test_File)
         {
-            DIALOG->Event(F("Failed to start the write test."), Xila.Error);
+            DIALOG.Event(F("Failed to start the write test."), Xila.Error);
 
             SHELL->Send_Instruction('R', 'e');
             break;
@@ -326,7 +339,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Instructi
         SHELL->Set_Watchdog_Timeout();
         if (!Test_File)
         {
-            DIALOG->Event(F("Failed to start the read test."), Xila.Error);
+            DIALOG.Event(F("Failed to start the read test."), Xila.Error);
             SHELL->Send_Instruction('R', 'e');
             break;
         }
@@ -408,16 +421,20 @@ void Shell_Class::Preferences_Class::Refresh_Network()
     Xila.Display.Set_Text(F("WPASSVAL_TXT"), WiFi_Password);
 }
 
-void Shell_Class::Preferences_Class::Execute_Network_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_Network_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
+    case Instruction('C', 'l'):
+        SHELL->Send_Instruction('O', 'D');
+        Preferences_Class::Close();
+        break;
     case Instruction('K', 'W'):
-        Dialog_Class::Keyboard(WiFi_Name, sizeof(WiFi_Name));
+        DIALOG.Keyboard(WiFi_Name, sizeof(WiFi_Name));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'w'):
-        Dialog_Class::Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
+        DIALOG.Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('W', 'D'):
@@ -439,30 +456,34 @@ void Shell_Class::Preferences_Class::Execute_Network_Instruction(Xila_Instructio
 
 // -- System -- //
 
-void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
+    case Instruction('C', 'l'):
+    SHELL->Send_Instruction('O', 'D');
+        Preferences_Class::Close();
+        break;
     // -- Device name
     case Instruction('K', 'N'):
-        Dialog_Class::Keyboard(Name, sizeof(Name));
+        DIALOG.Keyboard(Name, sizeof(Name));
         Refresh_System();
         break;
     case Instruction('A', 'N'):
         strlcpy(Xila.System.Device_Name, Name, sizeof(Xila.System.Device_Name));
         Xila.System.Save_Registry();
-        DIALOG->Event(F("Please restart Xila to apply changes."), Xila.Information);
+        DIALOG.Event(F("Please restart Xila to apply changes."), Xila.Information);
         SHELL->Send_Instruction('R', 'e');
         break;
     // -- Time
     case Instruction('K', 'n'):
-        Dialog_Class::Keyboard(NTP_Server, sizeof(NTP_Server));
+        DIALOG.Keyboard(NTP_Server, sizeof(NTP_Server));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('k', 'O'):
     {
         float Temporary_Float = GMT_Offset;
-        Dialog_Class::Keypad(Temporary_Float);
+        DIALOG.Keypad(Temporary_Float);
         GMT_Offset = Temporary_Float;
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -470,7 +491,7 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Instruction
     case Instruction('k', 'o'):
     {
         float Temporary_Float = Daylight_Offset;
-        Dialog_Class::Keypad(Temporary_Float);
+        DIALOG.Keypad(Temporary_Float);
         Daylight_Offset = Temporary_Float;
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -480,22 +501,22 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Instruction
         Xila.Time.Daylight_Offset = Daylight_Offset;
         strlcpy(Xila.Time.NTP_Server, NTP_Server, sizeof(Xila.Time.NTP_Server));
         Xila.Time.Save_Registry();
-        DIALOG->Event(F("Please restart Xila to apply changes."), Xila.Information);
+        DIALOG.Event(F("Please restart Xila to apply changes."), Xila.Information);
         SHELL->Send_Instruction('R', 'e');
         break;
     // -- Add user
     case Instruction('K', 'U'):
-        Dialog_Class::Keyboard(Username, sizeof(Username));
+        DIALOG.Keyboard(Username, sizeof(Username));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('A', 'U'):
         if (Xila.Account.Add(Username, ""))
         {
-            DIALOG->Event(F("Failed to add user."), Xila.Error);
+            DIALOG.Event(F("Failed to add user."), Xila.Error);
         }
         else
         {
-            DIALOG->Event(F("User successfully added."), Xila.Information);
+            DIALOG.Event(F("User successfully added."), Xila.Information);
         }
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -503,14 +524,14 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Instruction
         Xila.Display.Set_Current_Page(Pages.About);
         break;
     case Instruction('U', 'p'):
-        if (DIALOG->Event(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
+        if (DIALOG.Event(F("Do you really want to update Xila ? That will make the system restart."), Xila.Warning) != Xila.Button_1)
         {
             SHELL->Send_Instruction('R', 'e');
             return;
         }
         if (!Xila.Drive.Exists(Display_Executable_Path) || !Xila.Drive.Exists(Microcontroller_Executable_Path))
         {
-            DIALOG->Event(F("Missing update files."), Xila.Error);
+            DIALOG.Event(F("Missing update files."), Xila.Error);
             SHELL->Send_Instruction('R', 'e');
             return;
         }
@@ -585,13 +606,12 @@ void Shell_Class::Preferences_Class::Refresh_Install()
     Xila.Display.Set_Value(F("AUTOLOGIN_CHE"), Autologin);
 }
 
-void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
-    case Dialog_Power:
-    case Instruction('O', 's'):
-        if (DIALOG->Event(F("Are you sure to cancel the installation and shutdown Xila ?"), Xila.Question) == Xila.Default_Yes)
+    case Instruction('C', 'l'):
+        if (DIALOG.Event(F("Are you sure to cancel the installation and shutdown Xila ?"), Xila.Question) == Xila.Default_Yes)
         {
             Xila.System.Shutdown();
         }
@@ -600,15 +620,15 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
     case Instruction('C', 'o'):
         if (strcmp(Password_1, Password_2) != 0)
         {
-            DIALOG->Event(F("Passwords does not match."), Xila.Error);
+            DIALOG.Event(F("Passwords does not match."), Xila.Error);
             return;
         }
 
-        if (DIALOG->Event(F("Are you sure of these entries ?"), Xila.Question) == Xila.Default_Yes)
+        if (DIALOG.Event(F("Are you sure of these entries ?"), Xila.Question) == Xila.Default_Yes)
         {
             if (!Xila.Drive.Make_Directory(Users_Directory_Path))
             {
-                DIALOG->Event(F("Cannot make users directory."), Xila.Error);
+                DIALOG.Event(F("Cannot make users directory."), Xila.Error);
             }
             // -- Regional preferences
             Xila.Time.GMT_Offset = GMT_Offset;
@@ -616,17 +636,17 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
 
             if (Xila.WiFi.Save_Registry() != Xila.Success)
             {
-                DIALOG->Event(F("Cannot save network registry."), Xila.Error);
+                DIALOG.Event(F("Cannot save network registry."), Xila.Error);
             }
 
             if (Xila.Time.Save_Registry() != Xila.Success)
             {
-                DIALOG->Event(F("Cannot save regional registry."), Xila.Error);
+                DIALOG.Event(F("Cannot save regional registry."), Xila.Error);
             }
             // -- User account
             if (Xila.Account.Add(Username, Password_1) != Xila.Success)
             {
-                DIALOG->Event(F("Cannot create user account."), Xila.Error);
+                DIALOG.Event(F("Cannot create user account."), Xila.Error);
             }
             Xila.Account.Login(Username, Password_1);
             Xila.Account.Set_Autologin(Autologin);
@@ -634,19 +654,13 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
             SHELL->Save_Registry();
 
             // -- Load
-
 #if Animations == 1
-            DIALOG->Load(F("Login"), F("Loading user data ..."), 4000);
-#else
-            DIALOG->Load(F("Login"), F("Loading user data ..."));
+            DIALOG.Load(F("Login"), F("Loading user data ..."), 4000);
+            DIALOG.Close();
 #endif
 
-            Xila.Display.Set_Value(F("STATE_VAR"), 2);
-
-#if Animations == 1
-            Xila.Task.Delay(1000);
-#endif
             DESK.Open(Pages.Desk);
+            Preferences_Class::Close();
         }
         break;
     case Instruction('D', 'B'):
@@ -660,7 +674,7 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
             DESK.Background = 16904;
         }
         uint16_t Temporary_Color = DESK.Background;
-        DIALOG->Color_Picker(Temporary_Color);
+        DIALOG.Color_Picker(Temporary_Color);
         DESK.Background = Temporary_Color;
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -668,7 +682,7 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
     case Instruction('k', 'O'): // -- Keypad for GMT Offset
     {
         float Temporary_Float = GMT_Offset;
-        DIALOG->Keypad(Temporary_Float);
+        DIALOG.Keypad(Temporary_Float);
         GMT_Offset = (int32_t)Temporary_Float;
         SHELL->Send_Instruction('R', 'e');
         break;
@@ -676,25 +690,25 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
     case Instruction('k', 'o'): // -- Keypad for Daylight offset
     {
         float Temporary_Float = Daylight_Offset;
-        DIALOG->Keypad(Temporary_Float);
+        DIALOG.Keypad(Temporary_Float);
         Daylight_Offset = (int16_t)Temporary_Float;
         SHELL->Send_Instruction('R', 'e');
         break;
     }
     case Instruction('K', 'N'): // -- Device name keyboard input
-        Dialog_Class::Keyboard(Name, sizeof(Name));
+        DIALOG.Keyboard(Name, sizeof(Name));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'U'): // -- Username keyboard input
-        Dialog_Class::Keyboard(Username, sizeof(Username));
+        DIALOG.Keyboard(Username, sizeof(Username));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'P'): // -- Password keyboard input
-        Dialog_Class::Keyboard(Password_1, sizeof(Password_1), true);
+        DIALOG.Keyboard(Password_1, sizeof(Password_1), true);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'p'): // -- Confirm password keyboard input
-        Dialog_Class::Keyboard(Password_2, sizeof(Password_2), true);
+        DIALOG.Keyboard(Password_2, sizeof(Password_2), true);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('A', 'u'): // -- Enable or disable autologin
@@ -702,11 +716,11 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Instructio
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'W'): // -- WiFi name keyboard input
-        Dialog_Class::Keyboard(WiFi_Name, sizeof(WiFi_Name));
+        DIALOG.Keyboard(WiFi_Name, sizeof(WiFi_Name));
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'w'): // -- WiFi password keyboard input
-        Dialog_Class::Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
+        DIALOG.Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('W', 'C'): // WiFi connect

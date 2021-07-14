@@ -141,13 +141,13 @@ typedef short unsigned LINENUM;
 #define STACK_GOSUB_FLAG 'G'
 #define STACK_FOR_FLAG 'F'
 
-class Tiny_Basic_Class : public Software_Class
+class Tiny_Basic_Class : public Xila_Class::Software
 {
 public:
     Tiny_Basic_Class();
     ~Tiny_Basic_Class();
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 
     enum Picture
     {
@@ -327,8 +327,6 @@ protected:
     static const unsigned char slashmsg[2];
     static const unsigned char spacemsg[2];
 
-    //void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
-
     // custom function
 
     uint16_t Current_Command;
@@ -341,7 +339,7 @@ protected:
     uint8_t Current_Line;
     uint8_t Current_Column;
 
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
 
     void Refresh_Interface();
     
@@ -388,6 +386,6 @@ protected:
 
 void Tiny_Basic_Task(void *);
 
-Software_Handle_Class Tiny_Basic_Handle("Tiny Basic", Tiny_Basic_Class::Icon_32, Tiny_Basic_Class::Load);
+Xila_Class::Software_Handle Tiny_Basic_Handle("Tiny Basic", Tiny_Basic_Class::Icon_32, Tiny_Basic_Class::Load);
 
 #endif

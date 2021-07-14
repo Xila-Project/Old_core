@@ -23,7 +23,6 @@
 
 #include "Xila.hpp"
 
-
 #define Default_Background -1
 
 ///
@@ -31,7 +30,7 @@
 ///
 /// @details Main inter
 ///
-class Shell_Class : public Software_Class
+class Shell_Class : public Xila_Class::Software
 {
 protected:
     // -- Attributes
@@ -47,11 +46,7 @@ protected:
     class Desk_Class
     {
     protected:
-        
         // -- Attributes
-
-        char Username[Maximum_Username_Lenght + 1];
-        char Password[Maximum_Password_Lenght + 1];
 
         ///
         /// @brief Desk background
@@ -68,26 +63,25 @@ protected:
 
         // -- Methods
 
-        void Open(char);
+        void Open(uint8_t);
 
         void Refresh_Desk();
         void Refresh_Drawer();
 
-        void Execute_Desk_Instruction(Xila_Instruction);
-        void Execute_Drawer_Instruction(Xila_Instruction);
-        void Execute_Login_Instruction(Xila_Instruction);
+        void Execute_Desk_Instruction(Xila_Class::Instruction);
+        void Execute_Drawer_Instruction(Xila_Class::Instruction);
 
         void Dock(uint8_t, uint8_t);
-
         void Open_From_Drawer(uint8_t);
 
-        void Refresh_Login();
         void Logout();
 
         // -- friendship
         friend class Shell_Class;
 
     } Desk;
+
+    //
 
     ///
     /// @brief Dialog class
@@ -97,7 +91,121 @@ protected:
     protected:
         // -- Attributes
 
-        char Temporary_Float_String[25];
+        class Keyboard_Class
+        {
+        protected:
+            // -- Attributes
+            char *String;
+            size_t Size;
+            bool Masked_Input;
+
+            // -- Methods
+            static void Open();
+            static bool State();
+            void Execute_Instruction(Xila_Class::Instruction);
+
+            // -- Friendship
+            friend class Shell_Class;
+
+        } * Keyboard_Pointer;
+
+        class Keypad_Class
+        {
+        protected:
+            // -- Attributes
+            float *Number;
+            char Temporary_Float_String[32];
+
+            // -- Methods
+            static void Open();
+            static bool State();
+            void Execute_Instruction(Xila_Class::Instruction);
+
+            // -- Friendship
+            friend class Shell_Class;
+
+        } * Keypad_Pointer;
+
+        class Load_Class
+        {
+        protected:
+            // -- Attributes
+            uint8_t Mode;
+            const void *Header;
+            const void *Message;
+            uint32_t Duration;
+            Xila_Class::Software *Caller_Software;
+            Xila_Class::Page Page;
+
+            // -- Methods
+            static void Open();
+            static bool State();
+            void Execute_Instruction(Xila_Class::Instruction);
+
+            // -- Friendship
+            friend class Shell_Class;
+        } * Load_Pointer;
+
+        class Login_Class
+        {
+        protected:
+            // -- Attributes
+            char Username[Maximum_Username_Length + 1];
+            char Password[Maximum_Password_Length + 1];
+            bool Login;
+
+            // -- Methods
+            static void Open(bool Login = false);
+            static bool State();
+            void Execute_Instruction(Xila_Class::Instruction);
+
+            // -- Friendship
+            friend class Shell_Class;
+        } * Login_Pointer;
+
+        class Power_Class
+        {
+        protected:
+            // -- Methods
+            void Execute_Instruction(Xila_Class::Instruction);
+            void Open();
+
+            // -- Friendship
+            friend class Shell_Class;
+        } Power_Pointer;
+
+        class Color_Picker_Class
+        {
+        protected:
+            // -- Attributes
+            uint16_t *Color;
+
+            // -- Methods
+            void Execute_Instruction(Xila_Class::Instruction);
+            void Open();
+
+            // -- Friendship
+            friend class Shell_Class;
+        } Color_Picker_Pointer;
+
+        class Event_Class
+        {
+        protected:
+            // -- Attributes
+            uint8_t Mode;
+            const void *Message;
+            uint8_t Type;
+            const void *Button_Text[3];
+
+            // -- Methods
+            static void Open();
+            static bool State();
+            void Execute_Instruction(Xila_Class::Instruction);
+
+            // -- Friendship
+            friend class Shell_Class;
+
+        } * Event_Pointer;
 
         // -- Constructors / Destructor
 
@@ -106,31 +214,24 @@ protected:
 
         // -- Methods
 
-        static void Open(uint8_t Mode); // -- Open
-        static bool State();
-        static void Close(); // -- Close
-
-        void Execute_Shutdown_Instruction(Xila_Instruction);
-        void Execute_Color_Picker_Instruction(Xila_Instruction);
-        void Execute_Event_Instruction(Xila_Instruction);
-        void Execute_Keyboard_Instruction(Xila_Instruction);
-        void Execute_Keypad_Instruction(Xila_Instruction);
-
-        static void Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint16_t Duration = 0);
-        static void Load(const char *Header, const char *Message, uint16_t Duration = 0);
-        static Xila_Class::Event Keyboard(char *, size_t, bool = false);
-        static Xila_Class::Event Keypad(float &Number_To_Get);
-        static Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-        static Xila_Class::Event Event(const char *, uint8_t, const char * = NULL, const char * = NULL, const char * = NULL);
-        static Xila_Class::Event Color_Picker(uint16_t &);
-        static Xila_Class::Event Open_File(File &);
-        static Xila_Class::Event Save_File(File &);
-        static Xila_Class::Event Open_Folder(File &);
+        void Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint32_t Duration = 0);
+        void Load(const char *Header, const char *Message, uint32_t Duration = 0);
+        void Close_Load();
+        void Power();
+        Xila_Class::Event Login();
+        Xila_Class::Event Keyboard(char *, size_t, bool = false);
+        Xila_Class::Event Keypad(float &Number_To_Get);
+        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Xila_Class::Event Event(const char *, uint8_t, const char * = NULL, const char * = NULL, const char * = NULL);
+        Xila_Class::Event Color_Picker(uint16_t &);
+        Xila_Class::Event Open_File(File &);
+        Xila_Class::Event Save_File(File &);
+        Xila_Class::Event Open_Folder(File &);
 
         // -- Friend
         friend class Shell_Class;
 
-    } * Dialog_Pointer;
+    } Dialog;
 
     ///
     /// @brief File manager class
@@ -140,13 +241,11 @@ protected:
     protected:
         // -- Attributes
 
+        File *Item_Pointer;
         File Selected_Item;
-
         File Operation_Item;
 
-        uint8_t Operation;
-
-        enum File_Manager_Operation
+        enum Operations
         {
             Browse,
             New_File,
@@ -161,20 +260,47 @@ protected:
         };
 
         uint8_t Mode;
-
+        uint8_t Operation;
         uint8_t Offset;
 
         // -- Methods
 
         File_Manager_Class();
+        ~File_Manager_Class();
 
-        static void Open(uint8_t i);
+        static void Open(uint8_t = Xila.Idle);
         static bool State();
         static void Close();
 
-        void Execute_Instruction(Xila_Instruction);
+        void Execute_Instruction(Xila_Class::Instruction);
 
-        static void Select_Item();
+        void Select_Item();
+        void Validate();
+        void Open_Home_Directory();
+        void Open_Root_Directory();
+        void Copy_Item();
+        void Cut_Item();
+        void Create_File();
+        void Create_Folder();
+
+        inline Xila_Class::Instruction Get_Mode()
+        {
+            return Mode;
+            DUMP("get mode");
+            DUMP(this->Mode);
+        }
+        inline void Set_Operation(uint8_t Operation)
+        {
+            this->Operation = Operation;
+            DUMP("set operation");
+            DUMP(this->Operation);
+        }
+        inline uint8_t Get_Operation()
+        {
+            return Operation;
+            DUMP("get operation");
+            DUMP(this->Operation);
+        }
 
         void Refresh_Footerbar();
         void Refresh();
@@ -207,10 +333,10 @@ protected:
 
         bool Autologin; // -- Accounts
 
-        char Username[Maximum_Username_Lenght + 1];
-        char Target_Username[Maximum_Username_Lenght + 1];
-        char Password_1[Maximum_Password_Lenght + 1];
-        char Password_2[Maximum_Password_Lenght + 1];
+        char Username[Maximum_Username_Length + 1];
+        char Target_Username[Maximum_Username_Length + 1];
+        char Password_1[Maximum_Password_Length + 1];
+        char Password_2[Maximum_Password_Length + 1];
 
         int32_t GMT_Offset; // -- Time
         int16_t Daylight_Offset;
@@ -241,11 +367,11 @@ protected:
         void Refresh_System();
         void Refresh_Install();
 
-        void Execute_Hardware_Instruction(Xila_Instruction);
-        void Execute_Network_Instruction(Xila_Instruction);
-        void Execute_Personal_Instruction(Xila_Instruction);
-        void Execute_System_Instruction(Xila_Instruction);
-        void Execute_Install_Instruction(Xila_Instruction);
+        void Execute_Hardware_Instruction(Xila_Class::Instruction);
+        void Execute_Network_Instruction(Xila_Class::Instruction);
+        void Execute_Personal_Instruction(Xila_Class::Instruction);
+        void Execute_System_Instruction(Xila_Class::Instruction);
+        void Execute_Install_Instruction(Xila_Class::Instruction);
 
         inline void System_Update();
 
@@ -272,11 +398,11 @@ protected:
             Preferences_Install,
             Dialog_Keyboard,
             Dialog_Keypad,
-            Login,
+            Dialog_Login,
             Dialog_Load,
             Preferences_Network,
             Preferences_Personal,
-            Shutdown,
+            Dialog_Power,
             Preferences_System,
             Welcome,
         };
@@ -288,18 +414,21 @@ protected:
 
     // -- Methods
 
-    void Execute_Instruction(Xila_Instruction);
+    void Execute_Instruction(Xila_Class::Instruction);
+    void Refresh_Header();
+    uint32_t Next_Refresh;
+    char Temporary_Char_Array[6];
 
     Xila_Class::Event Save_Registry();
     Xila_Class::Event Load_Registry();
 
-    void Set_Variable(const void *, uint8_t, uint8_t, uint8_t = 0);
+    void Set_Variable(Xila_Class::Adress, uint8_t Type, const void *);
 
     static void Main_Task(void *);
 
 public:
     // -- Methods
-    static Software_Class *Load_Shell();
+    static Xila_Class::Software *Load_Shell();
 
     static void Startup();
 
@@ -336,13 +465,21 @@ public:
 
 // -- Shell handle -- //
 
-extern Software_Handle_Class Shell_Handle;
+extern Xila_Class::Software_Handle Shell_Handle;
 
 // -- Shortcuts -- //
 #define SHELL Shell_Class::Instance_Pointer
 #define PREFERENCES SHELL->Preferences_Pointer
 #define FILE_MANAGER SHELL->File_Manager_Pointer
-#define DIALOG SHELL->Dialog_Pointer
 #define DESK SHELL->Desk
+#define DIALOG SHELL->Dialog
+
+#define KEYBOARD DIALOG.Keyboard_Pointer
+#define KEYPAD DIALOG.Keypad_Pointer
+#define COLOR_PICKER DIALOG.Color_Picker_Pointer
+#define EVENT DIALOG.Event_Pointer
+#define POWER DIALOG.Power_Pointer
+#define LOAD DIALOG.Load_Pointer
+#define LOGIN DIALOG.Login_Pointer
 
 #endif

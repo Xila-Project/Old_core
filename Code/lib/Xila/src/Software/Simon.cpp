@@ -2,7 +2,7 @@
 
 Simon_Class *Simon_Class::Instance_Pointer = NULL;
 
-Simon_Class::Simon_Class() : Software_Class(Simon_Handle),
+Simon_Class::Simon_Class() : Xila_Class::Software(Simon_Handle),
                              Speed(0)
 {
     Xila.Task.Create(Main_Task, "Simon Task", Memory_Chunk(3), NULL, &Task_Handle);
@@ -17,7 +17,7 @@ Simon_Class::~Simon_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Simon_Class::Load()
+Xila_Class::Software *Simon_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -33,19 +33,19 @@ void Simon_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle:
-            if (Xila.Software.Get_State(Simon_Handle) == Minimized)
+        case Xila.Idle:
+            if (Xila.Software_Management.Get_State(Simon_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
             Xila.Task.Delay(10);
             break;
-        case Close:
+        case Xila.Close:
             Instance_Pointer->Save_Registry();
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        case Open:
+        case Xila.Open:
             Instance_Pointer->Load_Registry();
             Xila.Display.Set_Current_Page(F("Simon"));
             Instance_Pointer->Current_Level[0] = 0;
@@ -53,22 +53,22 @@ void Simon_Class::Main_Task(void *pvParameters)
             Instance_Pointer->Speed = 0;
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Simon"));
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
         case Instruction('M', 'i'):
             Instance_Pointer->Save_Registry();
-            Xila.Software.Minimize(Simon_Handle);
+            Xila.Software_Management.Minimize(Simon_Handle);
             break;
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
             Instance_Pointer->Save_Registry();
-            Xila.Software.Close(Simon_Handle);
+            Xila.Software_Management.Close(Simon_Handle);
             break;
         case Instruction('P', 'R'):
             Instance_Pointer->Press(Red);

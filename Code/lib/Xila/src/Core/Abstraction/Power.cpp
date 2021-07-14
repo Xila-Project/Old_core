@@ -11,7 +11,7 @@
 #include "Core/Core.hpp"
 #include "soc/rtc_wdt.h"
 
-extern Software_Handle_Class Shell_Handle;
+extern Xila_Class::Software_Handle Shell_Handle;
 
 Xila_Class::Power_Class::Power_Class()
     : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
@@ -87,8 +87,7 @@ void Xila_Class::Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
-        Xila.Software.Send_Instruction_Shell(Software_Class::Dialog_Power);
-        Xila.Software.Maximize(Shell_Handle);
+        Xila.Dialog.Power();
         Button_Counter = 0;
     }
 }
@@ -102,6 +101,8 @@ void Xila_Class::Power_Class::Deep_Sleep()
     Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.Low);
 
     Xila.Drive.End();
+
+    Xila.Task.Delay(10);
 
     esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
     esp_deep_sleep_start();

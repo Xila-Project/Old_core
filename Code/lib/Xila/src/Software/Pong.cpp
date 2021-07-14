@@ -3,7 +3,7 @@
 Pong_Class *Pong_Class::Instance_Pointer = NULL;
 
 Pong_Class::Pong_Class()
-    : Software_Class(Pong_Handle)
+    : Xila_Class::Software(Pong_Handle)
 {
     Scores[0] = 0;
     Scores[1] = 0;
@@ -19,7 +19,7 @@ Pong_Class::~Pong_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Pong_Class::Load()
+Xila_Class::Software *Pong_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -35,8 +35,8 @@ void Pong_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle:
-            if (Xila.Software.Get_State(Pong_Handle) == Minimized)
+        case Xila.Idle:
+            if (Xila.Software_Management.Get_State(Pong_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
@@ -70,29 +70,29 @@ void Pong_Class::Main_Task(void *pvParameters)
             Xila.Task.Delay(10);
             break;
 
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Pong_Handle);
+            Xila.Software_Management.Close(Pong_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Pong_Handle);
+            Xila.Software_Management.Minimize(Pong_Handle);
             break;
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Pong"));
             Xila.Keyboard.Clear();
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Pong"));
             Instance_Pointer->Send_Instruction('R', 'e');
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
         case Instruction('S', '1'):
             Instance_Pointer->Scores[0]++;

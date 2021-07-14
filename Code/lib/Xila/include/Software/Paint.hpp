@@ -3,7 +3,7 @@
 
 #include "Xila.hpp"
 
-class Paint_Class : protected Software_Class
+class Paint_Class : protected Xila_Class::Software
 {
 protected:
 
@@ -32,9 +32,7 @@ public:
     Paint_Class();
     ~Paint_Class();
 
-    static Software_Class *Load();
-
-    //void Set_Variable(const void *, uint8_t , uint8_t , uint8_t  = 0);
+    static Xila_Class::Software *Load();
 
     enum Image
     {
@@ -44,6 +42,6 @@ public:
     static void Main_Task(void*);
 };
 
-Software_Handle_Class Paint_Handle("Paint", Paint_Class::Icon_32, Paint_Class::Load);
+Xila_Class::Software_Handle Paint_Handle("Paint", Paint_Class::Icon_32, Paint_Class::Load);
 
 #endif

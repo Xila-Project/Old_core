@@ -3,7 +3,7 @@
 Periodic_Class *Periodic_Class::Instance_Pointer = NULL;
 
 Periodic_Class::Periodic_Class()
-    : Software_Class(Periodic_Handle),
+    : Xila_Class::Software(Periodic_Handle),
       X(7),
       Y(30)
 {
@@ -19,7 +19,7 @@ Periodic_Class::~Periodic_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Periodic_Class::Load()
+Xila_Class::Software *Periodic_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -29,14 +29,14 @@ Software_Class *Periodic_Class::Load()
     return Instance_Pointer;
 }
 
-void Periodic_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Periodic_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
     switch (Adress)
     {
-    case 'X':
+    case Adress('X', 'C'):
         X = *(uint32_t *)Variable;
         break;
-    case 'Y':
+    case Adress('Y', 'C'):
         Y = *(uint32_t *)Variable;
         break;
     default:
@@ -52,23 +52,23 @@ void Periodic_Class::Main_Task(void *pvParamters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle: //Idle state
-            if (Xila.Software.Get_State(Periodic_Handle) == Minimized)
+        case Xila.Idle: //Xila.Idle state
+            if (Xila.Software_Management.Get_State(Periodic_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
             Xila.Task.Delay(10);
             break;
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Periodic_Handle);
+            Xila.Software_Management.Close(Periodic_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Periodic_Handle);
+            Xila.Software_Management.Minimize(Periodic_Handle);
             break;
-        case Maximize:
+        case Xila.Maximize:
             if (Instance_Pointer->Tab == 0)
             {
                 Xila.Display.Set_Current_Page(F("Periodic_Main"));
@@ -80,16 +80,16 @@ void Periodic_Class::Main_Task(void *pvParamters)
                 Instance_Pointer->Get_Data();
             }
             break;
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Periodic_Main"));
             Instance_Pointer->Tab = 0;
             Instance_Pointer->Send_Instruction('G', 'M');
             break;
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
         case Instruction('G', 'M'): //GM
             Instance_Pointer->Get_Atom_Name();

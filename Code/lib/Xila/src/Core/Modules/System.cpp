@@ -1,11 +1,20 @@
+///
+/// @file System.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1
+/// @date 11-07-2021
+///
+/// @copyright Copyright (c) 2021
+///
+
 #include "Core/Core.hpp"
 
 #include "soc/rtc_wdt.h"
 #include "esp_task_wdt.h"
-// -- ESP 32 update
 #include "Update.h"
 
-extern Software_Handle_Class Shell_Handle;
+extern Xila_Class::Software_Handle Shell_Handle;
 
 ///
 /// @brief Construct a new System_Class object
@@ -79,7 +88,7 @@ Xila_Class::Event Xila_Class::System_Class::Save_Registry()
 ///
 void Xila_Class::System_Class::Task(void *)
 {
-  uint32_t Last_Refresh = 0;
+  uint32_t Next_Refresh = 0;
   Xila.Power.Button_Counter = 0;
   while (1)
   {
@@ -87,8 +96,8 @@ void Xila_Class::System_Class::Task(void *)
     Xila.Power.Check_Button();
     // -- Execute data from display.
     Xila.Display.Loop();
-    // -- Task to refresh every 4 seconds
-    if ((Xila.Time.Milliseconds() - Last_Refresh) > 4000)
+    // -- Task to refresh every 10 seconds
+    if (Xila.Time.Milliseconds() > Next_Refresh)
     {
       // -- Check if drive is not disconnected.
       if (!Xila.Drive.Exists(Xila_Directory_Path) || !Xila.Drive.Exists(Software_Directory_Path))
@@ -96,7 +105,7 @@ void Xila_Class::System_Class::Task(void *)
         Xila.System.Panic_Handler(Xila.System.System_Drive_Failure);
       }
       // -- Check if running software is not frozen
-      Xila.Software.Check_Watchdog();
+      Xila.Software_Management.Check_Watchdog();
       // -- Check WiFi is connected
       if (Xila.WiFi.status() != WL_CONNECTED)
       {
@@ -108,23 +117,21 @@ void Xila_Class::System_Class::Task(void *)
         Xila.System.Panic_Handler(Low_Memory);
       }
       // -- Synchronise time
-      Xila.Time.Synchronise(); // Time synchro
-      // -- Refresh header
-      Xila.System.Refresh_Header();
+      Xila.Time.Synchronise();
       // -- Check if software is currently maximized
-      if (Xila.Software.Openned[0] == NULL)
+      if (Xila.Software_Management.Openned[0] == NULL)
       {
         Xila.Task.Delay(100);
         // -- If no software is currently maximized, maximize shell.
-        if (Xila.Software.Openned[0] == NULL)
+        if (Xila.Software_Management.Openned[0] == NULL)
         {
-          Xila.Software.Open(Shell_Handle);
-          Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
-          Xila.Software.Maximize_Shell();
+          Xila.Software_Management.Open(Shell_Handle);
+          Xila.Software_Management.Shell_Send_Instruction(Xila.Desk);
+          Xila.Software_Management.Shell_Maximize();
         }
       }
       // -- Clear the refresh timer.
-      Last_Refresh = Xila.Time.Milliseconds();
+      Next_Refresh = Xila.Time.Milliseconds() + 10000;
     }
     Xila.Task.Delay(20);
   }
@@ -203,9 +210,9 @@ Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 
   for (uint8_t i = 2; i <= 7; i++)
   {
-    if (Xila.Software.Openned[i] != NULL)
+    if (Xila.Software_Management.Openned[i] != NULL)
     {
-      Software.add(Xila.Software.Openned[i]->Handle->Name);
+      Software.add(Xila.Software_Management.Openned[i]->Handle->Name);
     }
   }
 
@@ -256,11 +263,11 @@ Xila_Class::Event Xila_Class::System_Class::Load_Dump()
       strlcpy(Temporary_Software_Name, Software[i] | "", sizeof(Temporary_Software_Name));
       for (uint8_t j = 0; j < Maximum_Software; j++)
       {
-        if (Xila.Software.Handle[j] != NULL)
+        if (Xila.Software_Management.Handle[j] != NULL)
         {
-          if (strcmp(Xila.Software.Handle[j]->Name, Temporary_Software_Name) == 0)
+          if (strcmp(Xila.Software_Management.Handle[j]->Name, Temporary_Software_Name) == 0)
           {
-            Xila.Software.Open(*Xila.Software.Handle[j]);
+            Xila.Software_Management.Open(*Xila.Software_Management.Handle[j]);
           }
         }
       }
@@ -404,10 +411,17 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   // -- Check if the power button was press or the power supply plugged.
   esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
   esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
+#if Start_On_Power == 0
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0)
+  {
+    Xila.Power.Deep_Sleep();
+  }
+#elif Start_On_Power == 1
   if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
     Xila.Power.Deep_Sleep();
   }
+#endif
 
   // -- Set power button interrupts
   Xila.GPIO.Set_Mode(Power_Button_Pin, INPUT);
@@ -571,7 +585,7 @@ void Xila_Class::System_Class::Second_Start_Routine()
 ///
 /// @param Software_Package Custom software package.
 /// @param Size Size of the software package.
-void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, uint8_t Size)
+void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Package, uint8_t Size)
 {
 
   First_Start_Routine();
@@ -580,7 +594,7 @@ void Xila_Class::System_Class::Start(Software_Handle_Class **Software_Package, u
 
   for (uint8_t i = 0; i < Size; i++)
   {
-    Xila.Software.Add_Handle(*Software_Package[i]);
+    Xila.Software_Management.Add_Handle(*Software_Package[i]);
   }
 
   Second_Start_Routine();
@@ -594,31 +608,31 @@ void Xila_Class::System_Class::Start()
 
   First_Start_Routine();
 
-  extern Software_Handle_Class Calculator_Handle;
-  extern Software_Handle_Class Clock_Handle;
-  extern Software_Handle_Class Internet_Browser_Handle;
-  extern Software_Handle_Class Music_Player_Handle;
-  extern Software_Handle_Class Oscilloscope_Handle;
-  extern Software_Handle_Class Paint_Handle;
-  extern Software_Handle_Class Periodic_Handle;
-  extern Software_Handle_Class Piano_Handle;
-  extern Software_Handle_Class Pong_Handle;
-  extern Software_Handle_Class Simon_Handle;
-  extern Software_Handle_Class Text_Editor_Handle;
-  extern Software_Handle_Class Tiny_Basic_Handle;
+  extern Xila_Class::Software_Handle Calculator_Handle;
+  extern Xila_Class::Software_Handle Clock_Handle;
+  extern Xila_Class::Software_Handle Internet_Browser_Handle;
+  extern Xila_Class::Software_Handle Music_Player_Handle;
+  extern Xila_Class::Software_Handle Oscilloscope_Handle;
+  extern Xila_Class::Software_Handle Paint_Handle;
+  extern Xila_Class::Software_Handle Periodic_Handle;
+  extern Xila_Class::Software_Handle Piano_Handle;
+  extern Xila_Class::Software_Handle Pong_Handle;
+  extern Xila_Class::Software_Handle Simon_Handle;
+  extern Xila_Class::Software_Handle Text_Editor_Handle;
+  extern Xila_Class::Software_Handle Tiny_Basic_Handle;
 
-  Xila.Software.Add_Handle(Calculator_Handle);
-  Xila.Software.Add_Handle(Clock_Handle);
-  Xila.Software.Add_Handle(Internet_Browser_Handle);
-  Xila.Software.Add_Handle(Music_Player_Handle);
-  Xila.Software.Add_Handle(Oscilloscope_Handle);
-  Xila.Software.Add_Handle(Paint_Handle);
-  Xila.Software.Add_Handle(Periodic_Handle);
-  Xila.Software.Add_Handle(Piano_Handle);
-  Xila.Software.Add_Handle(Pong_Handle);
-  Xila.Software.Add_Handle(Simon_Handle);
-  Xila.Software.Add_Handle(Text_Editor_Handle);
-  Xila.Software.Add_Handle(Tiny_Basic_Handle);
+  Xila.Software_Management.Add_Handle(Calculator_Handle);
+  Xila.Software_Management.Add_Handle(Clock_Handle);
+  Xila.Software_Management.Add_Handle(Internet_Browser_Handle);
+  Xila.Software_Management.Add_Handle(Music_Player_Handle);
+  Xila.Software_Management.Add_Handle(Oscilloscope_Handle);
+  Xila.Software_Management.Add_Handle(Paint_Handle);
+  Xila.Software_Management.Add_Handle(Periodic_Handle);
+  Xila.Software_Management.Add_Handle(Piano_Handle);
+  Xila.Software_Management.Add_Handle(Pong_Handle);
+  Xila.Software_Management.Add_Handle(Simon_Handle);
+  Xila.Software_Management.Add_Handle(Text_Editor_Handle);
+  Xila.Software_Management.Add_Handle(Tiny_Basic_Handle);
 
   Second_Start_Routine();
 }
@@ -634,11 +648,11 @@ void Xila_Class::System_Class::Execute_Startup_Function()
   for (uint8_t i = 0; i < Maximum_Software; i++)
   {
 
-    if (Xila.Software.Handle[i] != NULL)
+    if (Xila.Software_Management.Handle[i] != NULL)
     {
-      if (Xila.Software.Handle[i]->Startup_Function_Pointer != NULL)
+      if (Xila.Software_Management.Handle[i]->Startup_Function_Pointer != NULL)
       {
-        (*Xila.Software.Handle[i]->Startup_Function_Pointer)();
+        (*Xila.Software_Management.Handle[i]->Startup_Function_Pointer)();
       }
     }
   }
@@ -649,25 +663,25 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 ///
 void Xila_Class::System_Class::Shutdown()
 {
-  Xila.Software.Maximize_Shell();
-  Xila.Software.Send_Instruction_Shell(Software_Class::Shutdown);
+  Xila.Software_Management.Shell_Maximize();
+  Xila.Software_Management.Shell_Send_Instruction(Xila.Shutdown);
 
   for (uint8_t i = 2; i < 8; i++)
   {
-    if (Xila.Software.Openned[i] != NULL)
+    if (Xila.Software_Management.Openned[i] != NULL)
     {
-      Xila.Software.Openned[i]->Send_Instruction(Software_Class::Shutdown);
-      Xila.Task.Resume(Xila.Software.Openned[i]->Task_Handle);
+      Xila.Software_Management.Openned[i]->Send_Instruction(Xila.Shutdown);
+      Xila.Task.Resume(Xila.Software_Management.Openned[i]->Task_Handle);
       // -- Waiting for the software to close
       for (uint8_t j = 0; j <= 200; j++)
       {
-        if (Xila.Software.Openned[i] == NULL)
+        if (Xila.Software_Management.Openned[i] == NULL)
         {
           break;
         }
-        if (j == 200 && Xila.Software.Openned[i] != NULL)
+        if (j == 200 && Xila.Software_Management.Openned[i] != NULL)
         {
-          Xila.Software.Force_Close(*Xila.Software.Openned[i]->Handle);
+          Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
         Xila.Task.Delay(20);
       }
@@ -711,27 +725,27 @@ void Xila_Class::System_Class::Hibernate()
 
   Xila.System.Save_Dump();
 
-  Xila.Software.Maximize_Shell();
-  Xila.Software.Send_Instruction_Shell(Software_Class::Hibernate);
+  Xila.Software_Management.Shell_Maximize();
+  Xila.Software_Management.Shell_Send_Instruction(Xila.Hibernate);
 
   for (uint8_t i = 2; i < 8; i++)
   {
-    if (Xila.Software.Openned[i] != NULL)
+    if (Xila.Software_Management.Openned[i] != NULL)
     {
-      Xila.Software.Openned[i]->Send_Instruction(Software_Class::Hibernate);
-      Xila.Task.Resume(Xila.Software.Openned[i]->Task_Handle);
+      Xila.Software_Management.Openned[i]->Send_Instruction(Xila.Hibernate);
+      Xila.Task.Resume(Xila.Software_Management.Openned[i]->Task_Handle);
       // -- Waiting for the software to close
       for (uint8_t j = 0; j <= 200; j++)
       {
-        if (Xila.Software.Openned[i] == NULL)
+        if (Xila.Software_Management.Openned[i] == NULL)
         {
 
           break;
         }
-        if (j == 200 && Xila.Software.Openned[i] != NULL)
+        if (j == 200 && Xila.Software_Management.Openned[i] != NULL)
         {
 
-          Xila.Software.Force_Close(*Xila.Software.Openned[i]->Handle);
+          Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
         Xila.Task.Delay(20);
       }
@@ -747,25 +761,25 @@ void Xila_Class::System_Class::Hibernate()
 ///
 void Xila_Class::System_Class::Restart()
 {
-  Xila.Software.Send_Instruction_Shell(Software_Class::Restart);
-  Xila.Software.Maximize_Shell();
+  Xila.Software_Management.Shell_Send_Instruction(Xila.Restart);
+  Xila.Software_Management.Shell_Maximize();
 
   for (uint8_t i = 2; i < 8; i++)
   {
-    if (Xila.Software.Openned[i] != NULL)
+    if (Xila.Software_Management.Openned[i] != NULL)
     {
-      Xila.Software.Openned[i]->Send_Instruction(Software_Class::Restart);
-      Xila.Task.Resume(Xila.Software.Openned[i]->Task_Handle);
+      Xila.Software_Management.Openned[i]->Send_Instruction(Xila.Restart);
+      Xila.Task.Resume(Xila.Software_Management.Openned[i]->Task_Handle);
       // -- Waiting for the software to close
       for (uint8_t j = 0; j <= 200; j++)
       {
-        if (Xila.Software.Openned[i] == NULL)
+        if (Xila.Software_Management.Openned[i] == NULL)
         {
           break;
         }
-        if (j == 200 && Xila.Software.Openned[i] != NULL)
+        if (j == 200 && Xila.Software_Management.Openned[i] != NULL)
         {
-          Xila.Software.Force_Close(*Xila.Software.Openned[i]->Handle);
+          Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
         Xila.Task.Delay(20);
       }

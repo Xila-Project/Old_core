@@ -11,17 +11,17 @@
  #ifndef TASK_HPP_INCLUDED
  #define TASK_HPP_INCLUDED
 
-inline void Xila_Class::Task_Class::Resume(Xila_Task_Handle Task_To_Resume) const
+inline void Xila_Class::Task_Class::Resume(Xila_Class::Task_Handle Task_To_Resume) const
 {
   vTaskResume(Task_To_Resume);
 }
 
-inline void Xila_Class::Task_Class::Suspend(Xila_Task_Handle Task_To_Suspend) const
+inline void Xila_Class::Task_Class::Suspend(Xila_Class::Task_Handle Task_To_Suspend) const
 {
   vTaskSuspend(Task_To_Suspend);
 }
 
-inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, Xila_Task_Handle *Task_Handle) const
+inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, Xila_Class::Task_Handle *Task_Handle) const
 {
   if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Software_Task, Task_Handle, tskNO_AFFINITY) != pdPASS)
   {
@@ -30,7 +30,7 @@ inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Task_Function Task_
   return Success;
 }
 
-inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle)
+inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle)
 {
   if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Priority, Task_Handle, tskNO_AFFINITY) != pdPASS)
   {
@@ -39,7 +39,7 @@ inline Xila_Class::Event Xila_Class::Task_Class::Create(Xila_Task_Function Task_
   return Success;
 }
 
-inline void Xila_Class::Task_Class::Delete(Xila_Task_Handle Task_To_Delete) const
+inline void Xila_Class::Task_Class::Delete(Xila_Class::Task_Handle Task_To_Delete) const
 {
   vTaskDelete(Task_To_Delete);
 }

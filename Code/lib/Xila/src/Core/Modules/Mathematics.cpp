@@ -1,3 +1,13 @@
+///
+ /// @file Mathematics.cpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief File to declare mathmetics methods.
+ /// @version 0.2
+ /// @date 11-07-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #include "Core/Core.hpp"
 
 double Xila_Class::Mathematics_Class::String_To_Float(const char *String)
@@ -9,7 +19,7 @@ char *Xila_Class::Mathematics_Class::Float_To_String(double Number, int8_t Width
 {
     dtostrf(Number, Width, Precision, String);
     // -- Delete unwanted zeros
-    for (uint8_t i = sizeof(String) - 1; i > 0; i--)
+    for (uint8_t i = strlen(String) - 1; i > 0; i--)
     {
         if (String[i] == '0' || String[i] == '\0')
         {

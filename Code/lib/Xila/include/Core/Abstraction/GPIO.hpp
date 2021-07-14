@@ -2,7 +2,7 @@
 /// @file GPIO.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
-/// @version 0.1
+/// @version 0.2
 /// @date 05-04-2021
 ///
 /// @copyright Copyright (c) 2021

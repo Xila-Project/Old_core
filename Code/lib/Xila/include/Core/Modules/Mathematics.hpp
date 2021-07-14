@@ -1,3 +1,13 @@
+///
+ /// @file Mathematics.hpp
+ /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+ /// @brief 
+ /// @version 0.1
+ /// @date 11-07-2021
+ /// 
+ /// @copyright Copyright (c) 2021
+ /// 
+
 #include "Arduino.h"
 
 #ifndef MATHEMATICS_HPP_INCLUDED

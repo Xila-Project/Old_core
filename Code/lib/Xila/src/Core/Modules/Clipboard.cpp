@@ -33,7 +33,7 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Cop
   return Success;
 }
 
-Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Lenght)
+Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
 {
   Xila.Drive.Remove(Clipboard_Path);
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -45,13 +45,13 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Co
   {
     return Error;
   }
-  if (Char_Array_Lenght == 0)
+  if (Char_Array_Length == 0)
   {
     Clipboard_File.write((uint8_t *)Char_Array_To_Copy, strlen(Char_Array_To_Copy));
   }
   else
   {
-    Clipboard_File.write((uint8_t *)Char_Array_To_Copy, Char_Array_Lenght);
+    Clipboard_File.write((uint8_t *)Char_Array_To_Copy, Char_Array_Length);
   }
   Clipboard_File.close();
   return Success;
@@ -91,7 +91,7 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
   return Success;
 }
 
-Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Lenght)
+Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
 {
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -102,13 +102,13 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, 
   {
     return Error;
   }
-  if (Char_Array_Lenght == 0)
+  if (Char_Array_Length == 0)
   {
     Clipboard_File.readBytes(Char_Array_To_Paste, Clipboard_File.available());
   }
   else
   {
-    Clipboard_File.readBytes(Char_Array_To_Paste, Char_Array_Lenght);
+    Clipboard_File.readBytes(Char_Array_To_Paste, Char_Array_Length);
   }
   Clipboard_File.close();
   return Success;

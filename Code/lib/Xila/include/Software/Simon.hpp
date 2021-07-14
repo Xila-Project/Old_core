@@ -8,7 +8,7 @@
 
 #define Simon_Registry_Path Software_Directory_Path "/Simon/Registry.xrf"
 
-class Simon_Class : public Software_Class
+class Simon_Class : public Xila_Class::Software
 {
 private:
     
@@ -50,7 +50,7 @@ public:
 
     static void Main_Task(void *);
 
-    static Software_Class* Load();
+    static Xila_Class::Software* Load();
 
     Simon_Class();
     ~Simon_Class();
@@ -67,6 +67,6 @@ public:
     };
 };
 
-Software_Handle_Class Simon_Handle("Simon", Simon_Class::Icon_32, Simon_Class::Load);
+Xila_Class::Software_Handle Simon_Handle("Simon", Simon_Class::Icon_32, Simon_Class::Load);
 
 #endif

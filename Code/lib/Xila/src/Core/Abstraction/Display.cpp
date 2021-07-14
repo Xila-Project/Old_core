@@ -16,7 +16,8 @@ Xila_Class::Display_Class::Display_Class()
       Brightness(Default_Display_Brightness),
       Receive_Pin(Default_Display_Receive_Pin),
       Standby_Time(Default_Display_Standby_Time),
-      Transmit_Pin(Default_Display_Transmit_Pin)
+      Transmit_Pin(Default_Display_Transmit_Pin),
+      Current_Adress(0)
 {
     Baud_Rate = Default_Display_Baud_Rate;
 }
@@ -81,21 +82,21 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 /// @param Size Size in bytes of received data
 void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
-    while (Xila.Software.Openned[0] == NULL)
+    while (Xila.Software_Management.Openned[0] == NULL)
     {
         Xila.Task.Delay(20);
     }
     switch (Received_Data[0])
     {
     case Xila.Display.Instruction:
-        Xila.Software.Openned[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
+        Xila.Software_Management.Openned[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
         break;
     case Xila.Display.Variable_String:
-        Xila.Software.Openned[0]->Set_Variable(Received_Data + 2, Variable_String, Received_Data[1]);
-        Xila.Display.Tag = '\0';
+        Xila.Software_Management.Openned[0]->Set_Variable(Adress(Received_Data[1], Received_Data[2]), Variable_String, Received_Data + 3);
+        Xila.Display.Current_Adress = '\0';
         break;
     case Xila.Display.Variable_Long:
-        Xila.Display.Tag = Received_Data[1];
+        Xila.Display.Current_Adress = Adress(Received_Data[1], Received_Data[2]);
         break;
     default:
         //error handle
@@ -109,10 +110,10 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
  /// @param Received_Data Received numeric data from the display
 void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
-    if (Xila.Display.Tag != '\0')
+    if (Xila.Display.Current_Adress != '\0')
     {
-        Xila.Software.Openned[0]->Set_Variable(&Received_Data, Xila.Display.Variable_Long, Xila.Display.Tag);
-        Xila.Display.Tag = '\0';
+        Xila.Software_Management.Openned[0]->Set_Variable(Xila.Display.Current_Adress, Xila.Display.Variable_Long, &Received_Data);
+        Xila.Display.Current_Adress = '\0';
     }
 }
 
@@ -139,5 +140,4 @@ void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
     default:
         break;
     }
-    //Openned[0]->Send_Instruction((uint16_t)Event_Code);
 }

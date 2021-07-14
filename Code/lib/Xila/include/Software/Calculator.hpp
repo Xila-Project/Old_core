@@ -6,7 +6,7 @@
 
 #define POINT_PRECISION 9
 
-class Calculator_Class : public Software_Class
+class Calculator_Class : public Xila_Class::Software
 {
 private:
     static Calculator_Class* Instance_Pointer;
@@ -169,9 +169,9 @@ public:
         Icon_32 = Xila.Display.Calculator_Images
     };
 
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
 };
 
-Software_Handle_Class Calculator_Handle("Calculator", Calculator_Class::Icon_32, Calculator_Class::Load);
+Xila_Class::Software_Handle Calculator_Handle("Calculator", Calculator_Class::Icon_32, Calculator_Class::Load);
 
 #endif

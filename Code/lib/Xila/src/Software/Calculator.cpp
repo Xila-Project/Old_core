@@ -2,7 +2,7 @@
 
 Calculator_Class *Calculator_Class::Instance_Pointer = NULL;
 
-Calculator_Class::Calculator_Class() : Software_Class(Calculator_Handle),
+Calculator_Class::Calculator_Class() : Xila_Class::Software(Calculator_Handle),
                                        State(0xFF),
                                        Keys_Mode(0)
 {
@@ -18,7 +18,7 @@ Calculator_Class::~Calculator_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Calculator_Class::Load()
+Xila_Class::Software *Calculator_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -110,8 +110,8 @@ void Calculator_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle: //idle
-            if (Xila.Software.Get_State(Calculator_Handle) == Minimized)
+        case Xila.Idle: //idle
+            if (Xila.Software_Management.Get_State(Calculator_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
@@ -234,28 +234,28 @@ void Calculator_Class::Main_Task(void *pvParameters)
             Xila.Task.Delay(10);
             break;
 
-        case Hibernate:
-        case Shutdown:
-        case Restart:
+        case Xila.Hibernate:
+        case Xila.Shutdown:
+        case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Calculator_Handle);
+            Xila.Software_Management.Close(Calculator_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Calculator_Handle);
+            Xila.Software_Management.Minimize(Calculator_Handle);
             break;
 
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Send_Instruction('R', 'I');
             Instance_Pointer->Send_Instruction('R', 'K');
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
-        case Open:
+        case Xila.Open:
             Instance_Pointer->Clear_All();
             Xila.Display.Set_Current_Page(F("Calculator"));
             Instance_Pointer->Send_Instruction('R', 'I');

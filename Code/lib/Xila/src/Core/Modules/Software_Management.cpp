@@ -1,20 +1,19 @@
-/**
- * @file Software_Management.cpp
- * @author your name (you@domain.com)
- * @brief 
- * @version 0.1
- * @date 2021-03-28
- * 
- * @copyright Copyright (c) 2021
- * 
- */
+///
+/// @file Software.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.2
+/// @date 28-03-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
-extern Software_Handle_Class Shell_Handle;
+extern Xila_Class::Software_Handle Shell_Handle;
 
 ///
-/// @brief Construct a new Software_Management_Class object
+/// @brief Construct a new Software_Class object
 ///
 Xila_Class::Software_Management_Class::Software_Management_Class()
 {
@@ -23,22 +22,25 @@ Xila_Class::Software_Management_Class::Software_Management_Class()
 }
 
 ///
-/// @brief
+/// @brief Return openned software's state.
 ///
-/// @param Software_Handle
-/// @return Software_Class::State
-Software_Class::State Xila_Class::Software_Management_Class::Get_State(Software_Handle_Class const &Software_Handle)
+/// @param Software_Handle Software handle to check.
+/// @return Xila_Class::Software::State
+Xila_Class::State Xila_Class::Software_Management_Class::Get_State(Xila_Class::Software_Handle const &Software_Handle)
 {
   if (Openned[0] != NULL)
   {
     if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer adress to be faster
     {
-      return Software_Class::Maximized;
+      return Maximized;
     }
   }
-  return Software_Class::Minimized;
+  return Minimized;
 }
 
+///
+/// @brief Check watchdog timer of every openned software.
+///
 void Xila_Class::Software_Management_Class::Check_Watchdog()
 {
   for (uint8_t i = 1; i < (sizeof(Openned) / sizeof(Openned[0])); i++)
@@ -47,15 +49,18 @@ void Xila_Class::Software_Management_Class::Check_Watchdog()
     {
       if (Xila.Time.Milliseconds() - Openned[i]->Last_Watchdog_Feed > Openned[i]->Watchdog_Timeout || Openned[i]->Watchdog_Timeout > Maximum_Watchdog_Timeout)
       {
-        Xila.Software.Force_Close(*Openned[i]->Handle);
+        Xila.Software_Management.Force_Close(*Openned[i]->Handle);
         Xila.Task.Delay(100);
-        Xila.Software.Open(Shell_Handle);
-        Xila.Software.Send_Instruction_Shell(Software_Class::Desk);
+        Xila.Software_Management.Open(Shell_Handle);
+        Xila.Software_Management.Shell_Send_Instruction(Desk);
       }
     }
   }
 }
 
+///
+/// @brief Defrag current openned software array.
+///
 void Xila_Class::Software_Management_Class::Defrag()
 {
   for (uint8_t i = 2; i < sizeof(Openned) / sizeof(Openned[0]); i++)
@@ -72,46 +77,34 @@ void Xila_Class::Software_Management_Class::Defrag()
           Openned[j] = NULL;
           break;
         }
-        
+
         if (j >= 7)
         {
           return;
         }
-
       }
     }
   }
 }
 
-void Xila_Class::Software_Management_Class::Feed_Watchdog(Software_Handle_Class const &Software_Handle)
+///
+/// @brief Feed watchdog timer (reset).
+///
+/// @param Software_Handle Software's handle to feed watchdog.
+void Xila_Class::Software_Management_Class::Feed_Watchdog(Xila_Class::Software_Handle const &Software_Handle)
 {
-  if (Watchdog_State != 0 && &Software_Handle == Xila.Software.Openned[Watchdog_State]->Handle)
+  if (Watchdog_State != 0 && &Software_Handle == Xila.Software_Management.Openned[Watchdog_State]->Handle)
   {
-    Xila.Software.Watchdog_Timer = Xila.Time.Milliseconds();
+    Xila.Software_Management.Watchdog_Timer = Xila.Time.Milliseconds();
   }
 }
 
-uint8_t Xila_Class::Software_Management_Class::Seek_Open_Software_Handle(Software_Handle_Class const &Software_Handle)
-{
-  for (uint8_t i = 1; i <= 8; i++)
-  {
-    if (i < 8 && *Openned[i]->Handle == Software_Handle)
-    {
-      return i;
-    }
-    else if (i == 8)
-    {
-      return 0;
-    }
-  }
-}
-
-/**
-     * @brief Function used to open a Software.
-     * 
-     * @param Software_Handle The software's handle to open 
-     */
-Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Class const &Software_Handle)
+///
+/// @brief Function that open software.
+///
+/// @param Software_Handle Software's handle to open.
+/// @return Xila_Class::Event
+Xila_Class::Event Xila_Class::Software_Management_Class::Open(Xila_Class::Software_Handle const &Software_Handle)
 {
   if (Software_Handle == Shell_Handle)
   {
@@ -141,9 +134,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
       }
     }
   }
-
   // -- if the software isn't minimized, load it. -- //
-
   for (i = 2; i < 8; i++)
   {
     if (Openned[i] == NULL)
@@ -171,12 +162,11 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Open(Software_Handle_Cl
   return Error;
 }
 
-/**
-     * @brief Function used to close a Software.
-     * 
-     * @param Software_Handle The software's handle to close, equal NULL by default which close the currently running software.
-     */
-void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &Software_Handle)
+///
+/// @brief Function that close software.
+///
+/// @param Software_Handle Software's handle to close (equal NULL by default, which close currrent maximized software).
+void Xila_Class::Software_Management_Class::Close(Xila_Class::Software_Handle const &Software_Handle)
 {
   for (uint8_t i = 2; i < sizeof(Openned) / sizeof(Openned[0]); i++)
   {
@@ -192,14 +182,14 @@ void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &S
           Openned[0] = NULL;
         }
 
-        Openned[i]->Send_Instruction(Software_Class::Close);
+        Openned[i]->Send_Instruction(Xila.Close);
         Xila.Task.Delay(20);
         Openned[i] = NULL;
 
         Defrag();
 
-        Send_Instruction_Shell(Software_Class::Desk);
-        Maximize_Shell();
+        Shell_Send_Instruction(Desk);
+        Shell_Maximize();
 
         return;
       }
@@ -207,16 +197,17 @@ void Xila_Class::Software_Management_Class::Close(Software_Handle_Class const &S
   }
 }
 
-/**
-     * @brief Function used to minimize the currently running software, and then maximize Shell.
-     */
-void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const &Software_Handle)
+///
+/// @brief Function that minimize software (and maximize Shell).
+///
+/// @param Software_Handle Software's handle to minimize.
+void Xila_Class::Software_Management_Class::Minimize(Xila_Class::Software_Handle const &Software_Handle)
 {
   if (Openned[0] != NULL)
   {
     if (*Openned[0]->Handle == Software_Handle)
     {
-      Openned[0]->Send_Instruction(Software_Class::Minimize); // -- Inform software that its minimized
+      Openned[0]->Send_Instruction(Xila.Minimize); // -- Inform software that its minimized
       Xila.Task.Delay(10);                                    // -- purge time
       Openned[0] = NULL;
     }
@@ -225,17 +216,16 @@ void Xila_Class::Software_Management_Class::Minimize(Software_Handle_Class const
       return;
     }
   }
-
-  Send_Instruction_Shell(Software_Class::Desk);
-  Maximize(Shell_Handle);
+  Shell_Send_Instruction(Desk);
+  Shell_Maximize();
 }
 
-/**
-     * @brief Function used to maxmize the software.
-     * 
-     * @param Software_Handle The software's handle to maxmize.
-     */
-Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handle_Class const &Software_Handle)
+///
+/// @brief Function that maximize software (and minimize current maximized software).
+///
+/// @param Software_Handle Software handle to maximize.
+/// @return Xila_Class::Event
+Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Xila_Class::Software_Handle const &Software_Handle)
 {
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)
@@ -256,7 +246,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
           // -- If not, minimize the maximized software
           else
           {
-            Openned[0]->Send_Instruction(Software_Class::Minimize); // -- Inform software that its minimized
+            Openned[0]->Send_Instruction(Xila.Minimize); // -- Inform software that its minimized
 
             Xila.Task.Delay(10); // -- purge time
             Openned[0] = NULL;
@@ -264,7 +254,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
         }
         // -- Then maximize target software
         Openned[0] = Openned[i];
-        Openned[0]->Send_Instruction(Software_Class::Maximize);
+        Openned[0]->Send_Instruction(Xila.Maximize);
         return Success;
       }
     }
@@ -277,7 +267,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Software_Handl
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
 /// @param Software_Handle Software handle to close.
-Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Handle_Class const &Software_Handle)
+Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Xila_Class::Software_Handle const &Software_Handle)
 {
   for (uint8_t i = 1; i < 8; i++)
   {
@@ -308,7 +298,11 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Software_Ha
   return Error;
 }
 
-void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &Software_Handle_To_Add)
+///
+/// @brief Add handle to software list.
+///
+/// @param Software_Handle_To_Add
+void Xila_Class::Software_Management_Class::Add_Handle(Xila_Class::Software_Handle &Software_Handle_To_Add)
 {
   for (uint8_t i = 0; i < Maximum_Software; i++)
   {
@@ -320,14 +314,10 @@ void Xila_Class::Software_Management_Class::Add_Handle(Software_Handle_Class &So
   }
 }
 
-// -- Shell shortcut -- //
-
-void Xila_Class::Software_Management_Class::Send_Instruction_Shell(Xila_Instruction const &Command)
-{
-  Openned[1]->Send_Instruction(Command);
-}
-
-void Xila_Class::Software_Management_Class::Maximize_Shell()
+///
+/// @brief A shortcut that maximize Shell.
+///
+void Xila_Class::Software_Management_Class::Shell_Maximize()
 {
   Maximize(Shell_Handle);
 }

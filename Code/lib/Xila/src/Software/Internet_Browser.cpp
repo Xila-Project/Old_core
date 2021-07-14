@@ -2,7 +2,7 @@
 
 Internet_Browser_Class *Internet_Browser_Class::Instance_Pointer = NULL;
 
-Software_Class *Internet_Browser_Class::Load()
+Xila_Class::Software *Internet_Browser_Class::Load()
 {
   if (Instance_Pointer != NULL)
   {
@@ -12,7 +12,7 @@ Software_Class *Internet_Browser_Class::Load()
   return Instance_Pointer;
 }
 
-Internet_Browser_Class::Internet_Browser_Class() : Software_Class(Internet_Browser_Handle)
+Internet_Browser_Class::Internet_Browser_Class() : Xila_Class::Software(Internet_Browser_Handle)
 {
   memset(Server, 0, 30);
   memset(Path, 0, 60);
@@ -37,9 +37,9 @@ Internet_Browser_Class::~Internet_Browser_Class()
   Instance_Pointer = NULL;
 }
 
-void Internet_Browser_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+void Internet_Browser_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
-  if (Type == Xila.Display.Variable_Long && Adress == 'S')
+  if (Adress == Adress('O', 'f') && Type == Xila.Display.Variable_Long)
   {
     if (Cache_File)
     {
@@ -55,8 +55,8 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
   {
     switch (Instance_Pointer->Get_Instruction())
     {
-    case Idle:
-      if (Xila.Software.Get_State(Internet_Browser_Handle) == Minimized)
+    case Xila.Idle:
+      if (Xila.Software_Management.Get_State(Internet_Browser_Handle) == Xila.Minimized)
       {
         Xila.Task.Delay(90);
       }
@@ -98,33 +98,33 @@ void Internet_Browser_Class::Main_Task(void *pvParameters)
       }
       Instance_Pointer->Set_Watchdog_Timeout();
       Xila.Task.Delay(10);
-      //Idle : nothing to do
+      //Xila.Idle : nothing to do
       break;
-    case Open:
+    case Xila.Open:
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Go_Home();
       break;
-    case Minimize:
+    case Xila.Minimize:
       break;
-    case Maximize:
+    case Xila.Maximize:
       Xila.Display.Set_Current_Page(F("Internet_Brow"));
       Instance_Pointer->Send_Instruction('H', 'o');
       break;
 
-    case Close: // NULL + C : Close
+    case Xila.Close: // NULL + C : Close
       delete Instance_Pointer;
       Xila.Task.Delete();
       break;
 
     case Instruction('M', 'i'):
-      Xila.Software.Minimize(Internet_Browser_Handle);
+      Xila.Software_Management.Minimize(Internet_Browser_Handle);
       break;
 
-    case Hibernate:
-    case Shutdown:
-    case Restart:
+    case Xila.Hibernate:
+    case Xila.Shutdown:
+    case Xila.Restart:
     case Instruction('C', 'l'):
-      Xila.Software.Close(Internet_Browser_Handle);
+      Xila.Software_Management.Close(Internet_Browser_Handle);
       break;
 
     case Instruction('D', 'i'):
@@ -322,7 +322,7 @@ byte Internet_Browser_Class::Cache_URL(char *URLserver, char *URLpath)
       {
       }
     }
-    else if (outputChar == 1) //cannot find the file lenght, stop
+    else if (outputChar == 1) //cannot find the file Length, stop
     {
       fileLength = 0;
     }

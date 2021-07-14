@@ -34,8 +34,8 @@
 #define Selected_Language English
 
 // -- Account
-#define Maximum_Password_Lenght 32
-#define Maximum_Username_Lenght 8
+#define Maximum_Password_Length 32
+#define Maximum_Username_Length 8
 
 // -- Software
 #define Low_Memory_Threshold 2000
@@ -65,7 +65,7 @@
 
 // -- Sound
 #define Default_Volume_Level 255
-#define Default_I2S_Clock_Pin GPIO_NUM_27
+#define Default_I2S_Clock_Pin GPIO_NUM_23
 #define Default_I2S_Word_Select_Pin GPIO_NUM_26
 #define Default_I2S_Data_Pin GPIO_NUM_25
 #define Default_Sound_Output 0
@@ -85,9 +85,10 @@
 
 //#define ARDUINOTRACE_ENABLE 0 // Disable ArduinoTrace
 
-#define Animations 1 // Enable animation
-#define Drive_Mode 0 // SD mmc mode
-#define USB_Serial 0 // Disable USB Serial
+#define Animations 0        // Enable animation
+#define Drive_Mode 0        // SD mmc mode
+#define USB_Serial 1        // Disable USB Serial
+#define Start_On_Power 1    // Start when Xila is powered up
 
 // -- Debug configuration
 #else
@@ -96,9 +97,10 @@
 
 #define ARDUINOTRACE_ENABLE 1 // Enable ArduinoTrace
 
-#define Animations 1 // Disable animation
-#define Drive_Mode 1 // SD spi mode
-#define USB_Serial 1 // Enable USB Serial
+#define Animations 1        // Disable animation
+#define Drive_Mode 1        // SD spi mode
+#define USB_Serial 1        // Enable USB Serial
+#define Start_On_Power 1    // 
 
 #endif
 

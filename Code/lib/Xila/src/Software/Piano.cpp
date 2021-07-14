@@ -2,7 +2,7 @@
 
 Piano_Class *Piano_Class::Instance_Pointer = NULL;
 
-Piano_Class::Piano_Class() : Software_Class(Piano_Handle),
+Piano_Class::Piano_Class() : Xila_Class::Software(Piano_Handle),
                              Offset(0),
                              Duration(200),
                              MIDI_Output(false)
@@ -19,7 +19,7 @@ Piano_Class::~Piano_Class()
     Instance_Pointer = NULL;
 }
 
-Software_Class *Piano_Class::Load()
+Xila_Class::Software *Piano_Class::Load()
 {
     if (Instance_Pointer != NULL)
     {
@@ -36,35 +36,35 @@ void Piano_Class::Main_Task(void *pvParameters)
     {
         switch (Instance_Pointer->Get_Instruction())
         {
-        case Idle: //idle state
-            if (Xila.Software.Get_State(Piano_Handle) == Minimized)
+        case Xila.Idle: //idle state
+            if (Xila.Software_Management.Get_State(Piano_Handle) == Xila.Minimized)
             {
                 Xila.Task.Delay(90);
             }
             Xila.Task.Delay(10);
             break;
-        case Open:
+        case Xila.Open:
             Xila.Display.Set_Current_Page(F("Piano"));
             break;
-        case Maximize:
+        case Xila.Maximize:
             Xila.Display.Set_Current_Page(F("Piano"));
             Instance_Pointer->Refresh_Interface();
             break;
-        case Minimize:
+        case Xila.Minimize:
             break;
 
-        case Close:
+        case Xila.Close:
             delete Instance_Pointer;
             Xila.Task.Delete();
             break;
-        		case Hibernate:
-		case Shutdown:
-		case Restart:
+        		case Xila.Hibernate:
+		case Xila.Shutdown:
+		case Xila.Restart:
         case Instruction('C', 'l'):
-            Xila.Software.Close(Piano_Handle);
+            Xila.Software_Management.Close(Piano_Handle);
             break;
         case Instruction('M', 'i'):
-            Xila.Software.Minimize(Piano_Handle);
+            Xila.Software_Management.Minimize(Piano_Handle);
             break;
         case Instruction('C', ' '): //C
             Instance_Pointer->Press_Key(0);

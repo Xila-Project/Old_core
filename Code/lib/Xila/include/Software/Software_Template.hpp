@@ -3,10 +3,10 @@
 
 #include "Xila.hpp"
 
-class Template_Class : public Software_Class
+class Template_Class : public Xila_Class::Software
 {
 public:
-    static Software_Class *Load();
+    static Xila_Class::Software *Load();
     static void Startup();
     static void Background();
     static void Shutdown();

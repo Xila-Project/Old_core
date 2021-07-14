@@ -15,142 +15,387 @@
 
 Shell_Class::Dialog_Class::Dialog_Class()
 {
-    memset(Temporary_Float_String, '\0', sizeof(Temporary_Float_String));
 }
 
 Shell_Class::Dialog_Class::~Dialog_Class()
 {
-
+    if (KEYBOARD->State())
+    {
+        delete KEYBOARD;
+    }
+    if (KEYPAD->State())
+    {
+        delete KEYPAD;
+    }
+    if (EVENT->State())
+    {
+        delete EVENT;
+    }
+    if (LOAD->State())
+    {
+        delete LOAD;
+    }
+    if (LOGIN->State())
+    {
+        delete LOGIN;
+    }
 }
 
-// -- Open dialog -- //
+// -- Color picker dialog -- //
 
-void Shell_Class::Dialog_Class::Open(uint8_t Mode)
+void Shell_Class::Dialog_Class::Color_Picker_Class::Open()
 {
-    if (DIALOG == NULL)
-    {
-        DIALOG = new Dialog_Class;
-    }
+    Xila.Display.Set_Current_Page(Pages.Dialog_Color_Picker);
+    Xila.Task.Delay(20);
+}
 
-    switch (Mode)
+void Shell_Class::Dialog_Class::Color_Picker_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
+{
+    switch (Instruction)
     {
-    case Pages.Dialog_Keypad:
-        Xila.Display.Set_Current_Page(Dialog_Keypad);
-        Xila.Mathematics.Float_To_String(*(double *)Xila.Dialog.Pointer, -1, 9, DIALOG->Temporary_Float_String);
-        Xila.Display.Set_Text(F("INPUT_VAR"), DIALOG->Temporary_Float_String);
-        Xila.Keyboard.Clear();
-        break;
-    case Pages.Dialog_Keyboard:
-        Xila.Display.Set_Current_Page(Pages.Dialog_Keyboard);
-        Xila.Display.Set_Value(F("MAXLENGTH_VAR"), Xila.Dialog.Long[0]);
-        Xila.Display.Set_Text(F("INPUT_VAR"), (char *)Xila.Dialog.Pointer);
-        Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)Xila.Dialog.Long[1]);
-        Xila.Keyboard.Clear();
-        break;
-    case Pages.Dialog_Color_Picker:
+    case Instruction('R', 'e'):
     {
-        Xila.Display.Set_Current_Page(Dialog_Color_Picker);
-        uint8_t Temporary_Byte = *(uint32_t *)Xila.Dialog.Pointer >> 11;
+        // -- Convert 16 bits color into 3 * 8 bits (24 bits RGB)
+        uint8_t Temporary_Byte = *Color >> 11;
         Xila.Display.Set_Value(F("RED_SLI"), Temporary_Byte);
-        Temporary_Byte = *(uint32_t *)Xila.Dialog.Pointer >> 3;
+        Temporary_Byte = *Color >> 3;
         Temporary_Byte = Temporary_Byte >> 2;
         Xila.Display.Set_Value(F("GREEN_SLI"), Temporary_Byte);
-        Temporary_Byte = *(uint32_t *)Xila.Dialog.Pointer << 3;
+        Temporary_Byte = *Color << 3;
         Temporary_Byte = Temporary_Byte >> 3;
         Xila.Display.Set_Value(F("BLUE_SLI"), Temporary_Byte);
         Xila.Display.Click(F("COLOR_NUM"), 0);
     }
     break;
-
+    case Instruction('V', 'a'):
+        Xila.Dialog.Color_Picker_State = Xila.Default_Yes;
+        break;
+    case Instruction('C', 'a'):
+        Xila.Dialog.Color_Picker_State = Xila.Default_Cancel;
+        break;
     default:
+        SHELL->Execute_Instruction(Instruction);
         break;
     }
 }
 
-bool Shell_Class::Dialog_Class::State()
+// -- Event dialog -- //
+
+void Shell_Class::Dialog_Class::Event_Class::Open()
 {
-    if (DIALOG == NULL)
+    if (!State())
+    {
+        EVENT = new Event_Class;
+    }
+
+    EVENT->Mode = 0;
+    EVENT->Message = NULL;
+    EVENT->Type = 0;
+    EVENT->Button_Text[0] = NULL;
+    EVENT->Button_Text[1] = NULL;
+    EVENT->Button_Text[2] = NULL;
+
+    Xila.Display.Set_Current_Page(Pages.Dialog_Event);
+    Xila.Task.Delay(20);
+}
+
+void Shell_Class::Dialog_Class::Event_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
+{
+    switch (Instruction)
+    {
+    case Instruction('R', 'e'):
+        if (EVENT->Mode == 'F') // -- __FlashStringHelper strings
+        {
+            if (EVENT->Button_Text[0] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON1_BUT"), (const __FlashStringHelper *)EVENT->Button_Text[0]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
+            }
+            if (EVENT->Button_Text[1] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON2_BUT"), (const __FlashStringHelper *)EVENT->Button_Text[1]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
+            }
+            if (EVENT->Button_Text[2] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON3_BUT"), (const __FlashStringHelper *)EVENT->Button_Text[2]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
+            }
+            if (EVENT->Message != NULL)
+            {
+                Xila.Display.Set_Text(F("MESSAGE_TXT"), (const __FlashStringHelper *)EVENT->Message);
+            }
+        }
+        if (EVENT->Mode == 'C') // -- __FlashStringHelper strings
+        {
+            if (EVENT->Button_Text[0] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON1_BUT"), (const char *)EVENT->Button_Text[0]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
+            }
+            if (EVENT->Button_Text[1] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON2_BUT"), (const char *)EVENT->Button_Text[1]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
+            }
+            if (EVENT->Button_Text[2] != NULL)
+            {
+                Xila.Display.Set_Text(F("BUTTON3_BUT"), (const char *)EVENT->Button_Text[2]);
+            }
+            else
+            {
+                Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
+            }
+            if (EVENT->Message != NULL)
+            {
+                Xila.Display.Set_Text(F("MESSAGE_TXT"), (const char *)EVENT->Message);
+            }
+        }
+
+        switch (EVENT->Type)
+        {
+        case Xila.Error:
+            Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Cross);
+            Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Red);
+            Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Error"));
+            break;
+        case Xila.Warning:
+            Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
+            Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Yellow);
+            Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Warning"));
+            break;
+        case Xila.Information:
+            Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
+            Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Blue);
+            Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Information"));
+            break;
+        case Xila.Question:
+            Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Question_Mark);
+            Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Green);
+            Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Question"));
+        default:
+            break;
+        }
+        break;
+    case Instruction('B', '1'):
+        Xila.Dialog.Event_State = Xila.Button_1;
+        SHELL->Send_Instruction('C', 'l');
+        break;
+    case Instruction('B', '2'):
+        Xila.Dialog.Event_State = Xila.Button_2;
+        SHELL->Send_Instruction('C', 'l');
+        break;
+    case Instruction('B', '3'):
+        Xila.Dialog.Event_State = Xila.Button_3;
+        SHELL->Send_Instruction('C', 'l');
+        break;
+    case Instruction('C', 'l'):
+        DUMP("close event");
+        delete EVENT;
+        EVENT = NULL;
+        break;
+    default:
+        SHELL->Execute_Instruction(Instruction);
+        break;
+    }
+}
+
+bool Shell_Class::Dialog_Class::Event_Class::State()
+{
+    if (EVENT == NULL)
     {
         return false;
     }
     return true;
 }
 
-void Shell_Class::Dialog_Class::Close()
-{
-    if (State())
-    {
-#if Animation == 1
-        Xila.Display.Set_Value(F("STATE_VAR"), 2);
-        Xila.Task.Delay(1000);
-#endif
-        delete DIALOG;
-    }
-}
-
 // -- Load dialog -- //
 
-void Shell_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint16_t Duration)
+void Shell_Class::Dialog_Class::Load_Class::Open()
 {
-    Xila.Display.Set_Current_Page(Pages.Dialog_Load);
-    Xila.Display.Set_Text(F("SUBHEADER_TXT"), Header);
-    Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
-
-    if (Duration != 0)
+    if (!State())
     {
-        Xila.Task.Delay(Duration);
-        DIALOG->Close();
+        LOAD = new Load_Class;
+    }
+
+    LOAD->Mode = 0;
+    LOAD->Header = NULL;
+    LOAD->Message = NULL;
+
+    Xila.Display.Set_Current_Page(Pages.Dialog_Load);
+    Xila.Task.Delay(20);
+}
+
+bool Shell_Class::Dialog_Class::Load_Class::State()
+{
+    if (LOAD == NULL)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Shell_Class::Dialog_Class::Load_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
+{
+    if (Duration != 0 && Xila.Time.Milliseconds() > Duration)
+    {
+        Xila.Display.Set_Value(F("STATE_VAR"), 2);
+        Xila.Task.Delay(1000);
+        Xila.Display.Set_Current_Page(Page);
+        Xila.Software_Management.Openned[0] = Caller_Software;
+        delete this;
+        LOAD = NULL;
+    }
+
+    switch (Instruction)
+    {
+    case Instruction('R', 'e'):
+        if (LOAD->Duration != 0)
+        {
+            LOAD->Duration = Xila.Time.Milliseconds() + LOAD->Duration - 1000;
+        }
+        if (LOAD->Mode == 'F') // -- __FlashStringHelper strings
+        {
+            if (LOAD->Header != NULL)
+            {
+                Xila.Display.Set_Text(F("SUBHEADER_TXT"), (const __FlashStringHelper *)LOAD->Header);
+            }
+            if (LOAD->Message != NULL)
+            {
+                Xila.Display.Set_Text(F("MESSAGE_TXT"), (const __FlashStringHelper *)LOAD->Message);
+            }
+        }
+        if (EVENT->Mode == 'C') // -- __FlashStringHelper strings
+        {
+            if (LOAD->Header != NULL)
+            {
+                Xila.Display.Set_Text(F("SUBHEADER_TXT"), (const char *)LOAD->Header);
+            }
+            if (LOAD->Message != NULL)
+            {
+                Xila.Display.Set_Text(F("MESSAGE_TXT"), (const char *)LOAD->Message);
+            }
+        }
+        break;
+    default:
+        SHELL->Execute_Instruction(Instruction);
+        break;
     }
 }
 
-void Shell_Class::Dialog_Class::Load(const char *Header, const char *Message, uint16_t Duration)
-{
-    Xila.Display.Set_Current_Page(Pages.Dialog_Load);
-    Xila.Display.Set_Text(F("SUBHEADER_TXT"), Header);
-    Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
+// -- Login dialog -- //
 
-    if (Duration != 0)
+void Shell_Class::Dialog_Class::Login_Class::Open(bool Login)
+{
+    if (!State())
     {
-        Xila.Task.Delay(Duration);
-        DIALOG->Close();
+        LOGIN = new Login_Class;
+    }
+
+    strcpy(LOGIN->Username, "Username");
+    strcpy(LOGIN->Password, "Password");
+
+    LOGIN->Login = Login;
+
+    Xila.Display.Set_Current_Page(Pages.Dialog_Login);
+    Xila.Task.Delay(20);
+}
+
+bool Shell_Class::Dialog_Class::Login_Class::State()
+{
+    if (LOGIN == NULL)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Shell_Class::Dialog_Class::Login_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
+{
+    switch (Instruction)
+    {
+    case Instruction('R', 'e'):
+        Xila.Display.Set_Text(F("USERNAME_TXT"), Username);
+        Xila.Display.Set_Text(F("PASSWORD_TXT"), Password);
+        break;
+    case Instruction('K', 'U'):
+        memset(Username, '\0', sizeof(Username));
+        DIALOG.Keyboard(Username, sizeof(Username));
+        SHELL->Send_Instruction('R', 'e');
+        break;
+    case Instruction('K', 'P'):
+        memset(Username, '\0', sizeof(Username));
+        DIALOG.Keyboard(Password, sizeof(Password), true);
+        SHELL->Send_Instruction('R', 'e');
+        break;
+    case Instruction('C', 'l'):
+        Xila.Dialog.Login_State = Xila.Default_Cancel;
+        delete this;
+        LOGIN = NULL;
+        break;
+    case Instruction('L', 'o'):
+
+        if (Xila.Account.Check_Credentials(Username, Password) == Xila.Success)
+        {
+            if (Login == true)
+            {
+                Xila.Account.Login(Username, Password);
+            }
+            Xila.Dialog.Login_State = Xila.Success;
+            delete this;
+            LOGIN = NULL;
+        }
+        else
+        {
+            DIALOG.Event(Event_Error_Wrong_Credentials, Xila.Error);
+            SHELL->Send_Instruction('R', 'e');
+        }
+        break;
+    default:
+        SHELL->Send_Instruction(Instruction);
+        break;
     }
 }
 
 // -- Keyboard dialog -- //
 
-Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *Char_Array_To_Get, size_t Char_Array_Size, bool Masked_Input)
+void Shell_Class::Dialog_Class::Keyboard_Class::Open()
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-    // -- Save context
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-    // -- Initialize variable
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Long[0] = Char_Array_Size - 1;
-    Xila.Dialog.Long[1] = Masked_Input;
-    Xila.Dialog.Pointer = Char_Array_To_Get;
-    // -- Open keyboard dialog
-    Open(Pages.Dialog_Keyboard);
-    //
-    while (Xila.Dialog.State == Xila.None)
+    if (!State())
     {
-        DIALOG->Execute_Keyboard_Instruction(SHELL->Get_Instruction());
+        KEYBOARD = new Keyboard_Class;
     }
 
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    Xila.Display.Set_Current_Page(Pages.Dialog_Keyboard);
+    Xila.Keyboard.Clear();
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
 }
 
-void Shell_Class::Dialog_Class::Execute_Keyboard_Instruction(Xila_Instruction Instruction)
+bool Shell_Class::Dialog_Class::Keyboard_Class::State()
+{
+    if (KEYBOARD == NULL)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Shell_Class::Dialog_Class::Keyboard_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 {
     while (Xila.Keyboard.Available())
     {
@@ -178,13 +423,19 @@ void Shell_Class::Dialog_Class::Execute_Keyboard_Instruction(Xila_Instruction In
     switch (Instruction)
     {
     case Instruction('V', 'a'):
-        Xila.Dialog.State = Xila.Default_Yes;
-        Close();
+        Xila.Dialog.Keyboard_State = Xila.Default_Yes;
+        delete this;
+        KEYBOARD = NULL;
         break;
-    case SHELL->Dialog_Power:
     case Instruction('C', 'a'):
-        Xila.Dialog.State = Xila.Default_Cancel;
-        Close();
+        Xila.Dialog.Keyboard_State = Xila.Default_Cancel;
+        delete this;
+        KEYBOARD = NULL;
+        break;
+    case Instruction('R', 'e'):
+        Xila.Display.Set_Value(F("MAXLENGTH_VAR"), Size);
+        Xila.Display.Set_Text(F("INPUT_VAR"), (char *)String);
+        Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)Masked_Input);
         break;
     default:
         SHELL->Execute_Instruction(Instruction);
@@ -194,37 +445,28 @@ void Shell_Class::Dialog_Class::Execute_Keyboard_Instruction(Xila_Instruction In
 
 // -- Keypad dialog -- //
 
-Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number_To_Get)
+void Shell_Class::Dialog_Class::Keypad_Class::Open()
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-    // -- Save context
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-    // -- Initialize variable
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Pointer = &Number_To_Get;
-    // -- Open keyboard dialog
-    Open(Pages.Dialog_Keypad);
-    //
-    while (Xila.Dialog.State == Xila.None)
+    if (!State())
     {
-        DIALOG->Execute_Keypad_Instruction(SHELL->Get_Instruction());
+        KEYPAD = new Keypad_Class;
     }
 
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    Xila.Display.Set_Current_Page(Pages.Dialog_Keypad);
+    Xila.Keyboard.Clear();
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
 }
 
-void Shell_Class::Dialog_Class::Execute_Keypad_Instruction(Xila_Instruction Instruction)
+bool Shell_Class::Dialog_Class::Keypad_Class::State()
+{
+    if (KEYPAD == NULL)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Shell_Class::Dialog_Class::Keypad_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 {
     if (Xila.Keyboard.Available())
     {
@@ -277,14 +519,19 @@ void Shell_Class::Dialog_Class::Execute_Keypad_Instruction(Xila_Instruction Inst
     switch (Instruction)
     {
     case Instruction('V', 'a'):
-        *(float *)Xila.Dialog.Pointer = strtof(Temporary_Float_String, NULL);
-        Xila.Dialog.State = Xila.Default_Yes;
-        Close();
+        *Number = strtof(Temporary_Float_String, NULL);
+        Xila.Dialog.Keypad_State = Xila.Default_Yes;
+        delete this;
+        KEYPAD = NULL;
         break;
-    case Dialog_Power:
     case Instruction('C', 'a'):
-        Xila.Dialog.State = Xila.Default_Cancel;
-        Close();
+        Xila.Dialog.Keypad_State = Xila.Default_Cancel;
+        delete this;
+        KEYPAD = NULL;
+        break;
+    case Instruction('R', 'e'):
+        Xila.Mathematics.Float_To_String(*(double *)Number, -1, 9, Temporary_Float_String);
+        Xila.Display.Set_Text(F("INPUT_VAR"), KEYPAD->Temporary_Float_String);
         break;
     default:
         SHELL->Execute_Instruction(Instruction);
@@ -292,20 +539,20 @@ void Shell_Class::Dialog_Class::Execute_Keypad_Instruction(Xila_Instruction Inst
     }
 }
 
-// -- Shutdown -- //
+// -- Power dialog -- //
 
-void Shell_Class::Dialog_Class::Execute_Shutdown_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Dialog_Class::Power_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 {
     switch (Instruction)
     {
     case Instruction('R', 'S'): // RS : Restart system
-        Load(Load_Restart_Header_String, Load_Restart_Message_String);
+        DIALOG.Load(Load_Restart_Header_String, Load_Restart_Message_String);
         SHELL->Save_Registry();
         SHELL->Set_Watchdog_Timeout(30000);
         Xila.System.Restart();
         break;
     case Instruction('H', 'S'): // HS : hibernate sys
-        Load(Load_Restart_Header_String, Load_Restart_Message_String);
+        DIALOG.Load(Load_Restart_Header_String, Load_Restart_Message_String);
         SHELL->Save_Registry();
         SHELL->Set_Watchdog_Timeout(30000);
         Xila.System.Hibernate();
@@ -316,364 +563,389 @@ void Shell_Class::Dialog_Class::Execute_Shutdown_Instruction(Xila_Instruction In
         SHELL->Send_Instruction('O', 'L');
         break;
     case Instruction('S', 'S'): // SS : shutdown
-        Load(Load_Shutdown_Header_String, Load_Shutdown_Message_String);
+        DIALOG.Load(Load_Shutdown_Header_String, Load_Shutdown_Message_String);
         SHELL->Save_Registry();
         SHELL->Set_Watchdog_Timeout(30000);
         Xila.System.Shutdown();
         break;
+    case Instruction('C', 'l'):
+        Xila.Dialog.Power_State = Xila.Default_Cancel;
+        break;
     default:
         SHELL->Execute_Instruction(Instruction);
         break;
     }
 }
 
-// -- Dialogs -- //
-
-// -- Color dialog -- //
-
-void Shell_Class::Dialog_Class::Execute_Color_Picker_Instruction(Xila_Instruction Instruction)
+void Shell_Class::Dialog_Class::Power_Class::Open()
 {
-    switch (Instruction)
+    Xila.Display.Set_Current_Page(Pages.Dialog_Power);
+    Xila.Task.Delay(20);
+}
+
+// -- Local dialogs
+
+///
+/// @brief Open a virtual keyboard to input text.
+///
+/// @param String String to input.
+/// @param Size String size.
+/// @param Masked_Input Enable / disable masking.
+/// @return Xila_Class::Event
+Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool Masked_Input)
+{
+    Xila.Dialog.Keyboard_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    KEYBOARD->Open();
+    KEYBOARD->String = String;
+    KEYBOARD->Size = Size;
+    KEYBOARD->Masked_Input = Masked_Input;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.Keyboard_State == Xila.None)
     {
-    case Instruction('V', 'a'):
-        Xila.Dialog.State = Xila.Default_Yes;
-        Close();
-        break;
-    case Dialog_Power:
-    case Instruction('C', 'a'):
-        Xila.Dialog.State = Xila.Default_Cancel;
-        Close();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
+        KEYBOARD->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    Xila.Task.Delay(20);               // -- Wait 20 ms to switch page
+    return Xila.Dialog.Keyboard_State; // -- Dialog result
+}
+
+///
+/// @brief Open a virtual keypad to input a float number.
+///
+/// @param Number Number to input.
+/// @return Xila_Class::Event
+Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
+{
+    Xila.Dialog.Keypad_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    KEYPAD->Open();
+    KEYPAD->Number = &Number;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.Keypad_State == Xila.None)
+    {
+        KEYPAD->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
+    }
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
+    Xila.Task.Delay(20);
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.Keypad_State;
 }
 
 Xila_Class::Event Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
+    Xila.Dialog.Color_Picker_State = Xila.None;
     // -- Save context
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-    // --
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Pointer = &Color;
-    // --
-    Open(Pages.Dialog_Color_Picker);
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    Color_Picker_Pointer.Open();
+    Color_Picker_Pointer.Color = &Color;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Task suspended here
+    while (Xila.Dialog.Color_Picker_State == Xila.None)
+    {
+        Color_Picker_Pointer.Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
+    }
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
+    Xila.Task.Delay(20);
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.Color_Picker_State;
+}
+
+///
+/// @brief Open an event dialog.
+///
+/// @param Message Message to show on dialog.
+/// @param Type Event dialog type.
+/// @param Button_Text_1 1st button string (by default : "Yes").
+/// @param Button_Text_2 2nd button string (by default : "No").
+/// @param Button_Text_3 3rd button string (by default : "Cancel").
+/// @return Xila_Class::Event
+Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+{
+    Xila.Dialog.Event_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    EVENT->Open();
+    EVENT->Mode = 'F';
+    EVENT->Message = Message;
+    EVENT->Type = Type;
+    EVENT->Button_Text[0] = Button_Text_1;
+    EVENT->Button_Text[1] = Button_Text_2;
+    EVENT->Button_Text[2] = Button_Text_3;
+    SHELL->Send_Instruction('R', 'e');
     // -- Tasks suspended here
-    while (Xila.Dialog.State == Xila.None)
+    while (Xila.Dialog.Event_State == Xila.None)
     {
-        DIALOG->Execute_Color_Picker_Instruction(SHELL->Get_Instruction());
+        EVENT->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
-    // -- Retore software state
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.Event_State;
 }
 
-// -- Event dialog -- //
-
-void Shell_Class::Dialog_Class::Execute_Event_Instruction(Xila_Instruction Instruction)
+///
+/// @brief Open an event dialog.
+///
+/// @param Message Message to show on dialog.
+/// @param Type Event dialog type.
+/// @param Button_Text_1 1st button string (by default : "Yes").
+/// @param Button_Text_2 2nd button string (by default : "No").
+/// @param Button_Text_3 3rd button string (by default : "Cancel").
+/// @return Xila_Class::Event
+Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
 {
-    switch (Instruction)
-    {
-    case Instruction('B', '1'):
-        Xila.Dialog.State = Xila.Button_1;
-        Close();
-        break;
-    case Instruction('B', '2'):
-        Xila.Dialog.State = Xila.Button_2;
-        Close();
-        break;
-    case Instruction('B', '3'):
-        Xila.Dialog.State = Xila.Button_3;
-        Close();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
-}
-
-Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Event_Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
-{
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-
-    Xila.Display.Send_Raw(F("PAGE=dp")); // save app page id
-    Xila.Display.Set_Current_Page(F("Shell_Event"));
-
-    Xila.Dialog.State = Xila.None;
-
-    if (Button_Text_1 != NULL)
-    {
-        Xila.Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
-    }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
-    }
-    if (Button_Text_2 != NULL)
-    {
-        Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
-    }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
-    }
-
-    if (Button_Text_3 != NULL)
-    {
-        Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
-    }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
-    }
-    Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
-
-    switch (Event_Type)
-    {
-    case Xila.Error:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Cross);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Red);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Error"));
-        break;
-    case Xila.Warning:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Yellow);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Warning"));
-        break;
-    case Xila.Information:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Blue);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Information"));
-        break;
-    case Xila.Question:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Question_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Green);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Question"));
-    default:
-        break;
-    }
-    Xila.Display.Show(F("CLOSE_BUT"));
-    // -- Tasks is suspended here
-    while (Xila.Dialog.State == Xila.None)
-    {
-        DIALOG->Execute_Event_Instruction(SHELL->Get_Instruction());
-    }
-
-    Xila.Display.Set_Current_Page(F("PAGE")); //go back to app page
-
+    Xila.Dialog.Event_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
-}
-
-Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t Event_Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
-{
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-
-    Xila.Display.Send_Raw(F("PAGE=dp")); // save app page id
-    Xila.Display.Set_Current_Page(F("Shell_Event"));
-
-    Xila.Dialog.State = Xila.None;
-
-    if (Button_Text_1 != NULL)
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    EVENT->Open();
+    EVENT->Mode = 'C';
+    EVENT->Message = Message;
+    EVENT->Type = Type;
+    EVENT->Button_Text[0] = Button_Text_1;
+    EVENT->Button_Text[1] = Button_Text_2;
+    EVENT->Button_Text[2] = Button_Text_3;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.Event_State == Xila.None)
     {
-        Xila.Display.Set_Text(F("BUTTON1_BUT"), Button_Text_1);
+        EVENT->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON1_BUT"), F("Yes"));
-    }
-    if (Button_Text_2 != NULL)
-    {
-        Xila.Display.Set_Text(F("BUTTON2_BUT"), Button_Text_2);
-    }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON2_BUT"), F("No"));
-    }
-
-    if (Button_Text_3 != NULL)
-    {
-        Xila.Display.Set_Text(F("BUTTON3_BUT"), Button_Text_3);
-    }
-    else
-    {
-        Xila.Display.Set_Text(F("BUTTON3_BUT"), F("Cancel"));
-    }
-    Xila.Display.Set_Text(F("MESSAGE_TXT"), Message);
-
-    switch (Event_Type)
-    {
-    case Xila.Error:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Cross);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Red);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Error"));
-        break;
-    case Xila.Warning:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Yellow);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Warning"));
-        break;
-    case Xila.Information:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Exclamation_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Blue);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Information"));
-        break;
-    case Xila.Question:
-        Xila.Display.Set_Text(F("ICON_TXT"), Xila.Display.Question_Mark);
-        Xila.Display.Set_Font_Color(F("ICON_TXT"), Xila.Display.Green);
-        Xila.Display.Set_Text(F("SUBHEADER_TXT"), F("Question"));
-    default:
-        break;
-    }
-    Xila.Display.Show(F("CLOSE_BUT"));
-    // -- Tasks is suspended here
-    while (Xila.Dialog.State == Xila.None)
-    {
-        DIALOG->Execute_Event_Instruction(SHELL->Get_Instruction());
-    }
-
-    Xila.Display.Set_Current_Page(F("PAGE")); //go back to app page
-
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.Event_State;
 }
 
-// -- Open file dialog -- //
+///
+/// @brief Open a loading dialog.
+///
+/// @param Header Header string.
+/// @param Message Message string.
+void Shell_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint32_t Duration)
+{
+    if (Duration > 28000)
+    {
+        Duration = 28000;
+    }
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    Load_Pointer->Open();
+    Load_Pointer->Page = Page;
+    Load_Pointer->Caller_Software = SHELL;
+    Load_Pointer->Header = Header;
+    Load_Pointer->Message = Message;
+    Load_Pointer->Mode = 'F';
+    Load_Pointer->Duration = 0;
+    Load_Pointer->Caller_Software = NULL;
+    Load_Pointer->Page = 255;
+    SHELL->Send_Instruction('R', 'e');
+    Xila.Task.Delay(Duration);
+}
 
+///
+/// @brief Open a Load dialog with an animation (similar to the boot screen).
+///
+/// @param Header Header string.
+/// @param Message Message string.
+/// @param Duration Duration in milliseconds (by default 0, the load dialog still displayed until Xila.Dialog.Close_Load() is called).
+void Shell_Class::Dialog_Class::Load(const char *Header, const char *Message, uint32_t Duration)
+{
+    if (Duration > 28000)
+    {
+        Duration = 28000;
+    }
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    Load_Pointer->Open();
+    Load_Pointer->Page = Page;
+    Load_Pointer->Caller_Software = SHELL;
+    Load_Pointer->Header = Header;
+    Load_Pointer->Message = Message;
+    Load_Pointer->Mode = 'C';
+    Load_Pointer->Duration = 0;
+    Load_Pointer->Caller_Software = NULL;
+    Load_Pointer->Page = 255;
+    SHELL->Send_Instruction('R', 'e');
+    Xila.Task.Delay(Duration);
+}
+
+void Shell_Class::Dialog_Class::Close_Load()
+{
+    if (Load_Pointer->State())
+    {
+        Load_Pointer->Duration = Xila.Time.Milliseconds();
+    }
+}
+
+///
+/// @brief Open a login dialog.
+///
+/// @return Xila_Class::Event
+Xila_Class::Event Shell_Class::Dialog_Class::Login()
+{
+    Xila.Dialog.Login_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Maximize shell
+    LOGIN->Open(true);
+    SHELL->Send_Instruction('R', 'e');
+    ;
+    // -- Tasks suspended here
+    while (Xila.Dialog.Login_State == Xila.None)
+    {
+        LOGIN->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
+    }
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
+    Xila.Task.Delay(20);
+    // -- Return dialog result
+    return Xila.Dialog.Login_State;
+}
+
+///
+/// @brief Open a Power management dialog.
+///
+void Shell_Class::Dialog_Class::Power()
+{
+    Xila.Dialog.Power_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Maximize shell
+    Power_Pointer.Open();
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.Power_State == Xila.None)
+    {
+        Power_Pointer.Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
+    }
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
+    Xila.Task.Delay(20);
+}
+
+///
+/// @brief Open a File Manager dialog to open file.
+///
+/// @param File_To_Open File to open.
+/// @return Xila_Class::Event
 Xila_Class::Event Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Pointer = &File_To_Open;
-
-    File_Manager_Class::Open(Dialog_Open_File);
-
-    while (Xila.Dialog.State == Xila.None)
+    Xila.Dialog.File_Manager_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    FILE_MANAGER->Open(Xila.Dialog_Open_File);
+    FILE_MANAGER->Item_Pointer = &File_To_Open;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
-    if (Xila.Dialog.State == Xila.Button_1)
-    {
-        File_To_Open = *(File *)Xila.Dialog.Pointer;
-    }
-    //
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.File_Manager_State;
 }
 
 Xila_Class::Event Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-
-    Xila.Dialog.Caller_Software = Instance_Pointer;
-
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Pointer = &File_To_Save;
-
-    File_Manager_Class::Open(Dialog_Save_File);
-
-    while (Xila.Dialog.State == Xila.None)
+    Xila.Dialog.File_Manager_State = Xila.None;
+    // -- Save context
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    FILE_MANAGER->Open(Xila.Dialog_Save_File);
+    FILE_MANAGER->Item_Pointer = &File_To_Save;
+    SHELL->Send_Instruction('R', 'e');
+    // -- Tasks suspended here
+    while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
-    if (Xila.Dialog.State == Xila.Button_1)
-    {
-        File_To_Save = *(File *)Xila.Dialog.Pointer;
-    }
-    //
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
-
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.File_Manager_State;
 }
 
 Xila_Class::Event Shell_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
-    xSemaphoreTake(Xila.Dialog.Semaphore, portMAX_DELAY);
-
+    Xila.Dialog.File_Manager_State = Xila.None;
     // -- Save context
-    Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
-    Xila.Display.Send_Raw(F("PAGE=dp"));
-    // --
-    Xila.Dialog.Pointer = &Folder_To_Open;
-    Xila.Dialog.State = Xila.None;
-    Xila.Dialog.Caller_Software = Xila.Software.Openned[0];
-    // --
-    File_Manager_Class::Open(Dialog_Open_File);
+    Xila.Display.Send_Raw(F("sendme"));
+    Xila.Task.Delay(20);
+    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+    // -- Initalize shell
+    FILE_MANAGER->Open(Xila.Dialog_Open_Folder);
+    FILE_MANAGER->Item_Pointer = &Folder_To_Open;
+    SHELL->Send_Instruction('R', 'e');
     // -- Tasks suspended here
-    while (Xila.Dialog.State == Xila.None)
+    while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
+        Xila.Task.Delay(20);
     }
-    if (Xila.Dialog.State == Xila.Button_1)
-    {
-        Folder_To_Open = *(File *)Xila.Dialog.Pointer;
-    }
-    // -- Retore software state
-    Xila.Software.Openned[0] = Xila.Dialog.Caller_Software;
-    Xila.Display.Set_Current_Page(F("PAGE"));
-
+    // -- Restore context
+    Xila.Display.Set_Current_Page(Page);
+    // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
-    //
-    Xila.Dialog.Pointer = NULL;
-    Xila.Dialog.Long[0] = 0;
-    Xila.Dialog.Long[1] = 0;
-    Xila.Dialog.Caller_Software = NULL;
-    //
-    xSemaphoreGive(Xila.Dialog.Semaphore);
-    return Xila.Dialog.State;
+    // -- Give semaphore back and return dialog result
+    return Xila.Dialog.File_Manager_State;
 }

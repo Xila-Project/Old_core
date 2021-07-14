@@ -2,7 +2,7 @@
 
 Oscilloscope_Class *Oscilloscope_Class::Instance_Pointer = NULL;
 
-Oscilloscope_Class::Oscilloscope_Class() : Software_Class(Oscilloscope_Handle),
+Oscilloscope_Class::Oscilloscope_Class() : Xila_Class::Software(Oscilloscope_Handle),
 										   Start(false)
 {
 	Xila.Task.Create(Main_Task, "Oscilloscope", Memory_Chunk(4), NULL, &Task_Handle);
@@ -17,7 +17,7 @@ Oscilloscope_Class::~Oscilloscope_Class()
 	Instance_Pointer = NULL;
 }
 
-Software_Class *Oscilloscope_Class::Load()
+Xila_Class::Software *Oscilloscope_Class::Load()
 {
 	if (Instance_Pointer != NULL)
 	{
@@ -39,8 +39,8 @@ void Oscilloscope_Class::Loop()
 	{
 		switch (Get_Instruction())
 		{
-		case Idle:
-			if (Xila.Software.Get_State(Oscilloscope_Handle) == Minimized)
+		case Xila.Idle:
+			if (Xila.Software_Management.Get_State(Oscilloscope_Handle) == Xila.Minimized)
 			{
 				Xila.Task.Delay(90);
 			}
@@ -54,20 +54,20 @@ void Oscilloscope_Class::Loop()
 			}
 			Xila.Task.Delay(20);
 			break;
-		case Open:
+		case Xila.Open:
 			Start = false;
 			Xila.Display.Set_Current_Page(F("Oscilloscope"));
 			Refresh_Interface();
 			break;
-		case Maximize:
+		case Xila.Maximize:
 			Start = false;
 			Xila.Display.Set_Current_Page(F("Oscilloscope"));
 			Refresh_Interface();
 			break;
-		case Minimize:
+		case Xila.Minimize:
 			break;
 
-		case Close:
+		case Xila.Close:
 			delete Instance_Pointer;
 			Xila.Task.Delete();
 			break;
@@ -114,16 +114,16 @@ void Oscilloscope_Class::Loop()
 			Refresh_Interface();
 			break;
 		
-		case Hibernate:
-		case Shutdown:
-		case Restart:
+		case Xila.Hibernate:
+		case Xila.Shutdown:
+		case Xila.Restart:
 		case Instruction('C', 'l'):
 			Start = false;
-		Xila.Software.Close(Oscilloscope_Handle);
+		Xila.Software_Management.Close(Oscilloscope_Handle);
 			break;
 		case Instruction('M', 'i'):
 			Start = false;
-			Xila.Software.Minimize(Oscilloscope_Handle);
+			Xila.Software_Management.Minimize(Oscilloscope_Handle);
 			break;
 		case Instruction('S', 't'): // SA : Start
 			Start = !Start;
