@@ -656,7 +656,7 @@ void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Class::Ins
             // -- Load
 #if Animations == 1
             DIALOG.Load(F("Login"), F("Loading user data ..."), 4000);
-            DIALOG.Close();
+            DIALOG.Close_Load();
 #endif
 
             DESK.Open(Pages.Desk);
