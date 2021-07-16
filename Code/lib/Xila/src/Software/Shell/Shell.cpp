@@ -145,12 +145,12 @@ void Shell_Class::Main_Task(void *)
             }
             break;
         case Pages.Dialog_Power:
-            POWER.Execute_Instruction(SHELL->Get_Instruction());
+            Dialog_Class::Power_Class::Execute_Instruction(SHELL->Get_Instruction());
             break;
         case Pages.Dialog_Keyboard:
-            if (KEYBOARD->State())
+            if (Dialog_Class::Keyboard_Class::State())
             {
-                KEYBOARD->Execute_Instruction(SHELL->Get_Instruction());
+                Dialog_Class::Keyboard_Class::Execute_Instruction(SHELL->Get_Instruction());
             }
             else
             {
@@ -428,7 +428,8 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 
 void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
 {
-
+    DUMP(Adress);
+    DUMP(Type);
     switch (Xila.Display.Get_Current_Page())
     {
     case Pages.Preferences_Hardware:
@@ -483,7 +484,7 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
                 Dialog.Keyboard_Pointer->Masked_Input = *(bool *)Variable;
                 break;
             case Adress('I', 'n'):
-                strlcpy((char *)Dialog.Keyboard_Pointer->String, (char *)Variable, Dialog.Keyboard_Pointer->Size);
+                strlcpy(Dialog.Keyboard_Pointer->String, (const char *)Variable, Dialog.Keyboard_Pointer->Size);
                 break;
             default:
                 break;

@@ -74,11 +74,8 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
         Audio_Driver.setInternalDAC(false);
         Output = External_DAC;
         Clock_Pin = Sound_Registry["Clock Pin"] | Default_I2S_Clock_Pin;
-        DUMP(Clock_Pin);
         Word_Select_Pin = Sound_Registry["Word Select Pin"] | Default_I2S_Word_Select_Pin;
-        DUMP(Word_Select_Pin);
         Data_Pin = Sound_Registry["Data Pin"] | Default_I2S_Data_Pin;
-        DUMP(Data_Pin);
         Audio_Driver.setPinout(Clock_Pin, Word_Select_Pin, Data_Pin);
         Set_Channels(2);
     }

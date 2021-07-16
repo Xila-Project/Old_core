@@ -382,6 +382,9 @@ void Shell_Class::Dialog_Class::Keyboard_Class::Open()
     }
 
     Xila.Display.Set_Current_Page(Pages.Dialog_Keyboard);
+    KEYBOARD->String = NULL;
+    KEYBOARD->Size = 0;
+    KEYBOARD->Masked_Input = false;
     Xila.Keyboard.Clear();
     Xila.Task.Delay(20);
 }
@@ -424,18 +427,21 @@ void Shell_Class::Dialog_Class::Keyboard_Class::Execute_Instruction(Xila_Class::
     {
     case Instruction('V', 'a'):
         Xila.Dialog.Keyboard_State = Xila.Default_Yes;
-        delete this;
+        delete KEYBOARD;
         KEYBOARD = NULL;
         break;
     case Instruction('C', 'a'):
         Xila.Dialog.Keyboard_State = Xila.Default_Cancel;
-        delete this;
+        delete KEYBOARD;
         KEYBOARD = NULL;
         break;
     case Instruction('R', 'e'):
-        Xila.Display.Set_Value(F("MAXLENGTH_VAR"), Size);
-        Xila.Display.Set_Text(F("INPUT_VAR"), (char *)String);
-        Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)Masked_Input);
+        DUMP(KEYBOARD->Size);
+        Xila.Display.Set_Value(F("MAXLENGTH_VAR"), KEYBOARD->Size);
+        DUMP(*KEYBOARD->String);
+        Xila.Display.Set_Text(F("INPUT_VAR"), (char *)KEYBOARD->String);
+        DUMP(KEYBOARD->Masked_Input);
+        Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)KEYBOARD->Masked_Input);
         break;
     default:
         SHELL->Execute_Instruction(Instruction);
@@ -602,13 +608,16 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size,
     // -- Initalize shell
     KEYBOARD->Open();
     KEYBOARD->String = String;
+    DUMP(*KEYBOARD->String);
     KEYBOARD->Size = Size;
+    DUMP(KEYBOARD->Size);
     KEYBOARD->Masked_Input = Masked_Input;
+    DUMP(KEYBOARD->Masked_Input);
     SHELL->Send_Instruction('R', 'e');
     // -- Tasks suspended here
     while (Xila.Dialog.Keyboard_State == Xila.None)
     {
-        KEYBOARD->Execute_Instruction(SHELL->Get_Instruction());
+        Keyboard_Class::Execute_Instruction(SHELL->Get_Instruction());
         Xila.Task.Delay(20);
     }
     // -- Restore context

@@ -102,7 +102,7 @@ protected:
             // -- Methods
             static void Open();
             static bool State();
-            void Execute_Instruction(Xila_Class::Instruction);
+            static void Execute_Instruction(Xila_Class::Instruction);
 
             // -- Friendship
             friend class Shell_Class;
@@ -167,8 +167,8 @@ protected:
         {
         protected:
             // -- Methods
-            void Execute_Instruction(Xila_Class::Instruction);
-            void Open();
+            static void Execute_Instruction(Xila_Class::Instruction);
+            static void Open();
 
             // -- Friendship
             friend class Shell_Class;

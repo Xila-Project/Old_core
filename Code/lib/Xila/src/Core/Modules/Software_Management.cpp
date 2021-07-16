@@ -65,12 +65,10 @@ void Xila_Class::Software_Management_Class::Defrag()
 {
   for (uint8_t i = 2; i < sizeof(Openned) / sizeof(Openned[0]); i++)
   {
-    //DUMP(i);
     if (Openned[i] == NULL)
     {
       for (uint8_t j = i + 1; j < sizeof(Openned) / sizeof(Openned[0]); j++)
       {
-        //DUMP(j);
         if (Openned[j] != NULL)
         {
           Openned[i] = Openned[j];
