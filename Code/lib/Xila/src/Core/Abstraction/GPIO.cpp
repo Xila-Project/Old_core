@@ -10,6 +10,9 @@
 
 #include "Core/Core.hpp"
 
+///
+ /// @brief Construct a new Xila_Class::GPIO_Class::GPIO_Class object
+ /// 
 Xila_Class::GPIO_Class::GPIO_Class()
 {
 

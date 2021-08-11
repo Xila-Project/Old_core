@@ -1,15 +1,18 @@
 ///
- /// @file Display.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1
- /// @date 28-03-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
+/// @file Display.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1
+/// @date 28-03-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
+///
+/// @brief Construct a new Xila_Class::Display_Class::Display_Class object
+///
 Xila_Class::Display_Class::Display_Class()
     : Nextion_Class(),
       State(true),
@@ -22,14 +25,17 @@ Xila_Class::Display_Class::Display_Class()
     Baud_Rate = Default_Display_Baud_Rate;
 }
 
+///
+/// @brief Destroy the Xila_Class::Display_Class::Display_Class object
+///
 Xila_Class::Display_Class::~Display_Class()
 {
 }
 
 ///
- /// @brief Load display registry
- /// 
- /// @return Xila_Class::Success or Xila_Class::Error
+/// @brief Load display registry
+///
+/// @return Xila_Class::Success or Xila_Class::Error
 Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
@@ -53,9 +59,9 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 }
 
 ///
- /// @brief Save display registry
- /// 
- /// @return Xila_Class::Event 
+/// @brief Save display registry
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
@@ -105,9 +111,9 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
 }
 
 ///
- /// @brief Callback function for display incomming numeric data
- /// 
- /// @param Received_Data Received numeric data from the display
+/// @brief Callback function for display incomming numeric data
+///
+/// @param Received_Data Received numeric data from the display
 void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
     if (Xila.Display.Current_Adress != '\0')
@@ -118,9 +124,9 @@ void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Rec
 }
 
 ///
- /// @brief Callback function for display incomming event
- /// 
- /// @param Event_Code Event code
+/// @brief Callback function for display incomming event
+///
+/// @param Event_Code Event code
 void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)

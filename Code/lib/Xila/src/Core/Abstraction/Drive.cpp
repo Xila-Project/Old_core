@@ -269,36 +269,77 @@ bool Xila_Class::Drive_Class::Remove(const char *Path)
     return SD.remove(Path);
 }
 
+///
+ /// @brief A method that remove file.
+ /// 
+ /// @param Path Path of the file to remove.
+ /// @return true if the operation succeed.
+ /// @return false if the operaton failed.
 bool Xila_Class::Drive_Class::Remove(const String &Path)
 {
     return SD.remove(Path);
 }
 
+///
+ /// @brief A method that rename file.
+ /// 
+ /// @param Path_From Origin path of the file.
+ /// @param Path_To Destination path of the file.
+ /// @return true if the operation succeed.
+ /// @return false if the operation failed.
 bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
 
+///
+ /// @brief A method that rename file.
+ /// 
+ /// @param Path_From Origin path of the file.
+ /// @param Path_To Destination path of the file.
+ /// @return true if the operation succeed.
+ /// @return false if the operation failed.
 bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
 
+///
+ /// @brief A method that delete directory.
+ /// 
+ /// @param Path Path of the directory.
+ /// @return true if the operation succeeed.
+ /// @return false if the operation failed.
 bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
 {
     return SD.rmdir(Path);
 }
 
+
+///
+ /// @brief A method that delete directory.
+ /// 
+ /// @param Path Path of the directory.
+ /// @return true if the operation succeeed.
+ /// @return false if the operation failed.
 bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
 {
     return SD.rmdir(Path);
 }
 
+///
+ /// @brief A method that return the drive total space.
+ /// 
+ /// @return uint64_t Total space in bytes.
 uint64_t Xila_Class::Drive_Class::Total_Bytes()
 {
     return SD.totalBytes();
 }
 
+///
+ /// @brief A method that return the drive used space.
+ /// 
+ /// @return uint64_t Used space in bytes.
 uint64_t Xila_Class::Drive_Class::Used_Bytes()
 {
     return SD.usedBytes();

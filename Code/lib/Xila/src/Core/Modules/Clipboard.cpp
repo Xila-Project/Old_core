@@ -1,15 +1,34 @@
 ///
- /// @file Clipboard.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief Xila clipboard source file.
- /// @version 0.1
- /// @date 08-04-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
+/// @file Clipboard.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief Xila clipboard source file.
+/// @version 0.1
+/// @date 08-04-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
+///
+/// @brief Clear data of the clipboard.
+///
+/// @return Xila_Class::Event_Class
+Xila_Class::Event_Class Xila_Class::Clipboard_Class::Clear()
+{
+  if (Xila.Drive.Remove(Clipboard_Path))
+  {
+    return true;
+  }
+  return false;
+
+}
+
+///
+/// @brief Push data into the clipboard.
+///
+/// @param Value_To_Copy Data to push.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 {
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -33,6 +52,12 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Copy(uint64_t const &Value_To_Cop
   return Success;
 }
 
+///
+/// @brief Push data into the clipboard.
+///
+/// @param Char_Array_To_Copy Data to push.
+/// @param Char_Array_Length Data size.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
 {
   Xila.Drive.Remove(Clipboard_Path);
@@ -57,6 +82,11 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Co
   return Success;
 }
 
+///
+/// @brief Push data into the clipboard.
+///
+/// @param String_To_Copy Data to push.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy)
 {
   Xila.Drive.Remove(Clipboard_Path);
@@ -74,6 +104,11 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Copy(String const &String_To_Copy
   return Success;
 }
 
+///
+/// @brief Pull data from the clipboard.
+///
+/// @param[out] Value_To_Paste Buffer reference to pull from.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 {
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -91,6 +126,12 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
   return Success;
 }
 
+///
+/// @brief Pull data from the clipboard.
+///
+/// @param Char_Array_To_Paste Buffer reference to pull from.
+/// @param Char_Array_Length Buffer size.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
 {
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -114,6 +155,11 @@ Xila_Class::Event Xila_Class::Clipboard_Class::Paste(char *Char_Array_To_Paste, 
   return Success;
 }
 
+///
+ /// @brief Pull data from the clipboard.
+ /// 
+ /// @param String_To_Paste Buffer reference to pull data from.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Clipboard_Class::Paste(String &String_To_Paste)
 {
   Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);

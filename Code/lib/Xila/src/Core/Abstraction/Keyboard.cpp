@@ -21,6 +21,10 @@ Xila_Class::Keyboard_Class::Keyboard_Class()
 {
 }
 
+///
+ /// @brief Load keyboard registry.
+ /// 
+ /// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Keyboard"));
@@ -43,6 +47,10 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
     return Success;
 }
 
+///
+ /// @brief Save keyboard registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Keyboard"), FILE_WRITE);
@@ -60,6 +68,9 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
     return Success;
 }
 
+///
+ /// @brief Initialize the communication with the keyboard.
+ /// 
 void Xila_Class::Keyboard_Class::Begin()
 {
     switch (Layout)
@@ -85,21 +96,36 @@ void Xila_Class::Keyboard_Class::Begin()
     }
 }
 
+///
+ /// @brief Read character from the keyboard.
+ /// 
+ /// @return unsigned char Input character.
 unsigned char Xila_Class::Keyboard_Class::Read()
 {
     return PS2Keyboard::read();
 }
 
+///
+ /// @brief Check if any character is availble.
+ /// 
+ /// @return uint8_t The amount of character available in the buffer.
 uint8_t Xila_Class::Keyboard_Class::Available()
 {
     return PS2Keyboard::available();
 }
 
+///
+ /// @brief Read character from the keyboard.
+ /// 
+ /// @return uint8_t The amount of character available in the buffer.
 uint8_t Xila_Class::Keyboard_Class::Read_Raw()
 {
     return PS2Keyboard::readScanCode();
 }
 
+///
+ /// @brief Clear the character buffer.
+ /// 
 void Xila_Class::Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();

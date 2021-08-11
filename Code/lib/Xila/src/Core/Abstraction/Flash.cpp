@@ -12,6 +12,10 @@
 
 #include "esp_partition.h"
 
+///
+ /// @brief A method that return the available space of 
+ /// 
+ /// @return uint32_t Free space in bytes.
 uint32_t Xila_Class::Flash_Class::Get_Sketch_Free_Space()
 {
     const esp_partition_t* Partition = esp_ota_get_next_update_partition(NULL);
@@ -22,6 +26,10 @@ uint32_t Xila_Class::Flash_Class::Get_Sketch_Free_Space()
     return Partition->size;
 }
 
+///
+ /// @brief A method that return current sketch MD5 checksum.
+ /// 
+ /// @return String MD5 sketch checksum.
 String Xila_Class::Flash_Class::Get_Sketch_MD5()
 {
     static String result;
@@ -62,6 +70,11 @@ String Xila_Class::Flash_Class::Get_Sketch_MD5()
     return result;
 }
 
+///
+ /// @brief A method that return current sketch size.
+ /// 
+ /// @param Response 
+ /// @return uint32_t 
 uint32_t Xila_Class::Flash_Class::Sketch_Size(sketchSize_t Response)
 {
     esp_image_metadata_t data;
@@ -84,6 +97,10 @@ uint32_t Xila_Class::Flash_Class::Sketch_Size(sketchSize_t Response)
     }
 }
 
+///
+ /// @brief 
+ /// 
+ /// @return uint32_t 
 uint32_t Xila_Class::Flash_Class::Get_Size()
 {
     esp_image_header_t fhdr;

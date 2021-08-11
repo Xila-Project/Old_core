@@ -13,6 +13,9 @@
 
 extern Xila_Class::Software_Handle Shell_Handle;
 
+///
+/// @brief Construct a new Xila_Class::Power_Class::Power_Class object
+///
 Xila_Class::Power_Class::Power_Class()
     : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
 {
@@ -20,6 +23,10 @@ Xila_Class::Power_Class::Power_Class()
     Button_Counter = 0;
 }
 
+///
+ /// @brief Load power registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Power"));
@@ -40,6 +47,10 @@ Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
     return Success;
 }
 
+///
+ /// @brief Save power registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
@@ -58,6 +69,9 @@ Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
     return Success;
 }
 
+///
+ /// @brief Handler of the power button interrupt.
+ /// 
 void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
 {
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
@@ -83,6 +97,9 @@ void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
     vTaskExitCritical(&Xila.Power.Button_Mutex);
 }
 
+///
+ /// @brief Check if power button is pressed.
+ /// 
 void Xila_Class::Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
@@ -92,6 +109,9 @@ void Xila_Class::Power_Class::Check_Button()
     }
 }
 
+///
+ /// @brief Make the board go in deep sleep.
+ /// 
 void Xila_Class::Power_Class::Deep_Sleep()
 {
     Xila.Display.Set_Serial_Wake_Up(true);

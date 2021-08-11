@@ -12,6 +12,9 @@
 
 extern Xila_Class::Software_Handle Shell_Handle;
 
+///
+ /// @brief Construct a new Xila_Class::Dialog_Class::Dialog_Class object
+ /// 
 Xila_Class::Dialog_Class::Dialog_Class()
 {
 }
@@ -226,7 +229,7 @@ void Xila_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __F
 }
 
 ///
-/// @brief Open a Load dialog with an animation (similar to the boot screen).
+/// @brief Open a load dialog with an animation.
 ///
 /// @param Header Header string.
 /// @param Message Message string.
@@ -257,7 +260,7 @@ void Xila_Class::Dialog_Class::Load(const char *Header, const char *Message, uin
 }
 
 ///
-/// @brief Close an openned Load dialog.
+/// @brief Close an openned load dialog.
 ///
 void Xila_Class::Dialog_Class::Close_Load()
 {
@@ -266,7 +269,7 @@ void Xila_Class::Dialog_Class::Close_Load()
 }
 
 ///
-/// @brief Open a login dialog.
+/// @brief Open a dialog that allow user to input credentials, which are checked.
 ///
 /// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Login()
@@ -296,7 +299,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Login()
 }
 
 ///
-/// @brief Open a Power management dialog.
+/// @brief Open a dialog that allow user to change system power state.
 ///
 void Xila_Class::Dialog_Class::Power()
 {
@@ -323,10 +326,10 @@ void Xila_Class::Dialog_Class::Power()
 }
 
 ///
-/// @brief Open a File Manager dialog to open file.
-///
-/// @param File_To_Open File to open.
-/// @return Xila_Class::Event
+ /// @brief Open a dialog that allow user to select a file to save from the File Manager.
+ /// 
+ /// @param File_To_Open File reference.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   File_Manager_State = None;
@@ -354,6 +357,11 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   return File_Manager_State;
 }
 
+///
+ /// @brief Open a dialog that allow user to select a file to save from the File Manager.
+ /// 
+ /// @param File_To_Save File reference.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
   File_Manager_State = None;
@@ -381,6 +389,11 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   return File_Manager_State;
 }
 
+///
+ /// @brief Open a dialog that allow user to select a folder to open from the File Manager.
+ /// 
+ /// @param[out] Folder_To_Open Folder reference.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
   File_Manager_State = None;

@@ -13,16 +13,34 @@
 #ifndef MATHEMATICS_HPP_INCLUDED
 #define MATHEMATICS_HPP_INCLUDED
 
+///
+ /// @brief Check if a float is a number.
+ /// 
+ /// @param Number 
+ /// @return true 
+ /// @return false 
 inline bool Xila_Class::Mathematics_Class::Is_NAN(double Number)
 {
     return isnan(Number);
 }
 
+///
+ /// @brief Check if a number is infinite.
+ /// 
+ /// @param Number 
+ /// @return true 
+ /// @return false 
 inline bool Xila_Class::Mathematics_Class::Is_Infinite(double Number)
 {
     return isinf(Number);
 }
 
+///
+ /// @brief Copy sign from a number to another.
+ /// 
+ /// @param Number_1 Origin number.
+ /// @param Number_2 Destination number.
+ /// @return double New number sign 
 inline double Xila_Class::Mathematics_Class::Copy_Sign(double Number_1, double Number_2)
 {
     return copysign(Number_1, Number_2);

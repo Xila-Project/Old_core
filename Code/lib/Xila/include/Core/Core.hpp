@@ -373,6 +373,8 @@ public:
     class Clipboard_Class
     {
     public:
+        Xila_Class::Event Clear();
+
         Xila_Class::Event Copy(uint64_t const &Value_To_Copy);
         Xila_Class::Event Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
         Xila_Class::Event Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
@@ -1164,7 +1166,7 @@ public:
             External_DAC
         };
 
-        uint8_t Resume();
+        void Resume();
         void Pause();
         void Mute();
         void Stop();

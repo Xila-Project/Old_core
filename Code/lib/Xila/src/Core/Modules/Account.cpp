@@ -10,11 +10,18 @@
 
 #include "Core/Core.hpp"
 
+///
+/// @brief Construct a new Xila_Class::Account_Class::Account_Class object
+///
 Xila_Class::Account_Class::Account_Class()
 {
   memset(Current_Username, '\0', sizeof(Current_Username));
 }
 
+///
+/// @brief Load account registry.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"));
@@ -69,11 +76,11 @@ Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
   return Success;
 }
 
-/**
- * @brief Return current session state.
- * 
- * @return uint8_t return Xila_Class::Acount_Class::Session_State.
- */
+///
+/// @brief Return current session state.
+///
+/// @return uint8_t return Xila_Class::Acount_Class::Session_State.
+///
 uint8_t Xila_Class::Account_Class::Get_State()
 {
   return State;
@@ -160,6 +167,11 @@ Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const cha
   return Success;
 }
 
+///
+/// @brief Delete a user account.
+///
+/// @param Target_User User to delete.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
@@ -171,6 +183,12 @@ Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
   return Error;
 }
 
+///
+/// @brief Change user account name.
+///
+/// @param Target_User User to rename.
+/// @param New_Username New account name.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   char Temporary_Path[20];
@@ -191,6 +209,12 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_
   return Success;
 }
 
+///
+/// @brief Change user password.
+///
+/// @param Target_User User to change password.
+/// @param Password_To_Set New password.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   char Temporary_Char[48];
@@ -208,8 +232,10 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_
   return Success;
 }
 
-/** */
-
+///
+/// @brief Logout from the openned user session.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Logout()
 {
   if (State != Disconnected)
@@ -222,6 +248,10 @@ Xila_Class::Event Xila_Class::Account_Class::Logout()
   return Success;
 }
 
+///
+/// @brief Lock openned user session.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Account_Class::Lock()
 {
   if (State == Logged)
@@ -231,6 +261,12 @@ Xila_Class::Event Xila_Class::Account_Class::Lock()
   return Success;
 }
 
+///
+ /// @brief Check user credentials.
+ /// 
+ /// @param Username_To_Check User account name.
+ /// @param Password_To_Check User account password.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
@@ -254,6 +290,12 @@ Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Usern
   return Success;
 }
 
+///
+ /// @brief Login into user account.
+ /// 
+ /// @param Username_To_Check User account name.
+ /// @param Password_To_Check User account password.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
