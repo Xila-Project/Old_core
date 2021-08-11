@@ -14,14 +14,13 @@
 /// @brief Clear data of the clipboard.
 ///
 /// @return Xila_Class::Event_Class
-Xila_Class::Event_Class Xila_Class::Clipboard_Class::Clear()
+Xila_Class::Event Xila_Class::Clipboard_Class::Clear()
 {
   if (Xila.Drive.Remove(Clipboard_Path))
   {
-    return true;
+    return Success;
   }
-  return false;
-
+  return Error;
 }
 
 ///

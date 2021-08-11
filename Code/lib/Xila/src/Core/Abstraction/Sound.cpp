@@ -441,7 +441,6 @@ void Xila_Class::Sound_Class::Resume()
     {
         Audio_Driver.pauseResume();
     }
-    return true;
 }
 
 ///

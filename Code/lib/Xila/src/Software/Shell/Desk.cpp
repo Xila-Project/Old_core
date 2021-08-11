@@ -182,9 +182,6 @@ void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
 
 void Shell_Class::Desk_Class::Open(uint8_t Mode)
 {
-    DUMP("Open desk");
-    DUMP(Mode);
-
     if (Xila.Account.Get_State() != Xila.Account.Logged)
     {
         Xila.Display.Set_Current_Page(Pages.Desk);
@@ -196,6 +193,12 @@ void Shell_Class::Desk_Class::Open(uint8_t Mode)
             Xila.System.Shutdown();
             return;
         }
+
+        Xila.Display.Set_Current_Page(Pages.Desk);
+        Refresh_Desk();
+        Xila.Display.Hide(F("MAXIMIZE_BUT"));
+        Xila.Display.Hide(F("CLOSE_BUT"));
+
 #if Animations == 1
         Xila.Sound.Play(Sounds("Login.wav"));
         DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);

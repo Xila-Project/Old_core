@@ -85,7 +85,7 @@
 
 //#define ARDUINOTRACE_ENABLE 0 // Disable ArduinoTrace
 
-#define Animations 0        // Enable animation
+#define Animations 1        // Enable animation
 #define Drive_Mode 0        // SD mmc mode
 #define USB_Serial 1        // Disable USB Serial
 #define Start_On_Power 1    // Start when Xila is powered up
@@ -97,8 +97,8 @@
 
 #define ARDUINOTRACE_ENABLE 1 // Enable ArduinoTrace
 
-#define Animations 1        // Disable animation
-#define Drive_Mode 1        // SD spi mode
+#define Animations 0        // Disable animation
+#define Drive_Mode 0        // SD spi mode
 #define USB_Serial 1        // Enable USB Serial
 #define Start_On_Power 1    // 
 

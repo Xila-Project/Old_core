@@ -15,6 +15,11 @@
 
 Shell_Class::Dialog_Class::Dialog_Class()
 {
+    Keyboard_Pointer = NULL;
+    Keypad_Pointer = NULL;
+    Event_Pointer = NULL;
+    Load_Pointer = NULL;
+    Login_Pointer = NULL;
 }
 
 Shell_Class::Dialog_Class::~Dialog_Class()
@@ -193,14 +198,20 @@ void Shell_Class::Dialog_Class::Event_Class::Execute_Instruction(Xila_Class::Ins
         }
         break;
     case Instruction('B', '1'):
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Event_State = Xila.Button_1;
         SHELL->Send_Instruction('C', 'l');
         break;
     case Instruction('B', '2'):
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Event_State = Xila.Button_2;
         SHELL->Send_Instruction('C', 'l');
         break;
     case Instruction('B', '3'):
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Event_State = Xila.Button_3;
         SHELL->Send_Instruction('C', 'l');
         break;
@@ -336,14 +347,20 @@ void Shell_Class::Dialog_Class::Login_Class::Execute_Instruction(Xila_Class::Ins
     case Instruction('K', 'U'):
         memset(Username, '\0', sizeof(Username));
         DIALOG.Keyboard(Username, sizeof(Username));
+        Xila.Display.Set_Current_Page(Page);
+        Xila.Display.Set_Current_Page(Pages.Dialog_Login);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('K', 'P'):
-        memset(Username, '\0', sizeof(Username));
+        memset(Password, '\0', sizeof(Password));
         DIALOG.Keyboard(Password, sizeof(Password), true);
+        Xila.Display.Set_Current_Page(Page);
+        Xila.Display.Set_Current_Page(Pages.Dialog_Login);
         SHELL->Send_Instruction('R', 'e');
         break;
     case Instruction('C', 'l'):
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Login_State = Xila.Default_Cancel;
         delete this;
         LOGIN = NULL;
@@ -355,7 +372,9 @@ void Shell_Class::Dialog_Class::Login_Class::Execute_Instruction(Xila_Class::Ins
             if (Login == true)
             {
                 Xila.Account.Login(Username, Password);
-            }
+            } 
+            Xila.Display.Set_Current_Page(Page);
+            
             Xila.Dialog.Login_State = Xila.Success;
             delete this;
             LOGIN = NULL;
@@ -426,21 +445,22 @@ void Shell_Class::Dialog_Class::Keyboard_Class::Execute_Instruction(Xila_Class::
     switch (Instruction)
     {
     case Instruction('V', 'a'):
+        Xila.Display.Set_Current_Page(KEYBOARD->Page);
+
         Xila.Dialog.Keyboard_State = Xila.Default_Yes;
         delete KEYBOARD;
         KEYBOARD = NULL;
         break;
     case Instruction('C', 'a'):
+        Xila.Display.Set_Current_Page(KEYBOARD->Page);
+
         Xila.Dialog.Keyboard_State = Xila.Default_Cancel;
         delete KEYBOARD;
         KEYBOARD = NULL;
         break;
     case Instruction('R', 'e'):
-        DUMP(KEYBOARD->Size);
         Xila.Display.Set_Value(F("MAXLENGTH_VAR"), KEYBOARD->Size);
-        DUMP(*KEYBOARD->String);
-        Xila.Display.Set_Text(F("INPUT_VAR"), (char *)KEYBOARD->String);
-        DUMP(KEYBOARD->Masked_Input);
+        Xila.Display.Set_Text(F("INPUT_VAR"), (const char *)KEYBOARD->String);
         Xila.Display.Set_Mask(F("INPUT_TXT"), (bool)KEYBOARD->Masked_Input);
         break;
     default:
@@ -526,11 +546,15 @@ void Shell_Class::Dialog_Class::Keypad_Class::Execute_Instruction(Xila_Class::In
     {
     case Instruction('V', 'a'):
         *Number = strtof(Temporary_Float_String, NULL);
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Keypad_State = Xila.Default_Yes;
         delete this;
         KEYPAD = NULL;
         break;
     case Instruction('C', 'a'):
+        Xila.Display.Set_Current_Page(Page);
+
         Xila.Dialog.Keypad_State = Xila.Default_Cancel;
         delete this;
         KEYPAD = NULL;
@@ -604,15 +628,12 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size,
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
     // -- Initalize shell
     KEYBOARD->Open();
+    KEYBOARD->Page = Xila.Display.Get_Current_Page();
     KEYBOARD->String = String;
-    DUMP(*KEYBOARD->String);
     KEYBOARD->Size = Size;
-    DUMP(KEYBOARD->Size);
     KEYBOARD->Masked_Input = Masked_Input;
-    DUMP(KEYBOARD->Masked_Input);
     SHELL->Send_Instruction('R', 'e');
     // -- Tasks suspended here
     while (Xila.Dialog.Keyboard_State == Xila.None)
@@ -621,8 +642,8 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size,
         Xila.Task.Delay(20);
     }
     // -- Restore context
-    Xila.Display.Set_Current_Page(Page);
-    Xila.Task.Delay(20);               // -- Wait 20 ms to switch page
+    Xila.Task.Delay(20); // -- Wait 20 ms to switch page
+    // --
     return Xila.Dialog.Keyboard_State; // -- Dialog result
 }
 
@@ -637,9 +658,9 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
     // -- Initalize shell
     KEYPAD->Open();
+    KEYPAD->Page = Xila.Display.Get_Current_Page();
     KEYPAD->Number = &Number;
     SHELL->Send_Instruction('R', 'e');
     // -- Tasks suspended here
@@ -648,8 +669,6 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
         KEYPAD->Execute_Instruction(SHELL->Get_Instruction());
         Xila.Task.Delay(20);
     }
-    // -- Restore context
-    Xila.Display.Set_Current_Page(Page);
     // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
     // -- Give semaphore back and return dialog result
@@ -696,9 +715,9 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Me
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
     // -- Initalize shell
     EVENT->Open();
+    EVENT->Page = Xila.Display.Get_Current_Page();
     EVENT->Mode = 'F';
     EVENT->Message = Message;
     EVENT->Type = Type;
@@ -712,8 +731,6 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Me
         EVENT->Execute_Instruction(SHELL->Get_Instruction());
         Xila.Task.Delay(20);
     }
-    // -- Restore context
-    Xila.Display.Set_Current_Page(Page);
     // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
     // -- Give semaphore back and return dialog result
@@ -735,9 +752,10 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t 
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
+
     // -- Initalize shell
     EVENT->Open();
+    EVENT->Page = Xila.Display.Get_Current_Page();
     EVENT->Mode = 'C';
     EVENT->Message = Message;
     EVENT->Type = Type;
@@ -751,8 +769,6 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t 
         EVENT->Execute_Instruction(SHELL->Get_Instruction());
         Xila.Task.Delay(20);
     }
-    // -- Restore context
-    Xila.Display.Set_Current_Page(Page);
     // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
     // -- Give semaphore back and return dialog result
@@ -773,10 +789,9 @@ void Shell_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
     // -- Initalize shell
     Load_Pointer->Open();
-    Load_Pointer->Page = Page;
+    Load_Pointer->Page = Xila.Display.Get_Current_Page();
     Load_Pointer->Caller_Software = SHELL;
     Load_Pointer->Header = Header;
     Load_Pointer->Message = Message;
@@ -836,18 +851,16 @@ Xila_Class::Event Shell_Class::Dialog_Class::Login()
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    Xila_Class::Page Page = Xila.Display.Get_Current_Page();
     // -- Maximize shell
     LOGIN->Open(true);
+    LOGIN->Page = Xila.Display.Get_Current_Page();
     SHELL->Send_Instruction('R', 'e');
-    ;
     // -- Tasks suspended here
     while (Xila.Dialog.Login_State == Xila.None)
     {
         LOGIN->Execute_Instruction(SHELL->Get_Instruction());
         Xila.Task.Delay(20);
     }
-    Xila.Display.Set_Current_Page(Page);
     // -- Wait 20 ms to switch page
     Xila.Task.Delay(20);
     // -- Return dialog result

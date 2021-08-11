@@ -98,6 +98,7 @@ protected:
             char *String;
             size_t Size;
             bool Masked_Input;
+            Xila_Class::Page Page;
 
             // -- Methods
             static void Open();
@@ -115,6 +116,7 @@ protected:
             // -- Attributes
             float *Number;
             char Temporary_Float_String[32];
+            Xila_Class::Page Page;
 
             // -- Methods
             static void Open();
@@ -153,6 +155,7 @@ protected:
             char Username[Maximum_Username_Length + 1];
             char Password[Maximum_Password_Length + 1];
             bool Login;
+            Xila_Class::Page Page;
 
             // -- Methods
             static void Open(bool Login = false);
@@ -196,6 +199,7 @@ protected:
             const void *Message;
             uint8_t Type;
             const void *Button_Text[3];
+            Xila_Class::Page Page;
 
             // -- Methods
             static void Open();
