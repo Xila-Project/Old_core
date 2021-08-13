@@ -24,9 +24,9 @@ Xila_Class::Power_Class::Power_Class()
 }
 
 ///
- /// @brief Load power registry.
- /// 
- /// @return Xila_Class::Event 
+/// @brief Load power registry.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Power"));
@@ -48,9 +48,9 @@ Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
 }
 
 ///
- /// @brief Save power registry.
- /// 
- /// @return Xila_Class::Event 
+/// @brief Save power registry.
+///
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
@@ -70,8 +70,8 @@ Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
 }
 
 ///
- /// @brief Handler of the power button interrupt.
- /// 
+/// @brief Handler of the power button interrupt.
+///
 void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
 {
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
@@ -98,8 +98,8 @@ void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
 }
 
 ///
- /// @brief Check if power button is pressed.
- /// 
+/// @brief Check if power button is pressed.
+///
 void Xila_Class::Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
@@ -110,8 +110,8 @@ void Xila_Class::Power_Class::Check_Button()
 }
 
 ///
- /// @brief Make the board go in deep sleep.
- /// 
+/// @brief Make the board go in deep sleep.
+///
 void Xila_Class::Power_Class::Deep_Sleep()
 {
     Xila.Display.Set_Serial_Wake_Up(true);

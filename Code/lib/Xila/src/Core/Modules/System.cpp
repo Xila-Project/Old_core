@@ -117,7 +117,7 @@ void Xila_Class::System_Class::Task(void *)
         Xila.System.Panic_Handler(Low_Memory);
       }
       // -- Synchronise time
-      Xila.Time.Synchronise();
+      Xila.Time.Synchronize();
       // -- Check if software is currently maximized
       if (Xila.Software_Management.Openned[0] == NULL)
       {
@@ -396,7 +396,7 @@ void Xila_Class::System_Class::Refresh_Header()
 }
 
 ///
-/// @brief First
+/// @brief First start routine, first function executed when Xila.Start() is called.
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
@@ -552,7 +552,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 }
 
 ///
-/// @brief Second start routine, used in start function.
+/// @brief Second start routine, called secondly in Xila.Start().
 ///
 void Xila_Class::System_Class::Second_Start_Routine()
 {
@@ -581,10 +581,10 @@ void Xila_Class::System_Class::Second_Start_Routine()
 }
 
 ///
-/// @brief Handle that start Xila.
+/// @brief Start Xila up with a custom software bundle.
 ///
-/// @param Software_Package Custom software package.
-/// @param Size Size of the software package.
+/// @param Software_Package Custom software bundle.
+/// @param Size Size of the software bundle.
 void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Package, uint8_t Size)
 {
 
@@ -601,7 +601,7 @@ void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Pack
 }
 
 ///
-/// @brief Handle that start Xila.
+/// @brief Start Xila up with the default software bundle.
 ///
 void Xila_Class::System_Class::Start()
 {
@@ -659,7 +659,7 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 }
 
 ///
-/// @brief Function that shutdown Xila.
+/// @brief Shutdown Xila.
 ///
 void Xila_Class::System_Class::Shutdown()
 {
@@ -790,6 +790,10 @@ void Xila_Class::System_Class::Restart()
   ESP.restart();
 }
 
+///
+ /// @brief Return chip revision.
+ /// 
+ /// @return uint8_t Chip revision.
 uint8_t Xila_Class::System_Class::Get_Chip_Revision()
 {
   esp_chip_info_t chip_info;
@@ -797,6 +801,10 @@ uint8_t Xila_Class::System_Class::Get_Chip_Revision()
   return chip_info.revision;
 }
 
+///
+ /// @brief Return chip model.
+ /// 
+ /// @return const char* Chip model.
 const char *Xila_Class::System_Class::Get_Chip_Model()
 {
   uint32_t chip_ver = REG_GET_FIELD(EFUSE_BLK0_RDATA3_REG, EFUSE_RD_CHIP_VER_PKG);
@@ -818,6 +826,10 @@ const char *Xila_Class::System_Class::Get_Chip_Model()
   }
 }
 
+///
+ /// @brief Return number of chip cores.
+ /// 
+ /// @return uint32_t Chip cores.
 uint32_t Xila_Class::System_Class::Get_Chip_Cores()
 {
   esp_chip_info_t chip_info;

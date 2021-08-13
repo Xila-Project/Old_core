@@ -14,6 +14,9 @@
 
 PS2Keyboard PS2_Keyboard();
 
+///
+ /// @brief Construct a new Xila_Class::Keyboard_Class::Keyboard_Class object
+ /// 
 Xila_Class::Keyboard_Class::Keyboard_Class()
     : Layout(Default_Keyboard_Layout),
       Data_Pin(Default_Keyboard_Data_Pin),

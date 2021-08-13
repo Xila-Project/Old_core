@@ -87,6 +87,11 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
   return Keypad_State;
 }
 
+///
+ /// @brief Open a color picker dialog, that allow user to choose a color.
+ /// 
+ /// @param[in,out] Color Color reference.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
   Color_Picker_State = None;

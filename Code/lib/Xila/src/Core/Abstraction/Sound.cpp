@@ -83,6 +83,10 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
     return Success;
 }
 
+///
+ /// @brief Save sound registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(512);
@@ -251,16 +255,6 @@ void Xila_Class::Sound_Class::Set_Time_Offset(int16_t Time)
 {
     Audio_Driver.setTimeOffset(Time);
 }
-
-/**
- * @brief Function that tone.
- *
- * @param Frequency Frequency to tone
- * @param Duration Duration to tone (empty or 0 to infinite tone)
- * @param Pin Pin to tone (left empty to play on default output pin)
-  *
- * @details Function that tone and block music playing
- */
 
 ///
 /// @brief A method that generate a tone.

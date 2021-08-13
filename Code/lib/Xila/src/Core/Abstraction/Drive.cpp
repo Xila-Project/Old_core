@@ -15,22 +15,43 @@
 #include "SD.h"
 #include "SD_MMC.h"
 
+///
+ /// @brief Construct a new Xila_Class::Drive_Class::Drive_Class object
+ /// 
 Xila_Class::Drive_Class::Drive_Class()
 {
 }
 
 #if Drive_Mode == 0
 
+///
+ /// @brief Initialize drive.
+ /// 
+ /// @param Slave_Select_Pin Slave select pin.
+ /// @param spi SPI interface.
+ /// @param Frequency Frequency of the SPI bus.
+ /// @param Mount_Point Mount point path.
+ /// @param Maximum_Files Maximum simultaneous openned files.
+ /// @return true if the initialization succeed.
+ /// @return false if the initialization succeed.
 bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD_MMC.begin(Mount_Point, false, false);
 }
 
+///
+ /// @brief Return the drive size.
+ /// 
+ /// @return uint64_t Drive size in bytes.
 uint64_t Xila_Class::Drive_Class::Size()
 {
     return SD_MMC.cardSize();
 }
 
+///
+ /// @brief Return drive type.
+ /// 
+ /// @return Xila_Class::Drive_Class::Sd_Card_Type 
 Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 {
     switch (SD_MMC.cardType())
@@ -53,41 +74,86 @@ Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
     return Unknow;
 }
 
+///
+ /// @brief Unmount drive.
+ /// 
 void Xila_Class::Drive_Class::End()
 {
     SD_MMC.end();
 }
 
+///
+ /// @brief Check if a file / folder exists.
+ /// 
+ /// @param Path Item path.
+ /// @return true if the item exist.
+ /// @return false if the item doesn't exist.
 bool Xila_Class::Drive_Class::Exists(const char *Path)
 {
     return SD_MMC.exists(Path);
 }
 
+///
+ /// @brief Check if a file / folder exists.
+ /// 
+ /// @param Path Item path.
+ /// @return true if the item exists.
+ /// @return false if the item doesn't exist.
 bool Xila_Class::Drive_Class::Exists(const String &Path)
 {
     return SD_MMC.exists(Path);
 }
 
+///
+ /// @brief Make a new directory.
+ /// 
+ /// @param Path Path of new directory.
+ /// @return true if the operation succeed.
+ /// @return false of the operation failed.
 bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
 {
     return SD_MMC.mkdir(Path);
 }
 
+///
+ /// @brief Make a new directory.
+ /// 
+ /// @param Path Path of new directory.
+ /// @return true if the operation succeed.
+ /// @return false of the operation failed.
 bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
 {
     return SD_MMC.mkdir(Path);
 }
 
+///
+ /// @brief Open a file / folder.
+ /// 
+ /// @param Path Item path.
+ /// @param Mode Open mode (read or write).
+ /// @return File File instance.
 File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
 
+///
+ /// @brief Open a file / folder.
+ /// 
+ /// @param Path Item path.
+ /// @param Mode Open mode (read or write).
+ /// @return File File instance.
 File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
 
+///
+ /// @brief Remove a file 
+ /// 
+ /// @param Path 
+ /// @return true 
+ /// @return false 
 bool Xila_Class::Drive_Class::Remove(const char *Path)
 {
     return SD_MMC.remove(Path);
@@ -135,15 +201,15 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 #elif Drive_Mode == 1
 
 ///
-/// @brief Initalize drive
+/// @brief Initalize drive.
 ///
-/// @param Slave_Select_Pin Slave select pin
-/// @param spi SPI interface
-/// @param Frequency Frequency of the spi bus
-/// @param Mount_Point Mount point
-/// @param Maximum_Files Maximum simulatenous openned files
-/// @return true if the initialization succed
-/// @return false if the initalization failed
+/// @param Slave_Select_Pin Slave select pin.
+/// @param spi SPI interface.
+/// @param Frequency Frequency of the spi bus.
+/// @param Mount_Point Mount point path.
+/// @param Maximum_Files Maximum simultaneous openned files.
+/// @return true if the initialization succed.
+/// @return false if the initalization failed.
 bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);

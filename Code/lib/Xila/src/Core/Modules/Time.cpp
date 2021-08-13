@@ -10,6 +10,9 @@
 
 #include "Core/Core.hpp"
 
+///
+ /// @brief Construct a new Xila_Class::Time_Class::Time_Class object
+ /// 
 Xila_Class::Time_Class::Time_Class()
     : GMT_Offset(Default_GMT_Offset),
       Daylight_Offset(Default_Daylight_Offset)
@@ -17,6 +20,10 @@ Xila_Class::Time_Class::Time_Class()
   strcpy(NTP_Server, Default_NTP_Server);
 }
 
+///
+ /// @brief Return cycle count since the system startup.
+ /// 
+ /// @return uint32_t Cycle count.
 uint32_t IRAM_ATTR Xila_Class::Time_Class::Get_Cycle_Count()
 {
   uint32_t ccount;
@@ -25,6 +32,10 @@ uint32_t IRAM_ATTR Xila_Class::Time_Class::Get_Cycle_Count()
   return ccount;
 }
 
+///
+ /// @brief Save time registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Time"), FILE_WRITE);
@@ -43,6 +54,10 @@ Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
   return Success;
 }
 
+///
+ /// @brief Load time registry.
+ /// 
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Time"));
@@ -64,14 +79,21 @@ Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
   return Success;
 }
 
-void Xila_Class::Time_Class::Synchronise()
+///
+ /// @brief Synchronize time.
+ /// 
+void Xila_Class::Time_Class::Synchronize()
 {
   time(&Now);
   localtime_r(&Now, &Current_Time);
 }
 
+///
+ /// @brief Return current time.
+ /// 
+ /// @return tm Time structure.
 tm Xila_Class::Time_Class::Get_Time()
 {
-  Synchronise();
+  Synchronize();
   return Current_Time;
 }

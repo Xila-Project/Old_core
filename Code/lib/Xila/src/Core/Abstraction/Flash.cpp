@@ -98,9 +98,9 @@ uint32_t Xila_Class::Flash_Class::Sketch_Size(sketchSize_t Response)
 }
 
 ///
- /// @brief 
+ /// @brief Return flash size.
  /// 
- /// @return uint32_t 
+ /// @return uint32_t Flash size in bytes.
 uint32_t Xila_Class::Flash_Class::Get_Size()
 {
     esp_image_header_t fhdr;
@@ -111,6 +111,10 @@ uint32_t Xila_Class::Flash_Class::Get_Size()
     return Magic_Size(fhdr.spi_size);
 }
 
+///
+ /// @brief Return flash read speed.
+ /// 
+ /// @return uint32_t Flash read speed in bytes / sec.
 uint32_t Xila_Class::Flash_Class::Get_Speed()
 {
     esp_image_header_t fhdr;
@@ -121,6 +125,10 @@ uint32_t Xila_Class::Flash_Class::Get_Speed()
     return Magic_Speed(fhdr.spi_speed);
 }
 
+///
+ /// @brief Return flash mode.
+ /// 
+ /// @return FlashMode_t Flash mode.
 FlashMode_t Xila_Class::Flash_Class::Get_Mode()
 {
     esp_image_header_t fhdr;

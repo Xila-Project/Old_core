@@ -106,14 +106,12 @@ void Xila_Class::Account_Class::Set_Current_Username(const char *Username)
   strlcpy(Current_Username, Username, sizeof(Current_Username));
 }
 
-/**
-     * @brief A function that allow to add user.
-     * 
-     * @param Username Username of new user
-     * @param Password 
-     *
-     * @return Xila_Class::Event::Success or Xila_Class::Event::Error
-     */
+///
+ /// @brief Add a new user (create necessary folder structure and registries).
+ /// 
+ /// @param Username Username of the new user.
+ /// @param Password Password of the new user.
+ /// @return Xila_Class::Event 
 Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
   if (Xila.Drive.Exists(Users_Directory_Path "/" + String(Username)))
