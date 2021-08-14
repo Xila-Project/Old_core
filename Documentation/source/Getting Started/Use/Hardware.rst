@@ -16,7 +16,7 @@ Intructions
 PCB Assembly
 ------------
 
-* Solder all According to this schematic, follow this order to solder the components to the PCB :
+* Solder all According to this schematic. In order to help the soldering process along, follow this order while soldering :
 
   * SD card slot
   * Resistors
@@ -49,8 +49,8 @@ Case Printing
   If the screwing is too hard, use a drill and a bit to slightly widen the hole.
   Be careful not to go too fat with the mounting hole, you could damage the box.
 
-Display Modifications
----------------------
+Display Modifications (optional)
+--------------------------------
 
 * Solder the **2200 µF capacitor** between **+5V** and **GND** pin of the display.
 
@@ -72,11 +72,13 @@ Final Assembly
   
 * Connect the battery board and the display to the main board according to this schematic : .
 
-* Fit the lithium battery in its holder (Xila should power up).
+* Fit the lithium battery in its holder (Xila should power up, but shut it down in order to prevent bad handling).
   
 * Fit and screw the display on the box.
 
 * Fit and screw the bezel over the screen.
+
+Now you can power up Xila by pressing the power button.
 
 
 

@@ -41,4 +41,4 @@ Once finished, just press any key to close the windows.
 
 Finally, copy the ``Drive`` directory contents (not the directory itself) in the root of the SD card.
 
-You onk
+Then, power up Xila hardware and you are good to go 😊.
