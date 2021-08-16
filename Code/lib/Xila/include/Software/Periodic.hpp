@@ -29,7 +29,7 @@ class Periodic_Class : protected Xila_Class::Software
         void Get_Data();
         void Get_List();
 
-        void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+        void Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
     public:
 

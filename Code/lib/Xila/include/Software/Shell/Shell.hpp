@@ -426,7 +426,7 @@ protected:
     Xila_Class::Event Save_Registry();
     Xila_Class::Event Load_Registry();
 
-    void Set_Variable(Xila_Class::Adress, uint8_t Type, const void *);
+    void Set_Variable(Xila_Class::Address, uint8_t Type, const void *);
 
     static void Main_Task(void *);
 

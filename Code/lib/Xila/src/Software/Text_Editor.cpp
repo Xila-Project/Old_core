@@ -27,10 +27,10 @@ Xila_Class::Software *Text_Editor_Class::Load()
     return Instance_Pointer;
 }
 
-void Text_Editor_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Text_Editor_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
 
-    if (Adress == Adress('O', 'f') && Type == Xila.Display.Variable_Long)
+    if (Address == Address('O', 'f') && Type == Xila.Display.Variable_Long)
     {
         Offset = *(uint8_t *)Variable;
         Offset = (Offset * File_To_Edit.size()) / 176;

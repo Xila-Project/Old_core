@@ -426,21 +426,21 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
 
 // -- Set variable -- //
 
-void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Shell_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-    DUMP(Adress);
+    DUMP(Address);
     DUMP(Type);
     switch (Xila.Display.Get_Current_Page())
     {
     case Pages.Preferences_Hardware:
         if (Preferences_Class::State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('B', 'r'):
+            case Address('B', 'r'):
                 Xila.Display.Brightness = *(uint8_t *)Variable;
                 break;
-            case Adress('V', 'o'):
+            case Address('V', 'o'):
                 Xila.Sound.Set_Volume(*(uint8_t *)Variable);
                 break;
             default:
@@ -451,9 +451,9 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
     case Pages.File_Manager_Main:
         if (File_Manager_Pointer->State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('F', 'i'):
+            case Address('F', 'i'):
                 if (FILE_MANAGER->Current_Path[1] != '\0')
                 {
                     strcat(FILE_MANAGER->Current_Path, "/");
@@ -461,7 +461,7 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
                 strlcat(FILE_MANAGER->Current_Path, (char *)Variable, sizeof(FILE_MANAGER->Current_Path));
                 SHELL->Send_Instruction('R', 'e');
                 break;
-            case Adress('I', 'P'):
+            case Address('I', 'P'):
                 File_Manager_Pointer->Item_Pointer = (File *)Variable;
                 break;
             default:
@@ -472,18 +472,18 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
     case Pages.Dialog_Keyboard:
         if (Dialog.Keyboard_Pointer->State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('S', 't'): // -- Keyboard
+            case Address('S', 't'): // -- Keyboard
                 Dialog.Keyboard_Pointer->String = (char *)Variable;
                 break;
-            case Adress('S', 'i'):
+            case Address('S', 'i'):
                 Dialog.Keyboard_Pointer->Size = *(size_t *)Variable;
                 break;
-            case Adress('M', 'a'):
+            case Address('M', 'a'):
                 Dialog.Keyboard_Pointer->Masked_Input = *(bool *)Variable;
                 break;
-            case Adress('I', 'n'):
+            case Address('I', 'n'):
                 strlcpy(Dialog.Keyboard_Pointer->String, (const char *)Variable, Dialog.Keyboard_Pointer->Size);
                 break;
             default:
@@ -494,24 +494,24 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
     case Pages.Dialog_Event:
         if (Dialog.Event_Pointer->State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('M', 'e'): // -- Event
+            case Address('M', 'e'): // -- Event
                 Dialog.Event_Pointer->Message = (void *)Variable;
                 break;
-            case Adress('M', 'o'):
+            case Address('M', 'o'):
                 Dialog.Event_Pointer->Mode = *(uint8_t *)Variable;
                 break;
-            case Adress('T', 'y'):
+            case Address('T', 'y'):
                 Dialog.Event_Pointer->Type = *(uint8_t *)Variable;
                 break;
-            case Adress('B', '1'):
+            case Address('B', '1'):
                 Dialog.Event_Pointer->Button_Text[0] = (void *)Variable;
                 break;
-            case Adress('B', '2'):
+            case Address('B', '2'):
                 Dialog.Event_Pointer->Button_Text[1] = (void *)Variable;
                 break;
-            case Adress('B', '3'):
+            case Address('B', '3'):
                 Dialog.Event_Pointer->Button_Text[2] = (void *)Variable;
                 break;
             default:
@@ -522,24 +522,24 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
     case Pages.Dialog_Load:
         if (Dialog.Load_Pointer->State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('H', 'e'): // -- Load
+            case Address('H', 'e'): // -- Load
                 Dialog.Load_Pointer->Header = (void *)Variable;
                 break;
-            case Adress('M', 'e'):
+            case Address('M', 'e'):
                 Dialog.Load_Pointer->Message = (void *)Variable;
                 break;
-            case Adress('M', 'o'):
+            case Address('M', 'o'):
                 Dialog.Load_Pointer->Mode = *(uint8_t *)Variable;
                 break;
-            case Adress('P', 'o'):
+            case Address('P', 'o'):
                 Dialog.Load_Pointer->Page = *(Xila_Class::Page *)Variable;
                 break;
-            case Adress('S', 'o'):
+            case Address('S', 'o'):
                 Dialog.Load_Pointer->Caller_Software = (Xila_Class::Software *)Variable;
                 break;
-            case Adress('D', 'u'):
+            case Address('D', 'u'):
                 Dialog.Load_Pointer->Duration = *(uint32_t *)Variable;
                 break;
             default:
@@ -550,12 +550,12 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
     case Pages.Dialog_Keypad:
         if (Dialog.Keypad_Pointer->State())
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('N', 'u'):
+            case Address('N', 'u'):
                 Dialog.Keypad_Pointer->Number = (float *)Variable;
                 break;
-            case Adress('I', 'n'):
+            case Address('I', 'n'):
                 strlcpy(Dialog.Keypad_Pointer->Temporary_Float_String, (char *)Variable, sizeof(Dialog.Keypad_Pointer->Temporary_Float_String));
                 break;
             default:
@@ -564,12 +564,12 @@ void Shell_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
         }
         break;
     case Pages.Dialog_Color_Picker:
-        switch (Adress)
+        switch (Address)
         {
-        case Adress('C', 'P'):
+        case Address('C', 'P'):
             Dialog.Color_Picker_Pointer.Color = (uint16_t *)Variable;
             break;
-        case Adress('C', 'o'):
+        case Address('C', 'o'):
             memcpy(Dialog.Color_Picker_Pointer.Color, (uint16_t *)Variable, sizeof(uint16_t));
             break;
         default:

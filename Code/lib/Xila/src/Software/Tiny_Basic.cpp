@@ -158,9 +158,9 @@ void Tiny_Basic_Class::Main_Task(void *pvParameters)
   }
 }
 
-void Tiny_Basic_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Tiny_Basic_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-  if (Adress == Adress('I', 'n') && Type == Xila.Display.Variable_String && Temporary_Input[0] == '\0')
+  if (Address == Address('I', 'n') && Type == Xila.Display.Variable_String && Temporary_Input[0] == '\0')
   {
       strlcpy(Temporary_Input, (char *)Variable, sizeof(Temporary_Input));
   }

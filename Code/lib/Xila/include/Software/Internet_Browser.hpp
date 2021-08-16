@@ -177,9 +177,9 @@ private:
 
     byte Find_Until(uint8_t *string, boolean);
 
-    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+    void Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
-    //void Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size = 0);
+    //void Set_Variable(const void *Variable, uint8_t Type, uint8_t Address, uint8_t Size = 0);
 
     static Internet_Browser_Class *Instance_Pointer;
 

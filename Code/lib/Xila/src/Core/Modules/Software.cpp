@@ -45,7 +45,7 @@ Xila_Class::Software::~Software() // Destructor : close
   vQueueDelete(Instruction_Queue_Handle);
 }
 
-void Xila_Class::Software::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Xila_Class::Software::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
 }
 

@@ -30,7 +30,7 @@ Xila_Class::State Xila_Class::Software_Management_Class::Get_State(Xila_Class::S
 {
   if (Openned[0] != NULL)
   {
-    if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer adress to be faster
+    if (Openned[0]->Handle == &Software_Handle) // only compare handle pointer Address to be faster
     {
       return Maximized;
     }

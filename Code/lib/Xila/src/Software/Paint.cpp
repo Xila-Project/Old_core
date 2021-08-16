@@ -26,9 +26,9 @@ Paint_Class::~Paint_Class()
     Instance_Pointer = NULL;
 }
 
-/*void Paint_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size)
+/*void Paint_Class::Set_Variable(const void *Variable, uint8_t Type, uint8_t Address, uint8_t Size)
 {
-    if (Adress == 'C')
+    if (Address == 'C')
     {
         if (Buffer_Position < sizeof(Currrent_Buffer))
         {

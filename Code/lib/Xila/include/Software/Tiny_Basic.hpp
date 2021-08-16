@@ -35,7 +35,7 @@
 //
 
 // custom const
-#define E2END 0x1FF // last eeprom adress  = 512 (max default eeprom size on esp32) - 1 (adresses start at 0)
+#define E2END 0x1FF // last eeprom Address  = 512 (max default eeprom size on esp32) - 1 (Addresses start at 0)
 
 #define ANALOG_WRITE_CHANEL 7
 
@@ -339,7 +339,7 @@ protected:
     uint8_t Current_Line;
     uint8_t Current_Column;
 
-    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+    void Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
     void Refresh_Interface();
     

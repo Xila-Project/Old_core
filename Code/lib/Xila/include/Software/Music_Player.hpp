@@ -69,7 +69,7 @@ protected:
         void Open_Radio(uint8_t);
     void Set_Radio(uint8_t);
 
-    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+    void Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
     void Set_Time();
 

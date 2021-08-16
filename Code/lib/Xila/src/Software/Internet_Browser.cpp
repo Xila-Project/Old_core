@@ -37,9 +37,9 @@ Internet_Browser_Class::~Internet_Browser_Class()
   Instance_Pointer = NULL;
 }
 
-void Internet_Browser_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Internet_Browser_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-  if (Adress == Adress('O', 'f') && Type == Xila.Display.Variable_Long)
+  if (Address == Address('O', 'f') && Type == Xila.Display.Variable_Long)
   {
     if (Cache_File)
     {

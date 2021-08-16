@@ -267,19 +267,19 @@ void Clock_Class::Refresh_Chronometer()
     }
 }
 
-void Clock_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Clock_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
     switch (Xila.Display.Get_Current_Page())
     {
     case Alarm:
         if (Selected_Alarm < 6)
         {
-            switch (Adress)
+            switch (Address)
             {
-            case Adress('H', 'o'):
+            case Address('H', 'o'):
                 Alarm_Hour[Selected_Alarm] = *(uint8_t *)Variable;
                 break;
-            case Adress('M', 'i'):
+            case Address('M', 'i'):
                 Alarm_Minute[Selected_Alarm] = *(uint8_t *)Variable;
                 break;
 
@@ -289,15 +289,15 @@ void Clock_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const vo
         }
         break;
     case Timer:
-        switch (Adress)
+        switch (Address)
         {
-        case Adress('H', 'o'):
+        case Address('H', 'o'):
             Hours = *(uint8_t *)Variable;
             break;
-        case Adress('M', 'i'):
+        case Address('M', 'i'):
             Minutes = *(uint8_t *)Variable;
             break;
-        case Adress('S', 'e'):
+        case Address('S', 'e'):
             Seconds = *(uint8_t *)Variable;
         default:
             break;

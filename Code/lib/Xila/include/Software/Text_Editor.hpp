@@ -24,7 +24,7 @@ protected:
 
     void Scan();
 
-    void Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+    void Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
 public:
     Text_Editor_Class();

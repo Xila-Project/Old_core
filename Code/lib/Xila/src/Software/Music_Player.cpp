@@ -35,13 +35,13 @@ Music_Player_Class::~Music_Player_Class()
     Instance_Pointer = NULL;
 }
 
-void Music_Player_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Music_Player_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-    if (Adress == Adress('V', 'o') && Type == Xila.Display.Variable_Long)
+    if (Address == Address('V', 'o') && Type == Xila.Display.Variable_Long)
     {
         Volume = *(uint8_t *)Variable;
     }
-    else if (Adress == Adress('T', 'i') && Type == Xila.Display.Variable_Long)
+    else if (Address == Address('T', 'i') && Type == Xila.Display.Variable_Long)
     {
         Time_To_Set = *(uint32_t *)Variable;
     }

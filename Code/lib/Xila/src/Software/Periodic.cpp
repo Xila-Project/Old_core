@@ -29,14 +29,14 @@ Xila_Class::Software *Periodic_Class::Load()
     return Instance_Pointer;
 }
 
-void Periodic_Class::Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+void Periodic_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-    switch (Adress)
+    switch (Address)
     {
-    case Adress('X', 'C'):
+    case Address('X', 'C'):
         X = *(uint32_t *)Variable;
         break;
-    case Adress('Y', 'C'):
+    case Address('Y', 'C'):
         Y = *(uint32_t *)Variable;
         break;
     default:

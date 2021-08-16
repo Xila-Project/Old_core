@@ -20,7 +20,7 @@ Xila_Class::Display_Class::Display_Class()
       Receive_Pin(Default_Display_Receive_Pin),
       Standby_Time(Default_Display_Standby_Time),
       Transmit_Pin(Default_Display_Transmit_Pin),
-      Current_Adress(0)
+      Current_Address(0)
 {
     Baud_Rate = Default_Display_Baud_Rate;
 }
@@ -98,11 +98,11 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
         Xila.Software_Management.Openned[0]->Send_Instruction(Instruction(Received_Data[1], Received_Data[2]));
         break;
     case Xila.Display.Variable_String:
-        Xila.Software_Management.Openned[0]->Set_Variable(Adress(Received_Data[1], Received_Data[2]), Variable_String, Received_Data + 3);
-        Xila.Display.Current_Adress = '\0';
+        Xila.Software_Management.Openned[0]->Set_Variable(Address(Received_Data[1], Received_Data[2]), Variable_String, Received_Data + 3);
+        Xila.Display.Current_Address = '\0';
         break;
     case Xila.Display.Variable_Long:
-        Xila.Display.Current_Adress = Adress(Received_Data[1], Received_Data[2]);
+        Xila.Display.Current_Address = Address(Received_Data[1], Received_Data[2]);
         break;
     default:
         //error handle
@@ -116,10 +116,10 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
 /// @param Received_Data Received numeric data from the display
 void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
-    if (Xila.Display.Current_Adress != '\0')
+    if (Xila.Display.Current_Address != '\0')
     {
-        Xila.Software_Management.Openned[0]->Set_Variable(Xila.Display.Current_Adress, Xila.Display.Variable_Long, &Received_Data);
-        Xila.Display.Current_Adress = '\0';
+        Xila.Software_Management.Openned[0]->Set_Variable(Xila.Display.Current_Address, Xila.Display.Variable_Long, &Received_Data);
+        Xila.Display.Current_Address = '\0';
     }
 }
 

@@ -92,7 +92,11 @@
 //
 
 #define Instruction(x, y) (x * 256 + y)
-#define Adress(x, y) (x * 256 + y)
+
+///
+ /// @brief Address conversion macro
+ /// 
+#define Address(x, y) (x * 256 + y)
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -122,9 +126,9 @@ public:
     //==============================================================================//
 
     ///
-    /// @brief Page type.
+    /// @brief Xila Address type.
     ///
-    typedef uint8_t Page;
+    typedef uint16_t Address;
 
     ///
     /// @brief Image type.
@@ -132,9 +136,14 @@ public:
     typedef uint8_t Image;
 
     ///
-    /// @brief Task handle type
+    /// @brief Xila instruction type.
     ///
-    typedef void *Task_Handle;
+    typedef uint16_t Instruction;
+
+    ///
+    /// @brief Page type.
+    ///
+    typedef uint8_t Page;
 
     ///
     /// @brief Task type
@@ -142,14 +151,9 @@ public:
     typedef void (*Task_Function)(void *);
 
     ///
-    /// @brief Xila instruction type.
+    /// @brief Task handle type
     ///
-
-    typedef uint16_t Instruction;
-    ///
-    /// @brief Xila adress type.
-    ///
-    typedef uint16_t Adress;
+    typedef void *Task_Handle;
 
     ///
     /// @brief Instructions used by the core (with the prefix "#").
@@ -182,39 +186,48 @@ public:
         Dialog_Load = 'l'          // Open load dialog
     };
 
+    ///
+    /// @brief Variable type enumeration
+    ///
     enum Variable_Types : uint8_t
     {
-        Variable_Long = 'l',
-        Variable_String = 's',
-        Pointer = 'p',
-        Other = 'o'
+        Variable_Long = 'l',   ///< Long variable (64 bits)
+        Variable_String = 's', ///< String variable (char array)
+        Pointer = 'p',         ///< Point variable (pointer)
+        Other = 'o'            ///< Other data types
     };
 
+    ///
+    /// @brief Software states
+    ///
     typedef enum
     {
-        Minimized,
-        Maximized
+        Minimized, ///< Maximized state.
+        Maximized  ///< Minimized state.
     } State;
 
     ///
-    /// @brief Xila event type
+    /// @brief Xila event type.
     ///
     typedef enum : uint8_t
     {
-        Success = true,
-        Error = false,
-        Warning,
-        Information,
-        Question,
-        Button_1 = 0x31, //< Button 1 reply, by default : Yes
-        Button_2 = 0x32, //< Button 2 reply by default : No
-        Button_3 = 0x33, //< Button 3 reply by default : Cancel (returned also by close button)
-        Default_Yes = Button_1,
-        Default_No = Button_2,
-        Default_Cancel = Button_3,
+        Success = true,            ///< Success event.
+        Error = false,             ///< Error event.
+        Warning,                   ///< Warning event.
+        Information,               ///< Information event.
+        Question,                  ///< Question event.
+        Button_1 = 0x31,           ///< Button 1 reply (equivalent to Yes reply).
+        Button_2 = 0x32,           ///< Button 2 reply (equivalent to No reply).
+        Button_3 = 0x33,           ///< Button 3 reply (equivalent to Cancel reply).
+        Default_Yes = Button_1,    ///< Yes reply (equivalent to Button 1).
+        Default_No = Button_2,     ///< No reply (equivalent to Button 2).
+        Default_Cancel = Button_3, ///< Cancel reply (equivalent to Button 3).
         None
     } Event;
 
+    ///
+    /// @brief Color union.
+    ///
     typedef union Color
     {
         uint32_t Color;
@@ -249,17 +262,21 @@ public:
             Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
         }
 
-        virtual void Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable);
+        virtual void Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable);
 
         Xila_Class::Instruction Get_Instruction();
 
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
         // -- Attributes
-        TaskHandle_t Task_Handle;
+
+        ////
+        /// @brief Software task handle.
+        ///
+        Xila_Class::Task_Handle Task_Handle;
 
         ///
-        /// @brief Software handle pointer
+        /// @brief Software handle pointer.
         ///
         Xila_Class::Software_Handle *Handle;
 
@@ -267,9 +284,24 @@ public:
         friend class Shell_Class;
 
     private:
-        uint16_t Current_Instruction;
+        ///
+        /// @brief Temporary variable to receive current instruction from queue.
+        ///
+        Xila_Class::Instruction Current_Instruction;
+
+        ///
+        /// @brief Queue handle.
+        ///
         QueueHandle_t Instruction_Queue_Handle;
+
+        ///
+        /// @brief Last software watchdog feed.
+        ///
         uint32_t Last_Watchdog_Feed;
+
+        ///
+        /// @brief Watchdog defined timeout.
+        ///
         uint16_t Watchdog_Timeout;
     };
 
@@ -361,7 +393,15 @@ public:
         friend class Shell_Class;
 
     protected:
+
+        ///
+         /// @brief Loaded username.
+         /// 
         char Current_Username[9];
+
+        ///
+         /// @brief Session state.
+         /// 
         Session_State State;
 
         // -- Setter
@@ -393,7 +433,15 @@ public:
         friend class Shell_Class;
 
     protected:
+
+        ///
+         /// @brief Clipboard file.
+         /// 
         File Clipboard_File;
+
+        ///
+         /// @brief Split number array.
+         /// 
         uint8_t Split_Number[8];
     } Clipboard;
 
@@ -582,7 +630,7 @@ public:
 
         uint8_t Brightness, Receive_Pin, Standby_Time, Transmit_Pin;
 
-        Xila_Class::Adress Current_Adress;
+        Xila_Class::Address Current_Address;
 
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
@@ -1118,7 +1166,7 @@ public:
 
         void Shell_Maximize();
         void Shell_Send_Instruction(Xila_Class::Instruction);
-        void Shell_Set_Variable(Xila_Class::Adress, uint8_t, const void *);
+        void Shell_Set_Variable(Xila_Class::Address, uint8_t, const void *);
 
         uint8_t Seek_Open_Software_Handle(Xila_Class::Software_Handle const &Software_Handle);
 

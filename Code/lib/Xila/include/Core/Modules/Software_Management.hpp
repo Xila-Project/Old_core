@@ -28,9 +28,9 @@ inline uint8_t Xila_Class::Software_Management_Class::Seek_Open_Software_Handle(
 
 // -- Shell shortcut -- //
 
-inline void Xila_Class::Software_Management_Class::Shell_Set_Variable(Xila_Class::Adress Adress, uint8_t Type, const void *Variable)
+inline void Xila_Class::Software_Management_Class::Shell_Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
 {
-  Openned[1]->Set_Variable(Adress, Type, Variable);
+  Openned[1]->Set_Variable(Address, Type, Variable);
 }
 
 inline void Xila_Class::Software_Management_Class::Shell_Send_Instruction(Xila_Class::Instruction Instruction)
