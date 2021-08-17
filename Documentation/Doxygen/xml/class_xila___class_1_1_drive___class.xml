@@ -7,36 +7,36 @@
       <memberdef kind="enum" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a" prot="public" static="no" strong="no">
         <type></type>
         <name>Sd_Card_Type</name>
-        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa83ac4b96d428e99bbfa9ac1efd2baf46" prot="public">
-          <name>CARD_NONE</name>
+        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa383e5858e9e99cab882bc243a37e85e8" prot="public">
+          <name>None</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaabc77181a1b0d5a2de7a05bf9c4a1aa8" prot="public">
-          <name>CARD_MMC</name>
+        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaa16395dc117ec74972ccc78b4f3dc945" prot="public">
+          <name>MMC</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa4c52bdb4ebbd082f4ff8dd4976d4880d" prot="public">
-          <name>CARD_SD</name>
+        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa3e12cac98de43f5259c8ad0a9e383546" prot="public">
+          <name>SD_SC</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa463a8f47e17d91cf14596fa1cbab11f0" prot="public">
-          <name>CARD_SDHC</name>
+        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aadec47f4da141de7d56488b30c2038971" prot="public">
+          <name>SD_HC</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aacb85db3013c9bc633780f1c8d91971c3" prot="public">
-          <name>CARD_UNKNOWN</name>
+        <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaca4d1a6e9be97f054c2613ae2d39a701" prot="public">
+          <name>Unknow</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="409" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="410" bodyend="416"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="648" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="649" bodyend="655"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -66,7 +66,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="454" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="454" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="693" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="693" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_drive___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -82,22 +82,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="455" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="455" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="protected-func">
-      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ac3f935e3060f0a754e4aea39b0c150bd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Drive_Class::End</definition>
-        <argsstring>()</argsstring>
-        <name>End</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="406" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="694" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="694" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -132,38 +117,94 @@
           <defval>5</defval>
         </param>
         <briefdescription>
+<para>Initialize drive. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Slave_Select_Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave select pin. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>spi</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>SPI interface. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Frequency</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Frequency of the SPI bus. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mount_Point</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mount point path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Maximum_Files</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum simultaneous openned files. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the initialization succeed. </para>
+</simplesect>
+<simplesect kind="return"><para>false if the initialization succeed. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="418" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="657" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="37" bodyend="40"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1aba28eecd1868b938b087e4388d559ec5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ab57d363ffaea1f5c638b0b4caa23dd06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
-        <definition>uint64_t Xila_Class::Drive_Class::Card_Size</definition>
+        <definition>uint64_t Xila_Class::Drive_Class::Size</definition>
         <argsstring>()</argsstring>
-        <name>Card_Size</name>
+        <name>Size</name>
         <briefdescription>
+<para>Return the drive size. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>uint64_t Drive size in bytes. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="420" column="18"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="659" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="46" bodyend="49"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a46f448f8aaa67e40a4ad8adaf2d01d85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a292061e7081549b280ff14c0612357bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>Sd_Card_Type</type>
-        <definition>Sd_Card_Type Xila_Class::Drive_Class::Card_Type</definition>
+        <definition>Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type</definition>
         <argsstring>()</argsstring>
-        <name>Card_Type</name>
+        <name>Type</name>
         <briefdescription>
+<para>Return drive type. </para>
         </briefdescription>
         <detaileddescription>
+<para><simplesect kind="return"><para>Xila_Class::Drive_Class::Sd_Card_Type <linebreak/>
+ </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="421" column="22"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="660" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="55" bodyend="75"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afc4521e0d8b8f0aac23af14d9e9239eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -175,12 +216,27 @@
           <declname>Path</declname>
         </param>
         <briefdescription>
+<para>Check if a file / folder exists. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Item path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the item exist. </para>
+</simplesect>
+<simplesect kind="return"><para>false if the item doesn&apos;t exist. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="423" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="662" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="91" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a6fd45190eb05d644c1dece9ee3b1539d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -192,12 +248,27 @@
           <declname>Path</declname>
         </param>
         <briefdescription>
+<para>Check if a file / folder exists. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Item path. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the item exists. </para>
+</simplesect>
+<simplesect kind="return"><para>false if the item doesn&apos;t exist. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="424" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="663" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="102" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1af832f7a6daa2dd7345e29393d2e392b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -209,12 +280,27 @@
           <declname>Path</declname>
         </param>
         <briefdescription>
+<para>Make a new directory. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path of new directory. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the operation succeed. </para>
+</simplesect>
+<simplesect kind="return"><para>false of the operation failed. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="426" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="665" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="113" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a59def79d55a887b0d80d470f22c5f110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -226,12 +312,27 @@
           <declname>Path</declname>
         </param>
         <briefdescription>
+<para>Make a new directory. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Path of new directory. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the operation succeed. </para>
+</simplesect>
+<simplesect kind="return"><para>false of the operation failed. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="427" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="666" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="124" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ad951b3ec549f04c18bcd3e0fb1a0acd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -248,7 +349,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="429" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="668" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="177" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1aae929850f2b5dcdddfc46e3ea0651677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -265,7 +366,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="430" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="669" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="182" bodyend="185"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>File</type>
@@ -282,12 +383,33 @@
           <defval>&quot;r&quot;</defval>
         </param>
         <briefdescription>
+<para>Open a file / folder. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Item path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Open mode (read or write). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>File File instance. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="432" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="671" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="135" bodyend="138"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afb5c9bb76be7359b6f6325520e9f88b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>File</type>
@@ -304,12 +426,33 @@
           <defval>&quot;r&quot;</defval>
         </param>
         <briefdescription>
+<para>Open a file / folder. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Item path. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Open mode (read or write). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>File File instance. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="433" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="672" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="146" bodyend="149"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a7ba7605ddfbe7ccacfe81a7e49ea576d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -321,12 +464,28 @@
           <declname>Path</declname>
         </param>
         <briefdescription>
+<para>Remove a file. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Path</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true </para>
+</simplesect>
+<simplesect kind="return"><para>false <linebreak/>
+ </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="435" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="674" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="157" bodyend="160"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1acf12d2dd7fc72d63f35f00c34b4917f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -343,7 +502,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="436" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="675" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="162" bodyend="165"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a5e3a8735ad316065b480222b5d4d7b14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -364,7 +523,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="438" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="677" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="167" bodyend="170"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ad0fd69394fc59ad486b3e901a887c7df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -385,7 +544,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="439" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="678" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="172" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1aa876b884d05d771a26148570cdf7d07e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -398,7 +557,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="441" column="18"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="680" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="187" bodyend="190"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1adb1b4ead65106d185faa8fdda6e838b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -411,10 +570,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="442" column="18"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="681" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="192" bodyend="195"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Drive_Class::Copy</definition>
         <argsstring>(File &amp;Origin_File, File &amp;Destination_File)</argsstring>
         <name>Copy</name>
@@ -427,15 +586,36 @@
           <declname>Destination_File</declname>
         </param>
         <briefdescription>
+<para>Copy file from two openned file. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Origin_File</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File to duplicate </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Destination_File</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File to write </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Xila_Class::Event::Success or Xila_Class::Event::Error </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="446" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="685" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="424" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a0e7c3a756ca4751a1d1f8e09e5809821" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Drive_Class::Get_Name</definition>
         <argsstring>(File const &amp;File, char *File_Name_Buffer, size_t Size)</argsstring>
         <name>Get_Name</name>
@@ -446,6 +626,7 @@
         <param>
           <type>char *</type>
           <declname>File_Name_Buffer</declname>
+          <defname>File_Name</defname>
         </param>
         <param>
           <type>size_t</type>
@@ -454,16 +635,44 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>File</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>File_Name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="447" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="686" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="470" bodyend="496"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a269e05fe820f5bee67df0f76a5e42c46" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a956d18ed6c7a8ecfcf33ce3ae609bfa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
-        <definition>uint16_t Xila_Class::Drive_Class::Count_Files</definition>
+        <definition>uint16_t Xila_Class::Drive_Class::Count_Items</definition>
         <argsstring>(File &amp;Folder)</argsstring>
-        <name>Count_Files</name>
+        <name>Count_Items</name>
         <param>
           <type>File &amp;</type>
           <declname>Folder</declname>
@@ -471,10 +680,22 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Folder</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t return the number of files inside a folder </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="448" column="18"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="687" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="445" bodyend="461"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -482,12 +703,29 @@
         <argsstring>()</argsstring>
         <name>Drive_Class</name>
         <briefdescription>
+<para>Construct a new <ref refid="class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778" kindref="member">Xila_Class::Drive_Class::Drive_Class</ref> object. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="451" column="9"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="690" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="21" bodyend="23"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ac3f935e3060f0a754e4aea39b0c150bd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Drive_Class::End</definition>
+        <argsstring>()</argsstring>
+        <name>End</name>
+        <briefdescription>
+<para>Unmount drive. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="697" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="80" bodyend="83"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -495,18 +733,11 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="403" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="404" bodyend="456"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="645" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="646" bodyend="699"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_drive___class_1ae6ee65e39b64633977e13099011c3673" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Begin</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaabc77181a1b0d5a2de7a05bf9c4a1aa8" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>CARD_MMC</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa83ac4b96d428e99bbfa9ac1efd2baf46" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>CARD_NONE</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa4c52bdb4ebbd082f4ff8dd4976d4880d" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>CARD_SD</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa463a8f47e17d91cf14596fa1cbab11f0" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>CARD_SDHC</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1aba28eecd1868b938b087e4388d559ec5" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Card_Size</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a46f448f8aaa67e40a4ad8adaf2d01d85" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Card_Type</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aacb85db3013c9bc633780f1c8d91971c3" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>CARD_UNKNOWN</name></member>
       <member refid="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Copy</name></member>
-      <member refid="class_xila___class_1_1_drive___class_1a269e05fe820f5bee67df0f76a5e42c46" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Count_Files</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a956d18ed6c7a8ecfcf33ce3ae609bfa8" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Count_Items</name></member>
       <member refid="class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Drive_Class</name></member>
       <member refid="class_xila___class_1_1_drive___class_1ac3f935e3060f0a754e4aea39b0c150bd" prot="protected" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>End</name></member>
       <member refid="class_xila___class_1_1_drive___class_1afc4521e0d8b8f0aac23af14d9e9239eb" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Exists</name></member>
@@ -514,6 +745,8 @@
       <member refid="class_xila___class_1_1_drive___class_1a0e7c3a756ca4751a1d1f8e09e5809821" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Get_Name</name></member>
       <member refid="class_xila___class_1_1_drive___class_1af832f7a6daa2dd7345e29393d2e392b3" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Make_Directory</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a59def79d55a887b0d80d470f22c5f110" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Make_Directory</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaa16395dc117ec74972ccc78b4f3dc945" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>MMC</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa383e5858e9e99cab882bc243a37e85e8" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>None</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Open</name></member>
       <member refid="class_xila___class_1_1_drive___class_1afb5c9bb76be7359b6f6325520e9f88b6" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Open</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a7ba7605ddfbe7ccacfe81a7e49ea576d" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Remove</name></member>
@@ -523,8 +756,13 @@
       <member refid="class_xila___class_1_1_drive___class_1a5e3a8735ad316065b480222b5d4d7b14" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Rename</name></member>
       <member refid="class_xila___class_1_1_drive___class_1ad0fd69394fc59ad486b3e901a887c7df" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Rename</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Sd_Card_Type</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aadec47f4da141de7d56488b30c2038971" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>SD_HC</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa3e12cac98de43f5259c8ad0a9e383546" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>SD_SC</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1ab57d363ffaea1f5c638b0b4caa23dd06" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Size</name></member>
       <member refid="class_xila___class_1_1_drive___class_1aa876b884d05d771a26148570cdf7d07e" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Total_Bytes</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a292061e7081549b280ff14c0612357bc" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Type</name></member>
+      <member refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaca4d1a6e9be97f054c2613ae2d39a701" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Unknow</name></member>
       <member refid="class_xila___class_1_1_drive___class_1adb1b4ead65106d185faa8fdda6e838b6" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Used_Bytes</name></member>
       <member refid="class_xila___class_1_1_drive___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Xila_Class</name></member>
     </listofallmembers>

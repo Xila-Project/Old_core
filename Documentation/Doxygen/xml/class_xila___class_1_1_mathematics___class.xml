@@ -1,0 +1,1204 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_mathematics___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Mathematics_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_mathematics___class_1a130f89c97c2ad2a0b77a8d0fa0ea955c" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double Xila_Class::Mathematics_Class::Pi</definition>
+        <argsstring></argsstring>
+        <name>Pi</name>
+        <initializer>= 3.1415926535897932384626433832795</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="995" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="995" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_mathematics___class_1af35b36884f000d255eba3d478a82c82e" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double Xila_Class::Mathematics_Class::Euler</definition>
+        <argsstring></argsstring>
+        <name>Euler</name>
+        <initializer>= 2.718281828459045235360287471352</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="996" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="996" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_mathematics___class_1a67b6be26ff9e1dde5e2da8b38455f10b" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double Xila_Class::Mathematics_Class::Degrees_To_Radians</definition>
+        <argsstring></argsstring>
+        <name>Degrees_To_Radians</name>
+        <initializer>= 0.017453292519943295769236907684886</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="997" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="997" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_mathematics___class_1a5d9f5e74fdb05463399d25f6f356cdf9" prot="public" static="no" mutable="no">
+        <type>const double</type>
+        <definition>const double Xila_Class::Mathematics_Class::Radians_To_Degrees</definition>
+        <argsstring></argsstring>
+        <name>Radians_To_Degrees</name>
+        <initializer>= 57.295779513082320876798154814105</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="998" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="998" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1adb5cb9c9b3d7cc044d9157d5a001f6af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::String_To_Float</definition>
+        <argsstring>(const char *String)</argsstring>
+        <name>String_To_Float</name>
+        <param>
+          <type>const char *</type>
+          <declname>String</declname>
+        </param>
+        <briefdescription>
+<para>Convert string to a float number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>String</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to convert. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double Converted number. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1001" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="18" bodyend="21"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a9038424e632636444e5a9492e69e2c27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * Xila_Class::Mathematics_Class::Float_To_String</definition>
+        <argsstring>(double Number, int8_t Width, uint8_t Precision, char *String)</argsstring>
+        <name>Float_To_String</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <param>
+          <type>int8_t</type>
+          <declname>Width</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Precision</declname>
+        </param>
+        <param>
+          <type>char *</type>
+          <declname>String</declname>
+        </param>
+        <briefdescription>
+<para>Convert a float number into string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number to convert. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String buffer size. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Precision</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Float point precision. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>String</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String buffer. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>char* String buffer pointer. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1002" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="31" bodyend="51"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ad3cc6e63dac7057f138d172a0da728e6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Xila_Class::Mathematics_Class::Is_NAN</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Is_NAN</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+<para>Check if a float is a number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true </para>
+</simplesect>
+<simplesect kind="return"><para>false <linebreak/>
+ </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1004" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="22" bodyend="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a3ed12d8577a4fefc04e337561f118a33" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool Xila_Class::Mathematics_Class::Is_Infinite</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Is_Infinite</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+<para>Check if a number is infinite. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true </para>
+</simplesect>
+<simplesect kind="return"><para>false <linebreak/>
+ </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1005" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="33" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aa684c248ccc06e118cf934cf9e6c28f9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Copy_Sign</definition>
+        <argsstring>(double Number_1, double Number_2)</argsstring>
+        <name>Copy_Sign</name>
+        <param>
+          <type>double</type>
+          <declname>Number_1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Number_2</declname>
+        </param>
+        <briefdescription>
+<para>Copy sign from a number to another. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Origin number. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Destination number. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double New number sign <linebreak/>
+ </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1007" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="44" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a79e0ff4f65237974b276707951a06f6c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Floor</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Floor</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1008" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ad258d4822331a804f0c5ac314afcf47c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Modulo</definition>
+        <argsstring>(double Number_1, double Number_2)</argsstring>
+        <name>Modulo</name>
+        <param>
+          <type>double</type>
+          <declname>Number_1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Number_2</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1009" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a8cfc0ec2ffcfdb0b4299b16430e18585" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Greatest_Common_Divisor</definition>
+        <argsstring>(double Number_1, double Number_2)</argsstring>
+        <name>Greatest_Common_Divisor</name>
+        <param>
+          <type>double</type>
+          <declname>Number_1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Number_2</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the greated common divisor of two number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double Greatest common divisor. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1010" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="59" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ae3eb595597176d0f6bc6c020efa52594" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Least_Common_Multiple</definition>
+        <argsstring>(double Number_1, double Number_2)</argsstring>
+        <name>Least_Common_Multiple</name>
+        <param>
+          <type>double</type>
+          <declname>Number_1</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Number_2</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the least common multiple of two number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Number_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double Least common divisor. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1011" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="85" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a00008b28c534f35b4d297e30ab6db47e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Radians</definition>
+        <argsstring>(double Degrees)</argsstring>
+        <name>Radians</name>
+        <param>
+          <type>double</type>
+          <declname>Degrees</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1013" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="59" bodyend="62"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aa9ef0ec753e1ecc9bb335f08abc0bf23" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Degrees</definition>
+        <argsstring>(double Radians)</argsstring>
+        <name>Degrees</name>
+        <param>
+          <type>double</type>
+          <declname>Radians</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1014" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="64" bodyend="67"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1af63d030fe69b7f398cf878298b27659b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Factorial</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Factorial</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+<para>Calculate the factorial of a number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number to calculte the factorial from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>double Factorial. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1016" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="95" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a7614821520b15f998fdad7c2529a1731" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Absolute</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Absolute</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1017" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="197" bodyend="200"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a047e962cdb43522539171f2db8020f61" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Inverse</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Inverse</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1018" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="257" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a0c69affa5ece58282eb6e7677297545f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Combination</definition>
+        <argsstring>(double n, double k)</argsstring>
+        <name>Combination</name>
+        <param>
+          <type>double</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1020" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a0af63fac2c3a46a69c2506471cc90a25" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Permutation</definition>
+        <argsstring>(double n, double k)</argsstring>
+        <name>Permutation</name>
+        <param>
+          <type>double</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>k</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1021" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aae6b683582f319b377a7862e6e14ae97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Sine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Sine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1023" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="69" bodyend="72"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1add35a40d6c25b17a7a2cdfb2a25fb526" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Cosine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Cosine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1024" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="74" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aea1d6ce7c21b7f389e032c742b181363" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Tangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Tangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1025" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="79" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a66fe9a4cc8b7819b59dbdd4c9c5a1e5c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Secant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Secant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1026" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ab4e2bbce095623321d912478a46996b4" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Cosecant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Cosecant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1027" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="89" bodyend="92"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a6ccf1b5431e1e0fa78f4280df674fce0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Cotangeant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Cotangeant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1028" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="94" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aeb4f99dedae457f6b673586d1e2653d5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Sine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Sine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1030" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="99" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a577c21face49e394db0e04aa91442881" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Cosine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Cosine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1031" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="104" bodyend="107"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a1503d9334758a67d13705ef9a7ab038a" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Tangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Tangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1032" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="109" bodyend="112"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a8d74635752ff54396c10b15892c772f2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Secant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Secant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1033" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="114" bodyend="117"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a5fbbee6d21767f4d0969663e7f87b6c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Cosecant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Cosecant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1034" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="119" bodyend="122"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ad16b34f85a667f6585b26a8bbc3f5f15" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Cotangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Cotangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1035" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="124" bodyend="127"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aa2393c4e6fd9843d3b4eaa7238673ec3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Sine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Sine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1037" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="129" bodyend="132"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a0a2cd1f6d86811ec77373754e1dbf7ec" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Cosine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Cosine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1038" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="134" bodyend="137"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ae9aee2996df3856f8fae53c2a3339377" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Tangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Tangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1039" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="139" bodyend="142"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1addec50ecd1210ea54e6baa9efcfd61b3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Secant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Secant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1040" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="144" bodyend="147"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a286d48aa115ca984fab665b1ab1b27ea" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Cosecant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Cosecant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1041" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="149" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a3f0b876cd27a54855240bf863292d13c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Hyperbolic_Cotangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Hyperbolic_Cotangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1042" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="158" bodyend="165"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a4d3818ecf837dbb74fa336811fe11993" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Sine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Sine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1044" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="167" bodyend="170"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a7c7329a0d9dfef617661cf7dda47249e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cosine</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Cosine</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1045" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="172" bodyend="175"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1aa9f0691e58bdcc851a163fd5d3fea614" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Tangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Tangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1046" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="177" bodyend="180"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a96392566a1ff176e705639f59590ede0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Secant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Secant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1047" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="182" bodyend="185"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a91a38f8dfb6f782537a0382313228278" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cosecant</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Cosecant</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1048" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="187" bodyend="190"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a5aa793696caa9dfa52388c3d8c103a52" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cotangent</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Arc_Hyperbolic_Cotangent</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1049" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="192" bodyend="195"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a7579f74df19f14c52bff8d4a86a50c50" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Power</definition>
+        <argsstring>(double Base, double Exponent)</argsstring>
+        <name>Power</name>
+        <param>
+          <type>double</type>
+          <declname>Base</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Exponent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1051" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="202" bodyend="205"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a5f336e28688d505974d862f0b5480d03" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Square</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Square</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1052" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="207" bodyend="210"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1ada71c62f4f8309f518f6ce93f79aad97" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Cube</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Cube</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1053" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="212" bodyend="215"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a9095de4657c3abf2b07d18fd572ad1ad" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Root</definition>
+        <argsstring>(double Base, double Exponent)</argsstring>
+        <name>Root</name>
+        <param>
+          <type>double</type>
+          <declname>Base</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Exponent</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1055" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="217" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a979206691582d7a1f6e2b56a438bae83" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Square_Root</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Square_Root</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1056" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="222" bodyend="225"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a4e3ac26238378381dcdfecafba60fe6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Cubic_Root</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Cubic_Root</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1057" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="227" bodyend="230"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a6cc4f010c160239da41adc91b0bbd6ff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Exponential</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Exponential</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1059" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="232" bodyend="235"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a060b75de482be750a25ee111d6de78f5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Logarithm</definition>
+        <argsstring>(double Base, double Number)</argsstring>
+        <name>Logarithm</name>
+        <param>
+          <type>double</type>
+          <declname>Base</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1061" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="237" bodyend="240"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1af42e9339fe847d07d92381919a45d121" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Binary_Logarithm</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Binary_Logarithm</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1062" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="242" bodyend="245"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a23529c89a448923446c4133532d19bab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Natural_Logarithm</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Natural_Logarithm</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1063" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="247" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_mathematics___class_1a8ff3ab256cb41ba71f4dc05808b58fab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>double</type>
+        <definition>double Xila_Class::Mathematics_Class::Decimal_Logarithm</definition>
+        <argsstring>(double Number)</argsstring>
+        <name>Decimal_Logarithm</name>
+        <param>
+          <type>double</type>
+          <declname>Number</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1064" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp" bodystart="252" bodyend="255"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Mathematics class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="992" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="993" bodyend="1066"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_mathematics___class_1a7614821520b15f998fdad7c2529a1731" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Absolute</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a5fbbee6d21767f4d0969663e7f87b6c0" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Cosecant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a577c21face49e394db0e04aa91442881" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Cosine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ad16b34f85a667f6585b26a8bbc3f5f15" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Cotangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a91a38f8dfb6f782537a0382313228278" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Cosecant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a7c7329a0d9dfef617661cf7dda47249e" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Cosine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a5aa793696caa9dfa52388c3d8c103a52" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Cotangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a96392566a1ff176e705639f59590ede0" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Secant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a4d3818ecf837dbb74fa336811fe11993" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Sine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aa9f0691e58bdcc851a163fd5d3fea614" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Hyperbolic_Tangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a8d74635752ff54396c10b15892c772f2" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Secant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aeb4f99dedae457f6b673586d1e2653d5" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Sine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a1503d9334758a67d13705ef9a7ab038a" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Arc_Tangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1af42e9339fe847d07d92381919a45d121" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Binary_Logarithm</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a0c69affa5ece58282eb6e7677297545f" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Combination</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aa684c248ccc06e118cf934cf9e6c28f9" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Copy_Sign</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ab4e2bbce095623321d912478a46996b4" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Cosecant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1add35a40d6c25b17a7a2cdfb2a25fb526" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Cosine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a6ccf1b5431e1e0fa78f4280df674fce0" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Cotangeant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ada71c62f4f8309f518f6ce93f79aad97" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Cube</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a4e3ac26238378381dcdfecafba60fe6e" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Cubic_Root</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a8ff3ab256cb41ba71f4dc05808b58fab" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Decimal_Logarithm</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aa9ef0ec753e1ecc9bb335f08abc0bf23" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Degrees</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a67b6be26ff9e1dde5e2da8b38455f10b" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Degrees_To_Radians</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1af35b36884f000d255eba3d478a82c82e" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Euler</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a6cc4f010c160239da41adc91b0bbd6ff" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Exponential</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1af63d030fe69b7f398cf878298b27659b" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Factorial</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a9038424e632636444e5a9492e69e2c27" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Float_To_String</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a79e0ff4f65237974b276707951a06f6c" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Floor</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a8cfc0ec2ffcfdb0b4299b16430e18585" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Greatest_Common_Divisor</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a286d48aa115ca984fab665b1ab1b27ea" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Cosecant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a0a2cd1f6d86811ec77373754e1dbf7ec" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Cosine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a3f0b876cd27a54855240bf863292d13c" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Cotangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1addec50ecd1210ea54e6baa9efcfd61b3" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Secant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aa2393c4e6fd9843d3b4eaa7238673ec3" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Sine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ae9aee2996df3856f8fae53c2a3339377" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Hyperbolic_Tangent</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a047e962cdb43522539171f2db8020f61" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Inverse</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a3ed12d8577a4fefc04e337561f118a33" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Is_Infinite</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ad3cc6e63dac7057f138d172a0da728e6" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Is_NAN</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ae3eb595597176d0f6bc6c020efa52594" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Least_Common_Multiple</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a060b75de482be750a25ee111d6de78f5" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Logarithm</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1ad258d4822331a804f0c5ac314afcf47c" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Modulo</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a23529c89a448923446c4133532d19bab" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Natural_Logarithm</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a0af63fac2c3a46a69c2506471cc90a25" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Permutation</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a130f89c97c2ad2a0b77a8d0fa0ea955c" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Pi</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a7579f74df19f14c52bff8d4a86a50c50" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Power</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a00008b28c534f35b4d297e30ab6db47e" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Radians</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a5d9f5e74fdb05463399d25f6f356cdf9" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Radians_To_Degrees</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a9095de4657c3abf2b07d18fd572ad1ad" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Root</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a66fe9a4cc8b7819b59dbdd4c9c5a1e5c" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Secant</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aae6b683582f319b377a7862e6e14ae97" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Sine</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a5f336e28688d505974d862f0b5480d03" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Square</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1a979206691582d7a1f6e2b56a438bae83" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Square_Root</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1adb5cb9c9b3d7cc044d9157d5a001f6af" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>String_To_Float</name></member>
+      <member refid="class_xila___class_1_1_mathematics___class_1aea1d6ce7c21b7f389e032c742b181363" prot="public" virt="non-virtual"><scope>Xila_Class::Mathematics_Class</scope><name>Tangent</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

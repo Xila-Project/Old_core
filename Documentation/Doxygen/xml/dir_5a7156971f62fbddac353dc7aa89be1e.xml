@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_5a7156971f62fbddac353dc7aa89be1e" kind="dir">
+    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction</compoundname>
+    <innerfile refid="_display_8cpp">Display.cpp</innerfile>
+    <innerfile refid="_drive_8cpp">Drive.cpp</innerfile>
+    <innerfile refid="_flash_8cpp">Flash.cpp</innerfile>
+    <innerfile refid="_g_p_i_o_8cpp">GPIO.cpp</innerfile>
+    <innerfile refid="_keyboard_8cpp">Keyboard.cpp</innerfile>
+    <innerfile refid="_power_8cpp">Power.cpp</innerfile>
+    <innerfile refid="_sound_8cpp">Sound.cpp</innerfile>
+    <innerfile refid="_wi_fi_8cpp">WiFi.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,384 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_display_8cpp" kind="file" language="C++">
+    <compoundname>Display.cpp</compoundname>
+    <includes refid="_core_8hpp" local="yes">Core/Core.hpp</includes>
+    <incdepgraph>
+      <node id="43">
+        <label>esp_ota_ops.h</label>
+      </node>
+      <node id="5">
+        <label>FS.h</label>
+      </node>
+      <node id="10">
+        <label>Print.h</label>
+      </node>
+      <node id="6">
+        <label>SPI.h</label>
+      </node>
+      <node id="33">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Battery_Library.hpp</label>
+      </node>
+      <node id="30">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
+      </node>
+      <node id="32">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>soc/efuse_reg.h</label>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+      <node id="14">
+        <label>WiFiSTA.h</label>
+      </node>
+      <node id="21">
+        <label>ArduinoTrace.h</label>
+      </node>
+      <node id="38">
+        <label>esp_spi_flash.h</label>
+      </node>
+      <node id="9">
+        <label>StreamUtils.h</label>
+      </node>
+      <node id="44">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="45">
+        <label>MD5Builder.h</label>
+      </node>
+      <node id="25">
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
+      </node>
+      <node id="20">
+        <label>WiFiUdp.h</label>
+      </node>
+      <node id="27">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="40">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="36">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="24">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
+      </node>
+      <node id="8">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="11">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="26">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
+      <node id="7">
+        <label>time.h</label>
+      </node>
+      <node id="29">
+        <label>Core/Modules/Mathematics.hpp</label>
+        <link refid="_mathematics_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="4">
+        <label>Arduino.h</label>
+      </node>
+      <node id="17">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="35">
+        <label>Esp.h</label>
+      </node>
+      <node id="2">
+        <label>Core/Core.hpp</label>
+        <link refid="_core_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="31">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="34">
+        <label>Core/Abstraction/Flash.hpp</label>
+        <link refid="_flash_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>IPv6Address.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="37">
+        <label>esp_sleep.h</label>
+      </node>
+      <node id="42">
+        <label>esp_partition.h</label>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Display.cpp</label>
+        <link refid="_display_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>WiFiServer.h</label>
+      </node>
+      <node id="13">
+        <label>WiFiType.h</label>
+      </node>
+      <node id="15">
+        <label>WiFiAP.h</label>
+      </node>
+      <node id="39">
+        <label>memory</label>
+      </node>
+      <node id="22">
+        <label>Nextion_Library.hpp</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Alix ANNERAUD (<ulink url="mailto:alix.anneraud@outlook.fr">alix.anneraud@outlook.fr</ulink>) </para>
+</simplesect>
+<simplesect kind="version"><para>0.1 </para>
+</simplesect>
+<simplesect kind="date"><para>28-03-2021</para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2021 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_core_8hpp" kindref="compound">Core/Core.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><ref refid="class_xila___class_1_1_display___class_1af876b6280f411f31fc9f1f7a39b61d55" kindref="member">Xila_Class::Display_Class::Display_Class</ref>()</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>:<sp/>Nextion_Class(),</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>State(true),</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Brightness(Default_Display_Brightness),</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Receive_Pin(Default_Display_Receive_Pin),</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Standby_Time(Default_Display_Standby_Time),</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Transmit_Pin(Default_Display_Transmit_Pin),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Current_Address(0)</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>Baud_Rate<sp/>=<sp/>Default_Display_Baud_Rate;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><ref refid="class_xila___class_1_1_display___class_1adde858d4d1bb57962297bc7761efa655" kindref="member">Xila_Class::Display_Class::~Display_Class</ref>()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref><sp/><ref refid="class_xila___class_1_1_display___class_1a4634dd85c9ecc3919ac2bf616472ce69" kindref="member">Xila_Class::Display_Class::Load_Registry</ref>()</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>File<sp/>Temporary_File<sp/>=<sp/>Xila.Drive.<ref refid="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797" kindref="member">Open</ref>(Registry(</highlight><highlight class="stringliteral">&quot;Display&quot;</highlight><highlight class="normal">));</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>DynamicJsonDocument<sp/>Display_Registry(256);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(deserializeJson(Display_Registry,<sp/>Temporary_File)<sp/>!=<sp/>DeserializationError::Ok)</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_File.close();</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44" kindref="member">Error</ref>;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>Temporary_File.close();</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(strcmp(</highlight><highlight class="stringliteral">&quot;Display&quot;</highlight><highlight class="normal">,<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Registry&quot;</highlight><highlight class="normal">]<sp/>|<sp/></highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">)<sp/>!=<sp/>0)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44" kindref="member">Error</ref>;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>Standby_Time<sp/>=<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Standby<sp/>Time&quot;</highlight><highlight class="normal">]<sp/>|<sp/>Default_Display_Standby_Time;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>Receive_Pin<sp/>=<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Receive<sp/>Pin&quot;</highlight><highlight class="normal">]<sp/>|<sp/>Default_Display_Receive_Pin;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>Transmit_Pin<sp/>=<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Transmit<sp/>Pin&quot;</highlight><highlight class="normal">]<sp/>|<sp/>Default_Display_Transmit_Pin;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>Baud_Rate<sp/>=<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Baud<sp/>Rate&quot;</highlight><highlight class="normal">]<sp/>|<sp/>Default_Display_Baud_Rate;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>Brightness<sp/>=<sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Brightness&quot;</highlight><highlight class="normal">]<sp/>|<sp/>Default_Display_Brightness;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94" kindref="member">Success</ref>;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref><sp/><ref refid="class_xila___class_1_1_display___class_1a57a1a229e2cf6b56a00374fbd4b7f57e" kindref="member">Xila_Class::Display_Class::Save_Registry</ref>()</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>File<sp/>Temporary_File<sp/>=<sp/>Xila.Drive.<ref refid="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797" kindref="member">Open</ref>(Registry(</highlight><highlight class="stringliteral">&quot;Display&quot;</highlight><highlight class="normal">),<sp/>FILE_WRITE);</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/>DynamicJsonDocument<sp/>Display_Registry(256);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Registry&quot;</highlight><highlight class="normal">]<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Display&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Brightness&quot;</highlight><highlight class="normal">]<sp/>=<sp/>Brightness;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Receive<sp/>Pin&quot;</highlight><highlight class="normal">]<sp/>=<sp/>Receive_Pin;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Transmit<sp/>Pin&quot;</highlight><highlight class="normal">]<sp/>=<sp/>Transmit_Pin;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Standby<sp/>Time&quot;</highlight><highlight class="normal">]<sp/>=<sp/>Standby_Time;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>Display_Registry[</highlight><highlight class="stringliteral">&quot;Baud<sp/>Rate&quot;</highlight><highlight class="normal">]<sp/>=<sp/>Baud_Rate;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(serializeJson(Display_Registry,<sp/>Temporary_File)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_File.close();</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44" kindref="member">Error</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>Temporary_File.close();</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94" kindref="member">Success</ref>;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_display___class_1af4e9eeffcd68b5354a84d0400bbcf908" kindref="member">Xila_Class::Display_Class::Incomming_String_Data_From_Display</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*Received_Data,<sp/>uint8_t<sp/>Size)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(Xila.Software_Management.<ref refid="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" kindref="member">Openned</ref>[0]<sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Task.<ref refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" kindref="member">Delay</ref>(20);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Received_Data[0])</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Xila.Display.Instruction:</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Software_Management.<ref refid="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" kindref="member">Openned</ref>[0]-&gt;<ref refid="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" kindref="member">Send_Instruction</ref>(<ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Instruction</ref>(Received_Data[1],<sp/>Received_Data[2]));</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Xila.Display.Variable_String:</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Software_Management.<ref refid="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" kindref="member">Openned</ref>[0]-&gt;Set_Variable(<ref refid="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6" kindref="member">Address</ref>(Received_Data[1],<sp/>Received_Data[2]),<sp/><ref refid="class_xila___class_1ad65de8d8ee4c0a80dea2b560b20a49a2aef9d97a2a2f59b2f71f5897f3c72031c" kindref="member">Variable_String</ref>,<sp/>Received_Data<sp/>+<sp/>3);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Display.Current_Address<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Xila.Display.Variable_Long:</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Display.Current_Address<sp/>=<sp/><ref refid="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6" kindref="member">Address</ref>(Received_Data[1],<sp/>Received_Data[2]);</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//error<sp/>handle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_display___class_1a6d37d3e73494d1ec37d691245bfded8b" kindref="member">Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display</ref>(uint32_t<sp/>Received_Data)</highlight></codeline>
+<codeline lineno="118"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Xila.Display.Current_Address<sp/>!=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Software_Management.<ref refid="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" kindref="member">Openned</ref>[0]-&gt;Set_Variable(Xila.Display.Current_Address,<sp/>Xila.Display.Variable_Long,<sp/>&amp;Received_Data);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Display.Current_Address<sp/>=<sp/></highlight><highlight class="charliteral">&apos;\0&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_display___class_1af571914a2dd55645c4b6109284958f70" kindref="member">Xila_Class::Display_Class::Incomming_Event_From_Display</ref>(uint8_t<sp/>Event_Code)</highlight></codeline>
+<codeline lineno="131"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">switch</highlight><highlight class="normal"><sp/>(Event_Code)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Current_Page_Number:</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.System.<ref refid="class_xila___class_1_1_system___class_1a332890e008438669c624c579031c6c06" kindref="member">Refresh_Header</ref>();</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Serial_Buffer_Overflow:</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Auto_Entered_Sleep_Mode:</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Display.Set_State(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Auto_Wake_From_Sleep_Mode:</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.Display.Set_State(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Xila.System.<ref refid="class_xila___class_1_1_system___class_1a332890e008438669c624c579031c6c06" kindref="member">Refresh_Header</ref>();</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Display.cpp"/>
+  </compounddef>
+</doxygen>

@@ -2,14 +2,14 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_pong___class" kind="class" language="C++" prot="public">
     <compoundname>Pong_Class</compoundname>
-    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+    <basecompoundref refid="class_xila___class_1_1_software" prot="public" virt="non-virtual">Xila_Class::Software</basecompoundref>
       <sectiondef kind="public-type">
       <memberdef kind="enum" id="class_pong___class_1a85096c1c7507c5742a8301bd0332a335" prot="public" static="no" strong="no">
         <type></type>
         <name>Image</name>
         <enumvalue id="class_pong___class_1a85096c1c7507c5742a8301bd0332a335a7b326ec134b8ecda8e3c0d036545365d" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Display.Pong</initializer>
+          <initializer>= Xila.Display.Pong_Images</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -21,50 +21,51 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="21" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" bodystart="22" bodyend="24"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="23" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" bodystart="24" bodyend="26"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-attrib">
-      <memberdef kind="variable" id="class_pong___class_1a3eea007eea43b1ec63e842e55c187b73" prot="protected" static="yes" mutable="no">
+      <memberdef kind="variable" id="class_pong___class_1ae3a9785193cc53116c6a5b69761535c3" prot="protected" static="yes" mutable="no">
         <type><ref refid="class_pong___class" kindref="compound">Pong_Class</ref> *</type>
-        <definition>Pong_Class* Pong_Class::Instance_Pointer</definition>
+        <definition>Pong_Class * Pong_Class::Instance_Pointer</definition>
         <argsstring></argsstring>
         <name>Instance_Pointer</name>
+        <initializer>= NULL</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="9" column="23" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" bodystart="9" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="9" column="23" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_pong___class_1a9896ffa690dc60ba59115ec69953a15a" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Pong_Class::Player_1_Score</definition>
-        <argsstring></argsstring>
-        <name>Player_1_Score</name>
+      <memberdef kind="variable" id="class_pong___class_1ac92f1bf909975898aee08a94a08cb8eb" prot="protected" static="no" mutable="no">
+        <type>char</type>
+        <definition>char Pong_Class::Temporary_String[15]</definition>
+        <argsstring>[15]</argsstring>
+        <name>Temporary_String</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="11" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" bodystart="11" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="11" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" bodystart="11" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_pong___class_1aa5d82b1e984722b3357131806b46ff32" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_pong___class_1ab8e3d094f3ecae718e6eecd07718ecc4" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t Pong_Class::Player_2_Score</definition>
-        <argsstring></argsstring>
-        <name>Player_2_Score</name>
+        <definition>uint8_t Pong_Class::Scores[2]</definition>
+        <argsstring>[2]</argsstring>
+        <name>Scores</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="11" column="28" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" bodystart="11" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="13" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" bodystart="13" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -79,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="13" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="15" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp" bodystart="117" bodyend="123"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -94,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="16" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="18" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp" bodystart="5" bodyend="11"/>
       </memberdef>
       <memberdef kind="function" id="class_pong___class_1a41692ca31a719a5b41ab399310c4ae04" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -107,17 +108,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="17" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="19" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp" bodystart="13" bodyend="20"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="class_pong___class_1acc10c6aa81eb85407e23f958e4177eb4" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_pong___class_1a9f0eb4da084b4c0177f96190a3df22e9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>static void Pong_Class::Main_Task</definition>
+        <definition>void Pong_Class::Main_Task</definition>
         <argsstring>(void *)</argsstring>
         <name>Main_Task</name>
         <param>
           <type>void *</type>
+          <defname>pvParameters</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -125,11 +127,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="19" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="21" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp" bodystart="32" bodyend="115"/>
       </memberdef>
-      <memberdef kind="function" id="class_pong___class_1acade881ff35dd8f1c56f2b1e82271dc9" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
-        <definition>static Software_Class* Pong_Class::Load</definition>
+      <memberdef kind="function" id="class_pong___class_1a732c03a55cd94857da721996e202ac71" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
+        <definition>Xila_Class::Software * Pong_Class::Load</definition>
         <argsstring>()</argsstring>
         <name>Load</name>
         <briefdescription>
@@ -138,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="26" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="28" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp" bodystart="22" bodyend="30"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -146,28 +148,21 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-      </node>
       <node id="1">
         <label>Pong_Class</label>
         <link refid="class_pong___class"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+      </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>Handle</edgelabel>
-        </childnode>
-      </node>
       <node id="3">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
         <childnode refid="2" relation="usage">
           <edgelabel>Load_Function_Pointer</edgelabel>
         </childnode>
@@ -181,48 +176,35 @@
           <edgelabel>Instance_Pointer</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" bodystart="7" bodyend="28"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="6" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" bodystart="7" bodyend="30"/>
     <listofallmembers>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Close</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Desk</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Color_Picker</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Event</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Install</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Keyboard</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Keypad</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Open_File</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Open_Folder</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Power</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Dialog_Save_File</name></member>
-      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Hibernate</name></member>
+      <member refid="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a5c3d107b2dbdd581b9aa79b9d0f6b04f" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Handle</name></member>
       <member refid="class_pong___class_1a85096c1c7507c5742a8301bd0332a335a7b326ec134b8ecda8e3c0d036545365d" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Icon_32</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Idle</name></member>
       <member refid="class_pong___class_1a85096c1c7507c5742a8301bd0332a335" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Image</name></member>
-      <member refid="class_pong___class_1a3eea007eea43b1ec63e842e55c187b73" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Instance_Pointer</name></member>
-      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Instruction_Queue_Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Instructions</name></member>
-      <member refid="class_pong___class_1acade881ff35dd8f1c56f2b1e82271dc9" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Load</name></member>
-      <member refid="class_pong___class_1acc10c6aa81eb85407e23f958e4177eb4" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Main_Task</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Maximize</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Minimize</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Open</name></member>
-      <member refid="class_pong___class_1a9896ffa690dc60ba59115ec69953a15a" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Player_1_Score</name></member>
-      <member refid="class_pong___class_1aa5d82b1e984722b3357131806b46ff32" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Player_2_Score</name></member>
+      <member refid="class_pong___class_1ae3a9785193cc53116c6a5b69761535c3" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Instance_Pointer</name></member>
+      <member refid="class_pong___class_1a732c03a55cd94857da721996e202ac71" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Load</name></member>
+      <member refid="class_pong___class_1a9f0eb4da084b4c0177f96190a3df22e9" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Main_Task</name></member>
       <member refid="class_pong___class_1abc7744a31b6b8b94566779eace5549f5" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>Pong_Class</name></member>
       <member refid="class_pong___class_1a32dc88400d2aee28f092acaccb48d67c" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Refresh_Interface</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Restart</name></member>
-      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Send_Instruction</name></member>
-      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Send_Instruction</name></member>
-      <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Pong_Class</scope><name>Set_Variable</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Shutdown</name></member>
-      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Software_Class</name></member>
-      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Task_Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Watchdog</name></member>
+      <member refid="class_pong___class_1ab8e3d094f3ecae718e6eecd07718ecc4" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Scores</name></member>
+      <member refid="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aba6aaacb256e43b1af464a9c1e294945" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a0856779c31d7efb50d7eecfaefc2f192" prot="protected" virt="virtual"><scope>Pong_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_xila___class_1_1_software_1a87281f0b32d28725aa55ca0f283824e8" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Set_Watchdog_Timeout</name></member>
+      <member refid="class_xila___class_1_1_software_1a449d53afe8102aab773ac465b92acf01" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Software</name></member>
+      <member refid="class_xila___class_1_1_software_1aa9c6eccc5e85e629d875fc6080714f30" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_pong___class_1ac92f1bf909975898aee08a94a08cb8eb" prot="protected" virt="non-virtual"><scope>Pong_Class</scope><name>Temporary_String</name></member>
       <member refid="class_pong___class_1a41692ca31a719a5b41ab399310c4ae04" prot="public" virt="non-virtual"><scope>Pong_Class</scope><name>~Pong_Class</name></member>
-      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Pong_Class</scope><name>~Software_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a4bd83708332f3802ccaf741741eda30d" prot="protected" virt="virtual"><scope>Pong_Class</scope><name>~Software</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

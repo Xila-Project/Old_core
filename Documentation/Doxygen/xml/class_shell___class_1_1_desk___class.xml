@@ -1,0 +1,218 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_shell___class_1_1_desk___class" kind="class" language="C++" prot="protected">
+    <compoundname>Shell_Class::Desk_Class</compoundname>
+    <includes refid="_shell_8hpp" local="no">Shell.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_shell___class_1_1_desk___class_1a8d6fec734712d6246aaa2435d3d9867f" prot="protected" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t Shell_Class::Desk_Class::Background</definition>
+        <argsstring></argsstring>
+        <name>Background</name>
+        <briefdescription>
+<para>Desk background. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Desk image when &lt; 0 and Custom color when &gt; 0 (color code itself). </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="56" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_desk___class_1a8e2a576b547e01af4ac67fa3661bdb96" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Shell_Class::Desk_Class::Offset</definition>
+        <argsstring></argsstring>
+        <name>Offset</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="58" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_shell___class_1_1_desk___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="80" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1a7d412cf080b0c6939031b8b4e63ef1bc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Shell_Class::Desk_Class::Desk_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Desk_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="62" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="19" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1adaa02c8b7220009a3c504a08a20bdd67" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Open</definition>
+        <argsstring>(uint8_t)</argsstring>
+        <name>Open</name>
+        <param>
+          <type>uint8_t</type>
+          <defname>Mode</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="66" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="183" bodyend="227"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1ad87fb340af6e6658b46fcbf212df7ff2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Refresh_Desk</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Desk</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="68" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="229" bodyend="260"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1a2b5bf7d6ea70d5e543dc1cb8e7a71011" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Refresh_Drawer</definition>
+        <argsstring>()</argsstring>
+        <name>Refresh_Drawer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="69" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="38" bodyend="77"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1ab3ed05dc7ac8a144a315883d94233480" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Execute_Desk_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction)</argsstring>
+        <name>Execute_Desk_Instruction</name>
+        <param>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <defname>Instruction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="71" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="262" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1a782be0e967a92f189efbf2daa1e1ba1d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Execute_Drawer_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction)</argsstring>
+        <name>Execute_Drawer_Instruction</name>
+        <param>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <defname>Instruction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="72" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="79" bodyend="156"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1ac460a2af63f1912b74c11580e8b68c0c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Dock</definition>
+        <argsstring>(uint8_t, uint8_t)</argsstring>
+        <name>Dock</name>
+        <param>
+          <type>uint8_t</type>
+          <defname>Slot</defname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <defname>Action</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="74" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="308" bodyend="322"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1ac2fbb8e0cebcf0370bb40085b497a3c2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Open_From_Drawer</definition>
+        <argsstring>(uint8_t)</argsstring>
+        <name>Open_From_Drawer</name>
+        <param>
+          <type>uint8_t</type>
+          <defname>Slot</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="75" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="158" bodyend="179"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_desk___class_1a35f918970eaec127de573c5e59f0b165" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Desk_Class::Logout</definition>
+        <argsstring>()</argsstring>
+        <name>Logout</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="77" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp" bodystart="25" bodyend="34"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Desk class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="46" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="47" bodyend="82"/>
+    <listofallmembers>
+      <member refid="class_shell___class_1_1_desk___class_1a8d6fec734712d6246aaa2435d3d9867f" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Background</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a7d412cf080b0c6939031b8b4e63ef1bc" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Desk_Class</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1ac460a2af63f1912b74c11580e8b68c0c" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Dock</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1ab3ed05dc7ac8a144a315883d94233480" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Execute_Desk_Instruction</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a782be0e967a92f189efbf2daa1e1ba1d" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Execute_Drawer_Instruction</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a35f918970eaec127de573c5e59f0b165" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Logout</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a8e2a576b547e01af4ac67fa3661bdb96" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Offset</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1adaa02c8b7220009a3c504a08a20bdd67" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Open</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1ac2fbb8e0cebcf0370bb40085b497a3c2" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Open_From_Drawer</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1ad87fb340af6e6658b46fcbf212df7ff2" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Refresh_Desk</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a2b5bf7d6ea70d5e543dc1cb8e7a71011" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Refresh_Drawer</name></member>
+      <member refid="class_shell___class_1_1_desk___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" virt="non-virtual"><scope>Shell_Class::Desk_Class</scope><name>Shell_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

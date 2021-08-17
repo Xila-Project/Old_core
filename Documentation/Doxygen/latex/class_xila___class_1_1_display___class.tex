@@ -37,8 +37,8 @@ enum \mbox{\hyperlink{class_xila___class_1_1_display___class_aabbeeb03f3d1b07bbf
 , {\bfseries Yellow} = 64896
  \}
 \begin{DoxyCompactList}\small\item\em Default system colors. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}\label{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}} 
-enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a2e1f0bee85d550b517e57ba0532a078c}{Xila\+\_\+16}} \{ \newline
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_ac544a5bb0d23ea518f729601b61b5e7c}\label{class_xila___class_1_1_display___class_ac544a5bb0d23ea518f729601b61b5e7c}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_ac544a5bb0d23ea518f729601b61b5e7c}{Xila\+\_\+16}} \+: uint8\+\_\+t \{ \newline
 {\bfseries State\+\_\+\+Button} = 127
 , {\bfseries Left\+\_\+\+Arrow}
 , {\bfseries Right\+\_\+\+Arrow}
@@ -46,20 +46,21 @@ enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a2e1f0bee85d550b517
 , \newline
 {\bfseries Down\+\_\+\+Arrow}
 , {\bfseries Battery\+\_\+\+Empty}
-, {\bfseries Battery\+\_\+\+Low}
-, {\bfseries Battery\+\_\+\+Medium}
+, {\bfseries Battery\+\_\+\+Quarter}
+, {\bfseries Battery\+\_\+\+Half}
 , \newline
-{\bfseries Battery\+\_\+\+High}
+{\bfseries Battery\+\_\+\+Three\+\_\+\+Quarters}
+, {\bfseries Battery\+\_\+\+Full}
 , {\bfseries Wi\+Fi\+\_\+\+Low}
 , {\bfseries Wi\+Fi\+\_\+\+Medium}
-, {\bfseries Wi\+Fi\+\_\+\+High}
 , \newline
-{\bfseries Bluetooth}
+{\bfseries Wi\+Fi\+\_\+\+High}
+, {\bfseries Bluetooth}
 , {\bfseries Sound\+\_\+\+Mute}
 , {\bfseries Sound\+\_\+\+Low}
-, {\bfseries Sound\+\_\+\+Medium}
 , \newline
-{\bfseries Sound\+\_\+\+High}
+{\bfseries Sound\+\_\+\+Medium}
+, {\bfseries Sound\+\_\+\+High}
  \}
 \begin{DoxyCompactList}\small\item\em Xila\+\_\+16 special characters list. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_xila___class_1_1_display___class_a91be037084ced30430b419abf0af3583}\label{class_xila___class_1_1_display___class_a91be037084ced30430b419abf0af3583}} 
@@ -69,27 +70,44 @@ enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a91be037084ced30430
  \}
 \begin{DoxyCompactList}\small\item\em Xila\+\_\+32 special characters list. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a22fbf46b6efc6641c2ae561f4145e25b}{Image\+\_\+\+Offset}} \{ \newline
-{\bfseries Shell} = 0
-, {\bfseries Calculator} = 20
-, {\bfseries Clock} = 21
-, {\bfseries Image\+\_\+\+Viewer} = 22
+{\bfseries Shell\+\_\+\+Images} = 0
+, {\bfseries Calculator\+\_\+\+Images} = 20
+, {\bfseries Clock\+\_\+\+Images}
+, {\bfseries Internet\+\_\+\+Browser\+\_\+\+Images}
 , \newline
-{\bfseries Internet\+\_\+\+Browser} = 23
-, {\bfseries Music\+\_\+\+Player} = 24
-, {\bfseries Oscilloscope} = 33
-, {\bfseries Paint} = 34
+{\bfseries Music\+\_\+\+Player\+\_\+\+Images}
+, {\bfseries Oscilloscope\+\_\+\+Images} = 32
+, {\bfseries Paint\+\_\+\+Images}
+, {\bfseries Periodic\+\_\+\+Images}
 , \newline
-{\bfseries Periodic} = 35
-, {\bfseries Piano} = 37
-, {\bfseries Pong} = 41
-, {\bfseries Simon} = 42
+{\bfseries Piano\+\_\+\+Images} = 36
+, {\bfseries Pong\+\_\+\+Images} = 40
+, {\bfseries Simon\+\_\+\+Images}
+, {\bfseries Text\+\_\+\+Editor\+\_\+\+Images}
 , \newline
-{\bfseries Text\+\_\+\+Editor} = 43
-, {\bfseries Tiny\+\_\+\+Basic} = 44
+{\bfseries Tiny\+\_\+\+Basic\+\_\+\+Images}
  \}
 \begin{DoxyCompactList}\small\item\em Image offsets list. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}\label{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}} 
-enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}{Pages\+\_\+\+Offset}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a0b5d3c5200502843f9a7a0ea581c9ed4}{Pages\+\_\+\+Offset}} \{ \newline
+{\bfseries Core\+\_\+\+Pages} = 0
+, {\bfseries Shell\+\_\+\+Pages} = 5
+, {\bfseries Calculator\+\_\+\+Pages} = 23
+, {\bfseries Clock\+\_\+\+Pages}
+, \newline
+{\bfseries Text\+\_\+\+Editor\+\_\+\+Pages} = 28
+, {\bfseries Paint\+\_\+\+Pages}
+, {\bfseries Internet\+\_\+\+Browser\+\_\+\+Pages}
+, {\bfseries Music\+\_\+\+Player\+\_\+\+Pages}
+, \newline
+{\bfseries Oscilloscope\+\_\+\+Pages}
+, {\bfseries Periodic\+\_\+\+Pages}
+, {\bfseries Piano\+\_\+\+Pages} = 35
+, {\bfseries Pong\+\_\+\+Pages}
+, \newline
+{\bfseries Simon\+\_\+\+Pages}
+, {\bfseries Tiny\+\_\+\+Basic\+\_\+\+Pages}
+ \}
 \begin{DoxyCompactList}\small\item\em Pages list. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281}{Font}} \{ \newline
 \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800}{Regular\+\_\+16}} = 0
@@ -100,44 +118,57 @@ enum \mbox{\hyperlink{class_xila___class_1_1_display___class_a3ce91234cfaaf25e40
 {\bfseries Regular\+\_\+48}
  \}
 \begin{DoxyCompactList}\small\item\em Font list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_af876b6280f411f31fc9f1f7a39b61d55}\label{class_xila___class_1_1_display___class_af876b6280f411f31fc9f1f7a39b61d55}} 
+\mbox{\hyperlink{class_xila___class_1_1_display___class_af876b6280f411f31fc9f1f7a39b61d55}{Display\+\_\+\+Class}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_xila___class_1_1_display___class_af876b6280f411f31fc9f1f7a39b61d55}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Display\+\_\+\+Class}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_adde858d4d1bb57962297bc7761efa655}\label{class_xila___class_1_1_display___class_adde858d4d1bb57962297bc7761efa655}} 
+\mbox{\hyperlink{class_xila___class_1_1_display___class_adde858d4d1bb57962297bc7761efa655}{$\sim$\+Display\+\_\+\+Class}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{class_xila___class_1_1_display___class_af876b6280f411f31fc9f1f7a39b61d55}{Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Display\+\_\+\+Class}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_af7d9efb1fc92ecf0ab4ab93a79209236}\label{class_xila___class_1_1_display___class_af7d9efb1fc92ecf0ab4ab93a79209236}} 
+uint8\+\_\+t {\bfseries Get\+\_\+\+State} ()
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a1491dbd1cc364a946317499769eb66bc}\label{class_xila___class_1_1_display___class_a1491dbd1cc364a946317499769eb66bc}} 
-static void {\bfseries Incomming\+\_\+\+String\+\_\+\+Data\+\_\+\+From\+\_\+\+Display} (const char $\ast$, uint8\+\_\+t)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a86bbf72f4c071a2bcf2bb0de0757d8ee}\label{class_xila___class_1_1_display___class_a86bbf72f4c071a2bcf2bb0de0757d8ee}} 
-static void {\bfseries Incomming\+\_\+\+Numeric\+\_\+\+Data\+\_\+\+From\+\_\+\+Display} (uint32\+\_\+t)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a3a346f1407296a42d8a0ae101e870fd4}\label{class_xila___class_1_1_display___class_a3a346f1407296a42d8a0ae101e870fd4}} 
-static void {\bfseries Incomming\+\_\+\+Event\+\_\+\+From\+\_\+\+Display} (uint8\+\_\+t)
-\end{DoxyCompactItemize}
+static void \mbox{\hyperlink{class_xila___class_1_1_display___class_af4e9eeffcd68b5354a84d0400bbcf908}{Incomming\+\_\+\+String\+\_\+\+Data\+\_\+\+From\+\_\+\+Display}} (const char $\ast$, uint8\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Callback function for display incomming string data. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_xila___class_1_1_display___class_a6d37d3e73494d1ec37d691245bfded8b}{Incomming\+\_\+\+Numeric\+\_\+\+Data\+\_\+\+From\+\_\+\+Display}} (uint32\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Callback function for display incomming numeric data. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{class_xila___class_1_1_display___class_af571914a2dd55645c4b6109284958f70}{Incomming\+\_\+\+Event\+\_\+\+From\+\_\+\+Display}} (uint8\+\_\+t)
+\begin{DoxyCompactList}\small\item\em Callback function for display incomming event. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}\label{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_ad017ff5559aec4692c54d7965795b525}\label{class_xila___class_1_1_display___class_ad017ff5559aec4692c54d7965795b525}} 
+void {\bfseries Set\+\_\+\+State} (uint8\+\_\+t \mbox{\hyperlink{class_xila___class_a97f78ce2a2da8c5879eb6568b4f74fe8}{State}})
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}\label{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}{Load\+\_\+\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Load display registry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}{Save\+\_\+\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Save display registry. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a479536eb7613ee5e80d9742fc95dbffd}\label{class_xila___class_1_1_display___class_a479536eb7613ee5e80d9742fc95dbffd}} 
+uint8\+\_\+t {\bfseries State}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_display___class_a9547130bbb2fadfbc5970230e08246c1}\label{class_xila___class_1_1_display___class_a9547130bbb2fadfbc5970230e08246c1}} 
 uint8\+\_\+t {\bfseries Brightness}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a79e4d1eab2728495e1906fdac7cdabf3}\label{class_xila___class_1_1_display___class_a79e4d1eab2728495e1906fdac7cdabf3}} 
-uint16\+\_\+t {\bfseries Standby\+\_\+\+Time}
-\item 
 \mbox{\Hypertarget{class_xila___class_1_1_display___class_ab0d08564089335c0fa55ba8d4320b71f}\label{class_xila___class_1_1_display___class_ab0d08564089335c0fa55ba8d4320b71f}} 
 uint8\+\_\+t {\bfseries Receive\+\_\+\+Pin}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_a5f055fb6c05e33fa47c294a9b1058988}\label{class_xila___class_1_1_display___class_a5f055fb6c05e33fa47c294a9b1058988}} 
-uint8\+\_\+t {\bfseries Send\+\_\+\+Pin}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a92ee712a112fa0ef7fd13334393340e5}\label{class_xila___class_1_1_display___class_a92ee712a112fa0ef7fd13334393340e5}} 
+uint8\+\_\+t {\bfseries Standby\+\_\+\+Time}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_display___class_aa8e80cec54791f0f41437a30eed3a00f}\label{class_xila___class_1_1_display___class_aa8e80cec54791f0f41437a30eed3a00f}} 
-char {\bfseries Tag} = 0
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a900de20d12c72c2d27326c8267b576c2}\label{class_xila___class_1_1_display___class_a900de20d12c72c2d27326c8267b576c2}} 
+uint8\+\_\+t {\bfseries Transmit\+\_\+\+Pin}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_ab4796f616a6f25db1630aa2fa7128c51}\label{class_xila___class_1_1_display___class_ab4796f616a6f25db1630aa2fa7128c51}} 
+\mbox{\hyperlink{class_xila___class_afa8d06d42d3f5c652b39485e319701d6}{Xila\+\_\+\+Class\+::\+Address}} {\bfseries Current\+\_\+\+Address}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -190,6 +221,84 @@ Image offsets list.
 
 All image offset, used by included software to keep track of picture offset 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_af571914a2dd55645c4b6109284958f70}\label{class_xila___class_1_1_display___class_af571914a2dd55645c4b6109284958f70}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Incomming\_Event\_From\_Display@{Incomming\_Event\_From\_Display}}
+\index{Incomming\_Event\_From\_Display@{Incomming\_Event\_From\_Display}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Incomming\_Event\_From\_Display()}{Incomming\_Event\_From\_Display()}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Incomming\+\_\+\+Event\+\_\+\+From\+\_\+\+Display (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Event\+\_\+\+Code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function for display incomming event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Event\+\_\+\+Code} & Event code \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a6d37d3e73494d1ec37d691245bfded8b}\label{class_xila___class_1_1_display___class_a6d37d3e73494d1ec37d691245bfded8b}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Incomming\_Numeric\_Data\_From\_Display@{Incomming\_Numeric\_Data\_From\_Display}}
+\index{Incomming\_Numeric\_Data\_From\_Display@{Incomming\_Numeric\_Data\_From\_Display}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Incomming\_Numeric\_Data\_From\_Display()}{Incomming\_Numeric\_Data\_From\_Display()}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Incomming\+\_\+\+Numeric\+\_\+\+Data\+\_\+\+From\+\_\+\+Display (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{Received\+\_\+\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function for display incomming numeric data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Received\+\_\+\+Data} & Received numeric data from the display \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_af4e9eeffcd68b5354a84d0400bbcf908}\label{class_xila___class_1_1_display___class_af4e9eeffcd68b5354a84d0400bbcf908}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Incomming\_String\_Data\_From\_Display@{Incomming\_String\_Data\_From\_Display}}
+\index{Incomming\_String\_Data\_From\_Display@{Incomming\_String\_Data\_From\_Display}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Incomming\_String\_Data\_From\_Display()}{Incomming\_String\_Data\_From\_Display()}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Incomming\+\_\+\+String\+\_\+\+Data\+\_\+\+From\+\_\+\+Display (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Received\+\_\+\+Data,  }\item[{uint8\+\_\+t}]{Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Callback function for display incomming string data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Received\+\_\+\+Data} & String received data \\
+\hline
+{\em Size} & Size in bytes of received data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}\label{class_xila___class_1_1_display___class_a4634dd85c9ecc3919ac2bf616472ce69}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Load\_Registry@{Load\_Registry}}
+\index{Load\_Registry@{Load\_Registry}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Load\_Registry()}{Load\_Registry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Load\+\_\+\+Registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Load display registry. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94}{Xila\+\_\+\+Class\+::\+Success}} or \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44}{Xila\+\_\+\+Class\+::\+Error}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}\label{class_xila___class_1_1_display___class_a57a1a229e2cf6b56a00374fbd4b7f57e}} 
+\index{Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}!Save\_Registry@{Save\_Registry}}
+\index{Save\_Registry@{Save\_Registry}!Xila\_Class::Display\_Class@{Xila\_Class::Display\_Class}}
+\doxysubsubsection{\texorpdfstring{Save\_Registry()}{Save\_Registry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Display\+\_\+\+Class\+::\+Save\+\_\+\+Registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Save display registry. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\+Abstraction/\mbox{\hyperlink{_display_8hpp}{Display.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Abstraction/\mbox{\hyperlink{_display_8cpp}{Display.\+cpp}}\end{DoxyCompactItemize}

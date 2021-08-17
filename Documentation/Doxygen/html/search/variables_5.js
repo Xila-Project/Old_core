@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_119',['Name',['../class_xila___class_1_1_system___class.html#abe1d228b2178edb314868869549768df',1,'Xila_Class::System_Class::Name()'],['../class_software___handle___class.html#a92c8b2288a7ef0f1f2b85989f358c9b3',1,'Software_Handle_Class::Name()']]]
+  ['load_5ffunction_5fpointer_501',['Load_Function_Pointer',['../class_xila___class_1_1_software___handle.html#a8dd4c9a2d76e442a9d7db5c080214acc',1,'Xila_Class::Software_Handle']]]
 ];

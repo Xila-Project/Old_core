@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xila_5f16_138',['Xila_16',['../class_xila___class_1_1_display___class.html#a2e1f0bee85d550b517e57ba0532a078c',1,'Xila_Class::Display_Class']]]
+  ['variable_5ftypes_526',['Variable_Types',['../class_xila___class.html#ad65de8d8ee4c0a80dea2b560b20a49a2',1,'Xila_Class']]]
 ];

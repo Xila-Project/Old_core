@@ -10,26 +10,38 @@ Inheritance diagram for Oscilloscope\+\_\+\+Class\+:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_a43fc6f9a8e53072142e878ea2bcd918e}\label{class_oscilloscope___class_a43fc6f9a8e53072142e878ea2bcd918e}} 
-enum {\bfseries Picture\+\_\+\+ID} \{ {\bfseries Icon\+\_\+32} = Xila.\+Display.\+Oscilloscope
+enum {\bfseries Picture\+\_\+\+ID} \{ {\bfseries Icon\+\_\+32} = Xila.\+Display.\+Oscilloscope\+\_\+\+Images
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_ae9739b5e76a2038a7e3e0380aedaf210}\label{class_oscilloscope___class_ae9739b5e76a2038a7e3e0380aedaf210}} 
+\mbox{\Hypertarget{class_oscilloscope___class_a98abf1cadbd2305fce3940dae123677d}\label{class_oscilloscope___class_a98abf1cadbd2305fce3940dae123677d}} 
 static void {\bfseries Main\+\_\+\+Task} (void $\ast$)
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a6448c7bd46f6607ca2d3e482d1be1a56}\label{class_oscilloscope___class_a6448c7bd46f6607ca2d3e482d1be1a56}} 
-static \mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}} $\ast$ {\bfseries Load} ()
+\mbox{\Hypertarget{class_oscilloscope___class_a06e2999a3f562abe9c319d890ae7b47b}\label{class_oscilloscope___class_a06e2999a3f562abe9c319d890ae7b47b}} 
+static \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} $\ast$ {\bfseries Load} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_oscilloscope___class_a2f5f932f93397b7fdede6a064f8c23c7}\label{class_oscilloscope___class_a2f5f932f93397b7fdede6a064f8c23c7}} 
+enum {\bfseries Trig\+\_\+\+Modes} \{ {\bfseries TRIG\+\_\+\+AUTO} = 0
+, {\bfseries TRIG\+\_\+\+NORM} = 1
+, {\bfseries TRIG\+\_\+\+SCAN} = 2
+ \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a50c1a43c66d405877c9938b8ca41e39b}\label{class_oscilloscope___class_a50c1a43c66d405877c9938b8ca41e39b}} 
-void {\bfseries Run} ()
+\mbox{\Hypertarget{class_oscilloscope___class_a9b62c5d50363738b6777001193071570}\label{class_oscilloscope___class_a9b62c5d50363738b6777001193071570}} 
+void {\bfseries Trigger} ()
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_ab5692824dae826955b6a5cf7483e39ac}\label{class_oscilloscope___class_ab5692824dae826955b6a5cf7483e39ac}} 
-long {\bfseries ad\+Read} (short, short, int)
+\mbox{\Hypertarget{class_oscilloscope___class_a1f25da840d0712f0d88f6b917cfbe65d}\label{class_oscilloscope___class_a1f25da840d0712f0d88f6b917cfbe65d}} 
+void {\bfseries Sampling} ()
+\item 
+\mbox{\Hypertarget{class_oscilloscope___class_aef76bfc8ce70cff825442d8b8e3c40f8}\label{class_oscilloscope___class_aef76bfc8ce70cff825442d8b8e3c40f8}} 
+long {\bfseries ad\+Read} (uint8\+\_\+t ch, short mode, int off)
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_a1b81e951453ef611e1c28b8b82e88597}\label{class_oscilloscope___class_a1b81e951453ef611e1c28b8b82e88597}} 
 void {\bfseries Refresh\+\_\+\+Waveform} ()
@@ -37,8 +49,8 @@ void {\bfseries Refresh\+\_\+\+Waveform} ()
 \mbox{\Hypertarget{class_oscilloscope___class_a68cae9c033dc4084494ac3e5e813e99d}\label{class_oscilloscope___class_a68cae9c033dc4084494ac3e5e813e99d}} 
 void {\bfseries Refresh\+\_\+\+Interface} ()
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a9c20732a38056cfcbc49d40499831f7b}\label{class_oscilloscope___class_a9c20732a38056cfcbc49d40499831f7b}} 
-void {\bfseries Check\+\_\+\+Commands} ()
+\mbox{\Hypertarget{class_oscilloscope___class_a14e582d5953b02740de4bcfed72913d3}\label{class_oscilloscope___class_a14e582d5953b02740de4bcfed72913d3}} 
+void {\bfseries Loop} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -52,29 +64,26 @@ const uint8\+\_\+t {\bfseries Waveform\+\_\+\+ID} = 4
 \mbox{\Hypertarget{class_oscilloscope___class_a3a4592dd5d2c71c82cadd8e108bcfdce}\label{class_oscilloscope___class_a3a4592dd5d2c71c82cadd8e108bcfdce}} 
 uint8\+\_\+t {\bfseries Current\+\_\+\+Channel}
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a4049cbe2bffbe4d8eadcc95ca3ec50d2}\label{class_oscilloscope___class_a4049cbe2bffbe4d8eadcc95ca3ec50d2}} 
-uint32\+\_\+t {\bfseries Last\+\_\+\+Interface\+\_\+\+Refresh}
-\item 
 \mbox{\Hypertarget{class_oscilloscope___class_aeb5159d6b73c984869235f154405b0e6}\label{class_oscilloscope___class_aeb5159d6b73c984869235f154405b0e6}} 
 char {\bfseries Temporary\+\_\+\+Char\+\_\+\+Array} \mbox{[}16\mbox{]}
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a5fe733c00ef6de295e77ba563813bfe3}\label{class_oscilloscope___class_a5fe733c00ef6de295e77ba563813bfe3}} 
-const int {\bfseries LCD\+\_\+\+WIDTH} = 340
+\mbox{\Hypertarget{class_oscilloscope___class_a72bf852500d92073091b4d1f34112ccd}\label{class_oscilloscope___class_a72bf852500d92073091b4d1f34112ccd}} 
+const uint16\+\_\+t {\bfseries LCD\+\_\+\+WIDTH} = 340
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a0b45c56daddb869b65c85e09b33371e4}\label{class_oscilloscope___class_a0b45c56daddb869b65c85e09b33371e4}} 
-const int {\bfseries LCD\+\_\+\+HEIGHT} = 250
+\mbox{\Hypertarget{class_oscilloscope___class_afde5d317070dbfd769cac9d485ed2c90}\label{class_oscilloscope___class_afde5d317070dbfd769cac9d485ed2c90}} 
+const uint16\+\_\+t {\bfseries LCD\+\_\+\+HEIGHT} = 250
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_ae3b41e85d7da18ba603041d62b31754e}\label{class_oscilloscope___class_ae3b41e85d7da18ba603041d62b31754e}} 
-const int {\bfseries SAMPLES} = 350
+\mbox{\Hypertarget{class_oscilloscope___class_aa7409ee90ee2fe5a2d9765409829aeff}\label{class_oscilloscope___class_aa7409ee90ee2fe5a2d9765409829aeff}} 
+const uint16\+\_\+t {\bfseries SAMPLES} = 350
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a6de89168b4e671883f9dcccb1399d1fb}\label{class_oscilloscope___class_a6de89168b4e671883f9dcccb1399d1fb}} 
-const int {\bfseries DOTS\+\_\+\+DIV} = 75
+\mbox{\Hypertarget{class_oscilloscope___class_a109ef41c6908ab936d1436e84bc15305}\label{class_oscilloscope___class_a109ef41c6908ab936d1436e84bc15305}} 
+const uint16\+\_\+t {\bfseries Dots\+\_\+\+Per\+\_\+\+Division} = 75
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_af37b4498873ed727ab6b7054dbf02314}\label{class_oscilloscope___class_af37b4498873ed727ab6b7054dbf02314}} 
-int {\bfseries ad\+\_\+ch0} = 35
+\mbox{\Hypertarget{class_oscilloscope___class_ac709166e7aea942650803fa417f2c886}\label{class_oscilloscope___class_ac709166e7aea942650803fa417f2c886}} 
+uint8\+\_\+t {\bfseries ad\+\_\+ch0} = 35
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a3463924a069df38a908050905bdbe981}\label{class_oscilloscope___class_a3463924a069df38a908050905bdbe981}} 
-int {\bfseries ad\+\_\+ch1} = 36
+\mbox{\Hypertarget{class_oscilloscope___class_a3e30e488e52171c3a1ef395d7771e251}\label{class_oscilloscope___class_a3e30e488e52171c3a1ef395d7771e251}} 
+uint8\+\_\+t {\bfseries ad\+\_\+ch1} = 36
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_ae316c78cbb122920ee9d387e2ff851f3}\label{class_oscilloscope___class_ae316c78cbb122920ee9d387e2ff851f3}} 
 const long {\bfseries VREF} \mbox{[}5\mbox{]} = \{250, 500, 1250, 2500, 5000\}
@@ -99,15 +108,6 @@ short {\bfseries ch0\+\_\+mode} = MODE\+\_\+\+ON
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_ad3112decc7cefb8698cba2762f7d5595}\label{class_oscilloscope___class_ad3112decc7cefb8698cba2762f7d5595}} 
 short {\bfseries ch1\+\_\+mode} = MODE\+\_\+\+OFF
-\item 
-\mbox{\Hypertarget{class_oscilloscope___class_a1eb0cd02237adf65c640390a76f642d7}\label{class_oscilloscope___class_a1eb0cd02237adf65c640390a76f642d7}} 
-const int {\bfseries TRIG\+\_\+\+AUTO} = 0
-\item 
-\mbox{\Hypertarget{class_oscilloscope___class_ab448c6d80d50614fc0a3488ffd8b483a}\label{class_oscilloscope___class_ab448c6d80d50614fc0a3488ffd8b483a}} 
-const int {\bfseries TRIG\+\_\+\+NORM} = 1
-\item 
-\mbox{\Hypertarget{class_oscilloscope___class_ae970bd2f1c498bbab95ed54b538a6f5e}\label{class_oscilloscope___class_ae970bd2f1c498bbab95ed54b538a6f5e}} 
-const int {\bfseries TRIG\+\_\+\+SCAN} = 2
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_a941111d86b97f0ffb69df73cc036d016}\label{class_oscilloscope___class_a941111d86b97f0ffb69df73cc036d016}} 
 const char $\ast$ {\bfseries TRIG\+\_\+\+Modes} \mbox{[}3\mbox{]} = \{\char`\"{}Automa\char`\"{}, \char`\"{}Normal\char`\"{}, \char`\"{}Scan\char`\"{}\}
@@ -151,14 +151,14 @@ short {\bfseries trig\+\_\+edge} = TRIG\+\_\+\+E\+\_\+\+UP
 \mbox{\Hypertarget{class_oscilloscope___class_a0ec966587ab890ecccc58fba6890cc5a}\label{class_oscilloscope___class_a0ec966587ab890ecccc58fba6890cc5a}} 
 short {\bfseries trig\+\_\+ch} = 0
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_a393208e0e2e1a9ed8802e154f2fc6945}\label{class_oscilloscope___class_a393208e0e2e1a9ed8802e154f2fc6945}} 
-short {\bfseries Start} = 1
+\mbox{\Hypertarget{class_oscilloscope___class_ab8f39830fda273441c9a6be67dc078da}\label{class_oscilloscope___class_ab8f39830fda273441c9a6be67dc078da}} 
+bool {\bfseries Start}
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_ac29d46859fd17c85c3d1028d2da5780f}\label{class_oscilloscope___class_ac29d46859fd17c85c3d1028d2da5780f}} 
 short {\bfseries menu} = 19
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_abab16a646d7ba2534b526749d99b2a4d}\label{class_oscilloscope___class_abab16a646d7ba2534b526749d99b2a4d}} 
-short {\bfseries data} \mbox{[}4\mbox{]}\mbox{[}350\mbox{]}
+\mbox{\Hypertarget{class_oscilloscope___class_a156762f53822314096eb9ec8144572ad}\label{class_oscilloscope___class_a156762f53822314096eb9ec8144572ad}} 
+uint8\+\_\+t {\bfseries data} \mbox{[}4\mbox{]}\mbox{[}350\mbox{]}
 \item 
 \mbox{\Hypertarget{class_oscilloscope___class_a8c3b519126d2fbd1093474c2bbda529c}\label{class_oscilloscope___class_a8c3b519126d2fbd1093474c2bbda529c}} 
 short {\bfseries sample} = 0
@@ -172,8 +172,8 @@ int {\bfseries amplitude\+Step} = 5
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_oscilloscope___class_abf671ac75d7c516a21d4e74467f3cb61}\label{class_oscilloscope___class_abf671ac75d7c516a21d4e74467f3cb61}} 
-static \mbox{\hyperlink{class_oscilloscope___class}{Oscilloscope\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer}
+\mbox{\Hypertarget{class_oscilloscope___class_ace1f2275224269c9dde21861875b53f4}\label{class_oscilloscope___class_ace1f2275224269c9dde21861875b53f4}} 
+static \mbox{\hyperlink{class_oscilloscope___class}{Oscilloscope\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer} = NULL
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -186,6 +186,7 @@ void {\bfseries Sigma\+Delta\+\_\+\+Task} (void $\ast$)
 \end{DoxyCompactItemize}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Software/\mbox{\hyperlink{_oscilloscope_8hpp}{Oscilloscope.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Software/\mbox{\hyperlink{_oscilloscope_8hpp}{Oscilloscope.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Software/Oscilloscope.\+cpp\end{DoxyCompactItemize}

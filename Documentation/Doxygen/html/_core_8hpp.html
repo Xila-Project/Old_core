@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Xila: C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp File Reference</title>
+<title>Xila: C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -63,13 +63,14 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_f630f6d906c9e2216ac09aab82d6a6a6.html">Operating_System</a></li><li class="navelem"><a class="el" href="dir_c835fe620200b699d42cbdcca78f9004.html">Espressif_32</a></li><li class="navelem"><a class="el" href="dir_3beaa7c625ff830a574a9c02fe31a900.html">include</a></li><li class="navelem"><a class="el" href="dir_ca10673b39fa6346158d39be54281a2e.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_5d88b4709274d720d8b307b03f0b1a68.html">lib</a></li><li class="navelem"><a class="el" href="dir_ea08cbe4d57c893aec2ee9b5d93d1d99.html">Xila</a></li><li class="navelem"><a class="el" href="dir_b1cf5780a26e5eb8e9e8049da161ad41.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c42c1447d7973225509c34d5699682.html">Core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Core.hpp File Reference</div>  </div>
@@ -83,9 +84,8 @@ $(function() {
 <code>#include &quot;FS.h&quot;</code><br />
 <code>#include &quot;SPI.h&quot;</code><br />
 <code>#include &quot;time.h&quot;</code><br />
-<code>#include &quot;Update.h&quot;</code><br />
-<code>#include &lt;ArduinoJson.h&gt;</code><br />
-<code>#include &lt;StreamUtils.h&gt;</code><br />
+<code>#include &quot;ArduinoJson.h&quot;</code><br />
+<code>#include &quot;StreamUtils.h&quot;</code><br />
 <code>#include &quot;Print.h&quot;</code><br />
 <code>#include &quot;IPAddress.h&quot;</code><br />
 <code>#include &quot;IPv6Address.h&quot;</code><br />
@@ -97,14 +97,20 @@ $(function() {
 <code>#include &quot;WiFiClient.h&quot;</code><br />
 <code>#include &quot;WiFiServer.h&quot;</code><br />
 <code>#include &quot;WiFiUdp.h&quot;</code><br />
-<code>#include &quot;Driver/Display.hpp&quot;</code><br />
-<code>#include &quot;Driver/Battery.hpp&quot;</code><br />
-<code>#include &quot;Configuration.hpp&quot;</code><br />
-<code>#include &quot;Path.hpp&quot;</code><br />
-<code>#include &quot;Software.hpp&quot;</code><br />
-<code>#include &quot;<a class="el" href="_task_8hpp_source.html">Task.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_time_8hpp_source.html">Time.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_system_8hpp_source.html">System.hpp</a>&quot;</code><br />
+<code>#include &lt;ArduinoTrace.h&gt;</code><br />
+<code>#include &quot;Nextion_Library.hpp&quot;</code><br />
+<code>#include &quot;Battery_Library.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="_configuration_8hpp_source.html">Configuration.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_path_8hpp_source.html">Modules/Path.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_task_8hpp_source.html">Core/Modules/Task.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_time_8hpp_source.html">Core/Modules/Time.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_system_8hpp_source.html">Core/Modules/System.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_mathematics_8hpp_source.html">Core/Modules/Mathematics.hpp</a>&quot;</code><br />
+<code>#include &quot;Core/Modules/Software_Management.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="_display_8hpp_source.html">Core/Abstraction/Display.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_g_p_i_o_8hpp_source.html">Core/Abstraction/GPIO.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_memory_8hpp_source.html">Core/Abstraction/Memory.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_flash_8hpp_source.html">Core/Abstraction/Flash.hpp</a>&quot;</code><br />
 </div>
 <p><a href="_core_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -112,6 +118,15 @@ $(function() {
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class.html">Xila_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core class.  <a href="class_xila___class.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">union &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="union_xila___class_1_1_color.html">Xila_Class::Color</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="union_xila___class_1_1_color.html" title="Color union.">Color</a> union.  <a href="union_xila___class_1_1_color.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html">Xila_Class::Software</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Software</a> class.  <a href="class_xila___class_1_1_software.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Software</a> handle used by Xila to manage each software.  <a href="class_xila___class_1_1_software___handle.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_account___class.html">Xila_Class::Account_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Account management class.  <a href="class_xila___class_1_1_account___class.html#details">More...</a><br /></td></tr>
@@ -128,14 +143,26 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html">Xila_Class::Drive_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drive class.  <a href="class_xila___class_1_1_drive___class.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_flash___class.html">Xila_Class::Flash_Class</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flash class.  <a href="class_xila___class_1_1_flash___class.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_g_p_i_o___class.html">Xila_Class::GPIO_Class</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">GPIO management class.  <a href="class_xila___class_1_1_g_p_i_o___class.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_keyboard___class.html">Xila_Class::Keyboard_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Keyboard class.  <a href="class_xila___class_1_1_keyboard___class.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_mathematics___class.html">Xila_Class::Mathematics_Class</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mathematics class.  <a href="class_xila___class_1_1_mathematics___class.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_memory___class.html">Xila_Class::Memory_Class</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory class.  <a href="class_xila___class_1_1_memory___class.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_power___class.html">Xila_Class::Power_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Power management module.  <a href="class_xila___class_1_1_power___class.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software___management___class.html">Xila_Class::Software_Management_Class</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software management module.  <a href="class_xila___class_1_1_software___management___class.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Software</a> management module.  <a href="class_xila___class_1_1_software___management___class.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html">Xila_Class::Sound_Class</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sound class API.  <a href="class_xila___class_1_1_sound___class.html#details">More...</a><br /></td></tr>
@@ -152,18 +179,27 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">WiFi class.  <a href="class_xila___class_1_1_wi_fi___class.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a890d627f9711c419a0c9cbd324afee85"><td class="memItemLeft" align="right" valign="top"><a id="a890d627f9711c419a0c9cbd324afee85"></a>
-typedef tm&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_core_8hpp.html#a890d627f9711c419a0c9cbd324afee85">Xila_Time</a></td></tr>
-<tr class="memdesc:a890d627f9711c419a0c9cbd324afee85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila time class. <br /></td></tr>
-<tr class="separator:a890d627f9711c419a0c9cbd324afee85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a15b0ebe8d663abdffd08c0346f5ffedc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_core_8hpp.html#a15b0ebe8d663abdffd08c0346f5ffedc">Instruction</a>(x,  y)&#160;&#160;&#160;(x * 256 + y)</td></tr>
+<tr class="memdesc:a15b0ebe8d663abdffd08c0346f5ffedc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila time class.  <a href="_core_8hpp.html#a15b0ebe8d663abdffd08c0346f5ffedc">More...</a><br /></td></tr>
+<tr class="separator:a15b0ebe8d663abdffd08c0346f5ffedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0e18d13b6b64bd073a396b847aa5657"><td class="memItemLeft" align="right" valign="top"><a id="aa0e18d13b6b64bd073a396b847aa5657"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_core_8hpp.html#aa0e18d13b6b64bd073a396b847aa5657">Address</a>(x,  y)&#160;&#160;&#160;(x * 256 + y)</td></tr>
+<tr class="memdesc:aa0e18d13b6b64bd073a396b847aa5657"><td class="mdescLeft">&#160;</td><td class="mdescRight">Address conversion macro. <br /></td></tr>
+<tr class="separator:aa0e18d13b6b64bd073a396b847aa5657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae77cd2121287340e8e792024de99cce9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_core_8hpp.html#ae77cd2121287340e8e792024de99cce9">operator==</a> (<a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> const &amp;a, <a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> const &amp;b)</td></tr>
+<tr class="memdesc:ae77cd2121287340e8e792024de99cce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare two software handle.  <a href="_core_8hpp.html#ae77cd2121287340e8e792024de99cce9">More...</a><br /></td></tr>
+<tr class="separator:ae77cd2121287340e8e792024de99cce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a7c041a032a8922d2aa39e1ed463782a9"><td class="memItemLeft" align="right" valign="top"><a id="a7c041a032a8922d2aa39e1ed463782a9"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Handle</b></td></tr>
-<tr class="separator:a7c041a032a8922d2aa39e1ed463782a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa9f4d12efb2f1c73c0196f671c8a92d"><td class="memItemLeft" align="right" valign="top"><a id="afa9f4d12efb2f1c73c0196f671c8a92d"></a>
+<a class="el" href="class_xila___class.html">Xila_Class</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Xila</b></td></tr>
+<tr class="separator:afa9f4d12efb2f1c73c0196f671c8a92d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Xila's core header file. </p>
@@ -174,10 +210,83 @@ Variables</h2></td></tr>
 <p>Gather all the parts used by Xila core.</p>
 <h1><a class="anchor" id="MIT"></a>
 License</h1>
-<p>Copyright (c) 2020 Alix ANNERAUD</p>
-<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>Copyright (c) 2021 Alix ANNERAUD</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a15b0ebe8d663abdffd08c0346f5ffedc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15b0ebe8d663abdffd08c0346f5ffedc">&#9670;&nbsp;</a></span>Instruction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define Instruction</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">y&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(x * 256 + y)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Xila time class. </p>
+<p>Instruction conversion macro. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae77cd2121287340e8e792024de99cce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae77cd2121287340e8e792024de99cce9">&#9670;&nbsp;</a></span>operator==()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> const &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> const &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compare two software handle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>1st software handle to compare. </td></tr>
+    <tr><td class="paramname">b</td><td>2nd software handle to compare. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if software handle are identical </dd>
+<dd>
+false if software handle are different </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1

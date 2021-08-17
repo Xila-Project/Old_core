@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xila_5ftime_125',['Xila_Time',['../_core_8hpp.html#a890d627f9711c419a0c9cbd324afee85',1,'Core.hpp']]]
+  ['address_509',['Address',['../class_xila___class.html#afa8d06d42d3f5c652b39485e319701d6',1,'Xila_Class']]]
 ];

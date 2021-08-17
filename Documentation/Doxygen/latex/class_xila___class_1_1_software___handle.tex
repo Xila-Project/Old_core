@@ -1,0 +1,130 @@
+\hypertarget{class_xila___class_1_1_software___handle}{}\doxysection{Xila\+\_\+\+Class\+::Software\+\_\+\+Handle Class Reference}
+\label{class_xila___class_1_1_software___handle}\index{Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}}
+
+
+\mbox{\hyperlink{class_xila___class_1_1_software}{Software}} handle used by Xila to manage each software.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_aed2d6b2819a8ce358b4b39e60cf62961}\label{class_xila___class_1_1_software___handle_aed2d6b2819a8ce358b4b39e60cf62961}} 
+\mbox{\hyperlink{class_xila___class_1_1_software___handle_aed2d6b2819a8ce358b4b39e60cf62961}{Software\+\_\+\+Handle}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_1_1_software___handle_a7fd50d2a4eeba162f2680bad9da279d5}{Software\+\_\+\+Handle}} (const char $\ast$Software\+\_\+\+Name, uint8\+\_\+t Icon\+\_\+\+ID, \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} $\ast$($\ast$\mbox{\hyperlink{class_xila___class_1_1_software___handle_a8dd4c9a2d76e442a9d7db5c080214acc}{Load\+\_\+\+Function\+\_\+\+Pointer}})(), void($\ast$\mbox{\hyperlink{class_xila___class_1_1_software___handle_a1b9c55b42b0c0c6a2acb993c9a497a28}{Startup\+\_\+\+Function\+\_\+\+Pointer}})()=NULL)
+\begin{DoxyCompactList}\small\item\em Construct a new Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a3ff43a109c08f6fef7a2045f5934ac0e}\label{class_xila___class_1_1_software___handle_a3ff43a109c08f6fef7a2045f5934ac0e}} 
+\mbox{\hyperlink{class_xila___class_1_1_software___handle_a3ff43a109c08f6fef7a2045f5934ac0e}{$\sim$\+Software\+\_\+\+Handle}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_xila___class_1_1_software___handle_a92a2b7a80d5e8237970dc827a142c88d}{Is\+\_\+\+Equal}} (\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle}} const \&Software\+\_\+\+Handle\+\_\+\+To\+\_\+\+Compare) const
+\begin{DoxyCompactList}\small\item\em -- Methods -- // \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a1bc0e5ad3b90c8fc5ccb3a36830641e3}\label{class_xila___class_1_1_software___handle_a1bc0e5ad3b90c8fc5ccb3a36830641e3}} 
+char \mbox{\hyperlink{class_xila___class_1_1_software___handle_a1bc0e5ad3b90c8fc5ccb3a36830641e3}{Name}} \mbox{[}Default\+\_\+\+Software\+\_\+\+Name\+\_\+\+Length\mbox{]}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} string name. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_afbcb05915e75409ae945458c98040a13}\label{class_xila___class_1_1_software___handle_afbcb05915e75409ae945458c98040a13}} 
+uint8\+\_\+t \mbox{\hyperlink{class_xila___class_1_1_software___handle_afbcb05915e75409ae945458c98040a13}{Icon}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} icon. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} $\ast$($\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___handle_a8dd4c9a2d76e442a9d7db5c080214acc}{Load\+\_\+\+Function\+\_\+\+Pointer}} )()
+\begin{DoxyCompactList}\small\item\em Function pointer called by Xila to load software. \end{DoxyCompactList}\item 
+void($\ast$ \mbox{\hyperlink{class_xila___class_1_1_software___handle_a1b9c55b42b0c0c6a2acb993c9a497a28}{Startup\+\_\+\+Function\+\_\+\+Pointer}} )()
+\begin{DoxyCompactList}\small\item\em Function pointer that is called by Xila at startup. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_software___handle_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_aef4558823fcccb39bbf373c4d4a2586f}\label{class_xila___class_1_1_software___handle_aef4558823fcccb39bbf373c4d4a2586f}} 
+class {\bfseries Xila\+\_\+\+Class\+::\+Software}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_software___handle_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_xila___class_1_1_software}{Software}} handle used by Xila to manage each software. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a7fd50d2a4eeba162f2680bad9da279d5}\label{class_xila___class_1_1_software___handle_a7fd50d2a4eeba162f2680bad9da279d5}} 
+\index{Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}!Software\_Handle@{Software\_Handle}}
+\index{Software\_Handle@{Software\_Handle}!Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}}
+\doxysubsubsection{\texorpdfstring{Software\_Handle()}{Software\_Handle()}}
+{\footnotesize\ttfamily Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Software\+\_\+\+Handle (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Software\+\_\+\+Name,  }\item[{uint8\+\_\+t}]{Icon\+\_\+\+ID,  }\item[{\mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} $\ast$($\ast$)()}]{Load\+\_\+\+Function\+\_\+\+Pointer,  }\item[{void($\ast$)()}]{Startup\+\_\+\+Function\+\_\+\+Pointer = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+
+
+Construct a new Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Software\+\_\+\+Name} & \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} name \\
+\hline
+{\em Icon\+\_\+\+ID} & \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} icon \\
+\hline
+{\em Load\+\_\+\+Function\+\_\+\+Pointer} & Load function pointer \\
+\hline
+{\em Startup\+\_\+\+Function\+\_\+\+Pointer} & Startup function pointer (NULL by default) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a92a2b7a80d5e8237970dc827a142c88d}\label{class_xila___class_1_1_software___handle_a92a2b7a80d5e8237970dc827a142c88d}} 
+\index{Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}!Is\_Equal@{Is\_Equal}}
+\index{Is\_Equal@{Is\_Equal}!Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}}
+\doxysubsubsection{\texorpdfstring{Is\_Equal()}{Is\_Equal()}}
+{\footnotesize\ttfamily bool Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Is\+\_\+\+Equal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle}} const \&}]{Software\+\_\+\+Handle\+\_\+\+To\+\_\+\+Compare }\end{DoxyParamCaption}) const}
+
+
+
+-- Methods -- // 
+
+Compare a software handle with this object.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Software\+\_\+\+Handle\+\_\+\+To\+\_\+\+Compare} & \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} handle to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if software handle are identical 
+
+false if software handle are different 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_software___handle_a8dd4c9a2d76e442a9d7db5c080214acc}\label{class_xila___class_1_1_software___handle_a8dd4c9a2d76e442a9d7db5c080214acc}} 
+\index{Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}!Load\_Function\_Pointer@{Load\_Function\_Pointer}}
+\index{Load\_Function\_Pointer@{Load\_Function\_Pointer}!Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}}
+\doxysubsubsection{\texorpdfstring{Load\_Function\_Pointer}{Load\_Function\_Pointer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}}$\ast$($\ast$ Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Load\+\_\+\+Function\+\_\+\+Pointer) ()\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Function pointer called by Xila to load software. 
+
+Function allocate memory and return allocated software memory pointer and then send an \char`\"{}\+Open\char`\"{} instruction in the queue. \mbox{\Hypertarget{class_xila___class_1_1_software___handle_a1b9c55b42b0c0c6a2acb993c9a497a28}\label{class_xila___class_1_1_software___handle_a1b9c55b42b0c0c6a2acb993c9a497a28}} 
+\index{Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}!Startup\_Function\_Pointer@{Startup\_Function\_Pointer}}
+\index{Startup\_Function\_Pointer@{Startup\_Function\_Pointer}!Xila\_Class::Software\_Handle@{Xila\_Class::Software\_Handle}}
+\doxysubsubsection{\texorpdfstring{Startup\_Function\_Pointer}{Startup\_Function\_Pointer}}
+{\footnotesize\ttfamily void($\ast$ Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle\+::\+Startup\+\_\+\+Function\+\_\+\+Pointer) ()\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Function pointer that is called by Xila at startup. 
+
+That is usefull when you whan to start a background task, or launch your application at the startup. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Modules/\mbox{\hyperlink{_software___handle_8cpp}{Software\+\_\+\+Handle.\+cpp}}\end{DoxyCompactItemize}

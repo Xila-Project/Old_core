@@ -2,68 +2,30 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_system_8hpp" kind="file" language="C++">
     <compoundname>System.hpp</compoundname>
-    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp</includedby>
+    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</includedby>
     <invincdepgraph>
+      <node id="34">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Dialog.cpp</label>
+        <link refid="_core_2_modules_2_dialog_8cpp"/>
+      </node>
       <node id="14">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp</label>
-        <link refid="_shell_8hpp"/>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
+        <link refid="_desk_8cpp"/>
       </node>
-      <node id="4">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp</label>
-        <link refid="_calculator_8hpp_source"/>
+      <node id="38">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp</label>
+        <link refid="_system_8cpp"/>
       </node>
-      <node id="17">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</label>
-        <link refid="_text_01_editor_8hpp_source"/>
+      <node id="32">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Account.cpp</label>
+        <link refid="_account_8cpp"/>
       </node>
       <node id="18">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</label>
-        <link refid="_tiny___basic_8hpp_source"/>
-      </node>
-      <node id="5">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp</label>
-        <link refid="_clock_8hpp_source"/>
-      </node>
-      <node id="13">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp</label>
-        <link refid="_pong_8hpp_source"/>
-      </node>
-      <node id="10">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Periodic.hpp</label>
-        <link refid="_periodic_8hpp_source"/>
-      </node>
-      <node id="12">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Picture_Viewer.hpp</label>
-        <link refid="_picture___viewer_8hpp_source"/>
-      </node>
-      <node id="7">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp</label>
-        <link refid="_music___player_8hpp_source"/>
-      </node>
-      <node id="9">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Paint.hpp</label>
-        <link refid="_paint_8hpp_source"/>
-      </node>
-      <node id="1">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/System.hpp</label>
-        <link refid="_system_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="15">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp</label>
-        <link refid="_simon_8hpp_source"/>
-      </node>
-      <node id="16">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp</label>
-        <link refid="_software___template_8hpp_source"/>
-      </node>
-      <node id="8">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp</label>
-        <link refid="_oscilloscope_8hpp"/>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
+        <link refid="_shell_8cpp"/>
       </node>
       <node id="3">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp</label>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp</label>
         <link refid="_xila_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
@@ -85,6 +47,140 @@
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp</label>
+        <link refid="_software_8cpp"/>
+      </node>
+      <node id="11">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Piano.hpp</label>
+        <link refid="_piano_8hpp"/>
+      </node>
+      <node id="21">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp</label>
+        <link refid="_text___editor_8hpp_source"/>
+      </node>
+      <node id="17">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
+        <link refid="_preferences_8cpp"/>
+      </node>
+      <node id="4">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+      </node>
+      <node id="33">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp</label>
+        <link refid="_clipboard_8cpp"/>
+      </node>
+      <node id="27">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp</label>
+        <link refid="_keyboard_8cpp"/>
+      </node>
+      <node id="28">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp</label>
+        <link refid="_power_8cpp"/>
+      </node>
+      <node id="7">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Music_Player.hpp</label>
+        <link refid="_music___player_8hpp"/>
+      </node>
+      <node id="25">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp</label>
+        <link refid="_flash_8cpp"/>
+      </node>
+      <node id="10">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Periodic.hpp</label>
+        <link refid="_periodic_8hpp_source"/>
+      </node>
+      <node id="12">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp_source"/>
+      </node>
+      <node id="16">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
+        <link refid="_file___manager_8cpp"/>
+      </node>
+      <node id="5">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Clock.hpp</label>
+        <link refid="_clock_8hpp_source"/>
+      </node>
+      <node id="39">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Time.cpp</label>
+        <link refid="_time_8cpp"/>
+      </node>
+      <node id="29">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Sound.cpp</label>
+        <link refid="_sound_8cpp"/>
+      </node>
+      <node id="2">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</label>
+        <link refid="_core_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp</label>
+        <link refid="_drive_8cpp"/>
+      </node>
+      <node id="37">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Handle.cpp</label>
+        <link refid="_software___handle_8cpp"/>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/GPIO.cpp</label>
+        <link refid="_g_p_i_o_8cpp"/>
+      </node>
+      <node id="13">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp</label>
+        <link refid="_shell_8hpp"/>
         <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
@@ -96,19 +192,49 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="2">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp</label>
-        <link refid="_core_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
+      <node id="31">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Core.cpp</label>
+        <link refid="_core_8cpp"/>
       </node>
-      <node id="11">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Piano.hpp</label>
-        <link refid="_piano_8hpp_source"/>
+      <node id="19">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp</label>
+        <link refid="_simon_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp</label>
+        <link refid="_oscilloscope_8hpp"/>
+      </node>
+      <node id="35">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
+        <link refid="_mathematics_8cpp"/>
+      </node>
+      <node id="23">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Display.cpp</label>
+        <link refid="_display_8cpp"/>
+      </node>
+      <node id="15">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
+        <link refid="_software_2_shell_2_dialog_8cpp"/>
+      </node>
+      <node id="9">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp</label>
+        <link refid="_paint_8hpp_source"/>
+      </node>
+      <node id="22">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Tiny_Basic.hpp</label>
+        <link refid="_tiny___basic_8hpp_source"/>
       </node>
       <node id="6">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp</label>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Internet_Browser.hpp</label>
         <link refid="_internet___browser_8hpp_source"/>
+      </node>
+      <node id="30">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/WiFi.cpp</label>
+        <link refid="_wi_fi_8cpp"/>
+      </node>
+      <node id="20">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Software_Template.hpp</label>
+        <link refid="_software___template_8hpp_source"/>
       </node>
     </invincdepgraph>
     <briefdescription>
@@ -126,45 +252,67 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="12"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>esp_random();</highlight></codeline>
-<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="15"><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random(uint32_t<sp/>Upper_Bound)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="17"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>x<sp/>=<sp/>esp_random();</highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>m<sp/>=<sp/>uint64_t(x)<sp/>*<sp/>uint64_t(Upper_Bound);</highlight></codeline>
-<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>l<sp/>=<sp/>uint32_t(m);</highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(l<sp/>&lt;<sp/>Upper_Bound)</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>t<sp/>=<sp/>-Upper_Bound;</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>-=<sp/>Upper_Bound;</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
-<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>%=<sp/>Upper_Bound;</highlight></codeline>
-<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(l<sp/>&lt;<sp/>t)</highlight></codeline>
-<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>esp_random();</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m<sp/>=<sp/>uint64_t(x)<sp/>*<sp/>uint64_t(Upper_Bound);</highlight></codeline>
-<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>l<sp/>=<sp/>uint32_t(m);</highlight></codeline>
-<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m<sp/>&gt;&gt;<sp/>32;</highlight></codeline>
-<codeline lineno="38"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random(uint32_t<sp/>Lower_Bound,<sp/>uint32_t<sp/>Upper_Bound)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="41"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Lower_Bound<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
-<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Lower_Bound;</highlight></codeline>
-<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>Upper_Bound<sp/>-<sp/>Lower_Bound;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Random(diff)<sp/>+<sp/>Lower_Bound;</highlight></codeline>
-<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>SYSTEM_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SYSTEM_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="15"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>esp_random();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random(uint32_t<sp/>Upper_Bound)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="20"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>x<sp/>=<sp/>esp_random();</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>m<sp/>=<sp/>uint64_t(x)<sp/>*<sp/>uint64_t(Upper_Bound);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>l<sp/>=<sp/>uint32_t(m);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(l<sp/>&lt;<sp/>Upper_Bound)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint32_t<sp/>t<sp/>=<sp/>-Upper_Bound;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>-=<sp/>Upper_Bound;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(t<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>t<sp/>%=<sp/>Upper_Bound;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(l<sp/>&lt;<sp/>t)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x<sp/>=<sp/>esp_random();</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m<sp/>=<sp/>uint64_t(x)<sp/>*<sp/>uint64_t(Upper_Bound);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>l<sp/>=<sp/>uint32_t(m);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>m<sp/>&gt;&gt;<sp/>32;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Random(uint32_t<sp/>Lower_Bound,<sp/>uint32_t<sp/>Upper_Bound)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="44"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Lower_Bound<sp/>&gt;=<sp/>Upper_Bound)</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Lower_Bound;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>diff<sp/>=<sp/>Upper_Bound<sp/>-<sp/>Lower_Bound;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Random(diff)<sp/>+<sp/>Lower_Bound;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint32_t<sp/>Xila_Class::System_Class::Get_CPU_Frequency()</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>getCpuFrequencyMhz();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>Xila_Class::System_Class::Get_SDK_Version()</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>esp_get_idf_version();</highlight></codeline>
+<codeline lineno="61"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>uint64_t<sp/>Xila_Class::System_Class::Get_eFuse_MAC()</highlight></codeline>
+<codeline lineno="64"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>uint64_t<sp/>_chipmacid<sp/>=<sp/>0LL;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/>esp_efuse_mac_get_default((uint8_t*)<sp/>(&amp;_chipmacid));</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>_chipmacid;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/System.hpp"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp"/>
   </compounddef>
 </doxygen>

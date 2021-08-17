@@ -1,0 +1,624 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_g_p_i_o___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::GPIO_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914b" prot="public" static="no" strong="no">
+        <type>uint8_t</type>
+        <name>Digital_States</name>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba8e2f6845a0f1263573fa1f7351047757" prot="public">
+          <name>Low</name>
+          <initializer>= LOW</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba58d99dc2621426b9b22ee47becca04d1" prot="public">
+          <name>High</name>
+          <initializer>= HIGH</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="772" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="773" bodyend="777"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfc" prot="public" static="no" strong="no">
+        <type>uint8_t</type>
+        <name>Modes</name>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca744a1c47f17384ceb34b3c686963cd75" prot="public">
+          <name>Input</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad19f97e127de37752a423ca8309dcdb2" prot="public">
+          <name>Output</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca144491ba7170bb51a8d13457dff0f252" prot="public">
+          <name>Pull_Up</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcae103a76f9cc27b04c341da8343242864" prot="public">
+          <name>Input_Pull_Up</name>
+          <initializer>= 0x05</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca879615a66fb550387508041c6e1d1428" prot="public">
+          <name>Pull_Down</name>
+          <initializer>= 0x08</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcab23f38db1c99be10860ca250a0de03ff" prot="public">
+          <name>Input_Pull_Down</name>
+          <initializer>= 0x09</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcaddc6ed829794710b0b2abffaf044f59a" prot="public">
+          <name>Open_Drain</name>
+          <initializer>= 0x10</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcaf4759436a568039e197216570f1d299a" prot="public">
+          <name>Output_Open_Drain</name>
+          <initializer>= 0x12</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad6a1eb23eb80e84f5fca1d6e6f5f7da1" prot="public">
+          <name>Special</name>
+          <initializer>= 0xF0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcadbb78999341dde39ae503789ca600c7b" prot="public">
+          <name>Function_1</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca6fc55a47c4dd7d02a5cf13015f000261" prot="public">
+          <name>Function_2</name>
+          <initializer>= 0x20</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca45f1287a031f95b856af4e5177c1299c" prot="public">
+          <name>Function_3</name>
+          <initializer>= 0x40</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcae8dc621aa284b13899edeb7e498056ef" prot="public">
+          <name>Function_4</name>
+          <initializer>= 0x60</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca3e005602b8354fce4940f5dd90b20676" prot="public">
+          <name>Function_5</name>
+          <initializer>= 0x80</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca4fee26c1f992cfe8476820a85a45c208" prot="public">
+          <name>Function_6</name>
+          <initializer>= 0xA0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca0103143bffe62a5ce7991cab6c57e540" prot="public">
+          <name>Analog</name>
+          <initializer>= 0xC0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="779" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="780" bodyend="797"/>
+      </memberdef>
+      <memberdef kind="enum" id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014" prot="public" static="no" strong="no">
+        <type>uint8_t</type>
+        <name>Interrupt_Modes</name>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a52c0aa4cd81d541c68eebd43af859d03" prot="public">
+          <name>Disabled</name>
+          <initializer>= 0x00</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a708bba428e0bcd6db1054903303651f6" prot="public">
+          <name>Rising</name>
+          <initializer>= 0x01</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a16219b7240b92b41289cd1acffb2dcca" prot="public">
+          <name>Falling</name>
+          <initializer>= 0x02</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a5f3ad6926ebcda668893f054bb07fa20" prot="public">
+          <name>Change</name>
+          <initializer>= 0x03</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014ab67233c7464880e32cd06daab3936664" prot="public">
+          <name>On_Low</name>
+          <initializer>= 0x04</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014acdb8cf43b0dc1d8fab3e8df708ac6863" prot="public">
+          <name>On_High</name>
+          <initializer>= 0x05</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a61a25f35d146ce0ef056080ca65fc861" prot="public">
+          <name>On_Low_WE</name>
+          <initializer>= 0x0C</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a495d2faef0d4809a30745c1e165ab218" prot="public">
+          <name>On_High_WE</name>
+          <initializer>= 0x0D</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="799" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="800" bodyend="809"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1aa1e1263e2be3527f88d29ba716553b35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::GPIO_Class::GPIO_Class</definition>
+        <argsstring>()</argsstring>
+        <name>GPIO_Class</name>
+        <briefdescription>
+<para>Construct a new <ref refid="class_xila___class_1_1_g_p_i_o___class_1aa1e1263e2be3527f88d29ba716553b35" kindref="member">Xila_Class::GPIO_Class::GPIO_Class</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="742" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/GPIO.cpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Mode</definition>
+        <argsstring>(uint8_t Pin, uint8_t Mode)</argsstring>
+        <name>Set_Mode</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="745" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="16" bodyend="19"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a390fe5acf401820f1866d15286f5e3d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::GPIO_Class::Valid_Output_Pin</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Valid_Output_Pin</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="747" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="21" bodyend="29"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ae0884fdc33e1d1fd732381945b97431b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Digital_Write</definition>
+        <argsstring>(uint8_t Pin, uint8_t State)</argsstring>
+        <name>Digital_Write</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>State</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="750" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="31" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac148f7cfbefb87451768ae29dc858ba3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>int16_t</type>
+        <definition>int16_t Xila_Class::GPIO_Class::Digital_Read</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Digital_Read</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="751" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a21d1f6d8fa83d00defbd9785f00347bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::GPIO_Class::Valid_Digital_Pin</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Valid_Digital_Pin</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="753" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="41" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a6c4bd630f11edcae695bbc70b26e3a03" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint16_t</type>
+        <definition>uint16_t Xila_Class::GPIO_Class::Analog_Read</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Analog_Read</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="756" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="50" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a8341f8743b3a8dae4f4101789e9e5e75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::GPIO_Class::Analog_Read_Milli_Volts</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Analog_Read_Milli_Volts</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="757" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="55" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac1055a2b12728edf4f945d215b4591b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Voltage_Reference_Pin</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Set_Voltage_Reference_Pin</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="759" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="60" bodyend="63"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac892af21b737fcd2310cee112659a081" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Read_Resolutions</definition>
+        <argsstring>(uint8_t Bits_Resolution)</argsstring>
+        <name>Set_Read_Resolutions</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Bits_Resolution</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="760" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="117" bodyend="120"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a8a74f82f1bb7b86a673a62192497b1dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Width</definition>
+        <argsstring>(uint8_t Bits_Width)</argsstring>
+        <name>Set_Width</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Bits_Width</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="761" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="112" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a17c712ca4f31f346ecd223e767213386" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Clock_Divider</definition>
+        <argsstring>(uint8_t Clock_Divider)</argsstring>
+        <name>Set_Clock_Divider</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Clock_Divider</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="762" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="107" bodyend="110"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a05d2b65a023a5eea8bc6d8f84579e711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Attenuation</definition>
+        <argsstring>(uint8_t Attenuation)</argsstring>
+        <name>Set_Attenuation</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Attenuation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="764" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="86" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a5bbef1476ad0d2b4979a6b02ca35e1e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Set_Attenuation</definition>
+        <argsstring>(uint8_t Pin, uint8_t Attenuation)</argsstring>
+        <name>Set_Attenuation</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Attenuation</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="765" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="65" bodyend="84"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Attach_Interrupt</definition>
+        <argsstring>(uint8_t Pin, void(*Function_Pointer)(void), int16_t Mode)</argsstring>
+        <name>Attach_Interrupt</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>void(*)(void)</type>
+          <declname>Function_Pointer</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="768" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="122" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1af3df535781f6106d1dfbe36f341ff4ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Attach_Interrupt_Argument</definition>
+        <argsstring>(uint8_t Pin, void(*Function_Pointer)(void *), void *Argument, int16_t Mode)</argsstring>
+        <name>Attach_Interrupt_Argument</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <param>
+          <type>void(*)(void *)</type>
+          <declname>Function_Pointer</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>Argument</declname>
+        </param>
+        <param>
+          <type>int16_t</type>
+          <declname>Mode</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="769" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="127" bodyend="130"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a9507827cf5bf287015df3c7e1d521137" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::GPIO_Class::Detech_Interrupt</definition>
+        <argsstring>(uint8_t Pin)</argsstring>
+        <name>Detech_Interrupt</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>Pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="770" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="132" bodyend="135"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>GPIO management class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="739" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="740" bodyend="810"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca0103143bffe62a5ce7991cab6c57e540" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Analog</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a6c4bd630f11edcae695bbc70b26e3a03" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Analog_Read</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a8341f8743b3a8dae4f4101789e9e5e75" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Analog_Read_Milli_Volts</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Attach_Interrupt</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1af3df535781f6106d1dfbe36f341ff4ca" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Attach_Interrupt_Argument</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a5f3ad6926ebcda668893f054bb07fa20" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Change</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a9507827cf5bf287015df3c7e1d521137" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Detech_Interrupt</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1ac148f7cfbefb87451768ae29dc858ba3" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_Read</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914b" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_States</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1ae0884fdc33e1d1fd732381945b97431b" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_Write</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a52c0aa4cd81d541c68eebd43af859d03" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Disabled</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a16219b7240b92b41289cd1acffb2dcca" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Falling</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcadbb78999341dde39ae503789ca600c7b" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_1</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca6fc55a47c4dd7d02a5cf13015f000261" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_2</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca45f1287a031f95b856af4e5177c1299c" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_3</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcae8dc621aa284b13899edeb7e498056ef" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_4</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca3e005602b8354fce4940f5dd90b20676" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_5</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca4fee26c1f992cfe8476820a85a45c208" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Function_6</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1aa1e1263e2be3527f88d29ba716553b35" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>GPIO_Class</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba58d99dc2621426b9b22ee47becca04d1" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>High</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca744a1c47f17384ceb34b3c686963cd75" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Input</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcab23f38db1c99be10860ca250a0de03ff" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Input_Pull_Down</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcae103a76f9cc27b04c341da8343242864" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Input_Pull_Up</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Interrupt_Modes</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba8e2f6845a0f1263573fa1f7351047757" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Low</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfc" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Modes</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014acdb8cf43b0dc1d8fab3e8df708ac6863" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>On_High</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a495d2faef0d4809a30745c1e165ab218" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>On_High_WE</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014ab67233c7464880e32cd06daab3936664" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>On_Low</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a61a25f35d146ce0ef056080ca65fc861" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>On_Low_WE</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcaddc6ed829794710b0b2abffaf044f59a" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Open_Drain</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad19f97e127de37752a423ca8309dcdb2" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Output</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcaf4759436a568039e197216570f1d299a" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Output_Open_Drain</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca879615a66fb550387508041c6e1d1428" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Pull_Down</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfca144491ba7170bb51a8d13457dff0f252" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Pull_Up</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a708bba428e0bcd6db1054903303651f6" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Rising</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a05d2b65a023a5eea8bc6d8f84579e711" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Attenuation</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5bbef1476ad0d2b4979a6b02ca35e1e7" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Attenuation</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a17c712ca4f31f346ecd223e767213386" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Clock_Divider</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Mode</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1ac892af21b737fcd2310cee112659a081" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Read_Resolutions</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1ac1055a2b12728edf4f945d215b4591b9" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Voltage_Reference_Pin</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a8a74f82f1bb7b86a673a62192497b1dd" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Set_Width</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad6a1eb23eb80e84f5fca1d6e6f5f7da1" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Special</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a21d1f6d8fa83d00defbd9785f00347bc" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Valid_Digital_Pin</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a390fe5acf401820f1866d15286f5e3d0" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Valid_Output_Pin</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

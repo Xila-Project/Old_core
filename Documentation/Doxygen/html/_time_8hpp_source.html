@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Xila: C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Time.hpp Source File</title>
+<title>Xila: C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Time.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_f630f6d906c9e2216ac09aab82d6a6a6.html">Operating_System</a></li><li class="navelem"><a class="el" href="dir_c835fe620200b699d42cbdcca78f9004.html">Espressif_32</a></li><li class="navelem"><a class="el" href="dir_3beaa7c625ff830a574a9c02fe31a900.html">include</a></li><li class="navelem"><a class="el" href="dir_ca10673b39fa6346158d39be54281a2e.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_5d88b4709274d720d8b307b03f0b1a68.html">lib</a></li><li class="navelem"><a class="el" href="dir_ea08cbe4d57c893aec2ee9b5d93d1d99.html">Xila</a></li><li class="navelem"><a class="el" href="dir_b1cf5780a26e5eb8e9e8049da161ad41.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c42c1447d7973225509c34d5699682.html">Core</a></li><li class="navelem"><a class="el" href="dir_6a34ee4f5eb849ca4b6e61c9a268b064.html">Modules</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,11 +72,20 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <a href="_time_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; <span class="keyword">inline</span> uint32_t Xila_Class::Time_Class::Milliseconds()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keywordflow">return</span> millis();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#ifndef TIME_HPP_INCLUDED</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define TIME_HPP_INCLUDED</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">inline</span> uint32_t Xila_Class::Time_Class::Milliseconds()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordflow">return</span> (uint32_t)(esp_timer_get_time() / 1000ULL);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">inline</span> int64_t Xila_Class::Time_Class::Microseconds()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keywordflow">return</span> esp_timer_get_time();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -86,38 +86,38 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a7e7d4a3f766198a07fef592597404d5a"><td class="memItemLeft" align="right" valign="top"><a id="a7e7d4a3f766198a07fef592597404d5a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Sd_Card_Type</b> { <br />
-&#160;&#160;<b>CARD_NONE</b>
-, <b>CARD_MMC</b>
-, <b>CARD_SD</b>
-, <b>CARD_SDHC</b>
+&#160;&#160;<b>None</b>
+, <b>MMC</b>
+, <b>SD_SC</b>
+, <b>SD_HC</b>
 , <br />
-&#160;&#160;<b>CARD_UNKNOWN</b>
+&#160;&#160;<b>Unknow</b>
 <br />
  }</td></tr>
 <tr class="separator:a7e7d4a3f766198a07fef592597404d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6ee65e39b64633977e13099011c3673"><td class="memItemLeft" align="right" valign="top"><a id="ae6ee65e39b64633977e13099011c3673"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> (uint8_t Slave_Select_Pin=SS, SPIClass &amp;spi=SPI, uint32_t Frequency=4000000, const char *Mount_Point=&quot;/sd&quot;, uint8_t Maximum_Files=5)</td></tr>
+<tr class="memitem:ae6ee65e39b64633977e13099011c3673"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#ae6ee65e39b64633977e13099011c3673">Begin</a> (uint8_t Slave_Select_Pin=SS, SPIClass &amp;spi=SPI, uint32_t Frequency=4000000, const char *Mount_Point=&quot;/sd&quot;, uint8_t Maximum_Files=5)</td></tr>
+<tr class="memdesc:ae6ee65e39b64633977e13099011c3673"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize drive.  <a href="class_xila___class_1_1_drive___class.html#ae6ee65e39b64633977e13099011c3673">More...</a><br /></td></tr>
 <tr class="separator:ae6ee65e39b64633977e13099011c3673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba28eecd1868b938b087e4388d559ec5"><td class="memItemLeft" align="right" valign="top"><a id="aba28eecd1868b938b087e4388d559ec5"></a>
-uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>Card_Size</b> ()</td></tr>
-<tr class="separator:aba28eecd1868b938b087e4388d559ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46f448f8aaa67e40a4ad8adaf2d01d85"><td class="memItemLeft" align="right" valign="top"><a id="a46f448f8aaa67e40a4ad8adaf2d01d85"></a>
-Sd_Card_Type&#160;</td><td class="memItemRight" valign="bottom"><b>Card_Type</b> ()</td></tr>
-<tr class="separator:a46f448f8aaa67e40a4ad8adaf2d01d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc4521e0d8b8f0aac23af14d9e9239eb"><td class="memItemLeft" align="right" valign="top"><a id="afc4521e0d8b8f0aac23af14d9e9239eb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Exists</b> (const char *Path)</td></tr>
+<tr class="memitem:ab57d363ffaea1f5c638b0b4caa23dd06"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#ab57d363ffaea1f5c638b0b4caa23dd06">Size</a> ()</td></tr>
+<tr class="memdesc:ab57d363ffaea1f5c638b0b4caa23dd06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the drive size.  <a href="class_xila___class_1_1_drive___class.html#ab57d363ffaea1f5c638b0b4caa23dd06">More...</a><br /></td></tr>
+<tr class="separator:ab57d363ffaea1f5c638b0b4caa23dd06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a292061e7081549b280ff14c0612357bc"><td class="memItemLeft" align="right" valign="top">Sd_Card_Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a292061e7081549b280ff14c0612357bc">Type</a> ()</td></tr>
+<tr class="memdesc:a292061e7081549b280ff14c0612357bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return drive type.  <a href="class_xila___class_1_1_drive___class.html#a292061e7081549b280ff14c0612357bc">More...</a><br /></td></tr>
+<tr class="separator:a292061e7081549b280ff14c0612357bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4521e0d8b8f0aac23af14d9e9239eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#afc4521e0d8b8f0aac23af14d9e9239eb">Exists</a> (const char *Path)</td></tr>
+<tr class="memdesc:afc4521e0d8b8f0aac23af14d9e9239eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a file / folder exists.  <a href="class_xila___class_1_1_drive___class.html#afc4521e0d8b8f0aac23af14d9e9239eb">More...</a><br /></td></tr>
 <tr class="separator:afc4521e0d8b8f0aac23af14d9e9239eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fd45190eb05d644c1dece9ee3b1539d"><td class="memItemLeft" align="right" valign="top"><a id="a6fd45190eb05d644c1dece9ee3b1539d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Exists</b> (const String &amp;Path)</td></tr>
+<tr class="memitem:a6fd45190eb05d644c1dece9ee3b1539d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a6fd45190eb05d644c1dece9ee3b1539d">Exists</a> (const String &amp;Path)</td></tr>
+<tr class="memdesc:a6fd45190eb05d644c1dece9ee3b1539d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a file / folder exists.  <a href="class_xila___class_1_1_drive___class.html#a6fd45190eb05d644c1dece9ee3b1539d">More...</a><br /></td></tr>
 <tr class="separator:a6fd45190eb05d644c1dece9ee3b1539d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af832f7a6daa2dd7345e29393d2e392b3"><td class="memItemLeft" align="right" valign="top"><a id="af832f7a6daa2dd7345e29393d2e392b3"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Make_Directory</b> (const char *Path)</td></tr>
+<tr class="memitem:af832f7a6daa2dd7345e29393d2e392b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#af832f7a6daa2dd7345e29393d2e392b3">Make_Directory</a> (const char *Path)</td></tr>
+<tr class="memdesc:af832f7a6daa2dd7345e29393d2e392b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new directory.  <a href="class_xila___class_1_1_drive___class.html#af832f7a6daa2dd7345e29393d2e392b3">More...</a><br /></td></tr>
 <tr class="separator:af832f7a6daa2dd7345e29393d2e392b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59def79d55a887b0d80d470f22c5f110"><td class="memItemLeft" align="right" valign="top"><a id="a59def79d55a887b0d80d470f22c5f110"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Make_Directory</b> (const String &amp;Path)</td></tr>
+<tr class="memitem:a59def79d55a887b0d80d470f22c5f110"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a59def79d55a887b0d80d470f22c5f110">Make_Directory</a> (const String &amp;Path)</td></tr>
+<tr class="memdesc:a59def79d55a887b0d80d470f22c5f110"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make a new directory.  <a href="class_xila___class_1_1_drive___class.html#a59def79d55a887b0d80d470f22c5f110">More...</a><br /></td></tr>
 <tr class="separator:a59def79d55a887b0d80d470f22c5f110"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad951b3ec549f04c18bcd3e0fb1a0acd5"><td class="memItemLeft" align="right" valign="top"><a id="ad951b3ec549f04c18bcd3e0fb1a0acd5"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Remove_Directory</b> (const char *Path)</td></tr>
@@ -125,14 +125,14 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>Remove_Directory</b> 
 <tr class="memitem:aae929850f2b5dcdddfc46e3ea0651677"><td class="memItemLeft" align="right" valign="top"><a id="aae929850f2b5dcdddfc46e3ea0651677"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Remove_Directory</b> (const String &amp;Path)</td></tr>
 <tr class="separator:aae929850f2b5dcdddfc46e3ea0651677"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a773c3b5b91558c7202d174011b34b797"><td class="memItemLeft" align="right" valign="top"><a id="a773c3b5b91558c7202d174011b34b797"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (const char *Path, const char *Mode=&quot;r&quot;)</td></tr>
+<tr class="memitem:a773c3b5b91558c7202d174011b34b797"><td class="memItemLeft" align="right" valign="top">File&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a773c3b5b91558c7202d174011b34b797">Open</a> (const char *Path, const char *Mode=&quot;r&quot;)</td></tr>
+<tr class="memdesc:a773c3b5b91558c7202d174011b34b797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a file / folder.  <a href="class_xila___class_1_1_drive___class.html#a773c3b5b91558c7202d174011b34b797">More...</a><br /></td></tr>
 <tr class="separator:a773c3b5b91558c7202d174011b34b797"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb5c9bb76be7359b6f6325520e9f88b6"><td class="memItemLeft" align="right" valign="top"><a id="afb5c9bb76be7359b6f6325520e9f88b6"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><b>Open</b> (const String &amp;Path, const char *Mode=&quot;r&quot;)</td></tr>
+<tr class="memitem:afb5c9bb76be7359b6f6325520e9f88b6"><td class="memItemLeft" align="right" valign="top">File&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#afb5c9bb76be7359b6f6325520e9f88b6">Open</a> (const String &amp;Path, const char *Mode=&quot;r&quot;)</td></tr>
+<tr class="memdesc:afb5c9bb76be7359b6f6325520e9f88b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open a file / folder.  <a href="class_xila___class_1_1_drive___class.html#afb5c9bb76be7359b6f6325520e9f88b6">More...</a><br /></td></tr>
 <tr class="separator:afb5c9bb76be7359b6f6325520e9f88b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ba7605ddfbe7ccacfe81a7e49ea576d"><td class="memItemLeft" align="right" valign="top"><a id="a7ba7605ddfbe7ccacfe81a7e49ea576d"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Remove</b> (const char *Path)</td></tr>
+<tr class="memitem:a7ba7605ddfbe7ccacfe81a7e49ea576d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a7ba7605ddfbe7ccacfe81a7e49ea576d">Remove</a> (const char *Path)</td></tr>
+<tr class="memdesc:a7ba7605ddfbe7ccacfe81a7e49ea576d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file.  <a href="class_xila___class_1_1_drive___class.html#a7ba7605ddfbe7ccacfe81a7e49ea576d">More...</a><br /></td></tr>
 <tr class="separator:a7ba7605ddfbe7ccacfe81a7e49ea576d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf12d2dd7fc72d63f35f00c34b4917f3"><td class="memItemLeft" align="right" valign="top"><a id="acf12d2dd7fc72d63f35f00c34b4917f3"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>Remove</b> (const String &amp;Path)</td></tr>
@@ -149,20 +149,23 @@ uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>Total_Bytes</b> (
 <tr class="memitem:adb1b4ead65106d185faa8fdda6e838b6"><td class="memItemLeft" align="right" valign="top"><a id="adb1b4ead65106d185faa8fdda6e838b6"></a>
 uint64_t&#160;</td><td class="memItemRight" valign="bottom"><b>Used_Bytes</b> ()</td></tr>
 <tr class="separator:adb1b4ead65106d185faa8fdda6e838b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abaceae5e29238cc061482cac703c86bb"><td class="memItemLeft" align="right" valign="top"><a id="abaceae5e29238cc061482cac703c86bb"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Copy</b> (File &amp;Origin_File, File &amp;Destination_File)</td></tr>
+<tr class="memitem:abaceae5e29238cc061482cac703c86bb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#abaceae5e29238cc061482cac703c86bb">Copy</a> (File &amp;Origin_File, File &amp;Destination_File)</td></tr>
+<tr class="memdesc:abaceae5e29238cc061482cac703c86bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy file from two openned file.  <a href="class_xila___class_1_1_drive___class.html#abaceae5e29238cc061482cac703c86bb">More...</a><br /></td></tr>
 <tr class="separator:abaceae5e29238cc061482cac703c86bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e7c3a756ca4751a1d1f8e09e5809821"><td class="memItemLeft" align="right" valign="top"><a id="a0e7c3a756ca4751a1d1f8e09e5809821"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Name</b> (File const &amp;File, char *File_Name_Buffer, size_t Size)</td></tr>
+<tr class="memitem:a0e7c3a756ca4751a1d1f8e09e5809821"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a0e7c3a756ca4751a1d1f8e09e5809821">Get_Name</a> (File const &amp;File, char *File_Name_Buffer, size_t <a class="el" href="class_xila___class_1_1_drive___class.html#ab57d363ffaea1f5c638b0b4caa23dd06">Size</a>)</td></tr>
 <tr class="separator:a0e7c3a756ca4751a1d1f8e09e5809821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a269e05fe820f5bee67df0f76a5e42c46"><td class="memItemLeft" align="right" valign="top"><a id="a269e05fe820f5bee67df0f76a5e42c46"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Count_Files</b> (File &amp;Folder)</td></tr>
-<tr class="separator:a269e05fe820f5bee67df0f76a5e42c46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a956d18ed6c7a8ecfcf33ce3ae609bfa8"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#a956d18ed6c7a8ecfcf33ce3ae609bfa8">Count_Items</a> (File &amp;Folder)</td></tr>
+<tr class="separator:a956d18ed6c7a8ecfcf33ce3ae609bfa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdb259c7de2f64cd3f4f7f075a57a778"><td class="memItemLeft" align="right" valign="top"><a id="afdb259c7de2f64cd3f4f7f075a57a778"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#afdb259c7de2f64cd3f4f7f075a57a778">Drive_Class</a> ()</td></tr>
+<tr class="memdesc:afdb259c7de2f64cd3f4f7f075a57a778"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_xila___class_1_1_drive___class.html#afdb259c7de2f64cd3f4f7f075a57a778" title="Construct a new Xila_Class::Drive_Class::Drive_Class object.">Xila_Class::Drive_Class::Drive_Class</a> object. <br /></td></tr>
+<tr class="separator:afdb259c7de2f64cd3f4f7f075a57a778"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac3f935e3060f0a754e4aea39b0c150bd"><td class="memItemLeft" align="right" valign="top"><a id="ac3f935e3060f0a754e4aea39b0c150bd"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>End</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_drive___class.html#ac3f935e3060f0a754e4aea39b0c150bd">End</a> ()</td></tr>
+<tr class="memdesc:ac3f935e3060f0a754e4aea39b0c150bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unmount drive. <br /></td></tr>
 <tr class="separator:ac3f935e3060f0a754e4aea39b0c150bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -176,8 +179,440 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Drive class. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae6ee65e39b64633977e13099011c3673"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6ee65e39b64633977e13099011c3673">&#9670;&nbsp;</a></span>Begin()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Begin </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Slave_Select_Pin</em> = <code>SS</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SPIClass &amp;&#160;</td>
+          <td class="paramname"><em>spi</em> = <code>SPI</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>Frequency</em> = <code>4000000</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Mount_Point</em> = <code>&quot;/sd&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Maximum_Files</em> = <code>5</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize drive. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Slave_Select_Pin</td><td>Slave select pin. </td></tr>
+    <tr><td class="paramname">spi</td><td>SPI interface. </td></tr>
+    <tr><td class="paramname">Frequency</td><td>Frequency of the SPI bus. </td></tr>
+    <tr><td class="paramname">Mount_Point</td><td>Mount point path. </td></tr>
+    <tr><td class="paramname">Maximum_Files</td><td>Maximum simultaneous openned files. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the initialization succeed. </dd>
+<dd>
+false if the initialization succeed. </dd></dl>
+
+</div>
+</div>
+<a id="abaceae5e29238cc061482cac703c86bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abaceae5e29238cc061482cac703c86bb">&#9670;&nbsp;</a></span>Copy()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Drive_Class::Copy </td>
+          <td>(</td>
+          <td class="paramtype">File &amp;&#160;</td>
+          <td class="paramname"><em>Origin_File</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">File &amp;&#160;</td>
+          <td class="paramname"><em>Destination_File</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy file from two openned file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Origin_File</td><td>File to duplicate </td></tr>
+    <tr><td class="paramname">Destination_File</td><td>File to write </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Xila_Class::Event::Success or Xila_Class::Event::Error </dd></dl>
+
+</div>
+</div>
+<a id="a956d18ed6c7a8ecfcf33ce3ae609bfa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a956d18ed6c7a8ecfcf33ce3ae609bfa8">&#9670;&nbsp;</a></span>Count_Items()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t Xila_Class::Drive_Class::Count_Items </td>
+          <td>(</td>
+          <td class="paramtype">File &amp;&#160;</td>
+          <td class="paramname"><em>Folder</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Folder</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint16_t return the number of files inside a folder </dd></dl>
+
+</div>
+</div>
+<a id="afc4521e0d8b8f0aac23af14d9e9239eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4521e0d8b8f0aac23af14d9e9239eb">&#9670;&nbsp;</a></span>Exists() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Exists </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a file / folder exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Item path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the item exist. </dd>
+<dd>
+false if the item doesn't exist. </dd></dl>
+
+</div>
+</div>
+<a id="a6fd45190eb05d644c1dece9ee3b1539d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fd45190eb05d644c1dece9ee3b1539d">&#9670;&nbsp;</a></span>Exists() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Exists </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>Path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Check if a file / folder exists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Item path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the item exists. </dd>
+<dd>
+false if the item doesn't exist. </dd></dl>
+
+</div>
+</div>
+<a id="a0e7c3a756ca4751a1d1f8e09e5809821"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e7c3a756ca4751a1d1f8e09e5809821">&#9670;&nbsp;</a></span>Get_Name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Drive_Class::Get_Name </td>
+          <td>(</td>
+          <td class="paramtype">File const &amp;&#160;</td>
+          <td class="paramname"><em>File</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>File_Name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>Size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File</td><td></td></tr>
+    <tr><td class="paramname">File_Name</td><td></td></tr>
+    <tr><td class="paramname">Size</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee" title="Xila event type.">Xila_Class::Event</a> </dd></dl>
+
+</div>
+</div>
+<a id="af832f7a6daa2dd7345e29393d2e392b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af832f7a6daa2dd7345e29393d2e392b3">&#9670;&nbsp;</a></span>Make_Directory() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Make_Directory </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new directory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Path of new directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the operation succeed. </dd>
+<dd>
+false of the operation failed. </dd></dl>
+
+</div>
+</div>
+<a id="a59def79d55a887b0d80d470f22c5f110"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59def79d55a887b0d80d470f22c5f110">&#9670;&nbsp;</a></span>Make_Directory() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Make_Directory </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>Path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make a new directory. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Path of new directory. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the operation succeed. </dd>
+<dd>
+false of the operation failed. </dd></dl>
+
+</div>
+</div>
+<a id="a773c3b5b91558c7202d174011b34b797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a773c3b5b91558c7202d174011b34b797">&#9670;&nbsp;</a></span>Open() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">File Xila_Class::Drive_Class::Open </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Mode</em> = <code>&quot;r&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open a file / folder. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Item path. </td></tr>
+    <tr><td class="paramname">Mode</td><td>Open mode (read or write). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>File File instance. </dd></dl>
+
+</div>
+</div>
+<a id="afb5c9bb76be7359b6f6325520e9f88b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb5c9bb76be7359b6f6325520e9f88b6">&#9670;&nbsp;</a></span>Open() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">File Xila_Class::Drive_Class::Open </td>
+          <td>(</td>
+          <td class="paramtype">const String &amp;&#160;</td>
+          <td class="paramname"><em>Path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Mode</em> = <code>&quot;r&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Open a file / folder. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td>Item path. </td></tr>
+    <tr><td class="paramname">Mode</td><td>Open mode (read or write). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>File File instance. </dd></dl>
+
+</div>
+</div>
+<a id="a7ba7605ddfbe7ccacfe81a7e49ea576d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ba7605ddfbe7ccacfe81a7e49ea576d">&#9670;&nbsp;</a></span>Remove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Drive_Class::Remove </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Remove a file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Path</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true </dd>
+<dd>
+false <br  />
+ </dd></dl>
+
+</div>
+</div>
+<a id="ab57d363ffaea1f5c638b0b4caa23dd06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab57d363ffaea1f5c638b0b4caa23dd06">&#9670;&nbsp;</a></span>Size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t Xila_Class::Drive_Class::Size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return the drive size. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint64_t Drive size in bytes. </dd></dl>
+
+</div>
+</div>
+<a id="a292061e7081549b280ff14c0612357bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a292061e7081549b280ff14c0612357bc">&#9670;&nbsp;</a></span>Type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Return drive type. </p>
+<dl class="section return"><dt>Returns</dt><dd>Xila_Class::Drive_Class::Sd_Card_Type <br  />
+ </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/<a class="el" href="_drive_8cpp.html">Drive.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

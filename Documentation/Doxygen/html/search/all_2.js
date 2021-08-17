@@ -1,9 +1,26 @@
 var searchData=
 [
-  ['calculator_5fclass_2',['Calculator_Class',['../class_calculator___class.html',1,'']]],
-  ['caller_5fsoftware_3',['Caller_Software',['../class_xila___class_1_1_dialog___class.html#a3c61fe122a6dc0c02e3c1e05bceb68f8',1,'Xila_Class::Dialog_Class']]],
-  ['clipboard_5fclass_4',['Clipboard_Class',['../class_xila___class_1_1_clipboard___class.html',1,'Xila_Class']]],
-  ['clock_5fclass_5',['Clock_Class',['../class_clock___class.html',1,'']]],
-  ['color_6',['Color',['../class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923',1,'Xila_Class::Display_Class']]],
-  ['core_2ehpp_7',['Core.hpp',['../_core_8hpp.html',1,'']]]
+  ['calculator_5fclass_13',['Calculator_Class',['../class_calculator___class.html',1,'']]],
+  ['change_5fpassword_14',['Change_Password',['../class_xila___class_1_1_account___class.html#a20e8399f793d8b30eb5672a83003e693',1,'Xila_Class::Account_Class']]],
+  ['change_5fusername_15',['Change_Username',['../class_xila___class_1_1_account___class.html#ad337741a3a0e0a44640d9f1d9fec2c35',1,'Xila_Class::Account_Class']]],
+  ['check_5fbutton_16',['Check_Button',['../class_xila___class_1_1_power___class.html#a80836e70cd2de6ef80ae268b0ce3c1cd',1,'Xila_Class::Power_Class']]],
+  ['check_5fcredentials_17',['Check_Credentials',['../class_xila___class_1_1_account___class.html#a4f871525bbf69e7c1506c3952c4d362f',1,'Xila_Class::Account_Class']]],
+  ['check_5fwatchdog_18',['Check_Watchdog',['../class_xila___class_1_1_software___management___class.html#a09fdce2ac534f4f3b069d7c535da7256',1,'Xila_Class::Software_Management_Class']]],
+  ['clear_19',['Clear',['../class_xila___class_1_1_clipboard___class.html#a6f4ca9050db700007e183a93936e4a80',1,'Xila_Class::Clipboard_Class::Clear()'],['../class_xila___class_1_1_keyboard___class.html#a54a28063306921b5e94196d857b00575',1,'Xila_Class::Keyboard_Class::Clear()']]],
+  ['clipboard_2ecpp_20',['Clipboard.cpp',['../_clipboard_8cpp.html',1,'']]],
+  ['clipboard_5fclass_21',['Clipboard_Class',['../class_xila___class_1_1_clipboard___class.html',1,'Xila_Class']]],
+  ['clipboard_5ffile_22',['Clipboard_File',['../class_xila___class_1_1_clipboard___class.html#ad0178b556661976cc2a5dd365e605ba4',1,'Xila_Class::Clipboard_Class']]],
+  ['clock_5fclass_23',['Clock_Class',['../class_clock___class.html',1,'']]],
+  ['close_24',['Close',['../class_xila___class_1_1_software___management___class.html#a33003ff9ea8d34bce683f373c275fbb1',1,'Xila_Class::Software_Management_Class']]],
+  ['close_5fload_25',['Close_Load',['../class_xila___class_1_1_dialog___class.html#ad30c98a44de1d0cca66c3f753b567a33',1,'Xila_Class::Dialog_Class']]],
+  ['color_26',['Color',['../class_xila___class_1_1_display___class.html#aabbeeb03f3d1b07bbf2c63c3b6a28923',1,'Xila_Class::Display_Class::Color()'],['../union_xila___class_1_1_color.html',1,'Xila_Class::Color']]],
+  ['color_5fpicker_27',['Color_Picker',['../class_xila___class_1_1_dialog___class.html#ad60d7c54fe28aad6b35067ab58a7c8fb',1,'Xila_Class::Dialog_Class']]],
+  ['color_5fpicker_5fclass_28',['Color_Picker_Class',['../class_shell___class_1_1_dialog___class_1_1_color___picker___class.html',1,'Shell_Class::Dialog_Class']]],
+  ['configuration_2ehpp_29',['Configuration.hpp',['../_configuration_8hpp.html',1,'']]],
+  ['copy_30',['Copy',['../class_xila___class_1_1_clipboard___class.html#a6abc81343d2a66744800a2f3d96702df',1,'Xila_Class::Clipboard_Class::Copy(uint64_t const &amp;Value_To_Copy)'],['../class_xila___class_1_1_clipboard___class.html#a9468cb1064c5b9d5363d799da46d36b3',1,'Xila_Class::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length=0)'],['../class_xila___class_1_1_clipboard___class.html#a5b206c58b92c5d73a14dfb415d2baf70',1,'Xila_Class::Clipboard_Class::Copy(String const &amp;String_To_Copy)'],['../class_xila___class_1_1_drive___class.html#abaceae5e29238cc061482cac703c86bb',1,'Xila_Class::Drive_Class::Copy()']]],
+  ['copy_5fsign_31',['Copy_Sign',['../class_xila___class_1_1_mathematics___class.html#aa684c248ccc06e118cf934cf9e6c28f9',1,'Xila_Class::Mathematics_Class']]],
+  ['core_2ecpp_32',['Core.cpp',['../_core_8cpp.html',1,'']]],
+  ['core_2ehpp_33',['Core.hpp',['../_core_8hpp.html',1,'']]],
+  ['count_5fitems_34',['Count_Items',['../class_xila___class_1_1_drive___class.html#a956d18ed6c7a8ecfcf33ce3ae609bfa8',1,'Xila_Class::Drive_Class']]],
+  ['current_5fusername_35',['Current_Username',['../class_xila___class_1_1_account___class.html#ae6736ab0abe4073f9455d5b40442ba71',1,'Xila_Class::Account_Class']]]
 ];

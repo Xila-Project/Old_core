@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -82,14 +82,14 @@ Inheritance diagram for Music_Player_Class:</div>
  <div class="center">
   <img src="class_music___player___class.png" usemap="#Music_5FPlayer_5FClass_map" alt=""/>
   <map id="Music_5FPlayer_5FClass_map" name="Music_5FPlayer_5FClass_map">
-<area href="class_software___class.html" title="Software class." alt="Software_Class" shape="rect" coords="0,0,128,24"/>
+<area href="class_xila___class_1_1_software.html" title="Software class." alt="Xila_Class::Software" shape="rect" coords="0,0,128,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:ade6865d1009b16e5b548cfd9d592fa4a"><td class="memItemLeft" align="right" valign="top"><a id="ade6865d1009b16e5b548cfd9d592fa4a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Picture</b> { <br />
-&#160;&#160;<b>Music_Player_Icon_32</b> = Xila.Display.Music_Player
+&#160;&#160;<b>Music_Player_Icon_32</b> = Xila.Display.Music_Player_Images
 , <b>Loop_32</b>
 , <b>Pause_32</b>
 , <b>Play_32</b>
@@ -106,9 +106,9 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a4db8dfbe8f3f43ab1c0827b5d1810b0e"><td class="memItemLeft" align="right" valign="top"><a id="a4db8dfbe8f3f43ab1c0827b5d1810b0e"></a>
-static <a class="el" href="class_software___class.html">Software_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Load</b> ()</td></tr>
-<tr class="separator:a4db8dfbe8f3f43ab1c0827b5d1810b0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7904d44475ed9c6496042747fbbb635"><td class="memItemLeft" align="right" valign="top"><a id="ad7904d44475ed9c6496042747fbbb635"></a>
+static <a class="el" href="class_xila___class_1_1_software.html">Xila_Class::Software</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Load</b> ()</td></tr>
+<tr class="separator:ad7904d44475ed9c6496042747fbbb635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
 Protected Types</h2></td></tr>
@@ -117,57 +117,30 @@ Protected Types</h2></td></tr>
 , <b>Paused</b>
  }</td></tr>
 <tr class="separator:a1ab33fce98fefd3e106bd77dc938c296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cc7a2ac509d870dcd92ae63a376c49d"><td class="memItemLeft" align="right" valign="top"><a id="a5cc7a2ac509d870dcd92ae63a376c49d"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Queue_Position</b> { <b>Empty</b> = 0
-, <b>Current</b> = ((sizeof(Queue) / sizeof(uint32_t)) - 2)
- }</td></tr>
-<tr class="separator:a5cc7a2ac509d870dcd92ae63a376c49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_types_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_types_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Types inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
-<tr class="memitem:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a884c783d1a51660296ca9dbbad63dd30"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a884c783d1a51660296ca9dbbad63dd30">Instructions</a> { <br />
-&#160;&#160;<b>Idle</b> = 0
-, <b>Open</b> = 'O'
-, <b>Close</b> = 'C'
-, <b>Maximize</b> = 'M'
-, <br />
-&#160;&#160;<b>Minimize</b> = 'm'
-, <b>Shutdown</b> = 200
-, <b>Restart</b>
-, <b>Hibernate</b> = 'H'
-, <br />
-&#160;&#160;<b>Watchdog</b> = 'W'
-, <b>Desk</b> = 'D'
-, <b>Dialog_Install</b> = 'I'
-, <b>Dialog_Open_File</b> = 'f'
-, <br />
-&#160;&#160;<b>Dialog_Open_Folder</b> = 'F'
-, <b>Dialog_Save_File</b> = 'e'
-, <b>Dialog_Keyboard</b> = 'K'
-, <b>Dialog_Keypad</b> = 'k'
-, <br />
-&#160;&#160;<b>Dialog_Color_Picker</b> = 'c'
-, <b>Dialog_Power</b> = 'P'
-, <b>Dialog_Event</b> = 'E'
-<br />
- }</td></tr>
-<tr class="memdesc:a884c783d1a51660296ca9dbbad63dd30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instructions used by the core (with the prefix "#") <br /></td></tr>
-<tr class="separator:a884c783d1a51660296ca9dbbad63dd30 inherit pro_types_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:aa2e7575e5d81b4e34ba058ec6c87a674"><td class="memItemLeft" align="right" valign="top"><a id="aa2e7575e5d81b4e34ba058ec6c87a674"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Pause</b> ()</td></tr>
 <tr class="separator:aa2e7575e5d81b4e34ba058ec6c87a674"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a184d8cdd803de7013bdded294e5fff91"><td class="memItemLeft" align="right" valign="top"><a id="a184d8cdd803de7013bdded294e5fff91"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Refresh_Queue</b> ()</td></tr>
-<tr class="separator:a184d8cdd803de7013bdded294e5fff91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb6ba5ed4993c72dcd1046bfd09a2d51"><td class="memItemLeft" align="right" valign="top"><a id="aeb6ba5ed4993c72dcd1046bfd09a2d51"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Variable</b> (const void *, uint8_t, uint8_t, uint8_t)</td></tr>
-<tr class="separator:aeb6ba5ed4993c72dcd1046bfd09a2d51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82fcc924aa5eb6e1a3c321e2e6507c1f"><td class="memItemLeft" align="right" valign="top"><a id="a82fcc924aa5eb6e1a3c321e2e6507c1f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Dialog_Open_Folder</b> ()</td></tr>
-<tr class="separator:a82fcc924aa5eb6e1a3c321e2e6507c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94ca0dae0057801155a3fd834b87331c"><td class="memItemLeft" align="right" valign="top"><a id="a94ca0dae0057801155a3fd834b87331c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_File</b> (uint16_t)</td></tr>
+<tr class="separator:a94ca0dae0057801155a3fd834b87331c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd913f28a457b8db7afa120e2d0dedf0"><td class="memItemLeft" align="right" valign="top"><a id="acd913f28a457b8db7afa120e2d0dedf0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_File</b> ()</td></tr>
 <tr class="separator:acd913f28a457b8db7afa120e2d0dedf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3b85c97a159a144f0f30a642eeae886"><td class="memItemLeft" align="right" valign="top"><a id="ac3b85c97a159a144f0f30a642eeae886"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Folder</b> ()</td></tr>
+<tr class="separator:ac3b85c97a159a144f0f30a642eeae886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ec8c8ea8877f175598815d86097aa8e"><td class="memItemLeft" align="right" valign="top"><a id="a4ec8c8ea8877f175598815d86097aa8e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Open_Radio</b> (uint8_t)</td></tr>
+<tr class="separator:a4ec8c8ea8877f175598815d86097aa8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a715b60b6fb630cf942d10f49d4c5675a"><td class="memItemLeft" align="right" valign="top"><a id="a715b60b6fb630cf942d10f49d4c5675a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Radio</b> (uint8_t)</td></tr>
+<tr class="separator:a715b60b6fb630cf942d10f49d4c5675a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e51aac9be041e5d5c515718787ad7c7"><td class="memItemLeft" align="right" valign="top"><a id="a1e51aac9be041e5d5c515718787ad7c7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Variable</b> (<a class="el" href="class_xila___class.html#afa8d06d42d3f5c652b39485e319701d6">Xila_Class::Address</a>, uint8_t, const void *)</td></tr>
+<tr class="separator:a1e51aac9be041e5d5c515718787ad7c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b5b2c343cf3dcf730e7c0d42c0de5b7"><td class="memItemLeft" align="right" valign="top"><a id="a4b5b2c343cf3dcf730e7c0d42c0de5b7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Time</b> ()</td></tr>
 <tr class="separator:a4b5b2c343cf3dcf730e7c0d42c0de5b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,49 +171,62 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Refresh_Interface</b>
 <tr class="memitem:a5c3d223b3f77ea60db462cf38a449f6f"><td class="memItemLeft" align="right" valign="top"><a id="a5c3d223b3f77ea60db462cf38a449f6f"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Count_Music_File</b> ()</td></tr>
 <tr class="separator:a5c3d223b3f77ea60db462cf38a449f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_methods_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
-<tr class="memitem:ae53a7fa8b6d0eab6d51a1a92d8e3d510 inherit pro_methods_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="ae53a7fa8b6d0eab6d51a1a92d8e3d510"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Software_Class</b> (<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> &amp;Software_Handle, uint8_t Queue_Size=DEFAULT_QUEUE_SIZE)</td></tr>
-<tr class="separator:ae53a7fa8b6d0eab6d51a1a92d8e3d510 inherit pro_methods_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2025a5c405f1cf32db583c73fbd0394f inherit pro_methods_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a2025a5c405f1cf32db583c73fbd0394f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Send_Instruction</b> (uint16_t)</td></tr>
-<tr class="separator:a2025a5c405f1cf32db583c73fbd0394f inherit pro_methods_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae8bd90da5c307cea46d9cbc0c1283e3 inherit pro_methods_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="aae8bd90da5c307cea46d9cbc0c1283e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Send_Instruction</b> (char, char)</td></tr>
-<tr class="separator:aae8bd90da5c307cea46d9cbc0c1283e3 inherit pro_methods_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b01563cf83e5185184c16fd3144c0e3 inherit pro_methods_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a2b01563cf83e5185184c16fd3144c0e3"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Instruction</b> ()</td></tr>
-<tr class="separator:a2b01563cf83e5185184c16fd3144c0e3 inherit pro_methods_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_class_xila___class_1_1_software"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_class_xila___class_1_1_software')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="class_xila___class_1_1_software.html">Xila_Class::Software</a></td></tr>
+<tr class="memitem:a449d53afe8102aab773ac465b92acf01 inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#a449d53afe8102aab773ac465b92acf01">Software</a> (<a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> &amp;<a class="el" href="class_xila___class_1_1_software___handle.html">Software_Handle</a>, uint8_t Queue_Size=Default_Instruction_Queue_Size)</td></tr>
+<tr class="memdesc:a449d53afe8102aab773ac465b92acf01 inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Xila_Class::Software</a> object.  <a href="class_xila___class_1_1_software.html#a449d53afe8102aab773ac465b92acf01">More...</a><br /></td></tr>
+<tr class="separator:a449d53afe8102aab773ac465b92acf01 inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bd83708332f3802ccaf741741eda30d inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top"><a id="a4bd83708332f3802ccaf741741eda30d"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#a4bd83708332f3802ccaf741741eda30d">~Software</a> ()</td></tr>
+<tr class="memdesc:a4bd83708332f3802ccaf741741eda30d inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Xila_Class::Software</a> object. <br /></td></tr>
+<tr class="separator:a4bd83708332f3802ccaf741741eda30d inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa45509b64cac8ff55986ef789716b55a inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#aa45509b64cac8ff55986ef789716b55a">Send_Instruction</a> (<a class="el" href="class_xila___class.html#a1aed82bea1dfd7ae10908bdfb0f5333f">Xila_Class::Instruction</a> Intruction)</td></tr>
+<tr class="memdesc:aa45509b64cac8ff55986ef789716b55a inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to send instructions to software.  <a href="class_xila___class_1_1_software.html#aa45509b64cac8ff55986ef789716b55a">More...</a><br /></td></tr>
+<tr class="separator:aa45509b64cac8ff55986ef789716b55a inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba6aaacb256e43b1af464a9c1e294945 inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#aba6aaacb256e43b1af464a9c1e294945">Send_Instruction</a> (char Instruction_Char_1, char Instruction_Char_2)</td></tr>
+<tr class="memdesc:aba6aaacb256e43b1af464a9c1e294945 inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert 2 byte char instruction into Xila Instruction and send it.  <a href="class_xila___class_1_1_software.html#aba6aaacb256e43b1af464a9c1e294945">More...</a><br /></td></tr>
+<tr class="separator:aba6aaacb256e43b1af464a9c1e294945 inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa21b0b3aa6d8ad432c8d451dbd52ae55 inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a1aed82bea1dfd7ae10908bdfb0f5333f">Xila_Class::Instruction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#aa21b0b3aa6d8ad432c8d451dbd52ae55">Get_Instruction</a> ()</td></tr>
+<tr class="memdesc:aa21b0b3aa6d8ad432c8d451dbd52ae55 inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return last instruction from the instructions queue.  <a href="class_xila___class_1_1_software.html#aa21b0b3aa6d8ad432c8d451dbd52ae55">More...</a><br /></td></tr>
+<tr class="separator:aa21b0b3aa6d8ad432c8d451dbd52ae55 inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87281f0b32d28725aa55ca0f283824e8 inherit pro_methods_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#a87281f0b32d28725aa55ca0f283824e8">Set_Watchdog_Timeout</a> (uint16_t Watchdog_Timeout=Default_Watchdog_Timeout)</td></tr>
+<tr class="memdesc:a87281f0b32d28725aa55ca0f283824e8 inherit pro_methods_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set watchdog timeout, by default it's set to 5000 ms.  <a href="class_xila___class_1_1_software.html#a87281f0b32d28725aa55ca0f283824e8">More...</a><br /></td></tr>
+<tr class="separator:a87281f0b32d28725aa55ca0f283824e8 inherit pro_methods_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a9d2b3a5f870c515c2461dd748f9965c5"><td class="memItemLeft" align="right" valign="top"><a id="a9d2b3a5f870c515c2461dd748f9965c5"></a>
+<tr class="memitem:a345e2840b4e50a1f985aa0a329b0c741"><td class="memItemLeft" align="right" valign="top"><a id="a345e2840b4e50a1f985aa0a329b0c741"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>Main_Task</b> (void *)</td></tr>
-<tr class="separator:a9d2b3a5f870c515c2461dd748f9965c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a345e2840b4e50a1f985aa0a329b0c741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a58da0c7c1de0020fc163a40ad9b1bb58"><td class="memItemLeft" align="right" valign="top"><a id="a58da0c7c1de0020fc163a40ad9b1bb58"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_Char_Array</b> [20]</td></tr>
-<tr class="separator:a58da0c7c1de0020fc163a40ad9b1bb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c9a1f66261d8fbd06708584d2b59c71"><td class="memItemLeft" align="right" valign="top"><a id="a5c9a1f66261d8fbd06708584d2b59c71"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_Char_Array</b> [40]</td></tr>
+<tr class="separator:a5c9a1f66261d8fbd06708584d2b59c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb66bd95a06105a685bb81ae0579c7b"><td class="memItemLeft" align="right" valign="top"><a id="aadb66bd95a06105a685bb81ae0579c7b"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_File_Name</b> [13]</td></tr>
+<tr class="separator:aadb66bd95a06105a685bb81ae0579c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20b164deaf5f8d18e4c55b3f2400c4ee"><td class="memItemLeft" align="right" valign="top"><a id="a20b164deaf5f8d18e4c55b3f2400c4ee"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>Temporary_Radio_Link</b> [129]</td></tr>
+<tr class="separator:a20b164deaf5f8d18e4c55b3f2400c4ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a973f3ad5b09e0b4a781c4af01e860a"><td class="memItemLeft" align="right" valign="top"><a id="a9a973f3ad5b09e0b4a781c4af01e860a"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Number_Of_Files</b></td></tr>
 <tr class="separator:a9a973f3ad5b09e0b4a781c4af01e860a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3abbe6abea09349f2ef2978a2dd2c36c"><td class="memItemLeft" align="right" valign="top"><a id="a3abbe6abea09349f2ef2978a2dd2c36c"></a>
 File&#160;</td><td class="memItemRight" valign="bottom"><b>Music_File</b></td></tr>
 <tr class="separator:a3abbe6abea09349f2ef2978a2dd2c36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2090cbf8a1a12db3afd25abccc36b63"><td class="memItemLeft" align="right" valign="top"><a id="af2090cbf8a1a12db3afd25abccc36b63"></a>
-File&#160;</td><td class="memItemRight" valign="bottom"><b>Next_Music_File</b></td></tr>
-<tr class="separator:af2090cbf8a1a12db3afd25abccc36b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a26d0016b7b7e0c2d06061f20a05e2aa3"><td class="memItemLeft" align="right" valign="top"><a id="a26d0016b7b7e0c2d06061f20a05e2aa3"></a>
 File&#160;</td><td class="memItemRight" valign="bottom"><b>Music_Folder</b></td></tr>
 <tr class="separator:a26d0016b7b7e0c2d06061f20a05e2aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6afa1ab4e166d339bb106a70172ffa1"><td class="memItemLeft" align="right" valign="top"><a id="aa6afa1ab4e166d339bb106a70172ffa1"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>State</b></td></tr>
 <tr class="separator:aa6afa1ab4e166d339bb106a70172ffa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f1ca8ff979f630c9fa72ae0999dd1a2"><td class="memItemLeft" align="right" valign="top"><a id="a5f1ca8ff979f630c9fa72ae0999dd1a2"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Queue</b> [24] = {0}</td></tr>
-<tr class="separator:a5f1ca8ff979f630c9fa72ae0999dd1a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fed4087d71b7465ed7024c5a56d9cf7"><td class="memItemLeft" align="right" valign="top"><a id="a8fed4087d71b7465ed7024c5a56d9cf7"></a>
+QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Last_Queue</b></td></tr>
+<tr class="separator:a8fed4087d71b7465ed7024c5a56d9cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b3730585abfab2a9ff3c38815e01b07"><td class="memItemLeft" align="right" valign="top"><a id="a9b3730585abfab2a9ff3c38815e01b07"></a>
+QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Next_Queue</b></td></tr>
+<tr class="separator:a9b3730585abfab2a9ff3c38815e01b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a118d7c9228e4e90827f8f21c3d25e2dc"><td class="memItemLeft" align="right" valign="top"><a id="a118d7c9228e4e90827f8f21c3d25e2dc"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Volume</b></td></tr>
 <tr class="separator:a118d7c9228e4e90827f8f21c3d25e2dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -259,26 +245,28 @@ uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Total_Time</b></t
 <tr class="memitem:afb88381e67fb8741ed40961ef64d8877"><td class="memItemLeft" align="right" valign="top"><a id="afb88381e67fb8741ed40961ef64d8877"></a>
 uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Current_Time</b></td></tr>
 <tr class="separator:afb88381e67fb8741ed40961ef64d8877"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pro_attribs_class_software___class"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_software___class')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_software___class.html">Software_Class</a></td></tr>
-<tr class="memitem:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a35a3ffe6fe26e0ffda529bd5073bf55a"></a>
-TaskHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
-<tr class="separator:a35a3ffe6fe26e0ffda529bd5073bf55a inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a879e342f5718521f638b2e962089cf58"></a>
-<a class="el" href="class_software___handle___class.html">Software_Handle_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_software___class.html#a879e342f5718521f638b2e962089cf58">Handle</a></td></tr>
-<tr class="memdesc:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="mdescLeft">&#160;</td><td class="mdescRight">Software handle pointer. <br /></td></tr>
-<tr class="separator:a879e342f5718521f638b2e962089cf58 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memItemLeft" align="right" valign="top"><a id="a6757f8c8a69d1a682a1efce55dad9a98"></a>
-QueueHandle_t&#160;</td><td class="memItemRight" valign="bottom"><b>Instruction_Queue_Handle</b></td></tr>
-<tr class="separator:a6757f8c8a69d1a682a1efce55dad9a98 inherit pro_attribs_class_software___class"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952c31a5e1f67a92789fb6bb36c4c9e9"><td class="memItemLeft" align="right" valign="top"><a id="a952c31a5e1f67a92789fb6bb36c4c9e9"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Set</b></td></tr>
+<tr class="separator:a952c31a5e1f67a92789fb6bb36c4c9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_attribs_class_xila___class_1_1_software"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_class_xila___class_1_1_software')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="class_xila___class_1_1_software.html">Xila_Class::Software</a></td></tr>
+<tr class="memitem:aa9c6eccc5e85e629d875fc6080714f30 inherit pro_attribs_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top"><a id="aa9c6eccc5e85e629d875fc6080714f30"></a>
+<a class="el" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#aa9c6eccc5e85e629d875fc6080714f30">Task_Handle</a></td></tr>
+<tr class="memdesc:aa9c6eccc5e85e629d875fc6080714f30 inherit pro_attribs_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Software</a> task handle. <br /></td></tr>
+<tr class="separator:aa9c6eccc5e85e629d875fc6080714f30 inherit pro_attribs_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c3d107b2dbdd581b9aa79b9d0f6b04f inherit pro_attribs_class_xila___class_1_1_software"><td class="memItemLeft" align="right" valign="top"><a id="a5c3d107b2dbdd581b9aa79b9d0f6b04f"></a>
+<a class="el" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_software.html#a5c3d107b2dbdd581b9aa79b9d0f6b04f">Handle</a></td></tr>
+<tr class="memdesc:a5c3d107b2dbdd581b9aa79b9d0f6b04f inherit pro_attribs_class_xila___class_1_1_software"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_xila___class_1_1_software.html" title="Software class.">Software</a> handle pointer. <br /></td></tr>
+<tr class="separator:a5c3d107b2dbdd581b9aa79b9d0f6b04f inherit pro_attribs_class_xila___class_1_1_software"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
-<tr class="memitem:aa07641c366367d9466ca01f76a48991b"><td class="memItemLeft" align="right" valign="top"><a id="aa07641c366367d9466ca01f76a48991b"></a>
-static <a class="el" href="class_music___player___class.html">Music_Player_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Instance_Pointer</b></td></tr>
-<tr class="separator:aa07641c366367d9466ca01f76a48991b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac48a003bab2144218ddc555ddf53199e"><td class="memItemLeft" align="right" valign="top"><a id="ac48a003bab2144218ddc555ddf53199e"></a>
+static <a class="el" href="class_music___player___class.html">Music_Player_Class</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>Instance_Pointer</b> = NULL</td></tr>
+<tr class="separator:ac48a003bab2144218ddc555ddf53199e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/<a class="el" href="_music___player_8hpp_source.html">Music_Player.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/<a class="el" href="_music___player_8hpp_source.html">Music_Player.hpp</a></li>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Music_Player.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

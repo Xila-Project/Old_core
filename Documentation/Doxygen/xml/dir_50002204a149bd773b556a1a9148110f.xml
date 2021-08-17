@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_50002204a149bd773b556a1a9148110f" kind="dir">
+    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell</compoundname>
+    <innerfile refid="_desk_8cpp">Desk.cpp</innerfile>
+    <innerfile refid="_software_2_shell_2_dialog_8cpp">Dialog.cpp</innerfile>
+    <innerfile refid="_file___manager_8cpp">File_Manager.cpp</innerfile>
+    <innerfile refid="_preferences_8cpp">Preferences.cpp</innerfile>
+    <innerfile refid="_shell_8cpp">Shell.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/"/>
+  </compounddef>
+</doxygen>

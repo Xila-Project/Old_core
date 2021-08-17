@@ -1,0 +1,26 @@
+**************************
+Variable address reference
+**************************
+
+.. toctree::
+    :maxdepth:  2
+    :caption:   Table Of Contents
+
+Introduction
+============
+
+Here you will find a full descrption of the variable adress type.
+
+The variable address type is used by the core to communicate with software asynchronously.
+A variable is defined by two attributes: its identifier (encoded on 16 bits) as well as its type (the core returns three types of variable: number (64 bits), string and pointer, however it is possible to use custom types).
+This makes it possible in particular to easily return variables from the screen by returning a prefix made up of two characters.
+
+.. warning::
+    In order to avoid interfering with the data formatting imposed by the display, please avoid using the values in the identifier: 0x00FF, 0xFF00 and 0xFFFF.
+
+API description
+===============
+
+.. doxygendefine:: Address
+
+.. doxygentypedef:: Xila_Class::Address

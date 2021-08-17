@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handle_114',['Handle',['../class_xila___class_1_1_software___management___class.html#a76f9add6987b1bebdd82c8637eba5ec3',1,'Xila_Class::Software_Management_Class::Handle()'],['../class_software___class.html#a879e342f5718521f638b2e962089cf58',1,'Software_Class::Handle()']]]
+  ['device_5fname_497',['Device_Name',['../class_xila___class_1_1_system___class.html#a45d66d24db04e7347ca4fd9c142c2706',1,'Xila_Class::System_Class']]]
 ];

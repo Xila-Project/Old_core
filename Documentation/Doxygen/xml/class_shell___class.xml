@@ -2,369 +2,21 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_shell___class" kind="class" language="C++" prot="public">
     <compoundname>Shell_Class</compoundname>
-    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+    <basecompoundref refid="class_xila___class_1_1_software" prot="public" virt="non-virtual">Xila_Class::Software</basecompoundref>
     <includes refid="_shell_8hpp" local="no">Shell.hpp</includes>
-      <sectiondef kind="protected-type">
-      <memberdef kind="enum" id="class_shell___class_1a4ac787675c50864d1e81fd12196a02ba" prot="protected" static="no" strong="no">
-        <type></type>
-        <name>Pages</name>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa45b4274c1ff6894f8e24d0164c9ffdad" prot="protected">
-          <name>About</name>
-          <initializer>= 20</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa8daa56ff8a9bba837d04142f3a39dcf2" prot="protected">
-          <name>Color_Picker</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa23c98640a2b64f9aa3f8d67e22170b76" prot="protected">
-          <name>Desk</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa1abe92fdcd3fdacbd62b8a40d998ce9f" prot="protected">
-          <name>Drawer</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa292be7a0f349222b21b34126c1018cf6" prot="protected">
-          <name>Event</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baac8a3acf2bbfd9a35eca66a95f3917b5d" prot="protected">
-          <name>File_Manager_Main</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa9e278cc8636a229f616ce4b49010e5be" prot="protected">
-          <name>File_Manager_Detail</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa49f3e38dcef8c7324c44b52bf8a44e0b" prot="protected">
-          <name>Preferences_Hardware</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baac8f665b88d4b0f6bf7918d62573695fd" prot="protected">
-          <name>Install</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baabf7d294ecfb15c3ffb98b2df1af82ad8" prot="protected">
-          <name>Keyboard</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa3c5f051b9e5d09190aa722e2d2d25127" prot="protected">
-          <name>Keypad</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa2597e5f1949523105d492e0ecc7ba127" prot="protected">
-          <name>Login</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baaf4ad4bfd37ce193948c78768f7189ac5" prot="protected">
-          <name>Load</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa530af651c04f94b1e84ca29cc0d09a86" prot="protected">
-          <name>Preferences_Network</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa817ff1e9226601822102fb29743a0ce8" prot="protected">
-          <name>Preferences_Personal</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baab94b9c5bf192a6ad46b79460bac7d502" prot="protected">
-          <name>Shutdown</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baad1fb54df44720e898de6256104ea1682" prot="protected">
-          <name>Preferences_System</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa4eae6d53a502aa55575d71389fa4ba65" prot="protected">
-          <name>Welcome</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <briefdescription>
-<para>Pages. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="95" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="96" bodyend="115"/>
-      </memberdef>
-      <memberdef kind="enum" id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0" prot="protected" static="no" strong="no">
-        <type></type>
-        <name>File_Manager_Operation</name>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0ad0a8c53ba7f37cde0e5ca6177d87ab8f" prot="protected">
-          <name>Browse</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a0aa601a36734bea438c77f6d7bad7975" prot="protected">
-          <name>New_File</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a23a67814c48465280db2a7740dbdc12b" prot="protected">
-          <name>New_Folder</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a1606eb0416de9d852fded47fc62bd74a" prot="protected">
-          <name>Delete</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0abf128aa0d2742cb92bfbb298b55c3688" prot="protected">
-          <name>Rename</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0af36c5c39014d46770202fe3489706c96" prot="protected">
-          <name>Copy</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25170d1c4173f1b319b8cf2e036ec8c3" prot="protected">
-          <name>Cut</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25e545cf5dda53d5a2a95f20b372ada5" prot="protected">
-          <name>Detail</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="227" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="228" bodyend="237"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6" prot="public" static="no" strong="no">
-        <type></type>
-        <name>Images</name>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a803abf7ca4a555dfb91ee0f09e4320df" prot="public">
-          <name>Empty_16</name>
-          <initializer>= Xila.Display.Shell</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a1c60d5cd811e70958887f5da7fc60765" prot="public">
-          <name>File_16</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a7df2a732ae0071c1be266a1c6d22cc17" prot="public">
-          <name>Folder_16</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ad7cd23425a6800c98d27a6bbabbb9f6e" prot="public">
-          <name>Copy_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a932c90d4f3d3ae7c6c38748664d43f44" prot="public">
-          <name>Cut_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aa56e8c395f3d5e734c6a251d1946ff96" prot="public">
-          <name>Home_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6abe5de53892327b971072ade3222b42e5" prot="public">
-          <name>New_File_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ae8df41a844bbf29555e91e7303f73b4b" prot="public">
-          <name>New_Folder_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6abdd1245ec8d1ee4394488006f3933643" prot="public">
-          <name>Paste_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a50bee200c70120cc7fe3d296a459d3cd" prot="public">
-          <name>Refresh_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a44a33af37ec66cc543dd492dbc9dd28e" prot="public">
-          <name>Rename_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a96b47373e0bf0a512696d932249c21d3" prot="public">
-          <name>Root_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aed362b8a1c37cfa1d2d53babe9307824" prot="public">
-          <name>Trash_24</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a52a686168635a796c7d390a44a014d86" prot="public">
-          <name>Empty_32</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a6e3d5d2dbd1d756953fcf964594d9b08" prot="public">
-          <name>File_Manager_32</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a2c6dbfa68f8c5ab8e5a43552990b1a1e" prot="public">
-          <name>Preferences_32</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6af14c2c5d1d685d526937c365baa41fc6" prot="public">
-          <name>Shutdown_32</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a8c9783e2497846a1f665de1c961d38d3" prot="public">
-          <name>Alix_Fait_Grr_Icon_64</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <enumvalue id="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a983dcbce0309c57416b08b98af5bff45" prot="public">
-          <name>Background_Picture_480</name>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="266" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="267" bodyend="287"/>
-      </memberdef>
-      </sectiondef>
+    <innerclass refid="class_shell___class_1_1_desk___class" prot="protected">Shell_Class::Desk_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class" prot="protected">Shell_Class::Dialog_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_file___manager___class" prot="protected">Shell_Class::File_Manager_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_images___class" prot="public">Shell_Class::Images_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_pages___class" prot="protected">Shell_Class::Pages_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_preferences___class" prot="protected">Shell_Class::Preferences_Class</innerclass>
       <sectiondef kind="protected-static-attrib">
-      <memberdef kind="variable" id="class_shell___class_1a063ea2c25a067974478814912d5dd892" prot="protected" static="yes" mutable="no">
+      <memberdef kind="variable" id="class_shell___class_1a2d351550adcbc2ff10ecc16796a4272b" prot="protected" static="yes" mutable="no">
         <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref> *</type>
-        <definition>Shell_Class* Shell_Class::Instance_Pointer</definition>
+        <definition>Shell_Class * Shell_Class::Instance_Pointer</definition>
         <argsstring></argsstring>
         <name>Instance_Pointer</name>
+        <initializer>= NULL</initializer>
         <briefdescription>
 <para>Instance pointer, help to keep track of current instance. </para>
         </briefdescription>
@@ -372,557 +24,126 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="39" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="39" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="41" column="24" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_shell___class_1a2026874c270250752601c3bc67a38074" prot="protected" static="no" mutable="no">
-        <type>float</type>
-        <definition>float Shell_Class::Temporary_Float</definition>
+      <memberdef kind="variable" id="class_shell___class_1a64c0a4bb3235c9edafebf94b0b7b4a75" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_desk___class" kindref="compound">Shell_Class::Desk_Class</ref></type>
+        <definition>class Shell_Class::Desk_Class Shell_Class::Desk</definition>
         <argsstring></argsstring>
-        <name>Temporary_Float</name>
+        <name>Desk</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="41" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="41" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="82" column="10"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a261f44ec1dd53c4b89359b7008bc7ded" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Current_Item_Name[13]</definition>
-        <argsstring>[13]</argsstring>
-        <name>Current_Item_Name</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="47" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="47" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ae6716b951b99010cbfbc9853f234cfbd" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Current_Path[192]</definition>
-        <argsstring>[192]</argsstring>
-        <name>Current_Path</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="48" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="48" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a7fe10550045b9fc4731da7cf018a5bef" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Shell_Class::Brightness</definition>
+      <memberdef kind="variable" id="class_shell___class_1ae96481a94d64cd54609977859ad2d0cd" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class" kindref="compound">Shell_Class::Dialog_Class</ref></type>
+        <definition>class Shell_Class::Dialog_Class Shell_Class::Dialog</definition>
         <argsstring></argsstring>
-        <name>Brightness</name>
+        <name>Dialog</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="52" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="52" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="238" column="12"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a0b7ae244b7629c875da5ccbf6f835806" prot="protected" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t Shell_Class::Standby_Display_Time</definition>
+      <memberdef kind="variable" id="class_shell___class_1a0ecf8cc9be031f7cb8162dea96098f3f" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_file___manager___class" kindref="compound">Shell_Class::File_Manager_Class</ref> *</type>
+        <definition>class Shell_Class::File_Manager_Class * Shell_Class::File_Manager_Pointer</definition>
         <argsstring></argsstring>
-        <name>Standby_Display_Time</name>
+        <name>File_Manager_Pointer</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="54" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="54" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="323" column="28"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a10f64e9f77783beeb0fa50ca2e729374" prot="protected" static="no" mutable="no">
-        <type>bool</type>
-        <definition>bool Shell_Class::Autologin</definition>
+      <memberdef kind="variable" id="class_shell___class_1ad2a08edbdb09c662a416b416ca68abf2" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_preferences___class" kindref="compound">Shell_Class::Preferences_Class</ref> *</type>
+        <definition>class Shell_Class::Preferences_Class * Shell_Class::Preferences_Pointer</definition>
         <argsstring></argsstring>
-        <name>Autologin</name>
+        <name>Preferences_Pointer</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="58" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="58" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="384" column="27"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" prot="protected" static="no" mutable="no">
-        <type>int32_t</type>
-        <definition>int32_t Shell_Class::GMT_Offset</definition>
+      <memberdef kind="variable" id="class_shell___class_1a854306f9aa7257b90e2590494ab9c411" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_pages___class" kindref="compound">Shell_Class::Pages_Class</ref></type>
+        <definition>class Shell_Class::Pages_Class Shell_Class::Pages</definition>
         <argsstring></argsstring>
-        <name>GMT_Offset</name>
+        <name>Pages</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="60" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="60" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="415" column="18"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a4061f2d99cc584ac8ce1f7c7ce1f3dc5" prot="protected" static="no" mutable="no">
-        <type>int16_t</type>
-        <definition>int16_t Shell_Class::Daylight_Offset</definition>
-        <argsstring></argsstring>
-        <name>Daylight_Offset</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="61" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="61" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a988863903fe9a252449d5644a91396a8" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::NTP_Server[sizeof(Xila.Time.NTP_Server)]</definition>
-        <argsstring>[sizeof(Xila.Time.NTP_Server)]</argsstring>
-        <name>NTP_Server</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="63" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="63" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a4ff4c764d4b8e9518f0c126bcbd00b7a" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Name[25]</definition>
-        <argsstring>[25]</argsstring>
-        <name>Name</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="64" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="64" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Username[9]</definition>
-        <argsstring>[9]</argsstring>
-        <name>Username</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="66" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="66" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a33ed9ee17d75a2d78068e3ace71e546f" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Password_1[25]</definition>
-        <argsstring>[25]</argsstring>
-        <name>Password_1</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="67" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="67" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1aa9f1265875f9fbe18f7e25e6bf019e13" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::Password_2[25]</definition>
-        <argsstring>[25]</argsstring>
-        <name>Password_2</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="68" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="68" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ad4d9d1b17be48dec4edad53b8a3f8691" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::WiFi_Name[25]</definition>
-        <argsstring>[25]</argsstring>
-        <name>WiFi_Name</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="72" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="72" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a0b7b6bb79009ea3d3671aaf70619e7e1" prot="protected" static="no" mutable="no">
-        <type>char</type>
-        <definition>char Shell_Class::WiFi_Password[65]</definition>
-        <argsstring>[65]</argsstring>
-        <name>WiFi_Password</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="73" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="73" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1aa3f64926972e354b35c07db0d9b3dd52" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_shell___class_1a404139279a4ff2b54b14d8da9fa64d5f" prot="protected" static="no" mutable="no">
         <type>uint32_t</type>
-        <definition>uint32_t Shell_Class::Temporary_Variable[4]</definition>
-        <argsstring>[4]</argsstring>
-        <name>Temporary_Variable</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="77" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="77" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1af922cad00bec83733fbb839d6f9ac33e" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Shell_Class::Automatic_Login</definition>
+        <definition>uint32_t Shell_Class::Next_Refresh</definition>
         <argsstring></argsstring>
-        <name>Automatic_Login</name>
+        <name>Next_Refresh</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="79" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="79" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="423" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="423" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a716dcd2b8108a74e88d4da3d5e86a535" prot="protected" static="no" mutable="no">
+      <memberdef kind="variable" id="class_shell___class_1a065378f810e7cc4e935433141b0bdefc" prot="protected" static="no" mutable="no">
         <type>char</type>
-        <definition>char Shell_Class::Temporary_Char[14]</definition>
-        <argsstring>[14]</argsstring>
-        <name>Temporary_Char</name>
+        <definition>char Shell_Class::Temporary_Char_Array[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>Temporary_Char_Array</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="81" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="81" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="424" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="424" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ad32f2099fe3506a6764ab254ebcbd61a" prot="protected" static="no" mutable="no">
-        <type>int32_t</type>
-        <definition>int32_t Shell_Class::Desk_Background</definition>
+      </sectiondef>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_shell___class_1a01695129d089b9067ff0eca6b0fdebc6" prot="public" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_images___class" kindref="compound">Shell_Class::Images_Class</ref></type>
+        <definition>class Shell_Class::Images_Class Shell_Class::Images</definition>
         <argsstring></argsstring>
-        <name>Desk_Background</name>
-        <briefdescription>
-<para>Desk background. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Desk image when &lt; 0 and Custom color when &gt; 0 (color code itself). </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="90" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="90" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a90063c4083b8396e99ce5806f3f6ee7d" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Shell_Class::Offset</definition>
-        <argsstring></argsstring>
-        <name>Offset</name>
+        <name>Images</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="117" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="117" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ae86955278c9a09888bb46f4561324762" prot="protected" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t Shell_Class::Current_Command</definition>
-        <argsstring></argsstring>
-        <name>Current_Command</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="155" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="155" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1afaf0ac7eed2e5ce3bd58852a6362a16f" prot="protected" static="no" mutable="no">
-        <type>File</type>
-        <definition>File Shell_Class::Selected_Item</definition>
-        <argsstring></argsstring>
-        <name>Selected_Item</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="221" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="221" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1ad565042d62d51bea76db4f6b537e2a28" prot="protected" static="no" mutable="no">
-        <type>File</type>
-        <definition>File Shell_Class::Temporary_Item</definition>
-        <argsstring></argsstring>
-        <name>Temporary_Item</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="223" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="223" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a4e2a28b6909cab23a0dfe98ebb916b3b" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Shell_Class::Operation</definition>
-        <argsstring></argsstring>
-        <name>Operation</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="225" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="225" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_shell___class_1a0ced6fb6fe204423a6774d727a2a9101" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Shell_Class::Mode</definition>
-        <argsstring></argsstring>
-        <name>Mode</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="240" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="240" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="464" column="19"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="class_shell___class_1a9e77bb72454447c66a53d06f921fd601" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_shell___class_1a42b2915a5d3567cb6d678ee1c1af6328" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Shell_Class::Logout</definition>
-        <argsstring>()</argsstring>
-        <name>Logout</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="123" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1acdb4cdfd8863e8cd67cdb1e3cf8e42cc" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::System_Update</definition>
-        <argsstring>()</argsstring>
-        <name>System_Update</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="127" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aeff33b1d828feedd1b084f404179827a" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Preferences_Hardware</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Preferences_Hardware</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="131" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a3cee5d0649f9813a201b304526131353" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Preferences_Network</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Preferences_Network</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="132" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1abb06f24b6f7a2c720854438ec5df5126" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Preferences_System</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Preferences_System</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="133" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af54002738e0e3ec767362ce446b7ce36" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Preferences_Personal</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Preferences_Personal</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="134" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a91aa49cea49b5363541b4e2fc7f3cfa0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Preferences_Hardware</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Preferences_Hardware</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="136" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a5dc451ea7403ba76e291f9b946784c65" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Preferences_Personal</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Preferences_Personal</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="137" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a1177c5b97518f4b519b7f5f08670c583" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Preferences_Network</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Preferences_Network</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="138" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1abbb0e4852014f70b2c66d1d0cd807973" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Preferences_System</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Preferences_System</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="139" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af0b9c8a201dc7cd37329e5df902a25b4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Preferences_Hardware_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Preferences_Hardware_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="141" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ad540997389dd27223bb645151584173e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Preferences_Network_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Preferences_Network_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="142" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a48725d3fd40ba5490cba5c72b531c78a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Preferences_Personal_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Preferences_Personal_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="143" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac46de12e6f50546e1350cedfa2eadf9b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Preferences_System_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Preferences_System_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="144" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1acda963f253b183c50c7c1f0ff5442e91" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Desk</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Desk</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="148" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aa9b5f4a44af1a711de86aaa91143882c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Desk_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Desk_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="149" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a25cccfbd52c2805827e898ac5e4476a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Dock</definition>
-        <argsstring>(uint8_t, uint8_t)</argsstring>
-        <name>Dock</name>
+        <definition>void Shell_Class::Execute_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction)</argsstring>
+        <name>Execute_Instruction</name>
         <param>
-          <type>uint8_t</type>
-        </param>
-        <param>
-          <type>uint8_t</type>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <defname>Instruction</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -930,395 +151,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="151" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="421" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="300" bodyend="425"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af495dc4bdf070a5db7562ec7bd801c2e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_shell___class_1a2a09c50ad6085fc584dd90effbaa1ad3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Shell_Class::Main_Commands</definition>
+        <definition>void Shell_Class::Refresh_Header</definition>
         <argsstring>()</argsstring>
-        <name>Main_Commands</name>
+        <name>Refresh_Header</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="156" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a8668670c4abd2d2e65a436212ee62a8d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Color_Picker</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Color_Picker</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="160" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a7845590facdf8084b5757ad396e65a77" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Keypad</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Keypad</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="161" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a3298e08982285d5b0d7255fcea6dbd41" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Keyboard</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Keyboard</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="162" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a616814c5b01c7c0b542d2311592a219f" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Color_Picker_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Color_Picker_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="164" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a28f899ffd8601756c44eba64094053db" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Event_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Event_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="165" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1accee7dead6bc9eb1bd6d73c2a9684d81" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Keyboard_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Keyboard_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="166" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a44db328f15cfed2dec36742c28dbcc4d" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Keypad_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Keypad_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="167" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac4aec89ff83e7eb4531d30c5aed6f9f3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Keyboard_Dialog</definition>
-        <argsstring>(char *, size_t, bool=false)</argsstring>
-        <name>Keyboard_Dialog</name>
-        <param>
-          <type>char *</type>
-        </param>
-        <param>
-          <type>size_t</type>
-        </param>
-        <param>
-          <type>bool</type>
-          <defval>false</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="171" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1abbe6bf686de84e02bd03267c3acdf3fe" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Keypad_Dialog</definition>
-        <argsstring>(float &amp;Number_To_Get)</argsstring>
-        <name>Keypad_Dialog</name>
-        <param>
-          <type>float &amp;</type>
-          <declname>Number_To_Get</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="172" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ad96e9e705f9b148736cb0a760c9f7ca5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Event_Dialog</definition>
-        <argsstring>(const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</argsstring>
-        <name>Event_Dialog</name>
-        <param>
-          <type>const __FlashStringHelper *</type>
-        </param>
-        <param>
-          <type>uint8_t</type>
-        </param>
-        <param>
-          <type>const __FlashStringHelper *</type>
-          <defval>NULL</defval>
-        </param>
-        <param>
-          <type>const __FlashStringHelper *</type>
-          <defval>NULL</defval>
-        </param>
-        <param>
-          <type>const __FlashStringHelper *</type>
-          <defval>NULL</defval>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="173" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1abffffbc2e7475ee097947fe76282addc" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Color_Picker_Dialog</definition>
-        <argsstring>(uint16_t &amp;)</argsstring>
-        <name>Color_Picker_Dialog</name>
-        <param>
-          <type>uint16_t &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="174" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a7ea91b967dbc47f40c7a5e25d109bb93" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Open_File_Dialog</definition>
-        <argsstring>(File &amp;)</argsstring>
-        <name>Open_File_Dialog</name>
-        <param>
-          <type>File &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="175" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a40e60ebe6e4d9993fb9df109a1c14119" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Save_File_Dialog</definition>
-        <argsstring>(File &amp;)</argsstring>
-        <name>Save_File_Dialog</name>
-        <param>
-          <type>File &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="176" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aa3f0f856deba4fd84ea8dff7da3af08a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Shell_Class::Open_Folder_Dialog</definition>
-        <argsstring>(File &amp;)</argsstring>
-        <name>Open_Folder_Dialog</name>
-        <param>
-          <type>File &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="177" column="23"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a3c2bb50a4533b59fc8de0110fe248cde" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Shutdown</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Shutdown</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="181" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a62a04d2f6dc15c9655dc00926a1d383a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Shutdown_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Shutdown_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="182" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Desk</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Desk</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="186" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a2191c5a892e95ad09372157310c1b0fd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Login_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Login_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="188" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a850c309f442b275cd327c23929efb090" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Install_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Install_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="189" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac7021607cedfcfc6b09017f63b917a75" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Load_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Load_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="190" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a13e4743872f3246d8c90478faace85fb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::File_Manager_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>File_Manager_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="191" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac771e065871b064e28479c24f681304a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Drawer</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Drawer</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="195" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a5e95d35484b19d88e9facc43fdcca6e2" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Drawer</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Drawer</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="196" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a1c9ad246d935e55b4d2eeefe8f0757f0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_From_Drawer</definition>
-        <argsstring>(uint8_t)</argsstring>
-        <name>Open_From_Drawer</name>
-        <param>
-          <type>uint8_t</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="197" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Drawer_Commands</definition>
-        <argsstring>()</argsstring>
-        <name>Drawer_Commands</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="198" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="422" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="210" bodyend="298"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1abb385fced24c5e45ad43852881bb34a4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Shell_Class::Save_Registry</definition>
         <argsstring>()</argsstring>
         <name>Save_Registry</name>
@@ -1328,10 +177,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="202" column="23"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="426" column="23" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="607" bodyend="623"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1a1b0a4ca82013ee3a4e3613ea8c963dce" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Shell_Class::Load_Registry</definition>
         <argsstring>()</argsstring>
         <name>Load_Registry</name>
@@ -1341,212 +190,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="203" column="23"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="427" column="23" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="586" bodyend="605"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a2d0e382ce5b95a936068164ada3a5663" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Install</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Install</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="207" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a161c33912dfd16ee08a45402b3821833" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Install</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Install</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="209" column="17"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aebaa8556e42fe269f484640088e89957" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Item</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Item</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="213" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a960924d5be7e9b29091494398dc4dbf0" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Login</definition>
-        <argsstring>()</argsstring>
-        <name>Open_Login</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="215" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a017b7a2395301a96be2bb0b863b0467c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_Load</definition>
-        <argsstring>(uint8_t Mode)</argsstring>
-        <name>Open_Load</name>
-        <param>
-          <type>uint8_t</type>
-          <declname>Mode</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="217" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1aee4d9bf879ca3d55e7c97b6f26c25a2f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Login</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Login</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="219" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1add333db65c6598f963f086d9448221a5" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Select_Item</definition>
-        <argsstring>()</argsstring>
-        <name>Select_Item</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="244" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a44df5724bef36546c6872d51e2107007" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_File_Manager</definition>
-        <argsstring>()</argsstring>
-        <name>Open_File_Manager</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="245" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1afc903a3829d1658da6f5944bfe4464f1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_Footerbar</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_Footerbar</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="247" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a77d6ecde96047450b0a84277312bdeb8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_File_Manager</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_File_Manager</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="248" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af36f47b698704efcfc3f4420a4598bb1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Make_File</definition>
-        <argsstring>()</argsstring>
-        <name>Make_File</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="249" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a11cd37a71ef7da98730459efcf45416f" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Go_Parent</definition>
-        <argsstring>()</argsstring>
-        <name>Go_Parent</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="250" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af960a6aafee38f2f59e682b3281dac7d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Refresh_File_Manager_Detail</definition>
-        <argsstring>()</argsstring>
-        <name>Refresh_File_Manager_Detail</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="252" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1a5fb721eeb084d0dac5c9ca1974ecc262" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Shell_Class::Open_File_Manager_Detail</definition>
-        <argsstring>()</argsstring>
-        <name>Open_File_Manager_Detail</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="253" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_shell___class_1af81e4ca4076742b5a1e8facaa9d7aa28" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+      <memberdef kind="function" id="class_shell___class_1a35772a69378a29025112cf8119426205" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>void Shell_Class::Set_Variable</definition>
-        <argsstring>(const void *, uint8_t, uint8_t, uint8_t=0)</argsstring>
+        <argsstring>(Xila_Class::Address, uint8_t Type, const void *)</argsstring>
         <name>Set_Variable</name>
-        <reimplements refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c">Set_Variable</reimplements>
+        <reimplements refid="class_xila___class_1_1_software_1a0856779c31d7efb50d7eecfaefc2f192">Set_Variable</reimplements>
+        <param>
+          <type><ref refid="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6" kindref="member">Xila_Class::Address</ref></type>
+          <defname>Address</defname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Type</declname>
+        </param>
         <param>
           <type>const void *</type>
-        </param>
-        <param>
-          <type>uint8_t</type>
-        </param>
-        <param>
-          <type>uint8_t</type>
-        </param>
-        <param>
-          <type>uint8_t</type>
-          <defval>0</defval>
+          <defname>Variable</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -1554,13 +216,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="257" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="429" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="429" bodyend="582"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
-      <memberdef kind="function" id="class_shell___class_1a7f2c9c60ddf030d6f2bd4558a3a408e4" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_shell___class_1afbab2d3f3737d55db07201264a27e1d8" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>static void Shell_Class::Main_Task</definition>
+        <definition>void Shell_Class::Main_Task</definition>
         <argsstring>(void *)</argsstring>
         <name>Main_Task</name>
         <param>
@@ -1572,13 +234,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="259" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="431" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="59" bodyend="208"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="class_shell___class_1a922831f00d85e355322d572c6f06b9cb" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
-        <definition>static Software_Class* Shell_Class::Load_Shell</definition>
+      <memberdef kind="function" id="class_shell___class_1a5515e39e7f49c33b9456496c4e547a57" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
+        <definition>Xila_Class::Software * Shell_Class::Load_Shell</definition>
         <argsstring>()</argsstring>
         <name>Load_Shell</name>
         <briefdescription>
@@ -1587,11 +249,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="262" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="435" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="42" bodyend="50"/>
       </memberdef>
-      <memberdef kind="function" id="class_shell___class_1ac9eb3c8e413e9dee25374ca00d07980c" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_shell___class_1a13ecd58d7fd445eaf7183d62bb3fba06" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>static void Shell_Class::Startup</definition>
+        <definition>void Shell_Class::Startup</definition>
         <argsstring>()</argsstring>
         <name>Startup</name>
         <briefdescription>
@@ -1600,7 +262,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="264" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="437" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="52" bodyend="55"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -1615,7 +277,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="289" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="466" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="20" bodyend="27"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1aeb037889004da185736ab8e052ba78bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -1628,7 +290,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="290" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="467" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp" bodystart="29" bodyend="40"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1638,24 +300,36 @@
 <para>Main inter </para>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-      </node>
       <node id="1">
         <label>Shell_Class</label>
         <link refid="class_shell___class"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+      </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>Handle</edgelabel>
+      <node id="12">
+        <label>Shell_Class::Dialog_Class::Power_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_power___class"/>
+      </node>
+      <node id="3">
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
         </childnode>
+      </node>
+      <node id="14">
+        <label>Shell_Class::Pages_Class</label>
+        <link refid="class_shell___class_1_1_pages___class"/>
+      </node>
+      <node id="4">
+        <label>Shell_Class::Preferences_Class</label>
+        <link refid="class_shell___class_1_1_preferences___class"/>
       </node>
       <node id="1">
         <label>Shell_Class</label>
@@ -1665,182 +339,126 @@
         <childnode refid="1" relation="usage">
           <edgelabel>Instance_Pointer</edgelabel>
         </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Preferences_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Dialog</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>File_Manager_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="14" relation="usage">
+          <edgelabel>Pages</edgelabel>
+        </childnode>
+        <childnode refid="15" relation="usage">
+          <edgelabel>Desk</edgelabel>
+        </childnode>
+        <childnode refid="16" relation="usage">
+          <edgelabel>Images</edgelabel>
+        </childnode>
       </node>
-      <node id="3">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
+      <node id="8">
+        <label>Shell_Class::Dialog_Class::Event_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_event___class"/>
+      </node>
+      <node id="16">
+        <label>Shell_Class::Images_Class</label>
+        <link refid="class_shell___class_1_1_images___class"/>
+      </node>
+      <node id="11">
+        <label>Shell_Class::Dialog_Class::Keyboard_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_keyboard___class"/>
+      </node>
+      <node id="10">
+        <label>Shell_Class::Dialog_Class::Keypad_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_keypad___class"/>
+      </node>
+      <node id="15">
+        <label>Shell_Class::Desk_Class</label>
+        <link refid="class_shell___class_1_1_desk___class"/>
+      </node>
+      <node id="7">
+        <label>Shell_Class::Dialog_Class::Load_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_load___class"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>Load_Function_Pointer</edgelabel>
+          <edgelabel>Caller_Software</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Shell_Class::Dialog_Class::Color_Picker_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_color___picker___class"/>
+      </node>
+      <node id="13">
+        <label>Shell_Class::File_Manager_Class</label>
+        <link refid="class_shell___class_1_1_file___manager___class"/>
+      </node>
+      <node id="6">
+        <label>Shell_Class::Dialog_Class::Login_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_login___class"/>
+      </node>
+      <node id="5">
+        <label>Shell_Class::Dialog_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Login_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Load_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Event_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Color_Picker_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>Keypad_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="11" relation="usage">
+          <edgelabel>Keyboard_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>Power_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" line="31" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp" bodystart="32" bodyend="291"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="33" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="34" bodyend="468"/>
     <listofallmembers>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa45b4274c1ff6894f8e24d0164c9ffdad" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>About</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a8c9783e2497846a1f665de1c961d38d3" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Alix_Fait_Grr_Icon_64</name></member>
-      <member refid="class_shell___class_1a10f64e9f77783beeb0fa50ca2e729374" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Autologin</name></member>
-      <member refid="class_shell___class_1af922cad00bec83733fbb839d6f9ac33e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Automatic_Login</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a983dcbce0309c57416b08b98af5bff45" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Background_Picture_480</name></member>
-      <member refid="class_shell___class_1a7fe10550045b9fc4731da7cf018a5bef" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Brightness</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0ad0a8c53ba7f37cde0e5ca6177d87ab8f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Browse</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Close</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa8daa56ff8a9bba837d04142f3a39dcf2" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker</name></member>
-      <member refid="class_shell___class_1a616814c5b01c7c0b542d2311592a219f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker_Commands</name></member>
-      <member refid="class_shell___class_1abffffbc2e7475ee097947fe76282addc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Color_Picker_Dialog</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0af36c5c39014d46770202fe3489706c96" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Copy</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ad7cd23425a6800c98d27a6bbabbb9f6e" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Copy_24</name></member>
-      <member refid="class_shell___class_1ae86955278c9a09888bb46f4561324762" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Current_Command</name></member>
-      <member refid="class_shell___class_1a261f44ec1dd53c4b89359b7008bc7ded" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Current_Item_Name</name></member>
-      <member refid="class_shell___class_1ae6716b951b99010cbfbc9853f234cfbd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Current_Path</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25170d1c4173f1b319b8cf2e036ec8c3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Cut</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a932c90d4f3d3ae7c6c38748664d43f44" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Cut_24</name></member>
-      <member refid="class_shell___class_1a4061f2d99cc584ac8ce1f7c7ce1f3dc5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Daylight_Offset</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a1606eb0416de9d852fded47fc62bd74a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Delete</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa23c98640a2b64f9aa3f8d67e22170b76" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk</name></member>
-      <member refid="class_shell___class_1ad32f2099fe3506a6764ab254ebcbd61a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Background</name></member>
-      <member refid="class_shell___class_1aa9b5f4a44af1a711de86aaa91143882c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk_Commands</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a25e545cf5dda53d5a2a95f20b372ada5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Detail</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Color_Picker</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Event</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Install</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Keyboard</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Keypad</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_File</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Open_Folder</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Power</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog_Save_File</name></member>
-      <member refid="class_shell___class_1a25cccfbd52c2805827e898ac5e4476a5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dock</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa1abe92fdcd3fdacbd62b8a40d998ce9f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer</name></member>
-      <member refid="class_shell___class_1a671d5d788bfac294e8b8554e6f8744f9" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Drawer_Commands</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a803abf7ca4a555dfb91ee0f09e4320df" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Empty_16</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a52a686168635a796c7d390a44a014d86" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Empty_32</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa292be7a0f349222b21b34126c1018cf6" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event</name></member>
-      <member refid="class_shell___class_1a28f899ffd8601756c44eba64094053db" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event_Commands</name></member>
-      <member refid="class_shell___class_1ad96e9e705f9b148736cb0a760c9f7ca5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Event_Dialog</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a1c60d5cd811e70958887f5da7fc60765" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>File_16</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a6e3d5d2dbd1d756953fcf964594d9b08" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_32</name></member>
-      <member refid="class_shell___class_1a13e4743872f3246d8c90478faace85fb" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Commands</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa9e278cc8636a229f616ce4b49010e5be" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Detail</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baac8a3acf2bbfd9a35eca66a95f3917b5d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Main</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Operation</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a7df2a732ae0071c1be266a1c6d22cc17" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Folder_16</name></member>
-      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_shell___class_1a2c9f84f6855c72cf8e29086b9b771139" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>GMT_Offset</name></member>
-      <member refid="class_shell___class_1a11cd37a71ef7da98730459efcf45416f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Go_Parent</name></member>
-      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Hibernate</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aa56e8c395f3d5e734c6a251d1946ff96" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Home_24</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Idle</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Images</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baac8f665b88d4b0f6bf7918d62573695fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Install</name></member>
-      <member refid="class_shell___class_1a850c309f442b275cd327c23929efb090" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Install_Commands</name></member>
-      <member refid="class_shell___class_1a063ea2c25a067974478814912d5dd892" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instance_Pointer</name></member>
-      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instruction_Queue_Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instructions</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baabf7d294ecfb15c3ffb98b2df1af82ad8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard</name></member>
-      <member refid="class_shell___class_1accee7dead6bc9eb1bd6d73c2a9684d81" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard_Commands</name></member>
-      <member refid="class_shell___class_1ac4aec89ff83e7eb4531d30c5aed6f9f3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keyboard_Dialog</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa3c5f051b9e5d09190aa722e2d2d25127" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad</name></member>
-      <member refid="class_shell___class_1a44db328f15cfed2dec36742c28dbcc4d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad_Commands</name></member>
-      <member refid="class_shell___class_1abbe6bf686de84e02bd03267c3acdf3fe" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Keypad_Dialog</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baaf4ad4bfd37ce193948c78768f7189ac5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load</name></member>
-      <member refid="class_shell___class_1ac7021607cedfcfc6b09017f63b917a75" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Commands</name></member>
+      <member refid="class_shell___class_1a64c0a4bb3235c9edafebf94b0b7b4a75" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Desk</name></member>
+      <member refid="class_shell___class_1ae96481a94d64cd54609977859ad2d0cd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Dialog</name></member>
+      <member refid="class_shell___class_1a42b2915a5d3567cb6d678ee1c1af6328" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Execute_Instruction</name></member>
+      <member refid="class_shell___class_1a0ecf8cc9be031f7cb8162dea96098f3f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>File_Manager_Pointer</name></member>
+      <member refid="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a5c3d107b2dbdd581b9aa79b9d0f6b04f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Handle</name></member>
+      <member refid="class_shell___class_1a01695129d089b9067ff0eca6b0fdebc6" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Images</name></member>
+      <member refid="class_shell___class_1a2d351550adcbc2ff10ecc16796a4272b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_shell___class_1a1b0a4ca82013ee3a4e3613ea8c963dce" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Registry</name></member>
-      <member refid="class_shell___class_1a922831f00d85e355322d572c6f06b9cb" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Shell</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa2597e5f1949523105d492e0ecc7ba127" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Login</name></member>
-      <member refid="class_shell___class_1a2191c5a892e95ad09372157310c1b0fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Login_Commands</name></member>
-      <member refid="class_shell___class_1a9e77bb72454447c66a53d06f921fd601" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Logout</name></member>
-      <member refid="class_shell___class_1af495dc4bdf070a5db7562ec7bd801c2e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Main_Commands</name></member>
-      <member refid="class_shell___class_1a7f2c9c60ddf030d6f2bd4558a3a408e4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Main_Task</name></member>
-      <member refid="class_shell___class_1af36f47b698704efcfc3f4420a4598bb1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Make_File</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Maximize</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Minimize</name></member>
-      <member refid="class_shell___class_1a0ced6fb6fe204423a6774d727a2a9101" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Mode</name></member>
-      <member refid="class_shell___class_1a4ff4c764d4b8e9518f0c126bcbd00b7a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Name</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a0aa601a36734bea438c77f6d7bad7975" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>New_File</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6abe5de53892327b971072ade3222b42e5" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>New_File_24</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0a23a67814c48465280db2a7740dbdc12b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>New_Folder</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6ae8df41a844bbf29555e91e7303f73b4b" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>New_Folder_24</name></member>
-      <member refid="class_shell___class_1a988863903fe9a252449d5644a91396a8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>NTP_Server</name></member>
-      <member refid="class_shell___class_1a90063c4083b8396e99ce5806f3f6ee7d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Offset</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open</name></member>
-      <member refid="class_shell___class_1a8668670c4abd2d2e65a436212ee62a8d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Color_Picker</name></member>
-      <member refid="class_shell___class_1a4b9dba85ce7d86c215b911872c1e61fd" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Desk</name></member>
-      <member refid="class_shell___class_1ac771e065871b064e28479c24f681304a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Drawer</name></member>
-      <member refid="class_shell___class_1a7ea91b967dbc47f40c7a5e25d109bb93" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Dialog</name></member>
-      <member refid="class_shell___class_1a44df5724bef36546c6872d51e2107007" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager</name></member>
-      <member refid="class_shell___class_1a5fb721eeb084d0dac5c9ca1974ecc262" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_File_Manager_Detail</name></member>
-      <member refid="class_shell___class_1aa3f0f856deba4fd84ea8dff7da3af08a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Folder_Dialog</name></member>
-      <member refid="class_shell___class_1a1c9ad246d935e55b4d2eeefe8f0757f0" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_From_Drawer</name></member>
-      <member refid="class_shell___class_1a161c33912dfd16ee08a45402b3821833" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Install</name></member>
-      <member refid="class_shell___class_1aebaa8556e42fe269f484640088e89957" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Item</name></member>
-      <member refid="class_shell___class_1a3298e08982285d5b0d7255fcea6dbd41" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Keyboard</name></member>
-      <member refid="class_shell___class_1a7845590facdf8084b5757ad396e65a77" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Keypad</name></member>
-      <member refid="class_shell___class_1a017b7a2395301a96be2bb0b863b0467c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Load</name></member>
-      <member refid="class_shell___class_1a960924d5be7e9b29091494398dc4dbf0" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Login</name></member>
-      <member refid="class_shell___class_1aeff33b1d828feedd1b084f404179827a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Preferences_Hardware</name></member>
-      <member refid="class_shell___class_1a3cee5d0649f9813a201b304526131353" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Preferences_Network</name></member>
-      <member refid="class_shell___class_1af54002738e0e3ec767362ce446b7ce36" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Preferences_Personal</name></member>
-      <member refid="class_shell___class_1abb06f24b6f7a2c720854438ec5df5126" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Preferences_System</name></member>
-      <member refid="class_shell___class_1a3c2bb50a4533b59fc8de0110fe248cde" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Open_Shutdown</name></member>
-      <member refid="class_shell___class_1a4e2a28b6909cab23a0dfe98ebb916b3b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Operation</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02ba" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Pages</name></member>
-      <member refid="class_shell___class_1a33ed9ee17d75a2d78068e3ace71e546f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Password_1</name></member>
-      <member refid="class_shell___class_1aa9f1265875f9fbe18f7e25e6bf019e13" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Password_2</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6abdd1245ec8d1ee4394488006f3933643" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Paste_24</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a2c6dbfa68f8c5ab8e5a43552990b1a1e" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_32</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa49f3e38dcef8c7324c44b52bf8a44e0b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Hardware</name></member>
-      <member refid="class_shell___class_1af0b9c8a201dc7cd37329e5df902a25b4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Hardware_Commands</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa530af651c04f94b1e84ca29cc0d09a86" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Network</name></member>
-      <member refid="class_shell___class_1ad540997389dd27223bb645151584173e" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Network_Commands</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa817ff1e9226601822102fb29743a0ce8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Personal</name></member>
-      <member refid="class_shell___class_1a48725d3fd40ba5490cba5c72b531c78a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Personal_Commands</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baad1fb54df44720e898de6256104ea1682" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_System</name></member>
-      <member refid="class_shell___class_1ac46de12e6f50546e1350cedfa2eadf9b" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_System_Commands</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a50bee200c70120cc7fe3d296a459d3cd" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_24</name></member>
-      <member refid="class_shell___class_1acda963f253b183c50c7c1f0ff5442e91" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Desk</name></member>
-      <member refid="class_shell___class_1a5e95d35484b19d88e9facc43fdcca6e2" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Drawer</name></member>
-      <member refid="class_shell___class_1a77d6ecde96047450b0a84277312bdeb8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_File_Manager</name></member>
-      <member refid="class_shell___class_1af960a6aafee38f2f59e682b3281dac7d" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_File_Manager_Detail</name></member>
-      <member refid="class_shell___class_1afc903a3829d1658da6f5944bfe4464f1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Footerbar</name></member>
-      <member refid="class_shell___class_1a2d0e382ce5b95a936068164ada3a5663" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Install</name></member>
-      <member refid="class_shell___class_1aee4d9bf879ca3d55e7c97b6f26c25a2f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Login</name></member>
-      <member refid="class_shell___class_1a91aa49cea49b5363541b4e2fc7f3cfa0" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Preferences_Hardware</name></member>
-      <member refid="class_shell___class_1a1177c5b97518f4b519b7f5f08670c583" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Preferences_Network</name></member>
-      <member refid="class_shell___class_1a5dc451ea7403ba76e291f9b946784c65" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Preferences_Personal</name></member>
-      <member refid="class_shell___class_1abbb0e4852014f70b2c66d1d0cd807973" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Preferences_System</name></member>
-      <member refid="class_shell___class_1a39b26c5c89b9e76ea4d23a4783d1b5b0abf128aa0d2742cb92bfbb298b55c3688" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Rename</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a44a33af37ec66cc543dd492dbc9dd28e" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Rename_24</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Restart</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6a96b47373e0bf0a512696d932249c21d3" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Root_24</name></member>
-      <member refid="class_shell___class_1a40e60ebe6e4d9993fb9df109a1c14119" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_File_Dialog</name></member>
+      <member refid="class_shell___class_1a5515e39e7f49c33b9456496c4e547a57" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Load_Shell</name></member>
+      <member refid="class_shell___class_1afbab2d3f3737d55db07201264a27e1d8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Main_Task</name></member>
+      <member refid="class_shell___class_1a404139279a4ff2b54b14d8da9fa64d5f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Next_Refresh</name></member>
+      <member refid="class_shell___class_1a854306f9aa7257b90e2590494ab9c411" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Pages</name></member>
+      <member refid="class_shell___class_1ad2a08edbdb09c662a416b416ca68abf2" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Preferences_Pointer</name></member>
+      <member refid="class_shell___class_1a2a09c50ad6085fc584dd90effbaa1ad3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Refresh_Header</name></member>
       <member refid="class_shell___class_1abb385fced24c5e45ad43852881bb34a4" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Save_Registry</name></member>
-      <member refid="class_shell___class_1add333db65c6598f963f086d9448221a5" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Select_Item</name></member>
-      <member refid="class_shell___class_1afaf0ac7eed2e5ce3bd58852a6362a16f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Selected_Item</name></member>
-      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Send_Instruction</name></member>
-      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Send_Instruction</name></member>
-      <member refid="class_shell___class_1af81e4ca4076742b5a1e8facaa9d7aa28" prot="protected" virt="virtual"><scope>Shell_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aba6aaacb256e43b1af464a9c1e294945" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_shell___class_1a35772a69378a29025112cf8119426205" prot="protected" virt="virtual"><scope>Shell_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_xila___class_1_1_software_1a87281f0b32d28725aa55ca0f283824e8" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Set_Watchdog_Timeout</name></member>
       <member refid="class_shell___class_1ac0b70ee711347d8447058dcee4c63be9" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Shell_Class</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baab94b9c5bf192a6ad46b79460bac7d502" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Shutdown</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6af14c2c5d1d685d526937c365baa41fc6" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Shutdown_32</name></member>
-      <member refid="class_shell___class_1a62a04d2f6dc15c9655dc00926a1d383a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Shutdown_Commands</name></member>
-      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Software_Class</name></member>
-      <member refid="class_shell___class_1a0b7ae244b7629c875da5ccbf6f835806" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Standby_Display_Time</name></member>
-      <member refid="class_shell___class_1ac9eb3c8e413e9dee25374ca00d07980c" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Startup</name></member>
-      <member refid="class_shell___class_1acdb4cdfd8863e8cd67cdb1e3cf8e42cc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>System_Update</name></member>
-      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Task_Handle</name></member>
-      <member refid="class_shell___class_1a716dcd2b8108a74e88d4da3d5e86a535" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Char</name></member>
-      <member refid="class_shell___class_1a2026874c270250752601c3bc67a38074" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Float</name></member>
-      <member refid="class_shell___class_1ad565042d62d51bea76db4f6b537e2a28" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Item</name></member>
-      <member refid="class_shell___class_1aa3f64926972e354b35c07db0d9b3dd52" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Variable</name></member>
-      <member refid="class_shell___class_1a00ce6998c73a63fb4f046e2122af5ae6aed362b8a1c37cfa1d2d53babe9307824" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Trash_24</name></member>
-      <member refid="class_shell___class_1ab1c85bf3595ff2402efb7db15e644c35" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Username</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Watchdog</name></member>
-      <member refid="class_shell___class_1a4ac787675c50864d1e81fd12196a02baa4eae6d53a502aa55575d71389fa4ba65" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Welcome</name></member>
-      <member refid="class_shell___class_1ad4d9d1b17be48dec4edad53b8a3f8691" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>WiFi_Name</name></member>
-      <member refid="class_shell___class_1a0b7b6bb79009ea3d3671aaf70619e7e1" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>WiFi_Password</name></member>
+      <member refid="class_xila___class_1_1_software_1a449d53afe8102aab773ac465b92acf01" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Software</name></member>
+      <member refid="class_shell___class_1a13ecd58d7fd445eaf7183d62bb3fba06" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>Startup</name></member>
+      <member refid="class_xila___class_1_1_software_1aa9c6eccc5e85e629d875fc6080714f30" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_shell___class_1a065378f810e7cc4e935433141b0bdefc" prot="protected" virt="non-virtual"><scope>Shell_Class</scope><name>Temporary_Char_Array</name></member>
       <member refid="class_shell___class_1aeb037889004da185736ab8e052ba78bc" prot="public" virt="non-virtual"><scope>Shell_Class</scope><name>~Shell_Class</name></member>
-      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Shell_Class</scope><name>~Software_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a4bd83708332f3802ccaf741741eda30d" prot="protected" virt="virtual"><scope>Shell_Class</scope><name>~Software</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

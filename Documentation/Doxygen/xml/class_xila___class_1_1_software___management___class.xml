@@ -3,65 +3,6 @@
   <compounddef id="class_xila___class_1_1_software___management___class" kind="class" language="C++" prot="public">
     <compoundname>Xila_Class::Software_Management_Class</compoundname>
     <includes refid="_core_8hpp" local="no">Core.hpp</includes>
-      <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a9cbf906b8f2c5565e8a1e0feae6c9d4d" prot="protected" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t Xila_Class::Software_Management_Class::Watchdog_Timer</definition>
-        <argsstring></argsstring>
-        <name>Watchdog_Timer</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="539" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="539" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a71be35d10c4c33d846943315d585f078" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Xila_Class::Software_Management_Class::Watchdog_State</definition>
-        <argsstring></argsstring>
-        <name>Watchdog_State</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="540" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="540" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a673eee284fc7c4973490bcf9506ed96a" prot="protected" static="no" mutable="no">
-        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
-        <definition>Software_Class* Xila_Class::Software_Management_Class::Openned[8]</definition>
-        <argsstring>[8]</argsstring>
-        <name>Openned</name>
-        <initializer>= {NULL}</initializer>
-        <briefdescription>
-<para>Openned software pointer array. </para>
-        </briefdescription>
-        <detaileddescription>
-<para>Openned[0] : Maximized software Openned[1 - 7] : All openned software (Slot 1 is for Shell) </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="550" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="550" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a76f9add6987b1bebdd82c8637eba5ec3" prot="protected" static="no" mutable="no">
-        <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> *</type>
-        <definition>Software_Handle_Class* Xila_Class::Software_Management_Class::Handle[MAXIMUM_SOFTWARE]</definition>
-        <argsstring>[MAXIMUM_SOFTWARE]</argsstring>
-        <name>Handle</name>
-        <initializer>= {NULL}</initializer>
-        <briefdescription>
-<para>All software handle pointers. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="555" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="555" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="class_xila___class_1_1_software___management___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -77,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="575" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="575" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1140" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1140" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_software___management___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -93,219 +34,444 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="576" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="576" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1141" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1141" bodyend="-1"/>
       </memberdef>
       </sectiondef>
-      <sectiondef kind="protected-func">
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a09fdce2ac534f4f3b069d7c535da7256" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Check_Watchdog</definition>
-        <argsstring>()</argsstring>
-        <name>Check_Watchdog</name>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a9cbf906b8f2c5565e8a1e0feae6c9d4d" prot="protected" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Software_Management_Class::Watchdog_Timer</definition>
+        <argsstring></argsstring>
+        <name>Watchdog_Timer</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="542" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1146" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1146" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1af4f3093670807673a56880192a0f15c1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Maximize_Shell</definition>
-        <argsstring>()</argsstring>
-        <name>Maximize_Shell</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="557" column="14"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a139af09e95644a53c2ce558da97908f8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Send_Instruction_Shell</definition>
-        <argsstring>(Xila_Instruction const &amp;Command)</argsstring>
-        <name>Send_Instruction_Shell</name>
-        <param>
-          <type>Xila_Instruction const &amp;</type>
-          <declname>Command</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="558" column="14"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a993daf439e596d36acf33ba1d03c8ea9" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a71be35d10c4c33d846943315d585f078" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
-        <definition>uint8_t Xila_Class::Software_Management_Class::Seek_Open_Software_Handle</definition>
-        <argsstring>(Software_Handle_Class const &amp;)</argsstring>
-        <name>Seek_Open_Software_Handle</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-        </param>
+        <definition>uint8_t Xila_Class::Software_Management_Class::Watchdog_State</definition>
+        <argsstring></argsstring>
+        <name>Watchdog_State</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="560" column="24"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1147" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1147" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1ac7d74af7165b791a8fb7493ed51e23f1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Add_Handle</definition>
-        <argsstring>(Software_Handle_Class &amp;)</argsstring>
-        <name>Add_Handle</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> &amp;</type>
-        </param>
+      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
+        <definition>Xila_Class::Software* Xila_Class::Software_Management_Class::Openned[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Openned</name>
+        <initializer>= {NULL}</initializer>
         <briefdescription>
+<para>Openned software pointer array. </para>
         </briefdescription>
         <detaileddescription>
+<para>Openned[0] : Maximized software Openned[1 - 7] : All openned software (Slot 1 is for Shell) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="561" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1155" column="30" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1155" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1ac6e9b649a9839e7ec11ae28780bee6fb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close</definition>
-        <argsstring>(Software_Handle_Class const &amp;Software_Handle)</argsstring>
-        <name>Force_Close</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-          <declname>Software_Handle</declname>
-        </param>
+      <memberdef kind="variable" id="class_xila___class_1_1_software___management___class_1a047a947c780a5396a0824217633c7d92" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> *</type>
+        <definition>Xila_Class::Software_Handle* Xila_Class::Software_Management_Class::Handle[Maximum_Software]</definition>
+        <argsstring>[Maximum_Software]</argsstring>
+        <name>Handle</name>
+        <initializer>= {NULL}</initializer>
         <briefdescription>
+<para>All software handle pointers. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="563" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1160" column="37" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1160" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a5cdeb697f73dfdd5aaf027c9c7d7eddc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Open</definition>
-        <argsstring>(Software_Handle_Class const &amp;Software_Handle)</argsstring>
-        <name>Open</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-          <declname>Software_Handle</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="566" column="27"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a95f2085f21fddcf6c95e4b6f87dae1a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Minimize</definition>
-        <argsstring>(Software_Handle_Class const &amp;Software_Handle)</argsstring>
-        <name>Minimize</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-          <declname>Software_Handle</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="567" column="14"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a3b2b5f467a2959cd8a7b4ef8c0f2aee5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
-        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Maximize</definition>
-        <argsstring>(Software_Handle_Class const &amp;)</argsstring>
-        <name>Maximize</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="568" column="27"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a9b33b36b5fbb9770865d12f5e02d8018" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Close</definition>
-        <argsstring>(Software_Handle_Class const &amp;Software_Handle)</argsstring>
-        <name>Close</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-          <declname>Software_Handle</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="569" column="14"/>
-      </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1ab5bc96ad22da6bf8447ea1693aa149b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void Xila_Class::Software_Management_Class::Feed_Watchdog</definition>
-        <argsstring>(Software_Handle_Class const &amp;Software_Handle)</argsstring>
-        <name>Feed_Watchdog</name>
-        <param>
-          <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref> const &amp;</type>
-          <declname>Software_Handle</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="571" column="14"/>
-      </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a351d89798b3b5c91cdb10515cb1e2bb0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
         <definition>Xila_Class::Software_Management_Class::Software_Management_Class</definition>
         <argsstring>()</argsstring>
         <name>Software_Management_Class</name>
         <briefdescription>
+<para>Construct a new Software_Class object. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="573" column="9"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1129" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="18" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a6c9c8dc8959b0bd543b0e3b37ff86af9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a97f78ce2a2da8c5879eb6568b4f74fe8" kindref="member">Xila_Class::State</ref></type>
+        <definition>Xila_Class::State Xila_Class::Software_Management_Class::Get_State</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Get_State</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Return openned software&apos;s state. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> handle to check. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Xila_Class::Software::State </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1131" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="29" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a9048eca103dfe2548068231fdc5261e9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Open</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Open</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Function that open software. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref>&apos;s handle to open. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1133" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="105" bodyend="161"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a59fb9905356a79b37eb15278a4299383" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Minimize</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Minimize</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Function that minimize software (and maximize Shell). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref>&apos;s handle to minimize. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1134" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="202" bodyend="219"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a0ad9017d6349182d4e6b4baaebdd47c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Maximize</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;)</argsstring>
+        <name>Maximize</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <defname>Software_Handle</defname>
+        </param>
+        <briefdescription>
+<para>Function that maximize software (and minimize current maximized software). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> handle to maximize. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1135" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="226" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a33003ff9ea8d34bce683f373c275fbb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Close</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Close</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Function that close software. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref>&apos;s handle to close (equal NULL by default, which close currrent maximized software). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1136" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="167" bodyend="196"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1ad09c240bea75c1ada7e003c66f8596be" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Feed_Watchdog</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Feed_Watchdog</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Feed watchdog timer (reset). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref>&apos;s handle to feed watchdog. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1138" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="92" bodyend="98"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1abb2727ad934777f85d83278f6679af95" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Defrag</definition>
+        <argsstring>()</argsstring>
+        <name>Defrag</name>
+        <briefdescription>
+<para>Defrag current openned software array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1164" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="64" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a09fdce2ac534f4f3b069d7c535da7256" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Check_Watchdog</definition>
+        <argsstring>()</argsstring>
+        <name>Check_Watchdog</name>
+        <briefdescription>
+<para>Check watchdog timer of every openned software. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1166" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="44" bodyend="59"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a9f4a4465b54c7894bbd7147d8e575075" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Shell_Maximize</definition>
+        <argsstring>()</argsstring>
+        <name>Shell_Maximize</name>
+        <briefdescription>
+<para>A shortcut that maximize Shell. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1168" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="318" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a669611429c458532427fca8728835eec" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Shell_Send_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction)</argsstring>
+        <name>Shell_Send_Instruction</name>
+        <param>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <defname>Instruction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1169" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Software_Management.hpp" bodystart="36" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a628d6556f0de27efaceb6254f469d8bc" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Shell_Set_Variable</definition>
+        <argsstring>(Xila_Class::Address, uint8_t, const void *)</argsstring>
+        <name>Shell_Set_Variable</name>
+        <param>
+          <type><ref refid="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6" kindref="member">Xila_Class::Address</ref></type>
+          <defname>Address</defname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <defname>Type</defname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <defname>Variable</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1170" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Software_Management.hpp" bodystart="31" bodyend="34"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a8b128859e9fa61ab21d9791c34dbb859" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Software_Management_Class::Seek_Open_Software_Handle</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Seek_Open_Software_Handle</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1172" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Software_Management.hpp" bodystart="14" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1a3b7ac72099f37b7cb4a57e38e89bed13" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Software_Management_Class::ftware_Handle</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;)</argsstring>
+        <name>ftware_Handle</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1174" column="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1af9f7f49bcba7ba7c5dc1ed221396d99b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software_Management_Class::Add_Handle</definition>
+        <argsstring>(Xila_Class::Software_Handle &amp;)</argsstring>
+        <name>Add_Handle</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> &amp;</type>
+          <defname>Software_Handle_To_Add</defname>
+        </param>
+        <briefdescription>
+<para>Add handle to software list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Software_Handle_To_Add</parametername>
+</parameternamelist>
+<parameterdescription>
+<para></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1175" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="303" bodyend="313"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software___management___class_1aa48d00fc8c3a3a46bf0a995373aeea35" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close</definition>
+        <argsstring>(Xila_Class::Software_Handle const &amp;Software_Handle)</argsstring>
+        <name>Force_Close</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> const &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <briefdescription>
+<para>Function that close roughly the current running software. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Delete manualy the main software&apos;s task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> handle to close. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1177" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Management.cpp" bodystart="268" bodyend="297"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Software management module. </para>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> management module. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
       <node id="3">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>Handle</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
-        <childnode refid="3" relation="usage">
           <edgelabel>Load_Function_Pointer</edgelabel>
         </childnode>
       </node>
@@ -313,29 +479,40 @@
         <label>Xila_Class::Software_Management_Class</label>
         <link refid="class_xila___class_1_1_software___management___class"/>
         <childnode refid="2" relation="usage">
-          <edgelabel>Handle</edgelabel>
+          <edgelabel>Openned</edgelabel>
         </childnode>
         <childnode refid="3" relation="usage">
-          <edgelabel>Openned</edgelabel>
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="536" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="537" bodyend="578"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1126" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1127" bodyend="1179"/>
     <listofallmembers>
-      <member refid="class_xila___class_1_1_software___management___class_1ac7d74af7165b791a8fb7493ed51e23f1" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Add_Handle</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1af9f7f49bcba7ba7c5dc1ed221396d99b" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Add_Handle</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a09fdce2ac534f4f3b069d7c535da7256" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Check_Watchdog</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a9b33b36b5fbb9770865d12f5e02d8018" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Close</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1ab5bc96ad22da6bf8447ea1693aa149b4" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Feed_Watchdog</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1ac6e9b649a9839e7ec11ae28780bee6fb" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Force_Close</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a76f9add6987b1bebdd82c8637eba5ec3" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Handle</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a3b2b5f467a2959cd8a7b4ef8c0f2aee5" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Maximize</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1af4f3093670807673a56880192a0f15c1" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Maximize_Shell</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a95f2085f21fddcf6c95e4b6f87dae1a0" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Minimize</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a5cdeb697f73dfdd5aaf027c9c7d7eddc" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a673eee284fc7c4973490bcf9506ed96a" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Openned</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a993daf439e596d36acf33ba1d03c8ea9" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Seek_Open_Software_Handle</name></member>
-      <member refid="class_xila___class_1_1_software___management___class_1a139af09e95644a53c2ce558da97908f8" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Send_Instruction_Shell</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a33003ff9ea8d34bce683f373c275fbb1" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Close</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1abb2727ad934777f85d83278f6679af95" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Defrag</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1ad09c240bea75c1ada7e003c66f8596be" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Feed_Watchdog</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1aa48d00fc8c3a3a46bf0a995373aeea35" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Force_Close</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a3b7ac72099f37b7cb4a57e38e89bed13" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>ftware_Handle</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a6c9c8dc8959b0bd543b0e3b37ff86af9" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Get_State</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a047a947c780a5396a0824217633c7d92" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Handle</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a0ad9017d6349182d4e6b4baaebdd47c6" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Maximize</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a59fb9905356a79b37eb15278a4299383" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Minimize</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a9048eca103dfe2548068231fdc5261e9" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Open</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a9719930db34c13d8cf5ce82e6dbe3d0c" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Openned</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a8b128859e9fa61ab21d9791c34dbb859" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Seek_Open_Software_Handle</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a9f4a4465b54c7894bbd7147d8e575075" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Shell_Maximize</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a669611429c458532427fca8728835eec" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Shell_Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software___management___class_1a628d6556f0de27efaceb6254f469d8bc" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Shell_Set_Variable</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a351d89798b3b5c91cdb10515cb1e2bb0" prot="public" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Software_Management_Class</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a71be35d10c4c33d846943315d585f078" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Watchdog_State</name></member>
       <member refid="class_xila___class_1_1_software___management___class_1a9cbf906b8f2c5565e8a1e0feae6c9d4d" prot="protected" virt="non-virtual"><scope>Xila_Class::Software_Management_Class</scope><name>Watchdog_Timer</name></member>

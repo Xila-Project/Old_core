@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1" kind="dir">
+    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules</compoundname>
+    <innerfile refid="_account_8cpp">Account.cpp</innerfile>
+    <innerfile refid="_clipboard_8cpp">Clipboard.cpp</innerfile>
+    <innerfile refid="_core_2_modules_2_dialog_8cpp">Dialog.cpp</innerfile>
+    <innerfile refid="_mathematics_8cpp">Mathematics.cpp</innerfile>
+    <innerfile refid="_software_8cpp">Software.cpp</innerfile>
+    <innerfile refid="_software___handle_8cpp">Software_Handle.cpp</innerfile>
+    <innerfile refid="_software___management_8cpp">Software_Management.cpp</innerfile>
+    <innerfile refid="_system_8cpp">System.cpp</innerfile>
+    <innerfile refid="_time_8cpp">Time.cpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/"/>
+  </compounddef>
+</doxygen>

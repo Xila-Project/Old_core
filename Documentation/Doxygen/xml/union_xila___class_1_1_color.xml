@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="union_xila___class_1_1_color" kind="union" language="C++" prot="public">
+    <compoundname>Xila_Class::Color</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="union_xila___class_1_1_color_1a28348da661c9ff78fd71b71eed6b2bb8" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Color::Color</definition>
+        <argsstring></argsstring>
+        <name>Color</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="236" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="union_xila___class_1_1_color_1a70a9f1274f0cf6c869debd1179b58458" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Color::Component</definition>
+        <argsstring></argsstring>
+        <name>Component</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="237" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="union_xila___class_1_1_color" kindref="compound">Color</ref> union. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="234" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="235" bodyend="238"/>
+    <listofallmembers>
+      <member refid="union_xila___class_1_1_color_1a28348da661c9ff78fd71b71eed6b2bb8" prot="public" virt="non-virtual"><scope>Xila_Class::Color</scope><name>Color</name></member>
+      <member refid="union_xila___class_1_1_color_1a70a9f1274f0cf6c869debd1179b58458" prot="public" virt="non-virtual"><scope>Xila_Class::Color</scope><name>Component</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -3,92 +3,44 @@
   <compounddef id="_pong_8hpp" kind="file" language="C++">
     <compoundname>Pong.hpp</compoundname>
     <includes refid="_xila_8hpp" local="yes">Xila.hpp</includes>
+    <includedby refid="_pong_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Pong.cpp</includedby>
     <incdepgraph>
-      <node id="31">
-        <label>Task.hpp</label>
-        <link refid="_task_8hpp"/>
+      <node id="44">
+        <label>esp_ota_ops.h</label>
       </node>
       <node id="6">
         <label>FS.h</label>
       </node>
-      <node id="12">
+      <node id="11">
         <label>Print.h</label>
       </node>
       <node id="7">
         <label>SPI.h</label>
       </node>
-      <node id="5">
-        <label>stdint.h</label>
-      </node>
-      <node id="28">
-        <label>Path.hpp</label>
-        <link refid="_path_8hpp_source"/>
-      </node>
-      <node id="32">
-        <label>Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="16">
-        <label>WiFiSTA.h</label>
-      </node>
-      <node id="11">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="29">
-        <label>Software.hpp</label>
-        <link refid="_software_8hpp_source"/>
+      <node id="34">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="30" relation="include">
-        </childnode>
-      </node>
-      <node id="22">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="1">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp</label>
-        <link refid="_pong_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="27">
-        <label>esp_log.h</label>
-      </node>
-      <node id="10">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="23">
-        <label>Driver/Display.hpp</label>
-      </node>
-      <node id="13">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="33">
-        <label>System.hpp</label>
-        <link refid="_system_8hpp"/>
       </node>
       <node id="24">
-        <label>Driver/Battery.hpp</label>
-        <link refid="_battery_8hpp_source"/>
+        <label>Battery_Library.hpp</label>
+      </node>
+      <node id="31">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
+      </node>
+      <node id="33">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="8">
-        <label>time.h</label>
+      <node id="42">
+        <label>soc/efuse_reg.h</label>
       </node>
-      <node id="18">
-        <label>WiFiScan.h</label>
-      </node>
-      <node id="3">
-        <label>Arduino.h</label>
-      </node>
-      <node id="19">
-        <label>WiFiGeneric.h</label>
-      </node>
-      <node id="9">
-        <label>Update.h</label>
+      <node id="5">
+        <label>stdint.h</label>
       </node>
       <node id="2">
         <label>Xila.hpp</label>
@@ -98,8 +50,81 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="15">
+        <label>WiFiSTA.h</label>
+      </node>
+      <node id="22">
+        <label>ArduinoTrace.h</label>
+      </node>
+      <node id="39">
+        <label>esp_spi_flash.h</label>
+      </node>
+      <node id="10">
+        <label>StreamUtils.h</label>
+      </node>
+      <node id="45">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="46">
+        <label>MD5Builder.h</label>
+      </node>
       <node id="26">
-        <label>SD_MMC.h</label>
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
+      </node>
+      <node id="21">
+        <label>WiFiUdp.h</label>
+      </node>
+      <node id="28">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="41">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="37">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="25">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="12">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="27">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
+      <node id="8">
+        <label>time.h</label>
+      </node>
+      <node id="30">
+        <label>Core/Modules/Mathematics.hpp</label>
+        <link refid="_mathematics_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="17">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="3">
+        <label>Arduino.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="36">
+        <label>Esp.h</label>
       </node>
       <node id="4">
         <label>Core/Core.hpp</label>
@@ -148,9 +173,15 @@
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
@@ -158,42 +189,82 @@
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
-      </node>
-      <node id="14">
-        <label>IPv6Address.h</label>
-      </node>
-      <node id="20">
-        <label>WiFiClient.h</label>
-      </node>
-      <node id="25">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="30">
-        <label>Software_Handle.hpp</label>
-        <link refid="_software___handle_8hpp_source"/>
+      <node id="29">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="32">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="35">
+        <label>Core/Abstraction/Flash.hpp</label>
+        <link refid="_flash_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="46" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>IPv6Address.h</label>
+      </node>
+      <node id="19">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="38">
+        <label>esp_sleep.h</label>
+      </node>
+      <node id="43">
+        <label>esp_partition.h</label>
+      </node>
+      <node id="20">
         <label>WiFiServer.h</label>
       </node>
-      <node id="15">
+      <node id="14">
         <label>WiFiType.h</label>
       </node>
-      <node id="17">
+      <node id="16">
         <label>WiFiAP.h</label>
+      </node>
+      <node id="40">
+        <label>memory</label>
+      </node>
+      <node id="23">
+        <label>Nextion_Library.hpp</label>
       </node>
     </incdepgraph>
     <innerclass refid="class_pong___class" prot="public">Pong_Class</innerclass>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="_pong_8hpp_1a0c5a4238ba1360a8b0b5ef4eec50bbee" prot="public" static="no" mutable="no">
-        <type><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref></type>
-        <definition>Software_Handle_Class Pong_Handle(&quot;Pong&quot;, Pong_Class::Icon_32, Pong_Class::Load)</definition>
+      <memberdef kind="variable" id="_pong_8hpp_1ad8dd972697c43795c836ec3c9474073e" prot="public" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref></type>
+        <definition>Xila_Class::Software_Handle Pong_Handle(&quot;Pong&quot;, Pong_Class::Icon_32, Pong_Class::Load)</definition>
         <argsstring>(&quot;Pong&quot;, Pong_Class::Icon_32, Pong_Class::Load)</argsstring>
         <name>Pong_Handle</name>
         <briefdescription>
@@ -202,7 +273,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp" line="30" column="23"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp" line="32" column="29"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -215,34 +286,36 @@
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Xila.hpp&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="5"><highlight class="normal"></highlight></codeline>
-<codeline lineno="6" refid="class_pong___class" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_pong___class" kindref="compound">Pong_Class</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref></highlight></codeline>
+<codeline lineno="6" refid="class_pong___class" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_pong___class" kindref="compound">Pong_Class</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref></highlight></codeline>
 <codeline lineno="7"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">protected</highlight><highlight class="normal">:</highlight></codeline>
 <codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_pong___class" kindref="compound">Pong_Class</ref>*<sp/>Instance_Pointer;</highlight></codeline>
 <codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>Player_1_Score,<sp/>Player_2_Score;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>Temporary_String[15];</highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Refresh_Interface();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>Scores[2];</highlight></codeline>
 <codeline lineno="14"><highlight class="normal"></highlight></codeline>
-<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
-<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_pong___class" kindref="compound">Pong_Class</ref>();</highlight></codeline>
-<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_pong___class" kindref="compound">Pong_Class</ref>();</highlight></codeline>
-<codeline lineno="18"><highlight class="normal"></highlight></codeline>
-<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Main_Task(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*);</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Refresh_Interface();</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_pong___class" kindref="compound">Pong_Class</ref>();</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>~<ref refid="class_pong___class" kindref="compound">Pong_Class</ref>();</highlight></codeline>
 <codeline lineno="20"><highlight class="normal"></highlight></codeline>
-<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Image</highlight></codeline>
-<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Icon_32<sp/>=<sp/>Xila.Display.Pong</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_software___class" kindref="compound">Software_Class</ref>*<sp/>Load();</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>Main_Task(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/>Image</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Icon_32<sp/>=<sp/>Xila.Display.Pong_Images</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
 <codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref>*<sp/>Load();</highlight></codeline>
 <codeline lineno="29"><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"><ref refid="class_software___handle___class" kindref="compound">Software_Handle_Class</ref><sp/>Pong_Handle(</highlight><highlight class="stringliteral">&quot;Pong&quot;</highlight><highlight class="normal">,<sp/>Pong_Class::Icon_32,<sp/>Pong_Class::Load);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">};</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref><sp/>Pong_Handle(</highlight><highlight class="stringliteral">&quot;Pong&quot;</highlight><highlight class="normal">,<sp/>Pong_Class::Icon_32,<sp/>Pong_Class::Load);</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp"/>
   </compounddef>
 </doxygen>

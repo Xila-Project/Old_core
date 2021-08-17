@@ -17,29 +17,29 @@ struct \mbox{\hyperlink{struct_tiny___basic___class_1_1stack__gosub__frame}{stac
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_a052d277da0dbbfa8b3c7d959656fa328}\label{class_tiny___basic___class_a052d277da0dbbfa8b3c7d959656fa328}} 
-enum {\bfseries Picture} \{ {\bfseries Icon\+\_\+32} = Xila.\+Display.\+Tiny\+\_\+\+Basic
+enum {\bfseries Picture} \{ {\bfseries Icon\+\_\+32} = Xila.\+Display.\+Tiny\+\_\+\+Basic\+\_\+\+Images
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a239e637caf8ac9ea8324b204c4d84f14}\label{class_tiny___basic___class_a239e637caf8ac9ea8324b204c4d84f14}} 
-static \mbox{\hyperlink{class_software___class}{Software\+\_\+\+Class}} $\ast$ {\bfseries Load} ()
+\mbox{\Hypertarget{class_tiny___basic___class_a0b9abff52ebe069889c265fedd6ea808}\label{class_tiny___basic___class_a0b9abff52ebe069889c265fedd6ea808}} 
+static \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} $\ast$ {\bfseries Load} ()
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a7e50ac1158f209c0c81d9e5ca3e4c0e4}\label{class_tiny___basic___class_a7e50ac1158f209c0c81d9e5ca3e4c0e4}} 
+\mbox{\Hypertarget{class_tiny___basic___class_aa0a4fc1cd8ca83143d6d9f094504c22d}\label{class_tiny___basic___class_aa0a4fc1cd8ca83143d6d9f094504c22d}} 
 static void {\bfseries Main\+\_\+\+Task} (void $\ast$pv\+Parameters)
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a16cd8d56debbbb7d1447362aae75da76}\label{class_tiny___basic___class_a16cd8d56debbbb7d1447362aae75da76}} 
+\mbox{\Hypertarget{class_tiny___basic___class_a28186f0b271b38f255c048042df952f2}\label{class_tiny___basic___class_a28186f0b271b38f255c048042df952f2}} 
 enum \{ {\bfseries k\+Stream\+Serial} = 0
 , {\bfseries k\+Stream\+EEProm}
 , {\bfseries k\+Stream\+File}
 , {\bfseries k\+Stream\+Xila}
  \}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_abad98d7f5af3e792bd3aacef20bc8c9e}\label{class_tiny___basic___class_abad98d7f5af3e792bd3aacef20bc8c9e}} 
+\mbox{\Hypertarget{class_tiny___basic___class_a742afe968752e1dbb48cd94b82c9f991}\label{class_tiny___basic___class_a742afe968752e1dbb48cd94b82c9f991}} 
 enum \{ \newline
 {\bfseries KW\+\_\+\+LIST} = 0
 , {\bfseries KW\+\_\+\+LOAD}
@@ -111,14 +111,20 @@ enum \{ \newline
 \mbox{\Hypertarget{class_tiny___basic___class_a762ec85f804b36cbfec650efa40ac13e}\label{class_tiny___basic___class_a762ec85f804b36cbfec650efa40ac13e}} 
 void {\bfseries cmd\+\_\+\+Files} ()
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a35dd231de3cb26453322010073bd888d}\label{class_tiny___basic___class_a35dd231de3cb26453322010073bd888d}} 
+\mbox{\Hypertarget{class_tiny___basic___class_a8f831947027c425c9e02442e9e6d3c11}\label{class_tiny___basic___class_a8f831947027c425c9e02442e9e6d3c11}} 
 unsigned char $\ast$ {\bfseries filename\+Word} ()
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_ab74f1a6eaf53c171f5ab3b7c6f0d8df4}\label{class_tiny___basic___class_ab74f1a6eaf53c171f5ab3b7c6f0d8df4}} 
-void {\bfseries Read\+\_\+\+Command} ()
+\mbox{\Hypertarget{class_tiny___basic___class_a449b7482dfb7f6c5289e563527eb7bde}\label{class_tiny___basic___class_a449b7482dfb7f6c5289e563527eb7bde}} 
+void {\bfseries Read\+\_\+\+Instructions} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a1a2db2a9e2fca6735327020894669e86}\label{class_tiny___basic___class_a1a2db2a9e2fca6735327020894669e86}} 
+void {\bfseries Copy\+\_\+\+Input} ()
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_acfce9e05db004b9ac51470c5eb8326ba}\label{class_tiny___basic___class_acfce9e05db004b9ac51470c5eb8326ba}} 
 void {\bfseries Clear} ()
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a11f5072a9929dcb6a38af6d543149509}\label{class_tiny___basic___class_a11f5072a9929dcb6a38af6d543149509}} 
+void {\bfseries Set\+\_\+\+Variable} (\mbox{\hyperlink{class_xila___class_afa8d06d42d3f5c652b39485e319701d6}{Xila\+\_\+\+Class\+::\+Address}}, uint8\+\_\+t, const void $\ast$)
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_ae68595af4a4e797523b7a8ca159aff39}\label{class_tiny___basic___class_ae68595af4a4e797523b7a8ca159aff39}} 
 void {\bfseries Refresh\+\_\+\+Interface} ()
@@ -180,7 +186,7 @@ void {\bfseries printmsg} (const unsigned char $\ast$)
 \mbox{\Hypertarget{class_tiny___basic___class_ac5c94b4c895c49e86d742652e4451acd}\label{class_tiny___basic___class_ac5c94b4c895c49e86d742652e4451acd}} 
 void {\bfseries getln} (char prompt)
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a5a79b213316a74b3cdda933f2418f998}\label{class_tiny___basic___class_a5a79b213316a74b3cdda933f2418f998}} 
+\mbox{\Hypertarget{class_tiny___basic___class_a410a276ee75523a63b364e0e354b2123}\label{class_tiny___basic___class_a410a276ee75523a63b364e0e354b2123}} 
 unsigned char $\ast$ {\bfseries findline} ()
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_af7d843960cf69a596425cd1fe8b79e7d}\label{class_tiny___basic___class_af7d843960cf69a596425cd1fe8b79e7d}} 
@@ -219,7 +225,7 @@ int {\bfseries inchar} ()
 \mbox{\Hypertarget{class_tiny___basic___class_a0eb90f5b26ebf1bb2eafdec191874012}\label{class_tiny___basic___class_a0eb90f5b26ebf1bb2eafdec191874012}} 
 void {\bfseries outchar} (unsigned char)
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a914ecef86fd52b4762d11d0ec0f49c0a}\label{class_tiny___basic___class_a914ecef86fd52b4762d11d0ec0f49c0a}} 
+\mbox{\Hypertarget{class_tiny___basic___class_a7b2786495fe9ff992202450ee1e62311}\label{class_tiny___basic___class_a7b2786495fe9ff992202450ee1e62311}} 
 bool {\bfseries init\+SD} ()
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_ac8bd7604cd5f16d921b56bd6174c07a7}\label{class_tiny___basic___class_ac8bd7604cd5f16d921b56bd6174c07a7}} 
@@ -231,8 +237,23 @@ void {\bfseries Setup} ()
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_ac34b75e2b5f039b278ea6681c0d43eaf}\label{class_tiny___basic___class_ac34b75e2b5f039b278ea6681c0d43eaf}} 
-char {\bfseries Lines} \mbox{[}15\mbox{]}\mbox{[}69\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a5c032f00d76a0a40ed36918c3ee4d440}\label{class_tiny___basic___class_a5c032f00d76a0a40ed36918c3ee4d440}} 
+Queue\+Handle\+\_\+t {\bfseries Input\+\_\+\+Queue}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a264f7aa3f24d9e8160d9b7dad77a0567}\label{class_tiny___basic___class_a264f7aa3f24d9e8160d9b7dad77a0567}} 
+bool {\bfseries Refresh\+\_\+\+Flag}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}\label{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}} 
+char {\bfseries Temporary\+\_\+\+Input} \mbox{[}190\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}\label{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}} 
+char {\bfseries Temporary\+\_\+\+Char}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_a8ba95ab711125586130f2a6901f00298}\label{class_tiny___basic___class_a8ba95ab711125586130f2a6901f00298}} 
+char {\bfseries Line\+\_\+\+Name} \mbox{[}10\mbox{]}
+\item 
+\mbox{\Hypertarget{class_tiny___basic___class_aa71052cb4fcc983a0d6b516eda0b3c58}\label{class_tiny___basic___class_aa71052cb4fcc983a0d6b516eda0b3c58}} 
+char {\bfseries Lines} \mbox{[}14\mbox{]}\mbox{[}69\mbox{]}
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_ab230bf27822b3aed21896f6f04ba75b2}\label{class_tiny___basic___class_ab230bf27822b3aed21896f6f04ba75b2}} 
 boolean {\bfseries inhibit\+Output}
@@ -302,17 +323,8 @@ unsigned char {\bfseries table\+\_\+index}
 \mbox{\Hypertarget{class_tiny___basic___class_a55e24dbd70ee11fbebdde0d8cf2734b0}\label{class_tiny___basic___class_a55e24dbd70ee11fbebdde0d8cf2734b0}} 
 LINENUM {\bfseries linenum}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}\label{class_tiny___basic___class_a3092d0e222eafc203bbfaa2ddf814f10}} 
-char {\bfseries Temporary\+\_\+\+Input} \mbox{[}190\mbox{]}
-\item 
-\mbox{\Hypertarget{class_tiny___basic___class_a1f86963a5630db05144dc331b586adc4}\label{class_tiny___basic___class_a1f86963a5630db05144dc331b586adc4}} 
-uint8\+\_\+t {\bfseries Current\+\_\+\+Position} = 0
-\item 
 \mbox{\Hypertarget{class_tiny___basic___class_a77ab47ef6e9a5ad712fc892b3370cb7e}\label{class_tiny___basic___class_a77ab47ef6e9a5ad712fc892b3370cb7e}} 
 uint16\+\_\+t {\bfseries Current\+\_\+\+Command}
-\item 
-\mbox{\Hypertarget{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}\label{class_tiny___basic___class_ae58574b243bb6e5004085187d4da1074}} 
-char {\bfseries Temporary\+\_\+\+Char}
 \item 
 \mbox{\Hypertarget{class_tiny___basic___class_aec169b6996636be29c63c8975c78907e}\label{class_tiny___basic___class_aec169b6996636be29c63c8975c78907e}} 
 uint8\+\_\+t {\bfseries Current\+\_\+\+Line}
@@ -323,77 +335,73 @@ uint8\+\_\+t {\bfseries Current\+\_\+\+Column}
 \doxysubsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aab20e0b2d71e1c8168038311716fe93c}\label{class_tiny___basic___class_aab20e0b2d71e1c8168038311716fe93c}} 
-static \mbox{\hyperlink{class_tiny___basic___class}{Tiny\+\_\+\+Basic\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer}
+\mbox{\Hypertarget{class_tiny___basic___class_a175d7a84c222bd0751e37b48368e05d5}\label{class_tiny___basic___class_a175d7a84c222bd0751e37b48368e05d5}} 
+static \mbox{\hyperlink{class_tiny___basic___class}{Tiny\+\_\+\+Basic\+\_\+\+Class}} $\ast$ {\bfseries Instance\+\_\+\+Pointer} = NULL
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aee9b4af94f641645927de0b461b94944}\label{class_tiny___basic___class_aee9b4af94f641645927de0b461b94944}} 
+\mbox{\Hypertarget{class_tiny___basic___class_ae6eed12847fb7a5cd8263fabd923df20}\label{class_tiny___basic___class_ae6eed12847fb7a5cd8263fabd923df20}} 
 static const unsigned char {\bfseries keywords} \mbox{[}238\mbox{]}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a6badb1bc88aa0b0192dbb90675a146f0}\label{class_tiny___basic___class_a6badb1bc88aa0b0192dbb90675a146f0}} 
 static const unsigned char {\bfseries to\+\_\+tab} \mbox{[}3\mbox{]}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a4bdd7ca0ff004110451369195a7b0ac1}\label{class_tiny___basic___class_a4bdd7ca0ff004110451369195a7b0ac1}} 
 static const unsigned char {\bfseries step\+\_\+tab} \mbox{[}5\mbox{]}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aa83c32a72166f43e83177976fb269280}\label{class_tiny___basic___class_aa83c32a72166f43e83177976fb269280}} 
 static const unsigned char {\bfseries relop\+\_\+tab} \mbox{[}12\mbox{]}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a434d046641172513c5801f3619314d4a}\label{class_tiny___basic___class_a434d046641172513c5801f3619314d4a}} 
 static const unsigned char {\bfseries highlow\+\_\+tab} \mbox{[}12\mbox{]}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a1156bd0c8cc43b5d3e30994ecbc33cbd}\label{class_tiny___basic___class_a1156bd0c8cc43b5d3e30994ecbc33cbd}} 
-static const unsigned char {\bfseries okmsg} \mbox{[}3\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a19eb1e699789135b3a778f5170893bf5}\label{class_tiny___basic___class_a19eb1e699789135b3a778f5170893bf5}} 
+static const unsigned char {\bfseries okmsg} \mbox{[}3\mbox{]} = \char`\"{}OK\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a156723c6fa0bc23ce3d620e643ac231f}\label{class_tiny___basic___class_a156723c6fa0bc23ce3d620e643ac231f}} 
-static const unsigned char {\bfseries whatmsg} \mbox{[}7\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a525c180511a26f2e986218b23a78cdcd}\label{class_tiny___basic___class_a525c180511a26f2e986218b23a78cdcd}} 
+static const unsigned char {\bfseries whatmsg} \mbox{[}7\mbox{]} = \char`\"{}What? \char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a47332fbe1dee375bd019ab4743d90d79}\label{class_tiny___basic___class_a47332fbe1dee375bd019ab4743d90d79}} 
-static const unsigned char {\bfseries howmsg} \mbox{[}5\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ad5cb3d521397cba783b0fb2de818fa6a}\label{class_tiny___basic___class_ad5cb3d521397cba783b0fb2de818fa6a}} 
+static const unsigned char {\bfseries howmsg} \mbox{[}5\mbox{]} = \char`\"{}How?\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a4f478bf8a4b00185a10ed80b14113834}\label{class_tiny___basic___class_a4f478bf8a4b00185a10ed80b14113834}} 
-static const unsigned char {\bfseries sorrymsg} \mbox{[}7\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a4441b41723b12ab0903ee002ea88ef2a}\label{class_tiny___basic___class_a4441b41723b12ab0903ee002ea88ef2a}} 
+static const unsigned char {\bfseries sorrymsg} \mbox{[}7\mbox{]} = \char`\"{}Sorry!\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a6e44cf9064edd22e5dfb7d2f345a5582}\label{class_tiny___basic___class_a6e44cf9064edd22e5dfb7d2f345a5582}} 
-static const unsigned char {\bfseries initmsg} \mbox{[}21\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a5acf1e8a8271daf4f2c057a5f4663c16}\label{class_tiny___basic___class_a5acf1e8a8271daf4f2c057a5f4663c16}} 
+static const unsigned char {\bfseries initmsg} \mbox{[}21\mbox{]} = \char`\"{}Tiny\+Basic ESP32 \char`\"{} TBE\+\_\+\+VERSION
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_af6939b5a9a614c7dc5cd78d0cd1327a0}\label{class_tiny___basic___class_af6939b5a9a614c7dc5cd78d0cd1327a0}} 
-static const unsigned char {\bfseries lame\+Name} \mbox{[}5\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ac4f9c9b8776eac263a332de9620708a4}\label{class_tiny___basic___class_ac4f9c9b8776eac263a332de9620708a4}} 
+static const unsigned char {\bfseries lame\+Name} \mbox{[}5\mbox{]} = \char`\"{}Xila\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a7135ae7a4b240004a0cf0ee61cbf2177}\label{class_tiny___basic___class_a7135ae7a4b240004a0cf0ee61cbf2177}} 
-static const unsigned char {\bfseries memorymsg} \mbox{[}13\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a1e7a4a0b871d529beafcb4c7acb72e88}\label{class_tiny___basic___class_a1e7a4a0b871d529beafcb4c7acb72e88}} 
+static const unsigned char {\bfseries memorymsg} \mbox{[}13\mbox{]} = \char`\"{} bytes free.\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aa8920700971480ba545eb332b4cf5902}\label{class_tiny___basic___class_aa8920700971480ba545eb332b4cf5902}} 
-static const unsigned char {\bfseries eeprommsg} \mbox{[}21\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_aaa00f13243a32f9d594f5c6931d6c04d}\label{class_tiny___basic___class_aaa00f13243a32f9d594f5c6931d6c04d}} 
+static const unsigned char {\bfseries eeprommsg} \mbox{[}21\mbox{]} = \char`\"{} EEProm bytes total.\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aa818a5a2d750a6d654b49134f5d28a50}\label{class_tiny___basic___class_aa818a5a2d750a6d654b49134f5d28a50}} 
-static const unsigned char {\bfseries eepromamsg} \mbox{[}25\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ad58fdbda39e96697f8865fb6c6d1a5d1}\label{class_tiny___basic___class_ad58fdbda39e96697f8865fb6c6d1a5d1}} 
+static const unsigned char {\bfseries eepromamsg} \mbox{[}25\mbox{]} = \char`\"{} EEProm bytes available.\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a376d3382be2c5b1dc4c3f03b19f9a31d}\label{class_tiny___basic___class_a376d3382be2c5b1dc4c3f03b19f9a31d}} 
-static const unsigned char {\bfseries breakmsg} \mbox{[}7\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a3639fe54f22f6277b687243e9147f593}\label{class_tiny___basic___class_a3639fe54f22f6277b687243e9147f593}} 
+static const unsigned char {\bfseries breakmsg} \mbox{[}7\mbox{]} = \char`\"{}break!\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a6941d3c07deb7074df47afc36f7556f4}\label{class_tiny___basic___class_a6941d3c07deb7074df47afc36f7556f4}} 
-static const unsigned char {\bfseries unimplimentedmsg} \mbox{[}14\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a1ec0aa2d2d46fb1b991e0022bcbe13a4}\label{class_tiny___basic___class_a1ec0aa2d2d46fb1b991e0022bcbe13a4}} 
+static const unsigned char {\bfseries unimplimentedmsg} \mbox{[}14\mbox{]} = \char`\"{}Unimplemented\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a909864f0f8bf1367647a8c5f0eb84cff}\label{class_tiny___basic___class_a909864f0f8bf1367647a8c5f0eb84cff}} 
-static const unsigned char {\bfseries backspacemsg} \mbox{[}4\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ae99474e0a510b34532e40bf199780527}\label{class_tiny___basic___class_ae99474e0a510b34532e40bf199780527}} 
+static const unsigned char {\bfseries backspacemsg} \mbox{[}4\mbox{]} = \char`\"{}\textbackslash{}b \textbackslash{}b\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a4982b092349cbe3931d22067fb6efa55}\label{class_tiny___basic___class_a4982b092349cbe3931d22067fb6efa55}} 
-static const unsigned char {\bfseries indentmsg} \mbox{[}5\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a5a7bdcce5c2f6aafb16f79b3e9576115}\label{class_tiny___basic___class_a5a7bdcce5c2f6aafb16f79b3e9576115}} 
+static const unsigned char {\bfseries indentmsg} \mbox{[}5\mbox{]} = \char`\"{} \char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a8d24338c53cfd87d393b572a972a1453}\label{class_tiny___basic___class_a8d24338c53cfd87d393b572a972a1453}} 
-static const unsigned char {\bfseries sderrormsg} \mbox{[}15\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a08527451f637e066241f9d0dc893c7a3}\label{class_tiny___basic___class_a08527451f637e066241f9d0dc893c7a3}} 
+static const unsigned char {\bfseries sderrormsg} \mbox{[}15\mbox{]} = \char`\"{}SD card error.\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a34ae055f9841ba402e998cde06c65697}\label{class_tiny___basic___class_a34ae055f9841ba402e998cde06c65697}} 
-static const unsigned char {\bfseries sdfilemsg} \mbox{[}15\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ac889233f020fee4239d2e9fe3ce7366b}\label{class_tiny___basic___class_ac889233f020fee4239d2e9fe3ce7366b}} 
+static const unsigned char {\bfseries sdfilemsg} \mbox{[}15\mbox{]} = \char`\"{}SD file error.\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_aed0b8b7563015dde5ca17c99e19bad0a}\label{class_tiny___basic___class_aed0b8b7563015dde5ca17c99e19bad0a}} 
-static const unsigned char {\bfseries dirextmsg} \mbox{[}6\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_ac9927c90af2398e40e3641e4bcb268ee}\label{class_tiny___basic___class_ac9927c90af2398e40e3641e4bcb268ee}} 
+static const unsigned char {\bfseries dirextmsg} \mbox{[}6\mbox{]} = \char`\"{}(dir)\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a0b59bafb7d72ae3af8f7abb4d72f55fb}\label{class_tiny___basic___class_a0b59bafb7d72ae3af8f7abb4d72f55fb}} 
-static const unsigned char {\bfseries slashmsg} \mbox{[}2\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a4765da7a0a138d74b49e44e5a2cb2893}\label{class_tiny___basic___class_a4765da7a0a138d74b49e44e5a2cb2893}} 
+static const unsigned char {\bfseries slashmsg} \mbox{[}2\mbox{]} = \char`\"{}/\char`\"{}
 \item 
-\mbox{\Hypertarget{class_tiny___basic___class_a5a5e878e40145dcfed839cac2d7727ae}\label{class_tiny___basic___class_a5a5e878e40145dcfed839cac2d7727ae}} 
-static const unsigned char {\bfseries spacemsg} \mbox{[}2\mbox{]}
+\mbox{\Hypertarget{class_tiny___basic___class_a1c9eff4bd2c6b0b801ff74c15de91130}\label{class_tiny___basic___class_a1c9eff4bd2c6b0b801ff74c15de91130}} 
+static const unsigned char {\bfseries spacemsg} \mbox{[}2\mbox{]} = \char`\"{} \char`\"{}
 \end{DoxyCompactItemize}
 
 
@@ -415,8 +423,70 @@ static const unsigned char {\bfseries spacemsg} \mbox{[}2\mbox{]}
 \DoxyCodeLine{        0\}}
 
 \end{DoxyCode}
+\mbox{\Hypertarget{class_tiny___basic___class_a0785216b7b447c738ce85c8c1b789f40}\label{class_tiny___basic___class_a0785216b7b447c738ce85c8c1b789f40}} 
+\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}!highlow\_tab@{highlow\_tab}}
+\index{highlow\_tab@{highlow\_tab}!Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+\doxysubsubsection{\texorpdfstring{highlow\_tab}{highlow\_tab}}
+{\footnotesize\ttfamily const unsigned char Tiny\+\_\+\+Basic\+\_\+\+Class\+::highlow\+\_\+tab\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{charliteral}{'H'}, \textcolor{charliteral}{'I'}, \textcolor{charliteral}{'G'}, \textcolor{charliteral}{'H'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'H'}, \textcolor{charliteral}{'I'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'L'}, \textcolor{charliteral}{'O'}, \textcolor{charliteral}{'W'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'L'}, \textcolor{charliteral}{'O'} + 0x80,}
+\DoxyCodeLine{    0\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_tiny___basic___class_a80232c0ce4b4cd73918e1bd8f8303bf3}\label{class_tiny___basic___class_a80232c0ce4b4cd73918e1bd8f8303bf3}} 
+\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}!relop\_tab@{relop\_tab}}
+\index{relop\_tab@{relop\_tab}!Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+\doxysubsubsection{\texorpdfstring{relop\_tab}{relop\_tab}}
+{\footnotesize\ttfamily const unsigned char Tiny\+\_\+\+Basic\+\_\+\+Class\+::relop\+\_\+tab\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{charliteral}{'>'}, \textcolor{charliteral}{'='} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'<'}, \textcolor{charliteral}{'>'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'>'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'='} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'<'}, \textcolor{charliteral}{'='} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'<'} + 0x80,}
+\DoxyCodeLine{    \textcolor{charliteral}{'!'}, \textcolor{charliteral}{'='} + 0x80,}
+\DoxyCodeLine{    0\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_tiny___basic___class_ae4edd381fe79751cec12118e3e80c0b3}\label{class_tiny___basic___class_ae4edd381fe79751cec12118e3e80c0b3}} 
+\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}!step\_tab@{step\_tab}}
+\index{step\_tab@{step\_tab}!Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+\doxysubsubsection{\texorpdfstring{step\_tab}{step\_tab}}
+{\footnotesize\ttfamily const unsigned char Tiny\+\_\+\+Basic\+\_\+\+Class\+::step\+\_\+tab\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{charliteral}{'S'}, \textcolor{charliteral}{'T'}, \textcolor{charliteral}{'E'}, \textcolor{charliteral}{'P'} + 0x80,}
+\DoxyCodeLine{    0\}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{class_tiny___basic___class_a95ddf53bf033c0fb862e1e31592defb8}\label{class_tiny___basic___class_a95ddf53bf033c0fb862e1e31592defb8}} 
+\index{Tiny\_Basic\_Class@{Tiny\_Basic\_Class}!to\_tab@{to\_tab}}
+\index{to\_tab@{to\_tab}!Tiny\_Basic\_Class@{Tiny\_Basic\_Class}}
+\doxysubsubsection{\texorpdfstring{to\_tab}{to\_tab}}
+{\footnotesize\ttfamily const unsigned char Tiny\+\_\+\+Basic\+\_\+\+Class\+::to\+\_\+tab\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \textcolor{charliteral}{'T'}, \textcolor{charliteral}{'O'} + 0x80,}
+\DoxyCodeLine{    0\}}
+
+\end{DoxyCode}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Software/Tiny\+\_\+\+Basic.\+hpp\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Software/Tiny\+\_\+\+Basic.\+hpp\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Software/Tiny\+\_\+\+Basic.\+cpp\end{DoxyCompactItemize}

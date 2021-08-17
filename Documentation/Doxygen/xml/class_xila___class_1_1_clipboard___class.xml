@@ -3,34 +3,6 @@
   <compounddef id="class_xila___class_1_1_clipboard___class" kind="class" language="C++" prot="public">
     <compoundname>Xila_Class::Clipboard_Class</compoundname>
     <includes refid="_core_8hpp" local="no">Core.hpp</includes>
-      <sectiondef kind="protected-attrib">
-      <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" prot="protected" static="no" mutable="no">
-        <type>File</type>
-        <definition>File Xila_Class::Clipboard_Class::Clipboard_File</definition>
-        <argsstring></argsstring>
-        <name>Clipboard_File</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="203" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="203" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" prot="protected" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t Xila_Class::Clipboard_Class::Split_Number[8]</definition>
-        <argsstring>[8]</argsstring>
-        <name>Split_Number</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="204" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="204" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
       <sectiondef kind="friend">
       <memberdef kind="friend" id="class_xila___class_1_1_clipboard___class_1a527e2efc7210a2147182df1fde98a42c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -46,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="215" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="215" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="434" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="434" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_clipboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -62,12 +34,59 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="216" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="216" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="435" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="435" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" prot="protected" static="no" mutable="no">
+        <type>File</type>
+        <definition>File Xila_Class::Clipboard_Class::Clipboard_File</definition>
+        <argsstring></argsstring>
+        <name>Clipboard_File</name>
+        <briefdescription>
+<para>Clipboard file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="441" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Xila_Class::Clipboard_Class::Split_Number[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>Split_Number</name>
+        <briefdescription>
+<para>Split number array. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="446" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="446" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a6f4ca9050db700007e183a93936e4a80" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Clear</definition>
+        <argsstring>()</argsstring>
+        <name>Clear</name>
+        <briefdescription>
+<para>Clear data of the clipboard. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Xila_Class::Event_Class </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="424" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="17" bodyend="24"/>
+      </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
         <argsstring>(uint64_t const &amp;Value_To_Copy)</argsstring>
         <name>Copy</name>
@@ -76,17 +95,30 @@
           <declname>Value_To_Copy</declname>
         </param>
         <briefdescription>
+<para>Push data into the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Value_To_Copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to push. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="207" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="426" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="31" bodyend="52"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a8700cea7b6a0c9e3bf5437c7696ff19d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a9468cb1064c5b9d5363d799da46d36b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
-        <argsstring>(const char *Char_Array_To_Copy, size_t Char_Array_Lenght=0)</argsstring>
+        <argsstring>(const char *Char_Array_To_Copy, size_t Char_Array_Length=0)</argsstring>
         <name>Copy</name>
         <param>
           <type>const char *</type>
@@ -94,19 +126,40 @@
         </param>
         <param>
           <type>size_t</type>
-          <declname>Char_Array_Lenght</declname>
+          <declname>Char_Array_Length</declname>
           <defval>0</defval>
         </param>
         <briefdescription>
+<para>Push data into the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Char_Array_To_Copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to push. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Char_Array_Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data size. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="208" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="427" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="60" bodyend="82"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Copy</definition>
         <argsstring>(String const &amp;String_To_Copy)</argsstring>
         <name>Copy</name>
@@ -115,15 +168,28 @@
           <declname>String_To_Copy</declname>
         </param>
         <briefdescription>
+<para>Push data into the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>String_To_Copy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to push. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="209" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="428" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="89" bodyend="104"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
         <argsstring>(uint64_t &amp;Value_To_Paste)</argsstring>
         <name>Paste</name>
@@ -132,17 +198,30 @@
           <declname>Value_To_Paste</declname>
         </param>
         <briefdescription>
+<para>Pull data from the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">Value_To_Paste</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer reference to pull from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="211" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="430" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="111" bodyend="126"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1aef64774b921f99d314b87bfe3079373a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+      <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1a696a662466c262adf6d31f1ba5280d82" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
-        <argsstring>(char *Char_Array_To_Paste, size_t Char_Array_Lenght)</argsstring>
+        <argsstring>(char *Char_Array_To_Paste, size_t Char_Array_Length)</argsstring>
         <name>Paste</name>
         <param>
           <type>char *</type>
@@ -150,18 +229,39 @@
         </param>
         <param>
           <type>size_t</type>
-          <declname>Char_Array_Lenght</declname>
+          <declname>Char_Array_Length</declname>
         </param>
         <briefdescription>
+<para>Pull data from the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Char_Array_To_Paste</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer reference to pull from. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Char_Array_Length</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer size. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="212" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="431" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="134" bodyend="155"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_xila___class_1a940caa98f1119e09f346fecf8f7c7123" kindref="member">Xila_Class::Event</ref></type>
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
         <definition>Xila_Class::Event Xila_Class::Clipboard_Class::Paste</definition>
         <argsstring>(String &amp;String_To_Paste)</argsstring>
         <name>Paste</name>
@@ -170,12 +270,26 @@
           <declname>String_To_Paste</declname>
         </param>
         <briefdescription>
+<para>Pull data from the clipboard. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>String_To_Paste</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer reference to pull data from. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> <linebreak/>
+ </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="213" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="432" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp" bodystart="162" bodyend="176"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -183,14 +297,15 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" line="200" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Core.hpp" bodystart="201" bodyend="217"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="421" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="422" bodyend="447"/>
     <listofallmembers>
+      <member refid="class_xila___class_1_1_clipboard___class_1a6f4ca9050db700007e183a93936e4a80" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Clear</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1ad0178b556661976cc2a5dd365e605ba4" prot="protected" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Clipboard_File</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1a8700cea7b6a0c9e3bf5437c7696ff19d" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a9468cb1064c5b9d5363d799da46d36b3" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Copy</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
-      <member refid="class_xila___class_1_1_clipboard___class_1aef64774b921f99d314b87bfe3079373a" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
+      <member refid="class_xila___class_1_1_clipboard___class_1a696a662466c262adf6d31f1ba5280d82" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Paste</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Shell_Class</name></member>
       <member refid="class_xila___class_1_1_clipboard___class_1a3bb263ce0c28558f6f5fc14a5ca12b8a" prot="protected" virt="non-virtual"><scope>Xila_Class::Clipboard_Class</scope><name>Split_Number</name></member>

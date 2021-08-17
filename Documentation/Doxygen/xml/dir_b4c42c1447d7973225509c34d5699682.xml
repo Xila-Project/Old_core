@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_b4c42c1447d7973225509c34d5699682" kind="dir">
+    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core</compoundname>
+    <innerdir refid="dir_b18a22a53055e019ba85007342e2c67c">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction</innerdir>
+    <innerdir refid="dir_6a34ee4f5eb849ca4b6e61c9a268b064">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules</innerdir>
+    <innerfile refid="_core_8hpp">Core.hpp</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/"/>
+  </compounddef>
+</doxygen>

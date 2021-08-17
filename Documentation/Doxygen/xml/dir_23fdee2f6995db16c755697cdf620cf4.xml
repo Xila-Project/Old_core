@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_23fdee2f6995db16c755697cdf620cf4" kind="dir">
-    <compoundname>C:/Users/alixa/github/Xila Embedded/Code</compoundname>
-    <innerdir refid="dir_f630f6d906c9e2216ac09aab82d6a6a6">C:/Users/alixa/github/Xila Embedded/Code/Operating_System</innerdir>
+    <compoundname>C:/Users/alixa/GitHub/Xila/Code</compoundname>
+    <innerdir refid="dir_5d88b4709274d720d8b307b03f0b1a68">C:/Users/alixa/GitHub/Xila/Code/lib</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/"/>
   </compounddef>
 </doxygen>

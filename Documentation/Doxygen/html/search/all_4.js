@@ -1,4 +1,10 @@
 var searchData=
 [
-  ['event_13',['Event',['../class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123',1,'Xila_Class']]]
+  ['enableprov_53',['enableProv',['../class_xila___class_1_1_wi_fi___class.html#a7322e3b7df7b38d830fe6e13fdb10a05',1,'Xila_Class::WiFi_Class']]],
+  ['end_54',['End',['../class_xila___class_1_1_drive___class.html#ac3f935e3060f0a754e4aea39b0c150bd',1,'Xila_Class::Drive_Class']]],
+  ['error_55',['Error',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44',1,'Xila_Class']]],
+  ['event_56',['Event',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee',1,'Xila_Class::Event()'],['../class_xila___class_1_1_dialog___class.html#aa8adfccf55a976d1390149127162c8e8',1,'Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1=NULL, const __FlashStringHelper *Button_Text_2=NULL, const __FlashStringHelper *Button_Text_3=NULL)'],['../class_xila___class_1_1_dialog___class.html#a51eb39d80bd0a165854cbd4313eaf583',1,'Xila_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)'],['../class_shell___class_1_1_dialog___class.html#a9981bde3b405d5c2d8506e2fb83d7bf6',1,'Shell_Class::Dialog_Class::Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)'],['../class_shell___class_1_1_dialog___class.html#a15e7e80380a17a1eed488333c1f55868',1,'Shell_Class::Dialog_Class::Event(const char *, uint8_t, const char *=NULL, const char *=NULL, const char *=NULL)']]],
+  ['event_5fclass_57',['Event_Class',['../class_shell___class_1_1_dialog___class_1_1_event___class.html',1,'Shell_Class::Dialog_Class']]],
+  ['execute_5fstartup_5ffunction_58',['Execute_Startup_Function',['../class_xila___class_1_1_system___class.html#ab4d3605f0e05e7a59310b9eef55ddb20',1,'Xila_Class::System_Class']]],
+  ['exists_59',['Exists',['../class_xila___class_1_1_drive___class.html#afc4521e0d8b8f0aac23af14d9e9239eb',1,'Xila_Class::Drive_Class::Exists(const char *Path)'],['../class_xila___class_1_1_drive___class.html#a6fd45190eb05d644c1dece9ee3b1539d',1,'Xila_Class::Drive_Class::Exists(const String &amp;Path)']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointer_121',['Pointer',['../class_xila___class_1_1_dialog___class.html#aa18726cb9d3566b3bf96f02df410af4d',1,'Xila_Class::Dialog_Class']]]
+  ['openned_503',['Openned',['../class_xila___class_1_1_software___management___class.html#a9719930db34c13d8cf5ce82e6dbe3d0c',1,'Xila_Class::Software_Management_Class']]]
 ];

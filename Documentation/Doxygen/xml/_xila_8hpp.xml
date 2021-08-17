@@ -4,112 +4,136 @@
     <compoundname>Xila.hpp</compoundname>
     <includes local="yes">Arduino.h</includes>
     <includes refid="_core_8hpp" local="yes">Core/Core.hpp</includes>
-    <includedby refid="_calculator_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp</includedby>
-    <includedby refid="_clock_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp</includedby>
-    <includedby refid="_internet___browser_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp</includedby>
-    <includedby refid="_music___player_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp</includedby>
-    <includedby refid="_oscilloscope_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp</includedby>
-    <includedby refid="_paint_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Paint.hpp</includedby>
-    <includedby refid="_periodic_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Periodic.hpp</includedby>
-    <includedby refid="_piano_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Piano.hpp</includedby>
-    <includedby refid="_picture___viewer_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Picture_Viewer.hpp</includedby>
-    <includedby refid="_pong_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp</includedby>
-    <includedby refid="_shell_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp</includedby>
-    <includedby refid="_simon_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp</includedby>
-    <includedby refid="_software___template_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp</includedby>
-    <includedby refid="_text_01_editor_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</includedby>
-    <includedby refid="_tiny___basic_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</includedby>
+    <includedby refid="_calculator_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</includedby>
+    <includedby refid="_clock_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Clock.hpp</includedby>
+    <includedby refid="_internet___browser_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Internet_Browser.hpp</includedby>
+    <includedby refid="_music___player_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Music_Player.hpp</includedby>
+    <includedby refid="_oscilloscope_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp</includedby>
+    <includedby refid="_paint_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp</includedby>
+    <includedby refid="_periodic_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Periodic.hpp</includedby>
+    <includedby refid="_piano_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Piano.hpp</includedby>
+    <includedby refid="_pong_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</includedby>
+    <includedby refid="_shell_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp</includedby>
+    <includedby refid="_simon_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp</includedby>
+    <includedby refid="_software___template_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Software_Template.hpp</includedby>
+    <includedby refid="_text___editor_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp</includedby>
+    <includedby refid="_tiny___basic_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Tiny_Basic.hpp</includedby>
+    <includedby refid="_xila_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Xila.cpp</includedby>
     <incdepgraph>
-      <node id="30">
-        <label>Task.hpp</label>
-        <link refid="_task_8hpp"/>
+      <node id="43">
+        <label>esp_ota_ops.h</label>
       </node>
       <node id="5">
         <label>FS.h</label>
       </node>
-      <node id="11">
+      <node id="10">
         <label>Print.h</label>
       </node>
       <node id="6">
         <label>SPI.h</label>
       </node>
+      <node id="33">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>Battery_Library.hpp</label>
+      </node>
+      <node id="30">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
+      </node>
+      <node id="32">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>soc/efuse_reg.h</label>
+      </node>
       <node id="4">
         <label>stdint.h</label>
       </node>
-      <node id="27">
-        <label>Path.hpp</label>
-        <link refid="_path_8hpp_source"/>
-      </node>
-      <node id="31">
-        <label>Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="15">
-        <label>WiFiSTA.h</label>
-      </node>
-      <node id="10">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="28">
-        <label>Software.hpp</label>
-        <link refid="_software_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-      </node>
-      <node id="21">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="26">
-        <label>esp_log.h</label>
-      </node>
-      <node id="9">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="22">
-        <label>Driver/Display.hpp</label>
-      </node>
-      <node id="12">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="32">
-        <label>System.hpp</label>
-        <link refid="_system_8hpp"/>
-      </node>
-      <node id="23">
-        <label>Driver/Battery.hpp</label>
-        <link refid="_battery_8hpp_source"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="7">
-        <label>time.h</label>
-      </node>
-      <node id="17">
-        <label>WiFiScan.h</label>
-      </node>
-      <node id="2">
-        <label>Arduino.h</label>
-      </node>
-      <node id="18">
-        <label>WiFiGeneric.h</label>
-      </node>
-      <node id="8">
-        <label>Update.h</label>
-      </node>
       <node id="1">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp</label>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp</label>
         <link refid="_xila_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="14">
+        <label>WiFiSTA.h</label>
+      </node>
+      <node id="21">
+        <label>ArduinoTrace.h</label>
+      </node>
+      <node id="38">
+        <label>esp_spi_flash.h</label>
+      </node>
+      <node id="9">
+        <label>StreamUtils.h</label>
+      </node>
+      <node id="44">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="45">
+        <label>MD5Builder.h</label>
+      </node>
       <node id="25">
-        <label>SD_MMC.h</label>
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
+      </node>
+      <node id="20">
+        <label>WiFiUdp.h</label>
+      </node>
+      <node id="27">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
+      </node>
+      <node id="40">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="36">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="24">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
+      </node>
+      <node id="8">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="11">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="26">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
+      <node id="7">
+        <label>time.h</label>
+      </node>
+      <node id="29">
+        <label>Core/Modules/Mathematics.hpp</label>
+        <link refid="_mathematics_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+      <node id="17">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="35">
+        <label>Esp.h</label>
       </node>
       <node id="3">
         <label>Core/Core.hpp</label>
@@ -158,9 +182,15 @@
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
         <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
@@ -168,92 +198,88 @@
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-      </node>
-      <node id="13">
-        <label>IPv6Address.h</label>
-      </node>
-      <node id="19">
-        <label>WiFiClient.h</label>
-      </node>
-      <node id="24">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp_source"/>
-        <childnode refid="25" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="29">
-        <label>Software_Handle.hpp</label>
-        <link refid="_software___handle_8hpp_source"/>
+      <node id="28">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="31">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="34">
+        <label>Core/Abstraction/Flash.hpp</label>
+        <link refid="_flash_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
+        </childnode>
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="45" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>IPv6Address.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiClient.h</label>
+      </node>
+      <node id="37">
+        <label>esp_sleep.h</label>
+      </node>
+      <node id="42">
+        <label>esp_partition.h</label>
+      </node>
+      <node id="19">
         <label>WiFiServer.h</label>
       </node>
-      <node id="14">
+      <node id="13">
         <label>WiFiType.h</label>
       </node>
-      <node id="16">
+      <node id="15">
         <label>WiFiAP.h</label>
+      </node>
+      <node id="39">
+        <label>memory</label>
+      </node>
+      <node id="22">
+        <label>Nextion_Library.hpp</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="12">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Shell.hpp</label>
-        <link refid="_shell_8hpp"/>
-      </node>
-      <node id="2">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp</label>
-        <link refid="_calculator_8hpp_source"/>
-      </node>
-      <node id="15">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Text Editor.hpp</label>
-        <link refid="_text_01_editor_8hpp_source"/>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
+        <link refid="_desk_8cpp"/>
       </node>
       <node id="16">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Tiny_Basic.hpp</label>
-        <link refid="_tiny___basic_8hpp_source"/>
-      </node>
-      <node id="3">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Clock.hpp</label>
-        <link refid="_clock_8hpp_source"/>
-      </node>
-      <node id="11">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Pong.hpp</label>
-        <link refid="_pong_8hpp_source"/>
-      </node>
-      <node id="8">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Periodic.hpp</label>
-        <link refid="_periodic_8hpp_source"/>
-      </node>
-      <node id="10">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Picture_Viewer.hpp</label>
-        <link refid="_picture___viewer_8hpp_source"/>
-      </node>
-      <node id="5">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Music_Player.hpp</label>
-        <link refid="_music___player_8hpp_source"/>
-      </node>
-      <node id="7">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Paint.hpp</label>
-        <link refid="_paint_8hpp_source"/>
-      </node>
-      <node id="13">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Simon.hpp</label>
-        <link refid="_simon_8hpp_source"/>
-      </node>
-      <node id="14">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Software_Template.hpp</label>
-        <link refid="_software___template_8hpp_source"/>
-      </node>
-      <node id="6">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp</label>
-        <link refid="_oscilloscope_8hpp"/>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
+        <link refid="_shell_8cpp"/>
       </node>
       <node id="1">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp</label>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp</label>
         <link refid="_xila_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -275,6 +301,54 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Piano.hpp</label>
+        <link refid="_piano_8hpp"/>
+      </node>
+      <node id="19">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp</label>
+        <link refid="_text___editor_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
+        <link refid="_preferences_8cpp"/>
+      </node>
+      <node id="2">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+      </node>
+      <node id="5">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Music_Player.hpp</label>
+        <link refid="_music___player_8hpp"/>
+      </node>
+      <node id="8">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Periodic.hpp</label>
+        <link refid="_periodic_8hpp_source"/>
+      </node>
+      <node id="10">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
+        <link refid="_file___manager_8cpp"/>
+      </node>
+      <node id="3">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Clock.hpp</label>
+        <link refid="_clock_8hpp_source"/>
+      </node>
+      <node id="11">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp</label>
+        <link refid="_shell_8hpp"/>
         <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
@@ -286,30 +360,35 @@
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="9">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Piano.hpp</label>
-        <link refid="_piano_8hpp_source"/>
+      <node id="17">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp</label>
+        <link refid="_simon_8hpp_source"/>
+      </node>
+      <node id="6">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp</label>
+        <link refid="_oscilloscope_8hpp"/>
+      </node>
+      <node id="13">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
+        <link refid="_software_2_shell_2_dialog_8cpp"/>
+      </node>
+      <node id="7">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp</label>
+        <link refid="_paint_8hpp_source"/>
+      </node>
+      <node id="20">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Tiny_Basic.hpp</label>
+        <link refid="_tiny___basic_8hpp_source"/>
       </node>
       <node id="4">
-        <label>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Internet_Browser.hpp</label>
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Internet_Browser.hpp</label>
         <link refid="_internet___browser_8hpp_source"/>
       </node>
+      <node id="18">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Software_Template.hpp</label>
+        <link refid="_software___template_8hpp_source"/>
+      </node>
     </invincdepgraph>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="_xila_8hpp_1afa9f4d12efb2f1c73c0196f671c8a92d" prot="public" static="no" mutable="no">
-        <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
-        <definition>Xila_Class Xila</definition>
-        <argsstring></argsstring>
-        <name>Xila</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" line="46" column="19" declfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp" declline="46" declcolumn="19"/>
-      </memberdef>
-      </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
@@ -333,37 +412,13 @@
 <codeline lineno="16"><highlight class="comment">||<sp/>For<sp/>ESP-32<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
 <codeline lineno="17"><highlight class="comment">||<sp/>Version<sp/>:<sp/>0.1.0<sp/>-<sp/>Alix<sp/>ANNERAUD<sp/>-<sp/>MIT<sp/>Licence<sp/>-<sp/>2020<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
 <codeline lineno="18"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
-<codeline lineno="19"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Project<sp/>Files<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="20"><highlight class="comment">||<sp/><sp/>-<sp/>GalaxOS.hpp/cpp<sp/>:<sp/>&quot;hub&quot;<sp/>files<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="21"><highlight class="comment">||<sp/><sp/>-<sp/>Core<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="22"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Core.hpp/cpp<sp/>:<sp/>core<sp/>features<sp/>(driver,<sp/>user,<sp/>virtual<sp/>mem,<sp/>APIs<sp/>etc.)<sp/>||</highlight></codeline>
-<codeline lineno="23"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Software.hpp/cpp<sp/>:<sp/>Definition<sp/>of<sp/>external&apos;s<sp/>software<sp/>API<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="24"><highlight class="comment">||<sp/><sp/>-<sp/>Drivers<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="25"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Display.hpp/cpp<sp/>:<sp/>Display<sp/>hardware<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="26"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Keyboard.hpp/cpp<sp/>:<sp/>Keyboard<sp/>hardawre<sp/>abstraction<sp/>layer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="27"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Sound.hpp/cpp<sp/>:<sp/>Sound<sp/>hardware<sp/>abstraction<sp/>layer<sp/>(use<sp/>ULP<sp/>proc)<sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="28"><highlight class="comment">||<sp/><sp/>-<sp/>Software<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="29"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Shell.hpp/cpp<sp/>:<sp/>Main<sp/>UI<sp/>Software<sp/>(with<sp/>high<sp/>priviliege)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="30"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>TinyBasic.hpp/cpp<sp/>:<sp/>Basic<sp/>emulator,<sp/>used<sp/>by<sp/>core<sp/>to<sp/>run<sp/>Basic<sp/>script||</highlight></codeline>
-<codeline lineno="31"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Internet_Browser.hpp/cpp<sp/>:<sp/>Primitive<sp/>internet<sp/>browser<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="32"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Oscilloscope.hpp/cpp<sp/>:<sp/>Primitive<sp/>oscilloscope<sp/>application<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="33"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Signal_Generator.hpp/cpp<sp/>:<sp/>Primitive<sp/>signal<sp/>generator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="34"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Calculator.hpp/cpp<sp/>:<sp/>Basic<sp/>scientific<sp/>calculator<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="35"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Music_Player<sp/>:<sp/>Basic<sp/>musiplayer<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="36"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Paint.hpp/cpp<sp/>:<sp/>Basic<sp/>paint<sp/>software<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="37"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Ultrasonic.hpp/cpp<sp/>:<sp/>An<sp/>ultrasonic<sp/>meter<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="38"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>Periodic.hpp/cpp<sp/>:<sp/><sp/>The<sp/>periodic<sp/>table<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="39"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="40"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||</highlight></codeline>
-<codeline lineno="41"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Credit<sp/>to<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="42"><highlight class="comment">||<sp/>Sound<sp/>:<sp/>Benjamin<sp/>Mastripolito<sp/>(https://benpm.github.io<sp/>-<sp/>https://freeSound.org/people/Lemoncreme/sounds/231578)||</highlight></codeline>
-<codeline lineno="43"><highlight class="comment">||<sp/>Michalhol<sp/>:<sp/>Keyboard<sp/>Library<sp/>(https://github.com/michalhol/ps2kbdlib)<sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
-<codeline lineno="44"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
-<codeline lineno="46"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="class_xila___class" kindref="compound">Xila_Class</ref><sp/>Xila;</highlight></codeline>
-<codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">||<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Credit<sp/>to<sp/>:<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">||<sp/>Sound<sp/>:<sp/>Benjamin<sp/>Mastripolito<sp/>(https://benpm.github.io<sp/>-<sp/>https://freeSound.org/people/Lemoncreme/sounds/231578)||</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">||<sp/>Michalhol<sp/>:<sp/>Keyboard<sp/>Library<sp/>(https://github.com/michalhol/ps2kbdlib)<sp/><sp/><sp/><sp/><sp/><sp/>||</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Xila.hpp"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp"/>
   </compounddef>
 </doxygen>

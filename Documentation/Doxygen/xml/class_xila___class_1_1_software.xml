@@ -1,0 +1,477 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_software" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Software</compoundname>
+    <derivedcompoundref refid="class_calculator___class" prot="public" virt="non-virtual">Calculator_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_clock___class" prot="public" virt="non-virtual">Clock_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_internet___browser___class" prot="public" virt="non-virtual">Internet_Browser_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_music___player___class" prot="public" virt="non-virtual">Music_Player_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_oscilloscope___class" prot="private" virt="non-virtual">Oscilloscope_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_paint___class" prot="protected" virt="non-virtual">Paint_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_periodic___class" prot="protected" virt="non-virtual">Periodic_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_piano___class" prot="public" virt="non-virtual">Piano_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_pong___class" prot="public" virt="non-virtual">Pong_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_shell___class" prot="public" virt="non-virtual">Shell_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_simon___class" prot="public" virt="non-virtual">Simon_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_template___class" prot="public" virt="non-virtual">Template_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_text___editor___class" prot="public" virt="non-virtual">Text_Editor_Class</derivedcompoundref>
+    <derivedcompoundref refid="class_tiny___basic___class" prot="public" virt="non-virtual">Tiny_Basic_Class</derivedcompoundref>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1aa9c6eccc5e85e629d875fc6080714f30" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1a5cc19f7e1cd3f8ecee7882fcd4850661" kindref="member">Xila_Class::Task_Handle</ref></type>
+        <definition>Xila_Class::Task_Handle Xila_Class::Software::Task_Handle</definition>
+        <argsstring></argsstring>
+        <name>Task_Handle</name>
+        <briefdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> task handle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="279" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="279" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1a5c3d107b2dbdd581b9aa79b9d0f6b04f" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> *</type>
+        <definition>Xila_Class::Software_Handle* Xila_Class::Software::Handle</definition>
+        <argsstring></argsstring>
+        <name>Handle</name>
+        <briefdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> handle pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="284" column="37" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="284" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_xila___class_1_1_software_1a527e2efc7210a2147182df1fde98a42c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Xila_Class</definition>
+        <argsstring></argsstring>
+        <name>Xila_Class</name>
+        <param>
+          <type><ref refid="class_xila___class" kindref="compound">Xila_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="286" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="286" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="friend" id="class_xila___class_1_1_software_1a993b38fc160773525ee5c3dfcf033710" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="287" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="287" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1a4a7da526df631f8425cebe7d44960794" prot="private" static="no" mutable="no">
+        <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+        <definition>Xila_Class::Instruction Xila_Class::Software::Current_Instruction</definition>
+        <argsstring></argsstring>
+        <name>Current_Instruction</name>
+        <briefdescription>
+<para>Temporary variable to receive current instruction from queue. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="293" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1a35524b80998216bfd33374a69c2ae9d6" prot="private" static="no" mutable="no">
+        <type>QueueHandle_t</type>
+        <definition>QueueHandle_t Xila_Class::Software::Instruction_Queue_Handle</definition>
+        <argsstring></argsstring>
+        <name>Instruction_Queue_Handle</name>
+        <briefdescription>
+<para>Queue handle. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="298" column="23" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="298" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1a27f634945179fed9884007713ecc70d0" prot="private" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Software::Last_Watchdog_Feed</definition>
+        <argsstring></argsstring>
+        <name>Last_Watchdog_Feed</name>
+        <briefdescription>
+<para>Last software watchdog feed. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="303" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="303" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_xila___class_1_1_software_1a6cf6c7817ccd16e6b86cfe0f523cfebd" prot="private" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t Xila_Class::Software::Watchdog_Timeout</definition>
+        <argsstring></argsstring>
+        <name>Watchdog_Timeout</name>
+        <briefdescription>
+<para>Watchdog defined timeout. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="308" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="308" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_xila___class_1_1_software_1a449d53afe8102aab773ac465b92acf01" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Xila_Class::Software::Software</definition>
+        <argsstring>(Xila_Class::Software_Handle &amp;Software_Handle, uint8_t Queue_Size=Default_Instruction_Queue_Size)</argsstring>
+        <name>Software</name>
+        <param>
+          <type><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Xila_Class::Software_Handle</ref> &amp;</type>
+          <declname>Software_Handle</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Queue_Size</declname>
+          <defval>Default_Instruction_Queue_Size</defval>
+        </param>
+        <briefdescription>
+<para>Construct a new <ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername><ref refid="class_xila___class_1_1_software___handle" kindref="compound">Software_Handle</ref></parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Current software handle </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Queue_Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instructions queue size (default : ) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="252" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="18" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1a4bd83708332f3802ccaf741741eda30d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>Xila_Class::Software::~Software</definition>
+        <argsstring>()</argsstring>
+        <name>~Software</name>
+        <briefdescription>
+<para>Destroy the <ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> object. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="253" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="43" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software::Send_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction Intruction)</argsstring>
+        <name>Send_Instruction</name>
+        <param>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <declname>Intruction</declname>
+          <defname>Instruction</defname>
+        </param>
+        <briefdescription>
+<para>Used to send instructions to software. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Instruction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instruction to send.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+It&apos;s used by Xila and the software itself to fill the instructions queue. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="256" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="84" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1aba6aaacb256e43b1af464a9c1e294945" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software::Send_Instruction</definition>
+        <argsstring>(char Instruction_Char_1, char Instruction_Char_2)</argsstring>
+        <name>Send_Instruction</name>
+        <param>
+          <type>char</type>
+          <declname>Instruction_Char_1</declname>
+        </param>
+        <param>
+          <type>char</type>
+          <declname>Instruction_Char_2</declname>
+        </param>
+        <briefdescription>
+<para>Convert 2 byte char instruction into Xila Instruction and send it. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Instruction_Char_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instruction first byte </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Instruction_Char_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Instruction second byte </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="263" column="21" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="263" bodyend="266"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1a0856779c31d7efb50d7eecfaefc2f192" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software::Set_Variable</definition>
+        <argsstring>(Xila_Class::Address Address, uint8_t Type, const void *Variable)</argsstring>
+        <name>Set_Variable</name>
+        <reimplementedby refid="class_shell___class_1a35772a69378a29025112cf8119426205">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_clock___class_1abd491c8b256e912b693e2e5e36e67337">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_internet___browser___class_1a49570d569d910157a8b86b42fd6d5ce6">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_music___player___class_1a1e51aac9be041e5d5c515718787ad7c7">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_periodic___class_1a0447b870749c9d6b6c19156138ac9110">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_text___editor___class_1aed243a7b9f944ffd11104319b21048cf">Set_Variable</reimplementedby>
+        <reimplementedby refid="class_tiny___basic___class_1a11f5072a9929dcb6a38af6d543149509">Set_Variable</reimplementedby>
+        <param>
+          <type><ref refid="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6" kindref="member">Xila_Class::Address</ref></type>
+          <declname>Address</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>Type</declname>
+        </param>
+        <param>
+          <type>const void *</type>
+          <declname>Variable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="268" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="48" bodyend="50"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+        <definition>Xila_Class::Instruction Xila_Class::Software::Get_Instruction</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Instruction</name>
+        <briefdescription>
+<para>Return last instruction from the instructions queue. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref> <ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> instruction. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="270" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="68" bodyend="76"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_software_1a87281f0b32d28725aa55ca0f283824e8" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Xila_Class::Software::Set_Watchdog_Timeout</definition>
+        <argsstring>(uint16_t Watchdog_Timeout=Default_Watchdog_Timeout)</argsstring>
+        <name>Set_Watchdog_Timeout</name>
+        <param>
+          <type>uint16_t</type>
+          <declname>Watchdog_Timeout</declname>
+          <defval>Default_Watchdog_Timeout</defval>
+        </param>
+        <briefdescription>
+<para>Set watchdog timeout, by default it&apos;s set to 5000 ms. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Watchdog_Timeout</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Watchdog timeout in milliseconds. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="272" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp" bodystart="56" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_xila___class_1_1_software" kindref="compound">Software</ref> class. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This API is used by core in order to exchange with software. </para>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="5">
+        <label>Music_Player_Class</label>
+        <link refid="class_music___player___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Oscilloscope_Class</label>
+        <link refid="class_oscilloscope___class"/>
+        <childnode refid="1" relation="private-inheritance">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Paint_Class</label>
+        <link refid="class_paint___class"/>
+        <childnode refid="1" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>Template_Class</label>
+        <link refid="class_template___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Clock_Class</label>
+        <link refid="class_clock___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>Shell_Class</label>
+        <link refid="class_shell___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>Piano_Class</label>
+        <link refid="class_piano___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Internet_Browser_Class</label>
+        <link refid="class_internet___browser___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>Pong_Class</label>
+        <link refid="class_pong___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>Tiny_Basic_Class</label>
+        <link refid="class_tiny___basic___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Calculator_Class</label>
+        <link refid="class_calculator___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>Simon_Class</label>
+        <link refid="class_simon___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>Text_Editor_Class</label>
+        <link refid="class_text___editor___class"/>
+        <childnode refid="1" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>Periodic_Class</label>
+        <link refid="class_periodic___class"/>
+        <childnode refid="1" relation="protected-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="248" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="249" bodyend="309"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_software_1a4a7da526df631f8425cebe7d44960794" prot="private" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Current_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Get_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a5c3d107b2dbdd581b9aa79b9d0f6b04f" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Handle</name></member>
+      <member refid="class_xila___class_1_1_software_1a35524b80998216bfd33374a69c2ae9d6" prot="private" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Instruction_Queue_Handle</name></member>
+      <member refid="class_xila___class_1_1_software_1a27f634945179fed9884007713ecc70d0" prot="private" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Last_Watchdog_Feed</name></member>
+      <member refid="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aba6aaacb256e43b1af464a9c1e294945" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a0856779c31d7efb50d7eecfaefc2f192" prot="protected" virt="virtual"><scope>Xila_Class::Software</scope><name>Set_Variable</name></member>
+      <member refid="class_xila___class_1_1_software_1a87281f0b32d28725aa55ca0f283824e8" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Set_Watchdog_Timeout</name></member>
+      <member refid="class_xila___class_1_1_software_1a993b38fc160773525ee5c3dfcf033710" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Shell_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a449d53afe8102aab773ac465b92acf01" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Software</name></member>
+      <member refid="class_xila___class_1_1_software_1aa9c6eccc5e85e629d875fc6080714f30" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Task_Handle</name></member>
+      <member refid="class_xila___class_1_1_software_1a6cf6c7817ccd16e6b86cfe0f523cfebd" prot="private" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Watchdog_Timeout</name></member>
+      <member refid="class_xila___class_1_1_software_1a527e2efc7210a2147182df1fde98a42c" prot="protected" virt="non-virtual"><scope>Xila_Class::Software</scope><name>Xila_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a4bd83708332f3802ccaf741741eda30d" prot="protected" virt="virtual"><scope>Xila_Class::Software</scope><name>~Software</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

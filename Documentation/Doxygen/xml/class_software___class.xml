@@ -377,7 +377,7 @@
       <memberdef kind="function" id="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
         <definition>virtual void Software_Class::Set_Variable</definition>
-        <argsstring>(const void *Variable, uint8_t Type, uint8_t Adress, uint8_t Size=0)</argsstring>
+        <argsstring>(const void *Variable, uint8_t Type, uint8_t Address, uint8_t Size=0)</argsstring>
         <name>Set_Variable</name>
         <reimplementedby refid="class_music___player___class_1aeb6ba5ed4993c72dcd1046bfd09a2d51">Set_Variable</reimplementedby>
         <reimplementedby refid="class_clock___class_1ab7a7769859c5db13e5061f6eaf6bd9e1">Set_Variable</reimplementedby>
@@ -394,7 +394,7 @@
         </param>
         <param>
           <type>uint8_t</type>
-          <declname>Adress</declname>
+          <declname>Address</declname>
         </param>
         <param>
           <type>uint8_t</type>

@@ -1,0 +1,148 @@
+\hypertarget{class_xila___class_1_1_software}{}\doxysection{Xila\+\_\+\+Class\+::Software Class Reference}
+\label{class_xila___class_1_1_software}\index{Xila\_Class::Software@{Xila\_Class::Software}}
+
+
+\mbox{\hyperlink{class_xila___class_1_1_software}{Software}} class.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+Inheritance diagram for Xila\+\_\+\+Class\+::Software\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=12.000000cm]{class_xila___class_1_1_software}
+\end{center}
+\end{figure}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_xila___class_1_1_software_a449d53afe8102aab773ac465b92acf01}{Software}} (\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle}} \&\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Software\+\_\+\+Handle}}, uint8\+\_\+t Queue\+\_\+\+Size=Default\+\_\+\+Instruction\+\_\+\+Queue\+\_\+\+Size)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_a4bd83708332f3802ccaf741741eda30d}\label{class_xila___class_1_1_software_a4bd83708332f3802ccaf741741eda30d}} 
+virtual \mbox{\hyperlink{class_xila___class_1_1_software_a4bd83708332f3802ccaf741741eda30d}{$\sim$\+Software}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_xila___class_1_1_software_aa45509b64cac8ff55986ef789716b55a}{Send\+\_\+\+Instruction}} (\mbox{\hyperlink{class_xila___class_a1aed82bea1dfd7ae10908bdfb0f5333f}{Xila\+\_\+\+Class\+::\+Instruction}} Intruction)
+\begin{DoxyCompactList}\small\item\em Used to send instructions to software. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_xila___class_1_1_software_aba6aaacb256e43b1af464a9c1e294945}{Send\+\_\+\+Instruction}} (char Instruction\+\_\+\+Char\+\_\+1, char Instruction\+\_\+\+Char\+\_\+2)
+\begin{DoxyCompactList}\small\item\em Convert 2 byte char instruction into Xila Instruction and send it. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_a0856779c31d7efb50d7eecfaefc2f192}\label{class_xila___class_1_1_software_a0856779c31d7efb50d7eecfaefc2f192}} 
+virtual void {\bfseries Set\+\_\+\+Variable} (\mbox{\hyperlink{class_xila___class_afa8d06d42d3f5c652b39485e319701d6}{Xila\+\_\+\+Class\+::\+Address}} \mbox{\hyperlink{class_xila___class_afa8d06d42d3f5c652b39485e319701d6}{Address}}, uint8\+\_\+t Type, const void $\ast$Variable)
+\item 
+\mbox{\hyperlink{class_xila___class_a1aed82bea1dfd7ae10908bdfb0f5333f}{Xila\+\_\+\+Class\+::\+Instruction}} \mbox{\hyperlink{class_xila___class_1_1_software_aa21b0b3aa6d8ad432c8d451dbd52ae55}{Get\+\_\+\+Instruction}} ()
+\begin{DoxyCompactList}\small\item\em Return last instruction from the instructions queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_xila___class_1_1_software_a87281f0b32d28725aa55ca0f283824e8}{Set\+\_\+\+Watchdog\+\_\+\+Timeout}} (uint16\+\_\+t Watchdog\+\_\+\+Timeout=Default\+\_\+\+Watchdog\+\_\+\+Timeout)
+\begin{DoxyCompactList}\small\item\em Set watchdog timeout, by default it\textquotesingle{}s set to 5000 ms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_aa9c6eccc5e85e629d875fc6080714f30}\label{class_xila___class_1_1_software_aa9c6eccc5e85e629d875fc6080714f30}} 
+\mbox{\hyperlink{class_xila___class_a5cc19f7e1cd3f8ecee7882fcd4850661}{Xila\+\_\+\+Class\+::\+Task\+\_\+\+Handle}} \mbox{\hyperlink{class_xila___class_1_1_software_aa9c6eccc5e85e629d875fc6080714f30}{Task\+\_\+\+Handle}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} task handle. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_a5c3d107b2dbdd581b9aa79b9d0f6b04f}\label{class_xila___class_1_1_software_a5c3d107b2dbdd581b9aa79b9d0f6b04f}} 
+\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle}} $\ast$ \mbox{\hyperlink{class_xila___class_1_1_software_a5c3d107b2dbdd581b9aa79b9d0f6b04f}{Handle}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} handle pointer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_a527e2efc7210a2147182df1fde98a42c}\label{class_xila___class_1_1_software_a527e2efc7210a2147182df1fde98a42c}} 
+class {\bfseries Xila\+\_\+\+Class}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_software_a993b38fc160773525ee5c3dfcf033710}\label{class_xila___class_1_1_software_a993b38fc160773525ee5c3dfcf033710}} 
+class {\bfseries Shell\+\_\+\+Class}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{class_xila___class_1_1_software}{Software}} class. 
+
+This API is used by core in order to exchange with software. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_software_a449d53afe8102aab773ac465b92acf01}\label{class_xila___class_1_1_software_a449d53afe8102aab773ac465b92acf01}} 
+\index{Xila\_Class::Software@{Xila\_Class::Software}!Software@{Software}}
+\index{Software@{Software}!Xila\_Class::Software@{Xila\_Class::Software}}
+\doxysubsubsection{\texorpdfstring{Software()}{Software()}}
+{\footnotesize\ttfamily Xila\+\_\+\+Class\+::\+Software\+::\+Software (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_xila___class_1_1_software___handle}{Xila\+\_\+\+Class\+::\+Software\+\_\+\+Handle}} \&}]{Software\+\_\+\+Handle,  }\item[{uint8\+\_\+t}]{Queue\+\_\+\+Size = {\ttfamily Default\+\_\+Instruction\+\_\+Queue\+\_\+Size} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Construct a new \mbox{\hyperlink{class_xila___class_1_1_software}{Xila\+\_\+\+Class\+::\+Software}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \mbox{\hyperlink{class_xila___class_1_1_software___handle}{Software\+\_\+\+Handle}}} & Current software handle \\
+\hline
+{\em Queue\+\_\+\+Size} & Instructions queue size (default \+: ) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_software_aa21b0b3aa6d8ad432c8d451dbd52ae55}\label{class_xila___class_1_1_software_aa21b0b3aa6d8ad432c8d451dbd52ae55}} 
+\index{Xila\_Class::Software@{Xila\_Class::Software}!Get\_Instruction@{Get\_Instruction}}
+\index{Get\_Instruction@{Get\_Instruction}!Xila\_Class::Software@{Xila\_Class::Software}}
+\doxysubsubsection{\texorpdfstring{Get\_Instruction()}{Get\_Instruction()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a1aed82bea1dfd7ae10908bdfb0f5333f}{Xila\+\_\+\+Class\+::\+Instruction}} Xila\+\_\+\+Class\+::\+Software\+::\+Get\+\_\+\+Instruction (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Return last instruction from the instructions queue. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a1aed82bea1dfd7ae10908bdfb0f5333f}{Xila\+\_\+\+Class\+::\+Instruction}} \mbox{\hyperlink{class_xila___class_1_1_software}{Software}} instruction. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_software_aba6aaacb256e43b1af464a9c1e294945}\label{class_xila___class_1_1_software_aba6aaacb256e43b1af464a9c1e294945}} 
+\index{Xila\_Class::Software@{Xila\_Class::Software}!Send\_Instruction@{Send\_Instruction}}
+\index{Send\_Instruction@{Send\_Instruction}!Xila\_Class::Software@{Xila\_Class::Software}}
+\doxysubsubsection{\texorpdfstring{Send\_Instruction()}{Send\_Instruction()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Software\+::\+Send\+\_\+\+Instruction (\begin{DoxyParamCaption}\item[{char}]{Instruction\+\_\+\+Char\+\_\+1,  }\item[{char}]{Instruction\+\_\+\+Char\+\_\+2 }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Convert 2 byte char instruction into Xila Instruction and send it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Instruction\+\_\+\+Char\+\_\+1} & Instruction first byte \\
+\hline
+{\em Instruction\+\_\+\+Char\+\_\+2} & Instruction second byte \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_xila___class_1_1_software_aa45509b64cac8ff55986ef789716b55a}\label{class_xila___class_1_1_software_aa45509b64cac8ff55986ef789716b55a}} 
+\index{Xila\_Class::Software@{Xila\_Class::Software}!Send\_Instruction@{Send\_Instruction}}
+\index{Send\_Instruction@{Send\_Instruction}!Xila\_Class::Software@{Xila\_Class::Software}}
+\doxysubsubsection{\texorpdfstring{Send\_Instruction()}{Send\_Instruction()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Software\+::\+Send\+\_\+\+Instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_xila___class_a1aed82bea1dfd7ae10908bdfb0f5333f}{Xila\+\_\+\+Class\+::\+Instruction}}}]{Instruction }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Used to send instructions to software. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Instruction} & Instruction to send.\\
+\hline
+\end{DoxyParams}
+It\textquotesingle{}s used by Xila and the software itself to fill the instructions queue. \mbox{\Hypertarget{class_xila___class_1_1_software_a87281f0b32d28725aa55ca0f283824e8}\label{class_xila___class_1_1_software_a87281f0b32d28725aa55ca0f283824e8}} 
+\index{Xila\_Class::Software@{Xila\_Class::Software}!Set\_Watchdog\_Timeout@{Set\_Watchdog\_Timeout}}
+\index{Set\_Watchdog\_Timeout@{Set\_Watchdog\_Timeout}!Xila\_Class::Software@{Xila\_Class::Software}}
+\doxysubsubsection{\texorpdfstring{Set\_Watchdog\_Timeout()}{Set\_Watchdog\_Timeout()}}
+{\footnotesize\ttfamily void Xila\+\_\+\+Class\+::\+Software\+::\+Set\+\_\+\+Watchdog\+\_\+\+Timeout (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{Watchdog\+\_\+\+Timeout = {\ttfamily Default\+\_\+Watchdog\+\_\+Timeout} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Set watchdog timeout, by default it\textquotesingle{}s set to 5000 ms. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Watchdog\+\_\+\+Timeout} & Watchdog timeout in milliseconds. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Modules/\mbox{\hyperlink{_software_8cpp}{Software.\+cpp}}\end{DoxyCompactItemize}

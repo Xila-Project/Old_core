@@ -1,0 +1,727 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_shell___class_1_1_dialog___class" kind="class" language="C++" prot="protected">
+    <compoundname>Shell_Class::Dialog_Class</compoundname>
+    <includes refid="_shell_8hpp" local="no">Shell.hpp</includes>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_color___picker___class" prot="protected">Shell_Class::Dialog_Class::Color_Picker_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_event___class" prot="protected">Shell_Class::Dialog_Class::Event_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_keyboard___class" prot="protected">Shell_Class::Dialog_Class::Keyboard_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_keypad___class" prot="protected">Shell_Class::Dialog_Class::Keypad_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_load___class" prot="protected">Shell_Class::Dialog_Class::Load_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_login___class" prot="protected">Shell_Class::Dialog_Class::Login_Class</innerclass>
+    <innerclass refid="class_shell___class_1_1_dialog___class_1_1_power___class" prot="protected">Shell_Class::Dialog_Class::Power_Class</innerclass>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a653ffab1f44e6aacbd871f946fd07b11" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_keyboard___class" kindref="compound">Shell_Class::Dialog_Class::Keyboard_Class</ref> *</type>
+        <definition>class Shell_Class::Dialog_Class::Keyboard_Class * Shell_Class::Dialog_Class::Keyboard_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Keyboard_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="111" column="28"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a83077991595830e9d31600851575df40" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_keypad___class" kindref="compound">Shell_Class::Dialog_Class::Keypad_Class</ref> *</type>
+        <definition>class Shell_Class::Dialog_Class::Keypad_Class * Shell_Class::Dialog_Class::Keypad_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Keypad_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="129" column="26"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1acfc1371804c13462d24f0ea0397a84e5" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_load___class" kindref="compound">Shell_Class::Dialog_Class::Load_Class</ref> *</type>
+        <definition>class Shell_Class::Dialog_Class::Load_Class * Shell_Class::Dialog_Class::Load_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Load_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="149" column="24"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a15591ff1c7f006e08924d77dd3d9777e" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_login___class" kindref="compound">Shell_Class::Dialog_Class::Login_Class</ref> *</type>
+        <definition>class Shell_Class::Dialog_Class::Login_Class * Shell_Class::Dialog_Class::Login_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Login_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="167" column="25"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a1e34874887db94fb18c0dfc9f508f3a9" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_power___class" kindref="compound">Shell_Class::Dialog_Class::Power_Class</ref></type>
+        <definition>class Shell_Class::Dialog_Class::Power_Class Shell_Class::Dialog_Class::Power_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Power_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="178" column="23"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1afdecd21e3bc387d3ce283dab376408d3" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_color___picker___class" kindref="compound">Shell_Class::Dialog_Class::Color_Picker_Class</ref></type>
+        <definition>class Shell_Class::Dialog_Class::Color_Picker_Class Shell_Class::Dialog_Class::Color_Picker_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Color_Picker_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="192" column="30"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a01b0f104d071fa4bf26254f6516c03b6" prot="protected" static="no" mutable="no">
+        <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_event___class" kindref="compound">Shell_Class::Dialog_Class::Event_Class</ref> *</type>
+        <definition>class Shell_Class::Dialog_Class::Event_Class * Shell_Class::Dialog_Class::Event_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Event_Pointer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="212" column="25"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_shell___class_1_1_dialog___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="236" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-func">
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a9addd9b7a454593080e0a5c84b848734" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Shell_Class::Dialog_Class::Dialog_Class</definition>
+        <argsstring>()</argsstring>
+        <name>Dialog_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="216" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="16" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aa7c8a51771e4bf3638e343897177c27c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Shell_Class::Dialog_Class::~Dialog_Class</definition>
+        <argsstring>()</argsstring>
+        <name>~Dialog_Class</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="217" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="25" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aef45cd8a126879601151ffc212121bb4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Load</definition>
+        <argsstring>(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint32_t Duration=0)</argsstring>
+        <name>Load</name>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <declname>Header</declname>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <declname>Message</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>Duration</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Open a loading dialog. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Header string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message string. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="221" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="783" bodyend="804"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a3d1797de48ad137983b028cc39d8d1b6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Load</definition>
+        <argsstring>(const char *Header, const char *Message, uint32_t Duration=0)</argsstring>
+        <name>Load</name>
+        <param>
+          <type>const char *</type>
+          <declname>Header</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>Message</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>Duration</declname>
+          <defval>0</defval>
+        </param>
+        <briefdescription>
+<para>Open a Load dialog with an animation (similar to the boot screen). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Header</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Header string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message string. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Duration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Duration in milliseconds (by default 0, the load dialog still displayed until Xila.Dialog.Close_Load() is called). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="222" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="812" bodyend="834"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a82a9abe49fc40f2d8905c5addd44f7eb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Close_Load</definition>
+        <argsstring>()</argsstring>
+        <name>Close_Load</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="223" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="836" bodyend="842"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a0c74696cd639d47613247307529e791e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Power</definition>
+        <argsstring>()</argsstring>
+        <name>Power</name>
+        <briefdescription>
+<para>Open a Power management dialog. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="224" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="873" bodyend="893"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1ac3ff859e68ab0a57006511ecfe704210" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Login</definition>
+        <argsstring>()</argsstring>
+        <name>Login</name>
+        <briefdescription>
+<para>Open a login dialog. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="225" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="848" bodyend="868"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a193eda63001768a2be133dabdea42614" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Keyboard</definition>
+        <argsstring>(char *, size_t, bool=false)</argsstring>
+        <name>Keyboard</name>
+        <param>
+          <type>char *</type>
+          <defname>String</defname>
+        </param>
+        <param>
+          <type>size_t</type>
+          <defname>Size</defname>
+        </param>
+        <param>
+          <type>bool</type>
+          <defname>Masked_Input</defname>
+          <defval>false</defval>
+        </param>
+        <briefdescription>
+<para>Open a virtual keyboard to input text. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>String</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String to input. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Size</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>String size. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Masked_Input</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Enable / disable masking. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="226" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="625" bodyend="648"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a7975c00e493fdaaab49ff7fac0dd7751" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Keypad</definition>
+        <argsstring>(float &amp;Number_To_Get)</argsstring>
+        <name>Keypad</name>
+        <param>
+          <type>float &amp;</type>
+          <declname>Number_To_Get</declname>
+          <defname>Number</defname>
+        </param>
+        <briefdescription>
+<para>Open a virtual keypad to input a float number. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Number</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number to input. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="227" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="655" bodyend="676"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a9981bde3b405d5c2d8506e2fb83d7bf6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Event</definition>
+        <argsstring>(const __FlashStringHelper *, uint8_t, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL, const __FlashStringHelper *=NULL)</argsstring>
+        <name>Event</name>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defname>Message</defname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <defname>Type</defname>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defname>Button_Text_1</defname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defname>Button_Text_2</defname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const __FlashStringHelper *</type>
+          <defname>Button_Text_3</defname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Open an event dialog. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to show on dialog. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event dialog type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1st button string (by default : &quot;Yes&quot;). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>2nd button string (by default : &quot;No&quot;). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3rd button string (by default : &quot;Cancel&quot;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="228" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="712" bodyend="738"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a15e7e80380a17a1eed488333c1f55868" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Event</definition>
+        <argsstring>(const char *, uint8_t, const char *=NULL, const char *=NULL, const char *=NULL)</argsstring>
+        <name>Event</name>
+        <param>
+          <type>const char *</type>
+          <defname>Message</defname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <defname>Type</defname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <defname>Button_Text_1</defname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <defname>Button_Text_2</defname>
+          <defval>NULL</defval>
+        </param>
+        <param>
+          <type>const char *</type>
+          <defname>Button_Text_3</defname>
+          <defval>NULL</defval>
+        </param>
+        <briefdescription>
+<para>Open an event dialog. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Message to show on dialog. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Event dialog type. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>1st button string (by default : &quot;Yes&quot;). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_2</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>2nd button string (by default : &quot;No&quot;). </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Button_Text_3</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>3rd button string (by default : &quot;Cancel&quot;). </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="229" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="749" bodyend="776"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a5f95d5868d5ba5ba3a9866b79e82cf5c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Color_Picker</definition>
+        <argsstring>(uint16_t &amp;)</argsstring>
+        <name>Color_Picker</name>
+        <param>
+          <type>uint16_t &amp;</type>
+          <defname>Color</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="230" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="678" bodyend="701"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a66cf2f017d16946b19ee2db20c1ca71e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Open_File</definition>
+        <argsstring>(File &amp;)</argsstring>
+        <name>Open_File</name>
+        <param>
+          <type>File &amp;</type>
+          <defname>File_To_Open</defname>
+        </param>
+        <briefdescription>
+<para>Open a File Manager dialog to open file. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>File_To_Open</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>File to open. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="231" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="900" bodyend="923"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aaccd467c8bb1c0772416dd0b59db6b07" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Save_File</definition>
+        <argsstring>(File &amp;)</argsstring>
+        <name>Save_File</name>
+        <param>
+          <type>File &amp;</type>
+          <defname>File_To_Save</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="232" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="925" bodyend="948"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a9ee2f7ed798cfa23cc6ac157ada8307a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
+        <definition>Xila_Class::Event Shell_Class::Dialog_Class::Open_Folder</definition>
+        <argsstring>(File &amp;)</argsstring>
+        <name>Open_Folder</name>
+        <param>
+          <type>File &amp;</type>
+          <defname>Folder_To_Open</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="233" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="950" bodyend="973"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Dialog class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="10">
+        <label>Shell_Class::Dialog_Class::Power_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_power___class"/>
+      </node>
+      <node id="5">
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Load_Function_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Shell_Class::Dialog_Class::Event_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_event___class"/>
+      </node>
+      <node id="9">
+        <label>Shell_Class::Dialog_Class::Keyboard_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_keyboard___class"/>
+      </node>
+      <node id="8">
+        <label>Shell_Class::Dialog_Class::Keypad_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_keypad___class"/>
+      </node>
+      <node id="3">
+        <label>Shell_Class::Dialog_Class::Load_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_load___class"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>Caller_Software</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>Shell_Class::Dialog_Class::Color_Picker_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_color___picker___class"/>
+      </node>
+      <node id="2">
+        <label>Shell_Class::Dialog_Class::Login_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class_1_1_login___class"/>
+      </node>
+      <node id="1">
+        <label>Shell_Class::Dialog_Class</label>
+        <link refid="class_shell___class_1_1_dialog___class"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>Login_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Load_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>Event_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>Color_Picker_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>Keypad_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>Keyboard_Pointer</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>Power_Pointer</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="89" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="90" bodyend="238"/>
+    <listofallmembers>
+      <member refid="class_shell___class_1_1_dialog___class_1a82a9abe49fc40f2d8905c5addd44f7eb" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Close_Load</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a5f95d5868d5ba5ba3a9866b79e82cf5c" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Color_Picker</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1afdecd21e3bc387d3ce283dab376408d3" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Color_Picker_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a9addd9b7a454593080e0a5c84b848734" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Dialog_Class</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a9981bde3b405d5c2d8506e2fb83d7bf6" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Event</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a15e7e80380a17a1eed488333c1f55868" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Event</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a01b0f104d071fa4bf26254f6516c03b6" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Event_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a193eda63001768a2be133dabdea42614" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Keyboard</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a653ffab1f44e6aacbd871f946fd07b11" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Keyboard_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a7975c00e493fdaaab49ff7fac0dd7751" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Keypad</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a83077991595830e9d31600851575df40" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Keypad_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1aef45cd8a126879601151ffc212121bb4" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Load</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a3d1797de48ad137983b028cc39d8d1b6" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Load</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1acfc1371804c13462d24f0ea0397a84e5" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Load_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1ac3ff859e68ab0a57006511ecfe704210" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Login</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a15591ff1c7f006e08924d77dd3d9777e" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Login_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a66cf2f017d16946b19ee2db20c1ca71e" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Open_File</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a9ee2f7ed798cfa23cc6ac157ada8307a" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Open_Folder</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a0c74696cd639d47613247307529e791e" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Power</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a1e34874887db94fb18c0dfc9f508f3a9" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Power_Pointer</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1aaccd467c8bb1c0772416dd0b59db6b07" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Save_File</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Shell_Class</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1aa7c8a51771e4bf3638e343897177c27c" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>~Dialog_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

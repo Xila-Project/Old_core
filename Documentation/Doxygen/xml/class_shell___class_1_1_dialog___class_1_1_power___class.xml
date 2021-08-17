@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_shell___class_1_1_dialog___class_1_1_power___class" kind="class" language="C++" prot="protected">
+    <compoundname>Shell_Class::Dialog_Class::Power_Class</compoundname>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_shell___class_1_1_dialog___class_1_1_power___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>class</type>
+        <definition>friend class Shell_Class</definition>
+        <argsstring></argsstring>
+        <name>Shell_Class</name>
+        <param>
+          <type><ref refid="class_shell___class" kindref="compound">Shell_Class</ref></type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="177" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-func">
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1_1_power___class_1a73e2d284c7a6b7b39f16fa66fd04ae88" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Power_Class::Execute_Instruction</definition>
+        <argsstring>(Xila_Class::Instruction)</argsstring>
+        <name>Execute_Instruction</name>
+        <param>
+          <type><ref refid="class_xila___class_1a1aed82bea1dfd7ae10908bdfb0f5333f" kindref="member">Xila_Class::Instruction</ref></type>
+          <defname>Instruction</defname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="173" column="25" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="574" bodyend="608"/>
+      </memberdef>
+      <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1_1_power___class_1a1578cb9770724af0539392595fa3b3e8" prot="protected" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Shell_Class::Dialog_Class::Power_Class::Open</definition>
+        <argsstring>()</argsstring>
+        <name>Open</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="174" column="25" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="610" bodyend="614"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="169" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="170" bodyend="178"/>
+    <listofallmembers>
+      <member refid="class_shell___class_1_1_dialog___class_1_1_power___class_1a73e2d284c7a6b7b39f16fa66fd04ae88" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class::Power_Class</scope><name>Execute_Instruction</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1_1_power___class_1a1578cb9770724af0539392595fa3b3e8" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class::Power_Class</scope><name>Open</name></member>
+      <member refid="class_shell___class_1_1_dialog___class_1_1_power___class_1a993b38fc160773525ee5c3dfcf033710" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class::Power_Class</scope><name>Shell_Class</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['icon_115',['Icon',['../class_software___handle___class.html#ad123dede2db9c71ddd8eacb85d962802',1,'Software_Handle_Class']]],
-  ['instance_5fpointer_116',['Instance_Pointer',['../class_xila___class.html#a819acce7599d01577959a75715e8f896',1,'Xila_Class::Instance_Pointer()'],['../class_shell___class.html#a063ea2c25a067974478814912d5dd892',1,'Shell_Class::Instance_Pointer()']]]
+  ['handle_498',['Handle',['../class_xila___class_1_1_software.html#a5c3d107b2dbdd581b9aa79b9d0f6b04f',1,'Xila_Class::Software::Handle()'],['../class_xila___class_1_1_software___management___class.html#a047a947c780a5396a0824217633c7d92',1,'Xila_Class::Software_Management_Class::Handle()']]]
 ];

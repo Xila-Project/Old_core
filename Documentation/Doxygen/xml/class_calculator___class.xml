@@ -2,7 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_calculator___class" kind="class" language="C++" prot="public">
     <compoundname>Calculator_Class</compoundname>
-    <basecompoundref refid="class_software___class" prot="public" virt="non-virtual">Software_Class</basecompoundref>
+    <basecompoundref refid="class_xila___class_1_1_software" prot="public" virt="non-virtual">Xila_Class::Software</basecompoundref>
       <sectiondef kind="private-type">
       <memberdef kind="enum" id="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6ab" prot="private" static="no" strong="no">
         <type></type>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="39" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="40" bodyend="44"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="39" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="40" bodyend="44"/>
       </memberdef>
       <memberdef kind="enum" id="class_calculator___class_1a16a0be14946f1b1a69a3d0968cdf7e78" prot="private" static="no" strong="no">
         <type></type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="95" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="96" bodyend="99"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="82" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="83" bodyend="86"/>
       </memberdef>
       <memberdef kind="enum" id="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534e" prot="private" static="no" strong="no">
         <type></type>
@@ -98,14 +98,6 @@
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534eafbc91905da7ce053c2602271386abd82" prot="private">
-          <name>Power_10</name>
-          <initializer>= &apos;E&apos;</initializer>
-          <briefdescription>
-          </briefdescription>
-          <detaileddescription>
-          </detaileddescription>
-        </enumvalue>
         <enumvalue id="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea11dd57e479bd381d294076e4866278c1" prot="private">
           <name>Symbol</name>
           <initializer>= &apos;S&apos;</initializer>
@@ -120,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="101" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="102" bodyend="109"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="88" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="89" bodyend="95"/>
       </memberdef>
       <memberdef kind="enum" id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504af" prot="private" static="no" strong="no">
         <type></type>
@@ -183,7 +175,6 @@
         </enumvalue>
         <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa6ade59af97536714a80e001ccda272ce" prot="private">
           <name>Decimal_Logarithm</name>
-          <initializer>= &apos;l&apos;</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -191,7 +182,6 @@
         </enumvalue>
         <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa2a1ea7fdc83c1b7fc51aa6a88f1025f6" prot="private">
           <name>Natural_Logarithm</name>
-          <initializer>= &apos;L&apos;</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -199,6 +189,14 @@
         </enumvalue>
         <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa8ac8c1163f52de6761cb59be2aaeb314" prot="private">
           <name>Binary_Logarithm</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaadb746f60bbf2863653c9e665b990807" prot="private">
+          <name>Logarithm</name>
+          <initializer>= &apos;L&apos;</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -227,6 +225,13 @@
         </enumvalue>
         <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afae8ef8b5db0a59bb6a44a8d6b231c0e3a" prot="private">
           <name>Power_2</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afafbc91905da7ce053c2602271386abd82" prot="private">
+          <name>Power_10</name>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -479,7 +484,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="111" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="112" bodyend="172"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="97" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="98" bodyend="159"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-type">
@@ -488,7 +493,7 @@
         <name>Image</name>
         <enumvalue id="class_calculator___class_1a84889db82477bb44471bd504427890f6ac6e12e993e1d250760d5c905557c5426" prot="public">
           <name>Icon_32</name>
-          <initializer>= Xila.Display.Calculator</initializer>
+          <initializer>= Xila.Display.Calculator_Images</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -500,22 +505,23 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="180" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="181" bodyend="183"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="167" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="168" bodyend="170"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
-      <memberdef kind="variable" id="class_calculator___class_1ae0ede1acf396cac66d339b8b59355f0c" prot="private" static="yes" mutable="no">
+      <memberdef kind="variable" id="class_calculator___class_1a37a4e917dffc8e4d3264054ff63282d8" prot="private" static="yes" mutable="no">
         <type><ref refid="class_calculator___class" kindref="compound">Calculator_Class</ref> *</type>
-        <definition>Calculator_Class* Calculator_Class::Instance_Pointer</definition>
+        <definition>Calculator_Class * Calculator_Class::Instance_Pointer</definition>
         <argsstring></argsstring>
         <name>Instance_Pointer</name>
+        <initializer>= NULL</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="12" column="29" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="12" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="12" column="29" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="12" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-attrib">
@@ -530,7 +536,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="14" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="14" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="14" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1a072eb1dcd26a9e792e16733f13e6e995" prot="private" static="no" mutable="no">
         <type>char</type>
@@ -543,7 +549,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="15" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="15" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="15" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1ab5cce4df4aea71ad4f40b6f9162a82b0" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -556,7 +562,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="16" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="16" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="16" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1a09eb39e2d2df58844eeb605d663007f7" prot="private" static="no" mutable="no">
         <type>char</type>
@@ -569,7 +575,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="18" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="18" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="18" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1a5c3f338a00fad56ed379a7b255eff431" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -582,7 +588,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="20" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="20" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="20" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="20" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1ac6fa121a300f4facdd25dcd872016996" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -595,7 +601,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="21" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="21" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="21" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1ac01e18db1c940cbde9c028302df2318a" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -608,7 +614,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="22" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="22" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="22" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1afc68437c11e910e83a3b6db46dff1fcd" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -621,7 +627,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="24" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="24" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="24" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1a0565f0d77a3db7b2f5adffa404f523b9" prot="private" static="no" mutable="no">
         <type>double</type>
@@ -634,7 +640,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="26" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="26" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="26" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="26" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1af088c516e03c2db60529facb35ea3f93" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -647,7 +653,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="28" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="28" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="28" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1aa7353bd959668aced15b9dd5fc2cfbea" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -660,7 +666,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="30" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="30" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="30" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1aa5d5e938c27bdc7a3f86ef00f609608f" prot="private" static="no" mutable="no">
         <type>uint8_t</type>
@@ -673,7 +679,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="37" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="37" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="37" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_calculator___class_1a6c692ba2923e424deb80f859d42c3459" prot="private" static="no" mutable="no">
         <type>double</type>
@@ -686,7 +692,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="52" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="52" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="52" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="52" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -705,7 +711,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="54" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="54" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="643" bodyend="762"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a7526b5f417e755e1d3baec84872b0d83" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -718,7 +724,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="55" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="55" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="764" bodyend="782"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a32e2cfb1cb9f9b22530b149a21d63be4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -731,7 +737,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="57" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="57" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1aea56002fe25c961da623d706d60140c5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -744,7 +750,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="58" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="58" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="66" bodyend="78"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1ab580d31e3847c4f45edb8f8e1b16489f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -757,7 +763,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="59" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="59" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="80" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a9d4445d59a10f7a16d3ff805b290c0cb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -774,7 +780,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="61" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="61" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="823" bodyend="860"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1ad4c36683532cb3c7a8325b826cc95066" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -791,7 +797,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="62" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="62" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="784" bodyend="821"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1ab524e81cec52802846df107028612bad" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -800,6 +806,7 @@
         <name>Degree_To_Radian</name>
         <param>
           <type>uint8_t</type>
+          <defname>Selected_Number</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -807,7 +814,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="64" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="64" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1113" bodyend="1119"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a9900614954e94e93161cd57e3d961693" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -816,6 +823,7 @@
         <name>Memory_Operation</name>
         <param>
           <type>uint8_t const</type>
+          <defname>Operation</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -823,7 +831,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="66" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="66" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="31" bodyend="64"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a44cd9e1e45b9d9935e8204907e23a173" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -836,7 +844,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="68" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="68" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a8e91f84b8a979b259fb52217690c2955" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -849,24 +857,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="69" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1af89aba35bb125cedf27c56cbd5081c3a" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>uint16_t</type>
-        <definition>uint16_t Calculator_Class::Numbers_After_Point</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>Numbers_After_Point</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="71" column="14"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="69" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a1d35c811d8803f9a8074edbee87f9566" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -879,7 +870,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="74" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="71" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1121" bodyend="1143"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a5b01d5636b39209b433474120343dfe9" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -892,7 +883,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="75" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="72" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1145" bodyend="1167"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a0afc784e17612318e76b68c5d643ad76" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -905,7 +896,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="77" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="74" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1064" bodyend="1105"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a0261d76740bcb1c90a7abd5075c3fa23" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -922,126 +913,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="79" column="10"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a63a27184cc9a1871f11d1106fe3d925b" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::fact</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>fact</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="81" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1ab7f92fb248fb7305081a4c0a75e67469" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::asec</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>asec</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="83" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a14447cf8fcc34dd7d61a725bd12c977e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::acsc</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>acsc</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="84" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a8aae2fd4154f617a1235b8bb34da9fee" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::acot</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>acot</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="85" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a4e4f747c14a8db6889e92133b02b320f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::asech</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>asech</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="87" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a6b6f14659ecbad0d87b215b227fe6e07" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::acsch</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>acsch</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="88" column="12"/>
-      </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1a86c40af0270f0dd5bfb2a00865452424" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>double</type>
-        <definition>double Calculator_Class::acoth</definition>
-        <argsstring>(double Number)</argsstring>
-        <name>acoth</name>
-        <param>
-          <type>double</type>
-          <declname>Number</declname>
-        </param>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="89" column="12"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="76" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="862" bodyend="1062"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a60e03f67e2107515d4726ed3a3ff90bd" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1054,7 +926,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="91" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="78" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1169" bodyend="1581"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1add226128a5db04b756e4e63a6ceba5b6" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1067,7 +939,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="93" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="80" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="1107" bodyend="1111"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -1082,7 +954,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="175" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="162" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="5" bodyend="10"/>
       </memberdef>
       <memberdef kind="function" id="class_calculator___class_1a96c95fd0672e210ea62ca8386d7af0fb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -1095,17 +967,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="176" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="163" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="12" bodyend="19"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="class_calculator___class_1a8211d8ef060f3102c5ed287107f3e962" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_calculator___class_1aa1fb9291d96805ef3345dda01217a81e" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>static void Calculator_Class::Main_Task</definition>
+        <definition>void Calculator_Class::Main_Task</definition>
         <argsstring>(void *)</argsstring>
         <name>Main_Task</name>
         <param>
           <type>void *</type>
+          <defname>pvParameters</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -1113,11 +986,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="178" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="165" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="107" bodyend="641"/>
       </memberdef>
-      <memberdef kind="function" id="class_calculator___class_1ac7f54284aed3d55815c4a6b309637b03" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
-        <definition>static Software_Class* Calculator_Class::Load</definition>
+      <memberdef kind="function" id="class_calculator___class_1af554ed6e21ca99c09ab5a0c682dcba11" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
+        <definition>Xila_Class::Software * Calculator_Class::Load</definition>
         <argsstring>()</argsstring>
         <name>Load</name>
         <briefdescription>
@@ -1126,7 +999,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="185" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="172" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp" bodystart="21" bodyend="29"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1134,28 +1007,21 @@
     <detaileddescription>
     </detaileddescription>
     <inheritancegraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-      </node>
       <node id="1">
         <label>Calculator_Class</label>
         <link refid="class_calculator___class"/>
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+      </node>
     </inheritancegraph>
     <collaborationgraph>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>Handle</edgelabel>
-        </childnode>
-      </node>
       <node id="3">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
         <childnode refid="2" relation="usage">
           <edgelabel>Load_Function_Pointer</edgelabel>
         </childnode>
@@ -1166,14 +1032,17 @@
         <childnode refid="2" relation="public-inheritance">
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" line="9" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Calculator.hpp" bodystart="10" bodyend="186"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="9" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="10" bodyend="173"/>
     <listofallmembers>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afae512b8917f31b9a3fa14407290e18991" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Absolute</name></member>
-      <member refid="class_calculator___class_1a8aae2fd4154f617a1235b8bb34da9fee" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>acot</name></member>
-      <member refid="class_calculator___class_1a86c40af0270f0dd5bfb2a00865452424" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>acoth</name></member>
-      <member refid="class_calculator___class_1a14447cf8fcc34dd7d61a725bd12c977e" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>acsc</name></member>
-      <member refid="class_calculator___class_1a6b6f14659ecbad0d87b215b227fe6e07" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>acsch</name></member>
       <member refid="class_calculator___class_1afe2940d39377877ed1de611674de4931" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Add_Number</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afafb005342bd9daf6381c01d37455e4885" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Addition</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6abad46700f969dfa22c7cfbd4d83512dd5c" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Angle</name></member>
@@ -1190,13 +1059,10 @@
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa1a6b5614bdd71a5e41d4555f54514f94" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Arc_Secant</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afabe908655e74ee675c2d8462d71eeac79" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Arc_Sine</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa5add8c568d46396f38ebdab2eb683c78" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Arc_Tangent</name></member>
-      <member refid="class_calculator___class_1ab7f92fb248fb7305081a4c0a75e67469" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>asec</name></member>
-      <member refid="class_calculator___class_1a4e4f747c14a8db6889e92133b02b320f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>asech</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa8ac8c1163f52de6761cb59be2aaeb314" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Binary_Logarithm</name></member>
       <member refid="class_calculator___class_1ad77b793cf67ccccfb6d7fe4b80ee60e0" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Calculator_Class</name></member>
       <member refid="class_calculator___class_1a1d35c811d8803f9a8074edbee87f9566" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Clear</name></member>
       <member refid="class_calculator___class_1a5b01d5636b39209b433474120343dfe9" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Clear_All</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a910d7c2a6107f21b61769748f7f3407d" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Close</name></member>
       <member refid="class_calculator___class_1a0afc784e17612318e76b68c5d643ad76" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Compute</name></member>
       <member refid="class_calculator___class_1a0261d76740bcb1c90a7abd5075c3fa23" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Compute_Secondary</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaea8777d66f820c71d6f33a12f10aa153" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Cosecant</name></member>
@@ -1210,26 +1076,14 @@
       <member refid="class_calculator___class_1a16a0be14946f1b1a69a3d0968cdf7e78ae765bb1bc805e7c1ed8c7084fa467c4a" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Degree</name></member>
       <member refid="class_calculator___class_1ab524e81cec52802846df107028612bad" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Degree_To_Radian</name></member>
       <member refid="class_calculator___class_1a7526b5f417e755e1d3baec84872b0d83" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Delete_Number</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30afc29fb29339fee08a8da1a4a5de9c0b6" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Desk</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a87656a24aab548f04071a3f2521bcc55" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Color_Picker</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a77b7fac3937a3ad3dfd4537b22b0c3da" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Event</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a03ae6185de61fec3cb1b3a68c07eab17" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Install</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a0af189af6c8485e7e15a5303b25f2bdb" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Keyboard</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a5714297b8b230cdcf2b9d76f9266c7ea" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Keypad</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30adc368cd5a7fd4441da5aa7e94f0adb1d" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Open_File</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ab6f35374986a676e74307651e9139aea" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Open_Folder</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aa10e7cdaccc4a11a50e5777a7bd33139" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Power</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30af27f77b3801a726ab7831a29cbac1683" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Dialog_Save_File</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa913de28faaf3962e787af1151d47ab2e" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Division</name></member>
       <member refid="class_calculator___class_1a072eb1dcd26a9e792e16733f13e6e995" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Ending_Character</name></member>
       <member refid="class_calculator___class_1add226128a5db04b756e4e63a6ceba5b6" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Error</name></member>
       <member refid="class_calculator___class_1a5c3f338a00fad56ed379a7b255eff431" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Exponent</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa1b0babff36ec040dcb40e698ea13c93d" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Exponential</name></member>
-      <member refid="class_calculator___class_1a63a27184cc9a1871f11d1106fe3d925b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>fact</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa065351996cf14e67d0dce40a349541e0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Factorial</name></member>
-      <member refid="class_software___class_1a2b01563cf83e5185184c16fd3144c0e3" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Get_Instruction</name></member>
-      <member refid="class_software___class_1a879e342f5718521f638b2e962089cf58" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30aae1b034cca0cec90e474b7ff5b76d93e" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Hibernate</name></member>
+      <member refid="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Get_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1a5c3d107b2dbdd581b9aa79b9d0f6b04f" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Handle</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6aba5f68aadcbcdd7550a95f275dea13ee40" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa7e111ef0f1c8005f6e59b5d6972600f4" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Cosecant</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaf0cf146df4faf28748d3e94817b28eb3" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Cosine</name></member>
@@ -1238,56 +1092,49 @@
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afab1a28aea2d2f531ec9e32d2feda73045" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Sine</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaa30ca8e821dc8607e2c56fa58dd95f53" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Hyperbolic_Tangent</name></member>
       <member refid="class_calculator___class_1a84889db82477bb44471bd504427890f6ac6e12e993e1d250760d5c905557c5426" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Icon_32</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a92e81132276f52084289e6c1a62a2d53" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Idle</name></member>
       <member refid="class_calculator___class_1a84889db82477bb44471bd504427890f6" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Image</name></member>
-      <member refid="class_calculator___class_1ae0ede1acf396cac66d339b8b59355f0c" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Instance_Pointer</name></member>
-      <member refid="class_software___class_1a6757f8c8a69d1a682a1efce55dad9a98" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Instruction_Queue_Handle</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Instructions</name></member>
+      <member refid="class_calculator___class_1a37a4e917dffc8e4d3264054ff63282d8" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Instance_Pointer</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa007d6682447461d4d7e61a07b74e53f0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Inverse</name></member>
       <member refid="class_calculator___class_1aa5d5e938c27bdc7a3f86ef00f609608f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Keys_Mode</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6ab" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Keys_Mode_Definition</name></member>
-      <member refid="class_calculator___class_1ac7f54284aed3d55815c4a6b309637b03" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Load</name></member>
-      <member refid="class_calculator___class_1a8211d8ef060f3102c5ed287107f3e962" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Main_Task</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a2d50cd20df276cf265f0db6ad6b1b2d1" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Maximize</name></member>
+      <member refid="class_calculator___class_1af554ed6e21ca99c09ab5a0c682dcba11" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Load</name></member>
+      <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaadb746f60bbf2863653c9e665b990807" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Logarithm</name></member>
+      <member refid="class_calculator___class_1aa1fb9291d96805ef3345dda01217a81e" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>Main_Task</name></member>
       <member refid="class_calculator___class_1a0565f0d77a3db7b2f5adffa404f523b9" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afac8c3b1367ac36eb80be8e612e444c1f1" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Add</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaffe641d20cca0688ed5a2d1fe337ecc0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Clear</name></member>
       <member refid="class_calculator___class_1a9900614954e94e93161cd57e3d961693" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Operation</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa294f8a40136eb5df3a90fe8e13bbf07b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Read</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa2c8227a89aa6bf976871f3a5e6cceeaa" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Memory_Substract</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a3a733fda85c22a7441e96e81de720ab4" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Minimize</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa924e3e48bf209ddd56355c6147300f2b" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Modulo</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afac0b1309862561df13d33fe91914da227" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Multiplication</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa2a1ea7fdc83c1b7fc51aa6a88f1025f6" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Natural_Logarithm</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534eada87da9f144528bcebbfac8eed244142" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Neper_Constant</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa1ba4d1175b65c3f0cdabbe37828391fb" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>None</name></member>
       <member refid="class_calculator___class_1a09eb39e2d2df58844eeb605d663007f7" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Numbers</name></member>
-      <member refid="class_calculator___class_1af89aba35bb125cedf27c56cbd5081c3a" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Numbers_After_Point</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d9447f3c561763162717845729778d8" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Open</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504af" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Operation</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea849bc1df5b61f6c3ff1de3f3f142e9a8" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Pi</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea8720e70eecef42ca16f67929c3176707" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Point</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afadb4ba2f47a6a4f008850af3fbaaa7c31" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Power</name></member>
-      <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534eafbc91905da7ce053c2602271386abd82" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Power_10</name></member>
+      <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afafbc91905da7ce053c2602271386abd82" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Power_10</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afae8ef8b5db0a59bb6a44a8d6b231c0e3a" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Power_2</name></member>
       <member refid="class_calculator___class_1af088c516e03c2db60529facb35ea3f93" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Primary_Operator</name></member>
       <member refid="class_calculator___class_1a16a0be14946f1b1a69a3d0968cdf7e78a749487bd2ab34ff54ddcc8a9b6b52c72" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Radian</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea3dfc602b797ffe45464255bb1eebee44" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Random</name></member>
       <member refid="class_calculator___class_1a60e03f67e2107515d4726ed3a3ff90bd" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Refresh_Interface</name></member>
       <member refid="class_calculator___class_1ab580d31e3847c4f45edb8f8e1b16489f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Refresh_Keys</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30ad0eee36d22b12dc15658e37e9ba2847c" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Restart</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa9b7cb054cb1de6f10e3e7fe1d5f73463" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Root</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa8978e1c8f9d3d49f2877d0dda349ada0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Secant</name></member>
       <member refid="class_calculator___class_1a8bba2e14a8dd95453f047960307cb6abafc848c943cd87ee943eb99490af39b45" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Second</name></member>
       <member refid="class_calculator___class_1afc68437c11e910e83a3b6db46dff1fcd" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Secondary_Operator</name></member>
-      <member refid="class_software___class_1a2025a5c405f1cf32db583c73fbd0394f" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Send_Instruction</name></member>
-      <member refid="class_software___class_1aae8bd90da5c307cea46d9cbc0c1283e3" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aa45509b64cac8ff55986ef789716b55a" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Send_Instruction</name></member>
+      <member refid="class_xila___class_1_1_software_1aba6aaacb256e43b1af464a9c1e294945" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Send_Instruction</name></member>
       <member refid="class_calculator___class_1a9d4445d59a10f7a16d3ff805b290c0cb" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Set_Primary_Operator</name></member>
       <member refid="class_calculator___class_1ad4c36683532cb3c7a8325b826cc95066" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Set_Secondary_Operator</name></member>
-      <member refid="class_software___class_1afeedd7828b18c8966ff87eb6f414156c" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>Set_Variable</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a9d46e4ff2482f4799f5e510dbca4a230" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Shutdown</name></member>
+      <member refid="class_xila___class_1_1_software_1a0856779c31d7efb50d7eecfaefc2f192" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>Set_Variable</name></member>
+      <member refid="class_xila___class_1_1_software_1a87281f0b32d28725aa55ca0f283824e8" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Set_Watchdog_Timeout</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afa89604864f182d5f45671854f90364147" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Sine</name></member>
-      <member refid="class_software___class_1ae53a7fa8b6d0eab6d51a1a92d8e3d510" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Software_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a449d53afe8102aab773ac465b92acf01" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Software</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534e" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Special_Number</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afae5c1ccb54f6a923ec6f6db28922d7ac5" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Square_Root</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afaf1500fc01bfd2ce77300da57fd6ca44f" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Squared</name></member>
@@ -1299,13 +1146,12 @@
       <member refid="class_calculator___class_1a32e2cfb1cb9f9b22530b149a21d63be4" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Switch_Symbol</name></member>
       <member refid="class_calculator___class_1a370711dc7dead5289bca1f42a5ff534ea11dd57e479bd381d294076e4866278c1" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Symbol</name></member>
       <member refid="class_calculator___class_1afcca0b1bbcbf8b56f4d20ffb0a8504afae87c17071cea27eb627904f810265b7c" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Tangent</name></member>
-      <member refid="class_software___class_1a35a3ffe6fe26e0ffda529bd5073bf55a" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Task_Handle</name></member>
+      <member refid="class_xila___class_1_1_software_1aa9c6eccc5e85e629d875fc6080714f30" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Task_Handle</name></member>
       <member refid="class_calculator___class_1a30537457962b0264b36a7505d6754cf5" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Char_Array</name></member>
       <member refid="class_calculator___class_1ab5cce4df4aea71ad4f40b6f9162a82b0" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Current_Position</name></member>
       <member refid="class_calculator___class_1a6c692ba2923e424deb80f859d42c3459" prot="private" virt="non-virtual"><scope>Calculator_Class</scope><name>Temporary_Numbers</name></member>
-      <member refid="class_software___class_1a884c783d1a51660296ca9dbbad63dd30a34fd97b8490e27fa04b352ef272e9dd3" prot="protected" virt="non-virtual"><scope>Calculator_Class</scope><name>Watchdog</name></member>
       <member refid="class_calculator___class_1a96c95fd0672e210ea62ca8386d7af0fb" prot="public" virt="non-virtual"><scope>Calculator_Class</scope><name>~Calculator_Class</name></member>
-      <member refid="class_software___class_1a36609814feb86bcb329788cf44e00ee0" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>~Software_Class</name></member>
+      <member refid="class_xila___class_1_1_software_1a4bd83708332f3802ccaf741741eda30d" prot="protected" virt="virtual"><scope>Calculator_Class</scope><name>~Software</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

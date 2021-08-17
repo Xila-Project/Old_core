@@ -12,8 +12,8 @@ Account management class.
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a787729d00bfa77a2eb90506a0807db15}\label{class_xila___class_1_1_account___class_a787729d00bfa77a2eb90506a0807db15}} 
-enum \mbox{\hyperlink{class_xila___class_1_1_account___class_a787729d00bfa77a2eb90506a0807db15}{Session\+\_\+\+State}} \{ {\bfseries Disconnected}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a599226b2971b67a858f77c684e294740}\label{class_xila___class_1_1_account___class_a599226b2971b67a858f77c684e294740}} 
+enum \mbox{\hyperlink{class_xila___class_1_1_account___class_a599226b2971b67a858f77c684e294740}{Session\+\_\+\+State}} \+: uint8\+\_\+t \{ {\bfseries Disconnected}
 , {\bfseries Logged}
 , {\bfseries Locked}
  \}
@@ -21,57 +21,51 @@ enum \mbox{\hyperlink{class_xila___class_1_1_account___class_a787729d00bfa77a2eb
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a417966457997ef4624236d0c813ee31b}\label{class_xila___class_1_1_account___class_a417966457997ef4624236d0c813ee31b}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Add} (const char $\ast$Username, const char $\ast$Password)
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_abcb0807150cdae5620aa512ebd7c9130}\label{class_xila___class_1_1_account___class_abcb0807150cdae5620aa512ebd7c9130}} 
+\mbox{\hyperlink{class_xila___class_1_1_account___class_abcb0807150cdae5620aa512ebd7c9130}{Account\+\_\+\+Class}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_xila___class_1_1_account___class_abcb0807150cdae5620aa512ebd7c9130}{Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Account\+\_\+\+Class}} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a417966457997ef4624236d0c813ee31b}{Add}} (const char $\ast$Username, const char $\ast$Password)
+\begin{DoxyCompactList}\small\item\em Add a new user (create necessary folder structure and registries). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_ab9fff9eff5bbd9bc3aa13b3c65712f98}{Delete}} (const char $\ast$)
+\begin{DoxyCompactList}\small\item\em Delete a user account. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a20e8399f793d8b30eb5672a83003e693}{Change\+\_\+\+Password}} (const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em Change user password. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_ad337741a3a0e0a44640d9f1d9fec2c35}{Change\+\_\+\+Username}} (const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em Change user account name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_aaff807ed1d55e77972324ce7c5601d7e}{Set\+\_\+\+Autologin}} (bool Enable)
+\begin{DoxyCompactList}\small\item\em A method that set autologin and save account registry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a4f871525bbf69e7c1506c3952c4d362f}{Check\+\_\+\+Credentials}} (const char $\ast$, const char $\ast$)
+\begin{DoxyCompactList}\small\item\em Check user credentials. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_ab64be6eed8b9350de791edd73e1fd302}{Login}} (const char $\ast$Username\+\_\+\+To\+\_\+\+Check=NULL, const char $\ast$Password\+\_\+\+To\+\_\+\+Check=NULL)
+\begin{DoxyCompactList}\small\item\em Login into user account. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a43d5bb3c65fedc527b1adee77ba2994d}{Logout}} ()
+\begin{DoxyCompactList}\small\item\em Logout from the openned user session. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_afd8147a2fd67ab514b30fce66e39b6c4}{Lock}} ()
+\begin{DoxyCompactList}\small\item\em Lock openned user session. \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{class_xila___class_1_1_account___class_a4621eb60e306930d785a26eacbcdf439}{Get\+\_\+\+Current\+\_\+\+Username}} ()
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab9fff9eff5bbd9bc3aa13b3c65712f98}\label{class_xila___class_1_1_account___class_ab9fff9eff5bbd9bc3aa13b3c65712f98}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Delete} (const char $\ast$)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a20e8399f793d8b30eb5672a83003e693}\label{class_xila___class_1_1_account___class_a20e8399f793d8b30eb5672a83003e693}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Change\+\_\+\+Password} (const char $\ast$, const char $\ast$)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_ad337741a3a0e0a44640d9f1d9fec2c35}\label{class_xila___class_1_1_account___class_ad337741a3a0e0a44640d9f1d9fec2c35}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Change\+\_\+\+Username} (const char $\ast$, const char $\ast$)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_aaff807ed1d55e77972324ce7c5601d7e}\label{class_xila___class_1_1_account___class_aaff807ed1d55e77972324ce7c5601d7e}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Set\+\_\+\+Autologin} (bool Enable)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a4f871525bbf69e7c1506c3952c4d362f}\label{class_xila___class_1_1_account___class_a4f871525bbf69e7c1506c3952c4d362f}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Check\+\_\+\+Credentials} (const char $\ast$, const char $\ast$)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab64be6eed8b9350de791edd73e1fd302}\label{class_xila___class_1_1_account___class_ab64be6eed8b9350de791edd73e1fd302}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Login} (const char $\ast$Username\+\_\+\+To\+\_\+\+Check=NULL, const char $\ast$Password\+\_\+\+To\+\_\+\+Check=NULL)
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a43d5bb3c65fedc527b1adee77ba2994d}\label{class_xila___class_1_1_account___class_a43d5bb3c65fedc527b1adee77ba2994d}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Logout} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_afd8147a2fd67ab514b30fce66e39b6c4}\label{class_xila___class_1_1_account___class_afd8147a2fd67ab514b30fce66e39b6c4}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Lock} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_aaf2cad61bc88312aa71e12b6465ea908}\label{class_xila___class_1_1_account___class_aaf2cad61bc88312aa71e12b6465ea908}} 
-const char $\ast$ {\bfseries Get\+\_\+\+Current\+\_\+\+Username} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}\label{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}} 
-uint8\+\_\+t {\bfseries Get\+\_\+\+State} ()
-\end{DoxyCompactItemize}
+uint8\+\_\+t \mbox{\hyperlink{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}{Get\+\_\+\+State}} ()
+\begin{DoxyCompactList}\small\item\em Return current session state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a0e5ba763e38f904b6ea35dc0a29254ba}\label{class_xila___class_1_1_account___class_a0e5ba763e38f904b6ea35dc0a29254ba}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab6cc1d3dbad256b1e41b7d4c2ba42864}\label{class_xila___class_1_1_account___class_ab6cc1d3dbad256b1e41b7d4c2ba42864}} 
+void {\bfseries Set\+\_\+\+Current\+\_\+\+Username} (const char $\ast$Username)
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab006894bfabd826caa28b054d3a3c944}\label{class_xila___class_1_1_account___class_ab006894bfabd826caa28b054d3a3c944}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ae4502b192ea068677a9886f02d10ed3a}\label{class_xila___class_1_1_account___class_ae4502b192ea068677a9886f02d10ed3a}} 
+void {\bfseries Set\+\_\+\+State} (\mbox{\hyperlink{class_xila___class_1_1_account___class_a599226b2971b67a858f77c684e294740}{Session\+\_\+\+State}} \mbox{\hyperlink{class_xila___class_a97f78ce2a2da8c5879eb6568b4f74fe8}{State}})
+\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a0e5ba763e38f904b6ea35dc0a29254ba}{Load\+\_\+\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Load account registry. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_account___class_ae6736ab0abe4073f9455d5b40442ba71}\label{class_xila___class_1_1_account___class_ae6736ab0abe4073f9455d5b40442ba71}} 
-char {\bfseries Current\+\_\+\+Username} \mbox{[}9\mbox{]}
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_account___class_a476f0ca8df6e274652e7be1e27e41965}\label{class_xila___class_1_1_account___class_a476f0ca8df6e274652e7be1e27e41965}} 
-uint8\+\_\+t {\bfseries State}
-\end{DoxyCompactItemize}
+char \mbox{\hyperlink{class_xila___class_1_1_account___class_ae6736ab0abe4073f9455d5b40442ba71}{Current\+\_\+\+Username}} \mbox{[}9\mbox{]}
+\begin{DoxyCompactList}\small\item\em Loaded username. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a57d150fe80066366750a23c8b4b7bdf3}\label{class_xila___class_1_1_account___class_a57d150fe80066366750a23c8b4b7bdf3}} 
+\mbox{\hyperlink{class_xila___class_1_1_account___class_a599226b2971b67a858f77c684e294740}{Session\+\_\+\+State}} \mbox{\hyperlink{class_xila___class_1_1_account___class_a57d150fe80066366750a23c8b4b7bdf3}{State}}
+\begin{DoxyCompactList}\small\item\em Session state. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
@@ -86,6 +80,210 @@ class {\bfseries Shell\+\_\+\+Class}
 \doxysubsection{Detailed Description}
 Account management class. 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a417966457997ef4624236d0c813ee31b}\label{class_xila___class_1_1_account___class_a417966457997ef4624236d0c813ee31b}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Add@{Add}}
+\index{Add@{Add}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Add (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Username,  }\item[{const char $\ast$}]{Password }\end{DoxyParamCaption})}
+
+
+
+Add a new user (create necessary folder structure and registries). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Username} & Username of the new user. \\
+\hline
+{\em Password} & Password of the new user. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a20e8399f793d8b30eb5672a83003e693}\label{class_xila___class_1_1_account___class_a20e8399f793d8b30eb5672a83003e693}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Change\_Password@{Change\_Password}}
+\index{Change\_Password@{Change\_Password}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Change\_Password()}{Change\_Password()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Change\+\_\+\+Password (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Target\+\_\+\+User,  }\item[{const char $\ast$}]{Password\+\_\+\+To\+\_\+\+Set }\end{DoxyParamCaption})}
+
+
+
+Change user password. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Target\+\_\+\+User} & User to change password. \\
+\hline
+{\em Password\+\_\+\+To\+\_\+\+Set} & New password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ad337741a3a0e0a44640d9f1d9fec2c35}\label{class_xila___class_1_1_account___class_ad337741a3a0e0a44640d9f1d9fec2c35}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Change\_Username@{Change\_Username}}
+\index{Change\_Username@{Change\_Username}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Change\_Username()}{Change\_Username()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Change\+\_\+\+Username (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Target\+\_\+\+User,  }\item[{const char $\ast$}]{New\+\_\+\+Username }\end{DoxyParamCaption})}
+
+
+
+Change user account name. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Target\+\_\+\+User} & User to rename. \\
+\hline
+{\em New\+\_\+\+Username} & New account name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a4f871525bbf69e7c1506c3952c4d362f}\label{class_xila___class_1_1_account___class_a4f871525bbf69e7c1506c3952c4d362f}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Check\_Credentials@{Check\_Credentials}}
+\index{Check\_Credentials@{Check\_Credentials}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Check\_Credentials()}{Check\_Credentials()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Check\+\_\+\+Credentials (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Username\+\_\+\+To\+\_\+\+Check,  }\item[{const char $\ast$}]{Password\+\_\+\+To\+\_\+\+Check }\end{DoxyParamCaption})}
+
+
+
+Check user credentials. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Username\+\_\+\+To\+\_\+\+Check} & User account name. \\
+\hline
+{\em Password\+\_\+\+To\+\_\+\+Check} & User account password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab9fff9eff5bbd9bc3aa13b3c65712f98}\label{class_xila___class_1_1_account___class_ab9fff9eff5bbd9bc3aa13b3c65712f98}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Delete@{Delete}}
+\index{Delete@{Delete}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Delete (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Target\+\_\+\+User }\end{DoxyParamCaption})}
+
+
+
+Delete a user account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Target\+\_\+\+User} & User to delete. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a4621eb60e306930d785a26eacbcdf439}\label{class_xila___class_1_1_account___class_a4621eb60e306930d785a26eacbcdf439}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Get\_Current\_Username@{Get\_Current\_Username}}
+\index{Get\_Current\_Username@{Get\_Current\_Username}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_Current\_Username()}{Get\_Current\_Username()}}
+{\footnotesize\ttfamily const char $\ast$ Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Get\+\_\+\+Current\+\_\+\+Username (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+const char$\ast$ Logged username (empty if there\textquotesingle{}s no logged user). 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}\label{class_xila___class_1_1_account___class_acb227ba96c2fb7fda33acf0d4288fc44}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Get\_State@{Get\_State}}
+\index{Get\_State@{Get\_State}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_State()}{Get\_State()}}
+{\footnotesize\ttfamily uint8\+\_\+t Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Get\+\_\+\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return current session state. 
+
+\begin{DoxyReturn}{Returns}
+uint8\+\_\+t return Xila\+\_\+\+Class\+::\+Acount\+\_\+\+Class\+::\+Session\+\_\+\+State. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a0e5ba763e38f904b6ea35dc0a29254ba}\label{class_xila___class_1_1_account___class_a0e5ba763e38f904b6ea35dc0a29254ba}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Load\_Registry@{Load\_Registry}}
+\index{Load\_Registry@{Load\_Registry}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Load\_Registry()}{Load\_Registry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Load\+\_\+\+Registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Load account registry. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_afd8147a2fd67ab514b30fce66e39b6c4}\label{class_xila___class_1_1_account___class_afd8147a2fd67ab514b30fce66e39b6c4}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Lock@{Lock}}
+\index{Lock@{Lock}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Lock()}{Lock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Lock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Lock openned user session. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_ab64be6eed8b9350de791edd73e1fd302}\label{class_xila___class_1_1_account___class_ab64be6eed8b9350de791edd73e1fd302}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Login@{Login}}
+\index{Login@{Login}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Login()}{Login()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Login (\begin{DoxyParamCaption}\item[{const char $\ast$}]{Username\+\_\+\+To\+\_\+\+Check = {\ttfamily NULL},  }\item[{const char $\ast$}]{Password\+\_\+\+To\+\_\+\+Check = {\ttfamily NULL} }\end{DoxyParamCaption})}
+
+
+
+Login into user account. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Username\+\_\+\+To\+\_\+\+Check} & User account name. \\
+\hline
+{\em Password\+\_\+\+To\+\_\+\+Check} & User account password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_a43d5bb3c65fedc527b1adee77ba2994d}\label{class_xila___class_1_1_account___class_a43d5bb3c65fedc527b1adee77ba2994d}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Logout@{Logout}}
+\index{Logout@{Logout}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Logout()}{Logout()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Logout (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Logout from the openned user session. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_account___class_aaff807ed1d55e77972324ce7c5601d7e}\label{class_xila___class_1_1_account___class_aaff807ed1d55e77972324ce7c5601d7e}} 
+\index{Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}!Set\_Autologin@{Set\_Autologin}}
+\index{Set\_Autologin@{Set\_Autologin}!Xila\_Class::Account\_Class@{Xila\_Class::Account\_Class}}
+\doxysubsubsection{\texorpdfstring{Set\_Autologin()}{Set\_Autologin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Account\+\_\+\+Class\+::\+Set\+\_\+\+Autologin (\begin{DoxyParamCaption}\item[{bool}]{Enable }\end{DoxyParamCaption})}
+
+
+
+A method that set autologin and save account registry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Enable} & true to enable and false to disable autologin. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Modules/\mbox{\hyperlink{_account_8cpp}{Account.\+cpp}}\end{DoxyCompactItemize}

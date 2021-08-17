@@ -3,24 +3,29 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_time___class_a67c92c4afcd6988e00e88e41884cf098}\label{class_xila___class_1_1_time___class_a67c92c4afcd6988e00e88e41884cf098}} 
-\mbox{\hyperlink{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}{Xila\+\_\+\+Time}} {\bfseries Get\+\_\+\+Time} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_time___class_ad5fd5a4309eb17115741f0b74d4a65ba}\label{class_xila___class_1_1_time___class_ad5fd5a4309eb17115741f0b74d4a65ba}} 
-void {\bfseries Synchronise} ()
-\item 
+tm \mbox{\hyperlink{class_xila___class_1_1_time___class_a8dd2b3e6ce02bf12d0749a424939b8ba}{Get\+\_\+\+Time}} ()
+\begin{DoxyCompactList}\small\item\em Return current time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_a016379e450877a08599aaa56c236b5d2}\label{class_xila___class_1_1_time___class_a016379e450877a08599aaa56c236b5d2}} 
+void \mbox{\hyperlink{class_xila___class_1_1_time___class_a016379e450877a08599aaa56c236b5d2}{Synchronize}} ()
+\begin{DoxyCompactList}\small\item\em Synchronize time. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{class_xila___class_1_1_time___class_a7e326a1d8790bf0b504b95fc8026728e}{Get\+\_\+\+Cycle\+\_\+\+Count}} ()
+\begin{DoxyCompactList}\small\item\em Return cycle count since the system startup. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_xila___class_1_1_time___class_a220cf1fec16936a143f7f56e62f8d32c}\label{class_xila___class_1_1_time___class_a220cf1fec16936a143f7f56e62f8d32c}} 
 uint32\+\_\+t {\bfseries Milliseconds} () const
-\end{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_af606797944895b46e3c779936067ea6c}\label{class_xila___class_1_1_time___class_af606797944895b46e3c779936067ea6c}} 
+int64\+\_\+t {\bfseries Microseconds} () const
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_ad49dc253858436952c429f26746822d0}\label{class_xila___class_1_1_time___class_ad49dc253858436952c429f26746822d0}} 
+\mbox{\hyperlink{class_xila___class_1_1_time___class_ad49dc253858436952c429f26746822d0}{Time\+\_\+\+Class}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_xila___class_1_1_time___class_ad49dc253858436952c429f26746822d0}{Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class\+::\+Time\+\_\+\+Class}} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_time___class_adc8305e55fcfdef8c799d908bc6a0878}\label{class_xila___class_1_1_time___class_adc8305e55fcfdef8c799d908bc6a0878}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Load\+\_\+\+Registry} ()
-\item 
-\mbox{\Hypertarget{class_xila___class_1_1_time___class_a6a2527eac161aff9a51993929b135b1f}\label{class_xila___class_1_1_time___class_a6a2527eac161aff9a51993929b135b1f}} 
-\mbox{\hyperlink{class_xila___class_a940caa98f1119e09f346fecf8f7c7123}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Save\+\_\+\+Registry} ()
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_time___class_adc8305e55fcfdef8c799d908bc6a0878}{Load\+\_\+\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Load time registry. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} \mbox{\hyperlink{class_xila___class_1_1_time___class_a6a2527eac161aff9a51993929b135b1f}{Save\+\_\+\+Registry}} ()
+\begin{DoxyCompactList}\small\item\em Save time registry. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -30,8 +35,8 @@ int32\+\_\+t {\bfseries GMT\+\_\+\+Offset}
 \mbox{\Hypertarget{class_xila___class_1_1_time___class_a1fe8d3d64d06d1f6091f9b33059c459d}\label{class_xila___class_1_1_time___class_a1fe8d3d64d06d1f6091f9b33059c459d}} 
 int16\+\_\+t {\bfseries Daylight\+\_\+\+Offset}
 \item 
-\mbox{\Hypertarget{class_xila___class_1_1_time___class_a6643c7c34c629a959170322756dd5030}\label{class_xila___class_1_1_time___class_a6643c7c34c629a959170322756dd5030}} 
-\mbox{\hyperlink{_core_8hpp_a890d627f9711c419a0c9cbd324afee85}{Xila\+\_\+\+Time}} {\bfseries Current\+\_\+\+Time}
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_a28239688cffc4f120d1643219579523d}\label{class_xila___class_1_1_time___class_a28239688cffc4f120d1643219579523d}} 
+tm {\bfseries Current\+\_\+\+Time}
 \item 
 \mbox{\Hypertarget{class_xila___class_1_1_time___class_a29430551197ace822ac914168c6304ae}\label{class_xila___class_1_1_time___class_a29430551197ace822ac914168c6304ae}} 
 time\+\_\+t {\bfseries Now}
@@ -50,7 +55,65 @@ class {\bfseries Shell\+\_\+\+Class}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_a7e326a1d8790bf0b504b95fc8026728e}\label{class_xila___class_1_1_time___class_a7e326a1d8790bf0b504b95fc8026728e}} 
+\index{Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}!Get\_Cycle\_Count@{Get\_Cycle\_Count}}
+\index{Get\_Cycle\_Count@{Get\_Cycle\_Count}!Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_Cycle\_Count()}{Get\_Cycle\_Count()}}
+{\footnotesize\ttfamily uint32\+\_\+t IRAM\+\_\+\+ATTR Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class\+::\+Get\+\_\+\+Cycle\+\_\+\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return cycle count since the system startup. 
+
+\begin{DoxyReturn}{Returns}
+uint32\+\_\+t Cycle count. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_a8dd2b3e6ce02bf12d0749a424939b8ba}\label{class_xila___class_1_1_time___class_a8dd2b3e6ce02bf12d0749a424939b8ba}} 
+\index{Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}!Get\_Time@{Get\_Time}}
+\index{Get\_Time@{Get\_Time}!Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}}
+\doxysubsubsection{\texorpdfstring{Get\_Time()}{Get\_Time()}}
+{\footnotesize\ttfamily tm Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class\+::\+Get\+\_\+\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Return current time. 
+
+\begin{DoxyReturn}{Returns}
+tm Time structure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_adc8305e55fcfdef8c799d908bc6a0878}\label{class_xila___class_1_1_time___class_adc8305e55fcfdef8c799d908bc6a0878}} 
+\index{Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}!Load\_Registry@{Load\_Registry}}
+\index{Load\_Registry@{Load\_Registry}!Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}}
+\doxysubsubsection{\texorpdfstring{Load\_Registry()}{Load\_Registry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class\+::\+Load\+\_\+\+Registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Load time registry. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} ~\newline
+ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_xila___class_1_1_time___class_a6a2527eac161aff9a51993929b135b1f}\label{class_xila___class_1_1_time___class_a6a2527eac161aff9a51993929b135b1f}} 
+\index{Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}!Save\_Registry@{Save\_Registry}}
+\index{Save\_Registry@{Save\_Registry}!Xila\_Class::Time\_Class@{Xila\_Class::Time\_Class}}
+\doxysubsubsection{\texorpdfstring{Save\_Registry()}{Save\_Registry()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} Xila\+\_\+\+Class\+::\+Time\+\_\+\+Class\+::\+Save\+\_\+\+Registry (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Save time registry. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} ~\newline
+ 
+\end{DoxyReturn}
+
+
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
-C\+:/\+Users/alixa/github/\+Xila Embedded/\+Code/\+Operating\+\_\+\+System/\+Espressif\+\_\+32/include/\+Core/\mbox{\hyperlink{_time_8hpp}{Time.\+hpp}}\end{DoxyCompactItemize}
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\+Modules/\mbox{\hyperlink{_time_8hpp}{Time.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Modules/\mbox{\hyperlink{_time_8cpp}{Time.\+cpp}}\end{DoxyCompactItemize}

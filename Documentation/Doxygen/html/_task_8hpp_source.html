@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Xila: C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/Task.hpp Source File</title>
+<title>Xila: C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_f630f6d906c9e2216ac09aab82d6a6a6.html">Operating_System</a></li><li class="navelem"><a class="el" href="dir_c835fe620200b699d42cbdcca78f9004.html">Espressif_32</a></li><li class="navelem"><a class="el" href="dir_3beaa7c625ff830a574a9c02fe31a900.html">include</a></li><li class="navelem"><a class="el" href="dir_ca10673b39fa6346158d39be54281a2e.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_23fdee2f6995db16c755697cdf620cf4.html">Code</a></li><li class="navelem"><a class="el" href="dir_5d88b4709274d720d8b307b03f0b1a68.html">lib</a></li><li class="navelem"><a class="el" href="dir_ea08cbe4d57c893aec2ee9b5d93d1d99.html">Xila</a></li><li class="navelem"><a class="el" href="dir_b1cf5780a26e5eb8e9e8049da161ad41.html">include</a></li><li class="navelem"><a class="el" href="dir_b4c42c1447d7973225509c34d5699682.html">Core</a></li><li class="navelem"><a class="el" href="dir_6a34ee4f5eb849ca4b6e61c9a268b064.html">Modules</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,35 +75,35 @@ $(function() {
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor"> #ifndef TASK_HPP_INCLUDED</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor"> #define TASK_HPP_INCLUDED</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Resume(Xila_Task_Handle Task_To_Resume)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Resume(<a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a> Task_To_Resume)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  vTaskResume(Task_To_Resume);</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Suspend(Xila_Task_Handle Task_To_Suspend)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Suspend(<a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a> Task_To_Suspend)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  vTaskSuspend(Task_To_Suspend);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">inline</span> <a class="code" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a> Xila_Class::Task_Class::Create(Xila_Task_Function Task_Function, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters, Xila_Task_Handle *Task_Handle)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">inline</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Task_Class::Create(<a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Xila_Class::Task_Function</a> <a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Task_Function</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters, <a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a> *<a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Task_Handle</a>)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordflow">if</span> (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Software_Task, Task_Handle, tskNO_AFFINITY) != pdPASS)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keywordflow">if</span> (xTaskCreatePinnedToCore(<a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Task_Function</a>, Task_Name, Stack_Size, pvParameters, Software_Task, <a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Task_Handle</a>, tskNO_AFFINITY) != pdPASS)</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> Error;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44">Error</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">return</span> Success;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94">Success</a>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">inline</span> <a class="code" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a> Xila_Class::Task_Class::Create(Xila_Task_Function Task_Function, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters, uint16_t Priority, Xila_Task_Handle *Task_Handle)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">inline</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Task_Class::Create(<a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Xila_Class::Task_Function</a> <a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Task_Function</a>, <span class="keyword">const</span> <span class="keywordtype">char</span> *Task_Name, <span class="keywordtype">size_t</span> Stack_Size, <span class="keywordtype">void</span> *pvParameters, uint16_t Priority, <a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a> *<a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Task_Handle</a>)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordflow">if</span> (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Priority, Task_Handle, tskNO_AFFINITY) != pdPASS)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordflow">if</span> (xTaskCreatePinnedToCore(<a class="code" href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Task_Function</a>, Task_Name, Stack_Size, pvParameters, Priority, <a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Task_Handle</a>, tskNO_AFFINITY) != pdPASS)</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> Error;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44">Error</a>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">return</span> Success;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94">Success</a>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Delete(Xila_Task_Handle Task_To_Delete)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Xila_Class::Task_Class::Delete(<a class="code" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a> Task_To_Delete)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  vTaskDelete(Task_To_Delete);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
@@ -115,7 +115,11 @@ $(function() {
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor"> #endif</span></div>
 <div class="ttc" id="aclass_xila___class_1_1_task___class_html_a1a65d70162c95dfd3ac8b4683e913ce9"><div class="ttname"><a href="class_xila___class_1_1_task___class.html#a1a65d70162c95dfd3ac8b4683e913ce9">Xila_Class::Task_Class::Delay</a></div><div class="ttdeci">void Delay(uint32_t Delay_In_Millisecond) const</div><div class="ttdoc">A delay function.</div><div class="ttdef"><b>Definition:</b> Task.hpp:52</div></div>
-<div class="ttc" id="aclass_xila___class_html_a940caa98f1119e09f346fecf8f7c7123"><div class="ttname"><a href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a></div><div class="ttdeci">Event</div><div class="ttdoc">Xila event type.</div><div class="ttdef"><b>Definition:</b> Core.hpp:132</div></div>
+<div class="ttc" id="aclass_xila___class_html_a5cc19f7e1cd3f8ecee7882fcd4850661"><div class="ttname"><a href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a></div><div class="ttdeci">void * Task_Handle</div><div class="ttdoc">Task handle type.</div><div class="ttdef"><b>Definition:</b> Core.hpp:159</div></div>
+<div class="ttc" id="aclass_xila___class_html_a8d959952ae902a1d9caddcff96acc9ee"><div class="ttname"><a href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a></div><div class="ttdeci">Event</div><div class="ttdoc">Xila event type.</div><div class="ttdef"><b>Definition:</b> Core.hpp:216</div></div>
+<div class="ttc" id="aclass_xila___class_html_a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44"><div class="ttname"><a href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44">Xila_Class::Error</a></div><div class="ttdeci">@ Error</div><div class="ttdoc">Error event.</div><div class="ttdef"><b>Definition:</b> Core.hpp:218</div></div>
+<div class="ttc" id="aclass_xila___class_html_a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94"><div class="ttname"><a href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94">Xila_Class::Success</a></div><div class="ttdeci">@ Success</div><div class="ttdoc">Success event.</div><div class="ttdef"><b>Definition:</b> Core.hpp:217</div></div>
+<div class="ttc" id="aclass_xila___class_html_ac5cd9d77b40b7f165ade92a19df21846"><div class="ttname"><a href="class_xila___class.html#ac5cd9d77b40b7f165ade92a19df21846">Xila_Class::Task_Function</a></div><div class="ttdeci">void(* Task_Function)(void *)</div><div class="ttdoc">Task type.</div><div class="ttdef"><b>Definition:</b> Core.hpp:154</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

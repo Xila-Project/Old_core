@@ -2,14 +2,30 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="class_oscilloscope___class" kind="class" language="C++" prot="public">
     <compoundname>Oscilloscope_Class</compoundname>
-    <basecompoundref refid="class_software___class" prot="private" virt="non-virtual">Software_Class</basecompoundref>
-      <sectiondef kind="public-type">
-      <memberdef kind="enum" id="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918e" prot="public" static="no" strong="no">
+    <basecompoundref refid="class_xila___class_1_1_software" prot="private" virt="non-virtual">Xila_Class::Software</basecompoundref>
+      <sectiondef kind="protected-type">
+      <memberdef kind="enum" id="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7" prot="protected" static="no" strong="no">
         <type></type>
-        <name>Picture_ID</name>
-        <enumvalue id="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918eaaa775fc8988a24fc05d38209d850ea41" prot="public">
-          <name>Icon_32</name>
-          <initializer>= Xila.Display.Oscilloscope</initializer>
+        <name>Trig_Modes</name>
+        <enumvalue id="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a7efec093870de11d56af1c40fc1b3184" prot="protected">
+          <name>TRIG_AUTO</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a7624969d50afa80f3a807aaee2ada9f1" prot="protected">
+          <name>TRIG_NORM</name>
+          <initializer>= 1</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a778c4d60fe9b94b56b11f9cfd30f7257" prot="protected">
+          <name>TRIG_SCAN</name>
+          <initializer>= 2</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -21,22 +37,44 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="125" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="126" bodyend="128"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="53" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="54" bodyend="58"/>
       </memberdef>
       </sectiondef>
-      <sectiondef kind="protected-static-attrib">
-      <memberdef kind="variable" id="class_oscilloscope___class_1abf671ac75d7c516a21d4e74467f3cb61" prot="protected" static="yes" mutable="no">
-        <type><ref refid="class_oscilloscope___class" kindref="compound">Oscilloscope_Class</ref> *</type>
-        <definition>Oscilloscope_Class* Oscilloscope_Class::Instance_Pointer</definition>
-        <argsstring></argsstring>
-        <name>Instance_Pointer</name>
+      <sectiondef kind="public-type">
+      <memberdef kind="enum" id="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>Picture_ID</name>
+        <enumvalue id="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918eaaa775fc8988a24fc05d38209d850ea41" prot="public">
+          <name>Icon_32</name>
+          <initializer>= Xila.Display.Oscilloscope_Images</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="24" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="24" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="138" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="139" bodyend="141"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-static-attrib">
+      <memberdef kind="variable" id="class_oscilloscope___class_1ace1f2275224269c9dde21861875b53f4" prot="protected" static="yes" mutable="no">
+        <type><ref refid="class_oscilloscope___class" kindref="compound">Oscilloscope_Class</ref> *</type>
+        <definition>Oscilloscope_Class * Oscilloscope_Class::Instance_Pointer</definition>
+        <argsstring></argsstring>
+        <name>Instance_Pointer</name>
+        <initializer>= NULL</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="19" column="31" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="19" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -51,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="26" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="26" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="21" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a95a5f1fe5cbc05bc5166ca720a863207" prot="protected" static="no" mutable="no">
         <type>const uint8_t</type>
@@ -65,7 +103,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="28" column="19" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="28" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="23" column="19" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a3a4592dd5d2c71c82cadd8e108bcfdce" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -78,20 +116,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="30" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="30" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a4049cbe2bffbe4d8eadcc95ca3ec50d2" prot="protected" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t Oscilloscope_Class::Last_Interface_Refresh</definition>
-        <argsstring></argsstring>
-        <name>Last_Interface_Refresh</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="32" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="32" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="25" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="25" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1aeb5159d6b73c984869235f154405b0e6" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -104,11 +129,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="34" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="34" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="27" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="27" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a5fe733c00ef6de295e77ba563813bfe3" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::LCD_WIDTH</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1a72bf852500d92073091b4d1f34112ccd" prot="protected" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t Oscilloscope_Class::LCD_WIDTH</definition>
         <argsstring></argsstring>
         <name>LCD_WIDTH</name>
         <initializer>= 340</initializer>
@@ -118,11 +143,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="38" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="38" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="31" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a0b45c56daddb869b65c85e09b33371e4" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::LCD_HEIGHT</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1afde5d317070dbfd769cac9d485ed2c90" prot="protected" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t Oscilloscope_Class::LCD_HEIGHT</definition>
         <argsstring></argsstring>
         <name>LCD_HEIGHT</name>
         <initializer>= 250</initializer>
@@ -132,11 +157,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="39" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="39" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="32" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="32" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1ae3b41e85d7da18ba603041d62b31754e" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::SAMPLES</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1aa7409ee90ee2fe5a2d9765409829aeff" prot="protected" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t Oscilloscope_Class::SAMPLES</definition>
         <argsstring></argsstring>
         <name>SAMPLES</name>
         <initializer>= 350</initializer>
@@ -146,13 +171,13 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="40" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="40" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="33" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="33" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a6de89168b4e671883f9dcccb1399d1fb" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::DOTS_DIV</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1a109ef41c6908ab936d1436e84bc15305" prot="protected" static="no" mutable="no">
+        <type>const uint16_t</type>
+        <definition>const uint16_t Oscilloscope_Class::Dots_Per_Division</definition>
         <argsstring></argsstring>
-        <name>DOTS_DIV</name>
+        <name>Dots_Per_Division</name>
         <initializer>= 75</initializer>
         <briefdescription>
         </briefdescription>
@@ -160,11 +185,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="41" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="41" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="34" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="34" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1af37b4498873ed727ab6b7054dbf02314" prot="protected" static="no" mutable="no">
-        <type>int</type>
-        <definition>int Oscilloscope_Class::ad_ch0</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1ac709166e7aea942650803fa417f2c886" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Oscilloscope_Class::ad_ch0</definition>
         <argsstring></argsstring>
         <name>ad_ch0</name>
         <initializer>= 35</initializer>
@@ -174,11 +199,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="43" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="43" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="36" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="36" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a3463924a069df38a908050905bdbe981" prot="protected" static="no" mutable="no">
-        <type>int</type>
-        <definition>int Oscilloscope_Class::ad_ch1</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1a3e30e488e52171c3a1ef395d7771e251" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Oscilloscope_Class::ad_ch1</definition>
         <argsstring></argsstring>
         <name>ad_ch1</name>
         <initializer>= 36</initializer>
@@ -188,7 +213,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="44" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="44" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="37" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ae316c78cbb122920ee9d387e2ff851f3" prot="protected" static="no" mutable="no">
         <type>const long</type>
@@ -202,7 +227,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="46" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="46" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="39" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a1759967a963fc21016968ec982c8bcb3" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -216,7 +241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="47" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="47" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="40" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="40" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1af52abec869b31e19e8a9075348e76a61" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -230,7 +255,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="50" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="50" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="43" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="43" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a1e720892c63890bd292866aebfb150d6" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -244,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="51" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="51" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="44" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1acc24f30f170a4ffb715816f103f81572" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -258,7 +283,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="52" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="52" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="45" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ade9512cb3085da07b3612737f06ab7ec" prot="protected" static="no" mutable="no">
         <type>const char *</type>
@@ -272,7 +297,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="53" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="53" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="47" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a7be61f34b6f7b757aeefa1bd7a58e748" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -286,7 +311,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="54" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="54" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="48" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ad3112decc7cefb8698cba2762f7d5595" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -300,49 +325,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="55" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="55" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a1eb0cd02237adf65c640390a76f642d7" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::TRIG_AUTO</definition>
-        <argsstring></argsstring>
-        <name>TRIG_AUTO</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="58" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="58" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1ab448c6d80d50614fc0a3488ffd8b483a" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::TRIG_NORM</definition>
-        <argsstring></argsstring>
-        <name>TRIG_NORM</name>
-        <initializer>= 1</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="59" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="59" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1ae970bd2f1c498bbab95ed54b538a6f5e" prot="protected" static="no" mutable="no">
-        <type>const int</type>
-        <definition>const int Oscilloscope_Class::TRIG_SCAN</definition>
-        <argsstring></argsstring>
-        <name>TRIG_SCAN</name>
-        <initializer>= 2</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="60" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="60" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="49" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="49" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a941111d86b97f0ffb69df73cc036d016" prot="protected" static="no" mutable="no">
         <type>const char *</type>
@@ -356,7 +339,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="61" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="61" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="60" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="60" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a4bf95ad53343926e8155fdd3c25ca747" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -370,7 +353,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="62" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="62" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="61" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="61" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a9884328854369ce4f19ddc9b52b3dfcc" prot="protected" static="no" mutable="no">
         <type>const int</type>
@@ -384,7 +367,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="63" column="15" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="63" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="62" column="15" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="62" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a10e55a56e40fb0293f14be1e72baddeb" prot="protected" static="no" mutable="no">
         <type>const char *</type>
@@ -398,7 +381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="69" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="69" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="68" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="68" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1af963e44fa9dcdd4a9dad696ef9f897fc" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -412,7 +395,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="70" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="70" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="69" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="69" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a65f0123746f3437124dd5569a2b52d10" prot="protected" static="no" mutable="no">
         <type>const char *</type>
@@ -426,7 +409,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="75" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="75" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="74" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="74" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ac3654dc9fc78c1388f4ffc20dc3e3f1c" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -440,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="76" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="76" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="75" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="75" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a83a90e5b66100bcdf68249fe1ff28447" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -454,7 +437,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="77" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="77" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="76" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="76" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a441d77d3f5ac3f5434e823acb678a02f" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -468,7 +451,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="80" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="80" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="79" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="79" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a754b0811f304d87b5321ff4ab00c1cd3" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -482,7 +465,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="81" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="81" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="80" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="80" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a758c00c1e07b3be611a829b02e09b7ce" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -496,7 +479,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="84" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="84" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="83" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="83" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ab0169ccc3f8d2910c79f977782986afd" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -510,7 +493,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="86" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="86" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="85" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="85" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a01dc2f4a5fa5b56bbd6c119fc2c6b0ad" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -524,7 +507,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="88" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="88" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="87" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="87" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a0ec966587ab890ecccc58fba6890cc5a" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -538,21 +521,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="89" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="89" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="88" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="88" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1a393208e0e2e1a9ed8802e154f2fc6945" prot="protected" static="no" mutable="no">
-        <type>short</type>
-        <definition>short Oscilloscope_Class::Start</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1ab8f39830fda273441c9a6be67dc078da" prot="protected" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Oscilloscope_Class::Start</definition>
         <argsstring></argsstring>
         <name>Start</name>
-        <initializer>= 1</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="90" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="90" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="89" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="89" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1ac29d46859fd17c85c3d1028d2da5780f" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -566,11 +548,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="91" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="91" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="90" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="90" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="class_oscilloscope___class_1abab16a646d7ba2534b526749d99b2a4d" prot="protected" static="no" mutable="no">
-        <type>short</type>
-        <definition>short Oscilloscope_Class::data[4][350]</definition>
+      <memberdef kind="variable" id="class_oscilloscope___class_1a156762f53822314096eb9ec8144572ad" prot="protected" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t Oscilloscope_Class::data[4][350]</definition>
         <argsstring>[4][350]</argsstring>
         <name>data</name>
         <briefdescription>
@@ -579,7 +561,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="93" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="93" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="92" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="92" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a8c3b519126d2fbd1093474c2bbda529c" prot="protected" static="no" mutable="no">
         <type>short</type>
@@ -593,7 +575,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="95" column="11" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="95" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="94" column="11" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="94" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1a243973a9eca4936b55a9cdad8a3f8994" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -607,7 +589,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="96" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="96" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="95" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="95" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_oscilloscope___class_1aa391db700d588b2b04921e7eecc56b18" prot="protected" static="no" mutable="no">
         <type>int</type>
@@ -621,36 +603,52 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="97" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="97" bodyend="-1"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="96" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="96" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
-      <memberdef kind="function" id="class_oscilloscope___class_1a50c1a43c66d405877c9938b8ca41e39b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_oscilloscope___class_1a9b62c5d50363738b6777001193071570" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Oscilloscope_Class::Run</definition>
+        <definition>void Oscilloscope_Class::Trigger</definition>
         <argsstring>()</argsstring>
-        <name>Run</name>
+        <name>Trigger</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="101" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="100" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="476" bodyend="520"/>
       </memberdef>
-      <memberdef kind="function" id="class_oscilloscope___class_1ab5692824dae826955b6a5cf7483e39ac" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="class_oscilloscope___class_1a1f25da840d0712f0d88f6b917cfbe65d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Oscilloscope_Class::Sampling</definition>
+        <argsstring>()</argsstring>
+        <name>Sampling</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="101" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="522" bodyend="640"/>
+      </memberdef>
+      <memberdef kind="function" id="class_oscilloscope___class_1aef76bfc8ce70cff825442d8b8e3c40f8" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>long</type>
         <definition>long Oscilloscope_Class::adRead</definition>
-        <argsstring>(short, short, int)</argsstring>
+        <argsstring>(uint8_t ch, short mode, int off)</argsstring>
         <name>adRead</name>
         <param>
-          <type>short</type>
+          <type>uint8_t</type>
+          <declname>ch</declname>
         </param>
         <param>
           <type>short</type>
+          <declname>mode</declname>
         </param>
         <param>
           <type>int</type>
+          <declname>off</declname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -658,7 +656,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="104" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="103" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="103" bodyend="120"/>
       </memberdef>
       <memberdef kind="function" id="class_oscilloscope___class_1a1b81e951453ef611e1c28b8b82e88597" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -671,7 +669,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="107" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="122" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="458" bodyend="474"/>
       </memberdef>
       <memberdef kind="function" id="class_oscilloscope___class_1a68cae9c033dc4084494ac3e5e813e99d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -684,20 +682,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="109" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="124" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="383" bodyend="456"/>
       </memberdef>
-      <memberdef kind="function" id="class_oscilloscope___class_1a9c20732a38056cfcbc49d40499831f7b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_oscilloscope___class_1a14e582d5953b02740de4bcfed72913d3" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void Oscilloscope_Class::Check_Commands</definition>
+        <definition>void Oscilloscope_Class::Loop</definition>
         <argsstring>()</argsstring>
-        <name>Check_Commands</name>
+        <name>Loop</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="111" column="10"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="126" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="36" bodyend="381"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -715,7 +713,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="113" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="128" column="17"/>
       </memberdef>
       <memberdef kind="friend" id="class_oscilloscope___class_1a6fabb6ea41174e8b9ff4ad4e47280a01" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -731,17 +729,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="114" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="129" column="17"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
-      <memberdef kind="function" id="class_oscilloscope___class_1ae9739b5e76a2038a7e3e0380aedaf210" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_oscilloscope___class_1a98abf1cadbd2305fce3940dae123677d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>static void Oscilloscope_Class::Main_Task</definition>
+        <definition>void Oscilloscope_Class::Main_Task</definition>
         <argsstring>(void *)</argsstring>
         <name>Main_Task</name>
         <param>
           <type>void *</type>
+          <defname>pvParameters</defname>
         </param>
         <briefdescription>
         </briefdescription>
@@ -749,11 +748,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="118" column="17"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="132" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="30" bodyend="34"/>
       </memberdef>
-      <memberdef kind="function" id="class_oscilloscope___class_1a6448c7bd46f6607ca2d3e482d1be1a56" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="class_software___class" kindref="compound">Software_Class</ref> *</type>
-        <definition>static Software_Class* Oscilloscope_Class::Load</definition>
+      <memberdef kind="function" id="class_oscilloscope___class_1a06e2999a3f562abe9c319d890ae7b47b" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
+        <definition>Xila_Class::Software * Oscilloscope_Class::Load</definition>
         <argsstring>()</argsstring>
         <name>Load</name>
         <briefdescription>
@@ -762,7 +761,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="123" column="27"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="136" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="20" bodyend="28"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -777,7 +776,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="130" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="143" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="5" bodyend="9"/>
       </memberdef>
       <memberdef kind="function" id="class_oscilloscope___class_1af7f9481b795415802ccdc2f9092345b8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -790,7 +789,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="131" column="5"/>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="144" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Oscilloscope.cpp" bodystart="11" bodyend="18"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -805,8 +804,8 @@
         </childnode>
       </node>
       <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
       </node>
     </inheritancegraph>
     <collaborationgraph>
@@ -819,43 +818,42 @@
           <edgelabel>Instance_Pointer</edgelabel>
         </childnode>
       </node>
-      <node id="2">
-        <label>Software_Class</label>
-        <link refid="class_software___class"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>Handle</edgelabel>
-        </childnode>
-      </node>
       <node id="3">
-        <label>Software_Handle_Class</label>
-        <link refid="class_software___handle___class"/>
+        <label>Xila_Class::Software_Handle</label>
+        <link refid="class_xila___class_1_1_software___handle"/>
         <childnode refid="2" relation="usage">
           <edgelabel>Load_Function_Pointer</edgelabel>
         </childnode>
       </node>
+      <node id="2">
+        <label>Xila_Class::Software</label>
+        <link refid="class_xila___class_1_1_software"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>Handle</edgelabel>
+        </childnode>
+      </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" line="19" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Software/Oscilloscope.hpp" bodystart="20" bodyend="132"/>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" line="16" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp" bodystart="17" bodyend="145"/>
     <listofallmembers>
-      <member refid="class_oscilloscope___class_1af37b4498873ed727ab6b7054dbf02314" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ad_ch0</name></member>
-      <member refid="class_oscilloscope___class_1a3463924a069df38a908050905bdbe981" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ad_ch1</name></member>
-      <member refid="class_oscilloscope___class_1ab5692824dae826955b6a5cf7483e39ac" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>adRead</name></member>
+      <member refid="class_oscilloscope___class_1ac709166e7aea942650803fa417f2c886" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ad_ch0</name></member>
+      <member refid="class_oscilloscope___class_1a3e30e488e52171c3a1ef395d7771e251" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ad_ch1</name></member>
+      <member refid="class_oscilloscope___class_1aef76bfc8ce70cff825442d8b8e3c40f8" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>adRead</name></member>
       <member refid="class_oscilloscope___class_1a243973a9eca4936b55a9cdad8a3f8994" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>amplitude</name></member>
       <member refid="class_oscilloscope___class_1aa391db700d588b2b04921e7eecc56b18" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>amplitudeStep</name></member>
       <member refid="class_oscilloscope___class_1a7be61f34b6f7b757aeefa1bd7a58e748" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ch0_mode</name></member>
       <member refid="class_oscilloscope___class_1a441d77d3f5ac3f5434e823acb678a02f" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ch0_off</name></member>
       <member refid="class_oscilloscope___class_1ad3112decc7cefb8698cba2762f7d5595" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ch1_mode</name></member>
       <member refid="class_oscilloscope___class_1a754b0811f304d87b5321ff4ab00c1cd3" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>ch1_off</name></member>
-      <member refid="class_oscilloscope___class_1a9c20732a38056cfcbc49d40499831f7b" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Check_Commands</name></member>
       <member refid="class_oscilloscope___class_1a3a4592dd5d2c71c82cadd8e108bcfdce" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Current_Channel</name></member>
-      <member refid="class_oscilloscope___class_1abab16a646d7ba2534b526749d99b2a4d" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>data</name></member>
-      <member refid="class_oscilloscope___class_1a6de89168b4e671883f9dcccb1399d1fb" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>DOTS_DIV</name></member>
+      <member refid="class_oscilloscope___class_1a156762f53822314096eb9ec8144572ad" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>data</name></member>
+      <member refid="class_oscilloscope___class_1a109ef41c6908ab936d1436e84bc15305" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Dots_Per_Division</name></member>
       <member refid="class_oscilloscope___class_1a43fc6f9a8e53072142e878ea2bcd918eaaa775fc8988a24fc05d38209d850ea41" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Icon_32</name></member>
-      <member refid="class_oscilloscope___class_1abf671ac75d7c516a21d4e74467f3cb61" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Instance_Pointer</name></member>
-      <member refid="class_oscilloscope___class_1a4049cbe2bffbe4d8eadcc95ca3ec50d2" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Last_Interface_Refresh</name></member>
-      <member refid="class_oscilloscope___class_1a0b45c56daddb869b65c85e09b33371e4" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>LCD_HEIGHT</name></member>
-      <member refid="class_oscilloscope___class_1a5fe733c00ef6de295e77ba563813bfe3" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>LCD_WIDTH</name></member>
-      <member refid="class_oscilloscope___class_1a6448c7bd46f6607ca2d3e482d1be1a56" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Load</name></member>
-      <member refid="class_oscilloscope___class_1ae9739b5e76a2038a7e3e0380aedaf210" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Main_Task</name></member>
+      <member refid="class_oscilloscope___class_1ace1f2275224269c9dde21861875b53f4" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Instance_Pointer</name></member>
+      <member refid="class_oscilloscope___class_1afde5d317070dbfd769cac9d485ed2c90" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>LCD_HEIGHT</name></member>
+      <member refid="class_oscilloscope___class_1a72bf852500d92073091b4d1f34112ccd" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>LCD_WIDTH</name></member>
+      <member refid="class_oscilloscope___class_1a06e2999a3f562abe9c319d890ae7b47b" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Load</name></member>
+      <member refid="class_oscilloscope___class_1a14e582d5953b02740de4bcfed72913d3" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Loop</name></member>
+      <member refid="class_oscilloscope___class_1a98abf1cadbd2305fce3940dae123677d" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Main_Task</name></member>
       <member refid="class_oscilloscope___class_1ac29d46859fd17c85c3d1028d2da5780f" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>menu</name></member>
       <member refid="class_oscilloscope___class_1a1759967a963fc21016968ec982c8bcb3" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>MILLIVOL_per_dot</name></member>
       <member refid="class_oscilloscope___class_1a1e720892c63890bd292866aebfb150d6" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>MODE_INV</name></member>
@@ -872,14 +870,14 @@
       <member refid="class_oscilloscope___class_1a10e55a56e40fb0293f14be1e72baddeb" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Rates</name></member>
       <member refid="class_oscilloscope___class_1a68cae9c033dc4084494ac3e5e813e99d" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Refresh_Interface</name></member>
       <member refid="class_oscilloscope___class_1a1b81e951453ef611e1c28b8b82e88597" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Refresh_Waveform</name></member>
-      <member refid="class_oscilloscope___class_1a50c1a43c66d405877c9938b8ca41e39b" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Run</name></member>
       <member refid="class_oscilloscope___class_1a8c3b519126d2fbd1093474c2bbda529c" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>sample</name></member>
-      <member refid="class_oscilloscope___class_1ae3b41e85d7da18ba603041d62b31754e" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>SAMPLES</name></member>
+      <member refid="class_oscilloscope___class_1aa7409ee90ee2fe5a2d9765409829aeff" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>SAMPLES</name></member>
+      <member refid="class_oscilloscope___class_1a1f25da840d0712f0d88f6b917cfbe65d" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Sampling</name></member>
       <member refid="class_oscilloscope___class_1a3775db6c265648b866e1f99691af49d0" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>SigmaDelta_Handle</name></member>
       <member refid="class_oscilloscope___class_1a6fabb6ea41174e8b9ff4ad4e47280a01" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>SigmaDelta_Task</name></member>
-      <member refid="class_oscilloscope___class_1a393208e0e2e1a9ed8802e154f2fc6945" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Start</name></member>
+      <member refid="class_oscilloscope___class_1ab8f39830fda273441c9a6be67dc078da" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Start</name></member>
       <member refid="class_oscilloscope___class_1aeb5159d6b73c984869235f154405b0e6" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Temporary_Char_Array</name></member>
-      <member refid="class_oscilloscope___class_1a1eb0cd02237adf65c640390a76f642d7" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_AUTO</name></member>
+      <member refid="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a7efec093870de11d56af1c40fc1b3184" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_AUTO</name></member>
       <member refid="class_oscilloscope___class_1a0ec966587ab890ecccc58fba6890cc5a" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>trig_ch</name></member>
       <member refid="class_oscilloscope___class_1a9884328854369ce4f19ddc9b52b3dfcc" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_E_DN</name></member>
       <member refid="class_oscilloscope___class_1a4bf95ad53343926e8155fdd3c25ca747" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_E_UP</name></member>
@@ -887,8 +885,10 @@
       <member refid="class_oscilloscope___class_1ab0169ccc3f8d2910c79f977782986afd" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>trig_lv</name></member>
       <member refid="class_oscilloscope___class_1a758c00c1e07b3be611a829b02e09b7ce" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>trig_mode</name></member>
       <member refid="class_oscilloscope___class_1a941111d86b97f0ffb69df73cc036d016" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_Modes</name></member>
-      <member refid="class_oscilloscope___class_1ab448c6d80d50614fc0a3488ffd8b483a" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_NORM</name></member>
-      <member refid="class_oscilloscope___class_1ae970bd2f1c498bbab95ed54b538a6f5e" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_SCAN</name></member>
+      <member refid="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Trig_Modes</name></member>
+      <member refid="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a7624969d50afa80f3a807aaee2ada9f1" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_NORM</name></member>
+      <member refid="class_oscilloscope___class_1a2f5f932f93397b7fdede6a064f8c23c7a778c4d60fe9b94b56b11f9cfd30f7257" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>TRIG_SCAN</name></member>
+      <member refid="class_oscilloscope___class_1a9b62c5d50363738b6777001193071570" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Trigger</name></member>
       <member refid="class_oscilloscope___class_1ae316c78cbb122920ee9d387e2ff851f3" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>VREF</name></member>
       <member refid="class_oscilloscope___class_1a95a5f1fe5cbc05bc5166ca720a863207" prot="protected" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>Waveform_ID</name></member>
       <member refid="class_oscilloscope___class_1af7f9481b795415802ccdc2f9092345b8" prot="public" virt="non-virtual"><scope>Oscilloscope_Class</scope><name>~Oscilloscope_Class</name></member>

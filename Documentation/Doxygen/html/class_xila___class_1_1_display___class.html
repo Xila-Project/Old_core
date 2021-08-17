@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -69,6 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -112,7 +113,7 @@ Public Types</h2></td></tr>
  }</td></tr>
 <tr class="memdesc:aabbeeb03f3d1b07bbf2c63c3b6a28923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default system colors. <br /></td></tr>
 <tr class="separator:aabbeeb03f3d1b07bbf2c63c3b6a28923"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e1f0bee85d550b517e57ba0532a078c"><td class="memItemLeft" align="right" valign="top"><a id="a2e1f0bee85d550b517e57ba0532a078c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a2e1f0bee85d550b517e57ba0532a078c">Xila_16</a> { <br />
+<tr class="memitem:ac544a5bb0d23ea518f729601b61b5e7c"><td class="memItemLeft" align="right" valign="top"><a id="ac544a5bb0d23ea518f729601b61b5e7c"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#ac544a5bb0d23ea518f729601b61b5e7c">Xila_16</a> : uint8_t { <br />
 &#160;&#160;<b>State_Button</b> = 127
 , <b>Left_Arrow</b>
 , <b>Right_Arrow</b>
@@ -120,24 +121,25 @@ Public Types</h2></td></tr>
 , <br />
 &#160;&#160;<b>Down_Arrow</b>
 , <b>Battery_Empty</b>
-, <b>Battery_Low</b>
-, <b>Battery_Medium</b>
+, <b>Battery_Quarter</b>
+, <b>Battery_Half</b>
 , <br />
-&#160;&#160;<b>Battery_High</b>
+&#160;&#160;<b>Battery_Three_Quarters</b>
+, <b>Battery_Full</b>
 , <b>WiFi_Low</b>
 , <b>WiFi_Medium</b>
-, <b>WiFi_High</b>
 , <br />
-&#160;&#160;<b>Bluetooth</b>
+&#160;&#160;<b>WiFi_High</b>
+, <b>Bluetooth</b>
 , <b>Sound_Mute</b>
 , <b>Sound_Low</b>
-, <b>Sound_Medium</b>
 , <br />
-&#160;&#160;<b>Sound_High</b>
+&#160;&#160;<b>Sound_Medium</b>
+, <b>Sound_High</b>
 <br />
  }</td></tr>
-<tr class="memdesc:a2e1f0bee85d550b517e57ba0532a078c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila_16 special characters list. <br /></td></tr>
-<tr class="separator:a2e1f0bee85d550b517e57ba0532a078c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:ac544a5bb0d23ea518f729601b61b5e7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila_16 special characters list. <br /></td></tr>
+<tr class="separator:ac544a5bb0d23ea518f729601b61b5e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91be037084ced30430b419abf0af3583"><td class="memItemLeft" align="right" valign="top"><a id="a91be037084ced30430b419abf0af3583"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a91be037084ced30430b419abf0af3583">Font_32</a> { <b>Exclamation_Mark</b> = 127
 , <b>Question_Mark</b>
 , <b>Cross</b>
@@ -145,28 +147,46 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a91be037084ced30430b419abf0af3583"><td class="mdescLeft">&#160;</td><td class="mdescRight">Xila_32 special characters list. <br /></td></tr>
 <tr class="separator:a91be037084ced30430b419abf0af3583"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22fbf46b6efc6641c2ae561f4145e25b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">Image_Offset</a> { <br />
-&#160;&#160;<b>Shell</b> = 0
-, <b>Calculator</b> = 20
-, <b>Clock</b> = 21
-, <b>Image_Viewer</b> = 22
+&#160;&#160;<b>Shell_Images</b> = 0
+, <b>Calculator_Images</b> = 20
+, <b>Clock_Images</b>
+, <b>Internet_Browser_Images</b>
 , <br />
-&#160;&#160;<b>Internet_Browser</b> = 23
-, <b>Music_Player</b> = 24
-, <b>Oscilloscope</b> = 33
-, <b>Paint</b> = 34
+&#160;&#160;<b>Music_Player_Images</b>
+, <b>Oscilloscope_Images</b> = 32
+, <b>Paint_Images</b>
+, <b>Periodic_Images</b>
 , <br />
-&#160;&#160;<b>Periodic</b> = 35
-, <b>Piano</b> = 37
-, <b>Pong</b> = 41
-, <b>Simon</b> = 42
+&#160;&#160;<b>Piano_Images</b> = 36
+, <b>Pong_Images</b> = 40
+, <b>Simon_Images</b>
+, <b>Text_Editor_Images</b>
 , <br />
-&#160;&#160;<b>Text_Editor</b> = 43
-, <b>Tiny_Basic</b> = 44
+&#160;&#160;<b>Tiny_Basic_Images</b>
 <br />
  }</td></tr>
 <tr class="memdesc:a22fbf46b6efc6641c2ae561f4145e25b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Image offsets list.  <a href="class_xila___class_1_1_display___class.html#a22fbf46b6efc6641c2ae561f4145e25b">More...</a><br /></td></tr>
 <tr class="separator:a22fbf46b6efc6641c2ae561f4145e25b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memItemLeft" align="right" valign="top"><a id="a0b5d3c5200502843f9a7a0ea581c9ed4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a0b5d3c5200502843f9a7a0ea581c9ed4">Pages_Offset</a> </td></tr>
+<tr class="memitem:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memItemLeft" align="right" valign="top"><a id="a0b5d3c5200502843f9a7a0ea581c9ed4"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a0b5d3c5200502843f9a7a0ea581c9ed4">Pages_Offset</a> { <br />
+&#160;&#160;<b>Core_Pages</b> = 0
+, <b>Shell_Pages</b> = 5
+, <b>Calculator_Pages</b> = 23
+, <b>Clock_Pages</b>
+, <br />
+&#160;&#160;<b>Text_Editor_Pages</b> = 28
+, <b>Paint_Pages</b>
+, <b>Internet_Browser_Pages</b>
+, <b>Music_Player_Pages</b>
+, <br />
+&#160;&#160;<b>Oscilloscope_Pages</b>
+, <b>Periodic_Pages</b>
+, <b>Piano_Pages</b> = 35
+, <b>Pong_Pages</b>
+, <br />
+&#160;&#160;<b>Simon_Pages</b>
+, <b>Tiny_Basic_Pages</b>
+<br />
+ }</td></tr>
 <tr class="memdesc:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pages list. <br /></td></tr>
 <tr class="separator:a0b5d3c5200502843f9a7a0ea581c9ed4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce91234cfaaf25e4039e42c3dd79281"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">Font</a> { <br />
@@ -181,44 +201,64 @@ Public Types</h2></td></tr>
 <tr class="memdesc:a3ce91234cfaaf25e4039e42c3dd79281"><td class="mdescLeft">&#160;</td><td class="mdescRight">Font list.  <a href="class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281">More...</a><br /></td></tr>
 <tr class="separator:a3ce91234cfaaf25e4039e42c3dd79281"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af876b6280f411f31fc9f1f7a39b61d55"><td class="memItemLeft" align="right" valign="top"><a id="af876b6280f411f31fc9f1f7a39b61d55"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#af876b6280f411f31fc9f1f7a39b61d55">Display_Class</a> ()</td></tr>
+<tr class="memdesc:af876b6280f411f31fc9f1f7a39b61d55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_xila___class_1_1_display___class.html#af876b6280f411f31fc9f1f7a39b61d55" title="Construct a new Xila_Class::Display_Class::Display_Class object.">Xila_Class::Display_Class::Display_Class</a> object. <br /></td></tr>
+<tr class="separator:af876b6280f411f31fc9f1f7a39b61d55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adde858d4d1bb57962297bc7761efa655"><td class="memItemLeft" align="right" valign="top"><a id="adde858d4d1bb57962297bc7761efa655"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#adde858d4d1bb57962297bc7761efa655">~Display_Class</a> ()</td></tr>
+<tr class="memdesc:adde858d4d1bb57962297bc7761efa655"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_xila___class_1_1_display___class.html#af876b6280f411f31fc9f1f7a39b61d55" title="Construct a new Xila_Class::Display_Class::Display_Class object.">Xila_Class::Display_Class::Display_Class</a> object. <br /></td></tr>
+<tr class="separator:adde858d4d1bb57962297bc7761efa655"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d9efb1fc92ecf0ab4ab93a79209236"><td class="memItemLeft" align="right" valign="top"><a id="af7d9efb1fc92ecf0ab4ab93a79209236"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_State</b> ()</td></tr>
+<tr class="separator:af7d9efb1fc92ecf0ab4ab93a79209236"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1491dbd1cc364a946317499769eb66bc"><td class="memItemLeft" align="right" valign="top"><a id="a1491dbd1cc364a946317499769eb66bc"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Incomming_String_Data_From_Display</b> (const char *, uint8_t)</td></tr>
-<tr class="separator:a1491dbd1cc364a946317499769eb66bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86bbf72f4c071a2bcf2bb0de0757d8ee"><td class="memItemLeft" align="right" valign="top"><a id="a86bbf72f4c071a2bcf2bb0de0757d8ee"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Incomming_Numeric_Data_From_Display</b> (uint32_t)</td></tr>
-<tr class="separator:a86bbf72f4c071a2bcf2bb0de0757d8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a346f1407296a42d8a0ae101e870fd4"><td class="memItemLeft" align="right" valign="top"><a id="a3a346f1407296a42d8a0ae101e870fd4"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Incomming_Event_From_Display</b> (uint8_t)</td></tr>
-<tr class="separator:a3a346f1407296a42d8a0ae101e870fd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4e9eeffcd68b5354a84d0400bbcf908"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#af4e9eeffcd68b5354a84d0400bbcf908">Incomming_String_Data_From_Display</a> (const char *, uint8_t)</td></tr>
+<tr class="memdesc:af4e9eeffcd68b5354a84d0400bbcf908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for display incomming string data.  <a href="class_xila___class_1_1_display___class.html#af4e9eeffcd68b5354a84d0400bbcf908">More...</a><br /></td></tr>
+<tr class="separator:af4e9eeffcd68b5354a84d0400bbcf908"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d37d3e73494d1ec37d691245bfded8b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a6d37d3e73494d1ec37d691245bfded8b">Incomming_Numeric_Data_From_Display</a> (uint32_t)</td></tr>
+<tr class="memdesc:a6d37d3e73494d1ec37d691245bfded8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for display incomming numeric data.  <a href="class_xila___class_1_1_display___class.html#a6d37d3e73494d1ec37d691245bfded8b">More...</a><br /></td></tr>
+<tr class="separator:a6d37d3e73494d1ec37d691245bfded8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af571914a2dd55645c4b6109284958f70"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#af571914a2dd55645c4b6109284958f70">Incomming_Event_From_Display</a> (uint8_t)</td></tr>
+<tr class="memdesc:af571914a2dd55645c4b6109284958f70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for display incomming event.  <a href="class_xila___class_1_1_display___class.html#af571914a2dd55645c4b6109284958f70">More...</a><br /></td></tr>
+<tr class="separator:af571914a2dd55645c4b6109284958f70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a4634dd85c9ecc3919ac2bf616472ce69"><td class="memItemLeft" align="right" valign="top"><a id="a4634dd85c9ecc3919ac2bf616472ce69"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="memitem:ad017ff5559aec4692c54d7965795b525"><td class="memItemLeft" align="right" valign="top"><a id="ad017ff5559aec4692c54d7965795b525"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_State</b> (uint8_t <a class="el" href="class_xila___class.html#a97f78ce2a2da8c5879eb6568b4f74fe8">State</a>)</td></tr>
+<tr class="separator:ad017ff5559aec4692c54d7965795b525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4634dd85c9ecc3919ac2bf616472ce69"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a4634dd85c9ecc3919ac2bf616472ce69">Load_Registry</a> ()</td></tr>
+<tr class="memdesc:a4634dd85c9ecc3919ac2bf616472ce69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load display registry.  <a href="class_xila___class_1_1_display___class.html#a4634dd85c9ecc3919ac2bf616472ce69">More...</a><br /></td></tr>
 <tr class="separator:a4634dd85c9ecc3919ac2bf616472ce69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="memItemLeft" align="right" valign="top"><a id="a57a1a229e2cf6b56a00374fbd4b7f57e"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="memitem:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_display___class.html#a57a1a229e2cf6b56a00374fbd4b7f57e">Save_Registry</a> ()</td></tr>
+<tr class="memdesc:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save display registry.  <a href="class_xila___class_1_1_display___class.html#a57a1a229e2cf6b56a00374fbd4b7f57e">More...</a><br /></td></tr>
 <tr class="separator:a57a1a229e2cf6b56a00374fbd4b7f57e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
+<tr class="memitem:a479536eb7613ee5e80d9742fc95dbffd"><td class="memItemLeft" align="right" valign="top"><a id="a479536eb7613ee5e80d9742fc95dbffd"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>State</b></td></tr>
+<tr class="separator:a479536eb7613ee5e80d9742fc95dbffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9547130bbb2fadfbc5970230e08246c1"><td class="memItemLeft" align="right" valign="top"><a id="a9547130bbb2fadfbc5970230e08246c1"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Brightness</b></td></tr>
 <tr class="separator:a9547130bbb2fadfbc5970230e08246c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79e4d1eab2728495e1906fdac7cdabf3"><td class="memItemLeft" align="right" valign="top"><a id="a79e4d1eab2728495e1906fdac7cdabf3"></a>
-uint16_t&#160;</td><td class="memItemRight" valign="bottom"><b>Standby_Time</b></td></tr>
-<tr class="separator:a79e4d1eab2728495e1906fdac7cdabf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d08564089335c0fa55ba8d4320b71f"><td class="memItemLeft" align="right" valign="top"><a id="ab0d08564089335c0fa55ba8d4320b71f"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Receive_Pin</b></td></tr>
 <tr class="separator:ab0d08564089335c0fa55ba8d4320b71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f055fb6c05e33fa47c294a9b1058988"><td class="memItemLeft" align="right" valign="top"><a id="a5f055fb6c05e33fa47c294a9b1058988"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Send_Pin</b></td></tr>
-<tr class="separator:a5f055fb6c05e33fa47c294a9b1058988"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e80cec54791f0f41437a30eed3a00f"><td class="memItemLeft" align="right" valign="top"><a id="aa8e80cec54791f0f41437a30eed3a00f"></a>
-char&#160;</td><td class="memItemRight" valign="bottom"><b>Tag</b> = 0</td></tr>
-<tr class="separator:aa8e80cec54791f0f41437a30eed3a00f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ee712a112fa0ef7fd13334393340e5"><td class="memItemLeft" align="right" valign="top"><a id="a92ee712a112fa0ef7fd13334393340e5"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Standby_Time</b></td></tr>
+<tr class="separator:a92ee712a112fa0ef7fd13334393340e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900de20d12c72c2d27326c8267b576c2"><td class="memItemLeft" align="right" valign="top"><a id="a900de20d12c72c2d27326c8267b576c2"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Transmit_Pin</b></td></tr>
+<tr class="separator:a900de20d12c72c2d27326c8267b576c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4796f616a6f25db1630aa2fa7128c51"><td class="memItemLeft" align="right" valign="top"><a id="ab4796f616a6f25db1630aa2fa7128c51"></a>
+<a class="el" href="class_xila___class.html#afa8d06d42d3f5c652b39485e319701d6">Xila_Class::Address</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Current_Address</b></td></tr>
+<tr class="separator:ab4796f616a6f25db1630aa2fa7128c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -273,8 +313,180 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af571914a2dd55645c4b6109284958f70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af571914a2dd55645c4b6109284958f70">&#9670;&nbsp;</a></span>Incomming_Event_From_Display()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Display_Class::Incomming_Event_From_Display </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Event_Code</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function for display incomming event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Event_Code</td><td>Event code </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6d37d3e73494d1ec37d691245bfded8b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d37d3e73494d1ec37d691245bfded8b">&#9670;&nbsp;</a></span>Incomming_Numeric_Data_From_Display()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>Received_Data</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function for display incomming numeric data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Received_Data</td><td>Received numeric data from the display </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af4e9eeffcd68b5354a84d0400bbcf908"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4e9eeffcd68b5354a84d0400bbcf908">&#9670;&nbsp;</a></span>Incomming_String_Data_From_Display()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Display_Class::Incomming_String_Data_From_Display </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Received_Data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function for display incomming string data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Received_Data</td><td>String received data </td></tr>
+    <tr><td class="paramname">Size</td><td>Size in bytes of received data </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a4634dd85c9ecc3919ac2bf616472ce69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4634dd85c9ecc3919ac2bf616472ce69">&#9670;&nbsp;</a></span>Load_Registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Display_Class::Load_Registry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Load display registry. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeaee07a60c567f17f3d8e2ad35c3d60f94" title="Success event.">Xila_Class::Success</a> or <a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44" title="Error event.">Xila_Class::Error</a> </dd></dl>
+
+</div>
+</div>
+<a id="a57a1a229e2cf6b56a00374fbd4b7f57e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57a1a229e2cf6b56a00374fbd4b7f57e">&#9670;&nbsp;</a></span>Save_Registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Display_Class::Save_Registry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Save display registry. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee" title="Xila event type.">Xila_Class::Event</a> </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/<a class="el" href="_display_8hpp_source.html">Display.hpp</a></li>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/<a class="el" href="_display_8cpp.html">Display.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

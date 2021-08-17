@@ -43,7 +43,7 @@ Changed
 - Fix deprecated function in Periodic (with "as.<const char*()>" instead of "as.<char*>()").
 - Update sound driver.
 - Change Internet Browser home page.
-- Change variable adress from 8 bits to 16 bits.
+- Change variable Address from 8 bits to 16 bits.
 - Change Xila.Dialog.Dialog_Open_Folder(File&) to Xila.Dialog.Open_Folder(File&).
 - Header refresh is handle by Shell, not by the Core anymore.
 - How core and Shell and Core interracts for Dialogs.

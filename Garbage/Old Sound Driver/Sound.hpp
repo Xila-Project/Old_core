@@ -32,8 +32,8 @@ protected:
     const int dacTableStart2 = dacTableStart1 - 512;
     int totalSampleWords; //1518 * 2 = 3036 samples for mono
     int totalSamples;
-    const int Index_Adress = opcodeCount;
-    const int bufferStart = Index_Adress + 1;
+    const int Index_Address = opcodeCount;
+    const int bufferStart = Index_Address + 1;
 
     const ulp_insn_t Stop_Program[1] = {I_HALT()};
 

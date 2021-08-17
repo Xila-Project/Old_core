@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_mathematics_8hpp" kind="file" language="C++">
+    <compoundname>Mathematics.hpp</compoundname>
+    <includes local="yes">Arduino.h</includes>
+    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp</label>
+        <link refid="_mathematics_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Arduino.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="34">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Dialog.cpp</label>
+        <link refid="_core_2_modules_2_dialog_8cpp"/>
+      </node>
+      <node id="14">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
+        <link refid="_desk_8cpp"/>
+      </node>
+      <node id="38">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp</label>
+        <link refid="_system_8cpp"/>
+      </node>
+      <node id="32">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Account.cpp</label>
+        <link refid="_account_8cpp"/>
+      </node>
+      <node id="18">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
+        <link refid="_shell_8cpp"/>
+      </node>
+      <node id="3">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="36">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp</label>
+        <link refid="_software_8cpp"/>
+      </node>
+      <node id="11">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Piano.hpp</label>
+        <link refid="_piano_8hpp"/>
+      </node>
+      <node id="21">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp</label>
+        <link refid="_text___editor_8hpp_source"/>
+      </node>
+      <node id="17">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
+        <link refid="_preferences_8cpp"/>
+      </node>
+      <node id="4">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+      </node>
+      <node id="33">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp</label>
+        <link refid="_clipboard_8cpp"/>
+      </node>
+      <node id="27">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp</label>
+        <link refid="_keyboard_8cpp"/>
+      </node>
+      <node id="28">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp</label>
+        <link refid="_power_8cpp"/>
+      </node>
+      <node id="7">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Music_Player.hpp</label>
+        <link refid="_music___player_8hpp"/>
+      </node>
+      <node id="25">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp</label>
+        <link refid="_flash_8cpp"/>
+      </node>
+      <node id="10">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Periodic.hpp</label>
+        <link refid="_periodic_8hpp_source"/>
+      </node>
+      <node id="12">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp_source"/>
+      </node>
+      <node id="16">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
+        <link refid="_file___manager_8cpp"/>
+      </node>
+      <node id="5">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Clock.hpp</label>
+        <link refid="_clock_8hpp_source"/>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp</label>
+        <link refid="_mathematics_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Time.cpp</label>
+        <link refid="_time_8cpp"/>
+      </node>
+      <node id="29">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Sound.cpp</label>
+        <link refid="_sound_8cpp"/>
+      </node>
+      <node id="2">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</label>
+        <link refid="_core_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="38" relation="include">
+        </childnode>
+        <childnode refid="39" relation="include">
+        </childnode>
+      </node>
+      <node id="24">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp</label>
+        <link refid="_drive_8cpp"/>
+      </node>
+      <node id="37">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Handle.cpp</label>
+        <link refid="_software___handle_8cpp"/>
+      </node>
+      <node id="26">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/GPIO.cpp</label>
+        <link refid="_g_p_i_o_8cpp"/>
+      </node>
+      <node id="13">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp</label>
+        <link refid="_shell_8hpp"/>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Core.cpp</label>
+        <link refid="_core_8cpp"/>
+      </node>
+      <node id="19">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp</label>
+        <link refid="_simon_8hpp_source"/>
+      </node>
+      <node id="8">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp</label>
+        <link refid="_oscilloscope_8hpp"/>
+      </node>
+      <node id="35">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
+        <link refid="_mathematics_8cpp"/>
+      </node>
+      <node id="23">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Display.cpp</label>
+        <link refid="_display_8cpp"/>
+      </node>
+      <node id="15">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
+        <link refid="_software_2_shell_2_dialog_8cpp"/>
+      </node>
+      <node id="9">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp</label>
+        <link refid="_paint_8hpp_source"/>
+      </node>
+      <node id="22">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Tiny_Basic.hpp</label>
+        <link refid="_tiny___basic_8hpp_source"/>
+      </node>
+      <node id="6">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Internet_Browser.hpp</label>
+        <link refid="_internet___browser_8hpp_source"/>
+      </node>
+      <node id="30">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/WiFi.cpp</label>
+        <link refid="_wi_fi_8cpp"/>
+      </node>
+      <node id="20">
+        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Software_Template.hpp</label>
+        <link refid="_software___template_8hpp_source"/>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Alix ANNERAUD (<ulink url="mailto:alix.anneraud@outlook.fr">alix.anneraud@outlook.fr</ulink>) </para>
+</simplesect>
+<simplesect kind="version"><para>0.1 </para>
+</simplesect>
+<simplesect kind="date"><para>11-07-2021</para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2021 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Arduino.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>MATHEMATICS_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MATHEMATICS_HPP_INCLUDED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="class_xila___class_1_1_mathematics___class_1ad3cc6e63dac7057f138d172a0da728e6" refkind="member"><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_mathematics___class_1ad3cc6e63dac7057f138d172a0da728e6" kindref="member">Xila_Class::Mathematics_Class::Is_NAN</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>isnan(Number);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="class_xila___class_1_1_mathematics___class_1a3ed12d8577a4fefc04e337561f118a33" refkind="member"><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_mathematics___class_1a3ed12d8577a4fefc04e337561f118a33" kindref="member">Xila_Class::Mathematics_Class::Is_Infinite</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="34"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>isinf(Number);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="class_xila___class_1_1_mathematics___class_1aa684c248ccc06e118cf934cf9e6c28f9" refkind="member"><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="class_xila___class_1_1_mathematics___class_1aa684c248ccc06e118cf934cf9e6c28f9" kindref="member">Xila_Class::Mathematics_Class::Copy_Sign</ref>(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number_1,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number_2)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>copysign(Number_1,<sp/>Number_2);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Floor(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>floor(Number);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Modulo(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number_1,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number_2)</highlight></codeline>
+<codeline lineno="55"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>fmod(Number_1,<sp/>Number_2);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Radians(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Degrees)</highlight></codeline>
+<codeline lineno="60"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Degrees<sp/>*<sp/>Degrees_To_Radians;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Degrees(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Radians)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Radians<sp/>*<sp/>Radians_To_Degrees;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Sine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sin(Number);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Cosine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cos(Number);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Tangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tan(Number);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Secant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Cosine(Number);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Cosecant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="90"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Sine(Number);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Cotangeant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Tangent(Number);</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Sine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>asin(Number);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Cosine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>acos(Number);</highlight></codeline>
+<codeline lineno="107"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Tangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>atan(Number);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Secant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="115"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Arc_Cosine(1<sp/>/<sp/>Number);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Cosecant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Arc_Sine(1<sp/>/<sp/>Number);</highlight></codeline>
+<codeline lineno="122"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Cotangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="125"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(Pi<sp/>/<sp/>2)<sp/>-<sp/>Arc_Tangent(Number);</highlight></codeline>
+<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Sine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="130"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sinh(Number);</highlight></codeline>
+<codeline lineno="132"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Cosine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cosh(Number);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Tangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="140"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>tanh(Number);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Secant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Hyperbolic_Cosine(Number);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Cosecant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="150"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Number<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>nan(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Hyperbolic_Sine(Number);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Hyperbolic_Cotangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="159"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(Number<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>nan(</highlight><highlight class="stringliteral">&quot;&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Hyperbolic_Cosine(Number)<sp/>/<sp/>Hyperbolic_Sine(Number);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Sine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>asinh(Number);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cosine(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>acosh(Number);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Tangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="178"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>atanh(Number);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Secant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Hyperbolic_Secant(Number);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cosecant(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Hyperbolic_Cosecant(Number);</highlight></codeline>
+<codeline lineno="190"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Arc_Hyperbolic_Cotangent(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Hyperbolic_Cotangent(Number);</highlight></codeline>
+<codeline lineno="195"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Absolute(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="198"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>abs(Number);</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Power(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Base,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Exponent)</highlight></codeline>
+<codeline lineno="203"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>pow(Base,<sp/>Exponent);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Square(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Number<sp/>*<sp/>Number;</highlight></codeline>
+<codeline lineno="210"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Cube(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="213"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Number<sp/>*<sp/>Number<sp/>*<sp/>Number;</highlight></codeline>
+<codeline lineno="215"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Root(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Base,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Exponent)</highlight></codeline>
+<codeline lineno="218"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Power(Base,<sp/>1<sp/>/<sp/>Exponent);</highlight></codeline>
+<codeline lineno="220"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Square_Root(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="223"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>sqrt(Number);</highlight></codeline>
+<codeline lineno="225"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Cubic_Root(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="228"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>cbrt(Number);</highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Exponential(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="233"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>exp(Number);</highlight></codeline>
+<codeline lineno="235"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Logarithm(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Base,<sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="238"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Natural_Logarithm(Number)<sp/>/<sp/>Natural_Logarithm(Base);</highlight></codeline>
+<codeline lineno="240"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"></highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Binary_Logarithm(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="243"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>log2(Number);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Natural_Logarithm(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="248"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>log(Number);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Decimal_Logarithm(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="253"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>log10(Number);</highlight></codeline>
+<codeline lineno="255"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Xila_Class::Mathematics_Class::Inverse(</highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>Number)</highlight></codeline>
+<codeline lineno="258"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1<sp/>/<sp/>Number;</highlight></codeline>
+<codeline lineno="260"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"></highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Mathematics.hpp"/>
+  </compounddef>
+</doxygen>

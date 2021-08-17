@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_xila___class_1_1_memory___class" kind="class" language="C++" prot="public">
+    <compoundname>Xila_Class::Memory_Class</compoundname>
+    <includes refid="_core_8hpp" local="no">Core.hpp</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1afd82d62784c20ecc7e2d96a972c1e86c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Heap_Size</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Heap_Size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1077" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a38dd64055940cebe039450f0eab7fcbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Free_Heap</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Free_Heap</name>
+        <briefdescription>
+<para>Return the amount of free heap. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>uint32_t </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1078" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="20" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a0372a64a94cfe7c9b7c7e3c053ee00bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Minimum_Free_Heap</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Minimum_Free_Heap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1079" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="32" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1acbaf867e19cb7996d044e7f2f72234f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Maximum_Allocated_Heap</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Maximum_Allocated_Heap</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1080" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="37" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1aee260efa670f873632b9804e1e76f1c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_PSRAM_Size</definition>
+        <argsstring>()</argsstring>
+        <name>Get_PSRAM_Size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1082" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="42" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a6d20eb80cd1573a549d1fd2f38cff649" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Free_PSRAM</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Free_PSRAM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1083" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="49" bodyend="52"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1af400f45dfc85582a96f59ff5347f2e4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Minimum_Free_PSRAM</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Minimum_Free_PSRAM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1084" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="54" bodyend="57"/>
+      </memberdef>
+      <memberdef kind="function" id="class_xila___class_1_1_memory___class_1ae32f3acdc3eb5561fc933db25876dff1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>uint32_t Xila_Class::Memory_Class::Get_Maximum_Allocated_PSRAM</definition>
+        <argsstring>()</argsstring>
+        <name>Get_Maximum_Allocated_PSRAM</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1085" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="59" bodyend="62"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Memory class. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1072" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1073" bodyend="1086"/>
+    <listofallmembers>
+      <member refid="class_xila___class_1_1_memory___class_1a38dd64055940cebe039450f0eab7fcbd" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Free_Heap</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1a6d20eb80cd1573a549d1fd2f38cff649" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Free_PSRAM</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1afd82d62784c20ecc7e2d96a972c1e86c" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Heap_Size</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1acbaf867e19cb7996d044e7f2f72234f0" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Maximum_Allocated_Heap</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1ae32f3acdc3eb5561fc933db25876dff1" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Maximum_Allocated_PSRAM</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1a0372a64a94cfe7c9b7c7e3c053ee00bd" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Minimum_Free_Heap</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1af400f45dfc85582a96f59ff5347f2e4f" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Minimum_Free_PSRAM</name></member>
+      <member refid="class_xila___class_1_1_memory___class_1aee260efa670f873632b9804e1e76f1c7" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_PSRAM_Size</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

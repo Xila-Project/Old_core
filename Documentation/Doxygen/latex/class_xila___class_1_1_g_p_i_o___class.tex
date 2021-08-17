@@ -1,0 +1,119 @@
+\hypertarget{class_xila___class_1_1_g_p_i_o___class}{}\doxysection{Xila\+\_\+\+Class\+::GPIO\+\_\+\+Class Class Reference}
+\label{class_xila___class_1_1_g_p_i_o___class}\index{Xila\_Class::GPIO\_Class@{Xila\_Class::GPIO\_Class}}
+
+
+GPIO management class.  
+
+
+
+
+{\ttfamily \#include $<$Core.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a476ef78e4ebbbce44ae4bc5a82eb914b}\label{class_xila___class_1_1_g_p_i_o___class_a476ef78e4ebbbce44ae4bc5a82eb914b}} 
+enum {\bfseries Digital\+\_\+\+States} \+: uint8\+\_\+t \{ {\bfseries Low} = LOW
+, {\bfseries High} = HIGH
+ \}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a5f8475f7571a2b465d633353d8fcdbfc}\label{class_xila___class_1_1_g_p_i_o___class_a5f8475f7571a2b465d633353d8fcdbfc}} 
+enum {\bfseries Modes} \+: uint8\+\_\+t \{ \newline
+{\bfseries Input} = 0x01
+, {\bfseries Output} = 0x02
+, {\bfseries Pull\+\_\+\+Up} = 0x04
+, {\bfseries Input\+\_\+\+Pull\+\_\+\+Up} = 0x05
+, \newline
+{\bfseries Pull\+\_\+\+Down} = 0x08
+, {\bfseries Input\+\_\+\+Pull\+\_\+\+Down} = 0x09
+, {\bfseries Open\+\_\+\+Drain} = 0x10
+, {\bfseries Output\+\_\+\+Open\+\_\+\+Drain} = 0x12
+, \newline
+{\bfseries Special} = 0x\+F0
+, {\bfseries Function\+\_\+1} = 0x00
+, {\bfseries Function\+\_\+2} = 0x20
+, {\bfseries Function\+\_\+3} = 0x40
+, \newline
+{\bfseries Function\+\_\+4} = 0x60
+, {\bfseries Function\+\_\+5} = 0x80
+, {\bfseries Function\+\_\+6} = 0x\+A0
+, {\bfseries Analog} = 0x\+C0
+ \}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_acb2a4750713a181d8c988c524191b014}\label{class_xila___class_1_1_g_p_i_o___class_acb2a4750713a181d8c988c524191b014}} 
+enum {\bfseries Interrupt\+\_\+\+Modes} \+: uint8\+\_\+t \{ \newline
+{\bfseries Disabled} = 0x00
+, {\bfseries Rising} = 0x01
+, {\bfseries Falling} = 0x02
+, {\bfseries Change} = 0x03
+, \newline
+{\bfseries On\+\_\+\+Low} = 0x04
+, {\bfseries On\+\_\+\+High} = 0x05
+, {\bfseries On\+\_\+\+Low\+\_\+\+WE} = 0x0C
+, {\bfseries On\+\_\+\+High\+\_\+\+WE} = 0x0D
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_aa1e1263e2be3527f88d29ba716553b35}\label{class_xila___class_1_1_g_p_i_o___class_aa1e1263e2be3527f88d29ba716553b35}} 
+\mbox{\hyperlink{class_xila___class_1_1_g_p_i_o___class_aa1e1263e2be3527f88d29ba716553b35}{GPIO\+\_\+\+Class}} ()
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{class_xila___class_1_1_g_p_i_o___class_aa1e1263e2be3527f88d29ba716553b35}{Xila\+\_\+\+Class\+::\+GPIO\+\_\+\+Class\+::\+GPIO\+\_\+\+Class}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a4d61aa3002e4d810c8446430ce979c2f}\label{class_xila___class_1_1_g_p_i_o___class_a4d61aa3002e4d810c8446430ce979c2f}} 
+void {\bfseries Set\+\_\+\+Mode} (uint8\+\_\+t Pin, uint8\+\_\+t Mode)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a390fe5acf401820f1866d15286f5e3d0}\label{class_xila___class_1_1_g_p_i_o___class_a390fe5acf401820f1866d15286f5e3d0}} 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Valid\+\_\+\+Output\+\_\+\+Pin} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_ae0884fdc33e1d1fd732381945b97431b}\label{class_xila___class_1_1_g_p_i_o___class_ae0884fdc33e1d1fd732381945b97431b}} 
+void {\bfseries Digital\+\_\+\+Write} (uint8\+\_\+t Pin, uint8\+\_\+t \mbox{\hyperlink{class_xila___class_a97f78ce2a2da8c5879eb6568b4f74fe8}{State}})
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_ac148f7cfbefb87451768ae29dc858ba3}\label{class_xila___class_1_1_g_p_i_o___class_ac148f7cfbefb87451768ae29dc858ba3}} 
+int16\+\_\+t {\bfseries Digital\+\_\+\+Read} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a21d1f6d8fa83d00defbd9785f00347bc}\label{class_xila___class_1_1_g_p_i_o___class_a21d1f6d8fa83d00defbd9785f00347bc}} 
+\mbox{\hyperlink{class_xila___class_a8d959952ae902a1d9caddcff96acc9ee}{Xila\+\_\+\+Class\+::\+Event}} {\bfseries Valid\+\_\+\+Digital\+\_\+\+Pin} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a6c4bd630f11edcae695bbc70b26e3a03}\label{class_xila___class_1_1_g_p_i_o___class_a6c4bd630f11edcae695bbc70b26e3a03}} 
+uint16\+\_\+t {\bfseries Analog\+\_\+\+Read} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a8341f8743b3a8dae4f4101789e9e5e75}\label{class_xila___class_1_1_g_p_i_o___class_a8341f8743b3a8dae4f4101789e9e5e75}} 
+uint32\+\_\+t {\bfseries Analog\+\_\+\+Read\+\_\+\+Milli\+\_\+\+Volts} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_ac1055a2b12728edf4f945d215b4591b9}\label{class_xila___class_1_1_g_p_i_o___class_ac1055a2b12728edf4f945d215b4591b9}} 
+void {\bfseries Set\+\_\+\+Voltage\+\_\+\+Reference\+\_\+\+Pin} (uint8\+\_\+t Pin)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_ac892af21b737fcd2310cee112659a081}\label{class_xila___class_1_1_g_p_i_o___class_ac892af21b737fcd2310cee112659a081}} 
+void {\bfseries Set\+\_\+\+Read\+\_\+\+Resolutions} (uint8\+\_\+t Bits\+\_\+\+Resolution)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a8a74f82f1bb7b86a673a62192497b1dd}\label{class_xila___class_1_1_g_p_i_o___class_a8a74f82f1bb7b86a673a62192497b1dd}} 
+void {\bfseries Set\+\_\+\+Width} (uint8\+\_\+t Bits\+\_\+\+Width)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a17c712ca4f31f346ecd223e767213386}\label{class_xila___class_1_1_g_p_i_o___class_a17c712ca4f31f346ecd223e767213386}} 
+void {\bfseries Set\+\_\+\+Clock\+\_\+\+Divider} (uint8\+\_\+t Clock\+\_\+\+Divider)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a05d2b65a023a5eea8bc6d8f84579e711}\label{class_xila___class_1_1_g_p_i_o___class_a05d2b65a023a5eea8bc6d8f84579e711}} 
+void {\bfseries Set\+\_\+\+Attenuation} (uint8\+\_\+t Attenuation)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a5bbef1476ad0d2b4979a6b02ca35e1e7}\label{class_xila___class_1_1_g_p_i_o___class_a5bbef1476ad0d2b4979a6b02ca35e1e7}} 
+void {\bfseries Set\+\_\+\+Attenuation} (uint8\+\_\+t Pin, uint8\+\_\+t Attenuation)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a5e392a9291b7b6ecdbad9e2db3e6fcc1}\label{class_xila___class_1_1_g_p_i_o___class_a5e392a9291b7b6ecdbad9e2db3e6fcc1}} 
+void {\bfseries Attach\+\_\+\+Interrupt} (uint8\+\_\+t Pin, void($\ast$Function\+\_\+\+Pointer)(void), int16\+\_\+t Mode)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_af3df535781f6106d1dfbe36f341ff4ca}\label{class_xila___class_1_1_g_p_i_o___class_af3df535781f6106d1dfbe36f341ff4ca}} 
+void {\bfseries Attach\+\_\+\+Interrupt\+\_\+\+Argument} (uint8\+\_\+t Pin, void($\ast$Function\+\_\+\+Pointer)(void $\ast$), void $\ast$Argument, int16\+\_\+t Mode)
+\item 
+\mbox{\Hypertarget{class_xila___class_1_1_g_p_i_o___class_a9507827cf5bf287015df3c7e1d521137}\label{class_xila___class_1_1_g_p_i_o___class_a9507827cf5bf287015df3c7e1d521137}} 
+void {\bfseries Detech\+\_\+\+Interrupt} (uint8\+\_\+t Pin)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+GPIO management class. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\mbox{\hyperlink{_core_8hpp}{Core.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/include/\+Core/\+Abstraction/\mbox{\hyperlink{_g_p_i_o_8hpp}{GPIO.\+hpp}}\item 
+C\+:/\+Users/alixa/\+Git\+Hub/\+Xila/\+Code/lib/\+Xila/src/\+Core/\+Abstraction/\mbox{\hyperlink{_g_p_i_o_8cpp}{GPIO.\+cpp}}\end{DoxyCompactItemize}

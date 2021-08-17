@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Xila
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
    <div id="projectbrief">A graphical operating system for embedded systems</div>
   </td>
@@ -71,11 +71,8 @@ $(function() {
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pro-types">Protected Types</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_xila___class_1_1_sound___class-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -90,6 +87,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:a3f157426633148053fd00d809b7eacca"><td class="memItemLeft" align="right" valign="top"><a id="a3f157426633148053fd00d809b7eacca"></a>enum &#160;</td><td class="memItemRight" valign="bottom">: uint8_t { <b>Internal_DAC</b> = 0
+, <b>External_DAC</b>
+ }</td></tr>
+<tr class="separator:a3f157426633148053fd00d809b7eacca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7e4356b3466ffc739f96070ec80bc344"><td class="memItemLeft" align="right" valign="top"><a id="a7e4356b3466ffc739f96070ec80bc344"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Event</b> { <br />
 &#160;&#160;<b>Failed_To_Get_RTC_Period</b>
 , <b>Failed_To_Open_File</b>
@@ -108,88 +109,139 @@ Public Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a7e4356b3466ffc739f96070ec80bc344"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a620979421eaffe3855b6825f4fb887e0"><td class="memItemLeft" align="right" valign="top"><a id="a620979421eaffe3855b6825f4fb887e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Output_Channel</b> (uint8_t Number_Output_Channel)</td></tr>
-<tr class="separator:a620979421eaffe3855b6825f4fb887e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad335fe9c75edaa6ce281f617227b8375"><td class="memItemLeft" align="right" valign="top"><a id="ad335fe9c75edaa6ce281f617227b8375"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Volume</b> (uint16_t)</td></tr>
-<tr class="separator:ad335fe9c75edaa6ce281f617227b8375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memItemLeft" align="right" valign="top"><a id="a6ff91eed9eb1dd826ad2eba29b31b6c0"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Volume</b> ()</td></tr>
-<tr class="separator:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d825db7c724bfd5f13390443a6cfebe"><td class="memItemLeft" align="right" valign="top"><a id="a0d825db7c724bfd5f13390443a6cfebe"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Balance</b> (uint8_t)</td></tr>
-<tr class="separator:a0d825db7c724bfd5f13390443a6cfebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6431df53f50f2a27cb47ccba414083fe"><td class="memItemLeft" align="right" valign="top"><a id="a6431df53f50f2a27cb47ccba414083fe"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Play</b> (File &amp;File_To_Play)</td></tr>
-<tr class="separator:a6431df53f50f2a27cb47ccba414083fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e394ab13953021ec402386a7186201d"><td class="memItemLeft" align="right" valign="top"><a id="a2e394ab13953021ec402386a7186201d"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Play</b> (const char *File_Path_Or_Host, const char *User=&quot;&quot;, const char *Password=&quot;&quot;)</td></tr>
-<tr class="separator:a2e394ab13953021ec402386a7186201d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1468e07779e332ca44dc59cd0b5f69e9"><td class="memItemLeft" align="right" valign="top"><a id="a1468e07779e332ca44dc59cd0b5f69e9"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Resume</b> ()</td></tr>
-<tr class="separator:a1468e07779e332ca44dc59cd0b5f69e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af269c6d66abee34fdcb7ff67d1eaf8c5"><td class="memItemLeft" align="right" valign="top"><a id="af269c6d66abee34fdcb7ff67d1eaf8c5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Pause</b> ()</td></tr>
-<tr class="separator:af269c6d66abee34fdcb7ff67d1eaf8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5de940e5b1e53e42cb8c5f8b9aa55237"><td class="memItemLeft" align="right" valign="top"><a id="a5de940e5b1e53e42cb8c5f8b9aa55237"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Mute</b> ()</td></tr>
-<tr class="separator:a5de940e5b1e53e42cb8c5f8b9aa55237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeeb2e3bc8757951e2a799af07a649a08"><td class="memItemLeft" align="right" valign="top"><a id="aeeb2e3bc8757951e2a799af07a649a08"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Stop</b> ()</td></tr>
-<tr class="separator:aeeb2e3bc8757951e2a799af07a649a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541e4ee0aabb0ab0f931e766178f0487"><td class="memItemLeft" align="right" valign="top"><a id="a541e4ee0aabb0ab0f931e766178f0487"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Current_Time</b> (uint16_t Time)</td></tr>
-<tr class="separator:a541e4ee0aabb0ab0f931e766178f0487"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11cea489c89cd820f7882919e2c16cc6"><td class="memItemLeft" align="right" valign="top"><a id="a11cea489c89cd820f7882919e2c16cc6"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Current_Time</b> ()</td></tr>
-<tr class="separator:a11cea489c89cd820f7882919e2c16cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb33994cde05a4c61d09a935075a31bb"><td class="memItemLeft" align="right" valign="top"><a id="acb33994cde05a4c61d09a935075a31bb"></a>
-uint32_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_Total_Time</b> ()</td></tr>
-<tr class="separator:acb33994cde05a4c61d09a935075a31bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a353f51b56febd8281c38848dbd5b8d56"><td class="memItemLeft" align="right" valign="top"><a id="a353f51b56febd8281c38848dbd5b8d56"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Offset_Time</b> (int16_t Time)</td></tr>
-<tr class="separator:a353f51b56febd8281c38848dbd5b8d56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a114b95e43e5f5a3056075b453ee6ec8f"><td class="memItemLeft" align="right" valign="top"><a id="a114b95e43e5f5a3056075b453ee6ec8f"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Get_State</b> ()</td></tr>
-<tr class="separator:a114b95e43e5f5a3056075b453ee6ec8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bfb28fd75125245a976de6ab8201195"><td class="memItemLeft" align="right" valign="top"><a id="a2bfb28fd75125245a976de6ab8201195"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Tone</b> (uint16_t const &amp;Frequency, uint32_t const &amp;Duration=0, uint8_t const &amp;Pin=0xFF)</td></tr>
-<tr class="separator:a2bfb28fd75125245a976de6ab8201195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bb8c02187efa7d88caea1a498f7c963"><td class="memItemLeft" align="right" valign="top"><a id="a6bb8c02187efa7d88caea1a498f7c963"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>No_Tone</b> (uint8_t const &amp;Pin=0xFF)</td></tr>
-<tr class="separator:a6bb8c02187efa7d88caea1a498f7c963"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a83d75526061756ef01111eb7ba324129"><td class="memItemLeft" align="right" valign="top"><a id="a83d75526061756ef01111eb7ba324129"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>Task</b> (void *)</td></tr>
-<tr class="separator:a83d75526061756ef01111eb7ba324129"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a845bc9825f6c5b0904823a209e90d588"><td class="memItemLeft" align="right" valign="top"><a id="a845bc9825f6c5b0904823a209e90d588"></a>
-friend&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
-<tr class="separator:a845bc9825f6c5b0904823a209e90d588"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-types"></a>
-Protected Types</h2></td></tr>
 <tr class="memitem:a08388d235452b6a5fc7118854982ae5e"><td class="memItemLeft" align="right" valign="top"><a id="a08388d235452b6a5fc7118854982ae5e"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>State</b> { <b>Stopped</b>
 , <b>Playing</b>
 , <b>Paused</b>
  }</td></tr>
 <tr class="separator:a08388d235452b6a5fc7118854982ae5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a77b6df69b101e42e00a261a5d9788"><td class="memItemLeft" align="right" valign="top"><a id="a58a77b6df69b101e42e00a261a5d9788"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Channels</b> { <b>Left_Channel</b> = 0
+, <b>Right_Channel</b> = 1
+, <b>Custom_Channel</b> = 2
+ }</td></tr>
+<tr class="separator:a58a77b6df69b101e42e00a261a5d9788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac401ed5c81471a1f908497fe4740fdff"><td class="memItemLeft" align="right" valign="top"><a id="ac401ed5c81471a1f908497fe4740fdff"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ac401ed5c81471a1f908497fe4740fdff">Sound_Class</a> ()</td></tr>
+<tr class="memdesc:ac401ed5c81471a1f908497fe4740fdff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="class_xila___class_1_1_sound___class.html#ac401ed5c81471a1f908497fe4740fdff" title="Construct a new Xila_Class::Sound_Class::Sound_Class object.">Xila_Class::Sound_Class::Sound_Class</a> object. <br /></td></tr>
+<tr class="separator:ac401ed5c81471a1f908497fe4740fdff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3431aa8f7549a598bba85254013c4766"><td class="memItemLeft" align="right" valign="top"><a id="a3431aa8f7549a598bba85254013c4766"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a3431aa8f7549a598bba85254013c4766">~Sound_Class</a> ()</td></tr>
+<tr class="memdesc:a3431aa8f7549a598bba85254013c4766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="class_xila___class_1_1_sound___class.html#ac401ed5c81471a1f908497fe4740fdff" title="Construct a new Xila_Class::Sound_Class::Sound_Class object.">Xila_Class::Sound_Class::Sound_Class</a> object. <br /></td></tr>
+<tr class="separator:a3431aa8f7549a598bba85254013c4766"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a643ab556b5be39e29875551cdf887c3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a643ab556b5be39e29875551cdf887c3f">Set_Channels</a> (uint8_t Channels)</td></tr>
+<tr class="memdesc:a643ab556b5be39e29875551cdf887c3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set number of channels.  <a href="class_xila___class_1_1_sound___class.html#a643ab556b5be39e29875551cdf887c3f">More...</a><br /></td></tr>
+<tr class="separator:a643ab556b5be39e29875551cdf887c3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bc986ca4b3ba1f00adb1abef3773a83"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a7bc986ca4b3ba1f00adb1abef3773a83">Set_Volume</a> (uint8_t Volume)</td></tr>
+<tr class="memdesc:a7bc986ca4b3ba1f00adb1abef3773a83"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set volume.  <a href="class_xila___class_1_1_sound___class.html#a7bc986ca4b3ba1f00adb1abef3773a83">More...</a><br /></td></tr>
+<tr class="separator:a7bc986ca4b3ba1f00adb1abef3773a83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a6ff91eed9eb1dd826ad2eba29b31b6c0">Get_Volume</a> ()</td></tr>
+<tr class="memdesc:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current volume level.  <a href="class_xila___class_1_1_sound___class.html#a6ff91eed9eb1dd826ad2eba29b31b6c0">More...</a><br /></td></tr>
+<tr class="separator:a6ff91eed9eb1dd826ad2eba29b31b6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d825db7c724bfd5f13390443a6cfebe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a0d825db7c724bfd5f13390443a6cfebe">Set_Balance</a> (uint8_t)</td></tr>
+<tr class="memdesc:a0d825db7c724bfd5f13390443a6cfebe"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set valance.  <a href="class_xila___class_1_1_sound___class.html#a0d825db7c724bfd5f13390443a6cfebe">More...</a><br /></td></tr>
+<tr class="separator:a0d825db7c724bfd5f13390443a6cfebe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6431df53f50f2a27cb47ccba414083fe"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a6431df53f50f2a27cb47ccba414083fe">Play</a> (File &amp;File_To_Play)</td></tr>
+<tr class="memdesc:a6431df53f50f2a27cb47ccba414083fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that play from file.  <a href="class_xila___class_1_1_sound___class.html#a6431df53f50f2a27cb47ccba414083fe">More...</a><br /></td></tr>
+<tr class="separator:a6431df53f50f2a27cb47ccba414083fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e394ab13953021ec402386a7186201d"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a2e394ab13953021ec402386a7186201d">Play</a> (const char *File_Path_Or_Host, const char *User=&quot;&quot;, const char *Password=&quot;&quot;)</td></tr>
+<tr class="memdesc:a2e394ab13953021ec402386a7186201d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that play sound from host or file.  <a href="class_xila___class_1_1_sound___class.html#a2e394ab13953021ec402386a7186201d">More...</a><br /></td></tr>
+<tr class="separator:a2e394ab13953021ec402386a7186201d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad02b164bf74adfa9db26c15dd8cc56a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ad02b164bf74adfa9db26c15dd8cc56a4">Set_Loop</a> (bool Loop)</td></tr>
+<tr class="memdesc:ad02b164bf74adfa9db26c15dd8cc56a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set loop of the current playing file.  <a href="class_xila___class_1_1_sound___class.html#ad02b164bf74adfa9db26c15dd8cc56a4">More...</a><br /></td></tr>
+<tr class="separator:ad02b164bf74adfa9db26c15dd8cc56a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c855a39312a84ab9bad2305b07ac1ca"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a5c855a39312a84ab9bad2305b07ac1ca">Get_File_Size</a> ()</td></tr>
+<tr class="memdesc:a5c855a39312a84ab9bad2305b07ac1ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return file size.  <a href="class_xila___class_1_1_sound___class.html#a5c855a39312a84ab9bad2305b07ac1ca">More...</a><br /></td></tr>
+<tr class="separator:a5c855a39312a84ab9bad2305b07ac1ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b79709ed661a82ce94790e8de2de101"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a9b79709ed661a82ce94790e8de2de101">Get_File_Position</a> ()</td></tr>
+<tr class="memdesc:a9b79709ed661a82ce94790e8de2de101"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current file position.  <a href="class_xila___class_1_1_sound___class.html#a9b79709ed661a82ce94790e8de2de101">More...</a><br /></td></tr>
+<tr class="separator:a9b79709ed661a82ce94790e8de2de101"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7fcfeca834de583c34beb7ec69e996cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a7fcfeca834de583c34beb7ec69e996cf">Set_File_Position</a> (uint32_t Position)</td></tr>
+<tr class="memdesc:a7fcfeca834de583c34beb7ec69e996cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set current file position.  <a href="class_xila___class_1_1_sound___class.html#a7fcfeca834de583c34beb7ec69e996cf">More...</a><br /></td></tr>
+<tr class="separator:a7fcfeca834de583c34beb7ec69e996cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52c100557c6b022c44f67361a3de93f6"><td class="memItemLeft" align="right" valign="top"><a id="a52c100557c6b022c44f67361a3de93f6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>Set_File_Seek</b> (const float Speed)</td></tr>
+<tr class="separator:a52c100557c6b022c44f67361a3de93f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8add6cbbd51db608ef7274d316fe0208"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a8add6cbbd51db608ef7274d316fe0208">Get_Sample_Rate</a> ()</td></tr>
+<tr class="memdesc:a8add6cbbd51db608ef7274d316fe0208"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current sample rate.  <a href="class_xila___class_1_1_sound___class.html#a8add6cbbd51db608ef7274d316fe0208">More...</a><br /></td></tr>
+<tr class="separator:a8add6cbbd51db608ef7274d316fe0208"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1af629df86aeb759e55c4f8d1764cc72"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a1af629df86aeb759e55c4f8d1764cc72">Get_Bit_Resolution</a> ()</td></tr>
+<tr class="memdesc:a1af629df86aeb759e55c4f8d1764cc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set bit resolution of current playing file / host.  <a href="class_xila___class_1_1_sound___class.html#a1af629df86aeb759e55c4f8d1764cc72">More...</a><br /></td></tr>
+<tr class="separator:a1af629df86aeb759e55c4f8d1764cc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98fc3f2fd922a16966195eba90a62009"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a98fc3f2fd922a16966195eba90a62009">Get_Channels</a> ()</td></tr>
+<tr class="memdesc:a98fc3f2fd922a16966195eba90a62009"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return the number of channels.  <a href="class_xila___class_1_1_sound___class.html#a98fc3f2fd922a16966195eba90a62009">More...</a><br /></td></tr>
+<tr class="separator:a98fc3f2fd922a16966195eba90a62009"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77e994cdb0e81b602cfcb3148c90a726"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a77e994cdb0e81b602cfcb3148c90a726">Get_Bit_Rate</a> ()</td></tr>
+<tr class="memdesc:a77e994cdb0e81b602cfcb3148c90a726"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current bit rate of current playing file.  <a href="class_xila___class_1_1_sound___class.html#a77e994cdb0e81b602cfcb3148c90a726">More...</a><br /></td></tr>
+<tr class="separator:a77e994cdb0e81b602cfcb3148c90a726"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae79eb2862ad0ac2f4e6aa6022664d7c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ae79eb2862ad0ac2f4e6aa6022664d7c6">Set_Tone</a> (int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass)</td></tr>
+<tr class="memdesc:ae79eb2862ad0ac2f4e6aa6022664d7c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set equalizer.  <a href="class_xila___class_1_1_sound___class.html#ae79eb2862ad0ac2f4e6aa6022664d7c6">More...</a><br /></td></tr>
+<tr class="separator:ae79eb2862ad0ac2f4e6aa6022664d7c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adacfa9dba68e8750deaef9ec4a3e2d80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#adacfa9dba68e8750deaef9ec4a3e2d80">Set_Output</a> (uint8_t Output)</td></tr>
+<tr class="memdesc:adacfa9dba68e8750deaef9ec4a3e2d80"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set output.  <a href="class_xila___class_1_1_sound___class.html#adacfa9dba68e8750deaef9ec4a3e2d80">More...</a><br /></td></tr>
+<tr class="separator:adacfa9dba68e8750deaef9ec4a3e2d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2c07979f3d278aaf4c24b8df7be0839"><td class="memItemLeft" align="right" valign="top"><a id="ac2c07979f3d278aaf4c24b8df7be0839"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ac2c07979f3d278aaf4c24b8df7be0839">Resume</a> ()</td></tr>
+<tr class="memdesc:ac2c07979f3d278aaf4c24b8df7be0839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume playback. <br /></td></tr>
+<tr class="separator:ac2c07979f3d278aaf4c24b8df7be0839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af269c6d66abee34fdcb7ff67d1eaf8c5"><td class="memItemLeft" align="right" valign="top"><a id="af269c6d66abee34fdcb7ff67d1eaf8c5"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#af269c6d66abee34fdcb7ff67d1eaf8c5">Pause</a> ()</td></tr>
+<tr class="memdesc:af269c6d66abee34fdcb7ff67d1eaf8c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pause playback. <br /></td></tr>
+<tr class="separator:af269c6d66abee34fdcb7ff67d1eaf8c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5de940e5b1e53e42cb8c5f8b9aa55237"><td class="memItemLeft" align="right" valign="top"><a id="a5de940e5b1e53e42cb8c5f8b9aa55237"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a5de940e5b1e53e42cb8c5f8b9aa55237">Mute</a> ()</td></tr>
+<tr class="memdesc:a5de940e5b1e53e42cb8c5f8b9aa55237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mute playback. <br /></td></tr>
+<tr class="separator:a5de940e5b1e53e42cb8c5f8b9aa55237"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeeb2e3bc8757951e2a799af07a649a08"><td class="memItemLeft" align="right" valign="top"><a id="aeeb2e3bc8757951e2a799af07a649a08"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#aeeb2e3bc8757951e2a799af07a649a08">Stop</a> ()</td></tr>
+<tr class="memdesc:aeeb2e3bc8757951e2a799af07a649a08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop playback. <br /></td></tr>
+<tr class="separator:aeeb2e3bc8757951e2a799af07a649a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a541e4ee0aabb0ab0f931e766178f0487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a541e4ee0aabb0ab0f931e766178f0487">Set_Current_Time</a> (uint16_t Time)</td></tr>
+<tr class="memdesc:a541e4ee0aabb0ab0f931e766178f0487"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set current playing time.  <a href="class_xila___class_1_1_sound___class.html#a541e4ee0aabb0ab0f931e766178f0487">More...</a><br /></td></tr>
+<tr class="separator:a541e4ee0aabb0ab0f931e766178f0487"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11cea489c89cd820f7882919e2c16cc6"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a11cea489c89cd820f7882919e2c16cc6">Get_Current_Time</a> ()</td></tr>
+<tr class="memdesc:a11cea489c89cd820f7882919e2c16cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current time.  <a href="class_xila___class_1_1_sound___class.html#a11cea489c89cd820f7882919e2c16cc6">More...</a><br /></td></tr>
+<tr class="separator:a11cea489c89cd820f7882919e2c16cc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9395bc1662ebec9c8e93a3dbddc8ac2"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#af9395bc1662ebec9c8e93a3dbddc8ac2">Get_Duration</a> ()</td></tr>
+<tr class="memdesc:af9395bc1662ebec9c8e93a3dbddc8ac2"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return file duration.  <a href="class_xila___class_1_1_sound___class.html#af9395bc1662ebec9c8e93a3dbddc8ac2">More...</a><br /></td></tr>
+<tr class="separator:af9395bc1662ebec9c8e93a3dbddc8ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c1221f42cd2f9776b670fc738c8f79"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ad6c1221f42cd2f9776b670fc738c8f79">Set_Pinout</a> (uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin=(-1))</td></tr>
+<tr class="memdesc:ad6c1221f42cd2f9776b670fc738c8f79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set pinout of external DAC.  <a href="class_xila___class_1_1_sound___class.html#ad6c1221f42cd2f9776b670fc738c8f79">More...</a><br /></td></tr>
+<tr class="separator:ad6c1221f42cd2f9776b670fc738c8f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a680ed36a00e459ae018494e127c2f85e"><td class="memItemLeft" align="right" valign="top"><a id="a680ed36a00e459ae018494e127c2f85e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Set_Balance</b> (int8_t Balance=0)</td></tr>
+<tr class="separator:a680ed36a00e459ae018494e127c2f85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb33994cde05a4c61d09a935075a31bb"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#acb33994cde05a4c61d09a935075a31bb">Get_Total_Time</a> ()</td></tr>
+<tr class="memdesc:acb33994cde05a4c61d09a935075a31bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return total playing time.  <a href="class_xila___class_1_1_sound___class.html#acb33994cde05a4c61d09a935075a31bb">More...</a><br /></td></tr>
+<tr class="separator:acb33994cde05a4c61d09a935075a31bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af40099521b6e78fd99c7c18e9c4693fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#af40099521b6e78fd99c7c18e9c4693fd">Set_Time_Offset</a> (int16_t Time)</td></tr>
+<tr class="memdesc:af40099521b6e78fd99c7c18e9c4693fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that set time offset.  <a href="class_xila___class_1_1_sound___class.html#af40099521b6e78fd99c7c18e9c4693fd">More...</a><br /></td></tr>
+<tr class="separator:af40099521b6e78fd99c7c18e9c4693fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a114b95e43e5f5a3056075b453ee6ec8f"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a114b95e43e5f5a3056075b453ee6ec8f">Get_State</a> ()</td></tr>
+<tr class="memdesc:a114b95e43e5f5a3056075b453ee6ec8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that return current playing state.  <a href="class_xila___class_1_1_sound___class.html#a114b95e43e5f5a3056075b453ee6ec8f">More...</a><br /></td></tr>
+<tr class="separator:a114b95e43e5f5a3056075b453ee6ec8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4a4eee5c439bcad3d376ef73ef880df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ae4a4eee5c439bcad3d376ef73ef880df">Tone</a> (uint16_t Frequency, uint32_t Duration=0, uint8_t Pin=0xFF)</td></tr>
+<tr class="memdesc:ae4a4eee5c439bcad3d376ef73ef880df"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that generate a tone.  <a href="class_xila___class_1_1_sound___class.html#ae4a4eee5c439bcad3d376ef73ef880df">More...</a><br /></td></tr>
+<tr class="separator:ae4a4eee5c439bcad3d376ef73ef880df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be5fad06da6086e410dc4dcedaf5e1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a1be5fad06da6086e410dc4dcedaf5e1c">No_Tone</a> (uint8_t Pin=0xFF)</td></tr>
+<tr class="memdesc:a1be5fad06da6086e410dc4dcedaf5e1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that disable tone on pin.  <a href="class_xila___class_1_1_sound___class.html#a1be5fad06da6086e410dc4dcedaf5e1c">More...</a><br /></td></tr>
+<tr class="separator:a1be5fad06da6086e410dc4dcedaf5e1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a9e9a1c60f0f755f3377b50db469b3efc"><td class="memItemLeft" align="right" valign="top"><a id="a9e9a1c60f0f755f3377b50db469b3efc"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a9e9a1c60f0f755f3377b50db469b3efc">Task</a> (void *)</td></tr>
+<tr class="memdesc:a9e9a1c60f0f755f3377b50db469b3efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Audio driver task. <br /></td></tr>
+<tr class="separator:a9e9a1c60f0f755f3377b50db469b3efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a80a3ec224409e3c52093afe4deca445b"><td class="memItemLeft" align="right" valign="top"><a id="a80a3ec224409e3c52093afe4deca445b"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Save_Registry</b> ()</td></tr>
+<tr class="memitem:a80a3ec224409e3c52093afe4deca445b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a80a3ec224409e3c52093afe4deca445b">Save_Registry</a> ()</td></tr>
+<tr class="memdesc:a80a3ec224409e3c52093afe4deca445b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save sound registry.  <a href="class_xila___class_1_1_sound___class.html#a80a3ec224409e3c52093afe4deca445b">More...</a><br /></td></tr>
 <tr class="separator:a80a3ec224409e3c52093afe4deca445b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace40cc5c81319ad4c0c61993cc894ca5"><td class="memItemLeft" align="right" valign="top"><a id="ace40cc5c81319ad4c0c61993cc894ca5"></a>
-<a class="el" href="class_xila___class.html#a940caa98f1119e09f346fecf8f7c7123">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Load_Registry</b> ()</td></tr>
+<tr class="memitem:ace40cc5c81319ad4c0c61993cc894ca5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#ace40cc5c81319ad4c0c61993cc894ca5">Load_Registry</a> ()</td></tr>
+<tr class="memdesc:ace40cc5c81319ad4c0c61993cc894ca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A method that load sound registry.  <a href="class_xila___class_1_1_sound___class.html#ace40cc5c81319ad4c0c61993cc894ca5">More...</a><br /></td></tr>
 <tr class="separator:ace40cc5c81319ad4c0c61993cc894ca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74c8525c6b26c746bdcffba759e88fc8"><td class="memItemLeft" align="right" valign="top"><a id="a74c8525c6b26c746bdcffba759e88fc8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> ()</td></tr>
@@ -197,41 +249,813 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>Begin</b> ()</td></tr
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:aa092b0e56f47b72be9c01363de9a9f52"><td class="memItemLeft" align="right" valign="top"><a id="aa092b0e56f47b72be9c01363de9a9f52"></a>
-Xila_Task_Handle&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
-<tr class="separator:aa092b0e56f47b72be9c01363de9a9f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a604889ac9cd6d022b8deb033fa07ab95"><td class="memItemLeft" align="right" valign="top"><a id="a604889ac9cd6d022b8deb033fa07ab95"></a>
+<a class="el" href="class_xila___class.html#a5cc19f7e1cd3f8ecee7882fcd4850661">Xila_Class::Task_Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><b>Task_Handle</b></td></tr>
+<tr class="separator:a604889ac9cd6d022b8deb033fa07ab95"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a5aee297aad39aa4708d2c31d43544c"><td class="memItemLeft" align="right" valign="top"><a id="a4a5aee297aad39aa4708d2c31d43544c"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Custom_Pin</b></td></tr>
 <tr class="separator:a4a5aee297aad39aa4708d2c31d43544c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f500e346202feebac92ab77493125cc"><td class="memItemLeft" align="right" valign="top"><a id="a8f500e346202feebac92ab77493125cc"></a>
 File&#160;</td><td class="memItemRight" valign="bottom"><b>Music_File</b></td></tr>
 <tr class="separator:a8f500e346202feebac92ab77493125cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-static-attribs"></a>
-Static Protected Attributes</h2></td></tr>
-<tr class="memitem:a94f9d22e642ce6c780f9fb756b7bb36a"><td class="memItemLeft" align="right" valign="top"><a id="a94f9d22e642ce6c780f9fb756b7bb36a"></a>
-static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Left_Channel</b> = 0</td></tr>
-<tr class="separator:a94f9d22e642ce6c780f9fb756b7bb36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0b5ee7c9097ff2901c27923c955de2a"><td class="memItemLeft" align="right" valign="top"><a id="ae0b5ee7c9097ff2901c27923c955de2a"></a>
-static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Right_Channel</b> = 1</td></tr>
-<tr class="separator:ae0b5ee7c9097ff2901c27923c955de2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a541511cb60ca964e48a840ea005092d1"><td class="memItemLeft" align="right" valign="top"><a id="a541511cb60ca964e48a840ea005092d1"></a>
-static const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Custom_Channel</b> = 2</td></tr>
-<tr class="separator:a541511cb60ca964e48a840ea005092d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a801baf834880f6b5231e7428ac7606aa"><td class="memItemLeft" align="right" valign="top"><a id="a801baf834880f6b5231e7428ac7606aa"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Data_Pin</b></td></tr>
+<tr class="separator:a801baf834880f6b5231e7428ac7606aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fecb85b5f09acf8dc3c5262ba3e6879"><td class="memItemLeft" align="right" valign="top"><a id="a1fecb85b5f09acf8dc3c5262ba3e6879"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Word_Select_Pin</b></td></tr>
+<tr class="separator:a1fecb85b5f09acf8dc3c5262ba3e6879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bf0db0524fdd5c96f1e2c9bba72cc6f"><td class="memItemLeft" align="right" valign="top"><a id="a1bf0db0524fdd5c96f1e2c9bba72cc6f"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Clock_Pin</b></td></tr>
+<tr class="separator:a1bf0db0524fdd5c96f1e2c9bba72cc6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01d8a32fad7c755f3bb78279f9e64696"><td class="memItemLeft" align="right" valign="top"><a id="a01d8a32fad7c755f3bb78279f9e64696"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>Output</b></td></tr>
+<tr class="separator:a01d8a32fad7c755f3bb78279f9e64696"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
+<tr class="memitem:a527e2efc7210a2147182df1fde98a42c"><td class="memItemLeft" align="right" valign="top"><a id="a527e2efc7210a2147182df1fde98a42c"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Xila_Class</b></td></tr>
+<tr class="separator:a527e2efc7210a2147182df1fde98a42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a993b38fc160773525ee5c3dfcf033710"><td class="memItemLeft" align="right" valign="top"><a id="a993b38fc160773525ee5c3dfcf033710"></a>
 class&#160;</td><td class="memItemRight" valign="bottom"><b>Shell_Class</b></td></tr>
 <tr class="separator:a993b38fc160773525ee5c3dfcf033710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="memItemLeft" align="right" valign="top"><a id="a41bc3dbfdf579bdb9446f64b46aec9aa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>audio_eof_mp3</b> (const char *)</td></tr>
+<tr class="memitem:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_xila___class_1_1_sound___class.html#a41bc3dbfdf579bdb9446f64b46aec9aa">audio_eof_mp3</a> (const char *)</td></tr>
+<tr class="memdesc:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">A weak function that automatically stop sound play when file end.  <a href="class_xila___class_1_1_sound___class.html#a41bc3dbfdf579bdb9446f64b46aec9aa">More...</a><br /></td></tr>
 <tr class="separator:a41bc3dbfdf579bdb9446f64b46aec9aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Sound class API. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/alixa/github/Xila Embedded/Code/Operating_System/Espressif_32/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a77e994cdb0e81b602cfcb3148c90a726"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77e994cdb0e81b602cfcb3148c90a726">&#9670;&nbsp;</a></span>Get_Bit_Rate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_Bit_Rate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current bit rate of current playing file. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t Current playing file bit rate. </dd></dl>
+
+</div>
+</div>
+<a id="a1af629df86aeb759e55c4f8d1764cc72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1af629df86aeb759e55c4f8d1764cc72">&#9670;&nbsp;</a></span>Get_Bit_Resolution()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Get_Bit_Resolution </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set bit resolution of current playing file / host. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Bit resolution. </dd></dl>
+
+</div>
+</div>
+<a id="a98fc3f2fd922a16966195eba90a62009"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98fc3f2fd922a16966195eba90a62009">&#9670;&nbsp;</a></span>Get_Channels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Get_Channels </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return the number of channels. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Number of channels (1 for mono, 2 for stereo). </dd></dl>
+
+</div>
+</div>
+<a id="a11cea489c89cd820f7882919e2c16cc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11cea489c89cd820f7882919e2c16cc6">&#9670;&nbsp;</a></span>Get_Current_Time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_Current_Time </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current time. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t Current playing time in seconds. </dd></dl>
+
+</div>
+</div>
+<a id="af9395bc1662ebec9c8e93a3dbddc8ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9395bc1662ebec9c8e93a3dbddc8ac2">&#9670;&nbsp;</a></span>Get_Duration()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_Duration </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return file duration. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t Total playing time in seconds. </dd></dl>
+
+</div>
+</div>
+<a id="a9b79709ed661a82ce94790e8de2de101"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b79709ed661a82ce94790e8de2de101">&#9670;&nbsp;</a></span>Get_File_Position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_File_Position </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current file position. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t File position in bytes. </dd></dl>
+
+</div>
+</div>
+<a id="a5c855a39312a84ab9bad2305b07ac1ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c855a39312a84ab9bad2305b07ac1ca">&#9670;&nbsp;</a></span>Get_File_Size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_File_Size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return file size. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t File size in bytes. </dd></dl>
+
+</div>
+</div>
+<a id="a8add6cbbd51db608ef7274d316fe0208"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8add6cbbd51db608ef7274d316fe0208">&#9670;&nbsp;</a></span>Get_Sample_Rate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_Sample_Rate </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current sample rate. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t </dd></dl>
+
+</div>
+</div>
+<a id="a114b95e43e5f5a3056075b453ee6ec8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a114b95e43e5f5a3056075b453ee6ec8f">&#9670;&nbsp;</a></span>Get_State()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Get_State </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current playing state. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if audio is playing. </dd>
+<dd>
+false if audio is not playing. </dd></dl>
+
+</div>
+</div>
+<a id="acb33994cde05a4c61d09a935075a31bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb33994cde05a4c61d09a935075a31bb">&#9670;&nbsp;</a></span>Get_Total_Time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Xila_Class::Sound_Class::Get_Total_Time </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return total playing time. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint32_t Total playing time seconds. </dd></dl>
+
+</div>
+</div>
+<a id="a6ff91eed9eb1dd826ad2eba29b31b6c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ff91eed9eb1dd826ad2eba29b31b6c0">&#9670;&nbsp;</a></span>Get_Volume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Get_Volume </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that return current volume level. </p>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t Current volume level (0 - 255) </dd></dl>
+
+</div>
+</div>
+<a id="ace40cc5c81319ad4c0c61993cc894ca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace40cc5c81319ad4c0c61993cc894ca5">&#9670;&nbsp;</a></span>Load_Registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Sound_Class::Load_Registry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A method that load sound registry. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee" title="Xila event type.">Xila_Class::Event</a> </dd></dl>
+
+</div>
+</div>
+<a id="a1be5fad06da6086e410dc4dcedaf5e1c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be5fad06da6086e410dc4dcedaf5e1c">&#9670;&nbsp;</a></span>No_Tone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::No_Tone </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Pin</em> = <code>0xFF</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that disable tone on pin. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Pin</td><td>Pin that disable tone. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a2e394ab13953021ec402386a7186201d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e394ab13953021ec402386a7186201d">&#9670;&nbsp;</a></span>Play() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Play </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>File_Path_Or_Host</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>User</em> = <code>&quot;&quot;</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Password</em> = <code>&quot;&quot;</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that play sound from host or file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File_Path_Or_Host</td><td>File path or host url to play. </td></tr>
+    <tr><td class="paramname">User</td><td>Username if the host require authentification. </td></tr>
+    <tr><td class="paramname">Password</td><td>Password if the host require authentification. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if succed to play file. </dd>
+<dd>
+false if failed to play file. </dd></dl>
+
+</div>
+</div>
+<a id="a6431df53f50f2a27cb47ccba414083fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6431df53f50f2a27cb47ccba414083fe">&#9670;&nbsp;</a></span>Play() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t Xila_Class::Sound_Class::Play </td>
+          <td>(</td>
+          <td class="paramtype">File &amp;&#160;</td>
+          <td class="paramname"><em>File_To_Play</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that play from file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File_To_Play</td><td>File to play instance. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>uint8_t </dd></dl>
+
+</div>
+</div>
+<a id="a80a3ec224409e3c52093afe4deca445b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80a3ec224409e3c52093afe4deca445b">&#9670;&nbsp;</a></span>Save_Registry()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee">Xila_Class::Event</a> Xila_Class::Sound_Class::Save_Registry </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Save sound registry. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee" title="Xila event type.">Xila_Class::Event</a> <br  />
+ </dd></dl>
+
+</div>
+</div>
+<a id="a0d825db7c724bfd5f13390443a6cfebe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d825db7c724bfd5f13390443a6cfebe">&#9670;&nbsp;</a></span>Set_Balance()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Balance </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Balance_To_Set</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set valance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Balance_To_Set</td><td>Balance level. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a643ab556b5be39e29875551cdf887c3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a643ab556b5be39e29875551cdf887c3f">&#9670;&nbsp;</a></span>Set_Channels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Channels </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Channels</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set number of channels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Channels</td><td>1 for mono and 2 for stereo sound. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a541e4ee0aabb0ab0f931e766178f0487"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a541e4ee0aabb0ab0f931e766178f0487">&#9670;&nbsp;</a></span>Set_Current_Time()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Current_Time </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>Time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set current playing time. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Time</td><td>Current playing time in seconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7fcfeca834de583c34beb7ec69e996cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fcfeca834de583c34beb7ec69e996cf">&#9670;&nbsp;</a></span>Set_File_Position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Sound_Class::Set_File_Position </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>Position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set current file position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Position</td><td>File position in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if succeed to set file position. </dd>
+<dd>
+false if failed to set file position. </dd></dl>
+
+</div>
+</div>
+<a id="ad02b164bf74adfa9db26c15dd8cc56a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad02b164bf74adfa9db26c15dd8cc56a4">&#9670;&nbsp;</a></span>Set_Loop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Loop </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>Loop</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set loop of the current playing file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Loop</td><td>true to enable or false to disable loop. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adacfa9dba68e8750deaef9ec4a3e2d80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adacfa9dba68e8750deaef9ec4a3e2d80">&#9670;&nbsp;</a></span>Set_Output()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Output </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set output. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Output</td><td>Xila_Class::Sound_Class::Internal_DAC / External_DAC </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad6c1221f42cd2f9776b670fc738c8f79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c1221f42cd2f9776b670fc738c8f79">&#9670;&nbsp;</a></span>Set_Pinout()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Xila_Class::Sound_Class::Set_Pinout </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Bit_Clock_Pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Frame_Clock_Pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Data_Out_Pin</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Data_In_Pin</em> = <code>(-1)</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set pinout of external DAC. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Bit_Clock_Pin</td><td>Bit clock pin. </td></tr>
+    <tr><td class="paramname">Frame_Clock_Pin</td><td>Frame clock pin. </td></tr>
+    <tr><td class="paramname">Data_Out_Pin</td><td>Data out pin. </td></tr>
+    <tr><td class="paramname">Data_In_Pin</td><td>Data in pin. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the operation succeed. </dd>
+<dd>
+false if the operation failed. </dd></dl>
+
+</div>
+</div>
+<a id="af40099521b6e78fd99c7c18e9c4693fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af40099521b6e78fd99c7c18e9c4693fd">&#9670;&nbsp;</a></span>Set_Time_Offset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Time_Offset </td>
+          <td>(</td>
+          <td class="paramtype">int16_t&#160;</td>
+          <td class="paramname"><em>Time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set time offset. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Time</td><td>Time offset in seconds. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae79eb2862ad0ac2f4e6aa6022664d7c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae79eb2862ad0ac2f4e6aa6022664d7c6">&#9670;&nbsp;</a></span>Set_Tone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Tone </td>
+          <td>(</td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>Gain_Low_Pass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>Gain_Band_Pass</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>Gain_High_Pass</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set equalizer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Gain_Low_Pass</td><td>Gain low pass. </td></tr>
+    <tr><td class="paramname">Gain_Band_Pass</td><td>Gain band pass. </td></tr>
+    <tr><td class="paramname">Gain_High_Pass</td><td>Gain high pass. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7bc986ca4b3ba1f00adb1abef3773a83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bc986ca4b3ba1f00adb1abef3773a83">&#9670;&nbsp;</a></span>Set_Volume()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Set_Volume </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Volume_To_Set</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that set volume. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Volume_To_Set</td><td>Volume level to set (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae4a4eee5c439bcad3d376ef73ef880df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4a4eee5c439bcad3d376ef73ef880df">&#9670;&nbsp;</a></span>Tone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Xila_Class::Sound_Class::Tone </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t&#160;</td>
+          <td class="paramname"><em>Frequency</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>Duration</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>Pin</em> = <code>0xFF</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A method that generate a tone. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Frequency</td><td>Frequency of the tone. </td></tr>
+    <tr><td class="paramname">Duration</td><td>Duration of the tone. </td></tr>
+    <tr><td class="paramname">Pin</td><td>Output pin of the tone. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a41bc3dbfdf579bdb9446f64b46aec9aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41bc3dbfdf579bdb9446f64b46aec9aa">&#9670;&nbsp;</a></span>audio_eof_mp3</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void audio_eof_mp3 </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>Informations</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A weak function that automatically stop sound play when file end. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Informations</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/<a class="el" href="_core_8hpp_source.html">Core.hpp</a></li>
+<li>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/<a class="el" href="_sound_8cpp.html">Sound.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -91,11 +91,14 @@
 //----------------------------------------------------------------------------//
 //
 
+///
+/// @brief Instruction conversion macro.
+///
 #define Instruction(x, y) (x * 256 + y)
 
 ///
- /// @brief Address conversion macro
- /// 
+/// @brief Address conversion macro.
+///
 #define Address(x, y) (x * 256 + y)
 
 //----------------------------------------------------------------------------//
@@ -393,15 +396,14 @@ public:
         friend class Shell_Class;
 
     protected:
-
         ///
-         /// @brief Loaded username.
-         /// 
+        /// @brief Loaded username.
+        ///
         char Current_Username[9];
 
         ///
-         /// @brief Session state.
-         /// 
+        /// @brief Session state.
+        ///
         Session_State State;
 
         // -- Setter
@@ -433,15 +435,14 @@ public:
         friend class Shell_Class;
 
     protected:
-
         ///
-         /// @brief Clipboard file.
-         /// 
+        /// @brief Clipboard file.
+        ///
         File Clipboard_File;
 
         ///
-         /// @brief Split number array.
-         /// 
+        /// @brief Split number array.
+        ///
         uint8_t Split_Number[8];
     } Clipboard;
 

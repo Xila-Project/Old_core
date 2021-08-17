@@ -359,7 +359,7 @@ uint8_t Sound_Class::Start_ULP()
             //reset sample index
             I_MOVI(R0, 0), // 6
             //write the index back to memory for the main cpu
-            I_ST(R0, R3, (uint32_t)Index_Adress), // 8
+            I_ST(R0, R3, (uint32_t)Index_Address), // 8
             //divide index by two since we store two samples in each dword
             I_RSHI(R2, R0, 1), // 6
             //load the samples
@@ -427,7 +427,7 @@ uint8_t Sound_Class::Start_ULP()
             //reset sample index
             I_MOVI(R0, 0), // 6
             //write the index back to memory for the main cpu
-            I_ST(R0, R3, (uint32_t)Index_Adress), // 8
+            I_ST(R0, R3, (uint32_t)Index_Address), // 8
             //load the samples
             I_LD(R1, R0, (uint32_t)bufferStart), // 8
             //mask the lower 8 bits
@@ -477,11 +477,11 @@ uint8_t Sound_Class::Start_ULP()
             RTC_SLOW_MEM[bufferStart + i] = 0x8080;
         }
         //start
-        RTC_SLOW_MEM[Index_Adress] = 0;
+        RTC_SLOW_MEM[Index_Address] = 0;
 
         ulp_run(0);
 
-        while (RTC_SLOW_MEM[Index_Adress] == 0)
+        while (RTC_SLOW_MEM[Index_Address] == 0)
         {
             vTaskDelay(pdMS_TO_TICKS(1));
         }
@@ -547,7 +547,7 @@ void Sound_Class::Sound_Task(void *pvParameters)
             Serial_Print_Line("play from buffer");
             while (1)
             {
-                /*Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Adress] & 0xffff;
+                /*Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Address] & 0xffff;
                 Current_Word = Current_Sample >> 1;
                 while (Instance_Pointer->Last_Filled_Word != Current_Word)
                 {
@@ -593,7 +593,7 @@ void Sound_Class::Sound_Task(void *pvParameters)
 
                 while (1)
                 {
-                    int Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Adress] & 0xffff;
+                    int Current_Sample = RTC_SLOW_MEM[Instance_Pointer->Index_Address] & 0xffff;
                     int Current_Word = Current_Sample >> 1;
                     while (Last_Filled_Word != Current_Word)
                     {
