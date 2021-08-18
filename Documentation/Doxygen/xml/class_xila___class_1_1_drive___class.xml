@@ -10,6 +10,7 @@
         <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa383e5858e9e99cab882bc243a37e85e8" prot="public">
           <name>None</name>
           <briefdescription>
+<para>None (nothing connected). </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -17,6 +18,7 @@
         <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaa16395dc117ec74972ccc78b4f3dc945" prot="public">
           <name>MMC</name>
           <briefdescription>
+<para>MMC type. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -24,6 +26,7 @@
         <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa3e12cac98de43f5259c8ad0a9e383546" prot="public">
           <name>SD_SC</name>
           <briefdescription>
+<para>SD type. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -31,6 +34,7 @@
         <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aadec47f4da141de7d56488b30c2038971" prot="public">
           <name>SD_HC</name>
           <briefdescription>
+<para>SD HC type. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -38,17 +42,19 @@
         <enumvalue id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaca4d1a6e9be97f054c2613ae2d39a701" prot="public">
           <name>Unknow</name>
           <briefdescription>
+<para>Unknow type. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Drive type. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="648" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="649" bodyend="655"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="652" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="653" bodyend="659"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -66,7 +72,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="693" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="693" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="697" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="697" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_drive___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -82,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="694" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="694" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="698" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="698" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -169,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="657" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="37" bodyend="40"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="661" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="37" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ab57d363ffaea1f5c638b0b4caa23dd06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -186,10 +192,10 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="659" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="46" bodyend="49"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="663" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="46" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a292061e7081549b280ff14c0612357bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>Sd_Card_Type</type>
+        <type><ref refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a" kindref="member">Sd_Card_Type</ref></type>
         <definition>Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type</definition>
         <argsstring>()</argsstring>
         <name>Type</name>
@@ -197,14 +203,14 @@
 <para>Return drive type. </para>
         </briefdescription>
         <detaileddescription>
-<para><simplesect kind="return"><para>Xila_Class::Drive_Class::Sd_Card_Type <linebreak/>
+<para><simplesect kind="return"><para><ref refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a" kindref="member">Xila_Class::Drive_Class::Sd_Card_Type</ref> <linebreak/>
  </para>
 </simplesect>
 </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="660" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="55" bodyend="75"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="664" column="22" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="55" bodyend="75"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afc4521e0d8b8f0aac23af14d9e9239eb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -236,7 +242,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="662" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="91" bodyend="94"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="666" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="91" bodyend="94"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a6fd45190eb05d644c1dece9ee3b1539d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -268,7 +274,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="663" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="102" bodyend="105"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="667" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="102" bodyend="105"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1af832f7a6daa2dd7345e29393d2e392b3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -300,7 +306,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="665" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="113" bodyend="116"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="669" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="113" bodyend="116"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a59def79d55a887b0d80d470f22c5f110" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -332,7 +338,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="666" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="124" bodyend="127"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="670" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="124" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ad951b3ec549f04c18bcd3e0fb1a0acd5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -349,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="668" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="177" bodyend="180"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="672" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="177" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1aae929850f2b5dcdddfc46e3ea0651677" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -366,7 +372,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="669" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="182" bodyend="185"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="673" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="182" bodyend="185"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>File</type>
@@ -409,7 +415,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="671" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="135" bodyend="138"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="675" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="135" bodyend="138"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afb5c9bb76be7359b6f6325520e9f88b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>File</type>
@@ -452,7 +458,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="672" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="146" bodyend="149"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="676" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="146" bodyend="149"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a7ba7605ddfbe7ccacfe81a7e49ea576d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -485,7 +491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="674" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="157" bodyend="160"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="678" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="157" bodyend="160"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1acf12d2dd7fc72d63f35f00c34b4917f3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -502,7 +508,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="675" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="162" bodyend="165"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="679" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="162" bodyend="165"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a5e3a8735ad316065b480222b5d4d7b14" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -523,7 +529,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="677" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="167" bodyend="170"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="681" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="167" bodyend="170"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1ad0fd69394fc59ad486b3e901a887c7df" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -544,7 +550,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="678" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="172" bodyend="175"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="682" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="172" bodyend="175"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1aa876b884d05d771a26148570cdf7d07e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -557,7 +563,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="680" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="187" bodyend="190"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="684" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="187" bodyend="190"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1adb1b4ead65106d185faa8fdda6e838b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint64_t</type>
@@ -570,7 +576,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="681" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="192" bodyend="195"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="685" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="192" bodyend="195"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -612,7 +618,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="685" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="424" bodyend="438"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="689" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="424" bodyend="438"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a0e7c3a756ca4751a1d1f8e09e5809821" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -666,7 +672,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="686" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="470" bodyend="496"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="690" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="470" bodyend="496"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1a956d18ed6c7a8ecfcf33ce3ae609bfa8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint16_t</type>
@@ -695,7 +701,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="687" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="445" bodyend="461"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="691" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="445" bodyend="461"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -709,7 +715,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="690" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="21" bodyend="23"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="694" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="21" bodyend="23"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -725,7 +731,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="697" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="80" bodyend="83"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="701" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp" bodystart="80" bodyend="83"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -733,7 +739,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="645" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="646" bodyend="699"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="645" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="646" bodyend="703"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_drive___class_1ae6ee65e39b64633977e13099011c3673" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Begin</name></member>
       <member refid="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb" prot="public" virt="non-virtual"><scope>Xila_Class::Drive_Class</scope><name>Copy</name></member>

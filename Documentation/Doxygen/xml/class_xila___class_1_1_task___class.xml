@@ -43,7 +43,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1419" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1420" bodyend="1425"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1492" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1493" bodyend="1498"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1412" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1412" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1485" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1485" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -76,7 +76,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1413" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1413" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1486" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1486" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -113,7 +113,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1405" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="24" bodyend="31"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1478" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="24" bodyend="31"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_task___class_1af743289e942abc3f5847d7b36db69630" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -131,7 +131,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1406" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="19" bodyend="22"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1479" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="19" bodyend="22"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_task___class_1a6d7c8bcda17f747acec58c004af7f497" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -148,7 +148,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1407" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="14" bodyend="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1480" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="14" bodyend="17"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_task___class_1a1ba14719d1abddae8ad61a40f5477bba" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -166,7 +166,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1408" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="42" bodyend="45"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1481" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="42" bodyend="45"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -194,7 +194,7 @@ A delay function that behave exactly like delay() </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1410" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="52" bodyend="55"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1483" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="52" bodyend="55"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -233,7 +233,7 @@ A delay function that behave exactly like delay() </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1427" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="33" bodyend="40"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1500" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Task.hpp" bodystart="33" bodyend="40"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -241,7 +241,7 @@ A delay function that behave exactly like delay() </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1400" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1401" bodyend="1429"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1473" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1474" bodyend="1502"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_task___class_1a75e835c0d5a0a9dd7da6b55e21322717" prot="public" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Create</name></member>
       <member refid="class_xila___class_1_1_task___class_1a90358a7c595bdf3abf382521b32f2da9" prot="protected" virt="non-virtual"><scope>Xila_Class::Task_Class</scope><name>Create</name></member>

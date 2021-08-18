@@ -7,6 +7,12 @@
       <node id="45">
         <label>esp_ota_ops.h</label>
       </node>
+      <node id="35">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>FS.h</label>
       </node>
@@ -16,22 +22,12 @@
       <node id="8">
         <label>SPI.h</label>
       </node>
-      <node id="35">
-        <label>Core/Abstraction/Memory.hpp</label>
-        <link refid="_memory_8hpp"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="25">
         <label>Battery_Library.hpp</label>
       </node>
-      <node id="32">
-        <label>Core/Modules/Software_Management.hpp</label>
-        <link refid="_software___management_8hpp_source"/>
-      </node>
-      <node id="34">
-        <label>Core/Abstraction/GPIO.hpp</label>
-        <link refid="_g_p_i_o_8hpp"/>
+      <node id="33">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
@@ -41,13 +37,13 @@
       <node id="6">
         <label>stdint.h</label>
       </node>
-      <node id="3">
-        <label>Xila.hpp</label>
-        <link refid="_xila_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
+      <node id="30">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="26">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
       </node>
       <node id="48">
         <label>WiFiClientSecure.h</label>
@@ -61,72 +57,28 @@
       <node id="40">
         <label>esp_spi_flash.h</label>
       </node>
-      <node id="11">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="46">
-        <label>esp_image_format.h</label>
-      </node>
-      <node id="47">
-        <label>MD5Builder.h</label>
-      </node>
-      <node id="27">
-        <label>Modules/Path.hpp</label>
-        <link refid="_path_8hpp"/>
-      </node>
-      <node id="22">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="29">
-        <label>Core/Modules/Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="42">
-        <label>soc/soc.h</label>
-      </node>
-      <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp</label>
-        <link refid="_internet___browser_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-      </node>
-      <node id="38">
-        <label>rom/spi_flash.h</label>
-      </node>
-      <node id="26">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp"/>
-      </node>
-      <node id="10">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="13">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="28">
-        <label>Core/Modules/Task.hpp</label>
-        <link refid="_task_8hpp"/>
-      </node>
-      <node id="9">
-        <label>time.h</label>
-      </node>
       <node id="31">
         <label>Core/Modules/Mathematics.hpp</label>
         <link refid="_mathematics_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>WiFiScan.h</label>
+      <node id="11">
+        <label>StreamUtils.h</label>
       </node>
-      <node id="4">
-        <label>Arduino.h</label>
+      <node id="27">
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
       </node>
-      <node id="19">
-        <label>WiFiGeneric.h</label>
+      <node id="32">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
       </node>
-      <node id="37">
-        <label>Esp.h</label>
+      <node id="46">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="47">
+        <label>MD5Builder.h</label>
       </node>
       <node id="5">
         <label>Core/Core.hpp</label>
@@ -196,15 +148,54 @@
         <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="30">
-        <label>Core/Modules/System.hpp</label>
-        <link refid="_system_8hpp"/>
+      <node id="22">
+        <label>WiFiUdp.h</label>
       </node>
-      <node id="33">
-        <label>Core/Abstraction/Display.hpp</label>
-        <link refid="_display_8hpp"/>
+      <node id="42">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="38">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="2">
+        <label>Software/Internet_Browser.hpp</label>
+        <link refid="_internet___browser_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="3">
+        <label>Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
         <childnode refid="4" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="9">
+        <label>time.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="4">
+        <label>Arduino.h</label>
+      </node>
+      <node id="19">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="37">
+        <label>Esp.h</label>
+      </node>
+      <node id="14">
+        <label>IPv6Address.h</label>
       </node>
       <node id="36">
         <label>Core/Abstraction/Flash.hpp</label>
@@ -234,17 +225,22 @@
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>IPv6Address.h</label>
-      </node>
       <node id="20">
         <label>WiFiClient.h</label>
       </node>
       <node id="39">
         <label>esp_sleep.h</label>
       </node>
+      <node id="28">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
       <node id="44">
         <label>esp_partition.h</label>
+      </node>
+      <node id="29">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
       </node>
       <node id="21">
         <label>WiFiServer.h</label>
@@ -255,19 +251,23 @@
       <node id="17">
         <label>WiFiAP.h</label>
       </node>
-      <node id="2">
-        <label>Software/Internet_Browser.hpp</label>
-        <link refid="_internet___browser_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="48" relation="include">
-        </childnode>
-      </node>
       <node id="41">
         <label>memory</label>
       </node>
+      <node id="1">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp</label>
+        <link refid="_internet___browser_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="24">
         <label>Nextion_Library.hpp</label>
+      </node>
+      <node id="34">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
       <sectiondef kind="define">
@@ -280,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="206" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="206" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1aa5ce620e739418ae745d51094bbd374d" prot="public" static="no">
         <name>sHEADER</name>
@@ -291,7 +291,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="207" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="207" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a3580d2ffc6a35c431e8e21f90e9570fd" prot="public" static="no">
         <name>sTEXT</name>
@@ -302,7 +302,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="208" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="208" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a2d70397eba5c7b1ce3efde93c6505d29" prot="public" static="no">
         <name>sPRE</name>
@@ -313,7 +313,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="209" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="209" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1ac5a291c768c1bbc712a03ca7a1ee2e3b" prot="public" static="no">
         <name>sTAG</name>
@@ -324,7 +324,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="210" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="210" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a9616aa693a945ae40ea17afb13102235" prot="public" static="no">
         <name>sAMP</name>
@@ -335,7 +335,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="211" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="211" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a0d925e43e8372b16348f2a4d161d75ef" prot="public" static="no">
         <name>sANCHOR</name>
@@ -346,7 +346,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="212" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="212" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a63a9e6125826c802e68792cef4e2526d" prot="public" static="no">
         <name>sSTUFF</name>
@@ -357,7 +357,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="213" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="213" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a0bfb9f7006811d476337c029bfe72b6b" prot="public" static="no">
         <name>sHREF</name>
@@ -368,7 +368,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="214" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="214" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a3b397e5251003d672067992995d705b5" prot="public" static="no">
         <name>sURL</name>
@@ -379,7 +379,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="215" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="215" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1aa6517ae7ec804cbdd5da44546c446466" prot="public" static="no">
         <name>sENDTAG</name>
@@ -390,7 +390,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="216" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="216" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1ab4b5449ae0740077f25e0d606822df5f" prot="public" static="no">
         <name>sQUIET</name>
@@ -401,7 +401,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="217" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="217" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a175f9dcc6474fde49885f6e9e8eb545a" prot="public" static="no">
         <name>sSCRIPT</name>
@@ -412,7 +412,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="218" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="218" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a68b88df4fc190e068bdc3ff184a280bc" prot="public" static="no">
         <name>sFOOTER</name>
@@ -423,7 +423,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="219" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="219" column="9"/>
       </memberdef>
       <memberdef kind="define" id="_internet___browser_8cpp_1a7a17ea01cd10fcc8911d097bb96ebb99" prot="public" static="no">
         <name>URL_SIZE</name>
@@ -434,7 +434,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="220" column="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp" line="220" column="9"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1625,6 +1625,6 @@
 <codeline lineno="1181"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1182"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Internet_Browser.cpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Internet_Browser.cpp"/>
   </compounddef>
 </doxygen>

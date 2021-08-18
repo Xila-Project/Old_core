@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['maximized_536',['Maximized',['../class_xila___class.html#a97f78ce2a2da8c5879eb6568b4f74fe8a652a7e4b3a67f448f10d3760d9e8a2db',1,'Xila_Class']]],
-  ['minimized_537',['Minimized',['../class_xila___class.html#a97f78ce2a2da8c5879eb6568b4f74fe8a2a206b45d6d1c907e7c3cb4d26383818',1,'Xila_Class']]]
+  ['english_668',['English',['../class_xila___class_1_1_keyboard___class.html#aa2be419912ddcdae07f5ff359c58667ea9e68663ccdbe04cf35372009905e119d',1,'Xila_Class::Keyboard_Class']]],
+  ['error_669',['Error',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeac91f464ae2171337aa4e6a5d521b8c44',1,'Xila_Class']]]
 ];

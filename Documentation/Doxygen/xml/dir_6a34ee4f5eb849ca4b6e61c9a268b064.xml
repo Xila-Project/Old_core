@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_6a34ee4f5eb849ca4b6e61c9a268b064" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules</compoundname>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules</compoundname>
     <innerfile refid="_mathematics_8hpp">Mathematics.hpp</innerfile>
     <innerfile refid="_path_8hpp">Path.hpp</innerfile>
     <innerfile refid="_software___management_8hpp">Software_Management.hpp</innerfile>
@@ -12,6 +12,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/"/>
   </compounddef>
 </doxygen>

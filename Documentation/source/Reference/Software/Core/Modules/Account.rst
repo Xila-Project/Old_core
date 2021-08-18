@@ -21,8 +21,8 @@ The identifiers are stored in a register specific to each user.
 .. note::
     At the moment, only one user can be logged in at a time. In order to authenticate a second user while a first is connected (lock state), this first user will have to close his session in order to allow this second user to authenticate himself.
 
-API description
-===============
+API reference
+=============
 
 .. doxygenclass:: Xila_Class::Account_Class
     :members:

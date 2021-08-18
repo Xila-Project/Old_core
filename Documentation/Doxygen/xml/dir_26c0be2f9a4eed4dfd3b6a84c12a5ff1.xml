@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules</compoundname>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules</compoundname>
     <innerfile refid="_account_8cpp">Account.cpp</innerfile>
     <innerfile refid="_clipboard_8cpp">Clipboard.cpp</innerfile>
     <innerfile refid="_core_2_modules_2_dialog_8cpp">Dialog.cpp</innerfile>
@@ -15,6 +15,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/"/>
   </compounddef>
 </doxygen>

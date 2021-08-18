@@ -22,7 +22,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="111" column="28"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="111" column="28"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a83077991595830e9d31600851575df40" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_keypad___class" kindref="compound">Shell_Class::Dialog_Class::Keypad_Class</ref> *</type>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="129" column="26"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="129" column="26"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1acfc1371804c13462d24f0ea0397a84e5" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_load___class" kindref="compound">Shell_Class::Dialog_Class::Load_Class</ref> *</type>
@@ -48,7 +48,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="149" column="24"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="149" column="24"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a15591ff1c7f006e08924d77dd3d9777e" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_login___class" kindref="compound">Shell_Class::Dialog_Class::Login_Class</ref> *</type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="167" column="25"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="167" column="25"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a1e34874887db94fb18c0dfc9f508f3a9" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_power___class" kindref="compound">Shell_Class::Dialog_Class::Power_Class</ref></type>
@@ -74,7 +74,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="178" column="23"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="178" column="23"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1afdecd21e3bc387d3ce283dab376408d3" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_color___picker___class" kindref="compound">Shell_Class::Dialog_Class::Color_Picker_Class</ref></type>
@@ -87,7 +87,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="192" column="30"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="192" column="30"/>
       </memberdef>
       <memberdef kind="variable" id="class_shell___class_1_1_dialog___class_1a01b0f104d071fa4bf26254f6516c03b6" prot="protected" static="no" mutable="no">
         <type>class <ref refid="class_shell___class_1_1_dialog___class_1_1_event___class" kindref="compound">Shell_Class::Dialog_Class::Event_Class</ref> *</type>
@@ -100,7 +100,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="212" column="25"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="212" column="25"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="236" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="236" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="236" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="236" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -133,7 +133,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="216" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="16" bodyend="23"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="216" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="16" bodyend="23"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aa7c8a51771e4bf3638e343897177c27c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -146,7 +146,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="217" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="25" bodyend="47"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="217" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="25" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aef45cd8a126879601151ffc212121bb4" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -191,7 +191,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="221" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="783" bodyend="804"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="221" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="783" bodyend="804"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a3d1797de48ad137983b028cc39d8d1b6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -244,7 +244,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="222" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="812" bodyend="834"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="222" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="812" bodyend="834"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a82a9abe49fc40f2d8905c5addd44f7eb" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -257,7 +257,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="223" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="836" bodyend="842"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="223" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="836" bodyend="842"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a0c74696cd639d47613247307529e791e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -271,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="224" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="873" bodyend="893"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="224" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="873" bodyend="893"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1ac3ff859e68ab0a57006511ecfe704210" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="225" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="848" bodyend="868"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="225" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="848" bodyend="868"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a193eda63001768a2be133dabdea42614" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -343,7 +343,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="226" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="625" bodyend="648"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="226" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="625" bodyend="648"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a7975c00e493fdaaab49ff7fac0dd7751" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -374,7 +374,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="227" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="655" bodyend="676"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="227" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="655" bodyend="676"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a9981bde3b405d5c2d8506e2fb83d7bf6" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -455,7 +455,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="228" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="712" bodyend="738"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="228" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="712" bodyend="738"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a15e7e80380a17a1eed488333c1f55868" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -536,7 +536,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="229" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="749" bodyend="776"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="229" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="749" bodyend="776"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a5f95d5868d5ba5ba3a9866b79e82cf5c" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -553,7 +553,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="230" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="678" bodyend="701"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="230" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="678" bodyend="701"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a66cf2f017d16946b19ee2db20c1ca71e" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -583,7 +583,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="231" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="900" bodyend="923"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="231" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="900" bodyend="923"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1aaccd467c8bb1c0772416dd0b59db6b07" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -600,7 +600,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="232" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="925" bodyend="948"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="232" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="925" bodyend="948"/>
       </memberdef>
       <memberdef kind="function" id="class_shell___class_1_1_dialog___class_1a9ee2f7ed798cfa23cc6ac157ada8307a" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -617,7 +617,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="233" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="950" bodyend="973"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="233" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp" bodystart="950" bodyend="973"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -697,7 +697,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="89" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="90" bodyend="238"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="89" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="90" bodyend="238"/>
     <listofallmembers>
       <member refid="class_shell___class_1_1_dialog___class_1a82a9abe49fc40f2d8905c5addd44f7eb" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Close_Load</name></member>
       <member refid="class_shell___class_1_1_dialog___class_1a5f95d5868d5ba5ba3a9866b79e82cf5c" prot="protected" virt="non-virtual"><scope>Shell_Class::Dialog_Class</scope><name>Color_Picker</name></member>

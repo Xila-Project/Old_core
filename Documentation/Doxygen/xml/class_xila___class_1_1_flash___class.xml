@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="709" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="104" bodyend="112"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="713" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="104" bodyend="112"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1ae70ad895422a0052e295f5fa89044c12" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -36,7 +36,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="710" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="118" bodyend="126"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="714" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="118" bodyend="126"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a0a5186a2206aa679ac25927653442936" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FlashMode_t</type>
@@ -53,7 +53,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="711" column="21" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="132" bodyend="140"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="715" column="21" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="132" bodyend="140"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1af9a4f28639f4109ce7063fe5bb027b2d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="713" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="36" bodyend="43"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="717" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="36" bodyend="43"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a57683d7f3ac6dbc133df8ce2a911520d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -107,7 +107,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="715" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="45" bodyend="52"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="719" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="45" bodyend="52"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1ab787c51079e207b6ebd517d59ddf98db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -120,7 +120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="717" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="31" bodyend="34"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="721" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="31" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1aa564a0a2c8eb4cf9162e027450749377" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>String</type>
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="718" column="16" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="33" bodyend="71"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="722" column="16" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="33" bodyend="71"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a43941f208800f6aed05126c289aa8165" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -154,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="719" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="19" bodyend="27"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="723" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="19" bodyend="27"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="723" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="54" bodyend="61"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="727" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="54" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a8825d838f11cc9211ae90453a012b9fc" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="724" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="63" bodyend="70"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="728" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="63" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a33d175d815c5a55239e1f4e750afa825" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -227,7 +227,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="726" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="81" bodyend="88"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="730" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="81" bodyend="88"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a51ff83909d79c573a4c374f09957a28f" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -252,7 +252,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="727" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="72" bodyend="79"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="731" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Flash.hpp" bodystart="72" bodyend="79"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a818a780432b7505ee470d9d750f7fb97" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -269,7 +269,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="730" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="142" bodyend="159"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="734" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="142" bodyend="159"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1ac67cc04b2c6256826747764bb064a276" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -286,7 +286,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="731" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="161" bodyend="176"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="735" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="161" bodyend="176"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_flash___class_1a608539f12bcb484849306b2c451b2241" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>FlashMode_t</type>
@@ -303,7 +303,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="732" column="21" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="178" bodyend="186"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="736" column="21" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="178" bodyend="186"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-func">
@@ -336,7 +336,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="729" column="25" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="78" bodyend="98"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="733" column="25" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp" bodystart="78" bodyend="98"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -345,7 +345,7 @@
     <detaileddescription>
 <para>=============================================================================// </para>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="705" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="706" bodyend="733"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="709" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="710" bodyend="737"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_flash___class_1ad97711ffbc69bf6ea2153cfdb589e385" prot="private" virt="non-virtual"><scope>Xila_Class::Flash_Class</scope><name>Erase_Sector</name></member>
       <member refid="class_xila___class_1_1_flash___class_1a0a5186a2206aa679ac25927653442936" prot="public" virt="non-virtual"><scope>Xila_Class::Flash_Class</scope><name>Get_Mode</name></member>

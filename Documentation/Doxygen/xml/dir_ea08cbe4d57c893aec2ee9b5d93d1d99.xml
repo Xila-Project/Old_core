@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_ea08cbe4d57c893aec2ee9b5d93d1d99" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila</compoundname>
-    <innerdir refid="dir_b1cf5780a26e5eb8e9e8049da161ad41">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include</innerdir>
-    <innerdir refid="dir_f43ce09a2ca383675f4ff402dbf39622">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src</innerdir>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila</compoundname>
+    <innerdir refid="dir_b1cf5780a26e5eb8e9e8049da161ad41">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include</innerdir>
+    <innerdir refid="dir_f43ce09a2ca383675f4ff402dbf39622">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src</innerdir>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/"/>
   </compounddef>
 </doxygen>

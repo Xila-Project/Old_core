@@ -35,9 +35,12 @@ Enumeration
 
 .. doxygenenum:: Xila_Class::Variable_Types
 
-
 Macro
 =====
+
+Instruction <Macro/Instruction>
+
+Address <Macro/Address>
 
 
 Class

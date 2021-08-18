@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_55c326b9d0ca0589ee1608d063d0e1be" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software</compoundname>
-    <innerdir refid="dir_2a39dd366125b9ce813fbe75f305e34f">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell</innerdir>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software</compoundname>
+    <innerdir refid="dir_2a39dd366125b9ce813fbe75f305e34f">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell</innerdir>
     <innerfile refid="_calculator_8hpp">Calculator.hpp</innerfile>
     <innerfile refid="_clock_8hpp">Clock.hpp</innerfile>
     <innerfile refid="_internet___browser_8hpp">Internet_Browser.hpp</innerfile>
@@ -20,6 +20,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/"/>
   </compounddef>
 </doxygen>

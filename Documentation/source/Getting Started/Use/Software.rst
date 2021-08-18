@@ -1,5 +1,6 @@
+*********************************
 Getting Started With The Software
-=================================
+*********************************
 
 Here you will find how to install Xila on your hardware.
 
@@ -7,7 +8,7 @@ Here you will find how to install Xila on your hardware.
     :local:
 
 Requirements
-------------
+============
 
 You will need the following parts in order to install Xila on your hardware :
 
@@ -19,7 +20,7 @@ You will need the following parts in order to install Xila on your hardware :
 * The installer archive <https://github.com/AlixANNERAUD/Xila/releases/download/0.1.0/Installer.zip>.
 
 Instructions
-------------
+============
 
 .. warning::
     In order to do not distrurb the upload process, it's highly recommend to disconnect all other serial adaptaters than the related ESP32.

@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_e7f76bf2150beed5d45d238c3ca36b94" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core</compoundname>
-    <innerdir refid="dir_5a7156971f62fbddac353dc7aa89be1e">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction</innerdir>
-    <innerdir refid="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules</innerdir>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core</compoundname>
+    <innerdir refid="dir_5a7156971f62fbddac353dc7aa89be1e">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction</innerdir>
+    <innerdir refid="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules</innerdir>
     <innerfile refid="_core_8cpp">Core.cpp</innerfile>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/"/>
   </compounddef>
 </doxygen>

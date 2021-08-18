@@ -18,7 +18,8 @@ The context is then saved, then restored as soon as the control is in.
 .. notes::
     A dialog box stops the execution of the task that calls it during its display time.
 
-API description
+API reference
 ===============
 
 .. doxygenclass:: Xila_Class::Dialog_Class
+    :members:

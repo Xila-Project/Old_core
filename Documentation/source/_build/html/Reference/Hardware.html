@@ -13,8 +13,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -31,7 +29,6 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -42,7 +39,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Release notes" href="../Miscellaneous/Release%20notes.html" />
-    <link rel="prev" title="Software Reference" href="Software.html" /> 
+    <link rel="prev" title="Task function reference" href="Software/Core/Types/Task%20Function.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,30 +84,36 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Use.html">Use</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Developp.html">Developp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Contribute.html">Contribute</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<p class="caption"><span class="caption-text">Configuration</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Configuration/Basic.html">Basic</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Configuration/Advanced.html">Advanced</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<p class="caption"><span class="caption-text">References</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Software.html">Software</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Hardware</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mcu">MCU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#display">Display</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#battery">Battery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#drive">Drive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#main-board">Main board</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#case">Case</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Miscellaneous/Release%20notes.html">Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Miscellaneous/About.html">About</a></li>
@@ -183,8 +186,57 @@
             
   <div class="section" id="hardware-reference">
 <h1>Hardware Reference<a class="headerlink" href="#hardware-reference" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Flexibility being the cornerstone of Xila, it is therefore possible to run Xila on a multitude of different configurations.
+That is why Xila reference hardware is only here as default option for an easy quick start. It is far from perfect, but is accessible to anyone who owns a soldering iron.
+So, you can change the design according to your need.
+Currently only the ESP32 based boards and Nextion displays are supported, but that should not last long.
+Here, you will find explaination about the general hardware design of Xila.</p>
+</div>
+<div class="section" id="mcu">
+<h2>MCU<a class="headerlink" href="#mcu" title="Permalink to this headline">¶</a></h2>
+<p>ESP32 is currently the only MCU supported by Xila.
+It offers good performance for a very low price.
+Other cards will be supported soon, however, it is unlikely that Xila will be able to run on MCUs less powerful than the ESP32.</p>
+</div>
+<div class="section" id="display">
+<h2>Display<a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h2>
+<p>Xila needs a screen to work.
+Nextion displays are the simplest option for both relieving the MCU of graphics and also allowing rapid development (WYSIWYG IDE).
+They are far from perfect, indeed, it requires a lot of energy, expensive, graphically limited, and does not allow application loading on the go (it is necessary to download the firmware each time the software bundles is modified).
+Other options are currently being studied in order to overcome these various problems.
+However, support for Nextion displays will not be dropped overnight.
+In addition, the lack of IOs on the ESP32 will eventually force the use of another MCU.
+Due to the interference generated by the display backlight, it is strongly recommended to solder a capacitor to the display power pins.</p>
+</div>
+<div class="section" id="battery">
+<h2>Battery<a class="headerlink" href="#battery" title="Permalink to this headline">¶</a></h2>
+<p>The choice of a lithium battery seems essential in order to have a decent autonomy (about 6 hours).
+However, this kind of battery being a hazardous part, using a pre-assembled circuit board seems to be the safest choice.
+Thus, only a small optional modification allows to know the state of charge of the battery.</p>
+</div>
+<div class="section" id="drive">
+<h2>Drive<a class="headerlink" href="#drive" title="Permalink to this headline">¶</a></h2>
+<p>Currently Xila relies on the use of SD card.
+However, using other media such as SPIFFS could be a good alternative.
+Indeed, this would reduce the use of the inputs and outputs of the ESP32.
+But that would require an adaptation of the code may be necessary in order to limit writes and avoid premature wear of this type of memory.
+Moreover, this storage method does not include any error / bad sector correction unlike SD cards.</p>
+</div>
+<div class="section" id="main-board">
+<h2>Main board<a class="headerlink" href="#main-board" title="Permalink to this headline">¶</a></h2>
+<p>In order to connect all the elements together, a personalized PCB has been designed.
+It remains simple to assemble because it favors surface components.
+The interconnections are made using jumper wire.
+The different interfaces can be configured using jumper.</p>
+</div>
+<div class="section" id="case">
+<h2>Case<a class="headerlink" href="#case" title="Permalink to this headline">¶</a></h2>
+<p>The case has been designed to guarantee maximum compactness without sacrificing flexibility, while remaining simple to manufacture.
+This is only a reference design, so it is possible to adapt it to your needs.</p>
 </div>
 </div>
 
@@ -195,7 +247,7 @@
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
         <a href="../Miscellaneous/Release%20notes.html" class="btn btn-neutral float-right" title="Release notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="Software.html" class="btn btn-neutral float-left" title="Software Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Software/Core/Types/Task%20Function.html" class="btn btn-neutral float-left" title="Task function reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>

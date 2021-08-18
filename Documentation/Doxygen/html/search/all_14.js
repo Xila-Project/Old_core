@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['warning_255',['Warning',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea7d8c8166f86663b37f28e4ee66cb0ef4',1,'Xila_Class']]],
-  ['wifi_2ecpp_256',['WiFi.cpp',['../_wi_fi_8cpp.html',1,'']]],
-  ['wifi_5fclass_257',['WiFi_Class',['../class_xila___class_1_1_wi_fi___class.html#a563e42ec40f00e25479edd59e3fc9e45',1,'Xila_Class::WiFi_Class::WiFi_Class()'],['../class_xila___class_1_1_wi_fi___class.html',1,'Xila_Class::WiFi_Class']]]
+  ['variable_5flong_344',['Variable_Long',['../class_xila___class.html#ad65de8d8ee4c0a80dea2b560b20a49a2a807be25467d8033b77389ec13753b63e',1,'Xila_Class']]],
+  ['variable_5fstring_345',['Variable_String',['../class_xila___class.html#ad65de8d8ee4c0a80dea2b560b20a49a2aef9d97a2a2f59b2f71f5897f3c72031c',1,'Xila_Class']]],
+  ['variable_5ftypes_346',['Variable_Types',['../class_xila___class.html#ad65de8d8ee4c0a80dea2b560b20a49a2',1,'Xila_Class']]]
 ];

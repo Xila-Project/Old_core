@@ -26,23 +26,21 @@ Instruction <Types/Instruction>
 
 Task function <Types/Task function>
 
-.. doxygentypedef:: Xila_Class::Instruction
+Task handle <Types/Task handle>
 
-.. doxygentypedef:: Xila_Class::Task_Function
-
-.. doxygentypedef:: Xila_Class::Task_Handle
-
-
-.. doxygentypedef:: Xila_Class::Color
+Color <Types/Color>
 
 Enumeration
 ===========
 
 .. doxygenenum:: Xila_Class::Variable_Types
 
-
 Macro
 =====
+
+Instruction <Macro/Instruction>
+
+Address <Macro/Address>
 
 
 Class

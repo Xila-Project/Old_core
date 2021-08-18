@@ -41,7 +41,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="15" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="16" bodyend="21"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="15" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="16" bodyend="21"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-type">
@@ -62,7 +62,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="58" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="59" bodyend="62"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="58" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="59" bodyend="62"/>
       </memberdef>
       <memberdef kind="enum" id="class_simon___class_1a3328ffeb4393368c89c7fd524b8e83aa" prot="public" static="no" strong="no">
         <type></type>
@@ -73,7 +73,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="64" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="65" bodyend="67"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="64" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="65" bodyend="67"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-static-attrib">
@@ -89,7 +89,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="23" column="24" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="23" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="23" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-attrib">
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="45" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="45" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="45" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="45" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_simon___class_1ac74f6c5e1a456d6797d08ee5162f457b" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -117,7 +117,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="46" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="46" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="46" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="46" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_simon___class_1a7daf024d0e811263908b95e4854fb26d" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -130,7 +130,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="47" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="47" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="47" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="47" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_simon___class_1a280c48a1e5250a8be9851f885bf4fda0" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
@@ -144,7 +144,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="49" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="49" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="49" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="49" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="private-func">
@@ -159,7 +159,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="25" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="120" bodyend="144"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="25" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="120" bodyend="144"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1ac2050ca2889dbc74b95883789832be0c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -172,7 +172,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="26" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="146" bodyend="166"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="26" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="146" bodyend="166"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a96745283d4e8e0cf4d9324395f5e14cb" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -185,7 +185,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="28" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="239" bodyend="254"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="28" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="239" bodyend="254"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a3e06a7c06f544308e7e390fd15780d02" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -198,7 +198,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="30" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="312" bodyend="321"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="30" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="312" bodyend="321"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a0e8324dcf6df13a0334ebea8969a31f4" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="31" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="266" bodyend="310"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="31" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="266" bodyend="310"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a0b1ce72552856571b385f755a0811e88" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -224,7 +224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="33" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="221" bodyend="227"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="33" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="221" bodyend="227"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1af9d8e77117aa2ac95812440718eae2ac" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -241,7 +241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="35" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="168" bodyend="219"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="35" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="168" bodyend="219"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a3902049e2798efdc392ca05a3925fd14" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -254,7 +254,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="37" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="108" bodyend="118"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="37" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="108" bodyend="118"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a09d4da0529609aa83b51c00b8d936aec" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -267,7 +267,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="39" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="256" bodyend="264"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="39" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="256" bodyend="264"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1af55e346f0b20c015c86c3f2075657d4e" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -280,7 +280,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="40" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="229" bodyend="237"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="40" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="229" bodyend="237"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -299,7 +299,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="51" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="30" bodyend="106"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="51" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="30" bodyend="106"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a255ebbb2a7849b34627a097b54bacaa1" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1_1_software" kindref="compound">Xila_Class::Software</ref> *</type>
@@ -312,7 +312,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="53" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="20" bodyend="28"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="53" column="33" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="20" bodyend="28"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -327,7 +327,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="55" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="5" bodyend="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="55" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="5" bodyend="9"/>
       </memberdef>
       <memberdef kind="function" id="class_simon___class_1a57a1eb87e4dde1945863f715868dfa8c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -340,7 +340,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="56" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Simon.cpp" bodystart="11" bodyend="18"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="56" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Simon.cpp" bodystart="11" bodyend="18"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -381,7 +381,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" line="11" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp" bodystart="12" bodyend="68"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" line="11" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp" bodystart="12" bodyend="68"/>
     <listofallmembers>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1a1ded61676b67492d6129cb06c8afd36a" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Blue</name></member>
       <member refid="class_simon___class_1ada054df0ebfe3f6bde4841ab45455ac1" prot="private" virt="non-virtual"><scope>Simon_Class</scope><name>Colors</name></member>

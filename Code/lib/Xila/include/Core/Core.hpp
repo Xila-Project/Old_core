@@ -231,7 +231,7 @@ public:
     ///
     /// @brief Color union.
     ///
-    typedef union Color
+    union Color
     {
         uint32_t Color;
         uint8_t Component;
@@ -243,7 +243,7 @@ public:
     ///
     /// @brief Software class.
     ///
-    /// @details This API is used by core in order to exchange with software.
+    /// @details This API is used by core in order to communicate with the software.
     ///
     class Software
     {
@@ -585,7 +585,7 @@ public:
         };
 
         ///
-        /// @brief Pages list
+        /// @brief Software pages offset enurmeration.
         ///
         enum Pages_Offset
         {
@@ -610,11 +610,11 @@ public:
         ///
         enum Font
         {
-            Regular_16 = 0, /*!< Roboto Regular 16 px (+ special character), main font used almost everywhere. */
-            Mono_16,
-            Regular_24, /*!< Robot Regular 24 px (+ special character), secondary font used sometimes. */
-            Regular_32, /*!< Roboto Regular 32 px (+ special character), secondary font used sometimes. */
-            Regular_48
+            Regular_16 = 0, ///< Roboto Regular 16 px (+ special character), main font used almost everywhere.
+            Mono_16,        ///< Robot Mono 16 px, used for terminals etc.
+            Regular_24,     ///< Robot Regular 24 px.
+            Regular_32,     ///< Roboto Regular 32 px .
+            Regular_48      ///< Roboto Regular 48 px.
         };
 
         static void Incomming_String_Data_From_Display(const char *, uint8_t);
@@ -645,13 +645,17 @@ public:
     class Drive_Class
     {
     public:
+    
+        ///
+        /// @brief Drive type.
+        ///
         typedef enum
         {
-            None,
-            MMC,
-            SD_SC,
-            SD_HC,
-            Unknow
+            None,   ///< None (nothing connected).
+            MMC,    ///< MMC type.
+            SD_SC,  ///< SD type.
+            SD_HC,  ///< SD HC type.
+            Unknow  ///< Unknow type.
         } Sd_Card_Type;
 
         bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
@@ -769,43 +773,52 @@ public:
         void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode);
         void Detech_Interrupt(uint8_t Pin);
 
+        ///
+        /// @brief Digital IOs states.
+        ///
         enum Digital_States : uint8_t
         {
-            Low = LOW,
-            High = HIGH,
+            Low = LOW,   ///< Low state.
+            High = HIGH, ///< High state.
 
         };
 
+        ///
+        /// @brief IOs modes.
+        ///
         enum Modes : uint8_t
         {
-            Input = 0x01,
-            Output = 0x02,
-            Pull_Up = 0x04,
-            Input_Pull_Up = 0x05,
-            Pull_Down = 0x08,
-            Input_Pull_Down = 0x09,
-            Open_Drain = 0x10,
-            Output_Open_Drain = 0x12,
-            Special = 0xF0,
-            Function_1 = 0x00,
-            Function_2 = 0x20,
-            Function_3 = 0x40,
-            Function_4 = 0x60,
-            Function_5 = 0x80,
-            Function_6 = 0xA0,
-            Analog = 0xC0
+            Input = 0x01,             ///< Input
+            Output = 0x02,            ///< Output
+            Pull_Up = 0x04,           ///< Pull up resitor.
+            Input_Pull_Up = 0x05,     ///< Input with a pull up resitor.
+            Pull_Down = 0x08,         ///< Pull down resitor.
+            Input_Pull_Down = 0x09,   ///< Input with a pull down reistor.
+            Open_Drain = 0x10,        ///< Open drain (nothing connected).
+            Output_Open_Drain = 0x12, ///< Output with open drain by default.
+            Special = 0xF0,           ///< Special
+            Function_1 = 0x00,        ///< Function 1
+            Function_2 = 0x20,        ///< Function 2
+            Function_3 = 0x40,        ///< Function 3
+            Function_4 = 0x60,        ///< Function 4
+            Function_5 = 0x80,        ///< Function 5
+            Function_6 = 0xA0,        ///< Function 6
+            Analog = 0xC0             ///< Analog
         };
 
+        ///
+        /// @brief Interrupt modes.
+        ///
         enum Interrupt_Modes : uint8_t
         {
-            Disabled = 0x00,
-            Rising = 0x01,
-            Falling = 0x02,
-            Change = 0x03,
-            On_Low = 0x04,
-            On_High = 0x05,
-            On_Low_WE = 0x0C,
-            On_High_WE = 0x0D
+            Disabled = 0x00,  ///< No interrupt.
+            Rising = 0x01,    ///< Triggered when signal rise.
+            Falling = 0x02,   ///< Triggered when signal fall.
+            Change = 0x03,    ///< Triggered when signal fall or rise.
+            On_Low = 0x04,    ///< Triggered on low state.
+            On_High = 0x05,   ///< Triggered on high state.
+            On_Low_WE = 0x0C, ///< Triggered on low state.
+            On_High_WE = 0x0D ///< Triggered on high state.
         };
     } GPIO;
 
@@ -820,16 +833,22 @@ public:
 
         Keyboard_Class();
 
+        ///
+        /// @brief Keyboard available layout.
+        ///
         enum Layouts
         {
-            American,
-            German,
-            French,
-            Spanish,
-            Italian,
-            English
+            American, ///< American QWERTY layout.
+            German,   ///< German QWERTY layout.
+            French,   ///< French AZERTY layout.
+            Spanish,  ///< Spanish QWERTY layout.
+            Italian,  ///< Italian QWERTY layout.
+            English   ///< English QWERTY layout.
         };
 
+        ///
+        /// @brief Special keys enumeration.
+        ///
         enum Special_Keys
         {
             Tab = 9,
@@ -992,9 +1011,24 @@ public:
     class Mathematics_Class
     {
     public:
+        ///
+        /// @brief Archimedes constant.
+        ///
         const double Pi = 3.1415926535897932384626433832795;
+
+        ///
+        /// @brief Euler constant.
+        ///
         const double Euler = 2.718281828459045235360287471352;
+
+        ///
+        /// @brief Degrees to radian coefficient.
+        ///
         const double Degrees_To_Radians = 0.017453292519943295769236907684886;
+
+        ///
+        /// @brief Radian to degrees coefficient.
+        ///
         const double Radians_To_Degrees = 57.295779513082320876798154814105;
 
         // -- Methods -- //
@@ -1067,7 +1101,7 @@ public:
 
     //==============================================================================//
     ///
-    /// @brief Memory class
+    /// @brief Memory management class.
     ///
     class Memory_Class
     {
@@ -1087,7 +1121,7 @@ public:
 
     //==============================================================================//
     ///
-    /// @brief Power management module
+    /// @brief Power management module.
     ///
     class Power_Class : public Battery_Class
     {
@@ -1107,8 +1141,19 @@ public:
 
     protected:
         // -- Attributes
+        ///
+        /// @brief Button press counter.
+        ///
         volatile uint8_t Button_Counter;
+
+        ///
+        /// @brief Button press timer, used to differentiate a short press from a long press.
+        ///
         volatile uint32_t Button_Timer;
+
+        ///
+        /// @brief Button interrupt mutex.
+        ///
         portMUX_TYPE Button_Mutex;
 
         // -- Methods
@@ -1121,7 +1166,7 @@ public:
 
     //==============================================================================//
     ///
-    /// @brief Software management module
+    /// @brief Software management module.
     ///
     class Software_Management_Class
     {
@@ -1243,27 +1288,33 @@ public:
 
         static void Task(void *);
 
+        ///
+        /// @brief Sound class event type.
+        ///
         enum Event
         {
-            Failed_To_Get_RTC_Period,
-            Failed_To_Open_File,
-            Failed_To_Get_Metadata,
-            Failed_To_Load_ULP_Program,
-            Failed_To_Create_Task,
-            Not_RIFF_Compliant,
-            Not_WAVE_Compliant,
-            Incompatible_Block_ID,
-            Not_A_PCM_File,
-            Unsupported_Bit_Depth,
-            Unsupported_Sampling_Rate,
-            Unsupported_Channel_Number,
+            Failed_To_Get_RTC_Period,   ///< Failed to get ULP processor frequency.
+            Failed_To_Open_File,        ///< Failed to open file.
+            Failed_To_Get_Metadata,     ///< Failed to read file metadata (corrupted).
+            Failed_To_Load_ULP_Program, ///< Failed to load program into ULP.
+            Failed_To_Create_Task,      ///< Failed to create sound task.
+            Not_RIFF_Compliant,         ///< Invalid metadata (RIFF).
+            Not_WAVE_Compliant,         ///< Invalid metadata (WAVE).
+            Incompatible_Block_ID,      ///< Incompatible bloc ID.
+            Not_A_PCM_File,             ///< Failed to read a non PCM file.
+            Unsupported_Bit_Depth,      ///< Unsupported bit depth.
+            Unsupported_Sampling_Rate,  ///< Unsupported sampling rate.
+            Unsupported_Channel_Number, ///< Unsupported channel number.
         };
 
+        ///
+        /// @brief Playing state.
+        ///
         enum State
         {
-            Stopped,
-            Playing,
-            Paused
+            Stopped, ///< Stopped (no file loaded, no task running)
+            Playing, ///< Currently playing.
+            Paused   ///< Paused play.
         };
 
         friend void audio_eof_mp3(const char *);
@@ -1271,28 +1322,50 @@ public:
         friend class Xila_Class;
         friend class Shell_Class;
 
+        ///
+        /// @brief Channel enumeration.
+        ///
         enum Channels
         {
-            Left_Channel = 0,
-            Right_Channel = 1,
-            Custom_Channel = 2
+            Left_Channel = 0,  ///< Left channel only.
+            Right_Channel = 1, ///< Right channel only.
+            Custom_Channel = 2 ///< Custom channel.
         };
 
     protected:
         // -- Attributes -- //
+
+        ///
+        /// @brief Sound task handle.
+        ///
         Xila_Class::Task_Handle Task_Handle;
 
+        ///
+        /// @brief Custom pin to tone.
+        ///
         uint8_t Custom_Pin;
 
+        ///
+        /// @brief Music file.
+        ///
         File Music_File;
 
-        uint8_t Data_Pin, Word_Select_Pin, Clock_Pin;
-        uint8_t Output;
+        ///
+        /// @brief Custom data pin.
+        ///
+        uint8_t Data_Pin;
 
-        // 0 : stopped
-        // 1 : playing
-        // 2 : paused
-        // 3 : tone
+        ///
+        /// @brief Custom word select pin.
+        ///
+        uint8_t Word_Select_Pin;
+
+        ///
+        /// @brief Custom clock pin.
+        ///
+        uint8_t Clock_Pin;
+
+        uint8_t Output;
 
         // -- Methods -- //
         Xila_Class::Event Save_Registry();

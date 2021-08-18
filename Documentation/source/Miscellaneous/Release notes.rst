@@ -36,7 +36,7 @@ Added
 Changed
 ^^^^^^^
 
-- Move Get_Free_Heap() from system to memeory module.
+- Move Get_Free_Heap() from system to memory module.
 - Improve display power management.
 - Increase precision of battery level readings (update battery library).
 - Fix simon registry loading.

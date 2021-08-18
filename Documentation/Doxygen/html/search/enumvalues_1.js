@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['default_5fcancel_531',['Default_Cancel',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea09cbdbc45fd7ca78a5085535dc8adf76',1,'Xila_Class']]],
-  ['default_5fno_532',['Default_No',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea0ab35c3f8f1ce531f0c916d3d6f749a2',1,'Xila_Class']]],
-  ['default_5fyes_533',['Default_Yes',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeaca9a7795d4fae8f70c709c97990cd472',1,'Xila_Class']]]
+  ['button_5f1_659',['Button_1',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea85073382db539a42ee155584736615f2',1,'Xila_Class']]],
+  ['button_5f2_660',['Button_2',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea192e96390fe505bca5763459211d6728',1,'Xila_Class']]],
+  ['button_5f3_661',['Button_3',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeadd4725a2366110938a27b442f1a11071',1,'Xila_Class']]]
 ];

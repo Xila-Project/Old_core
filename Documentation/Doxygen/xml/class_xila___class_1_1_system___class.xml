@@ -27,7 +27,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1367" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1368" bodyend="1371"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1440" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1441" bodyend="1444"/>
       </memberdef>
       <memberdef kind="enum" id="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776db" prot="protected" static="no" strong="no">
         <type></type>
@@ -88,7 +88,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1376" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1377" bodyend="1385"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1449" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1450" bodyend="1458"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -106,7 +106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1343" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1343" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1416" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1416" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_system___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -122,7 +122,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1344" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1344" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1417" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1417" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1348" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1348" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1421" column="33" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1421" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_system___class_1a45d66d24db04e7347ca4fd9c142c2706" prot="protected" static="no" mutable="no">
         <type>char</type>
@@ -151,7 +151,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1353" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1353" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1426" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1426" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_system___class_1a87831ba1edad52c9cece341c76954043" prot="protected" static="no" mutable="no">
         <type>enum Xila_Class::System_Class::System_States</type>
@@ -164,7 +164,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1371" column="15"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1444" column="15"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -180,7 +180,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1314" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="22" bodyend="27"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1387" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="22" bodyend="27"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a3c67f435112171d93a83eac6d68b84e6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -194,7 +194,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1315" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="32" bodyend="34"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1388" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="32" bodyend="34"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a411ed4158ac620612c14a994257cc891" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -211,7 +211,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1318" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="294" bodyend="297"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1391" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="294" bodyend="297"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1ae4e630e15ef1c4b932d545f08749a7df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint64_t</type>
@@ -224,7 +224,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1320" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="63" bodyend="68"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1393" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="63" bodyend="68"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1ad973a1eba045ae45f913620f819f4694" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -241,7 +241,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1321" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="797" bodyend="802"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1394" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="797" bodyend="802"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a215a0b748b9f5b5e326d10200e1aac56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const char *</type>
@@ -258,7 +258,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1322" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="808" bodyend="827"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1395" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="808" bodyend="827"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a0ec622fb9f5221e5e2098202aa3c0958" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint32_t</type>
@@ -275,7 +275,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1323" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="833" bodyend="838"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1396" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="833" bodyend="838"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1aa9cedcd09526d90991a741dd0b97a1db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -288,7 +288,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1324" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="53" bodyend="56"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1397" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="53" bodyend="56"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a3a79af94b5f2304d6a8def523e8a7a40" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>const char *</type>
@@ -301,7 +301,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1325" column="20" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="58" bodyend="61"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1398" column="20" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="58" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a82ff50079477272431931981d3ed967c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1327" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="606" bodyend="638"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1400" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="606" bodyend="638"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a4f67666f7598ffa51ece51212f7e48a5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -355,7 +355,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1328" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="588" bodyend="601"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1401" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="588" bodyend="601"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1afa8381f7d491d3e84d648ec55dd7c08e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -369,7 +369,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1330" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="664" bodyend="693"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1403" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="664" bodyend="693"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1aa62d535cf5cd7ef97fecea0e142ee7e5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -383,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1331" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="762" bodyend="791"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1404" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="762" bodyend="791"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1afbbc6b35ceb316842c50f12968b1abc5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -397,7 +397,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1332" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="723" bodyend="757"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1405" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="723" bodyend="757"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a9d5a5c9f451de58d5d54040dc72168b4" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -410,7 +410,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1334" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="14" bodyend="17"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1407" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="14" bodyend="17"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a2094f61c9bb86f24905084e30dba069b" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -427,7 +427,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1335" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="19" bodyend="41"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1408" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="19" bodyend="41"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a1a22d5f743c9ea9ff3f6301cb19fcd23" prot="public" static="no" const="yes" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -448,7 +448,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1336" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="43" bodyend="51"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1409" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/System.hpp" bodystart="43" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a332890e008438669c624c579031c6c06" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -462,7 +462,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1338" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="302" bodyend="396"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1411" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="302" bodyend="396"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -481,7 +481,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1340" column="21" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="89" bodyend="138"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1413" column="21" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="89" bodyend="138"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -500,7 +500,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1357" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="40" bodyend="61"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1430" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="40" bodyend="61"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a5013c52976a80c0a4666b3e63da001cf" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -517,7 +517,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1358" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="67" bodyend="84"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1431" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="67" bodyend="84"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a65bb969da88ed612c9acdf621ea33ddd" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -534,7 +534,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1360" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="202" bodyend="229"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1433" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="202" bodyend="229"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a4a3ee109288842604fe1d719105a3f77" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -551,7 +551,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1361" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="235" bodyend="288"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1434" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="235" bodyend="288"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a95052e8e2e003d16606d42bf8d58bbec" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -581,7 +581,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1363" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="145" bodyend="178"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1436" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="145" bodyend="178"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a5b71b479f7d00c89b23b11b587e6e734" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -595,7 +595,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1365" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="698" bodyend="718"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1438" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="698" bodyend="718"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a96f3b3f9bceae6af625c4f7e454262de" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -623,7 +623,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1387" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="184" bodyend="196"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1460" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="184" bodyend="196"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a1544c6a7f57a011c98170ac2169aa782" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -637,7 +637,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1389" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="401" bodyend="552"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1462" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="401" bodyend="552"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1a61de79a583c025ef94816add2d946e09" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -651,7 +651,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1390" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="557" bodyend="581"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1463" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="557" bodyend="581"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_system___class_1ab4d3605f0e05e7a59310b9eef55ddb20" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -665,7 +665,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1392" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="643" bodyend="659"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1465" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp" bodystart="643" bodyend="659"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -673,7 +673,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1310" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1311" bodyend="1393"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1383" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1384" bodyend="1466"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_system___class_1afcfa67143b7a1611f8a593aa141776dbae851bcdfa9fbe6b5dd192b19124e4418" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Damaged_System_Registry</name></member>
       <member refid="class_xila___class_1_1_system___class_1a41f8c1a8c54d782edcbc94e0c343c9f6a19ca4cea89adc177d1b9932dd1b4c0fe" prot="protected" virt="non-virtual"><scope>Xila_Class::System_Class</scope><name>Default</name></member>

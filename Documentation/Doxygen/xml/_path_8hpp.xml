@@ -2,132 +2,44 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_path_8hpp" kind="file" language="C++">
     <compoundname>Path.hpp</compoundname>
-    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</includedby>
+    <includedby refid="_core_8hpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp</includedby>
     <invincdepgraph>
-      <node id="34">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Dialog.cpp</label>
-        <link refid="_core_2_modules_2_dialog_8cpp"/>
+      <node id="23">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Display.cpp</label>
+        <link refid="_display_8cpp"/>
       </node>
-      <node id="14">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
-        <link refid="_desk_8cpp"/>
-      </node>
-      <node id="38">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/System.cpp</label>
-        <link refid="_system_8cpp"/>
-      </node>
-      <node id="32">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Account.cpp</label>
-        <link refid="_account_8cpp"/>
-      </node>
-      <node id="18">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
-        <link refid="_shell_8cpp"/>
-      </node>
-      <node id="3">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Xila.hpp</label>
-        <link refid="_xila_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
+      <node id="17">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
+        <link refid="_preferences_8cpp"/>
       </node>
       <node id="36">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software.cpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Software.cpp</label>
         <link refid="_software_8cpp"/>
       </node>
       <node id="11">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Piano.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Piano.hpp</label>
         <link refid="_piano_8hpp"/>
       </node>
-      <node id="21">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp</label>
-        <link refid="_text___editor_8hpp_source"/>
+      <node id="26">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/GPIO.cpp</label>
+        <link refid="_g_p_i_o_8cpp"/>
       </node>
-      <node id="17">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
-        <link refid="_preferences_8cpp"/>
-      </node>
-      <node id="4">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</label>
-        <link refid="_calculator_8hpp_source"/>
-      </node>
-      <node id="33">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Clipboard.cpp</label>
-        <link refid="_clipboard_8cpp"/>
-      </node>
-      <node id="27">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp</label>
-        <link refid="_keyboard_8cpp"/>
+      <node id="25">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Flash.cpp</label>
+        <link refid="_flash_8cpp"/>
       </node>
       <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp</label>
         <link refid="_path_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="28">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp</label>
-        <link refid="_power_8cpp"/>
-      </node>
-      <node id="7">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Music_Player.hpp</label>
-        <link refid="_music___player_8hpp"/>
-      </node>
-      <node id="25">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Flash.cpp</label>
-        <link refid="_flash_8cpp"/>
-      </node>
-      <node id="10">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Periodic.hpp</label>
-        <link refid="_periodic_8hpp_source"/>
-      </node>
-      <node id="12">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Pong.hpp</label>
-        <link refid="_pong_8hpp_source"/>
-      </node>
-      <node id="16">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
-        <link refid="_file___manager_8cpp"/>
-      </node>
-      <node id="5">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Clock.hpp</label>
-        <link refid="_clock_8hpp_source"/>
-      </node>
-      <node id="39">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Time.cpp</label>
-        <link refid="_time_8cpp"/>
-      </node>
-      <node id="29">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Sound.cpp</label>
-        <link refid="_sound_8cpp"/>
+      <node id="8">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Oscilloscope.hpp</label>
+        <link refid="_oscilloscope_8hpp"/>
       </node>
       <node id="2">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp</label>
         <link refid="_core_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
@@ -166,20 +78,108 @@
         <childnode refid="39" relation="include">
         </childnode>
       </node>
+      <node id="22">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Tiny_Basic.hpp</label>
+        <link refid="_tiny___basic_8hpp_source"/>
+      </node>
+      <node id="19">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Simon.hpp</label>
+        <link refid="_simon_8hpp_source"/>
+      </node>
       <node id="24">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Drive.cpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Drive.cpp</label>
         <link refid="_drive_8cpp"/>
       </node>
+      <node id="16">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
+        <link refid="_file___manager_8cpp"/>
+      </node>
+      <node id="12">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Pong.hpp</label>
+        <link refid="_pong_8hpp_source"/>
+      </node>
+      <node id="27">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp</label>
+        <link refid="_keyboard_8cpp"/>
+      </node>
+      <node id="39">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Time.cpp</label>
+        <link refid="_time_8cpp"/>
+      </node>
+      <node id="6">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Internet_Browser.hpp</label>
+        <link refid="_internet___browser_8hpp_source"/>
+      </node>
+      <node id="15">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
+        <link refid="_software_2_shell_2_dialog_8cpp"/>
+      </node>
+      <node id="4">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+      </node>
+      <node id="21">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp</label>
+        <link refid="_text___editor_8hpp_source"/>
+      </node>
+      <node id="31">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Core.cpp</label>
+        <link refid="_core_8cpp"/>
+      </node>
       <node id="37">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Software_Handle.cpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Software_Handle.cpp</label>
         <link refid="_software___handle_8cpp"/>
       </node>
-      <node id="26">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/GPIO.cpp</label>
-        <link refid="_g_p_i_o_8cpp"/>
+      <node id="34">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Dialog.cpp</label>
+        <link refid="_core_2_modules_2_dialog_8cpp"/>
+      </node>
+      <node id="3">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+      </node>
+      <node id="38">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/System.cpp</label>
+        <link refid="_system_8cpp"/>
+      </node>
+      <node id="9">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp</label>
+        <link refid="_paint_8hpp_source"/>
+      </node>
+      <node id="32">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Account.cpp</label>
+        <link refid="_account_8cpp"/>
       </node>
       <node id="13">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp</label>
         <link refid="_shell_8hpp"/>
         <childnode refid="14" relation="include">
         </childnode>
@@ -192,49 +192,49 @@
         <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="31">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Core.cpp</label>
-        <link refid="_core_8cpp"/>
+      <node id="7">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Music_Player.hpp</label>
+        <link refid="_music___player_8hpp"/>
       </node>
-      <node id="19">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Simon.hpp</label>
-        <link refid="_simon_8hpp_source"/>
+      <node id="33">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Clipboard.cpp</label>
+        <link refid="_clipboard_8cpp"/>
       </node>
-      <node id="8">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Oscilloscope.hpp</label>
-        <link refid="_oscilloscope_8hpp"/>
+      <node id="18">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
+        <link refid="_shell_8cpp"/>
+      </node>
+      <node id="29">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Sound.cpp</label>
+        <link refid="_sound_8cpp"/>
       </node>
       <node id="35">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
         <link refid="_mathematics_8cpp"/>
       </node>
-      <node id="23">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Display.cpp</label>
-        <link refid="_display_8cpp"/>
-      </node>
-      <node id="15">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
-        <link refid="_software_2_shell_2_dialog_8cpp"/>
-      </node>
-      <node id="9">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp</label>
-        <link refid="_paint_8hpp_source"/>
-      </node>
-      <node id="22">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Tiny_Basic.hpp</label>
-        <link refid="_tiny___basic_8hpp_source"/>
-      </node>
-      <node id="6">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Internet_Browser.hpp</label>
-        <link refid="_internet___browser_8hpp_source"/>
-      </node>
-      <node id="30">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/WiFi.cpp</label>
-        <link refid="_wi_fi_8cpp"/>
+      <node id="28">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp</label>
+        <link refid="_power_8cpp"/>
       </node>
       <node id="20">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Software_Template.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Software_Template.hpp</label>
         <link refid="_software___template_8hpp_source"/>
+      </node>
+      <node id="30">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/WiFi.cpp</label>
+        <link refid="_wi_fi_8cpp"/>
+      </node>
+      <node id="5">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Clock.hpp</label>
+        <link refid="_clock_8hpp_source"/>
+      </node>
+      <node id="14">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
+        <link refid="_desk_8cpp"/>
+      </node>
+      <node id="10">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Periodic.hpp</label>
+        <link refid="_periodic_8hpp_source"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="define">
@@ -249,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="14" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="14" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="14" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="14" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1abfdc8af07f36d5d02d5d3de37c2f8084" prot="public" static="no">
         <name>Xila_Directory_Path</name>
@@ -260,7 +260,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="16" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="16" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="16" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a8f43e3ba2621de6a3f461e73739ee9ce" prot="public" static="no">
         <name>Software_Directory_Path</name>
@@ -271,7 +271,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="17" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="17" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="17" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="17" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a09ec4aed122797e48ebbaaf27350400c" prot="public" static="no">
         <name>Users_Directory_Path</name>
@@ -282,7 +282,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="18" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="18" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="18" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a89039269e301618ec79cc33923b31969" prot="public" static="no">
         <name>Registry_File_Extension</name>
@@ -293,7 +293,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="20" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="20" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="20" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="20" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a815b001d04e18211f19cd230485597a1" prot="public" static="no">
         <name>Data_File_Extension</name>
@@ -304,7 +304,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="21" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="21" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="21" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a6f4467ff56df918096fb128a27eb5c5a" prot="public" static="no">
         <name>Executable_File_Extension</name>
@@ -315,7 +315,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="22" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="22" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="22" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="22" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a6da6da3242a455514d0a2a86b0898bc5" prot="public" static="no">
         <name>Sound_File_Extension</name>
@@ -326,7 +326,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="23" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="23" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="23" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="23" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1af7aa19253564810a781ff299ab76201d" prot="public" static="no">
         <name>Basic_File_Extension</name>
@@ -337,7 +337,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="24" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="24" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="24" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="24" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a431fd676e1fb5279ed4f3f19f48e4f69" prot="public" static="no">
         <name>Temporary_Directory_Path</name>
@@ -348,7 +348,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="27" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="27" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="27" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="27" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a23603dc1bd44e85b36a107060f925e9a" prot="public" static="no">
         <name>Sounds_Directory_Path</name>
@@ -359,7 +359,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="28" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="28" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="28" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="28" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1abc69b10e328c19c71b8b34ff93c15eaa" prot="public" static="no">
         <name>Executable_Directory_Path</name>
@@ -370,7 +370,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="29" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="29" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="29" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="29" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a873836d2cb7f73e7f4f1684174899ec9" prot="public" static="no">
         <name>Variable_Directory_Path</name>
@@ -381,7 +381,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="30" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="30" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="30" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="30" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a6d8772a2a06f16c5a2b17f4985f8cae0" prot="public" static="no">
         <name>Registry_Directory_Path</name>
@@ -392,7 +392,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="31" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="31" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="31" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="31" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1aa7772e693ada58f481d19d7ccab68c59" prot="public" static="no">
         <name>Registry</name>
@@ -404,7 +404,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="33" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="33" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="33" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="33" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a232e6e3ea2a113b887a612bd91ca7bc2" prot="public" static="no">
         <name>Variable</name>
@@ -416,7 +416,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="34" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="34" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="34" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="34" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1ae3a7630d7d56f818702527e6d39f1f84" prot="public" static="no">
         <name>Sounds</name>
@@ -428,7 +428,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="35" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="35" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="35" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="35" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a4cbb5aaef10b80ff5d9123b77292cc56" prot="public" static="no">
         <name>Executable</name>
@@ -440,7 +440,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="36" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="36" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="36" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="36" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a4a8f9f74bd5143b841abe2ecc54029ef" prot="public" static="no">
         <name>Temporary</name>
@@ -452,7 +452,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="37" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="37" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="37" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="37" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a32cf5dca140ace07fef406f0b49b69a5" prot="public" static="no">
         <name>Dump_Registry_Path</name>
@@ -463,7 +463,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="39" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="39" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="39" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="39" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1aa165452f9e4d06cff13a424a7e176915" prot="public" static="no">
         <name>Clipboard_Path</name>
@@ -474,7 +474,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="41" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="41" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="41" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="41" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a21d6f850b525d8bbb2f4301549bbdbae" prot="public" static="no">
         <name>Test_Path</name>
@@ -485,7 +485,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="42" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="42" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="42" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="42" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a0cc0cd80a8d78562e02eb2ec06ac0197" prot="public" static="no">
         <name>Display_Executable_Path</name>
@@ -496,7 +496,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="44" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="44" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="44" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="44" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="_path_8hpp_1a668713f6a6b743df18390d286ac8b05d" prot="public" static="no">
         <name>Microcontroller_Executable_Path</name>
@@ -507,7 +507,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" line="45" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="45" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" line="45" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp" bodystart="45" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -565,6 +565,6 @@
 <codeline lineno="48"><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules/Path.hpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules/Path.hpp"/>
   </compounddef>
 </doxygen>

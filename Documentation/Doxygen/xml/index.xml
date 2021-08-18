@@ -2028,34 +2028,34 @@
   <compound refid="_xila_8cpp" kind="file"><name>Xila.cpp</name>
     <member refid="_xila_8cpp_1afa9f4d12efb2f1c73c0196f671c8a92d" kind="variable"><name>Xila</name></member>
   </compound>
-  <compound refid="dir_b18a22a53055e019ba85007342e2c67c" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction</name>
+  <compound refid="dir_b18a22a53055e019ba85007342e2c67c" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction</name>
   </compound>
-  <compound refid="dir_5a7156971f62fbddac353dc7aa89be1e" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction</name>
+  <compound refid="dir_5a7156971f62fbddac353dc7aa89be1e" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction</name>
   </compound>
-  <compound refid="dir_23fdee2f6995db16c755697cdf620cf4" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code</name>
+  <compound refid="dir_23fdee2f6995db16c755697cdf620cf4" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code</name>
   </compound>
-  <compound refid="dir_b4c42c1447d7973225509c34d5699682" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core</name>
+  <compound refid="dir_b4c42c1447d7973225509c34d5699682" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core</name>
   </compound>
-  <compound refid="dir_e7f76bf2150beed5d45d238c3ca36b94" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core</name>
+  <compound refid="dir_e7f76bf2150beed5d45d238c3ca36b94" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core</name>
   </compound>
-  <compound refid="dir_b1cf5780a26e5eb8e9e8049da161ad41" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include</name>
+  <compound refid="dir_b1cf5780a26e5eb8e9e8049da161ad41" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include</name>
   </compound>
-  <compound refid="dir_5d88b4709274d720d8b307b03f0b1a68" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib</name>
+  <compound refid="dir_5d88b4709274d720d8b307b03f0b1a68" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib</name>
   </compound>
-  <compound refid="dir_6a34ee4f5eb849ca4b6e61c9a268b064" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Modules</name>
+  <compound refid="dir_6a34ee4f5eb849ca4b6e61c9a268b064" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Modules</name>
   </compound>
-  <compound refid="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules</name>
+  <compound refid="dir_26c0be2f9a4eed4dfd3b6a84c12a5ff1" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules</name>
   </compound>
-  <compound refid="dir_2a39dd366125b9ce813fbe75f305e34f" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell</name>
+  <compound refid="dir_2a39dd366125b9ce813fbe75f305e34f" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell</name>
   </compound>
-  <compound refid="dir_50002204a149bd773b556a1a9148110f" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell</name>
+  <compound refid="dir_50002204a149bd773b556a1a9148110f" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell</name>
   </compound>
-  <compound refid="dir_55c326b9d0ca0589ee1608d063d0e1be" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software</name>
+  <compound refid="dir_55c326b9d0ca0589ee1608d063d0e1be" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software</name>
   </compound>
-  <compound refid="dir_3a19a079323f413e867fbfd250dfabe8" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software</name>
+  <compound refid="dir_3a19a079323f413e867fbfd250dfabe8" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software</name>
   </compound>
-  <compound refid="dir_f43ce09a2ca383675f4ff402dbf39622" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src</name>
+  <compound refid="dir_f43ce09a2ca383675f4ff402dbf39622" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src</name>
   </compound>
-  <compound refid="dir_ea08cbe4d57c893aec2ee9b5d93d1d99" kind="dir"><name>C:/Users/alixa/GitHub/Xila/Code/lib/Xila</name>
+  <compound refid="dir_ea08cbe4d57c893aec2ee9b5d93d1d99" kind="dir"><name>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila</name>
   </compound>
 </doxygenindex>
