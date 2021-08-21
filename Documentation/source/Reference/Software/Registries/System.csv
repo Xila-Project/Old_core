@@ -1,0 +1,6 @@
+"Key","Description","Default"
+"Version","Object containing the latest version of Xila that used the file system (used to trace the state of system files during updates)."," "
+"Major","Major version number."," "
+"Minor","Minor version number."," "
+"Revision","Revision version number."," "
+"Device Name","Device Name.","Xila"

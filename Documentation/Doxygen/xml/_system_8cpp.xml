@@ -671,8 +671,8 @@
 <codeline lineno="424"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="425"><highlight class="normal"></highlight></codeline>
 <codeline lineno="426"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>--<sp/>Set<sp/>power<sp/>button<sp/>interrupts</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="427"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(Power_Button_Pin,<sp/>INPUT);</highlight></codeline>
-<codeline lineno="428"><highlight class="normal"><sp/><sp/>Xila.GPIO.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin),<sp/>Xila.Power.<ref refid="class_xila___class_1_1_power___class_1a68682860b74e10dd2fc2fa669a71ce8b" kindref="member">Button_Interrupt_Handler</ref>,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a5f3ad6926ebcda668893f054bb07fa20" kindref="member">Change</ref>);</highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(Power_Button_Pin,<sp/>INPUT);</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" kindref="member">Attach_Interrupt</ref>(digitalPinToInterrupt(Power_Button_Pin),<sp/>Xila.Power.<ref refid="class_xila___class_1_1_power___class_1a68682860b74e10dd2fc2fa669a71ce8b" kindref="member">Button_Interrupt_Handler</ref>,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a5f3ad6926ebcda668893f054bb07fa20" kindref="member">Change</ref>);</highlight></codeline>
 <codeline lineno="429"><highlight class="normal"></highlight></codeline>
 <codeline lineno="430"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>--<sp/>Increase<sp/>esp32<sp/>hardware<sp/>watchdog<sp/>timeout</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="431"><highlight class="normal"></highlight></codeline>
@@ -684,11 +684,11 @@
 <codeline lineno="437"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>--<sp/>Initialize<sp/>drive.<sp/>--<sp/>//</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="438"><highlight class="normal"></highlight></codeline>
 <codeline lineno="439"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>Drive_Mode<sp/>==<sp/>0</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="440"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(14,<sp/>INPUT_PULLUP);</highlight></codeline>
-<codeline lineno="441"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(2,<sp/>INPUT_PULLUP);</highlight></codeline>
-<codeline lineno="442"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(4,<sp/>INPUT_PULLUP);</highlight></codeline>
-<codeline lineno="443"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(12,<sp/>INPUT_PULLUP);</highlight></codeline>
-<codeline lineno="444"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(13,<sp/>INPUT_PULLUP);</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(14,<sp/>INPUT_PULLUP);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(2,<sp/>INPUT_PULLUP);</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(4,<sp/>INPUT_PULLUP);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(12,<sp/>INPUT_PULLUP);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(13,<sp/>INPUT_PULLUP);</highlight></codeline>
 <codeline lineno="445"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="446"><highlight class="normal"></highlight></codeline>
 <codeline lineno="447"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!Xila.Drive.<ref refid="class_xila___class_1_1_drive___class_1ae6ee65e39b64633977e13099011c3673" kindref="member">Begin</ref>()<sp/>||<sp/>Xila.Drive.<ref refid="class_xila___class_1_1_drive___class_1a292061e7081549b280ff14c0612357bc" kindref="member">Type</ref>()<sp/>==<sp/>Xila.Drive.<ref refid="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa383e5858e9e99cab882bc243a37e85e8" kindref="member">None</ref>)</highlight></codeline>
@@ -727,8 +727,8 @@
 <codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/>Xila.Display.Begin(Xila.Display.Baud_Rate,<sp/>Xila.Display.Receive_Pin,<sp/>Xila.Display.Transmit_Pin);</highlight></codeline>
 <codeline lineno="481"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="482"><highlight class="normal"></highlight></codeline>
-<codeline lineno="483"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(Default_Display_Switching_Pin,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad19f97e127de37752a423ca8309dcdb2" kindref="member">Output</ref>);</highlight></codeline>
-<codeline lineno="484"><highlight class="normal"><sp/><sp/>Xila.GPIO.Digital_Write(Default_Display_Switching_Pin,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba58d99dc2621426b9b22ee47becca04d1" kindref="member">High</ref>);</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(Default_Display_Switching_Pin,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a5f8475f7571a2b465d633353d8fcdbfcad19f97e127de37752a423ca8309dcdb2" kindref="member">Output</ref>);</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1ae0884fdc33e1d1fd732381945b97431b" kindref="member">Digital_Write</ref>(Default_Display_Switching_Pin,<sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914ba58d99dc2621426b9b22ee47becca04d1" kindref="member">High</ref>);</highlight></codeline>
 <codeline lineno="485"><highlight class="normal"><sp/><sp/>Xila.Task.<ref refid="class_xila___class_1_1_task___class_1a1a65d70162c95dfd3ac8b4683e913ce9" kindref="member">Delay</ref>(2000);</highlight></codeline>
 <codeline lineno="486"><highlight class="normal"><sp/><sp/>Xila.Display.Wake_Up();</highlight></codeline>
 <codeline lineno="487"><highlight class="normal"><sp/><sp/>Xila.Display.Set_Touch_Wake_Up(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>

@@ -2,4 +2,13 @@
 Drive Reference
 ***************
 
-.. toc
+Here you will find a full descrption of the drive API.
+
+Depending on the configuration selected during compilation, Xila uses the SD or SD_MMC library (the second being faster but occupying more pins).
+Thus, the API of Xila is analogous to the API offered by these two libraries.
+
+API Reference
+=============
+
+.. doxygenclass::   Xila_Class::Drive_Class
+    :members:

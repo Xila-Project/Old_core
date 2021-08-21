@@ -1,0 +1,6 @@
+"Key","Description","Default"
+"Standby Time","Inactivity time expressed in seconds before the display goes to sleep.",30
+"Baud Rate","Serial communication speed with the display expressed in bauds.",921600
+"Brightness","Display brightness percentage.",100
+"Receive Pin","Pin where the transmit wire of the display is connected.",16
+"Transmit Pin","Pin where the receive wire of the display is connected.",17

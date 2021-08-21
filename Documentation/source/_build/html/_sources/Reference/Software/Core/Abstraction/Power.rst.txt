@@ -1,0 +1,11 @@
+***************
+Power Reference
+***************
+
+Here you will find a full description of the power API.
+
+API Reference
+=============
+
+.. doxygenclass::   Xila_Class::Power_Class
+    :members:

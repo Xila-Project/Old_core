@@ -1,0 +1,981 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Keyboard Abstraction Layer &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Power Abstraction Layer" href="Power.html" />
+    <link rel="prev" title="GPIO Abstraction Layer" href="GPIO.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Developp.html">Developp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Contribute.html">Contribute</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../Software.html">Software</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Display.html">Display</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Drive.html">Drive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Flash.html">Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GPIO.html">GPIO</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Keyboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Power.html">Power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sound.html">Sound</a></li>
+<li class="toctree-l2"><a class="reference internal" href="WiFi.html">WiFi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Account.html">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Clipboard.html">Clipboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Dialog.html">Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Mathematics.html">Mathematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Software%20Management.html">Software Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/System.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Time.html">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Event.html">Event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Instruction.html">Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Page.html">Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Software%20Handle.html">Software Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Software.html">Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Task%20Function.html">Task Function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Hardware.html">Hardware</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../Software.html">Software Reference</a> &raquo;</li>
+        
+      <li>Keyboard Abstraction Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Reference/Software/Abstraction/Keyboard.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="keyboard-abstraction-layer">
+<h1>Keyboard Abstraction Layer<a class="headerlink" href="#keyboard-abstraction-layer" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full description of the keyboard abstraction layer.</p>
+<p>The latter is based on the <a class="reference external" href="https://github.com/PaulStoffregen/PS2Keyboard">PS2Keyboard</a> library by <a class="reference external" href="https://github.com/PaulStoffregen">Paul STOFFREGEN</a>.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N10Xila_Class14Keyboard_ClassE">
+<span id="_CPPv3N10Xila_Class14Keyboard_ClassE"></span><span id="_CPPv2N10Xila_Class14Keyboard_ClassE"></span><span id="Xila_Class::Keyboard_Class"></span><span class="target" id="class_xila___class_1_1_keyboard___class"></span><em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Xila_Class</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">Keyboard_Class</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Keyboard class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Types</p>
+<dl class="cpp enum">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7LayoutsE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7LayoutsE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7LayoutsE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667e"></span><em class="property"><span class="pre">enum</span> </em><code class="sig-name descname"><span class="pre">Layouts</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7LayoutsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Keyboard available layout. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts8AmericanE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts8AmericanE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts8AmericanE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea5f671e22cb5ed8c76a25a6c2f3d389c9"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">American</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts8AmericanE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>American QWERTY layout. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts6GermanE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts6GermanE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts6GermanE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667eaf79ad31ad315b8b24f6e37f19c974b1d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">German</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts6GermanE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>German QWERTY layout. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts6FrenchE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts6FrenchE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts6FrenchE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea694ce0db8088cb7d14787795ad6ea7a8"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">French</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts6FrenchE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>French AZERTY layout. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts7SpanishE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts7SpanishE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts7SpanishE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea53397633bba4f8d84782dd769e925524"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Spanish</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts7SpanishE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Spanish QWERTY layout. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts7ItalianE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts7ItalianE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts7ItalianE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667eaef0538a956f7f58ea17a1e4f4ecae9b7"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Italian</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts7ItalianE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Italian QWERTY layout. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class7Layouts7EnglishE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class7Layouts7EnglishE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class7Layouts7EnglishE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea9e68663ccdbe04cf35372009905e119d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">English</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class7Layouts7EnglishE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>English QWERTY layout. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_KeysE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_KeysE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_KeysE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403"></span><em class="property"><span class="pre">enum</span> </em><code class="sig-name descname"><span class="pre">Special_Keys</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_KeysE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Special keys enumeration. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3TabE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3TabE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3TabE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403accb8e3d984a4ca5455974c027668ce06"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Tab</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3TabE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5EnterE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys5EnterE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys5EnterE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ac3187cc9f2af842766b656f9fc032787"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Enter</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5EnterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9BackspaceE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9BackspaceE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9BackspaceE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403af8863f4bfd0278a5d084fe12817898c4"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Backspace</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9BackspaceE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6EscapeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6EscapeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6EscapeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a5ebc1b162902f42f4934619bc30fdb29"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Escape</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6EscapeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6InsertE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6InsertE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6InsertE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aee8b15417d3c4f61367df2016ea8c2b5"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Insert</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6InsertE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6DeleteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6DeleteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6DeleteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a80ae99ae433099adf213e7f57f5c5154"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Delete</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6DeleteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys4HomeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys4HomeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys4HomeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab1d4ccb8306d41959d0b473c706bb35f"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Home</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys4HomeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3EndE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3EndE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3EndE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a5dbaa70bdacb13afc74cce6b5c8ae051"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">End</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3EndE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Page_UpE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7Page_UpE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7Page_UpE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ace902bd3b663346bd3fc00674c2df694"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Page_Up</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Page_UpE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Page_DownE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9Page_DownE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9Page_DownE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a2e90f17fc07c0dfa01564c5df448d485"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Page_Down</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Page_DownE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Arrow_UpE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8Arrow_UpE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8Arrow_UpE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403af30dc10dba423cae029eb2d62f44be69"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Arrow_Up</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Arrow_UpE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_DownE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_DownE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_DownE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a401dd5c3b0bd0abbf16e77cfd23d1893"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Arrow_Down</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_DownE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_LeftE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_LeftE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_LeftE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a03e28fa24e57656e176b0c282908b7b5"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Arrow_Left</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Arrow_LeftE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11Arrow_RightE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11Arrow_RightE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11Arrow_RightE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403abe417dd79d41a2dd02b6647882af3a4f"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Arrow_Right</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11Arrow_RightE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F1E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F1E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F1E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a115d1088bc5b4c3543b83c714d78ad5e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F1</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F1E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F2E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F2E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F2E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab1e628f3468b9a23bf59b3b4b0e0582e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F2</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F2E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F3E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F3E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F3E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a1f0c9ee77e97aae7e58b05a642fef5f2"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F3</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F3E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F4E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F4E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F4E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aee4abad406f5a62f505cc59d61498a94"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F4</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F4E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F5E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F5E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F5E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a00cf51a425291093efd0b8bf365d26be"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F5</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F5E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F6E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F6E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F6E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a332a7bc157b774f993912211ed2bf814"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F6</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F6E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F7E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F7E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F7E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a49c046a18cf72ed363cc1ae2bd46f682"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F7</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F7E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F8E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F8E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F8E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403af0ac9feb83747e7b3dd75b7eb94f24fa"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F8</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F8E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F9E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2F9E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2F9E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403af2a7b215e0994dc302b50967f2764010"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F9</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2F9E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F10E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3F10E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3F10E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a285cbe5512cc53da215d920091029725"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F10</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F10E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F11E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3F11E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3F11E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a0bbd04c767a2c4d6ecb09c902b86470d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F11</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F11E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F12E">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3F12E"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3F12E"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae3c97c79dc5c667f62d52806e69bf375"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">F12</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3F12E" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6ScrollE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6ScrollE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6ScrollE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a6210154f8be8e3c81ee1a78383eb3726"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Scroll</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6ScrollE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Euro_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9Euro_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9Euro_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a8f45255e84f922278f09067734ff13bf"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Euro_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Euro_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys20Inverted_ExclamationE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys20Inverted_ExclamationE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys20Inverted_ExclamationE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a580a852abf400720393f91396592f485"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Inverted_Exclamation</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys20Inverted_ExclamationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Cent_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9Cent_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9Cent_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa578e0ce936cbcd3baa3f05040cd7d96"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Cent_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9Cent_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Pound_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Pound_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Pound_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403afc038d2136b975cf8b575d94f7ac664d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Pound_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Pound_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys13Currency_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys13Currency_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys13Currency_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a63307b756294e4cb8ef380d98c0fab4e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Currency_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys13Currency_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Yen_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8Yen_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8Yen_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a2d8cef809d9f3482a6a5a8254e25b6f7"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Yen_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Yen_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Broken_BarE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Broken_BarE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Broken_BarE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a075a6c1489aeb530f2d975f5e408b43b"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Broken_Bar</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Broken_BarE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14Secontion_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys14Secontion_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys14Secontion_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a4ebdafd2ad0cd90b61c833758b18ea2e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Secontion_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14Secontion_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a2599edb7372849abedc8e242286af518"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14Copyright_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys14Copyright_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys14Copyright_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae5a39f0b056bbc6ede193e0eb466681d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Copyright_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14Copyright_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys16Feminine_OrdinalE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys16Feminine_OrdinalE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys16Feminine_OrdinalE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a5b9c8c10903cb1493a24d9ca143643e6"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Feminine_Ordinal</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys16Feminine_OrdinalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys23Left_Double_Angle_QuoteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys23Left_Double_Angle_QuoteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys23Left_Double_Angle_QuoteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3afb9ac66cd6dc03fe249f7de577dc4e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Left_Double_Angle_Quote</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys23Left_Double_Angle_QuoteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Not_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8Not_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8Not_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a71e4b2b721860612b60e0f92f4750594"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Not_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8Not_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6HyphenE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6HyphenE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6HyphenE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a1eada4212ca578474aa38e8681c267a0"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Hyphen</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6HyphenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Registered_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys15Registered_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys15Registered_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a80be0a3a6850c50e69868447e9671310"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Registered_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Registered_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6MacronE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys6MacronE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys6MacronE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab6e7b2c5dae72953b5ad9b6d3280e21a"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Macron</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys6MacronE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11Degree_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11Degree_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11Degree_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a101243956e08cde18e5b905471d2b006"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Degree_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11Degree_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Plus_Minus_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys15Plus_Minus_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys15Plus_Minus_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a42af015d1038301fb921e3ac4b024ad4"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Plus_Minus_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Plus_Minus_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_TwoE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_TwoE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_TwoE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a362efd79e503be3f6e77253270f3871f"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Superscript_Two</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_TwoE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Superscript_ThreeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys17Superscript_ThreeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys17Superscript_ThreeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a849db8d0f95df5643044b2218ebceb2e"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Superscript_Three</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Superscript_ThreeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12Acute_AccentE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12Acute_AccentE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12Acute_AccentE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a7270bd052adbea49dd54b5b8a82b7464"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Acute_Accent</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12Acute_AccentE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Micro_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Micro_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Micro_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a843f8bb4fc7c682b8625f5fcbed5251a"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Micro_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Micro_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12Pilcrow_SignE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12Pilcrow_SignE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12Pilcrow_SignE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a43159a76753c5307b64b964071d0c897"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Pilcrow_Sign</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12Pilcrow_SignE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Middle_DotE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys10Middle_DotE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys10Middle_DotE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa14c7b1c769f97a05dfbb8afdc8c6ce7"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Middle_Dot</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys10Middle_DotE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7CedillaE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7CedillaE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7CedillaE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab60e3314d06082b23ce752d437c383ad"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Cedilla</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7CedillaE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_OneE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_OneE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_OneE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa0199a21b6b5bd1c8f5cb99dd24b3653"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Superscript_One</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys15Superscript_OneE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Masculine_OrdinalE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys17Masculine_OrdinalE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys17Masculine_OrdinalE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aeac182076a794f2061088b5e7eab60c7"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Masculine_Ordinal</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Masculine_OrdinalE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys24Right_Double_Angle_QuoteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys24Right_Double_Angle_QuoteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys24Right_Double_Angle_QuoteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aff72a3ec7f050213f6a7db60c427c175"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Right_Double_Angle_Quote</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys24Right_Double_Angle_QuoteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys20Fraction_One_QuarterE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys20Fraction_One_QuarterE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys20Fraction_One_QuarterE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403acad044ac578461671f318363e9d6e8ee"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Fraction_One_Quarter</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys20Fraction_One_QuarterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Fraction_One_HalfE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys17Fraction_One_HalfE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys17Fraction_One_HalfE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae4224ef5d35421f8d2afc1b99be228ca"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Fraction_One_Half</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys17Fraction_One_HalfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys23Fraction_Three_QuartersE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys23Fraction_Three_QuartersE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys23Fraction_Three_QuartersE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a93c30506ad5087970510c19e40039c12"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Fraction_Three_Quarters</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys23Fraction_Three_QuartersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys22Inverted_Question_MarkE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys22Inverted_Question_MarkE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys22Inverted_Question_MarkE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ac164685de75ea5fef3d3ca93094819e7"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Inverted_Question_Mark</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys22Inverted_Question_MarkE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7A_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7A_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a8c70456e0c784f59b1c5d516bdbd2d94"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7A_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7A_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a6faf6122feaff4ece3ccc5487eccedcf"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12A_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12A_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12A_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a67d1bf51b5d1fd5f0b7fd09c6b02c183"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12A_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7A_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7A_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ad3dc5f6cc29d1d6e18440a6409cb7557"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7A_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11A_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11A_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11A_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a15add4fa3599edb2b8bb6f483c57832a"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11A_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12A_Ring_AboveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12A_Ring_AboveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12A_Ring_AboveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403abc8b628695c7b8a4ad60012ae9c1d013"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">A_Ring_Above</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12A_Ring_AboveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2AEE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2AEE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2AEE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a28df0020b9fcd070fdc0643419ccf56f"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">AE</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2AEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9C_CedillaE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9C_CedillaE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9C_CedillaE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a54871189ed8ce4cc833db92cdb3443d0"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">C_Cedilla</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9C_CedillaE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7E_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7E_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7E_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a86e6b07769c9d71ae79430da819bd4cb"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">E_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7E_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7E_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7E_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7E_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a80316365f91766ceb7efbc40649c03e8"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">E_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7E_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12E_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12E_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12E_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403adabf2d45dfdfa6a06e17c33e0115ec23"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">E_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12E_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11E_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11E_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11E_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae8b38347a9b6618a5a26265702a0b92b"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">E_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11E_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7I_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7I_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7I_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a377f03c629c2f3590cb5780e0092a282"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">I_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7I_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7I_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7I_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7I_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa962a6e3620bebfe7ef7dd4571457c47"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">I_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7I_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12I_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12I_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12I_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a8429a6a38176b071b1be3a70ae065cb8"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">I_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12I_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11I_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11I_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11I_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a0e7270058971fd8296cf7db0c76d8736"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">I_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11I_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3EthE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3EthE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3EthE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a189860707e56fc41a89eaa7b87aa6343"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Eth</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3EthE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7N_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7N_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7N_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3963aaec25871d32fdcdd94df3a7c530"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">N_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7N_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7O_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7O_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a4f957d35a5a1b2b9c153c0e021b46af0"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7O_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7O_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403abee26905d7bd94f34a8c178610118a75"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12O_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12O_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12O_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ac996a222a1dd37e29fbbeb5604a916f5"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12O_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7O_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7O_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a244aeeb7b3156f0a31bcc7d13ef1fa77"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7O_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11O_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11O_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11O_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aeadf4dc4f3fcd19f2d65b5e9685550fe"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11O_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14MultiplicationE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys14MultiplicationE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys14MultiplicationE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae5bd5ec3786321cde741a40662bc6801"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Multiplication</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys14MultiplicationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8O_StrokeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8O_StrokeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8O_StrokeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a33f87040bc8e50ceb8dd2dfba7366019"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">O_Stroke</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8O_StrokeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7U_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7U_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7U_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab93545c7bc9275fb69b3632368498157"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">U_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7U_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7U_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7U_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7U_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a8737ab214843af95ebf5e36f0b4b6a34"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">U_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7U_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12U_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12U_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12U_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a2fdf6eef2db94b7e58a745601b567100"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">U_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12U_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11U_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11U_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11U_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a0c9209b586f1adc46254e909924a48ca"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">U_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11U_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Y_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7Y_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7Y_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae94abbcb9381210a6cea2affd2f52ca5"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Y_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Y_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5ThornE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys5ThornE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys5ThornE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a115aecc877f91d090d0d4098301a776d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Thorn</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5ThornE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Sharp_SE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7Sharp_SE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7Sharp_SE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3370b3bff36c0e8add4fae4a4ef2bc47"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Sharp_S</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7Sharp_SE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7a_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7a_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403adcd0e919cc018bf74ff304440d59c514"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7a_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7a_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ad5f58176fb77d9cb79851d00d0a36bf2"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12a_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12a_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12a_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ac49ac9efa8d6bf4f419790b93b894574"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12a_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7a_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7a_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a84ea3435dc0343b7121ea074250d2846"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7a_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11a_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11a_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11a_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a4e3aa9529dcd48390a58d83f8f2bebde"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11a_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12a_Ring_AboveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12a_Ring_AboveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12a_Ring_AboveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a22d86426e7b1ec34cc625203644c1ada"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">a_Ring_Above</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12a_Ring_AboveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2aeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys2aeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys2aeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a0e90da27048441460cdf26ee47161c79"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">ae</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys2aeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9c_CedillaE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys9c_CedillaE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys9c_CedillaE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa591403b5e2151151097702431c59480"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">c_Cedilla</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys9c_CedillaE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7e_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7e_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7e_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa20a5bac01b60ed0a5c1c1d52ac15e8b"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">e_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7e_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7e_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7e_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7e_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3d17897de7096349b3a0b0a94d377ee3"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">e_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7e_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12e_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12e_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12e_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a66aed829915de918c99ad311203de254"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">e_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12e_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11e_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11e_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11e_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403af563ab113ffbd68184a21fec40b600b0"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">e_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11e_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7i_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7i_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7i_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab6e3b0a9a755e1ff8af6c3c5b94067f0"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">i_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7i_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7i_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7i_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7i_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a6d808e8b46340bb8ca06fe423f29cc11"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">i_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7i_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12i_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12i_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12i_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a1298e11901ab57e674f853736449b4c3"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">i_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12i_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11i_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11i_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11i_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ae739f4d32255966311d394d2a5ba704d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">i_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11i_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3ethE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys3ethE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys3ethE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a669b10d35cae2f5a6c3979253f6042d4"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">eth</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys3ethE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7n_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7n_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7n_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a96c0e383f807726b371e19f291ec8a7d"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">n_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7n_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7o_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7o_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa23fdfec7f4405554c92fec18c72f532"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7o_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7o_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3023c863eee1ce767dc856a96d2b3a04"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12o_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12o_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12o_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a51e7500ed7e2433738835ace63fdd99b"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12o_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_TildeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7o_TildeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7o_TildeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403aa4541b7604701ec5d987a527f386bd41"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Tilde</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7o_TildeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11o_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11o_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11o_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ab30139ec5554528a539faf1648dc9cce"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11o_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8DivisionE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8DivisionE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8DivisionE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403afbb9506a960f4d797c1cdc82beb01786"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">Division</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8DivisionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8o_StrokeE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys8o_StrokeE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys8o_StrokeE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ad3075daac07784edd8a3292c15d758a4"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">o_Stroke</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys8o_StrokeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7u_GraveE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7u_GraveE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7u_GraveE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a3a93d6fd2de671daef71da3e78af45b8"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">u_Grave</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7u_GraveE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7u_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7u_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7u_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a9c66cc8ceae4f49a522689c6043213df"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">u_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7u_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12u_CircumflexE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys12u_CircumflexE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys12u_CircumflexE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a7ee046e3e5e885fb11d40581b6bd198c"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">u_Circumflex</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys12u_CircumflexE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11u_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11u_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11u_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a0b3f0fdd9adc2737b7dd4cca2a1d875a"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">u_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11u_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7y_AcuteE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys7y_AcuteE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys7y_AcuteE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403abea50c5bd4363fd74c86490dd905cd62"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">y_Acute</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys7y_AcuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5thornE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys5thornE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys5thornE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403acd4093c1010e42153d727afbf8bf9dda"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">thorn</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys5thornE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11y_DiaeresisE">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class12Special_Keys11y_DiaeresisE"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class12Special_Keys11y_DiaeresisE"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a548f51118aca4793889c05edcb035f32"></span><em class="property"><span class="pre">enumerator</span> </em><code class="sig-name descname"><span class="pre">y_Diaeresis</span></code><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class12Special_Keys11y_DiaeresisE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class14Keyboard_ClassEv">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class14Keyboard_ClassEv"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class14Keyboard_ClassEv"></span><span id="Xila_Class::Keyboard_Class::Keyboard_Class"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1a481cb3e4f39f7d592ff89cce98d9e3da"></span><code class="sig-name descname"><span class="pre">Keyboard_Class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class14Keyboard_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="../Core.html#class_xila___class_1_1_keyboard___class_1a481cb3e4f39f7d592ff89cce98d9e3da"><span class="std std-ref">Xila_Class::Keyboard_Class::Keyboard_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class4ReadEv">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class4ReadEv"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class4ReadEv"></span><span id="Xila_Class::Keyboard_Class::Read"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1a641f8b4cae0599ac70066d01ae65c4d5"></span><span class="pre">uint8_t</span> <code class="sig-name descname"><span class="pre">Read</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class4ReadEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read character from the keyboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>unsigned char Input character. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class8Read_RawEv">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class8Read_RawEv"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class8Read_RawEv"></span><span id="Xila_Class::Keyboard_Class::Read_Raw"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1ac269b7a11486d82f887cd272fbdb5470"></span><span class="pre">uint8_t</span> <code class="sig-name descname"><span class="pre">Read_Raw</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class8Read_RawEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read character from the keyboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>uint8_t The amount of character available in the buffer. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class9AvailableEv">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class9AvailableEv"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class9AvailableEv"></span><span id="Xila_Class::Keyboard_Class::Available"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1a645529449d17418cf12b08c5f2e22f37"></span><span class="pre">uint8_t</span> <code class="sig-name descname"><span class="pre">Available</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class9AvailableEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Check if any character is availble. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>uint8_t The amount of character available in the buffer. </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class14Keyboard_Class5ClearEv">
+<span id="_CPPv3N10Xila_Class14Keyboard_Class5ClearEv"></span><span id="_CPPv2N10Xila_Class14Keyboard_Class5ClearEv"></span><span id="Xila_Class::Keyboard_Class::Clear"></span><span class="target" id="class_xila___class_1_1_keyboard___class_1a54a28063306921b5e94196d857b00575"></span><span class="pre">void</span> <code class="sig-name descname"><span class="pre">Clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class14Keyboard_Class5ClearEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Clear the character buffer. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="Power.html" class="btn btn-neutral float-right" title="Power Abstraction Layer" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="GPIO.html" class="btn btn-neutral float-left" title="GPIO Abstraction Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

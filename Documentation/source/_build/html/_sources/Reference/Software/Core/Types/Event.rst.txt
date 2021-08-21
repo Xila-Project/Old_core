@@ -13,7 +13,7 @@ Here you will find a full description the event type.
 
 The various functions (for example: event dialogs, file management etc.) of Xila often return an Event type in order to indicate the state of an operation.
 
-API reference
+API Reference
 ===============
 
 .. doxygentypedef:: Xila_Class::Event

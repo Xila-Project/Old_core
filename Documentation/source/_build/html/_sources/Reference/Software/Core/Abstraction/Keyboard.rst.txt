@@ -1,0 +1,15 @@
+******************
+Keyboard Reference
+******************
+
+Here you will find a full description of the keyboard API.
+
+In order to simplify the management of user input, Xila offers a keyboard API.
+The latter is based on the PS2Keyboard library by Paul STOFFREGEN.
+
+API Reference
+=============
+
+.. doxygenclass::   Xila_Class::Keyboard_Class
+    :members:
+    

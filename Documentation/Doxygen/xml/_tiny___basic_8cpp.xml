@@ -993,10 +993,10 @@
 <codeline lineno="699"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-a;</highlight></codeline>
 <codeline lineno="700"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>a;</highlight></codeline>
 <codeline lineno="701"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>FUNC_AREAD:</highlight></codeline>
-<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xila.GPIO.Set_Mode(a,<sp/>INPUT);</highlight></codeline>
-<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xila.GPIO.Analog_Read(a);</highlight></codeline>
+<codeline lineno="702"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(a,<sp/>INPUT);</highlight></codeline>
+<codeline lineno="703"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a6c4bd630f11edcae695bbc70b26e3a03" kindref="member">Analog_Read</ref>(a);</highlight></codeline>
 <codeline lineno="704"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>FUNC_DREAD:</highlight></codeline>
-<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xila.GPIO.Set_Mode(a,<sp/>INPUT);</highlight></codeline>
+<codeline lineno="705"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(a,<sp/>INPUT);</highlight></codeline>
 <codeline lineno="706"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>digitalRead(a);</highlight></codeline>
 <codeline lineno="707"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>FUNC_RND:</highlight></codeline>
 <codeline lineno="708"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(random(a));</highlight></codeline>
@@ -2226,7 +2226,7 @@
 <codeline lineno="1932"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(expression_error)</highlight></codeline>
 <codeline lineno="1933"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">goto</highlight><highlight class="normal"><sp/>qwhat;</highlight></codeline>
 <codeline lineno="1934"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline lineno="1935"><highlight class="normal"><sp/><sp/>Xila.GPIO.Set_Mode(pinNo,<sp/>OUTPUT);</highlight></codeline>
+<codeline lineno="1935"><highlight class="normal"><sp/><sp/>Xila.GPIO.<ref refid="class_xila___class_1_1_g_p_i_o___class_1a4d61aa3002e4d810c8446430ce979c2f" kindref="member">Set_Mode</ref>(pinNo,<sp/>OUTPUT);</highlight></codeline>
 <codeline lineno="1936"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(isDigital)</highlight></codeline>
 <codeline lineno="1937"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
 <codeline lineno="1938"><highlight class="normal"><sp/><sp/><sp/><sp/>digitalWrite(pinNo,<sp/>value);</highlight></codeline>

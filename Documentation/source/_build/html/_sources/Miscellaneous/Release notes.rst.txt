@@ -2,18 +2,10 @@
 Release notes
 *************
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Table Of Contents
-
-Introduction
-============
-
 Here you will find all the notes concerning the releases.
 
 Versions
 ========
-
 
 0.0.2 - 2021-?-?
 ----------------

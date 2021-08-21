@@ -304,12 +304,31 @@
           <declname>Mode</declname>
         </param>
         <briefdescription>
+<para>Set GPIO mode. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mode. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="749" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="16" bodyend="19"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="749" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="21" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a390fe5acf401820f1866d15286f5e3d0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -321,12 +340,26 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Check if a GPIO is valid for output purpose. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> <linebreak/>
+ </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="751" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="21" bodyend="29"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="751" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="31" bodyend="39"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ae0884fdc33e1d1fd732381945b97431b" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -342,12 +375,31 @@
           <declname>State</declname>
         </param>
         <briefdescription>
+<para>Set GPIO digital state. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>State</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>GPIO state to set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="754" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="31" bodyend="34"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="754" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="46" bodyend="49"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac148f7cfbefb87451768ae29dc858ba3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>int16_t</type>
@@ -359,12 +411,25 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Read GPIO digital state. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>int16_t GPIO state. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="755" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="36" bodyend="39"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="755" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="56" bodyend="59"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a21d1f6d8fa83d00defbd9785f00347bc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -376,12 +441,26 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Check if a GPIO pin is suitable for digital signals. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref> <linebreak/>
+ </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="757" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="41" bodyend="48"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="757" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="66" bodyend="73"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a6c4bd630f11edcae695bbc70b26e3a03" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint16_t</type>
@@ -393,12 +472,25 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Read GPIO voltage value. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint16_t GPIO voltage value (between 0 and 4095). </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="760" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="50" bodyend="53"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="760" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="80" bodyend="83"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a8341f8743b3a8dae4f4101789e9e5e75" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -410,12 +502,25 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Read GPIO voltage. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>uint32_t GPIO voltage value in millivolts. </para>
+</simplesect>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="761" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="55" bodyend="58"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="761" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="90" bodyend="93"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac1055a2b12728edf4f945d215b4591b9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -427,12 +532,23 @@
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Set voltage reference pin for for ADC measurements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="763" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="60" bodyend="63"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="763" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="99" bodyend="102"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1ac892af21b737fcd2310cee112659a081" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -444,12 +560,23 @@
           <declname>Bits_Resolution</declname>
         </param>
         <briefdescription>
+<para>Set read resolution of ADC measurements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Bits_Resolution</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit resolution. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="764" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="117" bodyend="120"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="764" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="177" bodyend="180"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a8a74f82f1bb7b86a673a62192497b1dd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -461,12 +588,23 @@
           <declname>Bits_Width</declname>
         </param>
         <briefdescription>
+<para>Set bit width of ADC measurements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Bits_Width</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Bit width. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="765" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="112" bodyend="115"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="765" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="168" bodyend="171"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a17c712ca4f31f346ecd223e767213386" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -478,12 +616,23 @@
           <declname>Clock_Divider</declname>
         </param>
         <briefdescription>
+<para>Set clock divider. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Clock_Divider</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Clock divider. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="766" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="107" bodyend="110"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="766" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="159" bodyend="162"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a05d2b65a023a5eea8bc6d8f84579e711" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -495,12 +644,23 @@
           <declname>Attenuation</declname>
         </param>
         <briefdescription>
+<para>Set GPIOs attenuation for ADC measurements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Attenuation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attenuation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="768" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="86" bodyend="105"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="768" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="134" bodyend="153"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a5bbef1476ad0d2b4979a6b02ca35e1e7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -516,12 +676,31 @@
           <declname>Attenuation</declname>
         </param>
         <briefdescription>
+<para>Set GPIO attenuation for ADC measurements. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Attenuation</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Attenuation. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="769" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="65" bodyend="84"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="769" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="109" bodyend="128"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -541,12 +720,39 @@
           <declname>Mode</declname>
         </param>
         <briefdescription>
+<para>Set an interrupt. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">Function_Pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function pointer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mode. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="772" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="122" bodyend="125"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="772" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="188" bodyend="191"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1af3df535781f6106d1dfbe36f341ff4ca" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -570,29 +776,75 @@
           <declname>Mode</declname>
         </param>
         <briefdescription>
+<para>Set an interrupt with an argument passed to the hadling function. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Function_Pointer</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Function pointer. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Argument</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument passed to the function. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Interrupt mode. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="773" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="127" bodyend="130"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="773" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="200" bodyend="203"/>
       </memberdef>
-      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a9507827cf5bf287015df3c7e1d521137" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+      <memberdef kind="function" id="class_xila___class_1_1_g_p_i_o___class_1a74ddd7b5e8d265dbff3b29b2a6b25eb1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
-        <definition>void Xila_Class::GPIO_Class::Detech_Interrupt</definition>
+        <definition>void Xila_Class::GPIO_Class::Detach_Interrupt</definition>
         <argsstring>(uint8_t Pin)</argsstring>
-        <name>Detech_Interrupt</name>
+        <name>Detach_Interrupt</name>
         <param>
           <type>uint8_t</type>
           <declname>Pin</declname>
         </param>
         <briefdescription>
+<para>Detach interrupt from a GPIO. </para>
         </briefdescription>
         <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>Pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Involved GPIO. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="774" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="132" bodyend="135"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="774" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/GPIO.hpp" bodystart="209" bodyend="212"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -608,7 +860,7 @@
       <member refid="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Attach_Interrupt</name></member>
       <member refid="class_xila___class_1_1_g_p_i_o___class_1af3df535781f6106d1dfbe36f341ff4ca" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Attach_Interrupt_Argument</name></member>
       <member refid="class_xila___class_1_1_g_p_i_o___class_1acb2a4750713a181d8c988c524191b014a5f3ad6926ebcda668893f054bb07fa20" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Change</name></member>
-      <member refid="class_xila___class_1_1_g_p_i_o___class_1a9507827cf5bf287015df3c7e1d521137" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Detech_Interrupt</name></member>
+      <member refid="class_xila___class_1_1_g_p_i_o___class_1a74ddd7b5e8d265dbff3b29b2a6b25eb1" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Detach_Interrupt</name></member>
       <member refid="class_xila___class_1_1_g_p_i_o___class_1ac148f7cfbefb87451768ae29dc858ba3" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_Read</name></member>
       <member refid="class_xila___class_1_1_g_p_i_o___class_1a476ef78e4ebbbce44ae4bc5a82eb914b" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_States</name></member>
       <member refid="class_xila___class_1_1_g_p_i_o___class_1ae0884fdc33e1d1fd732381945b97431b" prot="public" virt="non-virtual"><scope>Xila_Class::GPIO_Class</scope><name>Digital_Write</name></member>

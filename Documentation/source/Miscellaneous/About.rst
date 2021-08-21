@@ -2,13 +2,6 @@
 About
 *****
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Table Of Contents
-
-Introduction
-============
-
 Here you will find all the legal information about Xila such as dependencies, credits, licenses etc.
 
 Dependencies

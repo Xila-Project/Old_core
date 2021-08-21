@@ -1,0 +1,4 @@
+"Key","Description","Default"
+"Data Pin","Pin where the keyboard data wire is connected.",32
+"Clock Pin","Pin where the keyboard clock wire is connected.",33
+"Layout","Keyboard layout code.",0

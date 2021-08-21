@@ -529,7 +529,7 @@
     <member refid="class_xila___class_1_1_g_p_i_o___class_1a5bbef1476ad0d2b4979a6b02ca35e1e7" kind="function"><name>Set_Attenuation</name></member>
     <member refid="class_xila___class_1_1_g_p_i_o___class_1a5e392a9291b7b6ecdbad9e2db3e6fcc1" kind="function"><name>Attach_Interrupt</name></member>
     <member refid="class_xila___class_1_1_g_p_i_o___class_1af3df535781f6106d1dfbe36f341ff4ca" kind="function"><name>Attach_Interrupt_Argument</name></member>
-    <member refid="class_xila___class_1_1_g_p_i_o___class_1a9507827cf5bf287015df3c7e1d521137" kind="function"><name>Detech_Interrupt</name></member>
+    <member refid="class_xila___class_1_1_g_p_i_o___class_1a74ddd7b5e8d265dbff3b29b2a6b25eb1" kind="function"><name>Detach_Interrupt</name></member>
   </compound>
   <compound refid="class_shell___class_1_1_images___class" kind="class"><name>Shell_Class::Images_Class</name>
     <member refid="class_shell___class_1_1_images___class_1a10a8eb6a7c3b28ceb81870567a3954be" kind="enum"><name>@3</name></member>

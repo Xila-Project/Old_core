@@ -2,13 +2,6 @@
 Hardware Reference
 ******************
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Table Of Contents
-
-Introduction
-============
-
 Flexibility being the cornerstone of Xila, it is therefore possible to run Xila on a multitude of different configurations.
 That is why Xila reference hardware is only here as default option for an easy quick start. It is far from perfect, but is accessible to anyone who owns a soldering iron.
 So, you can change the design according to your need.

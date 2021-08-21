@@ -165,7 +165,7 @@ $(function() {
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">long</span> adRead(uint8_t ch, <span class="keywordtype">short</span> mode, <span class="keywordtype">int</span> off)</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">long</span> a = Xila.GPIO.Analog_Read(ch);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordtype">long</span> a = Xila.GPIO.<a class="code" href="class_xila___class_1_1_g_p_i_o___class.html#a6c4bd630f11edcae695bbc70b26e3a03">Analog_Read</a>(ch);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        a += off; <span class="comment">// add offset</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> (ch == ad_ch0)</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        {</div>
@@ -209,6 +209,7 @@ $(function() {
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<a class="code" href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a> Oscilloscope_Handle(<span class="stringliteral">&quot;Oscilloscope&quot;</span>, Oscilloscope_Class::Icon_32, Oscilloscope_Class::Load);</div>
 <div class="ttc" id="aclass_oscilloscope___class_html"><div class="ttname"><a href="class_oscilloscope___class.html">Oscilloscope_Class</a></div><div class="ttdef"><b>Definition:</b> Oscilloscope.hpp:17</div></div>
+<div class="ttc" id="aclass_xila___class_1_1_g_p_i_o___class_html_a6c4bd630f11edcae695bbc70b26e3a03"><div class="ttname"><a href="class_xila___class_1_1_g_p_i_o___class.html#a6c4bd630f11edcae695bbc70b26e3a03">Xila_Class::GPIO_Class::Analog_Read</a></div><div class="ttdeci">uint16_t Analog_Read(uint8_t Pin)</div><div class="ttdoc">Read GPIO voltage value.</div><div class="ttdef"><b>Definition:</b> GPIO.hpp:80</div></div>
 <div class="ttc" id="aclass_xila___class_1_1_software___handle_html"><div class="ttname"><a href="class_xila___class_1_1_software___handle.html">Xila_Class::Software_Handle</a></div><div class="ttdoc">Software handle used by Xila to manage each software.</div><div class="ttdef"><b>Definition:</b> Core.hpp:318</div></div>
 <div class="ttc" id="aclass_xila___class_1_1_software_html"><div class="ttname"><a href="class_xila___class_1_1_software.html">Xila_Class::Software</a></div><div class="ttdoc">Software class.</div><div class="ttdef"><b>Definition:</b> Core.hpp:249</div></div>
 </div><!-- fragment --></div><!-- contents -->
