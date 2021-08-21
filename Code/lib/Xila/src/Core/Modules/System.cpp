@@ -21,7 +21,6 @@ extern Xila_Class::Software_Handle Shell_Handle;
 ///
 Xila_Class::System_Class::System_Class()
 {
-  State = Default;
   Task_Handle = NULL;
   strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
 }

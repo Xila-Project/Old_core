@@ -56,7 +56,7 @@ void Shell_Class::Startup()
 
 // -- Main shell methods -- //
 
-void Shell_Class::Main_Task(void *)
+Xila_Class::Task_Function Shell_Class::Main_Task(void *)
 {
     while (1)
     {

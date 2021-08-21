@@ -428,7 +428,7 @@ protected:
 
     void Set_Variable(Xila_Class::Address, uint8_t Type, const void *);
 
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
 public:
     // -- Methods

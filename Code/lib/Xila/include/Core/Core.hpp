@@ -151,7 +151,7 @@ public:
     ///
     /// @brief Task type
     ///
-    typedef void (*Task_Function)(void *);
+    typedef void Task_Function;
 
     ///
     /// @brief Task handle type
@@ -645,17 +645,16 @@ public:
     class Drive_Class
     {
     public:
-    
         ///
         /// @brief Drive type.
         ///
         typedef enum
         {
-            None,   ///< None (nothing connected).
-            MMC,    ///< MMC type.
-            SD_SC,  ///< SD type.
-            SD_HC,  ///< SD HC type.
-            Unknow  ///< Unknow type.
+            None,  ///< None (nothing connected).
+            MMC,   ///< MMC type.
+            SD_SC, ///< SD type.
+            SD_HC, ///< SD HC type.
+            Unknow ///< Unknow type.
         } Sd_Card_Type;
 
         bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
@@ -771,7 +770,7 @@ public:
         // -- Interrupts
         void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode);
         void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode);
-        void Detech_Interrupt(uint8_t Pin);
+        void Detach_Interrupt(uint8_t Pin);
 
         ///
         /// @brief Digital IOs states.
@@ -1260,10 +1259,13 @@ public:
 
         void Set_Output(uint8_t Output);
 
+        ///
+        /// @brief Output DAC.
+        ///
         enum : uint8_t
         {
-            Internal_DAC = 0,
-            External_DAC
+            Internal_DAC = 0, ///< Internal DAC.
+            External_DAC      ///< External DAC.
         };
 
         void Resume();
@@ -1437,24 +1439,18 @@ public:
 
         void Second_Sleep_Routine();
 
-        enum System_States
-        {
-            Default,
-            New_Installation,
-        } State;
-
         ///
         /// @brief Panic codes used by the panic handler ("Grey screen").
         ///
         enum Panic_Code
         {
-            Missing_System_Files,
-            Damaged_System_Registry,
-            Installation_Conflict,
-            System_Drive_Failure,
-            Failed_To_Update_Display,
-            Low_Memory,
-            Memory_Corruption,
+            Missing_System_Files,     ///< Missing system files (registries).
+            Damaged_System_Registry,  ///< Damaged system registry.
+            Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
+            System_Drive_Failure,     ///< System drive failure (disconnected).
+            Failed_To_Update_Display, ///< Failed to update display.
+            Low_Memory,               ///< Low memory (fragmentation, too much software openned).
+            Memory_Corruption,        ///< Memory corruption.
         };
 
         void Panic_Handler(Panic_Code Panic_Code);
@@ -1475,7 +1471,7 @@ public:
 
     public:
         // -- Task management -- //
-        Xila_Class::Event Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
+        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void*), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
         void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
         void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
         void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
@@ -1491,13 +1487,13 @@ public:
         ///
         enum Priorities
         {
-            Idle_Task = 0,
-            Software_Task,
-            System_Task,
-            Driver_Task
+            Idle_Task = 0, ///< Idle task (only for measurments purpose).
+            Software_Task, ///< Software task (lowest priority).
+            System_Task,   ///< System task.
+            Driver_Task    ///< Driver task (highest priority).
         };
 
-        Xila_Class::Event Create(Xila_Class::Task_Function Task_Function, const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle);
+        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void*), const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle);
 
     } Task;
 
@@ -1528,11 +1524,30 @@ public:
 
     protected:
         // -- Attributes
+
+        ///
+        /// @brief GMT offset in seconds.
+        ///
         int32_t GMT_Offset;
+
+        ///
+        /// @brief Daylight offset in seconds.
+        ///
         int16_t Daylight_Offset;
 
+        ///
+        /// @brief Current time structure.
+        ///
         tm Current_Time;
+
+        ///
+        /// @brief Current unix time in seconds.
+        ///
         time_t Now;
+
+        ///
+        /// @brief NTP server name.
+        ///
         char NTP_Server[32];
 
         // -- Methods
@@ -1583,6 +1598,10 @@ public:
 
     protected:
         bool prov_enable;
+
+        ///
+        /// @brief Access point password.
+        ///
         char Password[82];
 
     } WiFi;
