@@ -42,7 +42,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="33" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="34" bodyend="39"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="33" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="34" bodyend="39"/>
       </memberdef>
       <memberdef kind="enum" id="class_text___editor___class_1a9edf2cae6de3854db123572919eba875" prot="public" static="no" strong="no">
         <type></type>
@@ -61,7 +61,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="41" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="42" bodyend="44"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="41" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="42" bodyend="44"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-attrib">
@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="9" column="30" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="9" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="9" column="30" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -92,7 +92,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="11" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="11" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="11" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="11" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_text___editor___class_1af25d535f781aeff58fa8493cb729e3d2" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -105,7 +105,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="13" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="13" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="13" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_text___editor___class_1a695e10b32bb04a192b8b503615e4ceac" prot="protected" static="no" mutable="no">
         <type>uint32_t</type>
@@ -118,7 +118,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="15" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="15" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="15" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="15" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
@@ -137,7 +137,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="17" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="41" bodyend="97"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="17" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="41" bodyend="97"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -156,7 +156,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="19" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="19" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_text___editor___class_1a733dcec2a7fdac9851543664a097024b" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -169,7 +169,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="21" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="129" bodyend="219"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="21" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="129" bodyend="219"/>
       </memberdef>
       <memberdef kind="function" id="class_text___editor___class_1a9aff243b92de3944638b36eb65de5de1" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="23" column="10"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="23" column="10"/>
       </memberdef>
       <memberdef kind="function" id="class_text___editor___class_1a5260f47a9ad1782817f9fe140393c7ba" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -195,7 +195,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="25" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="99" bodyend="127"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="25" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="99" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="class_text___editor___class_1aed243a7b9f944ffd11104319b21048cf" prot="protected" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type>void</type>
@@ -221,7 +221,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="27" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="30" bodyend="39"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="27" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="30" bodyend="39"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -236,7 +236,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="30" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="5" bodyend="9"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="30" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="5" bodyend="9"/>
       </memberdef>
       <memberdef kind="function" id="class_text___editor___class_1a0e5cb52ad6c8c14e8e059fe0b3a7827e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -249,7 +249,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="31" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="11" bodyend="18"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="31" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="11" bodyend="18"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -264,7 +264,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="46" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="20" bodyend="28"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="46" column="33" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Text_Editor.cpp" bodystart="20" bodyend="28"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -308,7 +308,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" line="6" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="7" bodyend="47"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Text_Editor.hpp" bodystart="7" bodyend="47"/>
     <listofallmembers>
       <member refid="class_text___editor___class_1aeeca8218707497239a98f09a16c6e040" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>File_To_Edit</name></member>
       <member refid="class_xila___class_1_1_software_1aa21b0b3aa6d8ad432c8d451dbd52ae55" prot="protected" virt="non-virtual"><scope>Text_Editor_Class</scope><name>Get_Instruction</name></member>

@@ -2,18 +2,10 @@
 Release notes
 *************
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Table Of Contents
-
-Introduction
-============
-
 Here you will find all the notes concerning the releases.
 
 Versions
 ========
-
 
 0.0.2 - 2021-?-?
 ----------------
@@ -36,7 +28,7 @@ Added
 Changed
 ^^^^^^^
 
-- Move Get_Free_Heap() from system to memeory module.
+- Move Get_Free_Heap() from system to memory module.
 - Improve display power management.
 - Increase precision of battery level readings (update battery library).
 - Fix simon registry loading.

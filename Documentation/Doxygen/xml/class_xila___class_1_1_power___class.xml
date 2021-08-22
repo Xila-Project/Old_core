@@ -19,7 +19,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1100" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1100" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1134" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1134" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_power___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -35,7 +35,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1101" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1101" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1135" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1135" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -45,12 +45,13 @@
         <argsstring></argsstring>
         <name>Button_Counter</name>
         <briefdescription>
+<para>Button press counter. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1110" column="26" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1110" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1147" column="26" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1147" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_power___class_1ab6993a37854df1c5c89ce07e2b11452a" prot="protected" static="no" mutable="no">
         <type>uint32_t</type>
@@ -58,12 +59,13 @@
         <argsstring></argsstring>
         <name>Button_Timer</name>
         <briefdescription>
+<para>Button press timer, used to differentiate a short press from a long press. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1111" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1111" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1152" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1152" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_power___class_1a726846a600449c551065840e4d665b70" prot="protected" static="no" mutable="no">
         <type>portMUX_TYPE</type>
@@ -71,12 +73,13 @@
         <argsstring></argsstring>
         <name>Button_Mutex</name>
         <briefdescription>
+<para>Button interrupt mutex. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1112" column="22" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1112" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1157" column="22" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1157" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -92,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1097" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="19" bodyend="24"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1131" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="19" bodyend="24"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_power___class_1ac67b1cc6f75381d5ea3e9da400dc7de3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -109,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1105" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="54" bodyend="70"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1139" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="54" bodyend="70"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_power___class_1a779d37dcb121719d751cd040cff6b84a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -126,7 +129,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1106" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="30" bodyend="48"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1140" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="30" bodyend="48"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-func">
@@ -142,7 +145,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1115" column="31" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="75" bodyend="98"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1160" column="31" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="75" bodyend="98"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -158,7 +161,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1117" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="103" bodyend="110"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1162" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="103" bodyend="110"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_power___class_1a9b4719f1ead21dbdbc3401973993775d" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -172,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1118" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="115" bodyend="129"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1163" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Power.cpp" bodystart="115" bodyend="129"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -202,7 +205,7 @@
         <label>Battery_Class</label>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1092" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1093" bodyend="1120"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1126" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1127" bodyend="1165"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_power___class_1aad9c824e3d1d500e283b67221b92787a" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Button_Counter</name></member>
       <member refid="class_xila___class_1_1_power___class_1a68682860b74e10dd2fc2fa669a71ce8b" prot="protected" virt="non-virtual"><scope>Xila_Class::Power_Class</scope><name>Button_Interrupt_Handler</name></member>

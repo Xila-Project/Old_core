@@ -1,0 +1,19 @@
+*************************
+Display Abstraction Layer
+*************************
+
+Here you will find a full description of the display abstraction layer.
+
+This abstraction layer is responsible to drive the display.
+In addition, this API supports resource protection to avoid data collisions when sending information.
+This API rest upon the Nextion Library. For the full API, please visit the library page.
+
+.. warning::
+    Because Nextion displays use a serial interface (UART) to communicate, the exchange and processing of information is slow.
+    To avoid saturation of this interface, it is recommended to deport as many commands as possible directly on the display.
+
+API Reference
+=============
+
+.. doxygenclass::   Xila_Class::Display_Class
+    :members:

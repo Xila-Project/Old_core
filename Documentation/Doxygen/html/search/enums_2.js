@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['font_517',['Font',['../class_xila___class_1_1_display___class.html#a3ce91234cfaaf25e4039e42c3dd79281',1,'Xila_Class::Display_Class']]],
-  ['font_5f32_518',['Font_32',['../class_xila___class_1_1_display___class.html#a91be037084ced30430b419abf0af3583',1,'Xila_Class::Display_Class']]]
+  ['event_670',['Event',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9ee',1,'Xila_Class::Event()'],['../class_xila___class_1_1_sound___class.html#a7e4356b3466ffc739f96070ec80bc344',1,'Xila_Class::Sound_Class::Event()']]]
 ];

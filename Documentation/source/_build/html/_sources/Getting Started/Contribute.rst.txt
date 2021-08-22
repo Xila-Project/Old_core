@@ -2,6 +2,9 @@
 Getting Started To Contribute
 *****************************
 
-Xila is openned to all kind of contributions, if you want to do your bit, you can fork the project and create pull-request.
+ila is openned to all kind of contributions.
+Here you will find how to start to contribute to the project.
 
-Here's the 
+.. toctree::
+    Hardware <Contribute/Hardware>
+    Software <Contribute/Software>

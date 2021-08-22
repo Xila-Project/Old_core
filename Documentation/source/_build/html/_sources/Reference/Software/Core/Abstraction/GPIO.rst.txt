@@ -1,0 +1,13 @@
+**************
+GPIO Reference
+**************
+
+Here you will find a full description of the GPIO library.
+
+Xila offers a complete API to manage GPIOs, this API is similar to that offered by the Arduino framework.
+
+API Reference
+=============
+
+.. doxygenclass::   Xila_Class::GPIO_Class
+    :members:

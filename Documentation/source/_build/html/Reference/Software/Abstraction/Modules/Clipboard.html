@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Clipboard Module &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html">
+          
+
+          
+            
+            <img src="../../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Getting%20Started/Use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Getting%20Started/Developp.html">Developp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Getting%20Started/Contribute.html">Contribute</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Configuration/Basic.html">Basic</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Software.html">Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Hardware.html">Hardware</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Clipboard Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../../_sources/Reference/Software/Abstraction/Modules/Clipboard.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="clipboard-module">
+<h1>Clipboard Module<a class="headerlink" href="#clipboard-module" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full description of the clipboard API.</p>
+<p>This module is responsible to allow copy / paste feature.
+It only offers an API, the graphical implementation remains the responsibility of the software.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N10Xila_Class15Clipboard_ClassE">
+<span id="_CPPv3N10Xila_Class15Clipboard_ClassE"></span><span id="_CPPv2N10Xila_Class15Clipboard_ClassE"></span><span id="Xila_Class::Clipboard_Class"></span><span class="target" id="class_xila___class_1_1_clipboard___class"></span><em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Xila_Class</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">Clipboard_Class</span></code><br /></dt>
+<dd><p>Clipboard module. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class5ClearEv">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class5ClearEv"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class5ClearEv"></span><span id="Xila_Class::Clipboard_Class::Clear"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a6f4ca9050db700007e183a93936e4a80"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Clear data of the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event_Class </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class4CopyERK8uint64_t">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class4CopyERK8uint64_t"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class4CopyERK8uint64_t"></span><span id="Xila_Class::Clipboard_Class::Copy__uint64_tCR"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a6abc81343d2a66744800a2f3d96702df"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Copy</span></code><span class="sig-paren">(</span><span class="pre">uint64_t</span> <em class="property"><span class="pre">const</span></em> <span class="pre">&amp;</span><em><span class="pre">Value_To_Copy</span></em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Push data into the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Value_To_Copy</span></code>: Data to push. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class4CopyEPKc6size_t">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class4CopyEPKc6size_t"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class4CopyEPKc6size_t"></span><span id="Xila_Class::Clipboard_Class::Copy__cCP.s"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a9468cb1064c5b9d5363d799da46d36b3"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Copy</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">Char_Array_To_Copy</span></em>, <span class="pre">size_t</span> <em><span class="pre">Char_Array_Length</span></em> <span class="pre">=</span> <span class="pre">0</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Push data into the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Char_Array_To_Copy</span></code>: Data to push. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Char_Array_Length</span></code>: Data size. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class4CopyERK6String">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class4CopyERK6String"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class4CopyERK6String"></span><span id="Xila_Class::Clipboard_Class::Copy__StringCR"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a5b206c58b92c5d73a14dfb415d2baf70"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Copy</span></code><span class="sig-paren">(</span><span class="pre">String</span> <em class="property"><span class="pre">const</span></em> <span class="pre">&amp;</span><em><span class="pre">String_To_Copy</span></em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Push data into the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">String_To_Copy</span></code>: Data to push. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class5PasteER8uint64_t">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class5PasteER8uint64_t"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class5PasteER8uint64_t"></span><span id="Xila_Class::Clipboard_Class::Paste__uint64_tR"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a4b5cfa4101da218d1c858ea242ed2d60"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Paste</span></code><span class="sig-paren">(</span><span class="pre">uint64_t</span> <span class="pre">&amp;</span><em><span class="pre">Value_To_Paste</span></em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Pull data from the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">Value_To_Paste</span></code>: Buffer reference to pull from. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class5PasteEPc6size_t">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class5PasteEPc6size_t"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class5PasteEPc6size_t"></span><span id="Xila_Class::Clipboard_Class::Paste__cP.s"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1a696a662466c262adf6d31f1ba5280d82"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Paste</span></code><span class="sig-paren">(</span><span class="pre">char</span> <span class="pre">*</span><em><span class="pre">Char_Array_To_Paste</span></em>, <span class="pre">size_t</span> <em><span class="pre">Char_Array_Length</span></em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Pull data from the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Char_Array_To_Paste</span></code>: Buffer reference to pull from. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Char_Array_Length</span></code>: Buffer size. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class15Clipboard_Class5PasteER6String">
+<span id="_CPPv3N10Xila_Class15Clipboard_Class5PasteER6String"></span><span id="_CPPv2N10Xila_Class15Clipboard_Class5PasteER6String"></span><span id="Xila_Class::Clipboard_Class::Paste__StringR"></span><span class="target" id="class_xila___class_1_1_clipboard___class_1ab38b74e5bc5a2d13406f875f352c8452"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Paste</span></code><span class="sig-paren">(</span><span class="pre">String</span> <span class="pre">&amp;</span><em><span class="pre">String_To_Paste</span></em><span class="sig-paren">)</span><br /></dt>
+<dd><p>Pull data from the clipboard. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">String_To_Paste</span></code>: Buffer reference to pull data from. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

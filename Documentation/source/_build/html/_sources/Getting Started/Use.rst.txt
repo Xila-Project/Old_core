@@ -4,27 +4,11 @@ Get Started To Use Xila
 
 This part is intended to help you to start using Xila.
 
-.. contents:: Contents
-    :local:
-
-Hardware
-========
-
-Click here to start to build the reference hardware kit.
-
-Software
-========
-
-Click here to start to install Xila on your hardware.
+.. toctree::
+    Software <Use/Software>
+    Hardware <Use/Hardware>
 
 
-
-
-Start To Use
-============
-
-What You Need
--------------
 
 Hardware :
 
@@ -32,8 +16,7 @@ Hardware :
   
 Software :
 
-* You have installed the lastest version of **Arduino IDE**.
-* You have installed the **Arduino-ESP32** framework.
+
 
 
 Hardware

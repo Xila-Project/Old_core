@@ -10,6 +10,7 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea5f671e22cb5ed8c76a25a6c2f3d389c9" prot="public">
           <name>American</name>
           <briefdescription>
+<para>American QWERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -17,6 +18,7 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667eaf79ad31ad315b8b24f6e37f19c974b1d" prot="public">
           <name>German</name>
           <briefdescription>
+<para>German QWERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -24,6 +26,7 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea694ce0db8088cb7d14787795ad6ea7a8" prot="public">
           <name>French</name>
           <briefdescription>
+<para>French AZERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -31,6 +34,7 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea53397633bba4f8d84782dd769e925524" prot="public">
           <name>Spanish</name>
           <briefdescription>
+<para>Spanish QWERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -38,6 +42,7 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667eaef0538a956f7f58ea17a1e4f4ecae9b7" prot="public">
           <name>Italian</name>
           <briefdescription>
+<para>Italian QWERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
@@ -45,17 +50,19 @@
         <enumvalue id="class_xila___class_1_1_keyboard___class_1aa2be419912ddcdae07f5ff359c58667ea9e68663ccdbe04cf35372009905e119d" prot="public">
           <name>English</name>
           <briefdescription>
+<para>English QWERTY layout. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Keyboard available layout. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="823" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="824" bodyend="831"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="839" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="840" bodyend="847"/>
       </memberdef>
       <memberdef kind="enum" id="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403" prot="public" static="no" strong="no">
         <type></type>
@@ -951,12 +958,13 @@
           </detaileddescription>
         </enumvalue>
         <briefdescription>
+<para>Special keys enumeration. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="833" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="834" bodyend="959"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="852" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="853" bodyend="978"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="friend">
@@ -974,7 +982,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="970" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="970" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="989" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="989" bodyend="-1"/>
       </memberdef>
       <memberdef kind="friend" id="class_xila___class_1_1_keyboard___class_1a993b38fc160773525ee5c3dfcf033710" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>class</type>
@@ -990,7 +998,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="971" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="971" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="990" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="990" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -1005,7 +1013,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="978" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="978" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="997" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="997" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_keyboard___class_1a8f2b87855e32b0ae3ae4be730c0107df" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -1018,7 +1026,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="980" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="980" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="999" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="999" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_xila___class_1_1_keyboard___class_1aa017c3800f4f0e810e3427215936d84a" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -1031,7 +1039,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="981" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="981" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1000" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1000" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -1047,7 +1055,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="821" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="20" bodyend="25"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="834" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="20" bodyend="25"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a641f8b4cae0599ac70066d01ae65c4d5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1064,7 +1072,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="962" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="106" bodyend="109"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="981" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="106" bodyend="109"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1ac269b7a11486d82f887cd272fbdb5470" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1081,7 +1089,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="963" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="124" bodyend="127"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="982" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="124" bodyend="127"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a645529449d17418cf12b08c5f2e22f37" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>uint8_t</type>
@@ -1098,7 +1106,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="965" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="115" bodyend="118"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="984" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="115" bodyend="118"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1a54a28063306921b5e94196d857b00575" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1112,7 +1120,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="967" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="132" bodyend="135"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="986" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="132" bodyend="135"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -1131,7 +1139,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="975" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="31" bodyend="51"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="994" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="31" bodyend="51"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1ac9e9097217975b9a6135b694c18d4541" prot="protected" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="class_xila___class_1a8d959952ae902a1d9caddcff96acc9ee" kindref="member">Xila_Class::Event</ref></type>
@@ -1149,7 +1157,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="976" column="27" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="57" bodyend="72"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="995" column="27" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="57" bodyend="72"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_keyboard___class_1aec340d46f2696be0640358ee3dbfc2f7" prot="protected" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>void</type>
@@ -1163,7 +1171,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="983" column="21" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="77" bodyend="100"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1002" column="21" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Abstraction/Keyboard.cpp" bodystart="77" bodyend="100"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -1171,7 +1179,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="816" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="817" bodyend="985"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="829" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="830" bodyend="1004"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403ad5f58176fb77d9cb79851d00d0a36bf2" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>a_Acute</name></member>
       <member refid="class_xila___class_1_1_keyboard___class_1ae4bcce5fabf78d285e09cb74dbb83403a6faf6122feaff4ece3ccc5487eccedcf" prot="public" virt="non-virtual"><scope>Xila_Class::Keyboard_Class</scope><name>A_Acute</name></member>

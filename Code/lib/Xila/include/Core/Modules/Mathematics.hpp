@@ -56,81 +56,161 @@ inline double Xila_Class::Mathematics_Class::Modulo(double Number_1, double Numb
     return fmod(Number_1, Number_2);
 }
 
+///
+ /// @brief Convert angle from degrees to radians.
+ /// 
+ /// @param Degrees Angle to convert in degrees.
+ /// @return double Converted angle in radians.
 inline double Xila_Class::Mathematics_Class::Radians(double Degrees)
 {
     return Degrees * Degrees_To_Radians;
 }
 
+///
+ /// @brief Convert angle from radians to degrees.
+ /// 
+ /// @param Radians Angle to convert in radians.
+ /// @return double Converted angle in degrees.
 inline double Xila_Class::Mathematics_Class::Degrees(double Radians)
 {
     return Radians * Radians_To_Degrees;
 }
 
+///
+ /// @brief Calculate the sine of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Sine of the number.
 inline double Xila_Class::Mathematics_Class::Sine(double Number)
 {
     return sin(Number);
 }
 
+///
+ /// @brief Calculate the consine of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Cosine of the number.
 inline double Xila_Class::Mathematics_Class::Cosine(double Number)
 {
     return cos(Number);
 }
 
+///
+ /// @brief Calculate the tangent of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Tangent of the number.
 inline double Xila_Class::Mathematics_Class::Tangent(double Number)
 {
     return tan(Number);
 }
 
+///
+ /// @brief Calculate the secant of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Secant of the number.
 inline double Xila_Class::Mathematics_Class::Secant(double Number)
 {
     return 1 / Cosine(Number);
 }
 
+///
+ /// @brief Calculate the cosecant of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Cosecant of the number.
 inline double Xila_Class::Mathematics_Class::Cosecant(double Number)
 {
     return 1 / Sine(Number);
 }
 
+///
+ /// @brief Calculate the cotangeant of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Cotangent of the number.
 inline double Xila_Class::Mathematics_Class::Cotangeant(double Number)
 {
     return 1 / Tangent(Number);
 }
 
+///
+ /// @brief Calculate the arc sine of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc sine of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Sine(double Number)
 {
     return asin(Number);
 }
 
+///
+ /// @brief Calculate the arc cosine of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc cosine of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Cosine(double Number)
 {
     return acos(Number);
 }
 
+///
+ /// @brief Calculate the arc tangent of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc tangent of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Tangent(double Number)
 {
     return atan(Number);
 }
 
+///
+ /// @brief Calculate the arc secant of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc secant of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Secant(double Number)
 {
     return Arc_Cosine(1 / Number);
 }
 
+///
+ /// @brief Calculate the arc cosecant of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc cosecant of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Cosecant(double Number)
 {
     return Arc_Sine(1 / Number);
 }
 
+///
+ /// @brief Calculate the arc cotangent of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Arc cotangent of the number.
 inline double Xila_Class::Mathematics_Class::Arc_Cotangent(double Number)
 {
     return (Pi / 2) - Arc_Tangent(Number);
 }
 
+///
+ /// @brief Calculate the hyperbolic sine of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Hyperbolic sine of the number.
 inline double Xila_Class::Mathematics_Class::Hyperbolic_Sine(double Number)
 {
     return sinh(Number);
 }
 
+///
+ /// @brief Calculate the tangent of a number in radians.
+ /// 
+ /// @param Number Number to calculate in radians.
+ /// @return double Tangent of the number.
 inline double Xila_Class::Mathematics_Class::Hyperbolic_Cosine(double Number)
 {
     return cosh(Number);
@@ -199,11 +279,22 @@ inline double Xila_Class::Mathematics_Class::Absolute(double Number)
     return abs(Number);
 }
 
+///
+ /// @brief Calculates the power of a number.
+ /// 
+ /// @param Base Base number.
+ /// @param Exponent Exponent to apply.
+ /// @return double Power of the number.
 inline double Xila_Class::Mathematics_Class::Power(double Base, double Exponent)
 {
     return pow(Base, Exponent);
 }
 
+///
+ /// @brief Calculate the square of a number.
+ /// 
+ /// @param Number Number to calculate.
+ /// @return double Square of the number.
 inline double Xila_Class::Mathematics_Class::Square(double Number)
 {
     return Number * Number;

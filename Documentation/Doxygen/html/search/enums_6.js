@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['variable_5ftypes_526',['Variable_Types',['../class_xila___class.html#ad65de8d8ee4c0a80dea2b560b20a49a2',1,'Xila_Class']]]
+  ['modes_676',['Modes',['../class_xila___class_1_1_g_p_i_o___class.html#a5f8475f7571a2b465d633353d8fcdbfc',1,'Xila_Class::GPIO_Class']]]
 ];

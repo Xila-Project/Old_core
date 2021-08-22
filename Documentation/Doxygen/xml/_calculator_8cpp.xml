@@ -7,6 +7,12 @@
       <node id="45">
         <label>esp_ota_ops.h</label>
       </node>
+      <node id="35">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="7">
         <label>FS.h</label>
       </node>
@@ -16,22 +22,12 @@
       <node id="8">
         <label>SPI.h</label>
       </node>
-      <node id="35">
-        <label>Core/Abstraction/Memory.hpp</label>
-        <link refid="_memory_8hpp"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="25">
         <label>Battery_Library.hpp</label>
       </node>
-      <node id="32">
-        <label>Core/Modules/Software_Management.hpp</label>
-        <link refid="_software___management_8hpp_source"/>
-      </node>
-      <node id="34">
-        <label>Core/Abstraction/GPIO.hpp</label>
-        <link refid="_g_p_i_o_8hpp"/>
+      <node id="33">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
@@ -41,19 +37,13 @@
       <node id="6">
         <label>stdint.h</label>
       </node>
-      <node id="3">
-        <label>Xila.hpp</label>
-        <link refid="_xila_8hpp_source"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
+      <node id="30">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
       </node>
-      <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp</label>
-        <link refid="_calculator_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="26">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
       </node>
       <node id="16">
         <label>WiFiSTA.h</label>
@@ -64,74 +54,28 @@
       <node id="40">
         <label>esp_spi_flash.h</label>
       </node>
-      <node id="11">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="2">
-        <label>Software/Calculator.hpp</label>
-        <link refid="_calculator_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="46">
-        <label>esp_image_format.h</label>
-      </node>
-      <node id="47">
-        <label>MD5Builder.h</label>
-      </node>
-      <node id="27">
-        <label>Modules/Path.hpp</label>
-        <link refid="_path_8hpp"/>
-      </node>
-      <node id="22">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="29">
-        <label>Core/Modules/Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="42">
-        <label>soc/soc.h</label>
-      </node>
-      <node id="38">
-        <label>rom/spi_flash.h</label>
-      </node>
-      <node id="26">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp"/>
-      </node>
-      <node id="10">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="13">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="28">
-        <label>Core/Modules/Task.hpp</label>
-        <link refid="_task_8hpp"/>
-      </node>
-      <node id="9">
-        <label>time.h</label>
-      </node>
       <node id="31">
         <label>Core/Modules/Mathematics.hpp</label>
         <link refid="_mathematics_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="18">
-        <label>WiFiScan.h</label>
+      <node id="11">
+        <label>StreamUtils.h</label>
       </node>
-      <node id="4">
-        <label>Arduino.h</label>
+      <node id="27">
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
       </node>
-      <node id="19">
-        <label>WiFiGeneric.h</label>
+      <node id="32">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
       </node>
-      <node id="37">
-        <label>Esp.h</label>
+      <node id="46">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="47">
+        <label>MD5Builder.h</label>
       </node>
       <node id="5">
         <label>Core/Core.hpp</label>
@@ -201,15 +145,60 @@
         <childnode refid="36" relation="include">
         </childnode>
       </node>
-      <node id="30">
-        <label>Core/Modules/System.hpp</label>
-        <link refid="_system_8hpp"/>
+      <node id="22">
+        <label>WiFiUdp.h</label>
       </node>
-      <node id="33">
-        <label>Core/Abstraction/Display.hpp</label>
-        <link refid="_display_8hpp"/>
+      <node id="42">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="38">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="2">
+        <label>Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
         <childnode refid="4" relation="include">
         </childnode>
+      </node>
+      <node id="10">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="3">
+        <label>Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="13">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Calculator.cpp</label>
+        <link refid="_calculator_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>time.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="4">
+        <label>Arduino.h</label>
+      </node>
+      <node id="19">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="37">
+        <label>Esp.h</label>
+      </node>
+      <node id="14">
+        <label>IPv6Address.h</label>
       </node>
       <node id="36">
         <label>Core/Abstraction/Flash.hpp</label>
@@ -239,17 +228,22 @@
         <childnode refid="47" relation="include">
         </childnode>
       </node>
-      <node id="14">
-        <label>IPv6Address.h</label>
-      </node>
       <node id="20">
         <label>WiFiClient.h</label>
       </node>
       <node id="39">
         <label>esp_sleep.h</label>
       </node>
+      <node id="28">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
       <node id="44">
         <label>esp_partition.h</label>
+      </node>
+      <node id="29">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
       </node>
       <node id="21">
         <label>WiFiServer.h</label>
@@ -265,6 +259,12 @@
       </node>
       <node id="24">
         <label>Nextion_Library.hpp</label>
+      </node>
+      <node id="34">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -1157,27 +1157,27 @@
 <codeline lineno="883"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Simple<sp/>trigonometric<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="884"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Sine:</highlight></codeline>
 <codeline lineno="885"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="886"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Sine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="886"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1aae6b683582f319b377a7862e6e14ae97" kindref="member">Sine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="887"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="888"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Cosine:</highlight></codeline>
 <codeline lineno="889"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="890"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Cosine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="890"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1add35a40d6c25b17a7a2cdfb2a25fb526" kindref="member">Cosine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="891"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="892"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Tangent:</highlight></codeline>
 <codeline lineno="893"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="894"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Tangent(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="894"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1aea1d6ce7c21b7f389e032c742b181363" kindref="member">Tangent</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="895"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="896"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Secant:</highlight></codeline>
 <codeline lineno="897"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="898"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Secant(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="898"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a66fe9a4cc8b7819b59dbdd4c9c5a1e5c" kindref="member">Secant</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="899"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="900"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Cosecant:</highlight></codeline>
 <codeline lineno="901"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="902"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Cosecant(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="902"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1ab4e2bbce095623321d912478a46996b4" kindref="member">Cosecant</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="903"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="904"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Cotangent:</highlight></codeline>
 <codeline lineno="905"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Degree_To_Radian(Selected_Number);</highlight></codeline>
-<codeline lineno="906"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Cotangeant(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="906"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a6ccf1b5431e1e0fa78f4280df674fce0" kindref="member">Cotangeant</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="907"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="908"><highlight class="normal"></highlight></codeline>
 <codeline lineno="909"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Arc<sp/>trigonometric<sp/>function</highlight><highlight class="normal"></highlight></codeline>
@@ -1188,7 +1188,7 @@
 <codeline lineno="914"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error();</highlight></codeline>
 <codeline lineno="915"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="916"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Sine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="917"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1aeb4f99dedae457f6b673586d1e2653d5" kindref="member">Arc_Sine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="918"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="919"><highlight class="normal"></highlight></codeline>
 <codeline lineno="920"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Arc_Cosine:</highlight></codeline>
@@ -1197,28 +1197,28 @@
 <codeline lineno="923"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Error();</highlight></codeline>
 <codeline lineno="924"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="925"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="926"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Cosine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="926"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a577c21face49e394db0e04aa91442881" kindref="member">Arc_Cosine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="927"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="928"><highlight class="normal"></highlight></codeline>
 <codeline lineno="929"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Arc_Tangent:</highlight></codeline>
-<codeline lineno="930"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Tangent(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="930"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a1503d9334758a67d13705ef9a7ab038a" kindref="member">Arc_Tangent</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="931"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="932"><highlight class="normal"></highlight></codeline>
 <codeline lineno="933"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Arc_Secant:</highlight></codeline>
-<codeline lineno="934"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Secant(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="934"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a8d74635752ff54396c10b15892c772f2" kindref="member">Arc_Secant</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="935"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="936"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Arc_Cosecant:</highlight></codeline>
-<codeline lineno="937"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Cosecant(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="937"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a5fbbee6d21767f4d0969663e7f87b6c0" kindref="member">Arc_Cosecant</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="938"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="939"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Arc_Cotangent:</highlight></codeline>
-<codeline lineno="940"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Arc_Cotangent(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="940"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1ad16b34f85a667f6585b26a8bbc3f5f15" kindref="member">Arc_Cotangent</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="941"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="942"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Hyperbolic<sp/>trigonometric<sp/>function</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="943"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Hyperbolic_Sine:</highlight></codeline>
-<codeline lineno="944"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Hyperbolic_Sine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="944"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1aa2393c4e6fd9843d3b4eaa7238673ec3" kindref="member">Hyperbolic_Sine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="945"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="946"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Hyperbolic_Cosine:</highlight></codeline>
-<codeline lineno="947"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Hyperbolic_Cosine(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="947"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a0a2cd1f6d86811ec77373754e1dbf7ec" kindref="member">Hyperbolic_Cosine</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="948"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="949"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Hyperbolic_Tangent:</highlight></codeline>
 <codeline lineno="950"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Hyperbolic_Tangent(Temporary_Numbers[Selected_Number]);</highlight></codeline>
@@ -1271,11 +1271,11 @@
 <codeline lineno="997"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="998"><highlight class="normal"></highlight></codeline>
 <codeline lineno="999"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Power_2:</highlight></codeline>
-<codeline lineno="1000"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Power(2,<sp/>Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="1000"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a7579f74df19f14c52bff8d4a86a50c50" kindref="member">Power</ref>(2,<sp/>Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="1001"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1002"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1003"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Power_10:</highlight></codeline>
-<codeline lineno="1004"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Power(10,<sp/>Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="1004"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a7579f74df19f14c52bff8d4a86a50c50" kindref="member">Power</ref>(10,<sp/>Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="1005"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1006"><highlight class="normal"></highlight></codeline>
 <codeline lineno="1007"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Logarithm</highlight><highlight class="normal"></highlight></codeline>
@@ -1305,7 +1305,7 @@
 <codeline lineno="1031"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Binary_Logarithm(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="1032"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1033"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Squared:</highlight></codeline>
-<codeline lineno="1034"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Square(Temporary_Numbers[Selected_Number]);</highlight></codeline>
+<codeline lineno="1034"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a5f336e28688d505974d862f0b5480d03" kindref="member">Square</ref>(Temporary_Numbers[Selected_Number]);</highlight></codeline>
 <codeline lineno="1035"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1036"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Cube:</highlight></codeline>
 <codeline lineno="1037"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[Selected_Number]<sp/>=<sp/>Xila.Mathematics.Cube(Temporary_Numbers[Selected_Number]);</highlight></codeline>
@@ -1358,7 +1358,7 @@
 <codeline lineno="1084"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[2]<sp/>=<sp/>Xila.Mathematics.Modulo(Temporary_Numbers[0],<sp/>Temporary_Numbers[1]);</highlight></codeline>
 <codeline lineno="1085"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1086"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Power:</highlight></codeline>
-<codeline lineno="1087"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[2]<sp/>=<sp/>Xila.Mathematics.Power(Temporary_Numbers[0],<sp/>Temporary_Numbers[1]);</highlight></codeline>
+<codeline lineno="1087"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[2]<sp/>=<sp/>Xila.Mathematics.<ref refid="class_xila___class_1_1_mathematics___class_1a7579f74df19f14c52bff8d4a86a50c50" kindref="member">Power</ref>(Temporary_Numbers[0],<sp/>Temporary_Numbers[1]);</highlight></codeline>
 <codeline lineno="1088"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
 <codeline lineno="1089"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">case</highlight><highlight class="normal"><sp/>Root:</highlight></codeline>
 <codeline lineno="1090"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Temporary_Numbers[2]<sp/>=<sp/>Xila.Mathematics.Root(Temporary_Numbers[0],<sp/>Temporary_Numbers[1]);</highlight></codeline>
@@ -1854,6 +1854,6 @@
 <codeline lineno="1580"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="1581"><highlight class="normal">}</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Calculator.cpp"/>
   </compounddef>
 </doxygen>

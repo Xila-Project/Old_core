@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['button_5f1_528',['Button_1',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea85073382db539a42ee155584736615f2',1,'Xila_Class']]],
-  ['button_5f2_529',['Button_2',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eea192e96390fe505bca5763459211d6728',1,'Xila_Class']]],
-  ['button_5f3_530',['Button_3',['../class_xila___class.html#a8d959952ae902a1d9caddcff96acc9eeadd4725a2366110938a27b442f1a11071',1,'Xila_Class']]]
+  ['american_687',['American',['../class_xila___class_1_1_keyboard___class.html#aa2be419912ddcdae07f5ff359c58667ea5f671e22cb5ed8c76a25a6c2f3d389c9',1,'Xila_Class::Keyboard_Class']]],
+  ['analog_688',['Analog',['../class_xila___class_1_1_g_p_i_o___class.html#a5f8475f7571a2b465d633353d8fcdbfca0103143bffe62a5ce7991cab6c57e540',1,'Xila_Class::GPIO_Class']]]
 ];

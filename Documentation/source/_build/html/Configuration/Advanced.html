@@ -13,8 +13,6 @@
   
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
 
   
   
@@ -31,7 +29,6 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
@@ -87,17 +84,17 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Use.html">Use</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Developp.html">Developp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started/Contribute.html">Contribute</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Configuration</span></p>
+<p class="caption"><span class="caption-text">Configuration</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="Basic.html">Basic</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced</a><ul>
@@ -106,12 +103,12 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">References</span></p>
+<p class="caption"><span class="caption-text">References</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Reference/Software.html">Software</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Reference/Hardware.html">Hardware</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Miscellaneous/Release%20notes.html">Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Miscellaneous/About.html">About</a></li>
@@ -186,18 +183,19 @@
 <h1>Advanced Configuration<a class="headerlink" href="#advanced-configuration" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Xila being highly configurable, you will find in this section how to configure it in depth. For basic configuration, you can also check ççççç.</p>
-<p>Firstly, Xila use registries to store its configuration. These registries have the .XRF extension and are containted in the /Xila/Registry folder.
+<p>Here you will find how to configure Xila in depth so that it can adapt to all your needs.</p>
+<p>For basic configuration, you can also check ççççç.</p>
+<p>Firstly, Xila use registries to store its configuration.
+These registries have the <code class="docutils literal notranslate"><span class="pre">.xrf</span></code> extension and are containted in the <code class="docutils literal notranslate"><span class="pre">/Xila/Registry</span></code> folder.
 Thanks to JavaScript Object Notation (J.S.O.N.), these registries are quite easy to apprehend.</p>
-<p>Then, Xila checks registries as they load.
-Thus, if a registry is corrupted, it will be automaticaly checked and corrected.
-If Xila is not able to repair it, you just have to delete it.
-A new one will be automaticaly created with default values.
-So don’t be afraid to get your hands dirty.</p>
+<p>During startup, Xila checks and loads its various registers.
+If a registry is corrupted, it will automatically reset with default values.
+If the registry is not corrupted, but the data in the registry is incorrect, you can still delete it.
+Xila will regenerate it automatically.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Just be careful with the “System.xrf” registry. Because this one cannot be repaired.
-If a corruption occur, it is then necessary to manually replace the latter with a healthy file.</p>
+<p>Be careful with the <code class="docutils literal notranslate"><span class="pre">System.xrf</span></code> registry. Because this one cannot be repaired.
+If a corruption occur, it is then necessary to manually replace the latter with a healthy file (can be found in install archive).</p>
 </div>
 </div>
 <div class="section" id="registries-reference">

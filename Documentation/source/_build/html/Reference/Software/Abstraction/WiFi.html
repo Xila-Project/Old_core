@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>WiFi Abstraction Layer &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Account Management Module" href="../Modules/Account.html" />
+    <link rel="prev" title="Sound Abstraction Layer" href="Sound.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Developp.html">Developp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Getting%20Started/Contribute.html">Contribute</a></li>
+</ul>
+<p class="caption"><span class="caption-text">References</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../Software.html">Software</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Display.html">Display</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Drive.html">Drive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Flash.html">Flash</a></li>
+<li class="toctree-l2"><a class="reference internal" href="GPIO.html">GPIO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Keyboard.html">Keyboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Power.html">Power</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sound.html">Sound</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">WiFi</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-reference">API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Account.html">Account</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Clipboard.html">Clipboard</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Dialog.html">Dialog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Mathematics.html">Mathematics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Software%20Management.html">Software Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/System.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Modules/Time.html">Time</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Event.html">Event</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Instruction.html">Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Page.html">Page</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Software%20Handle.html">Software Handle</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Software.html">Software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Types/Task%20Function.html">Task Function</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../Hardware.html">Hardware</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../Software.html">Software Reference</a> &raquo;</li>
+        
+      <li>WiFi Abstraction Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Reference/Software/Abstraction/WiFi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="wifi-abstraction-layer">
+<h1>WiFi Abstraction Layer<a class="headerlink" href="#wifi-abstraction-layer" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a complete description of the WiFi abstraction layer.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt id="_CPPv4N10Xila_Class10WiFi_ClassE">
+<span id="_CPPv3N10Xila_Class10WiFi_ClassE"></span><span id="_CPPv2N10Xila_Class10WiFi_ClassE"></span><span id="Xila_Class::WiFi_Class"></span><span class="target" id="class_xila___class_1_1_wi_fi___class"></span><em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">Xila_Class</span><code class="sig-prename descclassname"><span class="pre">::</span></code></code><code class="sig-name descname"><span class="pre">WiFi_Class</span></code> <span class="pre">:</span> <em class="property"><span class="pre">public</span></em> <span class="pre">WiFiGenericClass</span><span class="pre">,</span> <em class="property"><span class="pre">public</span></em> <span class="pre">WiFiSTAClass</span><span class="pre">,</span> <em class="property"><span class="pre">public</span></em> <span class="pre">WiFiScanClass</span><span class="pre">,</span> <em class="property"><span class="pre">public</span></em> <span class="pre">WiFiAPClass</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>WiFi class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class9printDiagER5Print">
+<span id="_CPPv3N10Xila_Class10WiFi_Class9printDiagER5Print"></span><span id="_CPPv2N10Xila_Class10WiFi_Class9printDiagER5Print"></span><span id="Xila_Class::WiFi_Class::printDiag__PrintR"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1a1af8500f31f33b12091eaeed3ddc8a7a"></span><span class="pre">void</span> <code class="sig-name descname"><span class="pre">printDiag</span></code><span class="sig-paren">(</span><span class="pre">Print</span> <span class="pre">&amp;</span><em><span class="pre">dest</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class9printDiagER5Print" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Output WiFi settings to an object derived from Print interface (like Serial). </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">p</span></code>: Print object to output. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class10enableProvEb">
+<span id="_CPPv3N10Xila_Class10WiFi_Class10enableProvEb"></span><span id="_CPPv2N10Xila_Class10WiFi_Class10enableProvEb"></span><span id="Xila_Class::WiFi_Class::enableProv__b"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1a7322e3b7df7b38d830fe6e13fdb10a05"></span><span class="pre">void</span> <code class="sig-name descname"><span class="pre">enableProv</span></code><span class="sig-paren">(</span><span class="pre">bool</span> <em><span class="pre">status</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class10enableProvEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">status</span></code>: </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class13isProvEnabledEv">
+<span id="_CPPv3N10Xila_Class10WiFi_Class13isProvEnabledEv"></span><span id="_CPPv2N10Xila_Class10WiFi_Class13isProvEnabledEv"></span><span id="Xila_Class::WiFi_Class::isProvEnabled"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1ad738d1a7fcf7dcdb032999848e131972"></span><span class="pre">bool</span> <code class="sig-name descname"><span class="pre">isProvEnabled</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class13isProvEnabledEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return prov state. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>true </p>
+</dd>
+<dt><strong>Return</strong></dt><dd><p>false </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class10WiFi_ClassEv">
+<span id="_CPPv3N10Xila_Class10WiFi_Class10WiFi_ClassEv"></span><span id="_CPPv2N10Xila_Class10WiFi_Class10WiFi_ClassEv"></span><span id="Xila_Class::WiFi_Class::WiFi_Class"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1a563e42ec40f00e25479edd59e3fc9e45"></span><code class="sig-name descname"><span class="pre">WiFi_Class</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class10WiFi_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="../Core.html#class_xila___class_1_1_wi_fi___class"><span class="std std-ref">WiFi_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class15Set_CredentialsEPKcPKc">
+<span id="_CPPv3N10Xila_Class10WiFi_Class15Set_CredentialsEPKcPKc"></span><span id="_CPPv2N10Xila_Class10WiFi_Class15Set_CredentialsEPKcPKc"></span><span id="Xila_Class::WiFi_Class::Set_Credentials__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1aade0b120caadb7f8883d6b67635a049d"></span><span class="pre">void</span> <code class="sig-name descname"><span class="pre">Set_Credentials</span></code><span class="sig-paren">(</span><em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">Name</span></em>, <em class="property"><span class="pre">const</span></em> <span class="pre">char</span> <span class="pre">*</span><em><span class="pre">Password</span></em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class15Set_CredentialsEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Function that allow to set credentials and connect to a WiFi network. </p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Name</span></code>: SSID of the access point. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Password</span></code>: Password of the access point. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class13Load_RegistryEv">
+<span id="_CPPv3N10Xila_Class10WiFi_Class13Load_RegistryEv"></span><span id="_CPPv2N10Xila_Class10WiFi_Class13Load_RegistryEv"></span><span id="Xila_Class::WiFi_Class::Load_Registry"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1a7663be1a0fff6cb5c8c7c8d78735714b"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Load_Registry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class13Load_RegistryEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Load WiFi registry. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N10Xila_Class10WiFi_Class13Save_RegistryEv">
+<span id="_CPPv3N10Xila_Class10WiFi_Class13Save_RegistryEv"></span><span id="_CPPv2N10Xila_Class10WiFi_Class13Save_RegistryEv"></span><span id="Xila_Class::WiFi_Class::Save_Registry"></span><span class="target" id="class_xila___class_1_1_wi_fi___class_1a6c71a9c6ef7b5c874e7f7c8a1716fc31"></span><span class="pre">Xila_Class</span><span class="pre">::</span><span class="pre">Event</span> <code class="sig-name descname"><span class="pre">Save_Registry</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class10WiFi_Class13Save_RegistryEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Save WiFi registry. </p>
+<p><dl class="simple">
+<dt><strong>Return</strong></dt><dd><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../Modules/Account.html" class="btn btn-neutral float-right" title="Account Management Module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Sound.html" class="btn btn-neutral float-left" title="Sound Abstraction Layer" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

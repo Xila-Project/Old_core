@@ -15,7 +15,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1077" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="25" bodyend="30"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1111" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="25" bodyend="30"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a38dd64055940cebe039450f0eab7fcbd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -32,7 +32,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1078" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="20" bodyend="23"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1112" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="20" bodyend="23"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a0372a64a94cfe7c9b7c7e3c053ee00bd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -45,7 +45,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1079" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="32" bodyend="35"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1113" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="32" bodyend="35"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1acbaf867e19cb7996d044e7f2f72234f0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1080" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="37" bodyend="40"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1114" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="37" bodyend="40"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1aee260efa670f873632b9804e1e76f1c7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -71,7 +71,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1082" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="42" bodyend="47"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1116" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="42" bodyend="47"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1a6d20eb80cd1573a549d1fd2f38cff649" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1083" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="49" bodyend="52"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1117" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="49" bodyend="52"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1af400f45dfc85582a96f59ff5347f2e4f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1084" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="54" bodyend="57"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1118" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="54" bodyend="57"/>
       </memberdef>
       <memberdef kind="function" id="class_xila___class_1_1_memory___class_1ae32f3acdc3eb5561fc933db25876dff1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
         <type>uint32_t</type>
@@ -110,15 +110,15 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1085" column="18" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="59" bodyend="62"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1119" column="18" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/Memory.hpp" bodystart="59" bodyend="62"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
-<para>Memory class. </para>
+<para>Memory management class. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" line="1072" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Core.hpp" bodystart="1073" bodyend="1086"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" line="1106" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Core.hpp" bodystart="1107" bodyend="1120"/>
     <listofallmembers>
       <member refid="class_xila___class_1_1_memory___class_1a38dd64055940cebe039450f0eab7fcbd" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Free_Heap</name></member>
       <member refid="class_xila___class_1_1_memory___class_1a6d20eb80cd1573a549d1fd2f38cff649" prot="public" virt="non-virtual"><scope>Xila_Class::Memory_Class</scope><name>Get_Free_PSRAM</name></member>

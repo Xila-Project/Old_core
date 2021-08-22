@@ -2,30 +2,14 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_translation_8hpp" kind="file" language="C++">
     <compoundname>Translation.hpp</compoundname>
-    <includedby refid="_desk_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</includedby>
-    <includedby refid="_software_2_shell_2_dialog_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</includedby>
-    <includedby refid="_file___manager_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</includedby>
-    <includedby refid="_preferences_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</includedby>
-    <includedby refid="_shell_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</includedby>
+    <includedby refid="_desk_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Desk.cpp</includedby>
+    <includedby refid="_software_2_shell_2_dialog_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp</includedby>
+    <includedby refid="_file___manager_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</includedby>
+    <includedby refid="_preferences_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Preferences.cpp</includedby>
+    <includedby refid="_shell_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Shell.cpp</includedby>
     <invincdepgraph>
-      <node id="2">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
-        <link refid="_desk_8cpp"/>
-      </node>
-      <node id="6">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
-        <link refid="_shell_8cpp"/>
-      </node>
-      <node id="5">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
-        <link refid="_preferences_8cpp"/>
-      </node>
-      <node id="4">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
-        <link refid="_file___manager_8cpp"/>
-      </node>
       <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp</label>
         <link refid="_translation_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
@@ -38,9 +22,25 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="5">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Preferences.cpp</label>
+        <link refid="_preferences_8cpp"/>
+      </node>
+      <node id="4">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/File_Manager.cpp</label>
+        <link refid="_file___manager_8cpp"/>
+      </node>
       <node id="3">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Dialog.cpp</label>
         <link refid="_software_2_shell_2_dialog_8cpp"/>
+      </node>
+      <node id="6">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Shell.cpp</label>
+        <link refid="_shell_8cpp"/>
+      </node>
+      <node id="2">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Shell/Desk.cpp</label>
+        <link refid="_desk_8cpp"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="var">
@@ -56,7 +56,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="6" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="6" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="6" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="6" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a2b9dc63dab3c2a75bf484d5650ab6432" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -70,7 +70,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="7" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="7" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="7" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="7" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a362f06ee6ba4544369e10f91a462bf12" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -84,7 +84,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="9" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="9" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="9" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="9" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a87fe5288ab8a4af98b85424bb8618743" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -98,7 +98,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="10" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="10" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="10" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="10" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a34725f46e8ca5cfa7fe43ac7861bb835" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -112,7 +112,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="12" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="12" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="12" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="12" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a99b730be4997ec92d88a4cced6df4bb7" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -126,7 +126,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="13" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="13" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="13" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="13" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a583471b6104e330550bd7c75ba78a8bf" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="15" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="15" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="15" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1afa50fe8c7d33aa0f62772b2d31686ef5" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -154,7 +154,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="16" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="16" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="16" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="16" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a9abbaf4b648a6db940bf336b148421fd" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -168,7 +168,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="18" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="18" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="18" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="18" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="_translation_8hpp_1a65e9f74f27e090b2c98757f07fb18303" prot="public" static="no" mutable="no">
         <type>const char</type>
@@ -182,7 +182,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="21" column="12" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="21" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" line="21" column="12" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp" bodystart="21" bodyend="-1"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -284,6 +284,6 @@
 <codeline lineno="92"><highlight class="normal"></highlight></codeline>
 <codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Translation.hpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Translation.hpp"/>
   </compounddef>
 </doxygen>

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_b18a22a53055e019ba85007342e2c67c" kind="dir">
-    <compoundname>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction</compoundname>
+    <compoundname>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction</compoundname>
     <innerfile refid="_display_8hpp">Display.hpp</innerfile>
     <innerfile refid="_flash_8hpp">Flash.hpp</innerfile>
     <innerfile refid="_g_p_i_o_8hpp">GPIO.hpp</innerfile>
@@ -10,6 +10,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Core/Abstraction/"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Core/Abstraction/"/>
   </compounddef>
 </doxygen>

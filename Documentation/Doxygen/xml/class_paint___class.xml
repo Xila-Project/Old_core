@@ -21,7 +21,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="37" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" bodystart="38" bodyend="40"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="37" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" bodystart="38" bodyend="40"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-static-attrib">
@@ -37,7 +37,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="11" column="24" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" bodystart="11" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="11" column="24" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" bodystart="11" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-attrib">
@@ -52,7 +52,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="15" column="14" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" bodystart="15" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="15" column="14" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" bodystart="15" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="class_paint___class_1aecccd6f458d7345b81e655851547c50a" prot="protected" static="no" mutable="no">
         <type>uint8_t</type>
@@ -65,7 +65,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="16" column="13" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" bodystart="16" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="16" column="13" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" bodystart="16" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="protected-func">
@@ -80,7 +80,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="13" column="10" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Paint.cpp" bodystart="137" bodyend="147"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="13" column="10" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Paint.cpp" bodystart="137" bodyend="147"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-func">
@@ -95,7 +95,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="32" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Paint.cpp" bodystart="15" bodyend="18"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="32" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Paint.cpp" bodystart="15" bodyend="18"/>
       </memberdef>
       <memberdef kind="function" id="class_paint___class_1af35aea3e102b982e1dcb4a44462357cb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -108,7 +108,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="33" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Paint.cpp" bodystart="20" bodyend="27"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="33" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Paint.cpp" bodystart="20" bodyend="27"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="public-static-func">
@@ -123,7 +123,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="35" column="33" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Paint.cpp" bodystart="5" bodyend="13"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="35" column="33" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Paint.cpp" bodystart="5" bodyend="13"/>
       </memberdef>
       <memberdef kind="function" id="class_paint___class_1a7c9e0237db230718dbf8afe5866b4552" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -140,7 +140,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="42" column="17" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Paint.cpp" bodystart="53" bodyend="135"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="42" column="17" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Paint.cpp" bodystart="53" bodyend="135"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -184,7 +184,7 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" line="6" column="1" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Paint.hpp" bodystart="7" bodyend="43"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" line="6" column="1" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Paint.hpp" bodystart="7" bodyend="43"/>
     <listofallmembers>
       <member refid="class_paint___class_1ab64fcb3dfbe90848e872c5a5b9e2e9fd" prot="protected" virt="non-virtual"><scope>Paint_Class</scope><name>Color_Palette</name></member>
       <member refid="class_paint___class_1aecccd6f458d7345b81e655851547c50a" prot="protected" virt="non-virtual"><scope>Paint_Class</scope><name>Current_Color</name></member>

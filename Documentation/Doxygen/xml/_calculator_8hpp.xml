@@ -4,10 +4,16 @@
     <compoundname>Calculator.hpp</compoundname>
     <includes refid="_xila_8hpp" local="yes">Xila.hpp</includes>
     <includes local="yes">Arduino.h</includes>
-    <includedby refid="_calculator_8cpp" local="yes">C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Software/Calculator.cpp</includedby>
+    <includedby refid="_calculator_8cpp" local="yes">C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Software/Calculator.cpp</includedby>
     <incdepgraph>
       <node id="44">
         <label>esp_ota_ops.h</label>
+      </node>
+      <node id="34">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="6">
         <label>FS.h</label>
@@ -18,22 +24,12 @@
       <node id="7">
         <label>SPI.h</label>
       </node>
-      <node id="34">
-        <label>Core/Abstraction/Memory.hpp</label>
-        <link refid="_memory_8hpp"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="24">
         <label>Battery_Library.hpp</label>
       </node>
-      <node id="31">
-        <label>Core/Modules/Software_Management.hpp</label>
-        <link refid="_software___management_8hpp_source"/>
-      </node>
-      <node id="33">
-        <label>Core/Abstraction/GPIO.hpp</label>
-        <link refid="_g_p_i_o_8hpp"/>
+      <node id="32">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
@@ -43,13 +39,13 @@
       <node id="5">
         <label>stdint.h</label>
       </node>
-      <node id="2">
-        <label>Xila.hpp</label>
-        <link refid="_xila_8hpp_source"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="29">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="25">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
       </node>
       <node id="15">
         <label>WiFiSTA.h</label>
@@ -60,74 +56,28 @@
       <node id="39">
         <label>esp_spi_flash.h</label>
       </node>
-      <node id="10">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp</label>
-        <link refid="_calculator_8hpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
-      <node id="45">
-        <label>esp_image_format.h</label>
-      </node>
-      <node id="46">
-        <label>MD5Builder.h</label>
-      </node>
-      <node id="26">
-        <label>Modules/Path.hpp</label>
-        <link refid="_path_8hpp"/>
-      </node>
-      <node id="21">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="28">
-        <label>Core/Modules/Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="41">
-        <label>soc/soc.h</label>
-      </node>
-      <node id="37">
-        <label>rom/spi_flash.h</label>
-      </node>
-      <node id="25">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp"/>
-      </node>
-      <node id="9">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="12">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="27">
-        <label>Core/Modules/Task.hpp</label>
-        <link refid="_task_8hpp"/>
-      </node>
-      <node id="8">
-        <label>time.h</label>
-      </node>
       <node id="30">
         <label>Core/Modules/Mathematics.hpp</label>
         <link refid="_mathematics_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
-      <node id="17">
-        <label>WiFiScan.h</label>
+      <node id="10">
+        <label>StreamUtils.h</label>
       </node>
-      <node id="3">
-        <label>Arduino.h</label>
+      <node id="26">
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
       </node>
-      <node id="18">
-        <label>WiFiGeneric.h</label>
+      <node id="31">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
       </node>
-      <node id="36">
-        <label>Esp.h</label>
+      <node id="45">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="46">
+        <label>MD5Builder.h</label>
       </node>
       <node id="4">
         <label>Core/Core.hpp</label>
@@ -197,15 +147,54 @@
         <childnode refid="35" relation="include">
         </childnode>
       </node>
-      <node id="29">
-        <label>Core/Modules/System.hpp</label>
-        <link refid="_system_8hpp"/>
+      <node id="21">
+        <label>WiFiUdp.h</label>
       </node>
-      <node id="32">
-        <label>Core/Abstraction/Display.hpp</label>
-        <link refid="_display_8hpp"/>
+      <node id="41">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="37">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="1">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp</label>
+        <link refid="_calculator_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
         <childnode refid="3" relation="include">
         </childnode>
+      </node>
+      <node id="9">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="2">
+        <label>Xila.hpp</label>
+        <link refid="_xila_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="8">
+        <label>time.h</label>
+      </node>
+      <node id="17">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="3">
+        <label>Arduino.h</label>
+      </node>
+      <node id="18">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="36">
+        <label>Esp.h</label>
+      </node>
+      <node id="13">
+        <label>IPv6Address.h</label>
       </node>
       <node id="35">
         <label>Core/Abstraction/Flash.hpp</label>
@@ -235,17 +224,22 @@
         <childnode refid="46" relation="include">
         </childnode>
       </node>
-      <node id="13">
-        <label>IPv6Address.h</label>
-      </node>
       <node id="19">
         <label>WiFiClient.h</label>
       </node>
       <node id="38">
         <label>esp_sleep.h</label>
       </node>
+      <node id="27">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
       <node id="43">
         <label>esp_partition.h</label>
+      </node>
+      <node id="28">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
       </node>
       <node id="20">
         <label>WiFiServer.h</label>
@@ -262,6 +256,12 @@
       <node id="23">
         <label>Nextion_Library.hpp</label>
       </node>
+      <node id="33">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <innerclass refid="class_calculator___class" prot="public">Calculator_Class</innerclass>
       <sectiondef kind="define">
@@ -274,7 +274,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="7" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="7" bodyend="-1"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp" line="7" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp" bodystart="7" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -289,7 +289,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp" line="175" column="29"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp" line="175" column="29"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -475,6 +475,6 @@
 <codeline lineno="176"><highlight class="normal"></highlight></codeline>
 <codeline lineno="177"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Calculator.hpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Calculator.hpp"/>
   </compounddef>
 </doxygen>

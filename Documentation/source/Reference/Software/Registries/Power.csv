@@ -1,0 +1,5 @@
+"Key","Description","Default"
+"Conversion Factor", "Voltage conversion ratio of the battery sensing voltage divider bridge.", 2
+"Sensing Pin", "Battery sensing pin.", 27
+"Minimum Voltage", "Minimum battery voltage (in millivolt)", 2500
+"Maximum Voltage", "Maximum battery voltage (in millivolt)", 4200

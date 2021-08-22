@@ -146,14 +146,14 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="442" column="9" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="443" bodyend="463"/>
+        <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="442" column="9" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="443" bodyend="463"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="439" column="5" bodyfile="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="440" bodyend="464"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" line="439" column="5" bodyfile="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/include/Software/Shell/Shell.hpp" bodystart="440" bodyend="464"/>
     <listofallmembers>
       <member refid="class_shell___class_1_1_images___class_1a10a8eb6a7c3b28ceb81870567a3954bea0969c112f06f0455496d8300bf07b8c1" prot="public" virt="non-virtual"><scope>Shell_Class::Images_Class</scope><name>Alix_Fait_Grr_Icon_64</name></member>
       <member refid="class_shell___class_1_1_images___class_1a10a8eb6a7c3b28ceb81870567a3954bea736e8d9ba79ce1dfb5ff7038fd63830d" prot="public" virt="non-virtual"><scope>Shell_Class::Images_Class</scope><name>Background_Picture_480</name></member>

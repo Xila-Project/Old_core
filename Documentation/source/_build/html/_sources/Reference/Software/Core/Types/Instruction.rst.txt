@@ -18,7 +18,7 @@ Thus, the system commands (see ...), or the instructions returned by the screen 
 .. warning::
     In order to avoid interfering with the data formatting imposed by the display, please avoid using instruction values : 0x00FF, 0xFF00 and 0xFFFF.
 
-API description
+API Reference
 ===============
 
 .. doxygendefine:: Instruction

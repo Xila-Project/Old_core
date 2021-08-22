@@ -7,6 +7,12 @@
       <node id="43">
         <label>esp_ota_ops.h</label>
       </node>
+      <node id="33">
+        <label>Core/Abstraction/Memory.hpp</label>
+        <link refid="_memory_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
       <node id="5">
         <label>FS.h</label>
       </node>
@@ -16,22 +22,12 @@
       <node id="6">
         <label>SPI.h</label>
       </node>
-      <node id="33">
-        <label>Core/Abstraction/Memory.hpp</label>
-        <link refid="_memory_8hpp"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
       <node id="23">
         <label>Battery_Library.hpp</label>
       </node>
-      <node id="30">
-        <label>Core/Modules/Software_Management.hpp</label>
-        <link refid="_software___management_8hpp_source"/>
-      </node>
-      <node id="32">
-        <label>Core/Abstraction/GPIO.hpp</label>
-        <link refid="_g_p_i_o_8hpp"/>
+      <node id="31">
+        <label>Core/Abstraction/Display.hpp</label>
+        <link refid="_display_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
@@ -40,6 +36,14 @@
       </node>
       <node id="3">
         <label>stdint.h</label>
+      </node>
+      <node id="28">
+        <label>Core/Modules/System.hpp</label>
+        <link refid="_system_8hpp"/>
+      </node>
+      <node id="24">
+        <label>Configuration.hpp</label>
+        <link refid="_configuration_8hpp"/>
       </node>
       <node id="14">
         <label>WiFiSTA.h</label>
@@ -50,66 +54,28 @@
       <node id="38">
         <label>esp_spi_flash.h</label>
       </node>
-      <node id="9">
-        <label>StreamUtils.h</label>
-      </node>
-      <node id="44">
-        <label>esp_image_format.h</label>
-      </node>
-      <node id="45">
-        <label>MD5Builder.h</label>
-      </node>
-      <node id="25">
-        <label>Modules/Path.hpp</label>
-        <link refid="_path_8hpp"/>
-      </node>
-      <node id="20">
-        <label>WiFiUdp.h</label>
-      </node>
-      <node id="27">
-        <label>Core/Modules/Time.hpp</label>
-        <link refid="_time_8hpp"/>
-      </node>
-      <node id="40">
-        <label>soc/soc.h</label>
-      </node>
-      <node id="36">
-        <label>rom/spi_flash.h</label>
-      </node>
-      <node id="24">
-        <label>Configuration.hpp</label>
-        <link refid="_configuration_8hpp"/>
-      </node>
-      <node id="8">
-        <label>ArduinoJson.h</label>
-      </node>
-      <node id="11">
-        <label>IPAddress.h</label>
-      </node>
-      <node id="26">
-        <label>Core/Modules/Task.hpp</label>
-        <link refid="_task_8hpp"/>
-      </node>
-      <node id="7">
-        <label>time.h</label>
-      </node>
       <node id="29">
         <label>Core/Modules/Mathematics.hpp</label>
         <link refid="_mathematics_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>WiFiScan.h</label>
+      <node id="9">
+        <label>StreamUtils.h</label>
       </node>
-      <node id="4">
-        <label>Arduino.h</label>
+      <node id="25">
+        <label>Modules/Path.hpp</label>
+        <link refid="_path_8hpp"/>
       </node>
-      <node id="17">
-        <label>WiFiGeneric.h</label>
+      <node id="30">
+        <label>Core/Modules/Software_Management.hpp</label>
+        <link refid="_software___management_8hpp_source"/>
       </node>
-      <node id="35">
-        <label>Esp.h</label>
+      <node id="44">
+        <label>esp_image_format.h</label>
+      </node>
+      <node id="45">
+        <label>MD5Builder.h</label>
       </node>
       <node id="2">
         <label>Core/Core.hpp</label>
@@ -179,15 +145,38 @@
         <childnode refid="34" relation="include">
         </childnode>
       </node>
-      <node id="28">
-        <label>Core/Modules/System.hpp</label>
-        <link refid="_system_8hpp"/>
+      <node id="20">
+        <label>WiFiUdp.h</label>
       </node>
-      <node id="31">
-        <label>Core/Abstraction/Display.hpp</label>
-        <link refid="_display_8hpp"/>
-        <childnode refid="4" relation="include">
-        </childnode>
+      <node id="40">
+        <label>soc/soc.h</label>
+      </node>
+      <node id="36">
+        <label>rom/spi_flash.h</label>
+      </node>
+      <node id="8">
+        <label>ArduinoJson.h</label>
+      </node>
+      <node id="11">
+        <label>IPAddress.h</label>
+      </node>
+      <node id="7">
+        <label>time.h</label>
+      </node>
+      <node id="16">
+        <label>WiFiScan.h</label>
+      </node>
+      <node id="4">
+        <label>Arduino.h</label>
+      </node>
+      <node id="17">
+        <label>WiFiGeneric.h</label>
+      </node>
+      <node id="35">
+        <label>Esp.h</label>
+      </node>
+      <node id="12">
+        <label>IPv6Address.h</label>
       </node>
       <node id="34">
         <label>Core/Abstraction/Flash.hpp</label>
@@ -217,8 +206,11 @@
         <childnode refid="45" relation="include">
         </childnode>
       </node>
-      <node id="12">
-        <label>IPv6Address.h</label>
+      <node id="1">
+        <label>C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
+        <link refid="_mathematics_8cpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="18">
         <label>WiFiClient.h</label>
@@ -226,14 +218,16 @@
       <node id="37">
         <label>esp_sleep.h</label>
       </node>
+      <node id="26">
+        <label>Core/Modules/Task.hpp</label>
+        <link refid="_task_8hpp"/>
+      </node>
       <node id="42">
         <label>esp_partition.h</label>
       </node>
-      <node id="1">
-        <label>C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp</label>
-        <link refid="_mathematics_8cpp"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="27">
+        <label>Core/Modules/Time.hpp</label>
+        <link refid="_time_8hpp"/>
       </node>
       <node id="19">
         <label>WiFiServer.h</label>
@@ -249,6 +243,12 @@
       </node>
       <node id="22">
         <label>Nextion_Library.hpp</label>
+      </node>
+      <node id="32">
+        <label>Core/Abstraction/GPIO.hpp</label>
+        <link refid="_g_p_i_o_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <briefdescription>
@@ -341,6 +341,6 @@
 <codeline lineno="112"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
     </programlisting>
-    <location file="C:/Users/alixa/GitHub/Xila/Code/lib/Xila/src/Core/Modules/Mathematics.cpp"/>
+    <location file="C:/Users/alixa/github/Xila Embedded/Code/lib/Xila/src/Core/Modules/Mathematics.cpp"/>
   </compounddef>
 </doxygen>
