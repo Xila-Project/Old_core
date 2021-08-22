@@ -1,21 +1,21 @@
 ***********************************************
-Getting Started With The Software Developpement
+Getting Started With The Software development
 ***********************************************
 
-Here you will find how to install developpement tools in order to developp third party software for Xila.
+Here you will find how to install development tools in order to develop third party software for Xila.
 
 Requirements
 ============
 
-You will need the following parts in order to start developp third party software :
+You will need the following parts in order to start develop third party software :
 
 * A working ``Xila hardware``.
 * A ``computer``.
 * 2 ``USB cable`` (usually USB A to USB B micro).
-* A formated and empty ``SD card``.
+* A formatted and empty ``SD card``.
 * A ``SD card reader``.
-* The lastest version of ``Platform IO IDE``.
-* The lastest version of the ``Nextion editor``.
+* The latest version of ``Platform IO IDE``.
+* The latest version of the ``Nextion editor``.
 
 Instructions
 ============

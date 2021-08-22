@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Getting Started With The Hardware &mdash; Xila  documentation</title>
+  <title>&lt;no title&gt; &mdash; Xila  documentation</title>
   
 
   
@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Getting Started With Developpement" href="../Developp.html" />
+    <link rel="next" title="Getting Started With development" href="../develop.html" />
     <link rel="prev" title="Getting Started With The Software" href="Software.html" /> 
 </head>
 
@@ -89,26 +89,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../Use.html">Use</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="Software.html">Software</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Hardware</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#intructions">Intructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pcb-assembly">PCB Assembly</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#case-printing">Case Printing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#display-modifications-optional">Display Modifications (optional)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#battery-pcb-modifications">Battery PCB Modifications</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#final-assembly">Final Assembly</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#hardware">Hardware</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Use.html#software">Software</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="../Developp.html">Developp</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Use.html">Use</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../develop.html">develop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Contribute.html">Contribute</a></li>
 </ul>
 <p class="caption"><span class="caption-text">References</span></p>
@@ -170,7 +153,7 @@
         
           <li><a href="../Use.html">Get Started To Use Xila</a> &raquo;</li>
         
-      <li>Getting Started With The Hardware</li>
+      <li>&lt;no title&gt;</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -189,88 +172,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="getting-started-with-the-hardware">
-<h1>Getting Started With The Hardware<a class="headerlink" href="#getting-started-with-the-hardware" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>In order build the reference harware kit, you will need the following parts :</p>
-<p>If you can also buy here pre-built reference kit here, or the assembled PCB.</p>
-</div>
-<div class="section" id="intructions">
-<h2>Intructions<a class="headerlink" href="#intructions" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="pcb-assembly">
-<h3>PCB Assembly<a class="headerlink" href="#pcb-assembly" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Solder all According to this schematic. In order to help the soldering process along, follow this order while soldering :</p>
-<ul>
-<li><p>SD card slot</p></li>
-<li><p>Resistors</p></li>
-<li><p>Headphone jack</p></li>
-<li><p>Button</p></li>
-<li><p>Interface connector</p></li>
-<li><p>Headers</p></li>
-<li><p>Mosfet transitor</p></li>
-</ul>
-</li>
-<li><p>Clean the PCB using isopropyl alcohol.</p></li>
-</ul>
-</div>
-<div class="section" id="case-printing">
-<h3>Case Printing<a class="headerlink" href="#case-printing" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Download here the case files (body + bezel), and load them into your slicer (Cura, Simplify3D, PrusaSlicer …).</p></li>
-<li><p>Set the following settings in the slicer:</p>
-<ul>
-<li><p>Precision : 0.15 mm</p></li>
-<li><p>Adhesion : Yes (Brim)</p></li>
-<li><p>Support : Yes</p></li>
-<li><p>Infill : 40 %</p></li>
-<li><p>Wall thinckness 3.0 mm</p></li>
-</ul>
-</li>
-<li><p>Other parameters depend on the filament you will be using, however it is recommended to use PETG.</p></li>
-<li><p>Once printing is complete, carefully remove all supports.</p></li>
-<li><p>Using the screws, thread the holes without forcing too much.
-If the screwing is too hard, use a drill and a bit to slightly widen the hole.
-Be careful not to go too fat with the mounting hole, you could damage the box.</p></li>
-</ul>
-</div>
-<div class="section" id="display-modifications-optional">
-<h3>Display Modifications (optional)<a class="headerlink" href="#display-modifications-optional" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Solder the <strong>2200 µF capacitor</strong> between <strong>+5V</strong> and <strong>GND</strong> pin of the display.</p></li>
-</ul>
-</div>
-<div class="section" id="battery-pcb-modifications">
-<h3>Battery PCB Modifications<a class="headerlink" href="#battery-pcb-modifications" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Cut and strip a dupont wire.</p></li>
-<li><p>Solder this wire directly to the positive pole of the battery board (on the tab that makes contact between the PCB and the battery).</p></li>
-</ul>
-</div>
-<div class="section" id="final-assembly">
-<h3>Final Assembly<a class="headerlink" href="#final-assembly" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p>Fit and screw the main board in the box.</p></li>
-<li><p>Plug the ESP-32 DOIT DEVKIT V1 in the main board.</p></li>
-<li><p>Fit and screw the battery board in the box.</p></li>
-<li><p>Connect the battery board and the display to the main board according to this schematic : .</p></li>
-<li><p>Fit the lithium battery in its holder (Xila should power up, but shut it down in order to prevent bad handling).</p></li>
-<li><p>Fit and screw the display on the box.</p></li>
-<li><p>Fit and screw the bezel over the screen.</p></li>
-</ul>
-<p>Now you can power up Xila by pressing the power button.</p>
-</div>
-</div>
-</div>
-
+  
 
            </div>
            
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../Developp.html" class="btn btn-neutral float-right" title="Getting Started With Developpement" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../develop.html" class="btn btn-neutral float-right" title="Getting Started With development" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="Software.html" class="btn btn-neutral float-left" title="Getting Started With The Software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

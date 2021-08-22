@@ -15,7 +15,7 @@ You will need the following parts in order to install Xila on your hardware :
 * A working Xila hardware :ref:`Hardware`.
 * A **computer**.
 * A **USB Cable** (USB A to USB B Micro).
-* A formated and empty **SD card**.
+* A formatted and empty **SD card**.
 * A **SD card reader**.
 * The installer archive <https://github.com/AlixANNERAUD/Xila/releases/download/0.1.0/Installer.zip>.
 

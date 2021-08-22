@@ -2,5 +2,10 @@
     "restructuredtext.builtDocumentationPath": "${workspaceRoot}\\source\\_build\\html",
     "restructuredtext.updateOnTextChanged"    : "true",
     "restructuredtext.updateDelay"            : 500,
-    "restructuredtext.sphinxBuildPath": null
+    "restructuredtext.sphinxBuildPath": null,
+    "cSpell.enableFiletypes": [
+        "csv",
+        "csv (double quote)",
+        "csv (semicolon)"
+    ]
 }
