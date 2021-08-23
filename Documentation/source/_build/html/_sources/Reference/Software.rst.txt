@@ -1,3 +1,5 @@
+.. _software reference:
+
 ******************
 Software Reference
 ******************

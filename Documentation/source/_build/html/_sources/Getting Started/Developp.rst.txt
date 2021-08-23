@@ -62,7 +62,7 @@ You can test your installation with the following sketch :
 When you launch the compilation or the download of the software, **Platform IO** will take care of installing **Xila** as well as all its dependencies.
 
 You are now ready to start developing software for **Xila**.
-Consult .... in order to have more details on the functioning of **Xila**.
+Consult :ref:`hardware reference` in order to have more details on the functioning of **Xila**.
 
 Software
 ========
@@ -112,4 +112,4 @@ You can test your installation with the following sketch :
 When you launch the compilation or the download of the software, **Platform IO** will take care of installing **Xila** as well as all its dependencies.
 
 You are now ready to start developing software for **Xila**.
-Consult .... in order to have more details on the functioning of **Xila**.
+Consult :ref:`software reference` in order to have more details on the functioning of **Xila**.
