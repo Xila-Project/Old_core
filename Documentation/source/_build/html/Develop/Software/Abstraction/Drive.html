@@ -1,0 +1,492 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Drive Abstraction Layer &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Drive Abstraction Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Develop/Software/Abstraction/Drive.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="drive-abstraction-layer">
+<h1>Drive Abstraction Layer<a class="headerlink" href="#drive-abstraction-layer" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full descrption of the drive abstraction layer.</p>
+<p>This abstraction layer is reponsible to store data on the drive.
+Depending on the configuration selected during compilation, Xila uses the <a class="reference external" href="https://github.com/espressif/arduino-esp32/tree/master/libraries/SD">SD</a> or <a class="reference external" href="https://github.com/espressif/arduino-esp32/tree/master/libraries/SD_MMC">SD MMC</a> library (the second being faster but occupying more pins).
+Thus, the API of Xila is analogous to the API offered by these two libraries.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_ClassE">
+<span id="_CPPv3N10Xila_Class11Drive_ClassE"></span><span id="_CPPv2N10Xila_Class11Drive_ClassE"></span><span id="Xila_Class::Drive_Class"></span><span class="target" id="class_xila___class_1_1_drive___class"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Drive_Class</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Drive class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_TypeE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_TypeE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_TypeE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sd_Card_Type</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_TypeE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Drive type. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type4NoneE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_Type4NoneE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_Type4NoneE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa383e5858e9e99cab882bc243a37e85e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">None</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type4NoneE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>None (nothing connected). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type3MMCE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_Type3MMCE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_Type3MMCE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaa16395dc117ec74972ccc78b4f3dc945"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MMC</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type3MMCE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>MMC type. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type5SD_SCE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_Type5SD_SCE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_Type5SD_SCE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aa3e12cac98de43f5259c8ad0a9e383546"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SD_SC</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type5SD_SCE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>SD type. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type5SD_HCE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_Type5SD_HCE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_Type5SD_HCE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aadec47f4da141de7d56488b30c2038971"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SD_HC</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type5SD_HCE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>SD HC type. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type6UnknowE">
+<span id="_CPPv3N10Xila_Class11Drive_Class12Sd_Card_Type6UnknowE"></span><span id="_CPPv2N10Xila_Class11Drive_Class12Sd_Card_Type6UnknowE"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5aaca4d1a6e9be97f054c2613ae2d39a701"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unknow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_Type6UnknowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unknow type. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class5BeginE7uint8_tR8SPIClass8uint32_tPKc7uint8_t">
+<span id="_CPPv3N10Xila_Class11Drive_Class5BeginE7uint8_tR8SPIClass8uint32_tPKc7uint8_t"></span><span id="_CPPv2N10Xila_Class11Drive_Class5BeginE7uint8_tR8SPIClass8uint32_tPKc7uint8_t"></span><span id="Xila_Class::Drive_Class::Begin__uint8_t.SPIClassR.uint32_t.cCP.uint8_t"></span><span class="target" id="class_xila___class_1_1_drive___class_1ae6ee65e39b64633977e13099011c3673"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Begin</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Slave_Select_Pin</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">SS</span></span>, <span class="n"><span class="pre">SPIClass</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">spi</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">SPI</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Frequency</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">4000000</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Mount_Point</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;/sd&quot;</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Maximum_Files</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">5</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class5BeginE7uint8_tR8SPIClass8uint32_tPKc7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Initialize drive. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Slave_Select_Pin</strong> – Slave select pin. </p></li>
+<li><p><strong>spi</strong> – SPI interface. </p></li>
+<li><p><strong>Frequency</strong> – Frequency of the SPI bus. </p></li>
+<li><p><strong>Mount_Point</strong> – Mount point path. </p></li>
+<li><p><strong>Maximum_Files</strong> – Maximum simultaneous openned files. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the initialization succeed. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if the initialization succeed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class4SizeEv">
+<span id="_CPPv3N10Xila_Class11Drive_Class4SizeEv"></span><span id="_CPPv2N10Xila_Class11Drive_Class4SizeEv"></span><span id="Xila_Class::Drive_Class::Size"></span><span class="target" id="class_xila___class_1_1_drive___class_1ab57d363ffaea1f5c638b0b4caa23dd06"></span><span class="n"><span class="pre">uint64_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class4SizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return the drive size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint64_t Drive size in bytes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class4TypeEv">
+<span id="_CPPv3N10Xila_Class11Drive_Class4TypeEv"></span><span id="_CPPv2N10Xila_Class11Drive_Class4TypeEv"></span><span id="Xila_Class::Drive_Class::Type"></span><span class="target" id="class_xila___class_1_1_drive___class_1a292061e7081549b280ff14c0612357bc"></span><a class="reference internal" href="#_CPPv4N10Xila_Class11Drive_Class12Sd_Card_TypeE" title="Xila_Class::Drive_Class::Sd_Card_Type"><span class="n"><span class="pre">Sd_Card_Type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Type</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class4TypeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return drive type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../Core.html#class_xila___class_1_1_drive___class_1a7e7d4a3f766198a07fef592597404d5a"><span class="std std-ref">Xila_Class::Drive_Class::Sd_Card_Type</span></a> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class6ExistsEPKc">
+<span id="_CPPv3N10Xila_Class11Drive_Class6ExistsEPKc"></span><span id="_CPPv2N10Xila_Class11Drive_Class6ExistsEPKc"></span><span id="Xila_Class::Drive_Class::Exists__cCP"></span><span class="target" id="class_xila___class_1_1_drive___class_1afc4521e0d8b8f0aac23af14d9e9239eb"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Exists</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class6ExistsEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Check if a file / folder exists. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Path</strong> – Item path. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the item exist. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if the item doesn’t exist. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class6ExistsERK6String">
+<span id="_CPPv3N10Xila_Class11Drive_Class6ExistsERK6String"></span><span id="_CPPv2N10Xila_Class11Drive_Class6ExistsERK6String"></span><span id="Xila_Class::Drive_Class::Exists__StringCR"></span><span class="target" id="class_xila___class_1_1_drive___class_1a6fd45190eb05d644c1dece9ee3b1539d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Exists</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">String</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class6ExistsERK6String" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Check if a file / folder exists. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Path</strong> – Item path. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the item exists. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if the item doesn’t exist. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class14Make_DirectoryEPKc">
+<span id="_CPPv3N10Xila_Class11Drive_Class14Make_DirectoryEPKc"></span><span id="_CPPv2N10Xila_Class11Drive_Class14Make_DirectoryEPKc"></span><span id="Xila_Class::Drive_Class::Make_Directory__cCP"></span><span class="target" id="class_xila___class_1_1_drive___class_1af832f7a6daa2dd7345e29393d2e392b3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Make_Directory</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class14Make_DirectoryEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Make a new directory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Path</strong> – Path of new directory. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the operation succeed. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false of the operation failed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class14Make_DirectoryERK6String">
+<span id="_CPPv3N10Xila_Class11Drive_Class14Make_DirectoryERK6String"></span><span id="_CPPv2N10Xila_Class11Drive_Class14Make_DirectoryERK6String"></span><span id="Xila_Class::Drive_Class::Make_Directory__StringCR"></span><span class="target" id="class_xila___class_1_1_drive___class_1a59def79d55a887b0d80d470f22c5f110"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Make_Directory</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">String</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class14Make_DirectoryERK6String" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Make a new directory. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Path</strong> – Path of new directory. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the operation succeed. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false of the operation failed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class4OpenEPKcPKc">
+<span id="_CPPv3N10Xila_Class11Drive_Class4OpenEPKcPKc"></span><span id="_CPPv2N10Xila_Class11Drive_Class4OpenEPKcPKc"></span><span id="Xila_Class::Drive_Class::Open__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_drive___class_1a773c3b5b91558c7202d174011b34b797"></span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Mode</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;r&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class4OpenEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Open a file / folder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Path</strong> – Item path. </p></li>
+<li><p><strong>Mode</strong> – Open mode (read or write). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File File instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class4OpenERK6StringPKc">
+<span id="_CPPv3N10Xila_Class11Drive_Class4OpenERK6StringPKc"></span><span id="_CPPv2N10Xila_Class11Drive_Class4OpenERK6StringPKc"></span><span id="Xila_Class::Drive_Class::Open__StringCR.cCP"></span><span class="target" id="class_xila___class_1_1_drive___class_1afb5c9bb76be7359b6f6325520e9f88b6"></span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">String</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Path</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Mode</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;r&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class4OpenERK6StringPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Open a file / folder. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Path</strong> – Item path. </p></li>
+<li><p><strong>Mode</strong> – Open mode (read or write). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>File File instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class6RemoveEPKc">
+<span id="_CPPv3N10Xila_Class11Drive_Class6RemoveEPKc"></span><span id="_CPPv2N10Xila_Class11Drive_Class6RemoveEPKc"></span><span id="Xila_Class::Drive_Class::Remove__cCP"></span><span class="target" id="class_xila___class_1_1_drive___class_1a7ba7605ddfbe7ccacfe81a7e49ea576d"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Remove</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Path</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class6RemoveEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Remove a file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Path</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class4CopyER4FileR4File">
+<span id="_CPPv3N10Xila_Class11Drive_Class4CopyER4FileR4File"></span><span id="_CPPv2N10Xila_Class11Drive_Class4CopyER4FileR4File"></span><span id="Xila_Class::Drive_Class::Copy__FileR.FileR"></span><span class="target" id="class_xila___class_1_1_drive___class_1abaceae5e29238cc061482cac703c86bb"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Copy</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Origin_File</span></span>, <span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Destination_File</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class4CopyER4FileR4File" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Copy file from two openned file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Origin_File</strong> – File to duplicate </p></li>
+<li><p><strong>Destination_File</strong> – File to write </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event::Success or Xila_Class::Event::Error </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class8Get_NameERK4FilePc6size_t">
+<span id="_CPPv3N10Xila_Class11Drive_Class8Get_NameERK4FilePc6size_t"></span><span id="_CPPv2N10Xila_Class11Drive_Class8Get_NameERK4FilePc6size_t"></span><span id="Xila_Class::Drive_Class::Get_Name__FileCR.cP.s"></span><span class="target" id="class_xila___class_1_1_drive___class_1a0e7c3a756ca4751a1d1f8e09e5809821"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Name</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N10Xila_Class11Drive_Class8Get_NameERK4FilePc6size_t" title="Xila_Class::Drive_Class::Get_Name::File"><span class="n"><span class="pre">File</span></span></a><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">File</span></span>, <span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">File_Name_Buffer</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class8Get_NameERK4FilePc6size_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>File</strong> – </p></li>
+<li><p><strong>File_Name</strong> – </p></li>
+<li><p><strong>Size</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class11Count_ItemsER4File">
+<span id="_CPPv3N10Xila_Class11Drive_Class11Count_ItemsER4File"></span><span id="_CPPv2N10Xila_Class11Drive_Class11Count_ItemsER4File"></span><span id="Xila_Class::Drive_Class::Count_Items__FileR"></span><span class="target" id="class_xila___class_1_1_drive___class_1a956d18ed6c7a8ecfcf33ce3ae609bfa8"></span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Count_Items</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Folder</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class11Count_ItemsER4File" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Folder</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>uint16_t return the number of files inside a folder </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Drive_Class11Drive_ClassEv">
+<span id="_CPPv3N10Xila_Class11Drive_Class11Drive_ClassEv"></span><span id="_CPPv2N10Xila_Class11Drive_Class11Drive_ClassEv"></span><span id="Xila_Class::Drive_Class::Drive_Class"></span><span class="target" id="class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778"></span><span class="sig-name descname"><span class="n"><span class="pre">Drive_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Drive_Class11Drive_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="../Core.html#class_xila___class_1_1_drive___class_1afdb259c7de2f64cd3f4f7f075a57a778"><span class="std std-ref">Xila_Class::Drive_Class::Drive_Class</span></a> object. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

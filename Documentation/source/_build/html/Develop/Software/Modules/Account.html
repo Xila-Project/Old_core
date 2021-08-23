@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Account Management Module &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Account Management Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Develop/Software/Modules/Account.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="account-management-module">
+<h1>Account Management Module<a class="headerlink" href="#account-management-module" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full description of the account management module.</p>
+<p>This module is responsible for ensuring a minimum of security (although primitive).
+The identifiers are stored in a register specific to each user.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>As mentioned above, user credentials are stored in a register which is not encrypted.
+Thus, the recovery of identifiers is very simple.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At the moment, only one user can be logged in at a time. In order to authenticate a second user while a first is connected (lock state), this first user will have to close his session in order to allow this second user to authenticate himself.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_ClassE">
+<span id="_CPPv3N10Xila_Class13Account_ClassE"></span><span id="_CPPv2N10Xila_Class13Account_ClassE"></span><span id="Xila_Class::Account_Class"></span><span class="target" id="class_xila___class_1_1_account___class"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Account_Class</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Account management class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Session_StateE">
+<span id="_CPPv3N10Xila_Class13Account_Class13Session_StateE"></span><span id="_CPPv2N10Xila_Class13Account_Class13Session_StateE"></span><span class="target" id="class_xila___class_1_1_account___class_1a599226b2971b67a858f77c684e294740"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Session_State</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Session_StateE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Session state type. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Session_State12DisconnectedE">
+<span id="_CPPv3N10Xila_Class13Account_Class13Session_State12DisconnectedE"></span><span id="_CPPv2N10Xila_Class13Account_Class13Session_State12DisconnectedE"></span><span class="target" id="class_xila___class_1_1_account___class_1a599226b2971b67a858f77c684e294740a7924f884e1856cc1f9c31144622b294a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Disconnected</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Session_State12DisconnectedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Session_State6LoggedE">
+<span id="_CPPv3N10Xila_Class13Account_Class13Session_State6LoggedE"></span><span id="_CPPv2N10Xila_Class13Account_Class13Session_State6LoggedE"></span><span class="target" id="class_xila___class_1_1_account___class_1a599226b2971b67a858f77c684e294740a31418b06a22fe1272c328619bc67d4e1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Logged</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Session_State6LoggedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Session_State6LockedE">
+<span id="_CPPv3N10Xila_Class13Account_Class13Session_State6LockedE"></span><span id="_CPPv2N10Xila_Class13Account_Class13Session_State6LockedE"></span><span class="target" id="class_xila___class_1_1_account___class_1a599226b2971b67a858f77c684e294740a47b9478888ba067575004b6a857f1c0a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Locked</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Session_State6LockedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Account_ClassEv">
+<span id="_CPPv3N10Xila_Class13Account_Class13Account_ClassEv"></span><span id="_CPPv2N10Xila_Class13Account_Class13Account_ClassEv"></span><span id="Xila_Class::Account_Class::Account_Class"></span><span class="target" id="class_xila___class_1_1_account___class_1abcb0807150cdae5620aa512ebd7c9130"></span><span class="sig-name descname"><span class="n"><span class="pre">Account_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Account_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="#class_xila___class_1_1_account___class_1abcb0807150cdae5620aa512ebd7c9130"><span class="std std-ref">Xila_Class::Account_Class::Account_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class3AddEPKcPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class3AddEPKcPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class3AddEPKcPKc"></span><span id="Xila_Class::Account_Class::Add__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1a417966457997ef4624236d0c813ee31b"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Add</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Username</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Password</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class3AddEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Add a new user (create necessary folder structure and registries). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Username</strong> – Username of the new user. </p></li>
+<li><p><strong>Password</strong> – Password of the new user. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class6DeleteEPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class6DeleteEPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class6DeleteEPKc"></span><span id="Xila_Class::Account_Class::Delete__cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1ab9fff9eff5bbd9bc3aa13b3c65712f98"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Delete</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class6DeleteEPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Delete a user account. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Target_User</strong> – User to delete. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class15Change_PasswordEPKcPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class15Change_PasswordEPKcPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class15Change_PasswordEPKcPKc"></span><span id="Xila_Class::Account_Class::Change_Password__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1a20e8399f793d8b30eb5672a83003e693"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Change_Password</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class15Change_PasswordEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Change user password. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Target_User</strong> – User to change password. </p></li>
+<li><p><strong>Password_To_Set</strong> – New password. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class15Change_UsernameEPKcPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class15Change_UsernameEPKcPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class15Change_UsernameEPKcPKc"></span><span id="Xila_Class::Account_Class::Change_Username__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1ad337741a3a0e0a44640d9f1d9fec2c35"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Change_Username</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class15Change_UsernameEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Change user account name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Target_User</strong> – User to rename. </p></li>
+<li><p><strong>New_Username</strong> – New account name. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class13Set_AutologinEb">
+<span id="_CPPv3N10Xila_Class13Account_Class13Set_AutologinEb"></span><span id="_CPPv2N10Xila_Class13Account_Class13Set_AutologinEb"></span><span id="Xila_Class::Account_Class::Set_Autologin__b"></span><span class="target" id="class_xila___class_1_1_account___class_1aaff807ed1d55e77972324ce7c5601d7e"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Autologin</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Enable</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class13Set_AutologinEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set autologin and save account registry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Enable</strong> – true to enable and false to disable autologin. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class17Check_CredentialsEPKcPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class17Check_CredentialsEPKcPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class17Check_CredentialsEPKcPKc"></span><span id="Xila_Class::Account_Class::Check_Credentials__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1a4f871525bbf69e7c1506c3952c4d362f"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Check_Credentials</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class17Check_CredentialsEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Check user credentials. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Username_To_Check</strong> – User account name. </p></li>
+<li><p><strong>Password_To_Check</strong> – User account password. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class5LoginEPKcPKc">
+<span id="_CPPv3N10Xila_Class13Account_Class5LoginEPKcPKc"></span><span id="_CPPv2N10Xila_Class13Account_Class5LoginEPKcPKc"></span><span id="Xila_Class::Account_Class::Login__cCP.cCP"></span><span class="target" id="class_xila___class_1_1_account___class_1ab64be6eed8b9350de791edd73e1fd302"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Login</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Username_To_Check</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Password_To_Check</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class5LoginEPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Login into user account. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Username_To_Check</strong> – User account name. </p></li>
+<li><p><strong>Password_To_Check</strong> – User account password. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class6LogoutEv">
+<span id="_CPPv3N10Xila_Class13Account_Class6LogoutEv"></span><span id="_CPPv2N10Xila_Class13Account_Class6LogoutEv"></span><span id="Xila_Class::Account_Class::Logout"></span><span class="target" id="class_xila___class_1_1_account___class_1a43d5bb3c65fedc527b1adee77ba2994d"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Logout</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class6LogoutEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Logout from the openned user session. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class4LockEv">
+<span id="_CPPv3N10Xila_Class13Account_Class4LockEv"></span><span id="_CPPv2N10Xila_Class13Account_Class4LockEv"></span><span id="Xila_Class::Account_Class::Lock"></span><span class="target" id="class_xila___class_1_1_account___class_1afd8147a2fd67ab514b30fce66e39b6c4"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Lock</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class4LockEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Lock openned user session. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class20Get_Current_UsernameEv">
+<span id="_CPPv3N10Xila_Class13Account_Class20Get_Current_UsernameEv"></span><span id="_CPPv2N10Xila_Class13Account_Class20Get_Current_UsernameEv"></span><span id="Xila_Class::Account_Class::Get_Current_Username"></span><span class="target" id="class_xila___class_1_1_account___class_1a4621eb60e306930d785a26eacbcdf439"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Get_Current_Username</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class20Get_Current_UsernameEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>const char* Logged username (empty if there’s no logged user). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Account_Class9Get_StateEv">
+<span id="_CPPv3N10Xila_Class13Account_Class9Get_StateEv"></span><span id="_CPPv2N10Xila_Class13Account_Class9Get_StateEv"></span><span id="Xila_Class::Account_Class::Get_State"></span><span class="target" id="class_xila___class_1_1_account___class_1acb227ba96c2fb7fda33acf0d4288fc44"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_State</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Account_Class9Get_StateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return current session state. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint8_t return Xila_Class::Acount_Class::Session_State. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

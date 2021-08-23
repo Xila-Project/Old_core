@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Display Abstraction Layer &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Display Abstraction Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Develop/Software/Abstraction/Display.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="display-abstraction-layer">
+<h1>Display Abstraction Layer<a class="headerlink" href="#display-abstraction-layer" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full description of the display abstraction layer.</p>
+<p>This abstraction layer is responsible to drive the display.
+In addition, this API supports resource protection to avoid data collisions when sending information.
+This API rest upon the Nextion Library. For the full API, please visit the library page.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Because Nextion displays use a serial interface (UART) to communicate, the exchange and processing of information is slow.
+To avoid saturation of this interface, it is recommended to deport as many commands as possible directly on the display.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_ClassE">
+<span id="_CPPv3N10Xila_Class13Display_ClassE"></span><span id="_CPPv2N10Xila_Class13Display_ClassE"></span><span id="Xila_Class::Display_Class"></span><span class="target" id="class_xila___class_1_1_display___class"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Display_Class</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">Nextion_Class</span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Display class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7PrefixsE">
+<span id="_CPPv3N10Xila_Class13Display_Class7PrefixsE"></span><span id="_CPPv2N10Xila_Class13Display_Class7PrefixsE"></span><span class="target" id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Prefixs</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7PrefixsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Prefixs used to differienciate exchanged data between display, core and software. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Prefixs11InstructionE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Prefixs11InstructionE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Prefixs11InstructionE"></span><span class="target" id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a608764d130070810c32132ea622b1e96"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Instruction</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Prefixs11InstructionE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Prefixs15Variable_StringE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Prefixs15Variable_StringE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Prefixs15Variable_StringE"></span><span class="target" id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a956b0168bb8859462d44f5ccfc8895c2"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable_String</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Prefixs15Variable_StringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Prefixs13Variable_LongE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Prefixs13Variable_LongE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Prefixs13Variable_LongE"></span><span class="target" id="class_xila___class_1_1_display___class_1a203329d1e9822751a63c0173204c0e13a8181f316f01f035f9835801b99bd9d6c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable_Long</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Prefixs13Variable_LongE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5ColorE">
+<span id="_CPPv3N10Xila_Class13Display_Class5ColorE"></span><span id="_CPPv2N10Xila_Class13Display_Class5ColorE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Color</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5ColorE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Default system colors. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color5BlackE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color5BlackE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color5BlackE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a49d424ba001518095f3e597a3a556e90"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Black</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color5BlackE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color5WhiteE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color5WhiteE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color5WhiteE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a61fef475272dde7e829a728cc1ff1688"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">White</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color5WhiteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color10Light_GreyE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color10Light_GreyE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color10Light_GreyE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aa1b47917701ab96a9829661a07b0feb0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Light_Grey</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color10Light_GreyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color9Dark_GreyE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color9Dark_GreyE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color9Dark_GreyE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a33e2ca8dbf8464130638ba78640c4d4b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Dark_Grey</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color9Dark_GreyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color3RedE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color3RedE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color3RedE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a4ffdaa7f6a341310ab9cff120de140c9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Red</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color3RedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color4BlueE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color4BlueE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color4BlueE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923a944a3d05f62acee350e91e154882c6c8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Blue</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color4BlueE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color5GreenE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color5GreenE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color5GreenE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923afacad8f22cbb5f9141a0c48d7be93ac4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Green</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color5GreenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class5Color6YellowE">
+<span id="_CPPv3N10Xila_Class13Display_Class5Color6YellowE"></span><span id="_CPPv2N10Xila_Class13Display_Class5Color6YellowE"></span><span class="target" id="class_xila___class_1_1_display___class_1aabbeeb03f3d1b07bbf2c63c3b6a28923aef694bc59d3872cde5ba8ec1c833da88"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Yellow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class5Color6YellowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_16E">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_16E"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_16E"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7c"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Xila_16</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_16E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Xila_16 special characters list. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1612State_ButtonE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1612State_ButtonE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1612State_ButtonE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca1e32c6f795c81dfa3a57bca536c4b260"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">State_Button</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1612State_ButtonE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1610Left_ArrowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1610Left_ArrowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1610Left_ArrowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7caf7f649f74a86082c41eaa776bd1756ec"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Left_Arrow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1610Left_ArrowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1611Right_ArrowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1611Right_ArrowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1611Right_ArrowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca467d199f899f161d46b0e57f1a0bc38d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Right_Arrow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1611Right_ArrowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_168Up_ArrowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_168Up_ArrowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_168Up_ArrowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca17d5f793a8ec7f71b58f67bd2a36159b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Up_Arrow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_168Up_ArrowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1610Down_ArrowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1610Down_ArrowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1610Down_ArrowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7cabc14537125339869313093eda9ea2cba"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Down_Arrow</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1610Down_ArrowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1613Battery_EmptyE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1613Battery_EmptyE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1613Battery_EmptyE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca9a52166bee7ec5ef5af87ffcb2db4a98"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Battery_Empty</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1613Battery_EmptyE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1615Battery_QuarterE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1615Battery_QuarterE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1615Battery_QuarterE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7cadebd41dadd88b1a60fa456cfac5f1d42"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Battery_Quarter</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1615Battery_QuarterE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1612Battery_HalfE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1612Battery_HalfE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1612Battery_HalfE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7cac9c75fec6f17ef0fa813ec4840f67bb9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Battery_Half</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1612Battery_HalfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1622Battery_Three_QuartersE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1622Battery_Three_QuartersE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1622Battery_Three_QuartersE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca36387811989d451643e77967c7155a6d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Battery_Three_Quarters</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1622Battery_Three_QuartersE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1612Battery_FullE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1612Battery_FullE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1612Battery_FullE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca8fbf0daa87a90d6c8a38c4da578b34d0"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Battery_Full</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1612Battery_FullE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_168WiFi_LowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_168WiFi_LowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_168WiFi_LowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca5307e86305c05016bbf182dd26f3c8f3"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WiFi_Low</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_168WiFi_LowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1611WiFi_MediumE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1611WiFi_MediumE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1611WiFi_MediumE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca345820f01c5df6d52ee614eae3070873"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WiFi_Medium</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1611WiFi_MediumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_169WiFi_HighE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_169WiFi_HighE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_169WiFi_HighE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7cabc80724152258d89621277c958b60bae"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">WiFi_High</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_169WiFi_HighE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_169BluetoothE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_169BluetoothE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_169BluetoothE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca39c091fb6cdf76ec0a1869bbc6613ecd"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bluetooth</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_169BluetoothE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1610Sound_MuteE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1610Sound_MuteE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1610Sound_MuteE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca7c208a80580abd5094ffe3bc6fd6560f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sound_Mute</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1610Sound_MuteE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_169Sound_LowE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_169Sound_LowE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_169Sound_LowE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7caca7f5ca6649a8e0e9c4c1c3ae67e7621"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sound_Low</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_169Sound_LowE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1612Sound_MediumE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1612Sound_MediumE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1612Sound_MediumE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7cae8bb620c01da9e077cec9022c03c22d6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sound_Medium</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1612Sound_MediumE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Xila_1610Sound_HighE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Xila_1610Sound_HighE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Xila_1610Sound_HighE"></span><span class="target" id="class_xila___class_1_1_display___class_1ac544a5bb0d23ea518f729601b61b5e7ca6757b93b332e3407b6075cdbb888f381"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Sound_High</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Xila_1610Sound_HighE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Font_32E">
+<span id="_CPPv3N10Xila_Class13Display_Class7Font_32E"></span><span id="_CPPv2N10Xila_Class13Display_Class7Font_32E"></span><span class="target" id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Font_32</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Font_32E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Xila_32 special characters list. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Font_3216Exclamation_MarkE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Font_3216Exclamation_MarkE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Font_3216Exclamation_MarkE"></span><span class="target" id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583afd42d36d29a359db353d07135985177d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Exclamation_Mark</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Font_3216Exclamation_MarkE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Font_3213Question_MarkE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Font_3213Question_MarkE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Font_3213Question_MarkE"></span><span class="target" id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583a7b24a50cce644b140512ac0cc773ddcc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Question_Mark</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Font_3213Question_MarkE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class7Font_325CrossE">
+<span id="_CPPv3N10Xila_Class13Display_Class7Font_325CrossE"></span><span id="_CPPv2N10Xila_Class13Display_Class7Font_325CrossE"></span><span class="target" id="class_xila___class_1_1_display___class_1a91be037084ced30430b419abf0af3583ac20a1b953496e61d6ed2cd31fd4bbc8f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Cross</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class7Font_325CrossE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_OffsetE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_OffsetE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_OffsetE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25b"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Image_Offset</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_OffsetE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Image offsets list. </p>
+<p>All image offset, used by included software to keep track of picture offset </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset12Shell_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset12Shell_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset12Shell_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba2b4b3706685ca87f40556c848671554c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Shell_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset12Shell_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset17Calculator_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset17Calculator_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset17Calculator_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba2319ff588f53a7d5b4e53250beb909bf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Calculator_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset17Calculator_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset12Clock_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset12Clock_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset12Clock_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bae539d116d1c2620dfd89d93532d92491"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clock_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset12Clock_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset23Internet_Browser_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset23Internet_Browser_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset23Internet_Browser_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba12797c6d797aa4361acb26a308759d02"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Internet_Browser_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset23Internet_Browser_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset19Music_Player_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset19Music_Player_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset19Music_Player_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba499948387a7b0bd37dbbcbfd89e60313"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Music_Player_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset19Music_Player_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset19Oscilloscope_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset19Oscilloscope_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset19Oscilloscope_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25baf7fe5a919268fd692ff5c99ad0d36f70"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Oscilloscope_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset19Oscilloscope_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset12Paint_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset12Paint_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset12Paint_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba396011b7726de8dc9d91142cc45b2ba6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Paint_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset12Paint_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset15Periodic_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset15Periodic_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset15Periodic_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba4c8e4026ca94dccafa650d266e229dc6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Periodic_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset15Periodic_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset12Piano_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset12Piano_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset12Piano_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25bacb9a9382bb3f250710bc92f184acaa20"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Piano_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset12Piano_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset11Pong_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset11Pong_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset11Pong_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba68514b58da42eeb7f1c692826175cfd1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pong_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset11Pong_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset12Simon_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset12Simon_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset12Simon_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba83e9be0eb2d9dc6ba4f64003940611ab"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Simon_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset12Simon_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset18Text_Editor_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset18Text_Editor_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset18Text_Editor_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba625af728f359230543842ab85b570910"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Text_Editor_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset18Text_Editor_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Image_Offset17Tiny_Basic_ImagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Image_Offset17Tiny_Basic_ImagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Image_Offset17Tiny_Basic_ImagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a22fbf46b6efc6641c2ae561f4145e25ba1095d13a09ab12abf30d34adc1db2a1f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tiny_Basic_Images</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Image_Offset17Tiny_Basic_ImagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_OffsetE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_OffsetE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_OffsetE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pages_Offset</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_OffsetE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><a class="reference internal" href="../Types/Software.html#class_xila___class_1_1_software"><span class="std std-ref">Software</span></a> pages offset enurmeration. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset10Core_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset10Core_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset10Core_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4aa436a7e5b14e598b25c94db85f7ad437"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Core_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset10Core_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Shell_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset11Shell_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset11Shell_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4aed3213bebaaacf97be3b464aca056758"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Shell_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Shell_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset16Calculator_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset16Calculator_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset16Calculator_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a52320a69e42a4fb14420c8d77cbaa870"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Calculator_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset16Calculator_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Clock_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset11Clock_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset11Clock_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a37001bf679e15dfa276070a176789294"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clock_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Clock_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset17Text_Editor_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset17Text_Editor_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset17Text_Editor_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a6b35c8b4b546693f5480b34506e0825d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Text_Editor_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset17Text_Editor_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Paint_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset11Paint_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset11Paint_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a12811d3fc6a36fa300b661534520b165"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Paint_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Paint_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset22Internet_Browser_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset22Internet_Browser_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset22Internet_Browser_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a62b4b48abcb887b93505563fbfeb0ee6"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Internet_Browser_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset22Internet_Browser_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset18Music_Player_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset18Music_Player_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset18Music_Player_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4aa431c99bfcddeaa6f0d15b7f597196e5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Music_Player_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset18Music_Player_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset18Oscilloscope_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset18Oscilloscope_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset18Oscilloscope_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4a880bc904e4a07596cf3ffeed060bd6dc"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Oscilloscope_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset18Oscilloscope_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset14Periodic_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset14Periodic_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset14Periodic_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4ab8ef9a3215b1887d27de8267b00b4525"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Periodic_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset14Periodic_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Piano_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset11Piano_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset11Piano_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4ac7df321fd1c50bec8fc7ff7f6bcb8502"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Piano_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Piano_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset10Pong_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset10Pong_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset10Pong_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4ac30523027b5bca343df166fa5dd27dee"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pong_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset10Pong_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Simon_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset11Simon_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset11Simon_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4ae937a99d3d026c4566a48de72c2e9c22"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Simon_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset11Simon_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class12Pages_Offset16Tiny_Basic_PagesE">
+<span id="_CPPv3N10Xila_Class13Display_Class12Pages_Offset16Tiny_Basic_PagesE"></span><span id="_CPPv2N10Xila_Class13Display_Class12Pages_Offset16Tiny_Basic_PagesE"></span><span class="target" id="class_xila___class_1_1_display___class_1a0b5d3c5200502843f9a7a0ea581c9ed4ac39d554d96b7de6ae0e66bc614caae8a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tiny_Basic_Pages</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class12Pages_Offset16Tiny_Basic_PagesE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4FontE">
+<span id="_CPPv3N10Xila_Class13Display_Class4FontE"></span><span id="_CPPv2N10Xila_Class13Display_Class4FontE"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Font</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4FontE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Font list. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4Font10Regular_16E">
+<span id="_CPPv3N10Xila_Class13Display_Class4Font10Regular_16E"></span><span id="_CPPv2N10Xila_Class13Display_Class4Font10Regular_16E"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a80a5d65aa59f1f6a593e7008e0389800"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Regular_16</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4Font10Regular_16E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Roboto Regular 16 px (+ special character), main font used almost everywhere. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4Font7Mono_16E">
+<span id="_CPPv3N10Xila_Class13Display_Class4Font7Mono_16E"></span><span id="_CPPv2N10Xila_Class13Display_Class4Font7Mono_16E"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a39ecaccad98438c57d2d864f92afc1e9"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Mono_16</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4Font7Mono_16E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Robot Mono 16 px, used for terminals etc. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4Font10Regular_24E">
+<span id="_CPPv3N10Xila_Class13Display_Class4Font10Regular_24E"></span><span id="_CPPv2N10Xila_Class13Display_Class4Font10Regular_24E"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281af305f68dfe93c71023b1f86700f08b38"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Regular_24</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4Font10Regular_24E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Robot Regular 24 px. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4Font10Regular_32E">
+<span id="_CPPv3N10Xila_Class13Display_Class4Font10Regular_32E"></span><span id="_CPPv2N10Xila_Class13Display_Class4Font10Regular_32E"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281ad3b95461bb3cd24bf7262d67bd4628cb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Regular_32</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4Font10Regular_32E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Roboto Regular 32 px . </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class4Font10Regular_48E">
+<span id="_CPPv3N10Xila_Class13Display_Class4Font10Regular_48E"></span><span id="_CPPv2N10Xila_Class13Display_Class4Font10Regular_48E"></span><span class="target" id="class_xila___class_1_1_display___class_1a3ce91234cfaaf25e4039e42c3dd79281a52bb5db557ab811c0deaf2be864b278a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Regular_48</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class4Font10Regular_48E" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Roboto Regular 48 px. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class13Display_ClassEv">
+<span id="_CPPv3N10Xila_Class13Display_Class13Display_ClassEv"></span><span id="_CPPv2N10Xila_Class13Display_Class13Display_ClassEv"></span><span id="Xila_Class::Display_Class::Display_Class"></span><span class="target" id="class_xila___class_1_1_display___class_1af876b6280f411f31fc9f1f7a39b61d55"></span><span class="sig-name descname"><span class="n"><span class="pre">Display_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class13Display_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="../Core.html#class_xila___class_1_1_display___class_1af876b6280f411f31fc9f1f7a39b61d55"><span class="std std-ref">Xila_Class::Display_Class::Display_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_ClassD0Ev">
+<span id="_CPPv3N10Xila_Class13Display_ClassD0Ev"></span><span id="_CPPv2N10Xila_Class13Display_ClassD0Ev"></span><span id="Xila_Class::Display_Class::~Display_Class"></span><span class="target" id="class_xila___class_1_1_display___class_1adde858d4d1bb57962297bc7761efa655"></span><span class="sig-name descname"><span class="n"><span class="pre">~Display_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_ClassD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroy the <a class="reference internal" href="../Core.html#class_xila___class_1_1_display___class_1af876b6280f411f31fc9f1f7a39b61d55"><span class="std std-ref">Xila_Class::Display_Class::Display_Class</span></a> object. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class34Incomming_String_Data_From_DisplayEPKc7uint8_t">
+<span id="_CPPv3N10Xila_Class13Display_Class34Incomming_String_Data_From_DisplayEPKc7uint8_t"></span><span id="_CPPv2N10Xila_Class13Display_Class34Incomming_String_Data_From_DisplayEPKc7uint8_t"></span><span id="Xila_Class::Display_Class::Incomming_String_Data_From_Display__cCP.uint8_t"></span><span class="target" id="class_xila___class_1_1_display___class_1af4e9eeffcd68b5354a84d0400bbcf908"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incomming_String_Data_From_Display</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class34Incomming_String_Data_From_DisplayEPKc7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback function for display incomming string data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Received_Data</strong> – String received data </p></li>
+<li><p><strong>Size</strong> – Size in bytes of received data </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class35Incomming_Numeric_Data_From_DisplayE8uint32_t">
+<span id="_CPPv3N10Xila_Class13Display_Class35Incomming_Numeric_Data_From_DisplayE8uint32_t"></span><span id="_CPPv2N10Xila_Class13Display_Class35Incomming_Numeric_Data_From_DisplayE8uint32_t"></span><span id="Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display__uint32_t"></span><span class="target" id="class_xila___class_1_1_display___class_1a6d37d3e73494d1ec37d691245bfded8b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incomming_Numeric_Data_From_Display</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class35Incomming_Numeric_Data_From_DisplayE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback function for display incomming numeric data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Received_Data</strong> – Received numeric data from the display </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class13Display_Class28Incomming_Event_From_DisplayE7uint8_t">
+<span id="_CPPv3N10Xila_Class13Display_Class28Incomming_Event_From_DisplayE7uint8_t"></span><span id="_CPPv2N10Xila_Class13Display_Class28Incomming_Event_From_DisplayE7uint8_t"></span><span id="Xila_Class::Display_Class::Incomming_Event_From_Display__uint8_t"></span><span class="target" id="class_xila___class_1_1_display___class_1af571914a2dd55645c4b6109284958f70"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incomming_Event_From_Display</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class13Display_Class28Incomming_Event_From_DisplayE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback function for display incomming event. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Event_Code</strong> – Event code </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

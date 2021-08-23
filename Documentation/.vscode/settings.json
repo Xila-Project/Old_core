@@ -7,5 +7,6 @@
         "csv",
         "csv (double quote)",
         "csv (semicolon)"
-    ]
+    ],
+    "restructuredtext.confPath": "${workspaceFolder}\\source"
 }

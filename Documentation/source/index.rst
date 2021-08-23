@@ -10,35 +10,28 @@ Contents
 ========
 
 .. toctree::
-   :caption: Introduction
+   :caption:   Introduction
 
    Presentation <Introduction/Presentation>
 
 .. toctree::
-   :caption: Getting Started   
-   :maxdepth: 2
+   :caption:   Use   
+   :maxdepth:  2
 
-   Use <Getting Started/Use>
-   develop <Getting Started/develop>
-   Contribute <Getting Started/Contribute>
-
-.. toctree::
-   :caption: Configuration
-   :maxdepth: 2
-
-   Basic <Configuration/Basic>
-   Advanced <Configuration/Advanced>
+   Getting Started <Use/Getting Started>
+   Configure <Use/Configure>
 
 .. toctree::
-   :caption: References
-   :maxdepth: 2
+   :caption:   Develop
+   :maxdepth:  2
 
-   Software <Reference/Software>
-   Hardware <Reference/Hardware>
+   Getting Started <Develop/Getting Started>
+   Hardware Reference <Develop/Hardware Reference>
+   Software Reference <Develop/Software Software>
 
 .. toctree::
-   :caption: Miscellaneous
-   :maxdepth: 2
+   :caption:   Miscellaneous
+   :maxdepth:  2
 
    Release notes <Miscellaneous/Release notes>
    About <Miscellaneous/About>
