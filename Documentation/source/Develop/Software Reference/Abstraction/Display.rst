@@ -17,3 +17,12 @@ API Reference
 
 .. doxygenclass::   Xila_Class::Display_Class
     :members:
+
+Example
+=======
+
+.. code-block:: c
+
+    Xila.Display.Set_Current_Page(39);  // -- Change page to 
+
+    Xila.Display.

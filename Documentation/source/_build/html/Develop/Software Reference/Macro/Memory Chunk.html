@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Variable Address Type &mdash; Xila  documentation</title>
+  <title>Memory Chunk Macro Reference &mdash; Xila  documentation</title>
   
 
   
@@ -151,13 +151,13 @@
     
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Variable Address Type</li>
+      <li>Memory Chunk Macro Reference</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../../../_sources/Develop/Software Reference/Types/Address.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../../_sources/Develop/Software Reference/Macro/Memory Chunk.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,30 +170,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="variable-address-type">
-<h1>Variable Address Type<a class="headerlink" href="#variable-address-type" title="Permalink to this headline">¶</a></h1>
-<p>Here you will find a full descrption of the variable adress type.</p>
-<p>The variable address type is used by the core to communicate with software asynchronously.
-A variable is defined by two attributes: its identifier (encoded on 16 bits) as well as its type (the core returns three types of variable: number (64 bits), string and pointer, however it is possible to use custom types).
-This makes it possible in particular to easily return variables from the screen by returning a prefix made up of two characters.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>In order to avoid interfering with the data formatting imposed by the display, please avoid using the values in the identifier: 0x00FF, 0xFF00 and 0xFFFF.</p>
-</div>
+  <div class="section" id="memory-chunk-macro-reference">
+<h1>Memory Chunk Macro Reference<a class="headerlink" href="#memory-chunk-macro-reference" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find informations about the memory chunk macro.</p>
+<p>This macro returns the amount of bytes that match the number of chunk entered (1 chunk = 1024 bytes).</p>
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.Address">
-<span class="target" id="_core_8hpp_1aa0e18d13b6b64bd073a396b847aa5657"></span><span class="sig-name descname"><span class="n"><span class="pre">Address</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span>, <span class="n"><span class="pre">y</span></span><span class="sig-paren">)</span><br /></dt>
-<dd><p>Address conversion macro. </p>
-</dd></dl>
+<dt class="sig sig-object cpp" id="c.Memory_Chunk">
+<span class="target" id="_configuration_8hpp_1a7165a7a4c2d0d8395d0720a50550ae44"></span><span class="sig-name descname"><span class="n"><span class="pre">Memory_Chunk</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Memory_Chunk" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class7AddressE">
-<span id="_CPPv3N10Xila_Class7AddressE"></span><span id="_CPPv2N10Xila_Class7AddressE"></span><span id="Xila_Class::Address"></span><span class="target" id="class_xila___class_1afa8d06d42d3f5c652b39485e319701d6"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Address</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class7AddressE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Xila Address type. </p>
-</dd></dl>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// -- Main software task</span>
+<span class="n">My_Software</span><span class="o">::</span><span class="n">Main_Task</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// -- Do stuff here</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 
+<span class="c1">// -- &quot;My Software&quot; constructor, called when my software is loaded into memory.</span>
+<span class="n">My_Software</span><span class="o">::</span><span class="n">My_Software</span><span class="p">()</span>  <span class="o">:</span> <span class="n">Software</span><span class="p">(</span><span class="n">My_Software_Handle</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// -- Create a task and allocate 4096 bytes (4 * 1024 bytes) of memory for the Main_Task(void*) stack.</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">Main_Task</span><span class="p">,</span> <span class="s">&quot;My Software Task&quot;</span><span class="p">,</span> <span class="n">Memory_Chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -27,7 +27,7 @@ Contents
 
    Getting Started <Develop/Getting Started>
    Hardware Reference <Develop/Hardware Reference>
-   Software Reference <Develop/Software Software>
+   Software Reference <Develop/Software Reference>
 
 .. toctree::
    :caption:   Miscellaneous

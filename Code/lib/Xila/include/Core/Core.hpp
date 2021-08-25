@@ -92,14 +92,19 @@
 //
 
 ///
-/// @brief Instruction conversion macro.
+/// @brief String to 16 bits encoded address conversion macro.
+///
+#define Address(x, y) (x * 256 + y)
+
+///
+/// @brief String to 16 bits encoded instruction conversion macro.
 ///
 #define Instruction(x, y) (x * 256 + y)
 
 ///
-/// @brief Address conversion macro.
+/// @brief Memory chunk macro.
 ///
-#define Address(x, y) (x * 256 + y)
+#define Memory_Chunk(x) (x * 1024)
 
 //----------------------------------------------------------------------------//
 //                         Define Xila Core API                               //
@@ -1471,7 +1476,7 @@ public:
 
     public:
         // -- Task management -- //
-        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void*), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
+        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
         void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
         void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
         void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
@@ -1493,7 +1498,7 @@ public:
             Driver_Task    ///< Driver task (highest priority).
         };
 
-        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void*), const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle);
+        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle);
 
     } Task;
 

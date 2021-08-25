@@ -43,7 +43,6 @@
 #define Default_Watchdog_Timeout 5000
 #define Maximum_Watchdog_Timeout 30000
 #define Default_Instruction_Queue_Size 16
-#define Memory_Chunk(x) (x * 1024)
 #define Default_Software_Name_Length 24
 
 // -- Power
