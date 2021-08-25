@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Sound Abstraction Layer &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Hardware%20Reference.html">Hardware Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Sound Abstraction Layer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Develop/Software Reference/Abstraction/Sound.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sound-abstraction-layer">
+<h1>Sound Abstraction Layer<a class="headerlink" href="#sound-abstraction-layer" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full description of the sound abstraction layer.</p>
+<p>This abstraction layer takes care of everything related to sound like the playback of audio (WAV, MP3, AAC, Stream etc.).
+This API is based on the <a class="reference external" href="https://github.com/schreibfaul1/ESP32-audioI2S">AudioI2S</a> library by <a class="reference external" href="https://github.com/schreibfaul1">Schreibfaul</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AudioI2S</span></code> currently does not have a stable version.</p>
+</div>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_ClassE">
+<span id="_CPPv3N10Xila_Class11Sound_ClassE"></span><span id="_CPPv2N10Xila_Class11Sound_ClassE"></span><span id="Xila_Class::Sound_Class"></span><span class="target" id="class_xila___class_1_1_sound___class"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Sound_Class</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_ClassE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sound class API. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5EventE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5EventE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5EventE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Event</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5EventE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Sound class event type. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event24Failed_To_Get_RTC_PeriodE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event24Failed_To_Get_RTC_PeriodE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event24Failed_To_Get_RTC_PeriodE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ae9cf1abfe8e7341e3356f055e1d71f68"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Failed_To_Get_RTC_Period</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event24Failed_To_Get_RTC_PeriodE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to get ULP processor frequency. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event19Failed_To_Open_FileE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event19Failed_To_Open_FileE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event19Failed_To_Open_FileE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a9d670ce4019937daf9ac4cca99cb20e4"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Failed_To_Open_File</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event19Failed_To_Open_FileE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to open file. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event22Failed_To_Get_MetadataE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event22Failed_To_Get_MetadataE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event22Failed_To_Get_MetadataE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344abecafa4634d1b96301a6a09a3cb4b732"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Failed_To_Get_Metadata</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event22Failed_To_Get_MetadataE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to read file metadata (corrupted). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event26Failed_To_Load_ULP_ProgramE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event26Failed_To_Load_ULP_ProgramE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event26Failed_To_Load_ULP_ProgramE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ac4d89cbc8fe62c8d174357d1e4765a64"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Failed_To_Load_ULP_Program</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event26Failed_To_Load_ULP_ProgramE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to load program into ULP. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event21Failed_To_Create_TaskE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event21Failed_To_Create_TaskE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event21Failed_To_Create_TaskE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a60cab6d8a083c88b08d8d9c3f5647b9f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Failed_To_Create_Task</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event21Failed_To_Create_TaskE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to create sound task. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event18Not_RIFF_CompliantE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event18Not_RIFF_CompliantE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event18Not_RIFF_CompliantE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a18b79bf11d1b2ccc638dbbd35e530db1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Not_RIFF_Compliant</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event18Not_RIFF_CompliantE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Invalid metadata (RIFF). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event18Not_WAVE_CompliantE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event18Not_WAVE_CompliantE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event18Not_WAVE_CompliantE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a44bbe5c06ee9401e53cc7c8270bc75da"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Not_WAVE_Compliant</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event18Not_WAVE_CompliantE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Invalid metadata (WAVE). </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event21Incompatible_Block_IDE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event21Incompatible_Block_IDE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event21Incompatible_Block_IDE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a1a2ac8fab31a728648d375c093de7555"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Incompatible_Block_ID</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event21Incompatible_Block_IDE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Incompatible bloc ID. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event14Not_A_PCM_FileE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event14Not_A_PCM_FileE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event14Not_A_PCM_FileE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a5e3f6e3b6c023d9f6cc9fb69ea478358"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Not_A_PCM_File</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event14Not_A_PCM_FileE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Failed to read a non PCM file. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event21Unsupported_Bit_DepthE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event21Unsupported_Bit_DepthE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event21Unsupported_Bit_DepthE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab2deb53f2c7368e9989ddbbae482cb47"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unsupported_Bit_Depth</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event21Unsupported_Bit_DepthE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unsupported bit depth. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event25Unsupported_Sampling_RateE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event25Unsupported_Sampling_RateE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event25Unsupported_Sampling_RateE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344a3d03222afe09a6cae7d93c45f214b8b1"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unsupported_Sampling_Rate</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event25Unsupported_Sampling_RateE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unsupported sampling rate. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5Event26Unsupported_Channel_NumberE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5Event26Unsupported_Channel_NumberE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5Event26Unsupported_Channel_NumberE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7e4356b3466ffc739f96070ec80bc344ab7b5dcb69064697ea849ca6e52bbbaf8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Unsupported_Channel_Number</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5Event26Unsupported_Channel_NumberE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Unsupported channel number. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5StateE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5StateE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5StateE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5e"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">State</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5StateE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Playing state. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5State7StoppedE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5State7StoppedE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5State7StoppedE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea8a29733d7215952bb234dd129fed8fed"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Stopped</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5State7StoppedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stopped (no file loaded, no task running) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5State7PlayingE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5State7PlayingE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5State7PlayingE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5eae38ff8be87f47eb1fb6361a4b2f5bdcf"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Playing</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5State7PlayingE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Currently playing. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5State6PausedE">
+<span id="_CPPv3N10Xila_Class11Sound_Class5State6PausedE"></span><span id="_CPPv2N10Xila_Class11Sound_Class5State6PausedE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a08388d235452b6a5fc7118854982ae5ea61cab649e8b17418a223039c5906c321"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Paused</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5State6PausedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Paused play. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8ChannelsE">
+<span id="_CPPv3N10Xila_Class11Sound_Class8ChannelsE"></span><span id="_CPPv2N10Xila_Class11Sound_Class8ChannelsE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a58a77b6df69b101e42e00a261a5d9788"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Channels</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8ChannelsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Channel enumeration. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8Channels12Left_ChannelE">
+<span id="_CPPv3N10Xila_Class11Sound_Class8Channels12Left_ChannelE"></span><span id="_CPPv2N10Xila_Class11Sound_Class8Channels12Left_ChannelE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a58a77b6df69b101e42e00a261a5d9788a2d0f49ce16a2d427c95fda5da9144ecb"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Left_Channel</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8Channels12Left_ChannelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Left channel only. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8Channels13Right_ChannelE">
+<span id="_CPPv3N10Xila_Class11Sound_Class8Channels13Right_ChannelE"></span><span id="_CPPv2N10Xila_Class11Sound_Class8Channels13Right_ChannelE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a58a77b6df69b101e42e00a261a5d9788a9029ef990aa59a9fae2d6a678a561635"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Right_Channel</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8Channels13Right_ChannelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Right channel only. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8Channels14Custom_ChannelE">
+<span id="_CPPv3N10Xila_Class11Sound_Class8Channels14Custom_ChannelE"></span><span id="_CPPv2N10Xila_Class11Sound_Class8Channels14Custom_ChannelE"></span><span class="target" id="class_xila___class_1_1_sound___class_1a58a77b6df69b101e42e00a261a5d9788ac4e2a06c36d03c65b40fd9a41f353f75"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Custom_Channel</span></span></span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8Channels14Custom_ChannelE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Custom channel. </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class11Sound_ClassEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class11Sound_ClassEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class11Sound_ClassEv"></span><span id="Xila_Class::Sound_Class::Sound_Class"></span><span class="target" id="class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff"></span><span class="sig-name descname"><span class="n"><span class="pre">Sound_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class11Sound_ClassEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="../Core.html#class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff"><span class="std std-ref">Xila_Class::Sound_Class::Sound_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_ClassD0Ev">
+<span id="_CPPv3N10Xila_Class11Sound_ClassD0Ev"></span><span id="_CPPv2N10Xila_Class11Sound_ClassD0Ev"></span><span id="Xila_Class::Sound_Class::~Sound_Class"></span><span class="target" id="class_xila___class_1_1_sound___class_1a3431aa8f7549a598bba85254013c4766"></span><span class="sig-name descname"><span class="n"><span class="pre">~Sound_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_ClassD0Ev" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Destroy the <a class="reference internal" href="../Core.html#class_xila___class_1_1_sound___class_1ac401ed5c81471a1f908497fe4740fdff"><span class="std std-ref">Xila_Class::Sound_Class::Sound_Class</span></a> object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class12Set_ChannelsE7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class12Set_ChannelsE7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class12Set_ChannelsE7uint8_t"></span><span id="Xila_Class::Sound_Class::Set_Channels__uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a643ab556b5be39e29875551cdf887c3f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Channels</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Channels</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class12Set_ChannelsE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set number of channels. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Channels</strong> – 1 for mono and 2 for stereo sound. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class10Set_VolumeE7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class10Set_VolumeE7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class10Set_VolumeE7uint8_t"></span><span id="Xila_Class::Sound_Class::Set_Volume__uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7bc986ca4b3ba1f00adb1abef3773a83"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Volume</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Volume</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class10Set_VolumeE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set volume. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Volume_To_Set</strong> – Volume level to set (0 - 255). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class10Get_VolumeEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class10Get_VolumeEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class10Get_VolumeEv"></span><span id="Xila_Class::Sound_Class::Get_Volume"></span><span class="target" id="class_xila___class_1_1_sound___class_1a6ff91eed9eb1dd826ad2eba29b31b6c0"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Volume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class10Get_VolumeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current volume level. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint8_t Current volume level (0 - 255) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class11Set_BalanceE7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class11Set_BalanceE7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class11Set_BalanceE7uint8_t"></span><span id="Xila_Class::Sound_Class::Set_Balance__uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a0d825db7c724bfd5f13390443a6cfebe"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Balance</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class11Set_BalanceE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set valance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Balance_To_Set</strong> – Balance level. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4PlayER4File">
+<span id="_CPPv3N10Xila_Class11Sound_Class4PlayER4File"></span><span id="_CPPv2N10Xila_Class11Sound_Class4PlayER4File"></span><span id="Xila_Class::Sound_Class::Play__FileR"></span><span class="target" id="class_xila___class_1_1_sound___class_1a6431df53f50f2a27cb47ccba414083fe"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Play</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">File_To_Play</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4PlayER4File" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that play from file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>File_To_Play</strong> – File to play instance. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>uint8_t </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4PlayEPKcPKcPKc">
+<span id="_CPPv3N10Xila_Class11Sound_Class4PlayEPKcPKcPKc"></span><span id="_CPPv2N10Xila_Class11Sound_Class4PlayEPKcPKcPKc"></span><span id="Xila_Class::Sound_Class::Play__cCP.cCP.cCP"></span><span class="target" id="class_xila___class_1_1_sound___class_1a2e394ab13953021ec402386a7186201d"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Play</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">File_Path_Or_Host</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">User</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Password</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4PlayEPKcPKcPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that play sound from host or file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>File_Path_Or_Host</strong> – File path or host url to play. </p></li>
+<li><p><strong>User</strong> – Username if the host require authentification. </p></li>
+<li><p><strong>Password</strong> – Password if the host require authentification. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if succed to play file. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if failed to play file. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8Set_LoopEb">
+<span id="_CPPv3N10Xila_Class11Sound_Class8Set_LoopEb"></span><span id="_CPPv2N10Xila_Class11Sound_Class8Set_LoopEb"></span><span id="Xila_Class::Sound_Class::Set_Loop__b"></span><span class="target" id="class_xila___class_1_1_sound___class_1ad02b164bf74adfa9db26c15dd8cc56a4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Loop</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Loop</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8Set_LoopEb" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set loop of the current playing file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Loop</strong> – true to enable or false to disable loop. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class13Get_File_SizeEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class13Get_File_SizeEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class13Get_File_SizeEv"></span><span id="Xila_Class::Sound_Class::Get_File_Size"></span><span class="target" id="class_xila___class_1_1_sound___class_1a5c855a39312a84ab9bad2305b07ac1ca"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_File_Size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class13Get_File_SizeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return file size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t File size in bytes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class17Get_File_PositionEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class17Get_File_PositionEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class17Get_File_PositionEv"></span><span id="Xila_Class::Sound_Class::Get_File_Position"></span><span class="target" id="class_xila___class_1_1_sound___class_1a9b79709ed661a82ce94790e8de2de101"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_File_Position</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class17Get_File_PositionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current file position. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t File position in bytes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class17Set_File_PositionE8uint32_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class17Set_File_PositionE8uint32_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class17Set_File_PositionE8uint32_t"></span><span id="Xila_Class::Sound_Class::Set_File_Position__uint32_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a7fcfeca834de583c34beb7ec69e996cf"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_File_Position</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Position</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class17Set_File_PositionE8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set current file position. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Position</strong> – File position in bytes. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if succeed to set file position. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if failed to set file position. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class15Get_Sample_RateEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class15Get_Sample_RateEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class15Get_Sample_RateEv"></span><span id="Xila_Class::Sound_Class::Get_Sample_Rate"></span><span class="target" id="class_xila___class_1_1_sound___class_1a8add6cbbd51db608ef7274d316fe0208"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Sample_Rate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class15Get_Sample_RateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current sample rate. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class18Get_Bit_ResolutionEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class18Get_Bit_ResolutionEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class18Get_Bit_ResolutionEv"></span><span id="Xila_Class::Sound_Class::Get_Bit_Resolution"></span><span class="target" id="class_xila___class_1_1_sound___class_1a1af629df86aeb759e55c4f8d1764cc72"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Bit_Resolution</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class18Get_Bit_ResolutionEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set bit resolution of current playing file / host. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint8_t Bit resolution. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class12Get_ChannelsEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class12Get_ChannelsEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class12Get_ChannelsEv"></span><span id="Xila_Class::Sound_Class::Get_Channels"></span><span class="target" id="class_xila___class_1_1_sound___class_1a98fc3f2fd922a16966195eba90a62009"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Channels</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class12Get_ChannelsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return the number of channels. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint8_t Number of channels (1 for mono, 2 for stereo). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class12Get_Bit_RateEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class12Get_Bit_RateEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class12Get_Bit_RateEv"></span><span id="Xila_Class::Sound_Class::Get_Bit_Rate"></span><span class="target" id="class_xila___class_1_1_sound___class_1a77e994cdb0e81b602cfcb3148c90a726"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Bit_Rate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class12Get_Bit_RateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current bit rate of current playing file. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t Current playing file bit rate. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class8Set_ToneE6int8_t6int8_t6int8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class8Set_ToneE6int8_t6int8_t6int8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class8Set_ToneE6int8_t6int8_t6int8_t"></span><span id="Xila_Class::Sound_Class::Set_Tone__int8_t.int8_t.int8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1ae79eb2862ad0ac2f4e6aa6022664d7c6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Tone</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Gain_Low_Pass</span></span>, <span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Gain_Band_Pass</span></span>, <span class="n"><span class="pre">int8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Gain_High_Pass</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class8Set_ToneE6int8_t6int8_t6int8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set equalizer. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Gain_Low_Pass</strong> – Gain low pass. </p></li>
+<li><p><strong>Gain_Band_Pass</strong> – Gain band pass. </p></li>
+<li><p><strong>Gain_High_Pass</strong> – Gain high pass. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class10Set_OutputE7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class10Set_OutputE7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class10Set_OutputE7uint8_t"></span><span id="Xila_Class::Sound_Class::Set_Output__uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1adacfa9dba68e8750deaef9ec4a3e2d80"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Output</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Output</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class10Set_OutputE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set output. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Output</strong> – Xila_Class::Sound_Class::Internal_DAC / External_DAC </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class6ResumeEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class6ResumeEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class6ResumeEv"></span><span id="Xila_Class::Sound_Class::Resume"></span><span class="target" id="class_xila___class_1_1_sound___class_1ac2c07979f3d278aaf4c24b8df7be0839"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Resume</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class6ResumeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Resume playback. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class5PauseEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class5PauseEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class5PauseEv"></span><span id="Xila_Class::Sound_Class::Pause"></span><span class="target" id="class_xila___class_1_1_sound___class_1af269c6d66abee34fdcb7ff67d1eaf8c5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pause</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class5PauseEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Pause playback. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4MuteEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class4MuteEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class4MuteEv"></span><span id="Xila_Class::Sound_Class::Mute"></span><span class="target" id="class_xila___class_1_1_sound___class_1a5de940e5b1e53e42cb8c5f8b9aa55237"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Mute</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4MuteEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Mute playback. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4StopEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class4StopEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class4StopEv"></span><span id="Xila_Class::Sound_Class::Stop"></span><span class="target" id="class_xila___class_1_1_sound___class_1aeeb2e3bc8757951e2a799af07a649a08"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Stop</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4StopEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Stop playback. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class16Set_Current_TimeE8uint16_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class16Set_Current_TimeE8uint16_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class16Set_Current_TimeE8uint16_t"></span><span id="Xila_Class::Sound_Class::Set_Current_Time__uint16_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a541e4ee0aabb0ab0f931e766178f0487"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Current_Time</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Time</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class16Set_Current_TimeE8uint16_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set current playing time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Time</strong> – Current playing time in seconds. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class16Get_Current_TimeEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class16Get_Current_TimeEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class16Get_Current_TimeEv"></span><span id="Xila_Class::Sound_Class::Get_Current_Time"></span><span class="target" id="class_xila___class_1_1_sound___class_1a11cea489c89cd820f7882919e2c16cc6"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Current_Time</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class16Get_Current_TimeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t Current playing time in seconds. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class12Get_DurationEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class12Get_DurationEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class12Get_DurationEv"></span><span id="Xila_Class::Sound_Class::Get_Duration"></span><span class="target" id="class_xila___class_1_1_sound___class_1af9395bc1662ebec9c8e93a3dbddc8ac2"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Duration</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class12Get_DurationEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return file duration. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t Total playing time in seconds. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class10Set_PinoutE7uint8_t7uint8_t7uint8_t7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class10Set_PinoutE7uint8_t7uint8_t7uint8_t7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class10Set_PinoutE7uint8_t7uint8_t7uint8_t7uint8_t"></span><span id="Xila_Class::Sound_Class::Set_Pinout__uint8_t.uint8_t.uint8_t.uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1ad6c1221f42cd2f9776b670fc738c8f79"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Pinout</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Bit_Clock_Pin</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Frame_Clock_Pin</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Data_Out_Pin</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Data_In_Pin</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">(</span></span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class10Set_PinoutE7uint8_t7uint8_t7uint8_t7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Set pinout of external DAC. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Bit_Clock_Pin</strong> – Bit clock pin. </p></li>
+<li><p><strong>Frame_Clock_Pin</strong> – Frame clock pin. </p></li>
+<li><p><strong>Data_Out_Pin</strong> – Data out pin. </p></li>
+<li><p><strong>Data_In_Pin</strong> – Data in pin. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true if the operation succeed. </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false if the operation failed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class14Get_Total_TimeEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class14Get_Total_TimeEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class14Get_Total_TimeEv"></span><span id="Xila_Class::Sound_Class::Get_Total_Time"></span><span class="target" id="class_xila___class_1_1_sound___class_1acb33994cde05a4c61d09a935075a31bb"></span><span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_Total_Time</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class14Get_Total_TimeEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return total playing time. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>uint32_t Total playing time seconds. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class15Set_Time_OffsetE7int16_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class15Set_Time_OffsetE7int16_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class15Set_Time_OffsetE7int16_t"></span><span id="Xila_Class::Sound_Class::Set_Time_Offset__int16_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1af40099521b6e78fd99c7c18e9c4693fd"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Set_Time_Offset</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">int16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Time</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class15Set_Time_OffsetE7int16_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that set time offset. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Time</strong> – Time offset in seconds. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class9Get_StateEv">
+<span id="_CPPv3N10Xila_Class11Sound_Class9Get_StateEv"></span><span id="_CPPv2N10Xila_Class11Sound_Class9Get_StateEv"></span><span id="Xila_Class::Sound_Class::Get_State"></span><span class="target" id="class_xila___class_1_1_sound___class_1a114b95e43e5f5a3056075b453ee6ec8f"></span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Get_State</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class9Get_StateEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that return current playing state. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>true if audio is playing. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>false if audio is not playing. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4ToneE8uint16_t8uint32_t7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class4ToneE8uint16_t8uint32_t7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class4ToneE8uint16_t8uint32_t7uint8_t"></span><span id="Xila_Class::Sound_Class::Tone__uint16_t.uint32_t.uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1ae4a4eee5c439bcad3d376ef73ef880df"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Tone</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Frequency</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Duration</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Pin</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0xFF</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4ToneE8uint16_t8uint32_t7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that generate a tone. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Frequency</strong> – Frequency of the tone. </p></li>
+<li><p><strong>Duration</strong> – Duration of the tone. </p></li>
+<li><p><strong>Pin</strong> – Output pin of the tone. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class7No_ToneE7uint8_t">
+<span id="_CPPv3N10Xila_Class11Sound_Class7No_ToneE7uint8_t"></span><span id="_CPPv2N10Xila_Class11Sound_Class7No_ToneE7uint8_t"></span><span id="Xila_Class::Sound_Class::No_Tone__uint8_t"></span><span class="target" id="class_xila___class_1_1_sound___class_1a1be5fad06da6086e410dc4dcedaf5e1c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">No_Tone</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Pin</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0xFF</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class7No_ToneE7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A method that disable tone on pin. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Pin</strong> – Pin that disable tone. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class4TaskEPv">
+<span id="_CPPv3N10Xila_Class11Sound_Class4TaskEPv"></span><span id="_CPPv2N10Xila_Class11Sound_Class4TaskEPv"></span><span id="Xila_Class::Sound_Class::Task__voidP"></span><span class="target" id="class_xila___class_1_1_sound___class_1a9e9a1c60f0f755f3377b50db469b3efc"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Task</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class4TaskEPv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Audio driver task. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class11Sound_Class13audio_eof_mp3EPKc">
+<span id="_CPPv3N10Xila_Class11Sound_Class13audio_eof_mp3EPKc"></span><span id="_CPPv2N10Xila_Class11Sound_Class13audio_eof_mp3EPKc"></span><span id="Xila_Class::Sound_Class::audio_eof_mp3__cCP"></span><span class="target" id="class_xila___class_1_1_sound___class_1a41bc3dbfdf579bdb9446f64b46aec9aa"></span><span class="k"><span class="pre">friend</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">audio_eof_mp3</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="p"><span class="pre">*</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N10Xila_Class11Sound_Class13audio_eof_mp3EPKc" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A weak function that automatically stop sound play when file end. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Informations</strong> – </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

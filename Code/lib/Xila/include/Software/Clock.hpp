@@ -122,7 +122,7 @@ private:
     void Add_Alarm();
     void Delete_Alarm();
 
-    void Set_Variable(Xila_Class::Address, uint8_t, const void *);
+    void Set_Variable(Xila_Class::Address Address, uint8_t Type, const void * Data);
 
     uint8_t Selected_Alarm;
 

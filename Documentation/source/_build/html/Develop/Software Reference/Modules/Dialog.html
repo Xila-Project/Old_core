@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Dialog Module &mdash; Xila  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html">
+          
+
+          
+            
+            <img src="../../../_static/Xila.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Hardware%20Reference.html">Hardware Reference</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Xila</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Dialog Module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/Develop/Software Reference/Modules/Dialog.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dialog-module">
+<h1>Dialog Module<a class="headerlink" href="#dialog-module" title="Permalink to this headline">¶</a></h1>
+<p>Here you will find a full descrption of the dialog module.</p>
+<p>This module is responsible for everything related to the dialog boxes.
+When a dialog box is called, the context is then saved, and restored as soon as the user has finished interacting with it.</p>
+<div class="section" id="api-reference">
+<h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_ClassE">
+<span id="_CPPv3N10Xila_Class12Dialog_ClassE"></span><span id="_CPPv2N10Xila_Class12Dialog_ClassE"></span><span id="Xila_Class::Dialog_Class"></span><span class="target" id="class_xila___class_1_1_dialog___class"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Dialog_Class</span></span></span><br /></dt>
+<dd><p>Dialog class. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class5LoginEv">
+<span id="_CPPv3N10Xila_Class12Dialog_Class5LoginEv"></span><span id="_CPPv2N10Xila_Class12Dialog_Class5LoginEv"></span><span id="Xila_Class::Dialog_Class::Login"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a63c137feb657244c19631c2ab1adce41"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Login</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a dialog that allow user to input credentials, which are checked. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class5EventEPK19__FlashStringHelper7uint8_tPK19__FlashStringHelperPK19__FlashStringHelperPK19__FlashStringHelper">
+<span id="_CPPv3N10Xila_Class12Dialog_Class5EventEPK19__FlashStringHelper7uint8_tPK19__FlashStringHelperPK19__FlashStringHelperPK19__FlashStringHelper"></span><span id="_CPPv2N10Xila_Class12Dialog_Class5EventEPK19__FlashStringHelper7uint8_tPK19__FlashStringHelperPK19__FlashStringHelperPK19__FlashStringHelper"></span><span id="Xila_Class::Dialog_Class::Event____FlashStringHelperCP.uint8_t.__FlashStringHelperCP.__FlashStringHelperCP.__FlashStringHelperCP"></span><span class="target" id="class_xila___class_1_1_dialog___class_1aa8adfccf55a976d1390149127162c8e8"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Event</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Message</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_1</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_2</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_3</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">NULL</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open an event dialog. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Message</strong> – Message to show on dialog. </p></li>
+<li><p><strong>Type</strong> – Event dialog type. </p></li>
+<li><p><strong>Button_Text_1</strong> – 1st button string (by default : “Yes”). </p></li>
+<li><p><strong>Button_Text_2</strong> – 2nd button string (by default : “No”). </p></li>
+<li><p><strong>Button_Text_3</strong> – 3rd button string (by default : “Cancel”). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class5EventEPKc7uint8_tPKcPKcPKc">
+<span id="_CPPv3N10Xila_Class12Dialog_Class5EventEPKc7uint8_tPKcPKcPKc"></span><span id="_CPPv2N10Xila_Class12Dialog_Class5EventEPKc7uint8_tPKcPKcPKc"></span><span id="Xila_Class::Dialog_Class::Event__cCP.uint8_t.cCP.cCP.cCP"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a51eb39d80bd0a165854cbd4313eaf583"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Event</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Message</span></span>, <span class="n"><span class="pre">uint8_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_2</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Button_Text_3</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open an event dialog. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Message</strong> – Message to show on dialog. </p></li>
+<li><p><strong>Type</strong> – Event dialog type. </p></li>
+<li><p><strong>Button_Text_1</strong> – 1st button string (by default : “Yes”). </p></li>
+<li><p><strong>Button_Text_2</strong> – 2nd button string (by default : “No”). </p></li>
+<li><p><strong>Button_Text_3</strong> – 3rd button string (by default : “Cancel”). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class12Color_PickerER8uint16_t">
+<span id="_CPPv3N10Xila_Class12Dialog_Class12Color_PickerER8uint16_t"></span><span id="_CPPv2N10Xila_Class12Dialog_Class12Color_PickerER8uint16_t"></span><span id="Xila_Class::Dialog_Class::Color_Picker__uint16_tR"></span><span class="target" id="class_xila___class_1_1_dialog___class_1ad60d7c54fe28aad6b35067ab58a7c8fb"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Color_Picker</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">uint16_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Color</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a color picker dialog, that allow user to choose a color. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Color</strong> – Color reference. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class9Open_FileER4File">
+<span id="_CPPv3N10Xila_Class12Dialog_Class9Open_FileER4File"></span><span id="_CPPv2N10Xila_Class12Dialog_Class9Open_FileER4File"></span><span id="Xila_Class::Dialog_Class::Open_File__FileR"></span><span class="target" id="class_xila___class_1_1_dialog___class_1ad53677ec7e9fabd8cb4dc000582a41f9"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Open_File</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">File_To_Open</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a dialog that allow user to select a file to save from the File Manager. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>File_To_Open</strong> – File reference. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class11Open_FolderER4File">
+<span id="_CPPv3N10Xila_Class12Dialog_Class11Open_FolderER4File"></span><span id="_CPPv2N10Xila_Class12Dialog_Class11Open_FolderER4File"></span><span id="Xila_Class::Dialog_Class::Open_Folder__FileR"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a558b57b244557291751ca5ef16e2fc39"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Open_Folder</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Folder_To_Open</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a dialog that allow user to select a folder to open from the File Manager. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Folder_To_Open</strong> – <strong>[out]</strong> Folder reference. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class9Save_FileER4File">
+<span id="_CPPv3N10Xila_Class12Dialog_Class9Save_FileER4File"></span><span id="_CPPv2N10Xila_Class12Dialog_Class9Save_FileER4File"></span><span id="Xila_Class::Dialog_Class::Save_File__FileR"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a9268e1048075105085b32ce8b0ee50b3"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Save_File</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">File</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">File_To_Save</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a dialog that allow user to select a file to save from the File Manager. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>File_To_Save</strong> – File reference. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class8KeyboardEPc6size_tb">
+<span id="_CPPv3N10Xila_Class12Dialog_Class8KeyboardEPc6size_tb"></span><span id="_CPPv2N10Xila_Class12Dialog_Class8KeyboardEPc6size_tb"></span><span id="Xila_Class::Dialog_Class::Keyboard__cP.s.b"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a0ae353e69629f2144d305891a8e5b46e"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Keyboard</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">String</span></span>, <span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Size</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">189</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Masked_Input</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a virtual keyboard to input text. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>String</strong> – String to input. </p></li>
+<li><p><strong>Size</strong> – String size. </p></li>
+<li><p><strong>Masked_Input</strong> – Enable / disable masking. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class6KeypadERf">
+<span id="_CPPv3N10Xila_Class12Dialog_Class6KeypadERf"></span><span id="_CPPv2N10Xila_Class12Dialog_Class6KeypadERf"></span><span id="Xila_Class::Dialog_Class::Keypad__floatR"></span><span class="target" id="class_xila___class_1_1_dialog___class_1ae75bfcbe123d6eb8cf6fc822fd659aa7"></span><span class="n"><span class="pre">Xila_Class</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Event</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Keypad</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">Number</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a virtual keypad to input a float number. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Number</strong> – Number to input. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Xila_Class::Event </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class5PowerEv">
+<span id="_CPPv3N10Xila_Class12Dialog_Class5PowerEv"></span><span id="_CPPv2N10Xila_Class12Dialog_Class5PowerEv"></span><span id="Xila_Class::Dialog_Class::Power"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a6d8c11cb2492e899a1bd47346b42905c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Power</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a dialog that allow user to change system power state. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class4LoadEPK19__FlashStringHelperPK19__FlashStringHelper8uint32_t">
+<span id="_CPPv3N10Xila_Class12Dialog_Class4LoadEPK19__FlashStringHelperPK19__FlashStringHelper8uint32_t"></span><span id="_CPPv2N10Xila_Class12Dialog_Class4LoadEPK19__FlashStringHelperPK19__FlashStringHelper8uint32_t"></span><span id="Xila_Class::Dialog_Class::Load____FlashStringHelperCP.__FlashStringHelperCP.uint32_t"></span><span class="target" id="class_xila___class_1_1_dialog___class_1a5abfe5aca5da69409c9a025aecfab6e4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Header</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">__FlashStringHelper</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Message</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Duration</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a loading dialog. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Header</strong> – Header string. </p></li>
+<li><p><strong>Message</strong> – Message string. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class4LoadEPKcPKc8uint32_t">
+<span id="_CPPv3N10Xila_Class12Dialog_Class4LoadEPKcPKc8uint32_t"></span><span id="_CPPv2N10Xila_Class12Dialog_Class4LoadEPKcPKc8uint32_t"></span><span id="Xila_Class::Dialog_Class::Load__cCP.cCP.uint32_t"></span><span class="target" id="class_xila___class_1_1_dialog___class_1add750d1d7408b39a1a941bf6920b517f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Load</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Header</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">Message</span></span>, <span class="n"><span class="pre">uint32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">Duration</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Open a load dialog with an animation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Header</strong> – Header string. </p></li>
+<li><p><strong>Message</strong> – Message string. </p></li>
+<li><p><strong>Duration</strong> – Duration in milliseconds (by default 0, the load dialog still displayed until Xila.Dialog.Close_Load() is called). </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class10Close_LoadEv">
+<span id="_CPPv3N10Xila_Class12Dialog_Class10Close_LoadEv"></span><span id="_CPPv2N10Xila_Class12Dialog_Class10Close_LoadEv"></span><span id="Xila_Class::Dialog_Class::Close_Load"></span><span class="target" id="class_xila___class_1_1_dialog___class_1ad30c98a44de1d0cca66c3f753b567a33"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Close_Load</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Close an openned load dialog. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N10Xila_Class12Dialog_Class12Dialog_ClassEv">
+<span id="_CPPv3N10Xila_Class12Dialog_Class12Dialog_ClassEv"></span><span id="_CPPv2N10Xila_Class12Dialog_Class12Dialog_ClassEv"></span><span id="Xila_Class::Dialog_Class::Dialog_Class"></span><span class="target" id="class_xila___class_1_1_dialog___class_1ac9af401cab2f74416ad356103449f4ab"></span><span class="sig-name descname"><span class="n"><span class="pre">Dialog_Class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Construct a new <a class="reference internal" href="#class_xila___class_1_1_dialog___class_1ac9af401cab2f74416ad356103449f4ab"><span class="std std-ref">Xila_Class::Dialog_Class::Dialog_Class</span></a> object. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Alix ANNERAUD.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

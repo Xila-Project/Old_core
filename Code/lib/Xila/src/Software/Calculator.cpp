@@ -104,7 +104,7 @@ void Calculator_Class::Refresh_Keys()
     }
 }
 
-void Calculator_Class::Main_Task(void *pvParameters)
+void Calculator_Class::Main_Task(void *)
 {
     while (1)
     {

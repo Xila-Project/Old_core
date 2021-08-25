@@ -126,4 +126,6 @@ Once finished, just press any key to close the windows.
 
 Finally, copy the ``Drive`` directory contents (not the directory itself) in the root of the SD card.
 
-Then, power up Xila, .
+Then, power up Xila, and once started, an installation form should appear.
+
+After completing it, the desktop should now appear.

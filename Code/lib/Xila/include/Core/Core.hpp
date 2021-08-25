@@ -192,7 +192,7 @@ public:
     ///
     /// @brief Variable type enumeration
     ///
-    enum Variable_Types : uint8_t
+    enum Types : uint8_t
     {
         Variable_Long = 'l',   ///< Long variable (64 bits)
         Variable_String = 's', ///< String variable (char array)
