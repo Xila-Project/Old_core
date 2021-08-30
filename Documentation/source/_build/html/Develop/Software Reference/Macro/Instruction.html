@@ -13,8 +13,6 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -31,7 +29,6 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -87,15 +84,15 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<p class="caption"><span class="caption-text">Use</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Hardware%20Reference.html">Hardware Reference</a></li>
@@ -115,7 +112,7 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
@@ -195,8 +192,8 @@
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.Instruction">
-<span class="target" id="_core_8hpp_1a15b0ebe8d663abdffd08c0346f5ffedc"></span><span class="sig-name descname"><span class="n"><span class="pre">Instruction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span>, <span class="n"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Instruction" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.Instruction">
+<span class="target" id="_core_8hpp_1a15b0ebe8d663abdffd08c0346f5ffedc"></span><code class="sig-name descname"><span class="pre">Instruction</span></code><span class="sig-paren">(</span><em><span class="pre">x</span></em>, <em><span class="pre">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Instruction" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Xila time class. </p>
 <p>Instruction conversion macro. </p>
 </dd></dl>
@@ -204,13 +201,13 @@
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">My_Software::My_Methods</span><span class="p">()</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">My_Methods</span><span class="p">()</span>
 <span class="p">{</span>
 <span class="c1">// -- Do stuff here.</span>
 <span class="p">}</span>
 
 <span class="c1">// -- Main task</span>
-<span class="kt">void</span> <span class="nf">My_Software::Main_Task</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Main_Task</span><span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// -- Infinite loop (a task must never return).</span>
     <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -219,7 +216,7 @@
         <span class="k">switch</span> <span class="p">(</span><span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Get_Instruction</span><span class="p">())</span>
         <span class="p">{</span>
             <span class="c1">// -- Bind &quot;MM&quot; (0x4D4D) instruction with My_Method().</span>
-            <span class="k">case</span> <span class="n">Instrucution</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">,</span> <span class="sc">&#39;M&#39;</span><span class="p">)</span><span class="o">:</span>
+            <span class="k">case</span> <span class="nf">Instrucution</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">,</span> <span class="sc">&#39;M&#39;</span><span class="p">)</span><span class="o">:</span>
                 <span class="n">My_Function</span><span class="p">();</span>
                 <span class="k">break</span><span class="p">;</span>
             <span class="k">default</span><span class="o">:</span>

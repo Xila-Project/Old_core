@@ -166,12 +166,12 @@ uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char 
 }
 
 ///
-/// @brief A method that set valance.
+/// @brief A method that set balance.
 ///
-/// @param Balance_To_Set Balance level.
-void Xila_Class::Sound_Class::Set_Balance(uint8_t Balance_To_Set)
+/// @param Balance Balance level (between -16 and 16).
+void Xila_Class::Sound_Class::Set_Balance(int8_t Balance)
 {
-    Audio_Driver.setBalance(Balance_To_Set);
+    Audio_Driver.setBalance(Balance);
 }
 
 ///

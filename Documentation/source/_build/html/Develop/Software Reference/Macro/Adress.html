@@ -13,8 +13,6 @@
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -31,7 +29,6 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
@@ -85,21 +82,21 @@
               
             
             
-              <p class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+              <p class="caption"><span class="caption-text">Introduction</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Use</span></p>
+<p class="caption"><span class="caption-text">Use</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Develop</span></p>
+<p class="caption"><span class="caption-text">Develop</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Hardware%20Reference.html">Hardware Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Software%20Reference.html">Software Reference</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p class="caption"><span class="caption-text">Miscellaneous</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/Release%20notes.html">Release notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Miscellaneous/About.html">About</a></li>
@@ -177,8 +174,8 @@
 <div class="section" id="api-reference">
 <h2>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp macro">
-<dt class="sig sig-object cpp" id="c.Address">
-<span class="target" id="_core_8hpp_1aa0e18d13b6b64bd073a396b847aa5657"></span><span class="sig-name descname"><span class="n"><span class="pre">Address</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">x</span></span>, <span class="n"><span class="pre">y</span></span><span class="sig-paren">)</span><a class="headerlink" href="#c.Address" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.Address">
+<span class="target" id="_core_8hpp_1aa0e18d13b6b64bd073a396b847aa5657"></span><code class="sig-name descname"><span class="pre">Address</span></code><span class="sig-paren">(</span><em><span class="pre">x</span></em>, <em><span class="pre">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#c.Address" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Address conversion macro. </p>
 </dd></dl>
 
@@ -187,7 +184,7 @@
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">double</span> <span class="n">My_Variable</span><span class="p">;</span>
 
-<span class="kt">void</span> <span class="nf">My_Software::Set_Variable</span><span class="p">(</span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Address</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Type</span> <span class="n">Type</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">Data</span><span class="p">)</span>
+<span class="kt">void</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Set_Variable</span><span class="p">(</span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Address</span> <span class="n">Address</span><span class="p">,</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Type</span> <span class="n">Type</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">Data</span><span class="p">)</span>
 <span class="p">{</span>
     <span class="c1">// -- Binds &quot;MV&quot; (0x4D56) address with My_Variable.</span>
     <span class="k">if</span> <span class="p">(</span><span class="n">Address</span> <span class="o">==</span> <span class="n">Address</span><span class="p">(</span><span class="sc">&#39;M&#39;</span><span class="p">,</span> <span class="sc">&#39;V&#39;</span><span class="p">))</span>

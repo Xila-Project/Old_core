@@ -19,3 +19,31 @@ API Reference
 
 .. doxygenclass::   Xila_Class::Account_Class
     :members:
+
+Example
+=======
+
+.. code-block:: C
+
+    if (Xila.Account.Check_Credentials("User", "Password") == Xila.Success) // -- Check if the credentials are correct.
+    {
+        // -- Do stuff when the credentials are rights.
+    }
+    else
+    {
+        // -- Do stuff when the credentials are wrong.
+    }
+    char Username[9];
+    strlcpy(Username, Xila.Account.Get_Current_Username(), sizeof(Username));   // -- Get username of the current user.
+    if (Xila.Account.Get_State == Xila.Account.Logged)  // -- Check user session state.
+    {
+        // -- Do stuff when user is connected.
+    }
+    else if (Xila.Account.Get_State == Xila.Account.Locked)
+    {
+        // -- Do stuff when user account is locked.
+    }
+    else
+    {
+        // -- Do stuff when no user is connected.
+    }

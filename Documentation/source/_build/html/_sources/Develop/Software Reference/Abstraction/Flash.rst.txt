@@ -9,3 +9,7 @@ API Reference
 
 .. doxygenclass::   Xila_Class::Flash_Class
     :members:
+
+Example
+=======
+

@@ -382,17 +382,8 @@ public:
             Locked
         } Session_State;
 
-        Xila_Class::Event Add(const char *Username, const char *Password);
-        Xila_Class::Event Delete(const char *);
-        Xila_Class::Event Change_Password(const char *, const char *);
-        Xila_Class::Event Change_Username(const char *, const char *);
-        Xila_Class::Event Set_Autologin(bool Enable);
-
         Xila_Class::Event Check_Credentials(const char *, const char *);
-        Xila_Class::Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-        Xila_Class::Event Logout();
-        Xila_Class::Event Lock();
-
+        
         // -- Getter
         const char *Get_Current_Username();
         uint8_t Get_State();
@@ -411,7 +402,19 @@ public:
         ///
         Session_State State;
 
+        // -- Methods
+
+        Xila_Class::Event Add(const char *Username, const char *Password);
+        Xila_Class::Event Delete(const char *);
+        Xila_Class::Event Change_Password(const char *, const char *);
+        Xila_Class::Event Change_Username(const char *, const char *);
+        Xila_Class::Event Set_Autologin(bool Enable);
+        Xila_Class::Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+        Xila_Class::Event Logout();
+        Xila_Class::Event Lock();
+
         // -- Setter
+
         void Set_Current_Username(const char *Username);
         void Set_State(Session_State State);
 
@@ -662,8 +665,6 @@ public:
             Unknow ///< Unknow type.
         } Sd_Card_Type;
 
-        bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
-
         uint64_t Size();
         Sd_Card_Type Type();
 
@@ -703,6 +704,8 @@ public:
 
     protected:
         void End();
+
+        bool Begin(uint8_t Slave_Select_Pin = SS, SPIClass &spi = SPI, uint32_t Frequency = 4000000, const char *Mount_Point = "/sd", uint8_t Maximum_Files = 5);
 
     } Drive;
 
@@ -794,10 +797,10 @@ public:
         {
             Input = 0x01,             ///< Input
             Output = 0x02,            ///< Output
-            Pull_Up = 0x04,           ///< Pull up resitor.
-            Input_Pull_Up = 0x05,     ///< Input with a pull up resitor.
-            Pull_Down = 0x08,         ///< Pull down resitor.
-            Input_Pull_Down = 0x09,   ///< Input with a pull down reistor.
+            Pull_Up = 0x04,           ///< Pull up resistor.
+            Input_Pull_Up = 0x05,     ///< Input with a pull up resistor.
+            Pull_Down = 0x08,         ///< Pull down resistor.
+            Input_Pull_Down = 0x09,   ///< Input with a pull down resistor.
             Open_Drain = 0x10,        ///< Open drain (nothing connected).
             Output_Open_Drain = 0x12, ///< Output with open drain by default.
             Special = 0xF0,           ///< Special
@@ -1130,7 +1133,7 @@ public:
     class Power_Class : public Battery_Class
     {
 
-    public:
+    protected:
         // -- Constructors / Destructors
         Power_Class();
 
@@ -1143,7 +1146,6 @@ public:
         Xila_Class::Event Save_Registry();
         Xila_Class::Event Load_Registry();
 
-    protected:
         // -- Attributes
         ///
         /// @brief Button press counter.
@@ -1240,10 +1242,10 @@ public:
 
         void Set_Channels(uint8_t Channels);
 
-        void Set_Volume(uint8_t Volume); // volume between 0 and 255
+        void Set_Volume(uint8_t Volume);
         uint8_t Get_Volume();
 
-        void Set_Balance(uint8_t);
+        void Set_Balance(int8_t Balance);
 
         uint8_t Play(File &File_To_Play);
         uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
