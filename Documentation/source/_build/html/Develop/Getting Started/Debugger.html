@@ -86,10 +86,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../Getting%20Started.html">Getting Started</a></li>
@@ -186,7 +182,7 @@ However, it is recommended because it allows you to debug software more easily a
 <li><p>A <code class="docutils literal notranslate"><span class="pre">SD</span> <span class="pre">card</span> <span class="pre">reader</span></code>.</p></li>
 <li><p>The latest version of <a class="reference external" href="https://platformio.org/platformio-ide">Platform IO IDE</a>.</p></li>
 <li><p>A configured Xila project.</p></li>
-<li><p>An ESP-Prog (you can also use other debugger, but the process differ slightly, see <a class="reference external" href="https://docs.platformio.org/en/latest/plus/debugging.html">platform io debugging page</a> for more informations).</p></li>
+<li><p>An ESP-Prog (you can also use other debugger, but the process differ slightly, see <a class="reference external" href="https://docs.platformio.org/en/latest/plus/debugging.html">platform io debugging page</a> for more information).</p></li>
 </ul>
 </div>
 <div class="section" id="instructions">
@@ -203,11 +199,10 @@ However, it is recommended because it allows you to debug software more easily a
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Depending on the debugger used as well as the platform, the configuration file may differ slightly.
-See <a class="reference external" href="https://docs.platformio.org/en/latest/plus/debugging.html">platform io debugging page</a> for more informations.</p>
+See <a class="reference external" href="https://docs.platformio.org/en/latest/plus/debugging.html">platform io debugging page</a> for more information.</p>
 </div>
 <p>You can test your installation with the following sketch :</p>
-<blockquote>
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;Xila.hpp&quot;</span><span class="cp"></span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;Xila.hpp&quot;</span><span class="cp"></span>
 
 <span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
 <span class="p">{</span>
@@ -220,7 +215,6 @@ See <a class="reference external" href="https://docs.platformio.org/en/latest/pl
 <span class="p">}</span>
 </pre></div>
 </div>
-</div></blockquote>
 <p>When you launch the compilation or the download of the software, <strong>Platform IO</strong> will take care of installing <strong>Xila</strong> as well as all its dependencies.</p>
 <p>You are now ready to start developing software for <strong>Xila</strong>.
 Consult <span class="xref std std-ref">hardware reference</span> in order to have more details on the functioning of <strong>Xila</strong>.</p>

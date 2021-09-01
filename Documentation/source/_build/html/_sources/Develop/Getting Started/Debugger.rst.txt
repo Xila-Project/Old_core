@@ -21,7 +21,7 @@ You will need the following parts in order to start develop third party software
 * A ``SD card reader``.
 * The latest version of `Platform IO IDE <https://platformio.org/platformio-ide>`_.
 * A configured Xila project.
-* An ESP-Prog (you can also use other debugger, but the process differ slightly, see `platform io debugging page <https://docs.platformio.org/en/latest/plus/debugging.html>`_ for more informations).
+* An ESP-Prog (you can also use other debugger, but the process differ slightly, see `platform io debugging page <https://docs.platformio.org/en/latest/plus/debugging.html>`_ for more information).
 
 Instructions
 ============
@@ -42,23 +42,23 @@ After, add the following line to the ``platformio.ini`` file.
 
 .. note::
     Depending on the debugger used as well as the platform, the configuration file may differ slightly.
-    See `platform io debugging page <https://docs.platformio.org/en/latest/plus/debugging.html>`_ for more informations.
+    See `platform io debugging page <https://docs.platformio.org/en/latest/plus/debugging.html>`_ for more information.
 
 You can test your installation with the following sketch :
 
-    .. code-block:: c
+.. code-block:: c
     
-        #include "Xila.hpp"
+    #include "Xila.hpp"
     
-        void setup()
-        {
-            Xila.System.Start();
-        }
+    void setup()
+    {
+        Xila.System.Start();
+    }
     
-        void loop()
-        {
-            Xila.Task.Delete();
-        }
+    void loop()
+    {
+        Xila.Task.Delete();
+    }
 
 When you launch the compilation or the download of the software, **Platform IO** will take care of installing **Xila** as well as all its dependencies.
 

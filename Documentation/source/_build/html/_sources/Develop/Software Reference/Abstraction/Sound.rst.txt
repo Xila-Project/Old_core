@@ -22,12 +22,11 @@ Example
 
 .. code-block:: C
 
-    if (Xila.Sound.Get_Volume() > 128)  // -- check if the volume is greater than half.
+    if (Xila.Sound.Get_Volume() > 128)  // -- Check if the volume is greater than half.
     {
         Xila.Sound.Set_Volume(128); // -- Set the volume to half.
     }
     Xila.Sound.Set_Balance(0);  // -- Set balance to neutral position.
-
     Xila.Sound.Play("/Music.mp3");  // -- Play a music file from SD.
     Xila.Sound.Set_Loop(true);      // -- Loops playback
     uint32_t File_Size = Xila.Sound.Get_File_Size();            // -- Get current playing file size.
@@ -42,11 +41,7 @@ Example
     Xila.Sound.Set_Current_Time(20);                            // -- Set current playback time to 20 second.
     Xila.Sound.Resume();                                        // -- Resume the playback.
     Xila.Sound.Set_Time_Offset(-5);                             // -- Comes back 5 seconds back.
-    Xila.Sound.Mute();                                          // -- Mute playback.
-    Xila.Sound.Stop();                                          // -- Stop playback
-    
-    
-
-    Xila.Sound.Stop();                                          // -- Stop the playback.
-
-
+    Xila.Sound.Mute();                                          // -- Mute the playback.
+    Xila.Sound.Stop();                                          // -- Stop the playback
+    Xila.Sound.Tone(5000, 200);                                 // -- Generate a 5 kHz tone during 200 ms.
+    Xila.Sound.Tone();                                          // -- Disable tone.

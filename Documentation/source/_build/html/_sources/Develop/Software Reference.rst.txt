@@ -40,7 +40,7 @@ Types
 
 .. toctree::
 
-    Address         <Software Reference/Types/Adress>
+    Address         <Software Reference/Types/Address>
     Event           <Software Reference/Types/Event>
     Image           <Software Reference/Types/Image>
     Instruction     <Software Reference/Types/Instruction>

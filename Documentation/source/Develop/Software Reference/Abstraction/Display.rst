@@ -9,7 +9,7 @@ In addition, this API supports resource protection to avoid data collisions when
 This API rest upon the Nextion Library. For the full API, please visit the library page.
 
 .. warning::
-    Because Nextion displays use a serial interface (UART) to communicate, the exchange and processing of information is slow.
+    Because Nextion displays use a serial interface (U.A.R.T.) to communicate, the exchange and processing of information is slow.
     To avoid saturation of this interface, it is recommended to deport as many commands as possible directly on the display.
 
 API Reference

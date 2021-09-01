@@ -9,4 +9,23 @@ The various functions (for example: event dialogs, file management etc.) of Xila
 API Reference
 ===============
 
-.. doxygentypedef:: Xila_Class::Event
+.. doxygenenum:: Xila_Class::Event
+
+Example
+=======
+
+.. code-block:: C
+
+    if (Xila.Dialog.Event("Event dialog test", Xila.Information) == Xila.Default_Button_Yes)
+    {
+        // -- Do stuff if the "Yes" button was pressed.
+    }
+
+    if (Xila.Account.Check_Credentials("Username", "Password") == Xila.Success)
+    {
+        // -- Do stuff if the credentials are correct.
+    }
+    else
+    {
+        // -- Do stuff if the credentials are invalid.
+    }

@@ -86,10 +86,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -191,6 +187,18 @@ This makes it possible in particular to easily return variables from the screen 
 <dd><p>Xila Address type. </p>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Set_Variable</span><span class="p">(</span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Address</span> <span class="n">Address</span><span class="p">,</span> <span class="kt">uint8_t</span> <span class="n">Type</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span> <span class="o">*</span><span class="n">Data</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">Address</span> <span class="o">==</span> <span class="n">Address</span><span class="p">(</span><span class="sc">&#39;V&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">))</span>   <span class="c1">// -- Check if the address of the variable is equal to &quot;Va&quot;.</span>
+    <span class="p">{</span>
+        <span class="c1">// -- Do stuff.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

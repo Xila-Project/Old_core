@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -200,7 +196,7 @@ In addition, this API supports resource protection to avoid data collisions when
 This API rest upon the Nextion Library. For the full API, please visit the library page.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Because Nextion displays use a serial interface (UART) to communicate, the exchange and processing of information is slow.
+<p>Because Nextion displays use a serial interface (U.A.R.T.) to communicate, the exchange and processing of information is slow.
 To avoid saturation of this interface, it is recommended to deport as many commands as possible directly on the display.</p>
 </div>
 <div class="section" id="api-reference">
@@ -651,15 +647,10 @@ To avoid saturation of this interface, it is recommended to deport as many comma
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Begin</span><span class="p">(</span><span class="mi">921600</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">17</span><span class="p">);</span> <span class="c1">// -- Initialize communication with the screen to 921600 baud at pin 16 and 17.</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Set_Current_Page</span><span class="p">(</span><span class="mi">39</span><span class="p">);</span>  <span class="c1">// -- Change page to 39.</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Draw_Rectangle</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">65535</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>    <span class="c1">// -- Draws a filled rectangle at coordinates (20, 40) with a width of 100 and a length of 200.</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Set_Text</span><span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="s">&quot;Hello World&quot;</span><span class="p">);</span>   <span class="c1">// -- Set &quot;Hello World&quot; text in Text object.</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Set_Brightness</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span> <span class="c1">// -- Set the brightness to half without saving it (display EEPROM).</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Display</span><span class="p">.</span><span class="n">Sleep</span><span class="p">();</span>   <span class="c1">// -- Turn off the display.</span>
 </pre></div>
 </div>

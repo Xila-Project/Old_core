@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -104,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Image.html">Image</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Instruction</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Page.html">Page</a></li>
@@ -215,6 +212,27 @@ Thus, the system commands (see …), or the instructions returned by the screen 
 <dd><p>Xila instruction type. </p>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Main_Task</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>    <span class="c1">// -- Endless loop because task must never return.</span>
+    <span class="p">{</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Get_Instruction</span><span class="p">())</span>
+        <span class="p">{</span>
+        <span class="k">case</span> <span class="nf">Instruction</span><span class="p">(</span><span class="sc">&#39;I&#39;</span><span class="p">,</span> <span class="sc">&#39;n&#39;</span><span class="p">)</span><span class="o">:</span> <span class="c1">// -- Check if the instruction is equal to &quot;In&quot;.</span>
+            <span class="c1">// -- Do stuff.</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>   <span class="c1">// -- Don&#39;t forget to add delay to reset watchdog.</span>
+            <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

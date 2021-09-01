@@ -13,3 +13,23 @@ API Reference
 
 .. doxygenclass:: Xila_Class::Software_Handle
     :members:
+
+Example
+=======
+
+.. code-block:: C
+
+
+    Xila_Class::Software_Handle My_Software_Handle_1("My Software 1", 44, My_Software_1::Load); // -- Create a software handle for "My Software 1"
+    
+    Xila_Class::Software_Handle My_Software_Handle_2("My Software 2", 45, My_Software_2::Load); // -- Create a software handle for "My Software 2"
+
+    if (My_Software_Handle_1 != Software_Handle_2)  // -- Check if software handle are different.
+    {
+        // -- Always true.
+    }
+
+    if (!My_Software_Handle_1.Is_Equal(My_Software_Handle_2))    // -- Another way to check if software handle are different.
+    {
+        // -- Always true.
+    }

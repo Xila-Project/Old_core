@@ -20,7 +20,7 @@ Added
 - Add Get_Cycle_Count to Time module.
 - Add Local IP, Gateway IP, Subnet Mask and DNS manual configuration.
 - Add WiFi automatic reconnection.
-- Add dynamic memory management within Shell (load and unload part of the shell dynamicaly).
+- Add dynamic memory management within Shell (load and unload part of the shell dynamically).
 - Add mathematic features to the API.
 - Add support for external D.A.C.
 - Add Load and Power dialog to the API.
@@ -38,8 +38,8 @@ Changed
 - Change variable Address from 8 bits to 16 bits.
 - Change Xila.Dialog.Dialog_Open_Folder(File&) to Xila.Dialog.Open_Folder(File&).
 - Header refresh is handle by Shell, not by the Core anymore.
-- How core and Shell and Core interracts for Dialogs.
-- Integrate all types, class, enum in Xila_Class (reduce namespace polution).
+- How core and Shell and Core interacts for Dialogs.
+- Integrate all types, class, enum in Xila_Class (reduce namespace pollution).
 
 Removed
 ^^^^^^^

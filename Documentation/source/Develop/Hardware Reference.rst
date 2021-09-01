@@ -3,10 +3,10 @@ Hardware Reference
 ******************
 
 Flexibility being the cornerstone of Xila, it is therefore possible to run Xila on a multitude of different configurations.
-That is why Xila reference hardware is only here as default option for an easy quick start. It is far from perfect, but is accessible to anyone who owns a soldering iron.
+That is why Xila Hardware Development Kit (X.H.D.K.) is only here as default option for an easy quick start. It is far from perfect, but is accessible to anyone who owns a soldering iron.
 So, you can change the design according to your need.
 Currently only the ESP32 based boards and Nextion displays are supported, but that should not last long.
-Here, you will find explaination about the general hardware design of Xila.
+Here, you will find explanation about the general hardware design of Xila.
 
 MCU
 ===
@@ -19,7 +19,7 @@ Display
 =======
 
 The use of a touch screen is possible to be able to interact with Xila.
-Nextion displays are the simplest option for both relieving the MCU of graphics and also allowing rapid development (WYSIWYG IDE).
+Nextion displays are the simplest option for both relieving the MCU of graphical operations (for which MCUs are not suitable) and also allowing rapid development (WYSIWYG IDE).
 They are far from perfect, indeed, it requires a lot of energy, expensive, graphically limited, and does not allow application loading on the go (it is necessary to download the firmware each time the software bundles is modified).
 Other options are currently being studied in order to overcome these various problems.
 However, support for Nextion displays will not be dropped overnight.
@@ -43,8 +43,9 @@ Drive
 =====
 
 Currently Xila relies on the use of SD card.
+The interface can be change to MMC (faster) by putting the jumpers at the top or SPI (save GPIOs) by putting the jumpers at the bottom.
 However, using other media such as SPIFFS could be a good alternative.
-Indeed, this would reduce the use of the inputs and outputs of the ESP32.
+Indeed, this would increase the available inputs and outputs of the ESP32.
 But that would require an adaptation of the code may be necessary in order to limit writes and avoid premature wear of this type of memory.
 Moreover, this storage method does not include any error / bad sector correction unlike SD cards.
 
@@ -53,8 +54,17 @@ Main board
 
 In order to connect all the elements together, a personalized PCB has been designed.
 It remains simple to assemble because it favors surface components.
-The interconnections are made using jumper wire.
-The different interfaces can be used using jumper.
+But its form factor can be improved to gain in compactness.
+The interconnections between elements are made using jumper wire.
+Some of the interfaces can be changed with jumpers, such as communication with SD card or audio output.
+
+Audio
+=====
+
+Xila is able to produce sounds, from files, streams or even tones.
+However, in order to produce sound, it defaults to the built-in DAC.
+Since its quality is poor, it is recommended for better quality to use an external DAC and amplifier such as the MAX98357.
+So, just remove the jumper and connect the DAC with wires.
 
 Case
 ====

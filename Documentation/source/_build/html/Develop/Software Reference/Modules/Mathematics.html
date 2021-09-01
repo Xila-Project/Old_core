@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -104,6 +100,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Dialog.html">Dialog</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Mathematics</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Software%20Management.html">Software Management</a></li>
@@ -635,6 +632,47 @@ Thus, almost any calculations can be performed using this module.</p>
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">char</span> <span class="n">String_To_Convert</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&quot;-3.14&quot;</span><span class="p">;</span>
+<span class="kt">double</span> <span class="n">Number_1</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">String_To_Float</span><span class="p">(</span><span class="n">String_To_Convert</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Is_NAN</span><span class="p">(</span><span class="n">Number_1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>   <span class="c1">// -- Check if Number_1 is a number.</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Is_Infinite</span><span class="p">(</span><span class="n">Number_1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">false</span><span class="p">)</span>  <span class="c1">// -- Check if Number_1 is infinite.</span>
+<span class="p">{</span>
+
+<span class="p">}</span>
+<span class="kt">double</span> <span class="n">Number_2</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">Number_2</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Copy_Sign</span><span class="p">(</span><span class="n">Number_1</span><span class="p">,</span> <span class="n">Number_2</span><span class="p">);</span>      <span class="c1">// -- Copy Number_1 sign to Number_2 (now equal to -2)</span>
+<span class="n">Number_1</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Floor</span><span class="p">(</span><span class="n">Number_1</span><span class="p">);</span>                    <span class="c1">// -- Floor Number_1 (now equal to -3).</span>
+<span class="kt">double</span> <span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Module</span><span class="p">(</span><span class="mi">90</span><span class="p">,</span> <span class="mi">23</span><span class="p">);</span>              <span class="c1">// -- Modulo operation between 90 and 23 (is equal to 21).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Greatest_Common_Divisor</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">36</span><span class="p">);</span>    <span class="c1">// -- Calculate the greatest common divisor between 96 and 36 (is equal to 12).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Least_Common_Multiple</span><span class="p">(</span><span class="mi">96</span><span class="p">,</span> <span class="mi">36</span><span class="p">);</span>      <span class="c1">// -- Calculate the least common multiple between 96 and 36 (is equal to 288).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Radians</span><span class="p">(</span><span class="mi">180</span><span class="p">);</span>                       <span class="c1">// -- Convert 180 degrees to radians (is equal to Pi).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Radians</span><span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Pi</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>     <span class="c1">// -- Convert Pi/2 radians to degrees (is equal to 90°).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Factorial</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>                       <span class="c1">// -- Calculate 16! (is equal to 40 320).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Absolute</span><span class="p">(</span><span class="mi">-6</span><span class="p">);</span>                       <span class="c1">// -- Calculate absolute value of -6 (is equal to 6).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Inverse</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>                         <span class="c1">// -- Calculate the inverse of 2 (is equal to 0.5).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Combination</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>                  <span class="c1">// -- Calculate the number of combination of 4 out of 5 (is equal to 5).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Sine</span><span class="p">((</span><span class="mi">5</span> <span class="o">*</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Pi</span><span class="p">)</span><span class="o">/</span><span class="mi">6</span><span class="p">);</span>      <span class="c1">// -- Calculate the sine of 5*Pi/6 (is equal to -0.5).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Cosine</span><span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Pi</span><span class="p">)</span><span class="o">/</span><span class="mi">3</span><span class="p">);</span>    <span class="c1">// -- Calculate the cosine of 2*Pi/3 (is equal to -0.5).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Tangent</span><span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Pi</span><span class="o">/</span><span class="mi">4</span><span class="p">);</span>         <span class="c1">// -- Calculate the tangent of Pi/4 (is equal to 1).7</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Power</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>                            <span class="c1">// -- Calculate 2^8 (is equal to 256).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Square</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span>                              <span class="c1">// -- Calculate 8² (is equal to 64).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Cube</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>                                <span class="c1">// -- Calculate 3 cubed (is equal to 27).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Root</span><span class="p">(</span><span class="mi">6561</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>                          <span class="c1">// -- Calculate the root of 6561 with a base of 8 (is equal to 3).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Square_Root</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>                         <span class="c1">// -- Calculate the square root of 4 (is equal to 2).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Cubic_Root</span><span class="p">(</span><span class="mi">27</span><span class="p">);</span>                         <span class="c1">// -- Calculate the cubic root of 27 (is equal to 3).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Exponential</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>                         <span class="c1">// -- Calculate exponential of 4 (is equal to 54.59...).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Logarithm</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>                       <span class="c1">// -- Calculate the base 5 logarithm of 20 (is equal to ...).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Natural_Logarithm</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>                  <span class="c1">// -- Calculate the natural logarithm of 36 (is equal to 3.58...).</span>
+<span class="n">Number_3</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Mathematics</span><span class="p">.</span><span class="n">Decimal_Logarithm</span><span class="p">(</span><span class="mi">85</span><span class="p">);</span>                  <span class="c1">// -- Calculate the decimal logarithm of 85 (is equal to 1.92...).</span>
+</pre></div>
+</div>
 </div>
 </div>
 

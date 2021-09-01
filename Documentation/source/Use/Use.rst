@@ -2,7 +2,7 @@
 Use Xila
 ********
 
-Here you will find informations on how to use Xila.
+Here you will find information on how to use Xila.
 
 .. toctree::
 
@@ -10,4 +10,5 @@ Here you will find informations on how to use Xila.
     Desk <Desk>
     Preferences <Preferences>
     File Manager <File Manager>
+    Dialogs <Dialogs>
     

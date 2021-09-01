@@ -14,7 +14,7 @@ Here you will find a full description of the core API.
 Types
 =====
 
-Adress <Types/Address>
+Address <Types/Address>
 
 Event <Types/Event>
 

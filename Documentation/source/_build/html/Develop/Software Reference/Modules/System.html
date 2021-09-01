@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -106,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Software%20Management.html">Software Management</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">System</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Time.html">Time</a></li>
@@ -314,6 +311,32 @@
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;Xila.hpp&quot;</span><span class="cp"></span>
+
+<span class="kt">void</span> <span class="nf">setup</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>    <span class="c1">// -- Start Xila.</span>
+    <span class="kt">char</span> <span class="n">Device_Name</span><span class="p">[</span><span class="mi">25</span><span class="p">];</span>
+    <span class="n">strlcpy</span><span class="p">(</span><span class="n">Device_Name</span><span class="p">,</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_Device_Name</span><span class="p">(),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Device_Name</span><span class="p">));</span>   <span class="c1">// -- Get device name.</span>
+    <span class="kt">uint64_t</span> <span class="n">eFuse_MAC</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_eFuse_MAC</span><span class="p">();</span>                           <span class="c1">// -- Get hardware MAC address.</span>
+    <span class="kt">char</span> <span class="n">Chip_Model</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="n">strlcpy</span><span class="p">(</span><span class="n">Chip_Model</span><span class="p">,</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_Chip_Model</span><span class="p">(),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Chip_Model</span><span class="p">));</span>      <span class="c1">// -- Get chip model.</span>
+    <span class="kt">uint32_t</span> <span class="n">Chip_Cores</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_Chip_Cores</span><span class="p">();</span>                         <span class="c1">// -- Get the amount of cores.</span>
+    <span class="kt">uint32_t</span> <span class="n">CPU_Frequency</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_CPU_Frequency</span><span class="p">();</span>                   <span class="c1">// -- Get CPU frequency.</span>
+    <span class="kt">char</span> <span class="n">SDK_Version</span><span class="p">[</span><span class="mi">32</span><span class="p">];</span>
+    <span class="n">strlcpy</span><span class="p">(</span><span class="n">SDK_Version</span><span class="p">,</span> <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Get_SDK_Version</span><span class="p">(),</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">SDK_Version</span><span class="p">));</span>   <span class="c1">// -- Get SDK version.</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Refresh_Header</span><span class="p">();</span>   <span class="c1">// -- Refresh header bar.</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Shutdown</span><span class="p">();</span>         <span class="c1">// -- Shutdown Xila.</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Restart</span><span class="p">();</span>          <span class="c1">// -- Restart Xila.</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">System</span><span class="p">.</span><span class="n">Hibernate</span><span class="p">();</span>        <span class="c1">// -- Hibernate Xila.</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">loop</span><span class="p">();</span>
+</pre></div>
+</div>
 </div>
 </div>
 

@@ -1,6 +1,6 @@
-***********************
-Get Started To Use Xila
-***********************
+**********
+Setup Xila
+**********
 
 Here you will find how to get started with Xila hardware and software.
 
@@ -10,16 +10,16 @@ Hardware
 Requirements
 ------------
 
-In order build the reference harware kit, you will need the following parts :
+In order build the Xila Hardware Development Kit, you will need the following parts :
 
 .. csv-table::
     :header-rows:   1
     :file:          
 
-If you can also buy here pre-built reference kit here, or the assembled PCB.
+If you can also buy here pre-built Hardware Development Kit here, or the assembled PCB, in order to avoid soldering.
 
-Intructions
------------
+Instructions
+------------
 
 PCB Assembly
 ^^^^^^^^^^^^
@@ -32,7 +32,7 @@ PCB Assembly
   * Button
   * Interface connector
   * Headers
-  * Mosfet transitor
+  * MOSFET transistor
 
 * Clean the PCB using isopropyl alcohol.
 
@@ -47,7 +47,7 @@ Case Printing
   * Adhesion : Yes (Brim)
   * Support : Yes
   * Infill : 40 %
-  * Wall thinckness 3.0 mm
+  * Wall thickness 3.0 mm
 
 * Other parameters depend on the filament you will be using, however it is recommended to use PETG.
 
@@ -107,7 +107,7 @@ Instructions
 ------------
 
 .. warning::
-    In order to do not distrurb the upload process, it's highly recommend to disconnect all other serial adaptaters than the related ESP32.
+    In order to do not disturb the upload process, it's highly recommend to disconnect all other serial adapters than the related ESP32.
 
 Firstly, decompress the downloaded ``Installer.zip`` archive in an empty folder. You will find the following file structure :
 
@@ -118,14 +118,18 @@ Firstly, decompress the downloaded ``Installer.zip`` archive in an empty folder.
     └── Xila Installer.py
 
     
-Then, open the ``Xila Install.py`` script and connect the targetted **ESP32** on the comptuer.
+Then, open the ``Xila Install.py`` script and connect the targeted **ESP32** on the compurer.
 After pressing ``Y``, it will start to install ``esptool`` and ``setuptools``.
 This process could take sometimes depending on your internet connection.
-When the download succeed, it will start esptool which will automaticaly load Xila on the connected ESP32.
+When the download succeed, it will start esptool which will automatically load Xila on the connected ESP32.
 Once finished, just press any key to close the windows.
 
 Finally, copy the ``Drive`` directory contents (not the directory itself) in the root of the SD card.
 
 Then, power up Xila, and once started, an installation form should appear.
 
+.. image:: Install.*
+
 After completing it, the desktop should now appear.
+
+.. image:: Desk.*

@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -106,6 +102,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Page.html">Page</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Software Handle</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="Software.html">Software</a></li>
@@ -253,6 +250,24 @@ They are in a way the identity cards of the software.</p>
 </div>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software_Handle</span> <span class="n">My_Software_Handle_1</span><span class="p">(</span><span class="s">&quot;My Software 1&quot;</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="n">My_Software_1</span><span class="o">::</span><span class="n">Load</span><span class="p">);</span> <span class="c1">// -- Create a software handle for &quot;My Software 1&quot;</span>
+
+<span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software_Handle</span> <span class="n">My_Software_Handle_2</span><span class="p">(</span><span class="s">&quot;My Software 2&quot;</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="n">My_Software_2</span><span class="o">::</span><span class="n">Load</span><span class="p">);</span> <span class="c1">// -- Create a software handle for &quot;My Software 2&quot;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">My_Software_Handle_1</span> <span class="o">!=</span> <span class="n">Software_Handle_2</span><span class="p">)</span>  <span class="c1">// -- Check if software handle are different.</span>
+<span class="p">{</span>
+    <span class="c1">// -- Always true.</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">My_Software_Handle_1</span><span class="p">.</span><span class="n">Is_Equal</span><span class="p">(</span><span class="n">My_Software_Handle_2</span><span class="p">))</span>    <span class="c1">// -- Another way to check if software handle are different.</span>
+<span class="p">{</span>
+    <span class="c1">// -- Always true.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

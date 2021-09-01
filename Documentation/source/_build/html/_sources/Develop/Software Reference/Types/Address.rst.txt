@@ -17,3 +17,16 @@ API Reference
 .. doxygendefine:: Address
 
 .. doxygentypedef:: Xila_Class::Address
+
+Example
+=======
+
+.. code-block:: C
+
+    void My_Software::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Data)
+    {
+        if (Address == Address('V', 'a'))   // -- Check if the address of the variable is equal to "Va".
+        {
+            // -- Do stuff.
+        }
+    }

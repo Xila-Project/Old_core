@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -736,12 +732,11 @@ This API is based on the <a class="reference external" href="https://github.com/
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Get_Volume</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">)</span>  <span class="c1">// -- check if the volume is greater than half.</span>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Get_Volume</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">128</span><span class="p">)</span>  <span class="c1">// -- Check if the volume is greater than half.</span>
 <span class="p">{</span>
     <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Set_Volume</span><span class="p">(</span><span class="mi">128</span><span class="p">);</span> <span class="c1">// -- Set the volume to half.</span>
 <span class="p">}</span>
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Set_Balance</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>  <span class="c1">// -- Set balance to neutral position.</span>
-
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Play</span><span class="p">(</span><span class="s">&quot;/Music.mp3&quot;</span><span class="p">);</span>  <span class="c1">// -- Play a music file from SD.</span>
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Set_Loop</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>      <span class="c1">// -- Loops playback</span>
 <span class="kt">uint32_t</span> <span class="n">File_Size</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Get_File_Size</span><span class="p">();</span>            <span class="c1">// -- Get current playing file size.</span>
@@ -756,12 +751,10 @@ This API is based on the <a class="reference external" href="https://github.com/
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Set_Current_Time</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>                            <span class="c1">// -- Set current playback time to 20 second.</span>
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Resume</span><span class="p">();</span>                                        <span class="c1">// -- Resume the playback.</span>
 <span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Set_Time_Offset</span><span class="p">(</span><span class="mi">-5</span><span class="p">);</span>                             <span class="c1">// -- Comes back 5 seconds back.</span>
-<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Mute</span><span class="p">();</span>                                          <span class="c1">// -- Mute playback.</span>
-<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>                                          <span class="c1">// -- Stop playback</span>
-
-
-
-<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>                                          <span class="c1">// -- Stop the playback.</span>
+<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Mute</span><span class="p">();</span>                                          <span class="c1">// -- Mute the playback.</span>
+<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>                                          <span class="c1">// -- Stop the playback</span>
+<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Tone</span><span class="p">(</span><span class="mi">5000</span><span class="p">,</span> <span class="mi">200</span><span class="p">);</span>                                 <span class="c1">// -- Generate a 5 kHz tone during 200 ms.</span>
+<span class="n">Xila</span><span class="p">.</span><span class="n">Sound</span><span class="p">.</span><span class="n">Tone</span><span class="p">();</span>                                          <span class="c1">// -- Disable tone.</span>
 </pre></div>
 </div>
 </div>

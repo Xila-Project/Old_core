@@ -88,10 +88,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
-<p class="caption"><span class="caption-text">Use</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../Use/Getting%20Started.html">Getting Started</a></li>
-</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -216,7 +212,69 @@ Indeed, this type of allocation block a part of the memory and will never be dea
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software_Handle</span> <span class="n">My_Software_Handle</span><span class="p">;</span>
+
+<span class="n">class</span> <span class="nl">My_Software</span> <span class="p">:</span> <span class="n">public</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software</span>
+<span class="p">{</span>
+<span class="nl">private</span><span class="p">:</span>
+    <span class="k">static</span> <span class="n">My_Software</span><span class="o">*</span> <span class="n">Instance_Pointer</span><span class="p">;</span>   <span class="c1">// -- Instance pointer for static function like tasks.</span>
+
+<span class="nl">public</span><span class="p">:</span>
+
+    <span class="k">static</span> <span class="kt">void</span> <span class="n">Main_Task</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">switch</span> <span class="p">(</span><span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Get_Instruction</span><span class="p">())</span>    <span class="c1">// -- Get instruction from the instruction queue.</span>
+            <span class="p">{</span>
+            <span class="k">case</span> <span class="n">Xila</span><span class="p">.</span><span class="nl">Idle</span><span class="p">:</span> <span class="c1">// -- Instruction when no instruction is available.</span>
+                <span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Send_Instruction</span><span class="p">(</span><span class="sc">&#39;T&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">);</span>   <span class="c1">// -- Send the instruction &quot;Te&quot; to the instruction queue.</span>
+                <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>   <span class="c1">// -- Don&#39;t forget to let compute time to other software.</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="nf">Instruction</span><span class="p">(</span><span class="sc">&#39;T&#39;</span><span class="p">,</span> <span class="sc">&#39;e&#39;</span><span class="p">)</span><span class="o">:</span> <span class="c1">// -- Instruction &quot;Te&quot;</span>
+                <span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Set_Watchdog_Timeout</span><span class="p">(</span><span class="mi">30000</span><span class="p">);</span>  <span class="c1">// -- Set watchdog timeout to maximum (30 seconds), will automatically reset to 5 seconds when delay is called.</span>
+                <span class="c1">// -- Do a long task here.</span>
+                <span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Send_Instruction</span><span class="p">(</span><span class="sc">&#39;S&#39;</span><span class="p">,</span> <span class="sc">&#39;V&#39;</span><span class="p">);</span>   <span class="c1">// -- Send the instruction &quot;SV&quot; to the instruction queue.</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">case</span> <span class="nf">Instruction</span><span class="p">(</span><span class="sc">&#39;S&#39;</span><span class="p">,</span> <span class="sc">&#39;V&#39;</span><span class="p">)</span><span class="o">:</span> <span class="c1">// -- Instruction &quot;SV&quot;</span>
+                <span class="p">{</span>
+                    <span class="kt">long</span> <span class="n">Variable_To_Send</span> <span class="o">=</span> <span class="mi">18</span><span class="p">;</span>
+                    <span class="n">Instance_Pointer</span><span class="o">-&gt;</span><span class="n">Set_Variable</span><span class="p">(</span><span class="n">Address</span><span class="p">(</span><span class="sc">&#39;V&#39;</span><span class="p">,</span> <span class="sc">&#39;a&#39;</span><span class="p">),</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Variable_Long</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Variable_To_Send</span><span class="p">);</span>    <span class="c1">// -- Set a long variable at the address &quot;Va&quot; with the value 18.</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software</span><span class="o">*</span> <span class="n">Load</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Instance_Pointer</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">delete</span> <span class="n">Instance_Pointer</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">Instance_Pointer</span> <span class="o">=</span> <span class="n">new</span> <span class="n">My_Software</span><span class="p">();</span>
+        <span class="k">return</span> <span class="n">Instance_Pointer</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">My_Software</span><span class="p">()</span> <span class="o">:</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software</span><span class="p">(</span><span class="n">My_Software_Handle</span><span class="p">)</span>    <span class="c1">// -- Constructor</span>
+    <span class="p">{</span>
+        <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">Main_Task</span><span class="p">,</span> <span class="s">&quot;My Software Task&quot;</span><span class="p">,</span> <span class="n">Memory_Chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Task_Handle</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="o">~</span><span class="n">My_Software</span><span class="p">()</span>  <span class="c1">// -- Destructor</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">Instance_Pointer</span> <span class="o">!=</span> <span class="n">this</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">delete</span> <span class="n">Instance_Pointer</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">Instance_Pointer</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software_Handle</span> <span class="n">My_Software_Handle</span><span class="p">(</span><span class="s">&quot;My Software&quot;</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Load</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
