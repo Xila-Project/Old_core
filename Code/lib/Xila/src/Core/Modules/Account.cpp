@@ -191,9 +191,9 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_
 {
   char Temporary_Path[20];
   char Temporary_Target_Path[20];
-  strcpy(Temporary_Path, Users_Directory_Path);
+  strlcpy(Temporary_Path, Users_Directory_Path, sizeof(Temporary_Path));
   strlcat(Temporary_Path, "/", sizeof(Temporary_Path));
-  strcpy(Temporary_Target_Path, Temporary_Path);
+  strlcpy(Temporary_Target_Path, Temporary_Path, sizeof(Temporary_Path));
   strlcat(Temporary_Target_Path, Target_User, sizeof(Temporary_Target_Path));
   strlcat(Temporary_Path, New_Username, sizeof(Temporary_Path));
   if (!Xila.Drive.Rename(Temporary_Target_Path, Temporary_Path))
@@ -313,7 +313,7 @@ Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check
     }
   }
   //
-  strcpy(Current_Username, Username_To_Check);
+  strlcpy(Current_Username, Username_To_Check, sizeof(Current_Username));
   State = Logged;
   return Success;
 }

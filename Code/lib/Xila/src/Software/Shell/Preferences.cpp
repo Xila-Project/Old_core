@@ -17,13 +17,13 @@ Shell_Class::Preferences_Class::Preferences_Class()
 {
     // -- Account
     Autologin = false;
-    strcpy(Username, Xila.Account.Get_Current_Username());
+    strlcpy(Username, Xila.Account.Get_Current_Username(), sizeof(Username));
     memset(Password_1, '\0', sizeof(Password_1));
     memset(Password_2, '\0', sizeof(Password_2));
 
     memset(Target_Username, '\0', sizeof(Username));
     memset(Name, '\0', sizeof(Name));
-    strcpy(Name, Xila.System.Get_Device_Name());
+    strlcpy(Name, Xila.System.Get_Device_Name(), sizeof(Name));
 
     // -- Network
     strlcpy(WiFi_Name, Xila.WiFi.SSID().c_str(), sizeof(WiFi_Name));
@@ -37,7 +37,7 @@ Shell_Class::Preferences_Class::Preferences_Class()
 
     // -- Time
     memset(NTP_Server, '\0', sizeof(NTP_Server));
-    strcpy(NTP_Server, Xila.Time.NTP_Server);
+    strlcpy(NTP_Server, Xila.Time.NTP_Server, sizeof(NTP_Server));
     GMT_Offset = Xila.Time.GMT_Offset;
     Daylight_Offset = Xila.Time.Daylight_Offset;
 

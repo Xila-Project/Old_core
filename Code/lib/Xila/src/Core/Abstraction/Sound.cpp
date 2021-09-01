@@ -138,9 +138,9 @@ uint8_t Xila_Class::Sound_Class::Get_Volume()
 /// @brief A method that play sound from host or file.
 ///
 /// @param File_Path_Or_Host File path or host url to play.
-/// @param User Username if the host require authentification.
-/// @param Password Password if the host require authentification.
-/// @return true if succed to play file.
+/// @param User Username if the host require authentication.
+/// @param Password Password if the host require authentication.
+/// @return true if succeed to play file.
 /// @return false if failed to play file.
 uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const char *Password)
 {
@@ -403,11 +403,6 @@ uint8_t Xila_Class::Sound_Class::Get_Channels()
 uint32_t Xila_Class::Sound_Class::Get_Bit_Rate()
 {
     return Audio_Driver.getBitRate();
-}
-
-void Xila_Class::Sound_Class::Set_Balance(int8_t Balance)
-{
-    Audio_Driver.setBalance(Balance);
 }
 
 ///

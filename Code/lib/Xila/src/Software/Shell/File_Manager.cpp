@@ -41,7 +41,7 @@ void Shell_Class::File_Manager_Class::Open(uint8_t Mode)
     FILE_MANAGER->Mode = Mode;
     Xila.Display.Set_Current_Page(SHELL->Pages.File_Manager_Main);
     memset(FILE_MANAGER->Current_Path, '\0', sizeof(FILE_MANAGER->Current_Path));
-    strcpy(FILE_MANAGER->Current_Path, "/");
+    strlcpy(FILE_MANAGER->Current_Path, "/", sizeof(FILE_MANAGER->Current_Path));
 
     FILE_MANAGER->Refresh();
 }
@@ -291,7 +291,7 @@ void Shell_Class::File_Manager_Class::Copy_Item()
 
 void Shell_Class::File_Manager_Class::Create_File()
 {
-    strcpy(Current_Item_Name, "NEWFILE .TXT");
+    strlcpy(Current_Item_Name, "NEWFILE .TXT", sizeof(Current_Item_Name));
     for (uint8_t i = 0; i <= 10; i++)
     {
         if (i < 10)
@@ -317,7 +317,7 @@ void Shell_Class::File_Manager_Class::Create_File()
 
 void Shell_Class::File_Manager_Class::Create_Folder()
 {
-    strcpy(Current_Item_Name, "NEWDIRE ");
+    strlcpy(Current_Item_Name, "NEWDIRE ", sizeof(Current_Item_Name));
     for (uint8_t i = 0; i <= 10; i++)
     {
         if (i < 10)
@@ -458,8 +458,8 @@ void Shell_Class::File_Manager_Class::Refresh()
                     {
                         if (i == 10)
                         {
-                            strcpy(Temporary_Item_Name, "ITEM  _TXT");
-                            strcpy(Temporary_Item_Picture, "ITEM  _PIC");
+                            strlcpy(Temporary_Item_Name, "ITEM  _TXT", sizeof(Temporary_Item_Name));
+                            strlcpy(Temporary_Item_Picture, "ITEM  _PIC", sizeof(Temporary_Item_Picture));
                         }
 
                         Temporary_Item_Name[4] = '1';

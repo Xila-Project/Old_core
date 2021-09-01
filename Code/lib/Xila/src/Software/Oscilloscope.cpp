@@ -400,11 +400,11 @@ void Oscilloscope_Class::Refresh_Interface()
 		Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 0"));
 		Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Blue);
 
-		strcpy(Temporary_Char_Array, "Range: ");
+		strlcpy(Temporary_Char_Array, "Range: ", sizeof(Temporary_Char_Array));
 		strcat(Temporary_Char_Array, Ranges[range0]);
 		strcat(Temporary_Char_Array, "/D");
 		Xila.Display.Set_Text(F("RANGE_TXT"), Temporary_Char_Array);
-		strcpy(Temporary_Char_Array, "Mode: ");
+		strlcpy(Temporary_Char_Array, "Mode: ", sizeof(Temporary_Char_Array));
 		strcat(Temporary_Char_Array, Modes[ch0_mode]);
 		Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
 		sprintf(Temporary_Char_Array, "Offset: %i", ch0_off);
@@ -418,11 +418,11 @@ void Oscilloscope_Class::Refresh_Interface()
 		Xila.Display.Set_Text(F("CHANNEL_TXT"), F("Channel 1"));
 		Xila.Display.Set_Background_Color(F("CHANNEL_TXT"), Xila.Display.Yellow);
 
-		strcpy(Temporary_Char_Array, "Range: ");
+		strlcpy(Temporary_Char_Array, "Range: ", sizeof(Temporary_Char_Array));
 		strcat(Temporary_Char_Array, Ranges[range1]);
 		strcat(Temporary_Char_Array, "/D");
 		Xila.Display.Set_Text(F("RANGE_TXT"), Temporary_Char_Array);
-		strcpy(Temporary_Char_Array, "Mode: ");
+		strlcpy(Temporary_Char_Array, "Mode: ", sizeof(Temporary_Char_Array));
 		strcat(Temporary_Char_Array, Modes[ch1_mode]);
 		Xila.Display.Set_Text(F("MODE_TXT"), Temporary_Char_Array);
 		sprintf(Temporary_Char_Array, "Offset: %i", ch1_off);
@@ -432,7 +432,7 @@ void Oscilloscope_Class::Refresh_Interface()
 		Xila.Display.Set_Text(F("PIN_TXT"), Temporary_Char_Array);
 	}
 
-	strcpy(Temporary_Char_Array, "Rate: ");
+	strlcpy(Temporary_Char_Array, "Rate: ", sizeof(Temporary_Char_Array));
 	strcat(Temporary_Char_Array, Rates[rate]);
 
 	Xila.Display.Set_Text(F("RATE_TXT"), Temporary_Char_Array);

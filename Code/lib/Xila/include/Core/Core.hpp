@@ -25,7 +25,7 @@
 
 #else
 
-#error Xila requires a C++ complier, pleas echange file extension to .cc or .cpp
+#error Xila requires a C++ complier, pleasr change file extension to .cpp
 
 #endif
 
@@ -186,7 +186,7 @@ public:
         Dialog_Open_Folder = 'F',  // Open open folder dialog
         Dialog_Save_File = 'e',    // Open save file dialog
         Dialog_Keyboard = 'K',     // Open keyboard dialog
-        Dialog_Keypad = 'k',       // Open keyapd dialog
+        Dialog_Keypad = 'k',       // Open keypad dialog
         Dialog_Color_Picker = 'c', // Open color picker dialog
         Dialog_Power = 'P',        // Open power dialog
         Dialog_Event = 'E',        // Open event dialog
@@ -349,7 +349,7 @@ public:
 
         ///
         /// @brief Function pointer that is called by Xila at startup.
-        /// @details That is usefull when you whan to start a background task, or launch your application at the startup.
+        /// @details That is usefull to start a background task, or launch your application at the startup.
         ///
         void (*Startup_Function_Pointer)();
 
@@ -383,7 +383,7 @@ public:
         } Session_State;
 
         Xila_Class::Event Check_Credentials(const char *, const char *);
-        
+
         // -- Getter
         const char *Get_Current_Username();
         uint8_t Get_State();
@@ -511,9 +511,9 @@ public:
         uint8_t Get_State();
 
         ///
-        /// @brief Prefixs used to differienciate exchanged data between display, core and software
+        /// @brief Prefix used to distinguish exchanged data between display, core and software
         ///
-        enum Prefixs
+        enum Prefix
         {
             Instruction = '#',
             Variable_String = 's',
@@ -593,7 +593,7 @@ public:
         };
 
         ///
-        /// @brief Software pages offset enurmeration.
+        /// @brief Software pages offset enumeration.
         ///
         enum Pages_Offset
         {
@@ -625,9 +625,9 @@ public:
             Regular_48      ///< Roboto Regular 48 px.
         };
 
-        static void Incomming_String_Data_From_Display(const char *, uint8_t);
-        static void Incomming_Numeric_Data_From_Display(uint32_t);
-        static void Incomming_Event_From_Display(uint8_t);
+        static void Incoming_String_Data_From_Display(const char *, uint8_t);
+        static void Incoming_Numeric_Data_From_Display(uint32_t);
+        static void Incoming_Event_From_Display(uint8_t);
 
         friend class Xila_Class;
         friend class Shell_Class;
@@ -1066,7 +1066,7 @@ public:
         double Tangent(double Number);
         double Secant(double Number);
         double Cosecant(double Number);
-        double Cotangeant(double Number);
+        double Cotangent(double Number);
 
         double Arc_Sine(double Number);
         double Arc_Cosine(double Number);
@@ -1103,6 +1103,10 @@ public:
         double Binary_Logarithm(double Number);
         double Natural_Logarithm(double Number);
         double Decimal_Logarithm(double Number);
+
+        uint32_t Random() const;
+        uint32_t Random(uint32_t Upper_Bound) const;
+        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound) const;
 
     } Mathematics;
 
@@ -1222,7 +1226,7 @@ public:
 
         uint8_t Seek_Open_Software_Handle(Xila_Class::Software_Handle const &Software_Handle);
 
-        uint8_t ftware_Handle(Xila_Class::Software_Handle const &);
+        uint8_t Get_Software_Handle(Xila_Class::Software_Handle const &);
         void Add_Handle(Xila_Class::Software_Handle &);
 
         Xila_Class::Event Force_Close(Xila_Class::Software_Handle const &Software_Handle);
@@ -1244,8 +1248,6 @@ public:
 
         void Set_Volume(uint8_t Volume);
         uint8_t Get_Volume();
-
-        void Set_Balance(int8_t Balance);
 
         uint8_t Play(File &File_To_Play);
         uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
@@ -1398,7 +1400,6 @@ public:
 
         // -- Methods
         const char *Get_Device_Name();
-
         uint64_t Get_eFuse_MAC();
         uint8_t Get_Chip_Revision();
         const char *Get_Chip_Model();
@@ -1412,10 +1413,6 @@ public:
         void Shutdown();
         void Restart();
         void Hibernate();
-
-        uint32_t Random() const;
-        uint32_t Random(uint32_t Upper_Bound) const;
-        uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound) const;
 
         void Refresh_Header();
 
@@ -1432,7 +1429,7 @@ public:
         ///
         /// @brief Device name used as Network hostname ...
         ///
-        char Device_Name[24];
+        char Device_Name[25];
 
         // -- Methods
 
@@ -1494,7 +1491,7 @@ public:
         ///
         enum Priorities
         {
-            Idle_Task = 0, ///< Idle task (only for measurments purpose).
+            Idle_Task = 0, ///< Idle task (only for statistics purpose).
             Software_Task, ///< Software task (lowest priority).
             System_Task,   ///< System task.
             Driver_Task    ///< Driver task (highest priority).

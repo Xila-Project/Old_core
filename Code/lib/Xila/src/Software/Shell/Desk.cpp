@@ -60,7 +60,7 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
     }
 
     // Item picture drawing
-    strcpy(Temporary_String, "ITEM _PIC");
+    strlcpy(Temporary_String, "ITEM _PIC", sizeof(Temporary_String));
     for (uint8_t i = 0; i < 15; i++)
     {
         Temporary_String[4] = i + 'A';

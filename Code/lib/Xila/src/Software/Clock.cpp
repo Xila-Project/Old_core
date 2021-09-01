@@ -373,10 +373,10 @@ void Clock_Class::Refresh_Alarms()
     {
         if (Alarm_Title[i][0] == '\0')
         {
-            strcpy(Object_Name, "ALARM _TXT");
+            strlcpy(Object_Name, "ALARM _TXT", sizeof(Object_Name));
             Object_Name[5] = i + '0';
             Xila.Display.Set_Text(Object_Name, "");
-            strcpy(Object_Name, "ALARM _RAD");
+            strlcpy(Object_Name, "ALARM _RAD", sizeof(Object_Name));
             Object_Name[5] = i + '0';
             Xila.Display.Set_Value(Object_Name, 0);
             Xila.Display.Hide(Object_Name);
@@ -392,11 +392,11 @@ void Clock_Class::Refresh_Alarms()
                 sprintf(Object_Text, "D - %02i:%02i - %s", Alarm_Hour[i], Alarm_Minute[i], Alarm_Title[i]);
             }
 
-            strcpy(Object_Name, "ALARM _TXT");
+            strlcpy(Object_Name, "ALARM _TXT", sizeof(Object_Name));
             Object_Name[5] = i + '0';
             Xila.Display.Set_Text(Object_Name, Object_Text);
             Xila.Display.Show(Object_Name);
-            strcpy(Object_Name, "ALARM _RAD");
+            strlcpy(Object_Name, "ALARM _RAD", sizeof(Object_Name));
             Object_Name[5] = i + '0';
             if (Selected_Alarm == i)
             {
@@ -444,7 +444,7 @@ void Clock_Class::Add_Alarm()
             Alarm_Hour[i] = 0;
             Alarm_Minute[i] = 0;
             Alarm_State[i] = false;
-            strcpy(Alarm_Title[i], "Untitled");
+            strlcpy(Alarm_Title[i], "Untitled", sizeof(Alarm_Title[i]));
             Selected_Alarm = i;
             Send_Instruction('R', 'e');
             return;

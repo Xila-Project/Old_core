@@ -316,6 +316,6 @@ void Simon_Class::Generate_Sequence()
     Speed = 1000;
     for (uint8_t i = 0; i < Maximum_Level; i++)
     {
-        Sequence[i] = (uint8_t)Xila.System.Random(4);
+        Sequence[i] = (uint8_t)Xila.Mathematics.Random(4);
     }
 }

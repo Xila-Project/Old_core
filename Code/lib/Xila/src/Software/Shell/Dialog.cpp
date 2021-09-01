@@ -318,8 +318,8 @@ void Shell_Class::Dialog_Class::Login_Class::Open(bool Login)
         LOGIN = new Login_Class;
     }
 
-    strcpy(LOGIN->Username, "Username");
-    strcpy(LOGIN->Password, "Password");
+    strlcpy(LOGIN->Username, "Username", sizeof(LOGIN->Username));
+    strlcpy(LOGIN->Password, "Password", sizeof(LOGIN->Password));
 
     LOGIN->Login = Login;
 

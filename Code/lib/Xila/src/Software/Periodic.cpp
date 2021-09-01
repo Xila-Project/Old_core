@@ -337,7 +337,7 @@ void Periodic_Class::Get_Main_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
 
     Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
@@ -492,7 +492,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " u", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("MASSVAL_TXT"), Temporary_Char_Array);
 
@@ -522,7 +522,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " g/l", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("DENSITYVAL_TXT"), Temporary_Char_Array);
 
@@ -552,7 +552,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("MELTVAL_TXT"), Temporary_Char_Array);
 
@@ -582,7 +582,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " K", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("BOILINGVAL_TXT"), Temporary_Char_Array);
 
@@ -624,7 +624,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     strlcat(Temporary_Char_Array, " (Pauling scale)", sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("ELECTRONNV_TXT"), Temporary_Char_Array);
 
@@ -654,7 +654,7 @@ void Periodic_Class::Get_Data()
             break;
         }
     }
-    strcpy(Temporary_Char_Array, Temporary_Char_Array + i);
+    strlcpy(Temporary_Char_Array, Temporary_Char_Array + i, sizeof(Temporary_Char_Array));
     Xila.Display.Set_Text(F("ELECTRONAV_TXT"), Temporary_Char_Array);
 }
 

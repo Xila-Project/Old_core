@@ -55,7 +55,7 @@ Xila_Class::Software_Handle::Software_Handle(char const *Software_Name, uint8_t 
       Startup_Function_Pointer(Startup_Function_Pointer)
 {
   memset(Name, '\0', sizeof(Name));
-  strcpy(Name, Software_Name);
+  strlcpy(Name, Software_Name, sizeof(Name));
 }
 
 ///

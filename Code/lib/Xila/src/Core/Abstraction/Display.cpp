@@ -82,11 +82,11 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 }
 
 ///
-/// @brief Callback function for display incomming string data
+/// @brief Callback function for display incoming string data
 ///
 /// @param Received_Data String received data
 /// @param Size Size in bytes of received data
-void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
+void Xila_Class::Display_Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
     while (Xila.Software_Management.Openned[0] == NULL)
     {
@@ -111,10 +111,10 @@ void Xila_Class::Display_Class::Incomming_String_Data_From_Display(const char *R
 }
 
 ///
-/// @brief Callback function for display incomming numeric data
+/// @brief Callback function for display incoming numeric data
 ///
 /// @param Received_Data Received numeric data from the display
-void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Received_Data)
+void Xila_Class::Display_Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
     if (Xila.Display.Current_Address != '\0')
     {
@@ -124,10 +124,10 @@ void Xila_Class::Display_Class::Incomming_Numeric_Data_From_Display(uint32_t Rec
 }
 
 ///
-/// @brief Callback function for display incomming event
+/// @brief Callback function for display incoming event
 ///
 /// @param Event_Code Event code
-void Xila_Class::Display_Class::Incomming_Event_From_Display(uint8_t Event_Code)
+void Xila_Class::Display_Class::Incoming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)
     {

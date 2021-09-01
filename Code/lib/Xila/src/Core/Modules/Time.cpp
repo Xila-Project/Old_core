@@ -17,7 +17,7 @@ Xila_Class::Time_Class::Time_Class()
     : GMT_Offset(Default_GMT_Offset),
       Daylight_Offset(Default_Daylight_Offset)
 {
-  strcpy(NTP_Server, Default_NTP_Server);
+  strlcpy(NTP_Server, Default_NTP_Server, sizeof(NTP_Server));
 }
 
 ///

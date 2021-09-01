@@ -456,9 +456,9 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Initialize display. -- //
 
-  Xila.Display.Set_Callback_Function_Numeric_Data(Xila.Display.Incomming_Numeric_Data_From_Display);
-  Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incomming_String_Data_From_Display);
-  Xila.Display.Set_Callback_Function_Event(Xila.Display.Incomming_Event_From_Display);
+  Xila.Display.Set_Callback_Function_Numeric_Data(Xila.Display.Incoming_Numeric_Data_From_Display);
+  Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incoming_String_Data_From_Display);
+  Xila.Display.Set_Callback_Function_Event(Xila.Display.Incoming_Event_From_Display);
 
   if (Xila.Display.Load_Registry() != Success)
   {

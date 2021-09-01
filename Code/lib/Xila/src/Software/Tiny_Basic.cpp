@@ -277,7 +277,7 @@ void Tiny_Basic_Class::Clear()
 
 void Tiny_Basic_Class::Refresh_Interface()
 {
-  strcpy(Line_Name, "LINE _TXT");
+  strlcpy(Line_Name, "LINE _TXT", sizeof(Line_Name));
 
   for (uint8_t i = 0; i < 14; i++)
   {

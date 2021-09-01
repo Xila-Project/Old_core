@@ -194,8 +194,8 @@ void Internet_Browser_Class::Go_Home()
   memset(Server, '\0', sizeof(Server));
   memset(Path, '\0', sizeof(Path));
   memset(URL, '\0', sizeof(URL));
-  strcpy(Server, "*");
-  strcpy(URL, "*");
+  strlcpy(Server, "*", sizeof(Server));
+  strlcpy(URL, "*", sizeof(URL));
 
   Send_Instruction('D', 'i');
 }

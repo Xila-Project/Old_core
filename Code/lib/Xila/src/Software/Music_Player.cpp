@@ -407,7 +407,7 @@ void Music_Player_Class::Refresh_Interface()
         }
 
         memset(Temporary_File_Name, '\0', sizeof(Temporary_File_Name));
-        strcpy(Temporary_Char_Array, " Folder : ");
+        strlcpy(Temporary_Char_Array, " Folder : ", sizeof(Temporary_Char_Array));
 
         if (Music_Folder)
         {
@@ -569,7 +569,7 @@ void Music_Player_Class::Generate_Queue()
     {
         while (xQueueSend(Next_Queue, &Folder_Position, pdMS_TO_TICKS(10)) == pdTRUE)
         {
-            Folder_Position = Xila.System.Random(File_Count);
+            Folder_Position = Xila.Mathematics.Random(File_Count);
         }
         Folder_Position = 0;
     }
