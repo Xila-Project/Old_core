@@ -29,7 +29,7 @@ Xila_Class::Software *Piano_Class::Load()
     return Instance_Pointer;
 }
 
-void Piano_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Piano_Class::Main_Task(void *pvParameters)
 {
     (void)pvParameters;
     while (1)

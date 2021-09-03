@@ -39,7 +39,7 @@ public:
         Icon_32 = Xila.Display.Paint_Images
     };
 
-    static void Main_Task(void*);
+    static Xila_Class::Task_Function Main_Task(void*);
 };
 
 Xila_Class::Software_Handle Paint_Handle("Paint", Paint_Class::Icon_32, Paint_Class::Load);

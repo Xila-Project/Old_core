@@ -14,7 +14,7 @@ private:
 
 public:
   // -- Main task
-  static void Main_Task(void *)
+  static Xila_Class::Task_Function Main_Task(void *)
   {
     // -- Main task must never return, so an infinite loop is required
     while (1)

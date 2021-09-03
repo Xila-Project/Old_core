@@ -148,7 +148,7 @@ Xila_Class::Software *Tiny_Basic_Class::Load()
   return Instance_Pointer;
 }
 
-void Tiny_Basic_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Tiny_Basic_Class::Main_Task(void *pvParameters)
 {
   (void)pvParameters;
   Instance_Pointer->Setup();

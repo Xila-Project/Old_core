@@ -47,7 +47,7 @@ public:
         Icon_32 = Xila.Display.Piano_Images,
     };
     
-    static void Main_Task(void *pvParameters);
+    static Xila_Class::Task_Function Main_Task(void *pvParameters);
 };
 
 Xila_Class::Software_Handle Piano_Handle("Piano", Piano_Class::Icon_32, Piano_Class::Load);

@@ -44,7 +44,7 @@ void Periodic_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, con
     }
 }
 
-void Periodic_Class::Main_Task(void *pvParamters)
+Xila_Class::Task_Function Periodic_Class::Main_Task(void *pvParamters)
 {
     (void)pvParamters;
     Xila.Task.Delay(10);

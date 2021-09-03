@@ -124,7 +124,7 @@ public:
         Icon_32 = Xila.Display.Internet_Browser_Images
     };
 
-    static void Main_Task(void *pvParameters);
+    static Xila_Class::Task_Function Main_Task(void *pvParameters);
 
     static Xila_Class::Software *Load();
 

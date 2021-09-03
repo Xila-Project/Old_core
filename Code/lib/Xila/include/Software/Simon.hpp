@@ -48,7 +48,7 @@ public:
 
     uint8_t Scores[8] = {0};
 
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
     static Xila_Class::Software* Load();
 

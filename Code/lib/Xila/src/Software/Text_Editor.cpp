@@ -38,7 +38,7 @@ void Text_Editor_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, 
     }
 }
 
-void Text_Editor_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Text_Editor_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {

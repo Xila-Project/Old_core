@@ -29,7 +29,7 @@ Xila_Class::Software *Pong_Class::Load()
     return Instance_Pointer;
 }
 
-void Pong_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Pong_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {

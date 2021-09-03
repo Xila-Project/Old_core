@@ -129,7 +129,7 @@ protected:
     friend void SigmaDelta_Task(void *);   // used to generate sigmadelta signal
 
 public:
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
     //static void SigmaDelta_Task(void*);
 

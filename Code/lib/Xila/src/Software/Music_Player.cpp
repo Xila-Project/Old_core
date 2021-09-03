@@ -47,7 +47,7 @@ void Music_Player_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type,
     }
 }
 
-void Music_Player_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Music_Player_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {

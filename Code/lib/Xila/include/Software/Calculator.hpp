@@ -162,7 +162,7 @@ public:
     Calculator_Class();
     ~Calculator_Class();
 
-    static void Main_Task(void*);
+    static Xila_Class::Task_Function Main_Task(void*);
 
     enum Image
     {

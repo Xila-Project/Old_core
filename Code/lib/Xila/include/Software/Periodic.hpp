@@ -36,7 +36,7 @@ class Periodic_Class : protected Xila_Class::Software
         Periodic_Class();
         ~Periodic_Class();
 
-        static void Main_Task(void *);
+        static Xila_Class::Task_Function Main_Task(void *);
 
         static Xila_Class::Software* Load();
 

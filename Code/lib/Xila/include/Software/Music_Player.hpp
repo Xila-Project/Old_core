@@ -26,7 +26,7 @@ protected:
     char Temporary_File_Name[13];
     char Temporary_Radio_Link[129];
 
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
     void Pause();
 

@@ -41,7 +41,7 @@ void Clock_Class::Startup_Function()
     Xila.Task.Create(Background_Task, "Clock Task", Memory_Chunk(2));
 }
 
-void Clock_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Clock_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {

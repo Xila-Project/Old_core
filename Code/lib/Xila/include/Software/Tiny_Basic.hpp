@@ -154,7 +154,7 @@ public:
         Icon_32 = Xila.Display.Tiny_Basic_Images //currently empty
     };
 
-    static void Main_Task(void *pvParameters);
+    static Xila_Class::Task_Function Main_Task(void *pvParameters);
 
 protected:
     static Tiny_Basic_Class *Instance_Pointer;

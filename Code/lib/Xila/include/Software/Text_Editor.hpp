@@ -14,7 +14,7 @@ protected:
 
     uint32_t Offset;
 
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
     void Open_File(File File_To_Open);
 

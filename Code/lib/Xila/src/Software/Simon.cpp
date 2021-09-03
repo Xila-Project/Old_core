@@ -27,7 +27,7 @@ Xila_Class::Software *Simon_Class::Load()
     return Instance_Pointer;
 }
 
-void Simon_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Simon_Class::Main_Task(void *pvParameters)
 {
     while (1)
     {

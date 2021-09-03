@@ -18,7 +18,7 @@ class Pong_Class : public Xila_Class::Software
     Pong_Class();
     ~Pong_Class();
 
-    static void Main_Task(void*);
+    static Xila_Class::Task_Function Main_Task(void*);
 
     enum Image
     {

@@ -27,7 +27,7 @@ Xila_Class::Software *Oscilloscope_Class::Load()
 	return Instance_Pointer;
 }
 
-void Oscilloscope_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Oscilloscope_Class::Main_Task(void *pvParameters)
 {
 
 	Instance_Pointer->Loop();

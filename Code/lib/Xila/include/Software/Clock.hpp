@@ -10,7 +10,7 @@ class Clock_Class : public Xila_Class::Software
 {
 
 private:
-    static void Main_Task(void *);
+    static Xila_Class::Task_Function Main_Task(void *);
 
     static Clock_Class *Instance_Pointer;
 

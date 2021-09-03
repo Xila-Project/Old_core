@@ -104,7 +104,7 @@ void Calculator_Class::Refresh_Keys()
     }
 }
 
-void Calculator_Class::Main_Task(void *)
+Xila_Class::Task_Function Calculator_Class::Main_Task(void *)
 {
     while (1)
     {

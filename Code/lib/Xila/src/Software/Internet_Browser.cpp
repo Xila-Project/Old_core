@@ -48,7 +48,7 @@ void Internet_Browser_Class::Set_Variable(Xila_Class::Address Address, uint8_t T
   }
 }
 
-void Internet_Browser_Class::Main_Task(void *pvParameters)
+Xila_Class::Task_Function Internet_Browser_Class::Main_Task(void *pvParameters)
 {
   (void)pvParameters;
   while (1)
