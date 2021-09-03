@@ -37,4 +37,6 @@ Example
         Xila.System.Hibernate();        // -- Hibernate Xila.
     }
 
-    void loop();
+    void loop()
+    {
+    }

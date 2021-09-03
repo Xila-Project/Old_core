@@ -88,6 +88,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Desk.html">Desk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Dialogs.html">Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/File%20Manager.html">File Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Preferences.html">Preferences</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -96,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../Software%20Reference.html#abstraction-layers">Abstraction Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../Software%20Reference.html#modules">Modules</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../../Software%20Reference.html#types">Types</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Address.html">Address</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Event.html">Event</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Image.html">Image</a></li>
 <li class="toctree-l3"><a class="reference internal" href="Instruction.html">Instruction</a></li>
@@ -104,6 +112,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Software.html">Software</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Task Function</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#api-reference">API Reference</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -197,6 +206,24 @@
 <dd><p>Task type. </p>
 </dd></dl>
 
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="n">Xila_Class</span><span class="o">::</span><span class="n">Task_Function</span> <span class="n">My_Software</span><span class="o">::</span><span class="n">Main_Task</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// -- Do stuff.</span>
+        <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Delay</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>   <span class="c1">// -- Don&#39;t forget to add delay between operations.</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">My_Software</span><span class="o">::</span><span class="n">My_Software</span><span class="p">()</span> <span class="o">:</span> <span class="n">Xila_Class</span><span class="o">::</span><span class="n">Software</span><span class="p">(</span><span class="n">My_Software_Handle</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">Xila</span><span class="p">.</span><span class="n">Task</span><span class="p">.</span><span class="n">Create</span><span class="p">(</span><span class="n">Main_Task</span><span class="p">,</span> <span class="s">&quot;My Software Task&quot;</span><span class="p">,</span> <span class="n">Memory_Chunk</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">Task_Handle</span><span class="p">);</span>   <span class="c1">// -- Create task.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 

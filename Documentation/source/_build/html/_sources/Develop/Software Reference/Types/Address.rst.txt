@@ -2,7 +2,7 @@
 Variable Address Type
 *********************
 
-Here you will find a full descrption of the variable adress type.
+Here you will find a full description of the variable address type.
 
 The variable address type is used by the core to communicate with software asynchronously.
 A variable is defined by two attributes: its identifier (encoded on 16 bits) as well as its type (the core returns three types of variable: number (64 bits), string and pointer, however it is possible to use custom types).

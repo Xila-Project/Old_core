@@ -18,8 +18,12 @@ Contents
    :caption:   Use   
    :maxdepth:  2
 
-   Getting Started <Use/Getting Started>
-   Configure <Use/Configure>
+   Setup <Use/Getting Started>
+   Desk <Use/Desk>
+   Dialogs <Use/Dialogs>
+   File Manager <Use/File Manager>
+   Preferences <Use/Preferences>
+
 
 .. toctree::
    :caption:   Develop

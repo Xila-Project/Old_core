@@ -88,6 +88,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../Introduction/Presentation.html">Presentation</a></li>
 </ul>
+<p class="caption"><span class="caption-text">Use</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Desk.html">Desk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Dialogs.html">Dialogs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/File%20Manager.html">File Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Use/Preferences.html">Preferences</a></li>
+</ul>
 <p class="caption"><span class="caption-text">Develop</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../Getting%20Started.html">Getting Started</a></li>
@@ -261,6 +268,24 @@
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span> <span class="n">Free_Flash_Space</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Get_Sketch_Free_Space</span><span class="p">();</span> <span class="c1">// -- Get flash free space in bytes.</span>
+<span class="n">String</span> <span class="n">MD5_Checksum</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Get_Sketch_MD5</span><span class="p">();</span>              <span class="c1">// -- Get sketch MD5 checksum.</span>
+<span class="kt">uint32_t</span> <span class="n">Sketch_Size</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Sketch_Size</span><span class="p">();</span>                <span class="c1">// -- Get sketch size in bytes.</span>
+<span class="kt">uint32_t</span> <span class="n">Flash_Size</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Get_Size</span><span class="p">();</span>                    <span class="c1">// -- Get flash size in bytes.</span>
+<span class="kt">uint32_t</span> <span class="n">Speed</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Get_Speed</span><span class="p">();</span>                        <span class="c1">// -- Get flash read speed in bytes / seconds.</span>
+<span class="n">FlashMode_t</span> <span class="n">Flash_Mode</span> <span class="o">=</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Get_Mode</span><span class="p">()</span>                  <span class="c1">// -- Get flash mode.</span>
+<span class="kt">uint32_t</span> <span class="n">Buffer</span><span class="p">[</span><span class="mi">128</span><span class="p">];</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="mh">0x100</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Buffer</span><span class="p">))</span> <span class="o">==</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Success</span><span class="p">)</span> <span class="c1">// -- Read data from flash at the 0x100 offset.</span>
+<span class="p">{</span>
+    <span class="c1">// -- Do stuff when the operation succeed.</span>
+<span class="p">}</span>
+<span class="n">esp_partition</span><span class="o">*</span> <span class="n">Partition</span> <span class="o">=</span> <span class="n">esp_ota_get_next_update_partition</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">Xila</span><span class="p">.</span><span class="n">Flash</span><span class="p">.</span><span class="n">Read</span><span class="p">(</span><span class="n">Partition</span><span class="p">,</span> <span class="mh">0x200</span><span class="p">,</span> <span class="n">Buffer</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">Buffer</span><span class="p">)</span> <span class="o">==</span> <span class="n">Xila</span><span class="p">.</span><span class="n">Success</span><span class="p">)</span>   <span class="c1">// -- Read data from the current partition at the 0x200 offset.</span>
+<span class="p">{</span>
+    <span class="c1">// -- Do stuff when the operation succeed.</span>
+<span class="p">}</span>
+</pre></div>
+</div>
 </div>
 </div>
 
