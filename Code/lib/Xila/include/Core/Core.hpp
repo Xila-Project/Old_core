@@ -357,6 +357,7 @@ public:
         friend class Xila_Class;
         friend class Xila_Class::Software;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
     };
 
     //==============================================================================//
@@ -390,6 +391,7 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         ///
@@ -441,6 +443,7 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         ///
@@ -479,6 +482,7 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         // -- Attributes
@@ -631,6 +635,7 @@ public:
 
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         void Set_State(uint8_t State);
@@ -701,6 +706,7 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         void End();
@@ -741,6 +747,10 @@ public:
         uint32_t Magic_Size(uint8_t Byte);
         uint32_t Magic_Speed(uint8_t Byte);
         FlashMode_t Magic_Mode(uint8_t Byte);
+    
+        friend class Xila_Class;
+        friend class Shell_Class;
+        friend class Unit_Test_Class;
     };
 
     //==============================================================================//
@@ -827,6 +837,10 @@ public:
             On_Low_WE = 0x0C, ///< Triggered on low state.
             On_High_WE = 0x0D ///< Triggered on high state.
         };
+
+        friend class Xila_Class;
+        friend class Shell_Class;
+        friend class Unit_Test_Class;
     } GPIO;
 
     //==============================================================================//
@@ -995,6 +1009,7 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         // -- Methods
@@ -1144,6 +1159,7 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
         // -- Methods
 
@@ -1166,7 +1182,7 @@ public:
         ///
         portMUX_TYPE Button_Mutex;
 
-        // -- Methods
+        // -- Methods -- //
         void static IRAM_ATTR Button_Interrupt_Handler();
 
         void Check_Button();
@@ -1192,8 +1208,10 @@ public:
 
         void Feed_Watchdog(Xila_Class::Software_Handle const &Software_Handle);
 
+        // -- Friendship -- //
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         // -- Attributes -- //
@@ -1330,8 +1348,10 @@ public:
 
         friend void audio_eof_mp3(const char *);
 
+        // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
         ///
         /// @brief Channel enumeration.
@@ -1421,6 +1441,7 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         // System's task :
@@ -1482,8 +1503,10 @@ public:
 
         void Delay(uint32_t Delay_In_Millisecond) const;
 
+        // -- Friendship
         friend Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         ///
@@ -1525,6 +1548,7 @@ public:
         // -- Friendship
         friend class Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         // -- Attributes
@@ -1599,6 +1623,7 @@ public:
 
         friend Xila_Class;
         friend class Shell_Class;
+        friend class Unit_Test_Class;
 
     protected:
         bool prov_enable;
