@@ -184,28 +184,26 @@ void Shell_Class::Desk_Class::Open(uint8_t Mode)
 {
     if (Xila.Account.Get_State() != Xila.Account.Logged)
     {
-        Xila.Display.Set_Current_Page(Pages.Desk);
-        Xila.Display.Refresh(F("IMAGEB_TXT"));
-        Xila.Display.Refresh(F("HEADER_TXT"));
 
         if (DIALOG.Login() != Xila.Success)
         {
             Xila.System.Shutdown();
             return;
         }
-
-        Xila.Display.Set_Current_Page(Pages.Desk);
-        Refresh_Desk();
-        Xila.Display.Hide(F("MAXIMIZE_BUT"));
-        Xila.Display.Hide(F("CLOSE_BUT"));
-
-#if Animations == 1
-        Xila.Sound.Play(Sounds("Login.wav"));
-        DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);
-#endif
-        if (Instance_Pointer->Load_Registry() != Xila.Success)
+        else
         {
-            Instance_Pointer->Save_Registry();
+            Xila.Display.Set_Current_Page(Pages.Desk);
+            Refresh_Desk();
+            Xila.Display.Hide(F("MAXIMIZE_BUT"));
+            Xila.Display.Hide(F("CLOSE_BUT"));
+#if Animations == 1
+            Xila.Sound.Play(Sounds("Login.wav"));
+            DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);
+#endif
+            if (Instance_Pointer->Load_Registry() != Xila.Success)
+            {
+                Instance_Pointer->Save_Registry();
+            }
         }
     }
 
@@ -298,6 +296,9 @@ void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Class::Instruction I
         break;
     case Instruction('C', '6'):
         Dock(6, 'C');
+        break;
+    case Instruction('O', 'P'):
+        DIALOG.Power_Pointer.Open();
         break;
     default:
         SHELL->Execute_Instruction(Instruction);

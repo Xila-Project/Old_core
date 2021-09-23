@@ -115,7 +115,7 @@ void Xila_Class::System_Class::Task(void *)
       {
         Xila.System.Panic_Handler(Low_Memory);
       }
-      // -- Synchronise time
+      // -- Syncronise time
       Xila.Time.Synchronize();
       // -- Check if software is currently maximized
       if (Xila.Software_Management.Openned[0] == NULL)
@@ -320,27 +320,27 @@ void Xila_Class::System_Class::Refresh_Header()
 
   Xila.Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
 
-  // Update connexion
+  // Update connection
   Temporary_Char_Array[5] = Xila.WiFi.RSSI();
 
   if (Xila.WiFi.status() == WL_CONNECTED)
   {
     if (Temporary_Char_Array[5] <= -70)
     {
-      Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Low);
+      Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_Low);
     }
     if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
     {
-      Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Medium);
+      Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_Medium);
     }
     else
     {
-      Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_High);
+      Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_High);
     }
   }
   else
   {
-    Xila.Display.Set_Text(F("CONNEXION_BUT"), ' ');
+    Xila.Display.Set_Text(F("CONNECTION_BUT"), ' ');
   }
 
   // -- Update charge level

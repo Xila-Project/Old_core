@@ -132,17 +132,13 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Class::Instructio
         Create_Folder();
         break;
     case Instruction('K', 'P'): // -- Open keyboard to input the path -- //
-        if (Get_Mode() == Xila.Idle)
-        {
-            DIALOG.Keyboard(Current_Path, sizeof(Current_Path));
-        }
+        DIALOG.Keyboard(Current_Path, sizeof(Current_Path));
         Refresh();
         break;
     case Instruction('B', 'a'):
         Operation = Browse;
         Xila.Display.Set_Current_Page(Shell_Class::Pages.File_Manager_Main);
         Refresh();
-
         break;
     case Instruction('G', 'D'): // -- Get details on selected item
         Set_Operation(Browse);
@@ -198,10 +194,7 @@ void Shell_Class::File_Manager_Class::Cut_Item()
     {
         if (Selected_Item.isDirectory())
         {
-            if (Get_Mode() == Xila.Idle)
-            {
-                DIALOG.Event(F("Cannot cut folder."), Xila.Error);
-            }
+            DIALOG.Event(F("Cannot cut folder."), Xila.Error);
             SHELL->Send_Instruction('R', 'e');
         }
         else
@@ -212,17 +205,11 @@ void Shell_Class::File_Manager_Class::Cut_Item()
             SHELL->Set_Watchdog_Timeout(30000);
             if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
             {
-                if (Get_Mode() == Xila.Idle)
-                {
-                    DIALOG.Event(F("File was cut successfully."), Xila.Error);
-                }
+                DIALOG.Event(F("File was cut successfully."), Xila.Error);
             }
             else
             {
-                if (Get_Mode() == Xila.Idle)
-                {
-                    DIALOG.Event(F("Failed to cut file."), Xila.Error);
-                }
+                DIALOG.Event(F("Failed to cut file."), Xila.Error);
             }
             SHELL->Set_Watchdog_Timeout();
             Destination_File.close();
@@ -246,10 +233,7 @@ void Shell_Class::File_Manager_Class::Copy_Item()
     {
         if (Operation_Item.isDirectory())
         {
-            if (Get_Mode() == Xila.Idle)
-            {
-                DIALOG.Event(F("Cannot copy folder."), Xila.Error);
-            }
+            DIALOG.Event(F("Cannot copy folder."), Xila.Error);
             SHELL->Send_Instruction('R', 'e');
         }
         else
@@ -261,17 +245,11 @@ void Shell_Class::File_Manager_Class::Copy_Item()
 
             if (Xila.Drive.Copy(Operation_Item, Destination_File) == Xila.Success)
             {
-                if (Get_Mode() == Xila.Idle)
-                {
-                    DIALOG.Event(F("File was copied successfully."), Xila.Information);
-                }
+                DIALOG.Event(F("File was copied successfully."), Xila.Information);
             }
             else
             {
-                if (Get_Mode() == Xila.Idle)
-                {
-                    DIALOG.Event(F("Failed to copy file."), Xila.Error);
-                }
+                DIALOG.Event(F("Failed to copy file."), Xila.Error);
             }
             SHELL->Set_Watchdog_Timeout();
             Operation_Item.close();
@@ -305,10 +283,7 @@ void Shell_Class::File_Manager_Class::Create_File()
         }
         else
         {
-            if (Get_Mode() == Xila.Idle)
-            {
-                DIALOG.Event(F("Failed to create file."), Xila.Error);
-            }
+            DIALOG.Event(F("Failed to create file."), Xila.Error);
             break;
         }
     }
@@ -327,20 +302,14 @@ void Shell_Class::File_Manager_Class::Create_Folder()
             {
                 if (!Xila.Drive.Make_Directory(String(Current_Path) + "/" + String(Current_Item_Name)))
                 {
-                    if (Get_Mode() == Xila.Idle)
-                    {
-                        DIALOG.Event(F("Failed to create folder."), Xila.Error);
-                    }
+                    DIALOG.Event(F("Failed to create folder."), Xila.Error);
                 }
                 break;
             }
         }
         else
         {
-            if (Get_Mode() == Xila.Idle)
-            {
-                DIALOG.Event(F("Failed to create folder."), Xila.Error);
-            }
+            DIALOG.Event(F("Failed to create folder."), Xila.Error);
             break;
         }
     }
@@ -369,27 +338,24 @@ void Shell_Class::File_Manager_Class::Refresh()
             SHELL->Send_Instruction('G', 'P');
             break;
         case Delete:
-            if (Get_Mode() == Xila.Idle)
+            if (DIALOG.Event(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
             {
-                if (DIALOG.Event(F("Are you sure to delete this item."), Xila.Question) == Xila.Button_1)
+                if (Temporary_Item.isDirectory())
                 {
-                    if (Temporary_Item.isDirectory())
+                    if (Xila.Drive.Remove_Directory(Current_Path) != true)
                     {
-                        if (Xila.Drive.Remove_Directory(Current_Path) != true)
-                        {
-                            DIALOG.Event(F("Failed to delete directory."), Xila.Error);
-                        }
-                    }
-                    else
-                    {
-                        if (Xila.Drive.Remove(Current_Path) != true)
-                        {
-                            DIALOG.Event(F("Failed to delete file."), Xila.Error);
-                        }
+                        DIALOG.Event(F("Failed to delete directory."), Xila.Error);
                     }
                 }
-                Go_Parent();
+                else
+                {
+                    if (Xila.Drive.Remove(Current_Path) != true)
+                    {
+                        DIALOG.Event(F("Failed to delete file."), Xila.Error);
+                    }
+                }
             }
+            Go_Parent();
             Operation = Browse;
             SHELL->Send_Instruction('R', 'e');
             break;
@@ -541,10 +507,7 @@ void Shell_Class::File_Manager_Class::Refresh()
     }
     else
     {
-        if (Get_Mode() == Xila.Idle) // Currently cannot open multiple dialog boxes at the same time
-        {
             DIALOG.Event(F("Failed to open path."), Xila.Error);
-        }
         SHELL->Send_Instruction('R', 'D');
     }
     Refresh_Footerbar();
@@ -619,10 +582,7 @@ void Shell_Class::File_Manager_Class::Refresh_Detail()
 
     if (!Temporary_Item)
     {
-        if (Get_Mode() == Xila.Idle)
-        {
             DIALOG.Event(F("Failed to get file informations."), Xila.Error);
-        }
         Open(Mode);
     }
 

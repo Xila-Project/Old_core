@@ -628,7 +628,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size,
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    // -- Initalize shell
+    // -- Initialize shell
     KEYBOARD->Open();
     KEYBOARD->Page = Xila.Display.Get_Current_Page();
     KEYBOARD->String = String;
@@ -658,7 +658,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    // -- Initalize shell
+    // -- Initialize shell
     KEYPAD->Open();
     KEYPAD->Page = Xila.Display.Get_Current_Page();
     KEYPAD->Number = &Number;
@@ -682,7 +682,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
     Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-    // -- Initalize shell
+    // -- Initialize shell
     Color_Picker_Pointer.Open();
     Color_Picker_Pointer.Color = &Color;
     SHELL->Send_Instruction('R', 'e');
@@ -715,7 +715,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Me
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    // -- Initalize shell
+    // -- Initialize shell
     EVENT->Open();
     EVENT->Page = Xila.Display.Get_Current_Page();
     EVENT->Mode = 'F';
@@ -753,7 +753,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t 
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
 
-    // -- Initalize shell
+    // -- Initialize shell
     EVENT->Open();
     EVENT->Page = Xila.Display.Get_Current_Page();
     EVENT->Mode = 'C';
@@ -789,7 +789,7 @@ void Shell_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __
     // -- Save context
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
-    // -- Initalize shell
+    // -- Initialize shell
     Load_Pointer->Open();
     Load_Pointer->Page = Xila.Display.Get_Current_Page();
     Load_Pointer->Caller_Software = SHELL;
@@ -819,7 +819,7 @@ void Shell_Class::Dialog_Class::Load(const char *Header, const char *Message, ui
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
     Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-    // -- Initalize shell
+    // -- Initialize shell
     Load_Pointer->Open();
     Load_Pointer->Page = Page;
     Load_Pointer->Caller_Software = SHELL;
@@ -904,7 +904,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
     Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-    // -- Initalize shell
+    // -- Initialize shell
     FILE_MANAGER->Open(Xila.Dialog_Open_File);
     FILE_MANAGER->Item_Pointer = &File_To_Open;
     SHELL->Send_Instruction('R', 'e');
@@ -929,7 +929,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
     Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-    // -- Initalize shell
+    // -- Initialize shell
     FILE_MANAGER->Open(Xila.Dialog_Save_File);
     FILE_MANAGER->Item_Pointer = &File_To_Save;
     SHELL->Send_Instruction('R', 'e');
@@ -954,7 +954,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
     Xila.Display.Send_Raw(F("sendme"));
     Xila.Task.Delay(20);
     Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-    // -- Initalize shell
+    // -- Initialize shell
     FILE_MANAGER->Open(Xila.Dialog_Open_Folder);
     FILE_MANAGER->Item_Pointer = &Folder_To_Open;
     SHELL->Send_Instruction('R', 'e');

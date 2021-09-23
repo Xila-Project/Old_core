@@ -13,8 +13,8 @@
 extern Xila_Class::Software_Handle Shell_Handle;
 
 ///
- /// @brief Construct a new Xila_Class::Dialog_Class::Dialog_Class object
- /// 
+/// @brief Construct a new Xila_Class::Dialog_Class::Dialog_Class object
+///
 Xila_Class::Dialog_Class::Dialog_Class()
 {
 }
@@ -34,7 +34,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *String, size_t Size, 
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Keyboard);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 't'), Variable_String, String);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 'i'), Variable_Long, &Size);
@@ -68,7 +68,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Keypad);
   Xila.Software_Management.Shell_Set_Variable(Address('N', 'u'), Variable_Long, &Number);
   Xila.Software_Management.Maximize(Shell_Handle);
@@ -88,10 +88,10 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
 }
 
 ///
- /// @brief Open a color picker dialog, that allow user to choose a color.
- /// 
- /// @param[in,out] Color Color reference.
- /// @return Xila_Class::Event 
+/// @brief Open a color picker dialog, that allow user to choose a color.
+///
+/// @param[in,out] Color Color reference.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
   Color_Picker_State = None;
@@ -100,7 +100,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Color_Picker);
   Xila.Software_Management.Shell_Set_Variable(Address('C', 'P'), Pointer, &Color);
   Xila.Software_Management.Maximize(Shell_Handle);
@@ -137,8 +137,9 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Event);
+  Xila.Task.Delay(10);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'e'), Variable_String, Message);
   Xila.Software_Management.Shell_Set_Variable(Address('T', 'y'), Variable_Long, &Type);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'o'), Variable_Long, &Mode);
@@ -179,8 +180,9 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const char *Message, uint8_t T
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell variable
+  // -- Initialize shell variable
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Event);
+  Xila.Task.Delay(10);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'e'), Variable_String, Message);
   Xila.Software_Management.Shell_Set_Variable(Address('T', 'y'), Variable_Long, &Type);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'o'), Variable_Long, &Mode);
@@ -219,7 +221,7 @@ void Xila_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __F
   Xila.Display.Send_Raw(F("sendme"));
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Load);
   Xila.Software_Management.Shell_Set_Variable(Address('H', 'e'), Variable_String, Header);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'e'), Variable_String, Message);
@@ -250,7 +252,7 @@ void Xila_Class::Dialog_Class::Load(const char *Header, const char *Message, uin
   Xila.Display.Send_Raw(F("sendme"));
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
+  // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Load);
   Xila.Software_Management.Shell_Set_Variable(Address('H', 'e'), Variable_String, Header);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'e'), Variable_String, Message);
@@ -331,10 +333,10 @@ void Xila_Class::Dialog_Class::Power()
 }
 
 ///
- /// @brief Open a dialog that allow user to select a file to save from the File Manager.
- /// 
- /// @param File_To_Open File reference.
- /// @return Xila_Class::Event 
+/// @brief Open a dialog that allow user to select a file to save from the File Manager.
+///
+/// @param File_To_Open File reference.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   File_Manager_State = None;
@@ -343,8 +345,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
-    Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_File);
+  // -- Initialize shell
+  Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_File);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &File_To_Open);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Tasks suspended here
@@ -363,10 +365,10 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 }
 
 ///
- /// @brief Open a dialog that allow user to select a file to save from the File Manager.
- /// 
- /// @param File_To_Save File reference.
- /// @return Xila_Class::Event 
+/// @brief Open a dialog that allow user to select a file to save from the File Manager.
+///
+/// @param File_To_Save File reference.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
   File_Manager_State = None;
@@ -375,8 +377,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell
-    Xila.Software_Management.Shell_Send_Instruction(Dialog_Save_File);
+  // -- Initialize shell
+  Xila.Software_Management.Shell_Send_Instruction(Dialog_Save_File);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &File_To_Save);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Tasks suspended here
@@ -395,10 +397,10 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 }
 
 ///
- /// @brief Open a dialog that allow user to select a folder to open from the File Manager.
- /// 
- /// @param[out] Folder_To_Open Folder reference.
- /// @return Xila_Class::Event 
+/// @brief Open a dialog that allow user to select a folder to open from the File Manager.
+///
+/// @param[out] Folder_To_Open Folder reference.
+/// @return Xila_Class::Event
 Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
   File_Manager_State = None;
@@ -407,8 +409,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
   Xila.Task.Delay(20);
   Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initalize shell variable
-    Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_Folder);
+  // -- Initialize shell variable
+  Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_Folder);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &Folder_To_Open);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Tasks suspended here

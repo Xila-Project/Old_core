@@ -223,27 +223,27 @@ void Shell_Class::Refresh_Header()
 
     Xila.Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
 
-    // -- Update connexion
+    // -- Update connection
     Temporary_Char_Array[5] = Xila.WiFi.RSSI();
 
     if (Xila.WiFi.status() == WL_CONNECTED)
     {
         if (Temporary_Char_Array[5] <= -70)
         {
-            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Low);
+            Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_Low);
         }
         if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
         {
-            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_Medium);
+            Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_Medium);
         }
         else
         {
-            Xila.Display.Set_Text(F("CONNEXION_BUT"), Xila.Display.WiFi_High);
+            Xila.Display.Set_Text(F("CONNECTION_BUT"), Xila.Display.WiFi_High);
         }
     }
     else
     {
-        Xila.Display.Set_Text(F("CONNEXION_BUT"), ' ');
+        Xila.Display.Set_Text(F("CONNECTION_BUT"), ' ');
     }
 
     // -- Update charge level
@@ -395,7 +395,7 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
         File_Manager_Class::Open(Xila.Idle);
         break;
 
-    case Instruction('O', 'P'): // Open preferiencies (default : personnal)
+    case Instruction('O', 'P'): // Open preferiencies (default : personal)
         Preferences_Class::Open(Pages.Preferences_Personal);
         break;
     case Instruction('O', 'H'): // "OH" : Open hardware prefencies
@@ -483,7 +483,7 @@ void Shell_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const 
             case Address('M', 'a'):
                 Dialog.Keyboard_Pointer->Masked_Input = *(bool *)Variable;
                 break;
-            case Address('I', 'n'):
+            case (Address('I', 'n')):
                 strlcpy(Dialog.Keyboard_Pointer->String, (const char *)Variable, Dialog.Keyboard_Pointer->Size);
                 break;
             default:
