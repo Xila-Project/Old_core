@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
+- Add serial logging feature.
 - Add mosfet to switch display supply.
 - Add dock defragmentation.
 - Add flash management to the API.
@@ -41,7 +42,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
-- Remove WiFi power sleep mode patch (power button interrupt conflict).
+- Remove patch : WiFi power sleep mode (power button interrupt conflict).
 
 
 
