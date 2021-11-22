@@ -566,10 +566,12 @@ void Shell_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const 
     case Pages.Dialog_Color_Picker:
         switch (Address)
         {
-        case Address('C', 'P'):
+        case (Address('C', 'P')):
+            DUMP("Color picker color pointer :");
             Dialog.Color_Picker_Pointer.Color = (uint16_t *)Variable;
             break;
         case Address('C', 'o'):
+            DUMP("Color picker color :");
             memcpy(Dialog.Color_Picker_Pointer.Color, (uint16_t *)Variable, sizeof(uint16_t));
             break;
         default:

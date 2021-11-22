@@ -43,11 +43,13 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
+        Log_Error("Failed to load display registry.");
         return Error;
     }
     Temporary_File.close();
     if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
+        Log_Error("Failed to load display registry.");
         return Error;
     }
     Standby_Time = Display_Registry["Standby Time"] | Default_Display_Standby_Time;
@@ -75,6 +77,7 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
     if (serializeJson(Display_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
+        Log_Error("Failed to save display registry.");
         return Error;
     }
     Temporary_File.close();

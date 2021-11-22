@@ -13,8 +13,7 @@
 ||              |___|______|  /_/ \_\ |_____| |______| /_/    \_\             ||
 ||                                                                            ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|| For ESP-32                                                                 ||
-|| Version : 0.1.0 - Alix ANNERAUD - MIT Licence - 2020                       ||
+|| Version : 0.1.0 - Alix ANNERAUD - MIT Licence - 2021                       ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 ||                               Credit to :                                  ||
 || Sound : Benjamin Mastripolito (https://benpm.github.io - https://freeSound.org/people/Lemoncreme/sounds/231578)||

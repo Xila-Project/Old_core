@@ -14,6 +14,7 @@ Clock_Class::Clock_Class()
       Temporary_Time(0),
       Selected_Alarm(0)
 {
+    memset(Alarm_Title, '\0', sizeof(Alarm_Title));
     Xila.Task.Create(Main_Task, "Clock Task", Memory_Chunk(4), NULL, &Task_Handle);
 }
 
@@ -295,6 +296,7 @@ void Clock_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const 
             Hours = *(uint8_t *)Data;
             break;
         case Address('M', 'i'):
+
             Minutes = *(uint8_t *)Data;
             break;
         case Address('S', 'e'):
@@ -604,7 +606,10 @@ void Clock_Class::Alarm_Instructions()
         Refresh_Next_Alarm();
         break;
     case Instruction('K', 'T'):
-        if (Selected_Alarm < 6)
+        DUMP("TEST");
+        DUMP(Selected_Alarm);
+        Xila.Task.Delay(10);
+        if (Selected_Alarm < 6 && Alarm_Title[Selected_Alarm][0] != '\0')
         {
             Xila.Dialog.Keyboard(Alarm_Title[Selected_Alarm], sizeof(Alarm_Title[Selected_Alarm]));
         }

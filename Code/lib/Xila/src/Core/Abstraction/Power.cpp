@@ -114,6 +114,7 @@ void Xila_Class::Power_Class::Check_Button()
 ///
 void Xila_Class::Power_Class::Deep_Sleep()
 {
+    Log_Information("Going into deep-sleep.");
     Xila.Display.Set_Serial_Wake_Up(true);
     Xila.Display.Set_Touch_Wake_Up(false);
     Xila.Display.Set_Current_Page(F("Core_Load"));

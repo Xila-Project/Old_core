@@ -184,7 +184,7 @@ void Shell_Class::Desk_Class::Open(uint8_t Mode)
 {
     if (Xila.Account.Get_State() != Xila.Account.Logged)
     {
-
+        Xila.Display.Set_Current_Page(Pages.Desk);
         if (DIALOG.Login() != Xila.Success)
         {
             Xila.System.Shutdown();
@@ -192,7 +192,7 @@ void Shell_Class::Desk_Class::Open(uint8_t Mode)
         }
         else
         {
-            Xila.Display.Set_Current_Page(Pages.Desk);
+
             Refresh_Desk();
             Xila.Display.Hide(F("MAXIMIZE_BUT"));
             Xila.Display.Hide(F("CLOSE_BUT"));

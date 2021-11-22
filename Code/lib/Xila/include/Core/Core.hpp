@@ -78,6 +78,7 @@
 
 // -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
+#include "Modules/Log.hpp"
 #include "Modules/Path.hpp"  // Path list
 
 //----------------------------------------------------------------------------//

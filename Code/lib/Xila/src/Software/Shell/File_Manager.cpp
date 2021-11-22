@@ -73,15 +73,15 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Xila_Class::Instructio
         Refresh();
         break;
     case Instruction('C', 'l'):
-        if (Get_Mode() == Xila.Idle)
+        if (Get_Mode() == Xila.Idle)    // -- If open in default mode,
         {
-            SHELL->Send_Instruction('O', 'D');
+            SHELL->Send_Instruction('O', 'D');  // -- Open back the desk.
         }
-        else
+        else    // -- If open in dialog mode,
         {
-            Xila.Dialog.File_Manager_State = Xila.Default_Cancel;
+            Xila.Dialog.File_Manager_State = Xila.Default_Cancel;   // -- Set dialog state.
         }
-        Close();
+        Close();    // -- Close file manager.
         break;
     case Instruction('C', 'o'): // copy file
         Copy_Item();
@@ -507,7 +507,7 @@ void Shell_Class::File_Manager_Class::Refresh()
     }
     else
     {
-            DIALOG.Event(F("Failed to open path."), Xila.Error);
+        DIALOG.Event(F("Failed to open path."), Xila.Error);
         SHELL->Send_Instruction('R', 'D');
     }
     Refresh_Footerbar();

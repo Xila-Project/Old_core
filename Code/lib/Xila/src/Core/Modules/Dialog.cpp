@@ -30,27 +30,20 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *String, size_t Size, 
 {
   Keyboard_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Keyboard);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 't'), Variable_String, String);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 'i'), Variable_Long, &Size);
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'a'), Variable_Long, &Masked_Input);
   Xila.Software_Management.Maximize(Shell_Handle);
-  // -- Tasks suspended here
+  // -- Tasks suspended here 
   while (Keyboard_State == Xila.None)
   {
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return Keyboard_State;
 }
@@ -64,10 +57,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
 {
   Keypad_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Keypad);
   Xila.Software_Management.Shell_Set_Variable(Address('N', 'u'), Variable_Long, &Number);
@@ -78,11 +68,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return Keypad_State;
 }
@@ -96,12 +82,10 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
   Color_Picker_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
-  // -- Initialize shell
+  // -- Initialize shell dialog
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Color_Picker);
+  Xila.Task.Delay(40);
   Xila.Software_Management.Shell_Set_Variable(Address('C', 'P'), Pointer, &Color);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Task suspended here
@@ -110,11 +94,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return Color_Picker_State;
 }
@@ -133,10 +113,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
   Event_State = None;
   uint8_t Mode = 'F';
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Event);
   Xila.Task.Delay(10);
@@ -153,11 +130,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return Event_State;
 }
@@ -176,10 +149,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const char *Message, uint8_t T
   Event_State = None;
   uint8_t Mode = 'C';
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell variable
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Event);
   Xila.Task.Delay(10);
@@ -196,11 +166,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const char *Message, uint8_t T
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return Event_State;
 }
@@ -217,10 +183,6 @@ void Xila_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __F
     Duration = 28000;
   }
   uint8_t Mode = 'F';
-  // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Load);
   Xila.Software_Management.Shell_Set_Variable(Address('H', 'e'), Variable_String, Header);
@@ -228,7 +190,6 @@ void Xila_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __F
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'o'), Variable_Long, &Mode);
   Xila.Software_Management.Shell_Set_Variable(Address('D', 'u'), Variable_Long, &Duration);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 'o'), Variable_Long, Xila.Software_Management.Openned[0]);
-  Xila.Software_Management.Shell_Set_Variable(Address('P', 'a'), Variable_Long, &Page);
   Xila.Software_Management.Openned[0]->Set_Watchdog_Timeout(30000);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Tasks suspended here
@@ -248,10 +209,6 @@ void Xila_Class::Dialog_Class::Load(const char *Header, const char *Message, uin
     Duration = 28000;
   }
   uint8_t Mode = 'C';
-  // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Load);
   Xila.Software_Management.Shell_Set_Variable(Address('H', 'e'), Variable_String, Header);
@@ -259,7 +216,6 @@ void Xila_Class::Dialog_Class::Load(const char *Header, const char *Message, uin
   Xila.Software_Management.Shell_Set_Variable(Address('M', 'o'), Variable_Long, &Mode);
   Xila.Software_Management.Shell_Set_Variable(Address('D', 'u'), Variable_Long, &Duration);
   Xila.Software_Management.Shell_Set_Variable(Address('S', 'o'), Variable_Long, Xila.Software_Management.Openned[0]);
-  Xila.Software_Management.Shell_Set_Variable(Address('P', 'a'), Variable_Long, &Page);
   Xila.Software_Management.Openned[0]->Set_Watchdog_Timeout(30000);
   Xila.Software_Management.Maximize(Shell_Handle);
   // -- Tasks suspended here
@@ -283,10 +239,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Login()
 {
   Login_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Maximize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Login);
   Xila.Software_Management.Maximize(Shell_Handle);
@@ -296,11 +249,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Login()
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Retore context
   Xila.Software_Management.Openned[0] = Caller_Software;
-  Xila.Display.Set_Current_Page(Page);
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Return dialog result
   return Login_State;
 }
@@ -312,10 +261,7 @@ void Xila_Class::Dialog_Class::Power()
 {
   Power_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Maximize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Power);
   Xila.Software_Management.Maximize(Shell_Handle);
@@ -327,9 +273,6 @@ void Xila_Class::Dialog_Class::Power()
   }
   // -- Restore context
   Xila.Software_Management.Openned[0] = Caller_Software;
-  Xila.Display.Set_Current_Page(Page);
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
 }
 
 ///
@@ -341,10 +284,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   File_Manager_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_File);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &File_To_Open);
@@ -355,11 +295,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return File_Manager_State;
 }
@@ -373,10 +309,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
   File_Manager_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Save_File);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &File_To_Save);
@@ -387,11 +320,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return File_Manager_State;
 }
@@ -405,10 +334,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
   File_Manager_State = None;
   // -- Save context
-  Xila.Display.Send_Raw(F("sendme"));
   Xila_Class::Software *Caller_Software = Xila.Software_Management.Openned[0];
-  Xila.Task.Delay(20);
-  Xila_Class::Page Page = Xila.Display.Get_Current_Page();
   // -- Initialize shell variable
   Xila.Software_Management.Shell_Send_Instruction(Dialog_Open_Folder);
   Xila.Software_Management.Shell_Set_Variable(Address('I', 'P'), Pointer, &Folder_To_Open);
@@ -419,11 +345,7 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
     Caller_Software->Last_Watchdog_Feed = Xila.Time.Milliseconds(); // -- Feed software watchdog
     Xila.Task.Delay(100);
   }
-  // -- Restore context
-  Xila.Display.Set_Current_Page(Page);
   Xila.Software_Management.Openned[0] = Caller_Software;
-  // -- Wait 20 ms to switch page
-  Xila.Task.Delay(20);
   // -- Give semaphore back and return dialog result
   return File_Manager_State;
 }

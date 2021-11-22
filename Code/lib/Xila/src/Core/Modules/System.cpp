@@ -98,6 +98,7 @@ void Xila_Class::System_Class::Task(void *)
     // -- Task to refresh every 10 seconds
     if (Xila.Time.Milliseconds() > Next_Refresh)
     {
+      if (Xila.Dialog_Save_File)
       // -- Check if drive is not disconnected.
       if (!Xila.Drive.Exists(Xila_Directory_Path) || !Xila.Drive.Exists(Software_Directory_Path))
       {
@@ -182,6 +183,7 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
 /// @param Panic_Code Panic code to handle.
 void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
+  Log_Error("Panic handler triggered, error code : %X.", Panic_Code);
   Xila.Display.Set_Current_Page(F("Core_Panic"));
   char Temporary_String[32];
   snprintf(Temporary_String, sizeof(Temporary_String), "Error code : %X", Panic_Code);
@@ -399,9 +401,27 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
+
 #if USB_Serial == 1
   Serial.begin(Default_USB_Serial_Speed);
 #endif
+
+  Log_Raw_Line("");
+  Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  Log_Raw_Line("||               __________   __   __  _____   _                              ||");
+  Log_Raw_Line("||              |      |   |  \\ \\ / / |_   _| | |          /\\                 ||");
+  Log_Raw_Line("||              |______|   |   \\ V /    | |   | |         /  \\                ||");
+  Log_Raw_Line("||              |   |__|___|    | |     | |   | |        / /\\ \\               ||");
+  Log_Raw_Line("||              |   |      |   / . \\   _| |_  | |____   / ____ \\              ||");
+  Log_Raw_Line("||              |___|______|  /_/ \\_\\ |_____| |______| /_/    \\_\\             ||");
+  Log_Raw_Line("||                                                                            ||");
+  Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+  Log_Raw_Line("");
+  Log_Raw_Line(" > Version : " Xila_Version_Major_String "." Xila_Version_Minor_String "." Xila_Version_Revision_String " - Alix ANNERAUD - MIT Licence - 2021");
+  Log_Raw_Line("");
+  Log_Information("Starting Xila ...");
+  Log_Verbose("First start routine.");
+
   if (Xila.System.Task_Handle != NULL) // Already started
   {
     return;
@@ -430,6 +450,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (esp_task_wdt_init(Maximum_Watchdog_Timeout / 1000, true) != ESP_OK)
   {
+    Log_Error("Failed to set watchdog timeout. Trying to reboot.");
     ESP.restart();
   }
 
@@ -445,10 +466,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
+    Log_Error("Failed to initialize drive.");
     Xila.Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
   }
   while (!Xila.Drive.Begin() || Xila.Drive.Type() == Xila.Drive.None)
   {
+    Log_Information("Attemping to initialize drive ...");
     Xila.Drive.End();
     Xila.Task.Delay(200);
   }
@@ -469,6 +492,7 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   if (!Xila.Drive.Exists(Users_Directory_Path))
   {
+    Log_Information("No existing \"/Users\" directory.");
     File Temporary_File = Xila.Drive.Open(Display_Executable_Path);
     if (Xila.Display.Update(Temporary_File) != Xila.Display.Update_Succeed)
     {
@@ -487,7 +511,8 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   Xila.Display.Set_Serial_Wake_Up(true);
   Xila.Display.Set_Brightness(Xila.Display.Brightness);
   Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
-  Xila.Display.Set_Current_Page(F("Core_Load")); // Play animation
+  Xila.Display.Set_Current_Page(F("Core_Load"));
+
   Xila.Display.Set_Trigger(F("LOAD_TIM"), true);
 
   // -- Check system integrity -- //
@@ -586,7 +611,6 @@ void Xila_Class::System_Class::Second_Start_Routine()
 /// @param Size Size of the software bundle.
 void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Package, uint8_t Size)
 {
-
   First_Start_Routine();
 
   // Restore attribute
@@ -790,9 +814,9 @@ void Xila_Class::System_Class::Restart()
 }
 
 ///
- /// @brief Return chip revision.
- /// 
- /// @return uint8_t Chip revision.
+/// @brief Return chip revision.
+///
+/// @return uint8_t Chip revision.
 uint8_t Xila_Class::System_Class::Get_Chip_Revision()
 {
   esp_chip_info_t chip_info;
@@ -801,9 +825,9 @@ uint8_t Xila_Class::System_Class::Get_Chip_Revision()
 }
 
 ///
- /// @brief Return chip model.
- /// 
- /// @return const char* Chip model.
+/// @brief Return chip model.
+///
+/// @return const char* Chip model.
 const char *Xila_Class::System_Class::Get_Chip_Model()
 {
   uint32_t chip_ver = REG_GET_FIELD(EFUSE_BLK0_RDATA3_REG, EFUSE_RD_CHIP_VER_PKG);
@@ -826,9 +850,9 @@ const char *Xila_Class::System_Class::Get_Chip_Model()
 }
 
 ///
- /// @brief Return number of chip cores.
- /// 
- /// @return uint32_t Chip cores.
+/// @brief Return number of chip cores.
+///
+/// @return uint32_t Chip cores.
 uint32_t Xila_Class::System_Class::Get_Chip_Cores()
 {
   esp_chip_info_t chip_info;
