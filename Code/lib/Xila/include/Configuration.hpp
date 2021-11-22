@@ -79,6 +79,8 @@
 #define Default_GMT_Offset 0
 #define Default_NTP_Server "pool.ntp.org"
 
+#define Log_Level   CORE_DEBUG_LEVEL
+
 // -- Release configuration
 #if CORE_DEBUG_LEVEL <= 1 // release mode
 
@@ -91,10 +93,6 @@
 
 // -- Debug configuration
 #else
-
-#warning Debug mode.
-
-#define ARDUINOTRACE_ENABLE 1 // Enable ArduinoTrace
 
 #define Animations 0        // Disable animation
 #define Drive_Mode 0        // SD spi mode
