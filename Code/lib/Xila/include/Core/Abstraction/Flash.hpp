@@ -87,4 +87,19 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Write(const esp_part
     return Error;
 }
 
+inline Xila_Class::Event Xila_Class::Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
+{
+    if (Partition_Number > Xila_Partition)
+    {
+        return Error;
+    }
+    if (esp_ota_set_boot_partition(esp_partition_find_first(ESP_PARTITION_TYPE_APP, ESP_PARTITION_SUBTYPE_APP_OTA_MIN + Partition_Number)) == ESP_OK)
+    {
+        return Success;
+    }
+    return Error;
+}
+
+
+
 #endif

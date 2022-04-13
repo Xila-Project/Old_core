@@ -148,10 +148,6 @@ Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File
   {
     return Xila.Error;
   }
-  if (Executable_File.isDirectory())
-  {
-    return Xila.Error;
-  }
   if (Executable_File.size() == 0)
   {
     return Xila.Error;
@@ -401,6 +397,8 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 inline void Xila_Class::System_Class::First_Start_Routine()
 {
+
+  Xila.Flash.Set_Boot_Partition(Xila_Loader_Partition); // Set loader as boot partition if Xila is doesn't boot anymore.
 
 #if USB_Serial == 1
   Serial.begin(Default_USB_Serial_Speed);
@@ -686,6 +684,8 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 ///
 void Xila_Class::System_Class::Shutdown()
 {
+  Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
+
   Xila.Software_Management.Shell_Maximize();
   Xila.Software_Management.Shell_Send_Instruction(Xila.Shutdown);
 
@@ -745,6 +745,7 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 ///
 void Xila_Class::System_Class::Hibernate()
 {
+  Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
 
   Xila.System.Save_Dump();
 
@@ -784,6 +785,8 @@ void Xila_Class::System_Class::Hibernate()
 ///
 void Xila_Class::System_Class::Restart()
 {
+  Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
+
   Xila.Software_Management.Shell_Send_Instruction(Xila.Restart);
   Xila.Software_Management.Shell_Maximize();
 

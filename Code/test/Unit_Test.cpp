@@ -175,9 +175,13 @@ void Unit_Test_Class::Mathematics()
     TEST_ASSERT_EQUAL_DOUBLE(40320, Xila.Mathematics.Factorial(16));
     TEST_ASSERT_EQUAL_DOUBLE(6, Xila.Mathematics.Absolute(-6));
     TEST_ASSERT_EQUAL_DOUBLE(0.5, Xila.Mathematics.Inverse(2));
-    TEST_ASSERT_EQUAL_DOUBLE(, Xila.Mathematics.Sine(-0.5, (5 * Xila.Mathematics.Pi) / 6);
-    TEST_ASSERT_EQUAL_DOUBLE(-0.5, Xila.Mathematics.Cosine((2* Xila.Mathematics.Pi) / 3));
-    TEST_ASSERT_EQUAL_DOUBLE(1, Xila.Mathematics.Tangent(Xila.Mathematics.Pi/4));
+    for (double i = 0; i < PI; i += 0,1)
+    {
+        TEST_ASSERT_EQUAL_DOUBLE(sin(i), Xila.Mathematics.Sine(-0.5, (5 * Xila.Mathematics.Pi) / 6);
+        TEST_ASSERT_EQUAL_DOUBLE(cos(i) Xila.Mathematics.Cosine((2* Xila.Mathematics.Pi) / 3));
+        TEST_ASSERT_EQUAL_DOUBLE(tan(i), Xila.Mathematics.Tangent(Xila.Mathematics.Pi/4));
+    }
+    
     TEST_ASSERT_EQUAL_DOUBLE(256, Xila.Mathematics.Power(2, 8));
     TEST_ASSERT_EQUAL_DOUBLE(64, Xila.Mathematics.Square(2, 8));
     TEST_ASSERT_EQUAL_DOUBLE(27, Xila.Mathematics.Cube(3));
@@ -195,11 +199,29 @@ void Unit_Test_Class::Memory()
     TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Free_Heap());
     TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Minimum_Free_Heap());
     TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Maximum_Allocated_Heap());
+
+    #ifdef DBOARD_HAS_PSRAM
+        TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_PSRAM_Size());
+        TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Free_PSRAM());
+        TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Minimum_Free_Heap());
+        TEST_ASSERT_NOT_EQUAL(0, Xila.Memory.Get_Maximum_Allocated_PSRAM());
+    #endif
 }
 
 void Unit_Test_Class::Power()
 {
+
+    //TEST_ASSERT_EQUAL(Xila.Success, Xila.Power.Open_Registry());
+    //TEST_ASSERT_EQUAL(Xila.Success, Xila.Power.Save_Registry());
+    
     // -- Nothing to test here because it's hardware related.
+}
+
+void Unit_Test_Class::Software_Management();
+{
+    TEST_ASSERT_EQUAL(Xila.Software_Management.Openned, Xila.Software_Management.Get_State(Unit_Test_Handle));
+    TEST_ASSERT_EQUAL(Xila.Software_Management.Minimized, )
+    TEST_ASSERT_EQUAL(Xila.Software_Management.Openned)
 }
 
 

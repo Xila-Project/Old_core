@@ -9,6 +9,7 @@
 #if Log_Level == 0
 
 #define Log_Raw(...)
+#define Log_Raw_Line(...)
 #define Log_Error(...)
 #define Log_Warning(...)
 #define Log_Information(...)

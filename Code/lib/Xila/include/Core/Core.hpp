@@ -18,8 +18,8 @@
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///
-#ifndef CORE_H_INCLUDED
-#define CORE_H_INCLUDED
+#ifndef CORE_HPP_INCLUDED
+#define CORE_HPP_INCLUDED
 
 #ifdef __cplusplus
 
@@ -575,6 +575,7 @@ public:
             Cross
         };
 
+
         ///
         /// @brief Image offsets list.
         ///
@@ -582,19 +583,20 @@ public:
         ///
         enum Image_Offset
         {
-            Shell_Images = 0,
-            Calculator_Images = 20,
-            Clock_Images,
-            Internet_Browser_Images,
-            Music_Player_Images,
-            Oscilloscope_Images = 32,
-            Paint_Images,
-            Periodic_Images,
-            Piano_Images = 36,
-            Pong_Images = 40,
-            Simon_Images,
-            Text_Editor_Images,
-            Tiny_Basic_Images
+            Loader_Images = 0,
+            Shell_Images = Loader_Images + 2, 
+            Calculator_Images = Shell_Images + 20,
+            Clock_Images = Calculator_Images + 1,
+            Internet_Browser_Images = Clock_Images + 1,
+            Music_Player_Images = Internet_Browser_Images + 1,
+            Oscilloscope_Images = Music_Player_Images + 9,
+            Paint_Images = Oscilloscope_Images + 1,
+            Periodic_Images = Paint_Images + 1,
+            Piano_Images = Periodic_Images + 2,
+            Pong_Images = Piano_Images + 4,
+            Simon_Images = Pong_Images + 1,
+            Text_Editor_Images = Simon_Images + 1,
+            Tiny_Basic_Images = Text_Editor_Images + 1
         };
 
         ///
@@ -738,6 +740,9 @@ public:
 
     private:
         // -- Methods
+        Xila_Class::Event Set_Boot_Partition(const uint8_t Partition_Number);
+        
+
         Xila_Class::Event Erase_Sector(uint32_t Sector);
         Xila_Class::Event Write(uint32_t Offset, uint32_t *Data, size_t Size);
 
@@ -752,7 +757,7 @@ public:
         friend class Xila_Class;
         friend class Shell_Class;
         friend class Unit_Test_Class;
-    };
+    } Flash;
 
     //==============================================================================//
     ///

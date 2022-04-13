@@ -22,6 +22,10 @@
 // -- USB serial speed
 #define Default_USB_Serial_Speed 115200
 
+// Partitions
+#define Xila_Loader_Partition 0
+#define Xila_Partition 1
+
 // -- System
 #define Default_Device_Name "Xila"
 #define Xila_Version_Major 0
