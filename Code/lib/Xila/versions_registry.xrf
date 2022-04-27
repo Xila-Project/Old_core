@@ -2,27 +2,8 @@
     "Versions_Registry": [
         {
             "Version": "0.1.0",
-            "Date": "2014-01-09",
-            "Url": "",
-            "Softwares": [
-                "Calculator",
-                "Clock",
-                "Internet Browser",
-                "Music Player",
-                "Oscilloscope",
-                "Paint",
-                "Periodic",
-                "Piano",
-                "Pong",
-                "Simon",
-                "Text Editor",
-                "Tiny Basic"
-            ]
-        },
-        {
-            "Version": "0.2.0",
-            "Date": "2014-01-10",
-            "URL": "",
+            "Date": "20-04-2021",
+            "Url": "https://codeload.github.com/AlixANNERAUD/Xila/tar.gz/refs/tags/0.1.0",
             "Softwares": [
                 "Calculator",
                 "Clock",
