@@ -59,6 +59,9 @@
 
 // -- Display
 
+#define Default_Display_Horizontal_Definition 480
+#define Default_Display_Vertical_Definition 320
+ 
 #define Default_Display_Switching_Pin GPIO_NUM_27
 #define Default_Display_Receive_Pin GPIO_NUM_16
 #define Default_Display_Transmit_Pin GPIO_NUM_17

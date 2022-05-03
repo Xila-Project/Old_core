@@ -10,6 +10,8 @@
 
 #include "Core/Core.hpp"
 
+
+
 ///
 /// @brief Construct a new Xila_Class::Display_Class::Display_Class object
 ///
@@ -30,6 +32,69 @@ Xila_Class::Display_Class::Display_Class()
 ///
 Xila_Class::Display_Class::~Display_Class()
 {
+}
+
+Xila_Class::Event Xila_Class::Display_Class::Compile_Page(File Page_File)
+{
+    // Stream& input;
+
+    if (!Page_File)
+    {
+        return Error;
+    }
+
+    DynamicJsonDocument Page_File_Registry(Page_File.size());
+
+    if (deserializeJson(Page_File_Registry, Page_File) != DeserializationError::Ok)
+    {
+        return Error;
+    }
+
+    for (JsonObject Object : doc["Objects"].as<JsonArray>())
+    {
+
+
+        int Object_Type = Object["Type"];         // 0, 1
+        const char *Object_Name = Object["Name"]; // "Button 1", "Button 2"
+
+        const char *Parent = Object["Parent"];    // "Page 1", "Page 2"
+
+
+        int Object_Position_Align = Object["Position"]["Align"];
+        int Object_Position_X = Object["Position"]["X"];             
+        int Object_Position_Y = Object["Position"]["Y"];             
+
+        // Size
+        int Object_Width = Object["Size"]["Width"];           // 0, 1
+        int Object_Height = Object["Size"]["Height"];         // 0, 1
+       
+        // Style
+        uint16_t Background_Color = Object["Style"]["Background Color"];
+        uint16_t Text_Color = Object["Style"]["Text Color"];
+        uint16_t 
+
+        const char *Object_Instructions_Click = Object["Instructions"]["Click"]; // "BUT1", "BUT2"
+        const char *Object_Instructions_Hover = Object["Instructions"]["Hover"]; // "BUT'", "BUT'"
+    }
+}
+
+///
+/// @brief
+///
+/// @return Xila_Class::Event
+Xila_Class::Event Xila_Class::Display_Class::Load_Page(File Page_File, Object *Object_Array, uint16_t Object_Array_Size)
+{
+    if (!Page_File)
+    {
+        return Error;
+    }
+
+    if (Compile_Page(Page_File) != Error))
+    {
+        return Error;
+    }
+
+    return Success;
 }
 
 ///
@@ -108,7 +173,7 @@ void Xila_Class::Display_Class::Incoming_String_Data_From_Display(const char *Re
         Xila.Display.Current_Address = Address(Received_Data[1], Received_Data[2]);
         break;
     default:
-        //error handle
+        // error handle
         break;
     }
 }

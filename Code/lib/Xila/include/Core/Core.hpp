@@ -69,6 +69,7 @@
 #include <ArduinoTrace.h>
 
 // -- Driver headers
+#include "lvgl.h"
 #include "Nextion_Library.hpp"
 #include "Battery_Library.hpp"
 
@@ -79,7 +80,7 @@
 // -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
 #include "Modules/Log.hpp"
-#include "Modules/Path.hpp"  // Path list
+#include "Modules/Path.hpp" // Path list
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -335,7 +336,7 @@ public:
         ///
         /// @brief Software string name.
         ///
-        char Name[Default_Software_Name_Length]; //used to identify the software,
+        char Name[Default_Software_Name_Length]; // used to identify the software,
 
         ///
         /// @brief Software icon.
@@ -575,7 +576,6 @@ public:
             Cross
         };
 
-
         ///
         /// @brief Image offsets list.
         ///
@@ -584,7 +584,7 @@ public:
         enum Image_Offset
         {
             Loader_Images = 0,
-            Shell_Images = Loader_Images + 2, 
+            Shell_Images = Loader_Images + 2,
             Calculator_Images = Shell_Images + 20,
             Clock_Images = Calculator_Images + 1,
             Internet_Browser_Images = Clock_Images + 1,
@@ -640,7 +640,36 @@ public:
         friend class Shell_Class;
         friend class Unit_Test_Class;
 
+
+
+        typedef
+
+        enum State
+        {
+            Default = LV_STATE_DEFAULT,
+            Checked = LV_STATE_CHECKED,
+            Focused = LV_STATE_FOCUSED,
+            Focus_Key = LV_STATE_FOCUS_KEY,
+            Edited = LV_STATE_EDITED,
+            Hovered = LV_STATE_HOVERED,
+            Pressed = LV_STATE_PRESSED,
+            Scrolled = LV_STATE_SCROLLED,
+            Disabled = LV_STATE_DISABLED,
+            Custom_1 = LV_STATE_USER_1,
+            Custom_2 
+        };
+
+        // -- Methods
+
+      
+        Get_Horizontal_Definition();
+        uint16_t Get_Vertical_Definition();
+
+        Xila_Class::Event Compile_Page(File);
+        Xila_Class::Event Load_Page(File, Object *, uint16_t);
+
     protected:
+
         void Set_State(uint8_t State);
 
         uint8_t State;
@@ -697,7 +726,7 @@ public:
         uint64_t Total_Bytes();
         uint64_t Used_Bytes();
 
-        //Custom
+        // Custom
 
         Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
         Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
@@ -741,7 +770,6 @@ public:
     private:
         // -- Methods
         Xila_Class::Event Set_Boot_Partition(const uint8_t Partition_Number);
-        
 
         Xila_Class::Event Erase_Sector(uint32_t Sector);
         Xila_Class::Event Write(uint32_t Offset, uint32_t *Data, size_t Size);
@@ -753,7 +781,7 @@ public:
         uint32_t Magic_Size(uint8_t Byte);
         uint32_t Magic_Speed(uint8_t Byte);
         FlashMode_t Magic_Mode(uint8_t Byte);
-    
+
         friend class Xila_Class;
         friend class Shell_Class;
         friend class Unit_Test_Class;

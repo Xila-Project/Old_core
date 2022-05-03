@@ -32,6 +32,11 @@
             "version": "^1.2.0"
         },
         {
+            "owner": "lvgl",
+            "name": "lvgl",
+            "versions": "^8.2.0"
+        },
+        {
             "name": "ESP32-audioI2S",
             "version": "https://github.com/schreibfaul1/ESP32-audioI2S.git"
         },

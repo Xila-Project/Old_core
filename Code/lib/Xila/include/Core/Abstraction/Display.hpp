@@ -23,4 +23,14 @@ inline void Xila_Class::Display_Class::Set_State(uint8_t State)
     this->State = State;
 }
 
+inline uint16_t Xila_Class::Display_Class::Get_Horizontal_Definition()
+{
+    return Display_Horizontal_Definition;
+}
+
+inline uint16_t Xila_Class::Display_Class::Get_Vertical_Definition()
+{
+    return Display_Vertical_Definition;
+}
+
 #endif
