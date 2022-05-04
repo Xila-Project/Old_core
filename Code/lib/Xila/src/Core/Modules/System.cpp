@@ -93,8 +93,6 @@ void Xila_Class::System_Class::Task(void *)
   {
     // -- Check power button interrupt
     Xila.Power.Check_Button();
-    // -- Execute data from display.
-    Xila.Display.Loop();
     // -- Task to refresh every 10 seconds
     if (Xila.Time.Milliseconds() > Next_Refresh)
     {
@@ -477,16 +475,12 @@ inline void Xila_Class::System_Class::First_Start_Routine()
 
   // -- Initialize display. -- //
 
-  Xila.Display.Set_Callback_Function_Numeric_Data(Xila.Display.Incoming_Numeric_Data_From_Display);
-  Xila.Display.Set_Callback_Function_String_Data(Xila.Display.Incoming_String_Data_From_Display);
-  Xila.Display.Set_Callback_Function_Event(Xila.Display.Incoming_Event_From_Display);
+  Xila.Task.Create(Xila.Display.Task, "Display driver", Memory_Chunk(8), NULL, Xila.Task.Driver_Task, Xila.Display.Task_Handle);
 
   if (Xila.Display.Load_Registry() != Success)
   {
     Xila.Display.Save_Registry();
   }
-
-  Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
 
   if (!Xila.Drive.Exists(Users_Directory_Path))
   {
@@ -504,11 +498,11 @@ inline void Xila_Class::System_Class::First_Start_Routine()
   Xila.GPIO.Set_Mode(Default_Display_Switching_Pin, Xila.GPIO.Output);
   Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.High);
   Xila.Task.Delay(2000);
-  Xila.Display.Wake_Up();
-  Xila.Display.Set_Touch_Wake_Up(true);
-  Xila.Display.Set_Serial_Wake_Up(true);
+  //Xila.Display.Wake_Up();
+  //Xila.Display.Set_Touch_Wake_Up(true);
+  //Xila.Display.Set_Serial_Wake_Up(true);
   Xila.Display.Set_Brightness(Xila.Display.Brightness);
-  Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
+  //Xila.Display.Set_Standby_Touch_Timer(Xila.Display.Standby_Time);
   Xila.Display.Set_Current_Page(F("Core_Load"));
 
   Xila.Display.Set_Trigger(F("LOAD_TIM"), true);

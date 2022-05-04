@@ -46,6 +46,7 @@
 			"sendme",
 			"SSID",
 			"VOLUMEUP"
-		]
+		],
+		"editor.wordWrap": "on"
 	}
 }

@@ -136,8 +136,8 @@ public:
     //==============================================================================//
 
     /// @brief Xila's core state.
-    typedef lv_obj_t* Object;
-    
+    typedef lv_obj_t *Object;
+
     /// @brief Xila Address type.
     typedef uint16_t Address;
 
@@ -535,31 +535,6 @@ public:
         };
 
         ///
-        /// @brief Xila_16 special characters list.
-        ///
-        enum Xila_16 : uint8_t
-        {
-            State_Button = 127,
-            Left_Arrow,
-            Right_Arrow,
-            Up_Arrow,
-            Down_Arrow,
-            Battery_Empty,
-            Battery_Quarter,
-            Battery_Half,
-            Battery_Three_Quarters,
-            Battery_Full,
-            WiFi_Low,
-            WiFi_Medium,
-            WiFi_High,
-            Bluetooth,
-            Sound_Mute,
-            Sound_Low,
-            Sound_Medium,
-            Sound_High,
-        };
-
-        ///
         /// @brief Xila_32 special characters list.
         ///
         enum Font_32
@@ -567,50 +542,6 @@ public:
             Exclamation_Mark = 127,
             Question_Mark,
             Cross
-        };
-
-        ///
-        /// @brief Image offsets list.
-        ///
-        /// @details All image offset, used by included software to keep track of picture offset
-        ///
-        enum Image_Offset
-        {
-            Loader_Images = 0,
-            Shell_Images = Loader_Images + 2,
-            Calculator_Images = Shell_Images + 20,
-            Clock_Images = Calculator_Images + 1,
-            Internet_Browser_Images = Clock_Images + 1,
-            Music_Player_Images = Internet_Browser_Images + 1,
-            Oscilloscope_Images = Music_Player_Images + 9,
-            Paint_Images = Oscilloscope_Images + 1,
-            Periodic_Images = Paint_Images + 1,
-            Piano_Images = Periodic_Images + 2,
-            Pong_Images = Piano_Images + 4,
-            Simon_Images = Pong_Images + 1,
-            Text_Editor_Images = Simon_Images + 1,
-            Tiny_Basic_Images = Text_Editor_Images + 1
-        };
-
-        ///
-        /// @brief Software pages offset enumeration.
-        ///
-        enum Pages_Offset
-        {
-            Core_Pages = 0,
-            Shell_Pages = 5,
-            Calculator_Pages = 23,
-            Clock_Pages,
-            Text_Editor_Pages = 28,
-            Paint_Pages,
-            Internet_Browser_Pages,
-            Music_Player_Pages,
-            Oscilloscope_Pages,
-            Periodic_Pages,
-            Piano_Pages = 35,
-            Pong_Pages,
-            Simon_Pages,
-            Tiny_Basic_Pages
         };
 
         ///
@@ -635,25 +566,6 @@ public:
         friend class Shell_Class;
         friend class Unit_Test_Class;
 
-        enum State
-        {
-            Default = LV_STATE_DEFAULT,
-            Checked = LV_STATE_CHECKED,
-            Focused = LV_STATE_FOCUSED,
-            Focus_Key = LV_STATE_FOCUS_KEY,
-            Edited = LV_STATE_EDITED,
-            Hovered = LV_STATE_HOVERED,
-            Pressed = LV_STATE_PRESSED,
-            Scrolled = LV_STATE_SCROLLED,
-            Disabled = LV_STATE_DISABLED,
-            Visible,
-            Hidden,
-            Custom_1 = LV_STATE_USER_1,
-            Custom_2 = LV_STATE_USER_2,
-            Custom_3 = LV_STATE_USER_3,
-            Custom_4 = LV_STATE_USER_4
-        };
-
         enum Event
         {
             Pressed = LV_EVENT_PRESSED,
@@ -672,33 +584,187 @@ public:
             Keep = -32768,
         };
 
-        // -- Methods
-      
+        enum Alignment
+        {
+            Left = LV_ALIGN_LEFT,
+            Center = LV_ALIGN_CENTER,
+            Right = LV_ALIGN_RIGHT,
+            In_Between = LV_ALIGN_IN_BETWEEN,
+            In_Between_Hor = LV_ALIGN_IN_BETWEEN_HOR,
+            In_Between_Ver = LV_ALIGN_IN_BETWEEN_VER
+        };
+
+        enum Animation
+        {
+            Enable = LV_ANIM_ON,
+            Disable = LV_ANIM_OFF
+        };
+
+
+        static void Initialise(),
+        static bool Initialisation_State();
+        class Object_Class
+        {
+        public:
+
+            // -- Types
+            typedef lv_state_t State_Type;
+            typedef lv_part_t Part_Type;
+            typedef lv_obj_flag_t Object_Flag_Type;
+
+            enum
+            {
+                Default = LV_STATE_DEFAULT,
+                Checked = LV_STATE_CHECKED,
+                Focused = LV_STATE_FOCUSED,
+                Focus_Key = LV_STATE_FOCUS_KEY,
+                Edited = LV_STATE_EDITED,
+                Hovered = LV_STATE_HOVERED,
+                Pressed = LV_STATE_PRESSED,
+                Scrolled = LV_STATE_SCROLLED,
+                Disabled = LV_STATE_DISABLED,
+                Custom_1 = LV_STATE_USER_1,
+                Custom_2 = LV_STATE_USER_2,
+                Custom_3 = LV_STATE_USER_3,
+                Custom_4 = LV_STATE_USER_4,
+                Any = LV_STATE_ANY
+            };
+
+            enum
+            {
+                Main = LV_PART_MAIN,
+                Scrollbar = LV_PART_SCROLLBAR,
+                Indicator = LV_PART_INDICATOR,
+                Knob = LV_PART_KNOB,
+                Selected = LV_PART_SELECTED,
+                Items = LV_PART_ITEMS,
+                Ticks = LV_PART_TICKS,
+                Cursor = LV_PART_CURSOR,
+                Custom_First = LV_PART_CUSTOM_FIRST,
+                Any = LV_PART_ANY
+            };
+
+
+
+            typedef Xila_Class::Object Object;
+
+            // -- Managment
+            static Xila_Class::Object Create(Object Parent, Object Copy = NULL);
+            static void Delete(Object Object);
+            static void Clean(Object Object);
+            static void Add_Flag(Object Object, Object_Flag_Type Flag);
+            static void Clear_Flag(Object Object, Object_Flag_Type Flag);
+            static void Add_State(Object Object, State_Type State);
+            static void Clear_State(Object Object, State_Type State);
+
+            static bool Has_Flag(Object Object, Object_Flag_Type Flag);
+
+            // -- Set attributes values.
+            void Set_Position(Xila_Class::Object, Coordinates X = Keep, Coordinates Y = Keep);
+            void Set_Size(Xila_Class::Object, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
+            void Set_Alignment(Xila_Class::Object, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
+
+            // -- Get attributes values.
+            State Get_Object_Visibility(Xila_Class::Object);
+        };
+
+        class Arc_Class : public Object_Class
+        {
+            typedef enum
+            {
+                Normal = LV_ARC_MODE_NORMAL,
+                Symmetrical = LV_ARC_MODE_SYMMETRICAL,
+                Reversed = LV_ARC_MODE_REVERSED
+            } Mode_Type;
+
+            typedef enum
+            {
+                Background = LV_ARC_DRAW_PART_BACKGROUND,
+                Foreground = LV_ARC_DRAW_PART_FOREGROUND,
+                Knob = LV_ARC_DRAW_PART_KNOB
+            } Part_Type;
+
+            // -- Managment
+            static Object Create(Object Parent, const Object Copy = NULL);
+            static void Align_To_Angle(const Object Object, Object Object_To_Align, Coordinates Radius_Offset);
+            static void Rotate_To_Angle(const Object Object, Object Object_To_Rotate, Coordinates Radius_Offset);
+
+            // -- Set attributes values.
+            static void Set_Angles(Object Object, uint16_t Start = 0xFFFF, uint16_t End = 0xFFFF);
+            static void Set_Background_Angles(Object Object, uint16_t Start = 0xFFFF, unt16_t 0xFFFF);
+            static void Set_Range(Object Object, int16_t Minimum, int16_t Maximum);
+            static void Set_Change_Rate(Object Object, uint16_t Rate);
+            static void Set_Rotation(Object Object, uint16_t Rotation);
+            static void Set_Mode(Object Object, Mode_Type Mode);
+            static void Set_Value(Object Object, int16_t Value);
+
+            // -- Get attributes values.
+            static void Get_Angles(Object Object, uint16_t *Start, uint16_t *End);
+            static void Get_Background_Angles(Object Object, uint16_t *Start, uint16_t *End);
+            static void Get_Value(const Object Object) static void Get_Range(Object Object, int16_t *Minimum, int16_t *Maximum);
+            static Mode_Type Get_Mode(Object Object);
+        };
+
+        class Bar_Class : public Object_Class
+        {
+        public:
+            typedef enum
+            {
+                Normal = LV_BAR_MODE_NORMAL,
+                Symmetrical = LV_BAR_MODE_SYMMETRICAL,
+                Custom = LV_BAR_MODE_RANGE
+            } Mode_Type;
+
+            typedef enum
+            {
+                Indicator = LV_BAR_DRAW_PART_INDICATOR
+            } Part_Type;
+
+            // -- Managment
+            static Object Create(Object Parent, const Object Copy = NULL);
+
+            // -- Set attributes values.
+            static void Set_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
+            static void Set_Start_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
+            static void Set_Range(Object Bar, int32_t Minimum_Value, int32_t Maximum_Value);
+            static void Set_Mode(Object Bar, Mode_Type Mode);
+            static void Set_Type(Object Bar, Type_Enum Type);
+
+            // -- Get attributes values.
+            static int32_t Get_Value(Object Bar);
+            static int32_t Get_Start_Value(Object Bar);
+            static void Get_Range(Object Bar, int32_t *Minimum_Value, int32_t *Maximum_Value);
+            static Mode_Type Get_Mode(Object Bar);
+        };
+
+        class Button_Class : public Object_Class
+        {
+        public:
+            static Object Create(Object Parent);
+        };
+
+        class Windows_Class
+        {
+        public:
+            static Xila_Class::Event Load_Windows(File);
+
+        }
+
+        static void
+        Task(void *);
+
+        Xila_Class::Task_Handle Task_Handle;
+
+        Xila_Class::Semaphore_Handle_Type Mutex_Semaphore_Handle;
+
         // -- Display state
         uint16_t Get_Horizontal_Definition();
         uint16_t Get_Vertical_Definition();
-
-        // -- Object management
-        Xila_Class::Object Create_Object(Xila_Class::Object, Xila_Class::Object = NULL);
-        void Delete_Object(Xila_Class::Object);
-        void Clean_Object(Xila_Class::Object);
-
-        // -- Attributes modifiers
-        void Set_Object_Position(Xila_Class::Object, Coordinates X = Keep, Coordinates Y = Keep);
-        void Set_Object_Size(Xila_Class::Object, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
-
-
-        // -- Attributes getters
-        State Get_Object_Visibility(Xila_Class::Object);
-
-        // -- Set attributes
-        Xila_Class::Object Set
 
         Xila_Class::Event Compile_Page(File);
         Xila_Class::Event Load_Page(File, Object *, uint16_t);
 
     protected:
-
         void Set_State(uint8_t State);
 
         uint8_t State;
@@ -1084,7 +1150,7 @@ public:
         uint8_t Data_Pin;
         uint8_t Clock_Pin;
 
-        inline void Begin();
+        void Begin();
 
     } Keyboard;
 
@@ -1558,13 +1624,48 @@ public:
     {
 
     public:
-        // -- Task management -- //
-        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
-        void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
-        void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
-        void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
+        typedef TickType_t Tick_Type;
 
-        void Delay(uint32_t Delay_In_Millisecond) const;
+        // -- Task management -- //
+        static Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
+        static void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
+        static void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
+        static void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
+
+        static void Delay(uint32_t Delay_In_Millisecond) const;
+
+        // -- Communication between tasks
+
+        typedef SemaphoreHandle_t Semaphore_Handle_Type;
+        typedef StaticSemaphore_t Static_Semaphore_Type;
+        ///
+        /// @brief
+        ///
+        class Semaphore_Class
+        {
+        public:
+            typedef TickType_t Tick_Type;
+
+            enum
+            {
+                Binary,
+                Counting,
+                Mutex,
+                Recursive_Mutex
+            };
+
+            static Semaphore_Handle_Type Create(uint8_t Type, UBaseType_t Initial_Count, UBaseType_t Maximum_Count);
+            static Semaphore_Handle_Type Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count = 0, UBaseType_t Maximum_Count = 0);
+            static void Delete(Semaphore_Handle_Type Semaphore_Handle);
+            static void Take(Semaphore_Handle_Type Semaphore_Handle);
+            static void Give(Semaphore_Handle_Type Semaphore_Handle);
+            static void Take_From_ISR(Semaphore_Type Semaphore_Handle, signed UBaseType_t *Higher_Priority_Task_Woken);
+            static void Give_From_ISR(Semaphore_Type Semaphore_Handle, signed UBaseType_t *Higher_Priority_Task_Woken);
+            static void Take_Recursive(Semaphore_Handle_Type Semaphore_Handle, Tick_Type Ticks_To_Wait);
+            static void Give_Recursive(Semaphore_Handle_Type Semaphore_Handle);
+            static Xila_Class::Task_Handle Get_Mutex_Holder(Semaphore_Handle_Type Semaphore_Handle);
+            static UBaseType_t Get_Count(Semaphore_Handle_Type Semaphore);
+        };
 
         // -- Friendship
         friend Xila_Class;
