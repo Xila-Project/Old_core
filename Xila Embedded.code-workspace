@@ -33,7 +33,8 @@
 			"unordered_set": "cpp",
 			"vector": "cpp",
 			"ctime": "cpp",
-			"cmath": "c"
+			"cmath": "c",
+			"iterator": "cpp"
 		},
 		"cSpell.words": [
 			"BSSID",

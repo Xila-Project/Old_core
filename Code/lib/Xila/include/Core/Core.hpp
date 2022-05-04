@@ -136,7 +136,7 @@ public:
     //==============================================================================//
 
     /// @brief Xila's core state.
-    typedef lv_obj_t Object;
+    typedef lv_obj_t* Object;
     
     /// @brief Xila Address type.
     typedef uint16_t Address;
@@ -503,9 +503,11 @@ public:
         Display_Class();
         ~Display_Class();
 
-        // ==== Types
+        // -- Types
 
-    
+        typedef lv_coord_t Coordinates;
+
+        // -- Enumerations
 
         ///
         /// @brief Prefix used to distinguish exchanged data between display, core and software
@@ -644,16 +646,53 @@ public:
             Pressed = LV_STATE_PRESSED,
             Scrolled = LV_STATE_SCROLLED,
             Disabled = LV_STATE_DISABLED,
+            Visible,
+            Hidden,
             Custom_1 = LV_STATE_USER_1,
             Custom_2 = LV_STATE_USER_2,
             Custom_3 = LV_STATE_USER_3,
             Custom_4 = LV_STATE_USER_4
         };
 
+        enum Event
+        {
+            Pressed = LV_EVENT_PRESSED,
+            Pressing = LV_EVENT_PRESSING,
+            Press_Lost = RV_EVENT_PRESS_LOST,
+            Short_Clicked = LV_EVENT_SHORT_CLICKED,
+            Long_Pressed = LV_EVENT_LONG_PRESSED,
+            Pressed_Repeat = LV_EVENT_PRESSED_REPEAT,
+            Apply = LV_EVENT_APPLY,
+            Delete = LV_EVENT_DELETE,
+            Last_Event = _LV_EVENT_LAST
+        };
+
+        enum
+        {
+            Keep = -32768,
+        };
+
         // -- Methods
       
+        // -- Display state
         uint16_t Get_Horizontal_Definition();
         uint16_t Get_Vertical_Definition();
+
+        // -- Object management
+        Xila_Class::Object Create_Object(Xila_Class::Object, Xila_Class::Object = NULL);
+        void Delete_Object(Xila_Class::Object);
+        void Clean_Object(Xila_Class::Object);
+
+        // -- Attributes modifiers
+        void Set_Object_Position(Xila_Class::Object, Coordinates X = Keep, Coordinates Y = Keep);
+        void Set_Object_Size(Xila_Class::Object, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
+
+
+        // -- Attributes getters
+        State Get_Object_Visibility(Xila_Class::Object);
+
+        // -- Set attributes
+        Xila_Class::Object Set
 
         Xila_Class::Event Compile_Page(File);
         Xila_Class::Event Load_Page(File, Object *, uint16_t);
