@@ -135,39 +135,28 @@ public:
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
-    ///
+    /// @brief Xila's core state.
+    typedef lv_obj_t Object;
+    
     /// @brief Xila Address type.
-    ///
     typedef uint16_t Address;
 
-    ///
     /// @brief Image type.
-    ///
     typedef uint8_t Image;
 
-    ///
     /// @brief Xila instruction type.
-    ///
     typedef uint16_t Instruction;
 
-    ///
     /// @brief Page type.
-    ///
     typedef uint8_t Page;
 
-    ///
     /// @brief Task type
-    ///
     typedef void Task_Function;
 
-    ///
     /// @brief Task handle type
-    ///
     typedef void *Task_Handle;
 
-    ///
     /// @brief Instructions used by the core (with the prefix "#").
-    ///
     enum : Xila_Class::Instruction
     {
         // -- General instructions
@@ -514,7 +503,9 @@ public:
         Display_Class();
         ~Display_Class();
 
-        uint8_t Get_State();
+        // ==== Types
+
+    
 
         ///
         /// @brief Prefix used to distinguish exchanged data between display, core and software
@@ -636,13 +627,11 @@ public:
         static void Incoming_Numeric_Data_From_Display(uint32_t);
         static void Incoming_Event_From_Display(uint8_t);
 
+        uint8_t Get_State();
+
         friend class Xila_Class;
         friend class Shell_Class;
         friend class Unit_Test_Class;
-
-
-
-        typedef
 
         enum State
         {
@@ -656,13 +645,14 @@ public:
             Scrolled = LV_STATE_SCROLLED,
             Disabled = LV_STATE_DISABLED,
             Custom_1 = LV_STATE_USER_1,
-            Custom_2 
+            Custom_2 = LV_STATE_USER_2,
+            Custom_3 = LV_STATE_USER_3,
+            Custom_4 = LV_STATE_USER_4
         };
 
         // -- Methods
-
       
-        Get_Horizontal_Definition();
+        uint16_t Get_Horizontal_Definition();
         uint16_t Get_Vertical_Definition();
 
         Xila_Class::Event Compile_Page(File);
