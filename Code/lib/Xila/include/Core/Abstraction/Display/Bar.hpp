@@ -22,27 +22,27 @@
 
 #define Class Xila_Class::Display_Class::Bar_Class // Shortcut
 
-inline Object Class::Create(Object Parent, const Object Copy)
+inline Object_Type Class::Create(Object_Type Parent, const Object_Type Copy)
 {
     return lv_bar_create(Parent, Copy);
 }
 
-inline void Class::Set__Value(Object Bar, int16_t Value, Animation Animation_State = Enable)
+inline void Class::Set__Value(Object_Type Bar, int16_t Value, Animation Animation_State = Enable)
 {
     lv_bar_set_value(Bar, Value, Animation_State);
 }
 
-inline void Class::Set_Start_Value(Object Bar, int16_t Value, Animation Animation_State)
+inline void Class::Set_Start_Value(Object_Type Bar, int16_t Value, Animation Animation_State)
 {
     lv_bar_set_start_value(Bar, Value, Animation_State);
 }
 
-inline void Class::Set_Range(Object Bar, int32_t Minimum_Value, int32_t Maximum_Value)
+inline void Class::Set_Range(Object_Type Bar, int32_t Minimum_Value, int32_t Maximum_Value)
 {
     lv_bar_set_range(Bar, Minimum_Value, Maximum_Value);
 }
 
-inline void Class::Set_Type(Object Bar, Type_Enum Type)
+inline void Class::Set_Type(Object_Type Bar, Type_Enum Type)
 {
     lv_bar_set_type(Bar, Type);
 }

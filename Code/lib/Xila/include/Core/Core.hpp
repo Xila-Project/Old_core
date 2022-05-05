@@ -136,7 +136,7 @@ public:
     //==============================================================================//
 
     /// @brief Xila's core state.
-    typedef lv_obj_t *Object;
+    typedef lv_obj_t *Object_Type;
 
     /// @brief Xila Address type.
     typedef uint16_t Address;
@@ -145,7 +145,7 @@ public:
     typedef uint8_t Image;
 
     /// @brief Xila instruction type.
-    typedef uint16_t Instruction;
+    typedef uint32_t Instruction;
 
     /// @brief Page type.
     typedef uint8_t Page;
@@ -507,6 +507,9 @@ public:
 
         typedef lv_coord_t Coordinates;
 
+        /// @brief Object type
+        typedef Xila_Class::Object_Type Object;
+
         // -- Enumerations
 
         ///
@@ -594,19 +597,20 @@ public:
             In_Between_Ver = LV_ALIGN_IN_BETWEEN_VER
         };
 
+        /// @brief Animations enumeration
         enum Animation
         {
             Enable = LV_ANIM_ON,
             Disable = LV_ANIM_OFF
         };
 
+        void Initialise();
+        bool Initialisation_State();
 
-        static void Initialise(),
-        static bool Initialisation_State();
+        /// @brief Object class.
         class Object_Class
         {
         public:
-
             // -- Types
             typedef lv_state_t State_Type;
             typedef lv_part_t Part_Type;
@@ -644,29 +648,54 @@ public:
                 Any = LV_PART_ANY
             };
 
-
-
-            typedef Xila_Class::Object Object;
-
             // -- Managment
-            static Xila_Class::Object Create(Object Parent, Object Copy = NULL);
-            static void Delete(Object Object);
-            static void Clean(Object Object);
-            static void Add_Flag(Object Object, Object_Flag_Type Flag);
-            static void Clear_Flag(Object Object, Object_Flag_Type Flag);
-            static void Add_State(Object Object, State_Type State);
-            static void Clear_State(Object Object, State_Type State);
+            Object_Type Create(Object_Type Parent_Object, Object_Type Copy = NULL);
+            void Delete(Object_Type Object);
+            void Clean(Object_Type Object);
+            void Add_Flag(Object_Type Object, Object_Flag_Type Flag);
+            void Clear_Flag(Object_Type Object, Object_Flag_Type Flag);
+            void Add_State(Object_Type Object, State_Type State);
+            void Clear_State(Object_Type Object, State_Type State);
 
-            static bool Has_Flag(Object Object, Object_Flag_Type Flag);
+            bool Has_Flag(Object_Type Object, Object_Flag_Type Flag);
+
+            // -- Layers
+            void Move_Foreground(Object_Type Object);
+            void Move_Background(Object_Type Object);
 
             // -- Set attributes values.
-            void Set_Position(Xila_Class::Object, Coordinates X = Keep, Coordinates Y = Keep);
-            void Set_Size(Xila_Class::Object, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
-            void Set_Alignment(Xila_Class::Object, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
+            void Set_Child_Index(Object_Type Child_Object, uint16_t Index);
+            void Set_Parent(Object_Type Object, Object_Type Parent_Object);
 
             // -- Get attributes values.
-            State Get_Object_Visibility(Xila_Class::Object);
+            void Set_Position(Xila_Class::Object_Type, Coordinates X = Keep, Coordinates Y = Keep);
+            void Set_Size(Xila_Class::Object_Type, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
+            void Set_Alignment(Xila_Class::Object_Type, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
+            
+            // -- Get attributes values.
+            State Get_Object_Visibility(Xila_Class::Object_Type);
+            void Get_Identifier(Object_Type Object);
+            uint16_t Get_Child_Count(Object_Type Parent_Object);
+            Object_Type Get_Child(Object_Type Object, uint16_t Index);
+
+        protected:
+            void Set_User_Data(Object_Type Object, void *User_Data);
+            void *Get_User_Data(const Object_Type Object);
+
+        private:
+            static void eventGateway(lv_obj* Object, lv_event_t Event);
+
+            lv_obj_t* Object_Pointer;
+            LV
         };
+
+        class Screen_Class : public Object_Class
+        {
+        protected:
+            // -- Root component for all element displayed
+            Object Screen;
+
+        }
 
         class Arc_Class : public Object_Class
         {
@@ -685,24 +714,24 @@ public:
             } Part_Type;
 
             // -- Managment
-            static Object Create(Object Parent, const Object Copy = NULL);
-            static void Align_To_Angle(const Object Object, Object Object_To_Align, Coordinates Radius_Offset);
-            static void Rotate_To_Angle(const Object Object, Object Object_To_Rotate, Coordinates Radius_Offset);
+            Object Create(Object Parent, const Object Copy = NULL);
+            void Align_To_Angle(const Object Object, Object Object_To_Align, Coordinates Radius_Offset);
+            void Rotate_To_Angle(const Object Object, Object Object_To_Rotate, Coordinates Radius_Offset);
 
             // -- Set attributes values.
-            static void Set_Angles(Object Object, uint16_t Start = 0xFFFF, uint16_t End = 0xFFFF);
-            static void Set_Background_Angles(Object Object, uint16_t Start = 0xFFFF, unt16_t 0xFFFF);
-            static void Set_Range(Object Object, int16_t Minimum, int16_t Maximum);
-            static void Set_Change_Rate(Object Object, uint16_t Rate);
-            static void Set_Rotation(Object Object, uint16_t Rotation);
-            static void Set_Mode(Object Object, Mode_Type Mode);
-            static void Set_Value(Object Object, int16_t Value);
+            void Set_Angles(Object Object, uint16_t Start = 0xFFFF, uint16_t End = 0xFFFF);
+            void Set_Background_Angles(Object Object, uint16_t Start = 0xFFFF, unt16_t 0xFFFF);
+            void Set_Range(Object Object, int16_t Minimum, int16_t Maximum);
+            void Set_Change_Rate(Object Object, uint16_t Rate);
+            void Set_Rotation(Object Object, uint16_t Rotation);
+            void Set_Mode(Object Object, Mode_Type Mode);
+            void Set_Value(Object Object, int16_t Value);
 
             // -- Get attributes values.
-            static void Get_Angles(Object Object, uint16_t *Start, uint16_t *End);
-            static void Get_Background_Angles(Object Object, uint16_t *Start, uint16_t *End);
-            static void Get_Value(const Object Object) static void Get_Range(Object Object, int16_t *Minimum, int16_t *Maximum);
-            static Mode_Type Get_Mode(Object Object);
+            void Get_Angles(Object Object, uint16_t *Start, uint16_t *End);
+            void Get_Background_Angles(Object Object, uint16_t *Start, uint16_t *End);
+            void Get_Value(const Object Object) void Get_Range(Object Object, int16_t *Minimum, int16_t *Maximum);
+            Mode_Type Get_Mode(Object Object);
         };
 
         class Bar_Class : public Object_Class
@@ -721,32 +750,32 @@ public:
             } Part_Type;
 
             // -- Managment
-            static Object Create(Object Parent, const Object Copy = NULL);
+            Object Create(Object Parent, const Object Copy = NULL);
 
             // -- Set attributes values.
-            static void Set_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
-            static void Set_Start_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
-            static void Set_Range(Object Bar, int32_t Minimum_Value, int32_t Maximum_Value);
-            static void Set_Mode(Object Bar, Mode_Type Mode);
-            static void Set_Type(Object Bar, Type_Enum Type);
+            void Set_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
+            void Set_Start_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
+            void Set_Range(Object Bar, int32_t Minimum_Value, int32_t Maximum_Value);
+            void Set_Mode(Object Bar, Mode_Type Mode);
+            void Set_Type(Object Bar, Type_Enum Type);
 
             // -- Get attributes values.
-            static int32_t Get_Value(Object Bar);
-            static int32_t Get_Start_Value(Object Bar);
-            static void Get_Range(Object Bar, int32_t *Minimum_Value, int32_t *Maximum_Value);
-            static Mode_Type Get_Mode(Object Bar);
+            int32_t Get_Value(Object Bar);
+            int32_t Get_Start_Value(Object Bar);
+            void Get_Range(Object Bar, int32_t *Minimum_Value, int32_t *Maximum_Value);
+            Mode_Type Get_Mode(Object Bar);
         };
 
         class Button_Class : public Object_Class
         {
         public:
-            static Object Create(Object Parent);
+            Object Create(Object Parent);
         };
 
         class Windows_Class
         {
         public:
-            static Xila_Class::Event Load_Windows(File);
+            Xila_Class::Event Load_Windows(File);
 
         }
 
