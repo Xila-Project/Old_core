@@ -71,7 +71,6 @@
 // -- Driver headers
 #include "lvgl.h"
 #include "Nextion_Library.hpp"
-#include "Battery_Library.hpp"
 
 //----------------------------------------------------------------------------//
 //                          Include all project file                          //
@@ -134,9 +133,6 @@ public:
     //==============================================================================//
     //                              Enumerations & Type definition                  //
     //==============================================================================//
-
-    /// @brief Xila's core state.
-    typedef lv_obj_t *Object_Type;
 
     /// @brief Xila Address type.
     typedef uint16_t Address;
@@ -503,13 +499,6 @@ public:
         Display_Class();
         ~Display_Class();
 
-        // -- Types
-
-        typedef lv_coord_t Coordinates;
-
-        /// @brief Object type
-        typedef Xila_Class::Object_Type Object;
-
         // -- Enumerations
 
         ///
@@ -569,19 +558,6 @@ public:
         friend class Shell_Class;
         friend class Unit_Test_Class;
 
-        enum Event
-        {
-            Pressed = LV_EVENT_PRESSED,
-            Pressing = LV_EVENT_PRESSING,
-            Press_Lost = RV_EVENT_PRESS_LOST,
-            Short_Clicked = LV_EVENT_SHORT_CLICKED,
-            Long_Pressed = LV_EVENT_LONG_PRESSED,
-            Pressed_Repeat = LV_EVENT_PRESSED_REPEAT,
-            Apply = LV_EVENT_APPLY,
-            Delete = LV_EVENT_DELETE,
-            Last_Event = _LV_EVENT_LAST
-        };
-
         enum
         {
             Keep = -32768,
@@ -615,7 +591,75 @@ public:
             typedef lv_state_t State_Type;
             typedef lv_part_t Part_Type;
             typedef lv_obj_flag_t Object_Flag_Type;
+            typedef lv_event_t Event_Type;
+            typedef lv_obj_t LVGL_Object_Type;
 
+            typedef enum
+            {
+                All = LV_EVENT_ALL,
+                // -- Interaction related events
+                Pressed = LV_EVENT_PRESSED,
+                Pressing = LV_EVENT_PRESSING,
+                Press_Lost = LV_EVENT_PRESS_LOST,
+                
+                Short_Clicked = LV_EVENT_SHORT_CLICKED,
+                Long_Pressed = LV_EVENT_LONG_PRESSED,
+                Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
+                
+                Clicked = LV_EVENT_CLICKED,
+                Released = LV_EVENT_RELEASED,
+                Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
+                Scroll_End = LV_EVENT_SCROLL_END,
+                Scroll = LV_EVENT_SCROLL,
+                Gesture = LV_EVENT_GESTURE,
+                Key = LV_EVENT_KEY,
+                Focused = LV_EVENT_FOCUSED,
+                Defocused = LV_EVENT_DEFOCUSED,
+                Leave = LV_EVENT_LEAVE,
+                Hit_Test = LV_EVENT_HIT_TEST,
+                // -- Drawing context
+                Cover_Check = LV_EVENT_COVER_CHECK,
+                
+                Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
+                Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
+                Draw_Main = LV_EVENT_DRAW_MAIN,
+                Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
+
+                Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
+                Draw_Post = LV_EVENT_DRAW_POST,
+                Draw_Post_End = LV_EVENT_DRAW_POST_END,
+                Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
+                Draw_Part_End = LV_EVENT_DRAW_PART_END,
+
+                // -- Special events
+                Value_Changed = LV_EVENT_VALUE_CHANGED,
+                Insert = LV_EVENT_INSERT,
+                Refresh = LV_EVENT_REFRESH,
+                Ready = LV_EVENT_READY,
+                Cancel = LV_EVENT_CANCEL,
+
+                // -- State events
+                Delete = LV_EVENT_DELETE,
+                Child_Changed = LV_EVENT_CHILD_CHANGED,
+                Child_Created = LV_EVENT_CHILD_CREATED,
+                Child_Deleted = LV_EVENT_CHILD_DELETED,
+                
+                // -- Screen events
+                Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
+                Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
+                Screen_Loaded = LV_EVENT_SCREEN_LOADED,
+                Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
+
+                // -- Appearance events
+                Size_Changed = LV_EVENT_SIZE_CHANGED,
+                Style_Changed = LV_EVENT_STYLE_CHANGED,
+                Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
+                Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
+
+                Last_Event = _LV_EVENT_LAST
+            } Event_Code_Type;
+
+            // -- Enumerations
             enum
             {
                 Default = LV_STATE_DEFAULT,
@@ -648,49 +692,79 @@ public:
                 Any = LV_PART_ANY
             };
 
-            // -- Managment
-            Object_Type Create(Object_Type Parent_Object, Object_Type Copy = NULL);
-            void Delete(Object_Type Object);
-            void Clean(Object_Type Object);
-            void Add_Flag(Object_Type Object, Object_Flag_Type Flag);
-            void Clear_Flag(Object_Type Object, Object_Flag_Type Flag);
-            void Add_State(Object_Type Object, State_Type State);
-            void Clear_State(Object_Type Object, State_Type State);
+            // -- Methods
 
-            bool Has_Flag(Object_Type Object, Object_Flag_Type Flag);
+            // -- Constructors
 
-            // -- Layers
-            void Move_Foreground(Object_Type Object);
-            void Move_Background(Object_Type Object);
+            Object_Class(Object_Class& Parent_Object);
+            ~Object_Class();
+
+            //  -- Management
+            void Delete();
+            void Clean();
+            // -- -- Flags
+            void Add_Flag(Object_Flag_Type Flag);
+            void Clear_Flag();
+            bool Has_Flag(Object_Flag_Type Flag);
+            // -- -- States
+            void Add_State(State_Type State);
+            void Clear_State(State_Type State);
+            // -- -- Swap
+            void Swap(Object_Class Object_To_Swap_With);
+            // -- -- Events
+            void Add_Event(Event_Type Event);
+            void Send_Event(Event_Type Event);
+            // -- -- Layer management
+            void Move_Foreground();
+            void Move_Background();
 
             // -- Set attributes values.
-            void Set_Child_Index(Object_Type Child_Object, uint16_t Index);
+            void Set_Index(uint32_t Index);
             void Set_Parent(Object_Type Object, Object_Type Parent_Object);
 
             // -- Get attributes values.
             void Set_Position(Xila_Class::Object_Type, Coordinates X = Keep, Coordinates Y = Keep);
             void Set_Size(Xila_Class::Object_Type, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
             void Set_Alignment(Xila_Class::Object_Type, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
-            
+
             // -- Get attributes values.
             State Get_Object_Visibility(Xila_Class::Object_Type);
             void Get_Identifier(Object_Type Object);
+
+            void Set_Parent(Object_Type Parent_Object);
+
             uint16_t Get_Child_Count(Object_Type Parent_Object);
             Object_Type Get_Child(Object_Type Object, uint16_t Index);
 
+            // -- Operator
+            LVGL_Object_Type &operator=(const Object_Class &Object_Type);
+
         protected:
+            LVGL_Object_Class Get_Parent();
+
+            void Set_Pointer(LVGL_Object_Type* Object);
+            LVGL_Object_Type* Get_Pointer();
+
             void Set_User_Data(Object_Type Object, void *User_Data);
             void *Get_User_Data(const Object_Type Object);
 
-        private:
-            static void eventGateway(lv_obj* Object, lv_event_t Event);
+            static void Event_Handler(Event_Type Event);
 
-            lv_obj_t* Object_Pointer;
-            LV
+        private:
+            LVGL_Object_Type *LVGL_Object_Pointer;
         };
 
         class Screen_Class : public Object_Class
         {
+        public:
+            inline const Object Get() // TODO : Maybe move into an header file, integrate directly into display_class.
+            {
+                return Screen;
+            }
+
+        private:
+            Object Create();
+
         protected:
             // -- Root component for all element displayed
             Object Screen;
@@ -775,7 +849,27 @@ public:
         class Windows_Class
         {
         public:
-            Xila_Class::Event Load_Windows(File);
+            typedef Xila_Class::Object_Type Object_Type;
+
+            Object_Type Load(File);
+
+            Object_Type Create();
+
+            void Set_Title(Object_Type Window, const char *Title);
+
+        protected:
+            Object_Type Add_Button(Object_Type Parent_Window);
+
+        private:
+            Object_Type Title_Label;
+            Object_Type Clock_Label;
+
+            Object_Type Network_Button;
+            Object_Type Battery_Button;
+            Object_Type Sound_Button;
+
+            Object_Type Close_Button;
+            Object_Type Minimize_Button;
 
         }
 

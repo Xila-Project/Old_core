@@ -15,19 +15,69 @@
 
 #define Class Xila_Class::Display_Class::Object_Class // Shortcut
 
-inline Class::Create(Xila_Class::Object_Type Parent_Object, Xila_Class::Object_Type Copy)
+// -- Management -- //
+
+inline Class::Delete()
 {
-    return lv_obj_create(Parent_Object, Copy);
+    lv_obj_del(this.Get_Pointer());
 }
 
-inline Class::Delete(Xila_Class::Object_Type Object_Type)
+inline Class::Clean()
 {
-    lv_obj_del(Object_Type);
+    lv_obj_clean(this.Get_Pointer());
 }
 
-inline Class::Clean(Xila_Class::Object_Type Object_Type)
+inline Class::Add_Flag(Object_Flag_Type Flag)
 {
-    lv_obj_clean(Object_Type);
+    lv_obj_add_flag(this.Get_Pointer(), Flag);
+}
+
+inline Class::Clear_Flag(Object_Flag_Type Flag)
+{
+    lv_obj_clear_flag(this.Get_Pointer(), Flag);
+}
+
+inline bool Class::Has_Flag(Object_Flag_Type Flag)
+{
+    return lv_obj_has_flag(this.Get_Pointer(), Flag);
+}
+
+inline Class::Add_State(Object_State_Type State)
+{
+    lv_obj_add_state(this.Get_Pointer(), State);
+}
+
+inline Class::Clear_State(Object_State_Type State)
+{
+    lv_obj_clear_state(this.Get_Pointer(), State);
+}
+
+inline void Class::Swap(Object_Class Object_To_Swap_With)
+{
+    lv_obj_swap(this.Get_Pointer(), Object_To_Swap_With.Get_Pointer());
+}
+
+inline void Class::Add_Event(Event_Type Event)
+{
+    lv_obj_add_event_cb(this.Get_Pointer(), Xila_Class::Display_Class::Event_Handler);
+}
+
+inline void Class::Move_Foreground()
+{
+    lv_obj_move_foreground(this.Get_Pointer());
+}
+
+inline void Class::Move_Background()
+{
+    lv_obj_move_background(this.Get_Pointer());
+}
+
+
+// -- Set attributes values -- //
+
+inline void Class::Set_Parent(Object_Class Parent_Object)
+{
+    lv_obj_set_parent(this.Object_Pointer, Parent_Object.Get_Pointer());
 }
 
 inline Class::Set_Position(Xila_Class::Object_Type Object_Type, Coordinates X, Coordinates Y)
@@ -96,6 +146,38 @@ inline void* Class::Get_User_Data(Object_Type Object)
     lv_obj_get_user_data(Object);
 }
 
+inline void Set_Parent(Object_Type Object, Object_Type Parent_Object)
+{
+    lv_obj_set_parent(Object, Parent_Object);
+}
+
+inline void Set_Index(uint32_t Index)
+{
+    lv_obj_move_to_index(this.Get_Pointer(), Index);
+}
+
+inline void Set_Pointer(LVGL_Object_Type LVGL_Object_Pointer)
+{
+    this.LVGL_Object_Pointer = LVGL_Object_Pointer;
+}
+
+// -- Get attributes values -- //
+
+inline LVGL_Object_Type* Get_Pointer()
+{
+    return LVGL_Object_Pointer;
+}
+
+inline Object_Type Get_Child(uint16_t Index)
+{
+    return lv_obj_get_child(Parent_Object, Index);
+}
+
+inline uint16_t Get_Child_Count(Object_Type Parent_Object)
+{
+    return lv_obj_get_child_count(Parent_Object);
+}
+
 inline uint16_t Class::Get_Identifier(Object_Type Object)
 {
     if (Get_User_Data(Object) != NULL)
@@ -108,35 +190,12 @@ inline uint16_t Class::Get_Identifier(Object_Type Object)
     }
 }
 
-inline Object_Type Get_Child(Object_Type Parent_Object, uint16_t Index)
+
+inline LVGL_Object_Class Class::Get_Parent()
 {
-    return lv_obj_get_child(Parent_Object, Index);
+    return lv_obj_get_parent(this.Object_Pointer);
 }
 
 
-inline uint16_t Get_Child_Count(Object_Type Parent_Object)
-{
-    return lv_obj_get_child_count(Parent_Object);
-}
-
-inline void Set_Parent(Object_Type Object, Object_Type Parent_Object)
-{
-    lv_obj_set_parent(Object, Parent_Object);
-}
-
-inline void Move_Foreground(Object_Type Object)
-{
-    lv_obj_move_foreground(Object);
-}
-
-inline void Move_Background(Object_Type Object)
-{
-    lv_obj_move_background(Object);
-}
-
-inline void Set_Child_Index(Object_Type Object, uint16_t Index)
-{
-    
-}
 
  #endif

@@ -34,7 +34,11 @@
 			"vector": "cpp",
 			"ctime": "cpp",
 			"cmath": "c",
-			"iterator": "cpp"
+			"iterator": "cpp",
+			"functional": "cpp",
+			"string_view": "cpp",
+			"system_error": "cpp",
+			"tuple": "cpp"
 		},
 		"cSpell.words": [
 			"BSSID",
