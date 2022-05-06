@@ -590,7 +590,7 @@ public:
             // -- Types
             typedef lv_state_t State_Type;
             typedef lv_part_t Part_Type;
-            typedef lv_obj_flag_t Object_Flag_Type;
+            typedef lv_obj_flag_t Flag_Type;
             typedef lv_event_t Event_Type;
             typedef lv_obj_t LVGL_Object_Type;
 
@@ -659,7 +659,6 @@ public:
                 Last_Event = _LV_EVENT_LAST
             } Event_Code_Type;
 
-            // -- Enumerations
             enum
             {
                 Default = LV_STATE_DEFAULT,
@@ -692,6 +691,8 @@ public:
                 Any = LV_PART_ANY
             };
 
+
+
             // -- Methods
 
             // -- Constructors
@@ -703,9 +704,10 @@ public:
             void Delete();
             void Clean();
             // -- -- Flags
-            void Add_Flag(Object_Flag_Type Flag);
+            void Add_Flag(Flag_Type Flag);
             void Clear_Flag();
-            bool Has_Flag(Object_Flag_Type Flag);
+            bool Has_Flag(Flag_Type Flag);
+            bool Has_Any_Flag(Flag_Type Flag);
             // -- -- States
             void Add_State(State_Type State);
             void Clear_State(State_Type State);
@@ -723,6 +725,7 @@ public:
             void Set_Parent(Object_Type Object, Object_Type Parent_Object);
 
             // -- Get attributes values.
+            void Set_User_Data(void* User_Data);
             void Set_Position(Xila_Class::Object_Type, Coordinates X = Keep, Coordinates Y = Keep);
             void Set_Size(Xila_Class::Object_Type, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
             void Set_Alignment(Xila_Class::Object_Type, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);

@@ -37,10 +37,17 @@ inline Class::Clear_Flag(Object_Flag_Type Flag)
     lv_obj_clear_flag(this.Get_Pointer(), Flag);
 }
 
-inline bool Class::Has_Flag(Object_Flag_Type Flag)
+inline bool Class::Has_Flag(Flag_Type Flag)
 {
     return lv_obj_has_flag(this.Get_Pointer(), Flag);
 }
+
+inline bool Class::Has_Any_Flag(Flag_Type Flag)
+{
+    return lv_obj_has_flag_any(this.Get_Pointer(), Flag);
+}
+
+
 
 inline Class::Add_State(Object_State_Type State)
 {
@@ -74,6 +81,11 @@ inline void Class::Move_Background()
 
 
 // -- Set attributes values -- //
+
+inline void Class::Set_User_Data(void* User_Data)
+{
+    lv_obj_set_user_data(this.Get_Pointer(), User_Data);
+}
 
 inline void Class::Set_Parent(Object_Class Parent_Object)
 {
