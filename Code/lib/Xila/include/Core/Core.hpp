@@ -580,6 +580,72 @@ public:
             Disable = LV_ANIM_OFF
         };
 
+        // @brief Event enumeration.
+        typedef enum
+        {
+            All = LV_EVENT_ALL,
+            // -- Interaction related events
+            Pressed = LV_EVENT_PRESSED,
+            Pressing = LV_EVENT_PRESSING,
+            Press_Lost = LV_EVENT_PRESS_LOST,
+
+            Short_Clicked = LV_EVENT_SHORT_CLICKED,
+            Long_Pressed = LV_EVENT_LONG_PRESSED,
+            Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
+
+            Clicked = LV_EVENT_CLICKED,
+            Released = LV_EVENT_RELEASED,
+            Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
+            Scroll_End = LV_EVENT_SCROLL_END,
+            Scroll = LV_EVENT_SCROLL,
+            Gesture = LV_EVENT_GESTURE,
+            Key = LV_EVENT_KEY,
+            Focused = LV_EVENT_FOCUSED,
+            Defocused = LV_EVENT_DEFOCUSED,
+            Leave = LV_EVENT_LEAVE,
+            Hit_Test = LV_EVENT_HIT_TEST,
+            // -- Drawing context
+            Cover_Check = LV_EVENT_COVER_CHECK,
+
+            Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
+            Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
+            Draw_Main = LV_EVENT_DRAW_MAIN,
+            Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
+
+            Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
+            Draw_Post = LV_EVENT_DRAW_POST,
+            Draw_Post_End = LV_EVENT_DRAW_POST_END,
+            Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
+            Draw_Part_End = LV_EVENT_DRAW_PART_END,
+
+            // -- Special events
+            Value_Changed = LV_EVENT_VALUE_CHANGED,
+            Insert = LV_EVENT_INSERT,
+            Refresh = LV_EVENT_REFRESH,
+            Ready = LV_EVENT_READY,
+            Cancel = LV_EVENT_CANCEL,
+
+            // -- State events
+            Delete = LV_EVENT_DELETE,
+            Child_Changed = LV_EVENT_CHILD_CHANGED,
+            Child_Created = LV_EVENT_CHILD_CREATED,
+            Child_Deleted = LV_EVENT_CHILD_DELETED,
+
+            // -- Screen events
+            Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
+            Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
+            Screen_Loaded = LV_EVENT_SCREEN_LOADED,
+            Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
+
+            // -- Appearance events
+            Size_Changed = LV_EVENT_SIZE_CHANGED,
+            Style_Changed = LV_EVENT_STYLE_CHANGED,
+            Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
+            Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
+
+            Last_Event = _LV_EVENT_LAST
+        } Event_Code_Type;
+
         void Initialise();
         bool Initialisation_State();
 
@@ -593,72 +659,10 @@ public:
             typedef lv_obj_flag_t Flag_Type;
             typedef lv_event_t Event_Type;
             typedef lv_obj_t LVGL_Object_Type;
+            typedef lv_obj_class_t Class_Type;
+            typedef lv_style_selector_t Style_Selector_Type;
 
-            typedef enum
-            {
-                All = LV_EVENT_ALL,
-                // -- Interaction related events
-                Pressed = LV_EVENT_PRESSED,
-                Pressing = LV_EVENT_PRESSING,
-                Press_Lost = LV_EVENT_PRESS_LOST,
-                
-                Short_Clicked = LV_EVENT_SHORT_CLICKED,
-                Long_Pressed = LV_EVENT_LONG_PRESSED,
-                Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
-                
-                Clicked = LV_EVENT_CLICKED,
-                Released = LV_EVENT_RELEASED,
-                Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
-                Scroll_End = LV_EVENT_SCROLL_END,
-                Scroll = LV_EVENT_SCROLL,
-                Gesture = LV_EVENT_GESTURE,
-                Key = LV_EVENT_KEY,
-                Focused = LV_EVENT_FOCUSED,
-                Defocused = LV_EVENT_DEFOCUSED,
-                Leave = LV_EVENT_LEAVE,
-                Hit_Test = LV_EVENT_HIT_TEST,
-                // -- Drawing context
-                Cover_Check = LV_EVENT_COVER_CHECK,
-                
-                Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
-                Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
-                Draw_Main = LV_EVENT_DRAW_MAIN,
-                Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
-
-                Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
-                Draw_Post = LV_EVENT_DRAW_POST,
-                Draw_Post_End = LV_EVENT_DRAW_POST_END,
-                Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
-                Draw_Part_End = LV_EVENT_DRAW_PART_END,
-
-                // -- Special events
-                Value_Changed = LV_EVENT_VALUE_CHANGED,
-                Insert = LV_EVENT_INSERT,
-                Refresh = LV_EVENT_REFRESH,
-                Ready = LV_EVENT_READY,
-                Cancel = LV_EVENT_CANCEL,
-
-                // -- State events
-                Delete = LV_EVENT_DELETE,
-                Child_Changed = LV_EVENT_CHILD_CHANGED,
-                Child_Created = LV_EVENT_CHILD_CREATED,
-                Child_Deleted = LV_EVENT_CHILD_DELETED,
-                
-                // -- Screen events
-                Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
-                Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
-                Screen_Loaded = LV_EVENT_SCREEN_LOADED,
-                Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
-
-                // -- Appearance events
-                Size_Changed = LV_EVENT_SIZE_CHANGED,
-                Style_Changed = LV_EVENT_STYLE_CHANGED,
-                Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
-                Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
-
-                Last_Event = _LV_EVENT_LAST
-            } Event_Code_Type;
-
+            /// @brief State enumeration.
             enum
             {
                 Default = LV_STATE_DEFAULT,
@@ -677,6 +681,7 @@ public:
                 Any = LV_STATE_ANY
             };
 
+            /// @brief Part enumeration.
             enum
             {
                 Main = LV_PART_MAIN,
@@ -691,13 +696,58 @@ public:
                 Any = LV_PART_ANY
             };
 
+            /// @brief Flag enumeration.
+            enum
+            {
+                Hidden = LV_OBJ_FLAG_HIDDEN,
+                Clickable = LV_OBJ_FLAG_CLICKABLE,
+                Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
+                Checkable = LV_OBJ_FLAG_CHECKABLE,
+                Scrollable = LV_OBJ_FLAG_SCROLLABLE,
+                Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
+                Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
+                Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
+                Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
+                Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
+                Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
+                Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
+                Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
+                Snappable = LV_OBJ_FLAG_SNAPPABLE,
+                Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
+                Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
+                Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
+                Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
+                Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
+                Floating = LV_OBJ_FLAG_FLOATING,
+                Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
+                Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
+                Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
+                Widget_1 = LV_OBJ_FLAG_WIDGET_1,
+                Widget_2 = LV_OBJ_FLAG_WIDGET_2,
+                Custom_1 = LV_OBJ_FLAG_USER_1,
+                Custom_2 = LV_OBJ_FLAG_USER_2,
+                Custom_3 = LV_OBJ_FLAG_USER_3,
+                Custom_4 = LV_OBJ_FLAG_USER_4,
+            };
 
+            class Event_Class
+            {
+            public:
+                Event_Code_Type Get_Code();
+                Object_Class Get_Current_Target();
+                Object_Class Get_Target();
+                void *Get_User_Data();
+                
+
+            private:
+                lv_event_t LVGL_Event;
+            };
 
             // -- Methods
 
             // -- Constructors
 
-            Object_Class(Object_Class& Parent_Object);
+            Object_Class(Object_Class &Parent_Object);
             ~Object_Class();
 
             //  -- Management
@@ -711,30 +761,45 @@ public:
             // -- -- States
             void Add_State(State_Type State);
             void Clear_State(State_Type State);
+            bool Has_State(State_Type State);
             // -- -- Swap
             void Swap(Object_Class Object_To_Swap_With);
             // -- -- Events
             void Add_Event(Event_Type Event);
+            void Remove_Event(Event_Type Event);
             void Send_Event(Event_Type Event);
             // -- -- Layer management
             void Move_Foreground();
             void Move_Background();
 
+            void Allocate_Special_Data();
+
+            bool Check_Type(const Class_Type *Class);
+            bool Has_Class(const Class_Type *Class);
+            const Class_Type *Get_Class();
+
+            bool Is_Valid();
+            bool Is_Focused();
+
+            static Coordinate_Type DPX(Coordinate_Type Coordinate);
+
             // -- Set attributes values.
             void Set_Index(uint32_t Index);
-            void Set_Parent(Object_Type Object, Object_Type Parent_Object);
+            void Set_Parent(Object_Type Parent_Object);
 
-            // -- Get attributes values.
-            void Set_User_Data(void* User_Data);
+            void Set_User_Data(void *User_Data);
             void Set_Position(Xila_Class::Object_Type, Coordinates X = Keep, Coordinates Y = Keep);
             void Set_Size(Xila_Class::Object_Type, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
             void Set_Alignment(Xila_Class::Object_Type, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
 
+            void Add_Style(Style_Type Style, Style_Selector_Type *Style_Selector);
+
             // -- Get attributes values.
+            State_Type Get_State();
+            void *Get_Group();
+            void *Get_User_Data();
             State Get_Object_Visibility(Xila_Class::Object_Type);
             void Get_Identifier(Object_Type Object);
-
-            void Set_Parent(Object_Type Parent_Object);
 
             uint16_t Get_Child_Count(Object_Type Parent_Object);
             Object_Type Get_Child(Object_Type Object, uint16_t Index);
@@ -745,11 +810,8 @@ public:
         protected:
             LVGL_Object_Class Get_Parent();
 
-            void Set_Pointer(LVGL_Object_Type* Object);
-            LVGL_Object_Type* Get_Pointer();
-
-            void Set_User_Data(Object_Type Object, void *User_Data);
-            void *Get_User_Data(const Object_Type Object);
+            void Set_Pointer(LVGL_Object_Type *Object);
+            LVGL_Object_Type *Get_Pointer();
 
             static void Event_Handler(Event_Type Event);
 
@@ -757,22 +819,11 @@ public:
             LVGL_Object_Type *LVGL_Object_Pointer;
         };
 
+        /// @brief Screnn class.
         class Screen_Class : public Object_Class
         {
-        public:
-            inline const Object Get() // TODO : Maybe move into an header file, integrate directly into display_class.
-            {
-                return Screen;
-            }
-
-        private:
-            Object Create();
-
-        protected:
-            // -- Root component for all element displayed
-            Object Screen;
-
-        }
+            // TODO : Implement screen API.
+        };
 
         class Arc_Class : public Object_Class
         {
@@ -790,64 +841,139 @@ public:
                 Knob = LV_ARC_DRAW_PART_KNOB
             } Part_Type;
 
-            // -- Managment
-            Object Create(Object Parent, const Object Copy = NULL);
-            void Align_To_Angle(const Object Object, Object Object_To_Align, Coordinates Radius_Offset);
-            void Rotate_To_Angle(const Object Object, Object Object_To_Rotate, Coordinates Radius_Offset);
-
             // -- Set attributes values.
-            void Set_Angles(Object Object, uint16_t Start = 0xFFFF, uint16_t End = 0xFFFF);
-            void Set_Background_Angles(Object Object, uint16_t Start = 0xFFFF, unt16_t 0xFFFF);
-            void Set_Range(Object Object, int16_t Minimum, int16_t Maximum);
-            void Set_Change_Rate(Object Object, uint16_t Rate);
-            void Set_Rotation(Object Object, uint16_t Rotation);
-            void Set_Mode(Object Object, Mode_Type Mode);
-            void Set_Value(Object Object, int16_t Value);
+            void Set_Start_Angle(uint16_t Start_Angle);
+            void Set_End_Angle(uint16_t End_Angle);
+            void Set_Angles(uint16_t Start_Angle, uint16_t End_Angle);
+
+            void Set_Background_Start_Angle(uint16_t Start_Angle);
+            void Set_Background_End_Angle(uint16_t End_Angle);
+            void Set_Background_Angles(uint16_t lv_arc_set_start_angle, unt16_t End_Angle);
+
+            void Set_Range(int16_t Minimum, int16_t Maximum);
+            void Set_Change_Rate(uint16_t Rate);
+
+            void Set_Rotation(uint16_t Rotation);
+
+            void Set_Mode(Mode_Type Mode);
+            void Set_Value(int16_t Value);
 
             // -- Get attributes values.
-            void Get_Angles(Object Object, uint16_t *Start, uint16_t *End);
-            void Get_Background_Angles(Object Object, uint16_t *Start, uint16_t *End);
-            void Get_Value(const Object Object) void Get_Range(Object Object, int16_t *Minimum, int16_t *Maximum);
-            Mode_Type Get_Mode(Object Object);
+            uint16_t Get_Angle_Start();
+            uint16_t Get_Angle_End();
+
+           uint16_t Get_Background_Angle_Start();
+           uint16_t Get_Background_Angle_End();
+
+            int16_t Get_Value();
+            int16_t Get_Minimum_Value();
+            int16_t Get_Maximum_Value();
+
+            Mode_Type Get_Mode();
         };
 
         class Bar_Class : public Object_Class
         {
         public:
+
+            // -- Types
+            
+            /// @brief Bar mode type.
+            typedef lv_bar_mode_t Mode_Type;
+            /// @brief Bar mode enumeration.
+
             typedef enum
             {
                 Normal = LV_BAR_MODE_NORMAL,
                 Symmetrical = LV_BAR_MODE_SYMMETRICAL,
-                Custom = LV_BAR_MODE_RANGE
-            } Mode_Type;
+                Range = LV_BAR_MODE_RANGE
+            };
 
             typedef enum
             {
                 Indicator = LV_BAR_DRAW_PART_INDICATOR
             } Part_Type;
 
-            // -- Managment
-            Object Create(Object Parent, const Object Copy = NULL);
+            // -- Methods
+            Bar_Class(Object_Type& Parent_Object);
 
             // -- Set attributes values.
-            void Set_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
-            void Set_Start_Value(Object Bar, int32_t Value, Animation Animation_State = Enable);
-            void Set_Range(Object Bar, int32_t Minimum_Value, int32_t Maximum_Value);
+            void Set_Value(int32_t Value, bool Enable_Animation = true);
+
+            void Set_Start_Value(Object Bar, int32_t Value, bool Enable_Animation = true);
+
+            void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
             void Set_Mode(Object Bar, Mode_Type Mode);
-            void Set_Type(Object Bar, Type_Enum Type);
 
             // -- Get attributes values.
-            int32_t Get_Value(Object Bar);
-            int32_t Get_Start_Value(Object Bar);
-            void Get_Range(Object Bar, int32_t *Minimum_Value, int32_t *Maximum_Value);
-            Mode_Type Get_Mode(Object Bar);
+            int32_t Get_Value();
+            int32_t Get_Start_Value();
+            int32_t Get_Minimum_Value();
+            int32_t Get_Maximum_Value();
+            Mode_Type Get_Mode();
         };
 
         class Button_Class : public Object_Class
         {
         public:
-            Object Create(Object Parent);
+            Button_Class(Object_Type& Parent_Object);
         };
+
+        class Button_Matrix_Class : public Object_Class
+        {
+        public:
+
+            // -- Types
+
+            typedef lv_btnmatrix_ctrl_t Control_Type;
+
+            // -- Enumerations
+            
+            enum
+            {
+                Button_Matrix_Width = _LV_BTNMATRIX_WIDTH,
+                Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
+                No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,
+                Disabled = LV_BTNMATRIX_CTRL_DISABLED,
+                Checkable = LV_BTNMATRIX_CTRL_CHECKABLE,
+                Checked = LV_BTNMATRIX_CTRL_CHECKED,
+                Click_Trigger = LV_BTNMATRIX_CTRL_CLICK,
+                Popover = LV_BTNMATRIX_CTRL_POPOVER,
+                Custom_1 = LV_BTNMATRIX_CTRL_CUSTOM_1,
+                Custom_2 = LV_BTNMATRIX_CTRL_CUSTOM_2
+            };
+
+            typedef enum
+            {
+                Button = LV_BTNMATRIX_DRAW_PART_BTN
+            } Draw_Part_Type;
+
+
+            Button_Matrix_Class(Object_Type& Parent_Object);
+
+            void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control);
+            void Clear_All_Buttons_Control(Control_Type Control);
+            bool Has_Button_Control(uint16_t Button_Identifier, Control_Type Control);
+
+
+            void Set_Width(uint16_t Button_Identifier, uint8_t Width);
+
+            void Set_Map(const char* Map[]);
+            void Set_Control_Map(Control_Type Map[]);
+            
+            void Set_Selected_Button(uint16_t Button_Identifier);
+            void Set_Button_Control(uint16_t Button_Identifier, Control_Type Control);
+            void Set_Button_Control_All(Control_Type Control);
+
+            void Set_One_Checked(bool Enabled);
+
+            const char** Get_Map();
+            uint16_t Get_Selected_Button();
+            const char* Get_Button_Text(uint16_t Button_Identifier);
+            bool Get_One_Checked();
+        };
+
+
 
         class Windows_Class
         {
@@ -874,7 +1000,7 @@ public:
             Object_Type Close_Button;
             Object_Type Minimize_Button;
 
-        }
+        };
 
         static void
         Task(void *);
@@ -1948,6 +2074,8 @@ bool operator==(Xila_Class::Software_Handle const &a, Xila_Class::Software_Handl
 #include "Core/Abstraction/GPIO.hpp"
 #include "Core/Abstraction/Memory.hpp"
 #include "Core/Abstraction/Flash.hpp"
+
+#include "Core/Abstraction/Display.hpp"
 
 extern Xila_Class Xila;
 

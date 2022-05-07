@@ -17,22 +17,22 @@
 
 // -- Management -- //
 
-inline Class::Delete()
+inline void Class::Delete()
 {
     lv_obj_del(this.Get_Pointer());
 }
 
-inline Class::Clean()
+inline void Class::Clean()
 {
     lv_obj_clean(this.Get_Pointer());
 }
 
-inline Class::Add_Flag(Object_Flag_Type Flag)
+inline void Class::Add_Flag(Object_Flag_Type Flag)
 {
     lv_obj_add_flag(this.Get_Pointer(), Flag);
 }
 
-inline Class::Clear_Flag(Object_Flag_Type Flag)
+inline void Class::Clear_Flag(Object_Flag_Type Flag)
 {
     lv_obj_clear_flag(this.Get_Pointer(), Flag);
 }
@@ -47,16 +47,24 @@ inline bool Class::Has_Any_Flag(Flag_Type Flag)
     return lv_obj_has_flag_any(this.Get_Pointer(), Flag);
 }
 
-
-
-inline Class::Add_State(Object_State_Type State)
+inline void Class::Add_State(Object_State_Type State)
 {
     lv_obj_add_state(this.Get_Pointer(), State);
 }
 
-inline Class::Clear_State(Object_State_Type State)
+inline void Class::Clear_State(Object_State_Type State)
 {
     lv_obj_clear_state(this.Get_Pointer(), State);
+}
+
+inline bool Class::Has_State(Object_State_Type State)
+{
+    return lv_obj_has_state(this.Get_Pointer(), State);
+}
+
+inline void Class::Allocate_Special_Data()
+{
+    lv_obj_allocate_spec_attr(this.Get_Pointer());
 }
 
 inline void Class::Swap(Object_Class Object_To_Swap_With)
@@ -66,7 +74,17 @@ inline void Class::Swap(Object_Class Object_To_Swap_With)
 
 inline void Class::Add_Event(Event_Type Event)
 {
-    lv_obj_add_event_cb(this.Get_Pointer(), Xila_Class::Display_Class::Event_Handler);
+    lv_obj_add_event_cb(this.Get_Pointer(), Xila_Class::Display_Class::Event_Handler, Event, NULL);
+}
+
+inline void Class::Remove_Event(Event_Type Event)
+{
+    lv_obj_remove_event_cb(this.Get_Pointer(), Event);
+}
+
+inline void Class::Send_Event(Event_Type Event)
+{
+    lv_obj_send_event(this.Get_Pointer(), Event, NULL);
 }
 
 inline void Class::Move_Foreground()
@@ -79,6 +97,42 @@ inline void Class::Move_Background()
     lv_obj_move_background(this.Get_Pointer());
 }
 
+inline bool Class::Check_Type(const Object_Type* Class)
+{
+    return lv_obj_check_type(this.Get_Pointer(), Class);
+}
+
+inline bool Class::Has_Class(const Object_Type* Class)
+{
+    return lv_obj_has_class(this.Get_Pointer(), Class);
+}
+
+inline Class_Type* Class::Get_Class()
+{
+    return lv_obj_get_class(this.Get_Pointer());
+}
+
+inline bool Is_Valid()
+{
+    return lv_obj_is_valid(this.Get_Pointer());
+}
+
+inline bool Is_Focused()
+{
+    return lv_obj_is_focused(this.Get_Pointer());
+}
+
+
+
+inline Coordinate_Type Class::DPX(Coordinate_Type Pixels_To_Scale)
+{
+    return lv_obj_dpx(this.Get_Pointer(), Pixels_To_Scale);
+}
+
+inline void Class::Add_Style(Style_Type* Style, Style_Selector_Type* Style_Selector)
+{
+    lv_obj_add_style(this.Get_Pointer(), Style);
+}
 
 // -- Set attributes values -- //
 
@@ -89,7 +143,7 @@ inline void Class::Set_User_Data(void* User_Data)
 
 inline void Class::Set_Parent(Object_Class Parent_Object)
 {
-    lv_obj_set_parent(this.Object_Pointer, Parent_Object.Get_Pointer());
+    lv_obj_set_parent(this.Get_Pointer(), Parent_Object.Get_Pointer());
 }
 
 inline Class::Set_Position(Xila_Class::Object_Type Object_Type, Coordinates X, Coordinates Y)
@@ -148,19 +202,9 @@ inline void Class::Set_Alignment(Xila_Class::Object_Type Object_Type, Alignment 
     lv_obj_set_align(Object_Type, Align);
 }
 
-inline void Class::Set_User_Data(Object_Type Object, void* User_Data)
+inline void* Class::Get_User_Data()
 {
-    lv_obj_set_user_data(Object, User_Data);
-}
-
-inline void* Class::Get_User_Data(Object_Type Object)
-{
-    lv_obj_get_user_data(Object);
-}
-
-inline void Set_Parent(Object_Type Object, Object_Type Parent_Object)
-{
-    lv_obj_set_parent(Object, Parent_Object);
+    return lv_obj_get_user_data(this.Get_Pointer());
 }
 
 inline void Set_Index(uint32_t Index)
@@ -174,6 +218,11 @@ inline void Set_Pointer(LVGL_Object_Type LVGL_Object_Pointer)
 }
 
 // -- Get attributes values -- //
+
+inline State_Type Class::Get_State()
+{
+    return lv_obj_get_state(this.Get_Pointer());
+}
 
 inline LVGL_Object_Type* Get_Pointer()
 {
@@ -190,22 +239,14 @@ inline uint16_t Get_Child_Count(Object_Type Parent_Object)
     return lv_obj_get_child_count(Parent_Object);
 }
 
-inline uint16_t Class::Get_Identifier(Object_Type Object)
-{
-    if (Get_User_Data(Object) != NULL)
-    {
-        return *(uint16_t*)Get_User_Data(Object);
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-
 inline LVGL_Object_Class Class::Get_Parent()
 {
     return lv_obj_get_parent(this.Object_Pointer);
+}
+
+inline void* Get_Group()
+{
+    return lv_obj_get_group(this.Get_Pointer());
 }
 
 

@@ -13,4 +13,24 @@
 
 #include "Arduino.h"
 
+#define Class Xila_Class::Display_Class::Button_Matrix_Class
+
+void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control)
+{
+    lv_btnmatrix_clear_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
+}
+
+inline void Class::Set_Map(const char* Map[])
+{
+    lv_btnmatrix_set_map(Get_Pointer(), Map);
+}
+
+inline void Class::Set_Control_Map(Control_Type Map[])
+{
+    lv_btnmatrix_set_ctrl_map(Get_Pointer(), Map);
+}
+
+
+
+#undef
  #endif

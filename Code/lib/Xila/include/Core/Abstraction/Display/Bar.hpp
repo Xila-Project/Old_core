@@ -22,32 +22,67 @@
 
 #define Class Xila_Class::Display_Class::Bar_Class // Shortcut
 
-inline Object_Type Class::Create(Object_Type Parent, const Object_Type Copy)
+inline void Class::Set_Value(int32_t Value, bool Enable_Animation = true)
 {
-    return lv_bar_create(Parent, Copy);
+    if (Enable_Animation)
+    {
+        lv_bar_set_value(Get_Pointer(), Value, LV_ANIM_ON);
+    }
+    else
+    {
+        lv_bar_set_value(Get_Pointer(), Value, LV_ANIM_OFF);
+    }
 }
 
-inline void Class::Set__Value(Object_Type Bar, int16_t Value, Animation Animation_State = Enable)
+inline void Class::Set_Start_Value(int32_t Start_Value, bool Enable_Animation)
 {
-    lv_bar_set_value(Bar, Value, Animation_State);
+    if (Enable_Animation)
+    {
+        lv_bar_set_start_value(Get_Pointer(), Start_Value, LV_ANIM_ON);
+    }
+    else
+    {
+        lv_bar_set_start_value(Get_Pointer(), Start_Value, LV_ANIM_OFF);
+    }
 }
 
-inline void Class::Set_Start_Value(Object_Type Bar, int16_t Value, Animation Animation_State)
+inline void Class::Set_Range(int32_t Minimum_Value, int32_t Maximum_Value)
 {
-    lv_bar_set_start_value(Bar, Value, Animation_State);
+    lv_bar_set_range(Get_Pointer(), Minimum_Value, Maximum_Value);
 }
 
-inline void Class::Set_Range(Object_Type Bar, int32_t Minimum_Value, int32_t Maximum_Value)
+inline void Class::Set_Mode(Mode_Type Mode)
 {
-    lv_bar_set_range(Bar, Minimum_Value, Maximum_Value);
+    lv_bar_set_mode(Get_Pointer(), Mode);
 }
 
-inline void Class::Set_Type(Object_Type Bar, Type_Enum Type)
+inline int32_t Class::Get_Value()
 {
-    lv_bar_set_type(Bar, Type);
+    return lv_bar_get_value(Get_Pointer());
+}
+
+inline int32_t Class::Get_Start_Value()
+{
+    return lv_bar_get_start_value(Get_Pointer());
+}
+
+inline int32_t Class::Get_Minimum_Value()
+{
+    return lv_bar_get_minimum_value(Get_Pointer());
+}
+
+inline int32_t Class::Get_Maximum_Value()
+{
+    return lv_bar_get_maximum_value(Get_Pointer());
+}
+
+inline Mode_Type Class::Get_Mode()
+{
+    return lv_bar_get_mode(Get_Pointer());
 }
 
 
 
+#undef Class
 
 #endif
