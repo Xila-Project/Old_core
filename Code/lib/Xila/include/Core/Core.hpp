@@ -654,6 +654,8 @@ public:
         {
         public:
             // -- Types
+            typedef lv_coord_t Coordinate_Type;
+            typedef lv_opa_t Opacity_Type;
             typedef lv_state_t State_Type;
             typedef lv_part_t Part_Type;
             typedef lv_obj_flag_t Flag_Type;
@@ -737,7 +739,6 @@ public:
                 Object_Class Get_Current_Target();
                 Object_Class Get_Target();
                 void *Get_User_Data();
-                
 
             private:
                 lv_event_t LVGL_Event;
@@ -862,8 +863,8 @@ public:
             uint16_t Get_Angle_Start();
             uint16_t Get_Angle_End();
 
-           uint16_t Get_Background_Angle_Start();
-           uint16_t Get_Background_Angle_End();
+            uint16_t Get_Background_Angle_Start();
+            uint16_t Get_Background_Angle_End();
 
             int16_t Get_Value();
             int16_t Get_Minimum_Value();
@@ -872,12 +873,12 @@ public:
             Mode_Type Get_Mode();
         };
 
+        /// @brief Bar class.
         class Bar_Class : public Object_Class
         {
         public:
-
             // -- Types
-            
+
             /// @brief Bar mode type.
             typedef lv_bar_mode_t Mode_Type;
             /// @brief Bar mode enumeration.
@@ -895,7 +896,7 @@ public:
             } Part_Type;
 
             // -- Methods
-            Bar_Class(Object_Type& Parent_Object);
+            Bar_Class(Object_Type &Parent_Object);
 
             // -- Set attributes values.
             void Set_Value(int32_t Value, bool Enable_Animation = true);
@@ -913,22 +914,23 @@ public:
             Mode_Type Get_Mode();
         };
 
+        /// @brief Button class.
         class Button_Class : public Object_Class
         {
         public:
-            Button_Class(Object_Type& Parent_Object);
+            Button_Class(Object_Type &Parent_Object);
         };
 
+        /// @brief Button matrix class.
         class Button_Matrix_Class : public Object_Class
         {
         public:
-
             // -- Types
 
             typedef lv_btnmatrix_ctrl_t Control_Type;
 
             // -- Enumerations
-            
+
             enum
             {
                 Button_Matrix_Width = _LV_BTNMATRIX_WIDTH,
@@ -948,34 +950,137 @@ public:
                 Button = LV_BTNMATRIX_DRAW_PART_BTN
             } Draw_Part_Type;
 
+            // -- Methods
 
-            Button_Matrix_Class(Object_Type& Parent_Object);
+            // -- -- Constructor
 
+            Button_Matrix_Class(Object_Type &Parent_Object);
+
+            // -- -- Action methods
             void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control);
             void Clear_All_Buttons_Control(Control_Type Control);
             bool Has_Button_Control(uint16_t Button_Identifier, Control_Type Control);
 
-
+            // -- -- Set attributes values.
             void Set_Width(uint16_t Button_Identifier, uint8_t Width);
 
-            void Set_Map(const char* Map[]);
+            void Set_Map(const char *Map[]);
             void Set_Control_Map(Control_Type Map[]);
-            
+
             void Set_Selected_Button(uint16_t Button_Identifier);
             void Set_Button_Control(uint16_t Button_Identifier, Control_Type Control);
             void Set_Button_Control_All(Control_Type Control);
 
             void Set_One_Checked(bool Enabled);
 
-            const char** Get_Map();
+            // -- -- Get attributes values.
+            const char **Get_Map();
             uint16_t Get_Selected_Button();
-            const char* Get_Button_Text(uint16_t Button_Identifier);
+            const char *Get_Button_Text(uint16_t Button_Identifier);
             bool Get_One_Checked();
         };
 
+        /// @brief Canvas class.
+        class Canvas_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+
+            Canvas_Class(Object_Type &Parent_Object);
+
+            // -- --
+            void Copy_Buffer(const void *Buffer_To_Copy, Coordinate_Type X, Coordinate_Type Y, uint16_t Width, uint16_t Height);
+
+            void Transform(Image_Descriptor_Type *Image, int16_t Angle, uint16_t Zoom, Coordinate_Type Offset_X, Coordinate_Type Offset_Y, int32_t Pivot_X, int32_t Pivot_Y, bool Anti_Aliasing);
+            void Horizontal_Blur(const Area_Type *Area, uint16_t Radius);
+            void Vertical_Blur(const Area_Type *Area, uint16_t Radius);
+            void Fill_Background(Color_Type Color, Opacity_Type Opacity);
+
+            void Draw_Rectangle(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Width, Coordinate_Type Height, Draw_Rectangle_Descriptor_Type *Draw_Rectangle_Descriptor);
+            void Draw_Text(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Maximum_Width, Draw_Label_Descriptor_Type *Draw_Label_Descriptor, const char *Text);
+            void Draw_Image(Coordinate_Type X, Coordinate_Type Y, Draw_Image_Descriptor_Type *Draw_Image_Descriptor);
+            void Draw_Line(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Line_Descriptor_Type *Draw_Line_Descriptor);
+            void Draw_Polygon(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Rectangle_Descriptor_Type *Draw_Polygon_Descriptor);
+            void Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Radius, int32_t Start_Angle, int32_t End_Angle, const Draw_Arc_Descriptor *Draw_Arc_Descriptor);
+
+            // -- -- Set attributes values.
+
+            void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
+            void Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity_Type Opacity);
+            void Set_Palette(uint8_t Identifier, Color_Type Color);
+
+            void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Color_Format_Type Color_Format);
+
+            // -- -- Get attributes values.
+
+            Color_Type Get_Pixel(Coordinate_Type X, Coordinate_Type Y);
+            Image_Descriptor_Type Get_Image();
+        };
+
+        class Checkbox_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+
+            Checkbox_Class(Object_Type &Parent_Object);
+
+            // -- -- Set attributes values.
+            void Set_Text(const char *Text);
+            void Set_Text_Static(const char *Text);
+
+            // -- -- Get attributes values.
+            const char *Get_Text();
+        };
+
+        class Slider_Class : public Object_Class
+        {
+        public:
+            // -- Types
+            typedef lv_slider_mode_t Slider_Mode;
+
+            // -- Enumerations
+            enum
+            {
+                Normal = LV_SLIDER_MODE_NORMAL,
+                Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
+                Range = LV_SLIDER_MODE_RANGE,
+            };
+
+            typedef enum
+            {
+                Knob = LV_SLIDER_TYPE_KNOB,
+                Knob_Left = LV_SLIDER_TYPE_KNOB_LEFT,
+            } Part_Type;
+
+            // -- Methods
+            Slider_Class(Object_Type &Parent_Object);
+            
+            bool Is_Dragged();
+
+            // -- -- Setters.
+            void Set_Value(int32_t Value, bool Animation);
+            void Set_Left_Value(int32_t Value, bool Animation);
+            void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
+            void Set_Mode(Mode_Type Mode);
+
+            // -- -- Getters.
+            int32_t Get_Value();
+            int32_t Get_Left_Value();
+            int32_t Get_Minimum_Value();
+            int32_t Get_Maximum_Value();
+            Mode_Type Get_Mode();
+            
+        };
+
+        class Switch_Class : public Object_Class
+        {
+            public:
+                // -- Methods
+                Switch_Class(Object_Type &Parent_Object);
+        }
 
 
-        class Windows_Class
+        class Windows_Class : public Object_Class
         {
         public:
             typedef Xila_Class::Object_Type Object_Type;
@@ -999,7 +1104,6 @@ public:
 
             Object_Type Close_Button;
             Object_Type Minimize_Button;
-
         };
 
         static void

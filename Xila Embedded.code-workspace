@@ -38,7 +38,8 @@
 			"functional": "cpp",
 			"string_view": "cpp",
 			"system_error": "cpp",
-			"tuple": "cpp"
+			"tuple": "cpp",
+			"charconv": "cpp"
 		},
 		"cSpell.words": [
 			"BSSID",
