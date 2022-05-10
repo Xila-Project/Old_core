@@ -1054,7 +1054,7 @@ public:
 
             // -- Methods
             Slider_Class(Object_Type &Parent_Object);
-            
+
             bool Is_Dragged();
 
             // -- -- Setters.
@@ -1069,16 +1069,101 @@ public:
             int32_t Get_Minimum_Value();
             int32_t Get_Maximum_Value();
             Mode_Type Get_Mode();
-            
         };
 
         class Switch_Class : public Object_Class
         {
-            public:
-                // -- Methods
-                Switch_Class(Object_Type &Parent_Object);
+        public:
+            // -- Methods
+            Switch_Class(Object_Type &Parent_Object);
         }
 
+        class Table_Class : public Object_Class
+        {
+        public:
+            // -- Typedef
+
+            typedef lv_table_cell_format_t Cell_Format;
+
+            enum
+            {
+                Background,
+                Cell_1,
+                Cell_2,
+                Cell_3,
+                Cell_4
+            };
+
+            // -- Methods
+
+            Table_Class(Object_Type &Parent_Object);
+
+            // -- -- Setters.
+
+            void Set_Cell_Value(uint16_t Row, uint16_t Column, const char *Value);
+            void Set_Cell_Value_Format(uint16_t Row, uint16_t Column, const char *Formated_Value, ...);
+            void Set_Row_Count(uint16_t Row_Count);
+            void Set_Column_Count(uint16_t Column_Count);
+            void Set_Column_Width(uint16_t Column, Coordinates_Type Width);
+            void Set_Cell_Alignment(uint16_t Row, uint16_t Column, Label_Align_Type Align);
+            void Set_Cell_Type(uint16_t Row, uint16_t Column, uint8_t Type);
+            void Set_Cell_Crop(uint16_t Row, uint16_t Column, bool Crop);
+            void Set_Cell_Merge_Right(uint16_t Row, uint16_t Column, bool Merge);
+
+            // -- -- Getters.
+            const char* Get_Cell_Value(uint16_t Row, uint16_t Column);
+            uint16_t Get_Row_Count();
+            uint16_t Get_Column_Count();
+            Coordinates_Type Get_Column_Width(uint16_t Column);
+            Label_Align_Type Get_Cell_Alignment(uint16_t Row, uint16_t Column);
+            Label_Align_Type Get_Cell_Type(uint16_t Row, uint16_t Column);
+            Label_Align_Type Get_Cell_Crop(uint16_t Row, uint16_t Column);
+            bool Get_Cell_Merge_Right(uint16_t Row, uint16_t Column);
+            Ressource_Type Get_Pressed_Cell(uint16_t* Row, uint16_t* Column);
+        };
+
+        class Tabs_Class : public Object_Class
+        {
+        public:
+            // -- Types
+            typedef lv_tabview_btns_pos_t Buttons_Position_Type;
+            typedef lv_tabview_part_t Part_Type;
+            enum {
+                None = LV_TABVIEW_TAB_POS_NONE,
+                Top = LV_ALIGN_TAB_POS_TOP,
+                Bottom = LV_ALIGN_TAB_POS_BOTTOM,
+                Left = LV_ALIGN_TAB_POS_LEFT,
+                Right = LV_ALIGN_TAB_POS_RIGHT,
+            };
+
+            enum {
+                Background = LV_TABVIEW_PART_BG,
+                Virtual_Last = LV_TABVIEW_PART_VIRTUAL_LAST,
+                Background_Scrollable = LV_TABVIEW_PART_BG_SCROLLABLE,
+                Tab_Background = LV_TABVIEW_PART_TAB_BG,
+                Tab_Button = LV_TABVIEW_PART_TAB_BTN,
+                Part_Indicator = LV_TABVIEW_PART_INDICATOR,
+                Real_Last = LV_TABVIEW_PART_REAL_LAST
+            };
+
+            // -- Methods
+            Tabs_Class(Object_Type &Parent_Object);
+
+            void Clean_Tab();            
+
+            // -- -- Setters.
+            void Set_Active_Tab(uint16_t Identifier, Animation_Type Animation);
+            void Set_Tab_Name(uint16_t Identifier, char* Name);
+            void Set_Animation_Time(uint16_t Animation_Time);
+            void Set_Buttons_Position(Buttons_Position_Type Buttons_Position);
+            
+            // -- -- Getters.
+            uint16_t Get_Active_Tab();
+            uint16_t Get_Tab_Count();
+            Object_Type Get_Tab(uint16_t Identifier);
+            uint16_t Get_Animation_Time();
+            Buttons_Position_Type Get_Buttons_Position();
+        };
 
         class Windows_Class : public Object_Class
         {
