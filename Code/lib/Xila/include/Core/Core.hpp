@@ -1032,6 +1032,87 @@ public:
             const char *Get_Text();
         };
 
+        /// @brief Label class.
+        class Label_Class : public Label_Class
+        {
+        public:
+            // -- Types
+            typedef lv_label_long_mode_t Long_Mode_Type;
+
+            enum
+            {
+                Long_Wrap = LV_LABEL_LONG_WRAP,
+                Long_Dot = LV_LABEL_LONG_DOT,
+                Long_Scroll = LV_LABEL_LONG_SCROLL,
+                Long_Scroll_Circular = LV_LABEL_LONG_SCROLL_CIRCULAR,
+                Long_Clip = LV_LABEL_LONG_CLIP
+            };
+
+            // -- Methods
+            Label_Class(const Object_Type &Parent_Object);
+            void Insert_Text(uint32_t Position, const char *Text);
+            void Cut_Text(uint32_t Position, uint32_t Count);
+            bool Is_Char_Under_Position(Point_Type *Position);
+
+            // -- Setters
+            void Set_Text(const char *Text);
+            void Set_Text_Format(const char *Format, ...);
+            void Set_Text_Static(const char *Text);
+            void Set_Long_Mode(Long_Mode_Type Long_Mode);
+            void Set_Recolor(bool Recolor);
+            void Selection_Start(uint32_t Index);
+            void Selection_End(uint32_t Index);
+
+            // -- Getters
+            char *Get_Text();
+            Long_Mode_Type Get_Long_Mode();
+            bool Get_Recolor();
+            void Get_Letter_Position(uint32_t Index, Point_Type *Position);
+            uint32_t Get_Letter_On(Point_Type *Position_In);
+            uint32_t Get_Selection_Start();
+            uint32_t Get_Selection_End();
+        };
+
+        /// @brief Line class.
+        class Line_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+            Line_Class(const Object_Type &Parent_Object);
+
+            void Set_Points(const Point_Type Points[], uint16_t Point_Number);
+            void Set_Y_Inversion(bool Inversion);
+
+            bool Get_Y_Inversion();
+        }
+
+        /// @brief Roller class.
+        class Roller_Class : public Object_Class
+        {
+        public:
+            // -- Types
+            typedef lv_roller_mode_t Mode_Type;
+            enum
+            {
+                Normal = LV_ROLLER_MODE_NORMAL,
+                Infinite = LV_ROLLER_MODE_INFINITE
+            };
+
+            // -- Methods
+            Roller_Class(Parent_Object &Parent_Object);
+
+            // -- Setters
+            void Set_Options(const char *Options, Mode_Type Mode);
+            void Set_Selected(uint16_t Index, Animation_Enable_Type Animation);
+            void Set_Visible_Row_Count(uint8_t Row_Count);
+
+            // -- Getters
+            uint16_t Get_Selected();
+            void Get_Selected_String(char *Buffer, uint32_t Buffer_Size);
+            const char *Get_Options();
+            uint16_t Get_Option_Count();
+        };
+
         class Slider_Class : public Object_Class
         {
         public:
@@ -1111,7 +1192,7 @@ public:
             void Set_Cell_Merge_Right(uint16_t Row, uint16_t Column, bool Merge);
 
             // -- -- Getters.
-            const char* Get_Cell_Value(uint16_t Row, uint16_t Column);
+            const char *Get_Cell_Value(uint16_t Row, uint16_t Column);
             uint16_t Get_Row_Count();
             uint16_t Get_Column_Count();
             Coordinates_Type Get_Column_Width(uint16_t Column);
@@ -1119,7 +1200,37 @@ public:
             Label_Align_Type Get_Cell_Type(uint16_t Row, uint16_t Column);
             Label_Align_Type Get_Cell_Crop(uint16_t Row, uint16_t Column);
             bool Get_Cell_Merge_Right(uint16_t Row, uint16_t Column);
-            Ressource_Type Get_Pressed_Cell(uint16_t* Row, uint16_t* Column);
+            Ressource_Type Get_Pressed_Cell(uint16_t *Row, uint16_t *Column);
+        };
+
+        // -- Widgets
+
+        class Color_Wheel_Class : public Object_Class
+        {
+            // -- Types
+            typedef lv_colorwheel_mode_t Mode_Type;
+
+            enum
+            {
+                Hue = LV_COLORWHEEL_MODE_HUE,
+                Saturation = LV_COLORWHEEL_MODE_SATURATION,
+                Value = LV_COLORWHEEL_MODE_VALUE
+            };
+
+            // -- Methods
+            Color_Wheel_Class(const Object_Class &Parent_Object);
+
+            // -- -- Setters
+            bool Set_HSV(Color_HSV_Type HSV_Color);
+            bool Set_RGB(Color_Type Color);
+
+            void Set_Mode(Mode_Type Mode);
+
+            // -- Getters
+            Color_HSV_Type Get_HSV();
+            Color_Type Get_RGB();
+            Mode_Type Get_Mode();
+            bool Get_Mode_Fixed();
         };
 
         class Tabs_Class : public Object_Class
@@ -1128,7 +1239,8 @@ public:
             // -- Types
             typedef lv_tabview_btns_pos_t Buttons_Position_Type;
             typedef lv_tabview_part_t Part_Type;
-            enum {
+            enum
+            {
                 None = LV_TABVIEW_TAB_POS_NONE,
                 Top = LV_ALIGN_TAB_POS_TOP,
                 Bottom = LV_ALIGN_TAB_POS_BOTTOM,
@@ -1136,7 +1248,8 @@ public:
                 Right = LV_ALIGN_TAB_POS_RIGHT,
             };
 
-            enum {
+            enum
+            {
                 Background = LV_TABVIEW_PART_BG,
                 Virtual_Last = LV_TABVIEW_PART_VIRTUAL_LAST,
                 Background_Scrollable = LV_TABVIEW_PART_BG_SCROLLABLE,
@@ -1149,14 +1262,14 @@ public:
             // -- Methods
             Tabs_Class(Object_Type &Parent_Object);
 
-            void Clean_Tab();            
+            void Clean_Tab();
 
             // -- -- Setters.
             void Set_Active_Tab(uint16_t Identifier, Animation_Type Animation);
-            void Set_Tab_Name(uint16_t Identifier, char* Name);
+            void Set_Tab_Name(uint16_t Identifier, char *Name);
             void Set_Animation_Time(uint16_t Animation_Time);
             void Set_Buttons_Position(Buttons_Position_Type Buttons_Position);
-            
+
             // -- -- Getters.
             uint16_t Get_Active_Tab();
             uint16_t Get_Tab_Count();

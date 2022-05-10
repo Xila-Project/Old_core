@@ -34,6 +34,11 @@ Xila_Class::Display_Class::~Display_Class()
 {
 }
 
+Xila_Class::Display_Class::Tabs_Class(Parent_Object& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer());
+}
+
 Xila_Class::Event Xila_Class::Display_Class::Compile_Page(File Page_File)
 {
     // Stream& input;
