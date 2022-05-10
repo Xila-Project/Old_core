@@ -86,5 +86,6 @@ inline bool Class::Get_One_Checked()
     return lv_btnmatrix_get_one_checked(Get_Pointer());
 }
 
-#undef
- #endif
+#undef Class
+
+#endif

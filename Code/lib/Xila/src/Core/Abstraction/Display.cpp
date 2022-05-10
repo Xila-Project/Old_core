@@ -10,12 +10,14 @@
 
 #include "Core/Core.hpp"
 
+#define Class Xila_Class::Display_Class
 
+// -- Constructors
 
 ///
 /// @brief Construct a new Xila_Class::Display_Class::Display_Class object
 ///
-Xila_Class::Display_Class::Display_Class()
+Class::Display_Class()
     : Nextion_Class(),
       State(true),
       Brightness(Default_Display_Brightness),
@@ -30,16 +32,120 @@ Xila_Class::Display_Class::Display_Class()
 ///
 /// @brief Destroy the Xila_Class::Display_Class::Display_Class object
 ///
-Xila_Class::Display_Class::~Display_Class()
+Class::~Display_Class()
 {
 }
 
-Xila_Class::Display_Class::Tabs_Class(Parent_Object& Parent_Object)
+// -- Object's base class
+
+Class::Object_Class::Object_Class(Object_Class &Parent_Object)
+{
+    this.LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+}
+
+Class::Object_Class::~Object_Class()
+{
+    Delete();
+}
+
+LVGL_Object_Type Class::Object_Class::operator=(const Object_Class Parent_Object){
+    Parent_Object.set}
+
+IRAM_ATTR void Class::Object_Class::Event_Handler(Class::Event_Type Event)
+{
+
+    Xila.Software_Management.Send_Instruction(Xila.Software_Management.);
+}
+
+Class::Arc_Class::Arc_Class(Object_Class &Parent_Object)
+{
+    this.LVGL_Object_Pointer = lv_arc_create(Parent_Object.Get_Pointer());
+}
+
+Class::Bar_Class::Bar_Class(Object_Class Parent_Object);
+{
+    this.LVGL_Object_Pointer = lv_bar_create(Parent_Object.Get_Pointer());
+}
+
+Class::Button_Class::Button_Class(Object_Class &Parent_Object)
+{
+    this.LVGL_Object_Pointer = lv_btn_create(Parent_Object.Get_Pointer());
+}
+
+Class::Button_Matrix_Class::Button_Matrix_Class(Object_Class &Parent_Object)
+{
+    LVGL_Object_Type = lv_btnmatrix_create(Parent_Object.Get_Pointer());
+}
+
+Class::Canvas_Class::Canvas_Class(Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_canvas_create(Parent_Object.Get_Pointer());
+}
+
+Class::Checkbox_Class::Checkbox_Class(Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_checkbox_create(Parent_Object.Get_Pointer());
+}
+
+
+Class::Dropdown_List::Dropdown_List(Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_dropdown_create(Parent_Object.Get_Pointer());
+}
+
+Class::Image_Class::Image_Class(Object_Class& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_image_create(Parent_Object.Get_Pointer());
+}
+
+Class::Label_Class::Label_Class(Object_Class& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_label_create(Parent_Object.Get_Pointer());
+}
+
+Class::Line_Class::Line_Class(Object_Class& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_line_create(Parent_Object.Get_Pointer());
+}
+
+Class::Roller_Class::Roller_Class(Object_Class& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_roller_create(Parent_Object.Get_Pointer());
+}
+
+Class::Slider_Class::Slider_Class(Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_slider_create(Parent_Object.Get_Pointer());
+}
+
+Class::Switch_Class::Switch_Class(Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_switch_create(Parent_Object.Get_Pointer());
+}
+
+Class::Table_Class::Table_Class(const Object_Class &Parent_Object)
+{
+    LVGL_Object_Pointer = lv_table_create(Parent_Object.Get_Pointer());
+}
+
+Class::Text_Area_Class::Text_Area_Class(const Object_Class& Parent_Object)
+{
+    LVGL_Object_Pointer = lv_textarea_create(Parent_Object.Get_Pointer());
+}
+
+Object_Type Class::Load()
+{
+    Object_Type Window = Create();
+
+    Type
+}
+
+Class::Tabs_Class::Tabs_Class(Parent_Object &Parent_Object)
 {
     LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer());
 }
 
-Xila_Class::Event Xila_Class::Display_Class::Compile_Page(File Page_File)
+Xila_Class::Event Class::Compile_Page(File Page_File)
 {
     // Stream& input;
 
@@ -58,28 +164,26 @@ Xila_Class::Event Xila_Class::Display_Class::Compile_Page(File Page_File)
     for (JsonObject Object : doc["Objects"].as<JsonArray>())
     {
 
-
         int Object_Type = Object["Type"];         // 0, 1
         const char *Object_Name = Object["Name"]; // "Button 1", "Button 2"
 
-        const char *Parent = Object["Parent"];    // "Page 1", "Page 2"
-
+        const char *Parent = Object["Parent"]; // "Page 1", "Page 2"
 
         int Object_Position_Align = Object["Position"]["Align"];
-        int Object_Position_X = Object["Position"]["X"];             
-        int Object_Position_Y = Object["Position"]["Y"];             
+        int Object_Position_X = Object["Position"]["X"];
+        int Object_Position_Y = Object["Position"]["Y"];
 
         // Size
-        int Object_Width = Object["Size"]["Width"];           // 0, 1
-        int Object_Height = Object["Size"]["Height"];         // 0, 1
-       
+        int Object_Width = Object["Size"]["Width"];   // 0, 1
+        int Object_Height = Object["Size"]["Height"]; // 0, 1
+
         // Style
         uint16_t Background_Color = Object["Style"]["Background Color"];
         uint16_t Text_Color = Object["Style"]["Text Color"];
-        uint16_t 
+        uint16_t
 
-        const char *Object_Instructions_Click = Object["Instructions"]["Click"]; // "BUT1", "BUT2"
-        const char *Object_Instructions_Hover = Object["Instructions"]["Hover"]; // "BUT'", "BUT'"
+            const char *Object_Instructions_Click = Object["Instructions"]["Click"]; // "BUT1", "BUT2"
+        const char *Object_Instructions_Hover = Object["Instructions"]["Hover"];     // "BUT'", "BUT'"
     }
 }
 
@@ -87,7 +191,7 @@ Xila_Class::Event Xila_Class::Display_Class::Compile_Page(File Page_File)
 /// @brief
 ///
 /// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Display_Class::Load_Page(File Page_File, Object *Object_Array, uint16_t Object_Array_Size)
+Xila_Class::Event Class::Load_Page(File Page_File, Object *Object_Array, uint16_t Object_Array_Size)
 {
     if (!Page_File)
     {
@@ -95,9 +199,9 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Page(File Page_File, Object *O
     }
 
     if (Compile_Page(Page_File) != Error))
-    {
-        return Error;
-    }
+        {
+            return Error;
+        }
 
     return Success;
 }
@@ -106,7 +210,7 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Page(File Page_File, Object *O
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
+Xila_Class::Event Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -134,7 +238,7 @@ Xila_Class::Event Xila_Class::Display_Class::Load_Registry()
 /// @brief Save display registry
 ///
 /// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
+Xila_Class::Event Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
@@ -159,7 +263,7 @@ Xila_Class::Event Xila_Class::Display_Class::Save_Registry()
 ///
 /// @param Received_Data String received data
 /// @param Size Size in bytes of received data
-void Xila_Class::Display_Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
+void Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
     while (Xila.Software_Management.Openned[0] == NULL)
     {
@@ -187,7 +291,7 @@ void Xila_Class::Display_Class::Incoming_String_Data_From_Display(const char *Re
 /// @brief Callback function for display incoming numeric data
 ///
 /// @param Received_Data Received numeric data from the display
-void Xila_Class::Display_Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
+void Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
     if (Xila.Display.Current_Address != '\0')
     {
@@ -200,7 +304,7 @@ void Xila_Class::Display_Class::Incoming_Numeric_Data_From_Display(uint32_t Rece
 /// @brief Callback function for display incoming event
 ///
 /// @param Event_Code Event code
-void Xila_Class::Display_Class::Incoming_Event_From_Display(uint8_t Event_Code)
+void Class::Incoming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)
     {

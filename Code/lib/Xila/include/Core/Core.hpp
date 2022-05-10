@@ -1051,7 +1051,7 @@ public:
             // -- Methods
             Label_Class(const Object_Type &Parent_Object);
             void Insert_Text(uint32_t Position, const char *Text);
-            void Cut_Text(uint32_t Position, uint32_t Count);
+            void Cut_Text(uint32_t Position, uint32_t Length);
             bool Is_Char_Under_Position(Point_Type *Position);
 
             // -- Setters
@@ -1060,8 +1060,8 @@ public:
             void Set_Text_Static(const char *Text);
             void Set_Long_Mode(Long_Mode_Type Long_Mode);
             void Set_Recolor(bool Recolor);
-            void Selection_Start(uint32_t Index);
-            void Selection_End(uint32_t Index);
+            void Set_Selection_Start(uint32_t Index);
+            void Set_Selection_End(uint32_t Index);
 
             // -- Getters
             char *Get_Text();
