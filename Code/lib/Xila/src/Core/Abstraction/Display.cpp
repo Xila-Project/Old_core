@@ -206,6 +206,31 @@ Xila_Class::Event Class::Load_Page(File Page_File, Object *Object_Array, uint16_
     return Success;
 }
 
+// -- Load display driver
+
+Xila_Class::Event Class::Initialize_File_System()
+{
+    lv_fs_drv_init(&File_System_Driver);
+
+
+    File_System_Driver.letter = '';
+    File_System_Driver.open_cb = File_System_Open;
+    File_System_Driver.close_cb = File_System_Close;
+    File_System_Driver.read_cb = File_System_Read;
+    File_System_Driver.write_cb = File_System_Write;
+    File_System_Driver.seek_cb = File_System_Set_Position;
+    File_System_Driver.tell_cb = File_System_Get_Position;
+
+    File_System_Driver.dir_close_cb = File_System_Close_Directory;
+    File_System_Driver.dir_read_cb = File_System_Directory_Read;
+    File_System_Driver.dir_open_cb = File_System_Open_Directory;
+
+    lv_fs_drv_register(&File_System_Driver);
+
+    return Xila_Success;
+}
+
+
 ///
 /// @brief Load display registry
 ///
@@ -323,4 +348,127 @@ void Class::Incoming_Event_From_Display(uint8_t Event_Code)
     default:
         break;
     }
+}
+
+// -- File system callbacks
+
+void * Class::File_System_Open(lv_fs_drv_t * Driver, const char * Path, lv_fs_mode_t Mode)
+{
+    File File_To_Open;
+    if (Mode == LV_FS_MODE_WR)
+    {
+        File_To_Open = Xila.Drive.Open(Path, FILE_WRITE);
+    }
+    else
+    {
+        File_To_Open = Xila.Drive.Open(Path, FILE_WRITE);
+    }
+
+    if (!File_To_Open)
+    {
+        return NULL;
+    }
+
+   return File_To_Open;
+}
+
+static lv_fs_res_t Class::File_System_Close(lv_fs_drv_t * Driver, void * File_Pointer)
+{
+    *(File*)File_Pointer.close();
+    return LV_FS_RES_OK;
+}
+
+static lv_fs_res_t Class::File_System_Read(lv_fs_drv_t * Driver, void * File_Pointer, void * Buffer, uint32_t Bytes_To_Read, uint32_t * Bytes_Read)
+{
+    File File_To_Read = *(File*)File_Pointer;
+    
+    if (!File_To_Read)
+    {
+        return LV_FS_RES_FS_ERR;
+    }
+
+    *Bytes_Read = File_To_Read.read((uint8_t*)Buffer, Bytes_To_Read);
+    return LV_FS_RES_OK;
+}
+
+static lv_fs_res_t Class::File_System_Write(lv_fs_drv_t * Driver, void * File_Pointer, const void * Buffer, uint32_t Bytes_To_Write, uint32_t * Bytes_Written)
+{
+    File File_To_Write = *(File*)File_Pointer;
+    
+    if (!File_To_Write)
+    {
+        return LV_FS_RES_FS_ERR;
+    }
+
+    *Bytes_Written = File_To_Write.write((uint8_t*)Buffer, Bytes_To_Write);
+    return LV_FS_RES_OK;
+}
+
+static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t * Driver, void * File_Pointer, uint32_t Position, lv_fs_whence_t Whence)
+{
+    File File_To_Seek = *(File*)File_Pointer;
+
+    if (!File_To_Seek)
+    {
+        return LV_FS_RES_FS_ERR;
+    }
+
+    switch (Whence)
+    {
+        case LV_FS_SEEK_SET:
+            File_To_Seek.seek(Position, SeekSet);
+            break;
+
+        case LV_FS_SEEK_CUR:
+            File_To_Seek.seek(Position, SeekCur);
+            break;
+
+        case LV_FS_SEEK_END:
+            File_To_Seek.seek(Position, SeekEnd);
+            break;
+
+        default:
+            break;
+    }
+
+    return LV_FS_RES_OK;
+}
+
+static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t * Driver, void * File_Pointer, uint32_t  * Position)
+{
+    File File_To_Get_Position = *(File*)File_Pointer;
+
+    if (!File_To_Get_Position)
+    {
+        return LV_FS_RES_FS_ERR;
+    }
+
+    *Position = File_To_Get_Position.position();
+    return LV_FS_RES_OK;
+}
+
+static void* Class::File_System_Open_Directory(lv_fs_drv_t * Driver, const char * Path)
+{
+    File File_To_Open = Xila.Drive.Open(Path);
+    if (!File_To_Open)
+    {
+        return LV_FS_RES_FS_ERR;
+    }
+    else if (!File_To_Open.isDirectory())
+    {
+        return LV_FS_RES_NOT_EX;
+    }
+    return &File_To_Open;
+}
+
+static lv_fs_res_t Class::File_System_Directory_Read(lv_fs_drv_t * Driver, void * Directory_Pointer, char * File_Name)
+{
+    return LV_FS_RES_NOT_IMP;
+}
+
+static lv_fs_res_t Class::File_System_Close_Directory(lv_fs_drv_t * Driver, void * Directory_Pointer)
+{
+    File File_Pointer = *(File*)Directory_Pointer;
+    File_Pointer.close();
+    return LV_FS_RES_OK;
 }

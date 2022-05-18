@@ -809,6 +809,9 @@ public:
             LVGL_Object_Type &operator=(const Object_Class &Object_Type);
 
         protected:
+
+
+
             LVGL_Object_Class Get_Parent();
 
             void Set_Pointer(LVGL_Object_Type *Object);
@@ -1319,6 +1322,23 @@ public:
         Xila_Class::Event Load_Page(File, Object *, uint16_t);
 
     protected:
+
+        static lv_fs_drv_t File_System_Driver;
+
+        static void * File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
+        static lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
+        static lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
+        static lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
+        static lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
+        static lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
+        static void * File_System_Open_Directory(lv_fs_drv_t *, const char *);
+        static lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
+        static lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
+
+        void Initialize_File_System();
+
+        void Set_State(uint8_t State);
+
         void Set_State(uint8_t State);
 
         uint8_t State;
