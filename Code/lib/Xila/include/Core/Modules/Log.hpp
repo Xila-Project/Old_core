@@ -2,7 +2,7 @@
 #include "Configuration.hpp"
 
 #ifndef Log_Level   // Set default log level
-#define Log_Level = 0
+#define Log_Level 0
 #endif
 
 // -- Loging disabled

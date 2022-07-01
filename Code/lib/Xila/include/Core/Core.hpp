@@ -134,6 +134,25 @@ public:
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
+    class Date_Type {
+    private:
+        uint8_t Day;
+        uint8_t Month;
+        uint16_t Year;
+    public:
+        Date_Type();
+        Date_Type(uint8_t Day, uint8_t Month, uint16_t Year);
+
+        void Set(uint8_t Day, uint8_t Month, uint16_t Year);
+        void Set_Day(uint8_t Day);
+        void Set_Month(uint8_t Month);
+        void Set_Year(uint16_t Year);
+    
+        uint8_t Get_Day();
+        uint8_t Get_Month();
+        uint16_t Get_Year();
+    };
+
     /// @brief Xila Address type.
     typedef uint16_t Address;
 
@@ -151,6 +170,9 @@ public:
 
     /// @brief Task handle type
     typedef void *Task_Handle;
+
+    /// @brief Size Type;
+    typedef size_t Size_Type;
 
     /// @brief Instructions used by the core (with the prefix "#").
     enum : Xila_Class::Instruction
@@ -580,71 +602,83 @@ public:
             Disable = LV_ANIM_OFF
         };
 
-        // @brief Event enumeration.
-        typedef enum
+        /// @brief Event class.
+        class Event_Class
         {
-            All = LV_EVENT_ALL,
-            // -- Interaction related events
-            Pressed = LV_EVENT_PRESSED,
-            Pressing = LV_EVENT_PRESSING,
-            Press_Lost = LV_EVENT_PRESS_LOST,
+        public:
+            Event_Code_Type Get_Code();
+            Object_Class Get_Current_Target();
+            Object_Class Get_Target();
+            void *Get_User_Data();
 
-            Short_Clicked = LV_EVENT_SHORT_CLICKED,
-            Long_Pressed = LV_EVENT_LONG_PRESSED,
-            Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
+            typedef enum
+            {
+                All = LV_EVENT_ALL,
+                // -- Interaction related events
+                Pressed = LV_EVENT_PRESSED,
+                Pressing = LV_EVENT_PRESSING,
+                Press_Lost = LV_EVENT_PRESS_LOST,
 
-            Clicked = LV_EVENT_CLICKED,
-            Released = LV_EVENT_RELEASED,
-            Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
-            Scroll_End = LV_EVENT_SCROLL_END,
-            Scroll = LV_EVENT_SCROLL,
-            Gesture = LV_EVENT_GESTURE,
-            Key = LV_EVENT_KEY,
-            Focused = LV_EVENT_FOCUSED,
-            Defocused = LV_EVENT_DEFOCUSED,
-            Leave = LV_EVENT_LEAVE,
-            Hit_Test = LV_EVENT_HIT_TEST,
-            // -- Drawing context
-            Cover_Check = LV_EVENT_COVER_CHECK,
+                Short_Clicked = LV_EVENT_SHORT_CLICKED,
+                Long_Pressed = LV_EVENT_LONG_PRESSED,
+                Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
 
-            Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
-            Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
-            Draw_Main = LV_EVENT_DRAW_MAIN,
-            Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
+                Clicked = LV_EVENT_CLICKED,
+                Released = LV_EVENT_RELEASED,
+                Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
+                Scroll_End = LV_EVENT_SCROLL_END,
+                Scroll = LV_EVENT_SCROLL,
+                Gesture = LV_EVENT_GESTURE,
+                Key = LV_EVENT_KEY,
+                Focused = LV_EVENT_FOCUSED,
+                Defocused = LV_EVENT_DEFOCUSED,
+                Leave = LV_EVENT_LEAVE,
+                Hit_Test = LV_EVENT_HIT_TEST,
+                // -- Drawing context
+                Cover_Check = LV_EVENT_COVER_CHECK,
 
-            Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
-            Draw_Post = LV_EVENT_DRAW_POST,
-            Draw_Post_End = LV_EVENT_DRAW_POST_END,
-            Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
-            Draw_Part_End = LV_EVENT_DRAW_PART_END,
+                Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
+                Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
+                Draw_Main = LV_EVENT_DRAW_MAIN,
+                Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
 
-            // -- Special events
-            Value_Changed = LV_EVENT_VALUE_CHANGED,
-            Insert = LV_EVENT_INSERT,
-            Refresh = LV_EVENT_REFRESH,
-            Ready = LV_EVENT_READY,
-            Cancel = LV_EVENT_CANCEL,
+                Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
+                Draw_Post = LV_EVENT_DRAW_POST,
+                Draw_Post_End = LV_EVENT_DRAW_POST_END,
+                Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
+                Draw_Part_End = LV_EVENT_DRAW_PART_END,
 
-            // -- State events
-            Delete = LV_EVENT_DELETE,
-            Child_Changed = LV_EVENT_CHILD_CHANGED,
-            Child_Created = LV_EVENT_CHILD_CREATED,
-            Child_Deleted = LV_EVENT_CHILD_DELETED,
+                // -- Special events
+                Value_Changed = LV_EVENT_VALUE_CHANGED,
+                Insert = LV_EVENT_INSERT,
+                Refresh = LV_EVENT_REFRESH,
+                Ready = LV_EVENT_READY,
+                Cancel = LV_EVENT_CANCEL,
 
-            // -- Screen events
-            Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
-            Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
-            Screen_Loaded = LV_EVENT_SCREEN_LOADED,
-            Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
+                // -- State events
+                Delete = LV_EVENT_DELETE,
+                Child_Changed = LV_EVENT_CHILD_CHANGED,
+                Child_Created = LV_EVENT_CHILD_CREATED,
+                Child_Deleted = LV_EVENT_CHILD_DELETED,
 
-            // -- Appearance events
-            Size_Changed = LV_EVENT_SIZE_CHANGED,
-            Style_Changed = LV_EVENT_STYLE_CHANGED,
-            Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
-            Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
+                // -- Screen events
+                Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
+                Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
+                Screen_Loaded = LV_EVENT_SCREEN_LOADED,
+                Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
 
-            Last_Event = _LV_EVENT_LAST
-        } Event_Code_Type;
+                // -- Appearance events
+                Size_Changed = LV_EVENT_SIZE_CHANGED,
+                Style_Changed = LV_EVENT_STYLE_CHANGED,
+                Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
+                Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
+
+                Last_Event = _LV_EVENT_LAST
+            } Event_Code_Type;
+
+        private:
+            lv_event_t LVGL_Event;
+        };
 
         void Initialise();
         bool Initialisation_State();
@@ -656,13 +690,32 @@ public:
             // -- Types
             typedef lv_coord_t Coordinate_Type;
             typedef lv_opa_t Opacity_Type;
+
             typedef lv_state_t State_Type;
             typedef lv_part_t Part_Type;
             typedef lv_obj_flag_t Flag_Type;
+
             typedef lv_event_t Event_Type;
-            typedef lv_obj_t LVGL_Object_Type;
+
+            typedef lv_obj_t LVGL_Object_Class;
+
             typedef lv_obj_class_t Class_Type;
             typedef lv_style_selector_t Style_Selector_Type;
+
+            typedef lv_dir_t Direction_Type;
+
+            /// @brief Direction enumeration.
+            enum
+            {
+                None = LV_DIR_NONE,
+                Left = LV_DIR_LEFT,
+                Right = LV_DIR_RIGHT,
+                Top = LV_DIR_TOP,
+                Bottom = LV_DIR_BOTTOM,
+                Horizontal = LV_DIR_HOR,
+                Vertical = LV_DIR_VER,
+                All = LV_DIR_ALL,
+            };
 
             /// @brief State enumeration.
             enum
@@ -732,16 +785,12 @@ public:
                 Custom_4 = LV_OBJ_FLAG_USER_4,
             };
 
-            class Event_Class
+            /// @brief Event enumeration.
+            enum Draw_Part_Type
             {
-            public:
-                Event_Code_Type Get_Code();
-                Object_Class Get_Current_Target();
-                Object_Class Get_Target();
-                void *Get_User_Data();
-
-            private:
-                lv_event_t LVGL_Event;
+                Rectangle = LV_OBJ_DRAW_PART_RECTANGLE,
+                Border_Post = LV_OBJ_DRAW_PART_BORDER_POST,
+                Scrollbar = LV_OBJ_DRAW_PART_SCROLLBAR
             };
 
             // -- Methods
@@ -786,12 +835,12 @@ public:
 
             // -- Set attributes values.
             void Set_Index(uint32_t Index);
-            void Set_Parent(Object_Type Parent_Object);
+            void Set_Parent(Object_Class Parent_Object);
 
             void Set_User_Data(void *User_Data);
-            void Set_Position(Xila_Class::Object_Type, Coordinates X = Keep, Coordinates Y = Keep);
-            void Set_Size(Xila_Class::Object_Type, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
-            void Set_Alignment(Xila_Class::Object_Type, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
+            void Set_Position(Xila_Class::Object_Class, Coordinates X = Keep, Coordinates Y = Keep);
+            void Set_Size(Xila_Class::Object_Class, Coordinates Width = Keep, Coordinates Height = Keep, char Fit = 'N');
+            void Set_Alignment(Xila_Class::Object_Class, Xila_Class::Alignment, Xila_Class::Alignment = Xila_Class::Keep);
 
             void Add_Style(Style_Type Style, Style_Selector_Type *Style_Selector);
 
@@ -799,28 +848,25 @@ public:
             State_Type Get_State();
             void *Get_Group();
             void *Get_User_Data();
-            State Get_Object_Visibility(Xila_Class::Object_Type);
-            void Get_Identifier(Object_Type Object);
+            State Get_Object_Visibility(Xila_Class::Object_Class);
+            void Get_Identifier(Object_Class Object);
 
-            uint16_t Get_Child_Count(Object_Type Parent_Object);
-            Object_Type Get_Child(Object_Type Object, uint16_t Index);
+            uint16_t Get_Child_Count(Object_Class Parent_Object);
+            Object_Class Get_Child(Object_Class Object, uint16_t Index);
 
             // -- Operator
-            LVGL_Object_Type &operator=(const Object_Class &Object_Type);
+            LVGL_Object_Class &operator=(const Object_Class &Object_Class);
 
         protected:
-
-
-
             LVGL_Object_Class Get_Parent();
 
-            void Set_Pointer(LVGL_Object_Type *Object);
-            LVGL_Object_Type *Get_Pointer();
+            void Set_Pointer(LVGL_Object_Class *Object);
+            LVGL_Object_Class *Get_Pointer();
 
             static void Event_Handler(Event_Type Event);
 
         private:
-            LVGL_Object_Type *LVGL_Object_Pointer;
+            LVGL_Object_Class *LVGL_Object_Pointer;
         };
 
         /// @brief Screnn class.
@@ -899,7 +945,7 @@ public:
             } Part_Type;
 
             // -- Methods
-            Bar_Class(Object_Type &Parent_Object);
+            Bar_Class(Object_Class &Parent_Object);
 
             // -- Set attributes values.
             void Set_Value(int32_t Value, bool Enable_Animation = true);
@@ -921,7 +967,10 @@ public:
         class Button_Class : public Object_Class
         {
         public:
-            Button_Class(Object_Type &Parent_Object);
+            Create(Object_Class &Parent_Object);
+
+            
+            
         };
 
         /// @brief Button matrix class.
@@ -931,6 +980,7 @@ public:
             // -- Types
 
             typedef lv_btnmatrix_ctrl_t Control_Type;
+            typedef lv_btnmatrix_btn_draw_cb_t Button_Draw_Callback_Type;
 
             // -- Enumerations
 
@@ -957,7 +1007,7 @@ public:
 
             // -- -- Constructor
 
-            Button_Matrix_Class(Object_Type &Parent_Object);
+            Button_Matrix_Class(Object_Class &Parent_Object);
 
             // -- -- Action methods
             void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control);
@@ -989,7 +1039,7 @@ public:
         public:
             // -- Methods
 
-            Canvas_Class(Object_Type &Parent_Object);
+            Canvas_Class(Object_Class &Parent_Object);
 
             // -- --
             void Copy_Buffer(const void *Buffer_To_Copy, Coordinate_Type X, Coordinate_Type Y, uint16_t Width, uint16_t Height);
@@ -1023,9 +1073,14 @@ public:
         class Checkbox_Class : public Object_Class
         {
         public:
+            enum Draw_Part_Type
+            {
+                Box = LV_CHECKBOX_DRAW_PART_BOX,
+            };
+
             // -- Methods
 
-            Checkbox_Class(Object_Type &Parent_Object);
+            Checkbox_Class(Object_Class &Parent_Object);
 
             // -- -- Set attributes values.
             void Set_Text(const char *Text);
@@ -1033,6 +1088,79 @@ public:
 
             // -- -- Get attributes values.
             const char *Get_Text();
+        };
+
+        class Drop_Down_List_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+
+            Drop_Down_List_Class(Object_Class &Parent_Object);
+
+            // Management
+
+            void Add_Option(const char *Option, uint32_t Position);
+            void Clear_Options();
+
+            void Open();
+            void Close();
+
+            //  Setters
+            void Set_Text(const char *Text);
+            void Set_Options(const char *Options);
+            void Set_Options_Static(const char *Options);
+            void Set_Selected(uint16_t Selected_Option);
+            void Set_Direction(Direction_Type Direction);
+            void Set_Symbol(const void *Symbol);
+            void Set_Selected_Highlight(bool Enabled);
+
+            //  Getters
+            Object_Class *Get_List();
+            const char *Get_Text();
+            const char *Get_Options();
+            uint16_t Get_Selected();
+            uint16_t Get_Option_Count();
+            void Get_Selected_String(char *Buffer, Size_Type Buffer_Size);
+            int32_t Get_Option_Index(const char *Option);
+            const char *Get_Symbol();
+            bool Get_Selected_Highlight();
+            Direction_Type Get_Direction();
+            bool Is_Open();
+        };
+
+        /// @brief image class
+        class Image_Class : public Object_Class
+        {
+        public:
+            typedef lv_img_size_mode_t Image_Size_Mode_Type;
+
+            enum {
+                Virtual = LV_IMG_SIZE_MODE_VIRTUAL,
+                Real = LV_IMG_SIZE_MODE_REAL
+            };
+
+            // -- Methods
+            Image_Class(Object_Class &Parent_Object);
+
+            // -- Setters
+            void Set_Source(const void* Source);
+            void Set_Offset_X(Coordinate_Type X);
+            void Set_Offset_Y(Coordinate_Type Y);
+            void Set_Angle(int16_t Angle);
+            void Set_Pivot(Coordinate_Type X, Coordinate_Type Y);
+            void Set_Zoom(uint16_t Zoom);
+            void Set_Antialias(bool Enabled);
+            void Set_Size_Mode(Image_Size_Mode_Type Size_Mode);
+            
+            // -- Getters
+            const void* Get_Size_Mode();
+            Coordinate_Type Get_Offset_X();
+            Coordinate_Type Get_Offset_Y();
+            uint16_t Get_Angle();
+            void Get_Pivot(Coordinate_Type *X, Coordinate_Type *Y);
+            uint16_t Get_Zoom();
+            bool Get_Antialias();
+            Image_Size_Mode_Type Get_Size_Mode();
         };
 
         /// @brief Label class.
@@ -1052,7 +1180,7 @@ public:
             };
 
             // -- Methods
-            Label_Class(const Object_Type &Parent_Object);
+            Label_Class(const Object_Class &Parent_Object);
             void Insert_Text(uint32_t Position, const char *Text);
             void Cut_Text(uint32_t Position, uint32_t Length);
             bool Is_Char_Under_Position(Point_Type *Position);
@@ -1081,7 +1209,7 @@ public:
         {
         public:
             // -- Methods
-            Line_Class(const Object_Type &Parent_Object);
+            Line_Class(const Object_Class &Parent_Object);
 
             void Set_Points(const Point_Type Points[], uint16_t Point_Number);
             void Set_Y_Inversion(bool Inversion);
@@ -1137,7 +1265,7 @@ public:
             } Part_Type;
 
             // -- Methods
-            Slider_Class(Object_Type &Parent_Object);
+            Slider_Class(Object_Class &Parent_Object);
 
             bool Is_Dragged();
 
@@ -1159,8 +1287,8 @@ public:
         {
         public:
             // -- Methods
-            Switch_Class(Object_Type &Parent_Object);
-        }
+            Switch_Class(Object_Class &Parent_Object);
+        };
 
         class Table_Class : public Object_Class
         {
@@ -1180,7 +1308,7 @@ public:
 
             // -- Methods
 
-            Table_Class(Object_Type &Parent_Object);
+            Table_Class(Object_Class &Parent_Object);
 
             // -- -- Setters.
 
@@ -1206,10 +1334,182 @@ public:
             Ressource_Type Get_Pressed_Cell(uint16_t *Row, uint16_t *Column);
         };
 
+        class Text_Area_Class : public Object_Class
+        {
+            /// @brief Text area custom part enumeration.
+            enum
+            {
+                Placeholder = LV_TEXTAREA_PLACEHOLDER
+            };
+
+            // -- Methods
+
+            Text_Area_Class(Object_Class &Parent_Object);
+
+            void Add_Char(uint32_t Character);
+            void Add_Text(const char* Text);
+            void Delete_Character();
+            void Delete_Character_Forward();
+            
+            // -- Setters
+            void Set_Text(const char* Text);
+            void Set_Placeholder_Text(const char* Text);
+            void Set_Cursor_Click_Position(bool Enabled);
+            void Set_Password_Bullet(const char* Bullet);
+            void Set_One_Line(bool Enabled);
+            void Set_Accepted_Characters(const char* List);
+            void Set_Maximum_Length(uint32_t Length);
+            void Set_Insert_Replace(const char* Text);
+            void Set_Text_Selection(bool Enabled);
+            void Set_Password_Show_Time(uint16_t Time);
+            void Set_Text_Alignment(Text_Align_Type Alignment);
+            
+            // -- Getters
+            const char* Get_Text();
+            const char* Get_Placeholder_Text();
+            Label_Class* Get_Label();
+            uint32_t Get_Cursor_Position();
+            bool Get_Cursor_Click_Position();
+            bool Get_Password_Mode();
+            const char* Get_Password_Bullet();
+            bool Get_One_Line();
+            const char* Get_Accepted_Characters();
+            uint32_t Get_Maximum_Length();
+            bool Get_Text_Selection();
+            uint16_t Get_Password_Show_Time();
+            
+            void Clear_Selection();
+            void Cursor_Right();
+            void Cursor_Left();
+            void Cursor_Up();
+            void Cursor_Down();
+
+            bool Is_Selected();
+
+
+        };
+
         // -- Widgets
 
+        class Calendar_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+            
+            Calendar_Class(Object_Class &Parent_Object);
+
+            // -- -- Setters.
+
+            void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
+            void Set_Showed_Date(uint32_t Year, uint32_t Month);
+            void Set_Highlighted_Dates(Date_Type Date[], uint16_t Number);
+            void Set_Days_Names(const char** Day_Names);
+            Button_Matrix* Get_Button_Matrix();
+
+            // -- -- Getters.
+            const Date_Type* Get_Today_Date();
+            const Date_Type* Get_Showed_Dates();
+            Date_Type* Get_Highlighted_Dates();
+            uint16_t Get_Highlighted_Dates_Number();
+            Event_Type Get_Pressed_Date(Date_Type* Date);
+        };
+
+        class Chart_Class : public Object_Class
+        {
+        public:
+            
+            typedef lv_chart_series_t Series_Type;
+            typedef lv_chart_cursor_t Cursor_Type;
+            typedef lv_chart_tick_dsc_t Tick_Descriptor_Type;
+
+            typedef uint8_t Type_Type;
+            
+            enum {
+                None = LV_CHART_TYPE_NONE,
+                Line = LV_CHART_TYPE_LINE,
+                Bar = LV_CHART_TYPE_BAR,
+                Scatter = LV_CHART_TYPE_SCATTER
+            };
+            
+            typedef uint8_t Update_Mode_Type;
+            
+            enum {
+                Shift = LV_CHART_UPDATE_MODE_SHIFT,
+                Circular = LV_CHART_UPDATE_MODE_CIRCULAR
+            };
+
+            typedef uint8_t Axis_Type;
+
+            enum {
+                Primary_Y = LV_CHART_AXIS_PRIMARY_Y,
+                Secondary_Y = LV_CHART_AXIS_SECONDARY_Y,
+                Primary_X = LV_CHART_AXIS_PRIMARY_X,
+                Secondary_X = LV_CHART_AXIS_SECONDARY_X,
+                Last = LV_CHART_AXIS_LAST
+            };
+
+            enum Draw_Part_Type
+            {
+                Div_Line_Init = LV_CHART_DRAW_PART_DIV_LINE_INIT,
+                Div_Line_Horizontal = LV_CHART_DRAW_PART_DIV_LINE_HORIZONTAL,
+                Div_Line_Vertical = LV_CHART_DRAW_PART_DIV_LINE_VERTICAL,
+                Line_And_Point = LV_CHART_DRAW_PART_LINE_AND_POINT,
+                Bar = LV_CHART_DRAW_PART_BAR,
+                Cursor = LV_CHART_DRAW_PART_CURSOR,
+                Tick_Label = LV_CHART_DRAW_PART_TICK_LABEL
+            };
+
+
+            // -- Methods
+
+            Chart_Class(Object_Class &Parent_Object);
+
+            void Chart_Refresh();
+            Series_Type* Add_Series(Color_Type Color, Axis_Type Axis);
+            void Remove_Series(Series_Type* Series);
+            void Hide_Series(Series_Type* Series, bool Hide);
+            Cursor_Type* Add_Cursor(Color_Type Color, Direction_Type Direction);
+
+            // -- -- Setters.
+
+            void Set_Type(Type_Type Type);
+            void Set_Point_Count(uint16_t Count);
+            void Set_Range(Axis_Type Axis, Coordinates_Type Minimum, Coordinates_Type Maximum);
+            void Set_Update_Mode(Update_Mode_Type Update_Mode);
+            void Set_Div_Line_Count(uint8_t Horizontal_Div, uint8_t Vertical_Div);
+            void Set_Zoom_X(uint16_t Zoom_X);
+            void Set_Zoom_Y(uint16_t Zoom_Y);
+            void Set_Axis_Tick(Axis_Type Axis, Coordinate_Type Major_Length, Coordinate_Type Minor_Length, Coordinate_Type Major_Count, Coordinate_Type Minor_Count, bool Label_Enabled, Coordinate_Type Draw_Size);
+            void Set_Series_Color(Series_Type* Series, Color_Type Color);
+            void Set_X_Start_Point(Series_Type* Series, uint16_t Identifier);
+            void Set_Cursor_Position(Cursor_Type* Cursor, Point_Type* Position);
+            void Set_Cursor_Point(Cursor_Type* Cursor, Series_Type* Series, uint16_t Identifier);
+            void Set_All_Value(Series_Type* Series, Coordinate_Type Value);
+            void Set_Next_Value(Series_Type* Series, Coordinate_Type Value);
+            void Set_Next_Value(Series_Type* Series, Coordinate_Type X_Value, Coordinate_Type Y_Value);
+            void Set_Value_By_Identifier(Series_Type* Series, uint16_t Identifier, Coordinate_Type Value);
+            void Set_Value_By_Identifier(Series_Type* Series, uint16_t Identifier, Coordinate_Type X_Value, Coordinate_Type Y_Value);
+            void Set_External_Y_Array(Series_Type* Series, Coordinate_Type Array[]);
+            void Set_External_X_Array(Series_Type* Series, Coordinate_Type Array[]);
+
+            // -- -- Getters.
+            uint16_t Get_Zoom_X();
+            uint16_t Get_Zoom_Y();
+            Type_Type Get_Type();
+            uint16_t Get_Point_Count();
+            uint16_t Get_X_Start_Point(Series_Type* Series);
+            void Get_Point_Position_By_Identifier(Series_Type* Series, uint16_t Identifier, Point_Type* Point_Out);
+            Series_Type* Get_Series_Next(const Series_Type* Series);
+            Point_Type Get_Cursor_Point(Cursor_Type* Cursor);
+            Coordinate_Type* Get_Y_Array(Series_Type* Series);
+            Coordinate_Type* Get_X_Array(Series_Type* Series);
+            uint32_t Get_Pressed_Point();         
+        };
+
+        // @brief Color wheel class.
         class Color_Wheel_Class : public Object_Class
         {
+        public:
             // -- Types
             typedef lv_colorwheel_mode_t Mode_Type;
 
@@ -1226,8 +1526,8 @@ public:
             // -- -- Setters
             bool Set_HSV(Color_HSV_Type HSV_Color);
             bool Set_RGB(Color_Type Color);
-
             void Set_Mode(Mode_Type Mode);
+            void Set_Mode_Fixed(bool Fixed);
 
             // -- Getters
             Color_HSV_Type Get_HSV();
@@ -1235,6 +1535,90 @@ public:
             Mode_Type Get_Mode();
             bool Get_Mode_Fixed();
         };
+
+        /// @brief Keyboard object class.
+        class Keyboard_Class : public Object_Class
+        {
+            typedef lv_keyboard_mode_t Mode_Type;
+
+            enum {
+                Text_Lower = LV_KEYBOARD_MODE_TEXT_LOWER,
+                Text_Upper = LV_KEYBOARD_MODE_TEXT_UPPER,
+                Special = LV_KEYBOARD_MODE_SPECIAL,
+                Number = LV_KEYBOARD_MODE_NUMBER,
+                User_1 = LV_KEYBOARD_MODE_USER_1,
+                User_2 = LV_KEYBOARD_MODE_USER_2,
+                User_3 = LV_KEYBOARD_MODE_USER_3,
+                User_4 = LV_KEYBOARD_MODE_USER_4
+            };
+
+            // -- Methods
+            Keyboard_Class(const Object_Class &Parent_Object);
+
+            void Define_Event_Callback(Event_Type* Event);
+
+            // -- -- Setters
+            void Set_Text_Area(Text_Area_Class& Text_Area);
+            void Set_Mode(Mode_Type Mode);
+            void Set_Pop_Overs(bool Enabled);
+            void Set_Map(Mode_Type Mode, const char* Map[], const Xila_Class::Display_Class::Button_Matrix_Class::Control_Type Control_Map[]);
+
+            // -- Getters
+            Text_Area_Class& Get_Text_Area();
+            Mode_Type Get_Mode();
+            bool Get_Pop_Overs();
+            static const char** Get_Map_Array();
+            static const uint16_t Get_Selected_Button();
+            static const char* Get_Button_Text();
+        };
+
+        /// @brief List class.
+        class List_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+            List_Class(const Object_Class &Parent_Object);
+            
+            const Text_Area_Class& Add_Text(const char* Text);
+            const Button_Class& Add_Button(const void* Icon, const char* Text);
+            
+            // -- Getters
+            const char* Get_Button_Text(Button_Class& Button);
+        };
+
+
+        /// @brief Menu class
+        class Menu_Class : public Object_Class
+        {
+        public:
+            // -- Methods
+            typedef lv_menu_mode_header_t Mode_Header_Type;
+
+            enum {
+                Top_Fixed = LV_MENU_HEADER_TOP_FIXED,
+                Top_Unfixed = LV_MENU_HEADER_TOP_UNFIXED,
+                Bottom_Fixed = LV_MENU_HEADER_BOTTOM_FIXED,
+            };
+            
+            typedef lv_menu_mode_root_back_btn_t Mode_Root_Back_Button_Type;
+
+            enum {
+                Back_Button_Disabled = LV_MENU_ROOT_BACK_BTN_DISABLED,
+                Back_Button_Enabled = LV_MENU_ROOT_BACK_BTN_ENABLED,
+            };
+
+            Object_Class* Create_Content(Object_Class Parent_Object);
+            Object_Class* Create_Section(Object_Class Parent_Object);
+            Object_Class* Create_Separator(Object_Class Parent_Object);
+            
+            void Set_Page(Object_Class Page);
+            void Set_Sidebar_Page(Object_Class Page);
+
+        };
+
+
+        //
+
 
         class Tabs_Class : public Object_Class
         {
@@ -1263,7 +1647,7 @@ public:
             };
 
             // -- Methods
-            Tabs_Class(Object_Type &Parent_Object);
+            Tabs_Class(Object_Class &Parent_Object);
 
             void Clean_Tab();
 
@@ -1276,7 +1660,7 @@ public:
             // -- -- Getters.
             uint16_t Get_Active_Tab();
             uint16_t Get_Tab_Count();
-            Object_Type Get_Tab(uint16_t Identifier);
+            Object_Class Get_Tab(uint16_t Identifier);
             uint16_t Get_Animation_Time();
             Buttons_Position_Type Get_Buttons_Position();
         };
@@ -1284,27 +1668,27 @@ public:
         class Windows_Class : public Object_Class
         {
         public:
-            typedef Xila_Class::Object_Type Object_Type;
+            typedef Xila_Class::Object_Class Object_Class;
 
-            Object_Type Load(File);
+            Object_Class Load(File);
 
-            Object_Type Create();
+            Object_Class Create();
 
-            void Set_Title(Object_Type Window, const char *Title);
+            void Set_Title(Object_Class Window, const char *Title);
 
         protected:
-            Object_Type Add_Button(Object_Type Parent_Window);
+            Object_Class Add_Button(Object_Class Parent_Window);
 
         private:
-            Object_Type Title_Label;
-            Object_Type Clock_Label;
+            Object_Class Title_Label;
+            Object_Class Clock_Label;
 
-            Object_Type Network_Button;
-            Object_Type Battery_Button;
-            Object_Type Sound_Button;
+            Object_Class Network_Button;
+            Object_Class Battery_Button;
+            Object_Class Sound_Button;
 
-            Object_Type Close_Button;
-            Object_Type Minimize_Button;
+            Object_Class Close_Button;
+            Object_Class Minimize_Button;
         };
 
         static void
@@ -1322,16 +1706,15 @@ public:
         Xila_Class::Event Load_Page(File, Object *, uint16_t);
 
     protected:
-
         static lv_fs_drv_t File_System_Driver;
 
-        static void * File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
+        static void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
         static lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
         static lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
         static lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
         static lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
         static lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
-        static void * File_System_Open_Directory(lv_fs_drv_t *, const char *);
+        static void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
         static lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
         static lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
 

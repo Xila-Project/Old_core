@@ -88,7 +88,7 @@ Class::Checkbox_Class::Checkbox_Class(Object_Class &Parent_Object)
 }
 
 
-Class::Dropdown_List::Dropdown_List(Object_Class &Parent_Object)
+Class::Drop_Down_List_Class::Drop_Down_List_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_dropdown_create(Parent_Object.Get_Pointer());
 }
