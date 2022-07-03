@@ -38,18 +38,7 @@ Class::~Display_Class()
 
 // -- Object's base class
 
-Class::Object_Class::Object_Class(Object_Class &Parent_Object)
-{
-    this.LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
-}
 
-Class::Object_Class::~Object_Class()
-{
-    Delete();
-}
-
-LVGL_Object_Type Class::Object_Class::operator=(const Object_Class Parent_Object){
-    Parent_Object.set}
 
 IRAM_ATTR void Class::Object_Class::Event_Handler(Class::Event_Type Event)
 {
@@ -87,28 +76,27 @@ Class::Checkbox_Class::Checkbox_Class(Object_Class &Parent_Object)
     LVGL_Object_Pointer = lv_checkbox_create(Parent_Object.Get_Pointer());
 }
 
-
 Class::Drop_Down_List_Class::Drop_Down_List_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_dropdown_create(Parent_Object.Get_Pointer());
 }
 
-Class::Image_Class::Image_Class(Object_Class& Parent_Object)
+Class::Image_Class::Image_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_image_create(Parent_Object.Get_Pointer());
 }
 
-Class::Label_Class::Label_Class(Object_Class& Parent_Object)
+Class::Label_Class::Label_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_label_create(Parent_Object.Get_Pointer());
 }
 
-Class::Line_Class::Line_Class(Object_Class& Parent_Object)
+Class::Line_Class::Line_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_line_create(Parent_Object.Get_Pointer());
 }
 
-Class::Roller_Class::Roller_Class(Object_Class& Parent_Object)
+Class::Roller_Class::Roller_Class(Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_roller_create(Parent_Object.Get_Pointer());
 }
@@ -128,7 +116,7 @@ Class::Table_Class::Table_Class(const Object_Class &Parent_Object)
     LVGL_Object_Pointer = lv_table_create(Parent_Object.Get_Pointer());
 }
 
-Class::Text_Area_Class::Text_Area_Class(const Object_Class& Parent_Object)
+Class::Text_Area_Class::Text_Area_Class(const Object_Class &Parent_Object)
 {
     LVGL_Object_Pointer = lv_textarea_create(Parent_Object.Get_Pointer());
 }
@@ -212,7 +200,6 @@ Xila_Class::Event Class::Initialize_File_System()
 {
     lv_fs_drv_init(&File_System_Driver);
 
-
     File_System_Driver.letter = '';
     File_System_Driver.open_cb = File_System_Open;
     File_System_Driver.close_cb = File_System_Close;
@@ -229,7 +216,6 @@ Xila_Class::Event Class::Initialize_File_System()
 
     return Xila_Success;
 }
-
 
 ///
 /// @brief Load display registry
@@ -352,7 +338,7 @@ void Class::Incoming_Event_From_Display(uint8_t Event_Code)
 
 // -- File system callbacks
 
-void * Class::File_System_Open(lv_fs_drv_t * Driver, const char * Path, lv_fs_mode_t Mode)
+void *Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_fs_mode_t Mode)
 {
     File File_To_Open;
     if (Mode == LV_FS_MODE_WR)
@@ -369,44 +355,44 @@ void * Class::File_System_Open(lv_fs_drv_t * Driver, const char * Path, lv_fs_mo
         return NULL;
     }
 
-   return File_To_Open;
+    return File_To_Open;
 }
 
-static lv_fs_res_t Class::File_System_Close(lv_fs_drv_t * Driver, void * File_Pointer)
+static lv_fs_res_t Class::File_System_Close(lv_fs_drv_t *Driver, void *File_Pointer)
 {
-    *(File*)File_Pointer.close();
+    *(File *)File_Pointer.close();
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Read(lv_fs_drv_t * Driver, void * File_Pointer, void * Buffer, uint32_t Bytes_To_Read, uint32_t * Bytes_Read)
+static lv_fs_res_t Class::File_System_Read(lv_fs_drv_t *Driver, void *File_Pointer, void *Buffer, uint32_t Bytes_To_Read, uint32_t *Bytes_Read)
 {
-    File File_To_Read = *(File*)File_Pointer;
-    
+    File File_To_Read = *(File *)File_Pointer;
+
     if (!File_To_Read)
     {
         return LV_FS_RES_FS_ERR;
     }
 
-    *Bytes_Read = File_To_Read.read((uint8_t*)Buffer, Bytes_To_Read);
+    *Bytes_Read = File_To_Read.read((uint8_t *)Buffer, Bytes_To_Read);
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Write(lv_fs_drv_t * Driver, void * File_Pointer, const void * Buffer, uint32_t Bytes_To_Write, uint32_t * Bytes_Written)
+static lv_fs_res_t Class::File_System_Write(lv_fs_drv_t *Driver, void *File_Pointer, const void *Buffer, uint32_t Bytes_To_Write, uint32_t *Bytes_Written)
 {
-    File File_To_Write = *(File*)File_Pointer;
-    
+    File File_To_Write = *(File *)File_Pointer;
+
     if (!File_To_Write)
     {
         return LV_FS_RES_FS_ERR;
     }
 
-    *Bytes_Written = File_To_Write.write((uint8_t*)Buffer, Bytes_To_Write);
+    *Bytes_Written = File_To_Write.write((uint8_t *)Buffer, Bytes_To_Write);
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t * Driver, void * File_Pointer, uint32_t Position, lv_fs_whence_t Whence)
+static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t Position, lv_fs_whence_t Whence)
 {
-    File File_To_Seek = *(File*)File_Pointer;
+    File File_To_Seek = *(File *)File_Pointer;
 
     if (!File_To_Seek)
     {
@@ -415,28 +401,28 @@ static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t * Driver, void * 
 
     switch (Whence)
     {
-        case LV_FS_SEEK_SET:
-            File_To_Seek.seek(Position, SeekSet);
-            break;
+    case LV_FS_SEEK_SET:
+        File_To_Seek.seek(Position, SeekSet);
+        break;
 
-        case LV_FS_SEEK_CUR:
-            File_To_Seek.seek(Position, SeekCur);
-            break;
+    case LV_FS_SEEK_CUR:
+        File_To_Seek.seek(Position, SeekCur);
+        break;
 
-        case LV_FS_SEEK_END:
-            File_To_Seek.seek(Position, SeekEnd);
-            break;
+    case LV_FS_SEEK_END:
+        File_To_Seek.seek(Position, SeekEnd);
+        break;
 
-        default:
-            break;
+    default:
+        break;
     }
 
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t * Driver, void * File_Pointer, uint32_t  * Position)
+static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t *Position)
 {
-    File File_To_Get_Position = *(File*)File_Pointer;
+    File File_To_Get_Position = *(File *)File_Pointer;
 
     if (!File_To_Get_Position)
     {
@@ -447,7 +433,7 @@ static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t * Driver, void * 
     return LV_FS_RES_OK;
 }
 
-static void* Class::File_System_Open_Directory(lv_fs_drv_t * Driver, const char * Path)
+static void *Class::File_System_Open_Directory(lv_fs_drv_t *Driver, const char *Path)
 {
     File File_To_Open = Xila.Drive.Open(Path);
     if (!File_To_Open)
@@ -461,14 +447,14 @@ static void* Class::File_System_Open_Directory(lv_fs_drv_t * Driver, const char 
     return &File_To_Open;
 }
 
-static lv_fs_res_t Class::File_System_Directory_Read(lv_fs_drv_t * Driver, void * Directory_Pointer, char * File_Name)
+static lv_fs_res_t Class::File_System_Directory_Read(lv_fs_drv_t *Driver, void *Directory_Pointer, char *File_Name)
 {
     return LV_FS_RES_NOT_IMP;
 }
 
-static lv_fs_res_t Class::File_System_Close_Directory(lv_fs_drv_t * Driver, void * Directory_Pointer)
+static lv_fs_res_t Class::File_System_Close_Directory(lv_fs_drv_t *Driver, void *Directory_Pointer)
 {
-    File File_Pointer = *(File*)Directory_Pointer;
+    File File_Pointer = *(File *)Directory_Pointer;
     File_Pointer.close();
     return LV_FS_RES_OK;
 }

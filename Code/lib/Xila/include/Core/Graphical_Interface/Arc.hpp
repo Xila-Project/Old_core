@@ -11,8 +11,7 @@
  #ifndef Arc_Hpp_Included
 #define Arc_Hpp_Included
 
-#include "Arduino.h"
-#include "lvgl.h"
+#include "Object.hpp"
 
 #define Class Xila_Class::Display_Class::Arc_Class // Shortcut
 
