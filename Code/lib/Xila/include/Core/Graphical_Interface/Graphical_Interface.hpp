@@ -11,32 +11,48 @@
 #ifndef Graphical_Interface_Hpp_Included
 #define Graphical_Interface_Hpp_Included
 
-
 #include <Arduino.h>
 
 #include "lvgl.h"
 
-#include "Arc.hpp"
-#include "Bar.hpp"
-#include "Button.hpp"
-#include "Button_Matrix.hpp"
-#include "Calendar.hpp"
-#include "Canvas.hpp"
-#include "Checkbox.hpp"
-#include 
+// Base object
+#include "Display/Object.hpp"
+// Widgets
+#include "Display/Arc.hpp"
+#include "Display/Bar.hpp"
+#include "Display/Button.hpp"
+#include "Display/Button_Matrix.hpp"
+#include "Display/Canvas.hpp"
+#include "Display/Checkbox.hpp"
+#include "Display/Dropdown_List.hpp"
+#include "Display/Image.hpp"
+#include "Display/Line.hpp"
+#include "Display/Roller.hpp"
+#include "Display/Slider.hpp"
+#include "Display/Switch.hpp"
+#include "Display/Table.hpp"
+#include "Display/Text_Area.hpp"
+// Extra widgets
+#include "Display/Animaton_Image.hpp"
+#include "Display/Calendar.hpp"
+#include "Display/Chart.hpp"
+#include "Display/Color_Wheel.hpp"
+#include "Display/Image_Button.hpp"
+#include "Display/Keyboard.hpp"
+#include "Display/List.hpp"
+#include "Display/Menu.hpp"
+#include "Display/Meter.hpp"
+#include "Display/Message_Box.hpp"
+#include "Display/Span.hpp"
+#include "Display/Spinbox.hpp"
+#include "Display/Spinner.hpp"
+#include "Display/Tab.hpp"
+#include "Display/Tileview.hpp"
+#include "Display/Window.hpp"
 
 class Graphic_Interface_Class
 {
 
-    enum Alignment
-    {
-        Left = LV_ALIGN_LEFT,
-        Center = LV_ALIGN_CENTER,
-        Right = LV_ALIGN_RIGHT,
-        In_Between = LV_ALIGN_IN_BETWEEN,
-        In_Between_Hor = LV_ALIGN_IN_BETWEEN_HOR,
-        In_Between_Ver = LV_ALIGN_IN_BETWEEN_VER
-    };
 
     /// @brief Animations enumeration
     enum Animation
@@ -126,65 +142,16 @@ class Graphic_Interface_Class
     void Initialise();
     bool Initialisation_State();
 
-
-
     /// @brief Screnn class.
     class Screen_Class : public Object_Class
     {
         // TODO : Implement screen API.
     };
 
-    class Arc_Class : public Object_Class
-    {
-        typedef enum
-        {
-            Normal = LV_ARC_MODE_NORMAL,
-            Symmetrical = LV_ARC_MODE_SYMMETRICAL,
-            Reversed = LV_ARC_MODE_REVERSED
-        } Mode_Type;
 
-        typedef enum
-        {
-            Background = LV_ARC_DRAW_PART_BACKGROUND,
-            Foreground = LV_ARC_DRAW_PART_FOREGROUND,
-            Knob = LV_ARC_DRAW_PART_KNOB
-        } Part_Type;
 
-        // -- Set attributes values.
-        void Set_Start_Angle(uint16_t Start_Angle);
-        void Set_End_Angle(uint16_t End_Angle);
-        void Set_Angles(uint16_t Start_Angle, uint16_t End_Angle);
-
-        void Set_Background_Start_Angle(uint16_t Start_Angle);
-        void Set_Background_End_Angle(uint16_t End_Angle);
-        void Set_Background_Angles(uint16_t lv_arc_set_start_angle, unt16_t End_Angle);
-
-        void Set_Range(int16_t Minimum, int16_t Maximum);
-        void Set_Change_Rate(uint16_t Rate);
-
-        void Set_Rotation(uint16_t Rotation);
-
-        void Set_Mode(Mode_Type Mode);
-        void Set_Value(int16_t Value);
-
-        // -- Get attributes values.
-        uint16_t Get_Angle_Start();
-        uint16_t Get_Angle_End();
-
-        uint16_t Get_Background_Angle_Start();
-        uint16_t Get_Background_Angle_End();
-
-        int16_t Get_Value();
-        int16_t Get_Minimum_Value();
-        int16_t Get_Maximum_Value();
-
-        Mode_Type Get_Mode();
-    };
-
-   using 
-
-    /// @brief Button class.
-    class Button_Class : public Object_Class
+        /// @brief Button class.
+        class Button_Class : public Object_Class
     {
     public:
         Create(Object_Class &Parent_Object);
@@ -906,7 +873,6 @@ class Graphic_Interface_Class
         Object_Class Close_Button;
         Object_Class Minimize_Button;
     };
-
 
     static void Task(void *);
 
