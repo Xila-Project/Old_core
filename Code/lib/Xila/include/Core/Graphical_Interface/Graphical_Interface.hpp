@@ -150,109 +150,13 @@ class Graphic_Interface_Class
 
 
 
-        /// @brief Button class.
-        class Button_Class : public Object_Class
-    {
-    public:
-        Create(Object_Class &Parent_Object);
-    };
+
 
     /// @brief Button matrix class.
-    class Button_Matrix_Class : public Object_Class
-    {
-    public:
-        // -- Types
-
-        typedef lv_btnmatrix_ctrl_t Control_Type;
-        typedef lv_btnmatrix_btn_draw_cb_t Button_Draw_Callback_Type;
-
-        // -- Enumerations
-
-        enum
-        {
-            Button_Matrix_Width = _LV_BTNMATRIX_WIDTH,
-            Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
-            No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,
-            Disabled = LV_BTNMATRIX_CTRL_DISABLED,
-            Checkable = LV_BTNMATRIX_CTRL_CHECKABLE,
-            Checked = LV_BTNMATRIX_CTRL_CHECKED,
-            Click_Trigger = LV_BTNMATRIX_CTRL_CLICK,
-            Popover = LV_BTNMATRIX_CTRL_POPOVER,
-            Custom_1 = LV_BTNMATRIX_CTRL_CUSTOM_1,
-            Custom_2 = LV_BTNMATRIX_CTRL_CUSTOM_2
-        };
-
-        typedef enum
-        {
-            Button = LV_BTNMATRIX_DRAW_PART_BTN
-        } Draw_Part_Type;
-
-        // -- Methods
-
-        // -- -- Constructor
-
-        Button_Matrix_Class(Object_Class &Parent_Object);
-
-        // -- -- Action methods
-        void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control);
-        void Clear_All_Buttons_Control(Control_Type Control);
-        bool Has_Button_Control(uint16_t Button_Identifier, Control_Type Control);
-
-        // -- -- Set attributes values.
-        void Set_Width(uint16_t Button_Identifier, uint8_t Width);
-
-        void Set_Map(const char *Map[]);
-        void Set_Control_Map(Control_Type Map[]);
-
-        void Set_Selected_Button(uint16_t Button_Identifier);
-        void Set_Button_Control(uint16_t Button_Identifier, Control_Type Control);
-        void Set_Button_Control_All(Control_Type Control);
-
-        void Set_One_Checked(bool Enabled);
-
-        // -- -- Get attributes values.
-        const char **Get_Map();
-        uint16_t Get_Selected_Button();
-        const char *Get_Button_Text(uint16_t Button_Identifier);
-        bool Get_One_Checked();
-    };
+    
 
     /// @brief Canvas class.
-    class Canvas_Class : public Object_Class
-    {
-    public:
-        // -- Methods
 
-        Canvas_Class(Object_Class &Parent_Object);
-
-        // -- --
-        void Copy_Buffer(const void *Buffer_To_Copy, Coordinate_Type X, Coordinate_Type Y, uint16_t Width, uint16_t Height);
-
-        void Transform(Image_Descriptor_Type *Image, int16_t Angle, uint16_t Zoom, Coordinate_Type Offset_X, Coordinate_Type Offset_Y, int32_t Pivot_X, int32_t Pivot_Y, bool Anti_Aliasing);
-        void Horizontal_Blur(const Area_Type *Area, uint16_t Radius);
-        void Vertical_Blur(const Area_Type *Area, uint16_t Radius);
-        void Fill_Background(Color_Type Color, Opacity_Type Opacity);
-
-        void Draw_Rectangle(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Width, Coordinate_Type Height, Draw_Rectangle_Descriptor_Type *Draw_Rectangle_Descriptor);
-        void Draw_Text(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Maximum_Width, Draw_Label_Descriptor_Type *Draw_Label_Descriptor, const char *Text);
-        void Draw_Image(Coordinate_Type X, Coordinate_Type Y, Draw_Image_Descriptor_Type *Draw_Image_Descriptor);
-        void Draw_Line(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Line_Descriptor_Type *Draw_Line_Descriptor);
-        void Draw_Polygon(const Point_Type Points[], uint32_t Number_Of_Point, const Draw_Rectangle_Descriptor_Type *Draw_Polygon_Descriptor);
-        void Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Radius, int32_t Start_Angle, int32_t End_Angle, const Draw_Arc_Descriptor *Draw_Arc_Descriptor);
-
-        // -- -- Set attributes values.
-
-        void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
-        void Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity_Type Opacity);
-        void Set_Palette(uint8_t Identifier, Color_Type Color);
-
-        void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Color_Format_Type Color_Format);
-
-        // -- -- Get attributes values.
-
-        Color_Type Get_Pixel(Coordinate_Type X, Coordinate_Type Y);
-        Image_Descriptor_Type Get_Image();
-    };
 
     class Checkbox_Class : public Object_Class
     {
@@ -574,29 +478,7 @@ class Graphic_Interface_Class
 
     // -- Widgets
 
-    class Calendar_Class : public Object_Class
-    {
-    public:
-        // -- Methods
-
-        Calendar_Class(Object_Class &Parent_Object);
-
-        // -- -- Setters.
-
-        void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
-        void Set_Showed_Date(uint32_t Year, uint32_t Month);
-        void Set_Highlighted_Dates(Date_Type Date[], uint16_t Number);
-        void Set_Days_Names(const char **Day_Names);
-        Button_Matrix *Get_Button_Matrix();
-
-        // -- -- Getters.
-        const Date_Type *Get_Today_Date();
-        const Date_Type *Get_Showed_Dates();
-        Date_Type *Get_Highlighted_Dates();
-        uint16_t Get_Highlighted_Dates_Number();
-        Event_Type Get_Pressed_Date(Date_Type *Date);
-    };
-
+  
     class Chart_Class : public Object_Class
     {
     public:

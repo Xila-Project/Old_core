@@ -14,10 +14,23 @@ void Arc_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {
-        Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+        Set_Pointer(lv_arc_create(Parent_Object.Get_Pointer()));
     }
 }
 
+// ------------------------------------------------------------------------- //
+//
+//                                  Management
+//
+// ------------------------------------------------------------------------- //
+
+
+// ------------------------------------------------------------------------- //
+//
+//                                    Setters
+//
+// ------------------------------------------------------------------------- //
+ 
 bool Arc_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
@@ -32,6 +45,16 @@ bool Arc_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
     return true;
 }
 
+void Arc_Class::Set_Angles(uint16_t Start_Angle, uint16_t End_Angle)
+{
+    lv_arc_set_angles(Get_Pointer(), Start_Angle, End_Angle);
+}
+
+void Arc_Class::Set_Background_Angles(uint16_t Start_Angle, uint16_t End_Angle)
+{
+    lv_arc_set_bg_angles(Get_Pointer(), Start_Angle, End_Angle);
+}
+
 void Arc_Class::Set_Start_Angle(uint16_t Start_Angle)
 {
     lv_arc_set_start_angle(Get_Pointer(), Start_Angle);
@@ -42,11 +65,6 @@ void Arc_Class::Set_End_Angle(uint16_t End_Angle)
     lv_arc_set_end_angle(Get_Pointer(), End_Angle);
 }
 
-void Arc_Class::Set_Angles(uint16_t Start_Angle, uint16_t End_Angle)
-{
-    lv_arc_set_angles(Get_Pointer(), Start_Angle, End_Angle);
-}
-
 void Arc_Class::Set_Background_Start_Angle(uint16_t Start_Angle)
 {
     lv_arc_set_bg_start_angle(Get_Pointer(), Start_Angle);
@@ -55,11 +73,6 @@ void Arc_Class::Set_Background_Start_Angle(uint16_t Start_Angle)
 void Arc_Class::Set_Background_End_Angle(uint16_t End_Angle)
 {
     lv_arc_set_bg_end_angle(Get_Pointer(), End_Angle);
-}
-
-void Arc_Class::Set_Background_Angles(uint16_t Start_Angle, uint16_t End_Angle)
-{
-    lv_arc_set_bg_angles(Get_Pointer(), Start_Angle, End_Angle);
 }
 
 void Arc_Class::Set_Rotation(uint16_t Rotation)
@@ -79,13 +92,21 @@ void Arc_Class::Set_Value(int16_t Value)
 
 void Arc_Class::Set_Range(int16_t Minimum_Value, int16_t Maximum_Value)
 {
-    lv_arc_set_range(Get_Pointer(), Min_Value, Max_Value);
+    lv_arc_set_range(Get_Pointer(), Minimum_Value, Maximum_Value);
 }
 
 void Arc_Class::Set_Change_Rate(uint16_t Rate)
 {
     lv_arc_set_change_rate(Get_Pointer(), Rate);
 }
+
+// ------------------------------------------------------------------------- //
+//
+//                                    Getters
+//
+// ------------------------------------------------------------------------- //
+
+
 
 uint16_t Arc_Class::Get_Angle_Start()
 {
@@ -122,7 +143,7 @@ int16_t Arc_Class::Get_Maximum_Value()
     return lv_arc_get_max_value(Get_Pointer());
 }
 
-Mode_Type Arc_Class::Get_Mode()
+Arc_Class::Mode_Type Arc_Class::Get_Mode()
 {
     return lv_arc_get_mode(Get_Pointer());
 }

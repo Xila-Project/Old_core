@@ -12,6 +12,7 @@
 
 #include "lvgl.h"
 
+#include "Area.hpp"
 #include "Animation.hpp"
 
 #ifndef Object_Hpp_Included
@@ -23,6 +24,62 @@
 class Object_Class
 {
 public:
+    // - Types
+
+    enum Image_Color_Fomrat_Enumeration
+    {
+        Unknow = LV_IMG_CF_UNKNOWN,
+
+        Raw= LV_IMG_CF_RAW,              /**< Contains the file as it is. Needs custom decoder function*/
+        Raw_Alpha = LV_IMG_CF_RAW_ALPHA,        /**< Contains the file as it is. The image has alpha. Needs custom decoder
+                                       function*/
+        Raw_Chroma_Keyed = LV_IMG_CF_RAW_CHROMA_KEYED, /**< Contains the file as it is. The image is chroma keyed. Needs
+                                       custom decoder function*/
+
+        True_Color = LV_IMG_CF_TRUE_COLOR,              /**< Color format and depth should match with LV_COLOR settings*/
+        True_Color_Alpha = LV_IMG_CF_TRUE_COLOR_ALPHA,        /**< Same as `LV_IMG_CF_TRUE_COLOR` but every pixel has an alpha byte*/
+        True_Color_Chroma_Keyed = LV_IMG_CF_TRUE_COLOR_CHROMA_KEYED, /**< Same as `LV_IMG_CF_TRUE_COLOR` but LV_COLOR_TRANSP pixels
+                                              will be transparent*/
+
+        Indexed_1_Bit = LV_IMG_CF_INDEXED_1BIT, /**< Can have 2 different colors in a palette (always chroma keyed)*/
+        Indexed_2_Bits = LV_IMG_CF_INDEXED_2BIT, /**< Can have 4 different colors in a palette (always chroma keyed)*/
+        Indexed_4_Bits = LV_IMG_CF_INDEXED_4BIT, /**< Can have 16 different colors in a palette (always chroma keyed)*/
+        Indexed_8_Bits = LV_IMG_CF_INDEXED_8BIT, /**< Can have 256 different colors in a palette (always chroma keyed)*/
+
+        Alpha_1_Bit = LV_IMG_CF_ALPHA_1BIT, /**< Can have one color and it can be drawn or not*/
+        Alpha_2_Bits = LV_IMG_CF_ALPHA_2BIT, /**< Can have one color but 4 different alpha value*/
+        Alpha_4_Bits = LV_IMG_CF_ALPHA_4BIT, /**< Can have one color but 16 different alpha value*/
+        Alpha_8_Bits = LV_IMG_CF_ALPHA_8BIT, /**< Can have one color but 256 different alpha value*/
+
+        Reserved_15 = LV_IMG_CF_RESERVED_15, /**< Reserved for further use.*/
+        Reserved_16 = LV_IMG_CF_RESERVED_16, /**< Reserved for further use.*/
+        Reserved_17 = LV_IMG_CF_RESERVED_17, /**< Reserved for further use.*/
+        Reserved_18 = LV_IMG_CF_RESERVED_18, /**< Reserved for further use.*/
+        Reserved_19 = LV_IMG_CF_RESERVED_19, /**< Reserved for further use.*/
+        Reserved_20 = LV_IMG_CF_RESERVED_20, /**< Reserved for further use.*/
+        Reserved_21 = LV_IMG_CF_RESERVED_21, /**< Reserved for further use.*/
+        Reserved_22 = LV_IMG_CF_RESERVED_22, /**< Reserved for further use.*/
+        Reserved_23 = LV_IMG_CF_RESERVED_23, /**< Reserved for further use.*/
+
+        User_Encoded_0 = LV_IMG_CF_USER_ENCODED_0, /**< User holder encoding format.*/
+        User_Encoded_1 = LV_IMG_CF_USER_ENCODED_1, /**< User holder encoding format.*/
+        User_Encoded_2 = LV_IMG_CF_USER_ENCODED_2, /**< User holder encoding format.*/
+        User_Encoded_3 = LV_IMG_CF_USER_ENCODED_3, /**< User holder encoding format.*/
+        User_Encoded_4 = LV_IMG_CF_USER_ENCODED_4, /**< User holder encoding format.*/
+        User_Encoded_5 = LV_IMG_CF_USER_ENCODED_5, /**< User holder encoding format.*/
+        User_Encoded_6 = LV_IMG_CF_USER_ENCODED_6, /**< User holder encoding format.*/
+        User_Encoded_7 = LV_IMG_CF_USER_ENCODED_7, /**< User holder encoding format.*/
+    };
+
+    /// @brief Image color format type.
+    typedef lv_img_cf_t Image_Color_Format_Type;
+
+    /// @brief Point type.
+    typedef lv_point_t Point_Type;
+
+    /// @brief Area type.
+    typedef Area_Class Area_Type;
+
     /// @brief Grid alignment type.
     typedef enum Grid_Alignment_Enumeration
     {
@@ -125,7 +182,7 @@ public:
     typedef lv_base_dir_t Base_Direction_Type;
 
     /// @brief Base directions enumeration.
-    enum Base_Directions_Enumerations
+    enum Base_Direction_Enumeration
     {
         Left_To_Right = LV_BASE_DIR_LTR,
         Right_To_Left = LV_BASE_DIR_RTL,
@@ -446,11 +503,12 @@ public:
         return LVGL_Object_Pointer;
     };
 
-protected:
+    LVGL_Object_Type *LVGL_Object_Pointer;
+
     static void Event_Handler(Event_Type Event);
 
+protected:
 private:
-    LVGL_Object_Type *LVGL_Object_Pointer;
 };
 
 // -- Management -- //

@@ -1,91 +1,80 @@
 ///
- /// @file Button_Matrix.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 04-05-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Button_Matrix.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 04-05-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #ifndef BUTTON_MATRIX_HPP_INCLUDED
- #define BUTTON_MATRIX_HPP_INCLUDED
+#ifndef Button_Matrix_Hpp_Included
+#define Button_Matrix_Hpp_Included
 
-#include "Arduino.h"
+#include "Object.hpp"
 
-#define Class Xila_Class::Display_Class::Button_Matrix_Class
-
-// -- Action methods -- //
-
-inline void Class::Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control)
+class Button_Matrix_Class : public Object_Class
 {
-    lv_btnmatrix_clear_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
-}
+public:
+    // -- Types
 
-inline void Class::Clear_All_Buttons_Control(Control_Type Control)
-{
-    lv_btnmatrix_clear_btn_ctrl_all(Get_Pointer(), Control);
-}
+    typedef lv_btnmatrix_btn_draw_cb_t Button_Draw_Callback_Type;
 
-inline bool Class::Has_Button_Control(uint16_t Button_Identifier, Control_Type Control)
-{
-    return lv_btnmatrix_has_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
-}
+    // -- Enumerations
 
-// -- Set attributes values -- //
+    typedef lv_btnmatrix_ctrl_t Control_Type;
 
-inline void Class::Set_Width(uint16_t Button_Identifier, uint8_t Width)
-{
-    lv_btnmatrix_set_btn_width(Get_Pointer(), Button_Identifier, Width);
-}
+    enum
+    {
+        Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
+        No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,
+        Disabled = LV_BTNMATRIX_CTRL_DISABLED,
+        Checkable = LV_BTNMATRIX_CTRL_CHECKABLE,
+        Checked = LV_BTNMATRIX_CTRL_CHECKED,
+        Click_Trigger = LV_BTNMATRIX_CTRL_CLICK_TRIG,
+        Popover = LV_BTNMATRIX_CTRL_POPOVER,
+        Recolor = LV_BTNMATRIX_CTRL_RECOLOR,
+        Custom_1 = LV_BTNMATRIX_CTRL_CUSTOM_1,
+        Custom_2 = LV_BTNMATRIX_CTRL_CUSTOM_2
+    };
 
-inline void Class::Set_Map(const char* Map[])
-{
-    lv_btnmatrix_set_map(Get_Pointer(), Map);
-}
+    typedef enum
+    {
+        Button = LV_BTNMATRIX_DRAW_PART_BTN
+    } Draw_Part_Type;
 
-inline void Class::Set_Control_Map(Control_Type Map[])
-{
-    lv_btnmatrix_set_ctrl_map(Get_Pointer(), Map);
-}
+    // -- Methods
 
-inline void Class::Set_Selected_Button(uint16_t Button_Identifier)
-{
-    lv_btnmatrix_set_selected_btn(Get_Pointer(), Button_Identifier);
-}
+    // -- -- Constructor
 
-inline void Class::Set_Button_Control(uint16_t Button_Identifier, Control_Type Control)
-{
-    lv_btnmatrix_set_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
-}
+    void Create(Object_Class &Parent_Object);
 
-inline void Class::Set_One_Checked(bool Enabled)
-{
-    lv_btnmatrix_set_one_checked(Get_Pointer(), Enabled);
-}
+    // -- -- Action methods
+    void Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control);
+    void Clear_All_Buttons_Control(Control_Type Control);
+    bool Has_Button_Control(uint16_t Button_Identifier, Control_Type Control);
 
-// -- Get attributes values -- //
+    // - - Setters.
 
-inline const char** Class::Get_Map()
-{
-    return lv_btnmatrix_get_map(Get_Pointer());
-}
+    bool Set_Pointer(LVGL_Object_Type* LVGL_Object_Pointer);
 
-inline uint16_t Class::Get_Selected_Button()
-{
-    return lv_btnmatrix_get_selected_btn(Get_Pointer());
-}
+    void Set_Button_Width(uint16_t Button_Identifier, uint8_t Width);
 
-inline const char** Class::Get_Button_Text(uint16_t Button_Identifier)
-{
-    return lv_btnmatrix_get_btn_text(Get_Pointer(), Button_Identifier);
-}
+    void Set_Map(const char **Map);
+    void Set_Control_Map(Control_Type* Map);
+    void Set_Selected_Button(uint16_t Button_Identifier);
+    void Set_Button_Control(uint16_t Button_Identifier, Control_Type Control);
+    void Set_Button_Control_All(Control_Type Control);
 
-inline bool Class::Get_One_Checked()
-{
-    return lv_btnmatrix_get_one_checked(Get_Pointer());
-}
+    void Set_One_Checked(bool Enabled);
 
-#undef Class
+    // -- -- Get attributes values.
+    const char **Get_Map();
+    uint16_t Get_Selected_Button();
+
+    const char *Get_Button_Text(uint16_t Button_Identifier);
+    bool Get_Popovers();
+    bool Get_One_Checked();
+};
 
 #endif

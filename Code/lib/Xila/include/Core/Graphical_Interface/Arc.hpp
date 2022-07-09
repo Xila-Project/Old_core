@@ -17,8 +17,10 @@ class Arc_Class : public Object_Class
 {
 public:
 
+    /// @brief Mode type.
     typedef lv_arc_mode_t Mode_Type;
 
+    /// @brief Mode enumeration.
     typedef enum Mode_Enumeration
     {
         Normal = LV_ARC_MODE_NORMAL,
@@ -26,28 +28,34 @@ public:
         Reverse = LV_ARC_MODE_REVERSE
     };
 
-    typedef lv_arc_draw_part_type_t Draw_Part_Type;
-
-    enum Draw_Part_Enumeration
+    /// @brief Draw part type and enumeration.
+    enum
     {
         Background = LV_ARC_DRAW_PART_BACKGROUND,
         Foreground = LV_ARC_DRAW_PART_FOREGROUND,
         Knob = LV_ARC_DRAW_PART_KNOB
-    };
+    } Draw_Part_Type;
 
     // - Methods
 
+    // - - Management
+
     void Create(Object_Class Parent_Object);
 
-    // -- Set attributes values.
+
+
+
+    // - - Setters.
+
+    bool Set_Pointer(LVGL_Object_Type* Object_Pointer);
+
+    // - - - Angles
     void Set_Start_Angle(uint16_t Start_Angle);
     void Set_End_Angle(uint16_t End_Angle);
     void Set_Angles(uint16_t Start_Angle, uint16_t End_Angle);
-
     void Set_Background_Start_Angle(uint16_t Start_Angle);
     void Set_Background_End_Angle(uint16_t End_Angle);
-    void Set_Background_Angles(uint16_t lv_arc_set_start_angle, unt16_t End_Angle);
-
+    void Set_Background_Angles(uint16_t lv_arc_set_start_angle, uint16_t End_Angle);
     void Set_Range(int16_t Minimum, int16_t Maximum);
     void Set_Change_Rate(uint16_t Rate);
 
@@ -56,7 +64,8 @@ public:
     void Set_Mode(Mode_Type Mode);
     void Set_Value(int16_t Value);
 
-    // -- Get attributes values.
+    // - - Getters.
+
     uint16_t Get_Angle_Start();
     uint16_t Get_Angle_End();
 
@@ -69,7 +78,7 @@ public:
 
     Mode_Type Get_Mode();
 
-    bool Set_Pointer(LVGL_Object_Type* Object_Pointer);
+
 
 protected:
 
