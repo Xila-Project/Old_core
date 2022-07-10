@@ -21,7 +21,10 @@ void Color_Class::Change_Lightness(Opacity_Type Opacity)
     LVGL_Color = lv_color_change_lightness(LVGL_Color, Opacity);
 }
 
-
+uint8_t Color_Class::Convert_To_1_Bit()
+{
+    return lv_color_to1(LVGL_Color);
+}
 
 // ------------------------------------------------------------------------- //
 //
