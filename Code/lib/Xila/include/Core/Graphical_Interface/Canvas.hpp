@@ -51,7 +51,7 @@ public:
 
     // - - Setters
 
-    bool Set_Pointer(LVGL_Object_Type *Pointer);
+    bool Set_Pointer(lv_obj_t *Pointer);
 
     void Set_Pixel(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
     void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);

@@ -56,7 +56,7 @@ public:
 
     // - - Setters.
 
-    bool Set_Pointer(LVGL_Object_Type* LVGL_Object_Pointer);
+    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
 
     void Set_Button_Width(uint16_t Button_Identifier, uint8_t Width);
 

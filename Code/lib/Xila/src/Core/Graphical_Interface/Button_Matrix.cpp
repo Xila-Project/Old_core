@@ -45,7 +45,7 @@ bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Control
 //
 // ------------------------------------------------------------------------- //
 
-bool Button_Matrix_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Button_Matrix_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {

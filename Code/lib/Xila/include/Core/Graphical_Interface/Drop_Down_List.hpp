@@ -1,82 +1,63 @@
 ///
- /// @file Drop_Down_List.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 30-06-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Drop_Down_List.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 30-06-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #ifndef Drop_Down_List_Hpp_Included
- #define Drop_Down_List_Hpp_Included
+#ifndef Drop_Down_List_Hpp_Included
+#define Drop_Down_List_Hpp_Included
 
-#define Class Xila_Class::Display_Class::Drop_Down_List_Class // Shortcut
+#include "Object.hpp"
+#include "List.hpp"
 
-Class::Drop_Down_List_Class(Object_Type& Parent_Object)
+class Drop_Down_List_Class : public Object_Class
 {
-    Set_Pointer(lv_dropdown_list_create(&Parent_Object));
-}
+public:
 
-void Class::Add_Option(const char* Option, uint32_t Position)
-{
-    lv_dropdown_add_option(Get_Pointer(), Option, Position);
-}
+    class List_Class : public Object_Class
+    {
+    };
 
-void Class::Clear_Options()
-{
-    lv_dropdown_clear_options(Get_Pointer());
-}
+    // - Methods
 
-void Class::Open()
-{
-    lv_dropdown_open(Get_Pointer());
-}
+    // - - Management
 
-void Class::Close()
-{
-    lv_dropdown_close(Get_Pointer());
-}
+    void Create(Object_Class &Parent_Object);
 
-void Class::Set_Text(const char* Text)
-{
-    lv_dropdown_set_text(Get_Pointer(), Text);
-} 
+    void Add_Option(const char *Option, uint32_t Position);
+    void Clear_Options();
 
-void Class::Set_Options(const char* Options)
-{
-    lv_dropdown_set_options(Get_Pointer(), Options);
-}
+    void Open();
+    void Close();
 
-void Class::Set_Options_Static(const char* Options)
-{
-    lv_dropdown_set_options_static(Get_Pointer(), Options);
-}
+    bool Is_Open();
 
-void Class::Set_Selected(uint32_t Selected_Options)
-{
-    lv_dropdown_set_selected(Get_Pointer(), Position);
-}
+    // - - Setters
+    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
+    void Set_Text(const char *Text);
+    void Set_Options(const char *Options);
+    void Set_Options_Static(const char *Options);
+    void Set_Selected(uint16_t Selected_Option);
+    void Set_Direction(Direction_Type Direction);
+    void Set_Symbol(const void *Symbol);
+    void Set_Selected_Highlight(bool Enabled);
 
-void Class::Set_Direction(Direction_Type Direction)
-{
-    lv_dropdown_set_direction(Get_Pointer(), Direction);
-}
+    // - - Getters
+    List_Class Get_List();
+    const char *Get_Text();
+    const char *Get_Options();
+    uint16_t Get_Selected_Option();
+    uint16_t Get_Option_Count();
+    void Get_Selected_String(char *Buffer, size_t Buffer_Size);
+    const char *Get_Symbol();
+    bool Get_Selected_Highlight();
+    Direction_Type Get_Direction();
+  
+};
 
-void Class::Set_Symbol(const void* Symbol)
-{
-    lv_dropdown_set_symbol(Get_Pointer(), Symbol);
-}
-
-void Set_Selected_Highlight(bool Enabled)
-{
-    lv_dropdown_set_selected_highlight(Get_Pointer(), Enabled);
-}
-
-Object_Class* Class::Get_List()
-{
-    lv_dropdown_get_list(Get_Pointer());
-    lv_dropdown_class
-}
 
 #endif

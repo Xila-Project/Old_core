@@ -48,7 +48,7 @@
 
         // -- Set attributes values.
 
-        bool Set_Pointer(LVGL_Object_Type* LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
 
         void Set_Value(int32_t Value, bool Enable_Animation = true);
         void Set_Start_Value(int32_t Value, bool Enable_Animation = true);

@@ -30,7 +30,7 @@ void Button_Class::Create(Object_Class &Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-bool Button_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Button_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {

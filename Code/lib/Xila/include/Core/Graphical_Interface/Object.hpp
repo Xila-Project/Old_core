@@ -26,27 +26,40 @@ class Object_Class
 public:
     // - Types
 
+    /// @brief Text alignment enumeration.
+    enum Text_Alignment_Enumeration
+    {
+        Automatic = LV_TEXT_ALIGN_AUTO,   /**< Align text auto*/
+        Left = LV_TEXT_ALIGN_LEFT,   /**< Align text to left*/
+        Center = LV_TEXT_ALIGN_CENTER, /**< Align text to center*/
+        Right = LV_TEXT_ALIGN_RIGHT,  /**< Align text to right*/
+    };
+
+    /// @brief Text alignment type.
+    typedef lv_text_align_t Text_Alignment_Type;
+
+    /// @brief Image color format enumeration.
     enum Image_Color_Fomrat_Enumeration
     {
         Unknow = LV_IMG_CF_UNKNOWN,
 
-        Raw= LV_IMG_CF_RAW,              /**< Contains the file as it is. Needs custom decoder function*/
-        Raw_Alpha = LV_IMG_CF_RAW_ALPHA,        /**< Contains the file as it is. The image has alpha. Needs custom decoder
-                                       function*/
+        Raw = LV_IMG_CF_RAW,                           /**< Contains the file as it is. Needs custom decoder function*/
+        Raw_Alpha = LV_IMG_CF_RAW_ALPHA,               /**< Contains the file as it is. The image has alpha. Needs custom decoder
+                                              function*/
         Raw_Chroma_Keyed = LV_IMG_CF_RAW_CHROMA_KEYED, /**< Contains the file as it is. The image is chroma keyed. Needs
                                        custom decoder function*/
 
-        True_Color = LV_IMG_CF_TRUE_COLOR,              /**< Color format and depth should match with LV_COLOR settings*/
-        True_Color_Alpha = LV_IMG_CF_TRUE_COLOR_ALPHA,        /**< Same as `LV_IMG_CF_TRUE_COLOR` but every pixel has an alpha byte*/
+        True_Color = LV_IMG_CF_TRUE_COLOR,                           /**< Color format and depth should match with LV_COLOR settings*/
+        True_Color_Alpha = LV_IMG_CF_TRUE_COLOR_ALPHA,               /**< Same as `LV_IMG_CF_TRUE_COLOR` but every pixel has an alpha byte*/
         True_Color_Chroma_Keyed = LV_IMG_CF_TRUE_COLOR_CHROMA_KEYED, /**< Same as `LV_IMG_CF_TRUE_COLOR` but LV_COLOR_TRANSP pixels
                                               will be transparent*/
 
-        Indexed_1_Bit = LV_IMG_CF_INDEXED_1BIT, /**< Can have 2 different colors in a palette (always chroma keyed)*/
+        Indexed_1_Bit = LV_IMG_CF_INDEXED_1BIT,  /**< Can have 2 different colors in a palette (always chroma keyed)*/
         Indexed_2_Bits = LV_IMG_CF_INDEXED_2BIT, /**< Can have 4 different colors in a palette (always chroma keyed)*/
         Indexed_4_Bits = LV_IMG_CF_INDEXED_4BIT, /**< Can have 16 different colors in a palette (always chroma keyed)*/
         Indexed_8_Bits = LV_IMG_CF_INDEXED_8BIT, /**< Can have 256 different colors in a palette (always chroma keyed)*/
 
-        Alpha_1_Bit = LV_IMG_CF_ALPHA_1BIT, /**< Can have one color and it can be drawn or not*/
+        Alpha_1_Bit = LV_IMG_CF_ALPHA_1BIT,  /**< Can have one color and it can be drawn or not*/
         Alpha_2_Bits = LV_IMG_CF_ALPHA_2BIT, /**< Can have one color but 4 different alpha value*/
         Alpha_4_Bits = LV_IMG_CF_ALPHA_4BIT, /**< Can have one color but 16 different alpha value*/
         Alpha_8_Bits = LV_IMG_CF_ALPHA_8BIT, /**< Can have one color but 256 different alpha value*/
@@ -169,6 +182,9 @@ public:
 
     /// @brief Gradient direction type.
     typedef lv_grad_dir_t Gradient_Direction_Type;
+
+    /// @brief Gradient stop type.
+    typedef lv_gradient_stop_t Gradient_Stop_Type;
 
     /// @brief Gradient enumeration type.
     enum Gradient_Direction_Enumeration
@@ -324,8 +340,6 @@ public:
         Custom_3 = LV_OBJ_FLAG_USER_3,
         Custom_4 = LV_OBJ_FLAG_USER_4,
     };
-
-    typedef lv_obj_t LVGL_Object_Type;
 
     typedef lv_obj_class_t Class_Type;
     typedef lv_style_selector_t Style_Selector_Type;
@@ -497,13 +511,13 @@ public:
     operator bool() const;
 
     // TODO : See the encapsulation of these following methods.
-    virtual bool Set_Pointer(LVGL_Object_Type *Object);
-    inline LVGL_Object_Type *Get_Pointer()
+    virtual bool Set_Pointer(lv_obj_t *Object);
+    inline lv_obj_t *Get_Pointer()
     {
         return LVGL_Object_Pointer;
     };
 
-    LVGL_Object_Type *LVGL_Object_Pointer;
+    lv_obj_t *LVGL_Object_Pointer;
 
     static void Event_Handler(Event_Type Event);
 

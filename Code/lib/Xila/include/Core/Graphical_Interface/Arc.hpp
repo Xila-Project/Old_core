@@ -47,7 +47,7 @@ public:
 
     // - - Setters.
 
-    bool Set_Pointer(LVGL_Object_Type* Object_Pointer);
+    bool Set_Pointer(lv_obj_t* Object_Pointer);
 
     // - - - Angles
     void Set_Start_Angle(uint16_t Start_Angle);

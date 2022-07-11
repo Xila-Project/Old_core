@@ -178,43 +178,7 @@ class Graphic_Interface_Class
         const char *Get_Text();
     };
 
-    class Drop_Down_List_Class : public Object_Class
-    {
-    public:
-        // -- Methods
 
-        Drop_Down_List_Class(Object_Class &Parent_Object);
-
-        // Management
-
-        void Add_Option(const char *Option, uint32_t Position);
-        void Clear_Options();
-
-        void Open();
-        void Close();
-
-        //  Setters
-        void Set_Text(const char *Text);
-        void Set_Options(const char *Options);
-        void Set_Options_Static(const char *Options);
-        void Set_Selected(uint16_t Selected_Option);
-        void Set_Direction(Direction_Type Direction);
-        void Set_Symbol(const void *Symbol);
-        void Set_Selected_Highlight(bool Enabled);
-
-        //  Getters
-        Object_Class Get_List();
-        const char *Get_Text();
-        const char *Get_Options();
-        uint16_t Get_Selected();
-        uint16_t Get_Option_Count();
-        void Get_Selected_String(char *Buffer, Size_Type Buffer_Size);
-        int32_t Get_Option_Index(const char *Option);
-        const char *Get_Symbol();
-        bool Get_Selected_Highlight();
-        Direction_Type Get_Direction();
-        bool Is_Open();
-    };
 
     /// @brief image class
     class Image_Class : public Object_Class
@@ -423,58 +387,7 @@ class Graphic_Interface_Class
         Ressource_Type Get_Pressed_Cell(uint16_t *Row, uint16_t *Column);
     };
 
-    class Text_Area_Class : public Object_Class
-    {
-        /// @brief Text area custom part enumeration.
-        enum
-        {
-            Placeholder = LV_TEXTAREA_PLACEHOLDER
-        };
-
-        // -- Methods
-
-        Text_Area_Class(Object_Class &Parent_Object);
-
-        void Add_Char(uint32_t Character);
-        void Add_Text(const char *Text);
-        void Delete_Character();
-        void Delete_Character_Forward();
-
-        // -- Setters
-        void Set_Text(const char *Text);
-        void Set_Placeholder_Text(const char *Text);
-        void Set_Cursor_Click_Position(bool Enabled);
-        void Set_Password_Bullet(const char *Bullet);
-        void Set_One_Line(bool Enabled);
-        void Set_Accepted_Characters(const char *List);
-        void Set_Maximum_Length(uint32_t Length);
-        void Set_Insert_Replace(const char *Text);
-        void Set_Text_Selection(bool Enabled);
-        void Set_Password_Show_Time(uint16_t Time);
-        void Set_Text_Alignment(Text_Align_Type Alignment);
-
-        // -- Getters
-        const char *Get_Text();
-        const char *Get_Placeholder_Text();
-        Label_Class *Get_Label();
-        uint32_t Get_Cursor_Position();
-        bool Get_Cursor_Click_Position();
-        bool Get_Password_Mode();
-        const char *Get_Password_Bullet();
-        bool Get_One_Line();
-        const char *Get_Accepted_Characters();
-        uint32_t Get_Maximum_Length();
-        bool Get_Text_Selection();
-        uint16_t Get_Password_Show_Time();
-
-        void Clear_Selection();
-        void Cursor_Right();
-        void Cursor_Left();
-        void Cursor_Up();
-        void Cursor_Down();
-
-        bool Is_Selected();
-    };
+  
 
     // -- Widgets
 
@@ -602,42 +515,6 @@ class Graphic_Interface_Class
         bool Get_Mode_Fixed();
     };
 
-    /// @brief Keyboard object class.
-    class Keyboard_Class : public Object_Class
-    {
-        typedef lv_keyboard_mode_t Mode_Type;
-
-        enum
-        {
-            Text_Lower = LV_KEYBOARD_MODE_TEXT_LOWER,
-            Text_Upper = LV_KEYBOARD_MODE_TEXT_UPPER,
-            Special = LV_KEYBOARD_MODE_SPECIAL,
-            Number = LV_KEYBOARD_MODE_NUMBER,
-            User_1 = LV_KEYBOARD_MODE_USER_1,
-            User_2 = LV_KEYBOARD_MODE_USER_2,
-            User_3 = LV_KEYBOARD_MODE_USER_3,
-            User_4 = LV_KEYBOARD_MODE_USER_4
-        };
-
-        // -- Methods
-        Keyboard_Class(const Object_Class &Parent_Object);
-
-        void Define_Event_Callback(Event_Type *Event);
-
-        // -- -- Setters
-        void Set_Text_Area(Text_Area_Class &Text_Area);
-        void Set_Mode(Mode_Type Mode);
-        void Set_Pop_Overs(bool Enabled);
-        void Set_Map(Mode_Type Mode, const char *Map[], const Xila_Class::Display_Class::Button_Matrix_Class::Control_Type Control_Map[]);
-
-        // -- Getters
-        Text_Area_Class &Get_Text_Area();
-        Mode_Type Get_Mode();
-        bool Get_Pop_Overs();
-        static const char **Get_Map_Array();
-        static const uint16_t Get_Selected_Button();
-        static const char *Get_Button_Text();
-    };
 
     /// @brief List class.
     class List_Class : public Object_Class

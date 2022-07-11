@@ -31,7 +31,7 @@ void Bar_Class::Create(Object_Class& Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-bool Bar_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Bar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {

@@ -63,7 +63,7 @@ Class::Button_Class::Button_Class(Object_Class &Parent_Object)
 
 Class::Button_Matrix_Class::Button_Matrix_Class(Object_Class &Parent_Object)
 {
-    LVGL_Object_Type = lv_btnmatrix_create(Parent_Object.Get_Pointer());
+    lv_obj_t = lv_btnmatrix_create(Parent_Object.Get_Pointer());
 }
 
 Class::Canvas_Class::Canvas_Class(Object_Class &Parent_Object)

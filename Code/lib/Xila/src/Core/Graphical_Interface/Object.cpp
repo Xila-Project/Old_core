@@ -219,7 +219,7 @@ void Object_Class::Set_Position(Coordinate_Type X, Coordinate_Type Y)
     lv_obj_set_pos(Get_Pointer(), X, Y);
 }
 
-bool Object_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Object_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {

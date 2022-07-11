@@ -87,7 +87,7 @@ void Canvas_Class::Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Typ
 //
 // ------------------------------------------------------------------------- //
 
-bool Canvas_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Canvas_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {

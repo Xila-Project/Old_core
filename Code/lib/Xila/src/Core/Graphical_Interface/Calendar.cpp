@@ -30,7 +30,7 @@ void Calendar_Class::Create(Object_Class &Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-bool Calendar_Class::Set_Pointer(LVGL_Object_Type *LVGL_Object_Pointer)
+bool Calendar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)
     {
