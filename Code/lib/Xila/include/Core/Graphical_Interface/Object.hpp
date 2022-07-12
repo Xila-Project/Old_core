@@ -20,6 +20,8 @@
 
 #define Class Xila_Class::Display_Class::Object_Class // Shortcut
 
+#define Percentage(x)   LV_PCT(x)
+
 /// @brief Object class.
 class Object_Class
 {
@@ -419,9 +421,13 @@ public:
     void Set_Position_X(Coordinate_Type X);
     void Set_Position_Y(Coordinate_Type Y);
     void Set_Position(Coordinate_Type X, Coordinate_Type Y);
-    void Set_Alignment(Alignment_Type Alignment);                                                                                        // -- Relative to parent object.
+    void Set_Alignment(Alignment_Type Alignment);
+                                                                                       // -- Relative to parent object.
     void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
     void Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
+    void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
+    void Set_Width(Coordinate_Type Width);
+    void Set_Height(Coordinate_Type Height);
 
     // - - - Flex
     void Set_Flex_Align(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place);

@@ -219,6 +219,21 @@ void Object_Class::Set_Position(Coordinate_Type X, Coordinate_Type Y)
     lv_obj_set_pos(Get_Pointer(), X, Y);
 }
 
+void Object_Class::Set_Size(Coordinate_Type Width, Coordinate_Type Height)
+{
+    lv_obj_set_size(Get_Pointer(), Width, Height);
+}
+
+void Object_Class::Set_Width(Coordinate_Type Width)
+{
+    lv_obj_set_width(Get_Pointer(), Width);
+}
+
+void Object_Class::Set_Height(Coordinate_Type Height)
+{
+    lv_obj_set_height(Get_Pointer(), Height);
+}
+
 bool Object_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (LVGL_Object_Pointer == NULL)

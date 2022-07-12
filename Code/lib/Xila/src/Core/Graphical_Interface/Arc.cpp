@@ -37,7 +37,7 @@ bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
+    if (!Has_Class(&lv_arc_class))
     {
         return false;
     }

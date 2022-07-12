@@ -8,69 +8,51 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef SLIDER_HPP_INCLUDED
-#define SLIDER_HPP_INCLUDED
+#ifndef Slider_Hpp_Included
+#define Slider_Hpp_Included
 
-#include "Arduino.h"
+#include "Object.hpp"
 
-#define Class Xila_Class::Diplsay_Class::Slider_Class // Shortcut
-
-// --
-
-inline bool Class::Is_Dragged()
+class Slider_Class : public Object_Class
 {
-    return lv_slider_is_dragged(this.Get_Pointer());
-}
+public:
+    // -- Types
 
-// -- Setters
+    typedef lv_slider_mode_t Mode_Type;
 
-inline void Class::Set_Value(int32_t Value, bool Animation)
-{
-    lv_slider_set_value(this.Get_Pointer(), Value);
-}
+    // -- Enumerations
+    enum Mode_Enumeration
+    {
+        Normal = LV_SLIDER_MODE_NORMAL,
+        Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
+        Range = LV_SLIDER_MODE_RANGE,
+    };
 
-inline void Class::Set_Left_Value(int32_t Value, bool Animation)
-{
-    lv_slider_set_left_value(this.Get_Pointer(), Value);
-}
+    typedef enum Draw_Part_Enumeration
+    {
+        Knob = LV_SLIDER_DRAW_PART_KNOB,
+        Knob_Left = LV_SLIDER_DRAW_PART_KNOB_LEFT,
+    } Draw_Part_Type;
 
-inline void Class::Set_Range(int32_t Minimum_Value, int32_t Maximum_Value)
-{
-    lv_slider_set_range(this.Get_Pointer(), Minimum_Value, Maximum_Value);
-}
+    // - Methods
+    void Create(Object_Class &Parent_Object);
 
-inline void Class::Set_Mode(Mode_Type Mode)
-{
-    lv_slider_set_mode(this.Get_Pointer(), Mode);
-}
+    bool Is_Dragged();
 
-// -- Getters
+    // - - Setters.
+    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
 
-inline int32_t Class::Get_Value()
-{
-    return lv_slider_get_value(this.Get_Pointer());
-}
+    void Set_Value(int32_t Value, bool Animation);
+    void Set_Left_Value(int32_t Value, bool Animation);
+    void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
+    void Set_Mode(Mode_Type Mode);
 
-inline int32_t Class::Get_Left_Value()
-{
-    return lv_slider_get_left_value(this.Get_Pointer());
-}
-
-inline int32_t Class::Get_Minimum_Value()
-{
-    return lv_slider_get_min_value(this.Get_Pointer());
-}
-
-inline int32_t Class::Get_Maximum_Value()
-{
-    return lv_slider_get_max_value(this.Get_Pointer());
-}
-
-inline Mode_Type Class::Get_Mode()
-{
-    return lv_slider_get_mode(this.Get_Pointer());
-}
-
-#undef Class
+    // - - Getters.
+    int32_t Get_Value();
+    int32_t Get_Left_Value();
+    int32_t Get_Minimum_Value();
+    int32_t Get_Maximum_Value();
+    Mode_Type Get_Mode();
+};
 
 #endif

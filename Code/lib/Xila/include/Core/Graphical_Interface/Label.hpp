@@ -1,114 +1,63 @@
 ///
- /// @file Label.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 10-05-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Label.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 10-05-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #ifndef LABEL_HPP_INCLUDED
- #define LABEL_HPP_INCLUDED
+#ifndef LABEL_HPP_INCLUDED
+#define LABEL_HPP_INCLUDED
 
-#include "Arduino.h"
-#include "lvgl.h"
+#include "Object.hpp"
 
- #define Class Xila_Class::Display_Class::Label_Class
-
-// -- Methods
-
-// -- Action methods -- //
-
-inline void Class::Insert_Text(uint32_t Position, const char* Text)
+/// @brief Label class.
+class Label_Class : public Object_Class
 {
-    lv_label_ins_text(Get_Pointer(), Position, Text);
-}
+public:
+    // - Types
 
-inline void Class::Cut_Text(uint32_t Position, uint32_t Length)
-{
-    lv_label_cut_text(Get_Pointer(), Position, Length);
-}
+    /// @brief Label class.
+    typedef lv_label_long_mode_t Long_Mode_Type;
 
-inline bool Class::Is_Char_Under_Position(Point_Type* Position)
-{
-    return lv_label_is_char_under_pos(Get_Pointer(), Position);
-}
+    enum Long_Mode_Enumeration
+    {
+        Long_Wrap = LV_LABEL_LONG_WRAP,
+        Long_Dot = LV_LABEL_LONG_DOT,
+        Long_Scroll = LV_LABEL_LONG_SCROLL,
+        Long_Scroll_Circular = LV_LABEL_LONG_SCROLL_CIRCULAR,
+        Long_Clip = LV_LABEL_LONG_CLIP
+    };
 
-// -- Setters -- //
+    // - Methods
 
-inline void Class::Set_Text(const char* Text)
-{
-    lv_label_set_text(Get_Pointer(), Text);
-}
+    void Create(Object_Class &Parent_Object);
 
-inline void Class::Set_Text_Format(const char* Format, ...)
-{
-    lv_label_set_text_fmt(Get_Pointer(), Format, ...);
-}
+    void Insert_Text(uint32_t Position, const char *Text);
+    void Cut_Text(uint32_t Position, uint32_t Length);
+    bool Is_Char_Under_Position(Point_Type *Position);
 
-inline void Class::Set_Text_Static(const char* Format)
-{
-    lv_label_set_text_static(Get_Pointer(), Format);
-}
+    // - - Setters
+    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-inline void Class::Set_Long_Mode(Long_Mode_Type Long_Mode)
-{
-    lv_label_set_long_mode(Get_Pointer(), Long_Mode);
-}
+    void Set_Text(const char *Text);
+    void Set_Text_Format(const char *Format, ...);
+    void Set_Text_Static(const char *Text);
+    void Set_Long_Mode(Long_Mode_Type Long_Mode);
+    void Set_Recolor(bool Recolor);
+    void Set_Selection_Start(uint32_t Index);
+    void Set_Selection_End(uint32_t Index);
 
-inline void Class::Set_Recolor(bool Recolor)
-{
-    lv_label_set_recolor(Get_Pointer(), Recolor);
-}
+    // - - Getters
+    char *Get_Text();
+    Long_Mode_Type Get_Long_Mode();
+    bool Get_Recolor();
+    void Get_Letter_Position(uint32_t Index, Point_Type *Position);
+    uint32_t Get_Letter_On(Point_Type *Position_In);
+    uint32_t Get_Selection_Start();
+    uint32_t Get_Selection_End();
+};
 
-inline void Class::Set_Selection_Star(uint32_t Index)
-{
-    lv_label_set_text_sel_start(Get_Pointer(), Index);
-}
-
-inline void Class::Set_Selection_End(uint32_t Index)
-{
-    lv_label_set_text_sel_end(Get_Pointer(), Index);
-}
-
-// -- Getters -- //
-
-inline char* Class::Get_Text()
-{
-    return lv_label_get_text(Get_Pointer());
-}
-
-inline Long_Mode_Type Class::Get_Long_Mode()
-{
-    return lv_label_get_long_mode(Get_Pointer());
-}
-
-inline bool Get_Recolor()
-{
-    return lv_label_get_recolor(Get_Pointer());
-}
-
-inline void Class::Get_Letter_Position(uint32_t Index, Point_Type* Position)
-{
-    return lv_label_get_letter_pos(Get_Pointer(), Index, Position);
-}
-
-inline void Class::Get_Letter_On(Point_Type* Position)
-{
-    return lv_label_get_letter_on(Get_Pointer(), Position);   
-}
-
-inline uint32_t Class::Get_Selection_Start()
-{
-    return lv_label_get_text_selection_start(Get_Pointer());
-}
-
-inline uint32_t Class::Get_Selection_End()
-{
-    return lv_label_get_text_selection_end(Get_Pointer());
-}
-
-#undef Class
-
- #endif
+#endif

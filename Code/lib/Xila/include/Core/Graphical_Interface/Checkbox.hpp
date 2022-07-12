@@ -8,29 +8,35 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef CHECKBOX_HPP_INCLUDED
-#define CHECKBOX_HPP_INCLUDED
+#ifndef Checkbox_Hpp_Included
+#define Checkbox_Hpp_Included
 
-#include "Arduino.h"
-#include "lvgl.h"
+#include "Object.hpp"
 
-#define Class Xila_Class::Display_Class::Checkbox_Class // Shortcut
-
-inline void Class::Set_Text(const char* Text)
+class Checkbox_Class : public Object_Class
 {
-    lv_checkbox_set_text(this.Get_Pointer(), Text);
-}
+public:
 
-inline void Class::Set_Text_Static(const char* Text)
-{
-    lv_checkbox_set_text_static(this.Get_Pointer(), Text);
-}
+    // - Types
 
-inline const char* Class::Get_Text()
-{
-    return lv_checkbox_get_text(this.Get_Pointer());
-}
+    typedef enum Draw_Part_Enumeration
+    {
+        Box = LV_CHECKBOX_DRAW_PART_BOX,
+    } Draw_Part_Type;
 
-#undef Class
+    // - Methods
+
+    void Create(Object_Class &Parent_Object);
+
+    // - - Setters.
+
+    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+
+    void Set_Text(const char *Text);
+    void Set_Text_Static(const char *Text);
+
+    // - - Getters.
+    const char *Get_Text();
+};
 
 #endif

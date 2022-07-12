@@ -1,36 +1,34 @@
 ///
- /// @file Line.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 10-05-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Line.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 10-05-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #ifndef LINE_HPP_INCLUDED
- #define LINE_HPP_INCLUDED
+#ifndef LINE_HPP_INCLUDED
+#define LINE_HPP_INCLUDED
 
-#include "Arduino.h"
-#include "lvgl.h"
+#include "Object.hpp"
 
-#define Class Xila_Class::Display_Class::Line_Class
-
-inline void Class::Set_Points(const Point_Type Points[], uint16_t Count)
+/// @brief Line class.
+class Line_Class : public Object_Class
 {
-    lv_line_set_points(Get_Pointer(), Points, Count);
-}
+public:
+    // - Methods
 
-inline void Class::Set_Y_Inversion(bool Inversion)
-{
-    lv_line_set_y_invert(Get_Pointer(), Inversion);
-}
+    void Create(Object_Class &Parent_Object);
 
-inline bool Class::Get_Y_Inversion()
-{
-    return lv_line_get_y_invert(Get_Pointer());
-}
+    // - - Setters
+    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-#undef Class
+    void Set_Points(const Point_Type* Points, uint16_t Number);
+    void Set_Y_Inversion(bool Inversion);
+
+    // - - Getters
+    bool Get_Y_Inversion();
+}
 
 #endif

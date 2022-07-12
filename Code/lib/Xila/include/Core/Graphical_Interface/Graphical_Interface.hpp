@@ -158,25 +158,7 @@ class Graphic_Interface_Class
     /// @brief Canvas class.
 
 
-    class Checkbox_Class : public Object_Class
-    {
-    public:
-        enum Draw_Part_Type
-        {
-            Box = LV_CHECKBOX_DRAW_PART_BOX,
-        };
 
-        // -- Methods
-
-        Checkbox_Class(Object_Class &Parent_Object);
-
-        // -- -- Set attributes values.
-        void Set_Text(const char *Text);
-        void Set_Text_Static(const char *Text);
-
-        // -- -- Get attributes values.
-        const char *Get_Text();
-    };
 
 
 
@@ -216,125 +198,9 @@ class Graphic_Interface_Class
         Image_Size_Mode_Type Get_Size_Mode();
     };
 
-    /// @brief Label class.
-    class Label_Class : public Label_Class
-    {
-    public:
-        // -- Types
-        typedef lv_label_long_mode_t Long_Mode_Type;
 
-        enum
-        {
-            Long_Wrap = LV_LABEL_LONG_WRAP,
-            Long_Dot = LV_LABEL_LONG_DOT,
-            Long_Scroll = LV_LABEL_LONG_SCROLL,
-            Long_Scroll_Circular = LV_LABEL_LONG_SCROLL_CIRCULAR,
-            Long_Clip = LV_LABEL_LONG_CLIP
-        };
 
-        // -- Methods
-        Label_Class(const Object_Class &Parent_Object);
-        void Insert_Text(uint32_t Position, const char *Text);
-        void Cut_Text(uint32_t Position, uint32_t Length);
-        bool Is_Char_Under_Position(Point_Type *Position);
-
-        // -- Setters
-        void Set_Text(const char *Text);
-        void Set_Text_Format(const char *Format, ...);
-        void Set_Text_Static(const char *Text);
-        void Set_Long_Mode(Long_Mode_Type Long_Mode);
-        void Set_Recolor(bool Recolor);
-        void Set_Selection_Start(uint32_t Index);
-        void Set_Selection_End(uint32_t Index);
-
-        // -- Getters
-        char *Get_Text();
-        Long_Mode_Type Get_Long_Mode();
-        bool Get_Recolor();
-        void Get_Letter_Position(uint32_t Index, Point_Type *Position);
-        uint32_t Get_Letter_On(Point_Type *Position_In);
-        uint32_t Get_Selection_Start();
-        uint32_t Get_Selection_End();
-    };
-
-    /// @brief Line class.
-    class Line_Class : public Object_Class
-    {
-    public:
-        // -- Methods
-        Line_Class(const Object_Class &Parent_Object);
-
-        void Set_Points(const Point_Type Points[], uint16_t Point_Number);
-        void Set_Y_Inversion(bool Inversion);
-
-        bool Get_Y_Inversion();
-    }
-
-    /// @brief Roller class.
-    class Roller_Class : public Object_Class
-    {
-    public:
-        // -- Types
-        typedef lv_roller_mode_t Mode_Type;
-        enum
-        {
-            Normal = LV_ROLLER_MODE_NORMAL,
-            Infinite = LV_ROLLER_MODE_INFINITE
-        };
-
-        // -- Methods
-        Roller_Class(Parent_Object &Parent_Object);
-
-        // -- Setters
-        void Set_Options(const char *Options, Mode_Type Mode);
-        void Set_Selected(uint16_t Index, Animation_Enable_Type Animation);
-        void Set_Visible_Row_Count(uint8_t Row_Count);
-
-        // -- Getters
-        uint16_t Get_Selected();
-        void Get_Selected_String(char *Buffer, uint32_t Buffer_Size);
-        const char *Get_Options();
-        uint16_t Get_Option_Count();
-    };
-
-    class Slider_Class : public Object_Class
-    {
-    public:
-        // -- Types
-        typedef lv_slider_mode_t Slider_Mode;
-
-        // -- Enumerations
-        enum
-        {
-            Normal = LV_SLIDER_MODE_NORMAL,
-            Symmetrical = LV_SLIDER_MODE_SYMMETRICAL,
-            Range = LV_SLIDER_MODE_RANGE,
-        };
-
-        typedef enum
-        {
-            Knob = LV_SLIDER_TYPE_KNOB,
-            Knob_Left = LV_SLIDER_TYPE_KNOB_LEFT,
-        } Part_Type;
-
-        // -- Methods
-        Slider_Class(Object_Class &Parent_Object);
-
-        bool Is_Dragged();
-
-        // -- -- Setters.
-        void Set_Value(int32_t Value, bool Animation);
-        void Set_Left_Value(int32_t Value, bool Animation);
-        void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
-        void Set_Mode(Mode_Type Mode);
-
-        // -- -- Getters.
-        int32_t Get_Value();
-        int32_t Get_Left_Value();
-        int32_t Get_Minimum_Value();
-        int32_t Get_Maximum_Value();
-        Mode_Type Get_Mode();
-    };
+    
 
     class Switch_Class : public Object_Class
     {
@@ -562,76 +428,8 @@ class Graphic_Interface_Class
 
     //
 
-    class Tabs_Class : public Object_Class
-    {
-    public:
-        // -- Types
-        typedef lv_tabview_btns_pos_t Buttons_Position_Type;
-        typedef lv_tabview_part_t Part_Type;
-        enum
-        {
-            None = LV_TABVIEW_TAB_POS_NONE,
-            Top = LV_ALIGN_TAB_POS_TOP,
-            Bottom = LV_ALIGN_TAB_POS_BOTTOM,
-            Left = LV_ALIGN_TAB_POS_LEFT,
-            Right = LV_ALIGN_TAB_POS_RIGHT,
-        };
 
-        enum
-        {
-            Background = LV_TABVIEW_PART_BG,
-            Virtual_Last = LV_TABVIEW_PART_VIRTUAL_LAST,
-            Background_Scrollable = LV_TABVIEW_PART_BG_SCROLLABLE,
-            Tab_Background = LV_TABVIEW_PART_TAB_BG,
-            Tab_Button = LV_TABVIEW_PART_TAB_BTN,
-            Part_Indicator = LV_TABVIEW_PART_INDICATOR,
-            Real_Last = LV_TABVIEW_PART_REAL_LAST
-        };
-
-        // -- Methods
-        Tabs_Class(Object_Class &Parent_Object);
-
-        void Clean_Tab();
-
-        // -- -- Setters.
-        void Set_Active_Tab(uint16_t Identifier, Animation_Type Animation);
-        void Set_Tab_Name(uint16_t Identifier, char *Name);
-        void Set_Animation_Time(uint16_t Animation_Time);
-        void Set_Buttons_Position(Buttons_Position_Type Buttons_Position);
-
-        // -- -- Getters.
-        uint16_t Get_Active_Tab();
-        uint16_t Get_Tab_Count();
-        Object_Class Get_Tab(uint16_t Identifier);
-        uint16_t Get_Animation_Time();
-        Buttons_Position_Type Get_Buttons_Position();
-    };
-
-    class Windows_Class : public Object_Class
-    {
-    public:
-        typedef Xila_Class::Object_Class Object_Class;
-
-        Object_Class Load(File);
-
-        Object_Class Create();
-
-        void Set_Title(Object_Class Window, const char *Title);
-
-    protected:
-        Object_Class Add_Button(Object_Class Parent_Window);
-
-    private:
-        Object_Class Title_Label;
-        Object_Class Clock_Label;
-
-        Object_Class Network_Button;
-        Object_Class Battery_Button;
-        Object_Class Sound_Button;
-
-        Object_Class Close_Button;
-        Object_Class Minimize_Button;
-    };
+    
 
     static void Task(void *);
 
