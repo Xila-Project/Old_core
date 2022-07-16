@@ -42,9 +42,6 @@ public:
 
     void Create(Object_Class Parent_Object);
 
-
-
-
     // - - Setters.
 
     bool Set_Pointer(lv_obj_t* Object_Pointer);

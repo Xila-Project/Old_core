@@ -12,6 +12,7 @@
 #define Canvas_Hpp_Included
 
 #include "Object.hpp"
+#include "Image.hpp"
 
 class Canvas_Class : public Object_Class
 {
@@ -57,7 +58,7 @@ public:
     void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
     void Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity_Type Opacity);
     void Set_Palette(uint8_t Identifier, Color_Type Color);
-    void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Color_Format_Type Color_Format);
+    void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Class::Color_Format_Type Color_Format);
 
     // - - Getters
 

@@ -12,7 +12,7 @@
 #define Tabs_Hpp_Included
 
 #include "Object.hpp"
-#include "lvgl.h"
+#include "Button.hpp"
 
 class Tabs_Class : public Object_Class
 {
@@ -46,20 +46,19 @@ public:
     void Create(Object_Class &Parent_Object);
 
     void Add_Tab(const char* Name);
-    void Clean_Tab();
     void Rename_Tab(const char* Name);
 
     // - - Setters.
     bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    void Set_Active_Tab(uint16_t Identifier, Animation_Type Animation);
+    void Set_Active_Tab(uint16_t Identifier, bool Animation);
 
     // - - Getters.
     uint16_t Get_Tab_Active();
     uint16_t Get_Tab_Count();
 
     Object_Class Get_Content();
-    Object_Class Get_Tab_Buttons();
+    Button_Class Get_Tab_Buttons();
 
     uint16_t Get_Animation_Time();
     Buttons_Position_Type Get_Buttons_Position();

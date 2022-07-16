@@ -77,11 +77,7 @@ void Text_Area_Class::Delete_Character_Forward()
 
 bool Text_Area_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (LVGL_Object_Pointer == NULL)
-    {
-        return false;
-    }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_textarea_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_textarea_class))
     {
         return false;
     }

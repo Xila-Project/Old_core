@@ -36,12 +36,21 @@ public:
 
     // - Methods
 
+    // - - Contructor
+
+    Color_Class();
+    Color_Class(lv_color_t LVGL_Color);
+    Color_Class(uint8_t Red, uint8_t Green, uint8_t Blue);
+    Color_Class(uint32_t Hex, bool Hex_3 = false);
+    Color_Class(uint16_t Hue, uint8_t Saturation, uint8_t Value);
+
     // - - Management
 
     void Change_Lightness(Opacity_Type Opacity);
 
     // - - Setters
 
+    void Set_LVGL_Color(lv_color_t LVGL_Color);
     void Set_RGB(uint8_t Red, uint8_t Green, uint8_t Blue);
     void Set_RGB(uint32_t Hex, bool Hex_3 = false);
     void Set_HSV(uint16_t Hue, uint8_t Saturation, uint8_t Value);

@@ -58,7 +58,9 @@
 			"xstring": "cpp",
 			"xtree": "cpp",
 			"xutility": "cpp",
-			"memory_resource": "cpp"
+			"memory_resource": "cpp",
+			"limits": "cpp",
+			"type_traits": "cpp"
 		},
 		"cSpell.words": [
 			"BSSID",

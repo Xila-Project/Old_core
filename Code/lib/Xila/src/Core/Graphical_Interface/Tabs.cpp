@@ -22,16 +22,12 @@ void Tabs_Class::Create(Object_Class &Parent_Object)
     {
         Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer()));
     }
+
 }
 
 void Tabs_Class::Add_Tab(const char *Name)
 {
     lv_tabview_add_tab(Get_Pointer(), Name);
-}
-
-void Tabs_Class::Rename_Tab(const char* Name)
-{
-    lv_tabview_rename_tab(Get_Pointer(), Name);
 }
 
 // ------------------------------------------------------------------------- //
@@ -42,16 +38,24 @@ void Tabs_Class::Rename_Tab(const char* Name)
 
 bool Tabs_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
-    if (LVGL_Object_Pointer == NULL)
-    {
-        return false;
-    }
-    if (!Has_Class(&lv_tabview_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_tabview_class))
     {
         return false;
     }
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
     return true;
+}
+
+void Tabs_Class::Set_Active_Tab(uint16_t Identifier, bool Animation)
+{
+    if (Animation)
+    {
+        lv_tabview_set_act(Get_Pointer(), Identifier, LV_ANIM_ON);
+    }
+    else
+    {
+        lv_tabview_set_act(Get_Pointer(), Identifier, LV_ANIM_OFF);
+    }
 }
 
 // ------------------------------------------------------------------------- //
@@ -74,7 +78,7 @@ uint16_t Tabs_Class::Get_Tab_Active()
 
 Object_Class Tabs_Class::Get_Tab_Buttons()
 {
-    Object_Class Object;
-    Object.Set_Pointer(lv_tabview_get_tab_btns(Get_Pointer()));
-    return Object;
+    Button_Class Button;
+    Button.Set_Pointer(lv_tabview_get_tab_btns(Get_Pointer()));
+    return Button;
 }

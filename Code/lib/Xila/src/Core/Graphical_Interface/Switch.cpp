@@ -1,16 +1,14 @@
 ///
- /// @file Line.cpp
+ /// @file Switch.cpp
  /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
  /// @brief 
  /// @version 0.1.0
- /// @date 12-07-2022
+ /// @date 14-07-2022
  /// 
  /// @copyright Copyright (c) 2022
  /// 
 
- #include "Core/Graphical_Interface/Line.hpp"
-
- 
+ #include "Core/Graphical_Interface/Switch.hpp"
 
 // ------------------------------------------------------------------------- //
 //
@@ -18,14 +16,14 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Line_Class::Create(Object_Class &Parent_Object)
+void Switch_Class::Create(Object_Class &Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {
-        Set_Pointer(lv_line_create(Parent_Object.Get_Pointer()));
+        Set_Pointer(lv_switch_create(Parent_Object.Get_Pointer()));
     }
-}
 
+}
 
 // ------------------------------------------------------------------------- //
 //
@@ -33,24 +31,13 @@ void Line_Class::Create(Object_Class &Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-bool Line_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
+bool Switch_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_line_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_switch_class))
     {
-        return false;
+        return;
     }
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
-    return true;
-}
-
-void Line_Class::Set_Points(const Point_Type* Points, uint16_t Number)
-{
-    lv_line_set_points(Get_Pointer(), Points, Number);
-}
-
-void Line_Class::Set_Y_Inversion(bool Inversion)
-{
-    lv_line_set_y_invert(Get_Pointer(), Inversion);
 }
 
 // ------------------------------------------------------------------------- //
@@ -58,9 +45,3 @@ void Line_Class::Set_Y_Inversion(bool Inversion)
 //                                    Getters
 //
 // ------------------------------------------------------------------------- //
-
-
-bool Line_Class::Get_Y_Inversion()
-{
-    return lv_line_get_y_invert(Get_Pointer());
-}

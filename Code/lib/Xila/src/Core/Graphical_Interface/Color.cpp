@@ -12,6 +12,36 @@
 
 // ------------------------------------------------------------------------- //
 //
+//                                  Constructor
+//
+// ------------------------------------------------------------------------- //
+
+Color_Class::Color_Class()
+{
+}
+
+Color_Class::Color_Class(lv_color_t LVGL_Color)
+{
+    Set_LVGL_Color(LVGL_Color);
+}
+
+Color_Class::Color_Class(uint8_t Red, uint8_t Green, uint8_t Blue)
+{
+    Set_RGB(Red, Green, Blue);
+}
+
+Color_Class::Color_Class(uint32_t Hex, bool Hex_3 = false)
+{
+    Set_RGB(Hex, Hex_3);
+}
+
+Color_Class::Color_Class(uint16_t Hue, uint8_t Saturation, uint8_t Value)
+{
+    Set_HSV(Hue, Saturation, Value);
+}
+
+// ------------------------------------------------------------------------- //
+//
 //                                  Management
 //
 // ------------------------------------------------------------------------- //
@@ -36,6 +66,11 @@ uint8_t Color_Class::Convert_To_1_Bit()
 //                                    Setters
 //
 // ------------------------------------------------------------------------- //
+
+void Color_Class::Set_LVGL_Color(lv_color_t LVGL_Color)
+{
+    this->LVGL_Color = LVGL_Color;
+}
 
 void Color_Class::Set_RGB(uint8_t Red, uint8_t Green, uint8_t Blue)
 {
@@ -85,7 +120,7 @@ void Color_Class::Set_Lighter(Opacity_Type Opacity)
 //
 // ------------------------------------------------------------------------- //
 
-lv_color_filter_dsc_t* Color_Filter_Descriptor_Class::Get_Pointer()
+lv_color_filter_dsc_t *Color_Filter_Descriptor_Class::Get_Pointer()
 {
     return &LVGL_Color_Filter_Descriptor;
 }
@@ -105,7 +140,7 @@ lv_color_hsv_t Color_Class::Get_LVGL_HSV_Color()
     return lv_color_to_hsv(LVGL_Color);
 }
 
-void Color_Class::Get_HSV(uint16_t& Hue, uint8_t& Saturation, uint8_t& Value)
+void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value)
 {
     lv_color_hsv_t HSV_Color = lv_color_to_hsv(LVGL_Color);
     Hue = HSV_Color.h;

@@ -10,6 +10,13 @@
 
 #include "Core/Graphical_Interface/Arc.hpp"
 
+
+// ------------------------------------------------------------------------- //
+//
+//                                  Management
+//
+// ------------------------------------------------------------------------- //
+
 void Arc_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object.Is_Valid())
@@ -17,12 +24,6 @@ void Arc_Class::Create(Object_Class Parent_Object)
         Set_Pointer(lv_arc_create(Parent_Object.Get_Pointer()));
     }
 }
-
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
 
 
 // ------------------------------------------------------------------------- //
@@ -33,11 +34,7 @@ void Arc_Class::Create(Object_Class Parent_Object)
  
 bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (LVGL_Object_Pointer == NULL)
-    {
-        return false;
-    }
-    if (!Has_Class(&lv_arc_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_arc_class))
     {
         return false;
     }
@@ -105,8 +102,6 @@ void Arc_Class::Set_Change_Rate(uint16_t Rate)
 //                                    Getters
 //
 // ------------------------------------------------------------------------- //
-
-
 
 uint16_t Arc_Class::Get_Angle_Start()
 {

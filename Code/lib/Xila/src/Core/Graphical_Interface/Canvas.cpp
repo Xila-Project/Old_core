@@ -89,11 +89,7 @@ void Canvas_Class::Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Typ
 
 bool Canvas_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (LVGL_Object_Pointer == NULL)
-    {
-        return false;
-    }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_arc_class))
     {
         return false;
     }
@@ -121,7 +117,7 @@ void Canvas_Class::Set_Palette(uint8_t Identifier, Color_Type Color)
     lv_canvas_set_palette(Get_Pointer(), Identifier, Color);
 }
 
-void Canvas_Class::Set_Buffer(void* Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Color_Format_Type Color_Format)
+void Canvas_Class::Set_Buffer(void* Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Class::Color_Format_Type Color_Format)
 {
     lv_canvas_set_buffer(Get_Pointer(), Buffer, Width, Height, Color_Format);
 }

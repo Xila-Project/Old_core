@@ -1,14 +1,14 @@
 ///
-/// @file Checkbox.cpp
+/// @file List.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
 /// @version 0.1.0
-/// @date 12-07-2022
+/// @date 14-07-2022
 ///
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Graphical_Interface/Checkbox.hpp"
+#include "Core/Graphical_Interface/List.hpp"
 
 // ------------------------------------------------------------------------- //
 //
@@ -16,13 +16,28 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Checkbox_Class::Create(Object_Class &Parent_Object)
+void List_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {
-        Set_Pointer(lv_checkbox_create(Parent_Object.Get_Pointer()));
+        Set_Pointer(lv_list_create(Parent_Object.Get_Pointer()));
     }
 }
+
+Button_Class List_Class::Add_Button(const char* Icon, const char* Text)
+{
+    Button_Class Button;
+    Button.Set_Pointer(lv_list_add_btn(Get_Pointer(), Icon, Text));
+    return Button;
+}
+
+Label_Class List_Class::Add_Text(const char* Text)
+{
+    Label_Class Label;
+    Label.Set_Pointer(lv_list_add_text(Get_Pointer(), Text));
+    return Label;
+}
+
 
 // ------------------------------------------------------------------------- //
 //
@@ -30,9 +45,9 @@ void Checkbox_Class::Create(Object_Class &Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_checkbox_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_list_class))
     {
         return false;
     }
@@ -40,25 +55,13 @@ bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     return true;
 }
 
-void Checkbox_Class::Set_Text(const char *Text)
-{
-    lv_checkbox_set_text(Get_Pointer(), Text);
-}
-
-void Checkbox_Class::Set_Text_Static(const char *Text)
-{
-    lv_checkbox_set_text_static(Get_Pointer(), Text);
-}
-
-
-
 // ------------------------------------------------------------------------- //
 //
 //                                    Getters
 //
 // ------------------------------------------------------------------------- //
 
-const char *Checkbox_Class::Get_Text()
+const char* List_Class::Get_Button_Text(Button_Class& Button)
 {
-    return lv_checkbox_get_text(Get_Pointer());
+    return lv_list_get_btn_text(Get_Pointer(), Button.Get_Pointer());
 }

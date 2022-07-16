@@ -53,18 +53,11 @@
 class Graphic_Interface_Class
 {
 
-
-    /// @brief Animations enumeration
-    enum Animation
-    {
-        Enable = LV_ANIM_ON,
-        Disable = LV_ANIM_OFF
-    };
-
     /// @brief Event class.
     class Event_Class
     {
     public:
+    
         Event_Code_Type Get_Code();
         Object_Class Get_Current_Target();
         Object_Class Get_Target();
@@ -162,52 +155,8 @@ class Graphic_Interface_Class
 
 
 
-    /// @brief image class
-    class Image_Class : public Object_Class
-    {
-    public:
-        typedef lv_img_size_mode_t Image_Size_Mode_Type;
-
-        enum
-        {
-            Virtual = LV_IMG_SIZE_MODE_VIRTUAL,
-            Real = LV_IMG_SIZE_MODE_REAL
-        };
-
-        // -- Methods
-        Image_Class(Object_Class &Parent_Object);
-
-        // -- Setters
-        void Set_Source(const void *Source);
-        void Set_Offset_X(Coordinate_Type X);
-        void Set_Offset_Y(Coordinate_Type Y);
-        void Set_Angle(int16_t Angle);
-        void Set_Pivot(Coordinate_Type X, Coordinate_Type Y);
-        void Set_Zoom(uint16_t Zoom);
-        void Set_Antialias(bool Enabled);
-        void Set_Size_Mode(Image_Size_Mode_Type Size_Mode);
-
-        // -- Getters
-        const void *Get_Size_Mode();
-        Coordinate_Type Get_Offset_X();
-        Coordinate_Type Get_Offset_Y();
-        uint16_t Get_Angle();
-        void Get_Pivot(Coordinate_Type *X, Coordinate_Type *Y);
-        uint16_t Get_Zoom();
-        bool Get_Antialias();
-        Image_Size_Mode_Type Get_Size_Mode();
-    };
-
-
-
     
 
-    class Switch_Class : public Object_Class
-    {
-    public:
-        // -- Methods
-        Switch_Class(Object_Class &Parent_Object);
-    };
 
     class Table_Class : public Object_Class
     {
@@ -379,21 +328,6 @@ class Graphic_Interface_Class
         Color_Type Get_RGB();
         Mode_Type Get_Mode();
         bool Get_Mode_Fixed();
-    };
-
-
-    /// @brief List class.
-    class List_Class : public Object_Class
-    {
-    public:
-        // -- Methods
-        List_Class(const Object_Class &Parent_Object);
-
-        const Text_Area_Class &Add_Text(const char *Text);
-        const Button_Class &Add_Button(const void *Icon, const char *Text);
-
-        // -- Getters
-        const char *Get_Button_Text(Button_Class &Button);
     };
 
     /// @brief Menu class

@@ -14,6 +14,8 @@
 
 #include "Area.hpp"
 #include "Animation.hpp"
+#include "Style.hpp"
+#include "Color.hpp"
 
 #ifndef Object_Hpp_Included
 #define Object_Hpp_Included
@@ -28,9 +30,30 @@ class Object_Class
 public:
     // - Types
 
+    /// @brief Animation type.
+    typedef Animation_Class Animation_Type;
+
+    /// @brief Style animation type.
+    typedef Style_Class Style_Type;
+
+    /// @brief Text font type
+    typedef lv_font_t Font_Type;
+
+    /// @brief Text decor enumeration
+    enum Text_Decor_Enumeration
+    {
+        None = LV_TEXT_DECOR_NONE,
+        Underline = LV_TEXT_DECOR_UNDERLINE,
+        Strikethrough = LV_TEXT_DECOR_STRIKETHROUGH,
+    };
+
+    /// @brief Text decor type.
+    typedef lv_text_decor_t Text_Decor_Type;
+
     /// @brief Text alignment enumeration.
     enum Text_Alignment_Enumeration
     {
+        
         Automatic = LV_TEXT_ALIGN_AUTO,   /**< Align text auto*/
         Left = LV_TEXT_ALIGN_LEFT,   /**< Align text to left*/
         Center = LV_TEXT_ALIGN_CENTER, /**< Align text to center*/
@@ -39,55 +62,6 @@ public:
 
     /// @brief Text alignment type.
     typedef lv_text_align_t Text_Alignment_Type;
-
-    /// @brief Image color format enumeration.
-    enum Image_Color_Fomrat_Enumeration
-    {
-        Unknow = LV_IMG_CF_UNKNOWN,
-
-        Raw = LV_IMG_CF_RAW,                           /**< Contains the file as it is. Needs custom decoder function*/
-        Raw_Alpha = LV_IMG_CF_RAW_ALPHA,               /**< Contains the file as it is. The image has alpha. Needs custom decoder
-                                              function*/
-        Raw_Chroma_Keyed = LV_IMG_CF_RAW_CHROMA_KEYED, /**< Contains the file as it is. The image is chroma keyed. Needs
-                                       custom decoder function*/
-
-        True_Color = LV_IMG_CF_TRUE_COLOR,                           /**< Color format and depth should match with LV_COLOR settings*/
-        True_Color_Alpha = LV_IMG_CF_TRUE_COLOR_ALPHA,               /**< Same as `LV_IMG_CF_TRUE_COLOR` but every pixel has an alpha byte*/
-        True_Color_Chroma_Keyed = LV_IMG_CF_TRUE_COLOR_CHROMA_KEYED, /**< Same as `LV_IMG_CF_TRUE_COLOR` but LV_COLOR_TRANSP pixels
-                                              will be transparent*/
-
-        Indexed_1_Bit = LV_IMG_CF_INDEXED_1BIT,  /**< Can have 2 different colors in a palette (always chroma keyed)*/
-        Indexed_2_Bits = LV_IMG_CF_INDEXED_2BIT, /**< Can have 4 different colors in a palette (always chroma keyed)*/
-        Indexed_4_Bits = LV_IMG_CF_INDEXED_4BIT, /**< Can have 16 different colors in a palette (always chroma keyed)*/
-        Indexed_8_Bits = LV_IMG_CF_INDEXED_8BIT, /**< Can have 256 different colors in a palette (always chroma keyed)*/
-
-        Alpha_1_Bit = LV_IMG_CF_ALPHA_1BIT,  /**< Can have one color and it can be drawn or not*/
-        Alpha_2_Bits = LV_IMG_CF_ALPHA_2BIT, /**< Can have one color but 4 different alpha value*/
-        Alpha_4_Bits = LV_IMG_CF_ALPHA_4BIT, /**< Can have one color but 16 different alpha value*/
-        Alpha_8_Bits = LV_IMG_CF_ALPHA_8BIT, /**< Can have one color but 256 different alpha value*/
-
-        Reserved_15 = LV_IMG_CF_RESERVED_15, /**< Reserved for further use.*/
-        Reserved_16 = LV_IMG_CF_RESERVED_16, /**< Reserved for further use.*/
-        Reserved_17 = LV_IMG_CF_RESERVED_17, /**< Reserved for further use.*/
-        Reserved_18 = LV_IMG_CF_RESERVED_18, /**< Reserved for further use.*/
-        Reserved_19 = LV_IMG_CF_RESERVED_19, /**< Reserved for further use.*/
-        Reserved_20 = LV_IMG_CF_RESERVED_20, /**< Reserved for further use.*/
-        Reserved_21 = LV_IMG_CF_RESERVED_21, /**< Reserved for further use.*/
-        Reserved_22 = LV_IMG_CF_RESERVED_22, /**< Reserved for further use.*/
-        Reserved_23 = LV_IMG_CF_RESERVED_23, /**< Reserved for further use.*/
-
-        User_Encoded_0 = LV_IMG_CF_USER_ENCODED_0, /**< User holder encoding format.*/
-        User_Encoded_1 = LV_IMG_CF_USER_ENCODED_1, /**< User holder encoding format.*/
-        User_Encoded_2 = LV_IMG_CF_USER_ENCODED_2, /**< User holder encoding format.*/
-        User_Encoded_3 = LV_IMG_CF_USER_ENCODED_3, /**< User holder encoding format.*/
-        User_Encoded_4 = LV_IMG_CF_USER_ENCODED_4, /**< User holder encoding format.*/
-        User_Encoded_5 = LV_IMG_CF_USER_ENCODED_5, /**< User holder encoding format.*/
-        User_Encoded_6 = LV_IMG_CF_USER_ENCODED_6, /**< User holder encoding format.*/
-        User_Encoded_7 = LV_IMG_CF_USER_ENCODED_7, /**< User holder encoding format.*/
-    };
-
-    /// @brief Image color format type.
-    typedef lv_img_cf_t Image_Color_Format_Type;
 
     /// @brief Point type.
     typedef lv_point_t Point_Type;
@@ -210,7 +184,7 @@ public:
     };
 
     /// @brief Color type.
-    typedef lv_color_t Color_Type;
+    typedef Color_Class Color_Type;
 
     /// @brief Alignment type.
     typedef lv_align_t Alignment_Type;
@@ -421,8 +395,7 @@ public:
     void Set_Position_X(Coordinate_Type X);
     void Set_Position_Y(Coordinate_Type Y);
     void Set_Position(Coordinate_Type X, Coordinate_Type Y);
-    void Set_Alignment(Alignment_Type Alignment);
-                                                                                       // -- Relative to parent object.
+    void Set_Alignment(Alignment_Type Alignment);   // -- Relative to parent object.
     void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
     void Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
     void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
@@ -437,10 +410,152 @@ public:
     // - - - Grid
     void Set_Grid_Alignment(Grid_Alignment_Type Column_Alignment, Grid_Alignment_Type Row_Alignment);
     void Set_Grid_Cell(Grid_Alignment_Type Column_Alignment, uint8_t Column_Position, uint8_t Column_Span, Grid_Alignment_Type Row_Alignment, uint8_t Row_Position, uint8_t Row_Span);
-    void Set_Grid_Descriptor_Array(const Coordinate_Type Column_Descriptor[], const Coordinate_Type Row_Descriptor[]);
+    void Set_Grid_Descriptor_Array(const Coordinate_Type* Column_Descriptor, const Coordinate_Type* Row_Descriptor);
 
     // - - - Style
-    // TODO : Implement all styles methods.
+    
+    // - - - - Position
+    void Set_Style_Alignment(Alignment_Type Alignment, Style_Selector_Type Style_Selector);
+
+    // - - - - Animation
+    void Set_Style_Animation_Speed(uint32_t Value, Style_Selector_Type Style_Selector);
+    void Set_Style_Animation_Time(uint32_t Value, Style_Selector_Type Style_Selector);
+    
+    // - - - - Arc
+    void Set_Style_Arc_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Arc_Image_Source(const void* Image_Source, Style_Selector_Type Style_Selector);
+    void Set_Style_Arc_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Arc_Rounded(bool Rounded, Style_Selector_Type Style_Selector);
+    void Set_Style_Arc_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Base_Direction(Direction_Type Direction, Style_Selector_Type Style_Selector);
+
+    // - - - - Background
+    void Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Gradient(const Gradient_Descriptor_Type* Gradient_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Gradient_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Gradient_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Recolor(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Source(const void* Image_Source, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Tiled(bool Tiled, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Main_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+
+    // - - - - Blend
+    void Set_Style_Blend_Mode(Blend_Mode_Type Blend_Mode, Style_Selector_Type Style_Selector);
+
+    // - - - - Border
+    void Set_Style_Border_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Border_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Border_Post(bool Value, Style_Selector_Type Style_Selector);
+    void Set_Style_Border_Side(Border_Side_Type Border_Side, Style_Selector_Type Style_Selector);
+    void Set_Style_Border_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_Selector);
+
+    // - - - - Color filter
+    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type* Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Color_Filter_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+
+    // - - - - Flex
+    void Set_Style_Flex_Cross_Place(Flex_Alignment_Type Cross_Place, Style_Selector_Type Style_Selector);
+    void Set_Style_Flex_Flow(Flex_Flow_Type Flow, Style_Selector_Type Style_Selector);
+    void Set_Style_Flex_Grow(uint8_t Value, Style_Selector_Type Style_Selector);
+    void Set_Style_Flex_Main_Place(Flex_Alignment_Type Main_Place, Style_Selector_Type Style_Selector);
+    void Set_Style_Flex_Track_Place(Flex_Alignment_Type Track_Place, Style_Selector_Type Style_Selector);
+
+    // - - - - Grid
+    void Set_Style_Grid_Cell_Column_Position(Coordinate_Type Column_Position, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Cell_Column_Span(Coordinate_Type Column_Span, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Cell_Row_Position(Coordinate_Type Row_Position, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Cell_Row_Span(Coordinate_Type Row_Span, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Cell_X_Alignment(Coordinate_Type X_Alignment, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Cell_Y_Alignment(Coordinate_Type Y_Alignment, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Column_Alignment(Grid_Alignment_Type Column_Alignment, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Column_Descriptor_Array(const Coordinate_Type* Column_Descriptor_Array, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Row_Alignment(Grid_Alignment_Type Row_Alignment, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Row_Descriptor_Array(const Coordinate_Type* Row_Descriptor_Array, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Height(Coordinate_Type Height, Style_Selector_Type Style_Selector);
+
+    // - - - - Image
+    void Set_Style_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Image_Recolor(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Layout(uint16_t Value, Style_Selector_Type Style_Selector);
+    
+    // - - - - Line
+    void Set_Style_Line_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Line_Dash_Gap(Coordinate_Type Dash_Gap, Style_Selector_Type Style_Selector);
+    void Set_Style_Line_Dash_Width(Coordinate_Type Dash_Width, Style_Selector_Type Style_Selector);
+    void Set_Style_Line_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Line_Rounded(bool Rounded, Style_Selector_Type Style_Selector);
+    void Set_Style_Line_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Maximum_Height(Coordinate_Type Maximum_Height, Style_Selector_Type Style_Selector);
+    void Set_Style_Maximum_Width(Coordinate_Type Maximum_Width, Style_Selector_Type Style_Selector);
+    void Set_Style_Minimum_Height(Coordinate_Type Minimum_Height, Style_Selector_Type Style_Selector);
+    void Set_Style_Minimum_Width(Coordinate_Type Minimum_Width, Style_Selector_Type Style_Selector);
+    void Set_Style_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+
+    // - - - - Outline
+    void Set_Style_Outline_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Outline_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Outline_Pad(Coordinate_Type Pad, Style_Selector_Type Style_Selector);
+    void Set_Style_Outline_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+    
+    // - - - - Pad
+    void Set_Style_Pad_Bottom(Coordinate_Type Pad_Bottom, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_Left(Coordinate_Type Pad_Left, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_Right(Coordinate_Type Pad_Right, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_Top(Coordinate_Type Pad_Top, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_Row(Coordinate_Type Pad_Row, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_Column(Coordinate_Type Pad_Column, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Radius(Coordinate_Type Radius, Style_Selector_Type Style_Selector);
+    
+    // - - - - Shadow
+    void Set_Style_Shadow_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Shadow_Offset_X(Coordinate_Type Offset_X, Style_Selector_Type Style_Selector);
+    void Set_Style_Shadow_Offset_Y(Coordinate_Type Offset_Y, Style_Selector_Type Style_Selector);
+    void Set_Style_Shadow_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+    void Set_Style_Shadow_Spread(Coordinate_Type Spread, Style_Selector_Type Style_Selector);
+    void Set_Style_Shadow_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+
+    // - - - - Text
+    void Set_Style_Text_Alignment(Text_Alignment_Type Alignment, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Color(Color_Type Color, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Decor(Text_Decor_Type Decor, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Font(Font_Type* Font, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Letter_Space(Coordinate_Type Letter_Space, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Line_Space(Coordinate_Type Line_Space, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
+
+    // - - - - Transform
+    void Set_Style_Transform_Angle(Coordinate_Type Angle, Style_Selector_Type Style_Selector);
+    void Set_Style_Transform_Height(Coordinate_Type Height, Style_Selector_Type Style_Selector);
+    void Set_Style_Transform_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+    void Set_Style_Transform_Zoom(Coordinate_Type Zoom, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Transition(const Style_Class::Transition_Descriptor_Type* Transition_Descriptor, Style_Selector_Type Style_Selector);
+
+    void Set_Style_Translate_X(Coordinate_Type Translate_X, Style_Selector_Type Style_Selector);
+    void Set_Style_Translate_Y(Coordinate_Type Translate_Y, Style_Selector_Type Style_Selector);
+    
+    void Set_Style_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
+
+    void Set_Style_X(Coordinate_Type Style_X, Style_Selector_Type Style_Selector);
+    void Set_Style_Y(Coordinate_Type Style_Y, Style_Selector_Type Style_Selector);
+
+    // - - - Tile
+    void Set_Tile(Object_Class& Tile, bool Animation);
+    void Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_Identifier, bool Animation);
+    void Set_User_Data(void* User_Data);
 
     // - - Getters values.
 
@@ -459,6 +574,7 @@ public:
     Object_Class Get_Child(uint16_t Index);
 
     // - - Style
+    
     Alignment_Type Get_Style_Align(uint32_t Part);
     // - - - Animation
     // const Animation_Class Get_Style_Animation(uint32_t Part);
@@ -505,16 +621,105 @@ public:
     const Color_Filter_Descriptor_Type *Get_Style_Color_Filter_Descriptor(uint32_t Part);
     Opacity_Type Get_Style_Color_Filter_Opacity(uint32_t Part);
 
+    // - - - Flex
+
     Flex_Flow_Type Get_Style_Flex_Flow(uint32_t Part);
     Flex_Alignment_Type Get_Style_Flex_Main_Place(uint32_t Part);
     Flex_Alignment_Type Get_Style_Flex_Cross_Place(uint32_t Part);
     Flex_Alignment_Type Get_Style_Flex_Track_Place(uint32_t Part);
     uint8_t Get_Style_Flex_Grow(uint32_t Part);
-    // TODO : Implement other styles properties.
+
+    // - - - Grid
+    Coordinate_Type Get_Style_Grid_Cell_Column_Position(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_Column_Span(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_Row_Position(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_Row_Span(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_X_Align(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_Y_Align(uint32_t Part);
+    Grid_Alignment_Type Get_Style_Grid_Column_Align(uint32_t Part);
+    const Coordinate_Type* Get_Style_Grid_Column_Descriptor_Array(uint32_t Part);
+    Grid_Alignment_Type Get_Style_Grid_Row_Align(uint32_t Part);
+    const Coordinate_Type* Get_Style_Grid_Row_Descriptor_Array(uint32_t Part);
+
+    Coordinate_Type Get_Style_Height(uint32_t Part);
+
+    // - - - Image
+    Opacity_Type Get_Style_Image_Opacity(uint32_t Part);
+    Color_Type Get_Style_Image_Recolor(uint32_t Part);
+    Color_Type Get_Style_Image_Recolor_Filtered(uint32_t Part);
+    Opacity_Type Get_Style_Image_Recolor_Opacity(uint32_t Part);
+
+    uint16_t Get_Style_Layout(uint32_t Part);
+
+    // - - - Line
+    Color_Type Get_Style_Line_Color(uint32_t Part);
+    Color_Type Get_Style_Line_Color_Filtered(uint32_t Part);
+    Coordinate_Type Get_Style_Line_Dash_Gap(uint32_t Part);
+    Coordinate_Type Get_Style_Line_Dash_Width(uint32_t Part);
+    Opacity_Type Get_Style_Line_Opacity(uint32_t Part);
+    bool Get_Style_Line_Rounded(uint32_t Part);
+    Coordinate_Type Get_Style_Line_Width(uint32_t Part);
+
+    // - - - Size
+    Coordinate_Type Get_Style_Maximum_Height(uint32_t Part);
+    Coordinate_Type Get_Style_Maximum_Width(uint32_t Part);
+    Coordinate_Type Get_Style_Minimum_Height(uint32_t Part);
+    Coordinate_Type Get_Style_Minimum_Width(uint32_t Part);
+
+    Opacity_Type Get_Style_Opacity(uint32_t Part);
+    
+    // - - - Outline
+    Color_Type Get_Style_Outline_Color(uint32_t Part);
+    Color_Type Get_Style_Outline_Color_Filtered(uint32_t Part);
+    Opacity_Type Get_Style_Outline_Opacity(uint32_t Part);
+    Coordinate_Type Get_Style_Outline_Padding(uint32_t Part);
+    Coordinate_Type Get_Style_Outline_Width(uint32_t Part);
+
+    // - - - Padding
+    Coordinate_Type Get_Style_Pad_Bottom(uint32_t Part);
+    Coordinate_Type Get_Style_Pad_Top(uint32_t Part);
+    Coordinate_Type Get_Style_Pad_Left(uint32_t Part);
+    Coordinate_Type Get_Style_Pad_Right(uint32_t Part);
+    Coordinate_Type Get_Style_Pad_Row(uint32_t Part);
+    Coordinate_Type Get_Style_Pad_Column(uint32_t Part);
+
+    Coordinate_Type Get_Style_Radius(uint32_t Part);
+
+    // - - - Shadow
+    Color_Type Get_Style_Shadow_Color(uint32_t Part);
+    Color_Type Get_Style_Shadow_Color_Filtered(uint32_t Part);
+    Coordinate_Type Get_Style_Shadow_Offset_X(uint32_t Part);
+    Coordinate_Type Get_Style_Shadow_Offset_Y(uint32_t Part);
+    Opacity_Type Get_Style_Shadow_Opacity(uint32_t Part);
+    Coordinate_Type Get_Style_Shadow_Spread(uint32_t Part);
+    Coordinate_Type Get_Style_Shadow_Width(uint32_t Part);
+
+    // - - - Text
+    Text_Alignment_Type Get_Style_Text_Alignment(uint32_t Part);
+    Color_Type Get_Style_Text_Color(uint32_t Part);
+    Color_Type Get_Style_Text_Color_Filtered(uint32_t Part);
+    Text_Decor_Type Get_Style_Text_Decor(uint32_t Part);
+    const Font_Type* Get_Style_Text_Font(uint32_t Part);
+    Coordinate_Type Get_Style_Text_Letter_Space(uint32_t Part);
+    Coordinate_Type Get_Style_Text_Line_Space(uint32_t Part);
+    Opacity_Type Get_Style_Text_Opacity(uint32_t Part);
+
+    // - - - Transform
+    Coordinate_Type Get_Style_Transform_Angle(uint32_t Part);
+    Coordinate_Type Get_Style_Transform_Height(uint32_t Part);
+    Coordinate_Type Get_Style_Transform_Width(uint32_t Part);
+    Coordinate_Type Get_Style_Transform_Zoom(uint32_t Part);
+    
+    const Style_Class::Transition_Descriptor_Type* Get_Style_Transition(uint32_t Part);
+    Coordinate_Type Get_Style_Translate_X(uint32_t Part);
+    Coordinate_Type Get_Style_Translate_Y(uint32_t Part);
+    Coordinate_Type Get_Style_Width(uint32_t Part);
+    Coordinate_Type Get_Style_X(uint32_t Part);
+    Coordinate_Type Get_Style_Y(uint32_t Part);
 
     // - - Operator
-    Object_Class &operator=(const Object_Class Object_Class);
-    operator bool() const;
+    Object_Class &operator=(Object_Class Object_Class);
+    operator bool();
 
     // TODO : See the encapsulation of these following methods.
     virtual bool Set_Pointer(lv_obj_t *Object);
