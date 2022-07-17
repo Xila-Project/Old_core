@@ -403,7 +403,7 @@ public:
     void Set_Height(Coordinate_Type Height);
 
     // - - - Flex
-    void Set_Flex_Align(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place);
+    void Set_Flex_Alignment(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place);
     void Set_Flex_Flow(Flex_Flow_Type Flow);
     void Set_Flex_Grow(uint8_t Grow);
 
@@ -458,7 +458,7 @@ public:
     void Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_Selector);
 
     // - - - - Color filter
-    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type* Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Class* Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
     void Set_Style_Color_Filter_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
 
     // - - - - Flex
@@ -575,7 +575,7 @@ public:
 
     // - - Style
     
-    Alignment_Type Get_Style_Align(uint32_t Part);
+    Alignment_Type Get_Style_Alignment(uint32_t Part);
     // - - - Animation
     // const Animation_Class Get_Style_Animation(uint32_t Part);
     uint32_t Get_Style_Animation_Time(uint32_t Part);
@@ -618,7 +618,7 @@ public:
     bool Get_Style_Border_Post(uint32_t Part);
 
     bool Get_Style_Clip_Corner(uint32_t Part);
-    const Color_Filter_Descriptor_Type *Get_Style_Color_Filter_Descriptor(uint32_t Part);
+    const Color_Filter_Descriptor_Class Get_Style_Color_Filter_Descriptor(uint32_t Part);
     Opacity_Type Get_Style_Color_Filter_Opacity(uint32_t Part);
 
     // - - - Flex
@@ -634,11 +634,11 @@ public:
     Coordinate_Type Get_Style_Grid_Cell_Column_Span(uint32_t Part);
     Coordinate_Type Get_Style_Grid_Cell_Row_Position(uint32_t Part);
     Coordinate_Type Get_Style_Grid_Cell_Row_Span(uint32_t Part);
-    Coordinate_Type Get_Style_Grid_Cell_X_Align(uint32_t Part);
-    Coordinate_Type Get_Style_Grid_Cell_Y_Align(uint32_t Part);
-    Grid_Alignment_Type Get_Style_Grid_Column_Align(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_X_Alignment(uint32_t Part);
+    Coordinate_Type Get_Style_Grid_Cell_Y_Alignment(uint32_t Part);
+    Grid_Alignment_Type Get_Style_Grid_Column_Alignment(uint32_t Part);
     const Coordinate_Type* Get_Style_Grid_Column_Descriptor_Array(uint32_t Part);
-    Grid_Alignment_Type Get_Style_Grid_Row_Align(uint32_t Part);
+    Grid_Alignment_Type Get_Style_Grid_Row_Alignment(uint32_t Part);
     const Coordinate_Type* Get_Style_Grid_Row_Descriptor_Array(uint32_t Part);
 
     Coordinate_Type Get_Style_Height(uint32_t Part);

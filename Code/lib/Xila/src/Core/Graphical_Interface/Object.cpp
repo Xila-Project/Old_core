@@ -245,7 +245,7 @@ void Object_Class::Set_Index(uint32_t Index)
     lv_obj_move_to_index(Get_Pointer(), Index);
 }
 
-void Object_Class::Set_Flex_Align(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place)
+void Object_Class::Set_Flex_Alignment(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place)
 {
     lv_obj_set_flex_align(Get_Pointer(), (lv_flex_align_t)Main_Place_Alignment, (lv_flex_align_t)Cross_Place_Alignment, (lv_flex_align_t)Track_Cross_Place);
 }
@@ -841,7 +841,7 @@ inline bool Object_Class::Get_Object_Visibility()
 
 // -- Style
 
-Object_Class::Alignment_Type Object_Class::Get_Style_Align(uint32_t Part)
+Object_Class::Alignment_Type Object_Class::Get_Style_Alignment(uint32_t Part)
 {
     return lv_obj_get_style_align(Get_Pointer(), Part);
 }
@@ -1077,17 +1077,17 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_Row_Span(uint32_
     return lv_obj_get_style_grid_cell_row_span(Get_Pointer(), Part);
 }
 
-Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_X_Align(uint32_t Part)
+Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_X_Alignment(uint32_t Part)
 {
     return lv_obj_get_style_grid_cell_x_align(Get_Pointer(), Part);
 }
 
-Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_Y_Align(uint32_t Part)
+Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_Y_Alignment(uint32_t Part)
 {
     return lv_obj_get_style_grid_cell_y_align(Get_Pointer(), Part);
 }
 
-Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Column_Align(uint32_t Part)
+Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Column_Alignment(uint32_t Part)
 {
     return (Grid_Alignment_Type)lv_obj_get_style_grid_column_align(Get_Pointer(), Part);
 }
@@ -1097,7 +1097,7 @@ const Object_Class::Coordinate_Type* Object_Class::Get_Style_Grid_Column_Descrip
     return lv_obj_get_style_grid_column_dsc_array(Get_Pointer(), Part);
 }
 
-Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Row_Align(uint32_t Part)
+Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Row_Alignment(uint32_t Part)
 {
     return (Grid_Alignment_Type)lv_obj_get_style_grid_row_align(Get_Pointer(), Part);
 }

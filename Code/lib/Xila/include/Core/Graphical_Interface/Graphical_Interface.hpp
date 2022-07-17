@@ -53,154 +53,12 @@
 class Graphic_Interface_Class
 {
 
-    /// @brief Event class.
-    class Event_Class
-    {
-    public:
-    
-        Event_Code_Type Get_Code();
-        Object_Class Get_Current_Target();
-        Object_Class Get_Target();
-        void *Get_User_Data();
-
-        typedef enum
-        {
-            All = LV_EVENT_ALL,
-            // -- Interaction related events
-            Pressed = LV_EVENT_PRESSED,
-            Pressing = LV_EVENT_PRESSING,
-            Press_Lost = LV_EVENT_PRESS_LOST,
-
-            Short_Clicked = LV_EVENT_SHORT_CLICKED,
-            Long_Pressed = LV_EVENT_LONG_PRESSED,
-            Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
-
-            Clicked = LV_EVENT_CLICKED,
-            Released = LV_EVENT_RELEASED,
-            Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
-            Scroll_End = LV_EVENT_SCROLL_END,
-            Scroll = LV_EVENT_SCROLL,
-            Gesture = LV_EVENT_GESTURE,
-            Key = LV_EVENT_KEY,
-            Focused = LV_EVENT_FOCUSED,
-            Defocused = LV_EVENT_DEFOCUSED,
-            Leave = LV_EVENT_LEAVE,
-            Hit_Test = LV_EVENT_HIT_TEST,
-            // -- Drawing context
-            Cover_Check = LV_EVENT_COVER_CHECK,
-
-            Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
-            Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
-            Draw_Main = LV_EVENT_DRAW_MAIN,
-            Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
-
-            Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
-            Draw_Post = LV_EVENT_DRAW_POST,
-            Draw_Post_End = LV_EVENT_DRAW_POST_END,
-            Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
-            Draw_Part_End = LV_EVENT_DRAW_PART_END,
-
-            // -- Special events
-            Value_Changed = LV_EVENT_VALUE_CHANGED,
-            Insert = LV_EVENT_INSERT,
-            Refresh = LV_EVENT_REFRESH,
-            Ready = LV_EVENT_READY,
-            Cancel = LV_EVENT_CANCEL,
-
-            // -- State events
-            Delete = LV_EVENT_DELETE,
-            Child_Changed = LV_EVENT_CHILD_CHANGED,
-            Child_Created = LV_EVENT_CHILD_CREATED,
-            Child_Deleted = LV_EVENT_CHILD_DELETED,
-
-            // -- Screen events
-            Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
-            Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
-            Screen_Loaded = LV_EVENT_SCREEN_LOADED,
-            Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
-
-            // -- Appearance events
-            Size_Changed = LV_EVENT_SIZE_CHANGED,
-            Style_Changed = LV_EVENT_STYLE_CHANGED,
-            Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
-            Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
-
-            Last_Event = _LV_EVENT_LAST
-        } Event_Code_Type;
-
-    private:
-        lv_event_t LVGL_Event;
-    };
+  
 
     void Initialise();
     bool Initialisation_State();
 
-    /// @brief Screnn class.
-    class Screen_Class : public Object_Class
-    {
-        // TODO : Implement screen API.
-    };
-
-
-
-
-
-    /// @brief Button matrix class.
-    
-
-    /// @brief Canvas class.
-
-
-
-
-
-
-    
-
-
-    class Table_Class : public Object_Class
-    {
-    public:
-        // -- Typedef
-
-        typedef lv_table_cell_format_t Cell_Format;
-
-        enum
-        {
-            Background,
-            Cell_1,
-            Cell_2,
-            Cell_3,
-            Cell_4
-        };
-
-        // -- Methods
-
-        Table_Class(Object_Class &Parent_Object);
-
-        // -- -- Setters.
-
-        void Set_Cell_Value(uint16_t Row, uint16_t Column, const char *Value);
-        void Set_Cell_Value_Format(uint16_t Row, uint16_t Column, const char *Formated_Value, ...);
-        void Set_Row_Count(uint16_t Row_Count);
-        void Set_Column_Count(uint16_t Column_Count);
-        void Set_Column_Width(uint16_t Column, Coordinates_Type Width);
-        void Set_Cell_Alignment(uint16_t Row, uint16_t Column, Label_Align_Type Align);
-        void Set_Cell_Type(uint16_t Row, uint16_t Column, uint8_t Type);
-        void Set_Cell_Crop(uint16_t Row, uint16_t Column, bool Crop);
-        void Set_Cell_Merge_Right(uint16_t Row, uint16_t Column, bool Merge);
-
-        // -- -- Getters.
-        const char *Get_Cell_Value(uint16_t Row, uint16_t Column);
-        uint16_t Get_Row_Count();
-        uint16_t Get_Column_Count();
-        Coordinates_Type Get_Column_Width(uint16_t Column);
-        Label_Align_Type Get_Cell_Alignment(uint16_t Row, uint16_t Column);
-        Label_Align_Type Get_Cell_Type(uint16_t Row, uint16_t Column);
-        Label_Align_Type Get_Cell_Crop(uint16_t Row, uint16_t Column);
-        bool Get_Cell_Merge_Right(uint16_t Row, uint16_t Column);
-        Ressource_Type Get_Pressed_Cell(uint16_t *Row, uint16_t *Column);
-    };
+   
 
   
 
@@ -301,34 +159,7 @@ class Graphic_Interface_Class
     };
 
     // @brief Color wheel class.
-    class Color_Wheel_Class : public Object_Class
-    {
-    public:
-        // -- Types
-        typedef lv_colorwheel_mode_t Mode_Type;
-
-        enum
-        {
-            Hue = LV_COLORWHEEL_MODE_HUE,
-            Saturation = LV_COLORWHEEL_MODE_SATURATION,
-            Value = LV_COLORWHEEL_MODE_VALUE
-        };
-
-        // -- Methods
-        Color_Wheel_Class(const Object_Class &Parent_Object);
-
-        // -- -- Setters
-        bool Set_HSV(Color_HSV_Type HSV_Color);
-        bool Set_RGB(Color_Type Color);
-        void Set_Mode(Mode_Type Mode);
-        void Set_Mode_Fixed(bool Fixed);
-
-        // -- Getters
-        Color_HSV_Type Get_HSV();
-        Color_Type Get_RGB();
-        Mode_Type Get_Mode();
-        bool Get_Mode_Fixed();
-    };
+ 
 
     /// @brief Menu class
     class Menu_Class : public Object_Class

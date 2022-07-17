@@ -1,114 +1,69 @@
 ///
- /// @file Table.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 04-05-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Table.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 04-05-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #ifndef TABLE_HPP_INCLUDED
- #define TABLE_HPP_INCLUDED
+#ifndef Table_Hpp_Included
+#define Table_Hpp_Included
 
-#include "Arduino.h"
+#include "Object.hpp"
 
-#define Class Xila_Class::Display_Class::Table_Class
-
-// -- Setters
-
-inline void Class::Set_Cell_Value(uint16_t Row, uint16_t Column, const char* Value)
+class Table_Class : public Object_Class
 {
-    lv_table_set_cell_value(Get_Pointer(), Row, Column, Value);
-}
+public:
+    // - Types
 
-inline void Class::Set_Cell_Value(uint16_t Row, uint16_t Column, const char* Formated_Value, ...)
-{
-    lv_table_set_cell_value_fmt(Get_Pointer(), Row, Column, Formated_Value, var_args);
-}
+    /// @brief Cell control type.
+    typedef lv_table_cell_ctrl_t Cell_Control_Type;
 
-inline void Class::Set_Row_Count(uint16_t Row_Count)
-{
-    lv_table_set_row_cnt(Get_Pointer(), Row_Count);
-}
+    /// @brief Cell control enumeration.
+    enum Cell_Control_Enumeration
+    {
+        Merge_Right = LV_TABLE_CELL_CTRL_MERGE_RIGHT,
+        Text_Crop = LV_TABLE_CELL_CTRL_TEXT_CROP,
+        Custom_1 = LV_TABLE_CELL_CTRL_CUSTOM_1,
+        Custom_2 = LV_TABLE_CELL_CTRL_CUSTOM_2,
+        Custom_3 = LV_TABLE_CELL_CTRL_CUSTOM_3,
+        Custom_4 = LV_TABLE_CELL_CTRL_CUSTOM_4,
+    };
 
-inline void Class::Set_Column_Count(uint16_t Column_Count)
-{
-    lv_table_set_col_cnt(Get_Pointer(), Column_Count);
-}
+    /// @brief Draw part enumeration and type.
+    typedef enum Draw_Part_Enumeration
+    {
+        Cell = LV_TABLE_DRAW_PART_CELL, /**< A cell*/
+    } Draw_Part_Type;
 
-inline void Class::Set_Column_Width(uint16_t Column, Coordinates_Type Width)
-{
-    lv_table_set_col_width(Get_Pointer(), Column, Width);
-}
+    // - Methods
 
-inline void Class::Set_Cell_Alignment(uint16_t Row, uint16_t Column, Label_Align_Type Align)
-{
-    lv_table_set_cell_align(Get_Pointer(), Row, Column, Align);
-}
+    // - - Management
+    void Create(Object_Class &Parent_Object);
 
-inline void Class::Set_Cell_Type(uint16_t Row, uint16_t Column, uint8_t Type)
-{
-    lv_table_set_cell_type(Get_Pointer(), Row, Column, Type);
-}
+    void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
+    void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
+    bool Has_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
 
-inline void Class::Set_Cell_Crop(uint16_t Row, uint16_t Column, bool Crop)
-{
-    lv_table_set_cell_crop(Get_Pointer(), Row, Column, Crop);
-}
+    // -- -- Getters.
+    const char *Get_Cell_Value(uint16_t Row, uint16_t Column);
+    uint16_t Get_Row_Count();
+    uint16_t Get_Column_Count();
+    Coordinate_Type Get_Column_Width(uint16_t Column);
+    void Get_Selected_Cell(uint16_t* Row, uint16_t* Column);
 
-inline void Class::Set_Cell_Merge_Right(uint16_t Row, uint16_t Column, bool Merge)
-{
-    lv_table_set_cell_merge_right(Get_Pointer(), Row, Column, Merge);
-}
+    // - - Setters.
+    bool Set_Pointer(lv_obj_t *Object);
 
-// -- Getters
+    void Set_Cell_Value(uint16_t Row, uint16_t Column, const char *Value);
+    void Set_Cell_Value_Format(uint16_t Row, uint16_t Column, const char *Formated_Value, ...);
+    void Set_Row_Count(uint16_t Row_Count);
+    void Set_Column_Count(uint16_t Column_Count);
+    void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
+    
+ 
+};
 
-const char* Class::Get_CEll_Value(uint16_t Row, uint16_t Column)
-{
-    return lv_table_get_cell_value(Get_Pointer(), Row, Column);
-}
-
-inline uint16_t Class::Get_Row_Count()
-{
-    return lv_table_get_row_cnt(Get_Pointer());
-}
-
-inline uint16_t Class::Get_Column_Count()
-{
-    return lv_table_get_col_cnt(Get_Pointer());
-}
-
-inline Coordinates_Type Class::Get_Column_Width(uint16_t Column)
-{
-    return lv_table_get_col_width(Get_Pointer(), Column);
-}
-
-inline Label_Align_Type Class::Get_Cell_Alignment(uint16_t Row, uint16_t Column)
-{
-    return lv_table_get_cell_align(Get_Pointer(), Row, Column);
-}
-
-inline Label_Align_Type Class::Get_Cell_Type(uint16_t Row, uint16_t Column)
-{
-    return lv_table_get_cell_type(Get_Pointer(), Row, Column);
-}
-
-inline Label_Align_Type Class::Get_Cell_Crop(uint16_t Row, uint16_t Column)
-{
-    return lv_table_get_cell_crop(Get_Pointer(), Row, Column);
-}
-
-inline bool Class::Get_Cell_Merge_Right(uint16_t Row, uint16_t Column)
-{
-    return lv_table_get_cell_merge_right(Get_Pointer(), Row, Column);
-}
-
-inline Ressource_Type Class::Get_Pressed_Cell(uint16_t* Row, uint16_t* Column)
-{
-    return lv_table_get_pressed_cell(Get_Pointer(), Row, Column);
-}
-
-#undef Class
-
- #endif
+#endif
