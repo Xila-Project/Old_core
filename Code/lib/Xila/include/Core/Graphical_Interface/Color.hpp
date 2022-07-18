@@ -32,6 +32,30 @@ class Color_Class
 public:
     // - Types
 
+    typedef enum Palette_Enumeration
+    {
+        Red = LV_PALETTE_RED,
+        Pink = LV_PALETTE_PINK,
+        Purple = LV_PALETTE_PURPLE,
+        Deep_Purple = LV_PALETTE_DEEP_PURPLE,
+        Indigo = LV_PALETTE_INDIGO,
+        Blue = LV_PALETTE_BLUE,
+        Light_Blue = LV_PALETTE_LIGHT_BLUE,
+        Cyan = LV_PALETTE_CYAN,
+        Teal = LV_PALETTE_TEAL,
+        Green = LV_PALETTE_GREEN,
+        Light_Green = LV_PALETTE_LIGHT_GREEN,
+        Lime = LV_PALETTE_LIME,
+        Yellow = LV_PALETTE_YELLOW,
+        Amber = LV_PALETTE_AMBER,
+        Orange = LV_PALETTE_ORANGE,
+        Deep_Orange = LV_PALETTE_DEEP_ORANGE,
+        Brown = LV_PALETTE_BROWN,
+        Blue_Grey = LV_PALETTE_BLUE_GREY,
+        Grey = LV_PALETTE_GREY,
+        None = LV_PALETTE_NONE,
+    } Palette_Type;
+
     typedef lv_opa_t Opacity_Type;
 
     // - Methods
@@ -59,6 +83,11 @@ public:
     void Set_Darker(Opacity_Type Opacity);
     void Set_Lighter(Opacity_Type Opacity);
 
+    void Set_From_Palette_Main(Palette_Type Palette);
+    void Set_From_Palette_Darken(Palette_Type Palette, uint8_t Level);
+    void Set_From_Palette_Lighten(Palette_Type Palette, uint8_t Level);
+
+
     // - - Getters
 
     void Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value);
@@ -69,11 +98,17 @@ public:
 
     uint8_t Get_Brightness();
 
+    static Color_Class Get_From_Palette_Main(Palette_Type Palette);
+    static Color_Class Get_From_Palette_Darken(Palette_Type Palette, uint8_t Level);
+    static Color_Class Get_From_Palette_Lighten(Palette_Type Palette, uint8_t Level);
+
     lv_color_t Get_LVGL_Color();
     lv_color_hsv_t Get_LVGL_HSV_Color();
 
 protected:
     lv_color_t LVGL_Color;
 };
+
+class 
 
 #endif

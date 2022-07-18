@@ -18,10 +18,6 @@ class Drop_Down_List_Class : public Object_Class
 {
 public:
 
-    class List_Class : public Object_Class
-    {
-    };
-
     // - Methods
 
     // - - Management

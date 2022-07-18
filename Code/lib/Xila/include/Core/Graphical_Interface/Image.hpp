@@ -11,6 +11,7 @@
 #ifndef Image_Hpp_Included
 #define Image_Hpp_Included
 
+#include "Arduino.h"
 #include "Object.hpp"
 
 /// @brief image class

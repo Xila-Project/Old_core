@@ -640,6 +640,11 @@ void Object_Class::Set_Style_Pad_Column(Coordinate_Type Pad_Column, Style_Select
     lv_obj_set_style_pad_column(Get_Pointer(), Pad_Column, Style_Selector);
 }
 
+void Object_Class::Set_Style_Pad_All(Coordinate_Type Pad_All, Style_Selector_Type Style_Selector)
+{
+    lv_obj_set_style_pad_all(Get_Pointer(), Pad_All, Style_Selector);
+}
+
 void Object_Class::Set_Style_Radius(Coordinate_Type Radius, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_radius(Get_Pointer(), Radius, Style_Selector);
@@ -1210,7 +1215,7 @@ Object_Class::Opacity_Type Object_Class::Get_Style_Outline_Opacity(uint32_t Part
     return lv_obj_get_style_outline_opa(Get_Pointer(), Part);
 }
 
-Object_Class::Coordinate_Type Object_Class::Get_Style_Outline_Padding(uint32_t Part)
+Object_Class::Coordinate_Type Object_Class::Get_Style_Outline_Pad(uint32_t Part)
 {
     return lv_obj_get_style_outline_pad(Get_Pointer(), Part);
 }

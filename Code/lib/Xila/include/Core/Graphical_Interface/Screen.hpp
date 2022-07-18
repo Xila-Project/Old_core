@@ -13,7 +13,7 @@
 
 #include "Arduino.h"
 
-#define Class Xila_Class::Display_Class::Screen_Class // Shortcut
+
 
 
 

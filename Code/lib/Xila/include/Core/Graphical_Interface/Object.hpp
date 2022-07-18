@@ -33,9 +33,6 @@ public:
     /// @brief Animation type.
     typedef Animation_Class Animation_Type;
 
-    /// @brief Style animation type.
-    typedef Style_Class Style_Type;
-
     /// @brief Text font type
     typedef lv_font_t Font_Type;
 
@@ -516,6 +513,7 @@ public:
     void Set_Style_Pad_Top(Coordinate_Type Pad_Top, Style_Selector_Type Style_Selector);
     void Set_Style_Pad_Row(Coordinate_Type Pad_Row, Style_Selector_Type Style_Selector);
     void Set_Style_Pad_Column(Coordinate_Type Pad_Column, Style_Selector_Type Style_Selector);
+    void Set_Style_Pad_All(Coordinate_Type Pad_All, Style_Selector_Type Style_Selector);
 
     void Set_Style_Radius(Coordinate_Type Radius, Style_Selector_Type Style_Selector);
     
@@ -672,7 +670,7 @@ public:
     Color_Type Get_Style_Outline_Color(uint32_t Part);
     Color_Type Get_Style_Outline_Color_Filtered(uint32_t Part);
     Opacity_Type Get_Style_Outline_Opacity(uint32_t Part);
-    Coordinate_Type Get_Style_Outline_Padding(uint32_t Part);
+    Coordinate_Type Get_Style_Outline_Pad(uint32_t Part);
     Coordinate_Type Get_Style_Outline_Width(uint32_t Part);
 
     // - - - Padding

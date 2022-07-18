@@ -56,11 +56,6 @@ void Color_Class::Change_Lightness(Opacity_Type Opacity)
     LVGL_Color = lv_color_change_lightness(LVGL_Color, Opacity);
 }
 
-uint8_t Color_Class::Convert_To_1_Bit()
-{
-    return lv_color_to1(LVGL_Color);
-}
-
 // ------------------------------------------------------------------------- //
 //
 //                                    Setters
@@ -112,6 +107,21 @@ void Color_Class::Set_Darker(Opacity_Type Opacity)
 void Color_Class::Set_Lighter(Opacity_Type Opacity)
 {
     LVGL_Color = lv_color_lighten(LVGL_Color, Opacity);
+}
+
+void Color_Class::Set_From_Palette_Main(Palette_Type Palette)
+{
+    LVGL_Color = lv_palette_main((lv_palette_t)Palette);
+}
+
+void Color_Class::Set_From_Palette_Lighten(Palette_Type Palette, uint8_t Level)
+{
+    LVGL_Color = lv_palette_lighten((lv_palette_t)Palette, Level);
+}
+
+void Color_Class::Set_From_Palette_Darken(Palette_Type Palette, uint8_t Level)
+{
+    LVGL_Color = lv_palette_darken((lv_palette_t)Palette, Level);
 }
 
 // ------------------------------------------------------------------------- //
@@ -167,3 +177,19 @@ uint32_t Color_Class::Get_RGB_32_Bits()
 {
     return lv_color_to32(LVGL_Color);
 }
+
+Color_Class Color_Class::Get_From_Palette_Main(Palette_Type Palette)
+{
+    return Color_Class(lv_palette_main((lv_palette_t)Palette));
+}
+
+Color_Class Color_Class::Get_From_Palette_Lighten(Palette_Type Palette, uint8_t Level)
+{
+    return Color_Class(lv_palette_lighten((lv_palette_t)Palette, Level));
+}
+
+Color_Class Color_Class::Get_From_Palette_Darken(Palette_Type Palette, uint8_t Level)
+{
+    return Color_Class(lv_palette_darken((lv_palette_t)Palette, Level));
+}
+
