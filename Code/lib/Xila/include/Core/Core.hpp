@@ -25,7 +25,7 @@
 
 #else
 
-#error Xila requires a C++ complier, pleasr change file extension to .cpp
+#error Xila requires a C++ complier, please change file extension to .cpp
 
 #endif
 
@@ -68,10 +68,6 @@
 // -- Debug library
 #include <ArduinoTrace.h>
 
-// -- Driver headers
-#include "Nextion_Library.hpp"
-#include "Battery_Library.hpp"
-
 //----------------------------------------------------------------------------//
 //                          Include all project file                          //
 //----------------------------------------------------------------------------//
@@ -79,7 +75,10 @@
 // -- Configuration file (at compile time)
 #include "Configuration.hpp" // default values
 #include "Modules/Log.hpp"
-#include "Modules/Path.hpp"  // Path list
+#include "Modules/Path.hpp" // Path list
+
+// -- Components
+#include "Graphic_Interface.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -134,40 +133,56 @@ public:
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
-    ///
+    class Date_Type {
+    private:
+        uint8_t Day;
+        uint8_t Month;
+        uint16_t Year;
+    public:
+        Date_Type();
+        Date_Type(uint8_t Day, uint8_t Month, uint16_t Year);
+
+        void Set(uint8_t Day, uint8_t Month, uint16_t Year);
+        void Set_Day(uint8_t Day);
+        void Set_Month(uint8_t Month);
+        void Set_Year(uint16_t Year);
+    
+        uint8_t Get_Day();
+        uint8_t Get_Month();
+        uint16_t Get_Year();
+    };
+
     /// @brief Xila Address type.
-    ///
     typedef uint16_t Address;
 
-    ///
     /// @brief Image type.
-    ///
     typedef uint8_t Image;
 
-    ///
     /// @brief Xila instruction type.
-    ///
-    typedef uint16_t Instruction;
+    union Instruction_Type {
+        uint32_t Instruction;
+        struct {
+            uint8_t Sender;
+            uint8_t Argument[3];
+        };
+    };
+    }
 
-    ///
     /// @brief Page type.
-    ///
     typedef uint8_t Page;
 
-    ///
     /// @brief Task type
-    ///
     typedef void Task_Function;
 
-    ///
     /// @brief Task handle type
-    ///
-    typedef void *Task_Handle;
+    typedef void * Task_Handle;
 
-    ///
+    /// @brief Size Type;
+    typedef size_t Size_Type;
+
+
     /// @brief Instructions used by the core (with the prefix "#").
-    ///
-    enum : Xila_Class::Instruction
+    enum Instructions_Enumeration : Xila_Class::Instruction
     {
         // -- General instructions
         Idle = 0,
@@ -183,7 +198,7 @@ public:
         Watchdog = 'W',
         // -- Shell specials instructions
         Desk = 'D',                // Open desk
-        Dialog_Open_File = 'f',    // Open open file dialog
+        /*Dialog_Open_File = 'f',    // Open open file dialog
         Dialog_Open_Folder = 'F',  // Open open folder dialog
         Dialog_Save_File = 'e',    // Open save file dialog
         Dialog_Keyboard = 'K',     // Open keyboard dialog
@@ -192,7 +207,7 @@ public:
         Dialog_Power = 'P',        // Open power dialog
         Dialog_Event = 'E',        // Open event dialog
         Dialog_Login = 'L',        // Open login dialog
-        Dialog_Load = 'l'          // Open load dialog
+        Dialog_Load = 'l'          // Open load dialog*/
     };
 
     ///
@@ -335,7 +350,7 @@ public:
         ///
         /// @brief Software string name.
         ///
-        char Name[Default_Software_Name_Length]; //used to identify the software,
+        char Name[Default_Software_Name_Length]; // used to identify the software,
 
         ///
         /// @brief Software icon.
@@ -507,13 +522,13 @@ public:
     ///
     /// @brief Display class
     ///
-    class Display_Class : public Nextion_Class
+    class Display_Class
     {
     public:
         Display_Class();
         ~Display_Class();
 
-        uint8_t Get_State();
+        // -- Enumerations
 
         ///
         /// @brief Prefix used to distinguish exchanged data between display, core and software
@@ -541,31 +556,6 @@ public:
         };
 
         ///
-        /// @brief Xila_16 special characters list.
-        ///
-        enum Xila_16 : uint8_t
-        {
-            State_Button = 127,
-            Left_Arrow,
-            Right_Arrow,
-            Up_Arrow,
-            Down_Arrow,
-            Battery_Empty,
-            Battery_Quarter,
-            Battery_Half,
-            Battery_Three_Quarters,
-            Battery_Full,
-            WiFi_Low,
-            WiFi_Medium,
-            WiFi_High,
-            Bluetooth,
-            Sound_Mute,
-            Sound_Low,
-            Sound_Medium,
-            Sound_High,
-        };
-
-        ///
         /// @brief Xila_32 special characters list.
         ///
         enum Font_32
@@ -573,51 +563,6 @@ public:
             Exclamation_Mark = 127,
             Question_Mark,
             Cross
-        };
-
-
-        ///
-        /// @brief Image offsets list.
-        ///
-        /// @details All image offset, used by included software to keep track of picture offset
-        ///
-        enum Image_Offset
-        {
-            Loader_Images = 0,
-            Shell_Images = Loader_Images + 2, 
-            Calculator_Images = Shell_Images + 20,
-            Clock_Images = Calculator_Images + 1,
-            Internet_Browser_Images = Clock_Images + 1,
-            Music_Player_Images = Internet_Browser_Images + 1,
-            Oscilloscope_Images = Music_Player_Images + 9,
-            Paint_Images = Oscilloscope_Images + 1,
-            Periodic_Images = Paint_Images + 1,
-            Piano_Images = Periodic_Images + 2,
-            Pong_Images = Piano_Images + 4,
-            Simon_Images = Pong_Images + 1,
-            Text_Editor_Images = Simon_Images + 1,
-            Tiny_Basic_Images = Text_Editor_Images + 1
-        };
-
-        ///
-        /// @brief Software pages offset enumeration.
-        ///
-        enum Pages_Offset
-        {
-            Core_Pages = 0,
-            Shell_Pages = 5,
-            Calculator_Pages = 23,
-            Clock_Pages,
-            Text_Editor_Pages = 28,
-            Paint_Pages,
-            Internet_Browser_Pages,
-            Music_Player_Pages,
-            Oscilloscope_Pages,
-            Periodic_Pages,
-            Piano_Pages = 35,
-            Pong_Pages,
-            Simon_Pages,
-            Tiny_Basic_Pages
         };
 
         ///
@@ -632,22 +577,12 @@ public:
             Regular_48      ///< Roboto Regular 48 px.
         };
 
-        static void Incoming_String_Data_From_Display(const char *, uint8_t);
-        static void Incoming_Numeric_Data_From_Display(uint32_t);
-        static void Incoming_Event_From_Display(uint8_t);
+        uint8_t Get_State();
 
         friend class Xila_Class;
         friend class Shell_Class;
         friend class Unit_Test_Class;
 
-    protected:
-        void Set_State(uint8_t State);
-
-        uint8_t State;
-
-        uint8_t Brightness, Receive_Pin, Standby_Time, Transmit_Pin;
-
-        Xila_Class::Address Current_Address;
 
         Xila_Class::Event Load_Registry();
         Xila_Class::Event Save_Registry();
@@ -697,7 +632,7 @@ public:
         uint64_t Total_Bytes();
         uint64_t Used_Bytes();
 
-        //Custom
+        // Custom
 
         Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
         Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
@@ -720,7 +655,7 @@ public:
 
     ///=============================================================================//
     ///
-    /// @brief Flash class
+    /// @brief Flash wrapper class.
     ///
     class Flash_Class
     {
@@ -741,7 +676,6 @@ public:
     private:
         // -- Methods
         Xila_Class::Event Set_Boot_Partition(const uint8_t Partition_Number);
-        
 
         Xila_Class::Event Erase_Sector(uint32_t Sector);
         Xila_Class::Event Write(uint32_t Offset, uint32_t *Data, size_t Size);
@@ -753,11 +687,16 @@ public:
         uint32_t Magic_Size(uint8_t Byte);
         uint32_t Magic_Speed(uint8_t Byte);
         FlashMode_t Magic_Mode(uint8_t Byte);
-    
+
         friend class Xila_Class;
         friend class Shell_Class;
         friend class Unit_Test_Class;
     } Flash;
+
+    //==============================================================================//
+    // @brief Graphic interface wrapper
+    //==============================================================================//
+    typedef Graphic_Interface_Class Graphic_Interface;
 
     //==============================================================================//
     ///
@@ -1027,7 +966,7 @@ public:
         uint8_t Data_Pin;
         uint8_t Clock_Pin;
 
-        inline void Begin();
+        void Begin();
 
     } Keyboard;
 
@@ -1501,13 +1440,40 @@ public:
     {
 
     public:
-        // -- Task management -- //
-        Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
-        void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
-        void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
-        void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
+        typedef TickType_t Tick_Type;
+        
+        // -- Communication between tasks
 
-        void Delay(uint32_t Delay_In_Millisecond) const;
+        typedef SemaphoreHandle_t Semaphore_Handle_Type;
+        typedef StaticSemaphore_t Static_Semaphore_Type;
+        ///
+        /// @brief
+        ///
+        class Semaphore_Class
+        {
+        public:
+            typedef TickType_t Tick_Type;
+
+            enum
+            {
+                Binary,
+                Counting,
+                Mutex,
+                Recursive_Mutex
+            };
+
+            static Semaphore_Handle_Type Create(uint8_t Type, UBaseType_t Initial_Count, UBaseType_t Maximum_Count);
+            static Semaphore_Handle_Type Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count = 0, UBaseType_t Maximum_Count = 0);
+            static void Delete(Semaphore_Handle_Type Semaphore_Handle);
+            static void Take(Semaphore_Handle_Type Semaphore_Handle);
+            static void Give(Semaphore_Handle_Type Semaphore_Handle);
+            static void Take_From_ISR(Semaphore_Type Semaphore_Handle, signed UBaseType_t *Higher_Priority_Task_Woken);
+            static void Give_From_ISR(Semaphore_Type Semaphore_Handle, signed UBaseType_t *Higher_Priority_Task_Woken);
+            static void Take_Recursive(Semaphore_Handle_Type Semaphore_Handle, Tick_Type Ticks_To_Wait);
+            static void Give_Recursive(Semaphore_Handle_Type Semaphore_Handle);
+            static Xila_Class::Task_Handle Get_Mutex_Holder(Semaphore_Handle_Type Semaphore_Handle);
+            static UBaseType_t Get_Count(Semaphore_Handle_Type Semaphore);
+        };
 
         // -- Friendship
         friend Xila_Class;
@@ -1664,6 +1630,8 @@ bool operator==(Xila_Class::Software_Handle const &a, Xila_Class::Software_Handl
 #include "Core/Abstraction/GPIO.hpp"
 #include "Core/Abstraction/Memory.hpp"
 #include "Core/Abstraction/Flash.hpp"
+
+#include "Core/Abstraction/Display.hpp"
 
 extern Xila_Class Xila;
 
