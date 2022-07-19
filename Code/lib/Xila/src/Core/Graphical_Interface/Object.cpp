@@ -10,6 +10,7 @@
 
 #include "Core/Graphical_Interface/Object.hpp"
 #include "Core/Graphical_Interface/Animation.hpp"
+#include "Core/Core.hpp"
 
 // ------------------------------------------------------------------------- //
 //
@@ -116,21 +117,20 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(Event_Type Event)
+void Object_Class::Add_Event(Event_Code_Type Event_Code)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Xila_Class::Display_Object_Class::Event_Handler, Event, NULL);
+    lv_obj_add_event_cb(Get_Pointer(), Event_Handler, Event, NULL);
+    lv_res_t
 }
 
-bool Object_Class::Remove_Event(Event_Type Event)
+bool Object_Class::Remove_Event(Event_Code_Type Event_Code)
 {
-    lv_obj_remove_event_cb(Get_Pointer(), Event);
+    lv_obj_remove_event_cb(Get_Pointer(), Event_Code);
 }
 
-void Object_Class::Send_Event(Event_Type Event)
+void Object_Class::Send_Event(Event_Code_Type Event_Code)
 {
-    lv_event_send(Get_Pointer(), Event, NULL);
-
-    
+    lv_event_send(Get_Pointer(), Event_Code, NULL);
 }
 
 void Object_Class::Move_Foreground()
@@ -170,6 +170,11 @@ Object_Class::Coordinate_Type Object_Class::DPX(Coordinate_Type Pixels_To_Scale)
 void Object_Class::Add_Style(Style_Type *Style, Style_Selector_Type Style_Selector)
 {
     lv_obj_add_style(Get_Pointer(), Style, Style_Selector);
+}
+
+void Object_Class::Event_Callback(lv_event_t* Event)
+{
+    Xila.Software.Send_Instruction(, Xila_Class::Graphical_Interface, (char*)lv_event_get_user_data(Event))
 }
 
 // ------------------------------------------------------------------------- //

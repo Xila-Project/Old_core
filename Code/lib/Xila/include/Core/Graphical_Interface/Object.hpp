@@ -23,13 +23,78 @@
 
 #define Class Xila_Class::Display_Class::Object_Class // Shortcut
 
-#define Percentage(x)   LV_PCT(x)
+#define Percentage(x) LV_PCT(x)
 
 /// @brief Object class.
 class Object_Class
 {
 public:
     // - Types
+
+    typedef enum Event_Code_Enumeration
+    {
+        All = LV_EVENT_ALL,
+        // -- Interaction related events
+        Pressed = LV_EVENT_PRESSED,
+        Pressing = LV_EVENT_PRESSING,
+        Press_Lost = LV_EVENT_PRESS_LOST,
+
+        Short_Clicked = LV_EVENT_SHORT_CLICKED,
+        Long_Pressed = LV_EVENT_LONG_PRESSED,
+        Long_Pressed_Repeat = LV_EVENT_LONG_PRESSED_REPEAT,
+
+        Clicked = LV_EVENT_CLICKED,
+        Released = LV_EVENT_RELEASED,
+        Scroll_Begin = LV_EVENT_SCROLL_BEGIN,
+        Scroll_End = LV_EVENT_SCROLL_END,
+        Scroll = LV_EVENT_SCROLL,
+        Gesture = LV_EVENT_GESTURE,
+        Key = LV_EVENT_KEY,
+        Focused = LV_EVENT_FOCUSED,
+        Defocused = LV_EVENT_DEFOCUSED,
+        Leave = LV_EVENT_LEAVE,
+        Hit_Test = LV_EVENT_HIT_TEST,
+        // -- Drawing context
+        Cover_Check = LV_EVENT_COVER_CHECK,
+
+        Extra_Draw_Size = LV_EVENT_REFR_EXT_DRAW_SIZE,
+        Draw_Main_Begin = LV_EVENT_DRAW_MAIN_BEGIN,
+        Draw_Main = LV_EVENT_DRAW_MAIN,
+        Draw_Main_End = LV_EVENT_DRAW_MAIN_END,
+
+        Draw_Post_Begin = LV_EVENT_DRAW_POST_BEGIN,
+        Draw_Post = LV_EVENT_DRAW_POST,
+        Draw_Post_End = LV_EVENT_DRAW_POST_END,
+        Draw_Part_Begin = LV_EVENT_DRAW_PART_BEGIN,
+        Draw_Part_End = LV_EVENT_DRAW_PART_END,
+
+        // -- Special events
+        Value_Changed = LV_EVENT_VALUE_CHANGED,
+        Insert = LV_EVENT_INSERT,
+        Refresh = LV_EVENT_REFRESH,
+        Ready = LV_EVENT_READY,
+        Cancel = LV_EVENT_CANCEL,
+
+        // -- State events
+        Delete = LV_EVENT_DELETE,
+        Child_Changed = LV_EVENT_CHILD_CHANGED,
+        Child_Created = LV_EVENT_CHILD_CREATED,
+        Child_Deleted = LV_EVENT_CHILD_DELETED,
+
+        // -- Screen events
+        Screen_Unload_Start = LV_EVENT_SCREEN_UNLOAD_START,
+        Screen_Load_Start = LV_EVENT_SCREEN_LOAD_START,
+        Screen_Loaded = LV_EVENT_SCREEN_LOADED,
+        Screen_Unloaded = LV_EVENT_SCREEN_UNLOADED,
+
+        // -- Appearance events
+        Size_Changed = LV_EVENT_SIZE_CHANGED,
+        Style_Changed = LV_EVENT_STYLE_CHANGED,
+        Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
+        Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
+
+        Last_Event = _LV_EVENT_LAST
+    } Event_Code_Type;
 
     /// @brief Animation type.
     typedef Animation_Class Animation_Type;
@@ -51,11 +116,11 @@ public:
     /// @brief Text alignment enumeration.
     enum Text_Alignment_Enumeration
     {
-        
-        Automatic = LV_TEXT_ALIGN_AUTO,   /**< Align text auto*/
-        Left = LV_TEXT_ALIGN_LEFT,   /**< Align text to left*/
-        Center = LV_TEXT_ALIGN_CENTER, /**< Align text to center*/
-        Right = LV_TEXT_ALIGN_RIGHT,  /**< Align text to right*/
+
+        Automatic = LV_TEXT_ALIGN_AUTO, /**< Align text auto*/
+        Left = LV_TEXT_ALIGN_LEFT,      /**< Align text to left*/
+        Center = LV_TEXT_ALIGN_CENTER,  /**< Align text to center*/
+        Right = LV_TEXT_ALIGN_RIGHT,    /**< Align text to right*/
     };
 
     /// @brief Text alignment type.
@@ -383,6 +448,8 @@ public:
 
     Coordinate_Type DPX(Coordinate_Type Coordinate);
 
+    static void Event_Callback(lv_event_t *Event);
+
     // - - Setters methods.
     void Set_Index(uint32_t Index);
     void Set_Parent(Object_Class Parent_Object);
@@ -393,7 +460,7 @@ public:
     void Set_Position_X(Coordinate_Type X);
     void Set_Position_Y(Coordinate_Type Y);
     void Set_Position(Coordinate_Type X, Coordinate_Type Y);
-    void Set_Alignment(Alignment_Type Alignment);   // -- Relative to parent object.
+    void Set_Alignment(Alignment_Type Alignment);                                                                                        // -- Relative to parent object.
     void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
     void Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
     void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
@@ -408,20 +475,20 @@ public:
     // - - - Grid
     void Set_Grid_Alignment(Grid_Alignment_Type Column_Alignment, Grid_Alignment_Type Row_Alignment);
     void Set_Grid_Cell(Grid_Alignment_Type Column_Alignment, uint8_t Column_Position, uint8_t Column_Span, Grid_Alignment_Type Row_Alignment, uint8_t Row_Position, uint8_t Row_Span);
-    void Set_Grid_Descriptor_Array(const Coordinate_Type* Column_Descriptor, const Coordinate_Type* Row_Descriptor);
+    void Set_Grid_Descriptor_Array(const Coordinate_Type *Column_Descriptor, const Coordinate_Type *Row_Descriptor);
 
     // - - - Style
-    
+
     // - - - - Position
     void Set_Style_Alignment(Alignment_Type Alignment, Style_Selector_Type Style_Selector);
 
     // - - - - Animation
     void Set_Style_Animation_Speed(uint32_t Value, Style_Selector_Type Style_Selector);
     void Set_Style_Animation_Time(uint32_t Value, Style_Selector_Type Style_Selector);
-    
+
     // - - - - Arc
     void Set_Style_Arc_Color(Color_Type Color, Style_Selector_Type Style_Selector);
-    void Set_Style_Arc_Image_Source(const void* Image_Source, Style_Selector_Type Style_Selector);
+    void Set_Style_Arc_Image_Source(const void *Image_Source, Style_Selector_Type Style_Selector);
     void Set_Style_Arc_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
     void Set_Style_Arc_Rounded(bool Rounded, Style_Selector_Type Style_Selector);
     void Set_Style_Arc_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
@@ -431,14 +498,14 @@ public:
     // - - - - Background
     void Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector);
-    void Set_Style_Background_Gradient(const Gradient_Descriptor_Type* Gradient_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Image_Recolor(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
-    void Set_Style_Background_Image_Source(const void* Image_Source, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Image_Source(const void *Image_Source, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Image_Tiled(bool Tiled, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Main_Stop(Coordinate_Type Value, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
@@ -456,7 +523,7 @@ public:
     void Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_Selector);
 
     // - - - - Color filter
-    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Class* Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Class *Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
     void Set_Style_Color_Filter_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
 
     // - - - - Flex
@@ -474,9 +541,9 @@ public:
     void Set_Style_Grid_Cell_X_Alignment(Coordinate_Type X_Alignment, Style_Selector_Type Style_Selector);
     void Set_Style_Grid_Cell_Y_Alignment(Coordinate_Type Y_Alignment, Style_Selector_Type Style_Selector);
     void Set_Style_Grid_Column_Alignment(Grid_Alignment_Type Column_Alignment, Style_Selector_Type Style_Selector);
-    void Set_Style_Grid_Column_Descriptor_Array(const Coordinate_Type* Column_Descriptor_Array, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Column_Descriptor_Array(const Coordinate_Type *Column_Descriptor_Array, Style_Selector_Type Style_Selector);
     void Set_Style_Grid_Row_Alignment(Grid_Alignment_Type Row_Alignment, Style_Selector_Type Style_Selector);
-    void Set_Style_Grid_Row_Descriptor_Array(const Coordinate_Type* Row_Descriptor_Array, Style_Selector_Type Style_Selector);
+    void Set_Style_Grid_Row_Descriptor_Array(const Coordinate_Type *Row_Descriptor_Array, Style_Selector_Type Style_Selector);
 
     void Set_Style_Height(Coordinate_Type Height, Style_Selector_Type Style_Selector);
 
@@ -486,7 +553,7 @@ public:
     void Set_Style_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
 
     void Set_Style_Layout(uint16_t Value, Style_Selector_Type Style_Selector);
-    
+
     // - - - - Line
     void Set_Style_Line_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Line_Dash_Gap(Coordinate_Type Dash_Gap, Style_Selector_Type Style_Selector);
@@ -506,7 +573,7 @@ public:
     void Set_Style_Outline_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
     void Set_Style_Outline_Pad(Coordinate_Type Pad, Style_Selector_Type Style_Selector);
     void Set_Style_Outline_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
-    
+
     // - - - - Pad
     void Set_Style_Pad_Bottom(Coordinate_Type Pad_Bottom, Style_Selector_Type Style_Selector);
     void Set_Style_Pad_Left(Coordinate_Type Pad_Left, Style_Selector_Type Style_Selector);
@@ -517,7 +584,7 @@ public:
     void Set_Style_Pad_All(Coordinate_Type Pad_All, Style_Selector_Type Style_Selector);
 
     void Set_Style_Radius(Coordinate_Type Radius, Style_Selector_Type Style_Selector);
-    
+
     // - - - - Shadow
     void Set_Style_Shadow_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Shadow_Offset_X(Coordinate_Type Offset_X, Style_Selector_Type Style_Selector);
@@ -530,7 +597,7 @@ public:
     void Set_Style_Text_Alignment(Text_Alignment_Type Alignment, Style_Selector_Type Style_Selector);
     void Set_Style_Text_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Text_Decor(Text_Decor_Type Decor, Style_Selector_Type Style_Selector);
-    void Set_Style_Text_Font(Font_Type* Font, Style_Selector_Type Style_Selector);
+    void Set_Style_Text_Font(Font_Type *Font, Style_Selector_Type Style_Selector);
     void Set_Style_Text_Letter_Space(Coordinate_Type Letter_Space, Style_Selector_Type Style_Selector);
     void Set_Style_Text_Line_Space(Coordinate_Type Line_Space, Style_Selector_Type Style_Selector);
     void Set_Style_Text_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector);
@@ -541,20 +608,20 @@ public:
     void Set_Style_Transform_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
     void Set_Style_Transform_Zoom(Coordinate_Type Zoom, Style_Selector_Type Style_Selector);
 
-    void Set_Style_Transition(const Style_Class::Transition_Descriptor_Type* Transition_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Transition(const Style_Class::Transition_Descriptor_Type *Transition_Descriptor, Style_Selector_Type Style_Selector);
 
     void Set_Style_Translate_X(Coordinate_Type Translate_X, Style_Selector_Type Style_Selector);
     void Set_Style_Translate_Y(Coordinate_Type Translate_Y, Style_Selector_Type Style_Selector);
-    
+
     void Set_Style_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
 
     void Set_Style_X(Coordinate_Type Style_X, Style_Selector_Type Style_Selector);
     void Set_Style_Y(Coordinate_Type Style_Y, Style_Selector_Type Style_Selector);
 
     // - - - Tile
-    void Set_Tile(Object_Class& Tile, bool Animation);
+    void Set_Tile(Object_Class &Tile, bool Animation);
     void Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_Identifier, bool Animation);
-    void Set_User_Data(void* User_Data);
+    void Set_User_Data(void *User_Data);
 
     // - - Getters values.
 
@@ -573,7 +640,7 @@ public:
     Object_Class Get_Child(uint16_t Index);
 
     // - - Style
-    
+
     Alignment_Type Get_Style_Alignment(uint32_t Part);
     // - - - Animation
     // const Animation_Class Get_Style_Animation(uint32_t Part);
@@ -636,9 +703,9 @@ public:
     Coordinate_Type Get_Style_Grid_Cell_X_Alignment(uint32_t Part);
     Coordinate_Type Get_Style_Grid_Cell_Y_Alignment(uint32_t Part);
     Grid_Alignment_Type Get_Style_Grid_Column_Alignment(uint32_t Part);
-    const Coordinate_Type* Get_Style_Grid_Column_Descriptor_Array(uint32_t Part);
+    const Coordinate_Type *Get_Style_Grid_Column_Descriptor_Array(uint32_t Part);
     Grid_Alignment_Type Get_Style_Grid_Row_Alignment(uint32_t Part);
-    const Coordinate_Type* Get_Style_Grid_Row_Descriptor_Array(uint32_t Part);
+    const Coordinate_Type *Get_Style_Grid_Row_Descriptor_Array(uint32_t Part);
 
     Coordinate_Type Get_Style_Height(uint32_t Part);
 
@@ -666,7 +733,7 @@ public:
     Coordinate_Type Get_Style_Minimum_Width(uint32_t Part);
 
     Opacity_Type Get_Style_Opacity(uint32_t Part);
-    
+
     // - - - Outline
     Color_Type Get_Style_Outline_Color(uint32_t Part);
     Color_Type Get_Style_Outline_Color_Filtered(uint32_t Part);
@@ -698,7 +765,7 @@ public:
     Color_Type Get_Style_Text_Color(uint32_t Part);
     Color_Type Get_Style_Text_Color_Filtered(uint32_t Part);
     Text_Decor_Type Get_Style_Text_Decor(uint32_t Part);
-    const Font_Type* Get_Style_Text_Font(uint32_t Part);
+    const Font_Type *Get_Style_Text_Font(uint32_t Part);
     Coordinate_Type Get_Style_Text_Letter_Space(uint32_t Part);
     Coordinate_Type Get_Style_Text_Line_Space(uint32_t Part);
     Opacity_Type Get_Style_Text_Opacity(uint32_t Part);
@@ -708,8 +775,8 @@ public:
     Coordinate_Type Get_Style_Transform_Height(uint32_t Part);
     Coordinate_Type Get_Style_Transform_Width(uint32_t Part);
     Coordinate_Type Get_Style_Transform_Zoom(uint32_t Part);
-    
-    const Style_Class::Transition_Descriptor_Type* Get_Style_Transition(uint32_t Part);
+
+    const Style_Class::Transition_Descriptor_Type *Get_Style_Transition(uint32_t Part);
     Coordinate_Type Get_Style_Translate_X(uint32_t Part);
     Coordinate_Type Get_Style_Translate_Y(uint32_t Part);
     Coordinate_Type Get_Style_Width(uint32_t Part);
@@ -729,10 +796,7 @@ public:
 
     lv_obj_t *LVGL_Object_Pointer;
 
-    static void Event_Handler(Event_Type Event);
-
 protected:
-private:
 };
 
 // -- Management -- //

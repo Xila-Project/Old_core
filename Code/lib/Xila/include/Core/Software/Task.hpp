@@ -20,10 +20,10 @@ public:
 
   typedef enum Priority_Enumeration
   {
-    Background = tskIDLE
-    Low = tskIDLE_PRIORITY + 2 + 3,
-    Normal = tskIDLE_PRIORITY + 2 + 2,
-    High = Software,
+    Background,
+    Low,
+    Normal,
+    High
   } Priority_Type;
 
   Task_Class();
@@ -34,14 +34,20 @@ public:
   void Suspend();
   void Resume();
   void Delete();
-  
+
+  /*
+  static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
+  static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
+  static void Take_Notification(Task_Class& Task);
+  */
+
   static void Delay(uint32_t Delay_In_Millisecond);
   static void Delay_Until(TickType_t* Previous_Wake_Time, const TickType_t Time_Increment);
 
 private:
 
   xTaskHandle Task_Handle;
-  Software* Software_Pointer;
+  
 };
 
 

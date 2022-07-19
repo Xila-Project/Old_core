@@ -107,7 +107,7 @@ void Semaphore_Class::Give_Recursive()
         xSemaphoreGiveRecursive(Semaphore_Handle);
 }
 
-Xila_Semaphore_Class::Task_Class Get_Mutex_Holder()
+void Semaphore_Class::Task_Class Get_Mutex_Holder()
 {
         return xSemaphoreGetMutexHolder(Semaphore_Handle);
 }
