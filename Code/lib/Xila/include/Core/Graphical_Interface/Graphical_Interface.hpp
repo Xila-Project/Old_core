@@ -24,7 +24,7 @@
 #include "Button_Matrix.hpp"
 #include "Canvas.hpp"
 #include "Checkbox.hpp"
-#include "Dropdown_List.hpp"
+#include "Drop_Down_List.hpp"
 #include "Image.hpp"
 #include "Line.hpp"
 #include "Roller.hpp"
@@ -33,44 +33,60 @@
 #include "Table.hpp"
 #include "Text_Area.hpp"
 // Extra widgets
-#include "Animaton_Image.hpp"
+//#include "Animaton_Image.hpp"
 #include "Calendar.hpp"
 #include "Chart.hpp"
 #include "Color_Wheel.hpp"
-#include "Image_Button.hpp"
+//#include "Image_Button.hpp"
 #include "Keyboard.hpp"
 #include "List.hpp"
 #include "Menu.hpp"
 #include "Meter.hpp"
-#include "Message_Box.hpp"
-#include "Span.hpp"
-#include "Spinbox.hpp"
-#include "Spinner.hpp"
+//#include "Message_Box.hpp"
+//#include "Span.hpp"
+//#include "Spinbox.hpp"
+//#include "Spinner.hpp"
 #include "Tabs.hpp"
-#include "Tileview.hpp"
+//#include "Tileview.hpp"
 #include "Window.hpp"
 
 class Graphic_Interface_Class
 {
 
-  
+    // - Types
+
+    typedef Object_Class Object_Type;
+    typedef Arc_Class Arc_Type;
+    typedef Bar_Class Bar_Type;
+    typedef Button_Class Button_Type;
+    typedef Button_Matrix_Class Button_Matrix_Type;
+    typedef Canvas_Class Canvas_Type;
+    typedef Checkbox_Class Checkbox_Type;
+    typedef Drop_Down_List_Class Drop_Down_List_Type;
+    typedef Image_Class Image_Type;
+    typedef Line_Class Line_Type;
+    typedef Roller_Class Roller_Type;
+    typedef Slider_Class Slider_Type;
+    typedef Switch_Class Switch_Type;
+    typedef Table_Class Table_Type;
+    typedef Text_Area_Class Text_Area_Type;
+    typedef Calendar_Class Calendar_Type;
+    //typedef Chart_Class Chart_Type;
+    typedef Color_Wheel_Class Color_Wheel_Type;
+    typedef Keyboard_Class Keyboard_Type;
+    typedef List_Class List_Type;
+    //typedef Menu_Class Menu_Type;
+    //typedef Meter_Class Meter_Type;
+    typedef Tabs_Class Tabs_Type;
+    typedef Window_Class Window_Type;
+    
+
+
 
     void Initialise();
     bool Initialisation_State();
 
    
-
-  
-
-    // -- Widgets
-
-  
-   
-
-    // @brief Color wheel class.
- 
-
-    //
 
 
     

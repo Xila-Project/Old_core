@@ -10,37 +10,49 @@
 
 #include "Core/Core.hpp"
 
-#define Class Xila_Class::Display_Class
-
 // -- Constructors
 
 ///
 /// @brief Construct a new Xila_Class::Display_Class::Display_Class object
 ///
-Class::Display_Class()
+Display_Class::Display_Class()
     : Nextion_Class(),
       State(true),
-      Brightness(Default_Display_Brightness),
-      Receive_Pin(Default_Display_Receive_Pin),
-      Standby_Time(Default_Display_Standby_Time),
-      Transmit_Pin(Default_Display_Transmit_Pin),
-      Current_Address(0)
+
 {
     Baud_Rate = Default_Display_Baud_Rate;
 }
 
 ///
-/// @brief Destroy the Xila_Class::Display_Class::Display_Class object
+/// @brief Destroy the Xila_Class::Display_Display_Class::Display_Class object
 ///
-Class::~Display_Class()
+Display_Class::~Display_Class()
 {
 }
 
 // -- Object's base class
 
+inline uint16_t Display_Display_Class::Get_Horizontal_Definition()
+{
+    return Display_Horizontal_Definition;
+}
 
+inline uint16_t Display_Display_Class::Get_Vertical_Definition()
+{
+    return Display_Vertical_Definition;
+}
 
-IRAM_ATTR void Class::Object_Class::Event_Handler(Class::Event_Type Event)
+inline uint8_t Display_Display_Class::Get_State()
+{
+    return State;
+}
+
+inline void Display_Display_Class::Set_State(uint8_t State)
+{
+    this->State = State;
+}
+
+IRAM_ATTR void Display_Class::Object_Display_Class::Event_Handler(Display_Class::Event_Type Event)
 {
 
     Xila.Software_Management.Send_Instruction(Xila.Software_Management.);
@@ -48,7 +60,7 @@ IRAM_ATTR void Class::Object_Class::Event_Handler(Class::Event_Type Event)
 
 // -- Load display driver
 
-Xila_Class::Event Class::Initialize_File_System()
+Xila_Class::Event Display_Class::Initialize_File_System()
 {
     lv_fs_drv_init(&File_System_Driver);
 
@@ -69,11 +81,12 @@ Xila_Class::Event Class::Initialize_File_System()
     return Xila_Success;
 }
 
+
 ///
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Xila_Class::Event Class::Load_Registry()
+Xila_Class::Event Display_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -101,7 +114,7 @@ Xila_Class::Event Class::Load_Registry()
 /// @brief Save display registry
 ///
 /// @return Xila_Class::Event
-Xila_Class::Event Class::Save_Registry()
+Xila_Class::Event Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
@@ -126,7 +139,7 @@ Xila_Class::Event Class::Save_Registry()
 ///
 /// @param Received_Data String received data
 /// @param Size Size in bytes of received data
-void Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
+void Display_Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t Size)
 {
     while (Xila.Software_Management.Openned[0] == NULL)
     {
@@ -154,7 +167,7 @@ void Class::Incoming_String_Data_From_Display(const char *Received_Data, uint8_t
 /// @brief Callback function for display incoming numeric data
 ///
 /// @param Received_Data Received numeric data from the display
-void Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
+void Display_Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
 {
     if (Xila.Display.Current_Address != '\0')
     {
@@ -167,7 +180,7 @@ void Class::Incoming_Numeric_Data_From_Display(uint32_t Received_Data)
 /// @brief Callback function for display incoming event
 ///
 /// @param Event_Code Event code
-void Class::Incoming_Event_From_Display(uint8_t Event_Code)
+void Display_Class::Incoming_Event_From_Display(uint8_t Event_Code)
 {
     switch (Event_Code)
     {
@@ -190,7 +203,7 @@ void Class::Incoming_Event_From_Display(uint8_t Event_Code)
 
 // -- File system callbacks
 
-void *Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_fs_mode_t Mode)
+void *Display_Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_fs_mode_t Mode)
 {
     File File_To_Open;
     if (Mode == LV_FS_MODE_WR)
@@ -210,13 +223,13 @@ void *Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_fs_mode_
     return File_To_Open;
 }
 
-static lv_fs_res_t Class::File_System_Close(lv_fs_drv_t *Driver, void *File_Pointer)
+static lv_fs_res_t Display_Class::File_System_Close(lv_fs_drv_t *Driver, void *File_Pointer)
 {
     *(File *)File_Pointer.close();
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Read(lv_fs_drv_t *Driver, void *File_Pointer, void *Buffer, uint32_t Bytes_To_Read, uint32_t *Bytes_Read)
+static lv_fs_res_t Display_Class::File_System_Read(lv_fs_drv_t *Driver, void *File_Pointer, void *Buffer, uint32_t Bytes_To_Read, uint32_t *Bytes_Read)
 {
     File File_To_Read = *(File *)File_Pointer;
 
@@ -229,7 +242,7 @@ static lv_fs_res_t Class::File_System_Read(lv_fs_drv_t *Driver, void *File_Point
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Write(lv_fs_drv_t *Driver, void *File_Pointer, const void *Buffer, uint32_t Bytes_To_Write, uint32_t *Bytes_Written)
+static lv_fs_res_t Display_Class::File_System_Write(lv_fs_drv_t *Driver, void *File_Pointer, const void *Buffer, uint32_t Bytes_To_Write, uint32_t *Bytes_Written)
 {
     File File_To_Write = *(File *)File_Pointer;
 
@@ -242,7 +255,7 @@ static lv_fs_res_t Class::File_System_Write(lv_fs_drv_t *Driver, void *File_Poin
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t Position, lv_fs_whence_t Whence)
+static lv_fs_res_t Display_Class::File_System_Set_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t Position, lv_fs_whence_t Whence)
 {
     File File_To_Seek = *(File *)File_Pointer;
 
@@ -272,7 +285,7 @@ static lv_fs_res_t Class::File_System_Set_Position(lv_fs_drv_t *Driver, void *Fi
     return LV_FS_RES_OK;
 }
 
-static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t *Position)
+static lv_fs_res_t Display_Class::File_System_Get_Position(lv_fs_drv_t *Driver, void *File_Pointer, uint32_t *Position)
 {
     File File_To_Get_Position = *(File *)File_Pointer;
 
@@ -285,7 +298,7 @@ static lv_fs_res_t Class::File_System_Get_Position(lv_fs_drv_t *Driver, void *Fi
     return LV_FS_RES_OK;
 }
 
-static void *Class::File_System_Open_Directory(lv_fs_drv_t *Driver, const char *Path)
+static void *Display_Class::File_System_Open_Directory(lv_fs_drv_t *Driver, const char *Path)
 {
     File File_To_Open = Xila.Drive.Open(Path);
     if (!File_To_Open)
@@ -299,12 +312,12 @@ static void *Class::File_System_Open_Directory(lv_fs_drv_t *Driver, const char *
     return &File_To_Open;
 }
 
-static lv_fs_res_t Class::File_System_Directory_Read(lv_fs_drv_t *Driver, void *Directory_Pointer, char *File_Name)
+static lv_fs_res_t Display_Class::File_System_Directory_Read(lv_fs_drv_t *Driver, void *Directory_Pointer, char *File_Name)
 {
     return LV_FS_RES_NOT_IMP;
 }
 
-static lv_fs_res_t Class::File_System_Close_Directory(lv_fs_drv_t *Driver, void *Directory_Pointer)
+static lv_fs_res_t Display_Class::File_System_Close_Directory(lv_fs_drv_t *Driver, void *Directory_Pointer)
 {
     File File_Pointer = *(File *)Directory_Pointer;
     File_Pointer.close();
