@@ -159,7 +159,14 @@ public:
     typedef uint8_t Image;
 
     /// @brief Xila instruction type.
-    typedef uint32_t Instruction;
+    union Instruction_Type {
+        uint32_t Instruction;
+        struct {
+            uint8_t Sender;
+            uint8_t Argument[3];
+        };
+    };
+    }
 
     /// @brief Page type.
     typedef uint8_t Page;
@@ -168,13 +175,14 @@ public:
     typedef void Task_Function;
 
     /// @brief Task handle type
-    typedef void *Task_Handle;
+    typedef void * Task_Handle;
 
     /// @brief Size Type;
     typedef size_t Size_Type;
 
+
     /// @brief Instructions used by the core (with the prefix "#").
-    enum : Xila_Class::Instruction
+    enum Instructions_Enumeration : Xila_Class::Instruction
     {
         // -- General instructions
         Idle = 0,
@@ -190,7 +198,7 @@ public:
         Watchdog = 'W',
         // -- Shell specials instructions
         Desk = 'D',                // Open desk
-        Dialog_Open_File = 'f',    // Open open file dialog
+        /*Dialog_Open_File = 'f',    // Open open file dialog
         Dialog_Open_Folder = 'F',  // Open open folder dialog
         Dialog_Save_File = 'e',    // Open save file dialog
         Dialog_Keyboard = 'K',     // Open keyboard dialog
@@ -199,7 +207,7 @@ public:
         Dialog_Power = 'P',        // Open power dialog
         Dialog_Event = 'E',        // Open event dialog
         Dialog_Login = 'L',        // Open login dialog
-        Dialog_Load = 'l'          // Open load dialog
+        Dialog_Load = 'l'          // Open load dialog*/
     };
 
     ///
@@ -1433,15 +1441,7 @@ public:
 
     public:
         typedef TickType_t Tick_Type;
-
-        // -- Task management -- //
-        static Xila_Class::Event Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters = NULL, Xila_Class::Task_Handle *Task_Handle = NULL) const;
-        static void Suspend(Xila_Class::Task_Handle Task_To_Suspend = NULL) const;
-        static void Resume(Xila_Class::Task_Handle Task_To_Resume) const;
-        static void Delete(Xila_Class::Task_Handle Task_To_Delete = NULL) const;
-
-        static void Delay(uint32_t Delay_In_Millisecond) const;
-
+        
         // -- Communication between tasks
 
         typedef SemaphoreHandle_t Semaphore_Handle_Type;

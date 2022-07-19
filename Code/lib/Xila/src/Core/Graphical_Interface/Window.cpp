@@ -9,7 +9,6 @@
  /// 
 
  #include "Core/Graphical_Interface/Window.hpp"
- #include "Core/Graphical_Interface/Style.hpp"
 
 // ------------------------------------------------------------------------- //
 //
@@ -40,8 +39,8 @@ void Window_Class::Create(Object_Class &Parent_Object)
     Header.Create(Window);
     Header.Set_Size(Percentage(100), 32);
 
-    static Style_Class Style_Window_Header;
-    Style_Window_Header.Set_Background_Color(Color_Class::Get_From_Palette_Darken(Grey));
+    static Style_Class Style_Window_Header();
+    Style_Window_Header.Set_Background_Color(Color_Class::Get_From_Palette_Darken(Color_Class::Grey));
 
     // - Left buttons.
     Close_Button.Create(Header);

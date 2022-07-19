@@ -30,8 +30,6 @@ public:
     Object_Class Get_Body();
     Object_Class Get_Header();
 
-protected:
-
 private:
 
     Object_Class Window;

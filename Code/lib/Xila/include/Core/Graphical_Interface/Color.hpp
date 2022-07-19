@@ -109,6 +109,4 @@ protected:
     lv_color_t LVGL_Color;
 };
 
-class 
-
 #endif

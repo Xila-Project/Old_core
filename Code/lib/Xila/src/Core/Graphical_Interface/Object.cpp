@@ -121,7 +121,7 @@ void Object_Class::Add_Event(Event_Type Event)
     lv_obj_add_event_cb(Get_Pointer(), Xila_Class::Display_Object_Class::Event_Handler, Event, NULL);
 }
 
-void Object_Class::Remove_Event(Event_Type Event)
+bool Object_Class::Remove_Event(Event_Type Event)
 {
     lv_obj_remove_event_cb(Get_Pointer(), Event);
 }
@@ -129,6 +129,8 @@ void Object_Class::Remove_Event(Event_Type Event)
 void Object_Class::Send_Event(Event_Type Event)
 {
     lv_event_send(Get_Pointer(), Event, NULL);
+
+    
 }
 
 void Object_Class::Move_Foreground()

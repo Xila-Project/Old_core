@@ -16,6 +16,7 @@
 #include "Animation.hpp"
 #include "Style.hpp"
 #include "Color.hpp"
+#include "Event.hpp"
 
 #ifndef Object_Hpp_Included
 #define Object_Hpp_Included
@@ -364,9 +365,9 @@ public:
     // - - Swap
     void Swap(Object_Class Object_To_Swap_With);
     // - - Events
-    void Add_Event(Event_Type Event);
-    void Remove_Event(Event_Type Event);
-    void Send_Event(Event_Type Event);
+    void Add_Event(Event_Class::Event_Code_Type Event);
+    bool Remove_Event(Event_Class::Event_Code_Type Event);
+    void Send_Event(Event_Class::Event_Code_Type Event);
     // - - Layer management
     void Move_Foreground();
     void Move_Background();

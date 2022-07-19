@@ -18,7 +18,7 @@ class Event_Class
 {
 public:
 
-    typedef enum
+    typedef enum Event_Code_Enumeration
     {
         All = LV_EVENT_ALL,
         // -- Interaction related events
