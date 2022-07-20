@@ -222,15 +222,15 @@ protected:
         void Load(const char *Header, const char *Message, uint32_t Duration = 0);
         void Close_Load();
         void Power();
-        Xila_Class::Event Login();
-        Xila_Class::Event Keyboard(char *, size_t, bool = false);
-        Xila_Class::Event Keypad(float &Number_To_Get);
-        Xila_Class::Event Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-        Xila_Class::Event Event(const char *, uint8_t, const char * = NULL, const char * = NULL, const char * = NULL);
-        Xila_Class::Event Color_Picker(uint16_t &);
-        Xila_Class::Event Open_File(File &);
-        Xila_Class::Event Save_File(File &);
-        Xila_Class::Event Open_Folder(File &);
+        Result_Type Login();
+        Result_Type Keyboard(char *, size_t, bool = false);
+        Result_Type Keypad(float &Number_To_Get);
+        Result_Type Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
+        Result_Type Event(const char *, uint8_t, const char * = NULL, const char * = NULL, const char * = NULL);
+        Result_Type Color_Picker(uint16_t &);
+        Result_Type Open_File(File &);
+        Result_Type Save_File(File &);
+        Result_Type Open_Folder(File &);
 
         // -- Friend
         friend class Shell_Class;
@@ -423,8 +423,8 @@ protected:
     uint32_t Next_Refresh;
     char Temporary_Char_Array[6];
 
-    Xila_Class::Event Save_Registry();
-    Xila_Class::Event Load_Registry();
+    Result_Type Save_Registry();
+    Result_Type Load_Registry();
 
     void Set_Variable(Xila_Class::Address, uint8_t Type, const void *);
 

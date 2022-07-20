@@ -47,9 +47,9 @@ void Xila_Class::Sound_Class::Begin()
 ///
 /// @brief A method that load sound registry.
 ///
-/// @return Xila_Class::Event
+/// @return Result_Type
 ///
-Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
+Result_Type Xila_Class::Sound_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
@@ -86,8 +86,8 @@ Xila_Class::Event Xila_Class::Sound_Class::Load_Registry()
 ///
  /// @brief Save sound registry.
  /// 
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Sound_Class::Save_Registry()
+ /// @return Result_Type 
+Result_Type Xila_Class::Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";

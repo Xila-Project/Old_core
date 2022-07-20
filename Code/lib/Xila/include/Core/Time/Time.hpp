@@ -11,16 +11,13 @@
 #ifndef Time_Hpp_Included
 #define Time_Hpp_Included	
 
-class Time_Class {
+#include "../Module.hpp"
 
-    //==============================================================================//
+// -- Time library
+#include "time.h"
 
-    ///
-    /// @brief
-    ///
-    class Time_Class
-    {
-
+class Time_Class : public Module_Class
+{
     public:
         // -- Methods
         tm Get_Time();
@@ -68,22 +65,9 @@ class Time_Class {
         char NTP_Server[32];
 
         // -- Methods
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
 };
-
-#ifndef TIME_HPP_INCLUDED
-#define TIME_HPP_INCLUDED
-
-inline uint32_t Xila_Class::Time_Class::Milliseconds() const
-{
-  return (uint32_t)(esp_timer_get_time() / 1000ULL);
-}
-
-inline int64_t Xila_Class::Time_Class::Microseconds() const
-{
-  return esp_timer_get_time();
-}
 
 #endif

@@ -15,6 +15,10 @@
 
 #include "lvgl.h"
 
+#include "../Module.hpp"
+
+#include "Core/Software/Task.hpp"
+
 // Base object
 #include "Object.hpp"
 // Widgets
@@ -50,7 +54,7 @@
 //#include "Tileview.hpp"
 #include "Window.hpp"
 
-class Graphic_Interface_Class
+class Graphical_Interface_Class : public Module_Class
 {
 
     // - Types
@@ -81,30 +85,29 @@ class Graphic_Interface_Class
     typedef Window_Class Window_Type;
     
 
+    static void Initialise();
+    static bool Initialisation_State();
 
 
-    void Initialise();
-    bool Initialisation_State();
+    static void Task_Function(void *);
 
-   
+    static Task_Type Task;
 
-
-    
-
-    static void Task(void *);
-
-    Xila_Class::Task_Handle Task_Handle;
-
-    Xila_Class::Semaphore_Handle_Type Mutex_Semaphore_Handle;
+    static Xila_Class::Semaphore_Handle_Type Mutex_Semaphore_Handle;
 
     // -- Display state
-    uint16_t Get_Horizontal_Definition();
-    uint16_t Get_Vertical_Definition();
+    static uint16_t Get_Horizontal_Definition();
+    static uint16_t Get_Vertical_Definition();
 
-    Xila_Class::Event Compile_Page(File);
-    Xila_Class::Event Load_Page(File, Object *, uint16_t);
+    static Result_Type Compile_Page(File);
+    static Result_Type Load_Page(File, Object *, uint16_t);
 
 protected:
+
+    static lv_color_t Buffer[Default_Display_Horizontal_Definition * 10];
+    static lv_disp_draw_buf_t Draw_Buffer;
+    static lv_disp_drv_t Display_Driver_Interface;
+
     static lv_fs_drv_t File_System_Driver;
 
     static void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
@@ -117,17 +120,10 @@ protected:
     static lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
     static lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
 
-    void Initialize_File_System();
+    static void Set_State(uint8_t State);
+    static void Set_State(uint8_t State);
 
-    void Set_State(uint8_t State);
-
-    void Set_State(uint8_t State);
-
-    uint8_t State;
-
-    uint8_t Brightness, Receive_Pin, Standby_Time, Transmit_Pin;
-
-    Xila_Class::Address Current_Address;
+    static uint8_t Brightness;
 };
 
 #endif

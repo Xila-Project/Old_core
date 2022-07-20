@@ -26,8 +26,8 @@ Xila_Class::Power_Class::Power_Class()
 ///
 /// @brief Load power registry.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
+/// @return Result_Type
+Result_Type Xila_Class::Power_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
@@ -50,8 +50,8 @@ Xila_Class::Event Xila_Class::Power_Class::Load_Registry()
 ///
 /// @brief Save power registry.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Power_Class::Save_Registry()
+/// @return Result_Type
+Result_Type Xila_Class::Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";

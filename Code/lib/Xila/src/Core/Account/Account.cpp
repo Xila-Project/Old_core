@@ -21,8 +21,8 @@ Xila_Class::Account_Class::Account_Class()
 ///
 /// @brief Load account registry.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
@@ -53,8 +53,8 @@ Xila_Class::Event Xila_Class::Account_Class::Load_Registry()
 /// @brief A method that set autologin and save account registry.
 ///
 /// @param Enable true to enable and false to disable autologin.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Set_Autologin(bool Enable)
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -111,8 +111,8 @@ void Xila_Class::Account_Class::Set_Current_Username(const char *Username)
  /// 
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const char *Password)
+ /// @return Result_Type 
+Result_Type Xila_Class::Account_Class::Add(const char *Username, const char *Password)
 {
   if (Xila.Drive.Exists(Users_Directory_Path "/" + String(Username)))
   {
@@ -169,8 +169,8 @@ Xila_Class::Event Xila_Class::Account_Class::Add(const char *Username, const cha
 /// @brief Delete a user account.
 ///
 /// @param Target_User User to delete.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
@@ -186,8 +186,8 @@ Xila_Class::Event Xila_Class::Account_Class::Delete(const char *Target_User)
 ///
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   char Temporary_Path[20];
   char Temporary_Target_Path[20];
@@ -212,8 +212,8 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Username(const char *Target_
 ///
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
@@ -233,8 +233,8 @@ Xila_Class::Event Xila_Class::Account_Class::Change_Password(const char *Target_
 ///
 /// @brief Logout from the openned user session.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Logout()
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Logout()
 {
   if (State != Disconnected)
   {
@@ -249,8 +249,8 @@ Xila_Class::Event Xila_Class::Account_Class::Logout()
 ///
 /// @brief Lock openned user session.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Account_Class::Lock()
+/// @return Result_Type
+Result_Type Xila_Class::Account_Class::Lock()
 {
   if (State == Logged)
   {
@@ -264,8 +264,8 @@ Xila_Class::Event Xila_Class::Account_Class::Lock()
  /// 
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+ /// @return Result_Type 
+Result_Type Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
@@ -293,8 +293,8 @@ Xila_Class::Event Xila_Class::Account_Class::Check_Credentials(const char *Usern
  /// 
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+ /// @return Result_Type 
+Result_Type Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
   {

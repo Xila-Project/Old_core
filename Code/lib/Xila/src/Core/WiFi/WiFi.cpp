@@ -32,7 +32,7 @@
 
  */
 
-#include "Core/Core.hpp"
+#include "Core/Communication/WiFi.hpp"
 
 extern "C"
 {
@@ -50,7 +50,7 @@ extern "C"
 ///
  /// @brief Construct a new WiFi_Class object
  /// 
-Xila_Class::WiFi_Class::WiFi_Class()
+WiFi_Class::WiFi_Class()
 {
     prov_enable = false;
     memset(Password, '\0', sizeof(Password));
@@ -59,9 +59,9 @@ Xila_Class::WiFi_Class::WiFi_Class()
 ///
 /// @brief Load WiFi registry.
 ///
-/// @return Xila_Class::Event
+/// @return Result_Type
 ///
-Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
+Result_Type WiFi_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
@@ -86,9 +86,9 @@ Xila_Class::Event Xila_Class::WiFi_Class::Load_Registry()
 ///
 /// @brief Save WiFi registry.
 ///
-/// @return Xila_Class::Event
+/// @return Result_Type
 ///
-Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
+Result_Type WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";
@@ -110,7 +110,7 @@ Xila_Class::Event Xila_Class::WiFi_Class::Save_Registry()
  /// 
  /// @param Name SSID of the access point.
  /// @param Password Password of the access point.
-void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Password)
+void WiFi_Class::Set_Credentials(const char *Name, const char *Password)
 {
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
@@ -121,7 +121,7 @@ void Xila_Class::WiFi_Class::Set_Credentials(const char *Name, const char *Passw
  /// @brief Output WiFi settings to an object derived from Print interface (like Serial).
  /// 
  /// @param p Print object to output.
-void Xila_Class::WiFi_Class::printDiag(Print &p)
+void WiFi_Class::printDiag(Print &p)
 {
     const char *modes[] = {"NULL", "STA", "AP", "STA+AP"};
 
@@ -168,7 +168,7 @@ void Xila_Class::WiFi_Class::printDiag(Print &p)
  /// @brief 
  /// 
  /// @param status 
-void Xila_Class::WiFi_Class::enableProv(bool status)
+void WiFi_Class::enableProv(bool status)
 {
     prov_enable = status;
 }
@@ -178,7 +178,7 @@ void Xila_Class::WiFi_Class::enableProv(bool status)
  /// 
  /// @return true 
  /// @return false 
-bool Xila_Class::WiFi_Class::isProvEnabled()
+bool WiFi_Class::isProvEnabled()
 {
     return prov_enable;
 }

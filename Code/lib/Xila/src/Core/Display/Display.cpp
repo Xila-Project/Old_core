@@ -32,35 +32,19 @@ Display_Class::~Display_Class()
 
 // -- Object's base class
 
-inline uint16_t Display_Display_Class::Get_Horizontal_Definition()
+uint16_t Display_Display_Class::Get_Horizontal_Definition()
 {
     return Display_Horizontal_Definition;
 }
 
-inline uint16_t Display_Display_Class::Get_Vertical_Definition()
+uint16_t Display_Display_Class::Get_Vertical_Definition()
 {
     return Display_Vertical_Definition;
 }
 
-inline uint8_t Display_Display_Class::Get_State()
-{
-    return State;
-}
-
-inline void Display_Display_Class::Set_State(uint8_t State)
-{
-    this->State = State;
-}
-
-IRAM_ATTR void Display_Class::Object_Display_Class::Event_Handler(Display_Class::Event_Type Event)
-{
-
-    Xila.Software_Management.Send_Instruction(Xila.Software_Management.);
-}
-
 // -- Load display driver
 
-Xila_Class::Event Display_Class::Initialize_File_System()
+Result_Type Display_Class::Initialize_File_System()
 {
     lv_fs_drv_init(&File_System_Driver);
 
@@ -81,12 +65,11 @@ Xila_Class::Event Display_Class::Initialize_File_System()
     return Xila_Success;
 }
 
-
 ///
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Xila_Class::Event Display_Class::Load_Registry()
+Result_Type Display_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -113,8 +96,8 @@ Xila_Class::Event Display_Class::Load_Registry()
 ///
 /// @brief Save display registry
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Display_Class::Save_Registry()
+/// @return Result_Type
+Result_Type Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
@@ -323,3 +306,64 @@ static lv_fs_res_t Display_Class::File_System_Close_Directory(lv_fs_drv_t *Drive
     File_Pointer.close();
     return LV_FS_RES_OK;
 }
+
+void Calibrate()
+{
+    tft.setTextSize((std::max(tft.width(), tft.height()) + 255) >> 8);
+
+    // Calibration
+    if (tft.touch())
+    {
+        if (tft.width() < tft.height())
+        {
+            tft.setRotation(tft.getRotation() ^ 1);
+        }
+        // 画面に案内文章を描画します。
+        tft.setTextDatum(textdatum_t::middle_center);
+        tft.drawString("touch the arrow marker.", tft.width() >> 1, tft.height() >> 1);
+        tft.setTextDatum(textdatum_t::top_left);
+
+        // タッチを使用する場合、キャリブレーションを行います。画面の四隅に表示される矢印の先端を順にタッチしてください。
+        std::uint16_t fg = TFT_WHITE;
+        std::uint16_t bg = TFT_BLACK;
+        if (tft.isEPD())
+        {
+            std::swap(fg, bg);
+        }
+        tft.calibrateTouch(nullptr, fg, bg, std::max(tft.width(), tft.height()) >> 3);
+    }
+};
+
+void Initialize()
+{
+    tft.init();
+};
+
+IRAM_ATTR void Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer)
+{
+    uint32_t w = (area->x2 - area->x1 + 1);
+    uint32_t h = (area->y2 - area->y1 + 1);
+
+    tft.startWrite();
+    tft.setAddrWindow(area->x1, area->y1, w, h);
+    // tft.pushColors((uint16_t *)&color_p->full, w * h, true);
+    tft.writePixels((lgfx::rgb565_t *)&color_p->full, w * h);
+    tft.endWrite();
+
+    lv_disp_flush_ready(disp);
+};
+
+IRAM_ATTR void Touchpad_Read(lv_index_drv_t *Input_Device_Driver_Interface, lv_index_data_t *Data)
+{
+    if (tft.getTouch(&Touch_Pad_X, &Touch_Pad_Y))
+    {
+        data->state = LV_INDEV_STATE_PR;
+        /*Set the coordinates*/
+        data->point.x = touchX;
+        data->point.y = touchY;
+    }
+    else
+    {
+        data->state = LV_INDEV_STATE_REL;
+    }
+};

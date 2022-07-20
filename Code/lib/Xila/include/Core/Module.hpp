@@ -12,9 +12,11 @@
 #define Modules_Hpp_Included
 
 #include "Arduino.h"
+#include "ArduinoJson.hpp"
 
 class Module_Class
 {
+public:
 
     // - Types
 

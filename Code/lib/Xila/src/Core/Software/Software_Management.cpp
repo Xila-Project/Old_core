@@ -101,8 +101,8 @@ void Xila_Class::Software_Management_Class::Feed_Watchdog(Xila_Class::Software_H
 /// @brief Function that open software.
 ///
 /// @param Software_Handle Software's handle to open.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Software_Management_Class::Open(Xila_Class::Software_Handle const &Software_Handle)
+/// @return Result_Type
+Result_Type Xila_Class::Software_Management_Class::Open(Xila_Class::Software_Handle const &Software_Handle)
 {
   if (Software_Handle == Shell_Handle)
   {
@@ -222,8 +222,8 @@ void Xila_Class::Software_Management_Class::Minimize(Xila_Class::Software_Handle
 /// @brief Function that maximize software (and minimize current maximized software).
 ///
 /// @param Software_Handle Software handle to maximize.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Xila_Class::Software_Handle const &Software_Handle)
+/// @return Result_Type
+Result_Type Xila_Class::Software_Management_Class::Maximize(Xila_Class::Software_Handle const &Software_Handle)
 {
   // -- Looking for the involved software
   for (uint8_t i = 1; i < 8; i++)
@@ -265,7 +265,7 @@ Xila_Class::Event Xila_Class::Software_Management_Class::Maximize(Xila_Class::So
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
 /// @param Software_Handle Software handle to close.
-Xila_Class::Event Xila_Class::Software_Management_Class::Force_Close(Xila_Class::Software_Handle const &Software_Handle)
+Result_Type Xila_Class::Software_Management_Class::Force_Close(Xila_Class::Software_Handle const &Software_Handle)
 {
   for (uint8_t i = 1; i < 8; i++)
   {

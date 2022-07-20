@@ -35,8 +35,8 @@ Xila_Class::System_Class::~System_Class()
 ///
 /// @brief Load System registry.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::System_Class::Load_Registry()
+/// @return Result_Type
+Result_Type Xila_Class::System_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
@@ -62,8 +62,8 @@ Xila_Class::Event Xila_Class::System_Class::Load_Registry()
 ///
 /// @brief Save System registry.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::System_Class::Save_Registry()
+/// @return Result_Type
+Result_Type Xila_Class::System_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -139,8 +139,8 @@ void Xila_Class::System_Class::Task(void *)
 /// @brief Update Xila on the MCU.
 ///
 /// @param Update_File Executable file.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::System_Class::Load_Executable(File Executable_File)
+/// @return Result_Type
+Result_Type Xila_Class::System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
@@ -193,8 +193,8 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 ///
 /// @brief Save system dump.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::System_Class::Save_Dump()
+/// @return Result_Type
+Result_Type Xila_Class::System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
@@ -226,8 +226,8 @@ Xila_Class::Event Xila_Class::System_Class::Save_Dump()
 ///
 /// @brief Load system dump.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::System_Class::Load_Dump()
+/// @return Result_Type
+Result_Type Xila_Class::System_Class::Load_Dump()
 {
   if (Xila.Drive.Exists(Dump_Registry_Path))
   {

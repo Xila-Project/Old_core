@@ -12,21 +12,12 @@
 #define LGFX_USE_V1
 
 #include <LovyanGFX.hpp>
-#include "lvgl.h"
 
-class Lovyan_Graphics_Configuration_WT32_SC01 : public lgfx::LGFX_Device
+class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
 {
-    lgfx::Panel_ST7796 _panel_instance;
-
-    lgfx::Bus_SPI _bus_instance;
-
-    lgfx::Light_PWM _light_instance;
-
-    lgfx::Touch_FT5x06 _touch_instance;
 
 public:
-   
-    LGFX(void)
+    WT32_SC01_Driver_Class(void)
     {
         {                                      // バス制御の設定を行います。
             auto cfg = _bus_instance.config(); // バス設定用の構造体を取得します。
@@ -80,14 +71,14 @@ public:
         {                                        // 表示パネル制御の設定を行います。
             auto cfg = _panel_instance.config(); // 表示パネル設定用の構造体を取得します。
 
-            cfg.pin_cs = 15; 
+            cfg.pin_cs = 15;
             cfg.pin_rst = 22;
             cfg.pin_busy = -1;
 
             cfg.panel_width = 320;
             cfg.panel_height = 480;
-            cfg.offset_x = 0;  
-            cfg.offset_y = 0;    
+            cfg.offset_x = 0;
+            cfg.offset_y = 0;
             cfg.offset_rotation = 0;  // 回転方向の値のオフセット 0~7 (4~7は上下反転)
             cfg.dummy_read_pixel = 8; // ピクセル読出し前のダミーリードのビット数
             cfg.dummy_read_bits = 1;  // ピクセル以外のデータ読出し前のダミーリードのビット数
@@ -152,4 +143,15 @@ public:
 
         setPanel(&_panel_instance); // 使用するパネルをセットします。
     }
+
+private:
+    static int32_t Touch_Pad_X, Touch_Pad_Y;
+
+    static lgfx::Panel_ST7796 _panel_instance;
+
+    static lgfx::Bus_SPI _bus_instance;
+
+    static lgfx::Light_PWM _light_instance;
+
+    static lgfx::Touch_FT5x06 _touch_instance;
 };

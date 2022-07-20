@@ -585,7 +585,7 @@ void Shell_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const 
 
 // -- Shell registry management -- //
 
-Xila_Class::Event Shell_Class::Load_Registry()
+Result_Type Shell_Class::Load_Registry()
 {
     char User_Registry_Path[40];
     snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Xila.Account.Get_Current_Username());
@@ -606,7 +606,7 @@ Xila_Class::Event Shell_Class::Load_Registry()
     return Xila.Success;
 }
 
-Xila_Class::Event Shell_Class::Save_Registry()
+Result_Type Shell_Class::Save_Registry()
 {
     char User_Registry_Path[40];
     snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Xila.Account.Get_Current_Username());

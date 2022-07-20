@@ -45,25 +45,11 @@
 // -- SPI library
 #include "SPI.h"
 
-// -- Time library
-#include "time.h"
+
 
 // -- Registry management library
 #include "ArduinoJson.h" //used to store registries
 #include "StreamUtils.h"
-
-// -- WiFi libraries
-#include "Print.h"
-#include "IPAddress.h"
-#include "IPv6Address.h"
-#include "WiFiType.h"
-#include "WiFiSTA.h"
-#include "WiFiAP.h"
-#include "WiFiScan.h"
-#include "WiFiGeneric.h"
-#include "WiFiClient.h"
-#include "WiFiServer.h"
-#include "WiFiUdp.h"
 
 // -- Debug library
 #include <ArduinoTrace.h>
@@ -78,9 +64,10 @@
 #include "Modules/Path.hpp" // Path list
 
 // -- Components
-#include "Graphical_Interface\Graphic_Interface.hpp"
+#include "Graphical_Interface\Graphical_Interface.hpp"
 #include "Software\Software.hpp"
 #include "Mathematics\Mathematics.hpp"
+#include "Commmunication\WiFi.hpp"
 
 //----------------------------------------------------------------------------//
 //                                Define Const                                //
@@ -139,11 +126,6 @@ public:
 
     Account_Class Account;
 
-    //==============================================================================//
-
-    ///
-    /// @brief Display class
-    ///
     Display_Class Display;
 
     //==============================================================================//
@@ -191,8 +173,8 @@ public:
 
         // Custom
 
-        Xila_Class::Event Copy(File &Origin_File, File &Destination_File);
-        Xila_Class::Event Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
+        Result_Type Copy(File &Origin_File, File &Destination_File);
+        Result_Type Get_Name(File const &File, char *File_Name_Buffer, size_t Size);
         uint16_t Count_Items(File &Folder);
 
         // -- Constructor
@@ -222,9 +204,9 @@ public:
         uint32_t Get_Speed();
         FlashMode_t Get_Mode();
 
-        Xila_Class::Event Read(uint32_t Offset, uint32_t *Data, size_t Size);
+        Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
 
-        Xila_Class::Event Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
+        Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
 
         uint32_t Get_Sketch_Size();
         String Get_Sketch_MD5();
@@ -232,13 +214,13 @@ public:
 
     private:
         // -- Methods
-        Xila_Class::Event Set_Boot_Partition(const uint8_t Partition_Number);
+        Result_Type Set_Boot_Partition(const uint8_t Partition_Number);
 
-        Xila_Class::Event Erase_Sector(uint32_t Sector);
-        Xila_Class::Event Write(uint32_t Offset, uint32_t *Data, size_t Size);
+        Result_Type Erase_Sector(uint32_t Sector);
+        Result_Type Write(uint32_t Offset, uint32_t *Data, size_t Size);
 
-        Xila_Class::Event Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
-        Xila_Class::Event Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
+        Result_Type Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
+        Result_Type Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
 
         static uint32_t Sketch_Size(sketchSize_t Response);
         uint32_t Magic_Size(uint8_t Byte);
@@ -267,13 +249,13 @@ public:
         // -- Pin mode
         void Set_Mode(uint8_t Pin, uint8_t Mode);
 
-        Xila_Class::Event Valid_Output_Pin(uint8_t Pin);
+        Result_Type Valid_Output_Pin(uint8_t Pin);
 
         // -- Digital
         void Digital_Write(uint8_t Pin, uint8_t State);
         int16_t Digital_Read(uint8_t Pin);
 
-        Xila_Class::Event Valid_Digital_Pin(uint8_t Pin);
+        Result_Type Valid_Digital_Pin(uint8_t Pin);
 
         // -- Analog
         uint16_t Analog_Read(uint8_t Pin);
@@ -515,8 +497,8 @@ public:
 
     protected:
         // -- Methods
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
         uint8_t Layout;
 
@@ -529,25 +511,7 @@ public:
 
     Mathematics_Class Mathematics;
 
-    //==============================================================================//
-    ///
-    /// @brief Memory management class.
-    ///
-    class Memory_Class
-    {
-    public:
-        // -- Methods
-
-        uint32_t Get_Heap_Size();
-        uint32_t Get_Free_Heap();
-        uint32_t Get_Minimum_Free_Heap();
-        uint32_t Get_Maximum_Allocated_Heap();
-
-        uint32_t Get_PSRAM_Size();
-        uint32_t Get_Free_PSRAM();
-        uint32_t Get_Minimum_Free_PSRAM();
-        uint32_t Get_Maximum_Allocated_PSRAM();
-    } Memory;
+    Memory_Class Memory;
 
     //==============================================================================//
     ///
@@ -567,8 +531,8 @@ public:
 
         // -- Methods
 
-        Xila_Class::Event Save_Registry();
-        Xila_Class::Event Load_Registry();
+        Result_Type Save_Registry();
+        Result_Type Load_Registry();
 
         // -- Attributes
         ///
@@ -605,9 +569,9 @@ public:
 
         Xila_Class::State Get_State(Xila_Class::Software_Handle const &Software_Handle);
 
-        Xila_Class::Event Open(Xila_Class::Software_Handle const &Software_Handle);
+        Result_Type Open(Xila_Class::Software_Handle const &Software_Handle);
         void Minimize(Xila_Class::Software_Handle const &Software_Handle);
-        Xila_Class::Event Maximize(Xila_Class::Software_Handle const &);
+        Result_Type Maximize(Xila_Class::Software_Handle const &);
         void Close(Xila_Class::Software_Handle const &Software_Handle);
 
         void Feed_Watchdog(Xila_Class::Software_Handle const &Software_Handle);
@@ -651,7 +615,7 @@ public:
         uint8_t Get_Software_Handle(Xila_Class::Software_Handle const &);
         void Add_Handle(Xila_Class::Software_Handle &);
 
-        Xila_Class::Event Force_Close(Xila_Class::Software_Handle const &Software_Handle);
+        Result_Type Force_Close(Xila_Class::Software_Handle const &Software_Handle);
 
     } Software_Management;
 
@@ -803,8 +767,8 @@ public:
         uint8_t Output;
 
         // -- Methods -- //
-        Xila_Class::Event Save_Registry();
-        Xila_Class::Event Load_Registry();
+        Result_Type Save_Registry();
+        Result_Type Load_Registry();
 
         void Begin();
 
@@ -858,13 +822,13 @@ public:
 
         // -- Methods
 
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
-        Xila_Class::Event Save_Dump();
-        Xila_Class::Event Load_Dump();
+        Result_Type Save_Dump();
+        Result_Type Load_Dump();
 
-        Xila_Class::Event Load_Executable(File Executable_File);
+        Result_Type Load_Executable(File Executable_File);
 
         void Second_Sleep_Routine();
 
@@ -954,57 +918,7 @@ public:
     } Task;
 
 
-    //==============================================================================//
-    ///
-    /// @brief WiFi class
-    ///
-    class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass
-    {
-
-    public:
-        void printDiag(Print &dest);
-
-        void enableProv(bool status);
-        bool isProvEnabled();
-
-        WiFi_Class();
-
-        using WiFiGenericClass::channel;
-
-        using WiFiSTAClass::BSSID;
-        using WiFiSTAClass::BSSIDstr;
-        using WiFiSTAClass::RSSI;
-        using WiFiSTAClass::SSID;
-
-        using WiFiScanClass::BSSID;
-        using WiFiScanClass::BSSIDstr;
-        using WiFiScanClass::channel;
-        using WiFiScanClass::encryptionType;
-        using WiFiScanClass::RSSI;
-        using WiFiScanClass::SSID;
-
-        void Set_Credentials(const char *Name, const char *Password);
-
-        Xila_Class::Event Load_Registry();
-        Xila_Class::Event Save_Registry();
-
-        friend class WiFiClient;
-        friend class WiFiServer;
-        friend class WiFiUDP;
-
-        friend Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
-
-    protected:
-        bool prov_enable;
-
-        ///
-        /// @brief Access point password.
-        ///
-        char Password[82];
-
-    } WiFi;
+    WiFi_Class WiFi;
 
 private:
     //==============================================================================//
@@ -1018,19 +932,6 @@ private:
 };
 
 bool operator==(Xila_Class::Software_Handle const &a, Xila_Class::Software_Handle const &b);
-
-#include "Core/Modules/Task.hpp"
-#include "Core/Modules/Time.hpp"
-#include "Core/Modules/System.hpp"
-#include "Core/Modules/Mathematics.hpp"
-#include "Core/Modules/Software_Management.hpp"
-
-#include "Core/Abstraction/Display.hpp"
-#include "Core/Abstraction/GPIO.hpp"
-#include "Core/Abstraction/Memory.hpp"
-#include "Core/Abstraction/Flash.hpp"
-
-#include "Core/Abstraction/Display.hpp"
 
 extern Xila_Class Xila;
 

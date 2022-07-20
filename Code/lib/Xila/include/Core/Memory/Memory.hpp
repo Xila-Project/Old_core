@@ -10,55 +10,28 @@
 
 #include "Arduino.h"
 
-#ifndef MEMORY_HPP_INCLUDED
-#define MEMORY_HPP_INCLUDED
+#ifndef Memory_Hpp_Included
+#define Memory_Hpp_Included
 
+//==============================================================================//
 ///
-/// @brief Return the amount of free heap.
+/// @brief Memory management class.
 ///
-/// @return uint32_t
-inline uint32_t Xila_Class::Memory_Class::Get_Free_Heap()
+class Memory_Class
 {
-    return heap_caps_get_free_size(MALLOC_CAP_INTERNAL);
-}
+public:
+    // -- Methods
 
-inline uint32_t Xila_Class::Memory_Class::Get_Heap_Size()
-{
-    multi_heap_info_t info;
-    heap_caps_get_info(&info, MALLOC_CAP_INTERNAL);
-    return info.total_free_bytes + info.total_allocated_bytes;
-}
+    uint32_t Get_Heap_Size();
+    uint32_t Get_Free_Heap();
+    uint32_t Get_Minimum_Free_Heap();
+    uint32_t Get_Maximum_Allocated_Heap();
 
-inline uint32_t Xila_Class::Memory_Class::Get_Minimum_Free_Heap()
-{
-    return heap_caps_get_minimum_free_size(MALLOC_CAP_INTERNAL);
-}
+    uint32_t Get_PSRAM_Size();
+    uint32_t Get_Free_PSRAM();
+    uint32_t Get_Minimum_Free_PSRAM();
+    uint32_t Get_Maximum_Allocated_PSRAM();
+};
 
-inline uint32_t Xila_Class::Memory_Class::Get_Maximum_Allocated_Heap()
-{
-    return heap_caps_get_largest_free_block(MALLOC_CAP_INTERNAL);
-}
-
-inline uint32_t Xila_Class::Memory_Class::Get_PSRAM_Size()
-{
-    multi_heap_info_t info;
-    heap_caps_get_info(&info, MALLOC_CAP_SPIRAM);
-    return info.total_free_bytes + info.total_allocated_bytes;
-}
-
-inline uint32_t Xila_Class::Memory_Class::Get_Free_PSRAM()
-{
-    return heap_caps_get_free_size(MALLOC_CAP_SPIRAM);
-}
-
-inline uint32_t Xila_Class::Memory_Class::Get_Minimum_Free_PSRAM()
-{
-    return heap_caps_get_minimum_free_size(MALLOC_CAP_SPIRAM);
-}
-
-inline uint32_t Xila_Class::Memory_Class::Get_Maximum_Allocated_PSRAM()
-{
-    return heap_caps_get_largest_free_block(MALLOC_CAP_SPIRAM);
-}
 
 #endif

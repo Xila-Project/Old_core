@@ -35,8 +35,8 @@ uint32_t IRAM_ATTR Xila_Class::Time_Class::Get_Cycle_Count()
 ///
  /// @brief Save time registry.
  /// 
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
+ /// @return Result_Type 
+Result_Type Xila_Class::Time_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Time"), FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
@@ -57,8 +57,8 @@ Xila_Class::Event Xila_Class::Time_Class::Save_Registry()
 ///
  /// @brief Load time registry.
  /// 
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Time_Class::Load_Registry()
+ /// @return Result_Type 
+Result_Type Xila_Class::Time_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);
@@ -96,4 +96,14 @@ tm Xila_Class::Time_Class::Get_Time()
 {
   Synchronize();
   return Current_Time;
+}
+
+uint32_t Xila_Class::Time_Class::Milliseconds() const
+{
+  return (uint32_t)(esp_timer_get_time() / 1000ULL);
+}
+
+int64_t Xila_Class::Time_Class::Microseconds() const
+{
+  return esp_timer_get_time();
 }

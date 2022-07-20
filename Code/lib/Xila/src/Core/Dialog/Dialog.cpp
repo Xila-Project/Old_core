@@ -25,8 +25,8 @@ Xila_Class::Dialog_Class::Dialog_Class()
 /// @param String String to input.
 /// @param Size String size.
 /// @param Masked_Input Enable / disable masking.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool Masked_Input)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool Masked_Input)
 {
   Keyboard_State = None;
   // -- Save context
@@ -52,8 +52,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keyboard(char *String, size_t Size, 
 /// @brief Open a virtual keypad to input a float number.
 ///
 /// @param Number Number to input.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Keypad(float &Number)
 {
   Keypad_State = None;
   // -- Save context
@@ -77,8 +77,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Keypad(float &Number)
 /// @brief Open a color picker dialog, that allow user to choose a color.
 ///
 /// @param[in,out] Color Color reference.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
   Color_Picker_State = None;
   // -- Save context
@@ -107,8 +107,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 /// @param Button_Text_1 1st button string (by default : "Yes").
 /// @param Button_Text_2 2nd button string (by default : "No").
 /// @param Button_Text_3 3rd button string (by default : "Cancel").
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
   Event_State = None;
   uint8_t Mode = 'F';
@@ -143,8 +143,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Event(const __FlashStringHelper *Mes
 /// @param Button_Text_1 1st button string (by default : "Yes").
 /// @param Button_Text_2 2nd button string (by default : "No").
 /// @param Button_Text_3 3rd button string (by default : "Cancel").
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
 {
   Event_State = None;
   uint8_t Mode = 'C';
@@ -234,8 +234,8 @@ void Xila_Class::Dialog_Class::Close_Load()
 ///
 /// @brief Open a dialog that allow user to input credentials, which are checked.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Login()
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Login()
 {
   Login_State = None;
   // -- Save context
@@ -279,8 +279,8 @@ void Xila_Class::Dialog_Class::Power()
 /// @brief Open a dialog that allow user to select a file to save from the File Manager.
 ///
 /// @param File_To_Open File reference.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
   File_Manager_State = None;
   // -- Save context
@@ -304,8 +304,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Open_File(File &File_To_Open)
 /// @brief Open a dialog that allow user to select a file to save from the File Manager.
 ///
 /// @param File_To_Save File reference.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
   File_Manager_State = None;
   // -- Save context
@@ -329,8 +329,8 @@ Xila_Class::Event Xila_Class::Dialog_Class::Save_File(File &File_To_Save)
 /// @brief Open a dialog that allow user to select a folder to open from the File Manager.
 ///
 /// @param[out] Folder_To_Open Folder reference.
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
+/// @return Result_Type
+Result_Type Xila_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
   File_Manager_State = None;
   // -- Save context

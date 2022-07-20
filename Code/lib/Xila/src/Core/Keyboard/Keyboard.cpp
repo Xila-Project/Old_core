@@ -27,8 +27,8 @@ Xila_Class::Keyboard_Class::Keyboard_Class()
 ///
  /// @brief Load keyboard registry.
  /// 
- /// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
+ /// @return Result_Type
+Result_Type Xila_Class::Keyboard_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Keyboard"));
     DynamicJsonDocument Keyboard_Registry(512);
@@ -53,8 +53,8 @@ Xila_Class::Event Xila_Class::Keyboard_Class::Load_Registry()
 ///
  /// @brief Save keyboard registry.
  /// 
- /// @return Xila_Class::Event 
-Xila_Class::Event Xila_Class::Keyboard_Class::Save_Registry()
+ /// @return Result_Type 
+Result_Type Xila_Class::Keyboard_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Keyboard"), FILE_WRITE);
     DynamicJsonDocument Keyboard_Registry(512);

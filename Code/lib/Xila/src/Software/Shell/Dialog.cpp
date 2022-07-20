@@ -623,8 +623,8 @@ void Shell_Class::Dialog_Class::Power_Class::Open()
 /// @param String String to input.
 /// @param Size String size.
 /// @param Masked_Input Enable / disable masking.
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool Masked_Input)
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool Masked_Input)
 {
     Xila.Dialog.Keyboard_State = Xila.None;
     // -- Initialize shell
@@ -647,8 +647,8 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size,
 /// @brief Open a virtual keypad to input a float number.
 ///
 /// @param Number Number to input.
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Keypad(float &Number)
 {
     Xila.Dialog.Keypad_State = Xila.None;
     // -- Initialize shell
@@ -667,7 +667,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Keypad(float &Number)
     return Xila.Dialog.Keypad_State;
 }
 
-Xila_Class::Event Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
+Result_Type Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 {
     Xila.Dialog.Color_Picker_State = Xila.None;
     // -- Save context
@@ -698,8 +698,8 @@ Xila_Class::Event Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
 /// @param Button_Text_1 1st button string (by default : "Yes").
 /// @param Button_Text_2 2nd button string (by default : "No").
 /// @param Button_Text_3 3rd button string (by default : "Cancel").
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Message, uint8_t Type, const __FlashStringHelper *Button_Text_1, const __FlashStringHelper *Button_Text_2, const __FlashStringHelper *Button_Text_3)
 {
     Xila.Dialog.Event_State = Xila.None;
     // -- Initialize shell
@@ -731,8 +731,8 @@ Xila_Class::Event Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Me
 /// @param Button_Text_1 1st button string (by default : "Yes").
 /// @param Button_Text_2 2nd button string (by default : "No").
 /// @param Button_Text_3 3rd button string (by default : "Cancel").
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Event(const char *Message, uint8_t Type, const char *Button_Text_1, const char *Button_Text_2, const char *Button_Text_3)
 {
     Xila.Dialog.Event_State = Xila.None;
     // -- Initialize shell
@@ -815,8 +815,8 @@ void Shell_Class::Dialog_Class::Close_Load()
 ///
 /// @brief Open a login dialog.
 ///
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Login()
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Login()
 {
     Xila.Dialog.Login_State = Xila.None;
     // -- Maximize shell
@@ -856,8 +856,8 @@ void Shell_Class::Dialog_Class::Power()
 /// @brief Open a File Manager dialog to open file.
 ///
 /// @param File_To_Open File to open.
-/// @return Xila_Class::Event
-Xila_Class::Event Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
+/// @return Result_Type
+Result_Type Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
 {
     Xila.Dialog.File_Manager_State = Xila.None;
     Xila_Class::Page Page = Xila.Display.Get_Current_Page(true);
@@ -877,7 +877,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
     return Xila.Dialog.File_Manager_State;
 }
 
-Xila_Class::Event Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
+Result_Type Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
 {
     Xila.Dialog.File_Manager_State = Xila.None;
     Xila_Class::Page Page = Xila.Display.Get_Current_Page(true);
@@ -897,7 +897,7 @@ Xila_Class::Event Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
     return Xila.Dialog.File_Manager_State;
 }
 
-Xila_Class::Event Shell_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
+Result_Type Shell_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
 {
     Xila.Dialog.File_Manager_State = Xila.None;
     Xila_Class::Page Page = Xila.Display.Get_Current_Page(true);

@@ -420,8 +420,8 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 ///
 /// @param Origin_File File to duplicate
 /// @param Destination_File File to write
-/// @return Xila_Class::Event::Success or Xila_Class::Event::Error
-Xila_Class::Event Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_File)
+/// @return Result_Type::Success or Result_Type::Error
+Result_Type Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
@@ -466,8 +466,8 @@ uint16_t Xila_Class::Drive_Class::Count_Items(File &Folder)
 /// @param File
 /// @param File_Name
 /// @param Size
-/// @return Xila_Class::Event
-Xila_Class::Event Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
+/// @return Result_Type
+Result_Type Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
 {
     if (!File)
     {

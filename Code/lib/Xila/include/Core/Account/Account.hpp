@@ -33,7 +33,7 @@ public:
         Locked
     } Session_State;
 
-    Xila_Class::Event Check_Credentials(const char *, const char *);
+    Result_Type Check_Credentials(const char *, const char *);
 
     // -- Getter
     const char *Get_Current_Username();
@@ -56,21 +56,21 @@ protected:
 
     // -- Methods
 
-    static Xila_Class::Event Add(const char *Username, const char *Password);
-    static Xila_Class::Event Delete(const char *);
-    static Xila_Class::Event Change_Password(const char *, const char *);
-    static Xila_Class::Event Change_Username(const char *, const char *);
-    static Xila_Class::Event Set_Autologin(bool Enable);
-    static Xila_Class::Event Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-    static Xila_Class::Event Logout();
-    static Xila_Class::Event Lock();
+    static Result_Type Add(const char *Username, const char *Password);
+    static Result_Type Delete(const char *);
+    static Result_Type Change_Password(const char *, const char *);
+    static Result_Type Change_Username(const char *, const char *);
+    static Result_Type Set_Autologin(bool Enable);
+    static Result_Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+    static Result_Type Logout();
+    static Result_Type Lock();
 
     // -- Setter
 
     void Set_Current_Username(const char *Username);
     void Set_State(Session_State State);
 
-    Xila_Class::Event Load_Registry();
+    Result_Type Load_Registry();
 
 };
 

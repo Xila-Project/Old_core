@@ -25,7 +25,7 @@ inline void Class::Suspend(Xila_Class::Task_Handle Task_To_Suspend) const
   vTaskSuspend(Task_To_Suspend);
 }
 
-inline Xila_Class::Event Class::Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters, Xila_Class::Task_Handle *Task_Handle) const
+inline Result_Type Class::Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters, Xila_Class::Task_Handle *Task_Handle) const
 {
   if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Software_Task, Task_Handle, tskNO_AFFINITY) != pdPASS)
   {
@@ -34,7 +34,7 @@ inline Xila_Class::Event Class::Create(Xila_Class::Task_Function (*Task_Function
   return Success;
 }
 
-inline Xila_Class::Event Class::Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle)
+inline Result_Type Class::Create(Xila_Class::Task_Function (*Task_Function)(void *), const char *Task_Name, size_t Stack_Size, void *pvParameters, uint16_t Priority, Xila_Class::Task_Handle *Task_Handle)
 {
   if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, pvParameters, Priority, Task_Handle, tskNO_AFFINITY) != pdPASS)
   {

@@ -33,7 +33,7 @@ inline uint32_t Xila_Class::Flash_Class::Get_Sketch_Size()
     return Sketch_Size(SKETCH_SIZE_TOTAL);
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
+inline Result_Type Xila_Class::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_read(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
@@ -42,7 +42,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Read(uint32_t Offset, uint32_t
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+inline Result_Type Xila_Class::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_read(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -51,7 +51,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Read(const esp_parti
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Erase_Sector(uint32_t Sector)
+inline Result_Type Xila_Class::Flash_Class::Erase_Sector(uint32_t Sector)
 {
     if (spi_flash_erase_sector(Sector) == ESP_OK)
     {
@@ -60,7 +60,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Erase_Sector(uint32_t Sector)
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Write(uint32_t Offset, uint32_t* Data, size_t Size)
+inline Result_Type Xila_Class::Flash_Class::Write(uint32_t Offset, uint32_t* Data, size_t Size)
 {
     if (spi_flash_write(Offset, (uint32_t*)Data, Size) == ESP_OK)
     {
@@ -69,7 +69,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Write(uint32_t Offset, uint32_
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Erase_Range(const esp_partition_t* Partition, uint32_t Offset, size_t Size)
+inline Result_Type Xila_Class::Flash_Class::Partition_Erase_Range(const esp_partition_t* Partition, uint32_t Offset, size_t Size)
 {
     if (esp_partition_erase_range(Partition, Offset, Size) == ESP_OK)
     {
@@ -78,7 +78,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Erase_Range(const es
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Write(const esp_partition_t* Partition, uint32_t Offset, uint32_t* Data, size_t Size)
+inline Result_Type Xila_Class::Flash_Class::Partition_Write(const esp_partition_t* Partition, uint32_t Offset, uint32_t* Data, size_t Size)
 {
     if (esp_partition_write(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -87,7 +87,7 @@ inline Xila_Class::Event Xila_Class::Flash_Class::Partition_Write(const esp_part
     return Error;
 }
 
-inline Xila_Class::Event Xila_Class::Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
+inline Result_Type Xila_Class::Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
 {
     if (Partition_Number > Xila_Partition)
     {

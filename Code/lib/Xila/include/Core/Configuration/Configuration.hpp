@@ -10,8 +10,8 @@
 ///
 
 // Configuration File
-#ifndef CONFIGURATION_HPP_INCLUDED
-#define CONFIGURATION_HPP_INCLUDED
+#ifndef Configuration_Hpp_Included
+#define Configuration_Hpp_Included
 
 // -- Default values -- //
 
