@@ -33,7 +33,6 @@
 ///
 class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass, public Module_Class
 {
-
 public:
     void printDiag(Print &dest);
 

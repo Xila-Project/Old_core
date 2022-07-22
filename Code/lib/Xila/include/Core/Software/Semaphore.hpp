@@ -13,11 +13,9 @@
 
 #include "Arduino.h"
 #include "Task.hpp"
+#include "../Module.hpp"
 
-typedef SemaphoreHandle_t Semaphore_Handle_Type;
-typedef StaticSemaphore_t Static_Semaphore_Type;
-
-class Semaphore_Class
+class Semaphore_Class : public Module_Class
 {
 public:
     typedef enum
@@ -30,7 +28,7 @@ public:
 
     Semaphore_Class();
 
-    Event_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+    Result_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
     // Event_Type Create_Static()
 
     void Delete();

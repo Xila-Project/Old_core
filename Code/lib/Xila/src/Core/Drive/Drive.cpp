@@ -8,17 +8,15 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Core.hpp"
-
-#include "Core/Core.hpp"
+#include "Core/Drive/Drive.hpp"
 
 #include "SD.h"
 #include "SD_MMC.h"
 
 ///
- /// @brief Construct a new Xila_Class::Drive_Class::Drive_Class object
+ /// @brief Construct a new Drive_Class::Drive_Class object
  /// 
-Xila_Class::Drive_Class::Drive_Class()
+Drive_Class::Drive_Class()
 {
 }
 
@@ -34,7 +32,7 @@ Xila_Class::Drive_Class::Drive_Class()
  /// @param Maximum_Files Maximum simultaneous openned files.
  /// @return true if the initialization succeed.
  /// @return false if the initialization succeed.
-bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
+bool Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD_MMC.begin(Mount_Point, false, false);
 }
@@ -43,7 +41,7 @@ bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uin
  /// @brief Return the drive size.
  /// 
  /// @return uint64_t Drive size in bytes.
-uint64_t Xila_Class::Drive_Class::Size()
+uint64_t Drive_Class::Size()
 {
     return SD_MMC.cardSize();
 }
@@ -51,8 +49,8 @@ uint64_t Xila_Class::Drive_Class::Size()
 ///
  /// @brief Return drive type.
  /// 
- /// @return Xila_Class::Drive_Class::Sd_Card_Type 
-Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
+ /// @return Drive_Class::Sd_Card_Type 
+Drive_Class::Sd_Card_Type Drive_Class::Type()
 {
     switch (SD_MMC.cardType())
     {
@@ -77,7 +75,7 @@ Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 ///
  /// @brief Unmount drive.
  /// 
-void Xila_Class::Drive_Class::End()
+void Drive_Class::End()
 {
     SD_MMC.end();
 }
@@ -88,7 +86,7 @@ void Xila_Class::Drive_Class::End()
  /// @param Path Item path.
  /// @return true if the item exist.
  /// @return false if the item doesn't exist.
-bool Xila_Class::Drive_Class::Exists(const char *Path)
+bool Drive_Class::Exists(const char *Path)
 {
     return SD_MMC.exists(Path);
 }
@@ -99,7 +97,7 @@ bool Xila_Class::Drive_Class::Exists(const char *Path)
  /// @param Path Item path.
  /// @return true if the item exists.
  /// @return false if the item doesn't exist.
-bool Xila_Class::Drive_Class::Exists(const String &Path)
+bool Drive_Class::Exists(const String &Path)
 {
     return SD_MMC.exists(Path);
 }
@@ -110,7 +108,7 @@ bool Xila_Class::Drive_Class::Exists(const String &Path)
  /// @param Path Path of new directory.
  /// @return true if the operation succeed.
  /// @return false of the operation failed.
-bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
+bool Drive_Class::Make_Directory(const char *Path)
 {
     return SD_MMC.mkdir(Path);
 }
@@ -121,7 +119,7 @@ bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
  /// @param Path Path of new directory.
  /// @return true if the operation succeed.
  /// @return false of the operation failed.
-bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
+bool Drive_Class::Make_Directory(const String &Path)
 {
     return SD_MMC.mkdir(Path);
 }
@@ -132,7 +130,7 @@ bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
  /// @param Path Item path.
  /// @param Mode Open mode (read or write).
  /// @return File File instance.
-File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
+File Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
@@ -143,7 +141,7 @@ File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
  /// @param Path Item path.
  /// @param Mode Open mode (read or write).
  /// @return File File instance.
-File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
+File Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD_MMC.open(Path, Mode);
 }
@@ -154,42 +152,42 @@ File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
  /// @param Path 
  /// @return true 
  /// @return false 
-bool Xila_Class::Drive_Class::Remove(const char *Path)
+bool Drive_Class::Remove(const char *Path)
 {
     return SD_MMC.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Remove(const String &Path)
+bool Drive_Class::Remove(const String &Path)
 {
     return SD_MMC.remove(Path);
 }
 
-bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
+bool Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD_MMC.rename(Path_From, Path_To);
 }
 
-bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path_To)
+bool Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD_MMC.rename(Path_From, Path_To);
 }
 
-bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
+bool Drive_Class::Remove_Directory(const char *Path)
 {
     return SD_MMC.rmdir(Path);
 }
 
-bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
+bool Drive_Class::Remove_Directory(const String &Path)
 {
     return SD_MMC.rmdir(Path);
 }
 
-uint64_t Xila_Class::Drive_Class::Total_Bytes()
+uint64_t Drive_Class::Total_Bytes()
 {
     return SD_MMC.totalBytes();
 }
 
-uint64_t Xila_Class::Drive_Class::Used_Bytes()
+uint64_t Drive_Class::Used_Bytes()
 {
     return SD_MMC.usedBytes();
 }
@@ -210,7 +208,7 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 /// @param Maximum_Files Maximum simultaneous openned files.
 /// @return true if the initialization succed.
 /// @return false if the initalization failed.
-bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
+bool Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uint32_t Frequency, const char *Mount_Point, uint8_t Maximum_Files)
 {
     return SD.begin(Slave_Select_Pin, spi, Frequency, Mount_Point, Maximum_Files);
 }
@@ -219,7 +217,7 @@ bool Xila_Class::Drive_Class::Begin(uint8_t Slave_Select_Pin, SPIClass &spi, uin
 /// @brief A method that return the drive size
 ///
 /// @return uint64_t Drive size in bytes
-uint64_t Xila_Class::Drive_Class::Size()
+uint64_t Drive_Class::Size()
 {
     return SD.cardSize();
 }
@@ -227,8 +225,8 @@ uint64_t Xila_Class::Drive_Class::Size()
 ///
 /// @brief A method that return the drive type
 ///
-/// @return Xila_Class::Drive_Class::Sd_Card_Type
-Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
+/// @return Drive_Class::Sd_Card_Type
+Drive_Class::Sd_Card_Type Drive_Class::Type()
 {
     switch (SD.cardType())
     {
@@ -253,7 +251,7 @@ Xila_Class::Drive_Class::Sd_Card_Type Xila_Class::Drive_Class::Type()
 ///
 /// @brief A method that unmount the drive
 ///
-void Xila_Class::Drive_Class::End()
+void Drive_Class::End()
 {
     SD.end();
 }
@@ -264,7 +262,7 @@ void Xila_Class::Drive_Class::End()
 /// @param Path Path to the file / folder
 /// @return true if the item exist
 /// @return false if the item doesn't exist
-bool Xila_Class::Drive_Class::Exists(const char *Path)
+bool Drive_Class::Exists(const char *Path)
 {
     return SD.exists(Path);
 }
@@ -275,7 +273,7 @@ bool Xila_Class::Drive_Class::Exists(const char *Path)
 /// @param Path Path to the file / folder
 /// @return true if the item exist
 /// @return false if the item doesn't exist
-bool Xila_Class::Drive_Class::Exists(const String &Path)
+bool Drive_Class::Exists(const String &Path)
 {
     return SD.exists(Path);
 }
@@ -286,7 +284,7 @@ bool Xila_Class::Drive_Class::Exists(const String &Path)
 /// @param Path Path to directory
 /// @return true if the operation succeed
 /// @return false if the operation fail
-bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
+bool Drive_Class::Make_Directory(const char *Path)
 {
     return SD.mkdir(Path);
 }
@@ -297,7 +295,7 @@ bool Xila_Class::Drive_Class::Make_Directory(const char *Path)
 /// @param Path Path to directory
 /// @return true if the operation succeed
 /// @return false if the operation fail
-bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
+bool Drive_Class::Make_Directory(const String &Path)
 {
     return SD.mkdir(Path);
 }
@@ -308,7 +306,7 @@ bool Xila_Class::Drive_Class::Make_Directory(const String &Path)
  /// @param Path Path of the file to open
  /// @param Mode Mode to open path
  /// @return The openned file instance
-File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
+File Drive_Class::Open(const char *Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
@@ -319,7 +317,7 @@ File Xila_Class::Drive_Class::Open(const char *Path, const char *Mode)
  /// @param Path Path of the file to open
  /// @param Mode Mode to open path (FILE_READ or FILE_WRITE)
  /// @return The openned file instance
-File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
+File Drive_Class::Open(const String &Path, const char *Mode)
 {
     return SD.open(Path, Mode);
 }
@@ -330,7 +328,7 @@ File Xila_Class::Drive_Class::Open(const String &Path, const char *Mode)
  /// @param Path Path of the file to remove.
  /// @return true if the operation succeed.
  /// @return false if the operaton failed.
-bool Xila_Class::Drive_Class::Remove(const char *Path)
+bool Drive_Class::Remove(const char *Path)
 {
     return SD.remove(Path);
 }
@@ -341,7 +339,7 @@ bool Xila_Class::Drive_Class::Remove(const char *Path)
  /// @param Path Path of the file to remove.
  /// @return true if the operation succeed.
  /// @return false if the operaton failed.
-bool Xila_Class::Drive_Class::Remove(const String &Path)
+bool Drive_Class::Remove(const String &Path)
 {
     return SD.remove(Path);
 }
@@ -353,7 +351,7 @@ bool Xila_Class::Drive_Class::Remove(const String &Path)
  /// @param Path_To Destination path of the file.
  /// @return true if the operation succeed.
  /// @return false if the operation failed.
-bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
+bool Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
@@ -365,7 +363,7 @@ bool Xila_Class::Drive_Class::Rename(const char *Path_From, const char *Path_To)
  /// @param Path_To Destination path of the file.
  /// @return true if the operation succeed.
  /// @return false if the operation failed.
-bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path_To)
+bool Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
@@ -376,7 +374,7 @@ bool Xila_Class::Drive_Class::Rename(const String &Path_From, const String &Path
  /// @param Path Path of the directory.
  /// @return true if the operation succeeed.
  /// @return false if the operation failed.
-bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
+bool Drive_Class::Remove_Directory(const char *Path)
 {
     return SD.rmdir(Path);
 }
@@ -388,7 +386,7 @@ bool Xila_Class::Drive_Class::Remove_Directory(const char *Path)
  /// @param Path Path of the directory.
  /// @return true if the operation succeeed.
  /// @return false if the operation failed.
-bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
+bool Drive_Class::Remove_Directory(const String &Path)
 {
     return SD.rmdir(Path);
 }
@@ -397,7 +395,7 @@ bool Xila_Class::Drive_Class::Remove_Directory(const String &Path)
  /// @brief A method that return the drive total space.
  /// 
  /// @return uint64_t Total space in bytes.
-uint64_t Xila_Class::Drive_Class::Total_Bytes()
+uint64_t Drive_Class::Total_Bytes()
 {
     return SD.totalBytes();
 }
@@ -406,7 +404,7 @@ uint64_t Xila_Class::Drive_Class::Total_Bytes()
  /// @brief A method that return the drive used space.
  /// 
  /// @return uint64_t Used space in bytes.
-uint64_t Xila_Class::Drive_Class::Used_Bytes()
+uint64_t Drive_Class::Used_Bytes()
 {
     return SD.usedBytes();
 }
@@ -421,7 +419,7 @@ uint64_t Xila_Class::Drive_Class::Used_Bytes()
 /// @param Origin_File File to duplicate
 /// @param Destination_File File to write
 /// @return Result_Type::Success or Result_Type::Error
-Result_Type Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_File)
+Result_Type Drive_Class::Copy(File &Origin_File, File &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
@@ -442,7 +440,7 @@ Result_Type Xila_Class::Drive_Class::Copy(File &Origin_File, File &Destination_F
 ///
 /// @param Folder
 /// @return uint16_t return the number of files inside a folder
-uint16_t Xila_Class::Drive_Class::Count_Items(File &Folder)
+uint16_t Drive_Class::Count_Items(File &Folder)
 {
     if (!Folder || !Folder.isDirectory())
     {
@@ -467,7 +465,7 @@ uint16_t Xila_Class::Drive_Class::Count_Items(File &Folder)
 /// @param File_Name
 /// @param Size
 /// @return Result_Type
-Result_Type Xila_Class::Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
+Result_Type Drive_Class::Get_Name(File const &File, char *File_Name, size_t Size)
 {
     if (!File)
     {

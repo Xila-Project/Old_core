@@ -8,12 +8,13 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Arduino.h"
-
 #ifndef MATHEMATICS_HPP_INCLUDED
 #define MATHEMATICS_HPP_INCLUDED
 
-class Mathematics_Class
+#include "Arduino.h"
+#include "../Module.hpp"
+
+class Mathematics_Class : Module_Class
 {
 public:
     ///

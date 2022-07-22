@@ -13,6 +13,7 @@
 
 #include "Arduino.h"
 #include "ArduinoJson.hpp"
+#include "Configuration/Configuration.hpp"
 
 class Module_Class
 {

@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Core.hpp"
+#include "Core/System/System.hpp"
 
 #include "soc/rtc_wdt.h"
 #include "esp_task_wdt.h"
@@ -393,7 +393,7 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 /// @brief First start routine, first function executed when Xila.Start() is called.
 ///
-inline void Xila_Class::System_Class::First_Start_Routine()
+void Xila_Class::System_Class::First_Start_Routine()
 {
 
   Xila.Flash.Set_Boot_Partition(Xila_Loader_Partition); // Set loader as boot partition if Xila is doesn't boot anymore.
@@ -855,4 +855,21 @@ uint32_t Xila_Class::System_Class::Get_Chip_Cores()
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
   return chip_info.cores;
+}
+
+uint32_t Xila_Class::System_Class::Get_CPU_Frequency()
+{
+    return getCpuFrequencyMhz();
+}
+
+const char *Xila_Class::System_Class::Get_SDK_Version()
+{
+    return esp_get_idf_version();
+}
+
+uint64_t Xila_Class::System_Class::Get_eFuse_MAC()
+{
+    uint64_t _chipmacid = 0LL;
+    esp_efuse_mac_get_default((uint8_t *)(&_chipmacid));
+    return _chipmacid;
 }

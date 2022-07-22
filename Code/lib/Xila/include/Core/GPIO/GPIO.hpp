@@ -8,207 +8,103 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#ifndef Gpio_Hpp_Included
+#define Gpio_Hpp_Included
+
 #include "Arduino.h"
+#include "../Module.hpp"
 
-#ifndef GPIO_HPP_INCLUDED
-#define GPIO_HPP_INCLUDED
-
+//==============================================================================//
 ///
- /// @brief Set GPIO mode.
- /// 
- /// @param Pin Involved GPIO.
- /// @param Mode Mode.
-inline void Xila_Class::GPIO_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
-{
-    pinMode(Pin, Mode);
-}
-
+/// @brief GPIO management class
 ///
- /// @brief Check if a GPIO is valid for output purpose.
- /// 
- /// @param Pin Involved GPIO.
- /// @return Result_Type 
-inline Result_Type Xila_Class::GPIO_Class::Valid_Output_Pin(uint8_t Pin)
+class GPIO_Class : public Module_Class
 {
-    if (digitalPinCanOutput(Pin) == true)
+public:
+
+    // TODO : Transform into a full Object Oriented Object.
+
+    GPIO_Class();
+
+    // -- Pin mode
+    void Set_Mode(uint8_t Pin, uint8_t Mode);
+
+    Result_Type Valid_Output_Pin(uint8_t Pin);
+
+    // -- Digital
+    void Digital_Write(uint8_t Pin, uint8_t State);
+    int16_t Digital_Read(uint8_t Pin);
+
+    Result_Type Valid_Digital_Pin(uint8_t Pin);
+
+    // -- Analog
+    uint16_t Analog_Read(uint8_t Pin);
+    uint32_t Analog_Read_Milli_Volts(uint8_t Pin);
+
+    void Set_Voltage_Reference_Pin(uint8_t Pin);
+    void Set_Read_Resolutions(uint8_t Bits_Resolution);
+    void Set_Width(uint8_t Bits_Width);
+    void Set_Clock_Divider(uint8_t Clock_Divider);
+
+    void Set_Attenuation(uint8_t Attenuation);
+    void Set_Attenuation(uint8_t Pin, uint8_t Attenuation);
+
+    // -- Interrupts
+    void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode);
+    void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode);
+    void Detach_Interrupt(uint8_t Pin);
+
+    ///
+    /// @brief Digital IOs states.
+    ///
+    enum Digital_States : uint8_t
     {
-        return Success;
-    }
+        Low = LOW,   ///< Low state.
+        High = HIGH, ///< High state.
 
-    return Error;
-}
+    };
 
-///
- /// @brief Set GPIO digital state.
- /// 
- /// @param Pin Involved GPIO.
- /// @param State GPIO state to set.
-inline void Xila_Class::GPIO_Class::Digital_Write(uint8_t Pin, uint8_t State)
-{
-    digitalWrite(Pin, State);
-}
-
-///
- /// @brief Read GPIO digital state.
- /// 
- /// @param Pin Involved GPIO.
- /// @return int16_t GPIO state.
-inline int16_t Xila_Class::GPIO_Class::Digital_Read(uint8_t Pin)
-{
-    return digitalRead(Pin);
-}
-
-///
- /// @brief Check if a GPIO pin is suitable for digital signals.
- /// 
- /// @param Pin Involved GPIO.
- /// @return Result_Type 
-inline Result_Type Xila_Class::GPIO_Class::Valid_Digital_Pin(uint8_t Pin)
-{
-    if (digitalPinIsValid(Pin))
+    ///
+    /// @brief IOs modes.
+    ///
+    enum Modes : uint8_t
     {
-        return Success;
-    }
-    return Error;
-}
+        Input = 0x01,             ///< Input
+        Output = 0x02,            ///< Output
+        Pull_Up = 0x04,           ///< Pull up resistor.
+        Input_Pull_Up = 0x05,     ///< Input with a pull up resistor.
+        Pull_Down = 0x08,         ///< Pull down resistor.
+        Input_Pull_Down = 0x09,   ///< Input with a pull down resistor.
+        Open_Drain = 0x10,        ///< Open drain (nothing connected).
+        Output_Open_Drain = 0x12, ///< Output with open drain by default.
+        Special = 0xF0,           ///< Special
+        Function_1 = 0x00,        ///< Function 1
+        Function_2 = 0x20,        ///< Function 2
+        Function_3 = 0x40,        ///< Function 3
+        Function_4 = 0x60,        ///< Function 4
+        Function_5 = 0x80,        ///< Function 5
+        Function_6 = 0xA0,        ///< Function 6
+        Analog = 0xC0             ///< Analog
+    };
 
-///
- /// @brief Read GPIO voltage value.
- /// 
- /// @param Pin Involved GPIO.
- /// @return uint16_t GPIO voltage value (between 0 and 4095).
-inline uint16_t Xila_Class::GPIO_Class::Analog_Read(uint8_t Pin)
-{
-    return analogRead(Pin);
-}
-
-///
- /// @brief Read GPIO voltage.
- /// 
- /// @param Pin Involved GPIO.
- /// @return uint32_t GPIO voltage value in millivolts.
-inline uint32_t Xila_Class::GPIO_Class::Analog_Read_Milli_Volts(uint8_t Pin)
-{
-    return analogReadMilliVolts(Pin);
-}
-
-///
- /// @brief Set voltage reference pin for for ADC measurements.
- /// 
- /// @param Pin Involved GPIO.
-inline void Xila_Class::GPIO_Class::Set_Voltage_Reference_Pin(uint8_t Pin)
-{
-    analogSetVRefPin(Pin);
-}
-
-///
- /// @brief Set GPIO attenuation for ADC measurements.
- /// 
- /// @param Pin Involved GPIO.
- /// @param Attenuation Attenuation.
-inline void Xila_Class::GPIO_Class::Set_Attenuation(uint8_t Pin, uint8_t Attenuation)
-{
-    switch (Attenuation)
+    ///
+    /// @brief Interrupt modes.
+    ///
+    enum Interrupt_Modes : uint8_t
     {
-    case ADC_0db:
-        analogSetPinAttenuation(Pin, ADC_0db);
-        break;
-    case ADC_2_5db:
-        analogSetPinAttenuation(Pin, ADC_2_5db);
-        break;
-    case ADC_6db:
-        analogSetPinAttenuation(Pin, ADC_6db);
-        break;
-    case ADC_11db:
-        analogSetPinAttenuation(Pin, ADC_11db);
-        break;
-    default:
-        break;
-    }
-}
+        Disabled = 0x00,  ///< No interrupt.
+        Rising = 0x01,    ///< Triggered when signal rise.
+        Falling = 0x02,   ///< Triggered when signal fall.
+        Change = 0x03,    ///< Triggered when signal fall or rise.
+        On_Low = 0x04,    ///< Triggered on low state.
+        On_High = 0x05,   ///< Triggered on high state.
+        On_Low_WE = 0x0C, ///< Triggered on low state.
+        On_High_WE = 0x0D ///< Triggered on high state.
+    };
 
-///
- /// @brief Set GPIOs attenuation for ADC measurements.
- /// 
- /// @param Attenuation Attenuation.
-inline void Xila_Class::GPIO_Class::Set_Attenuation(uint8_t Attenuation)
-{
-    switch (Attenuation)
-    {
-    case ADC_0db:
-        analogSetAttenuation(ADC_0db);
-        break;
-    case ADC_2_5db:
-        analogSetAttenuation(ADC_2_5db);
-        break;
-    case ADC_6db:
-        analogSetAttenuation(ADC_6db);
-        break;
-    case ADC_11db:
-        analogSetAttenuation(ADC_11db);
-        break;
-    default:
-        break;
-    }
-}
-
-///
- /// @brief Set clock divider.
- /// 
- /// @param Clock_Divider Clock divider.
-inline void Xila_Class::GPIO_Class::Set_Clock_Divider(uint8_t Clock_Divider)
-{
-    analogSetClockDiv(Clock_Divider);
-}
-
-///
- /// @brief Set bit width of ADC measurements.
- /// 
- /// @param Bits_Width Bit width.
-inline void Xila_Class::GPIO_Class::Set_Width(uint8_t Bits_Width)
-{
-    analogSetWidth(Bits_Width);
-}
-
-///
- /// @brief Set read resolution of ADC measurements.
- /// 
- /// @param Bits_Resolution Bit resolution.
-inline void Xila_Class::GPIO_Class::Set_Read_Resolutions(uint8_t Bits_Resolution)
-{
-    analogReadResolution(Bits_Resolution);
-}
-
-///
- /// @brief Set an interrupt.
- /// 
- /// @param Pin Involved GPIO.
- /// @param[in] Function_Pointer Function pointer.
- /// @param Mode Interrupt mode.
-inline void Xila_Class::GPIO_Class::Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode)
-{
-    attachInterrupt(Pin, Function_Pointer, Mode);
-}
-
-///
- /// @brief Set an interrupt with an argument passed to the hadling function.
- /// 
- /// @param Pin Involved GPIO.
- /// @param Function_Pointer Function pointer.
- /// @param Argument Argument passed to the function.
- /// @param Mode Interrupt mode.
-inline void Xila_Class::GPIO_Class::Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void*), void *Argument, int16_t Mode)
-{
-    attachInterruptArg(Pin, Function_Pointer, Argument, Mode);
-}
-
-///
- /// @brief Detach interrupt from a GPIO.
- /// 
- /// @param Pin Involved GPIO.
-inline void Xila_Class::GPIO_Class::Detach_Interrupt(uint8_t Pin)
-{
-    detachInterrupt(Pin);
-}
+    friend class Xila_Class;
+    friend class Shell_Class;
+    friend class Unit_Test_Class;
+};
 
 #endif

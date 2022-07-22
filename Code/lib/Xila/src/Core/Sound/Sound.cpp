@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Core.hpp"
+#include "Core/Sound/Sound.hpp"
 
 #include "Audio.h"
 
@@ -23,7 +23,7 @@ Audio Audio_Driver;
 ///
 /// @brief Construct a new Xila_Class::Sound_Class::Sound_Class object
 ///
-Xila_Class::Sound_Class::Sound_Class()
+Sound_Class::Sound_Class()
     : Task_Handle(NULL),
       Custom_Pin(0xFF)
 {
@@ -31,14 +31,14 @@ Xila_Class::Sound_Class::Sound_Class()
 }
 
 ///
-/// @brief Destroy the Xila_Class::Sound_Class::Sound_Class object
+/// @brief Destroy the Sound_Class::Sound_Class object
 ///
-Xila_Class::Sound_Class::~Sound_Class()
+Sound_Class::~Sound_Class()
 {
     Instance_Pointer = NULL;
 }
 
-void Xila_Class::Sound_Class::Begin()
+void Sound_Class::Begin()
 {
     Audio_Driver.setBalance(0);
     Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(6), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
@@ -49,7 +49,7 @@ void Xila_Class::Sound_Class::Begin()
 ///
 /// @return Result_Type
 ///
-Result_Type Xila_Class::Sound_Class::Load_Registry()
+Result_Type Sound_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
@@ -87,7 +87,7 @@ Result_Type Xila_Class::Sound_Class::Load_Registry()
  /// @brief Save sound registry.
  /// 
  /// @return Result_Type 
-Result_Type Xila_Class::Sound_Class::Save_Registry()
+Result_Type Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";
@@ -119,7 +119,7 @@ void audio_eof_mp3(const char *Informations)
 /// @brief A method that set volume.
 ///
 /// @param Volume_To_Set Volume level to set (0 - 255).
-void Xila_Class::Sound_Class::Set_Volume(uint8_t Volume_To_Set)
+void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 {
     Volume_To_Set = ((21 * Volume_To_Set) / 255);
     Audio_Driver.setVolume(Volume_To_Set);
@@ -129,7 +129,7 @@ void Xila_Class::Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 /// @brief A method that return current volume level.
 ///
 /// @return uint8_t Current volume level (0 - 255)
-uint8_t Xila_Class::Sound_Class::Get_Volume()
+uint8_t Sound_Class::Get_Volume()
 {
     return ((Audio_Driver.getVolume() * 255) / 21);
 }
@@ -142,7 +142,7 @@ uint8_t Xila_Class::Sound_Class::Get_Volume()
 /// @param Password Password if the host require authentication.
 /// @return true if succeed to play file.
 /// @return false if failed to play file.
-uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const char *Password)
+uint8_t Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const char *Password)
 {
     if (File_Path_Or_Host[0] == '\0')
     {
@@ -169,7 +169,7 @@ uint8_t Xila_Class::Sound_Class::Play(const char *File_Path_Or_Host, const char 
 /// @brief A method that set balance.
 ///
 /// @param Balance Balance level (between -16 and 16).
-void Xila_Class::Sound_Class::Set_Balance(int8_t Balance)
+void Sound_Class::Set_Balance(int8_t Balance)
 {
     Audio_Driver.setBalance(Balance);
 }
@@ -179,7 +179,7 @@ void Xila_Class::Sound_Class::Set_Balance(int8_t Balance)
 ///
 /// @return true if audio is playing.
 /// @return false if audio is not playing.
-uint8_t Xila_Class::Sound_Class::Get_State()
+uint8_t Sound_Class::Get_State()
 {
     return Audio_Driver.isRunning();
 }
@@ -190,7 +190,7 @@ uint8_t Xila_Class::Sound_Class::Get_State()
 /// @param Gain_Low_Pass Gain low pass.
 /// @param Gain_Band_Pass Gain band pass.
 /// @param Gain_High_Pass Gain high pass.
-void Xila_Class::Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass)
+void Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass)
 {
     Audio_Driver.setTone(Gain_Low_Pass, Gain_Band_Pass, Gain_High_Pass);
 }
@@ -199,7 +199,7 @@ void Xila_Class::Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pa
 /// @brief A method that return current time.
 ///
 /// @return uint32_t Current playing time in seconds.
-uint32_t Xila_Class::Sound_Class::Get_Current_Time()
+uint32_t Sound_Class::Get_Current_Time()
 {
     return Audio_Driver.getAudioCurrentTime();
 }
@@ -207,8 +207,8 @@ uint32_t Xila_Class::Sound_Class::Get_Current_Time()
 ///
 /// @brief A method that set output.
 ///
-/// @param Output Xila_Class::Sound_Class::Internal_DAC / External_DAC
-void Xila_Class::Sound_Class::Set_Output(uint8_t Output)
+/// @param Output Sound_Class::Internal_DAC / External_DAC
+void Sound_Class::Set_Output(uint8_t Output)
 {
     if (Output == Internal_DAC)
     {
@@ -224,7 +224,7 @@ void Xila_Class::Sound_Class::Set_Output(uint8_t Output)
 /// @brief A method that return file duration.
 ///
 /// @return uint32_t Total playing time in seconds.
-uint32_t Xila_Class::Sound_Class::Get_Duration()
+uint32_t Sound_Class::Get_Duration()
 {
     return Audio_Driver.getAudioFileDuration();
 }
@@ -233,7 +233,7 @@ uint32_t Xila_Class::Sound_Class::Get_Duration()
 /// @brief A method that return total playing time.
 ///
 /// @return uint32_t Total playing time seconds.
-uint32_t Xila_Class::Sound_Class::Get_Total_Time()
+uint32_t Sound_Class::Get_Total_Time()
 {
     return Audio_Driver.getTotalPlayingTime();
 }
@@ -242,7 +242,7 @@ uint32_t Xila_Class::Sound_Class::Get_Total_Time()
 /// @brief A method that set current playing time.
 ///
 /// @param Time Current playing time in seconds.
-void Xila_Class::Sound_Class::Set_Current_Time(uint16_t Time)
+void Sound_Class::Set_Current_Time(uint16_t Time)
 {
     Audio_Driver.setAudioPlayPosition(Time);
 }
@@ -251,7 +251,7 @@ void Xila_Class::Sound_Class::Set_Current_Time(uint16_t Time)
 /// @brief A method that set time offset.
 ///
 /// @param Time Time offset in seconds.
-void Xila_Class::Sound_Class::Set_Time_Offset(int16_t Time)
+void Sound_Class::Set_Time_Offset(int16_t Time)
 {
     Audio_Driver.setTimeOffset(Time);
 }
@@ -262,7 +262,7 @@ void Xila_Class::Sound_Class::Set_Time_Offset(int16_t Time)
 /// @param Frequency Frequency of the tone.
 /// @param Duration Duration of the tone.
 /// @param Pin Output pin of the tone.
-void Xila_Class::Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_t Pin)
+void Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_t Pin)
 {
 
     if (Pin == 0xFF)
@@ -290,7 +290,7 @@ void Xila_Class::Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_
 /// @brief A method that disable tone on pin.
 ///
 /// @param Pin Pin that disable tone.
-void Xila_Class::Sound_Class::No_Tone(uint8_t Pin)
+void Sound_Class::No_Tone(uint8_t Pin)
 {
     if (Pin == 0xFF)
     {
@@ -308,7 +308,7 @@ void Xila_Class::Sound_Class::No_Tone(uint8_t Pin)
 ///
 /// @param File_To_Play File to play instance.
 /// @return uint8_t
-uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
+uint8_t Sound_Class::Play(File &File_To_Play)
 {
     if (!File_To_Play)
     {
@@ -329,7 +329,7 @@ uint8_t Xila_Class::Sound_Class::Play(File &File_To_Play)
 /// @brief A method that set loop of the current playing file.
 ///
 /// @param Loop true to enable or false to disable loop.
-void Xila_Class::Sound_Class::Set_Loop(bool Loop)
+void Sound_Class::Set_Loop(bool Loop)
 {
     Audio_Driver.setFileLoop(Loop);
 }
@@ -338,7 +338,7 @@ void Xila_Class::Sound_Class::Set_Loop(bool Loop)
 /// @brief A method that return file size.
 ///
 /// @return uint32_t File size in bytes.
-uint32_t Xila_Class::Sound_Class::Get_File_Size()
+uint32_t Sound_Class::Get_File_Size()
 {
     return Audio_Driver.getFileSize();
 }
@@ -347,7 +347,7 @@ uint32_t Xila_Class::Sound_Class::Get_File_Size()
 /// @brief A method that return current file position.
 ///
 /// @return uint32_t File position in bytes.
-uint32_t Xila_Class::Sound_Class::Get_File_Position()
+uint32_t Sound_Class::Get_File_Position()
 {
     return Audio_Driver.getFilePos();
 }
@@ -358,13 +358,13 @@ uint32_t Xila_Class::Sound_Class::Get_File_Position()
 /// @param Position File position in bytes.
 /// @return true if succeed to set file position.
 /// @return false if failed to set file position.
-bool Xila_Class::Sound_Class::Set_File_Position(uint32_t Position)
+bool Sound_Class::Set_File_Position(uint32_t Position)
 {
     return Audio_Driver.setFilePos(Position);
 }
 
 ///
-bool Xila_Class::Sound_Class::Set_File_Seek(const float Speed)
+bool Sound_Class::Set_File_Seek(const float Speed)
 {
     return Audio_Driver.audioFileSeek(Speed);
 }
@@ -373,7 +373,7 @@ bool Xila_Class::Sound_Class::Set_File_Seek(const float Speed)
 /// @brief A method that return current sample rate
 ///
 /// @return uint32_t
-uint32_t Xila_Class::Sound_Class::Get_Sample_Rate()
+uint32_t Sound_Class::Get_Sample_Rate()
 {
     return Audio_Driver.getSampleRate();
 }
@@ -382,7 +382,7 @@ uint32_t Xila_Class::Sound_Class::Get_Sample_Rate()
 /// @brief A method that set bit resolution of current playing file / host.
 ///
 /// @return uint8_t Bit resolution.
-uint8_t Xila_Class::Sound_Class::Get_Bit_Resolution()
+uint8_t Sound_Class::Get_Bit_Resolution()
 {
     return Audio_Driver.getBitsPerSample();
 }
@@ -391,7 +391,7 @@ uint8_t Xila_Class::Sound_Class::Get_Bit_Resolution()
 /// @brief A method that return the number of channels.
 ///
 /// @return uint8_t Number of channels (1 for mono, 2 for stereo).
-uint8_t Xila_Class::Sound_Class::Get_Channels()
+uint8_t Sound_Class::Get_Channels()
 {
     return Audio_Driver.getChannels();
 }
@@ -400,7 +400,7 @@ uint8_t Xila_Class::Sound_Class::Get_Channels()
 /// @brief A method that return current bit rate of current playing file.
 ///
 /// @return uint32_t Current playing file bit rate.
-uint32_t Xila_Class::Sound_Class::Get_Bit_Rate()
+uint32_t Sound_Class::Get_Bit_Rate()
 {
     return Audio_Driver.getBitRate();
 }
@@ -409,7 +409,7 @@ uint32_t Xila_Class::Sound_Class::Get_Bit_Rate()
 /// @brief A method that set number of channels.
 ///
 /// @param Channels 1 for mono and 2 for stereo sound.
-void Xila_Class::Sound_Class::Set_Channels(uint8_t Channels)
+void Sound_Class::Set_Channels(uint8_t Channels)
 {
     if (Channels > 1)
     {
@@ -424,7 +424,7 @@ void Xila_Class::Sound_Class::Set_Channels(uint8_t Channels)
 ///
 /// @brief Resume playback.
 ///
-void Xila_Class::Sound_Class::Resume()
+void Sound_Class::Resume()
 {
     if (!Audio_Driver.isRunning())
     {
@@ -435,7 +435,7 @@ void Xila_Class::Sound_Class::Resume()
 ///
  /// @brief Pause playback.
  /// 
-void Xila_Class::Sound_Class::Pause()
+void Sound_Class::Pause()
 {
     if (Audio_Driver.isRunning())
     {
@@ -446,7 +446,7 @@ void Xila_Class::Sound_Class::Pause()
 ///
 /// @brief Stop playback.
 ///
-void Xila_Class::Sound_Class::Stop()
+void Sound_Class::Stop()
 {
     Audio_Driver.stopSong();
 }
@@ -454,7 +454,7 @@ void Xila_Class::Sound_Class::Stop()
 ///
 /// @brief Mute playback.
 ///
-void Xila_Class::Sound_Class::Mute()
+void Sound_Class::Mute()
 {
     Audio_Driver.setVolume(0);
 }
@@ -468,7 +468,7 @@ void Xila_Class::Sound_Class::Mute()
  /// @param Data_In_Pin Data in pin.
  /// @return true if the operation succeed.
  /// @return false if the operation failed.
-bool Xila_Class::Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin)
+bool Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin)
 {
     return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
 }
@@ -476,7 +476,7 @@ bool Xila_Class::Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Cl
 ///
  /// @brief Audio driver task.
  /// 
-void Xila_Class::Sound_Class::Task(void *)
+void Sound_Class::Task(void *)
 {
     while (1)
     {

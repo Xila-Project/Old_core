@@ -8,16 +8,17 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Arduino.h"
-
 #ifndef Memory_Hpp_Included
 #define Memory_Hpp_Included
+
+#include "Arduino.h"
+#include "../Module.hpp"
 
 //==============================================================================//
 ///
 /// @brief Memory management class.
 ///
-class Memory_Class
+class Memory_Class : public Module_Class
 {
 public:
     // -- Methods

@@ -8,6 +8,10 @@
 /// @copyright Copyright (c) 2021
 ///
 
+
+#ifndef Flash_Hpp_Included
+#define Flash_Hpp_Included
+
 #include "Arduino.h"
 
 #include "Esp.h"
@@ -25,81 +29,46 @@ extern "C"
 }
 #include <MD5Builder.h>
 
-#ifndef FLASH_HPP_DEFINED
-#define FLASH_HPP_DEFINED
+#include "../Module.hpp"
 
-inline uint32_t Xila_Class::Flash_Class::Get_Sketch_Size()
+///=============================================================================//
+///
+/// @brief Flash wrapper class.
+///
+class Flash_Class : public Module_Class
 {
-    return Sketch_Size(SKETCH_SIZE_TOTAL);
-}
+public:
+    // -- Methods
+    uint32_t Get_Size();
+    uint32_t Get_Speed();
+    FlashMode_t Get_Mode();
 
-inline Result_Type Xila_Class::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
-{
-    if (spi_flash_read(Offset, (uint32_t *)Data, Size) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
 
-inline Result_Type Xila_Class::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
-{
-    if (esp_partition_read(Partition, Offset, Data, Size) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
 
-inline Result_Type Xila_Class::Flash_Class::Erase_Sector(uint32_t Sector)
-{
-    if (spi_flash_erase_sector(Sector) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    uint32_t Get_Sketch_Size();
+    String Get_Sketch_MD5();
+    uint32_t Get_Sketch_Free_Space();
 
-inline Result_Type Xila_Class::Flash_Class::Write(uint32_t Offset, uint32_t* Data, size_t Size)
-{
-    if (spi_flash_write(Offset, (uint32_t*)Data, Size) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+private:
+    // -- Methods
+    Result_Type Set_Boot_Partition(const uint8_t Partition_Number);
 
-inline Result_Type Xila_Class::Flash_Class::Partition_Erase_Range(const esp_partition_t* Partition, uint32_t Offset, size_t Size)
-{
-    if (esp_partition_erase_range(Partition, Offset, Size) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    Result_Type Erase_Sector(uint32_t Sector);
+    Result_Type Write(uint32_t Offset, uint32_t *Data, size_t Size);
 
-inline Result_Type Xila_Class::Flash_Class::Partition_Write(const esp_partition_t* Partition, uint32_t Offset, uint32_t* Data, size_t Size)
-{
-    if (esp_partition_write(Partition, Offset, Data, Size) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    Result_Type Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
+    Result_Type Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
 
-inline Result_Type Xila_Class::Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
-{
-    if (Partition_Number > Xila_Partition)
-    {
-        return Error;
-    }
-    if (esp_ota_set_boot_partition(esp_partition_find_first(ESP_PARTITION_TYPE_APP, ESP_PARTITION_SUBTYPE_APP_OTA_MIN + Partition_Number)) == ESP_OK)
-    {
-        return Success;
-    }
-    return Error;
-}
+    static uint32_t Sketch_Size(sketchSize_t Response);
+    uint32_t Magic_Size(uint8_t Byte);
+    uint32_t Magic_Speed(uint8_t Byte);
+    FlashMode_t Magic_Mode(uint8_t Byte);
 
-
+    friend class Xila_Class;
+    friend class Shell_Class;
+    friend class Unit_Test_Class;
+};
 
 #endif

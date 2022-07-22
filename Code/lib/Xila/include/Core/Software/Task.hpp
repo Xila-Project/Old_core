@@ -11,10 +11,11 @@
 #ifndef Task_Hpp_Included
 #define TASK_HPP_INCLUDED
 
+#include "../Module.hpp"
 #include "Arduino.h"
 #include "Configuration.hpp"
 
-class Task_Class
+class Task_Class : public Module_Class
 {
 public:
 
@@ -28,9 +29,9 @@ public:
 
   Task_Class();
 
-  Event_Type Create(Task_Function (*Task_Function)(void*), const char* Task_Name, size_t Stack_Size, Priority_Type Priority = Normal);
+  Result_Type Create(Task_Function (*Task_Function)(void*), const char* Task_Name, size_t Stack_Size, Priority_Type Priority = Normal);
 
-  Event_Type Set_Priority(Priority_Type Priority);
+  Result_Type Set_Priority(Priority_Type Priority);
   void Suspend();
   void Resume();
   void Delete();

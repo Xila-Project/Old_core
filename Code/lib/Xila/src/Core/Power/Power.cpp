@@ -8,15 +8,16 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Core.hpp"
+#include "Core/Power/Power.hpp"
+
 #include "soc/rtc_wdt.h"
 
-extern Xila_Class::Software_Handle Shell_Handle;
+extern Software_Handle Shell_Handle;
 
 ///
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
 ///
-Xila_Class::Power_Class::Power_Class()
+Power_Class::Power_Class()
     : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
@@ -27,7 +28,7 @@ Xila_Class::Power_Class::Power_Class()
 /// @brief Load power registry.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::Power_Class::Load_Registry()
+Result_Type Power_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
@@ -51,7 +52,7 @@ Result_Type Xila_Class::Power_Class::Load_Registry()
 /// @brief Save power registry.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::Power_Class::Save_Registry()
+Result_Type Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
@@ -72,7 +73,7 @@ Result_Type Xila_Class::Power_Class::Save_Registry()
 ///
 /// @brief Handler of the power button interrupt.
 ///
-void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
+void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
     vTaskEnterCritical(&Xila.Power.Button_Mutex);
     if (Xila.GPIO.Digital_Read(Power_Button_Pin) == Xila.GPIO.High) // rise
@@ -100,7 +101,7 @@ void IRAM_ATTR Xila_Class::Power_Class::Button_Interrupt_Handler()
 ///
 /// @brief Check if power button is pressed.
 ///
-void Xila_Class::Power_Class::Check_Button()
+void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
@@ -112,7 +113,7 @@ void Xila_Class::Power_Class::Check_Button()
 ///
 /// @brief Make the board go in deep sleep.
 ///
-void Xila_Class::Power_Class::Deep_Sleep()
+void Power_Class::Deep_Sleep()
 {
     Log_Information("Going into deep-sleep.");
     Xila.Display.Set_Serial_Wake_Up(true);

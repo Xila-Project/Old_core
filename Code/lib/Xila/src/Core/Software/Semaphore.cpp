@@ -20,7 +20,7 @@ Event_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, u
     {
         return Event_Type::Error;
     }
-    
+
     switch (Type)
     {
     case Binary:
@@ -89,30 +89,30 @@ Event_Type Semaphore_Class::Take(uint32_t Timeout)
 
 void Semaphore_Class::Give_From_ISR(, BaseType_t *Higher_Priority_Task_Woken)
 {
-        xSemaphoreGiveFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
+    xSemaphoreGiveFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
 void Semaphore_Class::Take_From_ISR(, BaseType_t *Higher_Priority_Task_Woken)
 {
-        xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
+    xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
 void Semaphore_Class::Take_Recursive(, Tick_Type Ticks_To_Wait)
 {
-        xSemaphoreTakeRecursive(Semaphore_Handle, Ticks_To_Wait);
+    xSemaphoreTakeRecursive(Semaphore_Handle, Ticks_To_Wait);
 }
 
 void Semaphore_Class::Give_Recursive()
 {
-        xSemaphoreGiveRecursive(Semaphore_Handle);
+    xSemaphoreGiveRecursive(Semaphore_Handle);
 }
 
 void Semaphore_Class::Task_Class Get_Mutex_Holder()
 {
-        return xSemaphoreGetMutexHolder(Semaphore_Handle);
+    return xSemaphoreGetMutexHolder(Semaphore_Handle);
 }
 
 UBaseType_t Get_Count(Semaphore_Handle_Type Semaphore_Handle)
 {
-        return uxSemaphoreGetCount(Semaphore_Handle);
+    return uxSemaphoreGetCount(Semaphore_Handle);
 }
