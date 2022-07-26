@@ -7,5 +7,5 @@ void setup()
 
 void loop()
 {
-    Xila.Task.Delete();
+  vTaskDelete(NULL);
 }

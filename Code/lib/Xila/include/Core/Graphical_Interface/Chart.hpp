@@ -50,7 +50,7 @@ public:
         Last = LV_CHART_AXIS_LAST
     };
 
-    enum Draw_Part_Type
+    enum Draw_Part::Type
     {
         Div_Line_Init = LV_CHART_DRAW_PART_DIV_LINE_INIT,
         Div_Line_Horizontal = LV_CHART_DRAW_PART_DIV_LINE_HORIZONTAL,
@@ -69,7 +69,7 @@ public:
     Series_Type *Add_Series(Color_Type Color, Axis_Type Axis);
     void Remove_Series(Series_Type *Series);
     void Hide_Series(Series_Type *Series, bool Hide);
-    Cursor_Type *Add_Cursor(Color_Type Color, Direction_Type Direction);
+    Cursor_Type *Add_Cursor(Color_Type Color, Direction::Type Direction);
 
     // -- -- Setters.
 

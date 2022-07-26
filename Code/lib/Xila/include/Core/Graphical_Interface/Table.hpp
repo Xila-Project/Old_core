@@ -36,7 +36,7 @@ public:
     typedef enum Draw_Part_Enumeration
     {
         Cell = LV_TABLE_DRAW_PART_CELL, /**< A cell*/
-    } Draw_Part_Type;
+    } Draw_Part::Type;
 
     // - Methods
 

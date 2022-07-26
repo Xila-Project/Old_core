@@ -34,7 +34,7 @@ public:
         Background = LV_ARC_DRAW_PART_BACKGROUND,
         Foreground = LV_ARC_DRAW_PART_FOREGROUND,
         Knob = LV_ARC_DRAW_PART_KNOB
-    } Draw_Part_Type;
+    } Draw_Part::Type;
 
     // - Methods
 

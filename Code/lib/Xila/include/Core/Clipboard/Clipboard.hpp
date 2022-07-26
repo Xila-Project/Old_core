@@ -13,7 +13,7 @@
 
 #include "Arduino.h"
 
-#include "Module.hpp"
+#include "../Module.hpp"
 
 //==============================================================================//
 ///
@@ -22,7 +22,7 @@
 class Clipboard_Class : public Module_Class
 {
 public:
-    static Results_Type Clear();
+    static Result_Type Clear();
 
     static Result_Type Copy(uint64_t const &Value_To_Copy);
     static Result_Type Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);

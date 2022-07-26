@@ -52,7 +52,7 @@ public:
 protected:
 
     // System's task :
-    static Xila_Class::Task_Handle Task_Handle;
+    static Task_Type Task;
 
     ///
     /// @brief Device name used as Network hostname ...

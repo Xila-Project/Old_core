@@ -43,6 +43,6 @@ public:
 
 private:
     SemaphoreHandle_t Semaphore_Handle;
-}
+};
 
 #endif

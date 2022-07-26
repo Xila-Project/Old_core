@@ -41,7 +41,7 @@ public:
     void Transform(Image_Descriptor_Type *Image, int16_t Angle, uint16_t Zoom, Coordinate_Type Offset_X, Coordinate_Type Offset_Y, int32_t Pivot_X, int32_t Pivot_Y, bool Anti_Aliasing);
     void Horizontal_Blur(const Area_Type& Area, uint16_t Radius);
     void Vertical_Blur(const Area_Type& Area, uint16_t Radius);
-    void Fill_Background(Color_Type Color, Opacity_Type Opacity);
+    void Fill_Background(Color_Type Color, Opacity::Type Opacity);
 
     void Draw_Rectangle(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Width, Coordinate_Type Height, const Draw_Rectangle_Descriptor_Type *Draw_Rectangle_Descriptor);
     void Draw_Text(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Maximum_Width, Draw_Label_Descriptor_Type *Draw_Label_Descriptor, const char *Text);
@@ -56,7 +56,7 @@ public:
 
     void Set_Pixel(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
     void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
-    void Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity_Type Opacity);
+    void Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity::Type Opacity);
     void Set_Palette(uint8_t Identifier, Color_Type Color);
     void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Class::Color_Format_Type Color_Format);
 

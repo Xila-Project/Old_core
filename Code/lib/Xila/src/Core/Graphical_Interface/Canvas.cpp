@@ -46,7 +46,7 @@ void Canvas_Class::Transform(Image_Descriptor_Type* Image, int16_t Angle, uint16
 }
 
 
-void Canvas_Class::Fill_Background(Color_Type Color, Opacity_Type Opacity)
+void Canvas_Class::Fill_Background(Color_Type Color, Opacity::Type Opacity)
 {
     lv_canvas_fill_bg(Get_Pointer(), Color, Opacity);
 }
@@ -107,7 +107,7 @@ void Canvas_Class::Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_T
     lv_canvas_set_px_color(Get_Pointer(), X, Y, Color);
 }
 
-void Canvas_Class::Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity_Type Opacity)
+void Canvas_Class::Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity::Type Opacity)
 {
     lv_canvas_set_px_opa(Get_Pointer(), X, Y, Opacity);
 }

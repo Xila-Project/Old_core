@@ -8,6 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
+#include "Core/Graphical_Interface/Graphical_Interface.hpp"
 #include "Core/Graphical_Interface/Object.hpp"
 #include "Core/Graphical_Interface/Animation.hpp"
 #include "Core/Core.hpp"
@@ -72,37 +73,37 @@ void Object_Class::Clean()
     lv_obj_clean(Get_Pointer());
 }
 
-void Object_Class::Add_Flag(Flag_Type Flag)
+void Object_Class::Add_Flag(Flag::Type Flag)
 {
     lv_obj_add_flag(Get_Pointer(), Flag);
 }
 
-void Object_Class::Clear_Flag(Flag_Type Flag)
+void Object_Class::Clear_Flag(Flag::Type Flag)
 {
     lv_obj_clear_flag(Get_Pointer(), Flag);
 }
 
-bool Object_Class::Has_Flag(Flag_Type Flag)
+bool Object_Class::Has_Flag(Flag::Type Flag)
 {
     return lv_obj_has_flag(Get_Pointer(), Flag);
 }
 
-bool Object_Class::Has_Any_Flag(Flag_Type Flag)
+bool Object_Class::Has_Any_Flag(Flag::Type Flag)
 {
     return lv_obj_has_flag_any(Get_Pointer(), Flag);
 }
 
-void Object_Class::Add_State(State_Type State)
+void Object_Class::Add_State(State::Type State)
 {
     lv_obj_add_state(Get_Pointer(), State);
 }
 
-void Object_Class::Clear_State(State_Type State)
+void Object_Class::Clear_State(State::Type State)
 {
     lv_obj_clear_state(Get_Pointer(), State);
 }
 
-bool Object_Class::Has_State(State_Type State)
+bool Object_Class::Has_State(State::Type State)
 {
     return lv_obj_has_state(Get_Pointer(), State);
 }
@@ -117,20 +118,19 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(Event_Code_Type Event_Code)
+void Object_Class::Add_Event(Event::Code_Type Event_Code, uint32_t Arguments)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Event_Handler, Event, NULL);
-    lv_res_t
+    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Arguments);
 }
 
-bool Object_Class::Remove_Event(Event_Code_Type Event_Code)
+/*bool Object_Class::Remove_Event(Event::Code_Type Event_Code)
 {
     lv_obj_remove_event_cb(Get_Pointer(), Event_Code);
-}
+}*/
 
-void Object_Class::Send_Event(Event_Code_Type Event_Code)
+void Object_Class::Send_Event(Event::Code_Type Event_Code, uint32_t Arguments)
 {
-    lv_event_send(Get_Pointer(), Event_Code, NULL);
+    lv_event_send(Get_Pointer(), Event_Code, (void*)Arguments);
 }
 
 void Object_Class::Move_Foreground()
@@ -195,17 +195,17 @@ void Object_Class::Set_Parent(Object_Class Parent_Object)
 
 // -- Position and size.
 
-void Object_Class::Set_Alignment(Alignment_Type Alignment)
+void Object_Class::Set_Alignment(Alignment::Type Alignment)
 {
     lv_obj_set_align(Get_Pointer(), Alignment);
 }
 
-void Object_Class::Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
+void Object_Class::Set_Alignment(Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
     lv_obj_align(Get_Pointer(), Alignment, X_Offset, Y_Offset);
 }
 
-void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
+void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
 
     lv_obj_align_to(Get_Pointer(), Object_To_Align_With.Get_Pointer(), Alignment, X_Offset, Y_Offset);
@@ -252,12 +252,12 @@ void Object_Class::Set_Index(uint32_t Index)
     lv_obj_move_to_index(Get_Pointer(), Index);
 }
 
-void Object_Class::Set_Flex_Alignment(Flex_Alignment_Type Main_Place_Alignment, Flex_Alignment_Type Cross_Place_Alignment, Flex_Alignment_Type Track_Cross_Place)
+void Object_Class::Set_Flex_Alignment(Flex::Alignment_Type Main_Place_Alignment, Flex::Alignment_Type Cross_Place_Alignment, Flex::Alignment_Type Track_Cross_Place)
 {
     lv_obj_set_flex_align(Get_Pointer(), (lv_flex_align_t)Main_Place_Alignment, (lv_flex_align_t)Cross_Place_Alignment, (lv_flex_align_t)Track_Cross_Place);
 }
 
-void Object_Class::Set_Flex_Flow(Flex_Flow_Type Flow)
+void Object_Class::Set_Flex_Flow(Flex::Flow_Type Flow)
 {
     lv_obj_set_flex_flow(Get_Pointer(), (lv_flex_flow_t)Flow);
 }
@@ -267,12 +267,12 @@ void Object_Class::Set_Flex_Grow(uint8_t Grow)
     lv_obj_set_flex_grow(Get_Pointer(), Grow);
 }
 
-void Object_Class::Set_Grid_Alignment(Grid_Alignment_Type Column_Alignment, Grid_Alignment_Type Row_Alignment)
+void Object_Class::Set_Grid_Alignment(Grid::Alignment_Type Column_Alignment, Grid::Alignment_Type Row_Alignment)
 {
     lv_obj_set_grid_align(Get_Pointer(), (lv_grid_align_t)Column_Alignment, (lv_grid_align_t)Row_Alignment);
 }
 
-void Object_Class::Set_Grid_Cell(Grid_Alignment_Type Column_Alignment, uint8_t Column_Position, uint8_t Column_Span, Grid_Alignment_Type Row_Alignment, uint8_t Row_Position, uint8_t Row_Span)
+void Object_Class::Set_Grid_Cell(Grid::Alignment_Type Column_Alignment, uint8_t Column_Position, uint8_t Column_Span, Grid::Alignment_Type Row_Alignment, uint8_t Row_Position, uint8_t Row_Span)
 {
     lv_obj_set_grid_cell(Get_Pointer(), (lv_grid_align_t)Column_Alignment, Column_Position, Column_Span, (lv_grid_align_t)Row_Alignment, Row_Position, Row_Span);
 }
@@ -282,7 +282,7 @@ void Object_Class::Set_Grid_Descriptor_Array(const Coordinate_Type* Column_Descr
     lv_obj_set_grid_dsc_array(Get_Pointer(), Column_Descriptor, Row_Descriptor);
 }
 
-void Object_Class::Set_Style_Alignment(Alignment_Type Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Alignment(Alignment::Type Alignment, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_align(Get_Pointer(), Alignment, Style_Selector);
 }
@@ -307,7 +307,7 @@ void Object_Class::Set_Style_Arc_Image_Source(const void* Image_Source, Style_Se
     lv_obj_set_style_arc_img_src(Get_Pointer(), Image_Source, Style_Selector);
 }
 
-void Object_Class::Set_Style_Arc_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Arc_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_arc_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -322,7 +322,7 @@ void Object_Class::Set_Style_Arc_Width(Coordinate_Type Width, Style_Selector_Typ
     lv_obj_set_style_arc_width(Get_Pointer(), Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Base_Direction(Direction_Type Direction, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Base_Direction(Direction::Type Direction, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_base_dir(Get_Pointer(), Direction, Style_Selector);
 }
@@ -347,7 +347,7 @@ void Object_Class::Set_Style_Background_Gradient_Color(Color_Type Color, Style_S
     lv_obj_set_style_bg_grad_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_grad_dir(Get_Pointer(), Gradient_Direction, Style_Selector);
 }
@@ -357,7 +357,7 @@ void Object_Class::Set_Style_Background_Gradient_Stop(Coordinate_Type Value, Sty
     lv_obj_set_style_bg_grad_stop(Get_Pointer(), Value, Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Image_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_img_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -367,7 +367,7 @@ void Object_Class::Set_Style_Background_Image_Recolor(Color_Type Color, Style_Se
     lv_obj_set_style_bg_img_recolor(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Image_Recolor_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_img_recolor_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -387,12 +387,12 @@ void Object_Class::Set_Style_Background_Main_Stop(Coordinate_Type Value, Style_S
     lv_obj_set_style_bg_main_stop(Get_Pointer(), Value, Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_opa(Get_Pointer(), Opacity, Style_Selector);
 }
 
-void Object_Class::Set_Style_Blend_Mode(Blend_Mode_Type Blend_Mode, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Blend_Mode(Blend::Mode_Type Blend_Mode, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_blend_mode(Get_Pointer(), Blend_Mode, Style_Selector);
 }
@@ -407,7 +407,7 @@ void Object_Class::Set_Style_Border_Color(Color_Type Color, Style_Selector_Type 
     lv_obj_set_style_border_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Border_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Border_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_border_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -417,7 +417,7 @@ void Object_Class::Set_Style_Border_Post(bool Value, Style_Selector_Type Style_S
     lv_obj_set_style_border_post(Get_Pointer(), Value, Style_Selector);
 }
 
-void Object_Class::Set_Style_Border_Side(Border_Side_Type Border_Side, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Border_Side(Border::Side_Type Border_Side, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_border_side(Get_Pointer(), Border_Side, Style_Selector);
 }
@@ -437,17 +437,17 @@ void Object_Class::Set_Style_Color_Filter_Descriptor(const Color_Filter_Descript
     lv_obj_set_style_color_filter_dsc(Get_Pointer(), Color_Filter_Descriptor, Style_Selector);
 }
 
-void Object_Class::Set_Style_Color_Filter_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Color_Filter_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_color_filter_opa(Get_Pointer(), Opacity, Style_Selector);
 }
 
-void Object_Class::Set_Style_Flex_Cross_Place(Flex_Alignment_Type Cross_Place, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Flex_Cross_Place(Flex::Alignment_Type Cross_Place, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_flex_cross_place(Get_Pointer(), (lv_flex_align_t)Cross_Place, Style_Selector);
 }
 
-void Object_Class::Set_Style_Flex_Flow(Flex_Flow_Type Flow, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Flex_Flow(Flex::Flow_Type Flow, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_flex_flow(Get_Pointer(), (lv_flex_flow_t)Flow, Style_Selector);
 }
@@ -457,12 +457,12 @@ void Object_Class::Set_Style_Flex_Grow(uint8_t Value, Style_Selector_Type Style_
     lv_obj_set_style_flex_grow(Get_Pointer(), Value, Style_Selector);
 }
 
-void Object_Class::Set_Style_Flex_Main_Place(Flex_Alignment_Type Main_Place, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Flex_Main_Place(Flex::Alignment_Type Main_Place, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_flex_main_place(Get_Pointer(), (lv_flex_align_t)Main_Place, Style_Selector);
 }
 
-void Object_Class::Set_Style_Flex_Track_Place(Flex_Alignment_Type Track_Place, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Flex_Track_Place(Flex::Alignment_Type Track_Place, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_flex_track_place(Get_Pointer(), (lv_flex_align_t)Track_Place, Style_Selector);
 }
@@ -497,7 +497,7 @@ void Object_Class::Set_Style_Grid_Cell_Y_Alignment(Coordinate_Type Y_Alignment, 
     lv_obj_set_style_grid_cell_y_align(Get_Pointer(), Y_Alignment, Style_Selector);
 }
 
-void Object_Class::Set_Style_Grid_Column_Alignment(Grid_Alignment_Type Column_Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Grid_Column_Alignment(Grid::Alignment_Type Column_Alignment, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_grid_column_align(Get_Pointer(), (lv_grid_align_t)Column_Alignment, Style_Selector);
 }
@@ -507,7 +507,7 @@ void Object_Class::Set_Style_Grid_Column_Descriptor_Array(const Coordinate_Type*
     lv_obj_set_style_grid_column_dsc_array(Get_Pointer(), Column_Descriptor_Array, Style_Selector);
 }
 
-void Object_Class::Set_Style_Grid_Row_Alignment(Grid_Alignment_Type Row_Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Grid_Row_Alignment(Grid::Alignment_Type Row_Alignment, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_grid_row_align(Get_Pointer(), (lv_grid_align_t)Row_Alignment, Style_Selector);
 }
@@ -522,7 +522,7 @@ void Object_Class::Set_Style_Height(Coordinate_Type Height, Style_Selector_Type 
     lv_obj_set_style_height(Get_Pointer(), Height, Style_Selector);
 }
 
-void Object_Class::Set_Style_Image_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Image_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_img_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -532,7 +532,7 @@ void Object_Class::Set_Style_Image_Recolor(Color_Type Color, Style_Selector_Type
     lv_obj_set_style_img_recolor(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Image_Recolor_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Image_Recolor_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_img_recolor_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -557,7 +557,7 @@ void Object_Class::Set_Style_Line_Dash_Width(Coordinate_Type Dash_Width, Style_S
     lv_obj_set_style_line_dash_width(Get_Pointer(), Dash_Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Line_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Line_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_line_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -592,7 +592,7 @@ void Object_Class::Set_Style_Minimum_Width(Coordinate_Type Minimum_Width, Style_
     lv_obj_set_style_min_width(Get_Pointer(), Minimum_Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -602,7 +602,7 @@ void Object_Class::Set_Style_Outline_Color(Color_Type Color, Style_Selector_Type
     lv_obj_set_style_outline_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Outline_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Outline_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_outline_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -672,7 +672,7 @@ void Object_Class::Set_Style_Shadow_Offset_Y(Coordinate_Type Offset_Y, Style_Sel
     lv_obj_set_style_shadow_ofs_y(Get_Pointer(), Offset_Y, Style_Selector);
 }
 
-void Object_Class::Set_Style_Shadow_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Shadow_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_shadow_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -687,7 +687,7 @@ void Object_Class::Set_Style_Shadow_Width(Coordinate_Type Width, Style_Selector_
     lv_obj_set_style_shadow_width(Get_Pointer(), Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Alignment(Text_Alignment_Type Text_Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Alignment(Text::Alignment_Type Text_Alignment, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_text_align(Get_Pointer(), Text_Alignment, Style_Selector);
 }
@@ -697,7 +697,7 @@ void Object_Class::Set_Style_Text_Color(Color_Type Color, Style_Selector_Type St
     lv_obj_set_style_text_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Decor(Text_Decor_Type Text_Decor, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Decor(Text::Decor_Type Text_Decor, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_text_decor(Get_Pointer(), Text_Decor, Style_Selector);
 }
@@ -717,7 +717,7 @@ void Object_Class::Set_Style_Text_Line_Space(Coordinate_Type Line_Space, Style_S
     lv_obj_set_style_text_line_space(Get_Pointer(), Line_Space, Style_Selector);
 }
 
-void Object_Class::Set_Style_Text_Opacity(Opacity_Type Opacity, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Text_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_text_opa(Get_Pointer(), Opacity, Style_Selector);
 }
@@ -812,7 +812,7 @@ void *Object_Class::Get_User_Data()
     return lv_obj_get_user_data(Get_Pointer());
 }
 
-Object_Class::State_Type Object_Class::Get_State()
+Object_Class::State::Type Object_Class::Get_State()
 {
     return lv_obj_get_state(Get_Pointer());
 }
@@ -853,7 +853,7 @@ inline bool Object_Class::Get_Object_Visibility()
 
 // -- Style
 
-Object_Class::Alignment_Type Object_Class::Get_Style_Alignment(uint32_t Part)
+Object_Class::Alignment::Type Object_Class::Get_Style_Alignment(uint32_t Part)
 {
     return lv_obj_get_style_align(Get_Pointer(), Part);
 }
@@ -894,7 +894,7 @@ const void *Object_Class::Get_Style_Arc_Image_Source(uint32_t Part)
     return lv_obj_get_style_arc_img_src(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Arc_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Arc_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_arc_opa(Get_Pointer(), Part);
 }
@@ -909,7 +909,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Arc_Width(uint32_t Part)
     return lv_obj_get_style_arc_width(Get_Pointer(), Part);
 }
 
-Object_Class::Base_Direction_Type Object_Class::Get_Style_Base_Direction(uint32_t Part)
+Object_Class::Base_Direction::Type Object_Class::Get_Style_Base_Direction(uint32_t Part)
 {
     return lv_obj_get_style_base_dir(Get_Pointer(), Part);
 }
@@ -924,7 +924,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Background_Color_Filtered(uint3
     return lv_obj_get_style_bg_color_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Background_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Background_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_bg_opa(Get_Pointer(), Part);
 }
@@ -939,7 +939,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Background_Gradient_Color_Filte
     return lv_obj_get_style_bg_grad_color_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Gradient_Direction_Type Object_Class::Get_Style_Background_Gradient_Direction(uint32_t Part)
+Object_Class::Gradient::Direction_Type Object_Class::Get_Style_Background_Gradient_Direction(uint32_t Part)
 {
     return lv_obj_get_style_bg_grad_dir(Get_Pointer(), Part);
 }
@@ -969,7 +969,7 @@ const void *Object_Class::Get_Style_Background_Image_Source(uint32_t Part)
     return lv_obj_get_style_bg_img_src(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Background_Image_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Background_Image_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_bg_img_opa(Get_Pointer(), Part);
 }
@@ -984,7 +984,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Background_Image_Recolor_Filter
     return lv_obj_get_style_bg_img_recolor_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Background_Image_Recolor_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Background_Image_Recolor_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_bg_img_recolor_opa(Get_Pointer(), Part);
 }
@@ -994,7 +994,7 @@ bool Object_Class::Get_Style_Background_Image_Tiled(uint32_t Part)
     return lv_obj_get_style_bg_img_tiled(Get_Pointer(), Part);
 }
 
-Object_Class::Blend_Mode_Type Object_Class::Get_Style_Blend_Mode(uint32_t Part)
+Object_Class::Blend::Mode_Type Object_Class::Get_Style_Blend_Mode(uint32_t Part)
 {
     return lv_obj_get_style_blend_mode(Get_Pointer(), Part);
 }
@@ -1009,7 +1009,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Border_Color_Filtered(uint32_t 
     return lv_obj_get_style_border_color_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Border_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Border_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_border_opa(Get_Pointer(), Part);
 }
@@ -1019,7 +1019,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Border_Width(uint32_t Part
     return lv_obj_get_style_border_width(Get_Pointer(), Part);
 }
 
-Object_Class::Border_Side_Type Object_Class::Get_Style_Border_Side(uint32_t Part)
+Object_Class::Border::Side_Type Object_Class::Get_Style_Border_Side(uint32_t Part)
 {
     return lv_obj_get_style_border_side(Get_Pointer(), Part);
 }
@@ -1039,29 +1039,29 @@ const Object_Class::Color_Filter_Descriptor_Type* Object_Class::Get_Style_Color_
     return lv_obj_get_style_color_filter_dsc(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Color_Filter_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Color_Filter_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_color_filter_opa(Get_Pointer(), Part);
 }
 
-Object_Class::Flex_Flow_Type Object_Class::Get_Style_Flex_Flow(uint32_t Part)
+Object_Class::Flex::Flow_Type Object_Class::Get_Style_Flex_Flow(uint32_t Part)
 {
-    return (Flex_Flow_Type)lv_obj_get_style_flex_flow(Get_Pointer(), Part);
+    return (Flex::Flow_Type)lv_obj_get_style_flex_flow(Get_Pointer(), Part);
 }
 
-Object_Class::Flex_Alignment_Type Object_Class::Get_Style_Flex_Main_Place(uint32_t Part)
+Object_Class::Flex::Alignment_Type Object_Class::Get_Style_Flex_Main_Place(uint32_t Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_main_place(Get_Pointer(), Part);
+    return (Flex::Alignment_Type)lv_obj_get_style_flex_main_place(Get_Pointer(), Part);
 }
 
-Object_Class::Flex_Alignment_Type Object_Class::Get_Style_Flex_Cross_Place(uint32_t Part)
+Object_Class::Flex::Alignment_Type Object_Class::Get_Style_Flex_Cross_Place(uint32_t Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_cross_place(Get_Pointer(), Part);
+    return (Flex::Alignment_Type)lv_obj_get_style_flex_cross_place(Get_Pointer(), Part);
 }
 
-Object_Class::Flex_Alignment_Type Object_Class::Get_Style_Flex_Track_Place(uint32_t Part)
+Object_Class::Flex::Alignment_Type Object_Class::Get_Style_Flex_Track_Place(uint32_t Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_track_place(Get_Pointer(), Part);
+    return (Flex::Alignment_Type)lv_obj_get_style_flex_track_place(Get_Pointer(), Part);
 }
 
 uint8_t Object_Class::Get_Style_Flex_Grow(uint32_t Part)
@@ -1099,9 +1099,9 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Grid_Cell_Y_Alignment(uint
     return lv_obj_get_style_grid_cell_y_align(Get_Pointer(), Part);
 }
 
-Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Column_Alignment(uint32_t Part)
+Object_Class::Grid::Alignment_Type Object_Class::Get_Style_Grid_Column_Alignment(uint32_t Part)
 {
-    return (Grid_Alignment_Type)lv_obj_get_style_grid_column_align(Get_Pointer(), Part);
+    return (Grid::Alignment_Type)lv_obj_get_style_grid_column_align(Get_Pointer(), Part);
 }
 
 const Object_Class::Coordinate_Type* Object_Class::Get_Style_Grid_Column_Descriptor_Array(uint32_t Part)
@@ -1109,9 +1109,9 @@ const Object_Class::Coordinate_Type* Object_Class::Get_Style_Grid_Column_Descrip
     return lv_obj_get_style_grid_column_dsc_array(Get_Pointer(), Part);
 }
 
-Object_Class::Grid_Alignment_Type Object_Class::Get_Style_Grid_Row_Alignment(uint32_t Part)
+Object_Class::Grid::Alignment_Type Object_Class::Get_Style_Grid_Row_Alignment(uint32_t Part)
 {
-    return (Grid_Alignment_Type)lv_obj_get_style_grid_row_align(Get_Pointer(), Part);
+    return (Grid::Alignment_Type)lv_obj_get_style_grid_row_align(Get_Pointer(), Part);
 }
 
 const Object_Class::Coordinate_Type* Object_Class::Get_Style_Grid_Row_Descriptor_Array(uint32_t Part)
@@ -1124,7 +1124,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Height(uint32_t Part)
     return lv_obj_get_style_height(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Image_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Image_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_img_opa(Get_Pointer(), Part);
 }
@@ -1139,7 +1139,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Image_Recolor_Filtered(uint32_t
     return lv_obj_get_style_img_recolor_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Image_Recolor_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Image_Recolor_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_img_recolor_opa(Get_Pointer(), Part);
 }
@@ -1172,7 +1172,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Line_Dash_Width(uint32_t P
     return lv_obj_get_style_line_dash_width(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Line_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Line_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_line_opa(Get_Pointer(), Part);
 }
@@ -1217,7 +1217,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Outline_Color_Filtered(uint32_t
     return lv_obj_get_style_outline_color_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Outline_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Outline_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_outline_opa(Get_Pointer(), Part);
 }
@@ -1287,7 +1287,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Shadow_Offset_Y(uint32_t P
     return lv_obj_get_style_shadow_ofs_y(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Shadow_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Shadow_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_shadow_opa(Get_Pointer(), Part);
 }
@@ -1302,7 +1302,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Shadow_Width(uint32_t Part
     return lv_obj_get_style_shadow_width(Get_Pointer(), Part);
 }
 
-Object_Class::Text_Alignment_Type Object_Class::Get_Style_Text_Alignment(uint32_t Part)
+Object_Class::Text::Alignment_Type Object_Class::Get_Style_Text_Alignment(uint32_t Part)
 {
     return lv_obj_get_style_text_align(Get_Pointer(), Part);
 }
@@ -1317,7 +1317,7 @@ Object_Class::Color_Type Object_Class::Get_Style_Text_Color_Filtered(uint32_t Pa
     return lv_obj_get_style_text_color_filtered(Get_Pointer(), Part);
 }
 
-Object_Class::Text_Decor_Type Object_Class::Get_Style_Text_Decor(uint32_t Part)
+Object_Class::Text::Decor_Type Object_Class::Get_Style_Text_Decor(uint32_t Part)
 {
     return lv_obj_get_style_text_decor(Get_Pointer(), Part);
 }
@@ -1337,7 +1337,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Text_Line_Space(uint32_t P
     return lv_obj_get_style_text_line_space(Get_Pointer(), Part);
 }
 
-Object_Class::Opacity_Type Object_Class::Get_Style_Text_Opacity(uint32_t Part)
+Object_Class::Opacity::Type Object_Class::Get_Style_Text_Opacity(uint32_t Part)
 {
     return lv_obj_get_style_text_opa(Get_Pointer(), Part);
 }

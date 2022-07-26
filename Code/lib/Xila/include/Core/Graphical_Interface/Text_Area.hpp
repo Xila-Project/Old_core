@@ -53,7 +53,7 @@ class Text_Area_Class : public Object_Class
     void Set_Text_Selection(bool Enabled);
     void Set_Password_Mode(bool Enabled);
     void Set_Password_Show_Time(uint16_t Time);
-    void Set_Text_Alignment(Text_Alignment_Type Alignment);
+    void Set_Text_Alignment(Text::Alignment_Type Alignment);
     void Set_Cursor_Position(int32_t Position);
 
     // - - Getters

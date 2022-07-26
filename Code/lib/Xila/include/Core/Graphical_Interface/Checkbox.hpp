@@ -22,7 +22,7 @@ public:
     typedef enum Draw_Part_Enumeration
     {
         Box = LV_CHECKBOX_DRAW_PART_BOX,
-    } Draw_Part_Type;
+    } Draw_Part::Type;
 
     // - Methods
 

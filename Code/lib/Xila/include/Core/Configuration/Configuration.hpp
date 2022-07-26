@@ -13,6 +13,8 @@
 #ifndef Configuration_Hpp_Included
 #define Configuration_Hpp_Included
 
+#include "Hardware.hpp"
+
 // -- Default values -- //
 
 
@@ -41,6 +43,17 @@
 #define Maximum_Password_Length 32
 #define Maximum_Username_Length 8
 
+// - Drive
+
+#define Drive_Hardware Hardware_Class::SD_SPI
+
+#define SD_SPI_Clock_Pin 4
+#define SD_SPI_Select_Pin 2
+#define SD_SPI_Master_In 27
+#define SD_SPI_Master_Out 5
+#define SD_SPI_Frequency 4000000
+
+
 // -- Software
 #define Low_Memory_Threshold 2000
 #define Maximum_Software 30
@@ -59,8 +72,12 @@
 
 // -- Display
 
-#define Default_Display_Horizontal_Definition 480
-#define Default_Display_Vertical_Definition 320
+
+
+#define Display_Hardware Hardware_Class::WT32_SC01
+
+#define Display_Horizontal_Definition 480
+#define Display_Vertical_Definition 320
  
 #define Default_Display_Switching_Pin GPIO_NUM_27
 #define Default_Display_Receive_Pin GPIO_NUM_16
@@ -94,7 +111,6 @@
 //#define ARDUINOTRACE_ENABLE 0 // Disable ArduinoTrace
 
 #define Animations 1        // Enable animation
-#define Drive_Mode 0        // SD mmc mode
 #define USB_Serial 1        // Disable USB Serial
 #define Start_On_Power 1    // Start when Xila is powered up
 
@@ -102,7 +118,6 @@
 #else
 
 #define Animations 0        // Disable animation
-#define Drive_Mode 0        // SD spi mode
 #define USB_Serial 1        // Enable USB Serial
 #define Start_On_Power 1    // 
 

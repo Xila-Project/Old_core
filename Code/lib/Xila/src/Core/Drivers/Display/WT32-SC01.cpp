@@ -1,22 +1,82 @@
 ///
-/// @file Driver.hpp
+/// @file WT32-SC01.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
 /// @version 0.1.0
-/// @date 19-07-2022
+/// @date 24-07-2022
 ///
 /// @copyright Copyright (c) 2022
 ///
 
-// v1.0.0 を有効にします(v0からの移行期間の特別措置です。これを書かない場合は旧v0系で動作します。)
-#define LGFX_USE_V1
+#if Display_Hardware == Hardware_Class::WT32_SC01
 
-#include <LovyanGFX.hpp>
+#define LGFX_USE_V1
+#include "LovyanGFX.hpp"
+
+#include "Core/Display/Display.hpp"
+
+
 
 class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
 {
+    /*
+     クラス名は"LGFX"から別の名前に変更しても構いません。
+     AUTODETECTと併用する場合は"LGFX"は使用されているため、LGFX以外の名前に変更してください。
+     また、複数枚のパネルを同時使用する場合もそれぞれに異なる名前を付けてください。
+     ※ クラス名を変更する場合はコンストラクタの名前も併せて同じ名前に変更が必要です。
+
+     名前の付け方は自由に決めて構いませんが、設定が増えた場合を想定し、
+     例えばESP32 DevKit-CでSPI接続のILI9341の設定を行った場合、
+      LGFX_DevKitC_SPI_ILI9341
+     のような名前にし、ファイル名とクラス名を一致させておくことで、利用時に迷いにくくなります。
+    //*/
+
+    // 接続するパネルの型にあったインスタンスを用意します。
+    // lgfx::Panel_GC9A01      _panel_instance;
+    // lgfx::Panel_GDEW0154M09 _panel_instance;
+    // lgfx::Panel_HX8357B     _panel_instance;
+    // lgfx::Panel_HX8357D     _panel_instance;
+    // lgfx::Panel_ILI9163     _panel_instance;
+    // lgfx::Panel_ILI9341     _panel_instance;
+    // lgfx::Panel_ILI9342     _panel_instance;
+    // lgfx::Panel_ILI9481     _panel_instance;
+    // lgfx::Panel_ILI9486     _panel_instance;
+    // lgfx::Panel_ILI9488     _panel_instance;
+    // lgfx::Panel_IT8951      _panel_instance;
+    // lgfx::Panel_RA8875      _panel_instance;
+    // lgfx::Panel_SH110x      _panel_instance; // SH1106, SH1107
+    // lgfx::Panel_SSD1306     _panel_instance;
+    // lgfx::Panel_SSD1327     _panel_instance;
+    // lgfx::Panel_SSD1331     _panel_instance;
+    // lgfx::Panel_SSD1351     _panel_instance; // SSD1351, SSD1357
+    // lgfx::Panel_SSD1963     _panel_instance;
+    // lgfx::Panel_ST7735      _panel_instance;
+    // lgfx::Panel_ST7735S     _panel_instance;
+    // lgfx::Panel_ST7789      _panel_instance;
+    lgfx::Panel_ST7796 _panel_instance;
+
+    // パネルを接続するバスの種類にあったインスタンスを用意します。
+    lgfx::Bus_SPI _bus_instance; // SPIバスのインスタンス
+                                 // lgfx::Bus_I2C       _bus_instance;   // I2Cバスのインスタンス (ESP32のみ)
+    // lgfx::Bus_Parallel8 _bus_instance;   // 8ビットパラレルバスのインスタンス (ESP32のみ)
+
+    // バックライト制御が可能な場合はインスタンスを用意します。(必要なければ削除)
+    lgfx::Light_PWM _light_instance;
+
+    // タッチスクリーンの型にあったインスタンスを用意します。(必要なければ削除)
+    lgfx::Touch_FT5x06 _touch_instance; // FT5206, FT5306, FT5406, FT6206, FT6236, FT6336, FT6436
+    // lgfx::Touch_GSL1680E_800x480 _touch_instance; // GSL_1680E, 1688E, 2681B, 2682B
+    // lgfx::Touch_GSL1680F_800x480 _touch_instance;
+    // lgfx::Touch_GSL1680F_480x272 _touch_instance;
+    // lgfx::Touch_GSLx680_320x320  _touch_instance;
+    // lgfx::Touch_GT911            _touch_instance;
+    // lgfx::Touch_STMPE610         _touch_instance;
+    // lgfx::Touch_TT21xxx          _touch_instance; // TT21100
+    // lgfx::Touch_XPT2046          _touch_instance;
 
 public:
+    // コンストラクタを作成し、ここで各種設定を行います。
+    // クラス名を変更した場合はコンストラクタも同じ名前を指定してください。
     WT32_SC01_Driver_Class(void)
     {
         {                                      // バス制御の設定を行います。
@@ -71,14 +131,16 @@ public:
         {                                        // 表示パネル制御の設定を行います。
             auto cfg = _panel_instance.config(); // 表示パネル設定用の構造体を取得します。
 
-            cfg.pin_cs = 15;
-            cfg.pin_rst = 22;
-            cfg.pin_busy = -1;
+            cfg.pin_cs = 15;   // CSが接続されているピン番号   (-1 = disable)
+            cfg.pin_rst = 22;  // RSTが接続されているピン番号  (-1 = disable)
+            cfg.pin_busy = -1; // BUSYが接続されているピン番号 (-1 = disable)
 
-            cfg.panel_width = 320;
-            cfg.panel_height = 480;
-            cfg.offset_x = 0;
-            cfg.offset_y = 0;
+            // ※ 以下の設定値はパネル毎に一般的な初期値が設定されていますので、不明な項目はコメントアウトして試してみてください。
+
+            cfg.panel_width = Display_Horizontal_Definition;    // 実際に表示可能な幅
+            cfg.panel_height = Display_Vertical_Definition;   // 実際に表示可能な高さ
+            cfg.offset_x = 0;         // パネルのX方向オフセット量
+            cfg.offset_y = 0;         // パネルのY方向オフセット量
             cfg.offset_rotation = 0;  // 回転方向の値のオフセット 0~7 (4~7は上下反転)
             cfg.dummy_read_pixel = 8; // ピクセル読出し前のダミーリードのビット数
             cfg.dummy_read_bits = 1;  // ピクセル以外のデータ読出し前のダミーリードのビット数
@@ -143,15 +205,84 @@ public:
 
         setPanel(&_panel_instance); // 使用するパネルをセットします。
     }
-
-private:
-    static int32_t Touch_Pad_X, Touch_Pad_Y;
-
-    static lgfx::Panel_ST7796 _panel_instance;
-
-    static lgfx::Bus_SPI _bus_instance;
-
-    static lgfx::Light_PWM _light_instance;
-
-    static lgfx::Touch_FT5x06 _touch_instance;
 };
+
+static WT32_SC01_Driver_Class WT32_SC01_Driver;
+
+void Display_Class::Initialize()
+{
+    WT32_SC01_Driver.init();
+};
+
+void Display_Class::Set_Brightness(uint8_t Brightness)
+{
+    WT32_SC01_Driver.setBrightness(Brightness);
+    this->Brightness = Brightness;
+};
+
+uint8_t Display_Class::Get_Brightness()
+{
+    return Brightness;
+};
+
+void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer)
+{
+    static uint32_t Width, Height;
+
+    Width = (Area->x2 - Area->x1 + 1);
+    Height = (Area->y2 - Area->y1 + 1);
+
+    WT32_SC01_Driver.startWrite();
+    WT32_SC01_Driver.setAddrWindow(Area->x1, Area->y1, Width, Height);
+    // tft.pushColors((uint16_t *)&color_p->full, w * h, true);
+    WT32_SC01_Driver.writePixels((lgfx::rgb565_t *)&Buffer->full, Width * Height);
+    WT32_SC01_Driver.endWrite();
+
+    lv_disp_flush_ready(Display_Driver_Interface);
+};
+
+void Display_Class::Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data)
+{
+    static int32_t Input_X, Input_Y;
+
+    if (WT32_SC01_Driver.getTouch(&Input_X, &Input_Y))
+    {
+        Data->state = LV_INDEV_STATE_PR;
+        /*Set the coordinates*/
+        Data->point.x = Input_X;
+        Data->point.y = Input_Y;
+    }
+    else
+    {
+        Data->state = LV_INDEV_STATE_REL;
+    }
+};
+
+void Display_Class::Calibrate()
+{
+    WT32_SC01_Driver.setTextSize((std::max(WT32_SC01_Driver.width(), WT32_SC01_Driver.height()) + 255) >> 8);
+
+    // Calibration
+    if (WT32_SC01_Driver.touch())
+    {
+        if (WT32_SC01_Driver.width() < WT32_SC01_Driver.height())
+        {
+            WT32_SC01_Driver.setRotation(WT32_SC01_Driver.getRotation() ^ 1);
+        }
+        // 画面に案内文章を描画します。
+        WT32_SC01_Driver.setTextDatum(textdatum_t::middle_center);
+        WT32_SC01_Driver.drawString("Touch the arrow marker.", WT32_SC01_Driver.width() >> 1, WT32_SC01_Driver.height() >> 1);
+        WT32_SC01_Driver.setTextDatum(textdatum_t::top_left);
+
+        // タッチを使用する場合、キャリブレーションを行います。画面の四隅に表示される矢印の先端を順にタッチしてください。
+        std::uint16_t fg = TFT_WHITE;
+        std::uint16_t bg = TFT_BLACK;
+        if (WT32_SC01_Driver.isEPD())
+        {
+            std::swap(fg, bg);
+        }
+        WT32_SC01_Driver.calibrateTouch(nullptr, fg, bg, std::max(WT32_SC01_Driver.width(), WT32_SC01_Driver.height()) >> 3);
+    }
+};
+
+#endif

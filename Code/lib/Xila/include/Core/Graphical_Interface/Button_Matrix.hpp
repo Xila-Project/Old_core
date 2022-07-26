@@ -41,7 +41,7 @@ public:
     typedef enum
     {
         Button = LV_BTNMATRIX_DRAW_PART_BTN
-    } Draw_Part_Type;
+    } Draw_Part::Type;
 
     // -- Methods
 

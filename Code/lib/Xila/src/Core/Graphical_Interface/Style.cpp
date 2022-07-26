@@ -80,7 +80,7 @@ void Style_Class::Set_Arc_Image_Source(const void* Image_Source)
     lv_style_set_arc_img_src(&LVGL_Style, Image_Source);
 }
 
-void Style_Class::Set_Arc_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Arc_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_arc_opa(&LVGL_Style, Opacity);
 }
@@ -95,7 +95,7 @@ void Style_Class::Set_Arc_Width(Coordinate_Type Width)
     lv_style_set_arc_width(&LVGL_Style, Width);
 }
 
-void Style_Class::Set_Base_Direction(Base_Direction_Type Base_Direction)
+void Style_Class::Set_Base_Direction(Base_Direction::Type Base_Direction)
 {
     lv_style_set_base_dir(&LVGL_Style, Base_Direction);
 }
@@ -120,7 +120,7 @@ void Style_Class::Set_Background_Gradient_Color(Color_Type Color)
     lv_style_set_bg_grad_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Background_Gradient_Direction(Gradient_Direction_Type Gradient_Direction)
+void Style_Class::Set_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction)
 {
     lv_style_set_bg_grad_dir(&LVGL_Style, Gradient_Direction);
 }
@@ -130,7 +130,7 @@ void Style_Class::Set_Background_Gradient_Stop(Coordinate_Type Value)
     lv_style_set_bg_grad_stop(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Background_Image_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Background_Image_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_bg_img_opa(&LVGL_Style, Opacity);
 }
@@ -140,7 +140,7 @@ void Style_Class::Set_Background_Image_Recolor(Color_Type Recolor)
     lv_style_set_bg_img_recolor(&LVGL_Style, Recolor.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Background_Image_Recolor_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Background_Image_Recolor_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_bg_img_recolor_opa(&LVGL_Style, Opacity);
 }
@@ -160,12 +160,12 @@ void Style_Class::Set_Background_Main_Stop(Coordinate_Type Value)
     lv_style_set_bg_main_stop(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Background_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Background_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_bg_opa(&LVGL_Style, Opacity);
 }
 
-void Style_Class::Set_Blend_Mode(Blend_Mode_Type Blend_Mode)
+void Style_Class::Set_Blend_Mode(Blend::Mode_Type Blend_Mode)
 {
     lv_style_set_blend_mode(&LVGL_Style, Blend_Mode);
 }
@@ -180,7 +180,7 @@ void Style_Class::Set_Border_Color(Color_Type Color)
     lv_style_set_border_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Border_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Border_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_border_opa(&LVGL_Style, Opacity);
 }
@@ -190,7 +190,7 @@ void Style_Class::Set_Border_Post(bool Value)
     lv_style_set_border_post(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Border_Side(Border_Side_Type Border_Side)
+void Style_Class::Set_Border_Side(Border::Side_Type Border_Side)
 {
     lv_style_set_border_side(&LVGL_Style, Border_Side);
 }
@@ -210,17 +210,17 @@ void Style_Class::Set_Color_Filter_Descriptor(const Color_Filter_Descriptor_Clas
     lv_style_set_color_filter_dsc(&LVGL_Style, Color_Filter_Descriptor.Get_Pointer());
 }
 
-void Style_Class::Set_Color_Filter_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Color_Filter_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_color_filter_opa(&LVGL_Style, Opacity);
 }
 
-void Style_Class::Set_Flex_Cross_Place(Flex_Alignment_Type Cross_Place)
+void Style_Class::Set_Flex_Cross_Place(Flex::Alignment_Type Cross_Place)
 {
     lv_style_set_flex_cross_place(&LVGL_Style, (lv_flex_align_t)Cross_Place);
 }
 
-void Style_Class::Set_Flex_Flow(Flex_Flow_Type Flow)
+void Style_Class::Set_Flex_Flow(Flex::Flow_Type Flow)
 {
     lv_style_set_flex_flow(&LVGL_Style, (lv_flex_flow_t)Flow);
 }
@@ -230,12 +230,12 @@ void Style_Class::Set_Flex_Grow(uint8_t Value)
     lv_style_set_flex_grow(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Flex_Main_Place(Flex_Alignment_Type Main_Place)
+void Style_Class::Set_Flex_Main_Place(Flex::Alignment_Type Main_Place)
 {
     lv_style_set_flex_main_place(&LVGL_Style, (lv_flex_align_t)Main_Place);
 }
 
-void Style_Class::Set_Flex_Track_Place(Flex_Alignment_Type Track_Place)
+void Style_Class::Set_Flex_Track_Place(Flex::Alignment_Type Track_Place)
 {
     lv_style_set_flex_track_place(&LVGL_Style, (lv_flex_align_t)Track_Place);
 }
@@ -270,7 +270,7 @@ void Style_Class::Set_Grid_Cell_Y_Alignment(Coordinate_Type Y_Alignment)
     lv_style_set_grid_cell_y_align(&LVGL_Style, Y_Alignment);
 }
 
-void Style_Class::Set_Grid_Column_Alignment(Grid_Alignment_Type Column_Alignment)
+void Style_Class::Set_Grid_Column_Alignment(Grid::Alignment_Type Column_Alignment)
 {
     lv_style_set_grid_column_align(&LVGL_Style, (lv_grid_align_t)Column_Alignment);
 }
@@ -280,7 +280,7 @@ void Style_Class::Set_Grid_Column_Descriptor_Array(const Coordinate_Type* Column
     lv_style_set_grid_column_dsc_array(&LVGL_Style, Column_Descriptor_Array);
 }
 
-void Style_Class::Set_Grid_Row_Alignment(Grid_Alignment_Type Row_Alignment)
+void Style_Class::Set_Grid_Row_Alignment(Grid::Alignment_Type Row_Alignment)
 {
     lv_style_set_grid_row_align(&LVGL_Style, (lv_grid_align_t)Row_Alignment);
 }
@@ -295,7 +295,7 @@ void Style_Class::Set_Height(Coordinate_Type Height)
     lv_style_set_height(&LVGL_Style, Height);
 }
 
-void Style_Class::Set_Image_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Image_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_img_opa(&LVGL_Style, Opacity);
 }
@@ -305,7 +305,7 @@ void Style_Class::Set_Image_Recolor(Color_Type Color)
     lv_style_set_img_recolor(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Image_Recolor_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Image_Recolor_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_img_recolor_opa(&LVGL_Style, Opacity);
 }
@@ -330,7 +330,7 @@ void Style_Class::Set_Line_Dash_Width(Coordinate_Type Dash_Width)
     lv_style_set_line_dash_width(&LVGL_Style, Dash_Width);
 }
 
-void Style_Class::Set_Line_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Line_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_line_opa(&LVGL_Style, Opacity);
 }
@@ -365,7 +365,7 @@ void Style_Class::Set_Minimum_Width(Coordinate_Type Minimum_Width)
     lv_style_set_min_width(&LVGL_Style, Minimum_Width);
 }
 
-void Style_Class::Set_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_opa(&LVGL_Style, Opacity);
 }
@@ -375,7 +375,7 @@ void Style_Class::Set_Outline_Color(Color_Type Color)
     lv_style_set_outline_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Outline_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Outline_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_outline_opa(&LVGL_Style, Opacity);
 }
@@ -460,7 +460,7 @@ void Style_Class::Set_Shadow_Offset_Y(Coordinate_Type Offset_Y)
     lv_style_set_shadow_ofs_y(&LVGL_Style, Offset_Y);
 }
 
-void Style_Class::Set_Shadow_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Shadow_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_shadow_opa(&LVGL_Style, Opacity);
 }
@@ -480,7 +480,7 @@ void Style_Class::Set_Size(Coordinate_Type Value)
     lv_style_set_size(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Text_Alignment(Text_Alignment_Type Text_Alignment)
+void Style_Class::Set_Text_Alignment(Text::Alignment_Type Text_Alignment)
 {
     lv_style_set_text_align(&LVGL_Style, Text_Alignment);
 }
@@ -490,7 +490,7 @@ void Style_Class::Set_Text_Color(Color_Type Color)
     lv_style_set_text_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Text_Decor(Text_Decor_Type Text_Decor)
+void Style_Class::Set_Text_Decor(Text::Decor_Type Text_Decor)
 {
     lv_style_set_text_decor(&LVGL_Style, Text_Decor);
 }
@@ -510,7 +510,7 @@ void Style_Class::Set_Text_Line_Space(Coordinate_Type Line_Space)
     lv_style_set_text_line_space(&LVGL_Style, Line_Space);
 }
 
-void Style_Class::Set_Text_Opacity(Opacity_Type Opacity)
+void Style_Class::Set_Text_Opacity(Opacity::Type Opacity)
 {
     lv_style_set_text_opa(&LVGL_Style, Opacity);
 }

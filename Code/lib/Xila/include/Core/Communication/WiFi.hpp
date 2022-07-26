@@ -64,7 +64,7 @@ public:
     friend class WiFiServer;
     friend class WiFiUDP;
 
-    friend Xila_Class;
+    friend class Xila_Class;
     friend class Shell_Class;
     friend class Unit_Test_Class;
 

@@ -16,10 +16,11 @@ class Software_Handle;
 #include "Task.hpp"
 #include "Semaphore.hpp"
 
+/*
 ///
 /// @brief String to 16 bits encoded instruction conversion macro.
 ///
-#define Instruction(Sender, Argument_1, Argument_2, Argument_3) (Sender * 16777216 + Argument_1 * 65536 + Argument_2 * 256 + Argument_3)
+#define Instruction(Sender, Argument_1, Argument_2, Argument_3) (Sender * 16777216 + Argument_1 * 65536 + Argument_2 * 256 + Argument_3)*/
 
 class Software : public Module_Class
 {

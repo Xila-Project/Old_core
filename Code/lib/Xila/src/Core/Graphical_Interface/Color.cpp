@@ -51,7 +51,7 @@ void Color_Filter_Descriptor_Class::Set_Callback(Callback_Type Callback)
     lv_color_filter_dsc_init(Get_Pointer(), Callback);
 }
 
-void Color_Class::Change_Lightness(Opacity_Type Opacity)
+void Color_Class::Change_Lightness(Opacity::Type Opacity)
 {
     LVGL_Color = lv_color_change_lightness(LVGL_Color, Opacity);
 }
@@ -99,12 +99,12 @@ void Color_Class::Set_To_White()
     LVGL_Color = lv_color_white();
 }
 
-void Color_Class::Set_Darker(Opacity_Type Opacity)
+void Color_Class::Set_Darker(Opacity::Type Opacity)
 {
     LVGL_Color = lv_color_darken(LVGL_Color, Opacity);
 }
 
-void Color_Class::Set_Lighter(Opacity_Type Opacity)
+void Color_Class::Set_Lighter(Opacity::Type Opacity)
 {
     LVGL_Color = lv_color_lighten(LVGL_Color, Opacity);
 }

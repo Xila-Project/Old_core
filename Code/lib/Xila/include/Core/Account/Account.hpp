@@ -11,10 +11,12 @@
 #ifndef Account_Hpp_Included
 #define Account_Hpp_Included
 
+#include "../Module.hpp"
+
 ///
 /// @brief Account management class
 ///
-class Account_Class
+class Account_Class : public Module_Class
 {
 public:
 

@@ -41,7 +41,7 @@
         typedef enum Draw_Part_Enumeration
         {
             Indicator = LV_BAR_DRAW_PART_INDICATOR
-        } Draw_Part_Type;
+        } Draw_Part::Type;
 
         // -- Methods
         void Create(Object_Class &Parent_Object);

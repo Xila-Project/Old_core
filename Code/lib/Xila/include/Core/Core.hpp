@@ -70,7 +70,7 @@
 #include "Display\Display.hpp"
 #include "Drive\Drive.hpp"
 #include "Flash\Flash.hpp"
-#include "GPIIO\GPIO.hpp"
+#include "GPIO\GPIO.hpp"
 #include "Graphical_Interface\Graphical_Interface.hpp"
 #include "Keyboard\Keyboard.hpp"
 #include "Mathematics\Mathematics.hpp"
@@ -129,7 +129,7 @@ public:
 
     GPIO_Class GPIO_Type;
 
-    Graphic_Interface_Class Graphic_Interface;
+    Graphical_Interface_Class Graphical_Interface;
 
     Keyboard_Class Keyboard;
 

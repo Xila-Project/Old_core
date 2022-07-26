@@ -85,7 +85,7 @@ void Drop_Down_List_Class::Set_Selected(uint16_t Selected_Option)
     lv_dropdown_set_selected(Get_Pointer(), Selected_Option);
 }
 
-void Drop_Down_List_Class::Set_Direction(Direction_Type Direction)
+void Drop_Down_List_Class::Set_Direction(Direction::Type Direction)
 {
     lv_dropdown_set_dir(Get_Pointer(), Direction);
 }
@@ -106,7 +106,7 @@ void Drop_Down_List_Class::Set_Selected_Highlight(bool Enabled)
 //
 // ------------------------------------------------------------------------- //
 
-Object_Class::Direction_Type Drop_Down_List_Class::Get_Direction()
+Object_Class::Direction::Type Drop_Down_List_Class::Get_Direction()
 {
     return lv_dropdown_get_dir(Get_Pointer());
 }

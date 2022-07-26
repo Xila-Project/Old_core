@@ -90,7 +90,7 @@ void Text_Area_Class::Set_Accepted_Characters(const char *Accepted_Characters)
     lv_textarea_set_accepted_chars(Get_Pointer(), Accepted_Characters);
 }
 
-void Text_Area_Class::Set_Text_Alignment(Text_Alignment_Type Alignment)
+void Text_Area_Class::Set_Text_Alignment(Text::Alignment_Type Alignment)
 {
     lv_textarea_set_align(Get_Pointer(), Alignment);
 }

@@ -56,7 +56,7 @@ public:
         None = LV_PALETTE_NONE,
     } Palette_Type;
 
-    typedef lv_opa_t Opacity_Type;
+    typedef lv_opa_t Opacity::Type;
 
     // - Methods
 
@@ -70,7 +70,7 @@ public:
 
     // - - Management
 
-    void Change_Lightness(Opacity_Type Opacity);
+    void Change_Lightness(Opacity::Type Opacity);
 
     // - - Setters
 
@@ -80,8 +80,8 @@ public:
     void Set_HSV(uint16_t Hue, uint8_t Saturation, uint8_t Value);
     void Set_To_Black();
     void Set_To_White();
-    void Set_Darker(Opacity_Type Opacity);
-    void Set_Lighter(Opacity_Type Opacity);
+    void Set_Darker(Opacity::Type Opacity);
+    void Set_Lighter(Opacity::Type Opacity);
 
     void Set_From_Palette_Main(Palette_Type Palette);
     void Set_From_Palette_Darken(Palette_Type Palette, uint8_t Level);

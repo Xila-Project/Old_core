@@ -11,11 +11,9 @@
 #ifndef Graphical_Interface_Hpp_Included
 #define Graphical_Interface_Hpp_Included
 
-#include <Arduino.h>
+#include "../Module.hpp"
 
 #include "lvgl.h"
-
-#include "../Module.hpp"
 
 #include "Core/Software/Task.hpp"
 
@@ -54,9 +52,11 @@
 //#include "Tileview.hpp"
 #include "Window.hpp"
 
+#include "Theme.hpp"
+
 class Graphical_Interface_Class : public Module_Class
 {
-
+public:
     // - Types
 
     typedef Object_Class Object_Type;
@@ -84,46 +84,42 @@ class Graphical_Interface_Class : public Module_Class
     typedef Tabs_Class Tabs_Type;
     typedef Window_Class Window_Type;
     
+    Theme_Class Theme;
 
-    static void Initialise();
-    static bool Initialisation_State();
+    Result_Type Initialize();
+
+    bool Initialisation_State();
 
 
     static void Task_Function(void *);
+    Task_Type Task;
 
-    static Task_Type Task;
-
-    static Xila_Class::Semaphore_Handle_Type Mutex_Semaphore_Handle;
-
-    // -- Display state
-    static uint16_t Get_Horizontal_Definition();
-    static uint16_t Get_Vertical_Definition();
-
-    static Result_Type Compile_Page(File);
-    static Result_Type Load_Page(File, Object *, uint16_t);
+    static void Event_Handler(lv_event_t* Event);
 
 protected:
 
-    static lv_color_t Buffer[Default_Display_Horizontal_Definition * 10];
-    static lv_disp_draw_buf_t Draw_Buffer;
-    static lv_disp_drv_t Display_Driver_Interface;
+    // - - Drivers
 
-    static lv_fs_drv_t File_System_Driver;
+    lv_color_t Draw_Buffer[Display_Horizontal_Definition * 10];
+    lv_disp_draw_buf_t Draw_Buffer_Descriptor;
+    lv_disp_drv_t Screen_Driver_Interface;
 
-    static void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
-    static lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
-    static lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
-    static lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
-    static lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
-    static lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
-    static void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
-    static lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
-    static lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
+    lv_indev_drv_t Input_Device_Driver_Interface;
 
-    static void Set_State(uint8_t State);
-    static void Set_State(uint8_t State);
 
-    static uint8_t Brightness;
+
+
+    lv_fs_drv_t File_System_Driver;
+
+    void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
+    lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
+    lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
+    lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
+    lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
+    lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
+    void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
+    lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
+    lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
 };
 
 #endif
