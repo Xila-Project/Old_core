@@ -15,8 +15,9 @@
 #include "Arduino.h"
 #include "Animation.hpp"
 #include "Color.hpp"
+#include "Types.hpp"
 
-class Style_Class
+class Style_Class : public Types_Class
 {
 public:
     // - Types
@@ -26,146 +27,7 @@ public:
 
     /// @brief Style properties type.
     typedef lv_style_prop_t Property_Type;
-
-    typedef lv_align_t Alignment_Type;
-
-    typedef lv_opa_t Opacity::Type;
-
-    typedef lv_coord_t Coordinate_Type;
-
-    /// @brief Base direction type.
-    typedef lv_base_dir_t Base_Direction::Type;
-
-    /// @brief Base directions enumeration.
-    enum Base_Direction_Enumeration
-    {
-        Left_To_Right = LV_BASE_DIR_LTR,
-        Right_To_Left = LV_BASE_DIR_RTL,
-        Automatic = LV_BASE_DIR_AUTO,
-        Neutral = LV_BASE_DIR_NEUTRAL,
-        Weak = LV_BASE_DIR_WEAK
-    };
-
-    typedef Color_Class Color_Type;
-
-    /// @brief Dither mode type.
-    typedef lv_dither_mode_t Dither_Mode_Type;
-
-    /// @brief Dither mode enumeration.
-    enum Dither_Mode_Enumeration
-    {
-        None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
-        Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/
-        Error_diffusion = LV_DITHER_ERR_DIFF, /**< Error diffusion mode. Slower to compute and use more memory but give highest dither quality*/
-    };
-
-    /// @brief Gradient descriptor type.
-    typedef lv_grad_dsc_t Gradient_Descriptor_Type;
-
-    /// @brief Gradient direction type.
-    typedef lv_grad_dir_t Gradient::Direction_Type;
-
-    /// @brief Gradient enumeration type.
-    enum Gradient::Direction_Enumeration
-    {
-        None = LV_GRAD_DIR_NONE,      /**< No gradient (the `grad_color` property is ignored)*/
-        Vertical = LV_GRAD_DIR_VER,   /**< Vertical (top to bottom) gradient*/
-        Horizontal = LV_GRAD_DIR_HOR, /**< Horizontal (left to right) gradient*/
-    };
-
-    class Blend
-    {
-        /// @brief Blend mode type.
-        typedef lv_blend_mode_t Mode_Type;
-
-        /// @brief Blend mode enumeration.
-        enum Mode_Enumeration
-        {
-            Normal = LV_BLEND_MODE_NORMAL,           /**< Simply mix according to the opacity value*/
-            Additive = LV_BLEND_MODE_ADDITIVE,       /**< Add the respective color channels*/
-            Subtractive = LV_BLEND_MODE_SUBTRACTIVE, /**< Subtract the foreground from the background*/
-            Multiply = LV_BLEND_MODE_MULTIPLY,       /**< Multiply the foreground and background*/
-            Replace = LV_BLEND_MODE_REPLACE,         /**< Replace background with foreground in the area*/
-        };
-    };
-
-    /// @brief Grid alignment type.
-    typedef enum Grid_Alignment_Enumeration
-    {
-        Start = LV_GRID_ALIGN_START,
-        Center = LV_GRID_ALIGN_CENTER,
-        End = LV_GRID_ALIGN_END,
-        Stretch = LV_GRID_ALIGN_STRETCH,
-        Space_Evenly = LV_GRID_ALIGN_SPACE_EVENLY,
-        Space_Around = LV_GRID_ALIGN_SPACE_AROUND,
-        Space_Between = LV_GRID_ALIGN_SPACE_BETWEEN,
-    } Grid::Alignment_Type;
-
-    /// @brief Text alignment enumeration.
-    enum Text_Alignment_Enumeration
-    {
-
-        Automatic = LV_TEXT_ALIGN_AUTO, /**< Align text auto*/
-        Left = LV_TEXT_ALIGN_LEFT,      /**< Align text to left*/
-        Center = LV_TEXT_ALIGN_CENTER,  /**< Align text to center*/
-        Right = LV_TEXT_ALIGN_RIGHT,    /**< Align text to right*/
-    };
-
-    /// @brief Text alignment type.
-    typedef lv_text_align_t Text::Alignment_Type;
-
-    /// @brief Text decor enumeration
-    enum Text_Decor_Enumeration
-    {
-        None = LV_TEXT_DECOR_NONE,
-        Underline = LV_TEXT_DECOR_UNDERLINE,
-        Strikethrough = LV_TEXT_DECOR_STRIKETHROUGH,
-    };
-
-    /// @brief Text decor type.
-    typedef lv_text_decor_t Text::Decor_Type;
-
-    /// @brief Text font type
-    typedef lv_font_t Font_Type;
-
-    /// @brief Flex align type.
-    typedef enum Flex_Alignment_Enumeration
-    {
-        Start = LV_FLEX_ALIGN_START,
-        End = LV_FLEX_ALIGN_END,
-        Center = LV_FLEX_ALIGN_CENTER,
-        Space_Evenly = LV_FLEX_ALIGN_SPACE_EVENLY,
-        Space_Around = LV_FLEX_ALIGN_SPACE_AROUND,
-        Space_Between = LV_FLEX_ALIGN_SPACE_BETWEEN
-    } Flex::Alignment_Type;
-
-    /// @brief Border side type.
-    typedef lv_border_side_t Border::Side_Type;
-
-    /// @brief Border side enumeration.
-    enum Border_Side_Enumeration
-    {
-        None = LV_BORDER_SIDE_NONE,
-        Bottom = LV_BORDER_SIDE_BOTTOM,
-        Top = LV_BORDER_SIDE_TOP,
-        Left = LV_BORDER_SIDE_LEFT,
-        Right = LV_BORDER_SIDE_RIGHT,
-        Full = LV_BORDER_SIDE_FULL,
-        Internal = LV_BORDER_SIDE_INTERNAL, /**< FOR matrix-like objects (e.g. Button matrix)*/
-    };
-
-    /// @brief Flex flow enumeration and type.
-    typedef enum Flex_Flow_Enumeration
-    {
-        Row = LV_FLEX_FLOW_ROW,
-        Column = LV_FLEX_FLOW_COLUMN,
-        Wrap = LV_FLEX_FLOW_ROW_WRAP,
-        Reverse = LV_FLEX_FLOW_ROW_REVERSE,
-        Wrap_Reverse = LV_FLEX_FLOW_ROW_WRAP_REVERSE,
-        Column_Wrap = LV_FLEX_FLOW_COLUMN_WRAP,
-        Column_Reverse = LV_FLEX_FLOW_COLUMN_REVERSE,
-        Column_Wrap_Reverse = LV_FLEX_FLOW_COLUMN_WRAP_REVERSE,
-    } Flex::Flow_Type;
+   
 
     // - Methods
 
@@ -198,7 +60,7 @@ public:
     // - - - Background
     void Set_Background_Color(Color_Type Color);
     void Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode);
-    void Set_Background_Gradient(const Gradient_Descriptor_Type *Gradient_Descriptor);
+    void Set_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor);
     void Set_Background_Gradient_Color(Color_Type Color);
     void Set_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction);
     void Set_Background_Gradient_Stop(Coordinate_Type Value);

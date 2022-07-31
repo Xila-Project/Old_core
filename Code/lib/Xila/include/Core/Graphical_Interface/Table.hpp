@@ -19,7 +19,7 @@ public:
     // - Types
 
     /// @brief Cell control type.
-    typedef lv_table_cell_ctrl_t Cell_Control_Type;
+    typedef lv_table_cell_ctrl_t Cell_Control::Type;
 
     /// @brief Cell control enumeration.
     enum Cell_Control_Enumeration
@@ -43,9 +43,9 @@ public:
     // - - Management
     void Create(Object_Class &Parent_Object);
 
-    void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
-    void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
-    bool Has_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control_Type Cell_Control);
+    void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
+    void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
+    bool Has_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
 
     // -- -- Getters.
     const char *Get_Cell_Value(uint16_t Row, uint16_t Column);

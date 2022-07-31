@@ -20,7 +20,7 @@ public:
 
     void Create(Object_Class &Parent_Object);
 
-    typedef lv_btnmatrix_ctrl_t Control_Type;
+    typedef lv_btnmatrix_ctrl_t Control::Type;
 
     typedef lv_keyboard_mode_t Mode_Type;
 
@@ -47,7 +47,7 @@ public:
     void Set_Text_Area(Text_Area_Class &Text_Area);
     void Set_Mode(Mode_Type Mode);
     void Set_Pop_Overs(bool Enabled);
-    void Set_Map(Mode_Type Mode, const char *Map[], const Control_Type Control_Map[]);
+    void Set_Map(Mode_Type Mode, const char *Map[], const Control::Type Control_Map[]);
 
     // -- Getters
     Text_Area_Class Get_Text_Area();

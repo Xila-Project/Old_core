@@ -10,35 +10,16 @@
 
 #include "Core/Core.hpp"
 
-extern Software_Handle Shell_Handle;
+extern Software_Handle_Class Shell_Handle;
 
-uint8_t Software_Class::Seek_Open_Software_Handle(Software_Handle const &Software_Handle)
+///
+ /// @brief Start a software instance main task.
+ /// 
+ /// @param Instance_Pointer 
+void Software_Class::Start_Main_Task(void *Instance_Pointer)
 {
-  for (uint8_t i = 1; i <= 8; i++)
-  {
-    if (i < 8 && *Openned[i]->Handle == Software_Handle)
-    {
-      return i;
-    }
-    else if (i == 8)
-    {
-      return 0;
-    }
-  }
+  (Software_Class *)Instance_Pointer->Main_Task_Function();
 }
-
-// -- Shell shortcut -- //
-
-void Software_Class::Shell_Set_Variable(Address Address, uint8_t Type, const void *Variable)
-{
-  Openned[1]->Set_Variable(Address, Type, Variable);
-}
-
-void Software_Class::Shell_Send_Instruction(Instruction Instruction)
-{
-  Openned[1]->Send_Instruction(Instruction);
-}
-
 
 ///
 /// @brief Return openned software's state.
@@ -344,17 +325,14 @@ void Software_Class::Shell_Maximize()
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Xila_Class::Software::Software(Xila_Class::Software_Handle &Software_Handle, uint8_t Queue_Size)
-    : Handle(&Software_Handle),
+Software_Class::Software_Class(uint8_t Queue_Size)
       Current_Instruction(Xila.Idle),
-      Instruction_Queue_Handle(NULL),
       Last_Watchdog_Feed(millis()),
       Watchdog_Timeout(Default_Watchdog_Timeout)
 {
   if (Queue_Size != 0)
   {
-    Instruction_Queue_Handle = xQueueCreate(Queue_Size, sizeof(uint16_t));
-    if (Instruction_Queue_Handle == NULL)
+    if (Instruction_Queue.Create(Queue_Size) == Error)
     {
       delete this;
     }
@@ -409,4 +387,31 @@ Xila_Class::Instruction Xila_Class::Software::Get_Instruction()
 void Xila_Class::Software::Send_Instruction(Xila_Class::Instruction Instruction)
 {
   xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
+}
+
+uint8_t Software_Class::Seek_Open_Software_Handle(Software_Handle const &Software_Handle)
+{
+  for (uint8_t i = 1; i <= 8; i++)
+  {
+    if (i < 8 && *Openned[i]->Handle == Software_Handle)
+    {
+      return i;
+    }
+    else if (i == 8)
+    {
+      return 0;
+    }
+  }
+}
+
+// -- Shell shortcut -- //
+
+void Software_Class::Shell_Set_Variable(Address Address, uint8_t Type, const void *Variable)
+{
+  Openned[1]->Set_Variable(Address, Type, Variable);
+}
+
+void Software_Class::Shell_Send_Instruction(Instruction Instruction)
+{
+  Openned[1]->Send_Instruction(Instruction);
 }

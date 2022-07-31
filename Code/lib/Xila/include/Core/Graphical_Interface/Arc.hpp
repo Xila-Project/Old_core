@@ -16,7 +16,6 @@
 class Arc_Class : public Object_Class
 {
 public:
-
     /// @brief Mode type.
     typedef lv_arc_mode_t Mode_Type;
 
@@ -28,23 +27,28 @@ public:
         Reverse = LV_ARC_MODE_REVERSE
     };
 
-    /// @brief Draw part type and enumeration.
-    enum
+    class Draw_Part
     {
-        Background = LV_ARC_DRAW_PART_BACKGROUND,
-        Foreground = LV_ARC_DRAW_PART_FOREGROUND,
-        Knob = LV_ARC_DRAW_PART_KNOB
-    } Draw_Part::Type;
+    public:
+        /// @brief Draw part type and enumeration.
+        typedef enum Enumeration
+        {
+            Background = LV_ARC_DRAW_PART_BACKGROUND,
+            Foreground = LV_ARC_DRAW_PART_FOREGROUND,
+            Knob = LV_ARC_DRAW_PART_KNOB
+        } Type;
+    };
 
     // - Methods
 
     // - - Management
 
-    void Create(Object_Class Parent_Object);
+    void
+    Create(Object_Class Parent_Object);
 
     // - - Setters.
 
-    bool Set_Pointer(lv_obj_t* Object_Pointer);
+    bool Set_Pointer(lv_obj_t *Object_Pointer);
 
     // - - - Angles
     void Set_Start_Angle(uint16_t Start_Angle);
@@ -75,13 +79,7 @@ public:
 
     Mode_Type Get_Mode();
 
-
-
 protected:
-
 };
-
-
-
 
 #endif

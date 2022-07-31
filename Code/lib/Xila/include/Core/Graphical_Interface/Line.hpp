@@ -29,6 +29,6 @@ public:
 
     // - - Getters
     bool Get_Y_Inversion();
-}
+};
 
 #endif

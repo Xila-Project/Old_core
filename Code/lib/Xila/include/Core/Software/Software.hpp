@@ -8,6 +8,9 @@
 /// @copyright Copyright (c) 2022
 ///
 
+#ifndef Software_Hpp_Included
+#define Software_Hpp_Included
+
 class Software_Handle;
 
 #include "../Module.hpp"
@@ -15,6 +18,7 @@ class Software_Handle;
 #include "Software_Handle.hpp"
 #include "Task.hpp"
 #include "Semaphore.hpp"
+#include <vector>
 
 /*
 ///
@@ -22,7 +26,7 @@ class Software_Handle;
 ///
 #define Instruction(Sender, Argument_1, Argument_2, Argument_3) (Sender * 16777216 + Argument_1 * 65536 + Argument_2 * 256 + Argument_3)*/
 
-class Software : public Module_Class
+class Software_Class : public Module_Class
 {
 protected:
     // - Types
@@ -38,25 +42,8 @@ protected:
     // - Methods
 
     // - - Constructor / Destructor
-    Software(Software_Handle &Software_Handle, uint8_t Queue_Size = Default_Instruction_Queue_Size);
+    Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
     virtual ~Software();
-
-    // - - Management
-
-    // -- Friendship -- //
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
-
-    ///
-    /// @brief Openned software pointer array
-    ///
-    /// Openned[0] : Maximized software
-    /// Openned[1 - 7] : All openned software (Slot 1 is for Shell)
-    ///
-    Software *Openned[8] = {NULL};
-
-    // -- Methods -- //
 
     void Defrag();
 
@@ -82,8 +69,6 @@ protected:
         Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
     }
 
-    virtual void Set_Variable(Address Address, uint8_t Type, const void *Variable);
-
     Instruction Get_Instruction();
 
     void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
@@ -94,15 +79,18 @@ protected:
     ///
     Task_Type Main_Task;
 
-    ///
-    /// @brief Software handle pointer.
-    ///
-    Software_Handle *Handle;
-
-    friend class Xila_Class;
-    friend class Shell_Class;
+    virtual void Main_Task_Function();
 
 private:
+
+    static void Start_Main_Task(void* Instance_Pointer);
+
+    ///
+    /// @brief Openned software pointer array
+    ///
+    /// Openned[0] : Maximized software
+    static std::vector<Software_Handle_Class*> Software_List;
+
     // -- Attributes -- //
 
     static uint32_t Watchdog_Timer = 0;
@@ -116,7 +104,7 @@ private:
     ///
     /// @brief Queue handle.
     ///
-    QueueHandle_t Instruction_Queue_Handle;
+    Queue_Type Instruction_Queue;
 
     ///
     /// @brief Last software watchdog feed.

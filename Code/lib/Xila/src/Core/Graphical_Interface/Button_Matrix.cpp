@@ -24,17 +24,17 @@ void Button_Matrix_Class::Create(Object_Class &Parent_Object)
     }
 }
 
-void Button_Matrix_Class::Clear_Button_Control(uint16_t Button_Identifier, Control_Type Control)
+void Button_Matrix_Class::Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control)
 {
     lv_btnmatrix_clear_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
 }
 
-void Button_Matrix_Class::Clear_All_Buttons_Control(Control_Type Control)
+void Button_Matrix_Class::Clear_All_Buttons_Control(Control::Type Control)
 {
     lv_btnmatrix_clear_btn_ctrl_all(Get_Pointer(), Control);
 }
 
-bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Control_Type Control)
+bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Control::Type Control)
 {
     return lv_btnmatrix_has_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
 }
@@ -65,7 +65,7 @@ void Button_Matrix_Class::Set_Map(const char **Map)
     lv_btnmatrix_set_map(Get_Pointer(), Map);
 }
 
-void Button_Matrix_Class::Set_Control_Map(Control_Type* Map)
+void Button_Matrix_Class::Set_Control_Map(Control::Type* Map)
 {
     lv_btnmatrix_set_ctrl_map(Get_Pointer(), Map);
 }
@@ -75,12 +75,12 @@ void Button_Matrix_Class::Set_Selected_Button(uint16_t Button_Identifier)
     lv_btnmatrix_set_selected_btn(Get_Pointer(), Button_Identifier);
 }
 
-void Button_Matrix_Class::Set_Button_Control(uint16_t Button_Identifier, Control_Type Control)
+void Button_Matrix_Class::Set_Button_Control(uint16_t Button_Identifier, Control::Type Control)
 {
     lv_btnmatrix_set_btn_ctrl(Get_Pointer(), Button_Identifier, Control);
 }
 
-void Button_Matrix_Class::Set_Button_Control_All(Control_Type Control)
+void Button_Matrix_Class::Set_Button_Control_All(Control::Type Control)
 {
     lv_btnmatrix_set_btn_ctrl_all(Get_Pointer(), Control);
 }

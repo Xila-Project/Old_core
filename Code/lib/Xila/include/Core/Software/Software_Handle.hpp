@@ -12,7 +12,7 @@
 #define Software_Handle_Hpp_Included
 
 #include "Configuration.hpp"
-#include "vector"
+#include <vector>
 #include "../Module.hpp"
 
 class Software_Class;
@@ -23,15 +23,16 @@ class Software_Class;
 ///
 /// @brief Software handle used by Xila to manage each software.
 ///
-class Software_Handle : public Module_Class
+class Software_Handle_Class : public Module_Class
 {
 public:
     // -- Constructors / Destructor
-    Software_Handle();
-    Software_Handle(const char *Software_Name, Software_Class* (*Load_Function_Pointer)(), void (*Startup_Function_Pointer)() = NULL);
+    Software_Handle_Class();
+    Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
 
+    Result_Type Create_Instance();
 
-
+    /*
     Result_Type Open(Software_Handle const &Software_Handle);
     void Minimize(Software_Handle const &Software_Handle);
     Result_Type Maximize(Software_Handle const &);
@@ -44,10 +45,14 @@ public:
 
     void Feed_Watchdog(Software_Handle const &Software_Handle);
 
+    */
+
     /// -- Methods -- //
-    bool Is_Equal(Software_Handle const &Software_Handle_To_Compare) const;
+    bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
 
 protected:
+
+    static std::vector<Software_Handle_Class*> Software_Handle_List;
 
     // - Attributes
    
@@ -56,25 +61,13 @@ protected:
     ///
     char Name[Default_Software_Name_Length]; // used to identify the software,
 
-
     ///
     /// @brief Function pointer called by Xila to load software.
     /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
     ///
-    Software_Class *(*Load_Function_Pointer)();
-
-    ///
-    /// @brief Function pointer that is called by Xila at startup.
-    /// @details That is usefull to start a background task, or launch your application at the startup.
-    ///
-    void (*Startup_Function_Pointer)();
-
-    // -- Friendship 
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
+    void (*Create_Instance_Pointer)();
 };
 
-bool operator==(Software_Handle const &a, Software_Handle const &b);
+bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b);
 
 #endif

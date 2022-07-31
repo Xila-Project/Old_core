@@ -337,7 +337,7 @@ void Object_Class::Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode
     lv_obj_set_style_bg_dither_mode(Get_Pointer(), Dither_Mode, Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Gradient(const Gradient_Descriptor_Type* Gradient_Descriptor, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Gradient(const Gradient::Descriptor_Type* Gradient_Descriptor, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_grad(Get_Pointer(), Gradient_Descriptor, Style_Selector);
 }
@@ -954,7 +954,7 @@ Object_Class::Coordinate_Type Object_Class::Get_Style_Background_Gradient_Stop(u
     return lv_obj_get_style_bg_grad_stop(Get_Pointer(), Part);
 }
 
-const Object_Class::Gradient_Descriptor_Type *Object_Class::Get_Style_Background_Gradient(uint32_t Part)
+const Object_Class::Gradient::Descriptor_Type *Object_Class::Get_Style_Background_Gradient(uint32_t Part)
 {
     return lv_obj_get_style_bg_grad(Get_Pointer(), Part);
 }

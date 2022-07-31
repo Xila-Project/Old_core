@@ -110,7 +110,7 @@ void Style_Class::Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode)
     lv_style_set_bg_dither_mode(&LVGL_Style, Dither_Mode);
 }
 
-void Style_Class::Set_Background_Gradient(const Gradient_Descriptor_Type* Gradient_Descriptor)
+void Style_Class::Set_Background_Gradient(const Gradient::Descriptor_Type* Gradient_Descriptor)
 {
     lv_style_set_bg_grad(&LVGL_Style, Gradient_Descriptor);
 }
