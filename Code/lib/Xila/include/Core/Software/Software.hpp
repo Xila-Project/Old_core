@@ -45,19 +45,19 @@ protected:
     Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
     virtual ~Software();
 
+    void Send_Instruction(Instruction_Type Instruction);
+
     void Defrag();
 
     void Check_Watchdog();
 
     void Shell_Maximize();
-    void Shell_Send_Instruction(Instruction);
-    void Shell_Set_Variable(Address, uint8_t, const void *);
+    void Shell_Send_Instruction(Instruction_Type);
 
-    uint8_t Seek_Open_Software_Handle(Software_Handle const &Software_Handle);
+    uint8_t Seek(const Software_Handle_Class& Software_Handle);
 
-    State Get_State(Software_Handle const &Software_Handle);
+    State Get_State(const Software_Handle_Class& Software_Handle);
 
-    void Send_Instruction(Instruction Intruction);
 
     ///
     /// @brief Convert 2 byte char instruction into Xila Instruction and send it.
@@ -99,12 +99,12 @@ private:
     ///
     /// @brief Temporary variable to receive current instruction from queue.
     ///
-    Instruction Current_Instruction;
+    Instruction_Type Current_Instruction;
 
     ///
     /// @brief Queue handle.
     ///
-    Queue_Type Instruction_Queue;
+    QueueHandle_t Instruction_Queue;
 
     ///
     /// @brief Last software watchdog feed.
