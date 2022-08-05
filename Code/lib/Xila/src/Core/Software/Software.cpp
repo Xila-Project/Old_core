@@ -10,12 +10,13 @@
 
 #include "Core/Software/Software.hpp"
 
-extern Software_Handle_Class Shell_Handle;
+std::vector<Software_Class *> Software_Class::Software_List;
+Software_Class *Software_Class::Maximized_Software;
 
 ///
- /// @brief Start a software instance main task.
- /// 
- /// @param Instance_Pointer 
+/// @brief Start a software instance main task.
+///
+/// @param Instance_Pointer
 void Software_Class::Start_Main_Task(void *Instance_Pointer)
 {
   (Software_Class *)Instance_Pointer->Main_Task_Function();
@@ -199,125 +200,63 @@ void Software_Class::Close(Software_Handle const &Software_Handle)
 /// @brief Function that minimize software (and maximize Shell).
 ///
 /// @param Software_Handle Software's handle to minimize.
-void Software_Class::Minimize(Software_Handle const &Software_Handle)
+void Software_Class::Minimize()
 {
-  if (Openned[0] != NULL)
+  if (Maximized_Software == this || Maximized_Software == NULL)
   {
-    if (*Openned[0]->Handle == Software_Handle)
-    {
-      Openned[0]->Send_Instruction(Xila.Minimize); // -- Inform software that its minimized
-      Xila.Task.Delay(10);                         // -- purge time
-      Openned[0] = NULL;
-    }
-    else
-    {
-      return;
-    }
+    return;
   }
-  Shell_Send_Instruction(Desk);
-  Shell_Maximize();
+  Maximized_Software->Send_Instruction(Xila.Minimize);
+  Task_Type::Delay(20);
+  Maximized_Software = NULL;
+  Software_List[0]->Maximize();
 }
 
 ///
 /// @brief Function that maximize software (and minimize current maximized software).
 ///
 /// @param Software_Handle Software handle to maximize.
-/// @return Result_Type
-Result_Type Software_Class::Maximize(Software_Handle const &Software_Handle)
+void Software_Class::Maximize()
 {
-  // -- Looking for the involved software
-  for (uint8_t i = 1; i < 8; i++)
+  if (Maximized_Software == this)
   {
-    if (Openned[i] != NULL)
-    {
-      if (Software_Handle == *Openned[i]->Handle)
-      {
-
-        // -- Check if the software was already open or if another software is currently openned.
-        if (Openned[0] != NULL)
-        {
-          // -- If software handle bind with currently openned software do nothing and return success
-          if (*Openned[0]->Handle == Software_Handle)
-          {
-            return Success;
-          }
-          // -- If not, minimize the maximized software
-          else
-          {
-            Openned[0]->Send_Instruction(Xila.Minimize); // -- Inform software that its minimized
-
-            Xila.Task.Delay(10); // -- purge time
-            Openned[0] = NULL;
-          }
-        }
-        // -- Then maximize target software
-        Openned[0] = Openned[i];
-        Openned[0]->Send_Instruction(Xila.Maximize);
-        return Success;
-      }
-    }
+    return;
   }
-  return Error;
+  if (Maximized_Software != NULL)
+  {
+    Maximized_Software->Minimize();
+  }
+  Maximized_Software = this;
+  this->Send_Instruction(Xila.Maximize);
+  Task_Type::Delay(20);
 }
 
 ///
-/// @brief Function that close roughly the current running software.
+/// @brief Function that close roughly the current maximized software.
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
 /// @param Software_Handle Software handle to close.
-Result_Type Software_Class::Force_Close(Xila_Class::Software_Handle const &Software_Handle)
+void Software_Class::Force_Close()
 {
-  for (uint8_t i = 1; i < 8; i++)
+
+  Xila.Task.Delete(this->Main_Task);
+  Xila.Task.Delay(10);
+
+  // -- Don't forget to remove maximized pointer.
+  if (Maximized_Software == this)
   {
-    if (Openned[i] != NULL)
+    Maximized_Software = NULL;
+  }
+
+  // - Don't forget to remove the software pointer from the software list.
+  for (auto Software_Pointer = Software_List.begin(); Software_Pointer < Software_List.end(); Software_Pointer++)
+  {
+    if (*Software_Pointer == this)
     {
-      // -- If software handle bind with given software handle
-      if (*Openned[i]->Handle == Software_Handle)
-      {
-
-        Xila.Task.Delete(Openned[i]->Task_Handle);
-        Xila.Task.Delay(10);
-        // -- Don't forget to remove maximized pointer.
-        if (*Openned[0]->Handle == Software_Handle)
-        {
-          Openned[0] = NULL;
-        }
-        if (*Openned[1]->Handle == Software_Handle)
-        {
-          Openned[1] = NULL;
-        }
-
-        delete Openned[i];
-        Openned[i] = NULL;
-        return Success;
-      }
+      Software_List.erase(Software_Pointer);
+      break;
     }
   }
-  return Error;
-}
-
-///
-/// @brief Add handle to software list.
-///
-/// @param Software_Handle_To_Add
-void Xila_Class::Software_Class::Add_Handle(Xila_Class::Software_Handle &Software_Handle_To_Add)
-{
-  for (uint8_t i = 0; i < Maximum_Software; i++)
-  {
-    if (Handle[i] == NULL)
-    {
-      Handle[i] = &Software_Handle_To_Add;
-      return;
-    }
-  }
-}
-
-///
-/// @brief A shortcut that maximize Shell.
-///
-void Software_Class::Shell_Maximize()
-{
-  Maximize(Shell_Handle);
 }
 
 ///
@@ -326,9 +265,9 @@ void Software_Class::Shell_Maximize()
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
 Software_Class::Software_Class(uint8_t Queue_Size)
-      Current_Instruction(Xila.Idle),
-      Last_Watchdog_Feed(millis()),
-      Watchdog_Timeout(Default_Watchdog_Timeout)
+    Current_Instruction(Xila.Idle),
+    Last_Watchdog_Feed(millis()),
+    Watchdog_Timeout(Default_Watchdog_Timeout)
 {
   if (Queue_Size != 0)
   {
@@ -405,13 +344,3 @@ uint8_t Software_Class::Seek_Open_Software_Handle(Software_Handle const &Softwar
 }
 
 // -- Shell shortcut -- //
-
-void Software_Class::Shell_Set_Variable(Address Address, uint8_t Type, const void *Variable)
-{
-  Openned[1]->Set_Variable(Address, Type, Variable);
-}
-
-void Software_Class::Shell_Send_Instruction(Instruction Instruction)
-{
-  Openned[1]->Send_Instruction(Instruction);
-}

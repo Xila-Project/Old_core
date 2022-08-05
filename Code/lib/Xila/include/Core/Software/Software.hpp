@@ -35,7 +35,7 @@ protected:
     {
         Minimized, ///< Maximized state.
         Maximized  ///< Minimized state.
-    } State;
+    } State_Type;
 
     typedef Task_Class Task_Type;
 
@@ -50,9 +50,6 @@ protected:
     void Defrag();
 
     void Check_Watchdog();
-
-    void Shell_Maximize();
-    void Shell_Send_Instruction(Instruction_Type);
 
     uint8_t Seek(const Software_Handle_Class& Software_Handle);
 
@@ -73,8 +70,6 @@ protected:
 
     void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
-    // - Attributes
-
     /// @brief Software task handle.
     ///
     Task_Type Main_Task;
@@ -83,13 +78,18 @@ protected:
 
 private:
 
+    void Minimize();
+    void Maximize();
+    void Force_Close();
+
     static void Start_Main_Task(void* Instance_Pointer);
 
     ///
     /// @brief Openned software pointer array
     ///
-    /// Openned[0] : Maximized software
-    static std::vector<Software_Handle_Class*> Software_List;
+    static std::vector<Software_Class*> Software_List;
+    
+    static volatile Software_Class* Maximized_Software;
 
     // -- Attributes -- //
 
