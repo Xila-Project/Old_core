@@ -31,10 +31,10 @@ class Software_Class : public Module_Class
 protected:
     // - Types
 
-    typedef enum
+    typedef enum State_Enumeration
     {
         Minimized, ///< Maximized state.
-        Maximized  ///< Minimized state.
+        Maximized,  ///< Minimized state.
     } State_Type;
 
     typedef Task_Class Task_Type;
@@ -46,27 +46,15 @@ protected:
     virtual ~Software();
 
     void Send_Instruction(Instruction_Type Instruction);
+    void Send_Instruction(Instruction_Type::Sender_Type Sender, const char Arguments[4]);
 
-    void Defrag();
+    bool Check_Watchdog();
 
-    void Check_Watchdog();
-
-    uint8_t Seek(const Software_Handle_Class& Software_Handle);
+    static void Check_Watchdogs();
 
     State Get_State(const Software_Handle_Class& Software_Handle);
 
-
-    ///
-    /// @brief Convert 2 byte char instruction into Xila Instruction and send it.
-    ///
-    /// @param Instruction_Char_1 Instruction first byte
-    /// @param Instruction_Char_2 Instruction second byte
-    inline void Send_Instruction(char Instruction_Char_1, char Instruction_Char_2)
-    {
-        Send_Instruction(((uint16_t)Instruction_Char_1 << 8) | (uint16_t)Instruction_Char_2);
-    }
-
-    Instruction Get_Instruction();
+    Instruction_Type Get_Instruction();
 
     void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
@@ -78,9 +66,13 @@ protected:
 
 private:
 
+
     void Minimize();
     void Maximize();
-    void Force_Close();
+    void Kill();
+    void Close();
+
+    void Feed_Watchdog();
 
     static void Start_Main_Task(void* Instance_Pointer);
 
@@ -93,14 +85,9 @@ private:
 
     // -- Attributes -- //
 
-    static uint32_t Watchdog_Timer = 0;
+    uint32_t Watchdog_Timer = 0;
     static uint8_t Watchdog_State = 0;
-
-    ///
-    /// @brief Temporary variable to receive current instruction from queue.
-    ///
-    Instruction_Type Current_Instruction;
-
+    
     ///
     /// @brief Queue handle.
     ///

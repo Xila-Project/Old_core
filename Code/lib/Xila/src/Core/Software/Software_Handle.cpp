@@ -68,6 +68,69 @@ bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handl
 }
 
 ///
+/// @brief Function that open software.
+///
+/// @param Software_Handle Software's handle to open.
+/// @return Result_Type
+Result_Type Software_Class::Open(Software_Handle const &Software_Handle)
+{
+  if (Software_Handle == Shell_Handle)
+  {
+    if (Openned[1] != NULL)
+    {
+      Maximize(Shell_Handle);
+      return Success;
+    }
+    else
+    {
+      Openned[1] = (*Shell_Handle.Load_Function_Pointer)();
+      Openned[0] = Openned[1];
+      return Success;
+    }
+  }
+
+  uint8_t i = 2;
+  // -- checking if software is already openned
+  for (i = 2; i < 8; i++)
+  {
+    if (Openned[i] != NULL)
+    {
+      if (Software_Handle == *Openned[i]->Handle)
+      {
+        Maximize(*Openned[i]->Handle);
+        return Success;
+      }
+    }
+  }
+  // -- if the software isn't minimized, load it. -- //
+  for (i = 2; i < 8; i++)
+  {
+    if (Openned[i] == NULL)
+    {
+      if (Software_Handle.Load_Function_Pointer == NULL)
+      {
+        return Error;
+      }
+
+      Openned[i] = (*Software_Handle.Load_Function_Pointer)(); // <- at this point Openned[1] to be modified
+
+      if (Openned[i]->Instruction_Queue_Handle == NULL)
+      {
+        vTaskDelete(Openned[i]->Task_Handle);
+        delete Openned[i];
+        Openned[i] = NULL;
+        return Error;
+      }
+
+      Openned[0] = Openned[i];
+
+      return Success;
+    }
+  }
+  return Error;
+}
+
+///
 /// @brief Destroy the Software_Handle::Software_Handle object
 ///
 ///
