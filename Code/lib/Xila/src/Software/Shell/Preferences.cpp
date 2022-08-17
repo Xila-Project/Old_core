@@ -326,7 +326,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
 
         for (i = 0; i < 2048; i++)
         {
-            Xila.Task.Delay(1);
+            Task_Class::Delay(1);
             Test_File.write(Buffer, sizeof(Buffer));
         }
 

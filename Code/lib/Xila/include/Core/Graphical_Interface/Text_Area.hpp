@@ -19,7 +19,7 @@ class Text_Area_Class : public Object_Class
     /// @brief Text area custom part enumeration.
     enum
     {
-        Placeholder = LV_TEXTAREA_PLACEHOLDER
+        Placeholder = LV_PART_TEXTAREA_PLACEHOLDER
     };
 
     // - Methods

@@ -57,8 +57,7 @@
 //----------------------------------------------------------------------------//
 
 // - - Configuration file (at compile time)
-#include "Configuration\Configuration.hpp" // default values
-#include "Configuration\Path.hpp" // Path list
+#include "Configuration\Path.hpp"          // Path list
 
 // - - Modules
 #include "Module.hpp" // Module class
@@ -77,7 +76,7 @@
 #include "Memory\Memory.hpp"
 #include "Power\Power.hpp"
 #include "Software\Software.hpp"
-#include "Sound\Sound.hpp"
+//#include "Sound\Sound.hpp"
 #include "System\System.hpp"
 #include "Time\Time.hpp"
 
@@ -117,9 +116,9 @@ public:
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
-    typedef Software_Class Software_Type;
-
     Account_Class Account;
+
+    Clipboard_Class Clipboard;
 
     Display_Class Display;
 
@@ -127,7 +126,7 @@ public:
 
     Flash_Class Flash;
 
-    GPIO_Class GPIO_Type;
+    GPIO_Class GPIO;
 
     Graphical_Interface_Class Graphical_Interface;
 
@@ -139,68 +138,11 @@ public:
 
     Power_Class Power;
 
-    //==============================================================================//
-    ///
-    /// @brief Software management module.
-    ///
-    class Software_Management_Class
-    {
-    public:
-        Software_Management_Class();
+    typedef Software_Class Software_Type;
 
-        Xila_Class::State Get_State(Xila_Class::Software_Handle const &Software_Handle);
+    typedef Software_Handle_Class Software_Handle_Type;
 
-        Result_Type Open(Xila_Class::Software_Handle const &Software_Handle);
-        void Minimize(Xila_Class::Software_Handle const &Software_Handle);
-        Result_Type Maximize(Xila_Class::Software_Handle const &);
-        void Close(Xila_Class::Software_Handle const &Software_Handle);
-
-        void Feed_Watchdog(Xila_Class::Software_Handle const &Software_Handle);
-
-        // -- Friendship -- //
-        friend class Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
-
-    protected:
-        // -- Attributes -- //
-
-        uint32_t Watchdog_Timer;
-        uint8_t Watchdog_State;
-
-        ///
-        /// @brief Openned software pointer array
-        ///
-        /// Openned[0] : Maximized software
-        /// Openned[1 - 7] : All openned software (Slot 1 is for Shell)
-        ///
-        Xila_Class::Software *Openned[8] = {NULL};
-
-        ///
-        /// @brief All software handle pointers.
-        ///
-        Xila_Class::Software_Handle *Handle[Maximum_Software] = {NULL};
-
-        // -- Methods -- //
-
-        void Defrag();
-
-        void Check_Watchdog();
-
-        void Shell_Maximize();
-        void Shell_Send_Instruction(Xila_Class::Instruction);
-        void Shell_Set_Variable(Xila_Class::Address, uint8_t, const void *);
-
-        uint8_t Seek_Open_Software_Handle(Xila_Class::Software_Handle const &Software_Handle);
-
-        uint8_t Get_Software_Handle(Xila_Class::Software_Handle const &);
-        void Add_Handle(Xila_Class::Software_Handle &);
-
-        Result_Type Force_Close(Xila_Class::Software_Handle const &Software_Handle);
-
-    } Software_Management;
-
-    Sound_Class Sound;
+    //Sound_Class Sound;
 
     System_Class System;
 
@@ -216,8 +158,6 @@ private:
     ///
     static Xila_Class *Instance_Pointer;
 };
-
-bool operator==(Xila_Class::Software_Handle const &a, Xila_Class::Software_Handle const &b);
 
 extern Xila_Class Xila;
 

@@ -34,7 +34,7 @@ void Arc_Class::Create(Object_Class Parent_Object)
  
 bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_arc_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
     {
         return false;
     }
@@ -77,7 +77,7 @@ void Arc_Class::Set_Rotation(uint16_t Rotation)
     lv_arc_set_rotation(Get_Pointer(), Rotation);
 }
 
-void Arc_Class::Set_Mode(Arc_Class::Mode_Type Mode)
+void Arc_Class::Set_Mode(Arc_Class::Mode::Type Mode)
 {
     lv_arc_set_mode(Get_Pointer(), Mode);
 }
@@ -138,7 +138,7 @@ int16_t Arc_Class::Get_Maximum_Value()
     return lv_arc_get_max_value(Get_Pointer());
 }
 
-Arc_Class::Mode_Type Arc_Class::Get_Mode()
+Arc_Class::Mode::Type Arc_Class::Get_Mode()
 {
     return lv_arc_get_mode(Get_Pointer());
 }

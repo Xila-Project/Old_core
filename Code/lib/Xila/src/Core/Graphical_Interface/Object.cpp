@@ -772,6 +772,11 @@ void Object_Class::Set_Style_Y(Coordinate_Type Y, Style_Selector_Type Style_Sele
     lv_obj_set_style_y(Get_Pointer(), Y, Style_Selector);
 }
 
+void Object_Class::Set_Layout(uint32_t Layout)
+{
+    lv_obj_set_layout(Get_Pointer(), Layout);
+}
+
 void Object_Class::Set_Tile(Object_Class& Tile, bool Animation)
 {
     if (Animation)

@@ -33,7 +33,7 @@ void Bar_Class::Create(Object_Class& Parent_Object)
 
 bool Bar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_bar_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_bar_class))
     {
         return false;
     }
@@ -71,7 +71,7 @@ void Bar_Class::Set_Range(int32_t Minimum_Value, int32_t Maximum_Value)
     lv_bar_set_range(Get_Pointer(), Minimum_Value, Maximum_Value);
 }
 
-void Bar_Class::Set_Mode(Mode_Type Mode)
+void Bar_Class::Set_Mode(Mode::Type Mode)
 {
     lv_bar_set_mode(Get_Pointer(), Mode);
 }
@@ -102,7 +102,7 @@ int32_t Bar_Class::Get_Maximum_Value()
     return lv_bar_get_max_value(Get_Pointer());
 }
 
-Bar_Class::Mode_Type Bar_Class::Get_Mode()
+Bar_Class::Mode::Type Bar_Class::Get_Mode()
 {
     return lv_bar_get_mode(Get_Pointer());
 }

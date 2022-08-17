@@ -26,15 +26,19 @@ class Bar_Class : public Object_Class
 public:
     // -- Types
 
-    /// @brief Bar mode type.
-    typedef lv_bar_mode_t Mode_Type;
-
-    /// @brief Bar mode enumeration.
-    typedef enum
+    class Mode
     {
-        Normal = LV_BAR_MODE_NORMAL,
-        Symmetrical = LV_BAR_MODE_SYMMETRICAL,
-        Range = LV_BAR_MODE_RANGE
+    public:
+        /// @brief Bar mode type.
+        typedef lv_bar_mode_t Type;
+
+        /// @brief Bar mode enumeration.
+        enum Enumeration
+        {
+            Normal = LV_BAR_MODE_NORMAL,
+            Symmetrical = LV_BAR_MODE_SYMMETRICAL,
+            Range = LV_BAR_MODE_RANGE
+        };
     };
 
     class Draw_Part
@@ -57,14 +61,14 @@ public:
     void Set_Value(int32_t Value, bool Enable_Animation = true);
     void Set_Start_Value(int32_t Value, bool Enable_Animation = true);
     void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
-    void Set_Mode(Mode_Type Mode);
+    void Set_Mode(Mode::Type Mode);
 
     // -- Get attributes values.
     int32_t Get_Value();
     int32_t Get_Start_Value();
     int32_t Get_Minimum_Value();
     int32_t Get_Maximum_Value();
-    Mode_Type Get_Mode();
+    Mode::Type Get_Mode();
 };
 
 #endif

@@ -11,18 +11,14 @@
 #ifndef Modules_Hpp_Included
 #define Modules_Hpp_Included
 
+#include <vector>
 #include "Arduino.h"
-#include "ArduinoJson.hpp"
+#include "ArduinoJson.h"
 #include "Configuration/Configuration.hpp"
-#include "Software/Task.hpp"
 
 class Module_Class
 {
 public:
-    // - Types and enumerations
-
-    typedef Task_Class Task_Type;
-
     /// @brief Size Type;
     typedef size_t Size_Type;
 
@@ -37,7 +33,7 @@ public:
         Warning,     ///< Warning event.
         Information, ///< Information event.
         Question,    ///< Question event.
-        None,
+        None
     };
 
     typedef uint8_t Result_Type;
@@ -104,32 +100,82 @@ public:
         };
         */
 
-       Instruction_Type(Module_Type Sender, uint32_t Arguments)
-       {
-              this->Sender = Sender;
-              this->Arguments = Arguments;
-       }
+        Instruction_Type(Module_Type Sender, uint32_t Arguments)
+        {
+            this->Sender = Sender;
+            this->Arguments = Arguments;
+        };
 
         Module_Type Get_Sender()
         {
             return Sender;
-        }
+        };
 
         uint32_t Get_Arguments()
         {
             return Arguments;
-        }
+        };
 
         void Set_Sender(Module_Type Sender)
         {
             this->Sender = Sender;
-        }
+        };
 
-        void Set_Arguments(uint32_t Arguments);
+        void Set_Arguments(uint32_t Arguments){
+
+        };
+    };
+
+    class Task_Class
+    {
+    public:
+        typedef void Task_Function(void *);
+
+        typedef enum Priority_Enumeration
         {
-            
-        }
+            Idle = 0,
+            Background,
+            Low,
+            Normal,
+            High,
+            System,
+            Driver
+        } Priority_Type;
 
+        typedef enum State_Enumeration
+        {
+            Running = eRunning,
+            Ready = eReady,
+            Blocked = eBlocked,
+            Suspended = eSuspended,
+            Deleted = eDeleted,
+            Invalid = eInvalid,
+        } State_Type;
+
+        Task_Class();
+        ~Task_Class();
+
+        Result_Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
+
+        Result_Type Set_Priority(Priority_Type Priority);
+        void Suspend();
+        void Resume();
+        void Delete();
+
+        State_Type Get_State();
+        Priority_Type Get_Priority();
+
+        /*
+        static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
+        static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
+        static void Take_Notification(Task_Class& Task);
+        */
+
+        static void Delay(uint32_t Delay_In_Millisecond);
+        static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
+
+    private:
+        xTaskHandle Task_Handle;
     };
 };
 

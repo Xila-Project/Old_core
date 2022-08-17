@@ -42,7 +42,8 @@ public:
 
     void Refresh_Header();
 
-    static void Task(void *);
+    static void Task_Start_Function(void* Instance);
+    void Task_Function();
 
     // -- Friendship
     friend class Xila_Class;
@@ -52,22 +53,22 @@ public:
 protected:
 
     // System's task :
-    static Task_Type Task;
+    Task_Class Task;
 
     ///
     /// @brief Device name used as Network hostname ...
     ///
-    static char Device_Name[25];
+    char Device_Name[25];
 
     // -- Methods
 
-    static Result_Type Load_Registry();
-    static Result_Type Save_Registry();
+    Result_Type Load_Registry();
+    Result_Type Save_Registry();
 
-    static Result_Type Save_Dump();
-    static Result_Type Load_Dump();
+    Result_Type Save_Dump();
+    Result_Type Load_Dump();
  
-    static Result_Type Load_Executable(File Executable_File);
+    Result_Type Load_Executable(File Executable_File);
 
     void Second_Sleep_Routine();
 

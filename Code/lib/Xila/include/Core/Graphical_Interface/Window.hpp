@@ -32,7 +32,6 @@ public:
 
 private:
 
-    Object_Class Window;
     Object_Class Header;
     Object_Class Body;
 
@@ -40,7 +39,7 @@ private:
     Label_Class Clock_Label;
 
     Button_Class Network_Button;
-    Image_Class Battery_Image;
+    Image_Class Network_Image;
     Button_Class Battery_Button;
     Image_Class Battery_Image;
     Button_Class Sound_Button;
@@ -49,15 +48,5 @@ private:
     Button_Class Close_Button;
     Button_Class Minimize_Button;
 };
-
-Object_Type Class::Create()
-{
-    return lv_win_create(Xila_Class::Display_Class::Screen_Class::Get(), NULL);
-}
-
-inline void Class::Set_Title(Object_Type Object_Type, String Title)
-{
-    lv_win_set_title(Object_Type, Title.c_str());
-}
 
 #endif

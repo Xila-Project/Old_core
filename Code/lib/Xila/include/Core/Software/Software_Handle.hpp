@@ -11,7 +11,7 @@
 #ifndef Software_Handle_Hpp_Included
 #define Software_Handle_Hpp_Included
 
-#include "Configuration.hpp"
+#include "../Configuration/Configuration.hpp"
 #include <vector>
 #include "../Module.hpp"
 
@@ -31,21 +31,6 @@ public:
     Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
 
     Result_Type Create_Instance();
-
-    /*
-    Result_Type Open(Software_Handle const &Software_Handle);
-    void Minimize(Software_Handle const &Software_Handle);
-    Result_Type Maximize(Software_Handle const &);
-    void Close(Software_Handle const &Software_Handle);
-
-    Result_Type Force_Close(Software_Handle const &Software_Handle);
-
-    uint8_t Get_Software_Handle(Software_Handle const &);
-    void Add_Handle(Software_Handle &);
-
-    void Feed_Watchdog(Software_Handle const &Software_Handle);
-
-    */
 
     /// -- Methods -- //
     bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;

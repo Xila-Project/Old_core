@@ -52,7 +52,7 @@ void Shell_Class::Dialog_Class::Color_Picker_Class::Open()
 {
     DUMP("Open color picker");
     Xila.Display.Set_Current_Page(Pages.Dialog_Color_Picker);
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 void Shell_Class::Dialog_Class::Color_Picker_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
@@ -103,7 +103,7 @@ void Shell_Class::Dialog_Class::Event_Class::Open()
     EVENT->Button_Text[2] = NULL;
 
     Xila.Display.Set_Current_Page(Pages.Dialog_Event);
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 void Shell_Class::Dialog_Class::Event_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
@@ -253,7 +253,7 @@ void Shell_Class::Dialog_Class::Load_Class::Open()
     LOAD->Message = NULL;
 
     Xila.Display.Set_Current_Page(Pages.Dialog_Load);
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 bool Shell_Class::Dialog_Class::Load_Class::State()
@@ -270,7 +270,7 @@ void Shell_Class::Dialog_Class::Load_Class::Execute_Instruction(Xila_Class::Inst
     if (Duration != 0 && Xila.Time.Milliseconds() > Duration)
     {
         Xila.Display.Set_Value(F("STATE_VAR"), 2);
-        Xila.Task.Delay(1000);
+        Task_Class::Delay(1000);
         Xila.Display.Set_Current_Page(Page);
         Xila.Software_Management.Openned[0] = Caller_Software;
         delete this;
@@ -330,7 +330,7 @@ void Shell_Class::Dialog_Class::Login_Class::Open(bool Login)
     LOGIN->Login = Login;
 
     Xila.Display.Set_Current_Page(Pages.Dialog_Login);
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 bool Shell_Class::Dialog_Class::Login_Class::State()
@@ -408,7 +408,7 @@ void Shell_Class::Dialog_Class::Keyboard_Class::Open()
     KEYBOARD->Size = 0;
     KEYBOARD->Masked_Input = false;
     Xila.Keyboard.Clear();
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 bool Shell_Class::Dialog_Class::Keyboard_Class::State()
@@ -482,7 +482,7 @@ void Shell_Class::Dialog_Class::Keypad_Class::Open()
     KEYPAD->Page = Xila.Display.Get_Current_Page(true);
     Xila.Display.Set_Current_Page(Pages.Dialog_Keypad);
     Xila.Keyboard.Clear();
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 bool Shell_Class::Dialog_Class::Keypad_Class::State()
@@ -612,7 +612,7 @@ void Shell_Class::Dialog_Class::Power_Class::Execute_Instruction(Xila_Class::Ins
 void Shell_Class::Dialog_Class::Power_Class::Open()
 {
     Xila.Display.Set_Current_Page(Pages.Dialog_Power);
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
 }
 
 // -- Local dialogs
@@ -637,7 +637,7 @@ Result_Type Shell_Class::Dialog_Class::Keyboard(char *String, size_t Size, bool 
     while (Xila.Dialog.Keyboard_State == Xila.None)
     {
         Keyboard_Class::Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // --
     return Xila.Dialog.Keyboard_State; // -- Dialog result
@@ -659,10 +659,10 @@ Result_Type Shell_Class::Dialog_Class::Keypad(float &Number)
     while (Xila.Dialog.Keypad_State == Xila.None)
     {
         KEYPAD->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Wait 20 ms to switch page
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
     // -- Give semaphore back and return dialog result
     return Xila.Dialog.Keypad_State;
 }
@@ -680,12 +680,12 @@ Result_Type Shell_Class::Dialog_Class::Color_Picker(uint16_t &Color)
     while (Xila.Dialog.Color_Picker_State == Xila.None)
     {
         Color_Picker_Pointer.Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Restore context
     Xila.Display.Set_Current_Page(Page);
     // -- Wait 20 ms to switch page
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
     // -- Give semaphore back and return dialog result
     return Xila.Dialog.Color_Picker_State;
 }
@@ -715,10 +715,10 @@ Result_Type Shell_Class::Dialog_Class::Event(const __FlashStringHelper *Message,
     while (Xila.Dialog.Event_State == Xila.None)
     {
         EVENT->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Wait 20 ms to switch page
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
     // -- Give semaphore back and return dialog result
     return Xila.Dialog.Event_State;
 }
@@ -748,10 +748,10 @@ Result_Type Shell_Class::Dialog_Class::Event(const char *Message, uint8_t Type, 
     while (Xila.Dialog.Event_State == Xila.None)
     {
         EVENT->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Wait 20 ms to switch page
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
     // -- Give semaphore back and return dialog result
     return Xila.Dialog.Event_State;
 }
@@ -777,7 +777,7 @@ void Shell_Class::Dialog_Class::Load(const __FlashStringHelper *Header, const __
     Load_Pointer->Caller_Software = NULL;
     Load_Pointer->Page = 255;
     SHELL->Send_Instruction('R', 'e');
-    Xila.Task.Delay(Duration);
+    Task_Class::Delay(Duration);
 }
 
 ///
@@ -801,7 +801,7 @@ void Shell_Class::Dialog_Class::Load(const char *Header, const char *Message, ui
     LOAD->Duration = 0;
     LOAD->Caller_Software = NULL;
     SHELL->Send_Instruction('R', 'e');
-    Xila.Task.Delay(Duration);
+    Task_Class::Delay(Duration);
 }
 
 void Shell_Class::Dialog_Class::Close_Load()
@@ -826,7 +826,7 @@ Result_Type Shell_Class::Dialog_Class::Login()
     while (Xila.Dialog.Login_State == Xila.None)
     {
         LOGIN->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Return dialog result
     return Xila.Dialog.Login_State;
@@ -846,7 +846,7 @@ void Shell_Class::Dialog_Class::Power()
     while (Xila.Dialog.Power_State == Xila.None)
     {
         Power_Pointer.Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Restore context
     Xila.Display.Set_Current_Page(Page);
@@ -869,7 +869,7 @@ Result_Type Shell_Class::Dialog_Class::Open_File(File &File_To_Open)
     while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Restore context
     Xila.Display.Set_Current_Page(Page);
@@ -889,7 +889,7 @@ Result_Type Shell_Class::Dialog_Class::Save_File(File &File_To_Save)
     while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Restore context
     Xila.Display.Set_Current_Page(Page);
@@ -909,7 +909,7 @@ Result_Type Shell_Class::Dialog_Class::Open_Folder(File &Folder_To_Open)
     while (Xila.Dialog.File_Manager_State == Xila.None)
     {
         FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
     }
     // -- Restore context
     Xila.Display.Set_Current_Page(Page);

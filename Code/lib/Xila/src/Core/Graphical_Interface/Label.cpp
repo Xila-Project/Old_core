@@ -88,7 +88,7 @@ void Label_Class::Set_Selection_End(uint32_t Index)
 
 bool Label_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_label_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_label_class))
     {
         return false;
     }

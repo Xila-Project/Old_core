@@ -32,7 +32,7 @@ public:
     {
         Knob = LV_SLIDER_DRAW_PART_KNOB,
         Knob_Left = LV_SLIDER_DRAW_PART_KNOB_LEFT,
-    } Draw_Part::Type;
+    } Draw_Part_Type;
 
     // - Methods
     void Create(Object_Class &Parent_Object);

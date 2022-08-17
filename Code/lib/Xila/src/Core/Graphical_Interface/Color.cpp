@@ -30,7 +30,7 @@ Color_Class::Color_Class(uint8_t Red, uint8_t Green, uint8_t Blue)
     Set_RGB(Red, Green, Blue);
 }
 
-Color_Class::Color_Class(uint32_t Hex, bool Hex_3 = false)
+Color_Class::Color_Class(uint32_t Hex, bool Hex_3)
 {
     Set_RGB(Hex, Hex_3);
 }

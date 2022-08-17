@@ -17,30 +17,33 @@ class Color_Wheel_Class : public Object_Class
 {
 public:
     // -- Types
-    typedef lv_colorwheel_mode_t Mode_Type;
 
-    enum Mode_Enumeration
+    class Mode
     {
-        Hue = LV_COLORWHEEL_MODE_HUE,
-        Saturation = LV_COLORWHEEL_MODE_SATURATION,
-        Value = LV_COLORWHEEL_MODE_VALUE
-    };
+    public:
+        typedef lv_colorwheel_mode_t Type;
 
-    typedef lv_colorwheel_mode_t Mode_Type;
+        enum Enumeration
+        {
+            Hue = LV_COLORWHEEL_MODE_HUE,
+            Saturation = LV_COLORWHEEL_MODE_SATURATION,
+            Value = LV_COLORWHEEL_MODE_VALUE
+        };
+    };
 
     // - Methods
 
     void Create(Object_Class &Parent_Object);
 
     // - - Getters
-    Mode_Type Get_Mode();
+    Mode::Type Get_Mode();
     bool Get_Mode_Fixed();
-    
+
     Color_Type Get_Color();
 
     // - - Setters
     bool Set_Color(Color_Type Color);
-    void Set_Mode(Mode_Type Mode);
+    void Set_Mode(Mode::Type Mode);
     void Set_Mode_Fixed(bool Fixed);
 };
 

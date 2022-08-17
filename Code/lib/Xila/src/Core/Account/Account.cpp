@@ -11,9 +11,9 @@
 #include "Core/Core.hpp"
 
 ///
-/// @brief Construct a new Xila_Class::Account_Class::Account_Class object
+/// @brief Construct a new Account_Class::Account_Class object
 ///
-Xila_Class::Account_Class::Account_Class()
+Account_Class::Account_Class()
 {
   memset(Current_Username, '\0', sizeof(Current_Username));
 }
@@ -22,7 +22,7 @@ Xila_Class::Account_Class::Account_Class()
 /// @brief Load account registry.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Load_Registry()
+Module_Class::Result_Type Account_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
@@ -54,7 +54,7 @@ Result_Type Xila_Class::Account_Class::Load_Registry()
 ///
 /// @param Enable true to enable and false to disable autologin.
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Set_Autologin(bool Enable)
+Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable)
 {
   File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -81,12 +81,12 @@ Result_Type Xila_Class::Account_Class::Set_Autologin(bool Enable)
 ///
 /// @return uint8_t return Xila_Class::Acount_Class::Session_State.
 ///
-uint8_t Xila_Class::Account_Class::Get_State()
+uint8_t Account_Class::Get_State()
 {
   return State;
 }
 
-void Xila_Class::Account_Class::Set_State(Session_State State)
+void Account_Class::Set_State(Session_State State)
 {
   this->State = State;
 }
@@ -96,12 +96,12 @@ void Xila_Class::Account_Class::Set_State(Session_State State)
  * 
  * @return const char* Logged username (empty if there's no logged user).
  */
-const char *Xila_Class::Account_Class::Get_Current_Username()
+const char *Account_Class::Get_Current_Username()
 {
   return Current_Username;
 }
 
-void Xila_Class::Account_Class::Set_Current_Username(const char *Username)
+void Account_Class::Set_Current_Username(const char *Username)
 {
   strlcpy(Current_Username, Username, sizeof(Current_Username));
 }
@@ -112,7 +112,7 @@ void Xila_Class::Account_Class::Set_Current_Username(const char *Username)
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
  /// @return Result_Type 
-Result_Type Xila_Class::Account_Class::Add(const char *Username, const char *Password)
+Module_Class::Result_Type Account_Class::Add(const char *Username, const char *Password)
 {
   if (Xila.Drive.Exists(Users_Directory_Path "/" + String(Username)))
   {
@@ -170,7 +170,7 @@ Result_Type Xila_Class::Account_Class::Add(const char *Username, const char *Pas
 ///
 /// @param Target_User User to delete.
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Delete(const char *Target_User)
+Module_Class::Result_Type Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
@@ -187,7 +187,7 @@ Result_Type Xila_Class::Account_Class::Delete(const char *Target_User)
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
+Module_Class::Result_Type Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   char Temporary_Path[20];
   char Temporary_Target_Path[20];
@@ -213,7 +213,7 @@ Result_Type Xila_Class::Account_Class::Change_Username(const char *Target_User, 
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
+Module_Class::Result_Type Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
@@ -234,7 +234,7 @@ Result_Type Xila_Class::Account_Class::Change_Password(const char *Target_User, 
 /// @brief Logout from the openned user session.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Logout()
+Module_Class::Result_Type Account_Class::Logout()
 {
   if (State != Disconnected)
   {
@@ -250,7 +250,7 @@ Result_Type Xila_Class::Account_Class::Logout()
 /// @brief Lock openned user session.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::Account_Class::Lock()
+Module_Class::Result_Type Account_Class::Lock()
 {
   if (State == Logged)
   {
@@ -265,7 +265,7 @@ Result_Type Xila_Class::Account_Class::Lock()
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Result_Type Xila_Class::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
@@ -294,7 +294,7 @@ Result_Type Xila_Class::Account_Class::Check_Credentials(const char *Username_To
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Result_Type Xila_Class::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+Module_Class::Result_Type Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
   {
@@ -304,11 +304,12 @@ Result_Type Xila_Class::Account_Class::Login(const char *Username_To_Check, cons
   // -- If another user was already connected, close all of it's software.
   if (State == Locked && (strcmp(Xila.Account.Current_Username, Username_To_Check) != 0))
   {
-    for (uint8_t i = 2; i < 8; i++)
+    // Iterate through software list and close all of them.
+    for (auto & Software : Xila_Class::Software_Type::Software_List)
     {
-      if (Xila.Software_Management.Openned[i] != NULL)
+      if (Software != NULL)
       {
-        Xila.Software_Management.Close(*Xila.Software_Management.Openned[i]->Handle);
+        Software->Close();
       }
     }
   }

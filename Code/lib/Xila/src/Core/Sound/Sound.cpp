@@ -1,4 +1,4 @@
-///
+/*///
 /// @file Sound.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief Xila sound abstraction layer source file.
@@ -281,7 +281,7 @@ void Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_t Pin)
 
     if (Duration != 0)
     {
-        Xila.Task.Delay(Duration);
+        Task_Class::Delay(Duration);
         No_Tone();
     }
 }
@@ -483,7 +483,8 @@ void Sound_Class::Task(void *)
         Audio_Driver.loop();
         if (Audio_Driver.isRunning() == false)
         {
-            Xila.Task.Delay(50);
+            Task_Class::Delay(50);
         }
     }
 }
+*/

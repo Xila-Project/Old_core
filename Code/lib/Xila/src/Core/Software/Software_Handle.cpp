@@ -72,7 +72,7 @@ bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handl
 ///
 /// @param Software_Handle Software's handle to open.
 /// @return Result_Type
-Result_Type Software_Class::Open(Software_Handle const &Software_Handle)
+Module_Class::Result_Type Software_Class::Open(Software_Handle const &Software_Handle)
 {
   if (Software_Handle == Shell_Handle)
   {

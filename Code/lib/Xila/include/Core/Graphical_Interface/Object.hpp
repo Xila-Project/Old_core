@@ -15,7 +15,7 @@
 #include "Area.hpp"
 #include "Animation.hpp"
 #include "Style.hpp"
-#include "Color.hpp"
+
 #include "Types.hpp"
 
 #ifndef Object_Hpp_Included
@@ -113,11 +113,11 @@ public:
     /// @brief Style type.
     typedef Style_Class Style_Type;
 
-    /// @brief Style selector type.
-    typedef lv_style_selector_t Style_Selector_Type;
-
     /// @brief Color filter descriptor type.
     typedef lv_color_filter_dsc_t Color_Filter_Descriptor_Type;
+
+    /// @brief Color type.
+    typedef Color_Class Color_Type;
 
 
     // -- Types and enumerations
@@ -459,10 +459,11 @@ public:
     void Set_Style_X(Coordinate_Type Style_X, Style_Selector_Type Style_Selector);
     void Set_Style_Y(Coordinate_Type Style_Y, Style_Selector_Type Style_Selector);
 
+    void Set_Layout(uint32_t Layout);
+
     // - - - Tile
     void Set_Tile(Object_Class &Tile, bool Animation);
     void Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_Identifier, bool Animation);
-    void Set_User_Data(void *User_Data);
 
     // - - Getters values.
 

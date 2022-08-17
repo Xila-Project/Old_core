@@ -14,6 +14,9 @@
 #include "lvgl.h"
 #include "Arduino.h"
 
+// - Basic types inclusion
+#include "Types.hpp"
+
 class Color_Filter_Descriptor_Class
 {
 public:
@@ -27,7 +30,7 @@ private:
     lv_color_filter_dsc_t LVGL_Color_Filter_Descriptor;
 };
 
-class Color_Class
+class Color_Class : public Types_Class
 {
 public:
     // - Types
@@ -55,8 +58,6 @@ public:
         Grey = LV_PALETTE_GREY,
         None = LV_PALETTE_NONE,
     } Palette_Type;
-
-    typedef lv_opa_t Opacity::Type;
 
     // - Methods
 

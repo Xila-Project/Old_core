@@ -17,14 +17,19 @@ class Arc_Class : public Object_Class
 {
 public:
     /// @brief Mode type.
-    typedef lv_arc_mode_t Mode_Type;
 
-    /// @brief Mode enumeration.
-    typedef enum Mode_Enumeration
+    class Mode
     {
-        Normal = LV_ARC_MODE_NORMAL,
-        Symmetrical = LV_ARC_MODE_SYMMETRICAL,
-        Reverse = LV_ARC_MODE_REVERSE
+    public:
+        typedef lv_arc_mode_t Type;
+
+        /// @brief Mode enumeration.
+        enum Enumeration
+        {
+            Normal = LV_ARC_MODE_NORMAL,
+            Symmetrical = LV_ARC_MODE_SYMMETRICAL,
+            Reverse = LV_ARC_MODE_REVERSE
+        };
     };
 
     class Draw_Part
@@ -62,7 +67,7 @@ public:
 
     void Set_Rotation(uint16_t Rotation);
 
-    void Set_Mode(Mode_Type Mode);
+    void Set_Mode(Mode::Type Mode);
     void Set_Value(int16_t Value);
 
     // - - Getters.
@@ -77,7 +82,7 @@ public:
     int16_t Get_Minimum_Value();
     int16_t Get_Maximum_Value();
 
-    Mode_Type Get_Mode();
+    Mode::Type Get_Mode();
 
 protected:
 };

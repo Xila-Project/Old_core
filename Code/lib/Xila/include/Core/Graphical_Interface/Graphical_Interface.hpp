@@ -15,8 +15,6 @@
 
 #include "lvgl.h"
 
-#include "Core/Software/Task.hpp"
-
 // Base object
 #include "Object.hpp"
 // Widgets
@@ -54,7 +52,7 @@
 
 #include "Theme.hpp"
 
-class Graphical_Interface_Class : public Module_Class
+class Graphical_Interface_Class : public Module_Class, public Types_Class
 {
 public:
     // - Types
@@ -92,7 +90,7 @@ public:
 
 
     static void Task_Function(void *);
-    Task_Type Task;
+    Task_Class Task;
 
     static void Event_Handler(lv_event_t* Event);
 

@@ -25,7 +25,7 @@ void GPIO_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
 ///
 /// @param Pin Involved GPIO.
 /// @return Result_Type
-Result_Type GPIO_Class::Valid_Output_Pin(uint8_t Pin)
+Module_Class::Result_Type GPIO_Class::Valid_Output_Pin(uint8_t Pin)
 {
     if (digitalPinCanOutput(Pin) == true)
     {
@@ -60,7 +60,7 @@ int16_t GPIO_Class::Digital_Read(uint8_t Pin)
 ///
 /// @param Pin Involved GPIO.
 /// @return Result_Type
-Result_Type GPIO_Class::Valid_Digital_Pin(uint8_t Pin)
+Module_Class::Result_Type GPIO_Class::Valid_Digital_Pin(uint8_t Pin)
 {
     if (digitalPinIsValid(Pin))
     {

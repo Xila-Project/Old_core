@@ -46,6 +46,6 @@ public:
     void Get_Selected_String(char *Buffer, size_t Size);
     const char *Get_Options();
     uint16_t Get_Option_Count();
-}
+};
 
 #endif

@@ -28,7 +28,7 @@ void Color_Wheel_Class::Create(Object_Class& Parent_Object)
 //
 // ------------------------------------------------------------------------- //
 
-Color_Wheel_Class::Mode_Type Color_Wheel_Class::Get_Mode()
+Color_Wheel_Class::Mode::Type Color_Wheel_Class::Get_Mode()
 {
     return lv_colorwheel_get_color_mode(Get_Pointer());
 }
@@ -55,7 +55,7 @@ bool Color_Wheel_Class::Set_Color(Color_Type Color)
     return lv_colorwheel_set_rgb(Get_Pointer(), Color.Get_LVGL_Color());
 }
 
-void Color_Wheel_Class::Set_Mode(Mode_Type Mode)
+void Color_Wheel_Class::Set_Mode(Mode::Type Mode)
 {
     lv_colorwheel_set_mode(Get_Pointer(), Mode);
 }

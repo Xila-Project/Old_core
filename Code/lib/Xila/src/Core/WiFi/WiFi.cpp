@@ -61,7 +61,7 @@ WiFi_Class::WiFi_Class()
 ///
 /// @return Result_Type
 ///
-Result_Type WiFi_Class::Load_Registry()
+Module_Class::Result_Type WiFi_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
@@ -88,7 +88,7 @@ Result_Type WiFi_Class::Load_Registry()
 ///
 /// @return Result_Type
 ///
-Result_Type WiFi_Class::Save_Registry()
+Module_Class::Result_Type WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";

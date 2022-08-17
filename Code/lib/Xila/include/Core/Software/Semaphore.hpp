@@ -12,7 +12,6 @@
 #define SEMAPHORE_HPP_INCLUDED
 
 #include "Arduino.h"
-#include "Task.hpp"
 #include "../Module.hpp"
 
 class Semaphore_Class : public Module_Class

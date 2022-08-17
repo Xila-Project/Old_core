@@ -18,8 +18,8 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#ifndef SHELL_HPP_INCLUDED
-#define SHELL_HPP_INCLUDED
+#ifndef Shell_Hpp_Included
+#define Shell_Hpp_Included
 
 #include "Xila.hpp"
 
@@ -56,6 +56,15 @@ protected:
         int32_t Background;
 
         uint8_t Offset;
+
+        const Graphical_Interface_Class::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+        const Graphical_Interface_Class::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+
+        Graphical_Interface_Class::Window_Type Window;
+
+        Graphical_Interface_Class::Object_Type Grid;
+
+        Graphical_Interface_Class::Object_Type Dock;
 
         // -- Constructors / destructor
 

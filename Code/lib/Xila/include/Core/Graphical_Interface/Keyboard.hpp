@@ -13,15 +13,11 @@
 
 #include "Object.hpp"
 #include "Text_Area.hpp"
+#include "Button_Matrix.hpp"
 
 class Keyboard_Class : public Object_Class
 {
 public:
-
-    void Create(Object_Class &Parent_Object);
-
-    typedef lv_btnmatrix_ctrl_t Control::Type;
-
     typedef lv_keyboard_mode_t Mode_Type;
 
     enum Mode_Enumeration
@@ -39,15 +35,13 @@ public:
     // -- Methods
     void Create(Object_Class &Parent_Object);
 
-    static void Default_Event_Callback(Event_Type *Event);
-
     // -- -- Setters
     bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
 
     void Set_Text_Area(Text_Area_Class &Text_Area);
     void Set_Mode(Mode_Type Mode);
     void Set_Pop_Overs(bool Enabled);
-    void Set_Map(Mode_Type Mode, const char *Map[], const Control::Type Control_Map[]);
+    void Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Class::Control::Type Control_Map[]);
 
     // -- Getters
     Text_Area_Class Get_Text_Area();

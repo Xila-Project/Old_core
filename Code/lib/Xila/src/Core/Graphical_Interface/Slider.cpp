@@ -37,7 +37,7 @@ bool Slider_Class::Is_Dragged()
 
 bool Slider_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_slider_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_slider_class))
     {
         return false;
     }

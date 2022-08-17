@@ -54,7 +54,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Result_Type Display_Class::Load_Registry()
+Module_Class::Result_Type Display_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -79,7 +79,7 @@ Result_Type Display_Class::Load_Registry()
 /// @brief Save display registry
 ///
 /// @return Result_Type
-Result_Type Display_Class::Save_Registry()
+Module_Class::Result_Type Display_Class::Save_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);

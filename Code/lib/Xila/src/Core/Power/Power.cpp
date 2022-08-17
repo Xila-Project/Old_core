@@ -28,7 +28,7 @@ Power_Class::Power_Class()
 /// @brief Load power registry.
 ///
 /// @return Result_Type
-Result_Type Power_Class::Load_Registry()
+Module_Class::Result_Type Power_Class::Load_Registry()
 {
     File Temporary_File = Xila.Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
@@ -52,7 +52,7 @@ Result_Type Power_Class::Load_Registry()
 /// @brief Save power registry.
 ///
 /// @return Result_Type
-Result_Type Power_Class::Save_Registry()
+Module_Class::Result_Type Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
@@ -124,7 +124,7 @@ void Power_Class::Deep_Sleep()
 
     Xila.Drive.End();
 
-    Xila.Task.Delay(10);
+    Task_Class::Delay(10);
 
     esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
     esp_deep_sleep_start();

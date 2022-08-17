@@ -27,7 +27,7 @@ public:
     public:
         typedef lv_btnmatrix_ctrl_t Type;
 
-        enum Control
+        enum Enumeration
         {
             Hidden = LV_BTNMATRIX_CTRL_HIDDEN,
             No_Repeat = LV_BTNMATRIX_CTRL_NO_REPEAT,

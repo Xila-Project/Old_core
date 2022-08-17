@@ -18,25 +18,29 @@ class Table_Class : public Object_Class
 public:
     // - Types
 
-    /// @brief Cell control type.
-    typedef lv_table_cell_ctrl_t Cell_Control::Type;
-
-    /// @brief Cell control enumeration.
-    enum Cell_Control_Enumeration
+    class Cell_Control
     {
-        Merge_Right = LV_TABLE_CELL_CTRL_MERGE_RIGHT,
-        Text_Crop = LV_TABLE_CELL_CTRL_TEXT_CROP,
-        Custom_1 = LV_TABLE_CELL_CTRL_CUSTOM_1,
-        Custom_2 = LV_TABLE_CELL_CTRL_CUSTOM_2,
-        Custom_3 = LV_TABLE_CELL_CTRL_CUSTOM_3,
-        Custom_4 = LV_TABLE_CELL_CTRL_CUSTOM_4,
+    public:
+        /// @brief Cell control type.
+        typedef lv_table_cell_ctrl_t Type;
+
+        /// @brief Cell control enumeration.
+        enum Enumeration
+        {
+            Merge_Right = LV_TABLE_CELL_CTRL_MERGE_RIGHT,
+            Text_Crop = LV_TABLE_CELL_CTRL_TEXT_CROP,
+            Custom_1 = LV_TABLE_CELL_CTRL_CUSTOM_1,
+            Custom_2 = LV_TABLE_CELL_CTRL_CUSTOM_2,
+            Custom_3 = LV_TABLE_CELL_CTRL_CUSTOM_3,
+            Custom_4 = LV_TABLE_CELL_CTRL_CUSTOM_4,
+        };
     };
 
     /// @brief Draw part enumeration and type.
     typedef enum Draw_Part_Enumeration
     {
         Cell = LV_TABLE_DRAW_PART_CELL, /**< A cell*/
-    } Draw_Part::Type;
+    } Draw_Part_Type;
 
     // - Methods
 
@@ -52,7 +56,7 @@ public:
     uint16_t Get_Row_Count();
     uint16_t Get_Column_Count();
     Coordinate_Type Get_Column_Width(uint16_t Column);
-    void Get_Selected_Cell(uint16_t* Row, uint16_t* Column);
+    void Get_Selected_Cell(uint16_t *Row, uint16_t *Column);
 
     // - - Setters.
     bool Set_Pointer(lv_obj_t *Object);
@@ -62,8 +66,6 @@ public:
     void Set_Row_Count(uint16_t Row_Count);
     void Set_Column_Count(uint16_t Column_Count);
     void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
-    
- 
 };
 
 #endif

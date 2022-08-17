@@ -14,13 +14,18 @@
 #include "lvgl.h"
 #include "Arduino.h"
 #include "Animation.hpp"
-#include "Color.hpp"
+
 #include "Types.hpp"
+#include "Color.hpp"
 
 class Style_Class : public Types_Class
 {
 public:
     // - Types
+
+    typedef Color_Filter_Descriptor_Class Color_Filter_Descriptor_Type;
+
+    typedef Color_Class Color_Type;
 
     /// @brief Transition descriptor type.
     typedef lv_style_transition_dsc_t Transition_Descriptor_Type;
@@ -42,7 +47,7 @@ public:
     void Reset();
 
     // - - Setters
-    void Set_Alignment(Alignment_Type Alignment);
+    void Set_Alignment(Alignment::Type Alignment);
 
     // - - - Animation
     void Set_Animation_Time(uint32_t Time);

@@ -11,7 +11,10 @@
 #include "Core/Software/Software.hpp"
 
 std::vector<Software_Class *> Software_Class::Software_List;
-Software_Class *Software_Class::Maximized_Software;
+
+Software_Class *Software_Class::Maximized_Software = NULL;
+
+uint8_t Software_Class::Watchdog_State = 0;
 
 ///
 /// @brief Start a software instance main task.
@@ -158,7 +161,7 @@ void Software_Class::Kill()
 
   Xila.Task.Delete(this->Main_Task);
   delete this;
-  Xila.Task.Delay(10);
+  Task_Class::Delay(10);
 }
 
 ///

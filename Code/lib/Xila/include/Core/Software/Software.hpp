@@ -16,7 +16,7 @@ class Software_Handle;
 #include "../Module.hpp"
 
 #include "Software_Handle.hpp"
-#include "Task.hpp"
+
 #include "Semaphore.hpp"
 #include <vector>
 
@@ -30,7 +30,6 @@ class Software_Class : public Module_Class
 {
 protected:
     // - Types
-
     typedef enum State_Enumeration
     {
         Minimized, ///< Maximized state.
@@ -43,16 +42,16 @@ protected:
 
     // - - Constructor / Destructor
     Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
-    virtual ~Software();
+    virtual ~Software_Class();
 
     void Send_Instruction(Instruction_Type Instruction);
-    void Send_Instruction(Instruction_Type::Sender_Type Sender, const char Arguments[4]);
+    void Send_Instruction(Module_Type Sender, const char Arguments[4]);
 
     bool Check_Watchdog();
 
     static void Check_Watchdogs();
 
-    State Get_State(const Software_Handle_Class& Software_Handle);
+    State_Type Get_State(const Software_Handle_Class& Software_Handle);
 
     Instruction_Type Get_Instruction();
 
@@ -65,7 +64,6 @@ protected:
     virtual void Main_Task_Function();
 
 private:
-
 
     void Minimize();
     void Maximize();
@@ -86,7 +84,7 @@ private:
     // -- Attributes -- //
 
     uint32_t Watchdog_Timer = 0;
-    static uint8_t Watchdog_State = 0;
+    static uint8_t Watchdog_State;
     
     ///
     /// @brief Queue handle.
@@ -103,3 +101,5 @@ private:
     ///
     uint16_t Watchdog_Timeout;
 };
+
+#endif

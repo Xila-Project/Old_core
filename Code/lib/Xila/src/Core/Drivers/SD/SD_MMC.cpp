@@ -8,11 +8,11 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Drive_Hardware == Hardware_Class::SD_MMC
-
-#include "SD_MMC.h"
+#if Drive_Hardware == SD_MMC
 
 #include "Core/Drive/Drive.hpp"
+
+#include "SD_MMC.h"
 
 ///
 /// @brief Initialize drive.

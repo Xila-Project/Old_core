@@ -27,7 +27,7 @@ Unit_Test_Class::~Unit_Test_Class()
 
 void Unit_Test_Class::Run()
 {
-    Xila.Task.Delay(2000);
+    Task_Class::Delay(2000);
     UNITY_BEGIN();
 
     Software();

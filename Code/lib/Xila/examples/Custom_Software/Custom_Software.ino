@@ -28,7 +28,7 @@ public:
       default: // -- Don't forget default statement.
         break;
       }
-      Xila.Task.Delay(20); // -- Don't forget to add delays between operations.
+      Task_Class::Delay(20); // -- Don't forget to add delays between operations.
     }
   };
 

@@ -1,4 +1,4 @@
-///
+/*///
 /// @file Sound.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -169,4 +169,4 @@ protected:
 
 };
 
-#endif
+#endif*/

@@ -48,7 +48,7 @@ void Canvas_Class::Transform(Image_Descriptor_Type* Image, int16_t Angle, uint16
 
 void Canvas_Class::Fill_Background(Color_Type Color, Opacity::Type Opacity)
 {
-    lv_canvas_fill_bg(Get_Pointer(), Color, Opacity);
+    lv_canvas_fill_bg(Get_Pointer(), Color.Get_LVGL_Color(), Opacity);
 }
 
 void Canvas_Class::Draw_Rectangle(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Width, Coordinate_Type Height, const Draw_Rectangle_Descriptor_Type* Draw_Rectangle_Descriptor)
@@ -89,7 +89,7 @@ void Canvas_Class::Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Typ
 
 bool Canvas_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_arc_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
     {
         return false;
     }
@@ -99,12 +99,12 @@ bool Canvas_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 
 void Canvas_Class::Set_Pixel(Coordinate_Type X, Coordinate_Type Y, Color_Type Color)
 {
-    lv_canvas_set_px(Get_Pointer(), X, Y, Color);
+    lv_canvas_set_px(Get_Pointer(), X, Y, Color.Get_LVGL_Color());
 }
 
 void Canvas_Class::Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color)
 {
-    lv_canvas_set_px_color(Get_Pointer(), X, Y, Color);
+    lv_canvas_set_px_color(Get_Pointer(), X, Y, Color.Get_LVGL_Color());
 }
 
 void Canvas_Class::Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opacity::Type Opacity)
@@ -114,7 +114,7 @@ void Canvas_Class::Set_Pixel_Opacity(Coordinate_Type X, Coordinate_Type Y, Opaci
 
 void Canvas_Class::Set_Palette(uint8_t Identifier, Color_Type Color)
 {
-    lv_canvas_set_palette(Get_Pointer(), Identifier, Color);
+    lv_canvas_set_palette(Get_Pointer(), Identifier, Color.Get_LVGL_Color());
 }
 
 void Canvas_Class::Set_Buffer(void* Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Class::Color_Format_Type Color_Format)

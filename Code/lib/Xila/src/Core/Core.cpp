@@ -22,16 +22,12 @@ Xila_Class Xila;
 Xila_Class::Xila_Class()
     : Account(),
       Clipboard(),
-      Dialog(),
       Display(),
       Drive(),
       GPIO(),
       Keyboard(),
       Power(),
-      Software_Management(),
-      Sound(),
       System(),
-      Time(),
       WiFi()
 
 {

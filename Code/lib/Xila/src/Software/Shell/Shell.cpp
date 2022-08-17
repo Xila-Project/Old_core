@@ -304,7 +304,7 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
     case Xila.Idle:
         if (Xila.Software_Management.Get_State(Shell_Handle) == Xila.Minimized)
         {
-            Xila.Task.Delay(80);
+            Task_Class::Delay(80);
         }
         else
         {
@@ -326,7 +326,7 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
             Refresh_Header();
             Next_Refresh = Xila.Time.Milliseconds() + 4000;
         }
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
         break;
     case Xila.Dialog_Color_Picker:
         Dialog.Color_Picker_Pointer.Open();

@@ -474,7 +474,7 @@ void Shell_Class::File_Manager_Class::Refresh()
                     }
 
                     Item.close();
-                    Xila.Task.Delay(5);
+                    Task_Class::Delay(5);
                 }
 
                 if (Get_Mode() == Xila.Dialog_Open_Folder)

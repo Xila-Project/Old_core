@@ -18,7 +18,7 @@ uint32_t Flash_Class::Get_Sketch_Size()
     return Sketch_Size(SKETCH_SIZE_TOTAL);
 }
 
-Result_Type Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_read(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
@@ -27,7 +27,7 @@ Result_Type Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
     return Error;
 }
 
-Result_Type Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_read(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -36,7 +36,7 @@ Result_Type Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32
     return Error;
 }
 
-Result_Type Flash_Class::Erase_Sector(uint32_t Sector)
+Module_Class::Result_Type Flash_Class::Erase_Sector(uint32_t Sector)
 {
     if (spi_flash_erase_sector(Sector) == ESP_OK)
     {
@@ -45,7 +45,7 @@ Result_Type Flash_Class::Erase_Sector(uint32_t Sector)
     return Error;
 }
 
-Result_Type Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_write(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
@@ -54,7 +54,7 @@ Result_Type Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
     return Error;
 }
 
-Result_Type Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
+Module_Class::Result_Type Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
 {
     if (esp_partition_erase_range(Partition, Offset, Size) == ESP_OK)
     {
@@ -63,7 +63,7 @@ Result_Type Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition,
     return Error;
 }
 
-Result_Type Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_write(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -72,7 +72,7 @@ Result_Type Flash_Class::Partition_Write(const esp_partition_t *Partition, uint3
     return Error;
 }
 
-Result_Type Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
+Module_Class::Result_Type Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
 {
     if (Partition_Number > Xila_Partition)
     {

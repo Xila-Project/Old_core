@@ -45,7 +45,7 @@
 
 // - Drive
 
-#define Drive_Hardware Hardware_Class::SD_SPI
+#define Drive_Hardware  SD_SPI
 
 #define SD_SPI_Clock_Pin 4
 #define SD_SPI_Select_Pin 2
@@ -74,7 +74,7 @@
 
 
 
-#define Display_Hardware Hardware_Class::WT32_SC01
+#define Display_Hardware WT32_SC01
 
 #define Display_Horizontal_Definition 480
 #define Display_Vertical_Definition 320

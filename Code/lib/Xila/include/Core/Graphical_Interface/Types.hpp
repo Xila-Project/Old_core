@@ -19,8 +19,6 @@ class Types_Class
 public:
     // - Types
 
-    typedef Color_Class Color_Type;
-
     /// @brief Text font type
     typedef lv_font_t Font_Type;
 

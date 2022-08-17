@@ -18,8 +18,38 @@
 
 Shell_Class::Desk_Class::Desk_Class()
 {
+    Window.Create();
+    Window.Set_Title("Desk");
+
+    Grid.Create(Window);
+    Grid.Set_Style_Pad_All(10, 0);
+    Grid.Set_Style_Background_Opacity(0, 0);
+    Grid.Set_Grid_Descriptor_Array(Grid_Column_Descriptor, Grid_Row_Descriptor);
+    Grid.Set_Size(LV_PCT(100), LV_PCT(100));
+    Grid.Set_Layout(LV_LAYOUT_GRID);
+    Grid.Move_Background();
+
+    {
+        Object_Class* Label;
+        Object_Class* Icon;
+
+        for (uint8_t i = 0; i < 17; i++)
+        {
+            Icon.Clear_Pointer();
+            Label
+            Icon.
+        }
+    }
+
+    
+
     Offset = 0;
     Background = -1;
+}
+
+Shell_Class::Desk_Class::~Desk_Class()
+{
+
 }
 
 void Shell_Class::Desk_Class::Logout()
@@ -56,7 +86,7 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
         {
             Xila.Display.Set_Text(Temporary_String, "");
         }
-        Xila.Task.Delay(1);
+        Task_Class::Delay(1);
     }
 
     // Item picture drawing

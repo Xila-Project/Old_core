@@ -14,12 +14,12 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
-extern Xila_Class::Software_Handle Shell_Handle;
+extern Software_Handle Shell_Handle;
 
 ///
 /// @brief Construct a new System_Class object
 ///
-Xila_Class::System_Class::System_Class()
+System_Class::System_Class()
 {
   Task_Handle = NULL;
   strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
@@ -28,7 +28,7 @@ Xila_Class::System_Class::System_Class()
 ///
 /// @brief Destroy the System_Class object
 ///
-Xila_Class::System_Class::~System_Class()
+System_Class::~System_Class()
 {
 }
 
@@ -36,7 +36,7 @@ Xila_Class::System_Class::~System_Class()
 /// @brief Load System registry.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::System_Class::Load_Registry()
+Module_Class::Result_Type System_Class::Load_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
@@ -63,7 +63,7 @@ Result_Type Xila_Class::System_Class::Load_Registry()
 /// @brief Save System registry.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::System_Class::Save_Registry()
+Module_Class::Result_Type System_Class::Save_Registry()
 {
   File Temporary_File = Xila.Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -82,10 +82,15 @@ Result_Type Xila_Class::System_Class::Save_Registry()
   return Success;
 }
 
+void System_Class::Task_Start_Function(void* Instance)
+{
+  Instance_Pointer
+}
+
 ///
 /// @brief System task.
 ///
-void Xila_Class::System_Class::Task(void *)
+void System_Class::Task_Function(void *)
 {
   uint32_t Next_Refresh = 0;
   Xila.Power.Button_Counter = 0;
@@ -119,7 +124,7 @@ void Xila_Class::System_Class::Task(void *)
       // -- Check if software is currently maximized
       if (Xila.Software_Management.Openned[0] == NULL)
       {
-        Xila.Task.Delay(100);
+        Task_Class::Delay(100);
         // -- If no software is currently maximized, maximize shell.
         if (Xila.Software_Management.Openned[0] == NULL)
         {
@@ -131,7 +136,7 @@ void Xila_Class::System_Class::Task(void *)
       // -- Clear the refresh timer.
       Next_Refresh = Xila.Time.Milliseconds() + 10000;
     }
-    Xila.Task.Delay(20);
+    Task_Class::Delay(20);
   }
 }
 
@@ -140,7 +145,7 @@ void Xila_Class::System_Class::Task(void *)
 ///
 /// @param Update_File Executable file.
 /// @return Result_Type
-Result_Type Xila_Class::System_Class::Load_Executable(File Executable_File)
+Module_Class::Result_Type System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
@@ -175,7 +180,7 @@ Result_Type Xila_Class::System_Class::Load_Executable(File Executable_File)
 /// @brief Handle fatal events that the system cannot recover from.
 ///
 /// @param Panic_Code Panic code to handle.
-void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
+void System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
   Log_Error("Panic handler triggered, error code : %X.", Panic_Code);
   Xila.Display.Set_Current_Page(F("Core_Panic"));
@@ -194,7 +199,7 @@ void Xila_Class::System_Class::Panic_Handler(Panic_Code Panic_Code)
 /// @brief Save system dump.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::System_Class::Save_Dump()
+Module_Class::Result_Type System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
@@ -227,7 +232,7 @@ Result_Type Xila_Class::System_Class::Save_Dump()
 /// @brief Load system dump.
 ///
 /// @return Result_Type
-Result_Type Xila_Class::System_Class::Load_Dump()
+Module_Class::Result_Type System_Class::Load_Dump()
 {
   if (Xila.Drive.Exists(Dump_Registry_Path))
   {
@@ -286,7 +291,7 @@ Result_Type Xila_Class::System_Class::Load_Dump()
 /// @brief Return device name.
 ///
 /// @return const char* Device name.
-const char *Xila_Class::System_Class::Get_Device_Name()
+const char *System_Class::Get_Device_Name()
 {
   return Xila.System.Device_Name;
 }
@@ -294,7 +299,7 @@ const char *Xila_Class::System_Class::Get_Device_Name()
 ///
 /// @brief Refresh top header.
 ///
-void Xila_Class::System_Class::Refresh_Header()
+void System_Class::Refresh_Header()
 {
   if (Xila.Display.Get_State() == false) // if display sleep
   {
@@ -393,7 +398,7 @@ void Xila_Class::System_Class::Refresh_Header()
 ///
 /// @brief First start routine, first function executed when Xila.Start() is called.
 ///
-void Xila_Class::System_Class::First_Start_Routine()
+void System_Class::First_Start_Routine()
 {
 
   Xila.Flash.Set_Boot_Partition(Xila_Loader_Partition); // Set loader as boot partition if Xila is doesn't boot anymore.
@@ -469,7 +474,7 @@ void Xila_Class::System_Class::First_Start_Routine()
   {
     Log_Information("Attemping to initialize drive ...");
     Xila.Drive.End();
-    Xila.Task.Delay(200);
+    Task_Class::Delay(200);
   }
   Xila.Display.Set_Text(F("EVENT_TXT"), F(""));
 
@@ -491,13 +496,13 @@ void Xila_Class::System_Class::First_Start_Routine()
       Panic_Handler(Failed_To_Update_Display);
     }
 
-    Xila.Task.Delay(5000);
+    Task_Class::Delay(5000);
     Xila.Display.Begin(Xila.Display.Baud_Rate, Xila.Display.Receive_Pin, Xila.Display.Transmit_Pin);
   }
 
   Xila.GPIO.Set_Mode(Default_Display_Switching_Pin, Xila.GPIO.Output);
   Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.High);
-  Xila.Task.Delay(2000);
+  Task_Class::Delay(2000);
   //Xila.Display.Wake_Up();
   //Xila.Display.Set_Touch_Wake_Up(true);
   //Xila.Display.Set_Serial_Wake_Up(true);
@@ -570,24 +575,24 @@ void Xila_Class::System_Class::First_Start_Routine()
 ///
 /// @brief Second start routine, called secondly in Xila.Start().
 ///
-void Xila_Class::System_Class::Second_Start_Routine()
+void System_Class::Second_Start_Routine()
 {
 
 #if Animations == 1
-  Xila.Task.Delay(3000);
+  Task_Class::Delay(3000);
 #endif
 
   Xila.Display.Set_Value(F("STATE_VAR"), 2);
 
 #if Animations == 1
-  Xila.Task.Delay(3000);
+  Task_Class::Delay(3000);
 #endif
 
-  Xila.Task.Delay(500);
+  Task_Class::Delay(500);
 
   Xila.System.Load_Dump();
 
-  Xila.Task.Delay(100);
+  Task_Class::Delay(100);
 
   Execute_Startup_Function();
 
@@ -601,7 +606,7 @@ void Xila_Class::System_Class::Second_Start_Routine()
 ///
 /// @param Software_Package Custom software bundle.
 /// @param Size Size of the software bundle.
-void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Package, uint8_t Size)
+void System_Class::Start(Software_Handle **Software_Package, uint8_t Size)
 {
   First_Start_Routine();
 
@@ -618,23 +623,23 @@ void Xila_Class::System_Class::Start(Xila_Class::Software_Handle **Software_Pack
 ///
 /// @brief Start Xila up with the default software bundle.
 ///
-void Xila_Class::System_Class::Start()
+void System_Class::Start()
 {
 
   First_Start_Routine();
 
-  extern Xila_Class::Software_Handle Calculator_Handle;
-  extern Xila_Class::Software_Handle Clock_Handle;
-  extern Xila_Class::Software_Handle Internet_Browser_Handle;
-  extern Xila_Class::Software_Handle Music_Player_Handle;
-  extern Xila_Class::Software_Handle Oscilloscope_Handle;
-  extern Xila_Class::Software_Handle Paint_Handle;
-  extern Xila_Class::Software_Handle Periodic_Handle;
-  extern Xila_Class::Software_Handle Piano_Handle;
-  extern Xila_Class::Software_Handle Pong_Handle;
-  extern Xila_Class::Software_Handle Simon_Handle;
-  extern Xila_Class::Software_Handle Text_Editor_Handle;
-  extern Xila_Class::Software_Handle Tiny_Basic_Handle;
+  extern Software_Handle Calculator_Handle;
+  extern Software_Handle Clock_Handle;
+  extern Software_Handle Internet_Browser_Handle;
+  extern Software_Handle Music_Player_Handle;
+  extern Software_Handle Oscilloscope_Handle;
+  extern Software_Handle Paint_Handle;
+  extern Software_Handle Periodic_Handle;
+  extern Software_Handle Piano_Handle;
+  extern Software_Handle Pong_Handle;
+  extern Software_Handle Simon_Handle;
+  extern Software_Handle Text_Editor_Handle;
+  extern Software_Handle Tiny_Basic_Handle;
 
   Xila.Software_Management.Add_Handle(Calculator_Handle);
   Xila.Software_Management.Add_Handle(Clock_Handle);
@@ -655,7 +660,7 @@ void Xila_Class::System_Class::Start()
 ///
 /// @brief Execute software startup function.
 ///
-void Xila_Class::System_Class::Execute_Startup_Function()
+void System_Class::Execute_Startup_Function()
 {
 
   (*Shell_Handle.Startup_Function_Pointer)();
@@ -676,7 +681,7 @@ void Xila_Class::System_Class::Execute_Startup_Function()
 ///
 /// @brief Shutdown Xila.
 ///
-void Xila_Class::System_Class::Shutdown()
+void System_Class::Shutdown()
 {
   Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
 
@@ -700,7 +705,7 @@ void Xila_Class::System_Class::Shutdown()
         {
           Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
       }
     }
   }
@@ -712,7 +717,7 @@ void Xila_Class::System_Class::Shutdown()
 ///
 /// @brief Second sleep routine called in shutdown function.
 ///
-void Xila_Class::System_Class::Second_Sleep_Routine()
+void System_Class::Second_Sleep_Routine()
 {
   Xila.Task.Delete(Xila.System.Task_Handle);
 
@@ -726,7 +731,7 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 
   Xila.Sound.Play(Sounds("Shutdown.wav"));
 
-  Xila.Task.Delay(8000);
+  Task_Class::Delay(8000);
 
   Xila.Task.Delete(Xila.Sound.Task_Handle);
 
@@ -737,7 +742,7 @@ void Xila_Class::System_Class::Second_Sleep_Routine()
 ///
 /// @brief Hibernate Xila.
 ///
-void Xila_Class::System_Class::Hibernate()
+void System_Class::Hibernate()
 {
   Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
 
@@ -765,7 +770,7 @@ void Xila_Class::System_Class::Hibernate()
 
           Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
       }
     }
   }
@@ -777,7 +782,7 @@ void Xila_Class::System_Class::Hibernate()
 ///
 /// @brief Restart Xila.
 ///
-void Xila_Class::System_Class::Restart()
+void System_Class::Restart()
 {
   Xila.Flash.Set_Boot_Partition(Xila_Partition);  // Set Xila as boot partition if xila is shutdown properly.
 
@@ -801,7 +806,7 @@ void Xila_Class::System_Class::Restart()
         {
           Xila.Software_Management.Force_Close(*Xila.Software_Management.Openned[i]->Handle);
         }
-        Xila.Task.Delay(20);
+        Task_Class::Delay(20);
       }
     }
   }
@@ -814,7 +819,7 @@ void Xila_Class::System_Class::Restart()
 /// @brief Return chip revision.
 ///
 /// @return uint8_t Chip revision.
-uint8_t Xila_Class::System_Class::Get_Chip_Revision()
+uint8_t System_Class::Get_Chip_Revision()
 {
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
@@ -825,7 +830,7 @@ uint8_t Xila_Class::System_Class::Get_Chip_Revision()
 /// @brief Return chip model.
 ///
 /// @return const char* Chip model.
-const char *Xila_Class::System_Class::Get_Chip_Model()
+const char *System_Class::Get_Chip_Model()
 {
   uint32_t chip_ver = REG_GET_FIELD(EFUSE_BLK0_RDATA3_REG, EFUSE_RD_CHIP_VER_PKG);
   uint32_t pkg_ver = chip_ver & 0x7;
@@ -850,24 +855,24 @@ const char *Xila_Class::System_Class::Get_Chip_Model()
 /// @brief Return number of chip cores.
 ///
 /// @return uint32_t Chip cores.
-uint32_t Xila_Class::System_Class::Get_Chip_Cores()
+uint32_t System_Class::Get_Chip_Cores()
 {
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
   return chip_info.cores;
 }
 
-uint32_t Xila_Class::System_Class::Get_CPU_Frequency()
+uint32_t System_Class::Get_CPU_Frequency()
 {
     return getCpuFrequencyMhz();
 }
 
-const char *Xila_Class::System_Class::Get_SDK_Version()
+const char *System_Class::Get_SDK_Version()
 {
     return esp_get_idf_version();
 }
 
-uint64_t Xila_Class::System_Class::Get_eFuse_MAC()
+uint64_t System_Class::Get_eFuse_MAC()
 {
     uint64_t _chipmacid = 0LL;
     esp_efuse_mac_get_default((uint8_t *)(&_chipmacid));

@@ -58,14 +58,14 @@ protected:
 
     // -- Methods
 
-    static Result_Type Add(const char *Username, const char *Password);
-    static Result_Type Delete(const char *);
-    static Result_Type Change_Password(const char *, const char *);
-    static Result_Type Change_Username(const char *, const char *);
-    static Result_Type Set_Autologin(bool Enable);
-    static Result_Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-    static Result_Type Logout();
-    static Result_Type Lock();
+    Result_Type Add(const char *Username, const char *Password);
+    Result_Type Delete(const char *);
+    Result_Type Change_Password(const char *, const char *);
+    Result_Type Change_Username(const char *, const char *);
+    Result_Type Set_Autologin(bool Enable);
+    Result_Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+    Result_Type Logout();
+    Result_Type Lock();
 
     // -- Setter
 

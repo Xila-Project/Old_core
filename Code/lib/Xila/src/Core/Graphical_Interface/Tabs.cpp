@@ -38,7 +38,7 @@ void Tabs_Class::Add_Tab(const char *Name)
 
 bool Tabs_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
-    if (!lv_obj_has_class(LVGL_Object_Pointer, , &lv_tabview_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_tabview_class))
     {
         return false;
     }
