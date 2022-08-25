@@ -42,7 +42,7 @@ public:
     // - - Management
     void Initialize();
 
-    static Property_Type Register_Property();
+    static Property_Type Register_Property(uint8_t FLag);
     bool Remove_Property(Property_Type Property);
     void Reset();
 
@@ -89,7 +89,7 @@ public:
     void Set_Clip_Corner(bool Value);
 
     // - - - - Color filter
-    void Set_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type *Color_Filter_Descriptor);
+    void Set_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type& Color_Filter_Descriptor);
     void Set_Color_Filter_Opacity(Opacity::Type Opacity);
 
     // - - - - Flex
@@ -190,6 +190,8 @@ public:
     void Set_Y(Coordinate_Type Style_Y);
 
     // - - Getters
+
+    lv_style_t* Get_Pointer();
 
 private:
     lv_style_t LVGL_Style;

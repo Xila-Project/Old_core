@@ -88,9 +88,6 @@ protected:
 
     void Panic_Handler(Panic_Code Panic_Code);
 
-    void First_Start_Routine();
-    void Second_Start_Routine();
-
     void Execute_Startup_Function();
 };
 

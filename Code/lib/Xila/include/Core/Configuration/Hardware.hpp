@@ -15,19 +15,13 @@
 
 // Kit enumeration
 
-enum Display_Enumeration
-{
-    WT32_SC01
-};
+#define Kit_WT32_SC01
 
 // Display enumeration
 
 // Drive enumeration
 
-enum Drive_Enumeration
-{
-    SD_MMC,
-    SD_SPI
-};
+//#define Drive_SD_MMC
+#define Drive_SD_SPI
 
 #endif

@@ -11,6 +11,9 @@
 #ifndef Keyboard_Hpp_Included
 #define Keyboard_Hpp_Included
 
+#include "Button_Matrix.hpp"
+
+
 #include "../Module.hpp"
 
 //==============================================================================//
@@ -175,6 +178,7 @@ public:
     uint8_t Available();
 
     void Clear();
+
 
     // -- Friendship
     friend class Xila_Class;

@@ -130,7 +130,7 @@ void Object_Class::Add_Event(Event::Code_Type Event_Code, uint32_t Arguments)
 
 void Object_Class::Send_Event(Event::Code_Type Event_Code, uint32_t Arguments)
 {
-    lv_event_send(Get_Pointer(), Event_Code, (void*)Arguments);
+    lv_event_send(Get_Pointer(), (lv_event_code_t)Event_Code, (void*)Arguments);
 }
 
 void Object_Class::Move_Foreground()
@@ -167,9 +167,9 @@ Object_Class::Coordinate_Type Object_Class::DPX(Coordinate_Type Pixels_To_Scale)
     return lv_obj_dpx(Get_Pointer(), Pixels_To_Scale);
 }
 
-void Object_Class::Add_Style(Style_Type *Style, Style_Selector_Type Style_Selector)
+void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Selector)
 {
-    lv_obj_add_style(Get_Pointer(), Style, Style_Selector);
+    lv_obj_add_style(Get_Pointer(), Style.Get_Pointer(), Style_Selector);
 }
 
 void Object_Class::Event_Callback(lv_event_t* Event)
@@ -216,7 +216,7 @@ void Object_Class::Set_Position_X(Coordinate_Type X)
     lv_obj_set_x(Get_Pointer(), X);
 }
 
-void Object_Class::Set_Position_X(Coordinate_Type Y)
+void Object_Class::Set_Position_Y(Coordinate_Type Y)
 {
     lv_obj_set_y(Get_Pointer(), Y);
 }

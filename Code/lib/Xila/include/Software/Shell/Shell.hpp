@@ -30,6 +30,9 @@
 ///
 /// @details Main inter
 ///
+
+using namespace Xila;
+
 class Shell_Class : public Xila_Class::Software
 {
 protected:
@@ -46,6 +49,7 @@ protected:
     class Desk_Class
     {
     protected:
+
         // -- Attributes
 
         ///
@@ -57,14 +61,18 @@ protected:
 
         uint8_t Offset;
 
-        const Graphical_Interface_Class::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        const Graphical_Interface_Class::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+        const Graphical_Interface::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+        const Graphical_Interface::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
-        Graphical_Interface_Class::Window_Type Window;
+        Graphical_Interface::Window_Type Window;
 
-        Graphical_Interface_Class::Object_Type Grid;
+        Graphical_Interface::Object_Type Grid;
 
-        Graphical_Interface_Class::Object_Type Dock;
+        Graphical_Interface::Object_Type Dock;
+
+        Graphical_Interface::Object_Type Menu_Button;
+
+        Graphical_Interface
 
         // -- Constructors / destructor
 

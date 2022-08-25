@@ -18,6 +18,8 @@
 
 Shell_Class::Desk_Class::Desk_Class()
 {
+
+
     Window.Create();
     Window.Set_Title("Desk");
 
@@ -30,16 +32,68 @@ Shell_Class::Desk_Class::Desk_Class()
     Grid.Move_Background();
 
     {
-        Object_Class* Label;
-        Object_Class* Icon;
+        Graphical_Interface::Object_Type* Label;
+        Graphical_Interface::Object_Type* Button;
 
         for (uint8_t i = 0; i < 17; i++)
         {
+            Button.Create(Grid);
+            Button.Set_Size(40, 40);
+
+            Label.Create(Grid);
+            Label.Set_Text_Format("Item %u", i);
+            Label.Set_Long_Mode(Graphical_Interface::Label_Type::Long_Dot);
+
+            if (i == 15)
+            {
+                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_START, 3, 1);
+                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_END, 3, 1);
+            }
+            else if (i == 16)
+            {
+                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_START, 3, 1);
+                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_END, 3, 1);
+            }
+            else
+            {
+                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_START, i / 5, 1);
+                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_END, i / 5, 1);
+            }
+
             Icon.Clear_Pointer();
-            Label
-            Icon.
+            Label.Clear_Pointer();
         }
     }
+
+    Dock.Create(Grid);
+    Dock.Set_Grid_Cell(LV_GRID_ALIGN_STRETCH, 1, 3, LV_GRID_ALIGN_STRETCH, 3, 1);
+    Dock.Set_Style_Pad_Bottom(0, 0);
+    Dock.Set_Style_Pad_Top(0, 0);
+    Dock.Set_Style_Pad_Left(10, 0);
+    Dock.Set_Style_Pad_Right(10, 0);
+    Dock.Set_Style_Shadow_width(20, 0);
+    DOck.Set_Style_Shadow_Color(Dock, Graphical_Inteface::Color_Type::White, 0);
+
+    const Graphical_Interface::Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Graphical_Interface::Coordinate_Type Dock_RowDescriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+
+    Dock.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3), 0);
+    Dock.Set_Style_Radius(8, 8);
+    Dock.Set_Layout(LV_LAYOUT_GRID);
+    Dock.Set_Grid_Descriptor_Array(Dock_Column_Descriptor, Dock_Row_Descriptor);
+
+    Menu_Button.Create(Dock);
+    Menu_Button.Set_Size(32, 32);
+    Menu_Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    Menu_Button.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3));
+    Menu_Button.Set_Style_Radius(0, 0);
+    Menu_Button.Set_Pad_ALl(0, 0);
+    Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
+    Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
+    
+    
+
+
 
     
 

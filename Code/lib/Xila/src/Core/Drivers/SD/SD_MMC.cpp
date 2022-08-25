@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Drive_Hardware == SD_MMC
+#ifdef Drive_SD_MMC
 
 #include "Core/Drive/Drive.hpp"
 

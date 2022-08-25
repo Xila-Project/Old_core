@@ -38,16 +38,20 @@ public:
 
     typedef uint8_t Result_Type;
 
-    /// @brief Modules enumeration and type.
-    typedef enum Module_Enumeration
+    class Module
     {
-        Account,
-        Clipboard,
-        Display,
-        Graphical_Interface,
-        System,
-        Mathematics
-    } Module_Type;
+    public:
+        /// @brief Modules enumeration and type.
+        typedef enum Enumeration
+        {
+            Account,
+            Clipboard,
+            Display,
+            Graphical_Interface,
+            System,
+            Mathematics
+        } Type;
+    };
 
     /// @brief Time
     class Time_Type
@@ -79,7 +83,7 @@ public:
     class Instruction_Type
     {
     private:
-        Module_Type Sender;
+        Module::Type Sender;
         uint32_t Arguments;
 
     public:
@@ -100,13 +104,13 @@ public:
         };
         */
 
-        Instruction_Type(Module_Type Sender, uint32_t Arguments)
+        Instruction_Type(Module::Type Sender, uint32_t Arguments)
         {
             this->Sender = Sender;
             this->Arguments = Arguments;
         };
 
-        Module_Type Get_Sender()
+        Module::Type Get_Sender()
         {
             return Sender;
         };
@@ -116,7 +120,7 @@ public:
             return Arguments;
         };
 
-        void Set_Sender(Module_Type Sender)
+        void Set_Sender(Module::Type Sender)
         {
             this->Sender = Sender;
         };

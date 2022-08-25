@@ -50,6 +50,16 @@ Object_Class::Color_Type Color_Wheel_Class::Get_Color()
 //
 // ------------------------------------------------------------------------- //
 
+bool Color_Wheel_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+{
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_colorwheel_class))
+    {
+        return false;
+    }
+    this->LVGL_Object_Pointer = LVGL_Object_Pointer;
+    return true;
+}
+
 bool Color_Wheel_Class::Set_Color(Color_Type Color)
 {
     return lv_colorwheel_set_rgb(Get_Pointer(), Color.Get_LVGL_Color());

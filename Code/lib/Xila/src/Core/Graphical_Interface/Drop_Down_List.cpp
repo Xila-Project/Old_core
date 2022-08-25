@@ -57,7 +57,7 @@ bool Drop_Down_List_Class::Is_Open()
 
 bool Drop_Down_List_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-    if (!Has_Class(LVGL_Object_Pointer, &lv_dropdown_class))
+    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_dropdown_class))
     {
         return false;
     }
@@ -111,7 +111,7 @@ Object_Class::Direction::Type Drop_Down_List_Class::Get_Direction()
     return lv_dropdown_get_dir(Get_Pointer());
 }
 
-Drop_Down_List_Class::List_Class Drop_Down_List_Class::Get_List()
+List_Class Drop_Down_List_Class::Get_List()
 {
     List_Class List;
     List.Set_Pointer(lv_dropdown_get_list(Get_Pointer()));    

@@ -15,7 +15,7 @@
 
 #include "lvgl.h"
 
-void Graphical_Interface_Class::Task_Function(void*)
+void Graphical_Interface_Class::Task_Function(void *)
 {
     while (true)
     {
@@ -56,22 +56,15 @@ Module_Class::Result_Type Graphical_Interface_Class::Initialize()
     return Success;
 }
 
-void Graphical_Interface_Class::Event_Handler(lv_event_t* Event)
+void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
 {
-    static Instruction_Type Instruction(Graphical_Interface, 0);
+    static Instruction_Type Instruction(Module::Graphical_Interface, 0);
     // Tricks that use the pointer of user data of lvgl as data itself to fits the instructions arguments (more faster approach than deferencing data from the pointer).
     Instruction.Set_Arguments((uintptr_t)lv_event_get_user_data(Event));
 
-    //Xila.Software::Send_Instruction(Xila.Software_Management.);
+    // Xila.Software::Send_Instruction(Xila.Software_Management.);
 }
 
-
-void Graphical_Interface_Class::Task_Function(void*)
-{
-    lv_tick_inc(5);
-    lv_timer_handler();
-    Task.Delay(5);
-}
 
 /*
 

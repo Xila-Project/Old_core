@@ -8,7 +8,11 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#include "Core/Clipboard/Clipboard.hpp"
+
 #include "Core/Core.hpp"
+
+using namespace Xila;
 
 ///
 /// @brief Clear data of the clipboard.
@@ -16,7 +20,7 @@
 /// @return Result_Type_Class
 Module_Class::Result_Type Clipboard_Class::Clear()
 {
-  if (Xila.Drive.Remove(Clipboard_Path))
+  if (Drive.Remove(Clipboard_Path))
   {
     return Success;
   }
@@ -30,7 +34,7 @@ Module_Class::Result_Type Clipboard_Class::Clear()
 /// @return Result_Type
 Module_Class::Result_Type Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 {
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -59,8 +63,8 @@ Module_Class::Result_Type Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 /// @return Result_Type
 Module_Class::Result_Type Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
 {
-  Xila.Drive.Remove(Clipboard_Path);
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Drive.Remove(Clipboard_Path);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -88,8 +92,8 @@ Module_Class::Result_Type Clipboard_Class::Copy(const char *Char_Array_To_Copy, 
 /// @return Result_Type
 Module_Class::Result_Type Clipboard_Class::Copy(String const &String_To_Copy)
 {
-  Xila.Drive.Remove(Clipboard_Path);
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Drive.Remove(Clipboard_Path);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -110,7 +114,7 @@ Module_Class::Result_Type Clipboard_Class::Copy(String const &String_To_Copy)
 /// @return Result_Type
 Module_Class::Result_Type Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 {
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -133,7 +137,7 @@ Module_Class::Result_Type Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 /// @return Result_Type
 Module_Class::Result_Type Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
 {
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;
@@ -161,7 +165,7 @@ Module_Class::Result_Type Clipboard_Class::Paste(char *Char_Array_To_Paste, size
  /// @return Result_Type 
 Module_Class::Result_Type Clipboard_Class::Paste(String &String_To_Paste)
 {
-  Clipboard_File = Xila.Drive.Open(Clipboard_Path, FILE_WRITE);
+  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
   {
     return Error;

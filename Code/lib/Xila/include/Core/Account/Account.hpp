@@ -19,7 +19,6 @@
 class Account_Class : public Module_Class
 {
 public:
-
     
 
     // -- Constructor
@@ -28,7 +27,7 @@ public:
     ///
     /// @brief Session state type
     ///
-    typedef enum
+    typedef enum Session_Enumeration
     {
         Disconnected,
         Logged,
@@ -39,13 +38,11 @@ public:
 
     // -- Getter
     const char *Get_Current_Username();
-    uint8_t Get_State();
+    
+    Session_State Get_State();
 
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
 
-protected:
+//protected:
     ///
     /// @brief Loaded username.
     ///

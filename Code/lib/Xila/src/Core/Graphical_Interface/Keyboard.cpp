@@ -40,7 +40,7 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Keyboard_Class::Set_Map(Mode_Type Mode, const char* Map[], const Control::Type Control_Map[])
+void Keyboard_Class::Set_Map(Mode_Type Mode, const char* Map[], const Button_Matrix_Class::Control::Type Control_Map[])
 {
     lv_keyboard_set_map(Get_Pointer(), Mode, Map, Control_Map);
 }
@@ -66,9 +66,9 @@ void Keyboard_Class::Set_Text_Area(Text_Area_Class& Text_Area)
 //
 // ------------------------------------------------------------------------- //
 
-const char* Keyboard_Class::Get_Button_Text()
+const char* Keyboard_Class::Get_Button_Text(uint16_t Button_Identifier)
 {
-    return lv_keyboard_get_btn_text(Get_Pointer());
+    return lv_keyboard_get_btn_text(Get_Pointer(), Button_Identifier);
 }
 
 const char** Keyboard_Class::Get_Map_Array()

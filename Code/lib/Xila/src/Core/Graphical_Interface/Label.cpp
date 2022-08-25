@@ -52,7 +52,8 @@ void Label_Class::Set_Text(const char *Text)
 
 void Label_Class::Set_Text_Format(const char *Format, ...)
 {
-    lv_label_set_text_fmt(Get_Pointer(), Format, ...);
+    va_list Arguments;
+    lv_label_set_text_fmt(Get_Pointer(), Format, Arguments);
 }
 
 void Label_Class::Set_Text_Static(const char *Format)

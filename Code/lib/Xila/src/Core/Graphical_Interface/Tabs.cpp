@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Graphical_Interface/Tabs.cpp"
+#include "Core/Graphical_Interface/Tabs.hpp"
 
 // ------------------------------------------------------------------------- //
 //

@@ -102,41 +102,40 @@ class Shell_Class;
 ///
 /// @details Contain all core A.P.I. and modules to make the kernel working.
 ///
-class Xila_Class : public Module_Class
+namespace Xila_Namespace
 {
-public:
+
+
     //==============================================================================//
     //                                 Constructors                                 //
     //==============================================================================//
-
-    Xila_Class();
-    ~Xila_Class();
 
     //==============================================================================//
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
-    Account_Class Account;
+     Account_Class Account;
 
-    Clipboard_Class Clipboard;
+     Clipboard_Class Clipboard;
 
-    Display_Class Display;
+     Display_Class Display;
 
-    Drive_Class Drive;
+     Drive_Class Drive;
+    typedef Drive_Class Drive_Class;
 
-    Flash_Class Flash;
+     Flash_Class Flash;
 
-    GPIO_Class GPIO;
+     GPIO_Class GPIO;
 
-    Graphical_Interface_Class Graphical_Interface;
+     Graphical_Interface_Class Graphical_Interface;
 
-    Keyboard_Class Keyboard;
+     Keyboard_Class Keyboard;
 
-    Mathematics_Class Mathematics;
+     Mathematics_Class Mathematics;
 
-    Memory_Class Memory;
+     Memory_Class Memory;
 
-    Power_Class Power;
+     Power_Class Power;
 
     typedef Software_Class Software_Type;
 
@@ -144,21 +143,11 @@ public:
 
     //Sound_Class Sound;
 
-    System_Class System;
+     System_Class System;
 
-    WiFi_Class WiFi;
-
-private:
-    //==============================================================================//
-    //                                    Attributes                                //
-    //==============================================================================//
-
-    ///
-    /// @brief Current instance pointer. Help to prevent from corruption.
-    ///
-    static Xila_Class *Instance_Pointer;
+     WiFi_Class WiFi;
 };
 
-extern Xila_Class Xila;
+namespace Xila = Xila_Namespace;
 
 #endif

@@ -16,6 +16,7 @@
 
 class Text_Area_Class : public Object_Class
 {
+public:
     /// @brief Text area custom part enumeration.
     enum
     {

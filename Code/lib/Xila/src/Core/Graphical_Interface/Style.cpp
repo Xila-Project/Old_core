@@ -29,9 +29,9 @@ Style_Class::Style_Class()
 //
 // ------------------------------------------------------------------------- //
 
-Style_Class::Property_Type Style_Class::Register_Property()
+Style_Class::Property_Type Style_Class::Register_Property(uint8_t Flag)
 {
-    return lv_style_register_prop();
+    return lv_style_register_prop(Flag);
 }
 
 bool Style_Class::Remove_Property(Property_Type Property)
@@ -42,6 +42,12 @@ bool Style_Class::Remove_Property(Property_Type Property)
 void Style_Class::Reset()
 {
     lv_style_reset(&LVGL_Style);
+}
+
+
+lv_style_t* Style_Class::Get_Pointer()
+{
+    return &LVGL_Style;
 }
 
 // ------------------------------------------------------------------------- //
@@ -55,7 +61,7 @@ void Style_Class::Initialize()
     lv_style_init(&LVGL_Style);
 }
 
-void Style_Class::Set_Alignment(Alignment_Type Alignment)
+void Style_Class::Set_Alignment(Alignment::Type Alignment)
 {
     lv_style_set_align(&LVGL_Style, Alignment);
 }
@@ -168,11 +174,6 @@ void Style_Class::Set_Background_Opacity(Opacity::Type Opacity)
 void Style_Class::Set_Blend_Mode(Blend::Mode_Type Blend_Mode)
 {
     lv_style_set_blend_mode(&LVGL_Style, Blend_Mode);
-}
-
-void Style_Class::Set_Border_Color(Color_Type Color)
-{
-    lv_style_set_border_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
 void Style_Class::Set_Border_Color(Color_Type Color)

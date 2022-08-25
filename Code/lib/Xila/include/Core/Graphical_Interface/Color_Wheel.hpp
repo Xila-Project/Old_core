@@ -45,6 +45,8 @@ public:
     bool Set_Color(Color_Type Color);
     void Set_Mode(Mode::Type Mode);
     void Set_Mode_Fixed(bool Fixed);
+
+    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
 };
 
 #endif

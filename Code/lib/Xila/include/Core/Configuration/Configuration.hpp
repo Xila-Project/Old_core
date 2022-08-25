@@ -24,10 +24,6 @@
 // -- USB serial speed
 #define Default_USB_Serial_Speed 115200
 
-// Partitions
-#define Xila_Loader_Partition 0
-#define Xila_Partition 1
-
 // -- System
 #define Default_Device_Name "Xila"
 #define Xila_Version_Major 0
@@ -45,7 +41,7 @@
 
 // - Drive
 
-#define Drive_Hardware  SD_SPI
+#define Drive_Hardware  Drive_SD_SPI
 
 #define SD_SPI_Clock_Pin 4
 #define SD_SPI_Select_Pin 2

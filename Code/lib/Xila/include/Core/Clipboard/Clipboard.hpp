@@ -15,6 +15,8 @@
 
 #include "../Module.hpp"
 
+#include "Core/Drive/Drive.hpp"
+
 //==============================================================================//
 ///
 /// @brief Clipboard module
@@ -22,6 +24,7 @@
 class Clipboard_Class : public Module_Class
 {
 public:
+
     Result_Type Clear();
 
     Result_Type Copy(uint64_t const &Value_To_Copy);
@@ -32,16 +35,12 @@ public:
     Result_Type Paste(uint64_t &Value_To_Paste);
     Result_Type Paste(char *Char_Array_To_Paste, size_t Char_Array_Length);
     Result_Type Paste(String &String_To_Paste);
-
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
-
+    
 protected:
     ///
     /// @brief Clipboard file.
     ///
-    File Clipboard_File;
+    Drive_Class::File_Type Clipboard_File;
 
     ///
     /// @brief Split number array.

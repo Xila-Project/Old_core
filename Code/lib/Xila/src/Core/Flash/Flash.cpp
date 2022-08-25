@@ -72,13 +72,13 @@ Module_Class::Result_Type Flash_Class::Partition_Write(const esp_partition_t *Pa
     return Error;
 }
 
-Module_Class::Result_Type Flash_Class::Set_Boot_Partition(const uint8_t Partition_Number)
+Module_Class::Result_Type Flash_Class::Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype)
 {
-    if (Partition_Number > Xila_Partition)
+    if (Partition_Subtype > Xila_Partition)
     {
         return Error;
     }
-    if (esp_ota_set_boot_partition(esp_partition_find_first(ESP_PARTITION_TYPE_APP, ESP_PARTITION_SUBTYPE_APP_OTA_MIN + Partition_Number)) == ESP_OK)
+    if (esp_ota_set_boot_partition(esp_partition_find_first(ESP_PARTITION_TYPE_APP, (esp_partition_subtype_t)Partition_Subtype, NULL)) == ESP_OK)
     {
         return Success;
     }

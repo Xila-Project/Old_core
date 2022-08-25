@@ -8,7 +8,11 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#include "Core/Account/Account.hpp"
+
 #include "Core/Core.hpp"
+
+using namespace Xila;
 
 ///
 /// @brief Construct a new Account_Class::Account_Class object
@@ -24,7 +28,7 @@ Account_Class::Account_Class()
 /// @return Result_Type
 Module_Class::Result_Type Account_Class::Load_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Registry("Account"));
+  Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
 
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
@@ -56,7 +60,7 @@ Module_Class::Result_Type Account_Class::Load_Registry()
 /// @return Result_Type
 Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable)
 {
-  File Temporary_File = Xila.Drive.Open(Registry("Account"), FILE_WRITE);
+  Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   Account_Registry["Registry"] = "Account";
   if (Enable)
@@ -79,9 +83,9 @@ Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable)
 ///
 /// @brief Return current session state.
 ///
-/// @return uint8_t return Xila_Class::Acount_Class::Session_State.
+/// @return uint8_t return Acount_Class::Session_State.
 ///
-uint8_t Account_Class::Get_State()
+Account_Class::Session_State Account_Class::Get_State()
 {
   return State;
 }
@@ -114,44 +118,44 @@ void Account_Class::Set_Current_Username(const char *Username)
  /// @return Result_Type 
 Module_Class::Result_Type Account_Class::Add(const char *Username, const char *Password)
 {
-  if (Xila.Drive.Exists(Users_Directory_Path "/" + String(Username)))
+  if (Drive.Exists(Users_Directory_Path "/" + String(Username)))
   {
     return Error;
   }
   char Temporary_Path[30];
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Musics", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
 
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Document", Username);
-  if (Xila.Drive.Make_Directory(Temporary_Path) == false)
+  if (Drive.Make_Directory(Temporary_Path) == false)
   {
     return Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", Username);
-  File Temporary_File = Xila.Drive.Open(Temporary_Path, FILE_WRITE);
+  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Path, FILE_WRITE);
   DynamicJsonDocument User_Registry(256);
 
   User_Registry["Registry"] = "User";
@@ -174,7 +178,7 @@ Module_Class::Result_Type Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
-  if (Xila.Drive.Remove_Directory(Temporary_Path))
+  if (Drive.Remove_Directory(Temporary_Path))
   {
     return Success;
   }
@@ -196,7 +200,7 @@ Module_Class::Result_Type Account_Class::Change_Username(const char *Target_User
   strlcpy(Temporary_Target_Path, Temporary_Path, sizeof(Temporary_Path));
   strlcat(Temporary_Target_Path, Target_User, sizeof(Temporary_Target_Path));
   strlcat(Temporary_Path, New_Username, sizeof(Temporary_Path));
-  if (!Xila.Drive.Rename(Temporary_Target_Path, Temporary_Path))
+  if (!Drive.Rename(Temporary_Target_Path, Temporary_Path))
   {
     return Error;
   }
@@ -217,7 +221,7 @@ Module_Class::Result_Type Account_Class::Change_Password(const char *Target_User
 {
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
-  File Temporary_File = Xila.Drive.Open(Temporary_Char, FILE_WRITE);
+  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Char, FILE_WRITE);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   User_Registry["Registry"] = "User";
   User_Registry["Password"] = Password_To_Set;
@@ -236,11 +240,11 @@ Module_Class::Result_Type Account_Class::Change_Password(const char *Target_User
 /// @return Result_Type
 Module_Class::Result_Type Account_Class::Logout()
 {
-  if (State != Disconnected)
+  if (Get_State() != Disconnected)
   {
 
     memset(Current_Username, '\0', sizeof(Current_Username));
-    State = Xila.Account.Disconnected;
+    Set_State(Disconnected);
   }
 
   return Success;
@@ -269,7 +273,7 @@ Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
-  File Temporary_File = Xila.Drive.Open(Temporary_Path);
+  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Path);
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -302,10 +306,10 @@ Module_Class::Result_Type Account_Class::Login(const char *Username_To_Check, co
     return Error;
   }
   // -- If another user was already connected, close all of it's software.
-  if (State == Locked && (strcmp(Xila.Account.Current_Username, Username_To_Check) != 0))
+  if (State == Locked && (strcmp(Account.Current_Username, Username_To_Check) != 0))
   {
     // Iterate through software list and close all of them.
-    for (auto & Software : Xila_Class::Software_Type::Software_List)
+    for (auto & Software : Software_Type::Software_List)
     {
       if (Software != NULL)
       {

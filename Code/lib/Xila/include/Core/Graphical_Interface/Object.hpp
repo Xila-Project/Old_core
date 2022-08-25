@@ -285,7 +285,7 @@ public:
 
     bool Is_Valid();
 
-    void Add_Style(Style_Type *Style, Style_Selector_Type Style_Selector);
+    void Add_Style(Style_Type& Style, Style_Selector_Type Style_Selector);
 
     Coordinate_Type DPX(Coordinate_Type Coordinate);
 
@@ -629,8 +629,8 @@ public:
     Object_Class &operator=(Object_Class Object_Class);
     operator bool();
 
+    virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
     // TODO : See the encapsulation of these following methods.
-    virtual bool Set_Pointer(lv_obj_t *Object);
     inline lv_obj_t *Get_Pointer()
     {
         return LVGL_Object_Pointer;

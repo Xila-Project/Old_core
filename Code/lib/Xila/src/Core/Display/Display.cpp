@@ -56,7 +56,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @return Xila_Class::Success or Xila_Class::Error
 Module_Class::Result_Type Display_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Display"));
+    Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
     {
@@ -81,7 +81,7 @@ Module_Class::Result_Type Display_Class::Load_Registry()
 /// @return Result_Type
 Module_Class::Result_Type Display_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Display"), FILE_WRITE);
+    Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
     Display_Registry["Registry"] = "Display";
     Display_Registry["Brightness"] = Brightness;

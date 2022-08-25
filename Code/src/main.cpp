@@ -2,7 +2,7 @@
 
 void setup()
 {
-  Xila.System.Start();
+  Xila::System.Start();
 }
 
 void loop()

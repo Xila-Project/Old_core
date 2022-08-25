@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Display_Hardware == WT32_SC01
+#ifdef Kit_WT32_SC01
 
 #define LGFX_USE_V1
 #include "LovyanGFX.hpp"

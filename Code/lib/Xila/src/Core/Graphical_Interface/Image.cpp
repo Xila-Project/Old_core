@@ -80,7 +80,6 @@ void Image_Class::Set_Zoom(uint16_t Zoom)
     lv_img_set_zoom(Get_Pointer(), Zoom);
 }
 
-lv_img_dsc_t
 // ------------------------------------------------------------------------- //
 //
 //                                    Getters

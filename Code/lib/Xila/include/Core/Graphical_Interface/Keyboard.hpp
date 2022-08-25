@@ -48,7 +48,7 @@ public:
     Mode_Type Get_Mode();
     const char **Get_Map_Array();
     uint16_t Get_Selected_Button();
-    const char *Get_Button_Text();
+    const char *Get_Button_Text(uint16_t Button_Identifier);
 };
 
 #endif

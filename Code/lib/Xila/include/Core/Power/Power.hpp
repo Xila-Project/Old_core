@@ -22,14 +22,9 @@
 class Power_Class : public Module_Class, public Battery_Class
 {
 
-protected:
+public:
     // -- Constructors / Destructors
     Power_Class();
-
-    // -- Friendship
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
 
     // -- Methods
 

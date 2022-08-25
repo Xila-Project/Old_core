@@ -28,7 +28,8 @@ class Software_Handle;
 
 class Software_Class : public Module_Class
 {
-protected:
+public:
+
     // - Types
     typedef enum State_Enumeration
     {
@@ -45,7 +46,7 @@ protected:
     virtual ~Software_Class();
 
     void Send_Instruction(Instruction_Type Instruction);
-    void Send_Instruction(Module_Type Sender, const char Arguments[4]);
+    void Send_Instruction(Module::Type Sender, const char Arguments[4]);
 
     bool Check_Watchdog();
 
@@ -63,7 +64,7 @@ protected:
 
     virtual void Main_Task_Function();
 
-private:
+//private:
 
     void Minimize();
     void Maximize();
