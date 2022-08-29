@@ -241,7 +241,7 @@ void Software_Class::Send_Instruction(Instruction_Type Instruction)
 ///
 /// @param Instruction_Char_1 Instruction first byte
 /// @param Instruction_Char_2 Instruction second byte
-void Software_Class::Send_Instruction(Instruction_Type::Sender_Type Sender, const char Arguments[4])
+void Software_Class::Send_Instruction(Module::Type Sender, const char Arguments[4])
 {
   static Instruction_Type Current_Instruction;
   Current_Instruction.Sender = Sender;

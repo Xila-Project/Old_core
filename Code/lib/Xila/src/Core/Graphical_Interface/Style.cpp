@@ -206,7 +206,7 @@ void Style_Class::Set_Clip_Corner(bool Value)
     lv_style_set_clip_corner(&LVGL_Style, Value);
 }
 
-void Style_Class::Set_Color_Filter_Descriptor(const Color_Filter_Descriptor_Class& Color_Filter_Descriptor)
+void Style_Class::Set_Color_Filter_Descriptor(Color_Filter_Descriptor_Class& Color_Filter_Descriptor)
 {
     lv_style_set_color_filter_dsc(&LVGL_Style, Color_Filter_Descriptor.Get_Pointer());
 }

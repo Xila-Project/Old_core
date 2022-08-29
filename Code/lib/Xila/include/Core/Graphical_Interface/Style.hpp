@@ -89,7 +89,7 @@ public:
     void Set_Clip_Corner(bool Value);
 
     // - - - - Color filter
-    void Set_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type& Color_Filter_Descriptor);
+    void Set_Color_Filter_Descriptor(Color_Filter_Descriptor_Type& Color_Filter_Descriptor);
     void Set_Color_Filter_Opacity(Opacity::Type Opacity);
 
     // - - - - Flex

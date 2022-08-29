@@ -8,6 +8,7 @@
  /// @copyright Copyright (c) 2022
  /// 
 
+/*
  #ifndef Queue_Hpp_Included
  #define Queue_Hpp_Included
 
@@ -21,6 +22,8 @@ public:
     ~Queue_Class();
 
     Result_Type Create(Size_Type Length, Size_Type Item_Size);
+    Result_Type Create_Static(Size_Type Length, Size_Type Item_Size);
+
     void Delete();
     void Reset();
     
@@ -39,3 +42,4 @@ private:
 };
 
  #endif
+ */

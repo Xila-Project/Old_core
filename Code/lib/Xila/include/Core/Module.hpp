@@ -19,6 +19,8 @@
 class Module_Class
 {
 public:
+
+
     /// @brief Size Type;
     typedef size_t Size_Type;
 

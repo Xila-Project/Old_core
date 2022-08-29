@@ -13,6 +13,8 @@
 #include "Core/Graphical_Interface/Animation.hpp"
 #include "Core/Core.hpp"
 
+using namespace Xila;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Constructor
@@ -174,7 +176,7 @@ void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Select
 
 void Object_Class::Event_Callback(lv_event_t* Event)
 {
-    Xila.Software.Send_Instruction(, Xila_Class::Graphical_Interface, (char*)lv_event_get_user_data(Event))
+    Software_Class::Send_Instruction(, Xila_Class::Graphical_Interface, (char*)lv_event_get_user_data(Event))
 }
 
 // ------------------------------------------------------------------------- //

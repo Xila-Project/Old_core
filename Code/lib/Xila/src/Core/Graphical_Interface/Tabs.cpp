@@ -20,9 +20,17 @@ void Tabs_Class::Create(Object_Class &Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {
-        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer()));
+        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), Direction::Top, 20));
     }
 
+}
+
+void Tabs_Class::Create(Object_Class& Parent_Object, Direction::Type Direction, Coordinate_Type Size)
+{
+    if (Parent_Object.Is_Valid())
+    {
+        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), Direction, Size));
+    }
 }
 
 void Tabs_Class::Add_Tab(const char *Name)
@@ -76,7 +84,7 @@ uint16_t Tabs_Class::Get_Tab_Active()
     return lv_tabview_get_tab_act(Get_Pointer());
 }
 
-Object_Class Tabs_Class::Get_Tab_Buttons()
+Button_Class Tabs_Class::Get_Tab_Buttons()
 {
     Button_Class Button;
     Button.Set_Pointer(lv_tabview_get_tab_btns(Get_Pointer()));

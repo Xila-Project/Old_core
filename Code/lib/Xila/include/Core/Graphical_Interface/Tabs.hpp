@@ -22,6 +22,7 @@ public:
 
     // - Methods
     void Create(Object_Class &Parent_Object);
+    void Create(Object_Class& Parent_Object, Direction::Type Direction, Coordinate_Type Size);
 
     void Add_Tab(const char *Name);
     void Rename_Tab(const char *Name);
