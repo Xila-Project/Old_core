@@ -113,9 +113,6 @@ public:
     /// @brief Style type.
     typedef Style_Class Style_Type;
 
-    /// @brief Color filter descriptor type.
-    typedef lv_color_filter_dsc_t Color_Filter_Descriptor_Type;
-
     /// @brief Color type.
     typedef Color_Class Color_Type;
 
@@ -364,7 +361,7 @@ public:
     void Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_Selector);
 
     // - - - - Color filter
-    void Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Class *Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
+    void Set_Style_Color_Filter_Descriptor(Color_Filter_Descriptor_Class& Color_Filter_Descriptor, Style_Selector_Type Style_Selector);
     void Set_Style_Color_Filter_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector);
 
     // - - - - Flex

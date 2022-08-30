@@ -82,36 +82,36 @@ void Window_Class::Create(Object_Class &Parent_Object)
     Header.Create(Window);
     Header.Set_Size(Percentage(100), 32);
 
-    static Style_Class Style_Window_Header();
-    Style_Window_Header.Set_Background_Color(Color_Class::Get_From_Palette_Darken(Color_Class::Grey));
+    static Style_Class Style_Window_Header;
+    Style_Window_Header.Set_Background_Color(Color_Class::Get_From_Palette_Darken(Color_Class::Grey, 0));
 
     // - Left buttons.
     Close_Button.Create(Header);
     Close_Button.Set_Size(24, 24);
-    Close_Button.Set_Alignment(Alignment_Enumeration::Middle_Left);
+    Close_Button.Set_Alignment(Alignment::Middle_Left);
     Minimize_Button.Create(Header);
     Minimize_Button.Set_Size(24, 24);
-    Minimize_Button.Set_Alignment(Close_Button, Alignment_Enumeration::Out_Right_Middle, 4, 0);
+    Minimize_Button.Set_Alignment(Close_Button, Alignment::Out_Right_Middle, 4, 0);
 
     // - Middle title.
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Enumeration::Long_Dot);
-    Title_Label.Set_Alignment(Alignment_Enumeration::Center);
+    Title_Label.Set_Alignment(Alignment::Center);
     Clock_Label.Create(Header);
-    Clock_Label.Set_Alignment(Alignment_Enumeration::Middle_Right);
+    Clock_Label.Set_Alignment(Alignment::Middle_Right);
 
     // - Right buttons.
     Battery_Button.Create(Header);
     Battery_Button.Set_Size(24, Percentage(100));
-    Battery_Button.Set_Alignment(Clock_Label, Alignment_Enumeration::Out_Left_Middle, -4, 0);
+    Battery_Button.Set_Alignment(Clock_Label, Alignment::Out_Left_Middle, -4, 0);
 
     Audio_Button.Create(Header);
     Audio_Button.Set_Size(24, Percentage(100));
-    Audio_Button.Set_Alignment(Battery_Button, Alignment_Enumeration::Out_Left_Middle, 0, 0);
+    Audio_Button.Set_Alignment(Battery_Button, Alignment::Out_Left_Middle, 0, 0);
 
     Sound_Button.Create(Header);
     Sound_Button.Set_Size(24, Percentage(100));
-    Sound_Button.Set_Alignment(Audio_Button, Alignment_Enumeration::Out_Left_Middle, 0, 0);
+    Sound_Button.Set_Alignment(Audio_Button, Alignment::Out_Left_Middle, 0, 0);
 
     // - Body.
     Body.Create(Window);

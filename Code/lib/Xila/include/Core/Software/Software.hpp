@@ -52,6 +52,9 @@ public:
 
     static void Check_Watchdogs();
 
+    static void Send_Instruction_To_Maximized(Instruction_Type Instruction);
+
+
     State_Type Get_State(const Software_Handle_Class& Software_Handle);
 
     Instruction_Type Get_Instruction();

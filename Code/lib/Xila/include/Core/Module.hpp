@@ -46,6 +46,7 @@ public:
         /// @brief Modules enumeration and type.
         typedef enum Enumeration
         {
+            None,
             Account,
             Clipboard,
             Display,
@@ -106,10 +107,12 @@ public:
         };
         */
 
-        Instruction_Type(Module::Type Sender, uint32_t Arguments)
+       Instruction_Type() : Sender(Module::None), Arguments(0)
+       {
+       }
+
+        Instruction_Type(Module::Type Sender, uint32_t Arguments) : Sender(Sender), Arguments(Arguments)
         {
-            this->Sender = Sender;
-            this->Arguments = Arguments;
         };
 
         Module::Type Get_Sender()
@@ -128,7 +131,7 @@ public:
         };
 
         void Set_Arguments(uint32_t Arguments){
-
+            this->Arguments = Arguments;
         };
     };
 

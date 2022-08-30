@@ -122,7 +122,7 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
 
 void Object_Class::Add_Event(Event::Code_Type Event_Code, uint32_t Arguments)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Arguments);
+    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Arguments);    // - Use user data pointer to store argument of the event.
 }
 
 /*bool Object_Class::Remove_Event(Event::Code_Type Event_Code)
@@ -176,7 +176,10 @@ void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Select
 
 void Object_Class::Event_Callback(lv_event_t* Event)
 {
-    Software_Class::Send_Instruction(, Xila_Class::Graphical_Interface, (char*)lv_event_get_user_data(Event))
+    static Module_Class::Instruction_Type Instruction;
+    Instruction.Set_Sender(Module::Graphical_Interface);
+    Instruction.Set_Argument(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
+    Software_Class::Send_Instruction_To_Maximized(Instruction);
 }
 
 // ------------------------------------------------------------------------- //
@@ -434,9 +437,9 @@ void Object_Class::Set_Style_Clip_Corner(bool Value, Style_Selector_Type Style_S
     lv_obj_set_style_clip_corner(Get_Pointer(), Value, Style_Selector);
 }
 
-void Object_Class::Set_Style_Color_Filter_Descriptor(const Color_Filter_Descriptor_Type* Color_Filter_Descriptor, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Color_Filter_Descriptor(Color_Filter_Descriptor_Type& Color_Filter_Descriptor, Style_Selector_Type Style_Selector)
 {
-    lv_obj_set_style_color_filter_dsc(Get_Pointer(), Color_Filter_Descriptor, Style_Selector);
+    lv_obj_set_style_color_filter_dsc(Get_Pointer(), Color_Filter_Descriptor.Get_Pointer(), Style_Selector);
 }
 
 void Object_Class::Set_Style_Color_Filter_Opacity(Opacity::Type Opacity, Style_Selector_Type Style_Selector)
@@ -801,11 +804,6 @@ void Object_Class::Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_
     {
         lv_obj_set_tile_id(Get_Pointer(), Column_Identifier, Row_Identifier, LV_ANIM_OFF);
     }
-}
-
-void Object_Class::Set_User_Data(void* User_Data)
-{
-    lv_obj_set_user_data(Get_Pointer(), User_Data);
 }
 
 // ------------------------------------------------------------------------- //
