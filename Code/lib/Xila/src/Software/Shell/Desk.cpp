@@ -19,9 +19,11 @@
 Shell_Class::Desk_Class::Desk_Class()
 {
 
-
     Window.Create();
     Window.Set_Title("Desk");
+
+    const Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
     Grid.Create(Window);
     Grid.Set_Style_Pad_All(10, 0);
@@ -32,13 +34,13 @@ Shell_Class::Desk_Class::Desk_Class()
     Grid.Move_Background();
 
     {
-        Graphical_Interface::Object_Type* Label;
-        Graphical_Interface::Object_Type* Button;
+        Object_Type Label;
+        Object_Type Icon;
 
         for (uint8_t i = 0; i < 17; i++)
         {
-            Button.Create(Grid);
-            Button.Set_Size(40, 40);
+            Icon.Create(Grid);
+            Icon.Set_Size(40, 40);
 
             Label.Create(Grid);
             Label.Set_Text_Format("Item %u", i);
@@ -46,17 +48,17 @@ Shell_Class::Desk_Class::Desk_Class()
 
             if (i == 15)
             {
-                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_START, 3, 1);
+                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_START, 3, 1);
                 Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_END, 3, 1);
             }
             else if (i == 16)
             {
-                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_START, 3, 1);
+                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_START, 3, 1);
                 Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_END, 3, 1);
             }
             else
             {
-                Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_START, i / 5, 1);
+                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_START, i / 5, 1);
                 Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_END, i / 5, 1);
             }
 
@@ -72,10 +74,10 @@ Shell_Class::Desk_Class::Desk_Class()
     Dock.Set_Style_Pad_Left(10, 0);
     Dock.Set_Style_Pad_Right(10, 0);
     Dock.Set_Style_Shadow_width(20, 0);
-    DOck.Set_Style_Shadow_Color(Dock, Graphical_Inteface::Color_Type::White, 0);
+    Dock.Set_Style_Shadow_Color(Dock, Object_Type::Color_Type::White, 0);
 
-    const Graphical_Interface::Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Graphical_Interface::Coordinate_Type Dock_RowDescriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Dock_RowDescriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
     Dock.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3), 0);
     Dock.Set_Style_Radius(8, 8);
@@ -90,29 +92,24 @@ Shell_Class::Desk_Class::Desk_Class()
     Menu_Button.Set_Pad_ALl(0, 0);
     Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
     Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
-    
-    
 
-
+    Background_Color.Set_Color();
 
     
 
-    Offset = 0;
-    Background = -1;
 }
 
 Shell_Class::Desk_Class::~Desk_Class()
 {
-
 }
 
 void Shell_Class::Desk_Class::Logout()
 {
-    if (Xila.Account.Current_Username[0] != '\0')
+    if (Account.Current_Username[0] != '\0')
     {
         Instance_Pointer->Save_Registry();
     }
-    Xila.Account.Logout();
+    Account.Logout();
 
     DESK.Open(Pages.Desk);
 }
@@ -121,7 +118,7 @@ void Shell_Class::Desk_Class::Logout()
 
 void Shell_Class::Desk_Class::Refresh_Drawer()
 {
-    if (Xila.Software_Management.Handle[Offset] == NULL)
+    if (Software_Management.Handle[Offset] == NULL)
     {
         Offset = 0;
     }
@@ -132,13 +129,13 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
 
         Temporary_String[4] = i + 'A';
 
-        if (Xila.Software_Management.Handle[i + Offset] != NULL)
+        if (Software_Management.Handle[i + Offset] != NULL)
         {
-            Xila.Display.Set_Text(Temporary_String, Xila.Software_Management.Handle[i + Offset]->Name);
+            Display.Set_Text(Temporary_String, Software_Management.Handle[i + Offset]->Name);
         }
         else
         {
-            Xila.Display.Set_Text(Temporary_String, "");
+            Display.Set_Text(Temporary_String, "");
         }
         Task_Class::Delay(1);
     }
@@ -149,13 +146,13 @@ void Shell_Class::Desk_Class::Refresh_Drawer()
     {
         Temporary_String[4] = i + 'A';
 
-        if (Xila.Software_Management.Handle[i + Offset] != NULL)
+        if (Software_Management.Handle[i + Offset] != NULL)
         {
-            Xila.Display.Set_Picture(Temporary_String, Xila.Software_Management.Handle[i + Offset]->Icon);
+            Display.Set_Picture(Temporary_String, Software_Management.Handle[i + Offset]->Icon);
         }
         else
         {
-            Xila.Display.Hide(Temporary_String);
+            Display.Hide(Temporary_String);
         }
     }
 }
@@ -168,9 +165,9 @@ void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Class::Instruction
         Refresh_Drawer();
         break;
     case Instruction('N', 'd'): // Nd : Next drawer items
-        if ((Offset + 15) < (sizeof(Xila.Software_Management.Handle) / sizeof(Xila.Software_Management.Handle[1])))
+        if ((Offset + 15) < (sizeof(Software_Management.Handle) / sizeof(Software_Management.Handle[1])))
         {
-            if (Xila.Software_Management.Handle[Offset + 15] != NULL)
+            if (Software_Management.Handle[Offset + 15] != NULL)
             {
                 Offset += 15;
                 Instance_Pointer->Send_Instruction('R', 'e');
@@ -241,13 +238,13 @@ void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Class::Instruction
 
 void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
 {
-    if ((Slot + Offset) < (sizeof(Xila.Software_Management.Handle) / sizeof(Xila_Class::Software_Handle *)))
+    if ((Slot + Offset) < (sizeof(Software_Management.Handle) / sizeof(Xila_Class::Software_Handle *)))
     {
-        if (Xila.Software_Management.Handle[Slot + Offset] != NULL)
+        if (Software_Management.Handle[Slot + Offset] != NULL)
         {
-            if (Xila.Software_Management.Open(*Xila.Software_Management.Handle[Slot + Offset]) != Xila.Success)
+            if (Software_Management.Open(*Software_Management.Handle[Slot + Offset]) != Success)
             {
-                DIALOG.Event(Event_Error_Open_Software, Xila.Error);
+                DIALOG.Event(Event_Error_Open_Software, Error);
                 Instance_Pointer->Send_Instruction('R', 'e');
             }
         }
@@ -266,25 +263,25 @@ void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
 
 void Shell_Class::Desk_Class::Open(uint8_t Mode)
 {
-    if (Xila.Account.Get_State() != Xila.Account.Logged)
+    if (Account.Get_State() != Account.Logged)
     {
-        Xila.Display.Set_Current_Page(Pages.Desk);
-        if (DIALOG.Login() != Xila.Success)
+        Display.Set_Current_Page(Pages.Desk);
+        if (DIALOG.Login() != Success)
         {
-            Xila.System.Shutdown();
+            System.Shutdown();
             return;
         }
         else
         {
 
             Refresh_Desk();
-            Xila.Display.Hide(F("MAXIMIZE_BUT"));
-            Xila.Display.Hide(F("CLOSE_BUT"));
+            Display.Hide(F("MAXIMIZE_BUT"));
+            Display.Hide(F("CLOSE_BUT"));
 #if Animations == 1
-            Xila.Sound.Play(Sounds("Login.wav"));
+            Sound.Play(Sounds("Login.wav"));
             DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);
 #endif
-            if (Instance_Pointer->Load_Registry() != Xila.Success)
+            if (Instance_Pointer->Load_Registry() != Success)
             {
                 Instance_Pointer->Save_Registry();
             }
@@ -293,17 +290,17 @@ void Shell_Class::Desk_Class::Open(uint8_t Mode)
 
     if (Mode == Pages.Drawer)
     {
-        Xila.Display.Set_Current_Page(Pages.Drawer);
+        Display.Set_Current_Page(Pages.Drawer);
         Offset = 0;
         Refresh_Drawer();
         return;
     }
     else
     {
-        Xila.Display.Set_Current_Page(Pages.Desk);
+        Display.Set_Current_Page(Pages.Desk);
         Refresh_Desk();
-        Xila.Display.Hide(F("MAXIMIZE_BUT"));
-        Xila.Display.Hide(F("CLOSE_BUT"));
+        Display.Hide(F("MAXIMIZE_BUT"));
+        Display.Hide(F("CLOSE_BUT"));
         return;
     }
 }
@@ -312,17 +309,17 @@ void Shell_Class::Desk_Class::Refresh_Desk()
 {
     if (DESK.Background == -1)
     {
-        Xila.Display.Hide(F("COLORB_TXT"));
-        Xila.Display.Show(F("IMAGEB_TXT"));
+        Display.Hide(F("COLORB_TXT"));
+        Display.Show(F("IMAGEB_TXT"));
     }
     else
     {
-        Xila.Display.Set_Background_Color(F("COLORB_TXT"), DESK.Background);
-        Xila.Display.Hide(F("IMAGEB_TXT"));
-        Xila.Display.Show(F("COLORB_TXT"));
+        Display.Set_Background_Color(F("COLORB_TXT"), DESK.Background);
+        Display.Hide(F("IMAGEB_TXT"));
+        Display.Show(F("COLORB_TXT"));
     }
 
-    Xila.Display.Refresh(F("0"));
+    Display.Refresh(F("0"));
 
     char Temporary_String[] = "SLOT _PIC";
 
@@ -330,59 +327,56 @@ void Shell_Class::Desk_Class::Refresh_Desk()
     for (uint8_t Slot = 2; Slot < 8; Slot++)
     {
         Temporary_String[4] = Slot - 1 + '0';
-        if (Xila.Software_Management.Openned[Slot] != NULL)
+        if (Software_Management.Openned[Slot] != NULL)
         {
-            Xila.Display.Set_Picture(Temporary_String, Xila.Software_Management.Openned[Slot]->Handle->Icon);
+            Display.Set_Picture(Temporary_String, Software_Management.Openned[Slot]->Handle->Icon);
         }
         else
         {
-            Xila.Display.Hide(Temporary_String);
+            Display.Hide(Temporary_String);
         }
     }
 }
 
-void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Class::Instruction Instruction)
+void Shell_Class::Desk_Class::Execute_Desk_Instruction(Instruction_Type Instruction)
 {
-    switch (Instruction)
+    switch (Instruction.Get_Arguments())
     {
     case Instruction('M', '1'):
-        Dock(1, 'M');
+        Maximize_Dock_Software(1);
         break;
     case Instruction('M', '2'):
-        Dock(2, 'M');
+        Maximize_Dock_Software(2);
         break;
     case Instruction('M', '3'):
-        Dock(3, 'M');
+        Maximize_Dock_Software(3);
         break;
     case Instruction('M', '4'):
-        Dock(4, 'M');
+        Maximize_Dock_Software(4);
         break;
     case Instruction('M', '5'):
-        Dock(5, 'M');
+        Maximize_Dock_Software(5);
         break;
     case Instruction('M', '6'):
-        Dock(6, 'M');
+        Maximize_Dock_Software(6);
         break;
     case Instruction('C', '1'):
-        Dock(1, 'C');
+        Close_Dock_Software(1);
         break;
     case Instruction('C', '2'):
-        Dock(2, 'C');
+        Close_Dock_Software(2);
         break;
     case Instruction('C', '3'):
-        Dock(3, 'C');
+        Close_Dock_Software(3);
         break;
     case Instruction('C', '4'):
-        Dock(4, 'C');
+        Close_Dock_Software(4);
         break;
     case Instruction('C', '5'):
-        Dock(5, 'C');
+        Close_Dock_Software(5);
         break;
     case Instruction('C', '6'):
-        Dock(6, 'C');
-        break;
-    case Instruction('O', 'P'):
-        DIALOG.Power_Pointer.Open();
+        Close_Dock_Software(6);
         break;
     default:
         SHELL->Execute_Instruction(Instruction);
@@ -390,18 +384,20 @@ void Shell_Class::Desk_Class::Execute_Desk_Instruction(Xila_Class::Instruction I
     }
 }
 
-void Shell_Class::Desk_Class::Dock(uint8_t Slot, uint8_t Action)
+void Shell_Class::Desk_Class::Maximize_Dock_Software(uint8_t Slot)
 {
-    if (Xila.Software_Management.Openned[Slot + 1] == NULL)
+    if (Software_Management.Openned[Slot + 1] == NULL)
     {
         return;
     }
-    if (Action == 'M') // maximize
+    Software_Management.Maximize(*Software_Management.Openned[Slot + 1]->Handle);
+}
+
+void Shell_Class::Desk_Class::Close_Dock_Software(uint8_t Slot)
+{
+    if (Software_Management.Openned[Slot + 1] == NULL)
     {
-        Xila.Software_Management.Maximize(*Xila.Software_Management.Openned[Slot + 1]->Handle);
+        return;
     }
-    else if (Action == 'C')
-    {
-        Xila.Software_Management.Close(*Xila.Software_Management.Openned[Slot + 1]->Handle);
-    }
+    Software_Management.Close(*Software_Management.Openned[Slot + 1]->Handle);
 }

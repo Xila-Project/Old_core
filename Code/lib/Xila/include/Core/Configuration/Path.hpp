@@ -41,8 +41,8 @@
 #define Clipboard_Path Temporary_Directory_Path "/Clipboar" Data_File_Extension
 #define Test_Path Temporary_Directory_Path "/Test" Data_File_Extension
 
-#define Display_Executable_Path "/Xila.tft"
-#define Microcontroller_Executable_Path Executable_Directory_Path "/Xila.xef"
+#define Display_Executable_Path "/tft"
+#define Microcontroller_Executable_Path Executable_Directory_Path "/xef"
 
 #undef String_Concat
 

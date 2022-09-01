@@ -25,7 +25,7 @@ void Graphical_Interface_Class::Task_Function(void *)
     }
 }
 
-Module_Class::Result_Type Graphical_Interface_Class::Initialize()
+Module_Class::Result::Type Graphical_Interface_Class::Initialize()
 {
     lv_init();
 
@@ -53,7 +53,7 @@ Module_Class::Result_Type Graphical_Interface_Class::Initialize()
 
     Theme.Initialize();
 
-    return Success;
+    return Result::Success;
 }
 
 void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
@@ -62,7 +62,7 @@ void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
     // Tricks that use the pointer of user data of lvgl as data itself to fits the instructions arguments (more faster approach than deferencing data from the pointer).
     Instruction.Set_Arguments((uintptr_t)lv_event_get_user_data(Event));
 
-    // Xila.Software::Send_Instruction(Xila.Software_Management.);
+    // Software::Send_Instruction(Software_Management.);
 }
 
 
@@ -75,11 +75,11 @@ void *Display_Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_
     File File_To_Open;
     if (Mode == LV_FS_MODE_WR)
     {
-        File_To_Open = Xila.Drive.Open(Path, FILE_WRITE);
+        File_To_Open = Drive.Open(Path, FILE_WRITE);
     }
     else
     {
-        File_To_Open = Xila.Drive.Open(Path, FILE_WRITE);
+        File_To_Open = Drive.Open(Path, FILE_WRITE);
     }
 
     if (!File_To_Open)
@@ -167,7 +167,7 @@ static lv_fs_res_t Display_Class::File_System_Get_Position(lv_fs_drv_t *Driver, 
 
 static void *Display_Class::File_System_Open_Directory(lv_fs_drv_t *Driver, const char *Path)
 {
-    File File_To_Open = Xila.Drive.Open(Path);
+    File File_To_Open = Drive.Open(Path);
     if (!File_To_Open)
     {
         return LV_FS_RES_FS_ERR;

@@ -1,3 +1,3 @@
-#include "Xila.hpp"
+#include "hpp"
 
 Xila_Class Xila;

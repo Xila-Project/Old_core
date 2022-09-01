@@ -27,36 +27,36 @@ Keyboard_Class::Keyboard_Class()
 ///
  /// @brief Load keyboard registry.
  /// 
- /// @return Result_Type
-Module_Class::Result_Type Keyboard_Class::Load_Registry()
+ /// @return Result::Type
+Module_Class::Result::Type Keyboard_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Keyboard"));
+    File Temporary_File = Drive.Open(Registry("Keyboard"));
     DynamicJsonDocument Keyboard_Registry(512);
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
     if (strcmp("Keyboard", Keyboard_Registry["Registry"] | "") != 0)
     {
-        return Error;
+        return Result::Error;
     }
     Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
     Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
     Layout = Keyboard_Registry["Layout"] | Default_Keyboard_Layout;
 
     Begin();
-    return Success;
+    return Result::Success;
 }
 
 ///
  /// @brief Save keyboard registry.
  /// 
- /// @return Result_Type 
-Module_Class::Result_Type Keyboard_Class::Save_Registry()
+ /// @return Result::Type 
+Module_Class::Result::Type Keyboard_Class::Save_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Keyboard"), FILE_WRITE);
+    File Temporary_File = Drive.Open(Registry("Keyboard"), FILE_WRITE);
     DynamicJsonDocument Keyboard_Registry(512);
     Keyboard_Registry["Registry"] = "Keyboard";
     Keyboard_Registry["Data Pin"] = Data_Pin;
@@ -65,10 +65,10 @@ Module_Class::Result_Type Keyboard_Class::Save_Registry()
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
-    return Success;
+    return Result::Success;
 }
 
 ///

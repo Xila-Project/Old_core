@@ -19,26 +19,28 @@
 class Module_Class
 {
 public:
-
-
     /// @brief Size Type;
     typedef size_t Size_Type;
 
-    ///
-    /// @brief Functions results enumeration.
-    ///
-    enum Result_Enumeration
+    class Result
     {
-        Success,
-        Invalid_Argument,
-        Error,       ///< Error event.
-        Warning,     ///< Warning event.
-        Information, ///< Information event.
-        Question,    ///< Question event.
-        None
-    };
+    public:
+        ///
+        /// @brief Functions results enumeration.
+        ///
+        enum Enumeration
+        {
+            Success,
+            Invalid_Argument,
+            Error,       ///< Error event.
+            Warning,     ///< Warning event.
+            Information, ///< Information event.
+            Question,    ///< Question event.
+            None
+        };
 
-    typedef uint8_t Result_Type;
+        typedef uint8_t Type;
+    };
 
     class Module
     {
@@ -86,8 +88,9 @@ public:
     class Instruction_Type
     {
     private:
-        Module::Type Sender;
+        void* Sender;
         uint32_t Arguments;
+        void* Receiver;
 
     public:
         /*
@@ -107,30 +110,42 @@ public:
         };
         */
 
-       Instruction_Type() : Sender(Module::None), Arguments(0)
-       {
-       }
+       operator uint32_t() const {return Arguments};
 
-        Instruction_Type(Module::Type Sender, uint32_t Arguments) : Sender(Sender), Arguments(Arguments)
+        Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0)
         {
         };
 
-        Module::Type Get_Sender()
+        Instruction_Type(void* Sender, void* Receiver, uint32_t Arguments) : Sender(Sender), Receiver(Receiver), Arguments(NULL)
+        {};
+
+        void* Get_Sender () const
         {
             return Sender;
         };
 
-        uint32_t Get_Arguments()
+        void* Get_Receiver() const
+        {
+            return Receiver;
+        };
+
+        uint32_t Get_Arguments () const
         {
             return Arguments;
         };
 
-        void Set_Sender(Module::Type Sender)
+        void Set_Sender(void* Sender)
         {
             this->Sender = Sender;
         };
 
-        void Set_Arguments(uint32_t Arguments){
+        void Set_Receiver(void* Receiver)
+        {
+            this->Receiver = Receiver;
+        };
+
+        void Set_Arguments(uint32_t Arguments)
+        {
             this->Arguments = Arguments;
         };
     };
@@ -164,9 +179,9 @@ public:
         Task_Class();
         ~Task_Class();
 
-        Result_Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
+        Result::Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
 
-        Result_Type Set_Priority(Priority_Type Priority);
+        Result::Type Set_Priority(Priority_Type Priority);
         void Suspend();
         void Resume();
         void Delete();

@@ -57,7 +57,7 @@
 //----------------------------------------------------------------------------//
 
 // - - Configuration file (at compile time)
-#include "Configuration\Path.hpp"          // Path list
+#include "Configuration\Path.hpp" // Path list
 
 // - - Modules
 #include "Module.hpp" // Module class
@@ -105,7 +105,6 @@ class Shell_Class;
 namespace Xila_Namespace
 {
 
-
     //==============================================================================//
     //                                 Constructors                                 //
     //==============================================================================//
@@ -114,38 +113,78 @@ namespace Xila_Namespace
     //                              Enumerations & Type definition                  //
     //==============================================================================//
 
-     Account_Class Account;
+    // - General types
 
-     Clipboard_Class Clipboard;
+    typedef Module_Class::Size_Type Size_Type;
+    typedef Module_Class::Result Result;
+    typedef Module_Class::Module Module;
+    typedef Module_Class::Time_Type Time_Type;
+    typedef Module_Class::Instruction_Type Instruction_Type;
+    typedef Module_Class::Task_Class Task_Class;
 
-     Display_Class Display;
+    // - Graphical interface objects.
 
-     Drive_Class Drive;
+    typedef Graphical_Interface_Class::Object_Type Object_Type;
+    typedef Graphical_Interface_Class::Arc_Type Arc_Type;
+    typedef Graphical_Interface_Class::Bar_Type Bar_Type;
+    typedef Graphical_Interface_Class::Button_Type Button_Type;
+    typedef Graphical_Interface_Class::Button_Matrix_Type Button_Matrix_Type;
+    typedef Graphical_Interface_Class::Canvas_Type Canvas_Type;
+    typedef Graphical_Interface_Class::Checkbox_Type Checkbox_Type;
+    typedef Graphical_Interface_Class::Drop_Down_List_Type Drop_Down_List_Type;
+    typedef Graphical_Interface_Class::Image_Type Image_Type;
+    typedef Graphical_Interface_Class::Line_Type Line_Type;
+    typedef Graphical_Interface_Class::Roller_Type Roller_Type;
+    typedef Graphical_Interface_Class::Slider_Type Slider_Type;
+    typedef Graphical_Interface_Class::Switch_Type Switch_Type;
+    typedef Graphical_Interface_Class::Table_Type Table_Type;
+    typedef Graphical_Interface_Class::Text_Area_Type Text_Area_Type;
+    typedef Graphical_Interface_Class::Calendar_Type Calendar_Type;
+    // typedef Chart_Class Chart_Type Type;
+    typedef Graphical_Interface_Class::Color_Wheel_Type Color_Wheel_Type;
+    typedef Graphical_Interface_Class::Keyboard_Type Keyboard_Type;
+    typedef Graphical_Interface_Class::List_Type List_Type;
+    // typedef Menu_Class Menu_Type Type;
+    // typedef Meter_Class Meter_Type Type;
+    typedef Graphical_Interface_Class::Tabs_Type Tabs_Type;
+    typedef Graphical_Interface_Class::Window_Type Window_Type;
+
+    //==============================================================================//
+    //                                Public modules declaration                    //
+    //==============================================================================//
+
+    Account_Class Account;
+
+    Clipboard_Class Clipboard;
+
+    Display_Class Display;
+
+    Drive_Class Drive;
     typedef Drive_Class Drive_Class;
 
-     Flash_Class Flash;
+    Flash_Class Flash;
 
-     GPIO_Class GPIO;
+    GPIO_Class GPIO;
 
-     Graphical_Interface_Class Graphical_Interface;
+    Graphical_Interface_Class Graphical_Interface;
 
-     Keyboard_Class Keyboard;
+    Keyboard_Class Keyboard;
 
-     Mathematics_Class Mathematics;
+    Mathematics_Class Mathematics;
 
-     Memory_Class Memory;
+    Memory_Class Memory;
 
-     Power_Class Power;
+    Power_Class Power;
 
     typedef Software_Class Software_Type;
 
     typedef Software_Handle_Class Software_Handle_Type;
 
-    //Sound_Class Sound;
+    // Sound_Class Sound;
 
-     System_Class System;
+    System_Class System;
 
-     WiFi_Class WiFi;
+    WiFi_Class WiFi;
 };
 
 namespace Xila = Xila_Namespace;

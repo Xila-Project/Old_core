@@ -37,20 +37,20 @@ System_Class::~System_Class()
 ///
 /// @brief Load System registry.
 ///
-/// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Registry()
+/// @return Result::Type
+Module_Class::Result::Type System_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
   if (strcmp("System", System_Registry["Registry"] | "") != 0)
   {
-    return Error;
+    return Result::Error;
   }
   JsonObject Version = System_Registry["Version"];
   if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
@@ -58,14 +58,14 @@ Module_Class::Result_Type System_Class::Load_Registry()
     Panic_Handler(Installation_Conflict);
   }
   strlcpy(System.Device_Name, System_Registry["Device Name"] | Default_Device_Name, sizeof(System.Device_Name));
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief Save System registry.
 ///
-/// @return Result_Type
-Module_Class::Result_Type System_Class::Save_Registry()
+/// @return Result::Type
+Module_Class::Result::Type System_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -78,10 +78,10 @@ Module_Class::Result_Type System_Class::Save_Registry()
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
-  return Success;
+  return Result::Success;
 }
 
 void System_Class::Task_Start_Function(void *Instance)
@@ -146,36 +146,36 @@ void System_Class::Task_Function(void *)
 /// @brief Update Xila on the MCU.
 ///
 /// @param Update_File Executable file.
-/// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Executable(File Executable_File)
+/// @return Result::Type
+Module_Class::Result::Type System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
-    return Error;
+    return Result::Error;
   }
   if (Executable_File.size() == 0)
   {
-    return Error;
+    return Result::Error;
   }
   if (!Update.begin(Executable_File.size(), U_FLASH))
   {
-    return Error;
+    return Result::Error;
   }
   size_t Written = Update.writeStream(Executable_File);
   if (Written != Executable_File.size())
   {
-    return Error;
+    return Result::Error;
   }
   if (!Update.end())
   {
-    return Error;
+    return Result::Error;
   }
   if (!Update.isFinished())
   {
-    return Error;
+    return Result::Error;
   }
 
-  return Success;
+  return Result::Success;
 }
 
 ///
@@ -200,8 +200,8 @@ void System_Class::Panic_Handler(Panic_Code Panic_Code)
 ///
 /// @brief Save system dump.
 ///
-/// @return Result_Type
-Module_Class::Result_Type System_Class::Save_Dump()
+/// @return Result::Type
+Module_Class::Result::Type System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
@@ -224,17 +224,17 @@ Module_Class::Result_Type System_Class::Save_Dump()
   if (serializeJson(Dump_Registry, Dump_File) == 0)
   {
     Dump_File.close();
-    return Error;
+    return Result::Error;
   }
   Dump_File.close();
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief Load system dump.
 ///
-/// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Dump()
+/// @return Result::Type
+Module_Class::Result::Type System_Class::Load_Dump()
 {
   if (Drive.Exists(Dump_Registry_Path))
   {
@@ -245,14 +245,14 @@ Module_Class::Result_Type System_Class::Load_Dump()
     {
       Dump_File.close();
       Drive.Remove(Dump_Registry_Path);
-      return Error;
+      return Result::Error;
     }
     Dump_File.close();
     Drive.Remove(Dump_Registry_Path);
 
     if (strcmp(Dump_Registry["Registry"] | "", "Dump") != 0)
     {
-      return Error;
+      return Result::Error;
     }
 
     char Temporary_Software_Name[Default_Software_Name_Length];
@@ -281,11 +281,11 @@ Module_Class::Result_Type System_Class::Load_Dump()
       Account.Set_State(Account.Locked);
     }
 
-    return Success;
+    return Result::Success;
   }
   else
   {
-    return Error;
+    return Result::Error;
   }
 }
 

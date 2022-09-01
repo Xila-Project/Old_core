@@ -178,7 +178,7 @@ void Object_Class::Event_Callback(lv_event_t* Event)
 {
     static Module_Class::Instruction_Type Instruction;
     Instruction.Set_Sender(Module::Graphical_Interface);
-    Instruction.Set_Argument(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
+    Instruction.Set_Arguments(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
     Software_Class::Send_Instruction_To_Maximized(Instruction);
 }
 

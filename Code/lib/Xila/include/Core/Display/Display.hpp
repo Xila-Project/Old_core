@@ -26,8 +26,8 @@ public:
     ~Display_Class();
 
     // - - Registry
-    Result_Type Load_Registry();
-    Result_Type Save_Registry();
+    Result::Type Load_Registry();
+    Result::Type Save_Registry();
 
     uint16_t Get_Horizontal_Definition();
     uint16_t Get_Vertical_Definition();

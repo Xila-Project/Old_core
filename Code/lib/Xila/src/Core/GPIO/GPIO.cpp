@@ -24,15 +24,15 @@ void GPIO_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
 /// @brief Check if a GPIO is valid for output purpose.
 ///
 /// @param Pin Involved GPIO.
-/// @return Result_Type
-Module_Class::Result_Type GPIO_Class::Valid_Output_Pin(uint8_t Pin)
+/// @return Result::Type
+Module_Class::Result::Type GPIO_Class::Valid_Output_Pin(uint8_t Pin)
 {
     if (digitalPinCanOutput(Pin) == true)
     {
-        return Success;
+        return Result::Success;
     }
 
-    return Error;
+    return Result::Error;
 }
 
 ///
@@ -59,14 +59,14 @@ int16_t GPIO_Class::Digital_Read(uint8_t Pin)
 /// @brief Check if a GPIO pin is suitable for digital signals.
 ///
 /// @param Pin Involved GPIO.
-/// @return Result_Type
-Module_Class::Result_Type GPIO_Class::Valid_Digital_Pin(uint8_t Pin)
+/// @return Result::Type
+Module_Class::Result::Type GPIO_Class::Valid_Digital_Pin(uint8_t Pin)
 {
     if (digitalPinIsValid(Pin))
     {
-        return Success;
+        return Result::Success;
     }
-    return Error;
+    return Result::Error;
 }
 
 ///

@@ -187,8 +187,8 @@ public:
 
 protected:
     // -- Methods
-    Result_Type Load_Registry();
-    Result_Type Save_Registry();
+    Result::Type Load_Registry();
+    Result::Type Save_Registry();
 
     uint8_t Layout;
 

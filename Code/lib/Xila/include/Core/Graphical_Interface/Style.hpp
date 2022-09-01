@@ -64,7 +64,7 @@ public:
 
     // - - - Background
     void Set_Background_Color(Color_Type Color);
-    void Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode);
+    void Set_Background_Dither_Mode(Dither_Mode::Type Dither_Mode);
     void Set_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor);
     void Set_Background_Gradient_Color(Color_Type Color);
     void Set_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction);

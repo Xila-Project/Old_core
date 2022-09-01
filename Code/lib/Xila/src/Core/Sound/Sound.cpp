@@ -41,27 +41,27 @@ Sound_Class::~Sound_Class()
 void Sound_Class::Begin()
 {
     Audio_Driver.setBalance(0);
-    Xila.Task.Create(Xila.Sound.Task, "Sound task", Memory_Chunk(6), NULL, Xila.Task.Driver_Task, &Xila.Sound.Task_Handle);
+    Task.Create(Sound.Task, "Sound task", Memory_Chunk(6), NULL, Task.Driver_Task, &Sound.Task_Handle);
 }
 
 ///
 /// @brief A method that load sound registry.
 ///
-/// @return Result_Type
+/// @return Result::Type
 ///
-Result_Type Sound_Class::Load_Registry()
+Result::Type Sound_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Sound"));
+    File Temporary_File = Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
     if (strcmp("Sound", Sound_Registry["Registry"] | "") != 0)
     {
-        return Error;
+        return Result::Error;
     }
     Output = Sound_Registry["Output"] | Default_Sound_Output;
     if (Output == Internal_DAC)
@@ -80,14 +80,14 @@ Result_Type Sound_Class::Load_Registry()
         Set_Channels(2);
     }
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
-    return Success;
+    return Result::Success;
 }
 
 ///
  /// @brief Save sound registry.
  /// 
- /// @return Result_Type 
-Result_Type Sound_Class::Save_Registry()
+ /// @return Result::Type 
+Result::Type Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";
@@ -96,14 +96,14 @@ Result_Type Sound_Class::Save_Registry()
     Sound_Registry["Clock Pin"] = Clock_Pin;
     Sound_Registry["Word Select Pin"] = Word_Select_Pin;
     Sound_Registry["Data Pin"] = Data_Pin;
-    File Temporary_File = Xila.Drive.Open(Registry("Sound"), FILE_WRITE);
+    File Temporary_File = Drive.Open(Registry("Sound"), FILE_WRITE);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
-    return Success;
+    return Result::Success;
 }
 
 ///
@@ -112,7 +112,7 @@ Result_Type Sound_Class::Save_Registry()
 /// @param Informations
 void audio_eof_mp3(const char *Informations)
 {
-    Xila.Sound.Stop();
+    Sound.Stop();
 }
 
 ///
@@ -322,7 +322,7 @@ uint8_t Sound_Class::Play(File &File_To_Play)
         return Failed_To_Open_File;
     }
 
-    return Success;
+    return Result::Success;
 }
 
 ///

@@ -47,11 +47,11 @@ void Task_Class::Suspend()
     }
 }
 
-Module_Class::Result_Type Task_Class::Create(Task_Function *Task_Function, const char *Task_Name, Size_Type Stack_Size, Priority_Type Priority)
+Module_Class::Result::Type Task_Class::Create(Task_Function *Task_Function, const char *Task_Name, Size_Type Stack_Size, Priority_Type Priority)
 {
     if (Task_Handle != NULL)
     {
-        return Error;
+        return Result::Error;
     }
 
     if (Priority > High || Priority < Background)
@@ -61,9 +61,9 @@ Module_Class::Result_Type Task_Class::Create(Task_Function *Task_Function, const
 
     if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, NULL, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
     {
-        return Error;
+        return Result::Error;
     }
-    return Success;
+    return Result::Success;
 }
 
 ///
@@ -95,7 +95,7 @@ void Task_Class::Delete()
 //
 // ------------------------------------------------------------------------- //
 
-Module_Class::Result_Type Task_Class::Set_Priority(Priority_Type Priority)
+Module_Class::Result::Type Task_Class::Set_Priority(Priority_Type Priority)
 {
     if (Priority > Idle && Priority < System)
     {
@@ -103,10 +103,10 @@ Module_Class::Result_Type Task_Class::Set_Priority(Priority_Type Priority)
     }
     if (Get_State() == Deleted)
     {
-        return Error;
+        return Result::Error;
     }
     vTaskPrioritySet(Task_Handle, (UBaseType_t)Priority);
-    return Success;
+    return Result::Success;
 }
 
 // ------------------------------------------------------------------------- //

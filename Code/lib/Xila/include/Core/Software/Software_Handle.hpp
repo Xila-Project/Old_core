@@ -30,7 +30,7 @@ public:
     Software_Handle_Class();
     Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
 
-    Result_Type Create_Instance();
+    Result::Type Create_Instance();
 
     /// -- Methods -- //
     bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;

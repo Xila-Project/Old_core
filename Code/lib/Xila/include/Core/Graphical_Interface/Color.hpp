@@ -35,7 +35,7 @@ class Color_Class : public Types_Class
 public:
     // - Types
 
-    typedef enum Palette_Enumeration
+    typedef enum Tag_Enumeration
     {
         Red = LV_PALETTE_RED,
         Pink = LV_PALETTE_PINK,
@@ -57,7 +57,7 @@ public:
         Blue_Grey = LV_PALETTE_BLUE_GREY,
         Grey = LV_PALETTE_GREY,
         None = LV_PALETTE_NONE,
-    } Palette_Type;
+    } Tag_Type;
 
     // - Methods
 
@@ -84,27 +84,21 @@ public:
     void Set_Darker(Opacity::Type Opacity);
     void Set_Lighter(Opacity::Type Opacity);
 
-    void Set_From_Palette_Main(Palette_Type Palette);
-    void Set_From_Palette_Darken(Palette_Type Palette, uint8_t Level);
-    void Set_From_Palette_Lighten(Palette_Type Palette, uint8_t Level);
-
-
+    void Set_From_Palette(Tag_Type Color_Tag, int8_t Level = 0);
     // - - Getters
 
-    void Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value);
-    uint8_t Get_RGB_1_Bit();
-    uint8_t Get_RGB_8_Bits();
-    uint16_t Get_RGB_16_Bits();
-    uint32_t Get_RGB_32_Bits();
+    void Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value) const;
+    uint8_t Get_RGB_1_Bit() const;
+    uint8_t Get_RGB_8_Bits() const;
+    uint16_t Get_RGB_16_Bits() const;
+    uint32_t Get_RGB_32_Bits() const;
 
-    uint8_t Get_Brightness();
+    uint8_t Get_Brightness() const;
 
-    static Color_Class Get_From_Palette_Main(Palette_Type Palette);
-    static Color_Class Get_From_Palette_Darken(Palette_Type Palette, uint8_t Level);
-    static Color_Class Get_From_Palette_Lighten(Palette_Type Palette, uint8_t Level);
+    static Color_Class Get_From_Palette(Tag_Type Color_Tag, int8_t Level = 0);
 
-    lv_color_t Get_LVGL_Color();
-    lv_color_hsv_t Get_LVGL_HSV_Color();
+    lv_color_t Get_LVGL_Color() const;
+    lv_color_hsv_t Get_LVGL_HSV_Color() const;
 
 protected:
     lv_color_t LVGL_Color;

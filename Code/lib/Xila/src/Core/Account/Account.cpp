@@ -25,8 +25,8 @@ Account_Class::Account_Class()
 ///
 /// @brief Load account registry.
 ///
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Load_Registry()
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Load_Registry()
 {
   Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
@@ -35,13 +35,13 @@ Module_Class::Result_Type Account_Class::Load_Registry()
   {
 
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
   if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
   {
 
-    return Error;
+    return Result::Error;
   }
   memset(Current_Username, '\0', sizeof(Current_Username));
   strlcpy(Current_Username, Account_Registry["Autologin"] | "", sizeof(Current_Username));
@@ -50,15 +50,15 @@ Module_Class::Result_Type Account_Class::Load_Registry()
     State = Logged;
   }
 
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief A method that set autologin and save account registry.
 ///
 /// @param Enable true to enable and false to disable autologin.
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable)
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Set_Autologin(bool Enable)
 {
   Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -74,10 +74,10 @@ Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable)
   if (serializeJson(Account_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
-  return Success;
+  return Result::Success;
 }
 
 ///
@@ -115,44 +115,44 @@ void Account_Class::Set_Current_Username(const char *Username)
  /// 
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
- /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Add(const char *Username, const char *Password)
+ /// @return Result::Type 
+Module_Class::Result::Type Account_Class::Add(const char *Username, const char *Password)
 {
   if (Drive.Exists(Users_Directory_Path "/" + String(Username)))
   {
-    return Error;
+    return Result::Error;
   }
   char Temporary_Path[30];
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Desk", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Images", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Musics", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
 
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Document", Username);
   if (Drive.Make_Directory(Temporary_Path) == false)
   {
-    return Error;
+    return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", Username);
   Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Path, FILE_WRITE);
@@ -163,26 +163,26 @@ Module_Class::Result_Type Account_Class::Add(const char *Username, const char *P
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief Delete a user account.
 ///
 /// @param Target_User User to delete.
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Delete(const char *Target_User)
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
   if (Drive.Remove_Directory(Temporary_Path))
   {
-    return Success;
+    return Result::Success;
   }
-  return Error;
+  return Result::Error;
 }
 
 ///
@@ -190,8 +190,8 @@ Module_Class::Result_Type Account_Class::Delete(const char *Target_User)
 ///
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Change_Username(const char *Target_User, const char *New_Username)
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   char Temporary_Path[20];
   char Temporary_Target_Path[20];
@@ -202,13 +202,13 @@ Module_Class::Result_Type Account_Class::Change_Username(const char *Target_User
   strlcat(Temporary_Path, New_Username, sizeof(Temporary_Path));
   if (!Drive.Rename(Temporary_Target_Path, Temporary_Path))
   {
-    return Error;
+    return Result::Error;
   }
   if (strcmp(Target_User, Current_Username) == 0)
   {
     strlcpy(Current_Username, New_Username, sizeof(Current_Username));
   }
-  return Success;
+  return Result::Success;
 }
 
 ///
@@ -216,8 +216,8 @@ Module_Class::Result_Type Account_Class::Change_Username(const char *Target_User
 ///
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
@@ -228,17 +228,17 @@ Module_Class::Result_Type Account_Class::Change_Password(const char *Target_User
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief Logout from the openned user session.
 ///
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Logout()
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Logout()
 {
   if (Get_State() != Disconnected)
   {
@@ -247,20 +247,20 @@ Module_Class::Result_Type Account_Class::Logout()
     Set_State(Disconnected);
   }
 
-  return Success;
+  return Result::Success;
 }
 
 ///
 /// @brief Lock openned user session.
 ///
-/// @return Result_Type
-Module_Class::Result_Type Account_Class::Lock()
+/// @return Result::Type
+Module_Class::Result::Type Account_Class::Lock()
 {
   if (State == Logged)
   {
     State = Locked;
   }
-  return Success;
+  return Result::Success;
 }
 
 ///
@@ -268,8 +268,8 @@ Module_Class::Result_Type Account_Class::Lock()
  /// 
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
- /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+ /// @return Result::Type 
+Module_Class::Result::Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
@@ -278,18 +278,18 @@ Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
   if (strcmp("User", User_Registry["Registry"] | "") != 0)
   {
-    return Error;
+    return Result::Error;
   }
   if (strcmp(Password_To_Check, User_Registry["Password"] | "") != 0)
   {
-    return Error;
+    return Result::Error;
   }
-  return Success;
+  return Result::Success;
 }
 
 ///
@@ -297,13 +297,13 @@ Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_
  /// 
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
- /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+ /// @return Result::Type 
+Module_Class::Result::Type Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
   {
     State = Disconnected;
-    return Error;
+    return Result::Error;
   }
   // -- If another user was already connected, close all of it's software.
   if (State == Locked && (strcmp(Account.Current_Username, Username_To_Check) != 0))
@@ -320,5 +320,5 @@ Module_Class::Result_Type Account_Class::Login(const char *Username_To_Check, co
   //
   strlcpy(Current_Username, Username_To_Check, sizeof(Current_Username));
   State = Logged;
-  return Success;
+  return Result::Success;
 }

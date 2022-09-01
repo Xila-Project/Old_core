@@ -54,7 +54,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Module_Class::Result_Type Display_Class::Load_Registry()
+Module_Class::Result::Type Display_Class::Load_Registry()
 {
     Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -62,24 +62,24 @@ Module_Class::Result_Type Display_Class::Load_Registry()
     {
         Temporary_File.close();
         Log_Error("Failed to load display registry.");
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
     if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
         Log_Error("Failed to load display registry.");
-        return Error;
+        return Result::Error;
     }
     Set_Standby_Time(Display_Registry["Standby Time"] | Default_Display_Standby_Time);
     Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
-    return Success;
+    return Result::Success;
 }
 
 ///
 /// @brief Save display registry
 ///
-/// @return Result_Type
-Module_Class::Result_Type Display_Class::Save_Registry()
+/// @return Result::Type
+Module_Class::Result::Type Display_Class::Save_Registry()
 {
     Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);
@@ -90,8 +90,8 @@ Module_Class::Result_Type Display_Class::Save_Registry()
     {
         Temporary_File.close();
         Log_Error("Failed to save display registry.");
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
-    return Success;
+    return Result::Success;
 }

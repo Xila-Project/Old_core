@@ -59,50 +59,50 @@ WiFi_Class::WiFi_Class()
 ///
 /// @brief Load WiFi registry.
 ///
-/// @return Result_Type
+/// @return Result::Type
 ///
-Module_Class::Result_Type WiFi_Class::Load_Registry()
+Module_Class::Result::Type WiFi_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open((Registry("Network")));
+    File Temporary_File = Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
     if (strcmp(Network_Registry["Registry"] | "", "Network") != 0)
     {
-        return Error;
+        return Result::Error;
     }
     JsonObject WiFi_Registry = Network_Registry["WiFi"];
     strlcpy(this->Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
     char Temporary_Char[33];
     strlcpy(Temporary_Char, WiFi_Registry["Name"] | "\0", sizeof(Temporary_Char));
     Set_Credentials(Temporary_Char, Password);
-    return Success;
+    return Result::Success;
 }
 
 ///
 /// @brief Save WiFi registry.
 ///
-/// @return Result_Type
+/// @return Result::Type
 ///
-Module_Class::Result_Type WiFi_Class::Save_Registry()
+Module_Class::Result::Type WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";
     JsonObject WiFi_Registry = Network_Registry.createNestedObject("WiFi");
     WiFi_Registry["Name"] = SSID();
     WiFi_Registry["Password"] = Password;
-    File Temporary_File = Xila.Drive.Open(Registry("Network"), FILE_WRITE);
+    File Temporary_File = Drive.Open(Registry("Network"), FILE_WRITE);
     if (serializeJson(Network_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
-    return Success;
+    return Result::Success;
 }
 
 ///

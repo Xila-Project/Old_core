@@ -37,6 +37,7 @@ public:
         Maximized,  ///< Minimized state.
     } State_Type;
 
+
     typedef Task_Class Task_Type;
 
     // - Methods

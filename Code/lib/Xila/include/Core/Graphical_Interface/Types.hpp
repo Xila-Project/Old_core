@@ -230,15 +230,19 @@ public:
         typedef lv_text_align_t Alignment_Type;
     };
 
-    /// @brief Dither mode type.
-    typedef lv_dither_mode_t Dither_Mode_Type;
-
-    /// @brief Dither mode enumeration.
-    enum Dither_Mode_Enumeration
+    class Dither_Mode
     {
-        None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
-        Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/
-        Error_diffusion = LV_DITHER_ERR_DIFF, /**< Error diffusion mode. Slower to compute and use more memory but give highest dither quality*/
+    public:
+        /// @brief Dither mode type.
+        typedef lv_dither_mode_t Mode_Type;
+
+        /// @brief Dither mode enumeration.
+        enum Mode_Enumeration
+        {
+            None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
+            Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/
+            Error_diffusion = LV_DITHER_ERR_DIFF, /**< Error diffusion mode. Slower to compute and use more memory but give highest dither quality*/
+        };
     };
 };
 

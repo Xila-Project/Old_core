@@ -8,7 +8,7 @@
 ///
 /// @section License
 ///
-/// Copyright (c) 2020 Alix ANNERAUD
+/// Copyright (c) 2020 Alix ANNERAUD 
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 /// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -21,7 +21,7 @@
 #ifndef Shell_Hpp_Included
 #define Shell_Hpp_Included
 
-#include "Xila.hpp"
+#include "hpp"
 
 #define Default_Background -1
 
@@ -33,7 +33,7 @@
 
 using namespace Xila;
 
-class Shell_Class : public Xila_Class::Software
+class Shell_Class : public Software_Type
 {
 protected:
     // -- Attributes
@@ -57,38 +57,28 @@ protected:
         ///
         /// @details Desk image when < 0 and Custom color when > 0 (color code itself).
         ///
-        int32_t Background;
+        Object_Type::Color_Type Background_Color;
 
-        uint8_t Offset;
 
-        const Graphical_Interface::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        const Graphical_Interface::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-
-        Graphical_Interface::Window_Type Window;
-
-        Graphical_Interface::Object_Type Grid;
-
-        Graphical_Interface::Object_Type Dock;
-
-        Graphical_Interface::Object_Type Menu_Button;
-
-        Graphical_Interface
+        Window_Type Window;
+        Object_Type Grid;
+        Object_Type Dock;
+        Object_Type Menu_Button;
 
         // -- Constructors / destructor
-
         Desk_Class();
 
         // -- Methods
-
         void Open(uint8_t);
-
         void Refresh_Desk();
         void Refresh_Drawer();
-
-        void Execute_Desk_Instruction(Xila_Class::Instruction);
-        void Execute_Drawer_Instruction(Xila_Class::Instruction);
-
-        void Dock(uint8_t, uint8_t);
+        void Execute_Desk_Instruction(Instruction_Type);
+        void Execute_Drawer_Instruction(Instruction_Type);
+        
+        
+        void Maximize_Dock_Software(uint8_t);
+        void Close_Dock_Software(uint8_t);
+        
         void Open_From_Drawer(uint8_t);
 
         void Logout();
@@ -96,163 +86,8 @@ protected:
         // -- friendship
         friend class Shell_Class;
 
-    } Desk;
+    }* Desk_Pointer;
 
-    //
-
-    ///
-    /// @brief Dialog class
-    ///
-    class Dialog_Class
-    {
-    protected:
-        // -- Attributes
-
-        class Keyboard_Class
-        {
-        protected:
-            // -- Attributes
-            char *String;
-            size_t Size;
-            bool Masked_Input;
-            Xila_Class::Page Page;
-
-            // -- Methods
-            static void Open();
-            static bool State();
-            static void Execute_Instruction(Xila_Class::Instruction);
-
-            // -- Friendship
-            friend class Shell_Class;
-
-        } * Keyboard_Pointer;
-
-        class Keypad_Class
-        {
-        protected:
-            // -- Attributes
-            float *Number;
-            char Temporary_Float_String[32];
-            Xila_Class::Page Page;
-
-            // -- Methods
-            static void Open();
-            static bool State();
-            void Execute_Instruction(Xila_Class::Instruction);
-
-            // -- Friendship
-            friend class Shell_Class;
-
-        } * Keypad_Pointer;
-
-        class Load_Class
-        {
-        protected:
-            // -- Attributes
-            uint8_t Mode;
-            const void *Header;
-            const void *Message;
-            uint32_t Duration;
-            Xila_Class::Software *Caller_Software;
-            Xila_Class::Page Page;
-
-            // -- Methods
-            static void Open();
-            static bool State();
-            void Execute_Instruction(Xila_Class::Instruction);
-
-            // -- Friendship
-            friend class Shell_Class;
-        } * Load_Pointer;
-
-        class Login_Class
-        {
-        protected:
-            // -- Attributes
-            char Username[Maximum_Username_Length + 1];
-            char Password[Maximum_Password_Length + 1];
-            bool Login;
-            Xila_Class::Page Page;
-
-            // -- Methods
-            static void Open(bool Login = false);
-            static bool State();
-            void Execute_Instruction(Xila_Class::Instruction);
-
-            // -- Friendship
-            friend class Shell_Class;
-        } * Login_Pointer;
-
-        class Power_Class
-        {
-        protected:
-            // -- Methods
-            static void Execute_Instruction(Xila_Class::Instruction);
-            static void Open();
-
-            // -- Friendship
-            friend class Shell_Class;
-        } Power_Pointer;
-
-        class Color_Picker_Class
-        {
-        protected:
-            // -- Attributes
-            uint16_t *Color;
-
-            // -- Methods
-            void Execute_Instruction(Xila_Class::Instruction);
-            void Open();
-
-            // -- Friendship
-            friend class Shell_Class;
-        } Color_Picker_Pointer;
-
-        class Event_Class
-        {
-        protected:
-            // -- Attributes
-            uint8_t Mode;
-            const void *Message;
-            uint8_t Type;
-            const void *Button_Text[3];
-            Xila_Class::Page Page;
-
-            // -- Methods
-            static void Open();
-            static bool State();
-            void Execute_Instruction(Xila_Class::Instruction);
-
-            // -- Friendship
-            friend class Shell_Class;
-
-        } * Event_Pointer;
-
-        // -- Constructors / Destructor
-
-        Dialog_Class();
-        ~Dialog_Class();
-
-        // -- Methods
-
-        void Load(const __FlashStringHelper *Header, const __FlashStringHelper *Message, uint32_t Duration = 0);
-        void Load(const char *Header, const char *Message, uint32_t Duration = 0);
-        void Close_Load();
-        void Power();
-        Result_Type Login();
-        Result_Type Keyboard(char *, size_t, bool = false);
-        Result_Type Keypad(float &Number_To_Get);
-        Result_Type Event(const __FlashStringHelper *, uint8_t, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL, const __FlashStringHelper * = NULL);
-        Result_Type Event(const char *, uint8_t, const char * = NULL, const char * = NULL, const char * = NULL);
-        Result_Type Color_Picker(uint16_t &);
-        Result_Type Open_File(File &);
-        Result_Type Save_File(File &);
-        Result_Type Open_Folder(File &);
-
-        // -- Friend
-        friend class Shell_Class;
-
-    } Dialog;
 
     ///
     /// @brief File manager class
@@ -289,11 +124,11 @@ protected:
         File_Manager_Class();
         ~File_Manager_Class();
 
-        static void Open(uint8_t = Xila.Idle);
+        static void Open(uint8_t = Idle);
         static bool State();
         static void Close();
 
-        void Execute_Instruction(Xila_Class::Instruction);
+        void Execute_Instruction(Instruction_Type Instruction);
 
         void Select_Item();
         void Validate();
@@ -304,7 +139,7 @@ protected:
         void Create_File();
         void Create_Folder();
 
-        inline Xila_Class::Instruction Get_Mode()
+        inline Instruction_Type Get_Mode()
         {
             return Mode;
             DUMP("get mode");
@@ -361,12 +196,12 @@ protected:
 
         int32_t GMT_Offset; // -- Time
         int16_t Daylight_Offset;
-        char NTP_Server[sizeof(Xila.Time.NTP_Server)];
+        char NTP_Server[sizeof(Time.NTP_Server)];
 
         char Name[25]; // -- System
 
         char WiFi_Name[33]; // -- Network
-        char WiFi_Password[sizeof(Xila.WiFi.Password)];
+        char WiFi_Password[sizeof(WiFi.Password)];
 
         char Temporary_String[16];
 
@@ -388,11 +223,11 @@ protected:
         void Refresh_System();
         void Refresh_Install();
 
-        void Execute_Hardware_Instruction(Xila_Class::Instruction);
-        void Execute_Network_Instruction(Xila_Class::Instruction);
-        void Execute_Personal_Instruction(Xila_Class::Instruction);
-        void Execute_System_Instruction(Xila_Class::Instruction);
-        void Execute_Install_Instruction(Xila_Class::Instruction);
+        void Execute_Hardware_Instruction(Instruction_Type Instruction);
+        void Execute_Network_Instruction(Instruction_Type Instruction);
+        void Execute_Personal_Instruction(Instruction_Type Instruction);
+        void Execute_System_Instruction(Instruction_Type Instruction);
+        void Execute_Install_Instruction(Instruction_Type Instruction);
 
         inline void System_Update();
 
@@ -400,85 +235,28 @@ protected:
 
     } * Preferences_Pointer;
 
-    ///
-    /// @brief Pages
-    ///
-    class Pages_Class
-    {
-    protected:
-        enum
-        {
-            About = Xila.Display.Shell_Pages,
-            Dialog_Color_Picker, // color picker
-            Desk,
-            Drawer,
-            Dialog_Event,
-            File_Manager_Main,
-            File_Manager_Detail,
-            Preferences_Hardware,
-            Preferences_Install,
-            Dialog_Keyboard,
-            Dialog_Keypad,
-            Dialog_Login,
-            Dialog_Load,
-            Preferences_Network,
-            Preferences_Personal,
-            Dialog_Power,
-            Preferences_System,
-            Welcome,
-        };
-
-        friend class Shell_Class;
-    } static Pages;
-
     // -- Attributes
 
     // -- Methods
 
-    void Execute_Instruction(Xila_Class::Instruction);
+    void Execute_Instruction(Instruction_Type Instruction);
     void Refresh_Header();
     uint32_t Next_Refresh;
     char Temporary_Char_Array[6];
 
-    Result_Type Save_Registry();
-    Result_Type Load_Registry();
+    Result::Type Save_Registry();
+    Result::Type Load_Registry();
 
-    void Set_Variable(Xila_Class::Address, uint8_t Type, const void *);
 
-    static Xila_Class::Task_Function Main_Task(void *);
+
+    static void Main_Task(void *);
 
 public:
     // -- Methods
-    static Xila_Class::Software *Load_Shell();
+
+    static void Create_Instance();
 
     static void Startup();
-
-    class Images_Class
-    {
-    public:
-        enum
-        {
-            Empty_16 = Xila.Display.Shell_Images,
-            File_16,
-            Folder_16,
-            Copy_24,
-            Cut_24,
-            Home_24,
-            New_File_24,
-            New_Folder_24,
-            Refresh_24,
-            Paste_24,
-            Rename_24,
-            Root_24,
-            Trash_24,
-            Empty_32,
-            File_Manager_32,
-            Preferences_32,
-            Shutdown_32,
-            Alix_Fait_Grr_Icon_64,
-            Background_Picture_480,
-        };
-    } static Images;
 
     Shell_Class();
     ~Shell_Class();

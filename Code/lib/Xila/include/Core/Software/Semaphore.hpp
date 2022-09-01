@@ -27,7 +27,7 @@ public:
 
     Semaphore_Class();
 
-    Result_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+    Result::Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
     // Event_Type Create_Static()
 
     void Delete();

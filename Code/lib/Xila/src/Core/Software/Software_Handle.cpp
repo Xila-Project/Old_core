@@ -39,16 +39,16 @@ Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*L
   Software_Handle_List.push_back(this);
 }
 
-Software_Handle_Class::Result_Type Software_Handle_Class::Create_Instance()
+Software_Handle_Class::Result::Type Software_Handle_Class::Create_Instance()
 {
   if (Create_Instance_Pointer == NULL)
   {
-    return Error;
+    return Result::Error;
   }
   else
   {
     Create_Instance_Pointer();
-    return Success;
+    return Result::Success;
   }
 }
 
@@ -71,21 +71,21 @@ bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handl
 /// @brief Function that open software.
 ///
 /// @param Software_Handle Software's handle to open.
-/// @return Result_Type
-Module_Class::Result_Type Software_Class::Open(Software_Handle const &Software_Handle)
+/// @return Result::Type
+Module_Class::Result::Type Software_Class::Open(Software_Handle const &Software_Handle)
 {
   if (Software_Handle == Shell_Handle)
   {
     if (Openned[1] != NULL)
     {
       Maximize(Shell_Handle);
-      return Success;
+      return Result::Success;
     }
     else
     {
       Openned[1] = (*Shell_Handle.Load_Function_Pointer)();
       Openned[0] = Openned[1];
-      return Success;
+      return Result::Success;
     }
   }
 
@@ -98,7 +98,7 @@ Module_Class::Result_Type Software_Class::Open(Software_Handle const &Software_H
       if (Software_Handle == *Openned[i]->Handle)
       {
         Maximize(*Openned[i]->Handle);
-        return Success;
+        return Result::Success;
       }
     }
   }
@@ -109,7 +109,7 @@ Module_Class::Result_Type Software_Class::Open(Software_Handle const &Software_H
     {
       if (Software_Handle.Load_Function_Pointer == NULL)
       {
-        return Error;
+        return Result::Error;
       }
 
       Openned[i] = (*Software_Handle.Load_Function_Pointer)(); // <- at this point Openned[1] to be modified
@@ -119,15 +119,15 @@ Module_Class::Result_Type Software_Class::Open(Software_Handle const &Software_H
         vTaskDelete(Openned[i]->Task_Handle);
         delete Openned[i];
         Openned[i] = NULL;
-        return Error;
+        return Result::Error;
       }
 
       Openned[0] = Openned[i];
 
-      return Success;
+      return Result::Success;
     }
   }
-  return Error;
+  return Result::Error;
 }
 
 ///

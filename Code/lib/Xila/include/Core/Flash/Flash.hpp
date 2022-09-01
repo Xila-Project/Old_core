@@ -82,9 +82,9 @@ public:
     uint32_t Get_Speed();
     FlashMode_t Get_Mode();
 
-    Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
+    Result::Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
 
-    Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
+    Result::Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
 
     uint32_t Get_Sketch_Size();
     String Get_Sketch_MD5();
@@ -92,13 +92,13 @@ public:
 
 private:
     // -- Methods
-    Result_Type Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype);
+    Result::Type Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype);
 
-    Result_Type Erase_Sector(uint32_t Sector);
-    Result_Type Write(uint32_t Offset, uint32_t *Data, size_t Size);
+    Result::Type Erase_Sector(uint32_t Sector);
+    Result::Type Write(uint32_t Offset, uint32_t *Data, size_t Size);
 
-    Result_Type Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
-    Result_Type Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
+    Result::Type Partition_Write(const esp_partition_t *Partition, uint32_t Offset_, uint32_t *Data, size_t Size);
+    Result::Type Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size);
 
     static uint32_t Sketch_Size(sketchSize_t Response);
     uint32_t Magic_Size(uint8_t Byte);

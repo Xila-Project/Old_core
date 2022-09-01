@@ -335,7 +335,7 @@ public:
 
     // - - - - Background
     void Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector);
-    void Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector);
+    void Set_Style_Background_Dither_Mode(Dither_Mode::Type Dither_Mode, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient(const Gradient::Descriptor_Type *Gradient_Descriptor, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient_Color(Color_Type Color, Style_Selector_Type Style_Selector);
     void Set_Style_Background_Gradient_Direction(Gradient::Direction_Type Gradient_Direction, Style_Selector_Type Style_Selector);
@@ -504,7 +504,7 @@ public:
     Coordinate_Type Get_Style_Background_Main_Stop(uint32_t Part);
     Coordinate_Type Get_Style_Background_Gradient_Stop(uint32_t Part);
     const Gradient::Descriptor_Type *Get_Style_Background_Gradient(uint32_t Part);
-    Dither_Mode_Type Get_Style_Background_Dither_Mode(uint32_t Part);
+    Dither_Mode::Type Get_Style_Background_Dither_Mode(uint32_t Part);
     const void *Get_Style_Background_Image_Source(uint32_t Part);
     Opacity::Type Get_Style_Background_Image_Opacity(uint32_t Part);
     Color_Type Get_Style_Background_Image_Recolor(uint32_t Part);

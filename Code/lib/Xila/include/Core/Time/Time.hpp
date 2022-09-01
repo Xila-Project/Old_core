@@ -65,8 +65,8 @@ class Time_Class : public Module_Class
         char NTP_Server[32];
 
         // -- Methods
-        Result_Type Load_Registry();
-        Result_Type Save_Registry();
+        Result::Type Load_Registry();
+        Result::Type Save_Registry();
 
 };
 

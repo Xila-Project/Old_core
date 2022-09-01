@@ -34,7 +34,7 @@ public:
         Locked
     } Session_State;
 
-    Result_Type Check_Credentials(const char *, const char *);
+    Result::Type Check_Credentials(const char *, const char *);
 
     // -- Getter
     const char *Get_Current_Username();
@@ -55,21 +55,21 @@ public:
 
     // -- Methods
 
-    Result_Type Add(const char *Username, const char *Password);
-    Result_Type Delete(const char *);
-    Result_Type Change_Password(const char *, const char *);
-    Result_Type Change_Username(const char *, const char *);
-    Result_Type Set_Autologin(bool Enable);
-    Result_Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-    Result_Type Logout();
-    Result_Type Lock();
+    Result::Type Add(const char *Username, const char *Password);
+    Result::Type Delete(const char *);
+    Result::Type Change_Password(const char *, const char *);
+    Result::Type Change_Username(const char *, const char *);
+    Result::Type Set_Autologin(bool Enable);
+    Result::Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+    Result::Type Logout();
+    Result::Type Lock();
 
     // -- Setter
 
     void Set_Current_Username(const char *Username);
     void Set_State(Session_State State);
 
-    Result_Type Load_Registry();
+    Result::Type Load_Registry();
 
 };
 

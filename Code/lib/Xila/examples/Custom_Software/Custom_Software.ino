@@ -1,4 +1,4 @@
-#include "Xila.hpp"
+#include "hpp"
 
 Xila_Class::Software_Handle My_Software_Handle;
 
@@ -49,7 +49,7 @@ public:
   My_Software() : Xila_Class::Software(My_Software_Handle)
   {
     // -- Create main task
-    Xila.Task.Create(Main_Task, "My Software Task", Memory_Chunk(4), NULL, &Task_Handle);
+    Task.Create(Main_Task, "My Software Task", Memory_Chunk(4), NULL, &Task_Handle);
   };
 
   ~My_Software()
@@ -74,7 +74,7 @@ public:
     }
     // -- Reset instance pointer
     Instance_Pointer = new My_Software();
-    // -- Return instance pointer for Xila.
+    // -- Return instance pointer for 
     return Instance_Pointer;
   };
 };
@@ -111,12 +111,12 @@ void setup()
           Text_Editor_Handle,
           Tiny_Basic_Handle};
 
-  Xila.Start(Custom_Software_Package, 12);
+  Start(Custom_Software_Package, 12);
 
-  Xila.System.Start();
+  System.Start();
 }
 
 void loop()
 {
-  Xila.Task.Delete();
+  Task.Delete();
 }

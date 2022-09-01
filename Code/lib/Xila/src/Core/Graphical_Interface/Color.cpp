@@ -109,19 +109,22 @@ void Color_Class::Set_Lighter(Opacity::Type Opacity)
     LVGL_Color = lv_color_lighten(LVGL_Color, Opacity);
 }
 
-void Color_Class::Set_From_Palette_Main(Palette_Type Palette)
+void Color_Class::Set_From_Palette(Tag_Type Palette, int8_t Level)
 {
-    LVGL_Color = lv_palette_main((lv_palette_t)Palette);
-}
 
-void Color_Class::Set_From_Palette_Lighten(Palette_Type Palette, uint8_t Level)
-{
-    LVGL_Color = lv_palette_lighten((lv_palette_t)Palette, Level);
-}
-
-void Color_Class::Set_From_Palette_Darken(Palette_Type Palette, uint8_t Level)
-{
-    LVGL_Color = lv_palette_darken((lv_palette_t)Palette, Level);
+    if (Level > 0) // From 1 to 5
+    {
+        LVGL_Color = lv_palette_lighten((lv_palette_t)Palette, Level);
+    }
+    else if (Level < 0) // From -1 to -4
+    {
+        Level = -Level;
+        LVGL_Color = lv_palette_darken((lv_palette_t)Palette, -Level);
+    }
+    else
+    {
+        LVGL_Color = lv_palette_main((lv_palette_t)Palette);
+    }
 }
 
 // ------------------------------------------------------------------------- //
@@ -135,22 +138,22 @@ lv_color_filter_dsc_t *Color_Filter_Descriptor_Class::Get_Pointer()
     return &LVGL_Color_Filter_Descriptor;
 }
 
-uint8_t Color_Class::Get_Brightness()
+uint8_t Color_Class::Get_Brightness() const
 {
     return lv_color_brightness(LVGL_Color);
 }
 
-lv_color_t Color_Class::Get_LVGL_Color()
+lv_color_t Color_Class::Get_LVGL_Color() const
 {
     return LVGL_Color;
 }
 
-lv_color_hsv_t Color_Class::Get_LVGL_HSV_Color()
+lv_color_hsv_t Color_Class::Get_LVGL_HSV_Color() const
 {
     return lv_color_to_hsv(LVGL_Color);
 }
 
-void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value)
+void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value) const
 {
     lv_color_hsv_t HSV_Color = lv_color_to_hsv(LVGL_Color);
     Hue = HSV_Color.h;
@@ -158,38 +161,37 @@ void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value)
     Value = HSV_Color.v;
 }
 
-uint8_t Color_Class::Get_RGB_1_Bit()
+uint8_t Color_Class::Get_RGB_1_Bit() const
 {
     return lv_color_to1(LVGL_Color);
 }
 
-uint8_t Color_Class::Get_RGB_8_Bits()
+uint8_t Color_Class::Get_RGB_8_Bits() const
 {
     return lv_color_to8(LVGL_Color);
 }
 
-uint16_t Color_Class::Get_RGB_16_Bits()
+uint16_t Color_Class::Get_RGB_16_Bits() const
 {
     return lv_color_to16(LVGL_Color);
 }
 
-uint32_t Color_Class::Get_RGB_32_Bits()
+uint32_t Color_Class::Get_RGB_32_Bits() const
 {
     return lv_color_to32(LVGL_Color);
 }
 
-Color_Class Color_Class::Get_From_Palette_Main(Palette_Type Palette)
+Color_Class Color_Class::Get_From_Palette(Tag_Type Palette, int8_t Level)
 {
+
+    if (Level > 0) // From 1 to 5
+    {
+        return Color_Class(lv_palette_lighten((lv_palette_t)Palette, Level));
+    }
+    else if (Level < 0) // From -1 to -4
+    {
+        Level = -Level;
+        return Color_Class(lv_palette_darken((lv_palette_t)Palette, -Level));
+    }
     return Color_Class(lv_palette_main((lv_palette_t)Palette));
 }
-
-Color_Class Color_Class::Get_From_Palette_Lighten(Palette_Type Palette, uint8_t Level)
-{
-    return Color_Class(lv_palette_lighten((lv_palette_t)Palette, Level));
-}
-
-Color_Class Color_Class::Get_From_Palette_Darken(Palette_Type Palette, uint8_t Level)
-{
-    return Color_Class(lv_palette_darken((lv_palette_t)Palette, Level));
-}
-

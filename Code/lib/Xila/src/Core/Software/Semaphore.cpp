@@ -18,7 +18,7 @@ Event_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, u
 {
     if (Semaphore_Handle != NULL)
     {
-        return Event_Type::Error;
+        return Event_Type::Result::Error;
     }
 
     switch (Type)
@@ -38,11 +38,11 @@ Event_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, u
 
     if (Semaphore_Handle == NULL)
     {
-        return Event_Type::Error;
+        return Event_Type::Result::Error;
     }
     else
     {
-        return Event_Type::Success;
+        return Event_Type::Result::Success;
     }
 }
 

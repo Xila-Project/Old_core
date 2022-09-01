@@ -66,7 +66,7 @@ void Software_Class::Check_Watchdogs()
 /// @return false watchdog is not expired.
 bool Software_Class::Check_Watchdog()
 {
-  if (Xila.Time.Milliseconds() - Last_Watchdog_Feed > Watchdog_Timeout || Watchdog_Timeout > Maximum_Watchdog_Timeout)
+  if (Time.Milliseconds() - Last_Watchdog_Feed > Watchdog_Timeout || Watchdog_Timeout > Maximum_Watchdog_Timeout)
   {
     return true;
   }
@@ -82,9 +82,9 @@ bool Software_Class::Check_Watchdog()
 /// @param Software_Handle Software's handle to feed watchdog.
 void Software_Class::Feed_Watchdog()
 {
-  if (Watchdog_State != 0 && &Software_Handle == Xila.Software_Management.Openned[Watchdog_ State]->Handle)
+  if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_ State]->Handle)
   {
-    Xila.Software_Management.Watchdog_Timer = Xila.Time.Milliseconds();
+    Software_Management.Watchdog_Timer = Time.Milliseconds();
   }
 }
 
@@ -112,7 +112,7 @@ void Software_Class::Close()
     Software_List[0]->Maximize();
   }
 
-  this->Send_Instruction(Xila.Close);
+  this->Send_Instruction(Close);
 }
 
 ///
@@ -125,7 +125,7 @@ void Software_Class::Minimize()
   {
     return;
   }
-  Maximized_Software->Send_Instruction(Xila.Minimize);
+  Maximized_Software->Send_Instruction(Minimize);
   Task_Type::Delay(20);
   Maximized_Software = NULL;
   Software_List[0]->Maximize();
@@ -146,7 +146,7 @@ void Software_Class::Maximize()
     Maximized_Software->Minimize();
   }
   Maximized_Software = this;
-  this->Send_Instruction(Xila.Maximize);
+  this->Send_Instruction(Maximize);
   Task_Type::Delay(20);
 }
 
@@ -159,7 +159,7 @@ void Software_Class::Kill()
 
   this->Close();
 
-  Xila.Task.Delete(this->Main_Task);
+  Task.Delete(this->Main_Task);
   delete this;
   Task_Class::Delay(10);
 }
@@ -169,7 +169,7 @@ void Software_Class::Kill()
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Xila.Idle),
+Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Idle),
                                                       Last_Watchdog_Feed(millis()),
                                                       Watchdog_Timeout(Default_Watchdog_Timeout)
 {

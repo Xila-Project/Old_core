@@ -5,7 +5,7 @@
     "keywords": "operating system, user interface, freertos, shell, esp32",
     "repository": {
         "type": "git",
-        "url": "https://github.com/AlixFaitGrr/Xila.git"
+        "url": "https://github.com/AlixFaitGrr/git"
     },
     "authors": {
         "name": "Alix ANNERAUD",
@@ -14,7 +14,7 @@
         "maintainer": "true"
     },
     "license": "MIT",
-    "homepage": "https://xila.alixfaitgrr.fr/",
+    "homepage": "https://alixfaitgrr.fr/",
     "dependencies": [
         {
             "owner": "bblanchon",

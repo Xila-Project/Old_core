@@ -52,7 +52,7 @@
 
 #include "Theme.hpp"
 
-class Graphical_Interface_Class : public Module_Class, public Types_Class
+class Graphical_Interface_Class : public Types_Class
 {
 public:
     // - Types
@@ -84,7 +84,7 @@ public:
     
     Theme_Class Theme;
 
-    Result_Type Initialize();
+    Result::Type Initialize();
 
     bool Initialisation_State();
 

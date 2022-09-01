@@ -27,32 +27,32 @@ Power_Class::Power_Class()
 ///
 /// @brief Load power registry.
 ///
-/// @return Result_Type
-Module_Class::Result_Type Power_Class::Load_Registry()
+/// @return Result::Type
+Module_Class::Result::Type Power_Class::Load_Registry()
 {
-    File Temporary_File = Xila.Drive.Open(Registry("Power"));
+    File Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
     if (strcmp(Power_Registry["Registry"] | "", "Power") != 0)
     {
-        return Error;
+        return Result::Error;
     }
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
     Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
-    return Success;
+    return Result::Success;
 }
 
 ///
 /// @brief Save power registry.
 ///
-/// @return Result_Type
-Module_Class::Result_Type Power_Class::Save_Registry()
+/// @return Result::Type
+Module_Class::Result::Type Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
@@ -60,14 +60,14 @@ Module_Class::Result_Type Power_Class::Save_Registry()
     Power_Registry["Maximum Voltage"] = Get_Maximum_Voltage();
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
-    File Temporary_File = Xila.Drive.Open(Registry("Power"), FILE_WRITE);
+    File Temporary_File = Drive.Open(Registry("Power"), FILE_WRITE);
     if (serializeJson(Power_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Error;
+        return Result::Error;
     }
     Temporary_File.close();
-    return Success;
+    return Result::Success;
 }
 
 ///
@@ -75,27 +75,27 @@ Module_Class::Result_Type Power_Class::Save_Registry()
 ///
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
-    vTaskEnterCritical(&Xila.Power.Button_Mutex);
-    if (Xila.GPIO.Digital_Read(Power_Button_Pin) == Xila.GPIO.High) // rise
+    vTaskEnterCritical(&Power.Button_Mutex);
+    if (GPIO.Digital_Read(Power_Button_Pin) == GPIO.High) // rise
     {
-        if (Xila.Power.Button_Timer != 0 && (Xila.Time.Milliseconds() - Xila.Power.Button_Timer) > Default_Button_Long_Press)
+        if (Power.Button_Timer != 0 && (Time.Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
         {
-            Xila.Power.Button_Counter = 0;
-            Xila.Power.Deep_Sleep();
+            Power.Button_Counter = 0;
+            Power.Deep_Sleep();
         }
         else
         {
-            Xila.Power.Button_Timer = 0;
-            Xila.Power.Button_Counter = 1;
+            Power.Button_Timer = 0;
+            Power.Button_Counter = 1;
         }
     }
     else // falling
     {
-        Xila.Power.Button_Timer = Xila.Time.Milliseconds();
-        Xila.Power.Button_Counter = 0;
+        Power.Button_Timer = Time.Milliseconds();
+        Power.Button_Counter = 0;
     }
 
-    vTaskExitCritical(&Xila.Power.Button_Mutex);
+    vTaskExitCritical(&Power.Button_Mutex);
 }
 
 ///
@@ -105,7 +105,7 @@ void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
-        Xila.Dialog.Power();
+        Dialog.Power();
         Button_Counter = 0;
     }
 }
@@ -116,13 +116,13 @@ void Power_Class::Check_Button()
 void Power_Class::Deep_Sleep()
 {
     Log_Information("Going into deep-sleep.");
-    Xila.Display.Set_Serial_Wake_Up(true);
-    Xila.Display.Set_Touch_Wake_Up(false);
-    Xila.Display.Set_Current_Page(F("Core_Load"));
+    Display.Set_Serial_Wake_Up(true);
+    Display.Set_Touch_Wake_Up(false);
+    Display.Set_Current_Page(F("Core_Load"));
 
-    Xila.GPIO.Digital_Write(Default_Display_Switching_Pin, Xila.GPIO.Low);
+    GPIO.Digital_Write(Default_Display_Switching_Pin, GPIO.Low);
 
-    Xila.Drive.End();
+    Drive.End();
 
     Task_Class::Delay(10);
 

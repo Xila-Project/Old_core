@@ -35,10 +35,10 @@ uint32_t IRAM_ATTR Time_Class::Get_Cycle_Count()
 ///
  /// @brief Save time registry.
  /// 
- /// @return Result_Type 
-Module_Class::Result_Type Time_Class::Save_Registry()
+ /// @return Result::Type 
+Module_Class::Result::Type Time_Class::Save_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Registry("Time"), FILE_WRITE);
+  File Temporary_File = Drive.Open(Registry("Time"), FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
   Time_Registry["Registry"] = "Time";
   Time_Registry["GMT Offset"] = GMT_Offset;
@@ -48,35 +48,35 @@ Module_Class::Result_Type Time_Class::Save_Registry()
   if (serializeJson(Time_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
-  return Success;
+  return Result::Success;
 }
 
 ///
  /// @brief Load time registry.
  /// 
- /// @return Result_Type 
-Module_Class::Result_Type Time_Class::Load_Registry()
+ /// @return Result::Type 
+Module_Class::Result::Type Time_Class::Load_Registry()
 {
-  File Temporary_File = Xila.Drive.Open(Registry("Time"));
+  File Temporary_File = Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);
   if (deserializeJson(Time_Registry, Temporary_File) != DeserializationError::Ok)
   {
     Temporary_File.close();
-    return Error;
+    return Result::Error;
   }
   Temporary_File.close();
   if (strcmp("Time", Time_Registry["Registry"] | "") != 0)
   {
-    return Error;
+    return Result::Error;
   }
   GMT_Offset = Time_Registry["GMT Offset"] | Default_GMT_Offset;
   Daylight_Offset = Time_Registry["Daylight Offset"] | Default_Daylight_Offset;
   strlcpy(NTP_Server, Time_Registry["NTP Server"] | Default_NTP_Server, sizeof(NTP_Server));
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
-  return Success;
+  return Result::Success;
 }
 
 ///

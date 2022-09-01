@@ -21,16 +21,16 @@ public:
     Queue_Class();
     ~Queue_Class();
 
-    Result_Type Create(Size_Type Length, Size_Type Item_Size);
-    Result_Type Create_Static(Size_Type Length, Size_Type Item_Size);
+    Result::Type Create(Size_Type Length, Size_Type Item_Size);
+    Result::Type Create_Static(Size_Type Length, Size_Type Item_Size);
 
     void Delete();
     void Reset();
     
-    Result_Type Send(const void* Item, Tick_Type Ticks_To_Wait, bool Send_To_Front = true);
+    Result::Type Send(const void* Item, Tick_Type Ticks_To_Wait, bool Send_To_Front = true);
     void Overwrite(const void* Buffer);
-    Result_Type Peek(void* Buffer, Tick_Type Ticks_To_Wait);
-    Result_Type Receive(void* Buffer, Tick_Type Ticks_To_Wait);
+    Result::Type Peek(void* Buffer, Tick_Type Ticks_To_Wait);
+    Result::Type Receive(void* Buffer, Tick_Type Ticks_To_Wait);
 
     uint16_t Waiting();
 
