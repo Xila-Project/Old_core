@@ -16,11 +16,11 @@
 //
 // ------------------------------------------------------------------------- //
 
-Task_Class::Task_Class() : Task_Handle(NULL)
+Module_Class::Task_Class::Task_Class() : Task_Handle(NULL)
 {
 }
 
-Task_Class::~Task_Class()
+Module_Class::Task_Class::~Task_Class()
 {
     Delete();
 }
@@ -31,7 +31,7 @@ Task_Class::~Task_Class()
 //
 // ------------------------------------------------------------------------- //
 
-void Task_Class::Resume()
+void Module_Class::Task_Class::Resume()
 {
     if (Get_State() != Deleted || Get_State() != Invalid)
     {
@@ -39,7 +39,7 @@ void Task_Class::Resume()
     }
 }
 
-void Task_Class::Suspend()
+void Module_Class::Task_Class::Suspend()
 {
     if (Get_State() != Deleted || Get_State() != Invalid)
     {
@@ -47,7 +47,7 @@ void Task_Class::Suspend()
     }
 }
 
-Module_Class::Result::Type Task_Class::Create(Task_Function *Task_Function, const char *Task_Name, Size_Type Stack_Size, Priority_Type Priority)
+Module_Class::Result::Type Module_Class::Task_Class::Create(Task_Function *Task_Function, const char *Task_Name, Size_Type Stack_Size, Priority_Type Priority)
 {
     if (Task_Handle != NULL)
     {
@@ -56,7 +56,7 @@ Module_Class::Result::Type Task_Class::Create(Task_Function *Task_Function, cons
 
     if (Priority > High || Priority < Background)
     {
-        return Invalid_Argument;
+        return Result::Invalid_Argument;
     }
 
     if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, NULL, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
@@ -71,17 +71,17 @@ Module_Class::Result::Type Task_Class::Create(Task_Function *Task_Function, cons
 /// @param Delay_In_Millisecond
 /// @details A delay function that behave exactly like delay()
 ///
-void Task_Class::Delay(uint32_t Delay_In_Millisecond)
+void Module_Class::Task_Class::Delay(uint32_t Delay_In_Millisecond)
 {
     vTaskDelay(pdMS_TO_TICKS(Delay_In_Millisecond));
 }
 
-void Task_Class::Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment)
+void Module_Class::Task_Class::Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment)
 {
     vTaskDelayUntil(Previous_Wake_Time, Time_Increment);
 }
 
-void Task_Class::Delete()
+void Module_Class::Task_Class::Delete()
 {
     if (Get_State() != Deleted || Get_State() != Invalid)
     {
@@ -95,11 +95,11 @@ void Task_Class::Delete()
 //
 // ------------------------------------------------------------------------- //
 
-Module_Class::Result::Type Task_Class::Set_Priority(Priority_Type Priority)
+Module_Class::Result::Type Module_Class::Task_Class::Set_Priority(Priority_Type Priority)
 {
     if (Priority > Idle && Priority < System)
     {
-        return Invalid_Argument;
+        return Result::Invalid_Argument;
     }
     if (Get_State() == Deleted)
     {
@@ -115,7 +115,7 @@ Module_Class::Result::Type Task_Class::Set_Priority(Priority_Type Priority)
 //
 // ------------------------------------------------------------------------- //
 
-Task_Class::State_Type Task_Class::Get_State()
+Module_Class::Task_Class::State_Type Module_Class::Task_Class::Get_State()
 {
     if (Task_Handle == NULL)
     {
@@ -124,7 +124,7 @@ Task_Class::State_Type Task_Class::Get_State()
     return (State_Type)eTaskGetState(Task_Handle);
 }
 
-Task_Class::Priority_Type Task_Class::Get_Priority()
+Module_Class::Task_Class::Priority_Type Module_Class::Task_Class::Get_Priority()
 {
     switch (uxTaskPriorityGet(Task_Handle))
     {

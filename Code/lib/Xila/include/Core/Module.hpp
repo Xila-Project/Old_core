@@ -15,10 +15,31 @@
 #include "Arduino.h"
 #include "ArduinoJson.h"
 #include "Configuration/Configuration.hpp"
+#include "FS.h"
 
 class Module_Class
 {
 public:
+    typedef bool Boolean_Type;
+    typedef short Short_Integer;
+    typedef int Integer;
+    typedef long Long_Integer;
+    typedef long long Long_Long_Integer;
+
+    typedef short Unsigned_Short_Integer;
+    typedef int Unsigned_Integer;
+    typedef long Unsigned_Long_Integer;
+    typedef long long Unsigned_Long_Long_Integer;
+
+    typedef float Float;
+    typedef double Precision_Float;
+    typedef char Character;
+    typedef String String;
+
+    typedef void Void;
+
+    typedef uint32_t Tick_Type;
+
     /// @brief Size Type;
     typedef size_t Size_Type;
 
@@ -88,9 +109,9 @@ public:
     class Instruction_Type
     {
     private:
-        void* Sender;
+        void *Sender;
         uint32_t Arguments;
-        void* Receiver;
+        void *Receiver;
 
     public:
         /*
@@ -110,36 +131,36 @@ public:
         };
         */
 
-       operator uint32_t() const {return Arguments};
-
-        Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0)
-        {
-        };
-
-        Instruction_Type(void* Sender, void* Receiver, uint32_t Arguments) : Sender(Sender), Receiver(Receiver), Arguments(NULL)
-        {};
-
-        void* Get_Sender () const
-        {
-            return Sender;
-        };
-
-        void* Get_Receiver() const
-        {
-            return Receiver;
-        };
-
-        uint32_t Get_Arguments () const
+        operator uint32_t() const
         {
             return Arguments;
         };
 
-        void Set_Sender(void* Sender)
+        Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0){};
+
+        Instruction_Type(void *Sender, void *Receiver, uint32_t Arguments) : Sender(Sender), Receiver(Receiver), Arguments(0){};
+
+        void *Get_Sender() const
+        {
+            return Sender;
+        };
+
+        void *Get_Receiver() const
+        {
+            return Receiver;
+        };
+
+        uint32_t Get_Arguments() const
+        {
+            return Arguments;
+        };
+
+        void Set_Sender(void *Sender)
         {
             this->Sender = Sender;
         };
 
-        void Set_Receiver(void* Receiver)
+        void Set_Receiver(void *Receiver)
         {
             this->Receiver = Receiver;
         };
@@ -150,7 +171,7 @@ public:
         };
     };
 
-    class Task_Class
+    typedef class Task_Class
     {
     public:
         typedef void Task_Function(void *);
@@ -175,8 +196,9 @@ public:
             Deleted = eDeleted,
             Invalid = eInvalid,
         } State_Type;
-
+ 
         Task_Class();
+        Task_Class(xTaskHandle Handle);
         ~Task_Class();
 
         Result::Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
@@ -198,9 +220,12 @@ public:
         static void Delay(uint32_t Delay_In_Millisecond);
         static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
 
+        void Set_Handle();
+        xTaskHandle Task_Handle();
+
     private:
         xTaskHandle Task_Handle;
-    };
+    } Task_Type;                                                                    
 };
 
 #endif

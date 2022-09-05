@@ -164,11 +164,11 @@ namespace Xila_Namespace
 
     Flash_Class Flash;
 
-    GPIO_Class GPIO;
+    Pin_Class Pin;
 
     Graphical_Interface_Class Graphical_Interface;
 
-    Keyboard_Class Keyboard;
+    Keyboard_UI_Class Keyboard;
 
     Mathematics_Class Mathematics;
 

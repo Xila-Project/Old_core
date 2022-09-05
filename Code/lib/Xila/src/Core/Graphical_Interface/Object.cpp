@@ -177,7 +177,7 @@ void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Select
 void Object_Class::Event_Callback(lv_event_t* Event)
 {
     static Module_Class::Instruction_Type Instruction;
-    Instruction.Set_Sender(Module::Graphical_Interface);
+    Instruction.Set_Sender(NULL);
     Instruction.Set_Arguments(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
     Software_Class::Send_Instruction_To_Maximized(Instruction);
 }
@@ -337,7 +337,7 @@ void Object_Class::Set_Style_Background_Color(Color_Type Color, Style_Selector_T
     lv_obj_set_style_bg_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
-void Object_Class::Set_Style_Background_Dither_Mode(Dither_Mode_Type Dither_Mode, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Background_Dither_Mode(Dither_Mode::Type Dither_Mode, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_bg_dither_mode(Get_Pointer(), Dither_Mode, Style_Selector);
 }
@@ -400,11 +400,6 @@ void Object_Class::Set_Style_Background_Opacity(Opacity::Type Opacity, Style_Sel
 void Object_Class::Set_Style_Blend_Mode(Blend::Mode_Type Blend_Mode, Style_Selector_Type Style_Selector)
 {
     lv_obj_set_style_blend_mode(Get_Pointer(), Blend_Mode, Style_Selector);
-}
-
-void Object_Class::Set_Style_Border_Color(Color_Type Color, Style_Selector_Type Style_Selector)
-{
-    lv_obj_set_style_border_color(Get_Pointer(), Color.Get_LVGL_Color(), Style_Selector);
 }
 
 void Object_Class::Set_Style_Border_Color(Color_Type Color, Style_Selector_Type Style_Selector)
@@ -964,7 +959,7 @@ const Object_Class::Gradient::Descriptor_Type *Object_Class::Get_Style_Backgroun
     return lv_obj_get_style_bg_grad(Get_Pointer(), Part);
 }
 
-Object_Class::Dither_Mode_Type Object_Class::Get_Style_Background_Dither_Mode(uint32_t Part)
+Object_Class::Dither_Mode::Type Object_Class::Get_Style_Background_Dither_Mode(uint32_t Part)
 {
     return lv_obj_get_style_bg_dither_mode(Get_Pointer(), Part);
 }
@@ -1039,9 +1034,11 @@ bool Object_Class::Get_Style_Clip_Corner(uint32_t Part)
     return lv_obj_get_style_clip_corner(Get_Pointer(), Part);
 }
 
-const Object_Class::Color_Filter_Descriptor_Type* Object_Class::Get_Style_Color_Filter_Descriptor(uint32_t Part)
+const Object_Class::Color_Filter_Descriptor_Type Object_Class::Get_Style_Color_Filter_Descriptor(uint32_t Part)
 {
-    return lv_obj_get_style_color_filter_dsc(Get_Pointer(), Part);
+    Color_Filter_Descriptor_Type Color_Filter_Descriptor;
+    *Color_Filter_Descriptor.Get_Pointer() = *lv_obj_get_style_color_filter_dsc(Get_Pointer(), Part);
+    return Color_Filter_Descriptor;
 }
 
 Object_Class::Opacity::Type Object_Class::Get_Style_Color_Filter_Opacity(uint32_t Part)

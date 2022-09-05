@@ -8,11 +8,11 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#include "Core/Core.hpp"
+
 #include "Core/Power/Power.hpp"
 
 #include "soc/rtc_wdt.h"
-
-extern Software_Handle Shell_Handle;
 
 ///
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
@@ -30,6 +30,8 @@ Power_Class::Power_Class()
 /// @return Result::Type
 Module_Class::Result::Type Power_Class::Load_Registry()
 {
+    using namespace Xila;
+
     File Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
@@ -54,6 +56,7 @@ Module_Class::Result::Type Power_Class::Load_Registry()
 /// @return Result::Type
 Module_Class::Result::Type Power_Class::Save_Registry()
 {
+    using namespace Xila;
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
     Power_Registry["Minimum Voltage"] = Get_Minimum_Voltage();
@@ -75,8 +78,9 @@ Module_Class::Result::Type Power_Class::Save_Registry()
 ///
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
-    vTaskEnterCritical(&Power.Button_Mutex);
-    if (GPIO.Digital_Read(Power_Button_Pin) == GPIO.High) // rise
+    using namespace Xila;
+    //vTaskEnterCritical(&Power.Button_Mutex);
+    if (Pin.Digital_Read(Power_Button_Pin) == Pin.High) // rise
     {
         if (Power.Button_Timer != 0 && (Time.Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
         {
@@ -95,7 +99,7 @@ void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
         Power.Button_Counter = 0;
     }
 
-    vTaskExitCritical(&Power.Button_Mutex);
+    //vTaskExitCritical(&Power.Button_Mutex);
 }
 
 ///
@@ -120,7 +124,7 @@ void Power_Class::Deep_Sleep()
     Display.Set_Touch_Wake_Up(false);
     Display.Set_Current_Page(F("Core_Load"));
 
-    GPIO.Digital_Write(Default_Display_Switching_Pin, GPIO.Low);
+    Pin.Digital_Write(Default_Display_Switching_Pin, Pin.Low);
 
     Drive.End();
 

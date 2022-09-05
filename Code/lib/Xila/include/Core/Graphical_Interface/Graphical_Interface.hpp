@@ -52,7 +52,7 @@
 
 #include "Theme.hpp"
 
-class Graphical_Interface_Class : public Types_Class
+class Graphical_Interface_Class : public Types_Class, public Module_Class
 {
 public:
     // - Types
@@ -75,7 +75,7 @@ public:
     typedef Calendar_Class Calendar_Type;
     //typedef Chart_Class Chart_Type;
     typedef Color_Wheel_Class Color_Wheel_Type;
-    typedef Keyboard_Class Keyboard_Type;
+    typedef Keyboard_UI_Class Keyboard_Type;
     typedef List_Class List_Type;
     //typedef Menu_Class Menu_Type;
     //typedef Meter_Class Meter_Type;

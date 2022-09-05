@@ -11,8 +11,6 @@
 #ifndef Keyboard_Hpp_Included
 #define Keyboard_Hpp_Included
 
-#include "Button_Matrix.hpp"
-
 
 #include "../Module.hpp"
 
@@ -179,13 +177,7 @@ public:
 
     void Clear();
 
-
-    // -- Friendship
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
-
-protected:
+//protected:
     // -- Methods
     Result::Type Load_Registry();
     Result::Type Save_Registry();

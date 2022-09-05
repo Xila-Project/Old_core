@@ -1,5 +1,5 @@
 ///
-/// @file GPIO.hpp
+/// @file Pin.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
 /// @version 0.2
@@ -8,23 +8,23 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#ifndef Gpio_Hpp_Included
-#define Gpio_Hpp_Included
+#ifndef Pin_Hpp_Included
+#define Pin_Hpp_Included
 
 #include "Arduino.h"
 #include "../Module.hpp"
 
 //==============================================================================//
 ///
-/// @brief GPIO management class
+/// @brief Pin management class
 ///
-class GPIO_Class : public Module_Class
+class Pin_Class : public Module_Class
 {
 public:
 
     // TODO : Transform into a full Object Oriented Object.
 
-    GPIO_Class();
+    Pin_Class();
 
     // -- Pin mode
     void Set_Mode(uint8_t Pin, uint8_t Mode);
@@ -102,9 +102,6 @@ public:
         On_High_WE = 0x0D ///< Triggered on high state.
     };
 
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
 };
 
 #endif

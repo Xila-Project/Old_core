@@ -111,7 +111,7 @@ void Style_Class::Set_Background_Color(Color_Type Color)
     lv_style_set_bg_color(&LVGL_Style, Color.Get_LVGL_Color());
 }
 
-void Style_Class::Set_Background_Dither_Mode(Dither_Mode_Type Dither_Mode)
+void Style_Class::Set_Background_Dither_Mode(Dither_Mode::Type Dither_Mode)
 {
     lv_style_set_bg_dither_mode(&LVGL_Style, Dither_Mode);
 }

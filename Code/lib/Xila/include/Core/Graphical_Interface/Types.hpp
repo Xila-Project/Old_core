@@ -234,10 +234,10 @@ public:
     {
     public:
         /// @brief Dither mode type.
-        typedef lv_dither_mode_t Mode_Type;
+        typedef lv_dither_mode_t Type;
 
         /// @brief Dither mode enumeration.
-        enum Mode_Enumeration
+        enum Enumeration
         {
             None = LV_DITHER_NONE,                /**< No dithering, colors are just quantized to the output resolution*/
             Ordered = LV_DITHER_ORDERED,          /**< Ordered dithering. Faster to compute and use less memory but lower quality*/

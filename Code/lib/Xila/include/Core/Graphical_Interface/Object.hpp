@@ -116,6 +116,8 @@ public:
     /// @brief Color type.
     typedef Color_Class Color_Type;
 
+    /// @brief Color descriptor type.
+    typedef Color_Filter_Descriptor_Class Color_Filter_Descriptor_Type;
 
     // -- Types and enumerations
 

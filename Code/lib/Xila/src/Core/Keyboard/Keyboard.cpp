@@ -1,12 +1,12 @@
 ///
- /// @file Keyboard.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1
- /// @date 11-07-2021
- /// 
- /// @copyright Copyright (c) 2021
- /// 
+/// @file Keyboard.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1
+/// @date 11-07-2021
+///
+/// @copyright Copyright (c) 2021
+///
 
 #include "Core/Core.hpp"
 
@@ -15,8 +15,8 @@
 PS2Keyboard PS2_Keyboard();
 
 ///
- /// @brief Construct a new Keyboard_Class::Keyboard_Class object
- /// 
+/// @brief Construct a new Keyboard_Class::Keyboard_Class object
+///
 Keyboard_Class::Keyboard_Class()
     : Layout(Default_Keyboard_Layout),
       Data_Pin(Default_Keyboard_Data_Pin),
@@ -25,11 +25,13 @@ Keyboard_Class::Keyboard_Class()
 }
 
 ///
- /// @brief Load keyboard registry.
- /// 
- /// @return Result::Type
+/// @brief Load keyboard registry.
+///
+/// @return Result::Type
 Module_Class::Result::Type Keyboard_Class::Load_Registry()
 {
+    using namespace Xila;
+
     File Temporary_File = Drive.Open(Registry("Keyboard"));
     DynamicJsonDocument Keyboard_Registry(512);
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
@@ -51,11 +53,13 @@ Module_Class::Result::Type Keyboard_Class::Load_Registry()
 }
 
 ///
- /// @brief Save keyboard registry.
- /// 
- /// @return Result::Type 
+/// @brief Save keyboard registry.
+///
+/// @return Result::Type
 Module_Class::Result::Type Keyboard_Class::Save_Registry()
 {
+    using namespace Xila;
+
     File Temporary_File = Drive.Open(Registry("Keyboard"), FILE_WRITE);
     DynamicJsonDocument Keyboard_Registry(512);
     Keyboard_Registry["Registry"] = "Keyboard";
@@ -72,8 +76,8 @@ Module_Class::Result::Type Keyboard_Class::Save_Registry()
 }
 
 ///
- /// @brief Initialize the communication with the keyboard.
- /// 
+/// @brief Initialize the communication with the keyboard.
+///
 void Keyboard_Class::Begin()
 {
     switch (Layout)
@@ -100,35 +104,35 @@ void Keyboard_Class::Begin()
 }
 
 ///
- /// @brief Read character from the keyboard.
- /// 
- /// @return unsigned char Input character.
+/// @brief Read character from the keyboard.
+///
+/// @return unsigned char Input character.
 unsigned char Keyboard_Class::Read()
 {
     return PS2Keyboard::read();
 }
 
 ///
- /// @brief Check if any character is availble.
- /// 
- /// @return uint8_t The amount of character available in the buffer.
+/// @brief Check if any character is availble.
+///
+/// @return uint8_t The amount of character available in the buffer.
 uint8_t Keyboard_Class::Available()
 {
     return PS2Keyboard::available();
 }
 
 ///
- /// @brief Read character from the keyboard.
- /// 
- /// @return uint8_t The amount of character available in the buffer.
+/// @brief Read character from the keyboard.
+///
+/// @return uint8_t The amount of character available in the buffer.
 uint8_t Keyboard_Class::Read_Raw()
 {
     return PS2Keyboard::readScanCode();
 }
 
 ///
- /// @brief Clear the character buffer.
- /// 
+/// @brief Clear the character buffer.
+///
 void Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();

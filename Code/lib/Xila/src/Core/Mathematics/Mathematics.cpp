@@ -347,12 +347,12 @@ double Mathematics_Class::Inverse(double Number)
     return 1 / Number;
 }
 
-uint32_t Mathematics_Class::Random() const
+uint32_t Mathematics_Class::Random()
 {
     return esp_random();
 }
 
-uint32_t Mathematics_Class::Random(uint32_t Upper_Bound) const
+uint32_t Mathematics_Class::Random(uint32_t Upper_Bound)
 {
     uint32_t x = esp_random();
     uint64_t m = uint64_t(x) * uint64_t(Upper_Bound);
@@ -376,7 +376,7 @@ uint32_t Mathematics_Class::Random(uint32_t Upper_Bound) const
     return m >> 32;
 }
 
-uint32_t Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound) const
+uint32_t Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
 {
     if (Lower_Bound >= Upper_Bound)
     {

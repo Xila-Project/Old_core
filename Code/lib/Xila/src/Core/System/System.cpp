@@ -448,8 +448,8 @@ void System_Class::Start()
 #endif
 
   // -- Set power button interrupts
-  GPIO.Set_Mode(Power_Button_Pin, INPUT);
-  GPIO.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Power.Button_Interrupt_Handler, GPIO.Change);
+  Pin.Set_Mode(Power_Button_Pin, INPUT);
+  Pin.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Power.Button_Interrupt_Handler, Pin.Change);
 
   // -- Increase esp32 hardware watchdog timeout
 
@@ -462,11 +462,11 @@ void System_Class::Start()
   // -- Initialize drive. -- //
 
 #if Drive_Mode == 0
-  GPIO.Set_Mode(14, INPUT_PULLUP);
-  GPIO.Set_Mode(2, INPUT_PULLUP);
-  GPIO.Set_Mode(4, INPUT_PULLUP);
-  GPIO.Set_Mode(12, INPUT_PULLUP);
-  GPIO.Set_Mode(13, INPUT_PULLUP);
+  Pin.Set_Mode(14, INPUT_PULLUP);
+  Pin.Set_Mode(2, INPUT_PULLUP);
+  Pin.Set_Mode(4, INPUT_PULLUP);
+  Pin.Set_Mode(12, INPUT_PULLUP);
+  Pin.Set_Mode(13, INPUT_PULLUP);
 #endif
 
   if (!Drive.Begin() || Drive.Type() == Drive.None)
@@ -504,8 +504,8 @@ void System_Class::Start()
     Display.Begin(Display.Baud_Rate, Display.Receive_Pin, Display.Transmit_Pin);
   }
 
-  GPIO.Set_Mode(Default_Display_Switching_Pin, GPIO.Output);
-  GPIO.Digital_Write(Default_Display_Switching_Pin, GPIO.High);
+  Pin.Set_Mode(Default_Display_Switching_Pin, Pin.Output);
+  Pin.Digital_Write(Default_Display_Switching_Pin, Pin.High);
   Task_Class::Delay(2000);
   // Display.Wake_Up();
   // Display.Set_Touch_Wake_Up(true);

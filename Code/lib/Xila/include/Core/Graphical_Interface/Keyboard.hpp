@@ -8,14 +8,14 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifndef Keyboard_Hpp_Included
-#define Keyboard_Hpp_Included
+#ifndef Keyboard_UI_Hpp_Included
+#define Keyboard_UI_Hpp_Included
 
 #include "Object.hpp"
 #include "Text_Area.hpp"
 #include "Button_Matrix.hpp"
 
-class Keyboard_Class : public Object_Class
+class Keyboard_UI_Class : public Object_Class
 {
 public:
     typedef lv_keyboard_mode_t Mode_Type;

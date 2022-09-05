@@ -58,11 +58,13 @@ Module_Class::Result::Type Graphical_Interface_Class::Initialize()
 
 void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
 {
-    static Instruction_Type Instruction(Module::Graphical_Interface, 0);
+    using namespace Xila;
+
+    static Instruction_Type Instruction(NULL, NULL, 0);
     // Tricks that use the pointer of user data of lvgl as data itself to fits the instructions arguments (more faster approach than deferencing data from the pointer).
     Instruction.Set_Arguments((uintptr_t)lv_event_get_user_data(Event));
 
-    // Software::Send_Instruction(Software_Management.);
+    Software_Type::Software_List[0]->Send_Instruction(Instruction);
 }
 
 

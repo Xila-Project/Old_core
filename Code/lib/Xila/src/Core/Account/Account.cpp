@@ -300,7 +300,7 @@ Module_Class::Result::Type Account_Class::Check_Credentials(const char *Username
  /// @return Result::Type 
 Module_Class::Result::Type Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
-  if (Check_Credentials(Username_To_Check, Password_To_Check) != Success)
+  if (Check_Credentials(Username_To_Check, Password_To_Check) != Result::Success)
   {
     State = Disconnected;
     return Result::Error;
