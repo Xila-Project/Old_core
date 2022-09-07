@@ -69,7 +69,7 @@
 #include "Display\Display.hpp"
 #include "Drive\Drive.hpp"
 #include "Flash\Flash.hpp"
-#include "GPIO\GPIO.hpp"
+#include "Pin\Pin.hpp"
 #include "Graphical_Interface\Graphical_Interface.hpp"
 #include "Keyboard\Keyboard.hpp"
 #include "Mathematics\Mathematics.hpp"

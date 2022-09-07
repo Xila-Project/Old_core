@@ -32,6 +32,10 @@ void Checkbox_Class::Create(Object_Class &Parent_Object)
 
 bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
+     if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_checkbox_class))
     {
         return false;

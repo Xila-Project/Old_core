@@ -10,7 +10,6 @@
 
 #include "Core/Graphical_Interface/Arc.hpp"
 
-
 // ------------------------------------------------------------------------- //
 //
 //                                  Management
@@ -25,15 +24,18 @@ void Arc_Class::Create(Object_Class Parent_Object)
     }
 }
 
-
 // ------------------------------------------------------------------------- //
 //
 //                                    Setters
 //
 // ------------------------------------------------------------------------- //
- 
+
 bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
+    if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
     {
         return false;

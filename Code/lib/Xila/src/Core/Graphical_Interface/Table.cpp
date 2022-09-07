@@ -76,6 +76,10 @@ void Table_Class::Get_Selected_Cell(uint16_t* Row, uint16_t* Column)
 
 bool Table_Class::Set_Pointer(lv_obj_t *Object)
 {
+     if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_table_class))
     {
         return false;

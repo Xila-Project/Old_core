@@ -57,6 +57,10 @@ bool Drop_Down_List_Class::Is_Open()
 
 bool Drop_Down_List_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
+     if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_dropdown_class))
     {
         return false;

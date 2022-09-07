@@ -47,6 +47,10 @@ bool Button_Matrix_Class::Has_Button_Control(uint16_t Button_Identifier, Control
 
 bool Button_Matrix_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
+     if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_btnmatrix_class))
     {
         return false;

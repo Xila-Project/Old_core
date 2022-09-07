@@ -635,6 +635,10 @@ public:
         return LVGL_Object_Pointer;
     };
 
+    void Clear_Pointer() {
+        LVGL_Object_Pointer = NULL;
+    };
+
     lv_obj_t *LVGL_Object_Pointer;
 
 protected:

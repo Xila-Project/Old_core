@@ -11,6 +11,7 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
+
 #define Shell_Pointer Shell_Class::Instance_Pointer
 #define Desk_Pointer Shell_Class::Desk
 
@@ -22,8 +23,8 @@ Shell_Class::Desk_Class::Desk_Class()
     Window.Create();
     Window.Set_Title("Desk");
 
-    const Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Object_Type::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Object_Type::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
     Grid.Create(Window);
     Grid.Set_Style_Pad_All(10, 0);
@@ -48,18 +49,18 @@ Shell_Class::Desk_Class::Desk_Class()
 
             if (i == 15)
             {
-                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_START, 3, 1);
-                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_END, 3, 1);
+                Icon.Set_Grid_Cell(Object_Class::Grid::Center, 0, 1, Object_Class::Grid::Start, 3, 1);
+                Label.Set_Grid_Cell(Object_Class::Grid::Center, 0, 1, Object_Class::Grid::End, 3, 1);
             }
             else if (i == 16)
             {
-                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_START, 3, 1);
-                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 4, 1, LV_GRID_ALIGN_END, 3, 1);
+                Icon.Set_Grid_Cell(Object_Class::Grid::Center, 4, 1, Object_Class::Grid::Start, 3, 1);
+                Label.Set_Grid_Cell(Object_Class::Grid::Center, 4, 1, Object_Class::Grid::End, 3, 1);
             }
             else
             {
-                Icon.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_START, i / 5, 1);
-                Label.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, (i % 5), 1, LV_GRID_ALIGN_END, i / 5, 1);
+                Icon.Set_Grid_Cell(Object_Class::Grid::Center, (i % 5), 1, Object_Class::Grid::Start, i / 5, 1);
+                Label.Set_Grid_Cell(Object_Class::Grid::Center, (i % 5), 1, Object_Class::Grid::End, i / 5, 1);
             }
 
             Icon.Clear_Pointer();
@@ -89,14 +90,11 @@ Shell_Class::Desk_Class::Desk_Class()
     Menu_Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
     Menu_Button.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3));
     Menu_Button.Set_Style_Radius(0, 0);
-    Menu_Button.Set_Pad_ALl(0, 0);
+    Menu_Button.Set_Pad_All(0, 0);
     Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
     Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
 
     Background_Color.Set_Color();
-
-    
-
 }
 
 Shell_Class::Desk_Class::~Desk_Class()

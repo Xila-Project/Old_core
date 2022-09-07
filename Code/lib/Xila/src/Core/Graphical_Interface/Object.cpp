@@ -248,6 +248,10 @@ void Object_Class::Set_Height(Coordinate_Type Height)
 
 bool Object_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
+     if (Get_Pointer() == NULL)
+    {
+        return false;
+    }
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
     return true;
 }

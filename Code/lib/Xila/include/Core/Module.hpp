@@ -34,7 +34,7 @@ public:
     typedef float Float;
     typedef double Precision_Float;
     typedef char Character;
-    typedef String String;
+    //typedef String String;
 
     typedef void Void;
 
@@ -221,11 +221,12 @@ public:
         static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
 
         void Set_Handle();
-        xTaskHandle Task_Handle();
 
     private:
         xTaskHandle Task_Handle;
     } Task_Type;                                                                    
 };
+
+#define Instruction_Macro()
 
 #endif

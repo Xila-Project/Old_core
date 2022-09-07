@@ -303,6 +303,7 @@ const char *System_Class::Get_Device_Name()
 ///
 void System_Class::Refresh_Header()
 {
+  
   if (Display.Get_State() == false) // if display sleep
   {
     return;

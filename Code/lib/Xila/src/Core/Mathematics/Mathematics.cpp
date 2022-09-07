@@ -386,8 +386,6 @@ uint32_t Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
     return Random(diff) + Lower_Bound;
 }
 
-#endif
-
 ///
 /// @brief Convert string to a float number.
 ///
