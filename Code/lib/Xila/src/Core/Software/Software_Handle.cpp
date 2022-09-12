@@ -67,6 +67,16 @@ bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handl
   return true;
 }
 
+char* Software_Handle_Class::Get_Name() const
+{
+  return Name;
+}
+
+void* Software_Handle_Class::Get_Pointer_Create_Instance() const
+{
+  return Create_Instance_Pointer;
+}
+
 ///
 /// @brief Compare two software handle.
 ///

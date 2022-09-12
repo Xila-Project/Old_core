@@ -8,7 +8,7 @@
 ///
 /// @section License
 ///
-/// Copyright (c) 2020 Alix ANNERAUD 
+/// Copyright (c) 2020 Alix ANNERAUD
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 /// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -49,7 +49,6 @@ protected:
     class Desk_Class
     {
     protected:
-
         // -- Attributes
 
         ///
@@ -59,7 +58,6 @@ protected:
         ///
         Object_Type::Color_Type Background_Color;
 
-
         Window_Type Window;
         Object_Type Grid;
         Object_Type Dock;
@@ -67,18 +65,17 @@ protected:
 
         // -- Constructors / destructor
         Desk_Class();
+        ~Desk_Class();
 
         // -- Methods
         void Open(uint8_t);
         void Refresh_Desk();
-        void Refresh_Drawer();
         void Execute_Desk_Instruction(Instruction_Type);
         void Execute_Drawer_Instruction(Instruction_Type);
-        
-        
+
         void Maximize_Dock_Software(uint8_t);
         void Close_Dock_Software(uint8_t);
-        
+
         void Open_From_Drawer(uint8_t);
 
         void Logout();
@@ -86,8 +83,24 @@ protected:
         // -- friendship
         friend class Shell_Class;
 
-    }* Desk_Pointer;
+    } * Desk_Pointer;
 
+    class Drawer_Class
+    {
+    protected:
+
+        // - Constructor / destructor
+        Drawer_Class();
+        ~Drawer_Class();
+
+        // - Methods
+        void Refresh_Drawer();
+        
+        // - Attributes
+        Window_Type Window;
+        List_Type List;
+
+    } * Drawer_Pointer;
 
     ///
     /// @brief File manager class
@@ -246,8 +259,6 @@ protected:
 
     Result::Type Save_Registry();
     Result::Type Load_Registry();
-
-
 
     static void Main_Task(void *);
 

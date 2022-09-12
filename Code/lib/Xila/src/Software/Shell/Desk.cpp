@@ -11,7 +11,6 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-
 #define Shell_Pointer Shell_Class::Instance_Pointer
 #define Desk_Pointer Shell_Class::Desk
 
@@ -26,7 +25,7 @@ Shell_Class::Desk_Class::Desk_Class()
     const Object_Type::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     const Object_Type::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
-    Grid.Create(Window);
+    Grid.Create(Window.Get_Body());
     Grid.Set_Style_Pad_All(10, 0);
     Grid.Set_Style_Background_Opacity(0, 0);
     Grid.Set_Grid_Descriptor_Array(Grid_Column_Descriptor, Grid_Row_Descriptor);
@@ -95,10 +94,86 @@ Shell_Class::Desk_Class::Desk_Class()
     Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
 
     Background_Color.Set_Color();
+
+    Object_Type::Style_Type Menu_Button_Part_Style;
+    Menu_Button_Part_Style.Initialize();
+    Menu_Button_Part_Style.Set_Pad_All(0);
+    Menu_Button_Part_Style.Set_Radius(0);
+    Menu_Button_Part_Style.Set_Outline_Width(0);
+    Menu_Button_Part_Style.Set_Border_Width(0);
+
+    Object_Type::Style_Type Menu_Button_Part_Pressed_Style;
+    Menu_Button_Part_Pressed_Style.Initialize();
+    Menu_Button_Part_Pressed_Style.Set_Background_Color(Object_Type::Color_Type::Get_From_Palette(White, 0));
+    Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
+    Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Object_Type::Color_Type::Get_From_Palette(White, 0));
+
+    {
+        Object_Type Red_Part;
+        Red_Part.Create(Menu_Button);
+        Red_Part.Set_Size(10, 21);
+        Red_Part.Set_Style_Radius(0, 0);
+        Red_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Red, 0), 0)
+            Red_Part.Set_Alignment(Object_Type::Alignment::Top_Left);
+        Red_Part.Add_Style(Menu_Button_Part_Style, 0);
+        Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+    }
+    {
+        Object_Type Blue_Part;
+        Blue_Part.Create(Menu_Button);
+        Blue_Part.Set_Size(21, 10);
+        Blue_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Blue, 0), 0);
+        Blue_Part.Set_Alignment(Object_Type::Alignment::Bottom_Left);
+        Blue_Part.Add_Style(Menu_Button_Part_Style, 0);
+        Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+    }
+    {
+        Object_Type Green_Part;
+        Green_Part.Create(Menu_Button);
+        Green_Part.Set_Size(10, 21);
+        Green_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Green, 0), 0);
+        Green_Part.Set_Alignment(Object_Type::Alignment::Bottom_Right);
+        Green_Part.Add_Style(Menu_Button_Part_Style, 0);
+        Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+    }
+    {
+        Object_Type Yellow_Part;
+        Yellow_Part.Create(Menu_Button);
+        Yellow_Part.Set_Size(21, 10);
+        Yellow_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Yellow, 0), 0);
+        Yellow_Part.Set_Alignment(Object_Type::Alignment::Top_Right);
+        Yellow_Part.Add_Style(Menu_Button_Part_Style, 0);
+        Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+    }
+    Object_Type List;
+    List.Set_Grid_Cell(Object_Type::Grid::Stretch, 1, 1, Object_Type::Grid::Stretch, 0, 1);
+    List.Set_Flex_Flow(Object_Type::Flex_Flow::Row);
+    List.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Color_Type::Grey, -1), 0);
+    List.Set_Style_Border_Width(0, 0);
+    List.Set_Style_Pad_All(0, 0);
+    List.Set_Content_Height(40);
+
+    Button_Type::Button;
+    Label_Type Label;
+    for (uint8_t i = 0; i < 8; i++)
+    {
+        Button.Create(List);
+        Button.Set_Size(40, 40);
+        Button.Set_Style_Border_Width(0, 0);
+        Button.Clear_Pointer();
+
+        Label.Create(List);
+        Label.Set_Text_Format("A %u", i);
+        Label.Set_Alignment(Object_Type::Alignment::Center);
+    }
 }
 
 Shell_Class::Desk_Class::~Desk_Class()
 {
+    Grid.Delete();
+    Dock.Delete();
+    Menu_Button.Delete();
+    Window.Delete();
 }
 
 void Shell_Class::Desk_Class::Logout()
@@ -114,148 +189,6 @@ void Shell_Class::Desk_Class::Logout()
 
 // -- Drawer -- //
 
-void Shell_Class::Desk_Class::Refresh_Drawer()
-{
-    if (Software_Management.Handle[Offset] == NULL)
-    {
-        Offset = 0;
-    }
-    // Item name drawing
-    char Temporary_String[11] = "ITEM _TXT";
-    for (uint8_t i = 0; i < 15; i++)
-    {
-
-        Temporary_String[4] = i + 'A';
-
-        if (Software_Management.Handle[i + Offset] != NULL)
-        {
-            Display.Set_Text(Temporary_String, Software_Management.Handle[i + Offset]->Name);
-        }
-        else
-        {
-            Display.Set_Text(Temporary_String, "");
-        }
-        Task_Class::Delay(1);
-    }
-
-    // Item picture drawing
-    strlcpy(Temporary_String, "ITEM _PIC", sizeof(Temporary_String));
-    for (uint8_t i = 0; i < 15; i++)
-    {
-        Temporary_String[4] = i + 'A';
-
-        if (Software_Management.Handle[i + Offset] != NULL)
-        {
-            Display.Set_Picture(Temporary_String, Software_Management.Handle[i + Offset]->Icon);
-        }
-        else
-        {
-            Display.Hide(Temporary_String);
-        }
-    }
-}
-
-void Shell_Class::Desk_Class::Execute_Drawer_Instruction(Xila_Class::Instruction Instruction)
-{
-    switch (Instruction)
-    {
-    case Instruction('R', 'e'):
-        Refresh_Drawer();
-        break;
-    case Instruction('N', 'd'): // Nd : Next drawer items
-        if ((Offset + 15) < (sizeof(Software_Management.Handle) / sizeof(Software_Management.Handle[1])))
-        {
-            if (Software_Management.Handle[Offset + 15] != NULL)
-            {
-                Offset += 15;
-                Instance_Pointer->Send_Instruction('R', 'e');
-            }
-        }
-        break;
-    case Instruction('P', 'd'): // Pd : Previous drawer items
-        if (Offset > 14)
-        {
-            Offset -= 15;
-            Instance_Pointer->Send_Instruction('R', 'e');
-        }
-        else
-        {
-            Offset = 0;
-        }
-        break;
-    case Instruction('d', '0'): // dx : Open software from drawer
-        Open_From_Drawer(0);
-        break;
-    case Instruction('d', '1'): // dx : Open software from drawer
-        Open_From_Drawer(1);
-        break;
-    case Instruction('d', '2'): // dx : Open software from drawer
-        Open_From_Drawer(2);
-        break;
-    case Instruction('d', '3'): // dx : Open software from drawer
-        Open_From_Drawer(3);
-        break;
-    case Instruction('d', '4'): // dx : Open software from drawer
-        Open_From_Drawer(4);
-        break;
-    case Instruction('d', '5'): // dx : Open software from drawer
-        Open_From_Drawer(5);
-        break;
-    case Instruction('d', '6'): // dx : Open software from drawer
-        Open_From_Drawer(6);
-        break;
-    case Instruction('d', '7'): // dx : Open software from drawer
-        Open_From_Drawer(7);
-        break;
-    case Instruction('d', '8'): // dx : Open software from drawer
-        Open_From_Drawer(8);
-        break;
-    case Instruction('d', '9'): // dx : Open software from drawer
-        Open_From_Drawer(9);
-        break;
-    case Instruction('d', 'A'): // dx : Open software from drawer
-        Open_From_Drawer(10);
-        break;
-    case Instruction('d', 'B'): // dx : Open software from drawer
-        Open_From_Drawer(11);
-        break;
-    case Instruction('d', 'C'): // dx : Open software from drawer
-        Open_From_Drawer(12);
-        break;
-    case Instruction('d', 'D'): // dx : Open software from drawer
-        Open_From_Drawer(13);
-        break;
-    case Instruction('d', 'E'): // dx : Open software from drawer
-        Open_From_Drawer(14);
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
-}
-
-void Shell_Class::Desk_Class::Open_From_Drawer(uint8_t Slot)
-{
-    if ((Slot + Offset) < (sizeof(Software_Management.Handle) / sizeof(Xila_Class::Software_Handle *)))
-    {
-        if (Software_Management.Handle[Slot + Offset] != NULL)
-        {
-            if (Software_Management.Open(*Software_Management.Handle[Slot + Offset]) != Success)
-            {
-                DIALOG.Event(Event_Error_Open_Software, Error);
-                Instance_Pointer->Send_Instruction('R', 'e');
-            }
-        }
-        else
-        {
-            DESK.Open(Pages.Drawer);
-        }
-    }
-    else
-    {
-        DESK.Open(Pages.Drawer);
-    }
-}
 
 // -- Desk -- //
 

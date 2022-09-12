@@ -32,12 +32,15 @@ public:
 
     Result::Type Create_Instance();
 
+    const char* Get_Name() const;
+    void* Get_Pointer_Create_Instance() const;
+
     /// -- Methods -- //
     bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
 
 protected:
 
-    static std::vector<Software_Handle_Class*> Software_Handle_List;
+    static std::vector<Software_Handle_Class*> List;
 
     // - Attributes
    
