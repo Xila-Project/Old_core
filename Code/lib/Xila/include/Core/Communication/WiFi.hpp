@@ -31,50 +31,56 @@
 ///
 /// @brief WiFi class
 ///
-class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass, public Module_Class
+
+namespace Xila_Namespace
 {
-public:
-    void printDiag(Print &dest);
 
-    void enableProv(bool status);
-    bool isProvEnabled();
+    class WiFi_Class : public WiFiGenericClass, public WiFiSTAClass, public WiFiScanClass, public WiFiAPClass, public Module_Class
+    {
+    public:
+        void printDiag(Print &dest);
 
-    WiFi_Class();
+        void enableProv(bool status);
+        bool isProvEnabled();
 
-    using WiFiGenericClass::channel;
+        WiFi_Class();
 
-    using WiFiSTAClass::BSSID;
-    using WiFiSTAClass::BSSIDstr;
-    using WiFiSTAClass::RSSI;
-    using WiFiSTAClass::SSID;
+        using WiFiGenericClass::channel;
 
-    using WiFiScanClass::BSSID;
-    using WiFiScanClass::BSSIDstr;
-    using WiFiScanClass::channel;
-    using WiFiScanClass::encryptionType;
-    using WiFiScanClass::RSSI;
-    using WiFiScanClass::SSID;
+        using WiFiSTAClass::BSSID;
+        using WiFiSTAClass::BSSIDstr;
+        using WiFiSTAClass::RSSI;
+        using WiFiSTAClass::SSID;
 
-    void Set_Credentials(const char *Name, const char *Password);
+        using WiFiScanClass::BSSID;
+        using WiFiScanClass::BSSIDstr;
+        using WiFiScanClass::channel;
+        using WiFiScanClass::encryptionType;
+        using WiFiScanClass::RSSI;
+        using WiFiScanClass::SSID;
 
-    static Result::Type Load_Registry();
-    static Result::Type Save_Registry();
+        void Set_Credentials(const char *Name, const char *Password);
 
-    friend class WiFiClient;
-    friend class WiFiServer;
-    friend class WiFiUDP;
+        static Result::Type Load_Registry();
+        static Result::Type Save_Registry();
 
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
+        friend class WiFiClient;
+        friend class WiFiServer;
+        friend class WiFiUDP;
 
-protected:
-    bool prov_enable;
+        friend class Xila_Class;
+        friend class Shell_Class;
+        friend class Unit_Test_Class;
 
-    ///
-    /// @brief Access point password.
-    ///
-    char Password[82];
-};
+    protected:
+        bool prov_enable;
+
+        ///
+        /// @brief Access point password.
+        ///
+        char Password[82];
+    };
+
+}
 
 #endif

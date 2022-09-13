@@ -19,39 +19,43 @@
 ///
 /// @brief Power management module.
 ///
-class Power_Class : public Module_Class, public Battery_Class
+
+namespace Xila_Namespace
 {
+    class Power_Class : public Module_Class, public Battery_Class
+    {
 
-public:
-    // -- Constructors / Destructors
-    Power_Class();
+    public:
+        // -- Constructors / Destructors
+        Power_Class();
 
-    // -- Methods
+        // -- Methods
 
-    Result::Type Save_Registry();
-    Result::Type Load_Registry();
+        Result::Type Save_Registry();
+        Result::Type Load_Registry();
 
-    // -- Attributes
-    ///
-    /// @brief Button press counter.
-    ///
-    volatile uint8_t Button_Counter;
+        // -- Attributes
+        ///
+        /// @brief Button press counter.
+        ///
+        volatile uint8_t Button_Counter;
 
-    ///
-    /// @brief Button press timer, used to differentiate a short press from a long press.
-    ///
-    volatile uint32_t Button_Timer;
+        ///
+        /// @brief Button press timer, used to differentiate a short press from a long press.
+        ///
+        volatile uint32_t Button_Timer;
 
-    ///
-    /// @brief Button interrupt mutex.
-    ///
-    portMUX_TYPE Button_Mutex;
+        ///
+        /// @brief Button interrupt mutex.
+        ///
+        portMUX_TYPE Button_Mutex;
 
-    // -- Methods -- //
-    void static IRAM_ATTR Button_Interrupt_Handler();
+        // -- Methods -- //
+        void static IRAM_ATTR Button_Interrupt_Handler();
 
-    void Check_Button();
-    void Deep_Sleep();
-};
+        void Check_Button();
+        void Deep_Sleep();
+    } Power;
+}
 
 #endif

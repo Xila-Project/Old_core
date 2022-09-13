@@ -50,7 +50,7 @@ extern "C"
 ///
  /// @brief Construct a new WiFi_Class object
  /// 
-WiFi_Class::WiFi_Class()
+Xila_Namespace::WiFi_Class::WiFi_Class()
 {
     prov_enable = false;
     memset(Password, '\0', sizeof(Password));
@@ -61,7 +61,7 @@ WiFi_Class::WiFi_Class()
 ///
 /// @return Result::Type
 ///
-Module_Class::Result::Type WiFi_Class::Load_Registry()
+Module_Class::Result::Type Xila_Namespace::WiFi_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
@@ -88,7 +88,7 @@ Module_Class::Result::Type WiFi_Class::Load_Registry()
 ///
 /// @return Result::Type
 ///
-Module_Class::Result::Type WiFi_Class::Save_Registry()
+Module_Class::Result::Type Xila_Namespace::WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";
@@ -110,7 +110,7 @@ Module_Class::Result::Type WiFi_Class::Save_Registry()
  /// 
  /// @param Name SSID of the access point.
  /// @param Password Password of the access point.
-void WiFi_Class::Set_Credentials(const char *Name, const char *Password)
+void Xila_Namespace::WiFi_Class::Set_Credentials(const char *Name, const char *Password)
 {
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
@@ -121,7 +121,7 @@ void WiFi_Class::Set_Credentials(const char *Name, const char *Password)
  /// @brief Output WiFi settings to an object derived from Print interface (like Serial).
  /// 
  /// @param p Print object to output.
-void WiFi_Class::printDiag(Print &p)
+void Xila_Namespace::WiFi_Class::printDiag(Print &p)
 {
     const char *modes[] = {"NULL", "STA", "AP", "STA+AP"};
 
@@ -168,7 +168,7 @@ void WiFi_Class::printDiag(Print &p)
  /// @brief 
  /// 
  /// @param status 
-void WiFi_Class::enableProv(bool status)
+void Xila_Namespace::WiFi_Class::enableProv(bool status)
 {
     prov_enable = status;
 }
@@ -178,7 +178,7 @@ void WiFi_Class::enableProv(bool status)
  /// 
  /// @return true 
  /// @return false 
-bool WiFi_Class::isProvEnabled()
+bool Xila_Namespace::WiFi_Class::isProvEnabled()
 {
     return prov_enable;
 }

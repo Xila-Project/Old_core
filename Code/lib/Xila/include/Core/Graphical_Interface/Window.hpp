@@ -16,6 +16,8 @@
 #include "Label.hpp"
 #include "Image.hpp"
 
+class Software_Class;
+
 class Window_Class : public Object_Class
 {
 public:
@@ -29,6 +31,8 @@ public:
 
     Object_Class Get_Body();
     Object_Class Get_Header();
+
+    Software_Class* Software_Pointer;
 
 private:
 

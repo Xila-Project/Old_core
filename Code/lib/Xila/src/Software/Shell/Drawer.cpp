@@ -93,7 +93,7 @@ void Shell_Class::Drawer_Class::Refresh_Drawer()
 
 void Shell_Class::Drawer_Class::Execute_Drawer_Instruction(Xila_Class::Instruction_Type Instruction)
 {
-    switch (Instruction.Get_Argument())
+    switch (Instruction.Get_Arguments())
     {
     case Instruction('R', 'e'):
         Refresh_Drawer();

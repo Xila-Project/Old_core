@@ -23,39 +23,43 @@ class Software_Class;
 ///
 /// @brief Software handle used by Xila to manage each software.
 ///
-class Software_Handle_Class : public Module_Class
+
+namespace Xila_Namespace
 {
-public:
-    // -- Constructors / Destructor
-    Software_Handle_Class();
-    Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
+    typedef class Software_Handle_Class : public Module_Class
+    {
+    public:
+        // -- Constructors / Destructor
+        Software_Handle_Class();
+        Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
 
-    Result::Type Create_Instance();
+        Result::Type Create_Instance();
 
-    const char* Get_Name() const;
-    void* Get_Pointer_Create_Instance() const;
+        const char *Get_Name() const;
+        void *Get_Pointer_Create_Instance() const;
 
-    /// -- Methods -- //
-    bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
+        /// -- Methods -- //
+        bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
 
-protected:
+    protected:
+        static std::vector<Software_Handle_Class *> List;
 
-    static std::vector<Software_Handle_Class*> List;
+        // - Attributes
 
-    // - Attributes
-   
-    ///
-    /// @brief Software string name.
-    ///
-    char Name[Default_Software_Name_Length]; // used to identify the software,
+        ///
+        /// @brief Software string name.
+        ///
+        char Name[Default_Software_Name_Length]; // used to identify the software,
 
-    ///
-    /// @brief Function pointer called by Xila to load software.
-    /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
-    ///
-    void (*Create_Instance_Pointer)();
-};
+        ///
+        /// @brief Function pointer called by Xila to load software.
+        /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
+        ///
+        void (*Create_Instance_Pointer)();
+    } Software_Handle_Type;
 
-bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b);
+    bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b);
+
+}
 
 #endif

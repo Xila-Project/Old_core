@@ -283,7 +283,7 @@ void Shell_Class::File_Manager_Class::Create_File()
         }
         else
         {
-            DIALOG.Event(F("Failed to create file."), Error);
+            DIALOG.Event(F("Failed to create file."), Result::Error);
             break;
         }
     }
@@ -302,14 +302,14 @@ void Shell_Class::File_Manager_Class::Create_Folder()
             {
                 if (!Drive.Make_Directory(String(Current_Path) + "/" + String(Current_Item_Name)))
                 {
-                    DIALOG.Event(F("Failed to create folder."), Error);
+                    DIALOG.Event(F("Failed to create folder."), Result::Error);
                 }
                 break;
             }
         }
         else
         {
-            DIALOG.Event(F("Failed to create folder."), Error);
+            DIALOG.Event(F("Failed to create folder."), Result::Error);
             break;
         }
     }

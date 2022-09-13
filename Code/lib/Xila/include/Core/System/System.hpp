@@ -18,77 +18,80 @@
 ///
 /// @brief System module API
 ///
-class System_Class : public Module_Class
+
+namespace Xila_Namespace
 {
-public:
-    // -- Constructors
-    System_Class();
-    ~System_Class();
-
-    // -- Methods
-    const char *Get_Device_Name();
-    uint64_t Get_eFuse_MAC();
-    uint8_t Get_Chip_Revision();
-    const char *Get_Chip_Model();
-    uint32_t Get_Chip_Cores();
-    uint32_t Get_CPU_Frequency();
-    const char *Get_SDK_Version();
-
-    void Start();
-
-    void Shutdown();
-    void Restart();
-    void Hibernate();
-
-    void Refresh_Header();
-
-    static void Task_Start_Function(void* Instance);
-    void Task_Function();
-
-    // -- Friendship
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
-
-protected:
-
-    // System's task :
-    Task_Class Task;
-
-    ///
-    /// @brief Device name used as Network hostname ...
-    ///
-    char Device_Name[25];
-
-    // -- Methods
-
-    Result::Type Load_Registry();
-    Result::Type Save_Registry();
-
-    Result::Type Save_Dump();
-    Result::Type Load_Dump();
- 
-    Result::Type Load_Executable(File Executable_File);
-
-    void Second_Sleep_Routine();
-
-    ///
-    /// @brief Panic codes used by the panic handler ("Grey screen").
-    ///
-    enum Panic_Code
+    class System_Class : public Module_Class
     {
-        Missing_System_Files,     ///< Missing system files (registries).
-        Damaged_System_Registry,  ///< Damaged system registry.
-        Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
-        System_Drive_Failure,     ///< System drive failure (disconnected).
-        Failed_To_Update_Display, ///< Failed to update display.
-        Low_Memory,               ///< Low memory (fragmentation, too much software openned).
-        Memory_Corruption,        ///< Memory corruption.
-    };
+    public:
+        // -- Constructors
+        System_Class();
+        ~System_Class();
 
-    void Panic_Handler(Panic_Code Panic_Code);
+        // -- Methods
+        const char *Get_Device_Name();
+        uint64_t Get_eFuse_MAC();
+        uint8_t Get_Chip_Revision();
+        const char *Get_Chip_Model();
+        uint32_t Get_Chip_Cores();
+        uint32_t Get_CPU_Frequency();
+        const char *Get_SDK_Version();
 
-    void Execute_Startup_Function();
-};
+        void Start();
+
+        void Shutdown();
+        void Restart();
+        void Hibernate();
+
+        void Refresh_Header();
+
+        static void Task_Start_Function(void *Instance);
+        void Task_Function();
+
+        // -- Friendship
+        friend class Xila_Class;
+        friend class Shell_Class;
+        friend class Unit_Test_Class;
+
+    protected:
+        // System's task :
+        Task_Class Task;
+
+        ///
+        /// @brief Device name used as Network hostname ...
+        ///
+        char Device_Name[25];
+
+        // -- Methods
+
+        Result::Type Load_Registry();
+        Result::Type Save_Registry();
+
+        Result::Type Save_Dump();
+        Result::Type Load_Dump();
+
+        Result::Type Load_Executable(File Executable_File);
+
+        void Second_Sleep_Routine();
+
+        ///
+        /// @brief Panic codes used by the panic handler ("Grey screen").
+        ///
+        enum Panic_Code
+        {
+            Missing_System_Files,     ///< Missing system files (registries).
+            Damaged_System_Registry,  ///< Damaged system registry.
+            Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
+            System_Drive_Failure,     ///< System drive failure (disconnected).
+            Failed_To_Update_Display, ///< Failed to update display.
+            Low_Memory,               ///< Low memory (fragmentation, too much software openned).
+            Memory_Corruption,        ///< Memory corruption.
+        };
+
+        void Panic_Handler(Panic_Code Panic_Code);
+
+        void Execute_Startup_Function();
+    } System;
+}
 
 #endif

@@ -17,13 +17,15 @@
 #include "FS.h"
 
 /*
+
+
 class File_Class : public Module_Class
 {
 public:
 
     File_Class();
     ~File_Class();
-    
+
     typedef enum Seek_Mode_Enumeration
     {
         Set,
@@ -54,7 +56,7 @@ public:
     void Close();
 
     operator bool();
-    
+
     Time_Type Get_Last_Write();
     const char* Path();
     const char* Name();
@@ -72,68 +74,72 @@ private:
 ///
 /// @brief Drive class
 ///
-class Drive_Class : public Module_Class
+
+namespace Xila_Namespace
 {
-public:
-    // - Types and enumerations
-
-    typedef File File_Type;
-
-    ///
-    /// @brief Drive type.
-    ///
-    typedef enum
+    class Drive_Class : public Module_Class
     {
-        None,  ///< None (nothing connected).
-        MMC,   ///< MMC type.
-        SD_SC, ///< SD type.
-        SD_HC, ///< SD HC type.
-        Unknow ///< Unknow type.
-    } SD_Card_Type;
+    public:
+        // - Types and enumerations
 
-    // - Methods
+        typedef File File_Type;
 
-    // - - Constructor
-    Drive_Class();
+        ///
+        /// @brief Drive type.
+        ///
+        typedef enum
+        {
+            None,  ///< None (nothing connected).
+            MMC,   ///< MMC type.
+            SD_SC, ///< SD type.
+            SD_HC, ///< SD HC type.
+            Unknow ///< Unknow type.
+        } SD_Card_Type;
 
-    // - - Drive informations
-    uint64_t Size();
-    SD_Card_Type Type();
-    uint64_t Total_Bytes();
-    uint64_t Used_Bytes();
+        // - Methods
 
-    // - - File system management
-    bool Exists(const char *Path);
-    bool Exists(const String &Path);
+        // - - Constructor
+        Drive_Class();
 
-    bool Make_Directory(const char *Path);
-    bool Make_Directory(const String &Path);
+        // - - Drive informations
+        uint64_t Size();
+        SD_Card_Type Type();
+        uint64_t Total_Bytes();
+        uint64_t Used_Bytes();
 
-    bool Remove_Directory(const char *Path);
-    bool Remove_Directory(const String &Path);
+        // - - File system management
+        bool Exists(const char *Path);
+        bool Exists(const String &Path);
 
-    File_Type Open(const char *Path, const char *Mode = "r");
-    File_Type Open(const String &Path, const char *Mode = "r");
+        bool Make_Directory(const char *Path);
+        bool Make_Directory(const String &Path);
 
-    bool Remove(const char *Path);
-    bool Remove(const String &Path);
+        bool Remove_Directory(const char *Path);
+        bool Remove_Directory(const String &Path);
 
-    bool Rename(const char *Path_From, const char *Path_To);
-    bool Rename(const String &Path_From, const String &Path_To);
+        File_Type Open(const char *Path, const char *Mode = "r");
+        File_Type Open(const String &Path, const char *Mode = "r");
 
-    Result::Type Copy(File_Type &Origin_File, File_Type &Destination_File);
-    Result::Type Get_Name(File_Type const &File, char *File_Name_Buffer, Size_Type Size);
-    uint16_t Count_Items(File_Type &Folder);
+        bool Remove(const char *Path);
+        bool Remove(const String &Path);
 
-    // -- Friendship
-    friend class Xila_Class;
-    friend class Shell_Class;
-    friend class Unit_Test_Class;
+        bool Rename(const char *Path_From, const char *Path_To);
+        bool Rename(const String &Path_From, const String &Path_To);
 
-protected:
-    void End();
+        Result::Type Copy(File_Type &Origin_File, File_Type &Destination_File);
+        Result::Type Get_Name(File_Type const &File, char *File_Name_Buffer, Size_Type Size);
+        uint16_t Count_Items(File_Type &Folder);
 
-    bool Begin(const char *Mount_Point = "/");
-};
+        // -- Friendship
+        friend class Xila_Class;
+        friend class Shell_Class;
+        friend class Unit_Test_Class;
+
+    protected:
+        void End();
+
+        bool Begin(const char *Mount_Point = "/");
+    } Drive;
+}
 
 #endif

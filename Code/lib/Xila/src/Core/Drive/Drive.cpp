@@ -11,9 +11,9 @@
 #include "Core/Drive/Drive.hpp"
 
 ///
- /// @brief Construct a new Drive_Class::Drive_Class object
+ /// @brief Construct a new Xila_Namespace::Drive_Class::Drive_Class object
  /// 
-Drive_Class::Drive_Class()
+Xila_Namespace::Drive_Class::Drive_Class()
 {
 }
 
@@ -25,7 +25,7 @@ Drive_Class::Drive_Class()
 /// @param Origin_File File to duplicate
 /// @param Destination_File File to write
 /// @return Result::Type::Success or Result::Type::Error
-Module_Class::Result::Type Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
+Module_Class::Result::Type Xila_Namespace::Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
@@ -46,7 +46,7 @@ Module_Class::Result::Type Drive_Class::Copy(File_Type &Origin_File, File_Type &
 ///
 /// @param Folder
 /// @return uint16_t return the number of files inside a folder
-uint16_t Drive_Class::Count_Items(File &Folder)
+uint16_t Xila_Namespace::Drive_Class::Count_Items(File &Folder)
 {
     if (!Folder || !Folder.isDirectory())
     {
@@ -71,7 +71,7 @@ uint16_t Drive_Class::Count_Items(File &Folder)
 /// @param File_Name
 /// @param Size
 /// @return Result::Type
-Module_Class::Result::Type Drive_Class::Get_Name(File_Type const &File, char *File_Name, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Drive_Class::Get_Name(File_Type const &File, char *File_Name, size_t Size)
 {
     if (!File)
     {

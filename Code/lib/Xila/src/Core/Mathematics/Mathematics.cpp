@@ -16,7 +16,7 @@
 /// @param Number
 /// @return true
 /// @return false
-bool Mathematics_Class::Is_NAN(double Number)
+bool Xila_Namespace::Mathematics_Class::Is_NAN(double Number)
 {
     return isnan(Number);
 }
@@ -27,7 +27,7 @@ bool Mathematics_Class::Is_NAN(double Number)
 /// @param Number
 /// @return true
 /// @return false
-bool Mathematics_Class::Is_Infinite(double Number)
+bool Xila_Namespace::Mathematics_Class::Is_Infinite(double Number)
 {
     return isinf(Number);
 }
@@ -38,17 +38,17 @@ bool Mathematics_Class::Is_Infinite(double Number)
 /// @param Number_1 Origin number.
 /// @param Number_2 Destination number.
 /// @return double New number sign
-double Mathematics_Class::Copy_Sign(double Number_1, double Number_2)
+double Xila_Namespace::Mathematics_Class::Copy_Sign(double Number_1, double Number_2)
 {
     return copysign(Number_1, Number_2);
 }
 
-double Mathematics_Class::Floor(double Number)
+double Xila_Namespace::Mathematics_Class::Floor(double Number)
 {
     return floor(Number);
 }
 
-double Mathematics_Class::Modulo(double Number_1, double Number_2)
+double Xila_Namespace::Mathematics_Class::Modulo(double Number_1, double Number_2)
 {
     return fmod(Number_1, Number_2);
 }
@@ -58,7 +58,7 @@ double Mathematics_Class::Modulo(double Number_1, double Number_2)
 ///
 /// @param Degrees Angle to convert in degrees.
 /// @return double Converted angle in radians.
-double Mathematics_Class::Radians(double Degrees)
+double Xila_Namespace::Mathematics_Class::Radians(double Degrees)
 {
     return Degrees * Degrees_To_Radians;
 }
@@ -68,7 +68,7 @@ double Mathematics_Class::Radians(double Degrees)
 ///
 /// @param Radians Angle to convert in radians.
 /// @return double Converted angle in degrees.
-double Mathematics_Class::Degrees(double Radians)
+double Xila_Namespace::Mathematics_Class::Degrees(double Radians)
 {
     return Radians * Radians_To_Degrees;
 }
@@ -78,7 +78,7 @@ double Mathematics_Class::Degrees(double Radians)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Sine of the number.
-double Mathematics_Class::Sine(double Number)
+double Xila_Namespace::Mathematics_Class::Sine(double Number)
 {
     return sin(Number);
 }
@@ -88,7 +88,7 @@ double Mathematics_Class::Sine(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Cosine of the number.
-double Mathematics_Class::Cosine(double Number)
+double Xila_Namespace::Mathematics_Class::Cosine(double Number)
 {
     return cos(Number);
 }
@@ -98,7 +98,7 @@ double Mathematics_Class::Cosine(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Tangent of the number.
-double Mathematics_Class::Tangent(double Number)
+double Xila_Namespace::Mathematics_Class::Tangent(double Number)
 {
     return tan(Number);
 }
@@ -108,7 +108,7 @@ double Mathematics_Class::Tangent(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Secant of the number.
-double Mathematics_Class::Secant(double Number)
+double Xila_Namespace::Mathematics_Class::Secant(double Number)
 {
     return 1 / Cosine(Number);
 }
@@ -118,7 +118,7 @@ double Mathematics_Class::Secant(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Cosecant of the number.
-double Mathematics_Class::Cosecant(double Number)
+double Xila_Namespace::Mathematics_Class::Cosecant(double Number)
 {
     return 1 / Sine(Number);
 }
@@ -128,7 +128,7 @@ double Mathematics_Class::Cosecant(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Cotangent of the number.
-double Mathematics_Class::Cotangent(double Number)
+double Xila_Namespace::Mathematics_Class::Cotangent(double Number)
 {
     return 1 / Tangent(Number);
 }
@@ -138,7 +138,7 @@ double Mathematics_Class::Cotangent(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc sine of the number.
-double Mathematics_Class::Arc_Sine(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Sine(double Number)
 {
     return asin(Number);
 }
@@ -148,7 +148,7 @@ double Mathematics_Class::Arc_Sine(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc cosine of the number.
-double Mathematics_Class::Arc_Cosine(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Cosine(double Number)
 {
     return acos(Number);
 }
@@ -158,7 +158,7 @@ double Mathematics_Class::Arc_Cosine(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc tangent of the number.
-double Mathematics_Class::Arc_Tangent(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Tangent(double Number)
 {
     return atan(Number);
 }
@@ -168,7 +168,7 @@ double Mathematics_Class::Arc_Tangent(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc secant of the number.
-double Mathematics_Class::Arc_Secant(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Secant(double Number)
 {
     return Arc_Cosine(1 / Number);
 }
@@ -178,7 +178,7 @@ double Mathematics_Class::Arc_Secant(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc cosecant of the number.
-double Mathematics_Class::Arc_Cosecant(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Cosecant(double Number)
 {
     return Arc_Sine(1 / Number);
 }
@@ -188,7 +188,7 @@ double Mathematics_Class::Arc_Cosecant(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Arc cotangent of the number.
-double Mathematics_Class::Arc_Cotangent(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Cotangent(double Number)
 {
     return (Pi / 2) - Arc_Tangent(Number);
 }
@@ -198,7 +198,7 @@ double Mathematics_Class::Arc_Cotangent(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Hyperbolic sine of the number.
-double Mathematics_Class::Hyperbolic_Sine(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Sine(double Number)
 {
     return sinh(Number);
 }
@@ -208,22 +208,22 @@ double Mathematics_Class::Hyperbolic_Sine(double Number)
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Tangent of the number.
-double Mathematics_Class::Hyperbolic_Cosine(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Cosine(double Number)
 {
     return cosh(Number);
 }
 
-double Mathematics_Class::Hyperbolic_Tangent(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Tangent(double Number)
 {
     return tanh(Number);
 }
 
-double Mathematics_Class::Hyperbolic_Secant(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Secant(double Number)
 {
     return 1 / Hyperbolic_Cosine(Number);
 }
 
-double Mathematics_Class::Hyperbolic_Cosecant(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Cosecant(double Number)
 {
     if (Number == 0)
     {
@@ -232,7 +232,7 @@ double Mathematics_Class::Hyperbolic_Cosecant(double Number)
     return 1 / Hyperbolic_Sine(Number);
 }
 
-double Mathematics_Class::Hyperbolic_Cotangent(double Number)
+double Xila_Namespace::Mathematics_Class::Hyperbolic_Cotangent(double Number)
 {
     if (Number == 0)
     {
@@ -241,37 +241,37 @@ double Mathematics_Class::Hyperbolic_Cotangent(double Number)
     return Hyperbolic_Cosine(Number) / Hyperbolic_Sine(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Sine(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Sine(double Number)
 {
     return asinh(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Cosine(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Cosine(double Number)
 {
     return acosh(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Tangent(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Tangent(double Number)
 {
     return atanh(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Secant(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Secant(double Number)
 {
     return 1 / Hyperbolic_Secant(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Cosecant(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Cosecant(double Number)
 {
     return 1 / Hyperbolic_Cosecant(Number);
 }
 
-double Mathematics_Class::Arc_Hyperbolic_Cotangent(double Number)
+double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Cotangent(double Number)
 {
     return 1 / Hyperbolic_Cotangent(Number);
 }
 
-double Mathematics_Class::Absolute(double Number)
+double Xila_Namespace::Mathematics_Class::Absolute(double Number)
 {
     return abs(Number);
 }
@@ -282,7 +282,7 @@ double Mathematics_Class::Absolute(double Number)
 /// @param Base Base number.
 /// @param Exponent Exponent to apply.
 /// @return double Power of the number.
-double Mathematics_Class::Power(double Base, double Exponent)
+double Xila_Namespace::Mathematics_Class::Power(double Base, double Exponent)
 {
     return pow(Base, Exponent);
 }
@@ -292,67 +292,67 @@ double Mathematics_Class::Power(double Base, double Exponent)
 ///
 /// @param Number Number to calculate.
 /// @return double Square of the number.
-double Mathematics_Class::Square(double Number)
+double Xila_Namespace::Mathematics_Class::Square(double Number)
 {
     return Number * Number;
 }
 
-double Mathematics_Class::Cube(double Number)
+double Xila_Namespace::Mathematics_Class::Cube(double Number)
 {
     return Number * Number * Number;
 }
 
-double Mathematics_Class::Root(double Base, double Exponent)
+double Xila_Namespace::Mathematics_Class::Root(double Base, double Exponent)
 {
     return Power(Base, 1 / Exponent);
 }
 
-double Mathematics_Class::Square_Root(double Number)
+double Xila_Namespace::Mathematics_Class::Square_Root(double Number)
 {
     return sqrt(Number);
 }
 
-double Mathematics_Class::Cubic_Root(double Number)
+double Xila_Namespace::Mathematics_Class::Cubic_Root(double Number)
 {
     return cbrt(Number);
 }
 
-double Mathematics_Class::Exponential(double Number)
+double Xila_Namespace::Mathematics_Class::Exponential(double Number)
 {
     return exp(Number);
 }
 
-double Mathematics_Class::Logarithm(double Base, double Number)
+double Xila_Namespace::Mathematics_Class::Logarithm(double Base, double Number)
 {
     return Natural_Logarithm(Number) / Natural_Logarithm(Base);
 }
 
-double Mathematics_Class::Binary_Logarithm(double Number)
+double Xila_Namespace::Mathematics_Class::Binary_Logarithm(double Number)
 {
     return log2(Number);
 }
 
-double Mathematics_Class::Natural_Logarithm(double Number)
+double Xila_Namespace::Mathematics_Class::Natural_Logarithm(double Number)
 {
     return log(Number);
 }
 
-double Mathematics_Class::Decimal_Logarithm(double Number)
+double Xila_Namespace::Mathematics_Class::Decimal_Logarithm(double Number)
 {
     return log10(Number);
 }
 
-double Mathematics_Class::Inverse(double Number)
+double Xila_Namespace::Mathematics_Class::Inverse(double Number)
 {
     return 1 / Number;
 }
 
-uint32_t Mathematics_Class::Random()
+uint32_t Xila_Namespace::Mathematics_Class::Random()
 {
     return esp_random();
 }
 
-uint32_t Mathematics_Class::Random(uint32_t Upper_Bound)
+uint32_t Xila_Namespace::Mathematics_Class::Random(uint32_t Upper_Bound)
 {
     uint32_t x = esp_random();
     uint64_t m = uint64_t(x) * uint64_t(Upper_Bound);
@@ -376,7 +376,7 @@ uint32_t Mathematics_Class::Random(uint32_t Upper_Bound)
     return m >> 32;
 }
 
-uint32_t Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
+uint32_t Xila_Namespace::Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
 {
     if (Lower_Bound >= Upper_Bound)
     {
@@ -391,7 +391,7 @@ uint32_t Mathematics_Class::Random(uint32_t Lower_Bound, uint32_t Upper_Bound)
 ///
 /// @param String String to convert.
 /// @return double Converted number.
-double Mathematics_Class::String_To_Float(const char *String)
+double Xila_Namespace::Mathematics_Class::String_To_Float(const char *String)
 {
     return atof(String);
 }
@@ -404,7 +404,7 @@ double Mathematics_Class::String_To_Float(const char *String)
 /// @param Precision Float point precision.
 /// @param String String buffer.
 /// @return char* String buffer pointer.
-char *Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
+char *Xila_Namespace::Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Precision, char *String)
 {
     dtostrf(Number, Width, Precision, String);
     // -- Delete unwanted zeros
@@ -432,7 +432,7 @@ char *Mathematics_Class::Float_To_String(double Number, int8_t Width, uint8_t Pr
 /// @param Number_1
 /// @param Number_2
 /// @return double Greatest common divisor.
-double Mathematics_Class::Greatest_Common_Divisor(double Number_1, double Number_2)
+double Xila_Namespace::Mathematics_Class::Greatest_Common_Divisor(double Number_1, double Number_2)
 {
     if (Number_1 == 0 || Number_2 == 0)
     {
@@ -458,7 +458,7 @@ double Mathematics_Class::Greatest_Common_Divisor(double Number_1, double Number
 /// @param Number_1
 /// @param Number_2
 /// @return double Least common divisor.
-double Mathematics_Class::Least_Common_Multiple(double Number_1, double Number_2)
+double Xila_Namespace::Mathematics_Class::Least_Common_Multiple(double Number_1, double Number_2)
 {
     return ((Number_1 * Number_2) / Greatest_Common_Divisor(Number_1, Number_2));
 }
@@ -468,7 +468,7 @@ double Mathematics_Class::Least_Common_Multiple(double Number_1, double Number_2
 ///
 /// @param Number Number to calculte the factorial from.
 /// @return double Factorial.
-double Mathematics_Class::Factorial(double Number)
+double Xila_Namespace::Mathematics_Class::Factorial(double Number)
 {
     for (uint8_t i = Number - 1; i > 0; i--)
     {
@@ -477,12 +477,12 @@ double Mathematics_Class::Factorial(double Number)
     return Number;
 }
 
-double Mathematics_Class::Combination(double n, double k)
+double Xila_Namespace::Mathematics_Class::Combination(double n, double k)
 {
     return Factorial(n) / (Factorial(n - k) * Factorial(k));
 }
 
-double Mathematics_Class::Permutation(double n, double k)
+double Xila_Namespace::Mathematics_Class::Permutation(double n, double k)
 {
     return Factorial(n) / Factorial(n - k);
 }

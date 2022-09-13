@@ -13,39 +13,39 @@
 // -- Constructors
 
 ///
-/// @brief Construct a new Xila_Class::Display_Class::Display_Class object
+/// @brief Construct a new Xila_Class::Xila_Namespace::Display_Class::Display_Class object
 ///
-Display_Class::Display_Class()
+Xila_Namespace::Display_Class::Display_Class()
 
 {
 }
 
 ///
-/// @brief Destroy the Xila_Class::Display_Display_Class::Display_Class object
+/// @brief Destroy the Xila_Class::Display_Xila_Namespace::Display_Class::Display_Class object
 ///
-Display_Class::~Display_Class()
+Xila_Namespace::Display_Class::~Display_Class()
 {
 }
 
 // -- Object's base class
 
-uint16_t Display_Class::Get_Horizontal_Definition()
+uint16_t Xila_Namespace::Display_Class::Get_Horizontal_Definition()
 {
     return Display_Horizontal_Definition;
 }
 
-uint16_t Display_Class::Get_Vertical_Definition()
+uint16_t Xila_Namespace::Display_Class::Get_Vertical_Definition()
 {
     return Display_Vertical_Definition;
 }
 
 
-void Display_Class::Set_Standby_Time(uint16_t Standby_Time)
+void Xila_Namespace::Display_Class::Set_Standby_Time(uint16_t Standby_Time)
 {
     this->Standby_Time = Standby_Time;
 }
 
-uint16_t Display_Class::Get_Standby_Time()
+uint16_t Xila_Namespace::Display_Class::Get_Standby_Time()
 {
     return Standby_Time;
 }
@@ -54,7 +54,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Module_Class::Result::Type Display_Class::Load_Registry()
+Module_Class::Result::Type Xila_Namespace::Display_Class::Load_Registry()
 {
     Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"));
     DynamicJsonDocument Display_Registry(256);
@@ -79,7 +79,7 @@ Module_Class::Result::Type Display_Class::Load_Registry()
 /// @brief Save display registry
 ///
 /// @return Result::Type
-Module_Class::Result::Type Display_Class::Save_Registry()
+Module_Class::Result::Type Xila_Namespace::Display_Class::Save_Registry()
 {
     Xila::Drive_Class::File_Type Temporary_File = Xila::Drive.Open(Registry("Display"), FILE_WRITE);
     DynamicJsonDocument Display_Registry(256);

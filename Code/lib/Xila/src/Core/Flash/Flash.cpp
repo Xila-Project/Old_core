@@ -13,12 +13,12 @@
 #include "esp_partition.h"
 
 
-uint32_t Flash_Class::Get_Sketch_Size()
+uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Size()
 {
     return Sketch_Size(SKETCH_SIZE_TOTAL);
 }
 
-Module_Class::Result::Type Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_read(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
@@ -27,7 +27,7 @@ Module_Class::Result::Type Flash_Class::Read(uint32_t Offset, uint32_t *Data, si
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_read(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -36,7 +36,7 @@ Module_Class::Result::Type Flash_Class::Partition_Read(const esp_partition_t *Pa
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Erase_Sector(uint32_t Sector)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Erase_Sector(uint32_t Sector)
 {
     if (spi_flash_erase_sector(Sector) == ESP_OK)
     {
@@ -45,7 +45,7 @@ Module_Class::Result::Type Flash_Class::Erase_Sector(uint32_t Sector)
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_write(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
@@ -54,7 +54,7 @@ Module_Class::Result::Type Flash_Class::Write(uint32_t Offset, uint32_t *Data, s
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
 {
     if (esp_partition_erase_range(Partition, Offset, Size) == ESP_OK)
     {
@@ -63,7 +63,7 @@ Module_Class::Result::Type Flash_Class::Partition_Erase_Range(const esp_partitio
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_write(Partition, Offset, Data, Size) == ESP_OK)
     {
@@ -72,7 +72,7 @@ Module_Class::Result::Type Flash_Class::Partition_Write(const esp_partition_t *P
     return Result::Error;
 }
 
-Module_Class::Result::Type Flash_Class::Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype)
+Module_Class::Result::Type Xila_Namespace::Flash_Class::Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype)
 {
     if (Partition_Subtype > Xila_Partition)
     {
@@ -91,7 +91,7 @@ Module_Class::Result::Type Flash_Class::Set_Boot_Partition(Partition_Subtype_Typ
  /// @brief A method that return the available space of 
  /// 
  /// @return uint32_t Free space in bytes.
-uint32_t Flash_Class::Get_Sketch_Free_Space()
+uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Free_Space()
 {
     const esp_partition_t* Partition = esp_ota_get_next_update_partition(NULL);
     if (!Partition)
@@ -105,7 +105,7 @@ uint32_t Flash_Class::Get_Sketch_Free_Space()
  /// @brief A method that return current sketch MD5 checksum.
  /// 
  /// @return String MD5 sketch checksum.
-String Flash_Class::Get_Sketch_MD5()
+String Xila_Namespace::Flash_Class::Get_Sketch_MD5()
 {
     static String result;
     if (result.length()) {
@@ -150,7 +150,7 @@ String Flash_Class::Get_Sketch_MD5()
  /// 
  /// @param Response 
  /// @return uint32_t 
-uint32_t Flash_Class::Sketch_Size(sketchSize_t Response)
+uint32_t Xila_Namespace::Flash_Class::Sketch_Size(sketchSize_t Response)
 {
     esp_image_metadata_t data;
     const esp_partition_t *running = esp_ota_get_running_partition();
@@ -176,7 +176,7 @@ uint32_t Flash_Class::Sketch_Size(sketchSize_t Response)
  /// @brief Return flash size.
  /// 
  /// @return uint32_t Flash size in bytes.
-uint32_t Flash_Class::Get_Size()
+uint32_t Xila_Namespace::Flash_Class::Get_Size()
 {
     esp_image_header_t fhdr;
     if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
@@ -190,7 +190,7 @@ uint32_t Flash_Class::Get_Size()
  /// @brief Return flash read speed.
  /// 
  /// @return uint32_t Flash read speed in bytes / sec.
-uint32_t Flash_Class::Get_Speed()
+uint32_t Xila_Namespace::Flash_Class::Get_Speed()
 {
     esp_image_header_t fhdr;
     if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
@@ -204,7 +204,7 @@ uint32_t Flash_Class::Get_Speed()
  /// @brief Return flash mode.
  /// 
  /// @return FlashMode_t Flash mode.
-FlashMode_t Flash_Class::Get_Mode()
+FlashMode_t Xila_Namespace::Flash_Class::Get_Mode()
 {
     esp_image_header_t fhdr;
     if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
@@ -214,7 +214,7 @@ FlashMode_t Flash_Class::Get_Mode()
     return Magic_Mode(fhdr.spi_mode);
 }
 
-uint32_t Flash_Class::Magic_Size(uint8_t Byte)
+uint32_t Xila_Namespace::Flash_Class::Magic_Size(uint8_t Byte)
 {
     switch (Byte & 0x0F)
     {
@@ -233,7 +233,7 @@ uint32_t Flash_Class::Magic_Size(uint8_t Byte)
     }
 }
 
-uint32_t Flash_Class::Magic_Speed(uint8_t Byte)
+uint32_t Xila_Namespace::Flash_Class::Magic_Speed(uint8_t Byte)
 {
     switch (Byte & 0x0F)
     {
@@ -250,7 +250,7 @@ uint32_t Flash_Class::Magic_Speed(uint8_t Byte)
     }
 }
 
-FlashMode_t Flash_Class::Magic_Mode(uint8_t Byte)
+FlashMode_t Xila_Namespace::Flash_Class::Magic_Mode(uint8_t Byte)
 {
     FlashMode_t mode = (FlashMode_t)Byte;
     if (mode > FM_SLOW_READ)

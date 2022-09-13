@@ -18,21 +18,24 @@
 ///
 /// @brief Memory management class.
 ///
-class Memory_Class : public Module_Class
+
+namespace Xila_Namespace
 {
-public:
-    // -- Methods
+    class Memory_Class : public Module_Class
+    {
+    public:
+        // -- Methods
 
-    uint32_t Get_Heap_Size();
-    uint32_t Get_Free_Heap();
-    uint32_t Get_Minimum_Free_Heap();
-    uint32_t Get_Maximum_Allocated_Heap();
+        uint32_t Get_Heap_Size();
+        uint32_t Get_Free_Heap();
+        uint32_t Get_Minimum_Free_Heap();
+        uint32_t Get_Maximum_Allocated_Heap();
 
-    uint32_t Get_PSRAM_Size();
-    uint32_t Get_Free_PSRAM();
-    uint32_t Get_Minimum_Free_PSRAM();
-    uint32_t Get_Maximum_Allocated_PSRAM();
-};
-
+        uint32_t Get_PSRAM_Size();
+        uint32_t Get_Free_PSRAM();
+        uint32_t Get_Minimum_Free_PSRAM();
+        uint32_t Get_Maximum_Allocated_PSRAM();
+    } Memory;
+}
 
 #endif

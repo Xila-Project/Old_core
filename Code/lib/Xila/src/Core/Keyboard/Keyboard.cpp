@@ -15,9 +15,9 @@
 PS2Keyboard PS2_Keyboard();
 
 ///
-/// @brief Construct a new Keyboard_Class::Keyboard_Class object
+/// @brief Construct a new Xila_Namespace::Keyboard_Class::Keyboard_Class object
 ///
-Keyboard_Class::Keyboard_Class()
+Xila_Namespace::Keyboard_Class::Keyboard_Class()
     : Layout(Default_Keyboard_Layout),
       Data_Pin(Default_Keyboard_Data_Pin),
       Clock_Pin(Default_Keyboard_Clock_Pin)
@@ -28,7 +28,7 @@ Keyboard_Class::Keyboard_Class()
 /// @brief Load keyboard registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Keyboard_Class::Load_Registry()
+Module_Class::Result::Type Xila_Namespace::Keyboard_Class::Load_Registry()
 {
     using namespace Xila;
 
@@ -56,7 +56,7 @@ Module_Class::Result::Type Keyboard_Class::Load_Registry()
 /// @brief Save keyboard registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Keyboard_Class::Save_Registry()
+Module_Class::Result::Type Xila_Namespace::Keyboard_Class::Save_Registry()
 {
     using namespace Xila;
 
@@ -78,7 +78,7 @@ Module_Class::Result::Type Keyboard_Class::Save_Registry()
 ///
 /// @brief Initialize the communication with the keyboard.
 ///
-void Keyboard_Class::Begin()
+void Xila_Namespace::Keyboard_Class::Begin()
 {
     switch (Layout)
     {
@@ -107,7 +107,7 @@ void Keyboard_Class::Begin()
 /// @brief Read character from the keyboard.
 ///
 /// @return unsigned char Input character.
-unsigned char Keyboard_Class::Read()
+unsigned char Xila_Namespace::Keyboard_Class::Read()
 {
     return PS2Keyboard::read();
 }
@@ -116,7 +116,7 @@ unsigned char Keyboard_Class::Read()
 /// @brief Check if any character is availble.
 ///
 /// @return uint8_t The amount of character available in the buffer.
-uint8_t Keyboard_Class::Available()
+uint8_t Xila_Namespace::Keyboard_Class::Available()
 {
     return PS2Keyboard::available();
 }
@@ -125,7 +125,7 @@ uint8_t Keyboard_Class::Available()
 /// @brief Read character from the keyboard.
 ///
 /// @return uint8_t The amount of character available in the buffer.
-uint8_t Keyboard_Class::Read_Raw()
+uint8_t Xila_Namespace::Keyboard_Class::Read_Raw()
 {
     return PS2Keyboard::readScanCode();
 }
@@ -133,7 +133,7 @@ uint8_t Keyboard_Class::Read_Raw()
 ///
 /// @brief Clear the character buffer.
 ///
-void Keyboard_Class::Clear()
+void Xila_Namespace::Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();
 }

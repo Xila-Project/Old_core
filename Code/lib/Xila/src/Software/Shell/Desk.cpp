@@ -18,7 +18,6 @@
 
 Shell_Class::Desk_Class::Desk_Class()
 {
-
     Window.Create();
     Window.Set_Title("Desk");
 
@@ -153,18 +152,20 @@ Shell_Class::Desk_Class::Desk_Class()
     List.Set_Style_Pad_All(0, 0);
     List.Set_Content_Height(40);
 
-    Button_Type::Button;
-    Label_Type Label;
-    for (uint8_t i = 0; i < 8; i++)
     {
-        Button.Create(List);
-        Button.Set_Size(40, 40);
-        Button.Set_Style_Border_Width(0, 0);
-        Button.Clear_Pointer();
+        Button_Type Button;
+        Label_Type Label;
+        for (uint8_t i = 0; i < 8; i++)
+        {
+            Button.Create(List);
+            Button.Set_Size(40, 40);
+            Button.Set_Style_Border_Width(0, 0);
+            Button.Clear_Pointer();
 
-        Label.Create(List);
-        Label.Set_Text_Format("A %u", i);
-        Label.Set_Alignment(Object_Type::Alignment::Center);
+            Label.Create(List);
+            Label.Set_Text_Format("A %u", i);
+            Label.Set_Alignment(Object_Type::Alignment::Center);
+        }
     }
 }
 
@@ -188,7 +189,6 @@ void Shell_Class::Desk_Class::Logout()
 }
 
 // -- Drawer -- //
-
 
 // -- Desk -- //
 

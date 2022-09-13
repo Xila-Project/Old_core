@@ -26,85 +26,85 @@ class Software_Handle;
 ///
 #define Instruction(Sender, Argument_1, Argument_2, Argument_3) (Sender * 16777216 + Argument_1 * 65536 + Argument_2 * 256 + Argument_3)*/
 
-class Software_Class : public Module_Class
+namespace Xila_Namespace
 {
-public:
-
-    // - Types
-    typedef enum State_Enumeration
+    typedef class Software_Class : public Module_Class
     {
-        Minimized, ///< Maximized state.
-        Maximized,  ///< Minimized state.
-    } State_Type;
+    public:
+        // - Types
+        typedef enum State_Enumeration
+        {
+            Minimized, ///< Maximized state.
+            Maximized, ///< Minimized state.
+        } State_Type;
 
+        typedef Task_Class Task_Type;
 
-    typedef Task_Class Task_Type;
+        // - Methods
 
-    // - Methods
+        // - - Constructor / Destructor
+        Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
+        virtual ~Software_Class();
 
-    // - - Constructor / Destructor
-    Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
-    virtual ~Software_Class();
+        void Send_Instruction(Instruction_Type Instruction);
+        void Send_Instruction(Module::Type Sender, const char Arguments[4]);
 
-    void Send_Instruction(Instruction_Type Instruction);
-    void Send_Instruction(Module::Type Sender, const char Arguments[4]);
+        bool Check_Watchdog();
 
-    bool Check_Watchdog();
+        static void Check_Watchdogs();
 
-    static void Check_Watchdogs();
+        static void Send_Instruction_To_Maximized(Instruction_Type Instruction);
 
-    static void Send_Instruction_To_Maximized(Instruction_Type Instruction);
+        State_Type Get_State(const Software_Handle_Class &Software_Handle);
 
+        Instruction_Type Get_Instruction();
 
-    State_Type Get_State(const Software_Handle_Class& Software_Handle);
+        void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
-    Instruction_Type Get_Instruction();
+        /// @brief Software task handle.
+        ///
+        Task_Type Main_Task;
 
-    void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
+        virtual void Main_Task_Function();
 
-    /// @brief Software task handle.
-    ///
-    Task_Type Main_Task;
+        // private:
 
-    virtual void Main_Task_Function();
+        void Minimize();
+        void Maximize();
+        void Kill();
+        void Close();
 
-//private:
+        void Feed_Watchdog();
 
-    void Minimize();
-    void Maximize();
-    void Kill();
-    void Close();
+        static void Start_Main_Task(void *Instance_Pointer);
 
-    void Feed_Watchdog();
+        ///
+        /// @brief Openned software pointer array
+        ///
+        static std::vector<Software_Class *> Software_List;
 
-    static void Start_Main_Task(void* Instance_Pointer);
+        static volatile Software_Class *Maximized_Software;
 
-    ///
-    /// @brief Openned software pointer array
-    ///
-    static std::vector<Software_Class*> Software_List;
-    
-    static volatile Software_Class* Maximized_Software;
+        // -- Attributes -- //
 
-    // -- Attributes -- //
+        uint32_t Watchdog_Timer = 0;
+        static uint8_t Watchdog_State;
 
-    uint32_t Watchdog_Timer = 0;
-    static uint8_t Watchdog_State;
-    
-    ///
-    /// @brief Queue handle.
-    ///
-    QueueHandle_t Instruction_Queue;
+        ///
+        /// @brief Queue handle.
+        ///
+        QueueHandle_t Instruction_Queue;
 
-    ///
-    /// @brief Last software watchdog feed.
-    ///
-    uint32_t Last_Watchdog_Feed;
+        ///
+        /// @brief Last software watchdog feed.
+        ///
+        uint32_t Last_Watchdog_Feed;
 
-    ///
-    /// @brief Watchdog defined timeout.
-    ///
-    uint16_t Watchdog_Timeout;
-};
+        ///
+        /// @brief Watchdog defined timeout.
+        ///
+        uint16_t Watchdog_Timeout;
+    } Software_Type;
+}
 
 #endif

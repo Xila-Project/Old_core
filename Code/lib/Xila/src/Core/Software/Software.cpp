@@ -10,17 +10,17 @@
 
 #include "Core/Software/Software.hpp"
 
-std::vector<Software_Class *> Software_Class::Software_List;
+std::vector<Software_Class *> Xila_Namespace::Software_Class::Software_List;
 
-Software_Class *Software_Class::Maximized_Software = NULL;
+Software_Class *Xila_Namespace::Software_Class::Maximized_Software = NULL;
 
-uint8_t Software_Class::Watchdog_State = 0;
+uint8_t Xila_Namespace::Software_Class::Watchdog_State = 0;
 
 ///
 /// @brief Start a software instance main task.
 ///
 /// @param Instance_Pointer
-void Software_Class::Start_Main_Task(void *Instance_Pointer)
+void Xila_Namespace::Software_Class::Start_Main_Task(void *Instance_Pointer)
 {
   (Software_Class *)Instance_Pointer->Main_Task_Function();
 }
@@ -30,7 +30,7 @@ void Software_Class::Start_Main_Task(void *Instance_Pointer)
 ///
 /// @param Software_Handle Software handle to check.
 /// @return Software::State
-Software_Class::State_Type Software_Class::Get_State()
+Xila_Namespace::Software_Class::State_Type Xila_Namespace::Software_Class::Get_State()
 {
   if (Maximized_Software != NULL && Maximized_Software == this)
   {
@@ -45,7 +45,7 @@ Software_Class::State_Type Software_Class::Get_State()
 ///
 /// @brief Check watchdog timer of every openned software.
 ///
-void Software_Class::Check_Watchdogs()
+void Xila_Namespace::Software_Class::Check_Watchdogs()
 {
   // Iterate through all opened software.
   for (auto Software_Pointer = Software_List.begin(); Software_Pointer != Software_List.end(); Software_Pointer++)
@@ -64,7 +64,7 @@ void Software_Class::Check_Watchdogs()
 ///
 /// @return true watchdog is expired.
 /// @return false watchdog is not expired.
-bool Software_Class::Check_Watchdog()
+bool Xila_Namespace::Software_Class::Check_Watchdog()
 {
   if (Time.Milliseconds() - Last_Watchdog_Feed > Watchdog_Timeout || Watchdog_Timeout > Maximum_Watchdog_Timeout)
   {
@@ -80,7 +80,7 @@ bool Software_Class::Check_Watchdog()
 /// @brief Feed watchdog timer (reset).
 ///
 /// @param Software_Handle Software's handle to feed watchdog.
-void Software_Class::Feed_Watchdog()
+void Xila_Namespace::Software_Class::Feed_Watchdog()
 {
   if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_ State]->Handle)
   {
@@ -92,7 +92,7 @@ void Software_Class::Feed_Watchdog()
 /// @brief Function that close software.
 ///
 /// @param Software_Handle Software's handle to close (equal NULL by default, which close currrent maximized software).
-void Software_Class::Close()
+void Xila_Namespace::Software_Class::Close()
 {
 
   // - Don't forget to remove the software pointer from the software list.
@@ -119,7 +119,7 @@ void Software_Class::Close()
 /// @brief Function that minimize software (and maximize Shell).
 ///
 /// @param Software_Handle Software's handle to minimize.
-void Software_Class::Minimize()
+void Xila_Namespace::Software_Class::Minimize()
 {
   if (Maximized_Software == this || Maximized_Software == NULL)
   {
@@ -135,7 +135,7 @@ void Software_Class::Minimize()
 /// @brief Function that maximize software (and minimize current maximized software).
 ///
 /// @param Software_Handle Software handle to maximize.
-void Software_Class::Maximize()
+void Xila_Namespace::Software_Class::Maximize()
 {
   if (Maximized_Software == this)
   {
@@ -154,7 +154,7 @@ void Software_Class::Maximize()
 /// @brief Function that close roughly the current maximized software.
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
-void Software_Class::Kill()
+void Xila_Namespace::Software_Class::Kill()
 {
 
   this->Close();
@@ -169,7 +169,7 @@ void Software_Class::Kill()
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Idle),
+Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Idle),
                                                       Last_Watchdog_Feed(millis()),
                                                       Watchdog_Timeout(Default_Watchdog_Timeout)
 {
@@ -190,7 +190,7 @@ Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Idle),
 ///
 /// @brief Destroy the Xila_Class::Software object
 ///
-Software_Class::~Software_Class() // Destructor : close
+Xila_Namespace::Software_Class::~Software_Class() // Destructor : close
 {
   vQueueDelete(Instruction_Queue_Handle);
 }
@@ -199,7 +199,7 @@ Software_Class::~Software_Class() // Destructor : close
 /// @brief Set watchdog timeout, by default it's set to 5000 ms.
 ///
 /// @param Watchdog_Timeout Watchdog timeout in milliseconds.
-void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
+void Xila_Namespace::Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
 {
   if (Watchdog_Timeout <= Maximum_Watchdog_Timeout)
   {
@@ -211,7 +211,7 @@ void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
 /// @brief Return last instruction from the instructions queue.
 ///
 /// @return Xila_Class::Instruction Software instruction.
-Software_Class::Instruction_Type Software_Class::Get_Instruction()
+Xila_Namespace::Software_Class::Instruction_Type Xila_Namespace::Software_Class::Get_Instruction()
 {
   static Instruction_Type Current_Instruction;
 
@@ -231,7 +231,7 @@ Software_Class::Instruction_Type Software_Class::Get_Instruction()
 /// @param Instruction Instruction to send.
 ///
 /// @details It's used by Xila and the software itself to fill the instructions queue.
-void Software_Class::Send_Instruction(Instruction_Type Instruction)
+void Xila_Namespace::Software_Class::Send_Instruction(Instruction_Type Instruction)
 {
   xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
 }
@@ -241,7 +241,7 @@ void Software_Class::Send_Instruction(Instruction_Type Instruction)
 ///
 /// @param Instruction_Char_1 Instruction first byte
 /// @param Instruction_Char_2 Instruction second byte
-void Software_Class::Send_Instruction(Module::Type Sender, const char Arguments[4])
+void Xila_Namespace::Software_Class::Send_Instruction(Module::Type Sender, const char Arguments[4])
 {
   static Instruction_Type Current_Instruction;
   Current_Instruction.Sender = Sender;

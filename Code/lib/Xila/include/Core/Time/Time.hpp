@@ -9,15 +9,17 @@
 ///
 
 #ifndef Time_Hpp_Included
-#define Time_Hpp_Included	
+#define Time_Hpp_Included
 
 #include "../Module.hpp"
 
 // -- Time library
 #include "time.h"
 
-class Time_Class : public Module_Class
+namespace Xila_Namespace
 {
+    class Time_Class : public Module_Class
+    {
     public:
         // -- Methods
         tm Get_Time();
@@ -67,7 +69,7 @@ class Time_Class : public Module_Class
         // -- Methods
         Result::Type Load_Registry();
         Result::Type Save_Registry();
-
-};
+    };
+}
 
 #endif

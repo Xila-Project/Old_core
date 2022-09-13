@@ -21,7 +21,7 @@ using namespace Xila;
 ///
 /// @brief Construct a new System_Class object
 ///
-System_Class::System_Class()
+Xila_Namespace::System_Class::System_Class()
 {
   Task_Handle = NULL;
   strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
@@ -30,7 +30,7 @@ System_Class::System_Class()
 ///
 /// @brief Destroy the System_Class object
 ///
-System_Class::~System_Class()
+Xila_Namespace::System_Class::~System_Class()
 {
 }
 
@@ -38,7 +38,7 @@ System_Class::~System_Class()
 /// @brief Load System registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Registry()
+Module_Class::Result::Type Xila_Namespace::System_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
@@ -65,7 +65,7 @@ Module_Class::Result::Type System_Class::Load_Registry()
 /// @brief Save System registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type System_Class::Save_Registry()
+Module_Class::Result::Type Xila_Namespace::System_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -84,7 +84,7 @@ Module_Class::Result::Type System_Class::Save_Registry()
   return Result::Success;
 }
 
-void System_Class::Task_Start_Function(void *Instance)
+void Xila_Namespace::System_Class::Task_Start_Function(void *Instance)
 {
   Instance_Pointer
 }
@@ -92,7 +92,7 @@ void System_Class::Task_Start_Function(void *Instance)
 ///
 /// @brief System task.
 ///
-void System_Class::Task_Function(void *)
+void Xila_Namespace::System_Class::Task_Function(void *)
 {
   uint32_t Next_Refresh = 0;
   Power.Button_Counter = 0;
@@ -147,7 +147,7 @@ void System_Class::Task_Function(void *)
 ///
 /// @param Update_File Executable file.
 /// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Executable(File Executable_File)
+Module_Class::Result::Type Xila_Namespace::System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
@@ -182,7 +182,7 @@ Module_Class::Result::Type System_Class::Load_Executable(File Executable_File)
 /// @brief Handle fatal events that the system cannot recover from.
 ///
 /// @param Panic_Code Panic code to handle.
-void System_Class::Panic_Handler(Panic_Code Panic_Code)
+void Xila_Namespace::System_Class::Panic_Handler(Panic_Code Panic_Code)
 {
   Log_Error("Panic handler triggered, error code : %X.", Panic_Code);
   Display.Set_Current_Page(F("Core_Panic"));
@@ -201,7 +201,7 @@ void System_Class::Panic_Handler(Panic_Code Panic_Code)
 /// @brief Save system dump.
 ///
 /// @return Result::Type
-Module_Class::Result::Type System_Class::Save_Dump()
+Module_Class::Result::Type Xila_Namespace::System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
@@ -234,7 +234,7 @@ Module_Class::Result::Type System_Class::Save_Dump()
 /// @brief Load system dump.
 ///
 /// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Dump()
+Module_Class::Result::Type Xila_Namespace::System_Class::Load_Dump()
 {
   if (Drive.Exists(Dump_Registry_Path))
   {
@@ -293,7 +293,7 @@ Module_Class::Result::Type System_Class::Load_Dump()
 /// @brief Return device name.
 ///
 /// @return const char* Device name.
-const char *System_Class::Get_Device_Name()
+const char *Xila_Namespace::System_Class::Get_Device_Name()
 {
   return System.Device_Name;
 }
@@ -301,7 +301,7 @@ const char *System_Class::Get_Device_Name()
 ///
 /// @brief Refresh top header.
 ///
-void System_Class::Refresh_Header()
+void Xila_Namespace::System_Class::Refresh_Header()
 {
   
   if (Display.Get_State() == false) // if display sleep
@@ -401,7 +401,7 @@ void System_Class::Refresh_Header()
 ///
 /// @brief Start Xila up with the default software bundle.
 ///
-void System_Class::Start()
+void Xila_Namespace::System_Class::Start()
 {
 
   esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
@@ -602,7 +602,7 @@ void System_Class::Start()
 ///
 /// @brief Execute software startup function.
 ///
-void System_Class::Execute_Startup_Function()
+void Xila_Namespace::System_Class::Execute_Startup_Function()
 {
 
   (*Shell_Handle.Startup_Function_Pointer)();
@@ -623,7 +623,7 @@ void System_Class::Execute_Startup_Function()
 ///
 /// @brief Shutdown
 ///
-void System_Class::Shutdown()
+void Xila_Namespace::System_Class::Shutdown()
 {
   Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
 
@@ -659,7 +659,7 @@ void System_Class::Shutdown()
 ///
 /// @brief Second sleep routine called in shutdown function.
 ///
-void System_Class::Second_Sleep_Routine()
+void Xila_Namespace::System_Class::Second_Sleep_Routine()
 {
   Task.Delete(System.Task_Handle);
 
@@ -684,7 +684,7 @@ void System_Class::Second_Sleep_Routine()
 ///
 /// @brief Hibernate
 ///
-void System_Class::Hibernate()
+void Xila_Namespace::System_Class::Hibernate()
 {
   Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
 
@@ -724,7 +724,7 @@ void System_Class::Hibernate()
 ///
 /// @brief Restart
 ///
-void System_Class::Restart()
+void Xila_Namespace::System_Class::Restart()
 {
   Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
 
@@ -761,7 +761,7 @@ void System_Class::Restart()
 /// @brief Return chip revision.
 ///
 /// @return uint8_t Chip revision.
-uint8_t System_Class::Get_Chip_Revision()
+uint8_t Xila_Namespace::System_Class::Get_Chip_Revision()
 {
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
@@ -772,7 +772,7 @@ uint8_t System_Class::Get_Chip_Revision()
 /// @brief Return chip model.
 ///
 /// @return const char* Chip model.
-const char *System_Class::Get_Chip_Model()
+const char *Xila_Namespace::System_Class::Get_Chip_Model()
 {
   uint32_t chip_ver = REG_GET_FIELD(EFUSE_BLK0_RDATA3_REG, EFUSE_RD_CHIP_VER_PKG);
   uint32_t pkg_ver = chip_ver & 0x7;
@@ -797,24 +797,24 @@ const char *System_Class::Get_Chip_Model()
 /// @brief Return number of chip cores.
 ///
 /// @return uint32_t Chip cores.
-uint32_t System_Class::Get_Chip_Cores()
+uint32_t Xila_Namespace::System_Class::Get_Chip_Cores()
 {
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
   return chip_info.cores;
 }
 
-uint32_t System_Class::Get_CPU_Frequency()
+uint32_t Xila_Namespace::System_Class::Get_CPU_Frequency()
 {
   return getCpuFrequencyMhz();
 }
 
-const char *System_Class::Get_SDK_Version()
+const char *Xila_Namespace::System_Class::Get_SDK_Version()
 {
   return esp_get_idf_version();
 }
 
-uint64_t System_Class::Get_eFuse_MAC()
+uint64_t Xila_Namespace::System_Class::Get_eFuse_MAC()
 {
   uint64_t _chipmacid = 0LL;
   esp_efuse_mac_get_default((uint8_t *)(&_chipmacid));

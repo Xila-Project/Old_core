@@ -10,14 +10,14 @@
 
 #include "Core/Software/Software_Handle.hpp"
 
-std::vector<Software_Handle_Class *> Software_Handle_Class::Software_Handle_List;
+std::vector<Xila_Namespace::Software_Handle_Class *> Xila_Namespace::Software_Handle_Class::Software_Handle_List;
 
 // Software handle
 
 ///
 /// @brief Construct a new Software_Handle::Software_Handle object
 ///
-Software_Handle_Class::Software_Handle_Class()
+Xila_Namespace::Software_Handle_Class::Software_Handle_Class()
     : Create_Instance_Pointer(NULL)
 {
   memset(Name, '\0', sizeof(Name));
@@ -31,7 +31,7 @@ Software_Handle_Class::Software_Handle_Class()
 /// @param Icon_ID Software icon
 /// @param Load_Function_Pointer Load function pointer
 /// @param Startup_Function_Pointer Startup function pointer (NULL by default)
-Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*Load_Function_Pointer)())
+Xila_Namespace::Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*Load_Function_Pointer)())
     : Create_Instance_Pointer(Load_Function_Pointer)
 {
   memset(Name, '\0', sizeof(Name));
@@ -39,7 +39,7 @@ Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*L
   Software_Handle_List.push_back(this);
 }
 
-Software_Handle_Class::Result::Type Software_Handle_Class::Create_Instance()
+Xila_Namespace::Software_Handle_Class::Result::Type Xila_Namespace::Software_Handle_Class::Create_Instance()
 {
   if (Create_Instance_Pointer == NULL)
   {
@@ -58,7 +58,7 @@ Software_Handle_Class::Result::Type Software_Handle_Class::Create_Instance()
 /// @param Software_Handle_To_Compare Software handle to compare
 /// @return true if software handle are identical
 /// @return false if software handle are different
-bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const
+bool Xila_Namespace::Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const
 {
   if ((strcmp(Name, Software_Handle_To_Compare.Name)) != 0 || (Software_Handle_To_Compare.Create_Instance_Pointer != Create_Instance_Pointer))
   {
@@ -67,12 +67,12 @@ bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handl
   return true;
 }
 
-char* Software_Handle_Class::Get_Name() const
+char* Xila_Namespace::Software_Handle_Class::Get_Name() const
 {
   return Name;
 }
 
-void* Software_Handle_Class::Get_Pointer_Create_Instance() const
+void* Xila_Namespace::Software_Handle_Class::Get_Pointer_Create_Instance() const
 {
   return Create_Instance_Pointer;
 }

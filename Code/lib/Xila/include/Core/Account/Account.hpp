@@ -1,76 +1,77 @@
 ///
- /// @file Account.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 20-07-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Account.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 20-07-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
 #ifndef Account_Hpp_Included
 #define Account_Hpp_Included
 
 #include "../Module.hpp"
 
-///
-/// @brief Account management class
-///
-class Account_Class : public Module_Class
+namespace Xila_Namespace
 {
-public:
-    
-
-    // -- Constructor
-    Account_Class();
 
     ///
-    /// @brief Session state type
+    /// @brief Account management class
     ///
-    typedef enum Session_Enumeration
+    class Account_Class : public Module_Class
     {
-        Disconnected,
-        Logged,
-        Locked
-    } Session_State;
+    public:
+        // -- Constructor
+        Account_Class();
 
-    Result::Type Check_Credentials(const char *, const char *);
+        ///
+        /// @brief Session state type
+        ///
+        typedef enum Session_Enumeration
+        {
+            Disconnected,
+            Logged,
+            Locked
+        } Session_State;
 
-    // -- Getter
-    const char *Get_Current_Username();
-    
-    Session_State Get_State();
+        Result::Type Check_Credentials(const char *, const char *);
 
+        // -- Getter
+        const char *Get_Current_Username();
 
-//protected:
-    ///
-    /// @brief Loaded username.
-    ///
-    char Current_Username[9];
+        Session_State Get_State();
 
-    ///
-    /// @brief Session state.
-    ///
-    Session_State State;
+        // protected:
+        ///
+        /// @brief Loaded username.
+        ///
+        char Current_Username[9];
 
-    // -- Methods
+        ///
+        /// @brief Session state.
+        ///
+        Session_State State;
 
-    Result::Type Add(const char *Username, const char *Password);
-    Result::Type Delete(const char *);
-    Result::Type Change_Password(const char *, const char *);
-    Result::Type Change_Username(const char *, const char *);
-    Result::Type Set_Autologin(bool Enable);
-    Result::Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-    Result::Type Logout();
-    Result::Type Lock();
+        // -- Methods
 
-    // -- Setter
+        Result::Type Add(const char *Username, const char *Password);
+        Result::Type Delete(const char *);
+        Result::Type Change_Password(const char *, const char *);
+        Result::Type Change_Username(const char *, const char *);
+        Result::Type Set_Autologin(bool Enable);
+        Result::Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+        Result::Type Logout();
+        Result::Type Lock();
 
-    void Set_Current_Username(const char *Username);
-    void Set_State(Session_State State);
+        // -- Setter
 
-    Result::Type Load_Registry();
+        void Set_Current_Username(const char *Username);
+        void Set_State(Session_State State);
 
-};
+        Result::Type Load_Registry();
+    } Account;
+
+}
 
 #endif

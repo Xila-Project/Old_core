@@ -15,7 +15,7 @@
 
 #include "lvgl.h"
 
-void Graphical_Interface_Class::Task_Function(void *)
+void Xila_Namespace::Graphical_Interface_Class::Task_Function(void *)
 {
     while (true)
     {
@@ -25,7 +25,7 @@ void Graphical_Interface_Class::Task_Function(void *)
     }
 }
 
-Module_Class::Result::Type Graphical_Interface_Class::Initialize()
+Module_Class::Result::Type Xila_Namespace::Graphical_Interface_Class::Initialize()
 {
     lv_init();
 
@@ -56,7 +56,7 @@ Module_Class::Result::Type Graphical_Interface_Class::Initialize()
     return Result::Success;
 }
 
-void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
+void Xila_Namespace::Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
 {
     using namespace Xila;
 

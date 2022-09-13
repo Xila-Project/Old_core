@@ -148,43 +148,6 @@ namespace Xila_Namespace
     // typedef Meter_Class Meter_Type Type;
     typedef Graphical_Interface_Class::Tabs_Type Tabs_Type;
     typedef Graphical_Interface_Class::Window_Type Window_Type;
-
-    //==============================================================================//
-    //                                Public modules declaration                    //
-    //==============================================================================//
-
-    Account_Class Account;
-
-    Clipboard_Class Clipboard;
-
-    Display_Class Display;
-
-    Drive_Class Drive;
-    typedef Drive_Class Drive_Class;
-
-    Flash_Class Flash;
-
-    Pin_Class Pin;
-
-    Graphical_Interface_Class Graphical_Interface;
-
-    Keyboard_UI_Class Keyboard;
-
-    Mathematics_Class Mathematics;
-
-    Memory_Class Memory;
-
-    Power_Class Power;
-
-    typedef Software_Class Software_Type;
-
-    typedef Software_Handle_Class Software_Handle_Type;
-
-    // Sound_Class Sound;
-
-    System_Class System;
-
-    WiFi_Class WiFi;
 };
 
 namespace Xila = Xila_Namespace;
