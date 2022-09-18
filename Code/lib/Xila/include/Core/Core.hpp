@@ -25,7 +25,7 @@
 
 #else
 
-#error Xila requires a C++ complier, please change file extension to .cpp
+#error Xila requires a C++ complier
 
 #endif
 
@@ -39,61 +39,9 @@
 // -- Arduino framework
 #include "Arduino.h"
 
-// -- File system library
-#include "FS.h"
+#include "Module.hpp"
 
-// -- SPI library
-#include "SPI.h"
 
-// -- Registry management library
-#include "ArduinoJson.h" //used to store registries
-#include "StreamUtils.h"
-
-// -- Debug library
-#include <ArduinoTrace.h>
-
-//----------------------------------------------------------------------------//
-//                          Include all project file                          //
-//----------------------------------------------------------------------------//
-
-// - - Configuration file (at compile time)
-#include "Configuration\Path.hpp" // Path list
-
-// - - Modules
-#include "Module.hpp" // Module class
-#include "Log/Log.hpp"
-
-#include "Account\Account.hpp"
-#include "Clipboard\Clipboard.hpp"
-#include "Communication\Communication.hpp"
-#include "Display\Display.hpp"
-#include "Drive\Drive.hpp"
-#include "Flash\Flash.hpp"
-#include "Pin\Pin.hpp"
-#include "Graphical_Interface\Graphical_Interface.hpp"
-#include "Keyboard\Keyboard.hpp"
-#include "Mathematics\Mathematics.hpp"
-#include "Memory\Memory.hpp"
-#include "Power\Power.hpp"
-#include "Software\Software.hpp"
-//#include "Sound\Sound.hpp"
-#include "System\System.hpp"
-#include "Time\Time.hpp"
-
-//----------------------------------------------------------------------------//
-//                                Define Const                                //
-//----------------------------------------------------------------------------//
-
-///
-/// @brief Memory chunk macro.
-///
-#define Memory_Chunk(x) (x * 1024)
-
-//----------------------------------------------------------------------------//
-//                         Define Xila Core API                               //
-//----------------------------------------------------------------------------//
-
-class Shell_Class;
 
 ///
 /// @class Xila_Class
@@ -104,11 +52,6 @@ class Shell_Class;
 ///
 namespace Xila_Namespace
 {
-
-    //==============================================================================//
-    //                                 Constructors                                 //
-    //==============================================================================//
-
     //==============================================================================//
     //                              Enumerations & Type definition                  //
     //==============================================================================//
@@ -121,33 +64,6 @@ namespace Xila_Namespace
     typedef Module_Class::Time_Type Time_Type;
     typedef Module_Class::Instruction_Type Instruction_Type;
     typedef Module_Class::Task_Class Task_Class;
-
-    // - Graphical interface objects.
-
-    typedef Graphical_Interface_Class::Object_Type Object_Type;
-    typedef Graphical_Interface_Class::Arc_Type Arc_Type;
-    typedef Graphical_Interface_Class::Bar_Type Bar_Type;
-    typedef Graphical_Interface_Class::Button_Type Button_Type;
-    typedef Graphical_Interface_Class::Button_Matrix_Type Button_Matrix_Type;
-    typedef Graphical_Interface_Class::Canvas_Type Canvas_Type;
-    typedef Graphical_Interface_Class::Checkbox_Type Checkbox_Type;
-    typedef Graphical_Interface_Class::Drop_Down_List_Type Drop_Down_List_Type;
-    typedef Graphical_Interface_Class::Image_Type Image_Type;
-    typedef Graphical_Interface_Class::Line_Type Line_Type;
-    typedef Graphical_Interface_Class::Roller_Type Roller_Type;
-    typedef Graphical_Interface_Class::Slider_Type Slider_Type;
-    typedef Graphical_Interface_Class::Switch_Type Switch_Type;
-    typedef Graphical_Interface_Class::Table_Type Table_Type;
-    typedef Graphical_Interface_Class::Text_Area_Type Text_Area_Type;
-    typedef Graphical_Interface_Class::Calendar_Type Calendar_Type;
-    // typedef Chart_Class Chart_Type Type;
-    typedef Graphical_Interface_Class::Color_Wheel_Type Color_Wheel_Type;
-    typedef Graphical_Interface_Class::Keyboard_Type Keyboard_Type;
-    typedef Graphical_Interface_Class::List_Type List_Type;
-    // typedef Menu_Class Menu_Type Type;
-    // typedef Meter_Class Meter_Type Type;
-    typedef Graphical_Interface_Class::Tabs_Type Tabs_Type;
-    typedef Graphical_Interface_Class::Window_Type Window_Type;
 };
 
 namespace Xila = Xila_Namespace;

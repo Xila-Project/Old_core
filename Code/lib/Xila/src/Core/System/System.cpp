@@ -525,7 +525,7 @@ void Xila_Namespace::System_Class::Start()
   }
 
   // -- Load system registry -- //
-  if (System.Load_Registry() != Success)
+  if (System.Load_Registry() != Result::Success)
   {
     System.Panic_Handler(System.Damaged_System_Registry);
   }
@@ -533,7 +533,7 @@ void Xila_Namespace::System_Class::Start()
 
   // -- Load sound registry --
 
-  if (Sound.Load_Registry() != Success)
+  if (Sound.Load_Registry() != Result::Success)
   {
     Sound.Save_Registry();
   }
@@ -545,33 +545,33 @@ void Xila_Namespace::System_Class::Start()
 
   // -- Load power registry :
 
-  if (Power.Load_Registry() != Success)
+  if (Power.Load_Registry() != Result::Success)
   {
     Power.Save_Registry();
   }
 
   // -- Network registry :
 
-  if (WiFi.Load_Registry() != Success)
+  if (WiFi.Load_Registry() != Result::Success)
   {
     WiFi.Save_Registry();
   }
 
   // -- Time registry
-  if (Time.Load_Registry() != Success)
+  if (Time.Load_Registry() != Result::Success)
   {
     Time.Save_Registry();
   }
 
   // -- Load account registry
 
-  if (Account.Load_Registry() != Success)
+  if (Account.Load_Registry() != Result::Success)
   {
     Account.Set_Autologin(false);
   }
 
   // -- Load Keyboard Registry
-  if (Keyboard.Load_Registry() != Success)
+  if (Keyboard.Load_Registry() != Result::Success)
   {
     Keyboard.Save_Registry(); // recreate a keyboard registry with default values
   }

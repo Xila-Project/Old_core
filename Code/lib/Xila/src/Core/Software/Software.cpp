@@ -82,7 +82,7 @@ bool Xila_Namespace::Software_Class::Check_Watchdog()
 /// @param Software_Handle Software's handle to feed watchdog.
 void Xila_Namespace::Software_Class::Feed_Watchdog()
 {
-  if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_ State]->Handle)
+  if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_State]->Handle)
   {
     Software_Management.Watchdog_Timer = Time.Milliseconds();
   }

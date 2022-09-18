@@ -82,7 +82,7 @@ void IRAM_ATTR Xila_Namespace::Power_Class::Button_Interrupt_Handler()
     //vTaskEnterCritical(&Power.Button_Mutex);
     if (Pin.Digital_Read(Power_Button_Pin) == Pin.High) // rise
     {
-        if (Power.Button_Timer != 0 && (Time.Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
+        if (Power.Button_Timer != 0 && (System.Get_Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
         {
             Power.Button_Counter = 0;
             Power.Deep_Sleep();
@@ -95,7 +95,7 @@ void IRAM_ATTR Xila_Namespace::Power_Class::Button_Interrupt_Handler()
     }
     else // falling
     {
-        Power.Button_Timer = Time.Milliseconds();
+        Power.Button_Timer = System.Get_Milliseconds();
         Power.Button_Counter = 0;
     }
 

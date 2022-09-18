@@ -14,7 +14,7 @@ Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
-Event_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
+Module_Class::Result::Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
     {
