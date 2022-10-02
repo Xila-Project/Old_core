@@ -33,7 +33,7 @@ Shell_Class::Desk_Class::Desk_Class()
     Grid.Move_Background();
 
     {
-        Object_Type Label;
+        Label_Type Label;
         Object_Type Icon;
 
         for (uint8_t i = 0; i < 17; i++)
@@ -43,7 +43,7 @@ Shell_Class::Desk_Class::Desk_Class()
 
             Label.Create(Grid);
             Label.Set_Text_Format("Item %u", i);
-            Label.Set_Long_Mode(Graphical_Interface::Label_Type::Long_Dot);
+            Label.Set_Long_Mode(Label_Type::Long_Dot);
 
             if (i == 15)
             {
@@ -67,13 +67,13 @@ Shell_Class::Desk_Class::Desk_Class()
     }
 
     Dock.Create(Grid);
-    Dock.Set_Grid_Cell(LV_GRID_ALIGN_STRETCH, 1, 3, LV_GRID_ALIGN_STRETCH, 3, 1);
+    Dock.Set_Grid_Cell(Object_Class::Grid::Stretch, 1, 3, Object_Class::Grid::Stretch, 3, 1);
     Dock.Set_Style_Pad_Bottom(0, 0);
     Dock.Set_Style_Pad_Top(0, 0);
     Dock.Set_Style_Pad_Left(10, 0);
     Dock.Set_Style_Pad_Right(10, 0);
-    Dock.Set_Style_Shadow_width(20, 0);
-    Dock.Set_Style_Shadow_Color(Dock, Object_Type::Color_Type::White, 0);
+    Dock.Set_Style_Shadow_Width(20, 0);
+    Dock.Set_Style_Shadow_Color(Object_Type::Color_Type::White, 0);
 
     const Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     const Coordinate_Type Dock_RowDescriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};

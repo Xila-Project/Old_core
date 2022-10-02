@@ -22,7 +22,7 @@ public:
 
     // -- Methods
 
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     // -- -- Setters.
 

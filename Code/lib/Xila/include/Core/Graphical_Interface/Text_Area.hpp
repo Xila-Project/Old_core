@@ -25,7 +25,7 @@ public:
 
     // - Methods
 
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     void Add_Char(uint32_t Character);
     void Add_Text(const char *Text);

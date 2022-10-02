@@ -64,7 +64,7 @@ void Window_Class::Create()
     Body.Set_Flex_Grow(1);
 }
 
-void Window_Class::Create(Object_Class &Parent_Object)
+void Window_Class::Create(Object_Class Parent_Object)
 {
     if (!Parent_Object.Is_Valid())
     {

@@ -35,7 +35,7 @@ public:
     } Draw_Part_Type;
 
     // - Methods
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     bool Is_Dragged();
 

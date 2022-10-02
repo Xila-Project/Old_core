@@ -42,7 +42,7 @@ namespace Xila_Namespace
         ///
         /// @brief Clipboard file.
         ///
-        Drive_Class::File_Type Clipboard_File;
+        File_Type Clipboard_File;
 
         ///
         /// @brief Split number array.

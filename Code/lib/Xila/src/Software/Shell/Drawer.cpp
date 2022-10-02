@@ -57,7 +57,7 @@ Shell_Class::Drawer_Class::~Drawer_Class()
 void Shell_Class::Drawer_Class::Refresh_Drawer()
 {
     // Delete all child of an object.
-    for (uint8_t i = List.Get_Child; i--; i > 0)
+    for (uint8_t i = List.Get_Child_Count(); i--; i > 0)
     {
         List.Get_Child(i).Delete();
     }

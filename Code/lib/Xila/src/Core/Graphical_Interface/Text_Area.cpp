@@ -16,7 +16,7 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Text_Area_Class::Create(Object_Class &Parent_Object)
+void Text_Area_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {

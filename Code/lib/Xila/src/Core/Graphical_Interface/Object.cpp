@@ -55,7 +55,7 @@ Object_Class::operator bool()
 //
 // ------------------------------------------------------------------------- //
 
-void Object_Class::Create(Object_Class &Parent_Object)
+void Object_Class::Create(Object_Class Parent_Object)
 {
     // Parent object is required (windows, containers, etc.)
     if (Parent_Object.Is_Valid())

@@ -17,7 +17,7 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Color_Wheel_Class::Create(Object_Class& Parent_Object)
+void Color_Wheel_Class::Create(Object_Class Parent_Object)
 {
     Set_Pointer(lv_colorwheel_create(Parent_Object.Get_Pointer(), true));
 }

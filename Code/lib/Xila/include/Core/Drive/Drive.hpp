@@ -77,12 +77,13 @@ private:
 
 namespace Xila_Namespace
 {
+    typedef File File_Type;
+    
     class Drive_Class : public Module_Class
     {
     public:
         // - Types and enumerations
 
-        typedef File File_Type;
 
         ///
         /// @brief Drive type.

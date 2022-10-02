@@ -10,6 +10,8 @@
 
 #include "Core/Software/Software.hpp"
 
+#include "Core/Core.hpp"
+
 std::vector<Software_Class *> Xila_Namespace::Software_Class::Software_List;
 
 Software_Class *Xila_Namespace::Software_Class::Maximized_Software = NULL;

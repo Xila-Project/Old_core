@@ -22,7 +22,7 @@ public:
 
     // - - Management
 
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     void Add_Option(const char *Option, uint32_t Position);
     void Clear_Options();

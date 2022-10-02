@@ -23,7 +23,7 @@ class Window_Class : public Object_Class
 public:
 
     void Create();
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     void Set_Title(const char *Title);
 

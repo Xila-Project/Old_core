@@ -41,6 +41,24 @@
 
 #include "Module.hpp"
 
+#include "Account/Account.hpp"
+#include "Clipboard/Clipboard.hpp"
+#include "Communication/Communication.hpp"
+#include "Display/Display.hpp"
+#include "Drive/Drive.hpp"
+#include "Flash/Flash.hpp"
+#include "Graphical_Interface/Graphical_Interface.hpp"
+#include "Keyboard/Keyboard.hpp"
+#include "Log/Log.hpp"
+#include "Mathematics/Mathematics.hpp"
+#include "Memory/Memory.hpp"
+#include "Pin/Pin.hpp"
+#include "Power/Power.hpp"
+#include "Software/Software.hpp"
+#include "Software/Software_Handle.hpp"
+#include "Sound/Sound.hpp"
+#include "System/System.hpp"
+#include "Time/Time.hpp"
 
 
 ///

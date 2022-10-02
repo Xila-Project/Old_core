@@ -18,7 +18,7 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Line_Class::Create(Object_Class &Parent_Object)
+void Line_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {

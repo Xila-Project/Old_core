@@ -27,6 +27,7 @@
 #include "Drop_Down_List.hpp"
 #include "Image.hpp"
 #include "Line.hpp"
+#include "Label.hpp"
 #include "Roller.hpp"
 #include "Slider.hpp"
 #include "Switch.hpp"
@@ -55,6 +56,7 @@
 namespace Xila_Namespace
 {
 
+
     typedef Object_Class Object_Type;
     typedef Arc_Class Arc_Type;
     typedef Bar_Class Bar_Type;
@@ -65,6 +67,7 @@ namespace Xila_Namespace
     typedef Drop_Down_List_Class Drop_Down_List_Type;
     typedef Image_Class Image_Type;
     typedef Line_Class Line_Type;
+    typedef Label_Class Label_Type;
     typedef Roller_Class Roller_Type;
     typedef Slider_Class Slider_Type;
     typedef Switch_Class Switch_Type;

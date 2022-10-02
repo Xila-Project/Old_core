@@ -16,7 +16,7 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Button_Matrix_Class::Create(Object_Class &Parent_Object)
+void Button_Matrix_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object.Is_Valid())
     {

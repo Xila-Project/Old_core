@@ -15,7 +15,7 @@
 using namespace Xila;
 
 ///
-/// @brief Construct a new Account_Class::Account_Class object
+/// @brief Construct a new Xila_Namespace::Account_Class::Account_Class object
 ///
 Account_Class::Account_Class()
 {
@@ -26,9 +26,10 @@ Account_Class::Account_Class()
 /// @brief Load account registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Load_Registry()
+Module_Class::Result::Type Xila_Namespace::Account_Class::Load_Registry()
 {
-  Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"));
+  using namespace Xila;
+  File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
 
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
@@ -58,9 +59,9 @@ Module_Class::Result::Type Account_Class::Load_Registry()
 ///
 /// @param Enable true to enable and false to disable autologin.
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Set_Autologin(bool Enable)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Set_Autologin(bool Enable)
 {
-  Drive_Class::File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
   Account_Registry["Registry"] = "Account";
   if (Enable)
@@ -85,12 +86,12 @@ Module_Class::Result::Type Account_Class::Set_Autologin(bool Enable)
 ///
 /// @return uint8_t return Acount_Class::Session_State.
 ///
-Account_Class::Session_State Account_Class::Get_State()
+Account_Class::Session_State Xila_Namespace::Account_Class::Get_State()
 {
   return State;
 }
 
-void Account_Class::Set_State(Session_State State)
+void Xila_Namespace::Account_Class::Set_State(Session_State State)
 {
   this->State = State;
 }
@@ -105,7 +106,7 @@ const char *Account_Class::Get_Current_Username()
   return Current_Username;
 }
 
-void Account_Class::Set_Current_Username(const char *Username)
+void Xila_Namespace::Account_Class::Set_Current_Username(const char *Username)
 {
   strlcpy(Current_Username, Username, sizeof(Current_Username));
 }
@@ -116,7 +117,7 @@ void Account_Class::Set_Current_Username(const char *Username)
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
  /// @return Result::Type 
-Module_Class::Result::Type Account_Class::Add(const char *Username, const char *Password)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Add(const char *Username, const char *Password)
 {
   if (Drive.Exists(Users_Directory_Path "/" + String(Username)))
   {
@@ -155,7 +156,7 @@ Module_Class::Result::Type Account_Class::Add(const char *Username, const char *
     return Result::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", Username);
-  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Path, FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Temporary_Path, FILE_WRITE);
   DynamicJsonDocument User_Registry(256);
 
   User_Registry["Registry"] = "User";
@@ -174,7 +175,7 @@ Module_Class::Result::Type Account_Class::Add(const char *Username, const char *
 ///
 /// @param Target_User User to delete.
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Delete(const char *Target_User)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Delete(const char *Target_User)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), Target_User);
@@ -191,7 +192,7 @@ Module_Class::Result::Type Account_Class::Delete(const char *Target_User)
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Change_Username(const char *Target_User, const char *New_Username)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Change_Username(const char *Target_User, const char *New_Username)
 {
   char Temporary_Path[20];
   char Temporary_Target_Path[20];
@@ -217,11 +218,11 @@ Module_Class::Result::Type Account_Class::Change_Username(const char *Target_Use
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Change_Password(const char *Target_User, const char *Password_To_Set)
 {
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Target_User);
-  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Char, FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Temporary_Char, FILE_WRITE);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   User_Registry["Registry"] = "User";
   User_Registry["Password"] = Password_To_Set;
@@ -238,7 +239,7 @@ Module_Class::Result::Type Account_Class::Change_Password(const char *Target_Use
 /// @brief Logout from the openned user session.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Logout()
+Module_Class::Result::Type Xila_Namespace::Account_Class::Logout()
 {
   if (Get_State() != Disconnected)
   {
@@ -254,7 +255,7 @@ Module_Class::Result::Type Account_Class::Logout()
 /// @brief Lock openned user session.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Account_Class::Lock()
+Module_Class::Result::Type Xila_Namespace::Account_Class::Lock()
 {
   if (State == Logged)
   {
@@ -269,11 +270,11 @@ Module_Class::Result::Type Account_Class::Lock()
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result::Type 
-Module_Class::Result::Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
-  Drive_Class::File_Type Temporary_File = Drive.Open(Temporary_Path);
+  File_Type Temporary_File = Drive.Open(Temporary_Path);
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
@@ -298,8 +299,9 @@ Module_Class::Result::Type Account_Class::Check_Credentials(const char *Username
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result::Type 
-Module_Class::Result::Type Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
+Module_Class::Result::Type Xila_Namespace::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
+  using namespace Xila;
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Result::Success)
   {
     State = Disconnected;

@@ -45,7 +45,7 @@ public:
     // - Methods
 
     // - - Management
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
     void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);

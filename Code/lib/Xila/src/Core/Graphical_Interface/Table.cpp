@@ -16,7 +16,7 @@
 //
 // ------------------------------------------------------------------------- //
 
-void Table_Class::Create(Object_Class &Parent_Object)
+void Table_Class::Create(Object_Class Parent_Object)
 {
     Set_Pointer(lv_table_create(Parent_Object.Get_Pointer()));
 }

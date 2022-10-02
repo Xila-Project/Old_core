@@ -33,7 +33,7 @@ public:
 
     // - Methods
 
-    void Create(Object_Class &Parent_Object);
+    void Create(Object_Class Parent_Object);
 
     void Insert_Text(uint32_t Position, const char *Text);
     void Cut_Text(uint32_t Position, uint32_t Length);

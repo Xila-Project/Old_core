@@ -14,8 +14,12 @@
 #include <vector>
 #include "Arduino.h"
 #include "ArduinoJson.h"
-#include "Configuration/Configuration.hpp"
 #include "FS.h"
+
+#include "Configuration/Configuration.hpp"
+#include "Configuration/Path.hpp"
+
+
 
 class Module_Class
 {
