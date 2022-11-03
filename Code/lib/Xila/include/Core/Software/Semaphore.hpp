@@ -14,35 +14,38 @@
 #include "Arduino.h"
 #include "../Module.hpp"
 
-class Semaphore_Class : public Module_Class
+namespace Xila_Namespace
 {
-public:
-    typedef enum
+    class Semaphore_Class : public Module_Class
     {
-        Binary,
-        Counting,
-        Mutex,
-        Recursive_Mutex
-    } Type_Type;
+    public:
+        typedef enum
+        {
+            Binary,
+            Counting,
+            Mutex,
+            Recursive_Mutex
+        } Type_Type;
 
-    Semaphore_Class();
+        Semaphore_Class();
 
-    Result::Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
-    // Event_Type Create_Static()
+        Result::Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+        // Event_Type Create_Static()
 
-    void Delete();
-    void Take(uint32_t Timeout = 0xFFFFFFFF);
-    void Take_Recursive(Tick_Type Tick_To_Wait);
-    void Give();
-    void Take_From_ISR(Integer *Higher_Priority_Task_Woken);
-    void Give_From_ISR(Integer *Higher_Priority_Task_Woken);
-    void Take_Recursive();
-    void Give_Recursive();
-    Task_Class Get_Mutex_Holder();
-    unsigned int Get_Count();
+        void Delete();
+        Result::Type Take(uint32_t Timeout = 0xFFFFFFFF);
+        void Take_Recursive(Tick_Type Tick_To_Wait);
+        void Give();
+        void Take_From_ISR(Integer *Higher_Priority_Task_Woken);
+        void Give_From_ISR(Integer *Higher_Priority_Task_Woken);
+        void Take_Recursive();
+        void Give_Recursive();
+        Task_Class Get_Mutex_Holder();
+        unsigned int Get_Count();
 
-private:
-    SemaphoreHandle_t Semaphore_Handle;
-};
+    private:
+        SemaphoreHandle_t Semaphore_Handle;
+    };
+}
 
 #endif

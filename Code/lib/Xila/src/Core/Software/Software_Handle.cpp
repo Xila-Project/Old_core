@@ -10,7 +10,7 @@
 
 #include "Core/Software/Software_Handle.hpp"
 
-std::vector<Xila_Namespace::Software_Handle_Class *> Xila_Namespace::Software_Handle_Class::Software_Handle_List;
+std::vector<Xila_Namespace::Software_Handle_Class *> Xila_Namespace::Software_Handle_Class::List;
 
 // Software handle
 
@@ -21,7 +21,7 @@ Xila_Namespace::Software_Handle_Class::Software_Handle_Class()
     : Create_Instance_Pointer(NULL)
 {
   memset(Name, '\0', sizeof(Name));
-  Software_Handle_List.push_back(this);
+  List.push_back(this);
 }
 
 ///
@@ -36,7 +36,7 @@ Xila_Namespace::Software_Handle_Class::Software_Handle_Class(const char *Softwar
 {
   memset(Name, '\0', sizeof(Name));
   strlcpy(Name, Software_Name, sizeof(Name));
-  Software_Handle_List.push_back(this);
+  List.push_back(this);
 }
 
 Xila_Namespace::Software_Handle_Class::Result::Type Xila_Namespace::Software_Handle_Class::Create_Instance()
@@ -67,12 +67,12 @@ bool Xila_Namespace::Software_Handle_Class::Is_Equal(Software_Handle_Class const
   return true;
 }
 
-char* Xila_Namespace::Software_Handle_Class::Get_Name() const
+const char* Xila_Namespace::Software_Handle_Class::Get_Name() const
 {
   return Name;
 }
 
-void* Xila_Namespace::Software_Handle_Class::Get_Pointer_Create_Instance() const
+Xila_Namespace::Software_Handle_Class::Create_Instance_Function_Pointer Xila_Namespace::Software_Handle_Class::Get_Pointer_Create_Instance() const
 {
   return Create_Instance_Pointer;
 }
@@ -84,7 +84,7 @@ void* Xila_Namespace::Software_Handle_Class::Get_Pointer_Create_Instance() const
 /// @param b 2nd software handle to compare.
 /// @return true if software handle are identical
 /// @return false if software handle are different
-bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b)
+bool operator==(Xila_Namespace::Software_Handle_Class const &a, Xila_Namespace::Software_Handle_Class const &b)
 {
   return a.Is_Equal(b);
 }

@@ -12,9 +12,9 @@
 
 #include "Core/Core.hpp"
 
-std::vector<Software_Class *> Xila_Namespace::Software_Class::Software_List;
+std::vector<Xila_Namespace::Software_Class *> Xila_Namespace::Software_Class::List;
 
-Software_Class *Xila_Namespace::Software_Class::Maximized_Software = NULL;
+Xila_Namespace::Software_Class *Xila_Namespace::Software_Class::Maximized_Software = NULL;
 
 uint8_t Xila_Namespace::Software_Class::Watchdog_State = 0;
 
@@ -50,7 +50,7 @@ Xila_Namespace::Software_Class::State_Type Xila_Namespace::Software_Class::Get_S
 void Xila_Namespace::Software_Class::Check_Watchdogs()
 {
   // Iterate through all opened software.
-  for (auto Software_Pointer = Software_List.begin(); Software_Pointer != Software_List.end(); Software_Pointer++)
+  for (auto Software_Pointer = List.begin(); Software_Pointer != List.end(); Software_Pointer++)
   {
     // Check if watchdogs are expired.
     if ((*Software_Pointer)->Check_Watchdog())
@@ -98,11 +98,11 @@ void Xila_Namespace::Software_Class::Close()
 {
 
   // - Don't forget to remove the software pointer from the software list.
-  for (auto Software_Pointer = Software_List.begin(); Software_Pointer != Software_List.end(); Software_Pointer++)
+  for (auto Software_Pointer = List.begin(); Software_Pointer != List.end(); Software_Pointer++)
   {
     if (*Software_Pointer == this)
     {
-      Software_List.erase(Software_Pointer);
+      List.erase(Software_Pointer);
       break;
     }
   }
@@ -111,7 +111,7 @@ void Xila_Namespace::Software_Class::Close()
   if (Maximized_Software == this)
   {
     Maximized_Software = NULL;
-    Software_List[0]->Maximize();
+    List[0]->Maximize();
   }
 
   this->Send_Instruction(Close);
@@ -130,7 +130,7 @@ void Xila_Namespace::Software_Class::Minimize()
   Maximized_Software->Send_Instruction(Minimize);
   Task_Type::Delay(20);
   Maximized_Software = NULL;
-  Software_List[0]->Maximize();
+  List[0]->Maximize();
 }
 
 ///

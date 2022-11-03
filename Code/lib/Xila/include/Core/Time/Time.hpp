@@ -26,8 +26,9 @@ namespace Xila_Namespace
         void Synchronize();
 
         uint32_t Get_Cycle_Count();
-        uint32_t Milliseconds() const;
-        int64_t Microseconds() const;
+
+        uint32_t Milliseconds();
+        int64_t Microseconds();
 
         // -- Time constructor / destructor
 
@@ -69,7 +70,7 @@ namespace Xila_Namespace
         // -- Methods
         Result::Type Load_Registry();
         Result::Type Save_Registry();
-    };
+    } Time;
 }
 
 #endif

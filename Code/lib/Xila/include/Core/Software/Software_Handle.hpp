@@ -29,6 +29,11 @@ namespace Xila_Namespace
     typedef class Software_Handle_Class : public Module_Class
     {
     public:
+
+        // - Types
+
+        typedef void (*Create_Instance_Function_Pointer)();
+
         // -- Constructors / Destructor
         Software_Handle_Class();
         Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
@@ -36,7 +41,7 @@ namespace Xila_Namespace
         Result::Type Create_Instance();
 
         const char *Get_Name() const;
-        void *Get_Pointer_Create_Instance() const;
+        Create_Instance_Function_Pointer Get_Pointer_Create_Instance() const;
 
         /// -- Methods -- //
         bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;

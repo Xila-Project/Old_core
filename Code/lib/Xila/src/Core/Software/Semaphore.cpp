@@ -10,6 +10,10 @@
 
 #include "Core/Software/Semaphore.hpp"
 
+#include "Core/Core.hpp"
+
+using namespace Xila;
+
 Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
@@ -18,19 +22,19 @@ Module_Class::Result::Type Semaphore_Class::Create(Type_Type Type, unsigned int 
 {
     if (Semaphore_Handle != NULL)
     {
-        return Event_Type::Result::Error;
+        return Result::Error;
     }
 
     switch (Type)
     {
     case Binary:
-        return xSemaphoreCreateBinary();
+        Semaphore_Handle = xSemaphoreCreateBinary();
         break;
     case Counting:
-        return xSemaphoreCreateCounting(Maximum_Count, Initial_Count);
+        Semaphore_Handle = xSemaphoreCreateCounting(Maximum_Count, Initial_Count);
         break;
     case Mutex:
-        return xSemaphoreCreateMutex();
+        Semaphore_Handle = xSemaphoreCreateMutex();
         break;
     default:
         break;
@@ -38,11 +42,11 @@ Module_Class::Result::Type Semaphore_Class::Create(Type_Type Type, unsigned int 
 
     if (Semaphore_Handle == NULL)
     {
-        return Event_Type::Result::Error;
+        return Result::Error;
     }
     else
     {
-        return Event_Type::Result::Success;
+        return Result::Success;
     }
 }
 
@@ -79,11 +83,25 @@ Module_Class::Result::Type Semaphore_Class::Take(uint32_t Timeout)
 {
     if (Timeout = 0xFFFFFFFFF)
     {
-        xSemaphoreTake(Semaphore_Handle, portMAX_DELAY);
+        if (xSemaphoreTake(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
+        {
+            return Result::Error;
+        }
+        else
+        {
+            return Result::Success;
+        }
     }
     else
     {
-        xSemaphoreTake(Semaphore_Handle, pdMS_TO_TICKS(Timeout));
+        if (xSemaphoreTake(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
+        {
+            return Result::Error;
+        }
+        else
+        {
+            return Result::Success;
+        }
     }
 }
 
@@ -113,7 +131,7 @@ Module_Class::Task_Class Semaphore_Class::Get_Mutex_Holder()
     return Task;
 }
 
-unsigned int Get_Count(Semaphore_Handle_Type Semaphore_Handle)
+unsigned int Get_Count()
 {
     return uxSemaphoreGetCount(Semaphore_Handle);
 }

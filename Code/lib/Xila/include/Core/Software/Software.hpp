@@ -81,9 +81,9 @@ namespace Xila_Namespace
         ///
         /// @brief Openned software pointer array
         ///
-        static std::vector<Software_Class *> Software_List;
+        static std::vector<Software_Class *> List;
 
-        static volatile Software_Class *Maximized_Software;
+        static Software_Class *Maximized_Software;
 
         // -- Attributes -- //
 
