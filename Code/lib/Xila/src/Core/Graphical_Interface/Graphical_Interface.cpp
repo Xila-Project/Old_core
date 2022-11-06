@@ -64,7 +64,7 @@ void Xila_Namespace::Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
     // Tricks that use the pointer of user data of lvgl as data itself to fits the instructions arguments (more faster approach than deferencing data from the pointer).
     Instruction.Set_Arguments((uintptr_t)lv_event_get_user_data(Event));
 
-    Software_Type::Software_List[0]->Send_Instruction(Instruction);
+    Software_Type::List[0]->Send_Instruction(Instruction);
 }
 
 

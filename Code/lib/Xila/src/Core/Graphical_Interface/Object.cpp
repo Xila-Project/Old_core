@@ -177,7 +177,12 @@ void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Select
 void Object_Class::Event_Callback(lv_event_t* Event)
 {
     using namespace Xila;
-    static Module_Class::Instruction_Type Instruction;
+    static Instruction_Type* Instruction_Pointer;
+
+    Instruction_Pointer = (*Instruction_Type)lv_get_get_user_data(Event);
+    Instruction_Pointer->Get_
+
+
     Instruction.Set_Sender(NULL);
     Instruction.Set_Arguments(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
     Software_Class::Send_Instruction_To_Maximized(Instruction);

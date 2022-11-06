@@ -311,7 +311,7 @@ Module_Class::Result::Type Xila_Namespace::Account_Class::Login(const char *User
   if (State == Locked && (strcmp(Account.Current_Username, Username_To_Check) != 0))
   {
     // Iterate through software list and close all of them.
-    for (auto & Software : Software_Type::Software_List)
+    for (auto & Software : Software_Type::List)
     {
       if (Software != NULL)
       {

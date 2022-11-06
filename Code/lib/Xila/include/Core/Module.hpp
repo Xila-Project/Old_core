@@ -19,218 +19,256 @@
 #include "Configuration/Configuration.hpp"
 #include "Configuration/Path.hpp"
 
-
-
-class Module_Class
+namespace Xila_Namespace
 {
-public:
-    typedef bool Boolean_Type;
-    typedef short Short_Integer;
-    typedef int Integer;
-    typedef long Long_Integer;
-    typedef long long Long_Long_Integer;
-
-    typedef short Unsigned_Short_Integer;
-    typedef int Unsigned_Integer;
-    typedef long Unsigned_Long_Integer;
-    typedef long long Unsigned_Long_Long_Integer;
-
-    typedef float Float;
-    typedef double Precision_Float;
-    typedef char Character;
-    //typedef String String;
-
-    typedef void Void;
-
-    typedef uint32_t Tick_Type;
-
-    /// @brief Size Type;
-    typedef size_t Size_Type;
-
-    class Result
+    class Module_Class
     {
+
     public:
-        ///
-        /// @brief Functions results enumeration.
-        ///
-        enum Enumeration
+        typedef bool Boolean_Type;
+        typedef short Short_Integer;
+        typedef int Integer;
+        typedef long Long_Integer;
+        typedef long long Long_Long_Integer;
+
+        typedef short Unsigned_Short_Integer;
+        typedef int Unsigned_Integer;
+        typedef long Unsigned_Long_Integer;
+        typedef long long Unsigned_Long_Long_Integer;
+
+        typedef float Float;
+        typedef double Precision_Float;
+        typedef char Character;
+        // typedef String String;
+
+        typedef void Void;
+
+        typedef uint32_t Tick_Type;
+
+        /// @brief Size Type;
+        typedef size_t Size_Type;
+
+        class Result
         {
-            Success,
-            Invalid_Argument,
-            Error,       ///< Error event.
-            Warning,     ///< Warning event.
-            Information, ///< Information event.
-            Question,    ///< Question event.
-            None
+        public:
+            ///
+            /// @brief Functions results enumeration.
+            ///
+            enum Enumeration
+            {
+                Success,
+                Invalid_Argument,
+                Error,       ///< Error event.
+                Warning,     ///< Warning event.
+                Information, ///< Information event.
+                Question,    ///< Question event.
+                None
+            };
+
+            typedef uint8_t Type;
         };
 
-        typedef uint8_t Type;
-    };
-
-    class Module
-    {
-    public:
-        /// @brief Modules enumeration and type.
-        typedef enum Enumeration
+        class Module
         {
-            None,
-            Account,
-            Clipboard,
-            Display,
-            Graphical_Interface,
-            System,
-            Mathematics
-        } Type;
-    };
+        public:
+            /// @brief Modules enumeration and type.
+            typedef enum Enumeration
+            {
+                None,
+                Account,
+                Clipboard,
+                Display,
+                Graphical_Interface,
+                System,
+                Mathematics
+            } Type;
+        };
 
-    /// @brief Time
-    class Time_Type
-    {
+        /// @brief Time
+        class Time_Type
+        {
+        private:
+            uint8_t Second;
+            uint8_t Minute;
+            uint8_t Hour;
+
+            uint8_t Day;
+            uint8_t Month;
+            uint16_t Year;
+
+        public:
+            Time_Type();
+            Time_Type(uint8_t Second, uint8_t Minute, uint8_t Hour, uint8_t Day, uint8_t Month, uint16_t Year);
+
+            void Set(uint8_t Day, uint8_t Month, uint16_t Year);
+            void Set_Day(uint8_t Day);
+            void Set_Month(uint8_t Month);
+            void Set_Year(uint16_t Year);
+
+            uint8_t Get_Day();
+            uint8_t Get_Month();
+            uint16_t Get_Year();
+        };
+
+        // TODO : Add all base instruction (like minimize, maximize, etc.)
+        /// @brief Xila instruction type.
+        class Instruction_Type
+        {
+        private:
+            Module_Class *Sender;
+            uint32_t Arguments;
+            Module_Class *Receiver;
+
+        public:
+            /*
+            /// @brief Instructions used by the core (with the prefix "#").
+            enum Instructions_Enumeration : Xila_Class::Instruction
+            {
+                // -- Software state instructions
+                Open = 'O',
+                Close = 'C',
+                Maximize = 'M',
+                Minimize = 'm',
+                // -- System state instructions
+                Shutdown = 200,
+                Restart,
+                Hibernate = 'H',
+                Watchdog = 'W',
+            };
+            */
+
+            operator uint32_t() const
+            {
+                return Arguments;
+            };
+
+            Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0){};
+
+            Instruction_Type(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments) : Sender(Sender),
+                                                                                                 Receiver(Receiver),
+                                                                                                 Arguments(Arguments){};
+
+                                                                                            
+            Module_Class *Get_Sender() const
+            {
+                return Sender;
+            };
+
+            Module_Class *Get_Receiver() const
+            {
+                return Receiver;
+            };
+
+            uint32_t Get_Arguments() const
+            {
+                return Arguments;
+            };
+
+            void Set_Sender(Module_Class *Sender)
+            {
+                this->Sender = Sender;
+            };
+
+            void Set_Receiver(Module_Class *Receiver)
+            {
+                this->Receiver = Receiver;
+            };
+
+            void Set_Arguments(uint32_t Arguments)
+            {
+                this->Arguments = Arguments;
+            };
+
+            void Set_Arguments(const char Arguments[4])
+            {
+                memcpy(&this->Arguments, Arguments, 4);
+            }
+        };
+
+        typedef class Task_Class
+        {
+        public:
+            typedef void Task_Function(void *);
+
+            typedef enum Priority_Enumeration
+            {
+                Idle = 0,
+                Background,
+                Low,
+                Normal,
+                High,
+                System,
+                Driver
+            } Priority_Type;
+
+            typedef enum State_Enumeration
+            {
+                Running = eRunning,
+                Ready = eReady,
+                Blocked = eBlocked,
+                Suspended = eSuspended,
+                Deleted = eDeleted,
+                Invalid = eInvalid,
+            } State_Type;
+
+            Task_Class();
+            Task_Class(xTaskHandle Handle);
+            ~Task_Class();
+
+            Result::Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
+
+            Result::Type Set_Priority(Priority_Type Priority);
+            void Suspend();
+            void Resume();
+            void Delete();
+
+            State_Type Get_State();
+            Priority_Type Get_Priority();
+
+            /*
+            static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
+            static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
+            static void Take_Notification(Task_Class& Task);
+            */
+
+            static void Delay(uint32_t Delay_In_Millisecond);
+            static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
+
+            void Set_Handle();
+
+        private:
+            xTaskHandle Task_Handle;
+        } Task_Type;
+
+        // - Methods
+
+        Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
+        ~Module_Class();
+
+        void Send_Instruction( Instruction_Type &Instruction);
+        void Send_Instruction( Module_Class *Sender, const char Arguments[4]);
+
+        Instruction_Type Get_Instruction();
+
+        // - Attributes
+
     private:
-        uint8_t Second;
-        uint8_t Minute;
-        uint8_t Hour;
-
-        uint8_t Day;
-        uint8_t Month;
-        uint16_t Year;
-
-    public:
-        Time_Type();
-        Time_Type(uint8_t Second, uint8_t Minute, uint8_t Hour, uint8_t Day, uint8_t Month, uint16_t Year);
-
-        void Set(uint8_t Day, uint8_t Month, uint16_t Year);
-        void Set_Day(uint8_t Day);
-        void Set_Month(uint8_t Month);
-        void Set_Year(uint16_t Year);
-
-        uint8_t Get_Day();
-        uint8_t Get_Month();
-        uint16_t Get_Year();
+        QueueHandle_t Instruction_Queue_Handle;
     };
-
-    /// @brief Xila instruction type.
-    class Instruction_Type
-    {
-    private:
-        void *Sender;
-        uint32_t Arguments;
-        void *Receiver;
-
-    public:
-        /*
-        /// @brief Instructions used by the core (with the prefix "#").
-        enum Instructions_Enumeration : Xila_Class::Instruction
-        {
-            // -- Software state instructions
-            Open = 'O',
-            Close = 'C',
-            Maximize = 'M',
-            Minimize = 'm',
-            // -- System state instructions
-            Shutdown = 200,
-            Restart,
-            Hibernate = 'H',
-            Watchdog = 'W',
-        };
-        */
-
-        operator uint32_t() const
-        {
-            return Arguments;
-        };
-
-        Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0){};
-
-        Instruction_Type(void *Sender, void *Receiver, uint32_t Arguments) : Sender(Sender), Receiver(Receiver), Arguments(0){};
-
-        void *Get_Sender() const
-        {
-            return Sender;
-        };
-
-        void *Get_Receiver() const
-        {
-            return Receiver;
-        };
-
-        uint32_t Get_Arguments() const
-        {
-            return Arguments;
-        };
-
-        void Set_Sender(void *Sender)
-        {
-            this->Sender = Sender;
-        };
-
-        void Set_Receiver(void *Receiver)
-        {
-            this->Receiver = Receiver;
-        };
-
-        void Set_Arguments(uint32_t Arguments)
-        {
-            this->Arguments = Arguments;
-        };
-    };
-
-    typedef class Task_Class
-    {
-    public:
-        typedef void Task_Function(void *);
-
-        typedef enum Priority_Enumeration
-        {
-            Idle = 0,
-            Background,
-            Low,
-            Normal,
-            High,
-            System,
-            Driver
-        } Priority_Type;
-
-        typedef enum State_Enumeration
-        {
-            Running = eRunning,
-            Ready = eReady,
-            Blocked = eBlocked,
-            Suspended = eSuspended,
-            Deleted = eDeleted,
-            Invalid = eInvalid,
-        } State_Type;
- 
-        Task_Class();
-        Task_Class(xTaskHandle Handle);
-        ~Task_Class();
-
-        Result::Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
-
-        Result::Type Set_Priority(Priority_Type Priority);
-        void Suspend();
-        void Resume();
-        void Delete();
-
-        State_Type Get_State();
-        Priority_Type Get_Priority();
-
-        /*
-        static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
-        static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
-        static void Take_Notification(Task_Class& Task);
-        */
-
-        static void Delay(uint32_t Delay_In_Millisecond);
-        static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
-
-        void Set_Handle();
-
-    private:
-        xTaskHandle Task_Handle;
-    } Task_Type;                                                                    
-};
 
 #define Instruction_Macro()
+
+    bool operator==(const Module_Class::Instruction_Type &First, const Module_Class::Instruction_Type &Second)
+    {
+        if ((First.Get_Arguments() == Second.Get_Arguments()) && (First.Get_Receiver() == Second.Get_Receiver()))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
 
 #endif

@@ -46,8 +46,6 @@ namespace Xila_Namespace
         Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
         virtual ~Software_Class();
 
-        void Send_Instruction(Instruction_Type Instruction);
-        void Send_Instruction(Module::Type Sender, const char Arguments[4]);
 
         bool Check_Watchdog();
 
@@ -57,7 +55,6 @@ namespace Xila_Namespace
 
         State_Type Get_State(const Software_Handle_Class &Software_Handle);
 
-        Instruction_Type Get_Instruction();
 
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
@@ -83,17 +80,10 @@ namespace Xila_Namespace
         ///
         static std::vector<Software_Class *> List;
 
-        static Software_Class *Maximized_Software;
-
         // -- Attributes -- //
 
         uint32_t Watchdog_Timer = 0;
         static uint8_t Watchdog_State;
-
-        ///
-        /// @brief Queue handle.
-        ///
-        QueueHandle_t Instruction_Queue;
 
         ///
         /// @brief Last software watchdog feed.

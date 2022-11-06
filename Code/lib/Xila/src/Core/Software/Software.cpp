@@ -107,13 +107,6 @@ void Xila_Namespace::Software_Class::Close()
     }
   }
 
-  // -- Don't forget to remove maximized pointer.
-  if (Maximized_Software == this)
-  {
-    Maximized_Software = NULL;
-    List[0]->Maximize();
-  }
-
   this->Send_Instruction(Close);
 }
 
@@ -123,11 +116,7 @@ void Xila_Namespace::Software_Class::Close()
 /// @param Software_Handle Software's handle to minimize.
 void Xila_Namespace::Software_Class::Minimize()
 {
-  if (Maximized_Software == this || Maximized_Software == NULL)
-  {
-    return;
-  }
-  Maximized_Software->Send_Instruction(Minimize);
+ 
   Task_Type::Delay(20);
   Maximized_Software = NULL;
   List[0]->Maximize();
@@ -139,15 +128,6 @@ void Xila_Namespace::Software_Class::Minimize()
 /// @param Software_Handle Software handle to maximize.
 void Xila_Namespace::Software_Class::Maximize()
 {
-  if (Maximized_Software == this)
-  {
-    return;
-  }
-  if (Maximized_Software != NULL)
-  {
-    Maximized_Software->Minimize();
-  }
-  Maximized_Software = this;
   this->Send_Instruction(Maximize);
   Task_Type::Delay(20);
 }
@@ -171,21 +151,10 @@ void Xila_Namespace::Software_Class::Kill()
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) :  Current_Instruction(Idle),
-                                                      Last_Watchdog_Feed(millis()),
-                                                      Watchdog_Timeout(Default_Watchdog_Timeout)
+Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) : Module_Class(Queue_Size),
+                                                                     Last_Watchdog_Feed(millis()),
+                                                                     Watchdog_Timeout(Default_Watchdog_Timeout)
 {
-  if (Queue_Size != 0)
-  {
-    if (Instruction_Queue.Create(Queue_Size) == Error)
-    {
-      delete this;
-    }
-    else
-    {
-      Send_Instruction(Open);
-    }
-  }
   vTaskDelay(pdMS_TO_TICKS(5)); // -- Wait fews ms (crash if not)
 }
 
@@ -194,7 +163,6 @@ Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) :  Current_In
 ///
 Xila_Namespace::Software_Class::~Software_Class() // Destructor : close
 {
-  vQueueDelete(Instruction_Queue_Handle);
 }
 
 ///
@@ -209,44 +177,4 @@ void Xila_Namespace::Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Time
   }
 }
 
-///
-/// @brief Return last instruction from the instructions queue.
-///
-/// @return Xila_Class::Instruction Software instruction.
-Xila_Namespace::Software_Class::Instruction_Type Xila_Namespace::Software_Class::Get_Instruction()
-{
-  static Instruction_Type Current_Instruction;
 
-  if (xQueueReceive(Instruction_Queue_Handle, &Current_Instruction, 0) != pdTRUE)
-  {
-    Current_Instruction.Sender = 0;
-    Current_Instruction.Current_Instruction = 0;
-  }
-
-  this->Feed_Watchdog();
-  return Current_Instruction;
-}
-
-///
-/// @brief Used to send instructions to software.
-///
-/// @param Instruction Instruction to send.
-///
-/// @details It's used by Xila and the software itself to fill the instructions queue.
-void Xila_Namespace::Software_Class::Send_Instruction(Instruction_Type Instruction)
-{
-  xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
-}
-
-///
-/// @brief Convert 2 byte char instruction into Xila Instruction and send it.
-///
-/// @param Instruction_Char_1 Instruction first byte
-/// @param Instruction_Char_2 Instruction second byte
-void Xila_Namespace::Software_Class::Send_Instruction(Module::Type Sender, const char Arguments[4])
-{
-  static Instruction_Type Current_Instruction;
-  Current_Instruction.Sender = Sender;
-  memcpy(Current_Instruction.Arguments, Arguments, sizeof(Arguments));
-  Send_Instruction(Current_Instruction);
-}
