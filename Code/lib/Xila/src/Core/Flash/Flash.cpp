@@ -12,6 +12,8 @@
 
 #include "esp_partition.h"
 
+using namespace Xila_Namespace;
+
 
 uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Size()
 {

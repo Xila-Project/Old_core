@@ -12,19 +12,19 @@
 
 #include "Core/Core.hpp"
 
-std::vector<Xila_Namespace::Software_Class *> Xila_Namespace::Software_Class::List;
+using namespace Xila_Namespace;
 
-Xila_Namespace::Software_Class *Xila_Namespace::Software_Class::Maximized_Software = NULL;
+std::vector<Software_Class *> Software_Class::List;
 
-uint8_t Xila_Namespace::Software_Class::Watchdog_State = 0;
+uint8_t Software_Class::Watchdog_State = 0;
 
 ///
-/// @brief Start a software instance main task.
+/// @brief Start a software main task.
 ///
 /// @param Instance_Pointer
-void Xila_Namespace::Software_Class::Start_Main_Task(void *Instance_Pointer)
+void Software_Class::Start_Main_Task(void *Instance_Pointer)
 {
-  (Software_Class *)Instance_Pointer->Main_Task_Function();
+  (Software_Class*)Instance_Pointer->Main_Task_Function();
 }
 
 ///
@@ -32,7 +32,7 @@ void Xila_Namespace::Software_Class::Start_Main_Task(void *Instance_Pointer)
 ///
 /// @param Software_Handle Software handle to check.
 /// @return Software::State
-Xila_Namespace::Software_Class::State_Type Xila_Namespace::Software_Class::Get_State()
+Software_Class::State_Type Software_Class::Get_State()
 {
   if (Maximized_Software != NULL && Maximized_Software == this)
   {
@@ -47,7 +47,7 @@ Xila_Namespace::Software_Class::State_Type Xila_Namespace::Software_Class::Get_S
 ///
 /// @brief Check watchdog timer of every openned software.
 ///
-void Xila_Namespace::Software_Class::Check_Watchdogs()
+void Software_Class::Check_Watchdogs()
 {
   // Iterate through all opened software.
   for (auto Software_Pointer = List.begin(); Software_Pointer != List.end(); Software_Pointer++)
@@ -66,7 +66,7 @@ void Xila_Namespace::Software_Class::Check_Watchdogs()
 ///
 /// @return true watchdog is expired.
 /// @return false watchdog is not expired.
-bool Xila_Namespace::Software_Class::Check_Watchdog()
+bool Software_Class::Check_Watchdog()
 {
   if (Time.Milliseconds() - Last_Watchdog_Feed > Watchdog_Timeout || Watchdog_Timeout > Maximum_Watchdog_Timeout)
   {
@@ -82,7 +82,7 @@ bool Xila_Namespace::Software_Class::Check_Watchdog()
 /// @brief Feed watchdog timer (reset).
 ///
 /// @param Software_Handle Software's handle to feed watchdog.
-void Xila_Namespace::Software_Class::Feed_Watchdog()
+void Software_Class::Feed_Watchdog()
 {
   if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_State]->Handle)
   {
@@ -94,7 +94,7 @@ void Xila_Namespace::Software_Class::Feed_Watchdog()
 /// @brief Function that close software.
 ///
 /// @param Software_Handle Software's handle to close (equal NULL by default, which close currrent maximized software).
-void Xila_Namespace::Software_Class::Close()
+void Software_Class::Close()
 {
 
   // - Don't forget to remove the software pointer from the software list.
@@ -114,7 +114,7 @@ void Xila_Namespace::Software_Class::Close()
 /// @brief Function that minimize software (and maximize Shell).
 ///
 /// @param Software_Handle Software's handle to minimize.
-void Xila_Namespace::Software_Class::Minimize()
+void Software_Class::Minimize()
 {
  
   Task_Type::Delay(20);
@@ -126,7 +126,7 @@ void Xila_Namespace::Software_Class::Minimize()
 /// @brief Function that maximize software (and minimize current maximized software).
 ///
 /// @param Software_Handle Software handle to maximize.
-void Xila_Namespace::Software_Class::Maximize()
+void Software_Class::Maximize()
 {
   this->Send_Instruction(Maximize);
   Task_Type::Delay(20);
@@ -136,7 +136,7 @@ void Xila_Namespace::Software_Class::Maximize()
 /// @brief Function that close roughly the current maximized software.
 ///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
 ///
-void Xila_Namespace::Software_Class::Kill()
+void Software_Class::Kill()
 {
 
   this->Close();
@@ -151,7 +151,7 @@ void Xila_Namespace::Software_Class::Kill()
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) : Module_Class(Queue_Size),
+Software_Class::Software_Class(uint8_t Queue_Size) : Module_Class(Queue_Size),
                                                                      Last_Watchdog_Feed(millis()),
                                                                      Watchdog_Timeout(Default_Watchdog_Timeout)
 {
@@ -161,7 +161,7 @@ Xila_Namespace::Software_Class::Software_Class(uint8_t Queue_Size) : Module_Clas
 ///
 /// @brief Destroy the Xila_Class::Software object
 ///
-Xila_Namespace::Software_Class::~Software_Class() // Destructor : close
+Software_Class::~Software_Class() // Destructor : close
 {
 }
 
@@ -169,7 +169,7 @@ Xila_Namespace::Software_Class::~Software_Class() // Destructor : close
 /// @brief Set watchdog timeout, by default it's set to 5000 ms.
 ///
 /// @param Watchdog_Timeout Watchdog timeout in milliseconds.
-void Xila_Namespace::Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
+void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
 {
   if (Watchdog_Timeout <= Maximum_Watchdog_Timeout)
   {

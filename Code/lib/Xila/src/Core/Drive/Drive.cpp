@@ -10,6 +10,8 @@
 
 #include "Core/Drive/Drive.hpp"
 
+using namespace Xila_Namespace;
+
 ///
  /// @brief Construct a new Xila_Namespace::Drive_Class::Drive_Class object
  /// 

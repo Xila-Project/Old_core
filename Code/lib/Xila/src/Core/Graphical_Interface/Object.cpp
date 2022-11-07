@@ -120,9 +120,9 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(Event::Code_Type Event_Code, uint32_t Arguments)
+void Object_Class::Add_Event(Event::Code_Type Event_Code, Xila_Namespace::Module_Class::Instruction_Type* Instruction)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Arguments);    // - Use user data pointer to store argument of the event.
+    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Instruction);    // - Use user data pointer to store argument of the event.
 }
 
 /*bool Object_Class::Remove_Event(Event::Code_Type Event_Code)
@@ -130,9 +130,9 @@ void Object_Class::Add_Event(Event::Code_Type Event_Code, uint32_t Arguments)
     lv_obj_remove_event_cb(Get_Pointer(), Event_Code);
 }*/
 
-void Object_Class::Send_Event(Event::Code_Type Event_Code, uint32_t Arguments)
+void Object_Class::Send_Event(Event::Code_Type Event_Code)
 {
-    lv_event_send(Get_Pointer(), (lv_event_code_t)Event_Code, (void*)Arguments);
+    lv_event_send(Get_Pointer(), (lv_event_code_t)Event_Code, NULL);
 }
 
 void Object_Class::Move_Foreground()
@@ -179,13 +179,9 @@ void Object_Class::Event_Callback(lv_event_t* Event)
     using namespace Xila;
     static Instruction_Type* Instruction_Pointer;
 
-    Instruction_Pointer = (*Instruction_Type)lv_get_get_user_data(Event);
-    Instruction_Pointer->Get_
-
-
-    Instruction.Set_Sender(NULL);
-    Instruction.Set_Arguments(reinterpret_cast<uint32_t>(lv_event_get_user_data(Event)));    // - Convert pointer into argument.
-    Software_Class::Send_Instruction_To_Maximized(Instruction);
+    Instruction_Pointer = (Instruction_Type*)lv_event_get_user_data(Event);
+    
+    Instruction_Pointer->Get_Receiver()->Send_Instruction(*Instruction_Pointer);
 }
 
 // ------------------------------------------------------------------------- //

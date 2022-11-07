@@ -112,30 +112,14 @@ namespace Xila_Namespace
 
         // TODO : Add all base instruction (like minimize, maximize, etc.)
         /// @brief Xila instruction type.
-        class Instruction_Type
+        typedef class Instruction_Class
         {
         private:
-            Module_Class *Sender;
+            Xila_Namespace::Module_Class *Sender;
             uint32_t Arguments;
-            Module_Class *Receiver;
+            Xila_Namespace::Module_Class *Receiver;
 
         public:
-            /*
-            /// @brief Instructions used by the core (with the prefix "#").
-            enum Instructions_Enumeration : Xila_Class::Instruction
-            {
-                // -- Software state instructions
-                Open = 'O',
-                Close = 'C',
-                Maximize = 'M',
-                Minimize = 'm',
-                // -- System state instructions
-                Shutdown = 200,
-                Restart,
-                Hibernate = 'H',
-                Watchdog = 'W',
-            };
-            */
 
             operator uint32_t() const
             {
@@ -148,13 +132,19 @@ namespace Xila_Namespace
                                                                                                  Receiver(Receiver),
                                                                                                  Arguments(Arguments){};
 
+            Instruction_Type(Module_Class* Sender, Module_Class* Receiver, const char Arguments[4]) : Sender(NULL),
+            Receiver(NULL)
+            {
+                 memcpy(&this->Arguments, Arguments, sizeof(Arguments));
+            }
+
                                                                                             
-            Module_Class *Get_Sender() const
+            Xila_Namespace::Module_Class *Get_Sender() const
             {
                 return Sender;
             };
 
-            Module_Class *Get_Receiver() const
+            Xila_Namespace::Module_Class *Get_Receiver() const
             {
                 return Receiver;
             };
@@ -164,26 +154,30 @@ namespace Xila_Namespace
                 return Arguments;
             };
 
-            void Set_Sender(Module_Class *Sender)
+            void Set_Sender(Xila_Namespace::Module_Class *Sender)
             {
                 this->Sender = Sender;
             };
 
-            void Set_Receiver(Module_Class *Receiver)
+            void Set_Receiver(Xila_Namespace::Module_Class *Receiver)
             {
                 this->Receiver = Receiver;
             };
 
-            void Set_Arguments(uint32_t Arguments)
-            {
-                this->Arguments = Arguments;
-            };
-
             void Set_Arguments(const char Arguments[4])
             {
-                memcpy(&this->Arguments, Arguments, 4);
+                memcpy(&this->Arguments, Arguments, sizeof(Arguments));
             }
-        };
+
+            Instruction_Class Open(NULL, NULL, "Open");
+            Instruction_Class Close(NULL, NULL, "Clos");
+            Instruction_Class Active(NULL, NULL, "Activ");
+            Instruction_Class Inactive(NULL, NULL, "Inac");
+
+
+        } Instruction_Type;
+
+        
 
         typedef class Task_Class
         {
@@ -247,6 +241,9 @@ namespace Xila_Namespace
 
         void Send_Instruction( Instruction_Type &Instruction);
         void Send_Instruction( Module_Class *Sender, const char Arguments[4]);
+
+        
+
 
         Instruction_Type Get_Instruction();
 

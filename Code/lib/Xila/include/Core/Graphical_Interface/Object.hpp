@@ -18,6 +18,8 @@
 
 #include "Types.hpp"
 
+#include "../Module.hpp"
+
 #ifndef Object_Hpp_Included
 #define Object_Hpp_Included
 
@@ -203,9 +205,10 @@ public:
     // - - Swap
     void Swap(Object_Class Object_To_Swap_With);
     // - - Events
-    void Add_Event(Event::Code_Type Event, uint32_t Arguments);
-    // bool Remove_Event(Event::Code_Type Event); TODO : Find a way to fix this.
-    void Send_Event(Event::Code_Type Event, uint32_t Arguments);
+    void Add_Event(Event::Code_Type Event, Xila_Namespace::Module_Class::Instruction_Type* Instruction);
+    //TODO : Find a way add this method to the class :
+    // bool Remove_Event(Event::Code_Type Event); 
+    void Send_Event(Event::Code_Type Event);
     // - - Layer management
     void Move_Foreground();
     void Move_Background();

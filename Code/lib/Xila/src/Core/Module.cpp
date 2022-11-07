@@ -60,7 +60,7 @@ Module_Class::Task_Class::~Task_Class()
 /// @param Instruction Instruction to send.
 ///
 /// @details It's used by Xila and the software itself to fill the instructions queue.
-void Xila_Namespace::Module_Class::Send_Instruction(Instruction_Type &Instruction)
+void Module_Class::Send_Instruction(Instruction_Type &Instruction)
 {
     xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
 }
@@ -70,7 +70,7 @@ void Xila_Namespace::Module_Class::Send_Instruction(Instruction_Type &Instructio
 ///
 /// @param Instruction_Char_1 Instruction first byte
 /// @param Instruction_Char_2 Instruction second byte
-void Xila_Namespace::Module_Class::Send_Instruction(Module_Class *Sender, const char Arguments[4])
+void Module_Class::Send_Instruction(Module_Class *Sender, const char Arguments[4])
 {
     static Instruction_Type Current_Instruction;
     Current_Instruction.Set_Sender(Sender);
@@ -166,7 +166,7 @@ Module_Class::Result::Type Module_Class::Task_Class::Set_Priority(Priority_Type 
 /// @brief Return last instruction from the instructions queue.
 ///
 /// @return Xila_Class::Instruction Software instruction.
-Xila_Namespace::Module_Class::Instruction_Type Xila_Namespace::Module_Class::Get_Instruction()
+Module_Class::Instruction_Type Module_Class::Get_Instruction()
 {
     static Instruction_Type Current_Instruction;
 
