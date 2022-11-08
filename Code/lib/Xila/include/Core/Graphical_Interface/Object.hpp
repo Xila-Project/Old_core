@@ -224,8 +224,6 @@ public:
 
     Coordinate_Type DPX(Coordinate_Type Coordinate);
 
-    static void Event_Callback(lv_event_t *Event);
-
     // - - Setters methods.
     void Set_Index(uint32_t Index);
     void Set_Parent(Object_Class Parent_Object);

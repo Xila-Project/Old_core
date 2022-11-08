@@ -15,7 +15,9 @@
 
 #include "lvgl.h"
 
-void Xila_Namespace::Graphical_Interface_Class::Task_Function(void *)
+using namespace Xila_Namespace;
+
+void Graphical_Interface_Class::Task_Function(void *)
 {
     while (true)
     {
@@ -25,7 +27,7 @@ void Xila_Namespace::Graphical_Interface_Class::Task_Function(void *)
     }
 }
 
-Module_Class::Result::Type Xila_Namespace::Graphical_Interface_Class::Initialize()
+Module_Class::Result::Type Graphical_Interface_Class::Initialize()
 {
     lv_init();
 
@@ -56,15 +58,13 @@ Module_Class::Result::Type Xila_Namespace::Graphical_Interface_Class::Initialize
     return Result::Success;
 }
 
-void Xila_Namespace::Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
+void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
 {
-    using namespace Xila;
+    static Instruction_Type* Instruction_Pointer;
 
-    static Instruction_Type Instruction(NULL, NULL, 0);
-    // Tricks that use the pointer of user data of lvgl as data itself to fits the instructions arguments (more faster approach than deferencing data from the pointer).
-    Instruction.Set_Arguments((uintptr_t)lv_event_get_user_data(Event));
-
-    Software_Type::List[0]->Send_Instruction(Instruction);
+    Instruction_Pointer = (Instruction_Type*)lv_event_get_user_data(Event);
+    
+    Instruction_Pointer->Get_Receiver()->Send_Instruction(*Instruction_Pointer);
 }
 
 

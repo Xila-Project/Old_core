@@ -126,16 +126,16 @@ namespace Xila_Namespace
                 return Arguments;
             };
 
-            Instruction_Type() : Sender(NULL), Receiver(NULL), Arguments(0){};
+            Instruction_Class() : Sender(NULL), Receiver(NULL), Arguments(0){};
 
-            Instruction_Type(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments) : Sender(Sender),
+            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments) : Sender(Sender),
                                                                                                  Receiver(Receiver),
                                                                                                  Arguments(Arguments){};
 
-            Instruction_Type(Module_Class* Sender, Module_Class* Receiver, const char Arguments[4]) : Sender(NULL),
-            Receiver(NULL)
+            Instruction_Class(Module_Class* Sender, Module_Class* Receiver, const char Arguments[4]) : Sender(Sender),
+            Receiver(Receiver)
             {
-                 memcpy(&this->Arguments, Arguments, sizeof(Arguments));
+                 memcpy(&this->Arguments, Arguments, sizeof(this->Arguments));
             }
 
                                                                                             
@@ -169,15 +169,17 @@ namespace Xila_Namespace
                 memcpy(&this->Arguments, Arguments, sizeof(Arguments));
             }
 
-            Instruction_Class Open(NULL, NULL, "Open");
+            /*
+            Instruction_Class Open((Module_Class*)NULL, NULL, "Open");
             Instruction_Class Close(NULL, NULL, "Clos");
             Instruction_Class Active(NULL, NULL, "Activ");
             Instruction_Class Inactive(NULL, NULL, "Inac");
-
-
+            */
+        
         } Instruction_Type;
 
         
+            
 
         typedef class Task_Class
         {
@@ -251,7 +253,7 @@ namespace Xila_Namespace
 
     private:
         QueueHandle_t Instruction_Queue_Handle;
-    };
+    } Module_Type;
 
 #define Instruction_Macro()
 

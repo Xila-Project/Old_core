@@ -174,16 +174,6 @@ void Object_Class::Add_Style(Style_Type& Style, Style_Selector_Type Style_Select
     lv_obj_add_style(Get_Pointer(), Style.Get_Pointer(), Style_Selector);
 }
 
-void Object_Class::Event_Callback(lv_event_t* Event)
-{
-    using namespace Xila;
-    static Instruction_Type* Instruction_Pointer;
-
-    Instruction_Pointer = (Instruction_Type*)lv_event_get_user_data(Event);
-    
-    Instruction_Pointer->Get_Receiver()->Send_Instruction(*Instruction_Pointer);
-}
-
 // ------------------------------------------------------------------------- //
 //
 //                                    Setters
