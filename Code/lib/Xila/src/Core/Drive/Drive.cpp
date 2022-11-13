@@ -38,7 +38,6 @@ Module_Class::Result::Type Xila_Namespace::Drive_Class::Copy(File_Type &Origin_F
     while ((Readed_Bytes = Origin_File.read(Buffer, sizeof(Buffer))) > 0)
     {
         Destination_File.write(Buffer, Readed_Bytes);
-        Task_Class::Delay(2);
     }
     return Result::Success;
 }

@@ -10,6 +10,9 @@
 
 #include "Core/Graphical_Interface/Area.hpp"
 
+
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

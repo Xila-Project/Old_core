@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Button_Matrix.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

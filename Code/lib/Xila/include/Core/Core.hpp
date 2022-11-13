@@ -18,8 +18,8 @@
 ///
 /// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ///
-#ifndef CORE_HPP_INCLUDED
-#define CORE_HPP_INCLUDED
+#ifndef Core_Hpp_Included
+#define Core_Hpp_Included
 
 #ifdef __cplusplus
 
@@ -76,12 +76,13 @@ namespace Xila_Namespace
 
     // - General types
 
-    typedef Module_Class::Size_Type Size_Type;
+/*    typedef Module_Class::Size_Type Size_Type;
     typedef Module_Class::Result Result;
     typedef Module_Class::Module Module;
     typedef Module_Class::Time_Type Time_Type;
     typedef Module_Class::Instruction_Type Instruction_Type;
     typedef Module_Class::Task_Class Task_Class;
+*/
 };
 
 namespace Xila = Xila_Namespace;

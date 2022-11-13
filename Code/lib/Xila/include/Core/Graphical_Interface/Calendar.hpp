@@ -14,34 +14,36 @@
 #include "Object.hpp"
 #include "Button_Matrix.hpp"
 
-class Calendar_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
+    typedef class Calendar_Class : public Object_Class
+    {
+    public:
+        typedef lv_calendar_date_t Date_Type;
 
-    typedef lv_calendar_date_t Date_Type;
+        // -- Methods
 
-    // -- Methods
+        void Create(Object_Class Parent_Object);
 
-    void Create(Object_Class Parent_Object);
+        // -- -- Setters.
 
-    // -- -- Setters.
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
+        void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
+        void Set_Showed_Date(uint32_t Year, uint32_t Month);
+        void Set_Highlighted_Dates(Date_Type *Date, uint16_t Number);
 
-    void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
-    void Set_Showed_Date(uint32_t Year, uint32_t Month);
-    void Set_Highlighted_Dates(Date_Type* Date, uint16_t Number);
+        void Set_Days_Names(const char **Day_Names);
 
-    void Set_Days_Names(const char **Day_Names);
+        // -- -- Getters.
+        Button_Matrix_Class Get_Button_Matrix();
 
-    // -- -- Getters.
-    Button_Matrix_Class Get_Button_Matrix();
-
-    const Date_Type *Get_Today_Date();
-    const Date_Type *Get_Showed_Dates();
-    Date_Type *Get_Highlighted_Dates();
-    uint16_t Get_Highlighted_Dates_Number();
-    bool Get_Pressed_Date(Date_Type *Date);
-};
+        const Date_Type *Get_Today_Date();
+        const Date_Type *Get_Showed_Dates();
+        Date_Type *Get_Highlighted_Dates();
+        uint16_t Get_Highlighted_Dates_Number();
+        bool Get_Pressed_Date(Date_Type *Date);
+    } Calendar_Type;
+}
 
 #endif

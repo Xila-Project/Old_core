@@ -55,35 +55,7 @@
 
 namespace Xila_Namespace
 {
-
-
-    typedef Object_Class Object_Type;
-    typedef Arc_Class Arc_Type;
-    typedef Bar_Class Bar_Type;
-    typedef Button_Class Button_Type;
-    typedef Button_Matrix_Class Button_Matrix_Type;
-    typedef Canvas_Class Canvas_Type;
-    typedef Checkbox_Class Checkbox_Type;
-    typedef Drop_Down_List_Class Drop_Down_List_Type;
-    typedef Image_Class Image_Type;
-    typedef Line_Class Line_Type;
-    typedef Label_Class Label_Type;
-    typedef Roller_Class Roller_Type;
-    typedef Slider_Class Slider_Type;
-    typedef Switch_Class Switch_Type;
-    typedef Table_Class Table_Type;
-    typedef Text_Area_Class Text_Area_Type;
-    typedef Calendar_Class Calendar_Type;
-    // typedef Chart_Class Chart_Type;
-    typedef Color_Wheel_Class Color_Wheel_Type;
-    typedef Keyboard_UI_Class Keyboard_Type;
-    typedef List_Class List_Type;
-    // typedef Menu_Class Menu_Type;
-    // typedef Meter_Class Meter_Type;
-    typedef Tabs_Class Tabs_Type;
-    typedef Window_Class Window_Type;
-
-    class Graphical_Interface_Class : public Types_Class, public Module_Class
+    typedef class Graphical_Interface_Class : public Types_Class, public Xila_Namespace::Module_Class
     {
     public:
         // - Types
@@ -98,9 +70,6 @@ namespace Xila_Namespace
         Task_Class Task;
 
         static void Event_Handler(lv_event_t *Event);
-
-        static void *Object_Pointer_Cache[16];
-        static Software_Class *Software_Pointer_Cache[16];
 
         void Clear_Cache();
 
@@ -125,7 +94,6 @@ namespace Xila_Namespace
         lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
         lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
     } Graphical_Interface;
-
 }
 
 #endif

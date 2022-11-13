@@ -13,22 +13,25 @@
 
 #include "Object.hpp"
 
-/// @brief Line class.
-class Line_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-    // - Methods
+    /// @brief Line class.
+    typedef class Line_Class : public Object_Class
+    {
+    public:
+        // - Methods
 
-    void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object);
 
-    // - - Setters
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        // - - Setters
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    void Set_Points(const Point_Type* Points, uint16_t Number);
-    void Set_Y_Inversion(bool Inversion);
+        void Set_Points(const Point_Type *Points, uint16_t Number);
+        void Set_Y_Inversion(bool Inversion);
 
-    // - - Getters
-    bool Get_Y_Inversion();
-};
+        // - - Getters
+        bool Get_Y_Inversion();
+    } Line_Type;
+}
 
 #endif

@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Window.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management
@@ -103,7 +105,6 @@ void Window_Class::Create(Object_Class Parent_Object)
     Battery_Button.Set_Size(24, Percentage(100));
     Battery_Button.Set_Alignment(Clock_Label, Alignment::Out_Left_Middle, -4, 0);
 
-
     Network_Button.Create(Header);
     Network_Button.Set_Size(24, Percentage(100));
     Network_Button.Set_Alignment(Battery_Button, Alignment::Out_Left_Middle, 0, 0);
@@ -125,7 +126,7 @@ void Window_Class::Create(Object_Class Parent_Object)
 
 bool Window_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-         if (Get_Pointer() == NULL)
+    if (Get_Pointer() == NULL)
     {
         return false;
     }
@@ -150,16 +151,10 @@ void Window_Class::Set_Title(const char *Title)
 
 Object_Class Window_Class::Get_Body()
 {
-    if (Body.Is_Valid())
-    {
-        return Body;
-    }
+    return Body;
 }
 
 Object_Class Window_Class::Get_Header()
 {
-    if (Header.Is_Valid())
-    {
-        return Header;
-    }
+    return Header;
 }

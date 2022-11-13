@@ -14,9 +14,11 @@
 
 using namespace Xila_Namespace;
 
-std::vector<Software_Class *> Software_Class::List;
+std::vector<Software_Class*> Software_Class::List(10);
 
-uint8_t Software_Class::Watchdog_State = 0;
+Software_Class* Software_Class::Active_Software = NULL;
+
+
 
 ///
 /// @brief Start a software main task.
@@ -41,52 +43,6 @@ Software_Class::State_Type Software_Class::Get_State()
   else
   {
     return Minimized;
-  }
-}
-
-///
-/// @brief Check watchdog timer of every openned software.
-///
-void Software_Class::Check_Watchdogs()
-{
-  // Iterate through all opened software.
-  for (auto Software_Pointer = List.begin(); Software_Pointer != List.end(); Software_Pointer++)
-  {
-    // Check if watchdogs are expired.
-    if ((*Software_Pointer)->Check_Watchdog())
-    {
-      // Watchdog expired, kill software.
-      (*Software_Pointer)->Kill();
-    }
-  }
-}
-
-///
-/// @brief Return if software watchdog is expired or not.
-///
-/// @return true watchdog is expired.
-/// @return false watchdog is not expired.
-bool Software_Class::Check_Watchdog()
-{
-  if (Time.Milliseconds() - Last_Watchdog_Feed > Watchdog_Timeout || Watchdog_Timeout > Maximum_Watchdog_Timeout)
-  {
-    return true;
-  }
-  else
-  {
-    return false;
-  }
-}
-
-///
-/// @brief Feed watchdog timer (reset).
-///
-/// @param Software_Handle Software's handle to feed watchdog.
-void Software_Class::Feed_Watchdog()
-{
-  if (Watchdog_State != 0 && &Software_Handle == Software_Management.Openned[Watchdog_State]->Handle)
-  {
-    Software_Management.Watchdog_Timer = Time.Milliseconds();
   }
 }
 
@@ -133,29 +89,14 @@ void Software_Class::Maximize()
 }
 
 ///
-/// @brief Function that close roughly the current maximized software.
-///  @details Delete manualy the main software's task, and then delete software instance. That could leave undeleted memory fragment (external tasks, external variables, dynamic allocated variables etc.).
-///
-void Software_Class::Kill()
-{
-
-  this->Close();
-
-  Task.Delete(this->Main_Task);
-  delete this;
-  Task_Class::Delay(10);
-}
-
-///
 /// @brief Construct a new Xila_Class::Software object
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(uint8_t Queue_Size) : Module_Class(Queue_Size),
-                                                                     Last_Watchdog_Feed(millis()),
-                                                                     Watchdog_Timeout(Default_Watchdog_Timeout)
+Software_Class::Software_Class(uint8_t Queue_Size) : Module_Class(Queue_Size)
 {
-  vTaskDelay(pdMS_TO_TICKS(5)); // -- Wait fews ms (crash if not)
+  List.push_back(this);
+  
 }
 
 ///
@@ -165,16 +106,5 @@ Software_Class::~Software_Class() // Destructor : close
 {
 }
 
-///
-/// @brief Set watchdog timeout, by default it's set to 5000 ms.
-///
-/// @param Watchdog_Timeout Watchdog timeout in milliseconds.
-void Software_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
-{
-  if (Watchdog_Timeout <= Maximum_Watchdog_Timeout)
-  {
-    this->Watchdog_Timeout = Watchdog_Timeout;
-  }
-}
 
 

@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Color.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Constructor

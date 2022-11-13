@@ -15,25 +15,27 @@
 #include "Label.hpp"
 #include "Button.hpp"
 
-/// @brief List class.
-class List_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-    
-    // - Methods
+    /// @brief List class.
+    typedef class List_Class : public Object_Class
+    {
+    public:
+        // - Methods
 
-    void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object);
 
-    Label_Class Add_Text(const char *Text);
-    Button_Class Add_Button(const char* Icon, const char *Text);
+        Label_Class Add_Text(const char *Text);
+        Button_Class Add_Button(const char *Icon, const char *Text);
 
-    // - - Setters
+        // - - Setters
 
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    // - - Getters
-    
-    const char *Get_Button_Text(Button_Class &Button);
-};
+        // - - Getters
+
+        const char *Get_Button_Text(Button_Class &Button);
+    } List_Type;
+}
 
 #endif

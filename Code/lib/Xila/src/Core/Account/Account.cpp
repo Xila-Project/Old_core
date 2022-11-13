@@ -310,14 +310,16 @@ Module_Class::Result::Type Xila_Namespace::Account_Class::Login(const char *User
   // -- If another user was already connected, close all of it's software.
   if (State == Locked && (strcmp(Account.Current_Username, Username_To_Check) != 0))
   {
-    // Iterate through software list and close all of them.
+    return Result::Error;
+    // TODO : Replace this with a multi account system.
+    /*// Iterate through software list and close all of them.
     for (auto & Software : Software_Type::List)
     {
       if (Software != NULL)
       {
         Software->Close();
       }
-    }
+    }*/
   }
   //
   strlcpy(Current_Username, Username_To_Check, sizeof(Current_Username));

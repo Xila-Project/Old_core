@@ -34,6 +34,9 @@ namespace Xila_Namespace
         Result::Type Save_Registry();
         Result::Type Load_Registry();
 
+        uint8_t Get_Battery_Charge_Level();
+        uint16_t Get_Battery_Voltage();
+
         // -- Attributes
         ///
         /// @brief Button press counter.

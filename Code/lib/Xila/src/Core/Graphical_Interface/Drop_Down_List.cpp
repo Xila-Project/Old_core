@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Drop_Down_List.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

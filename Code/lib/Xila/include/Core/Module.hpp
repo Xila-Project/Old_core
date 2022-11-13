@@ -85,7 +85,7 @@ namespace Xila_Namespace
             } Type;
         };
 
-        /// @brief Time
+        /// @brief Time class.
         class Time_Type
         {
         private:
@@ -121,72 +121,41 @@ namespace Xila_Namespace
             Xila_Namespace::Module_Class *Receiver;
 
         public:
-
             operator uint32_t() const
             {
                 return Arguments;
             };
 
-            Instruction_Class() : Sender(NULL), Receiver(NULL), Arguments(0){};
+            Instruction_Class();
 
-            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments) : Sender(Sender),
-                                                                                                 Receiver(Receiver),
-                                                                                                 Arguments(Arguments){};
+            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments);
 
-            Instruction_Class(Module_Class* Sender, Module_Class* Receiver, const char Arguments[4]) : Sender(Sender),
-            Receiver(Receiver)
-            {
-                 memcpy(&this->Arguments, Arguments, sizeof(this->Arguments));
-            }
+            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, const char *Arguments);
 
-                                                                                            
-            Xila_Namespace::Module_Class *Get_Sender() const
-            {
-                return Sender;
-            };
+            Module_Class *Get_Sender() const;
 
-            Xila_Namespace::Module_Class *Get_Receiver() const
-            {
-                return Receiver;
-            };
+            Module_Class *Get_Receiver() const;
 
-            uint32_t Get_Arguments() const
-            {
-                return Arguments;
-            };
+            uint32_t Get_Arguments() const;
 
-            void Set_Sender(Xila_Namespace::Module_Class *Sender)
-            {
-                this->Sender = Sender;
-            };
+            void Set_Sender(Module_Class *Sender);
 
-            void Set_Receiver(Xila_Namespace::Module_Class *Receiver)
-            {
-                this->Receiver = Receiver;
-            };
+            void Set_Receiver(Module_Class *Receiver);
 
-            void Set_Arguments(const char Arguments[4])
-            {
-                memcpy(&this->Arguments, Arguments, sizeof(Arguments));
-            }
+            void Set_Arguments(const char *Arguments);
 
-            
             static const Instruction_Class Open;
             static const Instruction_Class Close;
             static const Instruction_Class Active;
             static const Instruction_Class Inactive;
-            
-        
+
         } Instruction_Type;
 
-        
-            
-
+        /// @brief Xila task type.
         typedef class Task_Class
         {
         public:
-
-            typedef void (* Function_Type)( void * );
+            typedef void (*Function_Type)(void *);
 
             // - Types
 
@@ -215,8 +184,9 @@ namespace Xila_Namespace
 
             // - Methods
 
+            Task_Class(xTaskHandle Handle);
             // - Constructors / Destructors
-            Task_Class(Function_Type Task_Function, const char* Name, Size_Type Stack_Size, Priority_Type Priority = Normal);
+            Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Normal);
             ~Task_Class();
 
             Result::Type Set_Priority(Priority_Type Priority);
@@ -234,39 +204,100 @@ namespace Xila_Namespace
             */
 
             void Delay(uint32_t Delay_In_Millisecond);
-            void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
+            static void Delay_Static(uint32_t Delay_In_Millisecond);
+            void Delay_Until(TickType_t Time_Increment);
 
-            void Feed_Watchdog();
-
+            void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout);
             static void Check_Watchdogs();
 
         private:
+            void Feed_Watchdog();
+
             xTaskHandle Task_Handle;
 
             uint32_t Watchdog_Timer;
             uint32_t Watchdog_Timeout;
 
-            static std::vector<Task_Class*> List; // - Task lists.
+            TickType_t Previous_Wake_Time;
+
+            Module_Class *Owner_Module;
+
+            static std::vector<Task_Class *> List; // - Task lists.
 
         } Task_Type;
+
+        /// @brief Xila Semaphore type.
+        typedef class Semaphore_Class
+        {
+        public:
+            typedef enum
+            {
+                Binary,
+                Counting,
+                Mutex,
+                Recursive_Mutex
+            } Type_Type;
+
+            Semaphore_Class();
+
+            Result::Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+            // Event_Type Create_Static()
+
+            void Delete();
+            Result::Type Take(uint32_t Timeout = 0xFFFFFFFF);
+            void Take_Recursive(Tick_Type Tick_To_Wait);
+            void Give();
+            void Take_From_ISR(Integer *Higher_Priority_Task_Woken);
+            void Give_From_ISR(Integer *Higher_Priority_Task_Woken);
+            void Take_Recursive();
+            void Give_Recursive();
+            // Task_Type Get_Mutex_Holder();
+            unsigned int Get_Count();
+
+        private:
+            SemaphoreHandle_t Semaphore_Handle;
+        } Semaphore_Type;
+
+        /*typedef class Queue_Class
+        {
+        public:
+            Queue_Class();
+            ~Queue_Class();
+
+            Result::Type Create(Size_Type Length, Size_Type Item_Size);
+            Result::Type Create_Static(Size_Type Length, Size_Type Item_Size);
+
+            void Delete();
+            void Reset();
+
+            Result::Type Send(const void *Item, Tick_Type Ticks_To_Wait, bool Send_To_Front = true);
+            void Overwrite(const void *Buffer);
+            Result::Type Peek(void *Buffer, Tick_Type Ticks_To_Wait);
+            Result::Type Receive(void *Buffer, Tick_Type Ticks_To_Wait);
+
+            uint16_t Waiting();
+
+            Size_Type Spaces_Available();
+
+        private:
+            QueueHandle_t Queue_Handle;
+        } Queue_Type;*/
 
         // - Methods
 
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
         ~Module_Class();
 
-        void Send_Instruction( const Instruction_Type &Instruction);
-        void Send_Instruction( Module_Class *Sender, const char Arguments[4]);
-
-        
-
+        void Send_Instruction(const Instruction_Type &Instruction);
+        void Send_Instruction(Module_Class *Sender, const char Arguments[4]);
 
         Instruction_Type Get_Instruction();
 
-        // - Attributes
-
     private:
         QueueHandle_t Instruction_Queue_Handle;
+
+        static std::vector<Module_Class *> List; // - Module lists.
+
     } Module_Type;
 
 #define Instruction_Macro()

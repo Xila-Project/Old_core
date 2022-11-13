@@ -14,32 +14,34 @@
 #include "Object.hpp"
 #include "Button.hpp"
 
-class Tabs_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-    // -- Types
+    typedef class Tabs_Class : public Object_Class
+    {
+    public:
+        // -- Types
 
+        // - Methods
+        void Create(Object_Class Parent_Object);
+        void Create(Object_Class &Parent_Object, Direction::Type Direction, Coordinate_Type Size);
 
-    // - Methods
-    void Create(Object_Class Parent_Object);
-    void Create(Object_Class& Parent_Object, Direction::Type Direction, Coordinate_Type Size);
+        void Add_Tab(const char *Name);
+        void Rename_Tab(const char *Name);
 
-    void Add_Tab(const char *Name);
-    void Rename_Tab(const char *Name);
+        // - - Setters.
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    // - - Setters.
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        void Set_Active_Tab(uint16_t Identifier, bool Animation);
 
-    void Set_Active_Tab(uint16_t Identifier, bool Animation);
+        // - - Getters.
+        uint16_t Get_Tab_Active();
+        uint16_t Get_Tab_Count();
 
-    // - - Getters.
-    uint16_t Get_Tab_Active();
-    uint16_t Get_Tab_Count();
+        Object_Class Get_Content();
+        Button_Class Get_Tab_Buttons();
 
-    Object_Class Get_Content();
-    Button_Class Get_Tab_Buttons();
-
-    uint16_t Get_Animation_Time();
-};
+        uint16_t Get_Animation_Time();
+    } Tabs_Type;
+}
 
 #endif

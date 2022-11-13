@@ -10,6 +10,7 @@
 
  #include "Core/Graphical_Interface/Color_Wheel.hpp"
 
+using namespace Xila_Namespace;
 
 // ------------------------------------------------------------------------- //
 //

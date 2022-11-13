@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/List.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

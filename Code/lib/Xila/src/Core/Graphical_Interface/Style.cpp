@@ -10,7 +10,7 @@
 
 #include "Core/Graphical_Interface/Style.hpp"
 
-
+using namespace Xila_Namespace;
 
 // ------------------------------------------------------------------------- //
 //

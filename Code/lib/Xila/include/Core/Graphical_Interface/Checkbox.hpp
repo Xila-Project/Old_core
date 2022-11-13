@@ -13,30 +13,32 @@
 
 #include "Object.hpp"
 
-class Checkbox_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-
-    // - Types
-
-    typedef enum Draw_Part_Enumeration
+    typedef class Checkbox_Class : public Object_Class
     {
-        Box = LV_CHECKBOX_DRAW_PART_BOX,
-    } Draw_Part_Type;
+    public:
+        // - Types
 
-    // - Methods
+        typedef enum Draw_Part_Enumeration
+        {
+            Box = LV_CHECKBOX_DRAW_PART_BOX,
+        } Draw_Part_Type;
 
-    void Create(Object_Class Parent_Object);
+        // - Methods
 
-    // - - Setters.
+        void Create(Object_Class Parent_Object);
 
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        // - - Setters.
 
-    void Set_Text(const char *Text);
-    void Set_Text_Static(const char *Text);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    // - - Getters.
-    const char *Get_Text();
-};
+        void Set_Text(const char *Text);
+        void Set_Text_Static(const char *Text);
+
+        // - - Getters.
+        const char *Get_Text();
+    } Checkbox_Type;
+}
 
 #endif

@@ -10,7 +10,7 @@
 
 #include "Core/Core.hpp"
 
-using namespace Xila_Namespace;
+using namespace Xila_Namespace::Input;
 
 #include <PS2Keyboard.h>
 
@@ -30,7 +30,7 @@ Keyboard_Class::Keyboard_Class()
 /// @brief Load keyboard registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Keyboard_Class::Load_Registry()
+Keyboard_Class::Result::Type Keyboard_Class::Load_Registry()
 {
     using namespace Xila;
 
@@ -58,7 +58,7 @@ Module_Class::Result::Type Keyboard_Class::Load_Registry()
 /// @brief Save keyboard registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Keyboard_Class::Save_Registry()
+Keyboard_Class::Result::Type Keyboard_Class::Save_Registry()
 {
     using namespace Xila;
 

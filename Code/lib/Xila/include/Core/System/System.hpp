@@ -45,7 +45,7 @@ namespace Xila_Namespace
 
         void Refresh_Header();
 
-        static void Task_Start_Function(void *Instance);
+        static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
 
         // -- Friendship
@@ -55,7 +55,7 @@ namespace Xila_Namespace
 
     protected:
         // System's task :
-        Task_Class Task;
+        Task_Type Task;
 
         ///
         /// @brief Device name used as Network hostname ...

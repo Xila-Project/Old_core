@@ -16,41 +16,38 @@
 #include "Label.hpp"
 #include "Image.hpp"
 
-class Software_Class;
-
-class Window_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
+    typedef class Window_Class : public Object_Class
+    {
+    public:
+        void Create();
+        void Create(Object_Class Parent_Object);
 
-    void Create();
-    void Create(Object_Class Parent_Object);
+        void Set_Title(const char *Title);
 
-    void Set_Title(const char *Title);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        Object_Class Get_Body();
+        Object_Class Get_Header();
 
-    Object_Class Get_Body();
-    Object_Class Get_Header();
+    private:
+        Object_Class Header;
+        Object_Class Body;
 
-    Software_Class* Software_Pointer;
+        Label_Class Title_Label;
+        Label_Class Clock_Label;
 
-private:
+        Button_Class Network_Button;
+        Image_Class Network_Image;
+        Button_Class Battery_Button;
+        Image_Class Battery_Image;
+        Button_Class Sound_Button;
+        Image_Class Sound_Image;
 
-    Object_Class Header;
-    Object_Class Body;
-
-    Label_Class Title_Label;
-    Label_Class Clock_Label;
-
-    Button_Class Network_Button;
-    Image_Class Network_Image;
-    Button_Class Battery_Button;
-    Image_Class Battery_Image;
-    Button_Class Sound_Button;
-    Image_Class Sound_Image;
-
-    Button_Class Close_Button;
-    Button_Class Minimize_Button;
-};
+        Button_Class Close_Button;
+        Button_Class Minimize_Button;
+    } Window_Type;
+}
 
 #endif

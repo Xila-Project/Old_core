@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Table.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

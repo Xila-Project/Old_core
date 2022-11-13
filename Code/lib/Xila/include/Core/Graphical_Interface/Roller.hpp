@@ -13,39 +13,41 @@
 
 #include "Object.hpp"
 
-/// @brief Roller class.
-class Roller_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-
-    // -- Types
-
-    typedef lv_roller_mode_t Mode_Type;
-
-    enum Mode_Enumeration
+    /// @brief Roller class.
+    typedef class Roller_Class : public Object_Class
     {
-        Normal = LV_ROLLER_MODE_NORMAL,
-        Infinite = LV_ROLLER_MODE_INFINITE
-    };
+    public:
+        // -- Types
 
-    // -- Methods
+        typedef lv_roller_mode_t Mode_Type;
 
-    void Create(Object_Class Parent_Object);
+        enum Mode_Enumeration
+        {
+            Normal = LV_ROLLER_MODE_NORMAL,
+            Infinite = LV_ROLLER_MODE_INFINITE
+        };
 
-    // -- Setters
+        // -- Methods
 
-    bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        void Create(Object_Class Parent_Object);
 
-    void Set_Options(const char *Options, Mode_Type Mode);
-    void Set_Selected(uint16_t Index, bool Animated);
-    void Set_Visible_Row_Count(uint8_t Row_Count);
+        // -- Setters
 
-    // -- Getters
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-    uint16_t Get_Selected();
-    void Get_Selected_String(char *Buffer, size_t Size);
-    const char *Get_Options();
-    uint16_t Get_Option_Count();
-};
+        void Set_Options(const char *Options, Mode_Type Mode);
+        void Set_Selected(uint16_t Index, bool Animated);
+        void Set_Visible_Row_Count(uint8_t Row_Count);
+
+        // -- Getters
+
+        uint16_t Get_Selected();
+        void Get_Selected_String(char *Buffer, size_t Size);
+        const char *Get_Options();
+        uint16_t Get_Option_Count();
+    } Roller_Type;
+}
 
 #endif

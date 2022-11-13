@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Tabs.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

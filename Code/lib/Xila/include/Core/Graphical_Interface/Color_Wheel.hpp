@@ -13,40 +13,43 @@
 
 #include "Object.hpp"
 
-class Color_Wheel_Class : public Object_Class
+namespace Xila_Namespace
 {
-public:
-    // -- Types
-
-    class Mode
+    typedef class Color_Wheel_Class : public Object_Class
     {
     public:
-        typedef lv_colorwheel_mode_t Type;
+        // -- Types
 
-        enum Enumeration
+        class Mode
         {
-            Hue = LV_COLORWHEEL_MODE_HUE,
-            Saturation = LV_COLORWHEEL_MODE_SATURATION,
-            Value = LV_COLORWHEEL_MODE_VALUE
+        public:
+            typedef lv_colorwheel_mode_t Type;
+
+            enum Enumeration
+            {
+                Hue = LV_COLORWHEEL_MODE_HUE,
+                Saturation = LV_COLORWHEEL_MODE_SATURATION,
+                Value = LV_COLORWHEEL_MODE_VALUE
+            };
         };
-    };
 
-    // - Methods
+        // - Methods
 
-    void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object);
 
-    // - - Getters
-    Mode::Type Get_Mode();
-    bool Get_Mode_Fixed();
+        // - - Getters
+        Mode::Type Get_Mode();
+        bool Get_Mode_Fixed();
 
-    Color_Type Get_Color();
+        Color_Type Get_Color();
 
-    // - - Setters
-    bool Set_Color(Color_Type Color);
-    void Set_Mode(Mode::Type Mode);
-    void Set_Mode_Fixed(bool Fixed);
+        // - - Setters
+        bool Set_Color(Color_Type Color);
+        void Set_Mode(Mode::Type Mode);
+        void Set_Mode_Fixed(bool Fixed);
 
-    bool Set_Pointer(lv_obj_t* LVGL_Object_Pointer);
-};
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+    } Color_Wheel_Type;
+}
 
 #endif

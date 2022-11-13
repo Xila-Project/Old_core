@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Label.hpp"
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

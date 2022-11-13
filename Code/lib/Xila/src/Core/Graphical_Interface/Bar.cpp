@@ -11,6 +11,8 @@
 #include "Core/Graphical_Interface/Bar.hpp"
 
 
+using namespace Xila_Namespace;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management

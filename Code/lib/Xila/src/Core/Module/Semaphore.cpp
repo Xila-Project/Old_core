@@ -8,17 +8,15 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Software/Semaphore.hpp"
+#include "Core/Module.hpp"
 
-#include "Core/Core.hpp"
+using namespace Xila_Namespace;
 
-using namespace Xila;
-
-Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
+Module_Class::Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
-Module_Class::Result::Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
+Module_Class::Result::Type Module_Class::Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
     {
@@ -51,7 +49,7 @@ Module_Class::Result::Type Semaphore_Class::Create(Type_Type Type, unsigned int 
 }
 
 /*
-Static_Semaphore_Type Semaphore_Class::Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count, UBaseType_t Maximum_Count)
+Static_Semaphore_Type Module_Class::Semaphore_Class::Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count, UBaseType_t Maximum_Count)
 {
     switch (Type)
     {
@@ -69,17 +67,17 @@ Static_Semaphore_Type Semaphore_Class::Create_Static(uint8_t Type, Static_Semaph
     }
 }*/
 
-void Semaphore_Class::Delete()
+void Module_Class::Semaphore_Class::Delete()
 {
     vSemaphoreDelete(Semaphore_Handle);
 }
 
-void Semaphore_Class::Give()
+void Module_Class::Semaphore_Class::Give()
 {
     xSemaphoreGive(Semaphore_Handle);
 }
 
-Module_Class::Result::Type Semaphore_Class::Take(uint32_t Timeout)
+Module_Class::Result::Type Module_Class::Semaphore_Class::Take(uint32_t Timeout)
 {
     if (Timeout = 0xFFFFFFFFF)
     {
@@ -105,33 +103,34 @@ Module_Class::Result::Type Semaphore_Class::Take(uint32_t Timeout)
     }
 }
 
-void Semaphore_Class::Give_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Module_Class::Semaphore_Class::Give_From_ISR(Integer *Higher_Priority_Task_Woken)
 {
     xSemaphoreGiveFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Semaphore_Class::Take_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Module_Class::Semaphore_Class::Take_From_ISR(Integer *Higher_Priority_Task_Woken)
 {
     xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Semaphore_Class::Take_Recursive(Tick_Type Ticks_To_Wait)
+void Module_Class::Semaphore_Class::Take_Recursive(Tick_Type Ticks_To_Wait)
 {
     xSemaphoreTakeRecursive(Semaphore_Handle, Ticks_To_Wait);
 }
 
-void Semaphore_Class::Give_Recursive()
+void Module_Class::Semaphore_Class::Give_Recursive()
 {
     xSemaphoreGiveRecursive(Semaphore_Handle);
 }
 
-Module_Class::Task_Class Semaphore_Class::Get_Mutex_Holder()
+/*
+Module_Class::Task_Type Module_Class::Semaphore_Class::Get_Mutex_Holder()
 {
-    Task_Type Task(xSemaphoreGetMutexHolder(Semaphore_Handle));
-    return Task;
-}
+    // TODO : Implement
 
-unsigned int Get_Count()
+}*/
+
+unsigned int Module_Class::Semaphore_Class::Get_Count()
 {
     return uxSemaphoreGetCount(Semaphore_Handle);
 }

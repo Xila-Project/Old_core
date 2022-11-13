@@ -10,6 +10,8 @@
 
 #include "Core/Graphical_Interface/Theme.hpp"
 
+using namespace Xila_Namespace;
+
 void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object)
 {
     LV_UNUSED(Theme);

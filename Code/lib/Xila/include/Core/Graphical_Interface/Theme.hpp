@@ -19,22 +19,25 @@
 #define Xila_Red LV_COLOR_MAKE(230, 0, 0)
 #define Xila_Blue LV_COLOR_MAKE(0, 0, 230)
 
-class Theme_Class
+namespace Xila_Namespace
 {
-public:
-    void Initialize();
+    class Theme_Class
+    {
+    public:
+        void Initialize();
 
-    static void Apply_Callback(lv_theme_t* Theme, lv_obj_t* Object);
+        static void Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object);
 
-    static lv_style_t Style_Button,
-        Style_Window,
-        Style_Checkbox,
-        Style_Slider_Main,
-        Style_Slider_Indicator,
-        Style_Slider_Knob;
+        static lv_style_t Style_Button,
+            Style_Window,
+            Style_Checkbox,
+            Style_Slider_Main,
+            Style_Slider_Indicator,
+            Style_Slider_Knob;
 
-private:
-    static lv_theme_t LVGL_Theme;
-};
+    private:
+        static lv_theme_t LVGL_Theme;
+    };
+}
 
 #endif

@@ -16,11 +16,12 @@
 
 using namespace Xila_Namespace;
 
+
 ///
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
 ///
 Power_Class::Power_Class()
-    : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
+    : 
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
     Button_Counter = 0;
@@ -111,7 +112,7 @@ void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
-        Dialog.Power();
+        //Dialog.Power();
         Button_Counter = 0;
     }
 }
@@ -123,15 +124,15 @@ void Power_Class::Deep_Sleep()
 {
     Log_Information("Going into deep-sleep.");
     
-    Display.Set_Serial_Wake_Up(true);
+    /*Display.Set_Serial_Wake_Up(true);
     Display.Set_Touch_Wake_Up(false);
     Display.Set_Current_Page(F("Core_Load"));
 
-    Pin.Digital_Write(Default_Display_Switching_Pin, Pin.Low);
+    Pin.Digital_Write(Default_Display_Switching_Pin, Pin.Low);*/
 
     Drive.End();
 
-    Task_Class::Delay(10);
+    Task_Type::Delay_Static(10);
 
     esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
     esp_deep_sleep_start();

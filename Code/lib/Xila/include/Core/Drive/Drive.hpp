@@ -136,7 +136,6 @@ namespace Xila_Namespace
         friend class Shell_Class;
         friend class Unit_Test_Class;
 
-    protected:
         void End();
 
         bool Begin(const char *Mount_Point = "/");
