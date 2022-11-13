@@ -14,10 +14,12 @@
 
 #include "soc/rtc_wdt.h"
 
+using namespace Xila_Namespace;
+
 ///
-/// @brief Construct a new Xila_Class::Xila_Namespace::Power_Class::Power_Class object
+/// @brief Construct a new Xila_Class::Power_Class::Power_Class object
 ///
-Xila_Namespace::Power_Class::Power_Class()
+Power_Class::Power_Class()
     : Battery_Class(Default_Battery_Sensing_Pin, Default_Battery_Minimum_Voltage, Default_Battery_Maximum_Voltage, Default_Battery_Conversion_Factor)
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
@@ -28,7 +30,7 @@ Xila_Namespace::Power_Class::Power_Class()
 /// @brief Load power registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Xila_Namespace::Power_Class::Load_Registry()
+Module_Class::Result::Type Power_Class::Load_Registry()
 {
     using namespace Xila;
 
@@ -54,7 +56,7 @@ Module_Class::Result::Type Xila_Namespace::Power_Class::Load_Registry()
 /// @brief Save power registry.
 ///
 /// @return Result::Type
-Module_Class::Result::Type Xila_Namespace::Power_Class::Save_Registry()
+Module_Class::Result::Type Power_Class::Save_Registry()
 {
     using namespace Xila;
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
@@ -76,7 +78,7 @@ Module_Class::Result::Type Xila_Namespace::Power_Class::Save_Registry()
 ///
 /// @brief Handler of the power button interrupt.
 ///
-void IRAM_ATTR Xila_Namespace::Power_Class::Button_Interrupt_Handler()
+void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
     using namespace Xila;
     //vTaskEnterCritical(&Power.Button_Mutex);
@@ -105,7 +107,7 @@ void IRAM_ATTR Xila_Namespace::Power_Class::Button_Interrupt_Handler()
 ///
 /// @brief Check if power button is pressed.
 ///
-void Xila_Namespace::Power_Class::Check_Button()
+void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
@@ -117,9 +119,10 @@ void Xila_Namespace::Power_Class::Check_Button()
 ///
 /// @brief Make the board go in deep sleep.
 ///
-void Xila_Namespace::Power_Class::Deep_Sleep()
+void Power_Class::Deep_Sleep()
 {
     Log_Information("Going into deep-sleep.");
+    
     Display.Set_Serial_Wake_Up(true);
     Display.Set_Touch_Wake_Up(false);
     Display.Set_Current_Page(F("Core_Load"));

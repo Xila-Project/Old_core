@@ -14,6 +14,17 @@ using namespace Xila_Namespace;
 
 // ------------------------------------------------------------------------- //
 //
+//                               Variables
+//
+// ------------------------------------------------------------------------- //
+
+const Module_Class::Instruction_Class Module_Class::Instruction_Class::Open(NULL, NULL, "Open");
+const Module_Class::Instruction_Class Module_Class::Instruction_Class::Close(NULL, NULL, "Clos");
+const Module_Class::Instruction_Class Module_Class::Instruction_Class::Active(NULL, NULL, "Activ");
+const Module_Class::Instruction_Class Module_Class::Instruction_Class::Inactive(NULL, NULL, "Inac");
+
+// ------------------------------------------------------------------------- //
+//
 //                                  Constructor
 //
 // ------------------------------------------------------------------------- //
@@ -28,7 +39,7 @@ Module_Class::Module_Class(Size_Type Queue_Size)
         }
         else
         {
-            Send_Instruction(Open);
+            Send_Instruction(Instruction_Type::Open);
         }
     }
     vTaskDelay(pdMS_TO_TICKS(5));
@@ -39,13 +50,21 @@ Module_Class::~Module_Class()
     vQueueDelete(Instruction_Queue_Handle);
 }
 
-Module_Class::Task_Class::Task_Class() : Task_Handle(NULL)
+Module_Class::Task_Class::Task_Class(Function_Type Task_Function, const char* Name, Size_Type Stack_Size, Priority_Type Priority)
 {
+    if (Priority > High || Priority < Background)
+    {
+        Priority = Normal;
+    }
+    xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, NULL, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY);
 }
 
 Module_Class::Task_Class::~Task_Class()
 {
-    Delete();
+    if (Task_Handle != NULL || Get_State() != Deleted || Get_State() != Invalid)
+    {
+        vTaskDelete(Task_Handle);
+    }
 }
 
 // ------------------------------------------------------------------------- //
@@ -54,13 +73,25 @@ Module_Class::Task_Class::~Task_Class()
 //
 // ------------------------------------------------------------------------- //
 
+void Module_Class::Task_Class::Check_Watchdogs()
+{
+    // Iterate through all tasks.
+    for (auto Task_Pointer = List.begin(); Task_Pointer != List.end(); Task_Pointer++)
+    {
+        if ((*Task_Pointer)->Check_Watchdog())
+        {
+            (*Task_Pointer)->Suspend();
+        }
+    }
+}
+
 ///
 /// @brief Used to send instructions to software.
 ///
 /// @param Instruction Instruction to send.
 ///
 /// @details It's used by Xila and the software itself to fill the instructions queue.
-void Module_Class::Send_Instruction(Instruction_Type &Instruction)
+void Module_Class::Send_Instruction(const Instruction_Type &Instruction)
 {
     xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
 }
@@ -94,25 +125,6 @@ void Module_Class::Task_Class::Suspend()
     }
 }
 
-Module_Class::Result::Type Module_Class::Task_Class::Create(Task_Function *Task_Function, const char *Task_Name, Size_Type Stack_Size, Priority_Type Priority)
-{
-    if (Task_Handle != NULL)
-    {
-        return Result::Error;
-    }
-
-    if (Priority > High || Priority < Background)
-    {
-        return Result::Invalid_Argument;
-    }
-
-    if (xTaskCreatePinnedToCore(Task_Function, Task_Name, Stack_Size, NULL, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
-    {
-        return Result::Error;
-    }
-    return Result::Success;
-}
-
 ///
 /// @brief A delay function.
 /// @param Delay_In_Millisecond
@@ -126,14 +138,6 @@ void Module_Class::Task_Class::Delay(uint32_t Delay_In_Millisecond)
 void Module_Class::Task_Class::Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment)
 {
     vTaskDelayUntil(Previous_Wake_Time, Time_Increment);
-}
-
-void Module_Class::Task_Class::Delete()
-{
-    if (Get_State() != Deleted || Get_State() != Invalid)
-    {
-        vTaskDelete(Task_Handle);
-    }
 }
 
 // ------------------------------------------------------------------------- //
@@ -177,7 +181,6 @@ Module_Class::Instruction_Type Module_Class::Get_Instruction()
         Current_Instruction.Set_Arguments(0);
     }
 
-    this->Feed_Watchdog();
     return Current_Instruction;
 }
 

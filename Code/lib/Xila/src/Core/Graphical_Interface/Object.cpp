@@ -773,7 +773,7 @@ void Object_Class::Set_Layout(uint32_t Layout)
     lv_obj_set_layout(Get_Pointer(), Layout);
 }
 
-void Object_Class::Set_Tile(Object_Class& Tile, bool Animation)
+void Object_Class::Set_Tile(Object_Class Tile, bool Animation)
 {
     if (Animation)
     {

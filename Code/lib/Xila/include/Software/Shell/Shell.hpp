@@ -23,6 +23,8 @@
 
 #include "Xila.hpp"
 
+using namespace Xila;
+
 #define Default_Background -1
 
 ///
@@ -152,12 +154,13 @@ protected:
         void Create_File();
         void Create_Folder();
 
-        inline Instruction_Type Get_Mode()
+        /*inline Instruction_Type Get_Mode()
         {
             return Mode;
             DUMP("get mode");
             DUMP(this->Mode);
-        }
+        }*/
+        
         inline void Set_Operation(uint8_t Operation)
         {
             this->Operation = Operation;

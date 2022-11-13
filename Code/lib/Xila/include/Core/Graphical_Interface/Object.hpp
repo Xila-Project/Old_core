@@ -31,13 +31,8 @@ class Object_Class : public Types_Class
 public:
     // - Types
 
-
-
     /// @brief Animation type.
     typedef Animation_Class Animation_Type;
-
-
-
 
     /// @brief Point type.
     typedef lv_point_t Point_Type;

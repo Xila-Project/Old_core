@@ -79,7 +79,7 @@ namespace Xila_Namespace
         /// @brief Access point password.
         ///
         char Password[82];
-    };
+    } WiFi;
 
 }
 

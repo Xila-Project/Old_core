@@ -18,7 +18,7 @@ namespace Xila_Namespace
    class Communication_Class
    {
 
-      Xila_Namespace::WiFi_Class WiFi;
+      
    };
 }
 

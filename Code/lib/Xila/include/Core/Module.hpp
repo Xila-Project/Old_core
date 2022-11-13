@@ -15,6 +15,7 @@
 #include "Arduino.h"
 #include "ArduinoJson.h"
 #include "FS.h"
+#include "ArduinoTrace.h"
 
 #include "Configuration/Configuration.hpp"
 #include "Configuration/Path.hpp"
@@ -169,12 +170,12 @@ namespace Xila_Namespace
                 memcpy(&this->Arguments, Arguments, sizeof(Arguments));
             }
 
-            /*
-            Instruction_Class Open((Module_Class*)NULL, NULL, "Open");
-            Instruction_Class Close(NULL, NULL, "Clos");
-            Instruction_Class Active(NULL, NULL, "Activ");
-            Instruction_Class Inactive(NULL, NULL, "Inac");
-            */
+            
+            static const Instruction_Class Open;
+            static const Instruction_Class Close;
+            static const Instruction_Class Active;
+            static const Instruction_Class Inactive;
+            
         
         } Instruction_Type;
 
@@ -184,6 +185,11 @@ namespace Xila_Namespace
         typedef class Task_Class
         {
         public:
+
+            typedef void (* Function_Type)( void * );
+
+            // - Types
+
             typedef void Task_Function(void *);
 
             typedef enum Priority_Enumeration
@@ -207,16 +213,16 @@ namespace Xila_Namespace
                 Invalid = eInvalid,
             } State_Type;
 
-            Task_Class();
-            Task_Class(xTaskHandle Handle);
+            // - Methods
+
+            // - Constructors / Destructors
+            Task_Class(Function_Type Task_Function, const char* Name, Size_Type Stack_Size, Priority_Type Priority = Normal);
             ~Task_Class();
 
-            Result::Type Create(Task_Function *Task_Function, const char *Task_Name, size_t Stack_Size = 4000, Priority_Type Priority = Normal);
-
             Result::Type Set_Priority(Priority_Type Priority);
+
             void Suspend();
             void Resume();
-            void Delete();
 
             State_Type Get_State();
             Priority_Type Get_Priority();
@@ -227,13 +233,21 @@ namespace Xila_Namespace
             static void Take_Notification(Task_Class& Task);
             */
 
-            static void Delay(uint32_t Delay_In_Millisecond);
-            static void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
+            void Delay(uint32_t Delay_In_Millisecond);
+            void Delay_Until(TickType_t *Previous_Wake_Time, const TickType_t Time_Increment);
 
-            void Set_Handle();
+            void Feed_Watchdog();
+
+            static void Check_Watchdogs();
 
         private:
             xTaskHandle Task_Handle;
+
+            uint32_t Watchdog_Timer;
+            uint32_t Watchdog_Timeout;
+
+            static std::vector<Task_Class*> List; // - Task lists.
+
         } Task_Type;
 
         // - Methods
@@ -241,7 +255,7 @@ namespace Xila_Namespace
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
         ~Module_Class();
 
-        void Send_Instruction( Instruction_Type &Instruction);
+        void Send_Instruction( const Instruction_Type &Instruction);
         void Send_Instruction( Module_Class *Sender, const char Arguments[4]);
 
         
