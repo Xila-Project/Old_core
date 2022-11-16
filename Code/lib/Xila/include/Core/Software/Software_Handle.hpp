@@ -15,8 +15,6 @@
 #include <vector>
 #include "../Module.hpp"
 
-class Software_Class;
-
 //==============================================================================//
 ///
 /// @class Software_Handle

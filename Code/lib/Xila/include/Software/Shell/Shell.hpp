@@ -43,7 +43,7 @@ protected:
     ///
     /// @brief Instance pointer, help to keep track of current instance.
     ///
-    static Shell_Class *Instance_Pointer;
+    static std::vector<Shell_Class*> Instances;
 
     ///
     /// @brief Desk class
@@ -85,7 +85,7 @@ protected:
         // -- friendship
         friend class Shell_Class;
 
-    } * Desk_Pointer;
+    } Desk_Pointer;
 
     class Drawer_Class
     {

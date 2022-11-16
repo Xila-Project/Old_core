@@ -10,6 +10,8 @@
 
 #include "Core/Core.hpp"
 
+using namespace Xila_Namespace;
+
 ///
  /// @brief Construct a new Xila_Namespace::Time_Class::Time_Class object
  /// 

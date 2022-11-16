@@ -21,6 +21,7 @@ namespace Xila_Namespace
     typedef class Window_Class : public Object_Class
     {
     public:
+
         void Create();
         void Create(Object_Class Parent_Object);
 
@@ -32,6 +33,9 @@ namespace Xila_Namespace
         Object_Class Get_Header();
 
     private:
+    
+        static Window_Class* Parent_Window;
+
         Object_Class Header;
         Object_Class Body;
 

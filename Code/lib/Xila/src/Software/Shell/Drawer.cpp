@@ -39,7 +39,7 @@ Shell_Class::Drawer_Class::Drawer_Class()
             Label.Create(Container);
             Label.Set_Text_Format("Item %u", i);
             Label.Set_Alignment(Object_Type::Alignment::Bottom_Middle);
-            Label.Set_Long_Mode(Object_Type::Long::Dot);
+            Label.Set_Long_Mode(Label_Type::Long_Dot);
 
             Container.Clear_Pointer();
             Icon.Clear_Pointer();

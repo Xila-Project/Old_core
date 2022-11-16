@@ -12,6 +12,8 @@
 
 using namespace Xila_Namespace;
 
+Window_Class* Window_Class::Parent_Window = NULL;
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management
@@ -64,6 +66,11 @@ void Window_Class::Create()
     // - Body.
     Body.Create(*this);
     Body.Set_Flex_Grow(1);
+
+    if (Parent_Window == NULL)
+    {
+        Parent_Window = this;
+    }
 }
 
 void Window_Class::Create(Object_Class Parent_Object)

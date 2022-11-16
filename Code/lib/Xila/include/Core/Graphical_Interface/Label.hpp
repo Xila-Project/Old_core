@@ -22,6 +22,7 @@ namespace Xila_Namespace
         // - Types
 
         /// @brief Label class.
+
         typedef lv_label_long_mode_t Long_Mode_Type;
 
         enum Long_Mode_Enumeration
@@ -32,7 +33,6 @@ namespace Xila_Namespace
             Long_Scroll_Circular = LV_LABEL_LONG_SCROLL_CIRCULAR,
             Long_Clip = LV_LABEL_LONG_CLIP
         };
-
         // - Methods
 
         void Create(Object_Class Parent_Object);

@@ -47,8 +47,6 @@ namespace Xila_Namespace
 
         // -- Types and enumerations
 
-        typedef lv_coord_t Coordinate_Type;
-
         class State
         {
         public:

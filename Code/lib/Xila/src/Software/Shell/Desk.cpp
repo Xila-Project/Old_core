@@ -75,8 +75,8 @@ Shell_Class::Desk_Class::Desk_Class()
     Dock.Set_Style_Shadow_Width(20, 0);
     Dock.Set_Style_Shadow_Color(Object_Type::Color_Type::White, 0);
 
-    const Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Coordinate_Type Dock_RowDescriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Object_Type::Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Object_Type::Coordinate_Type Dock_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
     Dock.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3), 0);
     Dock.Set_Style_Radius(8, 8);
@@ -85,10 +85,10 @@ Shell_Class::Desk_Class::Desk_Class()
 
     Menu_Button.Create(Dock);
     Menu_Button.Set_Size(32, 32);
-    Menu_Button.Set_Grid_Cell(LV_GRID_ALIGN_CENTER, 0, 1, LV_GRID_ALIGN_CENTER, 0, 1);
+    Menu_Button.Set_Grid_Cell(Object_Type::Grid::Center, 0, 1, Object_Type::Grid::Center, 0, 1);
     Menu_Button.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3));
     Menu_Button.Set_Style_Radius(0, 0);
-    Menu_Button.Set_Pad_All(0, 0);
+    Menu_Button.Set_Style_Pad_All(0, 0);
     Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
     Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
 

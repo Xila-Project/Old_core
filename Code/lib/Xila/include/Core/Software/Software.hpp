@@ -28,6 +28,9 @@ namespace Xila_Namespace
     typedef class Software_Class : public Module_Class
     {
     public:
+
+        Window_Type Window;
+
         // - Types
         typedef enum State_Enumeration
         {
@@ -38,11 +41,10 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructor / Destructor
-        Software_Class(uint8_t Queue_Size = Default_Instruction_Queue_Size);
+        Software_Class(Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
         virtual ~Software_Class();
 
         State_Type Get_State(const Software_Handle_Class &Software_Handle);
-
 
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
@@ -50,6 +52,7 @@ namespace Xila_Namespace
         ///
         Task_Type Main_Task;
 
+        void Start_Main_Task_Function();
         virtual void Main_Task_Function();
 
         // private:
@@ -61,16 +64,14 @@ namespace Xila_Namespace
 
         static void Start_Main_Task(void *Instance_Pointer);
 
-
-        private:
-
-        ///
+    private:
+        // - Attributes
+        // - - Local attributes
+        Software_Handle_Type *Handle_Pointer;
+        // - - Static attributes
         /// @brief Openned software pointer array
-        ///
         static std::vector<Software_Class *> List;
-
-        static Software_Class* Active_Software;
-
+        static Software_Class *Active_Software;
 
     } Software_Type;
 }

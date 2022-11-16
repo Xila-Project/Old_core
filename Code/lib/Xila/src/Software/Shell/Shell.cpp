@@ -15,15 +15,17 @@ Xila_Class::Software_Handle Shell_Handle("Shell", Shell_Class::Images.Empty_32, 
 
 // -- Initialize shell -- //
 
-Shell_Class *Shell_Class::Instance_Pointer = NULL;
+std::vector<Shell_Class*> Shell_Class::Instances;
 
-Shell_Class::Shell_Class() : Xila_Class::Software(Shell_Handle)
+Shell_Class::Shell_Class() : Software_Class()
 {
     File_Manager_Pointer = NULL;
     Preferences_Pointer = NULL;
     Next_Refresh = 0;
 
-    Task.Create(Main_Task, "Shell Task", Memory_Chunk(8), NULL, &Task_Handle);
+    Instances.push_back(this);
+
+    
 }
 
 Shell_Class::~Shell_Class()
@@ -31,12 +33,8 @@ Shell_Class::~Shell_Class()
     // -- Unload all modules -- //
     File_Manager_Class::Close();
     Preferences_Class::Close();
-    // -- Check if there's a duplicate
-    if (Instance_Pointer != this)
-    {
-        delete Instance_Pointer;
-    }
-    Instance_Pointer = NULL;
+
+      Instances.erase(std::remove(Instances.begin(), Instances.end(), this), Instances.end());
 }
 
 Xila_Class::Software *Shell_Class::Load_Shell()

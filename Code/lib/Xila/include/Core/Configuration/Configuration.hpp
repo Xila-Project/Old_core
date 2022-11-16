@@ -55,6 +55,7 @@
 #define Maximum_Software 30
 #define Default_Watchdog_Timeout 5000
 #define Maximum_Watchdog_Timeout 30000
+#define Default_Main_Task_Stack_Size 4 * 1024
 #define Default_Instruction_Queue_Size 16
 #define Default_Software_Name_Length 24
 

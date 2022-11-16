@@ -21,7 +21,6 @@ using namespace Xila_Namespace;
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
 ///
 Power_Class::Power_Class()
-    : 
 {
     Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
     Button_Counter = 0;
