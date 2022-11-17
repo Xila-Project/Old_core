@@ -72,8 +72,7 @@ protected:
         // -- Methods
         void Open(uint8_t);
         void Refresh_Desk();
-        void Execute_Desk_Instruction(Instruction_Type);
-        void Execute_Drawer_Instruction(Instruction_Type);
+        void Execute_Instruction(Instruction_Type Instruction);
 
         void Maximize_Dock_Software(uint8_t);
         void Close_Dock_Software(uint8_t);
@@ -84,28 +83,28 @@ protected:
 
         // -- friendship
         friend class Shell_Class;
-
-    } Desk_Pointer;
+    } Desk;
 
     class Drawer_Class
     {
-    protected:
+    private:
+
+        Window_Type Window;
 
         // - Constructor / destructor
         Drawer_Class();
         ~Drawer_Class();
 
-        // - Methods
-        void Refresh_Drawer();
+        void Execute_Instruction(Instruction_Type Instruction);
         
         // - Attributes
+    /// @brief File manager class
         Window_Type Window;
         List_Type List;
 
-    } * Drawer_Pointer;
+    } Drawer;
 
     ///
-    /// @brief File manager class
     ///
     class File_Manager_Class
     {
@@ -140,7 +139,7 @@ protected:
         ~File_Manager_Class();
 
         static void Open(uint8_t = Idle);
-        static bool State();
+        
         static void Close();
 
         void Execute_Instruction(Instruction_Type Instruction);
@@ -164,14 +163,11 @@ protected:
         inline void Set_Operation(uint8_t Operation)
         {
             this->Operation = Operation;
-            DUMP("set operation");
-            DUMP(this->Operation);
         }
+
         inline uint8_t Get_Operation()
         {
             return Operation;
-            DUMP("get operation");
-            DUMP(this->Operation);
         }
 
         void Refresh_Footerbar();
@@ -230,7 +226,6 @@ protected:
 
         // -- Methods
         static void Open(uint8_t Mode);
-        static bool State();
         static void Close();
 
         void Refresh_Hardware();
@@ -239,11 +234,7 @@ protected:
         void Refresh_System();
         void Refresh_Install();
 
-        void Execute_Hardware_Instruction(Instruction_Type Instruction);
-        void Execute_Network_Instruction(Instruction_Type Instruction);
-        void Execute_Personal_Instruction(Instruction_Type Instruction);
-        void Execute_System_Instruction(Instruction_Type Instruction);
-        void Execute_Install_Instruction(Instruction_Type Instruction);
+        void Execute_Instruction(Instruction_Type Instruction);
 
         inline void System_Update();
 
@@ -263,10 +254,14 @@ protected:
     Result::Type Save_Registry();
     Result::Type Load_Registry();
 
-    static void Main_Task(void *);
+    void Main_Task_Function();
+
+    Software_Type* Open_Shell();
 
 public:
     // -- Methods
+
+    static Software_Handle_Type Shell_Handle;
 
     static void Create_Instance();
 
@@ -281,7 +276,6 @@ public:
 extern Xila_Class::Software_Handle Shell_Handle;
 
 // -- Shortcuts -- //
-#define SHELL Shell_Class::Instance_Pointer
 #define PREFERENCES SHELL->Preferences_Pointer
 #define FILE_MANAGER SHELL->File_Manager_Pointer
 #define DESK SHELL->Desk

@@ -29,11 +29,16 @@ namespace Xila_Namespace
 
         bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
+        void Minimize();
+        void Maximize();
+        bool Is_Maximized();
+
         Object_Class Get_Body();
         Object_Class Get_Header();
 
     private:
     
+        // First origin window.
         static Window_Class* Parent_Window;
 
         Object_Class Header;

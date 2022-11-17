@@ -11,11 +11,11 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-Xila_Class::Software_Handle Shell_Handle("Shell", Shell_Class::Images.Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
+Software_Handle_Type Shell_Class::Handle("Shell", Shell_Class::Images.Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
 
 // -- Initialize shell -- //
 
-std::vector<Shell_Class*> Shell_Class::Instances;
+std::vector<Shell_Class *> Shell_Class::Instances;
 
 Shell_Class::Shell_Class() : Software_Class()
 {
@@ -24,8 +24,6 @@ Shell_Class::Shell_Class() : Software_Class()
     Next_Refresh = 0;
 
     Instances.push_back(this);
-
-    
 }
 
 Shell_Class::~Shell_Class()
@@ -34,17 +32,12 @@ Shell_Class::~Shell_Class()
     File_Manager_Class::Close();
     Preferences_Class::Close();
 
-      Instances.erase(std::remove(Instances.begin(), Instances.end(), this), Instances.end());
+    Instances.erase(std::remove(Instances.begin(), Instances.end(), this), Instances.end());
 }
 
-Xila_Class::Software *Shell_Class::Load_Shell()
+Software_Type *Shell_Class::Open_Shell()
 {
-    if (Instance_Pointer != NULL)
-    {
-        delete Instance_Pointer;
-    }
-    Instance_Pointer = new Shell_Class();
-    return Instance_Pointer;
+    return new Shell_Class();
 }
 
 void Shell_Class::Startup()
@@ -54,153 +47,32 @@ void Shell_Class::Startup()
 
 // -- Main shell methods -- //
 
-Xila_Class::Task_Function Shell_Class::Main_Task(void *)
+void Shell_Class::Main_Task_Function()
 {
     while (1)
     {
-        switch (Display.Get_Current_Page())
+
+        if (File_Manager_Pointer != NULL)
         {
-        case Pages.About:
-            if (Preferences_Class::State())
+            if (File_Manager_Pointer->Window.Is_Maximized() == true)
             {
-                PREFERENCES->Execute_System_Instruction(SHELL->Get_Instruction());
+                File_Manager_Pointer->Execute_Instruction(Get_Instruction());
             }
-            else
+        }
+        else if (Preferences_Pointer != NULL)
+        {
+            if (Preferences_Pointer->Window.Is_Maximized() == true)
             {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
+                Preferences_Pointer->Execute_Instruction(Get_Instruction());
             }
-            break;
-        case Pages.Preferences_Personal:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_Personal_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Preferences_System:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_System_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-
-        case Pages.Desk:
-            DESK.Execute_Desk_Instruction(SHELL->Get_Instruction());
-            break;
-        case Pages.Drawer:
-            DESK.Execute_Drawer_Instruction(SHELL->Get_Instruction());
-            break;
-
-        case Pages.File_Manager_Main:
-        case Pages.File_Manager_Detail:
-            if (File_Manager_Class::State())
-            {
-                FILE_MANAGER->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Preferences_Hardware:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_Hardware_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Preferences_Install:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_Install_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Dialog_Color_Picker:
-            COLOR_PICKER.Execute_Instruction(SHELL->Get_Instruction());
-            break;
-        case Pages.Dialog_Event:
-            if (EVENT->State())
-            {
-                EVENT->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Dialog_Power:
-            Dialog_Class::Power_Class::Execute_Instruction(SHELL->Get_Instruction());
-            break;
-        case Pages.Dialog_Keyboard:
-            if (Dialog_Class::Keyboard_Class::State())
-            {
-                Dialog_Class::Keyboard_Class::Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Dialog_Keypad:
-            if (KEYPAD->State())
-            {
-                KEYPAD->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Dialog_Login:
-            if (LOGIN->State())
-            {
-                LOGIN->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Dialog_Load:
-            if (LOAD->State())
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Preferences_Network:
-            if (Preferences_Class::State())
-            {
-                PREFERENCES->Execute_Network_Instruction(SHELL->Get_Instruction());
-            }
-            else
-            {
-                SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            }
-            break;
-        case Pages.Welcome:
-            DESK.Execute_Desk_Instruction(SHELL->Get_Instruction());
-            break;
-        default:
-            SHELL->Execute_Instruction(SHELL->Get_Instruction());
-            break;
+        }
+        else if (Drawer.Window.Is_Maximized())
+        {
+            Drawer.Execute_Instruction(Get_Instruction());
+        }
+        else
+        {
+            Desk.Execute_Instruction(Get_Instruction());
         }
     }
 }
@@ -416,165 +288,6 @@ void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
         break;
     case Maximize:
         Send_Instruction('R', 'e');
-        break;
-    default:
-        break;
-    }
-}
-
-// -- Set variable -- //
-
-void Shell_Class::Set_Variable(Xila_Class::Address Address, uint8_t Type, const void *Variable)
-{
-    DUMP(Address);
-    DUMP(Type);
-    switch (Display.Get_Current_Page())
-    {
-    case Pages.Preferences_Hardware:
-        if (Preferences_Class::State())
-        {
-            switch (Address)
-            {
-            case Address('B', 'r'):
-                Display.Brightness = *(uint8_t *)Variable;
-                break;
-            case Address('V', 'o'):
-                Sound.Set_Volume(*(uint8_t *)Variable);
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.File_Manager_Main:
-        if (File_Manager_Pointer->State())
-        {
-            switch (Address)
-            {
-            case Address('F', 'i'):
-                if (FILE_MANAGER->Current_Path[1] != '\0')
-                {
-                    strcat(FILE_MANAGER->Current_Path, "/");
-                }
-                strlcat(FILE_MANAGER->Current_Path, (char *)Variable, sizeof(FILE_MANAGER->Current_Path));
-                SHELL->Send_Instruction('R', 'e');
-                break;
-            case Address('I', 'P'):
-                File_Manager_Pointer->Item_Pointer = (File *)Variable;
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.Dialog_Keyboard:
-        if (Dialog.Keyboard_Pointer->State())
-        {
-            switch (Address)
-            {
-            case Address('S', 't'): // -- Keyboard
-                Dialog.Keyboard_Pointer->String = (char *)Variable;
-                break;
-            case Address('S', 'i'):
-                Dialog.Keyboard_Pointer->Size = *(size_t *)Variable;
-                break;
-            case Address('M', 'a'):
-                Dialog.Keyboard_Pointer->Masked_Input = *(bool *)Variable;
-                break;
-            case (Address('I', 'n')):
-                strlcpy(Dialog.Keyboard_Pointer->String, (const char *)Variable, Dialog.Keyboard_Pointer->Size);
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.Dialog_Event:
-        if (Dialog.Event_Pointer->State())
-        {
-            switch (Address)
-            {
-            case Address('M', 'e'): // -- Event
-                Dialog.Event_Pointer->Message = (void *)Variable;
-                break;
-            case Address('M', 'o'):
-                Dialog.Event_Pointer->Mode = *(uint8_t *)Variable;
-                break;
-            case Address('T', 'y'):
-                Dialog.Event_Pointer->Type = *(uint8_t *)Variable;
-                break;
-            case Address('B', '1'):
-                Dialog.Event_Pointer->Button_Text[0] = (void *)Variable;
-                break;
-            case Address('B', '2'):
-                Dialog.Event_Pointer->Button_Text[1] = (void *)Variable;
-                break;
-            case Address('B', '3'):
-                Dialog.Event_Pointer->Button_Text[2] = (void *)Variable;
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.Dialog_Load:
-        if (Dialog.Load_Pointer->State())
-        {
-            switch (Address)
-            {
-            case Address('H', 'e'): // -- Load
-                Dialog.Load_Pointer->Header = (void *)Variable;
-                break;
-            case Address('M', 'e'):
-                Dialog.Load_Pointer->Message = (void *)Variable;
-                break;
-            case Address('M', 'o'):
-                Dialog.Load_Pointer->Mode = *(uint8_t *)Variable;
-                break;
-            case Address('P', 'o'):
-                Dialog.Load_Pointer->Page = *(Xila_Class::Page *)Variable;
-                break;
-            case Address('S', 'o'):
-                Dialog.Load_Pointer->Caller_Software = (Xila_Class::Software *)Variable;
-                break;
-            case Address('D', 'u'):
-                Dialog.Load_Pointer->Duration = *(uint32_t *)Variable;
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.Dialog_Keypad:
-        if (Dialog.Keypad_Pointer->State())
-        {
-            switch (Address)
-            {
-            case Address('N', 'u'):
-                Dialog.Keypad_Pointer->Number = (float *)Variable;
-                break;
-            case Address('I', 'n'):
-                strlcpy(Dialog.Keypad_Pointer->Temporary_Float_String, (char *)Variable, sizeof(Dialog.Keypad_Pointer->Temporary_Float_String));
-                break;
-            default:
-                break;
-            }
-        }
-        break;
-    case Pages.Dialog_Color_Picker:
-        switch (Address)
-        {
-        case (Address('C', 'P')):
-            DUMP("Color picker color pointer :");
-            Dialog.Color_Picker_Pointer.Color = (uint16_t *)Variable;
-            break;
-        case Address('C', 'o'):
-            DUMP("Color picker color :");
-            memcpy(Dialog.Color_Picker_Pointer.Color, (uint16_t *)Variable, sizeof(uint16_t));
-            break;
-        default:
-            break;
-        }
         break;
     default:
         break;

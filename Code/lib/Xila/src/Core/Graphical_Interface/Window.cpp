@@ -125,6 +125,24 @@ void Window_Class::Create(Object_Class Parent_Object)
     Body.Set_Flex_Grow(1);
 }
 
+void Window_Class::Maximize() {
+    Clear_Flag(Flag::Hidden);
+}
+
+void Window_Class::Minimize() {
+    Add_Flag(Flag::Hidden);
+}
+
+bool Window_Class::Is_Maximized() {
+    if (Has_Flag(Flag::Hidden)) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
+
+
 // ------------------------------------------------------------------------- //
 //
 //                                    Setters

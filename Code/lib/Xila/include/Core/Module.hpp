@@ -146,8 +146,11 @@ namespace Xila_Namespace
 
             static const Instruction_Class Open;
             static const Instruction_Class Close;
+            static const Instruction_Class Minimize;
+            static const Instruction_Class Maximize;
             static const Instruction_Class Active;
             static const Instruction_Class Inactive;
+
 
         } Instruction_Type;
 
@@ -207,7 +210,7 @@ namespace Xila_Namespace
             static void Delay_Static(uint32_t Delay_In_Millisecond);
             void Delay_Until(TickType_t Time_Increment);
 
-            void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout);
+            void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
             static void Check_Watchdogs();
 
         private:

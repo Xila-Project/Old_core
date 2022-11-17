@@ -46,15 +46,6 @@ void Shell_Class::File_Manager_Class::Open(uint8_t Mode)
     FILE_MANAGER->Refresh();
 }
 
-bool Shell_Class::File_Manager_Class::State()
-{
-    if (FILE_MANAGER == NULL)
-    {
-        return false;
-    }
-    return true;
-}
-
 void Shell_Class::File_Manager_Class::Close()
 {
     DUMP("close file manager");
