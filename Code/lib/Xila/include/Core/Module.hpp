@@ -22,7 +22,7 @@
 
 namespace Xila_Namespace
 {
-    class Module_Class
+    typedef class Module_Class
     {
 
     public:

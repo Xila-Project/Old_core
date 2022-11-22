@@ -120,9 +120,11 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(Event::Code_Type Event_Code, Xila_Namespace::Module_Class::Instruction_Type* Instruction)
+void Object_Class::Add_Event(Event::Code_Type Event_Code, Module_Type* Module, uint32_t Arguments)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Instruction);    // - Use user data pointer to store argument of the event.
+    Instruction.Set_Arguments(Arguments);
+    Instruction.Set_Sender(Module::);
+    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)&Instruction); // Use user data pointer to store argument of the event.
 }
 
 /*bool Object_Class::Remove_Event(Event::Code_Type Event_Code)

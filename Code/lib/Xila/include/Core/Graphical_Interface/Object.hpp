@@ -27,6 +27,7 @@
 
 namespace Xila_Namespace
 {
+
     /// @brief Object class.
     typedef class Object_Class : public Types_Class
     {
@@ -192,7 +193,7 @@ namespace Xila_Namespace
         // - - Swap
         void Swap(Object_Class Object_To_Swap_With);
         // - - Events
-        void Add_Event(Event::Code_Type Event, Xila_Namespace::Module_Class::Instruction_Type *Instruction);
+        void Add_Event(Event::Code_Type Event_Code, Module_Type* Module, uint32_t Arguments);
         // TODO : Find a way add this method to the class :
         //  bool Remove_Event(Event::Code_Type Event);
         void Send_Event(Event::Code_Type Event);
@@ -565,6 +566,9 @@ namespace Xila_Namespace
         lv_obj_t *LVGL_Object_Pointer;
 
     protected:
+
+        Module_Class::Instruction_Class Instruction;
+
     } Object_Type;
 }
 
