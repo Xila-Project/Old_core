@@ -22,7 +22,17 @@ Window_Class* Window_Class::Parent_Window = NULL;
 
 void Window_Class::Create()
 {
-    this->Set_Pointer(lv_obj_create(lv_scr_act()));
+    // If it is the first window, it is the parent window.
+    if (Parent_Window == NULL)
+    {
+        this->Set_Pointer(lv_obj_create(lv_scr_act()));
+        Parent_Window = this;
+    }
+    else 
+    {
+        this->Set_Pointer(lv_win_create(Parent_Window->Get_Pointer(), NULL));
+    }
+
     this->Set_Size(Percentage(100), Percentage(100));
     this->Set_Flex_Flow(Flex::Column);
     this->Set_Style_Pad_All(0, 0);
@@ -67,10 +77,7 @@ void Window_Class::Create()
     Body.Create(*this);
     Body.Set_Flex_Grow(1);
 
-    if (Parent_Window == NULL)
-    {
-        Parent_Window = this;
-    }
+
 }
 
 void Window_Class::Create(Object_Class Parent_Object)

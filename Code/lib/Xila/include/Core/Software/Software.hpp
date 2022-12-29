@@ -51,6 +51,7 @@ namespace Xila_Namespace
         virtual void Main_Task_Function();
 
         // Handler for external software.
+        static void Create_Instance();
         void Minimize();
         void Maximize();
         void Kill();

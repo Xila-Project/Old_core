@@ -44,7 +44,7 @@ namespace Xila_Namespace
         /// -- Methods -- //
         bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
 
-    protected:
+   // protected:
         static std::vector<Software_Handle_Class *> List;
 
         // - Attributes
@@ -62,6 +62,8 @@ namespace Xila_Namespace
     } Software_Handle_Type;
 
     bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b);
+
+    bool operator!=(Software_Handle_Class const &a, Software_Handle_Class const &b);
 
 }
 

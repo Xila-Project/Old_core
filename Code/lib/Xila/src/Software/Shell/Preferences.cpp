@@ -44,6 +44,31 @@ Shell_Class::Preferences_Class::Preferences_Class()
     // -- Benchmark
     Write_Speed = 0;
     Read_Speed = 0;
+
+    Window.Create();
+    Window.Set_Title("Preferences");
+
+    Tabs.Create(Window);
+    Tabs.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, 0), 0);
+
+    Button_Type Tab_Buttons = Tabs.Get_Tab_Buttons();
+    Tab_Buttons.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, 3), 0);
+    Tab_Buttons.Set_Style_Text_Color(Color_Type::Get_White(), 0);
+    Tab_Buttons.Set_Style_Border_Side(Button_Type::Border::Right, Button_Type::Part::Items | Button_Type::State::Checked);
+    Tab_Buttons.Set_Style_Border_Color(Color_Type::Get_White(), Button_Type::Part::Items | Button_Type::State::Checked);
+    Tab_Buttons.Set_Style_Text_Color(Button_Type::Border::Right, Button_Type::Part::Items | Button_Type::State::Hovered);
+
+    Personnal_Tab = Tabs.Add_Tab("Personnal");
+    Softwares_Tab = Tabs.Add_Tab("Softwares");
+    Network_Tab = Tabs.Add_Tab("Network");
+    Users_Tab = Tabs.Add_Tab("Users");
+    Hardware_Tab = Tabs.Add_Tab("Hardware");
+    System_Tab = Tabs.Add_Tab("System");
+
+
+
+
+
 }
 
 // -- State management -- //

@@ -11,13 +11,13 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-Software_Handle_Type Shell_Class::Handle("Shell", Shell_Class::Images.Empty_32, Shell_Class::Load_Shell, Shell_Class::Startup);
+Xila::Software_Handle_Type Shell_Class::Handle("Shell", Shell_Class::Create_Instance);
 
 // -- Initialize shell -- //
 
 std::vector<Shell_Class *> Shell_Class::Instances;
 
-Shell_Class::Shell_Class() : Software_Class()
+Shell_Class::Shell_Class() : Software_Class(&Handle)
 {
     File_Manager_Pointer = NULL;
     Preferences_Pointer = NULL;
@@ -51,29 +51,45 @@ void Shell_Class::Main_Task_Function()
 {
     while (1)
     {
-
-        if (File_Manager_Pointer != NULL)
+        if (Instruction_Available())
         {
-            if (File_Manager_Pointer->Window.Is_Maximized() == true)
+            if (File_Manager_Pointer != NULL)
             {
-                File_Manager_Pointer->Execute_Instruction(Get_Instruction());
+                if (File_Manager_Pointer->Window.Is_Maximized() == true)
+                {
+                    File_Manager_Pointer->Execute_Instruction(Get_Instruction());
+                }
             }
-        }
-        else if (Preferences_Pointer != NULL)
-        {
-            if (Preferences_Pointer->Window.Is_Maximized() == true)
+            else if (Preferences_Pointer != NULL)
             {
-                Preferences_Pointer->Execute_Instruction(Get_Instruction());
+                if (Preferences_Pointer->Window.Is_Maximized() == true)
+                {
+                    Preferences_Pointer->Execute_Instruction(Get_Instruction());
+                }
             }
-        }
-        else if (Drawer.Window.Is_Maximized())
-        {
-            Drawer.Execute_Instruction(Get_Instruction());
+            else if (Drawer_Pointer != NULL)
+            {
+                if (Drawer_Pointer->Window.Is_Maximized() == true)
+                {
+                    Drawer_Pointer->Execute_Instruction(Get_Instruction());
+                }
+            }
+            else
+            {
+                Desk.Execute_Instruction(Get_Instruction());
+            }
         }
         else
         {
-            Desk.Execute_Instruction(Get_Instruction());
+            if (Time.Milliseconds() > Next_Refresh)
+            {
+                Refresh_Header();
+                Next_Refresh = Time.Milliseconds() + 4000;
+            }
+            Main_Task.Delay(20);
+
         }
+
     }
 }
 
@@ -167,37 +183,11 @@ void Shell_Class::Refresh_Header()
     }
 }
 
-void Shell_Class::Execute_Instruction(Xila_Class::Instruction Instruction)
+void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 {
+
     switch (Instruction)
     {
-    case Idle:
-        if (Software_Management.Get_State(Shell_Handle) == Minimized)
-        {
-            Task_Class::Delay(80);
-        }
-        else
-        {
-            while (Keyboard.Available())
-            {
-                switch (Keyboard.Read())
-                {
-                case Keyboard.Escape:
-                    Display.Click("CLOSE_BUT", 0);
-                    break;
-
-                default:
-                    break;
-                }
-            }
-        }
-        if (Time.Milliseconds() > Next_Refresh)
-        {
-            Refresh_Header();
-            Next_Refresh = Time.Milliseconds() + 4000;
-        }
-        Task_Class::Delay(20);
-        break;
     case Dialog_Color_Picker:
         Dialog.Color_Picker_Pointer.Open();
         break;

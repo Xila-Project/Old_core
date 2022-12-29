@@ -151,7 +151,6 @@ namespace Xila_Namespace
             static const Instruction_Class Active;
             static const Instruction_Class Inactive;
 
-
         } Instruction_Type;
 
         /// @brief Xila task type.
@@ -295,6 +294,7 @@ namespace Xila_Namespace
         void Send_Instruction(Module_Class *Sender, const char Arguments[4]);
 
         Instruction_Type Get_Instruction();
+        Size_Type Instruction_Available();
 
     private:
         QueueHandle_t Instruction_Queue_Handle;
@@ -315,6 +315,11 @@ namespace Xila_Namespace
         {
             return false;
         }
+    }
+
+    bool operator!=(const Module_Class::Instruction_Type &First, const Module_Class::Instruction_Type &Second)
+    {
+        return !(First == Second);
     }
 }
 

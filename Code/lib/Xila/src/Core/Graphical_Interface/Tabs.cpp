@@ -35,9 +35,11 @@ void Tabs_Class::Create(Object_Class& Parent_Object, Direction::Type Direction, 
     }
 }
 
-void Tabs_Class::Add_Tab(const char *Name)
+Object_Class Tabs_Class::Add_Tab(const char *Name)
 {
-    lv_tabview_add_tab(Get_Pointer(), Name);
+    Object_Class Object;
+    Object.Set_Pointer(lv_tabview_add_tab(Get_Pointer(), Name));
+    return Object;
 }
 
 // ------------------------------------------------------------------------- //

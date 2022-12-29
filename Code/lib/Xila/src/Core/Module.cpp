@@ -96,7 +96,12 @@ void Module_Class::Send_Instruction(Module_Class *Sender, const char Arguments[4
 //
 // ------------------------------------------------------------------------- //
 
-///
+
+Module_Class::Size_Type Module_Class::Instruction_Available()
+{
+    return uxQueueMessagesWaiting(Instruction_Queue_Handle);
+}
+
 /// @brief Return last instruction from the instructions queue.
 ///
 /// @return Xila_Class::Instruction Software instruction.

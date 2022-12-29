@@ -193,9 +193,9 @@ namespace Xila_Namespace
         // - - Swap
         void Swap(Object_Class Object_To_Swap_With);
         // - - Events
-        void Add_Event(Event::Code_Type Event_Code, Module_Type* Module, uint32_t Arguments);
-        // TODO : Find a way add this method to the class :
-        //  bool Remove_Event(Event::Code_Type Event);
+        void Add_Event(const Module_Class::Instruction_Type* Instruction, Event::Code_Type Event_Code);
+        bool Remove_Event(const Module_Class::Instruction_Type* Instruction);
+        bool Remove_All_Events();
         void Send_Event(Event::Code_Type Event);
         // - - Layer management
         void Move_Foreground();
@@ -566,8 +566,6 @@ namespace Xila_Namespace
         lv_obj_t *LVGL_Object_Pointer;
 
     protected:
-
-        Module_Class::Instruction_Class Instruction;
 
     } Object_Type;
 }

@@ -98,6 +98,8 @@ namespace Xila_Namespace
         uint8_t Get_Brightness() const;
 
         static Color_Class Get_From_Palette(Tag_Type Color_Tag, int8_t Level = 0);
+        static Color_Class Get_White();
+        static Color_Class Get_Black();
 
         lv_color_t Get_LVGL_Color() const;
         lv_color_hsv_t Get_LVGL_HSV_Color() const;

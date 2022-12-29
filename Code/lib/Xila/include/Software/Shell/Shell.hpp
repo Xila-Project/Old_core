@@ -43,7 +43,7 @@ protected:
     ///
     /// @brief Instance pointer, help to keep track of current instance.
     ///
-    static std::vector<Shell_Class*> Instances;
+    static std::vector<Shell_Class *> Instances;
 
     ///
     /// @brief Desk class
@@ -88,21 +88,25 @@ protected:
     class Drawer_Class
     {
     private:
-
-        Window_Type Window;
-
-        // - Constructor / destructor
-        Drawer_Class();
-        ~Drawer_Class();
-
-        void Execute_Instruction(Instruction_Type Instruction);
-        
         // - Attributes
-    /// @brief File manager class
         Window_Type Window;
+
+        /// @brief File manager class
         List_Type List;
 
-    } Drawer;
+        // - Constructor / destructor
+        Drawer_Class(Shell_Class* Shell_Pointer);
+        ~Drawer_Class();
+
+        static const Instruction_Type Click_On_Item;
+
+        Shell_Class* Shell_Pointer;
+
+        void Execute_Instruction(Instruction_Type Instruction);
+
+        friend class Shell_Class;
+
+    } * Drawer_Pointer;
 
     ///
     ///
@@ -139,7 +143,7 @@ protected:
         ~File_Manager_Class();
 
         static void Open(uint8_t = Idle);
-        
+
         static void Close();
 
         void Execute_Instruction(Instruction_Type Instruction);
@@ -159,7 +163,7 @@ protected:
             DUMP("get mode");
             DUMP(this->Mode);
         }*/
-        
+
         inline void Set_Operation(uint8_t Operation)
         {
             this->Operation = Operation;
@@ -184,7 +188,7 @@ protected:
 
         friend class Shell_Class;
 
-    } * File_Manager_Pointer;
+    } *File_Manager_Pointer;
 
     ///
     /// @brief Preferences class
@@ -195,6 +199,11 @@ protected:
         // -- Constructor
 
         Preferences_Class();
+
+        Window_Type Window;
+        Tabs_Type Tabs;
+        Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+
 
     protected:
         // -- Attributes
@@ -240,7 +249,7 @@ protected:
 
         friend class Shell_Class;
 
-    } * Preferences_Pointer;
+    } *Preferences_Pointer;
 
     // -- Attributes
 
@@ -256,24 +265,26 @@ protected:
 
     void Main_Task_Function();
 
-    Software_Type* Open_Shell();
+    Software_Type *Open_Shell();
+
+
 
 public:
     // -- Methods
 
-    static Software_Handle_Type Shell_Handle;
+    static Software_Handle_Type Handle;
 
-    static void Create_Instance();
 
     static void Startup();
 
     Shell_Class();
     ~Shell_Class();
+
+    static void Create_Instance() {
+        new Shell_Class();
+    }
+
 };
-
-// -- Shell handle -- //
-
-extern Xila_Class::Software_Handle Shell_Handle;
 
 // -- Shortcuts -- //
 #define PREFERENCES SHELL->Preferences_Pointer
