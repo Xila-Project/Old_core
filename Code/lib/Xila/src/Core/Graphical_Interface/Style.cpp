@@ -61,9 +61,9 @@ void Style_Class::Initialize()
     lv_style_init(&LVGL_Style);
 }
 
-void Style_Class::Set_Alignment(Alignment::Type Alignment)
+void Style_Class::Set_Alignment(Alignment_Type Alignment)
 {
-    lv_style_set_align(&LVGL_Style, Alignment);
+    lv_style_set_align(&LVGL_Style, (lv_align_t)Alignment);
 }
 
 void Style_Class::Set_Animation_Time(uint32_t Time)

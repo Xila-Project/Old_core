@@ -26,12 +26,8 @@
 
 // -- System
 #define Default_Device_Name "Xila"
-#define Xila_Version_Major 0
-#define Xila_Version_Major_String "0"
-#define Xila_Version_Minor 1
-#define Xila_Version_Minor_String "2"
-#define Xila_Version_Revision 0
-#define Xila_Version_Revision_String "0"
+
+#define Stringizing(x) #x
 
 #define Selected_Language English
 

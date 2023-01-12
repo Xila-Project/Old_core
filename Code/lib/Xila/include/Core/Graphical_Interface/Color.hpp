@@ -37,7 +37,7 @@ namespace Xila_Namespace
     public:
         // - Types
 
-        typedef enum Tag_Enumeration
+        enum Tag_Type
         {
             Red = LV_PALETTE_RED,
             Pink = LV_PALETTE_PINK,
@@ -58,8 +58,10 @@ namespace Xila_Namespace
             Brown = LV_PALETTE_BROWN,
             Blue_Grey = LV_PALETTE_BLUE_GREY,
             Grey = LV_PALETTE_GREY,
+                        White,
+            Black,
             None = LV_PALETTE_NONE,
-        } Tag_Type;
+        };
 
         // - Methods
 

@@ -36,8 +36,10 @@ namespace Xila_Namespace
         Object_Class Get_Body();
         Object_Class Get_Header();
 
-    private:
+    protected:
     
+        void Set_Interface();
+
         // First origin window.
         static Window_Class* Parent_Window;
 

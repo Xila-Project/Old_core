@@ -23,61 +23,16 @@ Window_Class* Window_Class::Parent_Window = NULL;
 void Window_Class::Create()
 {
     // If it is the first window, it is the parent window.
-    if (Parent_Window == NULL)
+    if (Parent_Window == NULL || !Parent_Window->Is_Valid())
     {
         this->Set_Pointer(lv_obj_create(lv_scr_act()));
         Parent_Window = this;
     }
+    // If not, create inside the parent window
     else 
     {
-        this->Set_Pointer(lv_win_create(Parent_Window->Get_Pointer(), NULL));
+        this->Set_Pointer(lv_obj_create(Parent_Window->Get_Pointer()));
     }
-
-    this->Set_Size(Percentage(100), Percentage(100));
-    this->Set_Flex_Flow(Flex::Column);
-    this->Set_Style_Pad_All(0, 0);
-    this->Set_Style_Border_Width(0, 0);
-
-    // - Header create.
-    Header.Create(*this);
-    Header.Set_Size(Percentage(100), 32);
-
-    static Style_Class Style_Window_Header;
-    Style_Window_Header.Set_Background_Color(Color_Class::Get_From_Palette(Color_Class::Grey, -1));
-
-    // - Left buttons.
-    Close_Button.Create(Header);
-    Close_Button.Set_Size(24, 24);
-    Close_Button.Set_Alignment(Alignment::Middle_Left);
-    Minimize_Button.Create(Header);
-    Minimize_Button.Set_Size(24, 24);
-    Minimize_Button.Set_Alignment(Close_Button, Alignment::Out_Right_Middle, 4, 0);
-
-    // - Middle title.
-    Title_Label.Create(Header);
-    Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Enumeration::Long_Dot);
-    Title_Label.Set_Alignment(Alignment::Center);
-    Clock_Label.Create(Header);
-    Clock_Label.Set_Alignment(Alignment::Middle_Right);
-
-    // - Right buttons.
-    Battery_Button.Create(Header);
-    Battery_Button.Set_Size(24, Percentage(100));
-    Battery_Button.Set_Alignment(Clock_Label, Alignment::Out_Left_Middle, -4, 0);
-
-    Network_Button.Create(Header);
-    Network_Button.Set_Size(24, Percentage(100));
-    Network_Button.Set_Alignment(Battery_Button, Alignment::Out_Left_Middle, 0, 0);
-
-    Sound_Button.Create(Header);
-    Sound_Button.Set_Size(24, Percentage(100));
-    Sound_Button.Set_Alignment(Network_Button, Alignment::Out_Left_Middle, 0, 0);
-
-    // - Body.
-    Body.Create(*this);
-    Body.Set_Flex_Grow(1);
-
-
 }
 
 void Window_Class::Create(Object_Class Parent_Object)
@@ -88,6 +43,10 @@ void Window_Class::Create(Object_Class Parent_Object)
     }
 
     this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+}
+
+void Window_Class::Set_Interface()
+{
     this->Set_Size(Percentage(100), Percentage(100));
     this->Set_Flex_Flow(Flex::Column);
     this->Set_Style_Pad_All(0, 0);
@@ -102,35 +61,36 @@ void Window_Class::Create(Object_Class Parent_Object)
     // - Left buttons.
     Close_Button.Create(Header);
     Close_Button.Set_Size(24, 24);
-    Close_Button.Set_Alignment(Alignment::Middle_Left);
+    Close_Button.Set_Alignment(Alignment_Type::Middle_Left);
     Minimize_Button.Create(Header);
     Minimize_Button.Set_Size(24, 24);
-    Minimize_Button.Set_Alignment(Close_Button, Alignment::Out_Right_Middle, 4, 0);
+    Minimize_Button.Set_Alignment(Close_Button, Alignment_Type::Out_Right_Middle, 4, 0);
 
     // - Middle title.
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Enumeration::Long_Dot);
-    Title_Label.Set_Alignment(Alignment::Center);
+    Title_Label.Set_Alignment(Alignment_Type::Center);
     Clock_Label.Create(Header);
-    Clock_Label.Set_Alignment(Alignment::Middle_Right);
+    Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
 
     // - Right buttons.
     Battery_Button.Create(Header);
     Battery_Button.Set_Size(24, Percentage(100));
-    Battery_Button.Set_Alignment(Clock_Label, Alignment::Out_Left_Middle, -4, 0);
+    Battery_Button.Set_Alignment(Clock_Label, Alignment_Type::Out_Left_Middle, -4, 0);
 
     Network_Button.Create(Header);
     Network_Button.Set_Size(24, Percentage(100));
-    Network_Button.Set_Alignment(Battery_Button, Alignment::Out_Left_Middle, 0, 0);
+    Network_Button.Set_Alignment(Battery_Button, Alignment_Type::Out_Left_Middle, 0, 0);
 
     Sound_Button.Create(Header);
     Sound_Button.Set_Size(24, Percentage(100));
-    Sound_Button.Set_Alignment(Network_Button, Alignment::Out_Left_Middle, 0, 0);
+    Sound_Button.Set_Alignment(Network_Button, Alignment_Type::Out_Left_Middle, 0, 0);
 
     // - Body.
     Body.Create(*this);
     Body.Set_Flex_Grow(1);
 }
+
 
 void Window_Class::Maximize() {
     Clear_Flag(Flag::Hidden);

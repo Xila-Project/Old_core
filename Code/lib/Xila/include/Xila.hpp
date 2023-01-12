@@ -12,12 +12,6 @@
 ||              |   |      |   / . \   _| |_  | |____   / ____ \              ||
 ||              |___|______|  /_/ \_\ |_____| |______| /_/    \_\             ||
 ||                                                                            ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|| Version : 0.1.0 - Alix ANNERAUD - MIT Licence - 2021                       ||
-||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||                               Credit to :                                  ||
-|| Sound : Benjamin Mastripolito (https://benpm.github.io - https://freeSound.org/people/Lemoncreme/sounds/231578)||
-|| Michalhol : Keyboard Library (https://github.com/michalhol/ps2kbdlib)      ||
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||*/
 
 #endif

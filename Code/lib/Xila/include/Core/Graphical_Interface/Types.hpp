@@ -16,6 +16,34 @@
 
 namespace Xila_Namespace
 {
+
+    enum class Alignment_Type
+    {
+        Default = LV_ALIGN_DEFAULT,
+        Top_Left = LV_ALIGN_TOP_LEFT,
+        Top_Middle = LV_ALIGN_TOP_MID,
+        Top_Right = LV_ALIGN_TOP_RIGHT,
+        Middle_Left = LV_ALIGN_LEFT_MID,
+        Center = LV_ALIGN_CENTER,
+        Middle_Right = LV_ALIGN_RIGHT_MID,
+        Bottom_Left = LV_ALIGN_BOTTOM_LEFT,
+        Bottom_Middle = LV_ALIGN_BOTTOM_MID,
+        Bottom_Right = LV_ALIGN_BOTTOM_RIGHT,
+
+        Out_Top_Left = LV_ALIGN_OUT_TOP_LEFT,
+        Out_Top_Middle = LV_ALIGN_OUT_TOP_MID,
+        Out_Top_Right = LV_ALIGN_OUT_TOP_RIGHT,
+        Out_Bottom_Left = LV_ALIGN_OUT_BOTTOM_LEFT,
+        Out_Bottom_Middle = LV_ALIGN_OUT_BOTTOM_MID,
+        Out_Bottom_Right = LV_ALIGN_OUT_BOTTOM_RIGHT,
+        Out_Left_Top = LV_ALIGN_OUT_LEFT_TOP,
+        Out_Left_Middle = LV_ALIGN_OUT_LEFT_MID,
+        Out_Left_Bottom = LV_ALIGN_OUT_LEFT_BOTTOM,
+        Out_Right_Top = LV_ALIGN_OUT_RIGHT_TOP,
+        Out_Right_Middle = LV_ALIGN_OUT_RIGHT_MID,
+        Out_Right_Bottom = LV_ALIGN_OUT_RIGHT_BOTTOM
+    };
+
     class Types_Class
     {
     public:
@@ -93,41 +121,6 @@ namespace Xila_Namespace
 
                 Last_Event = _LV_EVENT_LAST
             } Code_Type;
-        };
-
-        class Alignment
-        {
-        public:
-            /// @brief Alignment type.
-            typedef lv_align_t Type;
-
-            /// @brief Alignment enumeration.
-            enum Enumeration
-            {
-                Default = LV_ALIGN_DEFAULT,
-                Top_Left = LV_ALIGN_TOP_LEFT,
-                Top_Middle = LV_ALIGN_TOP_MID,
-                Top_Right = LV_ALIGN_TOP_RIGHT,
-                Middle_Left = LV_ALIGN_LEFT_MID,
-                Center = LV_ALIGN_CENTER,
-                Middle_Right = LV_ALIGN_RIGHT_MID,
-                Bottom_Left = LV_ALIGN_BOTTOM_LEFT,
-                Bottom_Middle = LV_ALIGN_BOTTOM_MID,
-                Bottom_Right = LV_ALIGN_BOTTOM_RIGHT,
-
-                Out_Top_Left = LV_ALIGN_OUT_TOP_LEFT,
-                Out_Top_Middle = LV_ALIGN_OUT_TOP_MID,
-                Out_Top_Right = LV_ALIGN_OUT_TOP_RIGHT,
-                Out_Bottom_Left = LV_ALIGN_OUT_BOTTOM_LEFT,
-                Out_Bottom_Middle = LV_ALIGN_OUT_BOTTOM_MID,
-                Out_Bottom_Right = LV_ALIGN_OUT_BOTTOM_RIGHT,
-                Out_Left_Top = LV_ALIGN_OUT_LEFT_TOP,
-                Out_Left_Middle = LV_ALIGN_OUT_LEFT_MID,
-                Out_Left_Bottom = LV_ALIGN_OUT_LEFT_BOTTOM,
-                Out_Right_Top = LV_ALIGN_OUT_RIGHT_TOP,
-                Out_Right_Middle = LV_ALIGN_OUT_RIGHT_MID,
-                Out_Right_Bottom = LV_ALIGN_OUT_RIGHT_BOTTOM,
-            };
         };
 
         class Base_Direction

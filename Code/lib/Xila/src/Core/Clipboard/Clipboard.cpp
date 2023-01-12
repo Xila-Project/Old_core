@@ -12,7 +12,7 @@
 
 #include "Core/Core.hpp"
 
-using namespace Xila;
+using namespace Xila_Namespace;
 
 ///
 /// @brief Clear data of the clipboard.

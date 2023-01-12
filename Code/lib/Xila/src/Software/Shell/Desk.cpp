@@ -16,7 +16,7 @@
 
 // -- Constructor -- //
 
-Shell_Class::Desk_Class::Desk_Class()
+Shell_Class::Desk_Class::Desk_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     // Window
     Window.Create();
@@ -75,7 +75,7 @@ Shell_Class::Desk_Class::Desk_Class()
     Dock.Set_Style_Pad_Left(10, 0);
     Dock.Set_Style_Pad_Right(10, 0);
     Dock.Set_Style_Shadow_Width(20, 0);
-    Dock.Set_Style_Shadow_Color(Object_Type::Color_Type::White, 0);
+    Dock.Set_Style_Shadow_Color(Color_Type::Get_From_Palette(Color_Type::White), 0);
 
     const Object_Type::Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     const Object_Type::Coordinate_Type Dock_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
@@ -88,13 +88,11 @@ Shell_Class::Desk_Class::Desk_Class()
     Menu_Button.Create(Dock);
     Menu_Button.Set_Size(32, 32);
     Menu_Button.Set_Grid_Cell(Object_Type::Grid::Center, 0, 1, Object_Type::Grid::Center, 0, 1);
-    Menu_Button.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3));
+    Menu_Button.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, 3), 0);
     Menu_Button.Set_Style_Radius(0, 0);
     Menu_Button.Set_Style_Pad_All(0, 0);
     Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
     Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
-
-    Background_Color.Set_Color();
 
     Object_Type::Style_Type Menu_Button_Part_Style;
     Menu_Button_Part_Style.Initialize();
@@ -105,17 +103,17 @@ Shell_Class::Desk_Class::Desk_Class()
 
     Object_Type::Style_Type Menu_Button_Part_Pressed_Style;
     Menu_Button_Part_Pressed_Style.Initialize();
-    Menu_Button_Part_Pressed_Style.Set_Background_Color(Object_Type::Color_Type::Get_From_Palette(White, 0));
+    Menu_Button_Part_Pressed_Style.Set_Background_Color(Color_Type::Get_White());
     Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
-    Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Object_Type::Color_Type::Get_From_Palette(White, 0));
+    Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Color_Type::Get_White());
 
     {
         Object_Type Red_Part;
         Red_Part.Create(Menu_Button);
         Red_Part.Set_Size(10, 21);
         Red_Part.Set_Style_Radius(0, 0);
-        Red_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Red, 0), 0)
-            Red_Part.Set_Alignment(Object_Type::Alignment::Top_Left);
+        Red_Part.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Red), 0);
+        Red_Part.Set_Alignment(Alignment_Type::Top_Left);
         Red_Part.Add_Style(Menu_Button_Part_Style, 0);
         Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
     }
@@ -123,8 +121,8 @@ Shell_Class::Desk_Class::Desk_Class()
         Object_Type Blue_Part;
         Blue_Part.Create(Menu_Button);
         Blue_Part.Set_Size(21, 10);
-        Blue_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Blue, 0), 0);
-        Blue_Part.Set_Alignment(Object_Type::Alignment::Bottom_Left);
+        Blue_Part.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Blue), 0);
+        Blue_Part.Set_Alignment(Alignment_Type::Bottom_Left);
         Blue_Part.Add_Style(Menu_Button_Part_Style, 0);
         Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
     }
@@ -132,8 +130,8 @@ Shell_Class::Desk_Class::Desk_Class()
         Object_Type Green_Part;
         Green_Part.Create(Menu_Button);
         Green_Part.Set_Size(10, 21);
-        Green_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Green, 0), 0);
-        Green_Part.Set_Alignment(Object_Type::Alignment::Bottom_Right);
+        Green_Part.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Green), 0);
+        Green_Part.Set_Alignment(Alignment_Type::Bottom_Right);
         Green_Part.Add_Style(Menu_Button_Part_Style, 0);
         Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
     }
@@ -141,15 +139,15 @@ Shell_Class::Desk_Class::Desk_Class()
         Object_Type Yellow_Part;
         Yellow_Part.Create(Menu_Button);
         Yellow_Part.Set_Size(21, 10);
-        Yellow_Part.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Xila_Yellow, 0), 0);
-        Yellow_Part.Set_Alignment(Object_Type::Alignment::Top_Right);
+        Yellow_Part.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Yellow), 0);
+        Yellow_Part.Set_Alignment(Alignment_Type::Top_Right);
         Yellow_Part.Add_Style(Menu_Button_Part_Style, 0);
         Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
     }
     Object_Type List;
     List.Set_Grid_Cell(Object_Type::Grid::Stretch, 1, 1, Object_Type::Grid::Stretch, 0, 1);
     List.Set_Flex_Flow(Object_Type::Flex_Flow::Row);
-    List.Set_Style_Background_Color(Object_Type::Color_Type::Get_From_Palette(Color_Type::Grey, -1), 0);
+    List.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, -1), 0);
     List.Set_Style_Border_Width(0, 0);
     List.Set_Style_Pad_All(0, 0);
     List.Set_Content_Height(40);
@@ -166,7 +164,7 @@ Shell_Class::Desk_Class::Desk_Class()
 
             Label.Create(List);
             Label.Set_Text_Format("A %u", i);
-            Label.Set_Alignment(Object_Type::Alignment::Center);
+            Label.Set_Alignment(Alignment_Type::Center);
         }
     }
 }

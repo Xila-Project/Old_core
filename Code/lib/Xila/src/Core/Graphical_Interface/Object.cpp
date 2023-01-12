@@ -209,20 +209,20 @@ void Object_Class::Set_Parent(Object_Class Parent_Object)
 
 // -- Position and size.
 
-void Object_Class::Set_Alignment(Alignment::Type Alignment)
+void Object_Class::Set_Alignment(Alignment_Type Alignment)
 {
-    lv_obj_set_align(Get_Pointer(), Alignment);
+    lv_obj_set_align(Get_Pointer(), (lv_align_t)Alignment);
 }
 
-void Object_Class::Set_Alignment(Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
+void Object_Class::Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
-    lv_obj_align(Get_Pointer(), Alignment, X_Offset, Y_Offset);
+    lv_obj_align(Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
 }
 
-void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
+void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
 
-    lv_obj_align_to(Get_Pointer(), Object_To_Align_With.Get_Pointer(), Alignment, X_Offset, Y_Offset);
+    lv_obj_align_to(Get_Pointer(), Object_To_Align_With.Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
 }
 
 void Object_Class::Set_Position_X(Coordinate_Type X)
@@ -253,6 +253,11 @@ void Object_Class::Set_Width(Coordinate_Type Width)
 void Object_Class::Set_Height(Coordinate_Type Height)
 {
     lv_obj_set_height(Get_Pointer(), Height);
+}
+
+void Object_Class::Set_Content_Height(Coordinate_Type Content_Height)
+{
+    lv_obj_set_content_height(Get_Pointer(), Content_Height);
 }
 
 bool Object_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
@@ -300,9 +305,9 @@ void Object_Class::Set_Grid_Descriptor_Array(const Coordinate_Type* Column_Descr
     lv_obj_set_grid_dsc_array(Get_Pointer(), Column_Descriptor, Row_Descriptor);
 }
 
-void Object_Class::Set_Style_Alignment(Alignment::Type Alignment, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Alignment(Alignment_Type Alignment, Style_Selector_Type Style_Selector)
 {
-    lv_obj_set_style_align(Get_Pointer(), Alignment, Style_Selector);
+    lv_obj_set_style_align(Get_Pointer(), (lv_align_t)Alignment, Style_Selector);
 }
 
 void Object_Class::Set_Style_Animation_Speed(uint32_t Value, Style_Selector_Type Style_Selector)
@@ -866,9 +871,9 @@ inline bool Object_Class::Get_Object_Visibility()
 
 // -- Style
 
-Object_Class::Alignment::Type Object_Class::Get_Style_Alignment(uint32_t Part)
+Alignment_Type Object_Class::Get_Style_Alignment(uint32_t Part)
 {
-    return lv_obj_get_style_align(Get_Pointer(), Part);
+    return (Alignment_Type)lv_obj_get_style_align(Get_Pointer(), Part);
 }
 
 /*

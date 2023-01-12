@@ -48,7 +48,7 @@ namespace Xila_Namespace
         void Reset();
 
         // - - Setters
-        void Set_Alignment(Alignment::Type Alignment);
+        void Set_Alignment(Alignment_Type Alignment);
 
         // - - - Animation
         void Set_Animation_Time(uint32_t Time);

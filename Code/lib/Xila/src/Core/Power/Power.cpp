@@ -32,8 +32,6 @@ Power_Class::Power_Class()
 /// @return Result::Type
 Module_Class::Result::Type Power_Class::Load_Registry()
 {
-    using namespace Xila;
-
     File Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
@@ -58,7 +56,6 @@ Module_Class::Result::Type Power_Class::Load_Registry()
 /// @return Result::Type
 Module_Class::Result::Type Power_Class::Save_Registry()
 {
-    using namespace Xila;
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
     Power_Registry["Minimum Voltage"] = Get_Minimum_Voltage();
@@ -80,7 +77,6 @@ Module_Class::Result::Type Power_Class::Save_Registry()
 ///
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
-    using namespace Xila;
     //vTaskEnterCritical(&Power.Button_Mutex);
     if (Pin.Digital_Read(Power_Button_Pin) == Pin.High) // rise
     {

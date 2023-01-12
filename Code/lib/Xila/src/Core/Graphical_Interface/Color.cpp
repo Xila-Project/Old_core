@@ -183,18 +183,26 @@ uint32_t Color_Class::Get_RGB_32_Bits() const
     return lv_color_to32(LVGL_Color);
 }
 
-Color_Class Color_Class::Get_From_Palette(Tag_Type Palette, int8_t Level)
+Color_Class Color_Class::Get_From_Palette(Tag_Type Color_Tag, int8_t Level)
 {
-    if (Level > 0) // From 1 to 5
+    if (Color_Tag = White)
     {
-        return Color_Class(lv_palette_lighten((lv_palette_t)Palette, Level));
+        return Get_White();
+    }
+    else if (Color_Tag = Black)
+    {
+        return Get_Black();
+    }
+    else if (Level > 0) // From 1 to 5
+    {
+        return Color_Class(lv_palette_lighten((lv_palette_t)Color_Tag, Level));
     }
     else if (Level < 0) // From -1 to -4
     {
         Level = -Level;
-        return Color_Class(lv_palette_darken((lv_palette_t)Palette, -Level));
+        return Color_Class(lv_palette_darken((lv_palette_t)Color_Tag, -Level));
     }
-    return Color_Class(lv_palette_main((lv_palette_t)Palette));
+    return Color_Class(lv_palette_main((lv_palette_t)Color_Tag));
 }
 
 Color_Class Color_Class::Get_White()

@@ -39,12 +39,12 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
 
                 Icon.Create(Container);
                 Icon.Set_Size(Percentage(100), Percentage(100));
-                Icon.Set_Alignment(Object_Type::Alignment::Top_Middle);
+                Icon.Set_Alignment(Alignment_Type::Top_Middle);
                 Icon.Add_Event(&Click_On_Item, Types_Class::Event::Pressed);
 
                 Label.Create(Container);
                 Label.Set_Text_Format("Item");
-                Label.Set_Alignment(Object_Type::Alignment::Bottom_Middle);
+                Label.Set_Alignment(Alignment_Type::Bottom_Middle);
                 Label.Set_Long_Mode(Label_Type::Long_Dot);
                 Label.Add_Event(&Click_On_Item, Types_Class::Event::Pressed);
 

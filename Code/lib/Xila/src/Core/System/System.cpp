@@ -16,7 +16,7 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
-using namespace Xila;
+using namespace Xila_Namespace;
 
 ///
 /// @brief Construct a new System_Class object
@@ -407,7 +407,7 @@ void System_Class::Start()
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
   Log_Raw_Line("");
-  Log_Raw_Line(" > Version : " Xila_Version_Major_String "." Xila_Version_Minor_String "." Xila_Version_Revision_String " - Alix ANNERAUD - MIT Licence - 2021");
+  Log_Raw_Line(" > Version :" + Stringizing(Xila_Version_Major) + " . " + Stringizing(Xila_Version_Minor) + " . " +  Stringizing(Xila_Version_Revision) + " - Alix ANNERAUD - MIT Licence - 2021");
   Log_Raw_Line("");
   Log_Information("Starting Xila ...");
   Log_Verbose("First start routine.");

@@ -16,6 +16,7 @@
 // Kit enumeration
 
 #define Kit_WT32_SC01
+#define Kit_WT32_SC01_Plus
 
 // Display enumeration
 

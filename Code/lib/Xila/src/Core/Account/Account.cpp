@@ -12,7 +12,7 @@
 
 #include "Core/Core.hpp"
 
-using namespace Xila;
+using namespace Xila_Namespace;
 
 ///
 /// @brief Construct a new Xila_Namespace::Account_Class::Account_Class object
@@ -28,7 +28,6 @@ Account_Class::Account_Class()
 /// @return Result::Type
 Module_Class::Result::Type Xila_Namespace::Account_Class::Load_Registry()
 {
-  using namespace Xila;
   File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
 
@@ -301,7 +300,6 @@ Module_Class::Result::Type Xila_Namespace::Account_Class::Check_Credentials(cons
  /// @return Result::Type 
 Module_Class::Result::Type Xila_Namespace::Account_Class::Login(const char *Username_To_Check, const char *Password_To_Check)
 {
-  using namespace Xila;
   if (Check_Credentials(Username_To_Check, Password_To_Check) != Result::Success)
   {
     State = Disconnected;

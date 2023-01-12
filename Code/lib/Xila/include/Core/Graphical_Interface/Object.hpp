@@ -222,12 +222,14 @@ namespace Xila_Namespace
         void Set_Position_X(Coordinate_Type X);
         void Set_Position_Y(Coordinate_Type Y);
         void Set_Position(Coordinate_Type X, Coordinate_Type Y);
-        void Set_Alignment(Alignment::Type Alignment);                                                                                        // -- Relative to parent object.
-        void Set_Alignment(Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
-        void Set_Alignment(Object_Class Object_To_Align_With, Alignment::Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
+        void Set_Alignment(Alignment_Type Alignment);                                                                                        // -- Relative to parent object.
+        void Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset);                                    // -- Relative to parent object.
+        void Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset); // -- Relative to parent object.
         void Set_Size(Coordinate_Type Width, Coordinate_Type Height);
         void Set_Width(Coordinate_Type Width);
         void Set_Height(Coordinate_Type Height);
+
+        void Set_Content_Height(Coordinate_Type Content_Height);
 
         // - - - Flex
         void Set_Flex_Alignment(Flex::Alignment_Type Main_Place_Alignment, Flex::Alignment_Type Cross_Place_Alignment, Flex::Alignment_Type Track_Cross_Place);
@@ -242,7 +244,7 @@ namespace Xila_Namespace
         // - - - Style
 
         // - - - - Position
-        void Set_Style_Alignment(Alignment::Type Alignment, Style_Selector_Type Style_Selector);
+        void Set_Style_Alignment(Alignment_Type Alignment, Style_Selector_Type Style_Selector);
 
         // - - - - Animation
         void Set_Style_Animation_Speed(uint32_t Value, Style_Selector_Type Style_Selector);
@@ -404,7 +406,7 @@ namespace Xila_Namespace
 
         // - - Style
 
-        Alignment::Type Get_Style_Alignment(uint32_t Part);
+        Alignment_Type Get_Style_Alignment(uint32_t Part);
         // - - - Animation
         // const Animation_Class Get_Style_Animation(uint32_t Part);
         uint32_t Get_Style_Animation_Time(uint32_t Part);

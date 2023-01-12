@@ -33,8 +33,6 @@ using namespace Xila;
 /// @details Main inter
 ///
 
-using namespace Xila;
-
 class Shell_Class : public Software_Type
 {
 protected:
@@ -50,6 +48,11 @@ protected:
     ///
     class Desk_Class
     {
+    public:
+        // -- Constructors / destructor
+        Desk_Class(Shell_Class *Shell_Pointer);
+        ~Desk_Class();
+
     protected:
         // -- Attributes
 
@@ -58,16 +61,12 @@ protected:
         ///
         /// @details Desk image when < 0 and Custom color when > 0 (color code itself).
         ///
-        Object_Type::Color_Type Background_Color;
+        Color_Type Background_Color;
 
         Window_Type Window;
         Object_Type Grid;
         Object_Type Dock;
         Object_Type Menu_Button;
-
-        // -- Constructors / destructor
-        Desk_Class();
-        ~Desk_Class();
 
         // -- Methods
         void Open(uint8_t);
@@ -80,6 +79,8 @@ protected:
         void Open_From_Drawer(uint8_t);
 
         void Logout();
+
+        Shell_Class* Shell_Pointer;
 
         // -- friendship
         friend class Shell_Class;
@@ -95,18 +96,18 @@ protected:
         List_Type List;
 
         // - Constructor / destructor
-        Drawer_Class(Shell_Class* Shell_Pointer);
+        Drawer_Class(Shell_Class *Shell_Pointer);
         ~Drawer_Class();
 
         static const Instruction_Type Click_On_Item;
 
-        Shell_Class* Shell_Pointer;
+        Shell_Class *Shell_Pointer;
 
         void Execute_Instruction(Instruction_Type Instruction);
 
         friend class Shell_Class;
 
-    } * Drawer_Pointer;
+    } *Drawer_Pointer;
 
     ///
     ///
@@ -204,7 +205,6 @@ protected:
         Tabs_Type Tabs;
         Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
 
-
     protected:
         // -- Attributes
 
@@ -267,30 +267,23 @@ protected:
 
     Software_Type *Open_Shell();
 
-
-
 public:
     // -- Methods
 
     static Software_Handle_Type Handle;
-
 
     static void Startup();
 
     Shell_Class();
     ~Shell_Class();
 
-    static void Create_Instance() {
+    static void Create_Instance()
+    {
         new Shell_Class();
     }
-
 };
 
 // -- Shortcuts -- //
-#define PREFERENCES SHELL->Preferences_Pointer
-#define FILE_MANAGER SHELL->File_Manager_Pointer
-#define DESK SHELL->Desk
-#define DIALOG SHELL->Dialog
 
 #define KEYBOARD DIALOG.Keyboard_Pointer
 #define KEYPAD DIALOG.Keypad_Pointer
