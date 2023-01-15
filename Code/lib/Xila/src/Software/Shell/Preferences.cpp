@@ -13,7 +13,8 @@
 
 // -- Constructor -- //
 
-Shell_Class::Preferences_Class::Preferences_Class()
+Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
+
 {
     // -- Account
     Autologin = false;

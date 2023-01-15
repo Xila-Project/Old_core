@@ -25,33 +25,35 @@ namespace Xila_Namespace
         // -- Constructor
         Account_Class();
 
-        ///
-        /// @brief Session state type
-        ///
-        typedef enum Session_Enumeration
-        {
-            Disconnected,
+        enum State_Type {
+        
             Logged,
             Locked
-        } Session_State;
+        };
+
+
+        typedef class User_Class
+        {
+        public:
+            User_Class(const char *Name);
+
+            void Set_State(State_Type State);
+            State_Type Get_State();
+
+            void Logout();
+            void Lock();
+
+        private:
+            char Name[16];
+            State_Type State;
+        
+
+        } User_Type;
+
+        static std::vector<User_Type> List;
+
 
         Result::Type Check_Credentials(const char *, const char *);
-
-        // -- Getter
-        const char *Get_Current_Username();
-
-        Session_State Get_State();
-
-        // protected:
-        ///
-        /// @brief Loaded username.
-        ///
-        char Current_Username[9];
-
-        ///
-        /// @brief Session state.
-        ///
-        Session_State State;
 
         // -- Methods
 
@@ -59,15 +61,15 @@ namespace Xila_Namespace
         Result::Type Delete(const char *);
         Result::Type Change_Password(const char *, const char *);
         Result::Type Change_Username(const char *, const char *);
+
         Result::Type Set_Autologin(bool Enable);
+        
         Result::Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
+        
         Result::Type Logout();
         Result::Type Lock();
 
         // -- Setter
-
-        void Set_Current_Username(const char *Username);
-        void Set_State(Session_State State);
 
         Result::Type Load_Registry();
     } Account;

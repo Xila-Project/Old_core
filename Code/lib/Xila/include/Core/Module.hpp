@@ -69,22 +69,6 @@ namespace Xila_Namespace
             typedef uint8_t Type;
         };
 
-        class Module
-        {
-        public:
-            /// @brief Modules enumeration and type.
-            typedef enum Enumeration
-            {
-                None,
-                Account,
-                Clipboard,
-                Display,
-                Graphical_Interface,
-                System,
-                Mathematics
-            } Type;
-        };
-
         /// @brief Time class.
         class Time_Type
         {
@@ -117,14 +101,19 @@ namespace Xila_Namespace
         {
         private:
             Xila_Namespace::Module_Class *Sender;
-            uint32_t Arguments;
             Xila_Namespace::Module_Class *Receiver;
 
+          uint32_t Code; 
+  
         public:
-            operator uint32_t() const
-            {
-                return Arguments;
+
+            union Arguments {
+                struct Graphical_Interface_Class {
+                    void* Object_Pointer;
+                } Graphical_Interface;
+                
             };
+
 
             Instruction_Class();
 
@@ -307,7 +296,7 @@ namespace Xila_Namespace
 
     bool operator==(const Module_Class::Instruction_Type &First, const Module_Class::Instruction_Type &Second)
     {
-        if ((First.Get_Arguments() == Second.Get_Arguments()) && (First.Get_Receiver() == Second.Get_Receiver()))
+        if ((First.Instruction) && (First.Get_Arguments() == Second.Get_Arguments()))
         {
             return true;
         }

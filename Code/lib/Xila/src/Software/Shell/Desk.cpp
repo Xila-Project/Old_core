@@ -11,9 +11,6 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-#define Shell_Pointer Shell_Class::Instance_Pointer
-#define Desk_Pointer Shell_Class::Desk
-
 // -- Constructor -- //
 
 Shell_Class::Desk_Class::Desk_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
@@ -179,62 +176,32 @@ Shell_Class::Desk_Class::~Desk_Class()
 
 void Shell_Class::Desk_Class::Logout()
 {
-    if (Account.Current_Username[0] != '\0')
-    {
-        Instance_Pointer->Save_Registry();
-    }
     Account.Logout();
-
-    DESK.Open(Pages.Desk);
+    Shell_Pointer->Save_Registry();
 }
-
-// -- Drawer -- //
 
 // -- Desk -- //
 
-void Shell_Class::Desk_Class::Open(uint8_t Mode)
+void Shell_Class::Desk_Class::Open(Shell_Class* Shell_Pointer)
 {
-    if (Account.Get_State() != Account.Logged)
-    {
-        Display.Set_Current_Page(Pages.Desk);
-        if (DIALOG.Login() != Success)
-        {
-            System.Shutdown();
-            return;
-        }
-        else
-        {
-
-            Refresh_Desk();
-            Display.Hide(F("MAXIMIZE_BUT"));
-            Display.Hide(F("CLOSE_BUT"));
-#if Animations == 1
-            Sound.Play(Sounds("Login.wav"));
-            DIALOG.Load(Load_Login_Header_String, Load_Login_Message_String);
-#endif
-            if (Instance_Pointer->Load_Registry() != Success)
-            {
-                Instance_Pointer->Save_Registry();
-            }
-        }
-    }
-
-    if (Mode == Pages.Drawer)
-    {
-        Display.Set_Current_Page(Pages.Drawer);
-        Offset = 0;
-        Refresh_Drawer();
-        return;
-    }
-    else
-    {
-        Display.Set_Current_Page(Pages.Desk);
-        Refresh_Desk();
-        Display.Hide(F("MAXIMIZE_BUT"));
-        Display.Hide(F("CLOSE_BUT"));
-        return;
-    }
+  Shell_Pointer->Desk_Pointer = new Desk_Class(Shell_Pointer);
 }
+
+void Shell_Class::Desk_Class::Close(Shell_Class* Shell_Pointer)
+{
+  delete Shell_Pointer->Desk_Pointer;
+  Shell_Pointer->Desk_Pointer = NULL;
+}
+
+bool Shell_Class::Desk_Class::Is_Open(Shell_Class* Shell_Pointer)
+{
+    if (Shell_Pointer->Desk_Pointer == NULL)
+    {
+        return true;
+    }
+    return false;
+}
+
 
 void Shell_Class::Desk_Class::Refresh_Desk()
 {

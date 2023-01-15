@@ -53,6 +53,10 @@ protected:
         Desk_Class(Shell_Class *Shell_Pointer);
         ~Desk_Class();
 
+        static void Open(Shell_Class* Shell_Pointer);
+        static void Close(Shell_Class* Shell_Pointer);
+        static bool Is_Open(Shell_Class* Shell_Pointer);
+
     protected:
         // -- Attributes
 
@@ -69,7 +73,6 @@ protected:
         Object_Type Menu_Button;
 
         // -- Methods
-        void Open(uint8_t);
         void Refresh_Desk();
         void Execute_Instruction(Instruction_Type Instruction);
 
@@ -84,7 +87,24 @@ protected:
 
         // -- friendship
         friend class Shell_Class;
-    } Desk;
+    } *Desk_Pointer;
+
+    class Login_Class
+    {
+    public:
+        Login_Class(Shell_Class* Shell_Pointer);
+        ~Login_Class();
+        
+        static void Open(Shell_Class* Shell_Pointer);
+        static bool Is_Openned(Shell_Class* Shell_Pointer);
+        static void Close(Shell_Class* Shell_Pointe);
+
+    private:
+
+        Window_Type Dialog;
+
+        Shell_Class* Shell_Pointer;   
+    } *Login_Pointer;
 
     class Drawer_Class
     {
@@ -140,8 +160,10 @@ protected:
 
         // -- Methods
 
-        File_Manager_Class();
+        File_Manager_Class(Shell_Class* Shell_Pointer);
         ~File_Manager_Class();
+
+        Shell_Class* Shell_Pointer;
 
         static void Open(uint8_t = Idle);
 
@@ -199,7 +221,7 @@ protected:
     public:
         // -- Constructor
 
-        Preferences_Class();
+        Preferences_Class(Shell_Class* Shell_Pointer);
 
         Window_Type Window;
         Tabs_Type Tabs;
@@ -225,6 +247,8 @@ protected:
         char WiFi_Password[sizeof(WiFi.Password)];
 
         char Temporary_String[16];
+        
+        Shell_Class* Shell_Pointer;
 
         IPAddress Local_IP;
         IPAddress Gateway_IP;

@@ -11,7 +11,8 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-Shell_Class::File_Manager_Class::File_Manager_Class()
+Shell_Class::File_Manager_Class::File_Manager_Class(Shell_Class* Shell_Pointer)
+: Shell_Pointer(Shell_Pointer)
 {
     Offset = 0;
     Operation = Browse;

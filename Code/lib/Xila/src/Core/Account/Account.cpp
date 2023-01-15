@@ -324,3 +324,19 @@ Module_Class::Result::Type Xila_Namespace::Account_Class::Login(const char *User
   State = Logged;
   return Result::Success;
 }
+
+Account_Class::User_Class::User_Class(const char* Name)
+{
+  strlcpy(this->Name, Name, sizeof(Name));
+}
+
+void Account_Class::User_Class::Set_State(State_Type State)
+{
+  this->State = State;
+}
+
+Account_Class::State_Type Account_Class::User_Class::Get_State()
+{
+  return State;
+}
+
