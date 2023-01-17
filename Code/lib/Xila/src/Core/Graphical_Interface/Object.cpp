@@ -120,14 +120,14 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(const Module_Class::Instruction_Type* Instruction, Event::Code_Type Event_Code)
+void Object_Class::Add_Event(Module_Class* Module_Pointer, Event_Code_Type Event_Code)
 {
-    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void *)Instruction); // Use user data pointer to store argument of the event.
+    lv_obj_add_event_cb(Get_Pointer(), Graphical_Interface_Class::Event_Handler, (lv_event_code_t)Event_Code, (void*)Module_Pointer); // Use user data pointer to store argument of the event.
 }
 
-bool Object_Class::Remove_Event(const Module_Class::Instruction_Type* Instruction)
+bool Object_Class::Remove_Event(Module_Class* Module_Pointer)
 {
-    return lv_obj_remove_event_cb_with_user_data(Get_Pointer(), Graphical_Interface_Class::Event_Handler, Instruction);
+    return lv_obj_remove_event_cb_with_user_data(Get_Pointer(), Graphical_Interface_Class::Event_Handler, Module_Pointer);
 }
 
 bool Object_Class::Remove_All_Events()
@@ -147,7 +147,7 @@ bool Object_Class::Remove_All_Events()
     }
 }
 
-void Object_Class::Send_Event(Event::Code_Type Event_Code)
+void Object_Class::Send_Event(Event_Code_Type Event_Code)
 {
     lv_event_send(Get_Pointer(), (lv_event_code_t)Event_Code, NULL);
 }

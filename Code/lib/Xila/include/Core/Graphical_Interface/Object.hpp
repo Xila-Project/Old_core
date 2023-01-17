@@ -193,10 +193,10 @@ namespace Xila_Namespace
         // - - Swap
         void Swap(Object_Class Object_To_Swap_With);
         // - - Events
-        void Add_Event(const Module_Class::Instruction_Type* Instruction, Event::Code_Type Event_Code);
-        bool Remove_Event(const Module_Class::Instruction_Type* Instruction);
+        void Add_Event(Module_Class* Module_Pointer, Event_Code_Type Event_Code);
+        bool Remove_Event(Module_Class* Module_Pointer);
         bool Remove_All_Events();
-        void Send_Event(Event::Code_Type Event);
+        void Send_Event(Event_Code_Type Event);
         // - - Layer management
         void Move_Foreground();
         void Move_Background();

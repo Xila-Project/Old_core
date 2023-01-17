@@ -60,15 +60,15 @@ Module_Class::Result::Type Graphical_Interface_Class::Initialize()
 
 void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)
 {
-    static Instruction_Type* Instruction_Pointer;
-    // Convert user data pointer into instruction pointer.
-    Instruction_Pointer = (Instruction_Type*)lv_event_get_user_data(Event);
-    // Set instruction sender (graphical interface)
-    // TODO : Fix this line
-    // Instruction_Pointer->Set_Sender(this);
-    
-    // Send instruction to receiver
-    Instruction_Pointer->Get_Receiver()->Send_Instruction(*Instruction_Pointer);
+    static Instruction_Type Instruction;
+
+    Instruction.Set_Sender(&Graphical_Interface);
+    Instruction.Set_Receiver((Module_Class*)lv_event_get_user_data(Event));
+
+    Instruction.Graphical_Interface.Set_Code(lv_event_get_code(Event));
+    Instruction.Graphical_Interface.Set_Object_Pointer(lv_event_get_target(Event));
+
+    Instruction.Get_Receiver()->Send_Instruction(Instruction);
 }
 
 

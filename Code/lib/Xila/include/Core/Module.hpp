@@ -103,21 +103,31 @@ namespace Xila_Namespace
             Xila_Namespace::Module_Class *Sender;
             Xila_Namespace::Module_Class *Receiver;
 
-          uint32_t Code; 
-  
         public:
 
-            union Arguments {
-                struct Graphical_Interface_Class {
-                    void* Object_Pointer;
-                } Graphical_Interface;
-                
+            class Graphical_Interface_Class
+            {
+            private:
+                uint32_t Code;
+                void* Object_Pointer;
+
+            public:
+                inline Graphical_Interface_Class() : Code(0) {}
+                inline void Set_Code(uint32_t Code) { this->Code = Code; }
+                inline void Set_Object_Pointer(void* Object_Pointer) { this->Object_Pointer = Object_Pointer; }
+                inline uint32_t Get_Code() const { return Code; }
+                inline void* Get_Object_Pointer() const { return Object_Pointer; }
             };
 
 
+            union
+            {
+                Graphical_Interface_Class Graphical_Interface;
+            };
+
             Instruction_Class();
 
-            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments);
+            Instruction_Class(Module_Class *Sender, Module_Class *Receiver);
 
             Instruction_Class(Module_Class *Sender, Module_Class *Receiver, const char *Arguments);
 
@@ -125,13 +135,9 @@ namespace Xila_Namespace
 
             Module_Class *Get_Receiver() const;
 
-            uint32_t Get_Arguments() const;
-
             void Set_Sender(Module_Class *Sender);
 
             void Set_Receiver(Module_Class *Receiver);
-
-            void Set_Arguments(const char *Arguments);
 
             static const Instruction_Class Open;
             static const Instruction_Class Close;
@@ -294,22 +300,6 @@ namespace Xila_Namespace
 
 #define Instruction_Macro()
 
-    bool operator==(const Module_Class::Instruction_Type &First, const Module_Class::Instruction_Type &Second)
-    {
-        if ((First.Instruction) && (First.Get_Arguments() == Second.Get_Arguments()))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    bool operator!=(const Module_Class::Instruction_Type &First, const Module_Class::Instruction_Type &Second)
-    {
-        return !(First == Second);
-    }
 }
 
 #endif

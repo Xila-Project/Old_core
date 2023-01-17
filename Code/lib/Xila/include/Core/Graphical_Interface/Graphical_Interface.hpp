@@ -55,7 +55,7 @@
 
 namespace Xila_Namespace
 {
-    typedef class Graphical_Interface_Class : public Types_Class, public Xila_Namespace::Module_Class
+    class Graphical_Interface_Class : public Types_Class, public Xila_Namespace::Module_Class
     {
     public:
         // - Types

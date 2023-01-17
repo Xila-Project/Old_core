@@ -265,5 +265,9 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "files.associations": {
+    "*.XRF": "json",
+    "iterator": "cpp"
+  }
 }
