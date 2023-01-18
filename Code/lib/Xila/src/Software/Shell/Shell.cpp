@@ -286,7 +286,7 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 
 // -- Shell registry management -- //
 
-Result::Type Shell_Class::Load_Registry()
+Result_Type Shell_Class::Load_Registry()
 {
     char User_Registry_Path[40];
     snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Account.Get_Current_Username());
@@ -295,19 +295,19 @@ Result::Type Shell_Class::Load_Registry()
     if (deserializeJson(Shell_Registry, Registry_File) != DeserializationError::Ok)
     {
         Registry_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Registry_File.close();
     if (strcmp("Shell", Shell_Registry["Registry"] | "") != 0)
     {
         DESK.Background = Default_Background;
-        return Result::Error;
+        return Result_Type::Error;
     }
     DESK.Background = Shell_Registry["Desk Background"] | Default_Background;
-    return Result::Success;
+    return Result_Type::Success;
 }
 
-Result::Type Shell_Class::Save_Registry()
+Result_Type Shell_Class::Save_Registry()
 {
     char User_Registry_Path[40];
     snprintf(User_Registry_Path, sizeof(User_Registry_Path), (Users_Directory_Path "/%s/Registry/Shell.xrf"), Account.Get_Current_Username());
@@ -319,8 +319,8 @@ Result::Type Shell_Class::Save_Registry()
     if (serializeJson(Shell_Registry, Registry_File) == 0)
     {
         Registry_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Registry_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }

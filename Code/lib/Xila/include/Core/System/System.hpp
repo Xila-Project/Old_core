@@ -64,13 +64,13 @@ namespace Xila_Namespace
 
         // -- Methods
 
-        Result::Type Load_Registry();
-        Result::Type Save_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
-        Result::Type Save_Dump();
-        Result::Type Load_Dump();
+        Result_Type Save_Dump();
+        Result_Type Load_Dump();
 
-        Result::Type Load_Executable(File Executable_File);
+        Result_Type Load_Executable(File Executable_File);
 
         void Second_Sleep_Routine();
 

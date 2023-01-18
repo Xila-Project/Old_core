@@ -27,7 +27,7 @@ void Graphical_Interface_Class::Task_Function(void *)
     }
 }
 
-Module_Class::Result::Type Graphical_Interface_Class::Initialize()
+Module_Class::Result_Type Graphical_Interface_Class::Initialize()
 {
     lv_init();
 
@@ -55,7 +55,7 @@ Module_Class::Result::Type Graphical_Interface_Class::Initialize()
 
     Theme.Initialize();
 
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 void Graphical_Interface_Class::Event_Handler(lv_event_t *Event)

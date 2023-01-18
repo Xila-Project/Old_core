@@ -284,8 +284,8 @@ protected:
     uint32_t Next_Refresh;
     char Temporary_Char_Array[6];
 
-    Result::Type Save_Registry();
-    Result::Type Load_Registry();
+    Result_Type Save_Registry();
+    Result_Type Load_Registry();
 
     void Main_Task_Function();
 

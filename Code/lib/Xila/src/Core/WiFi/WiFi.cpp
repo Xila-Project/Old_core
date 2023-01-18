@@ -59,36 +59,36 @@ Xila_Namespace::WiFi_Class::WiFi_Class()
 ///
 /// @brief Load WiFi registry.
 ///
-/// @return Result::Type
+/// @return Result_Type
 ///
-Module_Class::Result::Type Xila_Namespace::WiFi_Class::Load_Registry()
+Module_Class::Result_Type Xila_Namespace::WiFi_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
     if (strcmp(Network_Registry["Registry"] | "", "Network") != 0)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     JsonObject WiFi_Registry = Network_Registry["WiFi"];
     strlcpy(this->Password, WiFi_Registry["Password"] | "\0", sizeof(Password));
     char Temporary_Char[33];
     strlcpy(Temporary_Char, WiFi_Registry["Name"] | "\0", sizeof(Temporary_Char));
     Set_Credentials(Temporary_Char, Password);
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
 /// @brief Save WiFi registry.
 ///
-/// @return Result::Type
+/// @return Result_Type
 ///
-Module_Class::Result::Type Xila_Namespace::WiFi_Class::Save_Registry()
+Module_Class::Result_Type Xila_Namespace::WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";
@@ -99,10 +99,10 @@ Module_Class::Result::Type Xila_Namespace::WiFi_Class::Save_Registry()
     if (serializeJson(Network_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///

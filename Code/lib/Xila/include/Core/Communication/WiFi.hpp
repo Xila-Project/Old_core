@@ -61,8 +61,8 @@ namespace Xila_Namespace
 
         void Set_Credentials(const char *Name, const char *Password);
 
-        static Result::Type Load_Registry();
-        static Result::Type Save_Registry();
+        static Result_Type Load_Registry();
+        static Result_Type Save_Registry();
 
         friend class WiFiClient;
         friend class WiFiServer;

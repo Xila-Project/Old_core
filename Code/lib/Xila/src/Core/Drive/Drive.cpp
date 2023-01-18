@@ -26,20 +26,20 @@ Xila_Namespace::Drive_Class::Drive_Class()
 ///
 /// @param Origin_File File to duplicate
 /// @param Destination_File File to write
-/// @return Result::Type::Success or Result::Type::Error
-Module_Class::Result::Type Xila_Namespace::Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
+/// @return Result_Type::Success or Result_Type::Error
+Module_Class::Result_Type Xila_Namespace::Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_File)
 {
     uint8_t Readed_Bytes;
     uint8_t Buffer[255];
     if (!Origin_File || !Destination_File)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     while ((Readed_Bytes = Origin_File.read(Buffer, sizeof(Buffer))) > 0)
     {
         Destination_File.write(Buffer, Readed_Bytes);
     }
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
@@ -71,23 +71,23 @@ uint16_t Xila_Namespace::Drive_Class::Count_Items(File &Folder)
 /// @param File
 /// @param File_Name
 /// @param Size
-/// @return Result::Type
-Module_Class::Result::Type Xila_Namespace::Drive_Class::Get_Name(File_Type const &File, char *File_Name, size_t Size)
+/// @return Result_Type
+Module_Class::Result_Type Xila_Namespace::Drive_Class::Get_Name(File_Type const &File, char *File_Name, size_t Size)
 {
     if (!File)
     {
-        return Result::Result::Error;
+        return Result_Type::Result_Type::Error;
     }
     if (File.name() == NULL)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
 
     const char *Temporary_File_Name = File.name();
     memset(File_Name, '\0', Size);
     if (!File)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     for (uint8_t i = (strlen(Temporary_File_Name) - 1); i >= 0; i--)
     {
@@ -97,5 +97,5 @@ Module_Class::Result::Type Xila_Namespace::Drive_Class::Get_Name(File_Type const
             break;
         }
     }
-    return Result::Success;
+    return Result_Type::Success;
 }

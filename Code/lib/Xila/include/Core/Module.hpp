@@ -49,24 +49,16 @@ namespace Xila_Namespace
         /// @brief Size Type;
         typedef size_t Size_Type;
 
-        class Result
-        {
-        public:
-            ///
-            /// @brief Functions results enumeration.
-            ///
-            enum Enumeration
-            {
-                Success,
-                Invalid_Argument,
-                Error,       ///< Error event.
-                Warning,     ///< Warning event.
-                Information, ///< Information event.
-                Question,    ///< Question event.
-                None
-            };
 
-            typedef uint8_t Type;
+        enum class Result_Type
+        {
+            Success,
+            Invalid_Argument,
+            Error,       ///< Error event.
+            Warning,     ///< Warning event.
+            Information, ///< Information event.
+            Question,    ///< Question event.
+            None
         };
 
         /// @brief Time class.
@@ -108,43 +100,44 @@ namespace Xila_Namespace
             class Graphical_Interface_Class
             {
             private:
-                uint32_t Code;
+                uint8_t Code;
                 void* Object_Pointer;
 
             public:
                 inline Graphical_Interface_Class() : Code(0) {}
+                inline Graphical_Interface_Class(uint8_t Code, void* Object_Pointer) : Code(Code), Object_Pointer(Object_Pointer) {}
                 inline void Set_Code(uint32_t Code) { this->Code = Code; }
                 inline void Set_Object_Pointer(void* Object_Pointer) { this->Object_Pointer = Object_Pointer; }
                 inline uint32_t Get_Code() const { return Code; }
                 inline void* Get_Object_Pointer() const { return Object_Pointer; }
             };
 
+            class Software_Class
+            {
+            private:
+                uint8_t Code;
+            public:
+                inline Software_Class() : Code(0) {}
+                inline Software_Class(uint8_t Code) : Code(Code) {}
+                inline void Set_Code(uint32_t Code) { this->Code = Code; }
+                inline uint32_t Get_Code() const { return Code; }
+            };
 
             union
             {
                 Graphical_Interface_Class Graphical_Interface;
+                Software_Class Software;
             };
 
             Instruction_Class();
 
             Instruction_Class(Module_Class *Sender, Module_Class *Receiver);
 
-            Instruction_Class(Module_Class *Sender, Module_Class *Receiver, const char *Arguments);
-
             Module_Class *Get_Sender() const;
-
             Module_Class *Get_Receiver() const;
 
             void Set_Sender(Module_Class *Sender);
-
             void Set_Receiver(Module_Class *Receiver);
-
-            static const Instruction_Class Open;
-            static const Instruction_Class Close;
-            static const Instruction_Class Minimize;
-            static const Instruction_Class Maximize;
-            static const Instruction_Class Active;
-            static const Instruction_Class Inactive;
 
         } Instruction_Type;
 
@@ -186,7 +179,7 @@ namespace Xila_Namespace
             Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Normal);
             ~Task_Class();
 
-            Result::Type Set_Priority(Priority_Type Priority);
+            Result_Type Set_Priority(Priority_Type Priority);
 
             void Suspend();
             void Resume();
@@ -237,11 +230,11 @@ namespace Xila_Namespace
 
             Semaphore_Class();
 
-            Result::Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+            Result_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
             // Event_Type Create_Static()
 
             void Delete();
-            Result::Type Take(uint32_t Timeout = 0xFFFFFFFF);
+            Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);
             void Take_Recursive(Tick_Type Tick_To_Wait);
             void Give();
             void Take_From_ISR(Integer *Higher_Priority_Task_Woken);
@@ -261,16 +254,16 @@ namespace Xila_Namespace
             Queue_Class();
             ~Queue_Class();
 
-            Result::Type Create(Size_Type Length, Size_Type Item_Size);
-            Result::Type Create_Static(Size_Type Length, Size_Type Item_Size);
+            Result_Type Create(Size_Type Length, Size_Type Item_Size);
+            Result_Type Create_Static(Size_Type Length, Size_Type Item_Size);
 
             void Delete();
             void Reset();
 
-            Result::Type Send(const void *Item, Tick_Type Ticks_To_Wait, bool Send_To_Front = true);
+            Result_Type Send(const void *Item, Tick_Type Ticks_To_Wait, bool Send_To_Front = true);
             void Overwrite(const void *Buffer);
-            Result::Type Peek(void *Buffer, Tick_Type Ticks_To_Wait);
-            Result::Type Receive(void *Buffer, Tick_Type Ticks_To_Wait);
+            Result_Type Peek(void *Buffer, Tick_Type Ticks_To_Wait);
+            Result_Type Receive(void *Buffer, Tick_Type Ticks_To_Wait);
 
             uint16_t Waiting();
 

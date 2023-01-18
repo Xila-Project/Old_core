@@ -162,8 +162,8 @@ protected:
     uint8_t Output;
 
     // -- Methods -- //
-    Result::Type Save_Registry();
-    Result::Type Load_Registry();
+    Result_Type Save_Registry();
+    Result_Type Load_Registry();
 
     void Begin();
 

@@ -27,16 +27,16 @@ namespace Xila_Namespace
     class Clipboard_Class : public Module_Class
     {
     public:
-        Result::Type Clear();
+        Result_Type Clear();
 
-        Result::Type Copy(uint64_t const &Value_To_Copy);
-        Result::Type Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
-        Result::Type Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
-        Result::Type Copy(const void *Data, Size_Type Data_Size);
+        Result_Type Copy(uint64_t const &Value_To_Copy);
+        Result_Type Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
+        Result_Type Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
+        Result_Type Copy(const void *Data, Size_Type Data_Size);
 
-        Result::Type Paste(uint64_t &Value_To_Paste);
-        Result::Type Paste(char *Char_Array_To_Paste, size_t Char_Array_Length);
-        Result::Type Paste(String &String_To_Paste);
+        Result_Type Paste(uint64_t &Value_To_Paste);
+        Result_Type Paste(char *Char_Array_To_Paste, size_t Char_Array_Length);
+        Result_Type Paste(String &String_To_Paste);
 
     protected:
         ///

@@ -68,8 +68,8 @@ namespace Xila_Namespace
         char NTP_Server[32];
 
         // -- Methods
-        Result::Type Load_Registry();
-        Result::Type Save_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
     } Time;
 }
 

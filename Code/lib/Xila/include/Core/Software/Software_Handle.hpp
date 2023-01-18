@@ -36,7 +36,7 @@ namespace Xila_Namespace
         Software_Handle_Class();
         Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
 
-        Result::Type Create_Instance();
+        Result_Type Create_Instance();
 
         const char *Get_Name() const;
         Create_Instance_Function_Pointer Get_Pointer_Create_Instance() const;

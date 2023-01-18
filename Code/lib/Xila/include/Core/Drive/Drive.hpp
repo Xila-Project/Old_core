@@ -127,8 +127,8 @@ namespace Xila_Namespace
         bool Rename(const char *Path_From, const char *Path_To);
         bool Rename(const String &Path_From, const String &Path_To);
 
-        Result::Type Copy(File_Type &Origin_File, File_Type &Destination_File);
-        Result::Type Get_Name(File_Type const &File, char *File_Name_Buffer, Size_Type Size);
+        Result_Type Copy(File_Type &Origin_File, File_Type &Destination_File);
+        Result_Type Get_Name(File_Type const &File, char *File_Name_Buffer, Size_Type Size);
         uint16_t Count_Items(File_Type &Folder);
 
         // -- Friendship

@@ -127,18 +127,18 @@ Module_Class::Task_Class::Priority_Type Module_Class::Task_Class::Get_Priority()
     }
 }
 
-Module_Class::Result::Type Module_Class::Task_Class::Set_Priority(Priority_Type Priority)
+Module_Class::Result_Type Module_Class::Task_Class::Set_Priority(Priority_Type Priority)
 {
     if (Priority > Idle && Priority < System)
     {
-        return Result::Invalid_Argument;
+        return Result_Type::Invalid_Argument;
     }
     if (Get_State() == Deleted)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     vTaskPrioritySet(Task_Handle, (UBaseType_t)Priority);
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///

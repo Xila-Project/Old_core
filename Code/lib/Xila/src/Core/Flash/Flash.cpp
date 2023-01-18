@@ -20,71 +20,71 @@ uint32_t Xila_Namespace::Flash_Class::Get_Sketch_Size()
     return Sketch_Size(SKETCH_SIZE_TOTAL);
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Read(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_read(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_read(Partition, Offset, Data, Size) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Erase_Sector(uint32_t Sector)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Erase_Sector(uint32_t Sector)
 {
     if (spi_flash_erase_sector(Sector) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Write(uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (spi_flash_write(Offset, (uint32_t *)Data, Size) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Partition_Erase_Range(const esp_partition_t *Partition, uint32_t Offset, size_t Size)
 {
     if (esp_partition_erase_range(Partition, Offset, Size) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Partition_Write(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size)
 {
     if (esp_partition_write(Partition, Offset, Data, Size) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
-Module_Class::Result::Type Xila_Namespace::Flash_Class::Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype)
+Module_Class::Result_Type Xila_Namespace::Flash_Class::Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype)
 {
     if (Partition_Subtype > Xila_Partition)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     if (esp_ota_set_boot_partition(esp_partition_find_first(ESP_PARTITION_TYPE_APP, (esp_partition_subtype_t)Partition_Subtype, NULL)) == ESP_OK)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
 

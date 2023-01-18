@@ -29,6 +29,12 @@ namespace Xila_Namespace
     {
     public:
     
+        enum class Event_Code
+        {
+            Open,
+            Close
+        };
+
         // - Types
         typedef enum State_Enumeration
         {

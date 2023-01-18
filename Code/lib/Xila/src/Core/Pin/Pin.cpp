@@ -26,15 +26,15 @@ void Xila_Namespace::Pin_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
 /// @brief Check if a GPIO is valid for output purpose.
 ///
 /// @param Pin Involved GPIO.
-/// @return Result::Type
-Pin_Class::Result::Type Xila_Namespace::Pin_Class::Valid_Output_Pin(uint8_t Pin)
+/// @return Result_Type
+Pin_Class::Result_Type Xila_Namespace::Pin_Class::Valid_Output_Pin(uint8_t Pin)
 {
     if (digitalPinCanOutput(Pin) == true)
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
 
-    return Result::Error;
+    return Result_Type::Error;
 }
 
 ///
@@ -61,14 +61,14 @@ int16_t Xila_Namespace::Pin_Class::Digital_Read(uint8_t Pin)
 /// @brief Check if a GPIO pin is suitable for digital signals.
 ///
 /// @param Pin Involved GPIO.
-/// @return Result::Type
-Pin_Class::Result::Type Xila_Namespace::Pin_Class::Valid_Digital_Pin(uint8_t Pin)
+/// @return Result_Type
+Pin_Class::Result_Type Xila_Namespace::Pin_Class::Valid_Digital_Pin(uint8_t Pin)
 {
     if (digitalPinIsValid(Pin))
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
-    return Result::Error;
+    return Result_Type::Error;
 }
 
 ///

@@ -31,13 +31,13 @@ namespace Xila_Namespace
         // -- Pin mode
         void Set_Mode(uint8_t Pin, uint8_t Mode);
 
-        Result::Type Valid_Output_Pin(uint8_t Pin);
+        Result_Type Valid_Output_Pin(uint8_t Pin);
 
         // -- Digital
         void Digital_Write(uint8_t Pin, uint8_t State);
         int16_t Digital_Read(uint8_t Pin);
 
-        Result::Type Valid_Digital_Pin(uint8_t Pin);
+        Result_Type Valid_Digital_Pin(uint8_t Pin);
 
         // -- Analog
         uint16_t Analog_Read(uint8_t Pin);

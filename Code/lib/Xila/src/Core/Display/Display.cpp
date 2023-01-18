@@ -58,7 +58,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Module_Class::Result::Type Display_Class::Load_Registry()
+Module_Class::Result_Type Display_Class::Load_Registry()
 {
     using namespace Xila;
     File_Type Temporary_File = Xila::Drive.Open(Registry("Display"));
@@ -67,24 +67,24 @@ Module_Class::Result::Type Display_Class::Load_Registry()
     {
         Temporary_File.close();
         Log_Error("Failed to load display registry.");
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
     if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
         Log_Error("Failed to load display registry.");
-        return Result::Error;
+        return Result_Type::Error;
     }
     Set_Standby_Time(Display_Registry["Standby Time"] | Default_Display_Standby_Time);
     Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
 /// @brief Save display registry
 ///
-/// @return Result::Type
-Display_Class::Result::Type Display_Class::Save_Registry()
+/// @return Result_Type
+Display_Class::Result_Type Display_Class::Save_Registry()
 {
     using namespace Xila;
     File_Type Temporary_File = Xila::Drive.Open(Registry("Display"), FILE_WRITE);
@@ -96,8 +96,8 @@ Display_Class::Result::Type Display_Class::Save_Registry()
     {
         Temporary_File.close();
         Log_Error("Failed to save display registry.");
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }

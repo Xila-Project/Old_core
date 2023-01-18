@@ -29,8 +29,8 @@ Keyboard_Class::Keyboard_Class()
 ///
 /// @brief Load keyboard registry.
 ///
-/// @return Result::Type
-Keyboard_Class::Result::Type Keyboard_Class::Load_Registry()
+/// @return Result_Type
+Keyboard_Class::Result_Type Keyboard_Class::Load_Registry()
 {
     using namespace Xila;
 
@@ -39,26 +39,26 @@ Keyboard_Class::Result::Type Keyboard_Class::Load_Registry()
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
     if (strcmp("Keyboard", Keyboard_Registry["Registry"] | "") != 0)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
     Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
     Layout = Keyboard_Registry["Layout"] | Default_Keyboard_Layout;
 
     Begin();
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
 /// @brief Save keyboard registry.
 ///
-/// @return Result::Type
-Keyboard_Class::Result::Type Keyboard_Class::Save_Registry()
+/// @return Result_Type
+Keyboard_Class::Result_Type Keyboard_Class::Save_Registry()
 {
     using namespace Xila;
 
@@ -71,10 +71,10 @@ Keyboard_Class::Result::Type Keyboard_Class::Save_Registry()
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///

@@ -31,8 +31,8 @@ namespace Xila_Namespace
 
         // -- Methods
 
-        Result::Type Save_Registry();
-        Result::Type Load_Registry();
+        Result_Type Save_Registry();
+        Result_Type Load_Registry();
 
         uint8_t Get_Battery_Charge_Level();
         uint16_t Get_Battery_Voltage();

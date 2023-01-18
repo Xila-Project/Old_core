@@ -29,32 +29,32 @@ Power_Class::Power_Class()
 ///
 /// @brief Load power registry.
 ///
-/// @return Result::Type
-Module_Class::Result::Type Power_Class::Load_Registry()
+/// @return Result_Type
+Module_Class::Result_Type Power_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
     if (strcmp(Power_Registry["Registry"] | "", "Power") != 0)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
     Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
 /// @brief Save power registry.
 ///
-/// @return Result::Type
-Module_Class::Result::Type Power_Class::Save_Registry()
+/// @return Result_Type
+Module_Class::Result_Type Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";
@@ -66,10 +66,10 @@ Module_Class::Result::Type Power_Class::Save_Registry()
     if (serializeJson(Power_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///

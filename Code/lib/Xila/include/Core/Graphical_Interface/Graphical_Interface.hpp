@@ -62,7 +62,7 @@ namespace Xila_Namespace
 
         Theme_Class Theme;
 
-        Result::Type Initialize();
+        Result_Type Initialize();
 
         bool Initialisation_State();
 

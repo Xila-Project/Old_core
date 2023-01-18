@@ -37,20 +37,20 @@ System_Class::~System_Class()
 ///
 /// @brief Load System registry.
 ///
-/// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Registry()
+/// @return Result_Type
+Module_Class::Result_Type System_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
     Temporary_File.close();
-    return Result::Error;
+    return Result_Type::Error;
   }
   Temporary_File.close();
   if (strcmp("System", System_Registry["Registry"] | "") != 0)
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   JsonObject Version = System_Registry["Version"];
   if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
@@ -58,14 +58,14 @@ Module_Class::Result::Type System_Class::Load_Registry()
     Panic_Handler(Installation_Conflict);
   }
   strlcpy(System.Device_Name, System_Registry["Device Name"] | Default_Device_Name, sizeof(System.Device_Name));
-  return Result::Success;
+  return Result_Type::Success;
 }
 
 ///
 /// @brief Save System registry.
 ///
-/// @return Result::Type
-Module_Class::Result::Type System_Class::Save_Registry()
+/// @return Result_Type
+Module_Class::Result_Type System_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -78,10 +78,10 @@ Module_Class::Result::Type System_Class::Save_Registry()
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.close();
-    return Result::Error;
+    return Result_Type::Error;
   }
   Temporary_File.close();
-  return Result::Success;
+  return Result_Type::Success;
 }
 
 void System_Class::Task_Start_Function(void *Instance_Pointer)
@@ -130,36 +130,36 @@ void System_Class::Task_Function()
 /// @brief Update Xila on the MCU.
 ///
 /// @param Update_File Executable file.
-/// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Executable(File Executable_File)
+/// @return Result_Type
+Module_Class::Result_Type System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   if (Executable_File.size() == 0)
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   if (!Update.begin(Executable_File.size(), U_FLASH))
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   size_t Written = Update.writeStream(Executable_File);
   if (Written != Executable_File.size())
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   if (!Update.end())
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
   if (!Update.isFinished())
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
 
-  return Result::Success;
+  return Result_Type::Success;
 }
 
 ///
@@ -184,8 +184,8 @@ void System_Class::Panic_Handler(Panic_Code Panic_Code)
 ///
 /// @brief Save system dump.
 ///
-/// @return Result::Type
-Module_Class::Result::Type System_Class::Save_Dump()
+/// @return Result_Type
+Module_Class::Result_Type System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
@@ -208,17 +208,17 @@ Module_Class::Result::Type System_Class::Save_Dump()
   if (serializeJson(Dump_Registry, Dump_File) == 0)
   {
     Dump_File.close();
-    return Result::Error;
+    return Result_Type::Error;
   }
   Dump_File.close();
-  return Result::Success;
+  return Result_Type::Success;
 }
 
 ///
 /// @brief Load system dump.
 ///
-/// @return Result::Type
-Module_Class::Result::Type System_Class::Load_Dump()
+/// @return Result_Type
+Module_Class::Result_Type System_Class::Load_Dump()
 {
   if (Drive.Exists(Dump_Registry_Path))
   {
@@ -229,14 +229,14 @@ Module_Class::Result::Type System_Class::Load_Dump()
     {
       Dump_File.close();
       Drive.Remove(Dump_Registry_Path);
-      return Result::Error;
+      return Result_Type::Error;
     }
     Dump_File.close();
     Drive.Remove(Dump_Registry_Path);
 
     if (strcmp(Dump_Registry["Registry"] | "", "Dump") != 0)
     {
-      return Result::Error;
+      return Result_Type::Error;
     }
 
     char Temporary_Software_Name[Default_Software_Name_Length];
@@ -265,11 +265,11 @@ Module_Class::Result::Type System_Class::Load_Dump()
       Account.Set_State(Account.Locked);
     }
 
-    return Result::Success;
+    return Result_Type::Success;
   }
   else
   {
-    return Result::Error;
+    return Result_Type::Error;
   }
 }
 
@@ -509,7 +509,7 @@ void System_Class::Start()
   }
 
   // -- Load system registry -- //
-  if (System.Load_Registry() != Result::Success)
+  if (System.Load_Registry() != Result_Type::Success)
   {
     System.Panic_Handler(System.Damaged_System_Registry);
   }
@@ -517,7 +517,7 @@ void System_Class::Start()
 
   // -- Load sound registry --
 
-  if (Sound.Load_Registry() != Result::Success)
+  if (Sound.Load_Registry() != Result_Type::Success)
   {
     Sound.Save_Registry();
   }
@@ -529,33 +529,33 @@ void System_Class::Start()
 
   // -- Load power registry :
 
-  if (Power.Load_Registry() != Result::Success)
+  if (Power.Load_Registry() != Result_Type::Success)
   {
     Power.Save_Registry();
   }
 
   // -- Network registry :
 
-  if (WiFi.Load_Registry() != Result::Success)
+  if (WiFi.Load_Registry() != Result_Type::Success)
   {
     WiFi.Save_Registry();
   }
 
   // -- Time registry
-  if (Time.Load_Registry() != Result::Success)
+  if (Time.Load_Registry() != Result_Type::Success)
   {
     Time.Save_Registry();
   }
 
   // -- Load account registry
 
-  if (Account.Load_Registry() != Result::Success)
+  if (Account.Load_Registry() != Result_Type::Success)
   {
     Account.Set_Autologin(false);
   }
 
   // -- Load Keyboard Registry
-  if (Keyboard.Load_Registry() != Result::Success)
+  if (Keyboard.Load_Registry() != Result_Type::Success)
   {
     Keyboard.Save_Registry(); // recreate a keyboard registry with default values
   }

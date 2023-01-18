@@ -106,7 +106,14 @@ namespace Xila_Namespace
         Layout_Changed = LV_EVENT_LAYOUT_CHANGED,
         Get_Self_Size = LV_EVENT_GET_SELF_SIZE,
 
-        Last_Event = _LV_EVENT_LAST
+        Last_Event = _LV_EVENT_LAST,
+
+        // - - Other events
+        Minimized,
+        Maximized,
+        Active,
+        Inactive
+
     };
 
     class Types_Class

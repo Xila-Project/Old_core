@@ -47,21 +47,21 @@ void Sound_Class::Begin()
 ///
 /// @brief A method that load sound registry.
 ///
-/// @return Result::Type
+/// @return Result_Type
 ///
-Result::Type Sound_Class::Load_Registry()
+Result_Type Sound_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
     if (strcmp("Sound", Sound_Registry["Registry"] | "") != 0)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     Output = Sound_Registry["Output"] | Default_Sound_Output;
     if (Output == Internal_DAC)
@@ -80,14 +80,14 @@ Result::Type Sound_Class::Load_Registry()
         Set_Channels(2);
     }
     Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
  /// @brief Save sound registry.
  /// 
- /// @return Result::Type 
-Result::Type Sound_Class::Save_Registry()
+ /// @return Result_Type 
+Result_Type Sound_Class::Save_Registry()
 {
     DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";
@@ -100,10 +100,10 @@ Result::Type Sound_Class::Save_Registry()
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
         Temporary_File.close();
-        return Result::Error;
+        return Result_Type::Error;
     }
     Temporary_File.close();
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///
@@ -322,7 +322,7 @@ uint8_t Sound_Class::Play(File &File_To_Play)
         return Failed_To_Open_File;
     }
 
-    return Result::Success;
+    return Result_Type::Success;
 }
 
 ///

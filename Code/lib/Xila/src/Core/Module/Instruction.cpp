@@ -21,21 +21,18 @@ const Module_Class::Instruction_Class Module_Class::Instruction_Class::Inactive(
 const Module_Class::Instruction_Class Module_Class::Instruction_Class::Minimize(NULL, NULL, "Mini");
 const Module_Class::Instruction_Class Module_Class::Instruction_Class::Maximize(NULL, NULL, "Maxi");
 
-Module_Class::Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver, uint32_t Arguments)
-    : Sender(Sender),
-      Receiver(Receiver),
-      Arguments(Arguments){};
-
-Module_Class::Instruction_Class::Instruction_Class()
-    : Sender(NULL),
-      Receiver(NULL),
-      Arguments(0){};
-
-Module_Class::Instruction_Class::Instruction_Class(Module_Class* Sender, Module_Class* Receiver, const char* Arguments)
+Module_Class::Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver)
     : Sender(Sender),
       Receiver(Receiver)
 {
-    memcpy(&this->Arguments, Arguments, sizeof(this->Arguments));
+
+}
+
+Module_Class::Instruction_Class::Instruction_Class()
+    : Sender(NULL),
+      Receiver(NULL)
+{
+
 }
 
 Module_Class* Module_Class::Instruction_Class::Get_Sender() const
@@ -48,11 +45,6 @@ Module_Class* Module_Class::Instruction_Class::Get_Receiver() const
     return Receiver;
 }
 
-uint32_t Module_Class::Instruction_Class::Get_Arguments() const
-{
-    return Arguments;
-}
-
 void Module_Class::Instruction_Class::Set_Sender(Module_Class* Sender)
 {
     this->Sender = Sender;
@@ -61,9 +53,4 @@ void Module_Class::Instruction_Class::Set_Sender(Module_Class* Sender)
 void Module_Class::Instruction_Class::Set_Receiver(Module_Class* Receiver)
 {
     this->Receiver = Receiver;
-}
-
-void Module_Class::Instruction_Class::Set_Arguments(const char* Arguments)
-{
-    memcpy(&this->Arguments, Arguments, sizeof(Arguments));
 }

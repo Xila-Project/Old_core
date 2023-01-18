@@ -16,11 +16,11 @@ Module_Class::Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
-Module_Class::Result::Type Module_Class::Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
+Module_Class::Result_Type Module_Class::Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
 
     switch (Type)
@@ -40,11 +40,11 @@ Module_Class::Result::Type Module_Class::Semaphore_Class::Create(Type_Type Type,
 
     if (Semaphore_Handle == NULL)
     {
-        return Result::Error;
+        return Result_Type::Error;
     }
     else
     {
-        return Result::Success;
+        return Result_Type::Success;
     }
 }
 
@@ -77,28 +77,28 @@ void Module_Class::Semaphore_Class::Give()
     xSemaphoreGive(Semaphore_Handle);
 }
 
-Module_Class::Result::Type Module_Class::Semaphore_Class::Take(uint32_t Timeout)
+Module_Class::Result_Type Module_Class::Semaphore_Class::Take(uint32_t Timeout)
 {
     if (Timeout = 0xFFFFFFFFF)
     {
         if (xSemaphoreTake(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
         {
-            return Result::Error;
+            return Result_Type::Error;
         }
         else
         {
-            return Result::Success;
+            return Result_Type::Success;
         }
     }
     else
     {
         if (xSemaphoreTake(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
         {
-            return Result::Error;
+            return Result_Type::Error;
         }
         else
         {
-            return Result::Success;
+            return Result_Type::Success;
         }
     }
 }
