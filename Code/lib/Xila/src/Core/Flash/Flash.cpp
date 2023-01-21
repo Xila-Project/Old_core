@@ -181,7 +181,7 @@ uint32_t Xila_Namespace::Flash_Class::Sketch_Size(sketchSize_t Response)
 uint32_t Xila_Namespace::Flash_Class::Get_Size()
 {
     esp_image_header_t fhdr;
-    if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
+    if ((Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) == Result_Type::Success) && (fhdr.magic != ESP_IMAGE_HEADER_MAGIC))
     {
         return 0;
     }
@@ -195,7 +195,7 @@ uint32_t Xila_Namespace::Flash_Class::Get_Size()
 uint32_t Xila_Namespace::Flash_Class::Get_Speed()
 {
     esp_image_header_t fhdr;
-    if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
+    if ((Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) == Result_Type::Success) && (fhdr.magic != ESP_IMAGE_HEADER_MAGIC))
     {
         return 0;
     }
@@ -209,7 +209,7 @@ uint32_t Xila_Namespace::Flash_Class::Get_Speed()
 FlashMode_t Xila_Namespace::Flash_Class::Get_Mode()
 {
     esp_image_header_t fhdr;
-    if (Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) && fhdr.magic != ESP_IMAGE_HEADER_MAGIC)
+    if ((Read(0x1000, (uint32_t *)&fhdr, sizeof(esp_image_header_t)) == Result_Type::Success) && (fhdr.magic != ESP_IMAGE_HEADER_MAGIC))
     {
         return FM_UNKNOWN;
     }

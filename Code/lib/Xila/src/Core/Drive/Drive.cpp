@@ -76,7 +76,7 @@ Module_Class::Result_Type Xila_Namespace::Drive_Class::Get_Name(File_Type const 
 {
     if (!File)
     {
-        return Result_Type::Result_Type::Error;
+        return Result_Type::Error;
     }
     if (File.name() == NULL)
     {

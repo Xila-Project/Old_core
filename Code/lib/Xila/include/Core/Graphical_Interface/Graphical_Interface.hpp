@@ -55,10 +55,12 @@
 
 namespace Xila_Namespace
 {
-    class Graphical_Interface_Class : public Types_Class, public Xila_Namespace::Module_Class
+    typedef class Graphical_Interface_Class : public Types_Class, public Xila_Namespace::Module_Class
     {
     public:
-        // - Types
+        
+        // - Constructor
+        Graphical_Interface_Class();
 
         Theme_Class Theme;
 
@@ -72,6 +74,8 @@ namespace Xila_Namespace
         static void Event_Handler(lv_event_t *Event);
 
         void Clear_Cache();
+
+
 
     protected:
         // - - Drivers
@@ -93,7 +97,9 @@ namespace Xila_Namespace
         void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
         lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
         lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
-    } Graphical_Interface;
+    } Graphical_Interface_Type;
+
+    extern Graphical_Interface_Type Graphical_Interface;
 }
 
 #endif

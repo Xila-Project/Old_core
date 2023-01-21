@@ -36,10 +36,6 @@ Module_Class::Module_Class(Size_Type Queue_Size)
         {
             delete this;
         }
-        else
-        {
-            Send_Instruction(Instruction_Type::Open);
-        }
     }
     vTaskDelay(pdMS_TO_TICKS(5));
 }
@@ -48,8 +44,6 @@ Module_Class::~Module_Class()
 {
     vQueueDelete(Instruction_Queue_Handle);
 }
-
-
 
 // ------------------------------------------------------------------------- //
 //
@@ -67,20 +61,6 @@ void Module_Class::Send_Instruction(const Instruction_Type &Instruction)
 {
     xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
 }
-
-///
-/// @brief Convert 2 byte char instruction into Xila Instruction and send it.
-///
-/// @param Instruction_Char_1 Instruction first byte
-/// @param Instruction_Char_2 Instruction second byte
-void Module_Class::Send_Instruction(Module_Class *Sender, const char Arguments[4])
-{
-    static Instruction_Type Current_Instruction;
-    Current_Instruction.Set_Sender(Sender);
-    Current_Instruction.Set_Arguments(Arguments);
-    Send_Instruction(Current_Instruction);
-}
-
 
 // ------------------------------------------------------------------------- //
 //
@@ -111,8 +91,8 @@ Module_Class::Instruction_Type Module_Class::Get_Instruction()
     if (xQueueReceive(Instruction_Queue_Handle, &Current_Instruction, 0) != pdTRUE)
     {
         Current_Instruction.Set_Sender(NULL);
-        Current_Instruction.Set_Sender(NULL);
-        Current_Instruction.Set_Arguments(0);
+        Current_Instruction.Set_Receiver(NULL);
+
     }
     return Current_Instruction;
 }

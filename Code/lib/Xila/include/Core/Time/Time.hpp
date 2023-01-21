@@ -21,18 +21,17 @@ namespace Xila_Namespace
     class Time_Class : public Module_Class
     {
     public:
+        // - Constructor
+        Time_Class();
+        
         // -- Methods
         tm Get_Time();
         void Synchronize();
 
         uint32_t Get_Cycle_Count();
 
-        uint32_t Milliseconds();
-        int64_t Microseconds();
-
-        // -- Time constructor / destructor
-
-        Time_Class();
+        uint32_t Milliseconds() const;
+        int64_t Microseconds() const;
 
         // -- Friendship
         friend class Xila_Class;
@@ -70,7 +69,9 @@ namespace Xila_Namespace
         // -- Methods
         Result_Type Load_Registry();
         Result_Type Save_Registry();
-    } Time;
+    };
+
+    extern Time_Class Time;
 }
 
 #endif

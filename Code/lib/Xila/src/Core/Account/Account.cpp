@@ -295,28 +295,27 @@ Module_Class::Result_Type Account_Class::Logout(const char* Name)
 {
 
   // Iterate through the list of users by index.
-  for (uint8_t i = 0; i < User_Class::List.size(); i++)
+  for (auto &User : User_Class::List)
   {
     // If the user is found
-    if ((strcmp(User_Class::List[i].Get_Name(), Name) == 0) && (User_Class::List[i].Get_State() == State_Type::Logged))
+    if ((strcmp(User.Get_Name(), Name) == 0) && (User.Get_State() == State_Type::Logged))
     {
-      User_Class::List[i].Set_State(State_Type::Logged);
+      User.Set_State(State_Type::Logged);
       // TODO : Send a message to user software.
       // Remove user from the list.
-
-      User_Class::List.erase(i);
+      User_Class::List.erase(&User);
       break;
     }
     else
     {
       // If the user is not found
-      if (i == User_Class::List.size())
+      if (&User == &User_Class::List.back())
       {
         return Result_Type::Error;
       }
     }
   }
-
+  
   return Result_Type::Success;
 }
 
@@ -420,14 +419,3 @@ Account_Class::User_Class::User_Class(const char* Name, State_Type State = State
 {
   strlcpy(this->Name, Name, sizeof(Name));
 }
-
-void Account_Class::User_Class::Set_State(State_Type State)
-{
-  this->State = State;
-}
-
-Account_Class::State_Type Account_Class::User_Class::Get_State() const
-{
-  return State;
-}
-

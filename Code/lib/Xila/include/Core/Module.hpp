@@ -49,7 +49,7 @@ namespace Xila_Namespace
         /// @brief Size Type;
         typedef size_t Size_Type;
 
-
+        /// @brief Result type.
         enum class Result_Type
         {
             Success,
@@ -96,26 +96,26 @@ namespace Xila_Namespace
             Xila_Namespace::Module_Class *Receiver;
 
         public:
-
             class Graphical_Interface_Class
             {
             private:
                 uint8_t Code;
-                void* Object_Pointer;
+                void *Object_Pointer;
 
             public:
                 inline Graphical_Interface_Class() : Code(0) {}
-                inline Graphical_Interface_Class(uint8_t Code, void* Object_Pointer) : Code(Code), Object_Pointer(Object_Pointer) {}
+                inline Graphical_Interface_Class(uint8_t Code, void *Object_Pointer) : Code(Code), Object_Pointer(Object_Pointer) {}
                 inline void Set_Code(uint32_t Code) { this->Code = Code; }
-                inline void Set_Object_Pointer(void* Object_Pointer) { this->Object_Pointer = Object_Pointer; }
+                inline void Set_Object_Pointer(void *Object_Pointer) { this->Object_Pointer = Object_Pointer; }
                 inline uint32_t Get_Code() const { return Code; }
-                inline void* Get_Object_Pointer() const { return Object_Pointer; }
+                inline void *Get_Object_Pointer() const { return Object_Pointer; }
             };
 
             class Software_Class
             {
             private:
                 uint8_t Code;
+
             public:
                 inline Software_Class() : Code(0) {}
                 inline Software_Class(uint8_t Code) : Code(Code) {}
@@ -151,7 +151,7 @@ namespace Xila_Namespace
 
             typedef void Task_Function(void *);
 
-            typedef enum Priority_Enumeration
+            enum class Priority_Type
             {
                 Idle = 0,
                 Background,
@@ -160,9 +160,9 @@ namespace Xila_Namespace
                 High,
                 System,
                 Driver
-            } Priority_Type;
+            };
 
-            typedef enum State_Enumeration
+            enum class State_Type
             {
                 Running = eRunning,
                 Ready = eReady,
@@ -170,13 +170,13 @@ namespace Xila_Namespace
                 Suspended = eSuspended,
                 Deleted = eDeleted,
                 Invalid = eInvalid,
-            } State_Type;
+            };
 
             // - Methods
 
             Task_Class(xTaskHandle Handle);
             // - Constructors / Destructors
-            Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Normal);
+            Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
             ~Task_Class();
 
             Result_Type Set_Priority(Priority_Type Priority);
@@ -279,7 +279,6 @@ namespace Xila_Namespace
         ~Module_Class();
 
         void Send_Instruction(const Instruction_Type &Instruction);
-        void Send_Instruction(Module_Class *Sender, const char Arguments[4]);
 
         Instruction_Type Get_Instruction();
         Size_Type Instruction_Available();

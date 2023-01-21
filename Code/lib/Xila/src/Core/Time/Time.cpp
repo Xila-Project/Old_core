@@ -12,10 +12,12 @@
 
 using namespace Xila_Namespace;
 
+Time_Class Time();
+
 ///
- /// @brief Construct a new Xila_Namespace::Time_Class::Time_Class object
+ /// @brief Construct a new Time_Class::Time_Class object
  /// 
-Xila_Namespace::Time_Class::Time_Class()
+Time_Class::Time_Class()
     : GMT_Offset(Default_GMT_Offset),
       Daylight_Offset(Default_Daylight_Offset)
 {
@@ -26,7 +28,7 @@ Xila_Namespace::Time_Class::Time_Class()
  /// @brief Return cycle count since the system startup.
  /// 
  /// @return uint32_t Cycle count.
-uint32_t IRAM_ATTR Xila_Namespace::Time_Class::Get_Cycle_Count()
+uint32_t IRAM_ATTR Time_Class::Get_Cycle_Count()
 {
   uint32_t ccount;
   __asm__ __volatile__("esync; rsr %0,ccount"
@@ -38,7 +40,7 @@ uint32_t IRAM_ATTR Xila_Namespace::Time_Class::Get_Cycle_Count()
  /// @brief Save time registry.
  /// 
  /// @return Result_Type 
-Module_Class::Result_Type Xila_Namespace::Time_Class::Save_Registry()
+Module_Class::Result_Type Time_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open(Registry("Time"), FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
@@ -60,7 +62,7 @@ Module_Class::Result_Type Xila_Namespace::Time_Class::Save_Registry()
  /// @brief Load time registry.
  /// 
  /// @return Result_Type 
-Module_Class::Result_Type Xila_Namespace::Time_Class::Load_Registry()
+Module_Class::Result_Type Time_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);
@@ -84,7 +86,7 @@ Module_Class::Result_Type Xila_Namespace::Time_Class::Load_Registry()
 ///
  /// @brief Synchronize time.
  /// 
-void Xila_Namespace::Time_Class::Synchronize()
+void Time_Class::Synchronize()
 {
   time(&Now);
   localtime_r(&Now, &Current_Time);
@@ -94,18 +96,18 @@ void Xila_Namespace::Time_Class::Synchronize()
  /// @brief Return current time.
  /// 
  /// @return tm Time structure.
-tm Xila_Namespace::Time_Class::Get_Time()
+tm Time_Class::Get_Time()
 {
   Synchronize();
   return Current_Time;
 }
 
-uint32_t Xila_Namespace::Time_Class::Milliseconds() const
+uint32_t Time_Class::Milliseconds() const
 {
   return (uint32_t)(esp_timer_get_time() / 1000ULL);
 }
 
-int64_t Xila_Namespace::Time_Class::Microseconds() const
+int64_t Time_Class::Microseconds() const
 {
   return esp_timer_get_time();
 }

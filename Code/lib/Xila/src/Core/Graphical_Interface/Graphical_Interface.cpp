@@ -17,13 +17,20 @@
 
 using namespace Xila_Namespace;
 
-void Graphical_Interface_Class::Task_Function(void *)
+Graphical_Interface_Type Graphical_Interface();
+
+Graphical_Interface_Class::Graphical_Interface_Class() : Task(this, Task_Function, "Graphical_Interface", 2048, NULL, Task_Type::Priority_Type::System)
+{
+
+}
+
+void Graphical_Interface_Class::Task_Function(void * Graphical_Interface)
 {
     while (true)
     {
         lv_tick_inc(6);
         lv_timer_handler();
-        vTaskDelay(pdMS_TO_TICKS(6));
+        Module_Class::Task_Type::Delay_Static(6);
     }
 }
 
