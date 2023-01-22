@@ -24,7 +24,7 @@
 
 namespace Xila_Namespace
 {
-    class Clipboard_Class : public Module_Class
+    typedef class Clipboard_Class : public Module_Class
     {
     public:
         Result_Type Clear();
@@ -48,7 +48,9 @@ namespace Xila_Namespace
         /// @brief Split number array.
         ///
         uint8_t Split_Number[8];
-    } Clipboard;
+    } Clipboard_Type;
+
+    extern Clipboard_Type Clipboard;
 
 }
 

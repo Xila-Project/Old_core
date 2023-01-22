@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifdef Kit_WT32_SC01
+#if Display_Hardware == Display_Wireless_Tag_WT32_SC01
 
 #define LGFX_USE_V1
 #include "LovyanGFX.hpp"

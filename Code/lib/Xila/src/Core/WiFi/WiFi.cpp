@@ -8,59 +8,20 @@
 /// @copyright Copyright (c) 2021
 ///
 
-/*
- ESP8266WiFi.cpp - WiFi library for esp8266
-
- Copyright (c) 2014 Ivan Grokhotkov. All rights reserved.
- This file is part of the esp8266 core for Arduino environment.
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
-
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-
- Reworked on 28 Dec 2015 by Markus Sattler
-
- */
-
 #include "Core/Communication/WiFi.hpp"
 
-extern "C"
-{
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <inttypes.h>
-#include <string.h>
-#include <esp_err.h>
-#include <esp_wifi.h>
-#include <esp_event_loop.h>
-}
+WiFi_Type WiFi();
 
-///
  /// @brief Construct a new WiFi_Class object
  /// 
 Xila_Namespace::WiFi_Class::WiFi_Class()
 {
-    prov_enable = false;
     memset(Password, '\0', sizeof(Password));
 }
 
-///
 /// @brief Load WiFi registry.
 ///
 /// @return Result_Type
-///
 Module_Class::Result_Type Xila_Namespace::WiFi_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open((Registry("Network")));
@@ -105,7 +66,6 @@ Module_Class::Result_Type Xila_Namespace::WiFi_Class::Save_Registry()
     return Result_Type::Success;
 }
 
-///
  /// @brief Function that allow to set credentials and connect to a WiFi network.
  /// 
  /// @param Name SSID of the access point.
@@ -115,70 +75,4 @@ void Xila_Namespace::WiFi_Class::Set_Credentials(const char *Name, const char *P
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);
     begin(Name, this->Password);
-}
-
-///
- /// @brief Output WiFi settings to an object derived from Print interface (like Serial).
- /// 
- /// @param p Print object to output.
-void Xila_Namespace::WiFi_Class::printDiag(Print &p)
-{
-    const char *modes[] = {"NULL", "STA", "AP", "STA+AP"};
-
-    wifi_mode_t mode;
-    esp_wifi_get_mode(&mode);
-
-    uint8_t primaryChan;
-    wifi_second_chan_t secondChan;
-    esp_wifi_get_channel(&primaryChan, &secondChan);
-
-    p.print("Mode: ");
-    p.println(modes[mode]);
-
-    p.print("Channel: ");
-    p.println(primaryChan);
-    /*
-        p.print("AP id: ");
-        p.println(wifi_station_get_current_ap_id());
-
-        p.print("Status: ");
-        p.println(wifi_station_get_connect_status());
-    */
-
-    wifi_config_t conf;
-    esp_wifi_get_config(WIFI_IF_STA, &conf);
-
-    const char *ssid = reinterpret_cast<const char *>(conf.sta.ssid);
-    p.print("SSID (");
-    p.print(strlen(ssid));
-    p.print("): ");
-    p.println(ssid);
-
-    const char *passphrase = reinterpret_cast<const char *>(conf.sta.password);
-    p.print("Passphrase (");
-    p.print(strlen(passphrase));
-    p.print("): ");
-    p.println(passphrase);
-
-    p.print("BSSID set: ");
-    p.println(conf.sta.bssid_set);
-}
-
-///
- /// @brief 
- /// 
- /// @param status 
-void Xila_Namespace::WiFi_Class::enableProv(bool status)
-{
-    prov_enable = status;
-}
-
-///
- /// @brief Return prov state.
- /// 
- /// @return true 
- /// @return false 
-bool Xila_Namespace::WiFi_Class::isProvEnabled()
-{
-    return prov_enable;
 }

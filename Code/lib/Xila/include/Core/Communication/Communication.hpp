@@ -15,11 +15,14 @@
 
 namespace Xila_Namespace
 {
-   class Communication_Class
+   typedef class Communication_Class
    {
+      
 
       
-   };
+   } Communication_Type;
+
+   extern Communication_Type Communication;
 }
 
 #endif

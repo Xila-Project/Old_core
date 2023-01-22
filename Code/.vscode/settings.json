@@ -274,6 +274,19 @@
     "string": "cpp",
     "unordered_map": "cpp",
     "unordered_set": "cpp",
-    "string_view": "cpp"
+    "string_view": "cpp",
+    "array": "cpp",
+    "chrono": "cpp",
+    "deque": "cpp",
+    "vector": "cpp",
+    "memory": "cpp",
+    "memory_resource": "cpp",
+    "optional": "cpp",
+    "random": "cpp",
+    "system_error": "cpp",
+    "thread": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "initializer_list": "cpp"
   }
 }

@@ -128,7 +128,6 @@ void Power_Class::Deep_Sleep()
     Drive.End();
 
     Task_Type::Delay_Static(10);
-
-    esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
+    esp_sleep_enable_ext0_wakeup((gpio_num_t)Power_Button_Pin, LOW);
     esp_deep_sleep_start();
 }

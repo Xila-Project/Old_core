@@ -14,6 +14,8 @@
 
 using namespace Xila_Namespace;
 
+Account_Type Account();
+
 ///
 /// @brief Construct a new Account_Class::Account_Class object
 ///
@@ -293,29 +295,24 @@ Module_Class::Result_Type Account_Class::Change_Password(const char *Name, const
 /// @return Result_Type
 Module_Class::Result_Type Account_Class::Logout(const char* Name)
 {
-
   // Iterate through the list of users by index.
-  for (auto &User : User_Class::List)
+  for (auto User = User_Class::List.begin(); User != User_Class::List.end(); User++)
   {
-    // If the user is found
-    if ((strcmp(User.Get_Name(), Name) == 0) && (User.Get_State() == State_Type::Logged))
+    if ((strcmp(User->Get_Name(), Name) == 0) && (User->Get_State() == State_Type::Logged))
     {
-      User.Set_State(State_Type::Logged);
+      User->Set_State(State_Type::Logged);
       // TODO : Send a message to user software.
       // Remove user from the list.
-      User_Class::List.erase(&User);
+      User_Class::List.erase(User);
       break;
     }
-    else
+    // If the user is not found
+    else if (User == User_Class::List.end())
     {
-      // If the user is not found
-      if (&User == &User_Class::List.back())
-      {
-        return Result_Type::Error;
-      }
+      return Result_Type::Error;
     }
   }
-  
+
   return Result_Type::Success;
 }
 

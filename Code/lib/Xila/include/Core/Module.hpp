@@ -87,6 +87,26 @@ namespace Xila_Namespace
             uint16_t Get_Year();
         };
 
+        typedef class IP_Address_Class
+        {
+        public:
+            IP_Address_Class();
+            IP_Address_Class(uint32_t Address);
+            IP_Address_Class(const uint8_t* Address, bool Is_IPv4 = true);
+            IP_Address_Class(uint8_t Byte_1, uint8_t Byte_2, uint8_t Byte_3, uint8_t Byte_4);
+
+
+        private:
+
+            bool Is_IPv4;
+
+            union {
+                uint32_t Address;
+                uint8_t Byte[128];
+            };
+
+        } IP_Address_Type;
+
         // TODO : Add all base instruction (like minimize, maximize, etc.)
         /// @brief Xila instruction type.
         typedef class Instruction_Class
@@ -119,8 +139,8 @@ namespace Xila_Namespace
             public:
                 inline Software_Class() : Code(0) {}
                 inline Software_Class(uint8_t Code) : Code(Code) {}
-                inline void Set_Code(uint32_t Code) { this->Code = Code; }
-                inline uint32_t Get_Code() const { return Code; }
+                inline void Set_Code(uint8_t Code) { this->Code = Code; }
+                inline uint8_t Get_Code() const { return Code; }
             };
 
             union

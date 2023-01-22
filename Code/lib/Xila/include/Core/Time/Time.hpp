@@ -18,7 +18,7 @@
 
 namespace Xila_Namespace
 {
-    class Time_Class : public Module_Class
+    typedef class Time_Class : public Module_Class
     {
     public:
         // - Constructor
@@ -69,9 +69,11 @@ namespace Xila_Namespace
         // -- Methods
         Result_Type Load_Registry();
         Result_Type Save_Registry();
-    };
 
-    extern Time_Class Time;
+        friend class Shell_Class;
+    } Time_Type;
+
+    extern Time_Type Time;
 }
 
 #endif

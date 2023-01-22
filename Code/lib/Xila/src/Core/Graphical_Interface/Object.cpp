@@ -15,6 +15,13 @@
 
 using namespace Xila;
 
+
+
+bool operator==(const Object_Type& Object_1, const Object_Type& Object_2)
+{
+    return Object_1.Get_Pointer() == Object_2.Get_Pointer();
+}
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Constructor

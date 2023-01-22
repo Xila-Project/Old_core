@@ -13,16 +13,29 @@
 
 #include "Arduino.h"
 
-// Kit enumeration
+// - Display hardware enumeration
+#define Display_None                            0
+#define Display_Wireless_Tag_WT32_SC01          1
+#define Display_Wireless_Tag_WT32_SC01_Plus     2
 
-#define Kit_WT32_SC01
-#define Kit_WT32_SC01_Plus
+// - Drive hardware enumeration
 
-// Display enumeration
+#define Drive_None      0
+#define Drive_SD_MMC    1
+#define Drive_SD_SPI    2
 
-// Drive enumeration
+// - WiFi hardware enumeration
 
-//#define Drive_SD_MMC
-#define Drive_SD_SPI
+#define WiFi_Hardware_None      0
+#define WiFi_Hardware_ESP32     1
+
+// - Power hardware enumeration
+#define Battery_None        0
+#define Regular_Battery     1
+
+// - Keyboard hardware enumeration
+
+#define Keyboard_Hardware_None  0
+#define Keyboard_Hardware_PS2   1
 
 #endif

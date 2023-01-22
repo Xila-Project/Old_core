@@ -58,25 +58,8 @@ void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
 ///
 void Software_Class::Close()
 {
-  this->Send_Instruction(Instruction_Type::Close);
-}
-
-///
-/// @brief Function that minimize software (and maximize Shell).
-///
-/// @param Software_Handle Software's handle to minimize.
-void Software_Class::Minimize()
-{
-  this->Send_Instruction(Instruction_Type::Minimize);
-}
-
-///
-/// @brief Function that maximize software (and minimize current maximized software).
-///
-/// @param Software_Handle Software handle to maximize.
-void Software_Class::Maximize()
-{
-  this->Send_Instruction(Instruction_Type::Maximize);
+  Instruction_Type Instruction(this, this);
+  Instruction.Software.Set_Code((uint8_t)Event_Code_Type::Close);
 }
 
 void Software_Class::Main_Task_Function()

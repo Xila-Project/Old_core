@@ -12,7 +12,7 @@
 
 using namespace Xila_Namespace;
 
-Time_Class Time();
+Time_Type Time();
 
 ///
  /// @brief Construct a new Time_Class::Time_Class object
@@ -78,7 +78,7 @@ Module_Class::Result_Type Time_Class::Load_Registry()
   }
   GMT_Offset = Time_Registry["GMT Offset"] | Default_GMT_Offset;
   Daylight_Offset = Time_Registry["Daylight Offset"] | Default_Daylight_Offset;
-  strlcpy(NTP_Server, Time_Registry["NTP Server"] | Default_NTP_Server, sizeof(NTP_Server));
+  strlcpy(NTP_Server, Time_Registry["NTP Server"] | Stringizing(Default_NTP_Server), sizeof(NTP_Server));
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   return Result_Type::Success;
 }

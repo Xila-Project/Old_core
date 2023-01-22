@@ -21,7 +21,7 @@
 
 namespace Xila_Namespace
 {
-    class System_Class : public Module_Class
+    typedef class System_Class : public Module_Class
     {
     public:
         // -- Constructors
@@ -91,7 +91,9 @@ namespace Xila_Namespace
         void Panic_Handler(Panic_Code Panic_Code);
 
         void Execute_Startup_Function();
-    } System;
+    } System_Type;
+
+    extern System_Type System;
 }
 
 #endif

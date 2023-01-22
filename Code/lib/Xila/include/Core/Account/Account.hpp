@@ -19,7 +19,7 @@ namespace Xila_Namespace
     ///
     /// @brief Account management class
     ///
-    class Account_Class : public Module_Class
+    typedef class Account_Class : public Module_Class
     {
     public:
         // - Types
@@ -93,7 +93,10 @@ namespace Xila_Namespace
         // -- Setter
 
         Result_Type Load_Registry();
-    } Account;
+    } Account_Type;
+
+
+    extern Account_Type Account;
 
 }
 

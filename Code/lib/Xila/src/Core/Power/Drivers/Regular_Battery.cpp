@@ -8,6 +8,8 @@
 /// @copyright Copyright (c) 2022
 ///
 
+#ifdef Power_Hardware == Regular_Battery
+
 #include "Core/Power/Power.hpp"
 
 #include "Battery_Library.hpp"
@@ -25,3 +27,5 @@ uint16_t Power_Class::Get_Battery_Voltage()
 {
     return Battery.Get_Voltage();
 }
+
+#endif

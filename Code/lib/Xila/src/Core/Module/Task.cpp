@@ -16,16 +16,16 @@ using namespace Xila_Namespace;
 
 Module_Class::Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module)
 {
-    if (Priority > High || Priority < Background)
+    if ((Priority > Priority_Type::High) || (Priority < Priority_Type::Background))
     {
-        Priority = Normal;
+        Priority = Priority_Type::Normal;
     }
     xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY);
 }
 
 Module_Class::Task_Class::~Task_Class()
 {
-    if (Task_Handle != NULL || Get_State() != Deleted || Get_State() != Invalid)
+    if ((Task_Handle != NULL) || (Get_State() != State_Type::Deleted) || (Get_State() != State_Type::Invalid))
     {
         vTaskDelete(Task_Handle);
     }
@@ -45,7 +45,7 @@ void Module_Class::Task_Class::Check_Watchdogs()
     for (auto Task_Pointer = List.begin(); Task_Pointer != List.end(); Task_Pointer++)
     {
         // Check if a running or active task hasn't refresh its watchdog.
-        if (((*Task_Pointer)->Get_State() == Running || (*Task_Pointer)->Get_State() == Ready) && (Time.Milliseconds() - (*Task_Pointer)->Watchdog_Timer > (*Task_Pointer)->Watchdog_Timeout))
+        if (((*Task_Pointer)->Get_State() == State_Type::Running || (*Task_Pointer)->Get_State() == State_Type::Ready) && (Time.Milliseconds() - (*Task_Pointer)->Watchdog_Timer > (*Task_Pointer)->Watchdog_Timeout))
         {
             (*Task_Pointer)->Suspend(); // Suspend task.
             // TODO : Think about it would be safer to delete the task ?
@@ -56,7 +56,7 @@ void Module_Class::Task_Class::Check_Watchdogs()
 /// @brief Resume a task.
 void Module_Class::Task_Class::Resume()
 {
-    if (Get_State() != Deleted || Get_State() != Invalid)
+    if ((Get_State() != State_Type::Deleted) || (Get_State() != State_Type::Invalid))
     {
         vTaskResume(Task_Handle);
     }
@@ -65,7 +65,7 @@ void Module_Class::Task_Class::Resume()
 /// @brief Suspend a task.
 void Module_Class::Task_Class::Suspend()
 {
-    if (Get_State() != Deleted || Get_State() != Invalid)
+    if ((Get_State() != State_Type::Deleted) || (Get_State() != State_Type::Invalid))
     {
         vTaskSuspend(Task_Handle);
     }
@@ -101,39 +101,23 @@ Module_Class::Task_Class::State_Type Module_Class::Task_Class::Get_State()
 {
     if (Task_Handle == NULL)
     {
-        return Invalid;
+        return State_Type::Invalid;
     }
     return (State_Type)eTaskGetState(Task_Handle);
 }
 
 Module_Class::Task_Class::Priority_Type Module_Class::Task_Class::Get_Priority()
 {
-    switch (uxTaskPriorityGet(Task_Handle))
-    {
-    case Idle:
-        return Idle;
-    case Background:
-        return Background;
-    case Low:
-        return Low;
-    case Normal:
-        return Normal;
-    case High:
-        return High;
-    case System:
-        return System;
-    case Driver:
-        return Driver;
-    }
+    return (Priority_Type)uxTaskPriorityGet(Task_Handle);
 }
 
 Module_Class::Result_Type Module_Class::Task_Class::Set_Priority(Priority_Type Priority)
 {
-    if (Priority > Idle && Priority < System)
+    if ((Priority > Priority_Type::Idle) && (Priority < Priority_Type::System))
     {
         return Result_Type::Invalid_Argument;
     }
-    if (Get_State() == Deleted)
+    if (Get_State() == State_Type::Deleted)
     {
         return Result_Type::Error;
     }

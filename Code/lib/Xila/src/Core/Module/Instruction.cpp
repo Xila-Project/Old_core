@@ -14,13 +14,6 @@
 
 using namespace Xila_Namespace;
 
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Open(NULL, NULL, "Open");
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Close(NULL, NULL, "Clos");
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Active(NULL, NULL, "Activ");
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Inactive(NULL, NULL, "Inac");
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Minimize(NULL, NULL, "Mini");
-const Module_Class::Instruction_Class Module_Class::Instruction_Class::Maximize(NULL, NULL, "Maxi");
-
 Module_Class::Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver)
     : Sender(Sender),
       Receiver(Receiver)

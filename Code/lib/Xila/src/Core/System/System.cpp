@@ -16,25 +16,25 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
+System_Type System();
+
 using namespace Xila_Namespace;
+
 
 ///
 /// @brief Construct a new System_Class object
 ///
 System_Class::System_Class()
-    : Task(this, Task_Start_Function, "System task", 4 * 1024, this, Task_Type::System)
+    : Task(this, Task_Start_Function, "System task", 4 * 1024, this, Task_Type::Priority_Type::System)
 {
   strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
 }
 
-///
 /// @brief Destroy the System_Class object
-///
 System_Class::~System_Class()
 {
 }
 
-///
 /// @brief Load System registry.
 ///
 /// @return Result_Type
@@ -84,14 +84,14 @@ Module_Class::Result_Type System_Class::Save_Registry()
   return Result_Type::Success;
 }
 
+/// @brief 
+/// @param Instance_Pointer 
 void System_Class::Task_Start_Function(void *Instance_Pointer)
 {
   static_cast<System_Class *>(Instance_Pointer)->Task_Function();
 }
 
-///
 /// @brief System task.
-///
 void System_Class::Task_Function()
 {
   uint32_t Next_Refresh = 0;
@@ -126,7 +126,6 @@ void System_Class::Task_Function()
   }
 }
 
-///
 /// @brief Update Xila on the MCU.
 ///
 /// @param Update_File Executable file.

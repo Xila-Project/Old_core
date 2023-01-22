@@ -8,7 +8,11 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#if Keyboard_Hardware == Keyboard_Hardware_PS2
+
+
 #include "Core/Core.hpp"
+
 
 using namespace Xila_Namespace::Input;
 
@@ -139,3 +143,5 @@ void Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();
 }
+
+#endif

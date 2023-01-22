@@ -29,7 +29,7 @@ namespace Xila_Namespace
     {
     public:
     
-        enum class Event_Code
+        enum class Event_Code_Type : uint8_t
         {
             Open,
             Close

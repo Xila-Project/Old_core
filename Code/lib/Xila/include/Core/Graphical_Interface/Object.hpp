@@ -555,7 +555,7 @@ namespace Xila_Namespace
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
         // TODO : See the encapsulation of these following methods.
 
-        inline lv_obj_t *Get_Pointer()
+        inline lv_obj_t *Get_Pointer() const
         {
             return LVGL_Object_Pointer;
         };
@@ -570,6 +570,9 @@ namespace Xila_Namespace
     protected:
 
     } Object_Type;
+
+
+    bool operator==(Object_Type& Object_1, Object_Type& Object_2);
 }
 
 // -- Management -- //

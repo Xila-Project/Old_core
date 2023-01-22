@@ -8,7 +8,7 @@
  /// @copyright Copyright (c) 2022
  /// 
 
-#ifdef Drive_SD_SPI
+#if Drive_Hardware == Drive_SD_SPI
 
 #include "SD.h"
 
