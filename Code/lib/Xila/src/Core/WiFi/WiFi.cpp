@@ -10,11 +10,14 @@
 
 #include "Core/Communication/WiFi.hpp"
 
+using namespace Xila_Namespace;
+
 WiFi_Type WiFi();
+
 
  /// @brief Construct a new WiFi_Class object
  /// 
-Xila_Namespace::WiFi_Class::WiFi_Class()
+WiFi_Class::WiFi_Class()
 {
     memset(Password, '\0', sizeof(Password));
 }
@@ -22,7 +25,7 @@ Xila_Namespace::WiFi_Class::WiFi_Class()
 /// @brief Load WiFi registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::WiFi_Class::Load_Registry()
+Result_Type WiFi_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open((Registry("Network")));
     DynamicJsonDocument Network_Registry(512);
@@ -49,7 +52,7 @@ Module_Class::Result_Type Xila_Namespace::WiFi_Class::Load_Registry()
 ///
 /// @return Result_Type
 ///
-Module_Class::Result_Type Xila_Namespace::WiFi_Class::Save_Registry()
+Result_Type WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument Network_Registry(512);
     Network_Registry["Registry"] = "Network";
@@ -70,7 +73,7 @@ Module_Class::Result_Type Xila_Namespace::WiFi_Class::Save_Registry()
  /// 
  /// @param Name SSID of the access point.
  /// @param Password Password of the access point.
-void Xila_Namespace::WiFi_Class::Set_Credentials(const char *Name, const char *Password)
+void WiFi_Class::Set_Credentials(const char *Name, const char *Password)
 {
     strlcpy(this->Password, Password, sizeof(this->Password));
     setAutoConnect(false);

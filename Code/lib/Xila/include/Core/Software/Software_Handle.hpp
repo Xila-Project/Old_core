@@ -13,7 +13,7 @@
 
 #include "../Configuration/Configuration.hpp"
 #include <vector>
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 //==============================================================================//
 ///

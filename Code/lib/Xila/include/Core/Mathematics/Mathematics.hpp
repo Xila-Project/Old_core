@@ -12,7 +12,7 @@
 #define MATHEMATICS_HPP_INCLUDED
 
 #include "Arduino.h"
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 namespace Xila_Namespace
 {

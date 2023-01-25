@@ -8,15 +8,15 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Module.hpp"
+#include "Core/Module/Semaphore.hpp"
 
 using namespace Xila_Namespace;
 
-Module_Class::Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
+Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
-Module_Class::Result_Type Module_Class::Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
+Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
     {
@@ -25,13 +25,13 @@ Module_Class::Result_Type Module_Class::Semaphore_Class::Create(Type_Type Type, 
 
     switch (Type)
     {
-    case Binary:
+    case Type_Type::Binary:
         Semaphore_Handle = xSemaphoreCreateBinary();
         break;
-    case Counting:
+    case Type_Type::Counting:
         Semaphore_Handle = xSemaphoreCreateCounting(Maximum_Count, Initial_Count);
         break;
-    case Mutex:
+    case Type_Type::Mutex:
         Semaphore_Handle = xSemaphoreCreateMutex();
         break;
     default:
@@ -49,7 +49,7 @@ Module_Class::Result_Type Module_Class::Semaphore_Class::Create(Type_Type Type, 
 }
 
 /*
-Static_Semaphore_Type Module_Class::Semaphore_Class::Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count, UBaseType_t Maximum_Count)
+Static_Semaphore_Type Semaphore_Class::Create_Static(uint8_t Type, Static_Semaphore_Type *Semaphore_Buffer, UBaseType_t Initial_Count, UBaseType_t Maximum_Count)
 {
     switch (Type)
     {
@@ -67,17 +67,17 @@ Static_Semaphore_Type Module_Class::Semaphore_Class::Create_Static(uint8_t Type,
     }
 }*/
 
-void Module_Class::Semaphore_Class::Delete()
+void Semaphore_Class::Delete()
 {
     vSemaphoreDelete(Semaphore_Handle);
 }
 
-void Module_Class::Semaphore_Class::Give()
+void Semaphore_Class::Give()
 {
     xSemaphoreGive(Semaphore_Handle);
 }
 
-Module_Class::Result_Type Module_Class::Semaphore_Class::Take(uint32_t Timeout)
+Result_Type Semaphore_Class::Take(uint32_t Timeout)
 {
     if (Timeout = 0xFFFFFFFFF)
     {
@@ -103,34 +103,34 @@ Module_Class::Result_Type Module_Class::Semaphore_Class::Take(uint32_t Timeout)
     }
 }
 
-void Module_Class::Semaphore_Class::Give_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Semaphore_Class::Give_From_ISR(Integer *Higher_Priority_Task_Woken)
 {
     xSemaphoreGiveFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Module_Class::Semaphore_Class::Take_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Semaphore_Class::Take_From_ISR(Integer *Higher_Priority_Task_Woken)
 {
     xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Module_Class::Semaphore_Class::Take_Recursive(Tick_Type Ticks_To_Wait)
+void Semaphore_Class::Take_Recursive(Tick_Type Ticks_To_Wait)
 {
     xSemaphoreTakeRecursive(Semaphore_Handle, Ticks_To_Wait);
 }
 
-void Module_Class::Semaphore_Class::Give_Recursive()
+void Semaphore_Class::Give_Recursive()
 {
     xSemaphoreGiveRecursive(Semaphore_Handle);
 }
 
 /*
-Module_Class::Task_Type Module_Class::Semaphore_Class::Get_Mutex_Holder()
+Task_Type Semaphore_Class::Get_Mutex_Holder()
 {
     // TODO : Implement
 
 }*/
 
-unsigned int Module_Class::Semaphore_Class::Get_Count()
+unsigned int Semaphore_Class::Get_Count()
 {
     return uxSemaphoreGetCount(Semaphore_Handle);
 }

@@ -27,7 +27,7 @@ Unit_Test_Class::~Unit_Test_Class()
 
 void Unit_Test_Class::Run()
 {
-    Task_Class::Delay(2000);
+    Task_Type::Delay_Static(2000);
     UNITY_BEGIN();
 
     Software();

@@ -11,7 +11,7 @@
 #ifndef Account_Hpp_Included
 #define Account_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 namespace Xila_Namespace
 {
@@ -61,7 +61,6 @@ namespace Xila_Namespace
             State_Type State;
 
             friend class Account_Class;
-
         } User_Type;
 
         // -- Constructor
@@ -80,6 +79,7 @@ namespace Xila_Namespace
         // - - - Getters
         const User_Type *Get_Logged_User();
         const User_Type *Get_User(uint8_t Index);
+        uint8_t Get_User_Count();
 
         // - - - Setters
 

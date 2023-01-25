@@ -11,7 +11,7 @@
 #ifndef Time_Hpp_Included
 #define Time_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 // -- Time library
 #include "time.h"

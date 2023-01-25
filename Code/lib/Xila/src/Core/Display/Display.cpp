@@ -58,7 +58,7 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @brief Load display registry
 ///
 /// @return Xila_Class::Success or Xila_Class::Error
-Module_Class::Result_Type Display_Class::Load_Registry()
+Result_Type Display_Class::Load_Registry()
 {
     using namespace Xila;
     File_Type Temporary_File = Xila::Drive.Open(Registry("Display"));
@@ -84,7 +84,7 @@ Module_Class::Result_Type Display_Class::Load_Registry()
 /// @brief Save display registry
 ///
 /// @return Result_Type
-Display_Class::Result_Type Display_Class::Save_Registry()
+Result_Type Display_Class::Save_Registry()
 {
     using namespace Xila;
     File_Type Temporary_File = Xila::Drive.Open(Registry("Display"), FILE_WRITE);

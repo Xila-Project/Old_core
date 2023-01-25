@@ -10,18 +10,19 @@
 
 #include "Software/Shell/Shell.hpp"
 
-const Module_Class::Instruction_Type Shell_Class::Drawer_Class::Click_On_Item(NULL, NULL, "Clic");
-
 Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     Window.Create();
     Window.Set_Title("Drawer");
 
+    Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Row);
+
     List.Create(Window.Get_Body());
     List.Set_Size(Percentage(100), Percentage(100));
-    List.Set_Flex_Flow(Object_Type::Flex::Column_Wrap);
+
+    List.Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
     List.Set_Style_Pad_All(10, 0);
-    List.Set_Style_Background_Opacity(Object_Type::Opacity::Transparent, 0);
+    List.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
     {
         Object_Type Container;
@@ -34,19 +35,19 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
             {
                 Container.Create(List);
                 Container.Set_Size(Percentage(100), Percentage(100));
-                Container.Set_Style_Background_Opacity(Object_Type::Opacity::Transparent, 0);
+                Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
                 Container.Set_Style_Pad_All(0, 0);
 
                 Icon.Create(Container);
                 Icon.Set_Size(Percentage(100), Percentage(100));
                 Icon.Set_Alignment(Alignment_Type::Top_Middle);
-                Icon.Add_Event(&Click_On_Item, Types_Class::Event::Pressed);
+                Icon.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
 
                 Label.Create(Container);
                 Label.Set_Text_Format("Item");
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
                 Label.Set_Long_Mode(Label_Type::Long_Dot);
-                Label.Add_Event(&Click_On_Item, Types_Class::Event::Pressed);
+                Label.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
 
                 Container.Clear_Pointer();
                 Icon.Clear_Pointer();
@@ -64,39 +65,43 @@ Shell_Class::Drawer_Class::~Drawer_Class()
 
 void Shell_Class::Drawer_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-    if (Instruction == Click_On_Item)
+    if (Instruction.Get_Sender() == &Graphics)
     {
-        // TODO : Open software from drawer
-        // Open_From_Drawer(0);
-    }
-    else
-    {
-        Shell_Pointer->Execute_Instruction(Instruction);
+        switch (Instruction.Graphics.Get_Code())
+        {
+        case Graphics_Type::Pressed :
+            for (uint8_t i = 0; i < List.Get_Child_Count(); i++)
+            {
+                if ((Instruction.Graphics.Get_Object() == List.Get_Child(i).Get_Child(0)) || (Instruction.Graphics.Get_Object().Get_Child(1) == List.Get_Child(i).Get_Child(1)))
+                {
+                    Software_Handle_Class::List[i]->Create_Instance();
+                    break;
+                }
+            }
+            break;
+        default:
+            break;
+        }
     }
 }
 
-// TODO : Open software from drawer
-/*
-void Shell_Class::Drawer_Class::Open_From_Drawer(uint8_t Slot)
+
+void Shell_Class::Drawer_Class::Open(Shell_Class *Shell_Pointer)
 {
-if ((Slot + Offset) < (sizeof(Software_Management.Handle) / sizeof(Xila_Class::Software_Handle *)))
+    Shell_Pointer->Drawer_Pointer = new Drawer_Class(Shell_Pointer);
+}
+
+void Shell_Class::Drawer_Class::Close(Shell_Class *Shell_Pointer)
 {
-    if (Software_Management.Handle[Slot + Offset] != NULL)
+    delete Shell_Pointer->Drawer_Pointer;
+    Shell_Pointer->Drawer_Pointer = NULL;
+}
+
+bool Shell_Class::Drawer_Class::Is_Open(Shell_Class *Shell_Pointer)
+{
+    if (Shell_Pointer->Drawer_Pointer == NULL)
     {
-        if (Software_Management.Open(*Software_Management.Handle[Slot + Offset]) != Success)
-        {
-            DIALOG.Event(Event_Error_Open_Software, Error);
-            Instance_Pointer->Send_Instruction('R', 'e');
-        }
+        return true;
     }
-    else
-    {
-        DESK.Open(Pages.Drawer);
-    }
+    return false;
 }
-else
-{
-    DESK.Open(Pages.Drawer);
-}
-}
-*/

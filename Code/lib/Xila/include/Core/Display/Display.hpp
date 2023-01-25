@@ -11,7 +11,7 @@
 #ifndef DISPLAY_HPP_INCLUDED
 #define DISPLAY_HPP_INCLUDED
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 #include "lvgl.h"
 

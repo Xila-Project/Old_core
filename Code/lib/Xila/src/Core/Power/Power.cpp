@@ -30,7 +30,7 @@ Power_Class::Power_Class()
 /// @brief Load power registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Power_Class::Load_Registry()
+Result_Type Power_Class::Load_Registry()
 {
     File Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
@@ -54,7 +54,7 @@ Module_Class::Result_Type Power_Class::Load_Registry()
 /// @brief Save power registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Power_Class::Save_Registry()
+Result_Type Power_Class::Save_Registry()
 {
     DynamicJsonDocument Power_Registry(Default_Registry_Size);
     Power_Registry["Registry"] = "Power";

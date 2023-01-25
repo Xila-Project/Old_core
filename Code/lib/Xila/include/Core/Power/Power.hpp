@@ -11,7 +11,7 @@
 #ifndef Power_Hpp_Included
 #define Power_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 #include "Battery_Library.hpp"
 

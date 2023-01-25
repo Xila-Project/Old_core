@@ -41,7 +41,7 @@ Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*L
   List.push_back(this);
 }
 
-Software_Handle_Class::Result_Type Software_Handle_Class::Create_Instance()
+Result_Type Software_Handle_Class::Create_Instance()
 {
   if (Create_Instance_Pointer == NULL)
   {

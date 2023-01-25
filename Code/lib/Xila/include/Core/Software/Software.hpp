@@ -11,7 +11,7 @@
 #ifndef Software_Hpp_Included
 #define Software_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 #include "Software_Handle.hpp"
 
@@ -50,27 +50,28 @@ namespace Xila_Namespace
         virtual ~Software_Class();
 
         /// @brief Software task handle.
-        ///
         Task_Type Main_Task;
+
 
         static void Start_Main_Task_Function(void* Instance_Pointer);
         virtual void Main_Task_Function();
 
         // Handler for external software.
         static void Create_Instance();
-        void Minimize();
-        void Maximize();
         void Kill();
         void Close();
 
-    private:
+   // private:
         // - Attributes
         // - - Local attributes
         Software_Handle_Type *Handle_Pointer;
+
         // - - Static attributes
         /// @brief Openned software pointer array
         static std::vector<Software_Class *> List;
 
+        friend class System_Class;
+        friend class Shell_Class;
     } Software_Type;
 }
 

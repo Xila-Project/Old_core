@@ -20,7 +20,7 @@
 
 // - Drive hardware enumeration
 
-#define Drive_None      0
+#define Drive_Little_FS 0
 #define Drive_SD_MMC    1
 #define Drive_SD_SPI    2
 
@@ -37,5 +37,10 @@
 
 #define Keyboard_Hardware_None  0
 #define Keyboard_Hardware_PS2   1
+
+// - Input / Output hardware enumeration
+#define Input_Output_None               0
+#define Input_Output_Hardware_ESP32     1
+#define Input_Output_Hardware_ESP32_S3  2
 
 #endif

@@ -13,7 +13,7 @@
 
 #include "Arduino.h"
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 #include "Core/Drive/Drive.hpp"
 

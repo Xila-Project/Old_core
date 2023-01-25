@@ -27,14 +27,14 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : 
     strlcpy(Name, System.Get_Device_Name(), sizeof(Name));
 
     // -- Network
-    strlcpy(WiFi_Name, WiFi.SSID().c_str(), sizeof(WiFi_Name));
+    strlcpy(WiFi_Name, WiFi.Get_SSID().c_str(), sizeof(WiFi_Name));
     memset(WiFi_Password, '\0', sizeof(WiFi_Password));
 
-    Local_IP = WiFi.localIP();
-    Gateway_IP = WiFi.gatewayIP();
-    Subnet_Mask = WiFi.subnetMask();
-    DNS[0] = WiFi.dnsIP(0);
-    DNS[1] = WiFi.dnsIP(1);
+    Local_IP = WiFi.Get_IP_Address();
+    Gateway_IP = WiFi.Get_Gateway_IP_Address();
+    Subnet_Mask = WiFi.Get_Subnet_Mask();
+    DNS[0] = WiFi.Get_DNS_IP_Address(0);
+    DNS[1] = WiFi.Get_DNS_IP_Address(1);
 
     // -- Time
     memset(NTP_Server, '\0', sizeof(NTP_Server));
@@ -50,14 +50,14 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : 
     Window.Set_Title("Preferences");
 
     Tabs.Create(Window);
-    Tabs.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, 0), 0);
+    Tabs.Set_Style_Background_Color(Color_Type::Grey[5], 0);
 
     Button_Type Tab_Buttons = Tabs.Get_Tab_Buttons();
-    Tab_Buttons.Set_Style_Background_Color(Color_Type::Get_From_Palette(Color_Type::Grey, 3), 0);
-    Tab_Buttons.Set_Style_Text_Color(Color_Type::Get_White(), 0);
-    Tab_Buttons.Set_Style_Border_Side(Button_Type::Border::Right, Button_Type::Part::Items | Button_Type::State::Checked);
-    Tab_Buttons.Set_Style_Border_Color(Color_Type::Get_White(), Button_Type::Part::Items | Button_Type::State::Checked);
-    Tab_Buttons.Set_Style_Text_Color(Button_Type::Border::Right, Button_Type::Part::Items | Button_Type::State::Hovered);
+    Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[3], 0);
+    Tab_Buttons.Set_Style_Text_Color(Color_Type::White, 0);
+    Tab_Buttons.Set_Style_Border_Side(Border_Side_Type::Right, Button_Type::Part::Items | Button_Type::State::Checked);
+    Tab_Buttons.Set_Style_Border_Color(Color_Type::White, Button_Type::Part::Items | Button_Type::State::Checked);
+    Tab_Buttons.Set_Style_Text_Color(Color_Type::White, Button_Type::Part::Items | Button_Type::State::Hovered);
 
     Personnal_Tab = Tabs.Add_Tab("Personnal");
     Softwares_Tab = Tabs.Add_Tab("Softwares");
@@ -65,11 +65,6 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : 
     Users_Tab = Tabs.Add_Tab("Users");
     Hardware_Tab = Tabs.Add_Tab("Hardware");
     System_Tab = Tabs.Add_Tab("System");
-
-
-
-
-
 }
 
 // -- State management -- //
@@ -160,24 +155,6 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::In
         DIALOG.Keyboard(Password_1, sizeof(Password_1));
         SHELL->Send_Instruction('R', 'e');
         break;
-    case Instruction('K', 'p'):
-        DIALOG.Keyboard(Password_2, sizeof(Password_2));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('C', 'U'):
-        if (Account.Change_Username(Account.Current_Username, Username) != Success)
-        {
-            DIALOG.Event(F("Failed to change username."), Error);
-        }
-        else
-        {
-            DIALOG.Event(F("Username successfully modified."), Information);
-        }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('C', 'P'):
-        if (strcmp(Password_1, Password_2) == 0)
-        {
             if (Account.Change_Password(Account.Current_Username, Password_1) != Success)
             {
                 DIALOG.Event(F("Failed to change password."), Error);
@@ -352,7 +329,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
 
         for (i = 0; i < 2048; i++)
         {
-            Task_Class::Delay(1);
+            Task_Type::Delay_Static(1);
             Test_File.write(Buffer, sizeof(Buffer));
         }
 

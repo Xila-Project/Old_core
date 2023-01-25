@@ -40,7 +40,7 @@ uint32_t IRAM_ATTR Time_Class::Get_Cycle_Count()
  /// @brief Save time registry.
  /// 
  /// @return Result_Type 
-Module_Class::Result_Type Time_Class::Save_Registry()
+Result_Type Time_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open(Registry("Time"), FILE_WRITE);
   DynamicJsonDocument Time_Registry(512);
@@ -62,7 +62,7 @@ Module_Class::Result_Type Time_Class::Save_Registry()
  /// @brief Load time registry.
  /// 
  /// @return Result_Type 
-Module_Class::Result_Type Time_Class::Load_Registry()
+Result_Type Time_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);

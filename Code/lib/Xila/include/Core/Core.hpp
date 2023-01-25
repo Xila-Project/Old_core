@@ -39,7 +39,7 @@
 // -- Arduino framework
 #include "Arduino.h"
 
-#include "Module.hpp"
+#include "Module/Module.hpp"
 
 #include "Account/Account.hpp"
 #include "Clipboard/Clipboard.hpp"
@@ -47,7 +47,7 @@
 #include "Display/Display.hpp"
 #include "Drive/Drive.hpp"
 #include "Flash/Flash.hpp"
-#include "Graphical_Interface/Graphical_Interface.hpp"
+#include "Graphics/Graphics.hpp"
 #include "Keyboard/Keyboard.hpp"
 #include "Log/Log.hpp"
 #include "Mathematics/Mathematics.hpp"
@@ -76,7 +76,7 @@ namespace Xila_Namespace
 
     // - General types
 
-/*    typedef Module_Class::Size_Type Size_Type;
+/*    typedef Size_Type Size_Type;
     typedef Module_Class::Result Result;
     typedef Module_Class::Module Module;
     typedef Module_Class::Time_Type Time_Type;

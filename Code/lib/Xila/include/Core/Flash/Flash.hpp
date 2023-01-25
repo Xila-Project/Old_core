@@ -28,7 +28,7 @@ extern "C"
 }
 #include <MD5Builder.h>
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 ///=============================================================================//
 ///

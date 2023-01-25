@@ -10,44 +10,31 @@ wl_status_t Convert_Status(WiFi_Class::Status_Type Status)
 {
     switch (Status)
     {
-    case WiFi_Class::Status_Type::Ready:
+    case No_Shield:
+        return WL_NO_SHIELD;
+        break;
+    case Idle:
         return WL_IDLE_STATUS;
-    case WiFi_Class::Status_Type::Scan_Done:
+        break;
+    case No_SSID_Available:
+        return WL_NO_SSID_AVAIL;
+        break;
+    case Scan_Completed:
         return WL_SCAN_COMPLETED;
-    case WiFi_Class::Status_Type::Station_Start:
+        break;
+    case Connected:
         return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_Stop:
+        break;
+    case Connection_Failed: 
+        return WL_CONNECT_FAILED;
+        break;
+    case Connection_Lost:
+        return WL_CONNECTION_LOST;
+        break;
+    case Disconnected:  
         return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Station_Connect:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_Disconnected:
-        return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Station_Authentication_Mode_Changed:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_Got_IP:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_Got_IP_V6:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_Lost_IP:
-        return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Station_WPS_Enrolment_Success:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Station_WPS_Enrolment_Failed:
-        return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Station_WPS_Enrolment_Timeout:
-        return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Station_WPS_Enrolment_Pin:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Access_Point_Start:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Access_Point_Stop:
-        return WL_DISCONNECTED;
-    case WiFi_Class::Status_Type::Access_Point_Station_Connected:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Access_Point_Station_IP_Assigned:
-        return WL_CONNECTED;
-    case WiFi_Class::Status_Type::Access_Point_Probe_Request_Received:
-
+        break;
+    }
         
 }
 

@@ -11,7 +11,7 @@
 #ifndef WiFi_Hpp_Included
 #define WiFi_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 //==============================================================================//
 ///
@@ -27,27 +27,15 @@ namespace Xila_Namespace
     public:
         // - Types
      
-        enum class Status_Type {
-            Ready,
-            Scan_Done,
-            Station_Start,
-            Station_Stop,
-            Station_Connect,
-            Station_Disconnected,
-            Station_Authentication_Mode_Changed,
-            Station_Got_IP,
-            Station_Got_IP_V6,
-            Station_Lost_IP,
-            Station_WPS_Enrolment_Success,
-            Station_WPS_Enrolment_Failed,
-            Station_WPS_Enrolment_Timeout,
-            Station_WPS_Enrolment_Pin,
-            Access_Point_Start,
-            Access_Point_Stop,
-            Access_Point_Station_Connected,
-            Access_Point_Station_IP_Assigned,
-            Access_Point_Probe_Request_Received,
-            Access_Point_Got_IP_V6
+        enum class Status_Type : uint8_t {
+            No_Shield,
+            Idle,
+            No_SSID_Available,
+            Scan_Completed,
+            Connected,
+            Connection_Failed,
+            Connection_Lost,
+            Disconnected
         };
      
         // - Constructors / Destructors
@@ -56,21 +44,34 @@ namespace Xila_Namespace
         // - Methods
 
         Status_Type Connect(const char* SSID, const char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
-        Status_Type Connect(char* SSID, char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true)
+        Status_Type Connect(char* SSID, char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
 
         // - - Getters
 
+        Status_Type Get_Status();
+
+        bool Get_Automatic_Reconnection();
+
         // - - - Network configuration
 
-        IP_Address_Type Get_IP_Address();
-        //IP_Address_Type Get_Subnet_Mask();
-        //IP_Address_Type Get_Gateway();
-        //IP_Address_Type Get_DNS();
+        uint8_t* Get_MAC_Address();
+
+        IP_Address_Type Get_IP_Address(bool IPv6 = false);
+        IP_Address_Type Get_Subnet_Mask();
+        IP_Address_Type Get_Gateway_IP_Address();
+        IP_Address_Type Get_DNS_IP_Address(uint8_t Index);
              
 
-        // - - Setters
+        IP_Address_Type Get_Broadcast_IP_Address();
+        IP_Address_Type Get_Network_ID();
+        uint8_t Get_Subnet_CIDR();
 
-        void Set_Credentials(const char *Name, const char *Password);
+        const char* Get_SSID();
+        const char* Get_Password();
+        uint8_t* Get_BSSID();
+        int8_t Get_RSSI();
+
+        // - - Setters
 
         // - - - Network configuration
 
@@ -82,6 +83,7 @@ namespace Xila_Namespace
         void Set_Gateway(IP_Address_Type Gateway);
         void Set_DNS(IP_Address_Type DNS);
 
+        void Set_Hostname(const char* Hostname);
 
         void Use_Static_Buffers(bool Status);
 
@@ -92,6 +94,7 @@ namespace Xila_Namespace
         void Get_Network_Informations(uint8_t Network_Item, String& SSID, uint8_t& Encryption_Type, int32_t& RSSI, uint8_t* BSSID, int32_t& Channel);
         
         
+        void Set_Automatic_Reconnection(bool Enable);
         void Set_Mode(uint8_t Mode);
         
         void Set_Channel(uint8_t Channel);

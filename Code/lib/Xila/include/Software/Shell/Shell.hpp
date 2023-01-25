@@ -27,87 +27,57 @@ using namespace Xila;
 
 #define Default_Background -1
 
-///
 /// @brief Shell class
 ///
 /// @details Main inter
-///
-
 class Shell_Class : public Software_Type
 {
-protected:
-    // -- Attributes
+    // - Attributes
 
-    ///
     /// @brief Instance pointer, help to keep track of current instance.
-    ///
     static std::vector<Shell_Class *> Instances;
 
-    ///
+    // - Types
+
     /// @brief Desk class
-    ///
     class Desk_Class
     {
     public:
-        // -- Constructors / destructor
+        // - Methods
+
+        static void Open(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+        static bool Is_Open(Shell_Class *Shell_Pointer);
+
+        void Execute_Instruction(const Instruction_Type &Instruction);
+
+    protected:
+        // - Methods
+
+        // - - Constructors / destructor
         Desk_Class(Shell_Class *Shell_Pointer);
         ~Desk_Class();
 
-        static void Open(Shell_Class* Shell_Pointer);
-        static void Close(Shell_Class* Shell_Pointer);
-        static bool Is_Open(Shell_Class* Shell_Pointer);
+        void Refresh();
 
-    protected:
-        // -- Attributes
-
-        ///
-        /// @brief Desk background
-        ///
-        /// @details Desk image when < 0 and Custom color when > 0 (color code itself).
-        ///
-        Color_Type Background_Color;
-
+        // - Attributes
         Window_Type Window;
-        Object_Type Grid;
+        Object_Type Desk_Grid;
         Object_Type Dock;
         Object_Type Menu_Button;
+        Object_Type Dock_List;
 
-        // -- Methods
-        void Refresh_Desk();
-        void Execute_Instruction(Instruction_Type Instruction);
-
-        void Maximize_Dock_Software(uint8_t);
-        void Close_Dock_Software(uint8_t);
-
-        void Open_From_Drawer(uint8_t);
-
-        void Logout();
-
-        Shell_Class* Shell_Pointer;
-
-        // -- friendship
-        friend class Shell_Class;
+        Shell_Class *Shell_Pointer;
     } *Desk_Pointer;
-
-    class Login_Class
-    {
-    public:
-        Login_Class(Shell_Class* Shell_Pointer);
-        ~Login_Class();
-        
-        static void Open(Shell_Class* Shell_Pointer);
-        static bool Is_Openned(Shell_Class* Shell_Pointer);
-        static void Close(Shell_Class* Shell_Pointe);
-
-    private:
-
-        Window_Type Dialog;
-
-        Shell_Class* Shell_Pointer;   
-    } *Login_Pointer;
 
     class Drawer_Class
     {
+    public:
+        static void Open(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+        static bool Is_Open(Shell_Class *Shell_Pointer);
+
+        void Execute_Instruction(Instruction_Type Instruction);
     private:
         // - Attributes
         Window_Type Window;
@@ -115,7 +85,6 @@ protected:
         /// @brief File manager class
         List_Type List;
 
-        // - Constructor / destructor
         Drawer_Class(Shell_Class *Shell_Pointer);
         ~Drawer_Class();
 
@@ -123,11 +92,29 @@ protected:
 
         Shell_Class *Shell_Pointer;
 
-        void Execute_Instruction(Instruction_Type Instruction);
-
         friend class Shell_Class;
 
     } *Drawer_Pointer;
+
+    class Login_Class
+    {
+    public:
+        static void Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+
+    private:
+        
+        Login_Class(Shell_Class *Shell_Pointer);
+        ~Login_Class();
+
+        Window_Type Dialog;
+
+        Text_Area_Type Name;
+        Text_Area_Type Password;
+
+        Shell_Class *Shell_Pointer;
+    } *Login_Pointer;
 
     ///
     ///
@@ -160,10 +147,10 @@ protected:
 
         // -- Methods
 
-        File_Manager_Class(Shell_Class* Shell_Pointer);
+        File_Manager_Class(Shell_Class *Shell_Pointer);
         ~File_Manager_Class();
 
-        Shell_Class* Shell_Pointer;
+        Shell_Class *Shell_Pointer;
 
         static void Open(uint8_t = Idle);
 
@@ -221,7 +208,7 @@ protected:
     public:
         // -- Constructor
 
-        Preferences_Class(Shell_Class* Shell_Pointer);
+        Preferences_Class(Shell_Class *Shell_Pointer);
 
         Window_Type Window;
         Tabs_Type Tabs;
@@ -247,8 +234,8 @@ protected:
         char WiFi_Password[sizeof(WiFi.Password)];
 
         char Temporary_String[16];
-        
-        Shell_Class* Shell_Pointer;
+
+        Shell_Class *Shell_Pointer;
 
         IPAddress Local_IP;
         IPAddress Gateway_IP;

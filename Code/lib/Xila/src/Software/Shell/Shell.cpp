@@ -112,7 +112,7 @@ void Shell_Class::Refresh_Header()
     // -- Update connection
     Temporary_Char_Array[5] = WiFi.RSSI();
 
-    if (WiFi.status() == WL_CONNECTED)
+    if (WiFi.Get_Status() == WiFi_Type::Status_Type::Connected)
     {
         if (Temporary_Char_Array[5] <= -70)
         {

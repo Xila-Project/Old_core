@@ -8,42 +8,75 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Module.hpp"
+#include "Core/Module/Instruction.hpp"
 
 #include "Core/Core.hpp"
 
 using namespace Xila_Namespace;
 
-Module_Class::Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver)
+// - Instruction class
+
+Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receiver)
     : Sender(Sender),
       Receiver(Receiver)
 {
 
 }
 
-Module_Class::Instruction_Class::Instruction_Class()
+Instruction_Class::Instruction_Class()
     : Sender(NULL),
       Receiver(NULL)
 {
 
 }
 
-Module_Class* Module_Class::Instruction_Class::Get_Sender() const
+Module_Class* Instruction_Class::Get_Sender() const
 {
     return Sender;
 }
 
-Module_Class* Module_Class::Instruction_Class::Get_Receiver() const
+Module_Class* Instruction_Class::Get_Receiver() const
 {
     return Receiver;
 }
 
-void Module_Class::Instruction_Class::Set_Sender(Module_Class* Sender)
+void Instruction_Class::Set_Sender(Module_Class* Sender)
 {
     this->Sender = Sender;
 }
 
-void Module_Class::Instruction_Class::Set_Receiver(Module_Class* Receiver)
+void Instruction_Class::Set_Receiver(Module_Class* Receiver)
 {
     this->Receiver = Receiver;
 }
+
+// - Graphics class
+
+// - - Constructor
+
+Instruction_Class::Graphics_Class::Graphics_Class()
+    : Code(0),
+      Object_Pointer(NULL)
+{}
+
+void Instruction_Class::Graphics_Class::Set_Code(uint32_t Code)
+{
+    this->Code = Code;
+}
+
+void Instruction_Class::Graphics_Class::Set_Object(Object_Type Object)
+{
+    Object_Pointer = Object.Get_Pointer();
+}
+
+uint8_t Instruction_Class::Graphics_Class::Get_Code() const
+{
+    return Code;
+}
+
+Object_Type Instruction_Class::Graphics_Class::Get_Object() const
+{
+    Object_Type Object(static_cast<lv_obj_t*>(Object_Pointer));
+    return Object;
+}
+

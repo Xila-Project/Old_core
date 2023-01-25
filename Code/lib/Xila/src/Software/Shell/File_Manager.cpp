@@ -466,7 +466,7 @@ void Shell_Class::File_Manager_Class::Refresh()
                     }
 
                     Item.close();
-                    Task_Class::Delay(5);
+                    Task_Type::Delay_Static(5);
                 }
 
                 if (Get_Mode() == Dialog_Open_Folder)

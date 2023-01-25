@@ -11,7 +11,7 @@
 #ifndef Sound_Hpp_Included
 #define Sound_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 //==============================================================================//
 

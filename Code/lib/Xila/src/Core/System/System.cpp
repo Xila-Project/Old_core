@@ -16,18 +16,17 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
-System_Type System();
+#include "WiFi.h"
 
 using namespace Xila_Namespace;
 
+System_Type System();
 
-///
-/// @brief Construct a new System_Class object
-///
+/// @brief Construct a new System_Class::System_Class object
 System_Class::System_Class()
     : Task(this, Task_Start_Function, "System task", 4 * 1024, this, Task_Type::Priority_Type::System)
 {
-  strlcpy(Device_Name, Default_Device_Name, sizeof(Device_Name));
+  strlcpy(Device_Name, Stringizing(Default_Device_Name), sizeof(Device_Name));
 }
 
 /// @brief Destroy the System_Class object
@@ -38,7 +37,7 @@ System_Class::~System_Class()
 /// @brief Load System registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Registry()
+Result_Type System_Class::Load_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
@@ -57,7 +56,7 @@ Module_Class::Result_Type System_Class::Load_Registry()
   {
     Panic_Handler(Installation_Conflict);
   }
-  strlcpy(System.Device_Name, System_Registry["Device Name"] | Default_Device_Name, sizeof(System.Device_Name));
+  strlcpy(System.Device_Name, System_Registry["Device Name"] | Stringizing(Default_Device_Name), sizeof(System.Device_Name));
   return Result_Type::Success;
 }
 
@@ -65,7 +64,7 @@ Module_Class::Result_Type System_Class::Load_Registry()
 /// @brief Save System registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type System_Class::Save_Registry()
+Result_Type System_Class::Save_Registry()
 {
   File Temporary_File = Drive.Open((Registry("System")), FILE_WRITE);
   DynamicJsonDocument System_Registry(256);
@@ -84,8 +83,8 @@ Module_Class::Result_Type System_Class::Save_Registry()
   return Result_Type::Success;
 }
 
-/// @brief 
-/// @param Instance_Pointer 
+/// @brief
+/// @param Instance_Pointer
 void System_Class::Task_Start_Function(void *Instance_Pointer)
 {
   static_cast<System_Class *>(Instance_Pointer)->Task_Function();
@@ -101,28 +100,28 @@ void System_Class::Task_Function()
     // -- Check power button interrupt
     Power.Check_Button();
 
-      // -- Check if drive is not disconnected.
-      if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
-      {
-        System.Panic_Handler(System.System_Drive_Failure);
-      }
-      // -- Check if running software is not frozen
-      Task_Class::Check_Watchdogs();
-      // -- Check WiFi is connected
-      if (WiFi.status() != WL_CONNECTED)
-      {
-        WiFi.Load_Registry();
-      }
-      // -- Check available (prevent memory overflow)
-      if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
-      {
-        System.Panic_Handler(Low_Memory);
-      }
-      // -- Syncronise time
-      Time.Synchronize();
+    // -- Check if drive is not disconnected.
+    if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
+    {
+      System.Panic_Handler(System.System_Drive_Failure);
+    }
+    // -- Check if running software is not frozen
+    Task_Class::Check_Watchdogs();
 
-      Task.Delay_Until(10000);
+    // -- Check WiFi is connected
+    if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
+    {
+      WiFi.Load_Registry();
+    }
+    // -- Check available (prevent memory overflow)
+    if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
+    {
+      System.Panic_Handler(Low_Memory);
+    }
+    // -- Syncronise time
+    Time.Synchronize();
 
+    Task.Delay_Until(10000);
   }
 }
 
@@ -130,7 +129,7 @@ void System_Class::Task_Function()
 ///
 /// @param Update_File Executable file.
 /// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Executable(File Executable_File)
+Result_Type System_Class::Load_Executable(File Executable_File)
 {
   if (!Executable_File || Executable_File.isDirectory())
   {
@@ -184,24 +183,32 @@ void System_Class::Panic_Handler(Panic_Code Panic_Code)
 /// @brief Save system dump.
 ///
 /// @return Result_Type
-Module_Class::Result_Type System_Class::Save_Dump()
+Result_Type System_Class::Save_Dump()
 {
 
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
 
-  JsonArray Software = Dump_Registry.createNestedArray("Software");
-
   Dump_Registry["Registry"] = "Dump";
 
-  for (uint8_t i = 2; i <= 7; i++)
+
   {
-    if (Software_Management.Openned[i] != NULL)
+    JsonArray Users = Dump_Registry.createNestedArray("Users");
+    
+    for (uint8_t i = 0; i < Account.Get_User_Count(); i++)
     {
-      Software.add(Software_Management.Openned[i]->Handle->Name);
+      Users.add(Account.Get_User(i)->Get_Name());
     }
   }
 
-  Dump_Registry["User"] = Account.Get_Current_Username();
+  {
+    JsonArray Openned_Software = Dump_Registry.createNestedArray("Software");
+
+    // Iterate through opened software list
+    for (auto &Software_Pointer : Software_Class::List)
+    {
+      Openned_Software.add(Software_Pointer->Handle_Pointer->Name);
+    }
+  }
 
   File Dump_File = Drive.Open(Dump_Registry_Path, FILE_WRITE);
   if (serializeJson(Dump_Registry, Dump_File) == 0)
@@ -217,7 +224,7 @@ Module_Class::Result_Type System_Class::Save_Dump()
 /// @brief Load system dump.
 ///
 /// @return Result_Type
-Module_Class::Result_Type System_Class::Load_Dump()
+Result_Type System_Class::Load_Dump()
 {
   if (Drive.Exists(Dump_Registry_Path))
   {
@@ -308,9 +315,9 @@ void System_Class::Refresh_Header()
   Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
 
   // Update connection
-  Temporary_Char_Array[5] = WiFi.RSSI();
+  Temporary_Char_Array[5] = WiFi.Get_RSSI();
 
-  if (WiFi.status() == WL_CONNECTED)
+  if (WiFi.Get_Status() == WiFi_Type::Status_Type::Connected)
   {
     if (Temporary_Char_Array[5] <= -70)
     {
@@ -406,7 +413,7 @@ void System_Class::Start()
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
   Log_Raw_Line("");
-  Log_Raw_Line(" > Version :" + Stringizing(Xila_Version_Major) + " . " + Stringizing(Xila_Version_Minor) + " . " +  Stringizing(Xila_Version_Revision) + " - Alix ANNERAUD - MIT Licence - 2021");
+  Log_Raw_Line(" > Version :" + Stringizing(Xila_Version_Major) + " . " + Stringizing(Xila_Version_Minor) + " . " + Stringizing(Xila_Version_Revision) + " - Alix ANNERAUD - MIT Licence - 2021");
   Log_Raw_Line("");
   Log_Information("Starting Xila ...");
   Log_Verbose("First start routine.");
@@ -462,7 +469,7 @@ void System_Class::Start()
   {
     Log_Information("Attemping to initialize drive ...");
     Drive.End();
-    Task_Class::Delay(200);
+    Task_Type::Delay_Static(200);
   }
   Display.Set_Text(F("EVENT_TXT"), F(""));
 
@@ -484,13 +491,13 @@ void System_Class::Start()
       Panic_Handler(Failed_To_Update_Display);
     }
 
-    Task_Class::Delay(5000);
+    Task_Type::Delay_Static(5000);
     Display.Begin(Display.Baud_Rate, Display.Receive_Pin, Display.Transmit_Pin);
   }
 
   Pin.Set_Mode(Default_Display_Switching_Pin, Pin.Output);
   Pin.Digital_Write(Default_Display_Switching_Pin, Pin.High);
-  Task_Class::Delay(2000);
+  Task_Type::Delay_Static(2000);
   // Display.Wake_Up();
   // Display.Set_Touch_Wake_Up(true);
   // Display.Set_Serial_Wake_Up(true);
@@ -512,7 +519,7 @@ void System_Class::Start()
   {
     System.Panic_Handler(System.Damaged_System_Registry);
   }
-  WiFi.setHostname(System.Device_Name); // Set hostname
+  WiFi.Set_Hostname(System.Device_Name); // Set hostname
 
   // -- Load sound registry --
 
@@ -560,20 +567,20 @@ void System_Class::Start()
   }
 
 #if Animations == 1
-  Task_Class::Delay(3000);
+  Task_Type::Delay_Static(3000);
 #endif
 
   Display.Set_Value(F("STATE_VAR"), 2);
 
 #if Animations == 1
-  Task_Class::Delay(3000);
+  Task_Type::Delay_Static(3000);
 #endif
 
-  Task_Class::Delay(500);
+  Task_Type::Delay_Static(500);
 
   System.Load_Dump();
 
-  Task_Class::Delay(100);
+  Task_Type::Delay_Static(100);
 
   Execute_Startup_Function();
 
@@ -630,7 +637,7 @@ void System_Class::Shutdown()
         {
           Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
         }
-        Task_Class::Delay(20);
+        Task_Type::Delay_Static(20);
       }
     }
   }
@@ -656,7 +663,7 @@ void System_Class::Second_Sleep_Routine()
 
   Sound.Play(Sounds("Shutdown.wav"));
 
-  Task_Class::Delay(8000);
+  Task_Type::Delay_Static(8000);
 
   Task.Delete(Sound.Task_Handle);
 
@@ -695,7 +702,7 @@ void System_Class::Hibernate()
 
           Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
         }
-        Task_Class::Delay(20);
+        Task_Type::Delay_Static(20);
       }
     }
   }
@@ -731,7 +738,7 @@ void System_Class::Restart()
         {
           Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
         }
-        Task_Class::Delay(20);
+        Task_Type::Delay_Static(20);
       }
     }
   }

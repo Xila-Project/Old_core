@@ -11,7 +11,7 @@
 #ifndef System_Hpp_Included
 #define System_Hpp_Included
 
-#include "../Module.hpp"
+#include "../Module/Module.hpp"
 
 //==============================================================================//
 

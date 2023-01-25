@@ -27,7 +27,7 @@ Account_Class::Account_Class()
 /// @brief Load account registry.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Load_Registry()
+Result_Type Account_Class::Load_Registry()
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
@@ -61,7 +61,7 @@ Module_Class::Result_Type Account_Class::Load_Registry()
 ///
 /// @param Enable true to enable and false to disable autologin.
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const char* Password)
+Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const char* Password)
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
   DynamicJsonDocument Account_Registry(256);
@@ -149,7 +149,7 @@ const Account_Class::User_Type* Account_Class::Get_User(uint8_t Index)
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
  /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Create(const char *User_Name, const char *Password)
+Result_Type Account_Class::Create(const char *User_Name, const char *Password)
 {
   if (Drive.Exists(Users_Directory_Path "/" + String(User_Name)))
   {
@@ -207,7 +207,7 @@ Module_Class::Result_Type Account_Class::Create(const char *User_Name, const cha
 ///
 /// @param Target_User User to delete.
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Delete(const char *User_Name, const char* Password)
+Result_Type Account_Class::Delete(const char *User_Name, const char* Password)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), User_Name);
@@ -224,7 +224,7 @@ Module_Class::Result_Type Account_Class::Delete(const char *User_Name, const cha
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Change_Name(const char *Current_Name, const char *New_Name, const char* Password)
+Result_Type Account_Class::Change_Name(const char *Current_Name, const char *New_Name, const char* Password)
 {
   if (strlen(New_Name) > sizeof(User_Type::Name))
   {
@@ -266,7 +266,7 @@ Module_Class::Result_Type Account_Class::Change_Name(const char *Current_Name, c
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Change_Password(const char *Name, const char *Current_Password, const char* New_Password)
+Result_Type Account_Class::Change_Password(const char *Name, const char *Current_Password, const char* New_Password)
 {
   if (Check_Credentials(Name, Current_Password) != Result_Type::Success)
   {
@@ -293,7 +293,7 @@ Module_Class::Result_Type Account_Class::Change_Password(const char *Name, const
 /// @brief Logout from the openned user session.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Logout(const char* Name)
+Result_Type Account_Class::Logout(const char* Name)
 {
   // Iterate through the list of users by index.
   for (auto User = User_Class::List.begin(); User != User_Class::List.end(); User++)
@@ -320,7 +320,7 @@ Module_Class::Result_Type Account_Class::Logout(const char* Name)
 /// @brief Lock openned user session.
 ///
 /// @return Result_Type
-Module_Class::Result_Type Account_Class::Lock(const char* Name)
+Result_Type Account_Class::Lock(const char* Name)
 {
   // Iterate through the list of users by index.
   for (uint8_t i = 0; i < User_Class::List.size(); i++)
@@ -351,7 +351,7 @@ Module_Class::Result_Type Account_Class::Lock(const char* Name)
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
@@ -380,7 +380,7 @@ Module_Class::Result_Type Account_Class::Check_Credentials(const char *Username_
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Module_Class::Result_Type Account_Class::Login(const char *Name, const char *Password, bool Lock_Other_User = true)
+Result_Type Account_Class::Login(const char *Name, const char *Password, bool Lock_Other_User = true)
 {
   // Check credentials
   if (Check_Credentials(Name, Password) != Result_Type::Success)

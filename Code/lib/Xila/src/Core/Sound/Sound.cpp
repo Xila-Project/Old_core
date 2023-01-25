@@ -281,7 +281,7 @@ void Sound_Class::Tone(uint16_t Frequency, uint32_t Duration, uint8_t Pin)
 
     if (Duration != 0)
     {
-        Task_Class::Delay(Duration);
+        Task_Type::Delay_Static(Duration);
         No_Tone();
     }
 }
@@ -483,7 +483,7 @@ void Sound_Class::Task(void *)
         Audio_Driver.loop();
         if (Audio_Driver.isRunning() == false)
         {
-            Task_Class::Delay(50);
+            Task_Type::Delay_Static(50);
         }
     }
 }

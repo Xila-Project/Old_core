@@ -27,7 +27,7 @@ void Xila_Namespace::Pin_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
 ///
 /// @param Pin Involved GPIO.
 /// @return Result_Type
-Pin_Class::Result_Type Xila_Namespace::Pin_Class::Valid_Output_Pin(uint8_t Pin)
+Result_Type Xila_Namespace::Pin_Class::Valid_Output_Pin(uint8_t Pin)
 {
     if (digitalPinCanOutput(Pin) == true)
     {
@@ -62,7 +62,7 @@ int16_t Xila_Namespace::Pin_Class::Digital_Read(uint8_t Pin)
 ///
 /// @param Pin Involved GPIO.
 /// @return Result_Type
-Pin_Class::Result_Type Xila_Namespace::Pin_Class::Valid_Digital_Pin(uint8_t Pin)
+Result_Type Xila_Namespace::Pin_Class::Valid_Digital_Pin(uint8_t Pin)
 {
     if (digitalPinIsValid(Pin))
     {

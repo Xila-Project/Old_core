@@ -287,6 +287,8 @@
     "thread": "cpp",
     "functional": "cpp",
     "tuple": "cpp",
-    "initializer_list": "cpp"
+    "initializer_list": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp"
   }
 }

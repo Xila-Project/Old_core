@@ -18,7 +18,7 @@ using namespace Xila_Namespace;
 /// @brief Clear data of the clipboard.
 ///
 /// @return Result_Type_Class
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Clear()
+Result_Type Xila_Namespace::Clipboard_Class::Clear()
 {
   if (Drive.Remove(Clipboard_Path))
   {
@@ -32,7 +32,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Clear()
 ///
 /// @param Value_To_Copy Data to push.
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
+Result_Type Xila_Namespace::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 {
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -61,7 +61,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(uint64_t const &
 /// @param Char_Array_To_Copy Data to push.
 /// @param Char_Array_Length Data size.
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
+Result_Type Xila_Namespace::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
 {
   Drive.Remove(Clipboard_Path);
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -90,7 +90,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(const char *Char
 ///
 /// @param String_To_Copy Data to push.
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(String const &String_To_Copy)
+Result_Type Xila_Namespace::Clipboard_Class::Copy(String const &String_To_Copy)
 {
   Drive.Remove(Clipboard_Path);
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
@@ -112,7 +112,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Copy(String const &St
 ///
 /// @param[out] Value_To_Paste Buffer reference to pull from.
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
+Result_Type Xila_Namespace::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 {
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -135,7 +135,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Paste(uint64_t &Value
 /// @param Char_Array_To_Paste Buffer reference to pull from.
 /// @param Char_Array_Length Buffer size.
 /// @return Result_Type
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
+Result_Type Xila_Namespace::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
 {
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
@@ -163,7 +163,7 @@ Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Paste(char *Char_Arra
  /// 
  /// @param String_To_Paste Buffer reference to pull data from.
  /// @return Result_Type 
-Module_Class::Result_Type Xila_Namespace::Clipboard_Class::Paste(String &String_To_Paste)
+Result_Type Xila_Namespace::Clipboard_Class::Paste(String &String_To_Paste)
 {
   Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
   if (!Clipboard_File)
