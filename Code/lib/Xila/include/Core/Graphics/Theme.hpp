@@ -28,7 +28,8 @@ namespace Xila_Namespace
 
         static void Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object);
 
-        static lv_style_t Style_Button,
+        static lv_style_t 
+            Style_Button,
             Style_Window,
             Style_Checkbox,
             Style_Slider_Main,

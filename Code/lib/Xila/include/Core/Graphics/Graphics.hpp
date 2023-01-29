@@ -24,6 +24,7 @@
 #include "Button_Matrix.hpp"
 #include "Canvas.hpp"
 #include "Checkbox.hpp"
+#include "Dialog.hpp"
 #include "Drop_Down_List.hpp"
 #include "Image.hpp"
 #include "Line.hpp"

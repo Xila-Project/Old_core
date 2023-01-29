@@ -28,11 +28,13 @@ void Window_Class::Create()
     {
         this->Set_Pointer(lv_obj_create(lv_scr_act()));
         Parent_Window = this;
+        this->Set_Interface();
     }
     // If not, create inside the parent window
     else 
     {
         this->Set_Pointer(lv_obj_create(Parent_Window->Get_Pointer()));
+        this->Set_Interface();
     }
 }
 
@@ -46,6 +48,7 @@ void Window_Class::Create(Object_Class Parent_Object)
     }
 
     this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+    this->Set_Interface();
 }
 
 void Window_Class::Set_Interface()
@@ -96,18 +99,18 @@ void Window_Class::Set_Interface()
 
 /// @brief Function that maximize the window.
 void Window_Class::Maximize() {
-    Clear_Flag(Flag::Hidden);
+    Clear_Flag(Flag_Type::Hidden);
 }
 
 /// @brief Function that minimize the window.
 void Window_Class::Minimize() {
-    Add_Flag(Flag::Hidden);
+    Add_Flag(Flag_Type::Hidden);
 }
 
 /// @brief Function that return if the window is maximized.
 /// @return true if the window is maximized.
 bool Window_Class::Is_Maximized() {
-    if (Has_Flag(Flag::Hidden)) {
+    if (Has_Flag(Flag_Type::Hidden)) {
         return false;
     }
     else {

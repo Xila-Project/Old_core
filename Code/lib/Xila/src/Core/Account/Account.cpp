@@ -278,7 +278,16 @@ Result_Type Account_Class::Change_Password(const char *Name, const char *Current
   File_Type Temporary_File = Drive.Open(Temporary_Char, FILE_WRITE);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   User_Registry["Registry"] = "User";
-  User_Registry["Password"] = New_Password;
+
+  byte Hash[33] = {0};
+  Hash[32] = '\0';
+
+  if (Cryptography.Get_Hash(Current_Password, strlen(Current_Password), Hash, (sizeof(Hash) - 1), Cryptography_Class::Hash_Type::SHA_256) != Result_Type::Success)
+  {
+    return Result_Type::Error;
+  }
+  
+  User_Registry["Password"] = (char*)Hash;
 
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
@@ -367,7 +376,15 @@ Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, cons
   {
     return Result_Type::Error;
   }
-  if (strcmp(Password_To_Check, User_Registry["Password"] | "") != 0)
+
+  uint8_t Hash[32] = {0};
+
+  if (Cryptography.Get_Hash(Password_To_Check, strlen(Password_To_Check), Hash, sizeof(Hash), Cryptography_Class::Hash_Type::SHA_256) != Result_Type::Success)
+  {
+    return Result_Type::Error;
+  }
+
+  if (strcmp(User_Registry["Password"] | "", (char*)Hash) != 0)
   {
     return Result_Type::Error;
   }

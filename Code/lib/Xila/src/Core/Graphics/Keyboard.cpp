@@ -99,3 +99,7 @@ Text_Area_Class Keyboard_Class::Get_Text_Area()
     return Text_Area;
 }
 
+void Keyboard_Class::Remove_Text_Area()
+{
+    lv_keyboard_set_textarea(Get_Pointer(), NULL);
+}

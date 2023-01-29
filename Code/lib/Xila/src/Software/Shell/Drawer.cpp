@@ -15,14 +15,11 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
     Window.Create();
     Window.Set_Title("Drawer");
 
-    Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Row);
-
-    List.Create(Window.Get_Body());
-    List.Set_Size(Percentage(100), Percentage(100));
-
-    List.Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
-    List.Set_Style_Pad_All(10, 0);
-    List.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    // - Set flex container
+    Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
+    Window.Get_Body().Set_Style_Pad_Row(5, 0);
+    Window.Get_Body().Set_Style_Pad_Column(5, 0);
+     
 
     {
         Object_Type Container;
@@ -33,21 +30,25 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
         {
             if (*Software_Handle_Pointer != Shell_Class::Handle)
             {
-                Container.Create(List);
-                Container.Set_Size(Percentage(100), Percentage(100));
+                Container.Create(Window.Get_Body());
+                Container.Set_Size(10 * 8, 9 * 8);
                 Container.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
                 Container.Set_Style_Pad_All(0, 0);
+                Container.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Clicked);
 
                 Icon.Create(Container);
-                Icon.Set_Size(Percentage(100), Percentage(100));
+                Icon.Set_Size(32, 32);
                 Icon.Set_Alignment(Alignment_Type::Top_Middle);
-                Icon.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+                Icon.Add_Flag(Flag_Type::Event_Bubble);
+                Icon.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Clicked);
 
                 Label.Create(Container);
-                Label.Set_Text_Format("Item");
+                Label.Set_Size(Percentage(100), 32);
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
                 Label.Set_Long_Mode(Label_Type::Long_Dot);
-                Label.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+                Label.Add_Flag(Flag_Type::Event_Bubble);
+                Label.Set_Text(Software_Handle_Pointer->Get_Name());
+                Label.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Clicked);
 
                 Container.Clear_Pointer();
                 Icon.Clear_Pointer();
@@ -59,7 +60,6 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
 
 Shell_Class::Drawer_Class::~Drawer_Class()
 {
-    List.Delete();
     Window.Delete();
 }
 
@@ -70,9 +70,9 @@ void Shell_Class::Drawer_Class::Execute_Instruction(Instruction_Type Instruction
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Type::Pressed :
-            for (uint8_t i = 0; i < List.Get_Child_Count(); i++)
+            for (uint8_t i = 0; i < Window.Get_Body().Get_Child_Count(); i++)
             {
-                if ((Instruction.Graphics.Get_Object() == List.Get_Child(i).Get_Child(0)) || (Instruction.Graphics.Get_Object().Get_Child(1) == List.Get_Child(i).Get_Child(1)))
+                if (Instruction.Graphics.Get_Object() == Window.Get_Body().Get_Child(i))
                 {
                     Software_Handle_Class::List[i]->Create_Instance();
                     break;

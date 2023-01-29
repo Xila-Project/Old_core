@@ -12,6 +12,7 @@
 #define Account_Hpp_Included
 
 #include "../Module/Module.hpp"
+#include "../Cryptography/Cryptography.hpp"
 
 namespace Xila_Namespace
 {

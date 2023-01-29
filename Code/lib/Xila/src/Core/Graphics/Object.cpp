@@ -71,24 +71,24 @@ void Object_Class::Clean()
     lv_obj_clean(Get_Pointer());
 }
 
-void Object_Class::Add_Flag(Flag::Type Flag)
+void Object_Class::Add_Flag(Flag_Type Flag)
 {
-    lv_obj_add_flag(Get_Pointer(), Flag);
+    lv_obj_add_flag(Get_Pointer(), static_cast<lv_obj_flag_t>(Flag));
 }
 
-void Object_Class::Clear_Flag(Flag::Type Flag)
+void Object_Class::Clear_Flag(Flag_Type Flag)
 {
-    lv_obj_clear_flag(Get_Pointer(), Flag);
+    lv_obj_clear_flag(Get_Pointer(), static_cast<lv_obj_flag_t>(Flag));
 }
 
-bool Object_Class::Has_Flag(Flag::Type Flag)
+bool Object_Class::Has_Flag(Flag_Type Flag)
 {
-    return lv_obj_has_flag(Get_Pointer(), Flag);
+    return lv_obj_has_flag(Get_Pointer(), static_cast<lv_obj_flag_t>(Flag));
 }
 
-bool Object_Class::Has_Any_Flag(Flag::Type Flag)
+bool Object_Class::Has_Any_Flag(Flag_Type Flag)
 {
-    return lv_obj_has_flag_any(Get_Pointer(), Flag);
+    return lv_obj_has_flag_any(Get_Pointer(), static_cast<lv_obj_flag_t>(Flag));
 }
 
 void Object_Class::Add_State(State::Type State)

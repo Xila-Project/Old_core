@@ -95,45 +95,7 @@ namespace Xila_Namespace
             };
         };
 
-        class Flag
-        {
-        public:
-            typedef lv_obj_flag_t Type;
 
-            /// @brief Flag enumeration.
-            enum Enumeration
-            {
-                Hidden = LV_OBJ_FLAG_HIDDEN,
-                Clickable = LV_OBJ_FLAG_CLICKABLE,
-                Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
-                Checkable = LV_OBJ_FLAG_CHECKABLE,
-                Scrollable = LV_OBJ_FLAG_SCROLLABLE,
-                Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
-                Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
-                Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
-                Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
-                Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
-                Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
-                Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
-                Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
-                Snappable = LV_OBJ_FLAG_SNAPPABLE,
-                Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
-                Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
-                Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
-                Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
-                Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
-                Floating = LV_OBJ_FLAG_FLOATING,
-                Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
-                Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
-                Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
-                Widget_1 = LV_OBJ_FLAG_WIDGET_1,
-                Widget_2 = LV_OBJ_FLAG_WIDGET_2,
-                Custom_1 = LV_OBJ_FLAG_USER_1,
-                Custom_2 = LV_OBJ_FLAG_USER_2,
-                Custom_3 = LV_OBJ_FLAG_USER_3,
-                Custom_4 = LV_OBJ_FLAG_USER_4,
-            };
-        };
 
         typedef lv_obj_class_t Class_Type;
         typedef lv_style_selector_t Style_Selector_Type;
@@ -203,10 +165,10 @@ namespace Xila_Namespace
         void Delete();
         void Clean();
         // - - Flags
-        void Add_Flag(Flag::Type Flag);
-        void Clear_Flag(Flag::Type Flag);
-        bool Has_Flag(Flag::Type Flag);
-        bool Has_Any_Flag(Flag::Type Flag);
+        void Add_Flag(Flag_Type Flag);
+        void Clear_Flag(Flag_Type Flag);
+        bool Has_Flag(Flag_Type Flag);
+        bool Has_Any_Flag(Flag_Type Flag);
         // - - States
         void Add_State(State::Type State);
         void Clear_State(State::Type State);

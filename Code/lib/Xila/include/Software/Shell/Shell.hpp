@@ -82,9 +82,6 @@ class Shell_Class : public Software_Type
         // - Attributes
         Window_Type Window;
 
-        /// @brief File manager class
-        List_Type List;
-
         Drawer_Class(Shell_Class *Shell_Pointer);
         ~Drawer_Class();
 
@@ -108,10 +105,15 @@ class Shell_Class : public Software_Type
         Login_Class(Shell_Class *Shell_Pointer);
         ~Login_Class();
 
-        Window_Type Dialog;
+        void Execute_Instruction(Instruction_Type Instruction);
 
-        Text_Area_Type Name;
-        Text_Area_Type Password;
+        Dialog_Type Dialog;
+
+        Text_Area_Type Name_Input;
+        Text_Area_Type Password_Input;
+        Button_Type Login_Button;
+        Label_Type Login_Label;
+        Keyboard_Type Keyboard;
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;

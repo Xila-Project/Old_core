@@ -48,6 +48,19 @@ void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object)
         lv_obj_add_style(Object, &Style_Slider_Indicator, LV_PART_INDICATOR | LV_STATE_DEFAULT);
         lv_obj_add_style(Object, &Style_Slider_Knob, LV_PART_KNOB | LV_STATE_DEFAULT);
     }
+
+    else if (lv_obj_check_type(Object, &lv_textarea_class))
+    {
+        lv_obj_set_style_bg_color(Object, lv_palette_darken(LV_PALETTE_GREY, 3), 0);
+        lv_obj_set_style_border_side(Object, LV_BORDER_SIDE_BOTTOM, 0);
+
+        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_MAIN | LV_STATE_DEFAULT);
+        lv_obj_set_style_border_color(Object, lv_palette_main(LV_PALETTE_LIGHT_BLUE), LV_PART_MAIN | LV_STATE_FOCUSED);
+        lv_obj_set_style_border_color(Object, lv_palette_main(LV_PALETTE_LIGHT_BLUE), LV_PART_MAIN | LV_STATE_EDITED);
+        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_MAIN | LV_STATE_DISABLED);
+
+        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_CURSOR | LV_STATE_FOCUSED);
+    }
 }
 
 void Theme_Class::Initialize()
