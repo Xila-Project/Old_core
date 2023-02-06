@@ -16,10 +16,10 @@
 Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     Window.Create();
-    Window.Set_Tile("Preferences");
+    Window.Set_Title("Preferences");
 
     Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
-    Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent);
+    Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
     
     {
         Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
@@ -107,43 +107,63 @@ void Shell_Class::Preferences_Class::Draw_System()
 
     Object_Type Grid;
     Grid.Create(System_Tab);
-    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0)
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
     Grid.Set_Style_Pad_All(10, 0);
+
+    const uint8_t Device_Section_Row = 1;
 
     {
         Label_Type Label;
         Label.Create(Grid),
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, 0, 1);
         Label.Set_Text("Device");
-    }
+        Label.Clear_Pointer();
 
-    const uint8_t Time_Section_Row = 1;
-
-    {
         Text_Area_Type Text_Area;
         Text_Area.Create(Grid);
         Text_Area.Set_Placeholder_Text("Device name");
         Text_Area.Set_One_Line(true);
-        Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
+        Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
 
-
-        Button_Type Button;
-        Button.Create(Grid); 
-        Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
-        Button.Clear_Pointer();
+        System_Name_Apply_Button.Create(Grid); 
+        System_Name_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
 
         Label_Type Label;
-        Label.Create(Button);
+        Label.Create(System_Name_Apply_Button);
         Label.Set_Text("Apply");
         Label.Set_Alignment(Alignment_Type::Center);
         Label.Clear_Pointer();
 
-        Button.Create(Grid);
-        Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, 2, 1);
+        System_Update_Button.Create(Grid);
+        System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
 
-        Label.Create(Button);
-        Label.Set_Text()
+        Label.Create(System_Update_Button);
+        Label.Set_Text("Update system");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+
+        System_Reboot_Loader_Button.Create(Grid);
+        System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
+    }
+
+    const uint8_t Time_Section_Row = Device_Section_Row + 2;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Time_Section_Row, 1);
+
+        NTP_Server_Text_Area.Create(Grid);
+        NTP_Server_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
+        NTP_Server_Text_Area.Set_Placeholder_Text("N.T.P. server");
+        NTP_Server_Text_Area.Set_One_Line(true);
+
+        System_Apply_NTP_Server_Button.Create(Grid);
+        System_Apply_NTP_Server_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
+
+
+
     }
 
 

@@ -38,7 +38,6 @@ public:
     static Software_Handle_Type Handle;
 
 private:
-
     static void Create_Instance()
     {
         new Shell_Class();
@@ -67,7 +66,7 @@ private:
         // - Methods
 
         // - - Constructors / destructor
-        Desk_Class(Shell_Class* Shell_Pointer);
+        Desk_Class(Shell_Class *Shell_Pointer);
         ~Desk_Class();
 
         void Refresh();
@@ -79,7 +78,7 @@ private:
         Object_Type Menu_Button;
         Object_Type Dock_List;
 
-        Shell_Class* Shell_Pointer;
+        Shell_Class *Shell_Pointer;
     } Desk;
 
     class Drawer_Class
@@ -187,11 +186,10 @@ private:
         Button_Type Cut_Button;
         Button_Type Paste_Button;
         Button_Type Details_Button;
-        
+
         Dialog_Type Details_Dialog;
         Table_Type Details_Table;
-                
-        
+
         Shell_Class *Shell_Pointer;
 
         friend class Shell_Class;
@@ -202,20 +200,14 @@ private:
     class Preferences_Class
     {
     public:
-    
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
 
     private:
-        // -- Constructor
+        // - - Constructor
 
         Preferences_Class(Shell_Class *Shell_Pointer);
-
-        Window_Type Window;
-        Tabs_Type Tabs;
-        Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
-        Keyboard_Type Keyboard;
 
         static Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
         static Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
@@ -226,7 +218,6 @@ private:
         void Draw_Network();
         void Draw_Users();
         void Draw_System();
-
 
         // -- Attributes
 
@@ -269,7 +260,25 @@ private:
 
         inline void System_Update();
 
-        Shell_Class* Shell_Pointer;
+        // - Attributes
+
+        Window_Type Window;
+        Tabs_Type Tabs;
+        Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+        Keyboard_Type Keyboard;
+
+        // - - System
+
+        Button_Type System_Name_Apply_Button;
+        Button_Type System_Update_Button;
+        Button_Type System_Reboot_Loader_Button;
+        Button_Type System_Apply_NTP_Server_Button;
+        Button_Type System_Apply_Time_Zone_Button;
+
+        Text_Area_Type NTP_Server_Text_Area;
+        Roller_Type Time_Zone_Roller;
+
+        Shell_Class *Shell_Pointer;
 
         friend class Shell_Class;
 

@@ -27,7 +27,7 @@ void Tabs_Class::Create(Object_Class Parent_Object)
 
 }
 
-void Tabs_Class::Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size)
+void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size)
 {
     if (Parent_Object)
     {
