@@ -12,11 +12,27 @@
 
 using namespace Xila_Namespace;
 
+
 // ------------------------------------------------------------------------- //
 //
 //                                  Management
 //
 // ------------------------------------------------------------------------- //
+
+Checkbox_Class::Checkbox_Class() : Object_Class()
+{
+}
+
+Checkbox_Class::Checkbox_Class(const Object_Class &Object_To_Copy) 
+{
+    Set_Pointer(Object_To_Copy.Get_Pointer());
+}
+
+Checkbox_Class& Checkbox_Class::operator=(const Object_Class& Object)
+{
+    Set_Pointer(Object.Get_Pointer());
+    return *this;
+}
 
 void Checkbox_Class::Create(Object_Class Parent_Object)
 {

@@ -32,6 +32,23 @@ using namespace Xila;
 /// @details Main inter
 class Shell_Class : public Software_Type
 {
+public:
+    // - Types
+
+    static Software_Handle_Type Handle;
+
+private:
+
+    static void Create_Instance()
+    {
+        new Shell_Class();
+    }
+
+    // -- Methods
+
+    Shell_Class();
+    ~Shell_Class();
+
     // - Attributes
 
     /// @brief Instance pointer, help to keep track of current instance.
@@ -44,18 +61,13 @@ class Shell_Class : public Software_Type
     {
     public:
         // - Methods
-
-        static void Open(Shell_Class *Shell_Pointer);
-        static void Close(Shell_Class *Shell_Pointer);
-        static bool Is_Open(Shell_Class *Shell_Pointer);
-
         void Execute_Instruction(const Instruction_Type &Instruction);
 
-    protected:
+    private:
         // - Methods
 
         // - - Constructors / destructor
-        Desk_Class(Shell_Class *Shell_Pointer);
+        Desk_Class(Shell_Class* Shell_Pointer);
         ~Desk_Class();
 
         void Refresh();
@@ -67,8 +79,8 @@ class Shell_Class : public Software_Type
         Object_Type Menu_Button;
         Object_Type Dock_List;
 
-        Shell_Class *Shell_Pointer;
-    } *Desk_Pointer;
+        Shell_Class* Shell_Pointer;
+    } Desk;
 
     class Drawer_Class
     {
@@ -78,6 +90,7 @@ class Shell_Class : public Software_Type
         static bool Is_Open(Shell_Class *Shell_Pointer);
 
         void Execute_Instruction(Instruction_Type Instruction);
+
     private:
         // - Attributes
         Window_Type Window;
@@ -101,7 +114,6 @@ class Shell_Class : public Software_Type
         static void Close(Shell_Class *Shell_Pointer);
 
     private:
-        
         Login_Class(Shell_Class *Shell_Pointer);
         ~Login_Class();
 
@@ -122,92 +134,80 @@ class Shell_Class : public Software_Type
     ///
     class File_Manager_Class
     {
-    protected:
+    public:
+        static void Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+
+    private:
         // -- Attributes
+        char Buffer[256];
 
-        File *Item_Pointer;
-        File Selected_Item;
-        File Operation_Item;
-
-        enum Operations
-        {
-            Browse,
-            New_File,
-            New_Folder,
-            Delete,
-            Rename,
-            Copy,
-            Cut,
-            Paste_Copy,
-            Paste_Cut,
-            Detail
-        };
-
-        uint8_t Mode;
-        uint8_t Operation;
-        uint8_t Offset;
+        bool Cut;
 
         // -- Methods
 
         File_Manager_Class(Shell_Class *Shell_Pointer);
         ~File_Manager_Class();
 
-        Shell_Class *Shell_Pointer;
+        void Refresh();
 
-        static void Open(uint8_t = Idle);
-
-        static void Close();
+        void Enable_Selection_Mode(bool Multiple);
+        void Disable_Selection_Mode();
+        uint8_t Count_Selected_Items();
 
         void Execute_Instruction(Instruction_Type Instruction);
 
-        void Select_Item();
-        void Validate();
-        void Open_Home_Directory();
-        void Open_Root_Directory();
-        void Copy_Item();
-        void Cut_Item();
+        void Paste();
+        void Details();
+        void Go_Parent_Folder();
+        void Click();
+        void Rename();
+        void Delete();
         void Create_File();
         void Create_Folder();
 
-        /*inline Instruction_Type Get_Mode()
-        {
-            return Mode;
-            DUMP("get mode");
-            DUMP(this->Mode);
-        }*/
+        Window_Type Window;
 
-        inline void Set_Operation(uint8_t Operation)
-        {
-            this->Operation = Operation;
-        }
-
-        inline uint8_t Get_Operation()
-        {
-            return Operation;
-        }
-
-        void Refresh_Footerbar();
-        void Refresh();
-        void Make_File();
-        void Go_Parent();
-
-        void Refresh_Detail();
-        void Open_Detail();
-
-        // -- Attributes
-        char Current_Item_Name[13];
-        char Current_Path[192];
+        Object_Type Grid;
+        Object_Type Flexbox;
+        Text_Area_Type Path_Text_Area;
+        List_Type List;
+        Button_Type Parent_Folder_Button;
+        Button_Type Home_Folder_Button;
+        Button_Type Root_Folder_Button;
+        Button_Type Refresh_Button;
+        Button_Type New_Folder_Button;
+        Button_Type New_File_Button;
+        Button_Type Select_Button;
+        Button_Type Deselect_Button;
+        Button_Type Delete_Button;
+        Button_Type Rename_Button;
+        Button_Type Copy_Button;
+        Button_Type Cut_Button;
+        Button_Type Paste_Button;
+        Button_Type Details_Button;
+        
+        Dialog_Type Details_Dialog;
+        Table_Type Details_Table;
+                
+        
+        Shell_Class *Shell_Pointer;
 
         friend class Shell_Class;
 
     } *File_Manager_Pointer;
 
-    ///
     /// @brief Preferences class
-    ///
     class Preferences_Class
     {
     public:
+    
+        static void Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+
+    private:
         // -- Constructor
 
         Preferences_Class(Shell_Class *Shell_Pointer);
@@ -215,8 +215,8 @@ class Shell_Class : public Software_Type
         Window_Type Window;
         Tabs_Type Tabs;
         Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+        Keyboard_Type Keyboard;
 
-    protected:
         // -- Attributes
 
         bool Autologin; // -- Accounts
@@ -260,6 +260,8 @@ class Shell_Class : public Software_Type
 
         inline void System_Update();
 
+        Shell_Class *Shell_Pointer;
+
         friend class Shell_Class;
 
     } *Preferences_Pointer;
@@ -279,31 +281,6 @@ class Shell_Class : public Software_Type
     void Main_Task_Function();
 
     Software_Type *Open_Shell();
-
-public:
-    // -- Methods
-
-    static Software_Handle_Type Handle;
-
-    static void Startup();
-
-    Shell_Class();
-    ~Shell_Class();
-
-    static void Create_Instance()
-    {
-        new Shell_Class();
-    }
 };
-
-// -- Shortcuts -- //
-
-#define KEYBOARD DIALOG.Keyboard_Pointer
-#define KEYPAD DIALOG.Keypad_Pointer
-#define COLOR_PICKER DIALOG.Color_Picker_Pointer
-#define EVENT DIALOG.Event_Pointer
-#define POWER DIALOG.Power_Pointer
-#define LOAD DIALOG.Load_Pointer
-#define LOGIN DIALOG.Login_Pointer
 
 #endif

@@ -13,15 +13,15 @@
 
 // - Constructor
 
-Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
+Shell_Class::Desk_Class::Desk_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     // Window
-    Window.Create();
+    Window.Create(Account.Get_Logged_User());
     Window.Set_Title("Desk");
 
     // Grid for icons
-    const Object_Type::Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Object_Type::Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
     // Create grid
     Desk_Grid.Create(Window.Get_Body());
@@ -83,8 +83,8 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Dock.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3), 0);
     Dock.Set_Style_Radius(8, 8);
     // - - Dock's grid layout
-    const Object_Type::Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Object_Type::Coordinate_Type Dock_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Dock_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     Dock.Set_Layout(LV_LAYOUT_GRID);
     Dock.Set_Grid_Descriptor_Array(Dock_Column_Descriptor, Dock_Row_Descriptor);
 
@@ -119,7 +119,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Red_Part.Set_Style_Background_Color(Color_Type::Red[5], 0);
         Red_Part.Set_Alignment(Alignment_Type::Top_Left);
         Red_Part.Add_Style(Menu_Button_Part_Style, 0);
-        Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+        Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::Part_Type::Main | Graphics_Types::State_Type::Pressed);
         Red_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
     }
     {
@@ -129,7 +129,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Blue_Part.Set_Style_Background_Color(Color_Type::Blue[5], 0);
         Blue_Part.Set_Alignment(Alignment_Type::Bottom_Left);
         Blue_Part.Add_Style(Menu_Button_Part_Style, 0);
-        Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+        Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::Part_Type::Main | Graphics_Types::State_Type::Pressed);
         Blue_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
     }
     {
@@ -139,7 +139,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Green_Part.Set_Style_Background_Color(Color_Type::Green[5], 0);
         Green_Part.Set_Alignment(Alignment_Type::Bottom_Right);
         Green_Part.Add_Style(Menu_Button_Part_Style, 0);
-        Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+        Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::Part_Type::Main | Graphics_Types::State_Type::Pressed);
         Green_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
     }
     {
@@ -149,7 +149,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Yellow_Part.Set_Style_Background_Color(Color_Type::Yellow[5], 0);
         Yellow_Part.Set_Alignment(Alignment_Type::Top_Right);
         Yellow_Part.Add_Style(Menu_Button_Part_Style, 0);
-        Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::State::Pressed);
+        Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Object_Type::Part_Type::Main | Graphics_Types::State_Type::Pressed);
         Yellow_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
     }
 
@@ -169,28 +169,6 @@ Shell_Class::Desk_Class::~Desk_Class()
     Dock.Delete();
     Menu_Button.Delete();
     Window.Delete();
-}
-
-// - - Desk
-
-void Shell_Class::Desk_Class::Open(Shell_Class *Shell_Pointer)
-{
-    Shell_Pointer->Desk_Pointer = new Desk_Class(Shell_Pointer);
-}
-
-void Shell_Class::Desk_Class::Close(Shell_Class *Shell_Pointer)
-{
-    delete Shell_Pointer->Desk_Pointer;
-    Shell_Pointer->Desk_Pointer = NULL;
-}
-
-bool Shell_Class::Desk_Class::Is_Open(Shell_Class *Shell_Pointer)
-{
-    if (Shell_Pointer->Desk_Pointer == NULL)
-    {
-        return true;
-    }
-    return false;
 }
 
 void Shell_Class::Desk_Class::Refresh()

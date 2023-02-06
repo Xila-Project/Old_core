@@ -27,8 +27,12 @@ namespace Xila_Namespace
 
         // - Methods
 
+        Checkbox_Class();
+        Checkbox_Class(const Object_Class &Object_To_Copy);
+
         void Create(Object_Class Parent_Object);
 
+        Checkbox_Class& operator=(const Object_Class& Object);
         // - - Setters.
 
         bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);

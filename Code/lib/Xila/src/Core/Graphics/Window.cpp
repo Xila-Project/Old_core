@@ -9,10 +9,11 @@
 ///
 
 #include "Core/Graphics/Window.hpp"
+#include "Core/Core.hpp"
 
 using namespace Xila_Namespace;
 
-Window_Class* Window_Class::Parent_Window = NULL;
+std::vector<Window_Class> Window_Class::Parent_List(2);
 
 // ------------------------------------------------------------------------- //
 //
@@ -20,22 +21,20 @@ Window_Class* Window_Class::Parent_Window = NULL;
 //
 // ------------------------------------------------------------------------- //
 
+void Window_Class::Create(const Account_Class::User_Class* Owner_User)
+{
+    this->Set_Pointer(lv_obj_create(lv_scr_act()));
+    this->Set_Owner_User(Owner_User);
+    this->Set_Interface();
+    Parent_List.push_back(*this);
+}
+
 /// @brief Function that create a window.
 void Window_Class::Create()
 {
-    // If it is the first window, it is the parent window.
-    if (Parent_Window == NULL || !Parent_Window->Is_Valid())
-    {
-        this->Set_Pointer(lv_obj_create(lv_scr_act()));
-        Parent_Window = this;
-        this->Set_Interface();
-    }
-    // If not, create inside the parent window
-    else 
-    {
-        this->Set_Pointer(lv_obj_create(Parent_Window->Get_Pointer()));
-        this->Set_Interface();
-    }
+    this->Set_Pointer(lv_obj_create(Get_User_Parent_Window_Index(Account.Get_Logged_User()).Get_Pointer()));
+    this->Set_Owner_User(Get_User_Parent_Window_Index(Account.Get_Logged_User()).Get_Owner_User());
+    this->Set_Interface();
 }
 
 /// @brief Function that create a window inside a parent object.
@@ -49,6 +48,21 @@ void Window_Class::Create(Object_Class Parent_Object)
 
     this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
     this->Set_Interface();
+}
+
+/// @brief Function that return the user's parent window.
+/// @param Owner_User Owner user of the window.
+/// @return The parent window.
+Window_Type Window_Class::Get_User_Parent_Window_Index(const Account_Class::User_Type* Owner_User)
+{
+    // ! : This function is not safe !
+    for (Window_Type Window : Parent_List)
+    {
+        if (Window.Get_Owner_User() == Owner_User)
+        {
+            return Window;
+        }
+    }
 }
 
 void Window_Class::Set_Interface()

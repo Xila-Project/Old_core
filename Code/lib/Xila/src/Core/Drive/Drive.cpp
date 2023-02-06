@@ -12,6 +12,8 @@
 
 using namespace Xila_Namespace;
 
+Drive_Type Drive;
+
 ///
  /// @brief Construct a new Xila_Namespace::Drive_Class::Drive_Class object
  /// 

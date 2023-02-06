@@ -60,7 +60,7 @@ uint16_t Table_Class::Get_Column_Count()
     return lv_table_get_col_cnt(Get_Pointer());
 }
 
-Object_Class::Coordinate_Type Table_Class::Get_Column_Width(uint16_t Column)
+Coordinate_Type Table_Class::Get_Column_Width(uint16_t Column)
 {
     return lv_table_get_col_width(Get_Pointer(), Column);
 }

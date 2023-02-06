@@ -48,54 +48,20 @@ namespace Xila_Namespace
 
         // -- Types and enumerations
 
-        class State
+        enum class Part_Type
         {
-        public:
-            typedef lv_state_t Type;
-
-            /// @brief Possible states of a widget. ORed values are possible.
-            enum Enumeration
-            {
-                Default = LV_STATE_DEFAULT,
-                Checked = LV_STATE_CHECKED,
-                Focused = LV_STATE_FOCUSED,
-                Focus_Key = LV_STATE_FOCUS_KEY,
-                Edited = LV_STATE_EDITED,
-                Hovered = LV_STATE_HOVERED,
-                Pressed = LV_STATE_PRESSED,
-                Scrolled = LV_STATE_SCROLLED,
-                Disabled = LV_STATE_DISABLED,
-                Custom_1 = LV_STATE_USER_1,
-                Custom_2 = LV_STATE_USER_2,
-                Custom_3 = LV_STATE_USER_3,
-                Custom_4 = LV_STATE_USER_4,
-                Any = LV_STATE_ANY
-            };
+            Main = LV_PART_MAIN,                        /// < Main part of the object.
+            Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
+            Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
+            Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
+            Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
+            Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
+            Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
+            Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
+            Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
+            Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
+            Any = LV_PART_ANY                           /// < Any part of the object.
         };
-
-        class Part
-        {
-        public:
-            typedef lv_part_t Type;
-
-            /// @brief Part enumeration.
-            enum Enumeration
-            {
-                Main = LV_PART_MAIN,                        /// < Main part of the object.
-                Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
-                Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
-                Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
-                Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
-                Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
-                Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
-                Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
-                Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
-                Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
-                Any = LV_PART_ANY                           /// < Any part of the object.
-            };
-        };
-
-
 
         typedef lv_obj_class_t Class_Type;
         typedef lv_style_selector_t Style_Selector_Type;
@@ -138,11 +104,12 @@ namespace Xila_Namespace
         // -- Constructors
 
         Object_Class();
-        Object_Class(lv_obj_t* Object_Pointer);
+        Object_Class(lv_obj_t *Object_Pointer);
+        Object_Class(const Object_Class &Object_To_Copy);
 
         // - - Operators
 
-        bool operator==(const Object_Class& Other) const
+        bool operator==(const Object_Class &Other) const
         {
             if (this->Get_Pointer() == nullptr || Other.Get_Pointer() == nullptr)
             {
@@ -151,7 +118,7 @@ namespace Xila_Namespace
             return (this->Get_Pointer() == Other.Get_Pointer());
         }
 
-        bool operator!=(const Object_Class& Other) const
+        bool operator!=(const Object_Class &Other) const
         {
             if (this->Get_Pointer() == nullptr || Other.Get_Pointer() == nullptr)
             {
@@ -170,14 +137,14 @@ namespace Xila_Namespace
         bool Has_Flag(Flag_Type Flag);
         bool Has_Any_Flag(Flag_Type Flag);
         // - - States
-        void Add_State(State::Type State);
-        void Clear_State(State::Type State);
-        bool Has_State(State::Type State);
+        void Add_State(Graphics_Types::State_Type State);
+        void Clear_State(Graphics_Types::State_Type State);
+        bool Has_State(Graphics_Types::State_Type State);
         // - - Swap
         void Swap(Object_Class Object_To_Swap_With);
         // - - Events
-        void Add_Event(Module_Class* Module_Pointer, Event_Code_Type Event_Code);
-        bool Remove_Event(Module_Class* Module_Pointer);
+        void Add_Event(Module_Class *Module_Pointer, Event_Code_Type Event_Code);
+        bool Remove_Event(Module_Class *Module_Pointer);
         bool Remove_All_Events();
         void Send_Event(Event_Code_Type Event);
         // - - Layer management
@@ -375,7 +342,7 @@ namespace Xila_Namespace
 
         const Class_Type *Get_Class();
 
-        State::Type Get_State();
+        Graphics_Types::State_Type Get_State();
 
         void *Get_Group();
         void *Get_User_Data();
@@ -550,8 +517,12 @@ namespace Xila_Namespace
         lv_obj_t *LVGL_Object_Pointer;
 
     protected:
-
     } Object_Type;
+
+    Object_Type::Style_Selector_Type operator |(Object_Type::Part_Type Part, Graphics_Types::State_Type State)
+    {
+        return static_cast<Object_Type::Style_Selector_Type>(Part | State);
+    }
 
 }
 

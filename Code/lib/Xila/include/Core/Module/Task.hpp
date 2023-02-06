@@ -12,79 +12,79 @@ namespace Xila_Namespace
 
     class Module_Class;
 
-  typedef class Task_Class
+    typedef class Task_Class
+    {
+    public:
+        typedef void (*Function_Type)(void *);
+
+        // - Types
+
+        typedef void Task_Function(void *);
+
+        enum class Priority_Type
         {
-        public:
-            typedef void (*Function_Type)(void *);
+            Idle = 0,
+            Background,
+            Low,
+            Normal,
+            High,
+            System,
+            Driver
+        };
 
-            // - Types
+        enum class State_Type
+        {
+            Running = eRunning,
+            Ready = eReady,
+            Blocked = eBlocked,
+            Suspended = eSuspended,
+            Deleted = eDeleted,
+            Invalid = eInvalid,
+        };
 
-            typedef void Task_Function(void *);
+        // - Methods
 
-            enum class Priority_Type
-            {
-                Idle = 0,
-                Background,
-                Low,
-                Normal,
-                High,
-                System,
-                Driver
-            };
+        Task_Class(xTaskHandle Handle);
+        // - Constructors / Destructors
+        Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
+        ~Task_Class();
 
-            enum class State_Type
-            {
-                Running = eRunning,
-                Ready = eReady,
-                Blocked = eBlocked,
-                Suspended = eSuspended,
-                Deleted = eDeleted,
-                Invalid = eInvalid,
-            };
+        Result_Type Set_Priority(Priority_Type Priority);
 
-            // - Methods
+        void Suspend();
+        void Resume();
 
-            Task_Class(xTaskHandle Handle);
-            // - Constructors / Destructors
-            Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
-            ~Task_Class();
+        State_Type Get_State();
+        Priority_Type Get_Priority();
 
-            Result_Type Set_Priority(Priority_Type Priority);
+        /*
+        static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
+        static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
+        static void Take_Notification(Task_Class& Task);
+        */
 
-            void Suspend();
-            void Resume();
+        void Delay(uint32_t Delay_In_Millisecond);
+        static void Delay_Static(uint32_t Delay_In_Millisecond);
+        void Delay_Until(TickType_t Time_Increment);
 
-            State_Type Get_State();
-            Priority_Type Get_Priority();
+        void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
+        static void Check_Watchdogs();
 
-            /*
-            static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
-            static void Give_Notification_From_ISR(Task_Class& Task, void* Data, unsigned int Index = 0);
-            static void Take_Notification(Task_Class& Task);
-            */
+    private:
+        void Feed_Watchdog();
 
-            void Delay(uint32_t Delay_In_Millisecond);
-            static void Delay_Static(uint32_t Delay_In_Millisecond);
-            void Delay_Until(TickType_t Time_Increment);
+        xTaskHandle Task_Handle;
 
-            void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
-            static void Check_Watchdogs();
+        uint32_t Watchdog_Timer;
+        uint32_t Watchdog_Timeout;
 
-        private:
-            void Feed_Watchdog();
+        TickType_t Previous_Wake_Time;
 
-            xTaskHandle Task_Handle;
+        Module_Class *Owner_Module;
 
-            uint32_t Watchdog_Timer;
-            uint32_t Watchdog_Timeout;
+        static std::vector<Task_Class *> List; // - Task lists.
 
-            TickType_t Previous_Wake_Time;
-
-            Module_Class *Owner_Module;
-
-            static std::vector<Task_Class *> List; // - Task lists.
-
-        } Task_Type;
+    } Task_Type;
 
 }
 

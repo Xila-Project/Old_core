@@ -51,10 +51,12 @@ namespace Xila_Namespace
 
             State_Type Get_State() const;
             const char *Get_Name() const;
+            const char* Get_Home_Folder_Path() const;
 
         private:
             void Set_State(State_Type State);
             void Set_Name(const char *Name);
+            void Set_Parent_Windows(Object_Type Parent);
 
             static std::vector<User_Class> List;
 

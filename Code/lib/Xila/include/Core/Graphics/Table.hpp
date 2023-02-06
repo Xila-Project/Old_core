@@ -68,6 +68,7 @@ namespace Xila_Namespace
         void Set_Row_Count(uint16_t Row_Count);
         void Set_Column_Count(uint16_t Column_Count);
         void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
+        
     } Table_Type;
 }
 

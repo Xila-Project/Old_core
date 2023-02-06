@@ -79,7 +79,7 @@ namespace Xila_Namespace
 {
     typedef File File_Type;
     
-    class Drive_Class : public Module_Class
+    typedef class Drive_Class : public Module_Class
     {
     public:
         // - Types and enumerations
@@ -139,7 +139,9 @@ namespace Xila_Namespace
         void End();
 
         bool Begin(const char *Mount_Point = "/");
-    } Drive;
+    } Drive_Type;
+
+    extern Drive_Type Drive;
 }
 
 #endif

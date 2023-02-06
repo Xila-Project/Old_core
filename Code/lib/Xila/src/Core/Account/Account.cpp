@@ -114,6 +114,12 @@ const char* Account_Class::User_Class::Get_Name() const
   return Name;
 }
 
+const char* Account_Class::User_Class::Get_Home_Folder_Path() const
+{
+  // TODO :
+  
+}
+
 void Account_Class::User_Class::Set_State(State_Type State)
 {
   this->State = State;

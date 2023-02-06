@@ -11,10 +11,13 @@
 #ifndef Window_Hpp_Included
 #define Window_Hpp_Included
 
+#include <vector>
+
 #include "Object.hpp"
 #include "Button.hpp"
 #include "Label.hpp"
 #include "Image.hpp"
+#include "../Account/Account.hpp"
 
 namespace Xila_Namespace
 {
@@ -24,6 +27,8 @@ namespace Xila_Namespace
 
         void Create();
         void Create(Object_Class Parent_Object);
+        // TODO : Make it protected.
+        void Create(const Account_Class::User_Class* Owner_User);
 
         void Set_Title(const char *Title);
 
@@ -36,12 +41,19 @@ namespace Xila_Namespace
         Object_Class Get_Body();
         Object_Class Get_Header();
 
+        const Account_Class::User_Class* Get_Owner_User();
+
+
     protected:
     
         void Set_Interface();
+        void Set_Owner_User(const Account_Class::User_Class* Owner_User);
 
-        // First origin window.
-        static Window_Class* Parent_Window;
+        static Window_Class Get_User_Parent_Window_Index(const Account_Class::User_Type* Owner_User);
+
+        static std::vector<Window_Class> Parent_List;
+
+        Account_Type::User_Type* Owner_User;
 
         Object_Class Header;
         Object_Class Body;

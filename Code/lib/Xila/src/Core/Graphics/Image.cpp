@@ -102,12 +102,12 @@ bool Image_Class::Get_Antialias()
     return lv_img_get_antialias(Get_Pointer());
 }
 
-Object_Class::Coordinate_Type Image_Class::Get_Offset_X()
+Coordinate_Type Image_Class::Get_Offset_X()
 {
     return lv_img_get_offset_x(Get_Pointer());
 }
 
-Object_Class::Coordinate_Type Image_Class::Get_Offset_Y()
+Coordinate_Type Image_Class::Get_Offset_Y()
 {
     return lv_img_get_offset_y(Get_Pointer());
 }

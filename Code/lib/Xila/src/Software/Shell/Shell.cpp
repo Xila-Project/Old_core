@@ -24,6 +24,8 @@ Shell_Class::Shell_Class() : Software_Class(&Handle)
     Next_Refresh = 0;
 
     Instances.push_back(this);
+
+    static 
 }
 
 Shell_Class::~Shell_Class()

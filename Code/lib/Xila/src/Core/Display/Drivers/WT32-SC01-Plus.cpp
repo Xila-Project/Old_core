@@ -1,14 +1,15 @@
 ///
-/// @file WT32-SC01.cpp
-/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @file WT32-SC01-Plus.cpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
 /// @brief
 /// @version 0.1.0
-/// @date 24-07-2022
+/// @date 02-02-2023
 ///
-/// @copyright Copyright (c) 2022
+/// @copyright Copyright (c) 2023
 ///
 
-#if Display_Hardware == Display_Wireless_Tag_WT32_SC01
+
+#if Display_Hardware == Display_Wireless_Tag_WT32_SC01_Plus
 
 #define LGFX_USE_V1
 #include "LovyanGFX.hpp"

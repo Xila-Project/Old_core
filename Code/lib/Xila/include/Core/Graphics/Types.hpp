@@ -109,39 +109,61 @@ namespace Xila_Namespace
         Internal = LV_BORDER_SIDE_INTERNAL, /**< FOR matrix-like objects (e.g. Button matrix)*/
     };
 
-
     enum class Flag_Type
     {
-            Hidden = LV_OBJ_FLAG_HIDDEN,
-            Clickable = LV_OBJ_FLAG_CLICKABLE,
-            Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
-            Checkable = LV_OBJ_FLAG_CHECKABLE,
-            Scrollable = LV_OBJ_FLAG_SCROLLABLE,
-            Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
-            Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
-            Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
-            Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
-            Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
-            Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
-            Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
-            Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
-            Snappable = LV_OBJ_FLAG_SNAPPABLE,
-            Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
-            Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
-            Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
-            Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
-            Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
-            Floating = LV_OBJ_FLAG_FLOATING,
-            Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
-            Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
-            Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
-            Widget_1 = LV_OBJ_FLAG_WIDGET_1,
-            Widget_2 = LV_OBJ_FLAG_WIDGET_2,
-            Custom_1 = LV_OBJ_FLAG_USER_1,
-            Custom_2 = LV_OBJ_FLAG_USER_2,
-            Custom_3 = LV_OBJ_FLAG_USER_3,
-            Custom_4 = LV_OBJ_FLAG_USER_4,
+        Hidden = LV_OBJ_FLAG_HIDDEN,
+        Clickable = LV_OBJ_FLAG_CLICKABLE,
+        Click_Focusable = LV_OBJ_FLAG_CLICK_FOCUSABLE,
+        Checkable = LV_OBJ_FLAG_CHECKABLE,
+        Scrollable = LV_OBJ_FLAG_SCROLLABLE,
+        Scroll_Elastic = LV_OBJ_FLAG_SCROLL_ELASTIC,
+        Scroll_Momentum = LV_OBJ_FLAG_SCROLL_MOMENTUM,
+        Scroll_One = LV_OBJ_FLAG_SCROLL_ONE,
+        Scroll_Chain_Horizontal = LV_OBJ_FLAG_SCROLL_CHAIN_HOR,
+        Scroll_Chain_Vertical = LV_OBJ_FLAG_SCROLL_CHAIN_VER,
+        Scroll_Chain = LV_OBJ_FLAG_SCROLL_CHAIN,
+        Scroll_On_Focus = LV_OBJ_FLAG_SCROLL_ON_FOCUS,
+        Scroll_With_Arrow = LV_OBJ_FLAG_SCROLL_WITH_ARROW,
+        Snappable = LV_OBJ_FLAG_SNAPPABLE,
+        Press_Lock = LV_OBJ_FLAG_PRESS_LOCK,
+        Event_Bubble = LV_OBJ_FLAG_EVENT_BUBBLE,
+        Gesture_Bubble = LV_OBJ_FLAG_GESTURE_BUBBLE,
+        Adv_Hittest = LV_OBJ_FLAG_ADV_HITTEST,
+        Ignore_Layout = LV_OBJ_FLAG_IGNORE_LAYOUT,
+        Floating = LV_OBJ_FLAG_FLOATING,
+        Overflow_Visible = LV_OBJ_FLAG_OVERFLOW_VISIBLE,
+        Layout_1 = LV_OBJ_FLAG_LAYOUT_1,
+        Layout_2 = LV_OBJ_FLAG_LAYOUT_2,
+        Widget_1 = LV_OBJ_FLAG_WIDGET_1,
+        Widget_2 = LV_OBJ_FLAG_WIDGET_2,
+        Custom_1 = LV_OBJ_FLAG_USER_1,
+        Custom_2 = LV_OBJ_FLAG_USER_2,
+        Custom_3 = LV_OBJ_FLAG_USER_3,
+        Custom_4 = LV_OBJ_FLAG_USER_4,
     };
+
+    typedef lv_coord_t Coordinate_Type;
+
+    namespace Graphics_Types
+    {
+        enum class State_Type
+        {
+            Default = LV_STATE_DEFAULT,
+            Checked = LV_STATE_CHECKED,
+            Focused = LV_STATE_FOCUSED,
+            Focus_Key = LV_STATE_FOCUS_KEY,
+            Edited = LV_STATE_EDITED,
+            Hovered = LV_STATE_HOVERED,
+            Pressed = LV_STATE_PRESSED,
+            Scrolled = LV_STATE_SCROLLED,
+            Disabled = LV_STATE_DISABLED,
+            Custom_1 = LV_STATE_USER_1,
+            Custom_2 = LV_STATE_USER_2,
+            Custom_3 = LV_STATE_USER_3,
+            Custom_4 = LV_STATE_USER_4,
+            Any = LV_STATE_ANY
+        };
+    }
 
     class Types_Class
     {
@@ -222,8 +244,6 @@ namespace Xila_Namespace
 
         /// @brief Text font type
         typedef lv_font_t Font_Type;
-
-        typedef lv_coord_t Coordinate_Type;
 
         class Base_Direction
         {

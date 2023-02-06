@@ -2,14 +2,6 @@
 
 using namespace Xila_Namespace;
 
-
-void Dialog_Class::Create()
-{    
-    this->Set_Pointer(lv_obj_create(Parent_Window->Get_Pointer()));
-    this->Set_Interface();
-    this->Set_Size(Percentage(75), Percentage(75));
-}
-
 void Dialog_Class::Create(Object_Class Parent_Object)
 {
     if (!Parent_Object)

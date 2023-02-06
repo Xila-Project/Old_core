@@ -28,6 +28,7 @@
 #include "Instruction.hpp"
 #include "Semaphore.hpp"
 #include "Queue.hpp"
+#include "String.hpp"
 
 #include "../Configuration/Configuration.hpp"
 #include "../Configuration/Path.hpp"
