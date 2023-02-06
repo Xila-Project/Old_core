@@ -347,9 +347,9 @@ void Object_Class::Set_Style_Arc_Width(Coordinate_Type Width, Style_Selector_Typ
     lv_obj_set_style_arc_width(Get_Pointer(), Width, Style_Selector);
 }
 
-void Object_Class::Set_Style_Base_Direction(Direction::Type Direction, Style_Selector_Type Style_Selector)
+void Object_Class::Set_Style_Base_Direction(Direction_Type Direction, Style_Selector_Type Style_Selector)
 {
-    lv_obj_set_style_base_dir(Get_Pointer(), Direction, Style_Selector);
+    lv_obj_set_style_base_dir(Get_Pointer(), static_cast<lv_dir_t>(Direction), Style_Selector);
 }
 
 void Object_Class::Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector)

@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#ifdef Power_Hardware == Regular_Battery
+#if Power_Hardware == Regular_Battery
 
 #include "Core/Power/Power.hpp"
 

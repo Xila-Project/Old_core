@@ -17,6 +17,33 @@
 namespace Xila_Namespace
 {
 
+    enum class Part_Type
+    {
+        Main = LV_PART_MAIN,                        /// < Main part of the object.
+        Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
+        Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
+        Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
+        Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
+        Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
+        Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
+        Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
+        Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
+        Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
+        Any = LV_PART_ANY                           /// < Any part of the object.
+    };
+
+    enum class Direction_Type
+    {
+        None = LV_DIR_NONE,
+        Left = LV_DIR_LEFT,
+        Right = LV_DIR_RIGHT,
+        Top = LV_DIR_TOP,
+        Bottom = LV_DIR_BOTTOM,
+        Horizontal = LV_DIR_HOR,
+        Vertical = LV_DIR_VER,
+        All = LV_DIR_ALL,
+    };
+
     enum class Alignment_Type
     {
         Default = LV_ALIGN_DEFAULT,

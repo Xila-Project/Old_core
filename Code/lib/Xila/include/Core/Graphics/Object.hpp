@@ -48,43 +48,9 @@ namespace Xila_Namespace
 
         // -- Types and enumerations
 
-        enum class Part_Type
-        {
-            Main = LV_PART_MAIN,                        /// < Main part of the object.
-            Scrollbar = LV_PART_SCROLLBAR,              /// < Scrollbar part.
-            Indicator = LV_PART_INDICATOR,              /// < Indicator part of a scrollbar.
-            Knob = LV_PART_KNOB,                        /// < Knob of a scrollbar
-            Selected = LV_PART_SELECTED,                /// < The part of a list is selected.
-            Items = LV_PART_ITEMS,                      /// < The part of the list where the items are drawn.
-            Ticks = LV_PART_TICKS,                      /// < Ticks of a gauge
-            Cursor = LV_PART_CURSOR,                    /// < Cursor of a slider
-            Custom_First = LV_PART_CUSTOM_FIRST,        /// < First custom part
-            Placeholder = LV_PART_TEXTAREA_PLACEHOLDER, /// < (only for text area objects).
-            Any = LV_PART_ANY                           /// < Any part of the object.
-        };
-
+     
         typedef lv_obj_class_t Class_Type;
         typedef lv_style_selector_t Style_Selector_Type;
-
-        class Direction
-        {
-        public:
-            /// @brief Direction type.
-            typedef lv_dir_t Type;
-
-            /// @brief Direction enumeration.
-            enum Enumeration
-            {
-                None = LV_DIR_NONE,
-                Left = LV_DIR_LEFT,
-                Right = LV_DIR_RIGHT,
-                Top = LV_DIR_TOP,
-                Bottom = LV_DIR_BOTTOM,
-                Horizontal = LV_DIR_HOR,
-                Vertical = LV_DIR_VER,
-                All = LV_DIR_ALL,
-            };
-        };
 
         class Draw_Part
         {
@@ -207,7 +173,7 @@ namespace Xila_Namespace
         void Set_Style_Arc_Rounded(bool Rounded, Style_Selector_Type Style_Selector);
         void Set_Style_Arc_Width(Coordinate_Type Width, Style_Selector_Type Style_Selector);
 
-        void Set_Style_Base_Direction(Direction::Type Direction, Style_Selector_Type Style_Selector);
+        void Set_Style_Base_Direction(Direction_Type Direction, Style_Selector_Type Style_Selector);
 
         // - - - - Background
         void Set_Style_Background_Color(Color_Type Color, Style_Selector_Type Style_Selector);

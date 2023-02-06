@@ -22,16 +22,16 @@ void Tabs_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), Direction::Top, 20));
+        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction_Type::Top), 20));
     }
 
 }
 
-void Tabs_Class::Create(Object_Class& Parent_Object, Direction::Type Direction, Coordinate_Type Size)
+void Tabs_Class::Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), Direction, Size));
+        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction), Size));
     }
 }
 

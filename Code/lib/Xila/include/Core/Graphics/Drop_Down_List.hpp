@@ -39,7 +39,7 @@ namespace Xila_Namespace
         void Set_Options(const char *Options);
         void Set_Options_Static(const char *Options);
         void Set_Selected(uint16_t Selected_Option);
-        void Set_Direction(Direction::Type Direction);
+        void Set_Direction(Direction_Type Direction);
         void Set_Symbol(const void *Symbol);
         void Set_Selected_Highlight(bool Enabled);
 
@@ -52,7 +52,7 @@ namespace Xila_Namespace
         void Get_Selected_String(char *Buffer, size_t Buffer_Size);
         const char *Get_Symbol();
         bool Get_Selected_Highlight();
-        Direction::Type Get_Direction();
+        Direction_Type Get_Direction();
 
     } Drop_Down_List_Type;
 }

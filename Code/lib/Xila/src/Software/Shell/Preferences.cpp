@@ -14,8 +14,41 @@
 // -- Constructor -- //
 
 Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
-
 {
+    Window.Create();
+    Window.Set_Tile("Preferences");
+
+    Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
+    Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent);
+    
+    {
+        Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
+        Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[2], 0);
+        Tab_Buttons.Set_Style_Text_Color(Color_Type::White, 0);
+        Tab_Buttons.Set_Style_Border_Side(Border_Side_Type::Right, Part_Type::Items | Graphics_Types::State_Type::Checked);
+        Tab_Buttons.Set_Style_Border_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
+        Tab_Buttons.Set_Style_Text_Color(Color_Type::White, Part_Type::Items | Graphics_Types::State_Type::Checked);
+    }
+
+    Personnal_Tab = Tabs.Add_Tab("Personnal");
+    Softwares_Tab = Tabs.Add_Tab("Softwares");
+    Network_Tab = Tabs.Add_Tab("Wireless");
+    Users_Tab = Tabs.Add_Tab("Users");
+    Hardware_Tab = Tabs.Add_Tab("Hardware");
+    System_Tab = Tabs.Add_Tab("System");
+
+    Draw_Personal();
+    Draw_Softwares();
+    Draw_Hardware();
+    Draw_Network();
+    Draw_Users();
+    Draw_System();
+
+
+
+
+
+
     // -- Account
     Autologin = false;
     strlcpy(Username, Account.Get_Current_Username(), sizeof(Username));
@@ -45,26 +78,75 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : 
     // -- Benchmark
     Write_Speed = 0;
     Read_Speed = 0;
+}
 
-    Window.Create();
-    Window.Set_Title("Preferences");
+void Shell_Class::Preferences_Class::Open(Shell_Class *Shell_Pointer)
+{
+    Shell_Pointer->Preferences_Pointer = new Preferences_Class(Shell_Pointer);
+}
 
-    Tabs.Create(Window);
-    Tabs.Set_Style_Background_Color(Color_Type::Grey[5], 0);
+void Shell_Class::Preferences_Class::Close(Shell_Class *Shell_Pointer)
+{
+    delete Shell_Pointer->Preferences_Pointer;
+    Shell_Pointer->Preferences_Pointer = NULL;
+}
 
-    Button_Type Tab_Buttons = Tabs.Get_Tab_Buttons();
-    Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[3], 0);
-    Tab_Buttons.Set_Style_Text_Color(Color_Type::White, 0);
-    Tab_Buttons.Set_Style_Border_Side(Border_Side_Type::Right, Button_Type::Part::Items | Button_Type::State::Checked);
-    Tab_Buttons.Set_Style_Border_Color(Color_Type::White, Button_Type::Part::Items | Button_Type::State::Checked);
-    Tab_Buttons.Set_Style_Text_Color(Color_Type::White, Button_Type::Part::Items | Button_Type::State::Hovered);
+bool Shell_Class::Preferences_Class::Is_Openned(Shell_Class *Shell_Pointer)
+{
+    if (Shell_Pointer->Preferences_Pointer == NULL)
+    {
+        return false;
+    }
+    return true;
+}
 
-    Personnal_Tab = Tabs.Add_Tab("Personnal");
-    Softwares_Tab = Tabs.Add_Tab("Softwares");
-    Network_Tab = Tabs.Add_Tab("Network");
-    Users_Tab = Tabs.Add_Tab("Users");
-    Hardware_Tab = Tabs.Add_Tab("Hardware");
-    System_Tab = Tabs.Add_Tab("System");
+void Shell_Class::Preferences_Class::Draw_System()
+{
+    System_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    System_Tab.Set_Style_Pad_All(0, 0);
+
+    Object_Type Grid;
+    Grid.Create(System_Tab);
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0)
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    {
+        Label_Type Label;
+        Label.Create(Grid),
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, 0, 1);
+        Label.Set_Text("Device");
+    }
+
+    const uint8_t Time_Section_Row = 1;
+
+    {
+        Text_Area_Type Text_Area;
+        Text_Area.Create(Grid);
+        Text_Area.Set_Placeholder_Text("Device name");
+        Text_Area.Set_One_Line(true);
+        Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
+
+
+        Button_Type Button;
+        Button.Create(Grid); 
+        Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
+        Button.Clear_Pointer();
+
+        Label_Type Label;
+        Label.Create(Button);
+        Label.Set_Text("Apply");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+
+        Button.Create(Grid);
+        Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, 2, 1);
+
+        Label.Create(Button);
+        Label.Set_Text()
+    }
+
+
 }
 
 // -- State management -- //
@@ -122,6 +204,11 @@ void Shell_Class::Preferences_Class::Close()
 }
 
 // --
+
+void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
+{
+
+}
 
 void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::Instruction Instruction)
 {

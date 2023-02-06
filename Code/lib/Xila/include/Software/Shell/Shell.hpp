@@ -217,6 +217,17 @@ private:
         Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
         Keyboard_Type Keyboard;
 
+        static Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+        static Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
+
+        void Draw_Personal();
+        void Draw_Softwares();
+        void Draw_Hardware();
+        void Draw_Network();
+        void Draw_Users();
+        void Draw_System();
+
+
         // -- Attributes
 
         bool Autologin; // -- Accounts
@@ -236,8 +247,6 @@ private:
         char WiFi_Password[sizeof(WiFi.Password)];
 
         char Temporary_String[16];
-
-        Shell_Class *Shell_Pointer;
 
         IPAddress Local_IP;
         IPAddress Gateway_IP;
@@ -260,7 +269,7 @@ private:
 
         inline void System_Update();
 
-        Shell_Class *Shell_Pointer;
+        Shell_Class* Shell_Pointer;
 
         friend class Shell_Class;
 
