@@ -13,14 +13,14 @@
 
 // -- Constructor -- //
 
-Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : Shell_Pointer(Shell_Pointer)
+Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     Window.Create();
     Window.Set_Title("Preferences");
 
     Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
     Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
-    
+
     {
         Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
         Tab_Buttons.Set_Style_Background_Color(Color_Type::Grey[2], 0);
@@ -43,11 +43,6 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class* Shell_Pointer) : 
     Draw_Network();
     Draw_Users();
     Draw_System();
-
-
-
-
-
 
     // -- Account
     Autologin = false;
@@ -100,10 +95,264 @@ bool Shell_Class::Preferences_Class::Is_Openned(Shell_Class *Shell_Pointer)
     return true;
 }
 
+void Shell_Class::Preferences_Class::Draw_Network()
+{
+    Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Network_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
+    Object_Type Grid;
+    Grid.Create(Network_Tab);
+    Grid.Set_Size(Percentage(100), Percentage(100));
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    const uint8_t WiFi_Section_Row = 0;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Wireless");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
+        Label.Clear_Pointer();
+
+
+
+    }
+
+}
+
+
+void Shell_Class::Preferences_Class::Draw_Hardware()
+{
+    Hardware_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Hardware_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
+    Object_Type Grid;
+    Grid.Create(Hardware_Tab);
+    Grid.Set_Size(Percentage(100), Percentage(100));
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    const uint8_t Display_Section_Row = 0;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Display");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Display_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        Label.Create(Grid);
+        Label.Set_Text("Brightness :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        Hardware_Display_Brightness_Slider.Create(Grid);
+        Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+        Hardware_Display_Brightness_Slider.Set_Range(0, 100);
+
+        Hardware_Display_Calibrate_Button.Create(Grid);
+        Hardware_Display_Calibrate_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+
+        Label.Create(Hardware_Display_Calibrate_Button);
+        Label.Set_Text("Calibrate");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+    }
+
+    const uint8_t Sound_Section_Row = Display_Section_Row + 2;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Sound");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Sound_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        Label.Create(Grid);
+        Label.Set_Text("Volume :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Sound_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        Hardware_Sound_Volume_Slider.Create(Grid);
+        Hardware_Sound_Volume_Slider.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 6, Grid_Alignment_Type::Center, Sound_Section_Row + 1, 1);
+        Hardware_Sound_Volume_Slider.Set_Range(0, 100);
+    }
+
+    const uint8_t Battery_Section_Row = Sound_Section_Row + 2;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Battery");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Battery_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        Label.Create(Grid);
+        Label.Set_Text("Level :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Battery_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        Hardware_Battery_Level_Label.Create(Grid);
+        Hardware_Battery_Level_Label.Set_Grid_Cell(Grid_Alignment_Type::Start, 2, 6, Grid_Alignment_Type::Center, Battery_Section_Row + 1, 1);
+    }
+
+    const uint8_t Drive_Section_Row = Battery_Section_Row + 2;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Drive");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        Label.Create(Grid);
+        switch (Drive.Get_Type())
+        {
+        case Drive_Type::Type_Type::None:
+            Label.Set_Text("Type : None");
+            break;
+        case Drive_Type::Type_Type::MMC:
+            Label.Set_Text("Type : MMC");
+            break;
+        case Drive_Type::Type_Type::SD_SC:
+            Label.Set_Text("Type : SD SC");
+            break;
+        case Drive_Type::Type_Type::SD_HC:
+            Label.Set_Text("Type : SD HC");
+            break;
+        default:
+            Label.Set_Text("Type : Unknown");
+            break;
+        }
+
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 4, Grid_Alignment_Type::Center, Drive_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        Label.Create(Grid);
+        Label.Set_Text_Format("Size : %u", Drive.Get_Size());
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 4, 4, Grid_Alignment_Type::Center, Drive_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+    }
+
+    const uint8_t Energy_Section_Row = Drive_Section_Row + 2;
+
+    {
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Energy");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Energy_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        Hardware_Energy_Apply_Button.Create(Grid);
+        Hardware_Energy_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Energy_Section_Row, 1);
+
+        Label.Create(Hardware_Energy_Apply_Button);
+        Label.Set_Text("Apply");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+
+        // - - - Standby label
+
+        Label.Create(Grid);
+        Label.Set_Text("Standby :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        // - - - Standby roller
+
+        Hardware_Energy_Standby_Roller.Create(Grid);
+        Hardware_Energy_Standby_Roller.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 1);
+        Hardware_Energy_Standby_Roller.Set_Options("1 min\n2 min\n3 min\n5 min\n10 min\n15 min\n20 min\n25 min\n30 min\n45 min\n1 h\n2 h\n3 h\n4 h\n5 h\nNever", Roller_Type::Mode_Type::Normal);
+    }
+}
+
+void Shell_Class::Preferences_Class::Draw_Softwares()
+{
+    Softwares_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Softwares_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
+
+    Object_Type Grid;
+    Grid.Create(Softwares_Tab);
+    Grid.Set_Size(Percentage(100), Percentage(100));
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    // - - Software section
+
+    const uint8_t Software_Section_Row = 0;
+
+    {
+        // - - - Software title label
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
+
+        // - - - Softwares roller
+
+        Softwares_Roller.Create(Grid);
+        Softwares_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
+        char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
+        memset(Software_Name, '\0', sizeof(Software_Name));
+        for (auto Software_Handle : Software_Handle_Type::List)
+        {
+            strlcat(Software_Name, Software_Handle->Get_Name(), sizeof(Software_Name));
+            strcat(Software_Name, "\n");
+        }
+        Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
+
+        // - - - Delete button
+
+        Softwares_Delete_Button.Create(Grid);
+        Softwares_Delete_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
+
+        Label_Type Label;
+        Label.Create(Softwares_Delete_Button);
+        Label.Set_Text("Delete");
+        Label.Set_Alignment(Alignment_Type::Center);
+    }
+}
+
+void Shell_Class::Preferences_Class::Draw_Personal()
+{
+    Personnal_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Personnal_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
+
+    Object_Type Grid;
+    Grid.Create(Personnal_Tab);
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    // - - Style section
+
+    const uint8_t Style_Section_Row = 0;
+
+    {
+        // - - - Style title label
+
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
+        Label.Set_Text("Style");
+    }
+}
+
 void Shell_Class::Preferences_Class::Draw_System()
 {
     System_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     System_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
 
     Object_Type Grid;
     Grid.Create(System_Tab);
@@ -111,62 +360,123 @@ void Shell_Class::Preferences_Class::Draw_System()
     Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
     Grid.Set_Style_Pad_All(10, 0);
 
-    const uint8_t Device_Section_Row = 1;
+    // - - Device section
+
+    const uint8_t Device_Section_Row = 0;
 
     {
+        // - - - Device title label
+
         Label_Type Label;
         Label.Create(Grid),
-        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, 0, 1);
+            Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Device_Section_Row, 1);
         Label.Set_Text("Device");
         Label.Clear_Pointer();
 
-        Text_Area_Type Text_Area;
-        Text_Area.Create(Grid);
-        Text_Area.Set_Placeholder_Text("Device name");
-        Text_Area.Set_One_Line(true);
-        Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
+        // - - - Apply button
 
-        System_Name_Apply_Button.Create(Grid); 
-        System_Name_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
+        System_Device_Apply_Button.Create(Grid);
+        System_Device_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
 
-        Label_Type Label;
-        Label.Create(System_Name_Apply_Button);
+        Label.Create(System_Device_Apply_Button);
         Label.Set_Text("Apply");
         Label.Set_Alignment(Alignment_Type::Center);
         Label.Clear_Pointer();
 
+        // - - - Device name text area
+
+        System_Device_Name_Text_Area.Create(Grid);
+        System_Device_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
+        System_Device_Name_Text_Area.Set_Placeholder_Text("Device name");
+        System_Device_Name_Text_Area.Set_One_Line(true);
+
+        // - - - System update button
+
         System_Update_Button.Create(Grid);
-        System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
+        System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
 
         Label.Create(System_Update_Button);
         Label.Set_Text("Update system");
         Label.Set_Alignment(Alignment_Type::Center);
         Label.Clear_Pointer();
 
+        // - - - System reboot to loader button
+
         System_Reboot_Loader_Button.Create(Grid);
-        System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
+        System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
+
+        Label.Create(System_Reboot_Loader_Button);
+        Label.Set_Text("Reboot to loader");
+        Label.Set_Alignment(Alignment_Type::Center);
     }
 
-    const uint8_t Time_Section_Row = Device_Section_Row + 2;
+    // - - Time section
+
+    const uint8_t Time_Section_Row = Device_Section_Row + 3;
 
     {
+        // - - - Time title label
+
         Label_Type Label;
         Label.Create(Grid);
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Time_Section_Row, 1);
+        Label.Set_Text("Time");
+        Label.Clear_Pointer();
 
-        NTP_Server_Text_Area.Create(Grid);
-        NTP_Server_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
-        NTP_Server_Text_Area.Set_Placeholder_Text("N.T.P. server");
-        NTP_Server_Text_Area.Set_One_Line(true);
+        // - - - Apply time button
 
-        System_Apply_NTP_Server_Button.Create(Grid);
-        System_Apply_NTP_Server_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
+        System_Time_Apply_Button.Create(Grid);
+        System_Time_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
 
+        Label.Create(System_Time_Apply_Button);
+        Label.Set_Text("Apply");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
 
+        // - - - NTP server text area
 
+        System_NTP_Server_Text_Area.Create(Grid);
+        System_NTP_Server_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
+        System_NTP_Server_Text_Area.Set_Placeholder_Text("N.T.P. server");
+        System_NTP_Server_Text_Area.Set_One_Line(true);
+
+        // - - - UTC offset roller
+
+        System_Time_Zone_Roller.Create(Grid);
+        System_Time_Zone_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 2, 2);
+        // TODO : Set time zone options
+        // System_Time_Zone_Roller.Set_Options(Time_Zone_Options, );
+        System_Time_Zone_Roller.Set_Selected(0, true);
+        System_Time_Zone_Roller.Set_Visible_Row_Count(3);
     }
 
+    // - - About section
 
+    const uint8_t About_Section_Row = Time_Section_Row + 3;
+
+    {
+        // - - - About title label
+
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row, 1);
+        Label.Set_Text("About");
+        Label.Clear_Pointer();
+
+        // - - - Author label
+
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row + 1, 1);
+        Label.Set_Text_Format("Author : Alix ANNERAUD");
+        Label.Clear_Pointer();
+
+        // - - - About version
+
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row + 2, 1);
+        Label.Set_Text("Version : " Stringizing(Xila_Version_Major) "." Stringizing(Xila_Version_Minor) "." Stringizing(Xila_Version_Revision));
+        Label.Clear_Pointer();
+    }
 }
 
 // -- State management -- //
@@ -227,7 +537,6 @@ void Shell_Class::Preferences_Class::Close()
 
 void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-
 }
 
 void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::Instruction Instruction)
@@ -262,75 +571,75 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::In
         DIALOG.Keyboard(Password_1, sizeof(Password_1));
         SHELL->Send_Instruction('R', 'e');
         break;
-            if (Account.Change_Password(Account.Current_Username, Password_1) != Success)
-            {
-                DIALOG.Event(F("Failed to change password."), Error);
-            }
-            else
-            {
-                DIALOG.Event(F("Password successfully modified."), Information);
-            }
+        if (Account.Change_Password(Account.Current_Username, Password_1) != Success)
+        {
+            DIALOG.Event(F("Failed to change password."), Error);
         }
         else
         {
-            DIALOG.Event(F("Passwords doesn't match."), Error);
+            DIALOG.Event(F("Password successfully modified."), Information);
         }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('D', 'A'): // Disable autologin
-        Account.Set_Autologin(false);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('E', 'A'): // Enable autologin
-        Account.Set_Autologin(true);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('N', 'L'):
-        if (Keyboard.Layout < Keyboard.English)
-        {
-            Keyboard.Layout++;
-        }
-        else
-        {
-            Keyboard.Layout = 0;
-        }
-        DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('P', 'L'):
-        if (Keyboard.Layout > 0)
-        {
-            Keyboard.Layout--;
-        }
-        else
-        {
-            Keyboard.Layout = Keyboard.English;
-        }
-        DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-
-    case Instruction('D', 'U'):
-        if (DIALOG.Event(F("Are you sure to delete this user ?"), Question) == Button_1)
-        {
-            if (Account.Delete(Account.Current_Username) != Success)
-            {
-                DIALOG.Event(F("Cannot delete user."), Error);
-            }
-            else
-            {
-                DIALOG.Event(F("User successfully deleted."), Error);
-            }
-        }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('R', 'e'):
-        Refresh_Personal();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
     }
+    else
+    {
+        DIALOG.Event(F("Passwords doesn't match."), Error);
+    }
+    SHELL->Send_Instruction('R', 'e');
+    break;
+case Instruction('D', 'A'): // Disable autologin
+    Account.Set_Autologin(false);
+    SHELL->Send_Instruction('R', 'e');
+    break;
+case Instruction('E', 'A'): // Enable autologin
+    Account.Set_Autologin(true);
+    SHELL->Send_Instruction('R', 'e');
+    break;
+case Instruction('N', 'L'):
+    if (Keyboard.Layout < Keyboard.English)
+    {
+        Keyboard.Layout++;
+    }
+    else
+    {
+        Keyboard.Layout = 0;
+    }
+    DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
+    SHELL->Send_Instruction('R', 'e');
+    break;
+case Instruction('P', 'L'):
+    if (Keyboard.Layout > 0)
+    {
+        Keyboard.Layout--;
+    }
+    else
+    {
+        Keyboard.Layout = Keyboard.English;
+    }
+    DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
+    SHELL->Send_Instruction('R', 'e');
+    break;
+
+case Instruction('D', 'U'):
+    if (DIALOG.Event(F("Are you sure to delete this user ?"), Question) == Button_1)
+    {
+        if (Account.Delete(Account.Current_Username) != Success)
+        {
+            DIALOG.Event(F("Cannot delete user."), Error);
+        }
+        else
+        {
+            DIALOG.Event(F("User successfully deleted."), Error);
+        }
+    }
+    SHELL->Send_Instruction('R', 'e');
+    break;
+case Instruction('R', 'e'):
+    Refresh_Personal();
+    break;
+default:
+    SHELL->Execute_Instruction(Instruction);
+    break;
+}
 }
 
 void Shell_Class::Preferences_Class::Refresh_Personal()
@@ -571,7 +880,7 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Class::Inst
     switch (Instruction)
     {
     case Instruction('C', 'l'):
-    SHELL->Send_Instruction('O', 'D');
+        SHELL->Send_Instruction('O', 'D');
         Preferences_Class::Close();
         break;
     // -- Device name

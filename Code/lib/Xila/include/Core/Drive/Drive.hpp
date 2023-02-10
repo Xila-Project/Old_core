@@ -16,86 +16,90 @@
 // TODO : create own FS management.
 #include "FS.h"
 
-/*
-
-
-class File_Class : public Module_Class
-{
-public:
-
-    File_Class();
-    ~File_Class();
-
-    typedef enum Seek_Mode_Enumeration
-    {
-        Set,
-        Current,
-        End
-    } Seek_Mode_Type;
-
-    Size_Type Write(uint8_t);
-    Size_Type Write(const uint8_t *buf, Size_Type Size);
-    int Available();
-    int Read();
-    int Peek();
-    void Flush();
-
-    Size_Type Read(uint8_t* Buffer, Size_Type Size);
-    Size_Type Read_Bytes(char *Buffer, Size_Type Length)
-    {
-        return Read((uint8_t*)Buffer, Length);
-    }
-
-    bool Seek(uint32_t Position, Seek_Mode_Type Mode);
-    bool Seek(uint32_t Position)
-    {
-        return Seek(Position, Seek_Mode_Enumeration::Set);
-    }
-    Size_Type Position();
-    Size_Type Size();
-    void Close();
-
-    operator bool();
-
-    Time_Type Get_Last_Write();
-    const char* Path();
-    const char* Name();
-
-    bool Is_Directory(void);
-    File_Class Open_Next_File(const char* mode = FILE_READ);
-    void Rewind_Directory(void);
-
-private:
-
-    void* Data_Pointer;
-};*/
-
-//==============================================================================//
-///
-/// @brief Drive class
-///
-
 namespace Xila_Namespace
 {
-    typedef File File_Type;
-    
+    typedef class File_Class : public Stream
+    {
+    public:
+        File_Class();
+        ~File_Class();
+
+        typedef enum Seek_Mode_Enumeration
+        {
+            Set,
+            Current,
+            End
+        } Seek_Mode_Type;
+
+        // - - Stream methods override
+        size_t write(uint8_t) override;
+        size_t write(const uint8_t *buf, size_t size) override;
+        int available() override;
+        int read() override;
+        int peek() override;
+        void flush() override;
+
+        // - - Methods
+
+        Size_Type Write(uint8_t);
+        Size_Type Write(const uint8_t *buf, Size_Type Size);
+        
+        int Available();
+        int Read();
+        int Peek();
+        void Flush();
+
+        Size_Type Read(uint8_t *Buffer, Size_Type Size);
+        Size_Type Read_Bytes(char *Buffer, Size_Type Length)
+        {
+            return Read((uint8_t *)Buffer, Length);
+        }
+
+        bool Seek(uint32_t Position, Seek_Mode_Type Mode);
+        bool Seek(uint32_t Position)
+        {
+            return Seek(Position, Seek_Mode_Enumeration::Set);
+        }
+        Size_Type Get_Position() const;
+        Size_Type Get_Size() const;
+
+        bool Set_Buffer_Size(Size_Type Size);
+
+
+        void Close();
+
+        Time_Type Get_Last_Write();
+        const char *Get_Path() const;
+        const char *Get_Name() const;
+
+        operator bool() const;
+
+        // - - Directory methods
+
+        bool Is_Directory(void);
+        File_Class Open_Next_File(const char *mode = FILE_READ);
+        void Rewind_Directory(void);
+
+    private:
+        void *File_Pointer;
+    } File_Type;
+
     typedef class Drive_Class : public Module_Class
     {
     public:
         // - Types and enumerations
 
-
         ///
         /// @brief Drive type.
         ///
-        typedef enum
+        enum class Type_Type
         {
             None,  ///< None (nothing connected).
             MMC,   ///< MMC type.
             SD_SC, ///< SD type.
             SD_HC, ///< SD HC type.
             Unknow ///< Unknow type.
-        } SD_Card_Type;
+        };
 
         // - Methods
 
@@ -103,8 +107,9 @@ namespace Xila_Namespace
         Drive_Class();
 
         // - - Drive informations
-        uint64_t Size();
-        SD_Card_Type Type();
+        Size_Type Get_Size();
+        Type_Type Get_Type();
+
         uint64_t Total_Bytes();
         uint64_t Used_Bytes();
 

@@ -53,7 +53,7 @@ bool Drive_Class::Begin(const char *Mount_Point)
 /// @brief A method that return the drive size
 ///
 /// @return uint64_t Drive size in bytes
-uint64_t Drive_Class::Size()
+Size_Type Drive_Class::Get_Size()
 {
     return SD.cardSize();
 }
@@ -62,7 +62,7 @@ uint64_t Drive_Class::Size()
 /// @brief A method that return the drive type
 ///
 /// @return Drive_Class::Sd_Card_Type
-Drive_Class::SD_Card_Type Drive_Class::Type()
+Drive_Class::Type_Type Drive_Class::Type()
 {
     switch (SD.cardType())
     {

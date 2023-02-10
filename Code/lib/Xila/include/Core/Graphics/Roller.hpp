@@ -21,9 +21,7 @@ namespace Xila_Namespace
     public:
         // -- Types
 
-        typedef lv_roller_mode_t Mode_Type;
-
-        enum Mode_Enumeration
+        enum class Mode_Type
         {
             Normal = LV_ROLLER_MODE_NORMAL,
             Infinite = LV_ROLLER_MODE_INFINITE

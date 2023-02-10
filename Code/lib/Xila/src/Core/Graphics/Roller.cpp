@@ -48,7 +48,7 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 
 void Roller_Class::Set_Options(const char* Options, Mode_Type Mode)
 {
-    lv_roller_set_options(Get_Pointer(), Options, Mode);
+    lv_roller_set_options(Get_Pointer(), Options, static_cast<lv_roller_mode_t>(Mode));
 }
 
 void Roller_Class::Set_Selected(uint16_t Index, bool Animated)

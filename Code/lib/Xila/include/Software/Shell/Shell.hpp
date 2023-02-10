@@ -219,6 +219,13 @@ private:
         void Draw_Users();
         void Draw_System();
 
+        void Refresh_Hardware();
+        void Refresh_Personal();
+        void Refresh_Network();
+        void Refresh_System();
+        void Refresh_Install();
+
+
         // -- Attributes
 
         bool Autologin; // -- Accounts
@@ -246,16 +253,6 @@ private:
 
         uint16_t Write_Speed, Read_Speed; // -- Hardware
 
-        // -- Methods
-        static void Open(uint8_t Mode);
-        static void Close();
-
-        void Refresh_Hardware();
-        void Refresh_Personal();
-        void Refresh_Network();
-        void Refresh_System();
-        void Refresh_Install();
-
         void Execute_Instruction(Instruction_Type Instruction);
 
         inline void System_Update();
@@ -265,18 +262,51 @@ private:
         Window_Type Window;
         Tabs_Type Tabs;
         Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
+
         Keyboard_Type Keyboard;
+
+        // - - Wireless
+
+        Button_Type Wireless_WiFi_Refresh_Button;
+        Button_Type Wireless_WiFi_Informations_Button;
+        Button_Type Wireless_WiFi_Connect_Button;
+        Roller_Type Wireless_WiFi_Access_Point_Roller;
+        Text_Area_Type Wireless_WiFi_Password_Text_Area;
+
+        Button_Type Wireless_Network_Apply_Button;
+        Checkbox_Type Wireless_DHCP_Checkbox;
+        Text_Area_Type Wireless_Local_IP_Text_Area;
+        Text_Area_Type Wireless_Gateway_IP_Text_Area;
+        Text_Area_Type Wireless_Subnet_Mask_Text_Area;
+        Text_Area_Type Wireless_DNS_1_Text_Area;
+        Text_Area_Type Wireless_DNS_2_Text_Area;        
+
+        // - - Hardware
+
+        Button_Type Hardware_Display_Calibrate_Button;
+        Slider_Type Hardware_Display_Brightness_Slider;
+        Slider_Type Hardware_Sound_Volume_Slider;
+        Label_Type Hardware_Battery_Level_Label;
+        Button_Type Hardware_Drive_Benchmark_Button;
+        Roller_Type Hardware_Energy_Standby_Roller;
+        Button_Type Hardware_Energy_Apply_Button;
+        
+
+        // - - Softwares
+
+        Roller_Type Softwares_Roller;
+        Button_Type Softwares_Delete_Button;
 
         // - - System
 
-        Button_Type System_Name_Apply_Button;
+        Button_Type System_Device_Apply_Button;
         Button_Type System_Update_Button;
         Button_Type System_Reboot_Loader_Button;
-        Button_Type System_Apply_NTP_Server_Button;
-        Button_Type System_Apply_Time_Zone_Button;
+        Button_Type System_Time_Apply_Button;
 
-        Text_Area_Type NTP_Server_Text_Area;
-        Roller_Type Time_Zone_Roller;
+        Text_Area_Type System_Device_Name_Text_Area;
+        Text_Area_Type System_NTP_Server_Text_Area;
+        Roller_Type System_Time_Zone_Roller;
 
         Shell_Class *Shell_Pointer;
 

@@ -33,7 +33,7 @@ bool Drive_Class::Begin(const char *Mount_Point)
 /// @brief Return the drive size.
 ///
 /// @return uint64_t Drive size in bytes.
-uint64_t Drive_Class::Size()
+Size_Type Drive_Class::Get_Size()
 {
     return SD_MMC.cardSize();
 }
