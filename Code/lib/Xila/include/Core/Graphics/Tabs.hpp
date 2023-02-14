@@ -22,7 +22,7 @@ namespace Xila_Namespace
         // -- Types
 
         // - Methods
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
         void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
         Object_Class Add_Tab(const char *Name);

@@ -25,8 +25,6 @@
 
 using namespace Xila;
 
-#define Default_Background -1
-
 /// @brief Shell class
 ///
 /// @details Main inter
@@ -36,6 +34,7 @@ public:
     // - Types
 
     static Software_Handle_Type Handle;
+
 
 private:
     static void Create_Instance()
@@ -50,9 +49,6 @@ private:
 
     // - Attributes
 
-    /// @brief Instance pointer, help to keep track of current instance.
-    static std::vector<Shell_Class *> Instances;
-
     // - Types
 
     /// @brief Desk class
@@ -61,23 +57,49 @@ private:
     public:
         // - Methods
         void Execute_Instruction(const Instruction_Type &Instruction);
+        void Refresh_Overlay();
 
-    private:
-        // - Methods
+        // - -  Getters
+
+        Color_Type Get_Background_Color() const;
+        Color_Type Get_Foreground_Color() const;
+
+        // - - Setters
+
+        void Set_Background_Color(Color_Type Color);
+        void Set_Foreground_Color(Color_Type Color);
+    
 
         // - - Constructors / destructor
         Desk_Class(Shell_Class *Shell_Pointer);
         ~Desk_Class();
+    private:
+        // - Methods
 
         void Refresh();
 
         // - Attributes
+        // - - Overlay
+        Object_Type Overlay;
+        Button_Type Battery_Button;
+        Image_Type Battery_Image;
+        Button_Type WiFi_Button;
+        Image_Type WiFi_Image;
+        Button_Type Sound_Button;
+        Image_Type Sound_Image;
+        Label_Type Clock_Label;
+
+        // - - Parent window
         Window_Type Window;
         Object_Type Desk_Grid;
         Object_Type Dock;
         Object_Type Menu_Button;
         Object_Type Dock_List;
 
+        Color_Type Background_Color;
+        Color_Type Foreground_Color;
+
+        // - - Shell pointer
         Shell_Class *Shell_Pointer;
     } Desk;
 
@@ -86,7 +108,7 @@ private:
     public:
         static void Open(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
-        static bool Is_Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
 
         void Execute_Instruction(Instruction_Type Instruction);
 
@@ -196,60 +218,56 @@ private:
 
     } *File_Manager_Pointer;
 
+
     /// @brief Preferences class
     class Preferences_Class
     {
     public:
+        // - Types
+
+        enum class Event_Code_Type : uint16_t
+        {
+            Refresh_Personal,
+            Refresh_Softwares,
+            Refresh_Wireless,
+            Refresh_Users,
+            Refresh_Hardware,
+            Refresh_System
+        };
+
+        // - Methods
+
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
 
     private:
+        // - Methods
+
         // - - Constructor
 
         Preferences_Class(Shell_Class *Shell_Pointer);
 
-        static Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-        static Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
-
         void Draw_Personal();
         void Draw_Softwares();
-        void Draw_Hardware();
-        void Draw_Network();
+        void Draw_Wireless();
         void Draw_Users();
+        void Draw_Hardware();
         void Draw_System();
 
-        void Refresh_Hardware();
         void Refresh_Personal();
-        void Refresh_Network();
+        void Refresh_Softwares();
+        void Refresh_Wireless();
+        void Refresh_Users();
+        void Refresh_Hardware();
         void Refresh_System();
-        void Refresh_Install();
-
 
         // -- Attributes
 
-        bool Autologin; // -- Accounts
-
-        char Username[Maximum_Username_Length + 1];
-        char Target_Username[Maximum_Username_Length + 1];
-        char Password_1[Maximum_Password_Length + 1];
-        char Password_2[Maximum_Password_Length + 1];
-
-        int32_t GMT_Offset; // -- Time
-        int16_t Daylight_Offset;
-        char NTP_Server[sizeof(Time.NTP_Server)];
-
-        char Name[25]; // -- System
-
-        char WiFi_Name[33]; // -- Network
-        char WiFi_Password[sizeof(WiFi.Password)];
-
-        char Temporary_String[16];
-
-        IPAddress Local_IP;
-        IPAddress Gateway_IP;
-        IPAddress Subnet_Mask;
-        IPAddress DNS[2];
+        IP_Address_Type Local_IP;
+        IP_Address_Type Gateway_IP;
+        IP_Address_Type Subnet_Mask;
+        IP_Address_Type DNS[2];
 
         uint16_t Write_Speed, Read_Speed; // -- Hardware
 
@@ -265,6 +283,12 @@ private:
 
         Keyboard_Type Keyboard;
 
+        // - - Personnal
+
+        Button_Type Personnal_Style_Apply_Button;
+        Button_Type Personnal_Style_Background_Button;
+        Button_Type Personnal_Style_Foreground_Button;
+
         // - - Wireless
 
         Button_Type Wireless_WiFi_Refresh_Button;
@@ -274,12 +298,12 @@ private:
         Text_Area_Type Wireless_WiFi_Password_Text_Area;
 
         Button_Type Wireless_Network_Apply_Button;
-        Checkbox_Type Wireless_DHCP_Checkbox;
-        Text_Area_Type Wireless_Local_IP_Text_Area;
-        Text_Area_Type Wireless_Gateway_IP_Text_Area;
-        Text_Area_Type Wireless_Subnet_Mask_Text_Area;
-        Text_Area_Type Wireless_DNS_1_Text_Area;
-        Text_Area_Type Wireless_DNS_2_Text_Area;        
+        Checkbox_Type Wireless_Network_DHCP_Checkbox;
+        Text_Area_Type Wireless_Network_Local_IP_Text_Area;
+        Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
+        Text_Area_Type Wireless_Network_Subnet_Mask_Text_Area;
+        Text_Area_Type Wireless_Network_DNS_1_Text_Area;
+        Text_Area_Type Wireless_Network_DNS_2_Text_Area;        
 
         // - - Hardware
 
@@ -319,14 +343,13 @@ private:
     // -- Methods
 
     void Execute_Instruction(Instruction_Type Instruction);
-    void Refresh_Header();
     uint32_t Next_Refresh;
     char Temporary_Char_Array[6];
 
     Result_Type Save_Registry();
     Result_Type Load_Registry();
 
-    void Main_Task_Function();
+    void Main_Task_Function() override;
 
     Software_Type *Open_Shell();
 };

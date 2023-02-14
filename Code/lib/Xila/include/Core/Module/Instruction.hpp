@@ -23,17 +23,17 @@ namespace Xila_Namespace
         {
         private:
             // - Attributes
-            uint8_t Code;
+            Graphics_Types::Event_Code_Type Code;
             void* Object_Pointer;
         public:
             // - Methods
             // - - Constructor
             Graphics_Class();
             // - - Setters
-            void Set_Code(uint32_t Code);
+            void Set_Code(Graphics_Types::Event_Code_Type Code);
             void Set_Object(Object_Type Object);
             // - - Getters
-            uint8_t Get_Code() const;
+            Graphics_Types::Event_Code_Type Get_Code() const;
             Object_Type Get_Object() const;
         } Graphics_Type;
 
@@ -55,11 +55,30 @@ namespace Xila_Namespace
             uint8_t Code;
         } Software_Type;
 
+        /// @brief Custom instruction arguments.
+        typedef class Custom_Class
+        {
+        public:
+            inline Custom_Class() : Code(0) {}
+            inline Custom_Class(uint8_t Code) : Code(Code) {}
+            // - - Setter
+            inline void Set_Code(uint16_t Code) { this->Code = Code; }
+            inline void Set_Data(void* Data) { this->Data = Data; }
+            // - - Getter
+            inline uint16_t Get_Code() const { return Code; }
+            inline void* Get_Data() const { return Data; }
+        private:
+            // - Attributes
+            uint16_t Code;
+            void* Data;
+        } Custom_Type;
+
         // - Arguments anonymous union.
         union
         {
             Graphics_Type Graphics;
             Software_Type Software;
+            Custom_Type Custom;
         };
 
         // - Methods

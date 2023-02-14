@@ -11,15 +11,45 @@
 #include "Core/Pin/Pin.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Pin_Types;
 
 ///
 /// @brief Set GPIO mode.
 ///
 /// @param Pin Involved GPIO.
 /// @param Mode Mode.
-void Xila_Namespace::Pin_Class::Set_Mode(uint8_t Pin, uint8_t Mode)
+void Xila_Namespace::Pin_Class::Set_Mode(uint8_t Pin, Mode_Type Mode)
 {
-    pinMode(Pin, Mode);
+    switch (Mode)
+    {
+    case Mode_Type::Input:
+        pinMode(Pin, INPUT);
+        break;
+    case Mode_Type::Output:
+        pinMode(Pin, OUTPUT);
+        break;  
+    case Mode_Type::Pull_Up:
+        pinMode(Pin, PULLUP);
+        break;
+    case Mode_Type::Input_Pull_Up:
+        pinMode(Pin, INPUT_PULLUP);
+        break;
+    case Mode_Type::Pull_Down:
+        pinMode(Pin, PULLDOWN);
+        break;
+    case Mode_Type::Input_Pull_Down:
+        pinMode(Pin, INPUT_PULLDOWN);
+        break;
+    case Mode_Type::Open_Drain:
+        pinMode(Pin, OPEN_DRAIN);
+        break;
+    case Mode_Type::Output_Open_Drain:
+        pinMode(Pin, OUTPUT_OPEN_DRAIN);
+        break;
+    case Mode_Type::Analog:
+        pinMode(Pin, ANALOG);
+        break;
+    }
 }
 
 ///
@@ -42,19 +72,30 @@ Result_Type Xila_Namespace::Pin_Class::Valid_Output_Pin(uint8_t Pin)
 ///
 /// @param Pin Involved GPIO.
 /// @param State GPIO state to set.
-void Xila_Namespace::Pin_Class::Digital_Write(uint8_t Pin, uint8_t State)
+void Xila_Namespace::Pin_Class::Digital_Write(uint8_t Pin, Digital_State_Type State)
 {
-    digitalWrite(Pin, State);
+    switch (State)
+    {
+    case Digital_State_Type::Low:
+        digitalWrite(Pin, LOW);
+        break;
+    case Digital_State_Type::High:
+        digitalWrite(Pin, HIGH);
+        break;
+    }
 }
 
-///
 /// @brief Read GPIO digital state.
 ///
 /// @param Pin Involved GPIO.
-/// @return int16_t GPIO state.
-int16_t Xila_Namespace::Pin_Class::Digital_Read(uint8_t Pin)
+/// @return Digital_State_Type GPIO state.
+Digital_State_Type Xila_Namespace::Pin_Class::Digital_Read(uint8_t Pin)
 {
-    return digitalRead(Pin);
+    if (digitalRead(Pin) == LOW)
+    {
+        return Digital_State_Type::Low;
+    }
+    return Digital_State_Type::High;
 }
 
 ///
@@ -178,15 +219,46 @@ void Xila_Namespace::Pin_Class::Set_Read_Resolutions(uint8_t Bits_Resolution)
     analogReadResolution(Bits_Resolution);
 }
 
+uint8_t Convert_Mode_Type(Interrupt_Mode_Type Mode)
+{
+    switch (Mode)
+    {
+    case Interrupt_Mode_Type::Rising:
+        return RISING;
+        break;
+    case Interrupt_Mode_Type::Falling:
+        return FALLING;
+        break;
+    case Interrupt_Mode_Type::Change:
+        return CHANGE;
+        break;
+    case Interrupt_Mode_Type::On_Low:
+        return ONLOW;
+        break;
+    case Interrupt_Mode_Type::On_High:
+        return ONHIGH;
+        break;
+    case Interrupt_Mode_Type::On_Low_WE:
+        return ONLOW_WE;
+        break;
+    case Interrupt_Mode_Type::On_High_WE:
+        return ONHIGH_WE;
+        break;
+    default:
+        return DISABLED;
+        break;
+    }
+}
+
 ///
 /// @brief Set an interrupt.
 ///
 /// @param Pin Involved GPIO.
 /// @param[in] Function_Pointer Function pointer.
 /// @param Mode Interrupt mode.
-void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode)
+void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), Interrupt_Mode_Type Mode)
 {
-    attachInterrupt(Pin, Function_Pointer, Mode);
+    attachInterrupt(Pin, Function_Pointer, Convert_Mode_Type(Mode));
 }
 
 ///
@@ -196,9 +268,9 @@ void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*Function_Po
 /// @param Function_Pointer Function pointer.
 /// @param Argument Argument passed to the function.
 /// @param Mode Interrupt mode.
-void Xila_Namespace::Pin_Class::Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode)
+void Xila_Namespace::Pin_Class::Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, Interrupt_Mode_Type Mode)
 {
-    attachInterruptArg(Pin, Function_Pointer, Argument, Mode);
+    attachInterruptArg(Pin, Function_Pointer, Argument, Convert_Mode_Type(Mode));
 }
 
 ///

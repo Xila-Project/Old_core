@@ -21,6 +21,45 @@
 
 namespace Xila_Namespace
 {
+    namespace Pin_Types
+    {
+        /// @brief Digital IOs states.
+        enum class Digital_State_Type
+        {
+            Low,   ///< Low state.
+            High, ///< High state.
+
+        };
+
+        /// @brief IOs modes.
+        enum class Mode_Type
+        {
+            Input,              ///< Input
+            Output,             ///< Output
+            Pull_Up,            ///< Pull up resistor.
+            Input_Pull_Up,      ///< Input with a pull up resistor.
+            Pull_Down,          ///< Pull down resistor.
+            Input_Pull_Down,    ///< Input with a pull down resistor.
+            Open_Drain,         ///< Open drain (nothing connected).
+            Output_Open_Drain,  ///< Output with open drain by default.
+            Analog              ///< Analog
+        };
+
+        /// @brief Interrupt modes.
+        enum class Interrupt_Mode_Type
+        {
+            Disabled,  ///< No interrupt.
+            Rising,    ///< Triggered when signal rise.
+            Falling,   ///< Triggered when signal fall.
+            Change,    ///< Triggered when signal fall or rise.
+            On_Low,    ///< Triggered on low state.
+            On_High,   ///< Triggered on high state.
+            On_Low_WE, ///< Triggered on low state.
+            On_High_WE ///< Triggered on high state.
+        };
+
+    };
+
     class Pin_Class : public Module_Class
     {
     public:
@@ -29,13 +68,13 @@ namespace Xila_Namespace
         Pin_Class();
 
         // -- Pin mode
-        void Set_Mode(uint8_t Pin, uint8_t Mode);
+        void Set_Mode(uint8_t Pin, Pin_Types::Mode_Type Mode);
 
         Result_Type Valid_Output_Pin(uint8_t Pin);
 
         // -- Digital
-        void Digital_Write(uint8_t Pin, uint8_t State);
-        int16_t Digital_Read(uint8_t Pin);
+        void Digital_Write(uint8_t Pin, Pin_Types::Digital_State_Type State);
+        Pin_Types::Digital_State_Type Digital_Read(uint8_t Pin);
 
         Result_Type Valid_Digital_Pin(uint8_t Pin);
 
@@ -52,58 +91,11 @@ namespace Xila_Namespace
         void Set_Attenuation(uint8_t Pin, uint8_t Attenuation);
 
         // -- Interrupts
-        void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), int16_t Mode);
-        void Attach_Interrupt_Argument(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, int16_t Mode);
+        void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), Pin_Types::Interrupt_Mode_Type Mode);
+        void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, Pin_Types::Interrupt_Mode_Type Mode);
         void Detach_Interrupt(uint8_t Pin);
-
-        ///
-        /// @brief Digital IOs states.
-        ///
-        enum Digital_States : uint8_t
-        {
-            Low = LOW,   ///< Low state.
-            High = HIGH, ///< High state.
-
-        };
-
-        ///
-        /// @brief IOs modes.
-        ///
-        enum Modes : uint8_t
-        {
-            Input = 0x01,             ///< Input
-            Output = 0x02,            ///< Output
-            Pull_Up = 0x04,           ///< Pull up resistor.
-            Input_Pull_Up = 0x05,     ///< Input with a pull up resistor.
-            Pull_Down = 0x08,         ///< Pull down resistor.
-            Input_Pull_Down = 0x09,   ///< Input with a pull down resistor.
-            Open_Drain = 0x10,        ///< Open drain (nothing connected).
-            Output_Open_Drain = 0x12, ///< Output with open drain by default.
-            Special = 0xF0,           ///< Special
-            Function_1 = 0x00,        ///< Function 1
-            Function_2 = 0x20,        ///< Function 2
-            Function_3 = 0x40,        ///< Function 3
-            Function_4 = 0x60,        ///< Function 4
-            Function_5 = 0x80,        ///< Function 5
-            Function_6 = 0xA0,        ///< Function 6
-            Analog = 0xC0             ///< Analog
-        };
-
-        ///
-        /// @brief Interrupt modes.
-        ///
-        enum Interrupt_Modes : uint8_t
-        {
-            Disabled = 0x00,  ///< No interrupt.
-            Rising = 0x01,    ///< Triggered when signal rise.
-            Falling = 0x02,   ///< Triggered when signal fall.
-            Change = 0x03,    ///< Triggered when signal fall or rise.
-            On_Low = 0x04,    ///< Triggered on low state.
-            On_High = 0x05,   ///< Triggered on high state.
-            On_Low_WE = 0x0C, ///< Triggered on low state.
-            On_High_WE = 0x0D ///< Triggered on high state.
-        };
-
+    
+    private:
     } Pin;
 
 }

@@ -1,4 +1,4 @@
-#if WiFi_Hardware == WiFi_Hardware_ESP32
+#if true
 
 #include "Core/Communication/WiFi.hpp"
 
@@ -93,5 +93,13 @@ IP_Address_Type WiFi_Class::Get_IP_Address()
     // TODO : Do the convertion
     //return WiFi.localIP();
 }
+
+IP_Address_Type WiFi_Class::Get_Gateway_IP_Address()
+{
+    // TODO : Do the convertion
+    //return WiFi.gatewayIP();
+}
+ 
+
 
 #endif

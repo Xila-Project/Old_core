@@ -23,7 +23,7 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
 
         Label_Class Add_Text(const char *Text);
         Button_Class Add_Button(const char *Icon, const char *Text);

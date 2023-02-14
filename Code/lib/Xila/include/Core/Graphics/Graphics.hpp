@@ -56,36 +56,47 @@
 
 namespace Xila_Namespace
 {
+    namespace Graphics_Types
+    {
+        
+    };
+
     typedef class Graphics_Class : public Types_Class, public Xila_Namespace::Module_Class
     {
     public:
         
         // - Constructor
         Graphics_Class();
+        ~Graphics_Class();
 
-        Theme_Class Theme;
+        // - Methods
+        Result_Type Start();
 
-        Result_Type Initialize();
-
-        bool Initialisation_State();
-
-        static void Task_Function(void *);
-        Task_Class Task;
+        static void Task_Start_Function(void * Instance_Pointer);
+        void Task_Function();
 
         static void Event_Handler(lv_event_t *Event);
 
         void Clear_Cache();
 
+        Object_Type Get_Top_Layer();
+        Object_Type Get_Screen();
 
-    protected:
-        // - - Drivers
+    private:
+        // - Attributes
+        Task_Class Task;
 
+        Theme_Class Theme;
+        
+        // - - Buffers
         lv_color_t Draw_Buffer[Display_Horizontal_Definition * 10];
+
+        // - - Drivers
         lv_disp_draw_buf_t Draw_Buffer_Descriptor;
         lv_disp_drv_t Screen_Driver_Interface;
-
         lv_indev_drv_t Input_Device_Driver_Interface;
 
+    /*
         lv_fs_drv_t File_System_Driver;
 
         void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
@@ -97,6 +108,7 @@ namespace Xila_Namespace
         void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
         lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
         lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
+    */
     } Graphics_Type;
 
     extern Graphics_Type Graphics;

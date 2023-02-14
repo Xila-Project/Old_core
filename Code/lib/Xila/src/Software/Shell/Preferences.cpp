@@ -11,6 +11,9 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
+const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
+
 // -- Constructor -- //
 
 Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
@@ -40,7 +43,7 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : 
     Draw_Personal();
     Draw_Softwares();
     Draw_Hardware();
-    Draw_Network();
+    Draw_Wireless();
     Draw_Users();
     Draw_System();
 
@@ -95,7 +98,7 @@ bool Shell_Class::Preferences_Class::Is_Openned(Shell_Class *Shell_Pointer)
     return true;
 }
 
-void Shell_Class::Preferences_Class::Draw_Network()
+void Shell_Class::Preferences_Class::Draw_Wireless()
 {
     Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Network_Tab.Set_Style_Pad_All(0, 0);
@@ -113,16 +116,116 @@ void Shell_Class::Preferences_Class::Draw_Network()
     {
         Label_Type Label;
         Label.Create(Grid);
-        Label.Set_Text("Wireless");
+        Label.Set_Text("WiFi");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
         Label.Clear_Pointer();
+    
+        // - Access point roller
+        Wireless_WiFi_Access_Point_Roller.Create(Grid);
+        Wireless_WiFi_Access_Point_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
+        
+        // - Refresh button
 
+        Wireless_WiFi_Refresh_Button.Create(Grid);
+        Wireless_WiFi_Refresh_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
+        
+        Label.Create(Wireless_WiFi_Refresh_Button);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Set_Text("Refresh");
+        Label.Clear_Pointer();
 
+        // - Informations button
 
+        Wireless_WiFi_Informations_Button.Create(Grid);
+        Wireless_WiFi_Informations_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 2, 1);
+    
+        Label.Create(Wireless_WiFi_Informations_Button);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Set_Text("Informations");
+        Label.Clear_Pointer();
+
+        // - Connect button
+
+        Wireless_WiFi_Connect_Button.Create(Grid);
+        Wireless_WiFi_Connect_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 3, 1);
+
+        Label.Create(Wireless_WiFi_Connect_Button);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Set_Text("Connect");
+        Label.Clear_Pointer();
+
+        // - Password text area
+        
+        Wireless_WiFi_Password_Text_Area.Create(Grid);
+        Wireless_WiFi_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 4, 1);
+        Wireless_WiFi_Password_Text_Area.Set_Password(true);
+        Wireless_WiFi_Password_Text_Area.Set_Placeholder_Text("Password");
+        Wireless_WiFi_Password_Text_Area.Set_One_Line(true);        
     }
 
-}
+    const uint8_t Network_Section_Row = WiFi_Section_Row + 5;
 
+    {
+        // - Title label
+
+        Label_Type Label;
+        Label.Create(Grid);
+        Label.Set_Text("Network");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Network_Section_Row, 1);
+        Label.Clear_Pointer();
+
+        // - Apply button
+
+        Wireless_Network_Apply_Button.Create(Grid);
+        Wireless_Network_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Network_Section_Row, 1);
+
+        Label.Create(Wireless_Network_Apply_Button);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Set_Text("Apply");
+        Label.Clear_Pointer();
+
+        // - Local IP
+
+        Wireless_Network_Local_IP_Text_Area.Create(Grid);
+        Wireless_Network_Local_IP_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 1, 1);
+        Wireless_Network_Local_IP_Text_Area.Set_Placeholder_Text("Local IP");
+        Wireless_Network_Local_IP_Text_Area.Set_One_Line(true);
+
+        // - DHCP checkbox
+
+        Wireless_Network_DHCP_Checkbox.Create(Grid);
+        Wireless_Network_DHCP_Checkbox.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Network_Section_Row + 1, 1);
+        Wireless_Network_DHCP_Checkbox.Set_Text("DHCP");
+
+        // - Subnet mask
+
+        Wireless_Network_Subnet_Mask_Text_Area.Create(Grid);
+        Wireless_Network_Subnet_Mask_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 2, 1);
+        Wireless_Network_Subnet_Mask_Text_Area.Set_Placeholder_Text("Subnet mask");
+        Wireless_Network_Subnet_Mask_Text_Area.Set_One_Line(true);
+
+        // - Gateway
+        
+        Wireless_Network_Gateway_IP_Text_Area.Create(Grid);
+        Wireless_Network_Gateway_IP_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 3, 1);
+        Wireless_Network_Gateway_IP_Text_Area.Set_Placeholder_Text("Gateway");
+        Wireless_Network_Gateway_IP_Text_Area.Set_One_Line(true);
+
+        // - DNS 1
+        
+        Wireless_Network_DNS_1_Text_Area.Create(Grid);
+        Wireless_Network_DNS_1_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 4, 1);
+        Wireless_Network_DNS_1_Text_Area.Set_Placeholder_Text("DNS 1");
+        Wireless_Network_DNS_1_Text_Area.Set_One_Line(true);
+        
+        // - DNS 2
+        
+        Wireless_Network_DNS_2_Text_Area.Create(Grid);
+        Wireless_Network_DNS_2_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 5, 1);
+        Wireless_Network_DNS_2_Text_Area.Set_Placeholder_Text("DNS 2");
+        Wireless_Network_DNS_2_Text_Area.Set_One_Line(true);
+    }
+}
 
 void Shell_Class::Preferences_Class::Draw_Hardware()
 {
@@ -213,16 +316,16 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
         Label.Create(Grid);
         switch (Drive.Get_Type())
         {
-        case Drive_Type::Type_Type::None:
+        case Drive_Types::Type_Type::None:
             Label.Set_Text("Type : None");
             break;
-        case Drive_Type::Type_Type::MMC:
+        case Drive_Types::Type_Type::MMC:
             Label.Set_Text("Type : MMC");
             break;
-        case Drive_Type::Type_Type::SD_SC:
+        case Drive_Types::Type_Type::SD_SC:
             Label.Set_Text("Type : SD SC");
             break;
-        case Drive_Type::Type_Type::SD_HC:
+        case Drive_Types::Type_Type::SD_HC:
             Label.Set_Text("Type : SD HC");
             break;
         default:
@@ -299,14 +402,6 @@ void Shell_Class::Preferences_Class::Draw_Softwares()
 
         Softwares_Roller.Create(Grid);
         Softwares_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
-        char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
-        memset(Software_Name, '\0', sizeof(Software_Name));
-        for (auto Software_Handle : Software_Handle_Type::List)
-        {
-            strlcat(Software_Name, Software_Handle->Get_Name(), sizeof(Software_Name));
-            strcat(Software_Name, "\n");
-        }
-        Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
 
         // - - - Delete button
 
@@ -318,6 +413,8 @@ void Shell_Class::Preferences_Class::Draw_Softwares()
         Label.Set_Text("Delete");
         Label.Set_Alignment(Alignment_Type::Center);
     }
+
+    Refresh_Softwares();
 }
 
 void Shell_Class::Preferences_Class::Draw_Personal()
@@ -344,7 +441,38 @@ void Shell_Class::Preferences_Class::Draw_Personal()
         Label.Create(Grid);
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
         Label.Set_Text("Style");
+        Label.Clear_Pointer();
+
+        Personnal_Style_Apply_Button.Create(Grid);
+        Personnal_Style_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Style_Section_Row, 1);
+
+        Label.Create(Personnal_Style_Apply_Button);
+        Label.Set_Text("Apply");
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+
+        // - - - Color
+
+        Label.Create(Grid);
+        Label.Set_Text("Foreground :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 1, 1);
+        Label.Clear_Pointer();
+
+        Personnal_Style_Background_Button.Create(Grid);
+        Personnal_Style_Background_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 1, 1);
+
+        // - - - Background
+
+        Label.Create(Grid);
+        Label.Set_Text("Background :");
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 2, 1);
+        Label.Clear_Pointer();
+
+        Personnal_Style_Foreground_Button.Create(Grid);
+        Personnal_Style_Foreground_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 2, Grid_Alignment_Type::Stretch, Style_Section_Row + 2, 1);
     }
+
+    Refresh_Personal();
 }
 
 void Shell_Class::Preferences_Class::Draw_System()
@@ -537,128 +665,34 @@ void Shell_Class::Preferences_Class::Close()
 
 void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-}
+    if (Instruction.Get_Sender() == &Graphics)
+    {
+        switch (Instruction.Graphics.Get_Code())
+        {
+        case Graphics_Types::Event_Code_Type::Clicked:
+            // - Personnal
+            if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
+            {
+                Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
+                Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+            }
+            // - Softwares
+            else if (Instruction.Graphics.Get_Object() == Softwares_Delete_Button)
+            {
+                // TODO
+            }
 
-void Shell_Class::Preferences_Class::Execute_Personal_Instruction(Xila_Class::Instruction Instruction)
-{
-    switch (Instruction)
-    {
-    case Instruction('C', 'l'):
-        SHELL->Send_Instruction('O', 'D');
-        Preferences_Class::Close();
-        break;
-    case Instruction('C', 'B'):
-    {
-        if (DESK.Background < 0 || DESK.Background > 0xFFFF)
-        {
-            DESK.Background = 16904;
-        }
-        uint16_t Temporary_Color = DESK.Background;
-        DIALOG.Color_Picker(Temporary_Color);
-        DESK.Background = Temporary_Color;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    }
-    case Instruction('D', 'B'):
-        DESK.Background = -1;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'U'):
-        DIALOG.Keyboard(Username, sizeof(Username));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'P'):
-        DIALOG.Keyboard(Password_1, sizeof(Password_1));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-        if (Account.Change_Password(Account.Current_Username, Password_1) != Success)
-        {
-            DIALOG.Event(F("Failed to change password."), Error);
-        }
-        else
-        {
-            DIALOG.Event(F("Password successfully modified."), Information);
+            break;
         }
     }
-    else
-    {
-        DIALOG.Event(F("Passwords doesn't match."), Error);
-    }
-    SHELL->Send_Instruction('R', 'e');
-    break;
-case Instruction('D', 'A'): // Disable autologin
-    Account.Set_Autologin(false);
-    SHELL->Send_Instruction('R', 'e');
-    break;
-case Instruction('E', 'A'): // Enable autologin
-    Account.Set_Autologin(true);
-    SHELL->Send_Instruction('R', 'e');
-    break;
-case Instruction('N', 'L'):
-    if (Keyboard.Layout < Keyboard.English)
-    {
-        Keyboard.Layout++;
-    }
-    else
-    {
-        Keyboard.Layout = 0;
-    }
-    DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
-    SHELL->Send_Instruction('R', 'e');
-    break;
-case Instruction('P', 'L'):
-    if (Keyboard.Layout > 0)
-    {
-        Keyboard.Layout--;
-    }
-    else
-    {
-        Keyboard.Layout = Keyboard.English;
-    }
-    DIALOG.Event(F("Please restart Xila to apply preferences."), Information);
-    SHELL->Send_Instruction('R', 'e');
-    break;
-
-case Instruction('D', 'U'):
-    if (DIALOG.Event(F("Are you sure to delete this user ?"), Question) == Button_1)
-    {
-        if (Account.Delete(Account.Current_Username) != Success)
-        {
-            DIALOG.Event(F("Cannot delete user."), Error);
-        }
-        else
-        {
-            DIALOG.Event(F("User successfully deleted."), Error);
-        }
-    }
-    SHELL->Send_Instruction('R', 'e');
-    break;
-case Instruction('R', 'e'):
-    Refresh_Personal();
-    break;
-default:
-    SHELL->Execute_Instruction(Instruction);
-    break;
-}
 }
 
 void Shell_Class::Preferences_Class::Refresh_Personal()
 {
-    if (DESK.Background < 0)
-    {
-        Display.Set_Value(F("COLORB_RAD"), 0);
-        Display.Set_Value(F("DEFAULTB_RAD"), 1);
-    }
-    else
-    {
-        Display.Set_Value(F("COLORB_NUM"), DESK.Background);
-        Display.Set_Background_Color(F("COLORB_NUM"), DESK.Background);
-        Display.Set_Value(F("COLORB_RAD"), 1);
-        Display.Set_Value(F("DEFAULTB_RAD"), 0);
-    }
-    Display.Set_Text(F("USERVAL_TXT"), Username);
-    Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
-    Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
+    Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
+    Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
+
+    /*
     switch (Keyboard.Layout)
     {
     case Keyboard.American:
@@ -681,7 +715,20 @@ void Shell_Class::Preferences_Class::Refresh_Personal()
         break;
     default:
         break;
+    }*/
+}
+
+/// @brief Refresh software tab.
+void Shell_Class::Preferences_Class::Refresh_Softwares()
+{
+    char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
+    memset(Software_Name, '\0', sizeof(Software_Name));
+    for (auto Software_Handle : Software_Handle_Type::List)
+    {
+        strlcat(Software_Name, Software_Handle->Get_Name(), sizeof(Software_Name));
+        strcat(Software_Name, "\n");
     }
+    Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
 }
 
 // -- Hardware -- //
@@ -730,7 +777,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
         break;
     case Instruction('T', 'D'): // -- Drive testing
     {
-        File Test_File = Drive.Open(F(Test_Path), FILE_WRITE);
+        File_Type Test_File = Drive.Open(F(Test_Path), true);
         if (!Test_File)
         {
             DIALOG.Event(F("Failed to start the write test."), Error);
@@ -753,7 +800,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
         Time /= 1000;               // convert time in sec
         Time = (2048 * 512) / Time; // divide quantity data copied by the time in sec
         Write_Speed = Time / 1000;
-        Test_File.close();
+        Test_File.Close();
         Test_File = Drive.Open(F(Test_Path));
         SHELL->Set_Watchdog_Timeout();
         if (!Test_File)
@@ -783,7 +830,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
         Time /= 1000;
         Time = Test_File.size() / Time;
         Read_Speed = Time / 1000;
-        Test_File.close();
+        Test_File.Close();
         Drive.Remove(F(Test_Path));
         SHELL->Set_Watchdog_Timeout();
         break;
@@ -834,10 +881,21 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
 
 // -- Network -- //
 
-void Shell_Class::Preferences_Class::Refresh_Network()
+void Shell_Class::Preferences_Class::Refresh_Wireless()
 {
-    Display.Set_Text(F("WNAMEVAL_TXT"), WiFi_Name);
-    Display.Set_Text(F("WPASSVAL_TXT"), WiFi_Password);
+    uint16_t Access_Points_Number = WiFi.Scan_Networks();
+    char Networks_List[32 * (Access_Points_Number + 1)];
+    for (uint8_t i = 0; i < Access_Points_Number; i++)
+    {
+        strcat(Networks_List, WiFi.Get_SSID(i));
+        strcat(Networks_List, "\n");
+    }
+    strcat(Networks_List, "Hidden\0");
+    Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Roller_Class::Mode_Type::Normal);
+
+    if 
+
+
 }
 
 void Shell_Class::Preferences_Class::Execute_Network_Instruction(Xila_Class::Instruction Instruction)
@@ -960,7 +1018,7 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Class::Inst
             Display.Set_Text(F("MESSAGE_TXT"), F("Updating Xila"));
             Display.Set_Text(F("SUBHEADER_TXT"), F("Update"));
 
-            File Temporary_File = Drive.Open(Microcontroller_Executable_Path);
+            File_Type Temporary_File = Drive.Open(Microcontroller_Executable_Path, true);
             if (System.Load_Executable(Temporary_File) != Success)
             {
                 System.Restart();

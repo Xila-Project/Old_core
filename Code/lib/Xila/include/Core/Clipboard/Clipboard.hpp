@@ -27,16 +27,18 @@ namespace Xila_Namespace
     typedef class Clipboard_Class : public Module_Class
     {
     public:
-        Result_Type Clear();
+        Clipboard_Class();
 
-        Result_Type Copy(uint64_t const &Value_To_Copy);
-        Result_Type Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
-        Result_Type Copy(String const &String_To_Copy); // deprecated : only for compatibility purpose
-        Result_Type Copy(const void *Data, Size_Type Data_Size);
+        void Clear();
 
-        Result_Type Paste(uint64_t &Value_To_Paste);
-        Result_Type Paste(char *Char_Array_To_Paste, size_t Char_Array_Length);
-        Result_Type Paste(String &String_To_Paste);
+        void Copy(uint64_t Value_To_Copy);
+        void Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
+        void Copy(String String_To_Copy); // deprecated : only for compatibility purpose
+        void Copy(const void *Data, Size_Type Data_Size);
+
+        uint64_t Paste() const;
+        void Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const;
+
 
     protected:
         ///
@@ -47,7 +49,12 @@ namespace Xila_Namespace
         ///
         /// @brief Split number array.
         ///
-        uint8_t Split_Number[8];
+        union {
+            uint8_t Split_Number[8];
+            uint64_t Number;
+            char Char_Array[Xila_Clipboard_Size];
+        };
+
     } Clipboard_Type;
 
     extern Clipboard_Type Clipboard;

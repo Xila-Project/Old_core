@@ -18,81 +18,18 @@
 
 namespace Xila_Namespace
 {
-    typedef class File_Class : public Stream
-    {
-    public:
-        File_Class();
-        ~File_Class();
 
-        typedef enum Seek_Mode_Enumeration
+    namespace Drive_Types
+    {
+        enum class Seek_Mode_Type
         {
             Set,
             Current,
             End
-        } Seek_Mode_Type;
+        };
 
-        // - - Stream methods override
-        size_t write(uint8_t) override;
-        size_t write(const uint8_t *buf, size_t size) override;
-        int available() override;
-        int read() override;
-        int peek() override;
-        void flush() override;
-
-        // - - Methods
-
-        Size_Type Write(uint8_t);
-        Size_Type Write(const uint8_t *buf, Size_Type Size);
-        
-        int Available();
-        int Read();
-        int Peek();
-        void Flush();
-
-        Size_Type Read(uint8_t *Buffer, Size_Type Size);
-        Size_Type Read_Bytes(char *Buffer, Size_Type Length)
-        {
-            return Read((uint8_t *)Buffer, Length);
-        }
-
-        bool Seek(uint32_t Position, Seek_Mode_Type Mode);
-        bool Seek(uint32_t Position)
-        {
-            return Seek(Position, Seek_Mode_Enumeration::Set);
-        }
-        Size_Type Get_Position() const;
-        Size_Type Get_Size() const;
-
-        bool Set_Buffer_Size(Size_Type Size);
-
-
-        void Close();
-
-        Time_Type Get_Last_Write();
-        const char *Get_Path() const;
-        const char *Get_Name() const;
-
-        operator bool() const;
-
-        // - - Directory methods
-
-        bool Is_Directory(void);
-        File_Class Open_Next_File(const char *mode = FILE_READ);
-        void Rewind_Directory(void);
-
-    private:
-        void *File_Pointer;
-    } File_Type;
-
-    typedef class Drive_Class : public Module_Class
-    {
-    public:
-        // - Types and enumerations
-
-        ///
-        /// @brief Drive type.
-        ///
-        enum class Type_Type
+        /// @brief Drive types.
+        enum class Drive_Type_Type
         {
             None,  ///< None (nothing connected).
             MMC,   ///< MMC type.
@@ -100,7 +37,74 @@ namespace Xila_Namespace
             SD_HC, ///< SD HC type.
             Unknow ///< Unknow type.
         };
+    }
 
+    typedef class File_Class : public Stream
+    {
+    public:
+        // - Methods
+
+        // - - Constructors / destructor
+        File_Class();
+        File_Class(fs::File File);
+        ~File_Class();
+
+        // - - Stream methods override
+        size_t write(uint8_t) override;
+        size_t write(const uint8_t *Buffer, size_t Size) override;
+        int available() override;
+        int read() override;
+        int peek() override;
+        void flush() override;
+
+        // - - File methods
+
+        Size_Type Write(uint8_t);
+        Size_Type Write(const uint8_t *buf, Size_Type Size);
+
+        int Available();
+        int Read();
+        int Peek();
+        void Flush();
+        bool Is_Valid() const;
+
+
+        Size_Type Read(uint8_t *Buffer, Size_Type Size);
+        Size_Type Read_Bytes(char *Buffer, Size_Type Length);
+
+        bool Seek(uint32_t Position, Drive_Types::Seek_Mode_Type Mode);
+        bool Seek(uint32_t Position);
+
+        Size_Type Get_Position() const;
+        Size_Type Get_Size() const;
+
+        Result_Type Set_Buffer_Size(Size_Type Size);
+
+        void Close();
+
+        time_t Get_Modification_Time();
+        const char *Get_Path() const;
+        const char *Get_Name() const;
+
+        // - - Directory methods
+
+        bool Is_Directory();
+        File_Class Open_Next_File(bool Write = false, bool Append = false);
+        void Rewind_Directory();
+        uint16_t Count_Items();
+
+        // - - Operators
+
+        operator bool() const;
+
+    private:
+        // - Attributes
+        fs::File File;
+    } File_Type;
+
+    typedef class Drive_Class : public Module_Class
+    {
+    public:
         // - Methods
 
         // - - Constructor
@@ -108,7 +112,7 @@ namespace Xila_Namespace
 
         // - - Drive informations
         Size_Type Get_Size();
-        Type_Type Get_Type();
+        Drive_Types::Drive_Type_Type Get_Type();
 
         uint64_t Total_Bytes();
         uint64_t Used_Bytes();
@@ -123,8 +127,8 @@ namespace Xila_Namespace
         bool Remove_Directory(const char *Path);
         bool Remove_Directory(const String &Path);
 
-        File_Type Open(const char *Path, const char *Mode = "r");
-        File_Type Open(const String &Path, const char *Mode = "r");
+        File_Type Open(const char *Path, bool Write = false, bool Append = false);
+        File_Type Open(const String &Path, bool Write = false, bool Append = false);
 
         bool Remove(const char *Path);
         bool Remove(const String &Path);
@@ -133,17 +137,14 @@ namespace Xila_Namespace
         bool Rename(const String &Path_From, const String &Path_To);
 
         Result_Type Copy(File_Type &Origin_File, File_Type &Destination_File);
-        Result_Type Get_Name(File_Type const &File, char *File_Name_Buffer, Size_Type Size);
-        uint16_t Count_Items(File_Type &Folder);
-
-        // -- Friendship
-        friend class Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
+        Result_Type Copy(const char *Path_From, const char *Path_To);
+        Result_Type Cut(File_Type &Origin_File, File_Type &Destination_File);
+        Result_Type Cut(const char *Path_From, const char *Path_To);
 
         void End();
 
-        bool Begin(const char *Mount_Point = "/");
+        Result_Type Start();
+
     } Drive_Type;
 
     extern Drive_Type Drive;

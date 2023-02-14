@@ -20,13 +20,8 @@
 
 namespace Xila_Namespace
 {
-    
-
-    typedef class WiFi_Class : public Module_Class
+    namespace WiFi_Types
     {
-    public:
-        // - Types
-     
         enum class Status_Type : uint8_t {
             No_Shield,
             Idle,
@@ -37,18 +32,22 @@ namespace Xila_Namespace
             Connection_Lost,
             Disconnected
         };
-     
+    };
+
+    typedef class WiFi_Class : public Module_Class
+    {
+    public:      
         // - Constructors / Destructors
         WiFi_Class();
 
         // - Methods
 
-        Status_Type Connect(const char* SSID, const char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
-        Status_Type Connect(char* SSID, char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
+        WiFi_Types::Status_Type Connect(const char* SSID, const char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
+        WiFi_Types::Status_Type Connect(char* SSID, char* Password = NULL, int32_t Channel = 0, const uint8_t* BSSID = NULL, bool Connect = true);
 
         // - - Getters
 
-        Status_Type Get_Status();
+        WiFi_Types::Status_Type Get_Status();
 
         bool Get_Automatic_Reconnection();
 

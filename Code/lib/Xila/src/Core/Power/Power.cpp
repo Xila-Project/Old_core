@@ -32,14 +32,14 @@ Power_Class::Power_Class()
 /// @return Result_Type
 Result_Type Power_Class::Load_Registry()
 {
-    File Temporary_File = Drive.Open(Registry("Power"));
+    File_Type Temporary_File = Drive.Open(Registry("Power"));
     DynamicJsonDocument Power_Registry(256);
     if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     if (strcmp(Power_Registry["Registry"] | "", "Power") != 0)
     {
         return Result_Type::Error;
@@ -62,13 +62,13 @@ Result_Type Power_Class::Save_Registry()
     Power_Registry["Maximum Voltage"] = Get_Maximum_Voltage();
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
-    File Temporary_File = Drive.Open(Registry("Power"), FILE_WRITE);
+    File_Type Temporary_File = Drive.Open(Registry("Power"), true);
     if (serializeJson(Power_Registry, Temporary_File) == 0)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Success;
 }
 
@@ -77,8 +77,9 @@ Result_Type Power_Class::Save_Registry()
 ///
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
+    using namespace Xila_Namespace::Pin_Types;
     //vTaskEnterCritical(&Power.Button_Mutex);
-    if (Pin.Digital_Read(Power_Button_Pin) == Pin.High) // rise
+    if (Pin.Digital_Read(Power_Button_Pin) == Digital_State_Type::High) // rise
     {
         if (Power.Button_Timer != 0 && (Time.Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
         {

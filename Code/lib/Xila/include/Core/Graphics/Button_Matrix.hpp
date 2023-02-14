@@ -57,7 +57,7 @@ namespace Xila_Namespace
 
         // -- -- Constructor
 
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
 
         // -- -- Action methods
         void Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control);

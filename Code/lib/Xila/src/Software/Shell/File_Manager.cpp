@@ -126,14 +126,14 @@ void Shell_Class::File_Manager_Class::Refresh()
 
     Folder.read();
 
-    if ((!Folder) || (!Folder.isDirectory()))
+    if ((!Folder) || (!Folder.Is_Directory()))
     {
-        Folder.close();
+        Folder.Close();
         Path_Text_Area.Set_Text("/");
         Folder = Drive.Open("/");
     }
 
-    File_Type File = Folder.openNextFile();
+    File_Type File = Folder.Open_Next_File();
 
     Checkbox_Type Checkbox;
     char Item_Name[33] = {0};
@@ -175,7 +175,7 @@ void Shell_Class::File_Manager_Class::Refresh()
         Flexbox.Get_Child(i).Delete();
     }
 
-    Folder.close();
+    Folder.Close();
 }
 
 void Shell_Class::File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
@@ -361,7 +361,7 @@ void Shell_Class::File_Manager_Class::Details()
             Checkbox_Type Checkbox = Flexbox.Get_Child(i);
             strlcat(Buffer, Checkbox.Get_Text(), sizeof(Buffer));
 
-            File Item = Drive.Open(Buffer);
+            File_Type Item = Drive.Open(Buffer);
 
             if (!Item)
             {
@@ -400,7 +400,7 @@ void Shell_Class::File_Manager_Class::Details()
             
             Details_Dialog.Clear_Flag(Flag_Type::Hidden);
 
-            Item.close();
+            Item.Close();
 
             break;
         }
@@ -444,7 +444,7 @@ void Shell_Class::File_Manager_Class::Delete()
             Checkbox_Type Checkbox = Flexbox.Get_Child(i);
             strlcat(Buffer, Checkbox.Get_Text(), sizeof(Buffer));
 
-            File Item = Drive.Open(Buffer);
+            File_Type Item = Drive.Open(Buffer);
 
             if (Item)
             {
@@ -485,8 +485,8 @@ void Shell_Class::File_Manager_Class::Paste()
                 DIALOG.Event(F("Failed to cut file."), Error);
             }
             SHELL->Set_Watchdog_Timeout();
-            Destination_File.close();
-            Operation_Item.close();
+            Destination_File.Close();
+            Operation_Item.Close();
             SHELL->Send_Instruction('G', 'P');
         }
         Display.Set_Picture(F("CUT_BUT"), Images.Cut_24);

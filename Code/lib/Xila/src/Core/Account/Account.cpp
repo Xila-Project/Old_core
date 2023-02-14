@@ -35,10 +35,10 @@ Result_Type Account_Class::Load_Registry()
   if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
 
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
   {
 
@@ -63,7 +63,7 @@ Result_Type Account_Class::Load_Registry()
 /// @return Result_Type
 Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const char* Password)
 {
-  File_Type Temporary_File = Drive.Open(Registry("Account"), FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Registry("Account"), true);
   DynamicJsonDocument Account_Registry(256);
   Account_Registry["Registry"] = "Account";
   if (Enable)
@@ -71,7 +71,7 @@ Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const ch
     // Check user credentials
     if (Check_Credentials(Name, Password) != Result_Type::Success)
     {
-      Temporary_File.close();
+      Temporary_File.Close();
       return Result_Type::Error;
     }
 
@@ -81,7 +81,7 @@ Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const ch
   {
     if ((strcmp(Account_Registry["Autologin"] | "", Name) != 0) && (Check_Credentials(Name, Password) != Result_Type::Success))
     {
-      Temporary_File.close();
+      Temporary_File.Close();
       return Result_Type::Error;
     }
 
@@ -89,10 +89,10 @@ Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const ch
   }
   if (serializeJson(Account_Registry, Temporary_File) == 0)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -194,17 +194,17 @@ Result_Type Account_Class::Create(const char *User_Name, const char *Password)
     return Result_Type::Error;
   }
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", User_Name);
-  File_Type Temporary_File = Drive.Open(Temporary_Path, FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Temporary_Path, true);
   DynamicJsonDocument User_Registry(256);
 
   User_Registry["Registry"] = "User";
   User_Registry["Password"] = Password;
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -281,7 +281,7 @@ Result_Type Account_Class::Change_Password(const char *Name, const char *Current
 
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Name);
-  File_Type Temporary_File = Drive.Open(Temporary_Char, FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Temporary_Char, true);
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   User_Registry["Registry"] = "User";
 
@@ -297,10 +297,10 @@ Result_Type Account_Class::Change_Password(const char *Name, const char *Current
 
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -374,10 +374,10 @@ Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, cons
   DynamicJsonDocument User_Registry(256);
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   if (strcmp("User", User_Registry["Registry"] | "") != 0)
   {
     return Result_Type::Error;

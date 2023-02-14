@@ -59,7 +59,7 @@ Instruction_Class::Graphics_Class::Graphics_Class()
       Object_Pointer(NULL)
 {}
 
-void Instruction_Class::Graphics_Class::Set_Code(uint32_t Code)
+void Instruction_Class::Graphics_Class::Set_Code(Graphics_Types::Event_Code_Type Code)
 {
     this->Code = Code;
 }
@@ -69,7 +69,7 @@ void Instruction_Class::Graphics_Class::Set_Object(Object_Type Object)
     Object_Pointer = Object.Get_Pointer();
 }
 
-uint8_t Instruction_Class::Graphics_Class::Get_Code() const
+Graphics_Types::Event_Code_Type Instruction_Class::Graphics_Class::Get_Code() const
 {
     return Code;
 }

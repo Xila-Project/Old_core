@@ -1,18 +1,22 @@
 ///
- /// @file SD_SPI.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 24-07-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file SD_SPI.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 24-07-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
 #if Drive_Hardware == Drive_SD_SPI
 
 #include "SD.h"
 
 #include "Core/Drive/Drive.hpp"
+#include "Core/Pin/Pin.hpp"
+
+using namespace Xila_Namespace;
+using namespace Xila_Namespace::Drive_Types;
 
 SPIClass SD_SPI(VSPI);
 
@@ -32,7 +36,6 @@ Size_Type File_Class::Write(uint8_t Byte)
     return (File*)Data_Pointer->write(Byte);
 }*/
 
-
 ///
 /// @brief Initalize drive.
 ///
@@ -43,10 +46,23 @@ Size_Type File_Class::Write(uint8_t Byte)
 /// @param Maximum_Files Maximum simultaneous openned files.
 /// @return true if the initialization succed.
 /// @return false if the initalization failed.
-bool Drive_Class::Begin(const char *Mount_Point)
+Result_Type Drive_Class::Start()
 {
+    using namespace Xila_Namespace::Pin_Types;
+    Pin.Set_Mode(14, Mode_Type::Input_Pull_Up);
+    Pin.Set_Mode(2, Mode_Type::Input_Pull_Up);
+    Pin.Set_Mode(4, Mode_Type::Input_Pull_Up);
+    Pin.Set_Mode(12, Mode_Type::Input_Pull_Up);
+    Pin.Set_Mode(13, Mode_Type::Input_Pull_Up);
+    
     SPI.begin(SD_SPI_Clock_Pin, SD_SPI_Master_In, SD_SPI_Master_Out, SD_SPI_Select_Pin);
-    return SD.begin(SD_SPI_Select_Pin, SD_SPI, SD_SPI_Frequency, Mount_Point);
+    if (!SD.begin(SD_SPI_Select_Pin, SD_SPI, SD_SPI_Frequency) || Get_Type() == Drive_Type_Type::None)
+    {
+        End();
+        return Result_Type::Error;
+    }
+
+    return Result_Type::Success;
 }
 
 ///
@@ -137,109 +153,116 @@ bool Drive_Class::Make_Directory(const String &Path)
 }
 
 ///
- /// @brief A method that open file.
- /// 
- /// @param Path Path of the file to open
- /// @param Mode Mode to open path
- /// @return The openned file instance
-File Drive_Class::Open(const char *Path, const char *Mode)
+/// @brief A method that open file.
+///
+/// @param Path Path of the file to open
+/// @param Mode Mode to open path
+/// @return The openned file instance
+File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
 {
-    return SD.open(Path, Mode);
+    if (Write)
+    {
+        if (Append)
+        {
+            return SD.open(Path, FILE_APPEND);
+        }
+        return SD.open(Path, FILE_WRITE);
+    }
+    return SD.open(Path, FILE_READ);
 }
 
 ///
- /// @brief A method that open file
- /// 
- /// @param Path Path of the file to open
- /// @param Mode Mode to open path (FILE_READ or FILE_WRITE)
- /// @return The openned file instance
-File Drive_Class::Open(const String &Path, const char *Mode)
+/// @brief A method that open file
+///
+/// @param Path Path of the file to open
+/// @param Mode Mode to open path (FILE_READ or FILE_WRITE)
+/// @return The openned file instance
+File_Type Drive_Class::Open(const String &Path, bool Write, bool Append)
 {
-    return SD.open(Path, Mode);
+    return Open(Path.c_str(), Write, Append);
 }
 
 ///
- /// @brief A method that remove file.
- /// 
- /// @param Path Path of the file to remove.
- /// @return true if the operation succeed.
- /// @return false if the operaton failed.
+/// @brief A method that remove file.
+///
+/// @param Path Path of the file to remove.
+/// @return true if the operation succeed.
+/// @return false if the operaton failed.
 bool Drive_Class::Remove(const char *Path)
 {
     return SD.remove(Path);
 }
 
 ///
- /// @brief A method that remove file.
- /// 
- /// @param Path Path of the file to remove.
- /// @return true if the operation succeed.
- /// @return false if the operaton failed.
+/// @brief A method that remove file.
+///
+/// @param Path Path of the file to remove.
+/// @return true if the operation succeed.
+/// @return false if the operaton failed.
 bool Drive_Class::Remove(const String &Path)
 {
     return SD.remove(Path);
 }
 
 ///
- /// @brief A method that rename file.
- /// 
- /// @param Path_From Origin path of the file.
- /// @param Path_To Destination path of the file.
- /// @return true if the operation succeed.
- /// @return false if the operation failed.
+/// @brief A method that rename file.
+///
+/// @param Path_From Origin path of the file.
+/// @param Path_To Destination path of the file.
+/// @return true if the operation succeed.
+/// @return false if the operation failed.
 bool Drive_Class::Rename(const char *Path_From, const char *Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
 
 ///
- /// @brief A method that rename file.
- /// 
- /// @param Path_From Origin path of the file.
- /// @param Path_To Destination path of the file.
- /// @return true if the operation succeed.
- /// @return false if the operation failed.
+/// @brief A method that rename file.
+///
+/// @param Path_From Origin path of the file.
+/// @param Path_To Destination path of the file.
+/// @return true if the operation succeed.
+/// @return false if the operation failed.
 bool Drive_Class::Rename(const String &Path_From, const String &Path_To)
 {
     return SD.rename(Path_From, Path_To);
 }
 
 ///
- /// @brief A method that delete directory.
- /// 
- /// @param Path Path of the directory.
- /// @return true if the operation succeeed.
- /// @return false if the operation failed.
+/// @brief A method that delete directory.
+///
+/// @param Path Path of the directory.
+/// @return true if the operation succeeed.
+/// @return false if the operation failed.
 bool Drive_Class::Remove_Directory(const char *Path)
 {
     return SD.rmdir(Path);
 }
 
-
 ///
- /// @brief A method that delete directory.
- /// 
- /// @param Path Path of the directory.
- /// @return true if the operation succeeed.
- /// @return false if the operation failed.
+/// @brief A method that delete directory.
+///
+/// @param Path Path of the directory.
+/// @return true if the operation succeeed.
+/// @return false if the operation failed.
 bool Drive_Class::Remove_Directory(const String &Path)
 {
     return SD.rmdir(Path);
 }
 
 ///
- /// @brief A method that return the drive total space.
- /// 
- /// @return uint64_t Total space in bytes.
+/// @brief A method that return the drive total space.
+///
+/// @return uint64_t Total space in bytes.
 uint64_t Drive_Class::Total_Bytes()
 {
     return SD.totalBytes();
 }
 
 ///
- /// @brief A method that return the drive used space.
- /// 
- /// @return uint64_t Used space in bytes.
+/// @brief A method that return the drive used space.
+///
+/// @return uint64_t Used space in bytes.
 uint64_t Drive_Class::Used_Bytes()
 {
     return SD.usedBytes();

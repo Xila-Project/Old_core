@@ -23,7 +23,7 @@ namespace Xila_Namespace
 
         // - - Management
 
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
 
         // - - Setters
 

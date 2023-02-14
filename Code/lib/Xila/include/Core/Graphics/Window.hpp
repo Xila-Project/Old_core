@@ -21,22 +21,33 @@
 
 namespace Xila_Namespace
 {
+    namespace Graphics_Types
+    {
+        enum class Window_State_Type
+        {
+            Minimized,
+            Windowed,
+            Maximized,
+            Full_screen
+        };
+
+    };
+
     typedef class Window_Class : public Object_Class
     {
     public:
 
-        void Create();
-        void Create(Object_Class Parent_Object);
+        virtual void Create(Object_Class Parent_Object) override;
         // TODO : Make it protected.
+        void Create();
         void Create(const Account_Class::User_Class* Owner_User);
 
         void Set_Title(const char *Title);
 
         bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
 
-        void Minimize();
-        void Maximize();
-        bool Is_Maximized();
+        void Set_State(Graphics_Types::Window_State_Type State);        
+        Graphics_Types::Window_State_Type Get_State();
 
         Object_Class Get_Body();
         Object_Class Get_Header();

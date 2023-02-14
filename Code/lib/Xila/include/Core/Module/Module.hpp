@@ -64,14 +64,6 @@ namespace Xila_Namespace
             uint16_t Get_Year();
         };
 
-
-
-        /// @brief Xila task type.
-      
-
-     
-   
-
         // - Methods
 
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);

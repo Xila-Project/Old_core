@@ -9,8 +9,10 @@
 ///
 
 #include "Core/Communication/WiFi.hpp"
+#include "Core/Drive/Drive.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::WiFi_Types;
 
 WiFi_Type WiFi();
 
@@ -27,14 +29,14 @@ WiFi_Class::WiFi_Class()
 /// @return Result_Type
 Result_Type WiFi_Class::Load_Registry()
 {
-    File Temporary_File = Drive.Open((Registry("Network")));
+    File_Type Temporary_File = Drive.Open(Registry("Network"), true);
     DynamicJsonDocument Network_Registry(512);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     if (strcmp(Network_Registry["Registry"] | "", "Network") != 0)
     {
         return Result_Type::Error;
@@ -59,23 +61,12 @@ Result_Type WiFi_Class::Save_Registry()
     JsonObject WiFi_Registry = Network_Registry.createNestedObject("WiFi");
     WiFi_Registry["Name"] = SSID();
     WiFi_Registry["Password"] = Password;
-    File Temporary_File = Drive.Open(Registry("Network"), FILE_WRITE);
+    File_Type Temporary_File = Drive.Open(Registry("Network"), true);
     if (serializeJson(Network_Registry, Temporary_File) == 0)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Success;
-}
-
- /// @brief Function that allow to set credentials and connect to a WiFi network.
- /// 
- /// @param Name SSID of the access point.
- /// @param Password Password of the access point.
-void WiFi_Class::Set_Credentials(const char *Name, const char *Password)
-{
-    strlcpy(this->Password, Password, sizeof(this->Password));
-    setAutoConnect(false);
-    begin(Name, this->Password);
 }

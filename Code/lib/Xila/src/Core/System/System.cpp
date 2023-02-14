@@ -9,7 +9,6 @@
 ///
 
 #include "Core/System/System.hpp"
-
 #include "Core/Core.hpp"
 
 #include "soc/rtc_wdt.h"
@@ -19,12 +18,12 @@
 #include "WiFi.h"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::System_Types;
 
 System_Type System();
 
 /// @brief Construct a new System_Class::System_Class object
-System_Class::System_Class()
-    : Task(this, Task_Start_Function, "System task", 4 * 1024, this, Task_Type::Priority_Type::System)
+System_Class::System_Class() : Task(this)
 {
   strlcpy(Device_Name, Stringizing(Default_Device_Name), sizeof(Device_Name));
 }
@@ -39,14 +38,14 @@ System_Class::~System_Class()
 /// @return Result_Type
 Result_Type System_Class::Load_Registry()
 {
-  File Temporary_File = Drive.Open((Registry("System")));
+  File_Type Temporary_File = Drive.Open((Registry("System")));
   DynamicJsonDocument System_Registry(512);
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   if (strcmp("System", System_Registry["Registry"] | "") != 0)
   {
     return Result_Type::Error;
@@ -66,7 +65,7 @@ Result_Type System_Class::Load_Registry()
 /// @return Result_Type
 Result_Type System_Class::Save_Registry()
 {
-  File Temporary_File = Drive.Open((Registry("System")), FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Registry("System"), true);
   DynamicJsonDocument System_Registry(256);
   System_Registry["Registry"] = "System";
   System_Registry["Device Name"] = Device_Name;
@@ -76,10 +75,10 @@ Result_Type System_Class::Save_Registry()
   Version["Revision"] = Xila_Version_Revision;
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -95,6 +94,7 @@ void System_Class::Task_Function()
 {
   uint32_t Next_Refresh = 0;
   Power.Button_Counter = 0;
+
   while (1)
   {
     // -- Check power button interrupt
@@ -129,22 +129,24 @@ void System_Class::Task_Function()
 ///
 /// @param Update_File Executable file.
 /// @return Result_Type
-Result_Type System_Class::Load_Executable(File Executable_File)
+Result_Type System_Class::Upgrade(File_Type Executable_File)
 {
-  if (!Executable_File || Executable_File.isDirectory())
+  if (!Executable_File || Executable_File.Is_Directory())
   {
     return Result_Type::Error;
   }
-  if (Executable_File.size() == 0)
+  if (Executable_File.Get_Size() == 0)
   {
     return Result_Type::Error;
   }
-  if (!Update.begin(Executable_File.size(), U_FLASH))
+  // TODO : Deleguate to bootloader
+  /*
+  if (!Update.begin(Executable_File.Get_Size(), U_FLASH))
   {
     return Result_Type::Error;
   }
   size_t Written = Update.writeStream(Executable_File);
-  if (Written != Executable_File.size())
+  if (Written != Executable_File.Get_Size())
   {
     return Result_Type::Error;
   }
@@ -155,7 +157,7 @@ Result_Type System_Class::Load_Executable(File Executable_File)
   if (!Update.isFinished())
   {
     return Result_Type::Error;
-  }
+  }*/
 
   return Result_Type::Success;
 }
@@ -190,10 +192,9 @@ Result_Type System_Class::Save_Dump()
 
   Dump_Registry["Registry"] = "Dump";
 
-
   {
     JsonArray Users = Dump_Registry.createNestedArray("Users");
-    
+
     for (uint8_t i = 0; i < Account.Get_User_Count(); i++)
     {
       Users.add(Account.Get_User(i)->Get_Name());
@@ -210,13 +211,13 @@ Result_Type System_Class::Save_Dump()
     }
   }
 
-  File Dump_File = Drive.Open(Dump_Registry_Path, FILE_WRITE);
+  File_Type Dump_File = Drive.Open(Dump_Registry_Path, true);
   if (serializeJson(Dump_Registry, Dump_File) == 0)
   {
-    Dump_File.close();
+    Dump_File.Close();
     return Result_Type::Error;
   }
-  Dump_File.close();
+  Dump_File.Close();
   return Result_Type::Success;
 }
 
@@ -226,18 +227,19 @@ Result_Type System_Class::Save_Dump()
 /// @return Result_Type
 Result_Type System_Class::Load_Dump()
 {
+  /*
   if (Drive.Exists(Dump_Registry_Path))
   {
-    File Dump_File = Drive.Open((Dump_Registry_Path));
+    File_Type Dump_File = Drive.Open((Dump_Registry_Path));
     DynamicJsonDocument Dump_Registry(Default_Registry_Size);
 
     if (deserializeJson(Dump_Registry, Dump_File) != DeserializationError::Ok)
     {
-      Dump_File.close();
+      Dump_File.Close();
       Drive.Remove(Dump_Registry_Path);
       return Result_Type::Error;
     }
-    Dump_File.close();
+    Dump_File.Close();
     Drive.Remove(Dump_Registry_Path);
 
     if (strcmp(Dump_Registry["Registry"] | "", "Dump") != 0)
@@ -245,7 +247,7 @@ Result_Type System_Class::Load_Dump()
       return Result_Type::Error;
     }
 
-    char Temporary_Software_Name[Default_Software_Name_Length];
+    char Temporary_Software_Name[sizeof(Software_Handle_Type::Name)];
 
     JsonArray Software = Dump_Registry["Software"];
 
@@ -253,19 +255,16 @@ Result_Type System_Class::Load_Dump()
     {
       memset(Temporary_Software_Name, '\0', sizeof(Temporary_Software_Name));
       strlcpy(Temporary_Software_Name, Software[i] | "", sizeof(Temporary_Software_Name));
-      for (uint8_t j = 0; j < Maximum_Software; j++)
+      for (auto Software_Handle : Software_Handle_Type::List)
       {
-        if (Software_Management.Handle[j] != NULL)
+        if (strcmp(Software_Handle->Get_Name(), Temporary_Software_Name) == 0)
         {
-          if (strcmp(Software_Management.Handle[j]->Name, Temporary_Software_Name) == 0)
-          {
-            Software_Management.Open(*Software_Management.Handle[j]);
-          }
+          Software_Handle->Create_Instance();
         }
       }
     }
 
-    strlcpy(Account.Current_Username, Dump_Registry["User"] | "", sizeof(Account.Current_Username));
+    strlcpy(Account.Get_Logged_User()., Dump_Registry["User"] | "", sizeof(Account.Current_Username));
     if (Account.Current_Username[0] != '\0')
     {
       Account.Set_State(Account.Locked);
@@ -277,6 +276,8 @@ Result_Type System_Class::Load_Dump()
   {
     return Result_Type::Error;
   }
+  */
+  return Result_Type::Success;
 }
 
 ///
@@ -288,115 +289,50 @@ const char *System_Class::Get_Device_Name()
   return System.Device_Name;
 }
 
-///
-/// @brief Refresh top header.
-///
-void System_Class::Refresh_Header()
-{
-
-  if (Display.Get_State() == false) // if display sleep
-  {
-    return;
-  }
-  static char Temporary_Char_Array[6];
-
-  // -- Update clock
-  Temporary_Char_Array[0] = Time.Current_Time.tm_hour / 10;
-  Temporary_Char_Array[0] += 48;
-  Temporary_Char_Array[1] = Time.Current_Time.tm_hour % 10;
-  Temporary_Char_Array[1] += 48;
-  Temporary_Char_Array[2] = ':';
-  Temporary_Char_Array[3] = Time.Current_Time.tm_min / 10;
-  Temporary_Char_Array[3] += 48;
-  Temporary_Char_Array[4] = Time.Current_Time.tm_min % 10;
-  Temporary_Char_Array[4] += 48;
-  Temporary_Char_Array[5] = '\0';
-
-  Display.Set_Text(F("CLOCK_TXT"), Temporary_Char_Array);
-
-  // Update connection
-  Temporary_Char_Array[5] = WiFi.Get_RSSI();
-
-  if (WiFi.Get_Status() == WiFi_Type::Status_Type::Connected)
-  {
-    if (Temporary_Char_Array[5] <= -70)
-    {
-      Display.Set_Text(F("CONNECTION_BUT"), Display.WiFi_Low);
-    }
-    if (Temporary_Char_Array[0] <= -50 && Temporary_Char_Array[0] > -70)
-    {
-      Display.Set_Text(F("CONNECTION_BUT"), Display.WiFi_Medium);
-    }
-    else
-    {
-      Display.Set_Text(F("CONNECTION_BUT"), Display.WiFi_High);
-    }
-  }
-  else
-  {
-    Display.Set_Text(F("CONNECTION_BUT"), ' ');
-  }
-
-  // -- Update charge level
-  Temporary_Char_Array[5] = Power.Get_Charge_Level();
-
-  if (Temporary_Char_Array[5] <= 5)
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Empty);
-    Display.Set_Font_Color(F("BATTERY_BUT"), Display.Red);
-  }
-  else if (Temporary_Char_Array[5] <= 10 && Temporary_Char_Array[5] > 5)
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Empty);
-    Display.Set_Font_Color(F("BATTERY_BUT"), Display.White);
-  }
-  else if (Temporary_Char_Array[5] <= 35 && Temporary_Char_Array[5] > 10)
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Quarter);
-  }
-  else if (Temporary_Char_Array[5] <= 60 && Temporary_Char_Array[5] > 35)
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Half);
-  }
-  else if (Temporary_Char_Array[5] <= 85 && Temporary_Char_Array[5] > 60)
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Three_Quarters);
-  }
-  else // more than 85 %
-  {
-    Display.Set_Text(F("BATTERY_BUT"), Display.Battery_Full);
-  }
-
-  // -- Update sound
-  Temporary_Char_Array[5] = Sound.Get_Volume();
-
-  if (Temporary_Char_Array[5] == 0)
-  {
-    Display.Set_Text(F("SOUND_BUT"), Display.Sound_Mute);
-  }
-  else if (Temporary_Char_Array[5] < 86)
-  {
-    Display.Set_Text(F("SOUND_BUT"), Display.Sound_Low);
-  }
-  else if (Temporary_Char_Array[5] < 172)
-  {
-    Display.Set_Text(F("SOUND_BUT"), Display.Sound_Medium);
-  }
-  else
-  {
-    Display.Set_Text(F("SOUND_BUT"), Display.Sound_High);
-  }
-}
-
-///
-/// @brief Start Xila up with the default software bundle.
-///
+/// @brief Function that start Xila.
 void System_Class::Start()
 {
 
-  esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
+  esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(Power_Button_Pin), LOW);
 
-  Flash.Set_Boot_Partition(Xila_Loader_Partition); // Set loader as boot partition if Xila is doesn't boot anymore.
+  if (Task.Get_State() != Task_Class::State_Type::Invalid) // Already started
+  {
+    return;
+  }
+
+  // -- Check if the power button was press or the power supply plugged.;
+  esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
+#if Xila_System_Wakeup_Undefined == 0
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0)
+  {
+    Power.Deep_Sleep();
+  }
+#elif Xila_System_Wakeup_Undefined == 1
+  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
+  {
+    Power.Deep_Sleep();
+  }
+#endif
+
+  Task.Create(Task_Start_Function, "System task", 4 * 1024, this, Task_Type::Priority_Type::System);
+}
+
+void System_Class::Load()
+{
+
+  // -- Set power button interrupts
+  Pin.Set_Mode(Power_Button_Pin, Pin_Types::Mode_Type::Input);
+  Pin.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Power.Button_Interrupt_Handler, Pin_Types::Interrupt_Mode_Type::Change);
+
+  // -- Increase esp32 hardware watchdog timeout
+
+  if (esp_task_wdt_init(Maximum_Watchdog_Timeout / 1000, true) != ESP_OK)
+  {
+    Log_Error("Failed to set watchdog timeout. Trying to reboot.");
+    ESP.restart();
+  }
+
+  // - Serial
 
 #if USB_Serial == 1
   Serial.begin(Default_USB_Serial_Speed);
@@ -413,103 +349,98 @@ void System_Class::Start()
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
   Log_Raw_Line("");
-  Log_Raw_Line(" > Version :" + Stringizing(Xila_Version_Major) + " . " + Stringizing(Xila_Version_Minor) + " . " + Stringizing(Xila_Version_Revision) + " - Alix ANNERAUD - MIT Licence - 2021");
+  Log_Raw_Line(" > Version :" Stringizing(Xila_Version_Major) " . " Stringizing(Xila_Version_Minor) " . " Stringizing(Xila_Version_Revision) " - Alix ANNERAUD - MIT Licence - 2021");
   Log_Raw_Line("");
   Log_Information("Starting Xila ...");
   Log_Verbose("First start routine.");
 
-  if (System.Task_Handle != NULL) // Already started
+  // - Drive
+
+  while (Drive.Start() != Result_Type::Success)
   {
-    return;
+    Log_Error("Failed to initialize drive ...");
+    Task.Delay(200);
   }
 
-  // -- Check if the power button was press or the power supply plugged.
-  esp_sleep_enable_ext0_wakeup(Power_Button_Pin, LOW);
-  esp_sleep_wakeup_cause_t Wakeup_Cause = esp_sleep_get_wakeup_cause();
-#if Start_On_Power == 0
-  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0)
-  {
-    Power.Deep_Sleep();
-  }
-#elif Start_On_Power == 1
-  if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
-  {
-    Power.Deep_Sleep();
-  }
-#endif
+  // - Display
 
-  // -- Set power button interrupts
-  Pin.Set_Mode(Power_Button_Pin, INPUT);
-  Pin.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Power.Button_Interrupt_Handler, Pin.Change);
-
-  // -- Increase esp32 hardware watchdog timeout
-
-  if (esp_task_wdt_init(Maximum_Watchdog_Timeout / 1000, true) != ESP_OK)
+  if (Display.Start() != Result_Type::Success)
   {
-    Log_Error("Failed to set watchdog timeout. Trying to reboot.");
-    ESP.restart();
+    Panic_Handler(Panic_Code::Failed_To_Start_Display);
   }
 
-  // -- Initialize drive. -- //
+  // - Graphics
 
-#if Drive_Mode == 0
-  Pin.Set_Mode(14, INPUT_PULLUP);
-  Pin.Set_Mode(2, INPUT_PULLUP);
-  Pin.Set_Mode(4, INPUT_PULLUP);
-  Pin.Set_Mode(12, INPUT_PULLUP);
-  Pin.Set_Mode(13, INPUT_PULLUP);
-#endif
-
-  if (!Drive.Begin() || Drive.Type() == Drive.None)
+  if (Graphics.Start() != Result_Type::Success)
   {
-    Log_Error("Failed to initialize drive.");
-    Display.Set_Text(F("EVENT_TXT"), F("Failed to initialize drive."));
-  }
-  while (!Drive.Begin() || Drive.Type() == Drive.None)
-  {
-    Log_Information("Attemping to initialize drive ...");
-    Drive.End();
-    Task_Type::Delay_Static(200);
-  }
-  Display.Set_Text(F("EVENT_TXT"), F(""));
-
-  // -- Initialize display. -- //
-
-  Task.Create(Display.Task, "Display driver", Memory_Chunk(8), NULL, Task.Driver_Task, Display.Task_Handle);
-
-  if (Display.Load_Registry() != Success)
-  {
-    Display.Save_Registry();
+    Panic_Handler(Panic_Code::Failed_To_Start_Graphics);
   }
 
-  if (!Drive.Exists(Users_Directory_Path))
-  {
-    Log_Information("No existing \"/Users\" directory.");
-    File Temporary_File = Drive.Open(Display_Executable_Path);
-    if (Display.Update(Temporary_File) != Display.Update_Succeed)
-    {
-      Panic_Handler(Failed_To_Update_Display);
-    }
+  Task.Delay(100);
 
-    Task_Type::Delay_Static(5000);
-    Display.Begin(Display.Baud_Rate, Display.Receive_Pin, Display.Transmit_Pin);
-  }
+  Object_Type Background;
+  Background.Create(Graphics.Get_Screen());
+  Background.Set_Size(Percentage(100), Percentage(100));
+  Background.Set_Style_Background_Color(Color_Type::Black, 0);
 
-  Pin.Set_Mode(Default_Display_Switching_Pin, Pin.Output);
-  Pin.Digital_Write(Default_Display_Switching_Pin, Pin.High);
-  Task_Type::Delay_Static(2000);
-  // Display.Wake_Up();
-  // Display.Set_Touch_Wake_Up(true);
-  // Display.Set_Serial_Wake_Up(true);
-  Display.Set_Brightness(Display.Brightness);
-  // Display.Set_Standby_Touch_Timer(Display.Standby_Time);
-  Display.Set_Current_Page(F("Core_Load"));
+  Object_Type Logo;
+  Logo.Create(Background);
+  Logo.Set_Size(256, 256);
+  Logo.Set_Alignment(Alignment_Type::Center);
+  Logo.Set_Style_Pad_All(0);
+  Logo.Set_Style_Background_Opacity(0);
+  Logo.Set_Style_Shadow_Color(Color_Type::White, 0);
 
-  Display.Set_Trigger(F("LOAD_TIM"), true);
+  Object_Type Red;
+  Red.Create(Logo);
+  Red.Set_Size(40, 84);
+  Red.Set_Alignment(Alignment_Type::Top_Left, 64, 64);
+  Red.Set_Style_Background_Color(Color_Type::White, 0);
+  Red.Set_Style_Shadow_Color(Color_Type::White, 0);
+  Red.Set_Style_Opacity(Opacity_Type::Transparent, 0);
 
-  // -- Check system integrity -- //
+  Object_Type Blue;
+  Blue.Create(Logo);
+  Blue.Set_Size(84, 40);
+  Blue.Set_Alignment(Alignment_Type::Top_Right, 64, -64);
+  Blue.Set_Style_Background_Color(Color_Type::White, 0);
+  Blue.Set_Style_Shadow_Color(Color_Type::White, 0);
+  Blue.Set_Style_Opacity(Opacity_Type::Transparent, 0);
 
-  if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
+  Object_Type Green;
+  Green.Create(Logo);
+  Green.Set_Size(40, 84);
+  Green.Set_Alignment(Alignment_Type::Bottom_Left, -64, -64);
+  Green.Set_Style_Background_Color(Color_Type::White, 0);
+  Green.Set_Style_Shadow_Color(Color_Type::White, 0);
+  Green.Set_Style_Opacity(Opacity_Type::Transparent, 0);
+
+  Object_Type Yellow;
+  Yellow.Create(Logo);
+  Yellow.Set_Size(84, 40);
+  Yellow.Set_Alignment(Alignment_Type::Bottom_Right, -64, 64);
+  Yellow.Set_Style_Background_Color(Color_Type::White, 0);
+  Yellow.Set_Style_Shadow_Color(Color_Type::White, 0);
+  Yellow.Set_Style_Opacity(Opacity_Type::Transparent, 0);
+
+  Label_Type Text;
+  Text.Create(Background);
+  Text.Set_Alignment(Alignment_Type::Center, 0, 256);
+
+  Graphics_Types::Animation_Type Animation;
+  Animation.Initialize();
+  Animation.Set_Variable(&Logo);
+  Animation.Set_Values(64, 255);
+  Animation.Set_Time(1000);
+  Animation.Set_Playback_Delay(0);
+  Animation.Set_Playback_Time(1000);
+  Animation.Set_Repeat_Delay(0);
+  Animation.Set_Repeat_Count(LV_ANIM_REPEAT_INFINITE); // TODO : Define a constant for this
+  Animation.Set_Path_Callback(Graphics_Types::Animation_Type::Path_Ease_In_Out);
+
+  // - Check system folders.
+
+  if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
   {
     System.Panic_Handler(System.Missing_System_Files);
   }
@@ -521,7 +452,7 @@ void System_Class::Start()
   }
   WiFi.Set_Hostname(System.Device_Name); // Set hostname
 
-  // -- Load sound registry --
+  // - Sound
 
   if (Sound.Load_Registry() != Result_Type::Success)
   {
@@ -529,38 +460,36 @@ void System_Class::Start()
   }
   Sound.Begin();
 
-  // -- Play startup sound
-
   Sound.Play(Sounds("Startup.wav"));
 
-  // -- Load power registry :
+  // - Power
 
   if (Power.Load_Registry() != Result_Type::Success)
   {
     Power.Save_Registry();
   }
 
-  // -- Network registry :
+  // - WiFi
 
   if (WiFi.Load_Registry() != Result_Type::Success)
   {
     WiFi.Save_Registry();
   }
 
-  // -- Time registry
+  // - Time
   if (Time.Load_Registry() != Result_Type::Success)
   {
     Time.Save_Registry();
   }
 
-  // -- Load account registry
+  // - Account
 
   if (Account.Load_Registry() != Result_Type::Success)
   {
     Account.Set_Autologin(false);
   }
 
-  // -- Load Keyboard Registry
+  // - Keyboard
   if (Keyboard.Load_Registry() != Result_Type::Success)
   {
     Keyboard.Save_Registry(); // recreate a keyboard registry with default values
@@ -584,9 +513,8 @@ void System_Class::Start()
 
   Execute_Startup_Function();
 
-  Task.Create(System.Task, "Core Task", Memory_Chunk(4), NULL, Task.System_Task, &System.Task_Handle);
-
-  Task.Delete(); // delete main task
+  // Delete main task.
+  vTaskDelete(NULL);
 }
 
 ///
@@ -809,4 +737,57 @@ uint64_t System_Class::Get_eFuse_MAC()
   uint64_t _chipmacid = 0LL;
   esp_efuse_mac_get_default((uint8_t *)(&_chipmacid));
   return _chipmacid;
+}
+
+void System_Class::Logo_Annimation_Callback(void *Object, int32_t Value)
+{
+  static uint8_t Animated_Part = 2;
+
+  if ((Value == 255) || (Value == 64))
+  {
+    if ((Animated_Part == 4))
+    {
+      if (Value == 64)
+      {
+        Animated_Part = 1;
+      }
+    }
+    else
+    {
+      Animated_Part++;
+    }
+  }
+
+  Object_Type Next_Part = static_cast<*Object_Type>(Object)->Get_Child(Animated_Part - 1);
+
+  if ((Animated_Part % 2) == 0)
+  {
+    Next_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+    Next_Part.Set_Style_Opacity(255 + 64 - (uint8_t)Value, 0);
+
+    Object_Type Previous_Part = static_cast<*Object_Type>(Object)->Get_Child(Animated_Part - 2);
+
+    Previous_Part.Set_Style_Shadow_Width(Value, 0);
+    Previous_Part.Set_Style_Opacity(Value, 0);
+  }
+  else
+  {
+    Next_Part.Set_Style_Shadow_Width(Value, 0);
+    Next_Part.Set_Style_Opacity(Value, 0);
+
+    if (Animated_Part == 1)
+    {
+      Object_Type Previous_Part = static_cast<*Object_Type>(Object)->Get_Child(3);
+
+      Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      Previous_Part.Set_Style_Opacity(255 + 64 - (uint8_t)Value, 0);
+    }
+    else
+    {
+      Object_Type Previous_Part = static_cast<*Object_Type>(Object)->Get_Child(Animated_Part - 2);
+
+      Previous_Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      Previous_Part.Set_Style_Opacity(255 + 64 - (uint8_t)Value, 0);
+    }
+  }
 }

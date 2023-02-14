@@ -21,6 +21,23 @@
 
 namespace Xila_Namespace
 {
+    namespace System_Types
+    {
+        /// @brief Panic codes used by the panic handler.
+        enum class Panic_Code
+        {
+            Missing_System_Files,     ///< Missing system files (registries).
+            Damaged_System_Registry,  ///< Damaged system registry.
+            Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
+            System_Drive_Failure,     ///< System drive failure (disconnected).
+            Failed_To_Start_Display,  ///< Failed to start display.
+            Failed_To_Start_Graphics,
+            Failed_To_Update_Display, ///< Failed to update display.
+            Low_Memory,               ///< Low memory (fragmentation, too much software openned).
+            Memory_Corruption,        ///< Memory corruption.
+        };
+    };
+
     typedef class System_Class : public Module_Class
     {
     public:
@@ -43,15 +60,8 @@ namespace Xila_Namespace
         void Restart();
         void Hibernate();
 
-        void Refresh_Header();
-
         static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
-
-        // -- Friendship
-        friend class Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
 
     protected:
         // System's task :
@@ -64,31 +74,24 @@ namespace Xila_Namespace
 
         // -- Methods
 
+        void Load();
+
         Result_Type Load_Registry();
         Result_Type Save_Registry();
 
         Result_Type Save_Dump();
         Result_Type Load_Dump();
 
-        Result_Type Load_Executable(File Executable_File);
+        Result_Type Upgrade(File_Type Executable_File);
+
+        // - Animation
+
+        static void Logo_Annimation_Callback(void* Object, int32_t Value);
 
         void Second_Sleep_Routine();
 
-        ///
-        /// @brief Panic codes used by the panic handler ("Grey screen").
-        ///
-        enum Panic_Code
-        {
-            Missing_System_Files,     ///< Missing system files (registries).
-            Damaged_System_Registry,  ///< Damaged system registry.
-            Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
-            System_Drive_Failure,     ///< System drive failure (disconnected).
-            Failed_To_Update_Display, ///< Failed to update display.
-            Low_Memory,               ///< Low memory (fragmentation, too much software openned).
-            Memory_Corruption,        ///< Memory corruption.
-        };
 
-        void Panic_Handler(Panic_Code Panic_Code);
+        void Panic_Handler(System_Types::Panic_Code Panic_Code);
 
         void Execute_Startup_Function();
     } System_Type;

@@ -22,14 +22,14 @@ Result_Type Input_Class::Load_Registry()
 {
     using namespace Xila;
 
-    File Temporary_File = Drive.Open(Registry("Keyboard"));
+    File_Type Temporary_File = Drive.Open(Registry("Keyboard"));
     DynamicJsonDocument Keyboard_Registry(512);
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     if (strcmp("Keyboard", Keyboard_Registry["Registry"] | "") != 0)
     {
         return Result_Type::Error;
@@ -49,7 +49,7 @@ Result_Type Input_Class::Save_Registry()
 {
     using namespace Xila;
 
-    File Temporary_File = Drive.Open(Registry("Keyboard"), FILE_WRITE);
+    File_Type Temporary_File = Drive.Open(Registry("Keyboard"), true);
     DynamicJsonDocument Keyboard_Registry(512);
     Keyboard_Registry["Registry"] = "Keyboard";
     Keyboard_Registry["Data Pin"] = Data_Pin;
@@ -57,9 +57,9 @@ Result_Type Input_Class::Save_Registry()
     Keyboard_Registry["Layout"] = Layout;
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Success;
 }

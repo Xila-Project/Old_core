@@ -15,6 +15,8 @@
 
 #include "Core/Display/Display.hpp"
 
+using namespace Xila_Namespace;
+
 class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
 {
     /*
@@ -207,9 +209,18 @@ public:
 
 static WT32_SC01_Driver_Class WT32_SC01_Driver;
 
-void Display_Class::Initialize()
+Result_Type Display_Class::Start()
 {
-    WT32_SC01_Driver.init();
+    if (Load_Registry() != Result_Type::Success)
+    {
+        Save_Registry();
+    }
+    
+    if (WT32_SC01_Driver.init())
+    {
+        return Result_Type::Success;
+    }
+    return Result_Type::Error;
 };
 
 void Display_Class::Set_Brightness(uint8_t Brightness)

@@ -26,6 +26,10 @@ namespace Xila_Namespace
         Display_Class();
         ~Display_Class();
 
+        // - - Management
+        Result_Type Start();
+        void Calibrate();
+
         // - - Registry
         Result_Type Load_Registry();
         Result_Type Save_Registry();
@@ -33,27 +37,28 @@ namespace Xila_Namespace
         uint16_t Get_Horizontal_Definition();
         uint16_t Get_Vertical_Definition();
 
+        // - - Setters
+
         void Set_Brightness(uint8_t Brightness);
         uint8_t Get_Brightness();
+
+        // - - Getters
 
         void Set_Standby_Time(uint16_t Standby_Time);
         uint16_t Get_Standby_Time();
 
-        // - - Interface for LVGL
-        void Calibrate();
-        void Initialize();
+        // - - LVGL interface
+
         static IRAM_ATTR void Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer);
         static IRAM_ATTR void Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data);
+        
 
-        // - - Friendships
-        friend class Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
-
+    
+    private:
         // - Attributes
-
         uint16_t Standby_Time;
         uint8_t Brightness;
+
     } Display;
 }
 

@@ -1,4 +1,4 @@
-/*///
+///
 /// @file Sound.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief Xila sound abstraction layer source file.
@@ -9,25 +9,18 @@
 ///
 
 #include "Core/Sound/Sound.hpp"
+#include "Core/Drive/Drive.hpp"
 
-#include "Audio.h"
+using namespace Xila_Namespace;
 
-#if Drive_Mode == 0
-#define Audio_Drive SD_MMC
-#elif Drive_Mode == 1
-#define Audio_Drive SD
-#endif
-
-Audio Audio_Driver;
+Sound_Type Sound;
 
 ///
 /// @brief Construct a new Xila_Class::Sound_Class::Sound_Class object
 ///
-Sound_Class::Sound_Class()
-    : Task_Handle(NULL),
-      Custom_Pin(0xFF)
+Sound_Class::Sound_Class() : Custom_Pin(0xFF)
 {
-    Set_Volume(Default_Volume_Level);
+    Set_Volume(Default_Sound_Volume);
 }
 
 ///
@@ -35,13 +28,14 @@ Sound_Class::Sound_Class()
 ///
 Sound_Class::~Sound_Class()
 {
-    Instance_Pointer = NULL;
 }
 
 void Sound_Class::Begin()
 {
+    /*
     Audio_Driver.setBalance(0);
     Task.Create(Sound.Task, "Sound task", Memory_Chunk(6), NULL, Task.Driver_Task, &Sound.Task_Handle);
+    */
 }
 
 ///
@@ -51,14 +45,15 @@ void Sound_Class::Begin()
 ///
 Result_Type Sound_Class::Load_Registry()
 {
-    File Temporary_File = Drive.Open(Registry("Sound"));
+    /*
+    File_Type Temporary_File = Drive.Open(Registry("Sound"));
     DynamicJsonDocument Sound_Registry(256);
     if (deserializeJson(Sound_Registry, Temporary_File) != DeserializationError::Ok)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     if (strcmp("Sound", Sound_Registry["Registry"] | "") != 0)
     {
         return Result_Type::Error;
@@ -66,29 +61,31 @@ Result_Type Sound_Class::Load_Registry()
     Output = Sound_Registry["Output"] | Default_Sound_Output;
     if (Output == Internal_DAC)
     {
-        Audio_Driver.setInternalDAC();
+        // Audio_Driver.setInternalDAC();
         Output = Internal_DAC;
     }
     else
     {
-        Audio_Driver.setInternalDAC(false);
+        // Audio_Driver.setInternalDAC(false);
         Output = External_DAC;
         Clock_Pin = Sound_Registry["Clock Pin"] | Default_I2S_Clock_Pin;
         Word_Select_Pin = Sound_Registry["Word Select Pin"] | Default_I2S_Word_Select_Pin;
         Data_Pin = Sound_Registry["Data Pin"] | Default_I2S_Data_Pin;
-        Audio_Driver.setPinout(Clock_Pin, Word_Select_Pin, Data_Pin);
+        //Audio_Driver.setPinout(Clock_Pin, Word_Select_Pin, Data_Pin);
         Set_Channels(2);
     }
-    Set_Volume(Sound_Registry["Volume"] | Default_Volume_Level);
+    Set_Volume(Sound_Registry["Volume"] | Default_Sound_Volume);
     return Result_Type::Success;
+    */
 }
 
 ///
- /// @brief Save sound registry.
- /// 
- /// @return Result_Type 
+/// @brief Save sound registry.
+///
+/// @return Result_Type
 Result_Type Sound_Class::Save_Registry()
 {
+    /*
     DynamicJsonDocument Sound_Registry(512);
     Sound_Registry["Registry"] = "Sound";
     Sound_Registry["Volume"] = Get_Volume();
@@ -96,14 +93,15 @@ Result_Type Sound_Class::Save_Registry()
     Sound_Registry["Clock Pin"] = Clock_Pin;
     Sound_Registry["Word Select Pin"] = Word_Select_Pin;
     Sound_Registry["Data Pin"] = Data_Pin;
-    File Temporary_File = Drive.Open(Registry("Sound"), FILE_WRITE);
+    File_Type Temporary_File = Drive.Open(Registry("Sound"), true);
     if (serializeJson(Sound_Registry, Temporary_File) == 0)
     {
-        Temporary_File.close();
+        Temporary_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Success;
+    */
 }
 
 ///
@@ -112,7 +110,7 @@ Result_Type Sound_Class::Save_Registry()
 /// @param Informations
 void audio_eof_mp3(const char *Informations)
 {
-    Sound.Stop();
+    //Sound.Stop();
 }
 
 ///
@@ -122,7 +120,7 @@ void audio_eof_mp3(const char *Informations)
 void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 {
     Volume_To_Set = ((21 * Volume_To_Set) / 255);
-    Audio_Driver.setVolume(Volume_To_Set);
+    // Audio_Driver.setVolume(Volume_To_Set);
 }
 
 ///
@@ -131,7 +129,8 @@ void Sound_Class::Set_Volume(uint8_t Volume_To_Set)
 /// @return uint8_t Current volume level (0 - 255)
 uint8_t Sound_Class::Get_Volume()
 {
-    return ((Audio_Driver.getVolume() * 255) / 21);
+    return 0;
+    // return ((Audio_Driver.getVolume() * 255) / 21);
 }
 
 ///
@@ -144,6 +143,7 @@ uint8_t Sound_Class::Get_Volume()
 /// @return false if failed to play file.
 uint8_t Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const char *Password)
 {
+    /*
     if (File_Path_Or_Host[0] == '\0')
     {
         return false;
@@ -162,6 +162,7 @@ uint8_t Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const
             return false;
         }
     }
+    */
     return true;
 }
 
@@ -171,7 +172,7 @@ uint8_t Sound_Class::Play(const char *File_Path_Or_Host, const char *User, const
 /// @param Balance Balance level (between -16 and 16).
 void Sound_Class::Set_Balance(int8_t Balance)
 {
-    Audio_Driver.setBalance(Balance);
+    // Audio_Driver.setBalance(Balance);
 }
 
 ///
@@ -181,7 +182,7 @@ void Sound_Class::Set_Balance(int8_t Balance)
 /// @return false if audio is not playing.
 uint8_t Sound_Class::Get_State()
 {
-    return Audio_Driver.isRunning();
+    // return Audio_Driver.isRunning();
 }
 
 ///
@@ -192,7 +193,7 @@ uint8_t Sound_Class::Get_State()
 /// @param Gain_High_Pass Gain high pass.
 void Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass)
 {
-    Audio_Driver.setTone(Gain_Low_Pass, Gain_Band_Pass, Gain_High_Pass);
+    // Audio_Driver.setTone(Gain_Low_Pass, Gain_Band_Pass, Gain_High_Pass);
 }
 
 ///
@@ -201,7 +202,7 @@ void Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t G
 /// @return uint32_t Current playing time in seconds.
 uint32_t Sound_Class::Get_Current_Time()
 {
-    return Audio_Driver.getAudioCurrentTime();
+    // return Audio_Driver.getAudioCurrentTime();
 }
 
 ///
@@ -210,6 +211,7 @@ uint32_t Sound_Class::Get_Current_Time()
 /// @param Output Sound_Class::Internal_DAC / External_DAC
 void Sound_Class::Set_Output(uint8_t Output)
 {
+    /*
     if (Output == Internal_DAC)
     {
         Audio_Driver.setInternalDAC(true);
@@ -218,6 +220,7 @@ void Sound_Class::Set_Output(uint8_t Output)
     {
         Audio_Driver.setInternalDAC(false);
     }
+    */
 }
 
 ///
@@ -226,7 +229,10 @@ void Sound_Class::Set_Output(uint8_t Output)
 /// @return uint32_t Total playing time in seconds.
 uint32_t Sound_Class::Get_Duration()
 {
+    return 0;
+    /*
     return Audio_Driver.getAudioFileDuration();
+    */
 }
 
 ///
@@ -235,7 +241,8 @@ uint32_t Sound_Class::Get_Duration()
 /// @return uint32_t Total playing time seconds.
 uint32_t Sound_Class::Get_Total_Time()
 {
-    return Audio_Driver.getTotalPlayingTime();
+    return 0;
+    // return Audio_Driver.getTotalPlayingTime();
 }
 
 ///
@@ -244,7 +251,7 @@ uint32_t Sound_Class::Get_Total_Time()
 /// @param Time Current playing time in seconds.
 void Sound_Class::Set_Current_Time(uint16_t Time)
 {
-    Audio_Driver.setAudioPlayPosition(Time);
+    // Audio_Driver.setAudioPlayPosition(Time);
 }
 
 ///
@@ -253,7 +260,7 @@ void Sound_Class::Set_Current_Time(uint16_t Time)
 /// @param Time Time offset in seconds.
 void Sound_Class::Set_Time_Offset(int16_t Time)
 {
-    Audio_Driver.setTimeOffset(Time);
+    // Audio_Driver.setTimeOffset(Time);
 }
 
 ///
@@ -308,8 +315,9 @@ void Sound_Class::No_Tone(uint8_t Pin)
 ///
 /// @param File_To_Play File to play instance.
 /// @return uint8_t
-uint8_t Sound_Class::Play(File &File_To_Play)
+uint8_t Sound_Class::Play(File_Type &File_To_Play)
 {
+    /*
     if (!File_To_Play)
     {
         return Failed_To_Open_File;
@@ -321,8 +329,9 @@ uint8_t Sound_Class::Play(File &File_To_Play)
     {
         return Failed_To_Open_File;
     }
-
     return Result_Type::Success;
+    */
+   return 0;
 }
 
 ///
@@ -331,7 +340,8 @@ uint8_t Sound_Class::Play(File &File_To_Play)
 /// @param Loop true to enable or false to disable loop.
 void Sound_Class::Set_Loop(bool Loop)
 {
-    Audio_Driver.setFileLoop(Loop);
+
+    // Audio_Driver.setFileLoop(Loop);
 }
 
 ///
@@ -340,7 +350,8 @@ void Sound_Class::Set_Loop(bool Loop)
 /// @return uint32_t File size in bytes.
 uint32_t Sound_Class::Get_File_Size()
 {
-    return Audio_Driver.getFileSize();
+    return 0;
+    // return Audio_Driver.getFileSize();
 }
 
 ///
@@ -349,7 +360,8 @@ uint32_t Sound_Class::Get_File_Size()
 /// @return uint32_t File position in bytes.
 uint32_t Sound_Class::Get_File_Position()
 {
-    return Audio_Driver.getFilePos();
+
+    // return Audio_Driver.getFilePos();
 }
 
 ///
@@ -360,13 +372,15 @@ uint32_t Sound_Class::Get_File_Position()
 /// @return false if failed to set file position.
 bool Sound_Class::Set_File_Position(uint32_t Position)
 {
-    return Audio_Driver.setFilePos(Position);
+    return true;
+    // return Audio_Driver.setFilePos(Position);
 }
 
 ///
 bool Sound_Class::Set_File_Seek(const float Speed)
 {
-    return Audio_Driver.audioFileSeek(Speed);
+    return true;
+    // return Audio_Driver.audioFileSeek(Speed);
 }
 
 ///
@@ -375,7 +389,8 @@ bool Sound_Class::Set_File_Seek(const float Speed)
 /// @return uint32_t
 uint32_t Sound_Class::Get_Sample_Rate()
 {
-    return Audio_Driver.getSampleRate();
+    return 0;
+    // return Audio_Driver.getSampleRate();
 }
 
 ///
@@ -384,7 +399,8 @@ uint32_t Sound_Class::Get_Sample_Rate()
 /// @return uint8_t Bit resolution.
 uint8_t Sound_Class::Get_Bit_Resolution()
 {
-    return Audio_Driver.getBitsPerSample();
+    return 0;
+    // return Audio_Driver.getBitsPerSample();
 }
 
 ///
@@ -393,7 +409,8 @@ uint8_t Sound_Class::Get_Bit_Resolution()
 /// @return uint8_t Number of channels (1 for mono, 2 for stereo).
 uint8_t Sound_Class::Get_Channels()
 {
-    return Audio_Driver.getChannels();
+    return 0;
+    // return Audio_Driver.getChannels();
 }
 
 ///
@@ -402,7 +419,8 @@ uint8_t Sound_Class::Get_Channels()
 /// @return uint32_t Current playing file bit rate.
 uint32_t Sound_Class::Get_Bit_Rate()
 {
-    return Audio_Driver.getBitRate();
+    return 0;
+    // return Audio_Driver.getBitRate();
 }
 
 ///
@@ -411,6 +429,7 @@ uint32_t Sound_Class::Get_Bit_Rate()
 /// @param Channels 1 for mono and 2 for stereo sound.
 void Sound_Class::Set_Channels(uint8_t Channels)
 {
+    /*
     if (Channels > 1)
     {
         Audio_Driver.forceMono(false);
@@ -419,6 +438,7 @@ void Sound_Class::Set_Channels(uint8_t Channels)
     {
         Audio_Driver.forceMono(true);
     }
+    */
 }
 
 ///
@@ -426,21 +446,24 @@ void Sound_Class::Set_Channels(uint8_t Channels)
 ///
 void Sound_Class::Resume()
 {
-    if (!Audio_Driver.isRunning())
+   /* if (!Audio_Driver.isRunning())
     {
         Audio_Driver.pauseResume();
     }
+    */
 }
 
 ///
- /// @brief Pause playback.
- /// 
+/// @brief Pause playback.
+///
 void Sound_Class::Pause()
 {
+    /*
     if (Audio_Driver.isRunning())
     {
         Audio_Driver.pauseResume();
     }
+    */
 }
 
 ///
@@ -448,7 +471,7 @@ void Sound_Class::Pause()
 ///
 void Sound_Class::Stop()
 {
-    Audio_Driver.stopSong();
+    //Audio_Driver.stopSong();
 }
 
 ///
@@ -456,28 +479,31 @@ void Sound_Class::Stop()
 ///
 void Sound_Class::Mute()
 {
-    Audio_Driver.setVolume(0);
+
+    //Audio_Driver.setVolume(0);
 }
 
 ///
- /// @brief Set pinout of external DAC.
- /// 
- /// @param Bit_Clock_Pin Bit clock pin.
- /// @param Frame_Clock_Pin Frame clock pin.
- /// @param Data_Out_Pin Data out pin.
- /// @param Data_In_Pin Data in pin.
- /// @return true if the operation succeed.
- /// @return false if the operation failed.
+/// @brief Set pinout of external DAC.
+///
+/// @param Bit_Clock_Pin Bit clock pin.
+/// @param Frame_Clock_Pin Frame clock pin.
+/// @param Data_Out_Pin Data out pin.
+/// @param Data_In_Pin Data in pin.
+/// @return true if the operation succeed.
+/// @return false if the operation failed.
 bool Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin)
 {
-    return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
+    return true;
+    //return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
 }
 
 ///
- /// @brief Audio driver task.
- /// 
+/// @brief Audio driver task.
+///
 void Sound_Class::Task(void *)
 {
+    /*
     while (1)
     {
         Audio_Driver.loop();
@@ -486,5 +512,5 @@ void Sound_Class::Task(void *)
             Task_Type::Delay_Static(50);
         }
     }
+    */
 }
-*/

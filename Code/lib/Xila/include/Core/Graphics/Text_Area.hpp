@@ -27,7 +27,7 @@ namespace Xila_Namespace
 
         // - Methods
 
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
 
         void Add_Char(uint32_t Character);
         void Add_Text(const char *Text);

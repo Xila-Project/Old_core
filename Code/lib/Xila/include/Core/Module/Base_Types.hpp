@@ -13,6 +13,8 @@
 
 #include "Arduino.h"
 
+#include "Core/Graphics/Types.hpp"
+
 namespace Xila_Namespace
 {
     typedef bool Boolean_Type;
@@ -49,6 +51,8 @@ namespace Xila_Namespace
         Question,    ///< Question event.
         None
     };
+
+    typedef class File_Class File_Type;
 
 }
 

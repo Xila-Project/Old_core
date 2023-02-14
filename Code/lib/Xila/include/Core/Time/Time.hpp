@@ -51,10 +51,6 @@ namespace Xila_Namespace
         ///
         int16_t Daylight_Offset;
 
-        ///
-        /// @brief Current time structure.
-        ///
-        tm Current_Time;
 
         ///
         /// @brief Current unix time in seconds.

@@ -16,18 +16,37 @@
 
 using namespace Xila_Namespace;
 
+Task_Class::Task_Class(Module_Class* Owner_Module) : Owner_Module(Owner_Module)
+{
+    Task_Handle = NULL;
+}
+
 Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module)
 {
-    if ((Priority > Priority_Type::High) || (Priority < Priority_Type::Background))
-    {
-        Priority = Priority_Type::Normal;
-    }
-    xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY);
+   Create(Task_Function, Name, Stack_Size, Data, Priority);
 }
 
 Task_Class::~Task_Class()
 {
-    if ((Task_Handle != NULL) || (Get_State() != State_Type::Deleted) || (Get_State() != State_Type::Invalid))
+   Delete();
+}
+
+Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority)
+{
+     if ((Priority > Priority_Type::Idle) || (Priority <= Priority_Type::Driver))
+    {
+        Priority = Priority_Type::Normal;
+    }
+    if (xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) == pdPASS)
+    {
+        return Result_Type::Success;
+    }
+    return Result_Type::Error;
+}
+
+void Task_Class::Delete()
+{
+     if ((Get_State() != State_Type::Deleted) || (Get_State() != State_Type::Invalid))
     {
         vTaskDelete(Task_Handle);
     }
@@ -40,17 +59,27 @@ void Task_Class::Feed_Watchdog()
     Watchdog_Timer = Time.Milliseconds();
 }
 
+uint32_t Task_Class::Get_Watchdog_Timer()
+{
+    return Watchdog_Timer;
+}
+
+uint32_t Task_Class::Get_Watchdog_Timeout()
+{
+    return Watchdog_Timeout;
+}
+
 /// @brief  Check if one task is frozen (watchdog timeout).
 void Task_Class::Check_Watchdogs()
 {
     // Iterate through all tasks.
-    for (auto Task_Pointer = List.begin(); Task_Pointer != List.end(); Task_Pointer++)
+    for (auto Task_Pointer : List)
     {
         // Check if a running or active task hasn't refresh its watchdog.
-        if (((*Task_Pointer)->Get_State() == State_Type::Running || (*Task_Pointer)->Get_State() == State_Type::Ready) && (Time.Milliseconds() - (*Task_Pointer)->Watchdog_Timer > (*Task_Pointer)->Watchdog_Timeout))
+        if (Task_Pointer->Get_State() == State_Type::Running && (Time.Milliseconds() - Task_Pointer->Get_Watchdog_Timer() > Task_Pointer->Get_Watchdog_Timeout()))
         {
-            (*Task_Pointer)->Suspend(); // Suspend task.
-            // TODO : Think about it would be safer to delete the task ?
+            Task_Pointer->Suspend(); // Suspend task.
+            // ? : Would it be safer to rather delete the task ?
         }
     }
 }
@@ -73,7 +102,6 @@ void Task_Class::Suspend()
     }
 }
 
-///
 /// @brief Function that delay the execution of the following instruction.
 /// @param Delay_In_Millisecond
 /// @details A delay function that behave exactly like delay() but additionaly feed the task watchdog.

@@ -11,6 +11,7 @@
 #include "Core/Drive/Drive.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Drive_Types;
 
 Drive_Type Drive;
 
@@ -37,67 +38,16 @@ Result_Type Drive_Class::Copy(File_Type &Origin_File, File_Type &Destination_Fil
     {
         return Result_Type::Error;
     }
-    while ((Readed_Bytes = Origin_File.read(Buffer, sizeof(Buffer))) > 0)
+    while ((Readed_Bytes = Origin_File.Read(Buffer, sizeof(Buffer))) > 0)
     {
         Destination_File.write(Buffer, Readed_Bytes);
     }
     return Result_Type::Success;
 }
 
-///
-/// @brief
-///
-/// @param Folder
-/// @return uint16_t return the number of files inside a folder
-uint16_t Drive_Class::Count_Items(File &Folder)
+Result_Type Drive_Class::Copy(const char *Origin_Path, const char *Destination_Path)
 {
-    if (!Folder || !Folder.isDirectory())
-    {
-        return 0;
-    }
-    uint32_t i = 0;
-    Folder.rewindDirectory();
-    File Temporary_File = Folder.openNextFile();
-    while (Temporary_File)
-    {
-        Temporary_File.close();
-        Temporary_File = Folder.openNextFile();
-        i++;
-    }
-    return i;
-}
-
-///
-/// @brief
-///
-/// @param File
-/// @param File_Name
-/// @param Size
-/// @return Result_Type
-Result_Type Drive_Class::Get_Name(File_Type const &File, char *File_Name, size_t Size)
-{
-    if (!File)
-    {
-        return Result_Type::Error;
-    }
-    if (File.name() == NULL)
-    {
-        return Result_Type::Error;
-    }
-
-    const char *Temporary_File_Name = File.name();
-    memset(File_Name, '\0', Size);
-    if (!File)
-    {
-        return Result_Type::Error;
-    }
-    for (uint8_t i = (strlen(Temporary_File_Name) - 1); i >= 0; i--)
-    {
-        if (Temporary_File_Name[i] == '/')
-        {
-            strlcpy(File_Name, Temporary_File_Name + i + 1, Size);
-            break;
-        }
-    }
-    return Result_Type::Success;
+    File_Type Origin_File = Open(Origin_Path);
+    File_Type Destination_File = Open(Destination_Path, true);
+    return Copy(Origin_File, Destination_File);
 }

@@ -97,7 +97,7 @@ void Shell_Class::Drawer_Class::Close(Shell_Class *Shell_Pointer)
     Shell_Pointer->Drawer_Pointer = NULL;
 }
 
-bool Shell_Class::Drawer_Class::Is_Open(Shell_Class *Shell_Pointer)
+bool Shell_Class::Drawer_Class::Is_Openned(Shell_Class *Shell_Pointer)
 {
     if (Shell_Pointer->Drawer_Pointer == NULL)
     {

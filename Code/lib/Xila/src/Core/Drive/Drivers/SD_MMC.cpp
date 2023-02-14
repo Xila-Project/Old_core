@@ -14,19 +14,20 @@
 
 #include "SD_MMC.h"
 
-///
-/// @brief Initialize drive.
-///
-/// @param Slave_Select_Pin Slave select pin.
-/// @param spi SPI interface.
-/// @param Frequency Frequency of the SPI bus.
-/// @param Mount_Point Mount point path.
-/// @param Maximum_Files Maximum simultaneous openned files.
-/// @return true if the initialization succeed.
-/// @return false if the initialization succeed.
-bool Drive_Class::Begin(const char *Mount_Point)
+using namespace Xila_Namespace;
+using namespace Xila_Namespace::Drive_Types;
+
+/// @brief Start drive module.
+Result_Type Drive_Class::Start()
 {
-    return SD_MMC.begin(Mount_Point);
+    if (!SD_MMC.begin() || Get_Type() == Drive_Type_Type::None)
+    {
+        End();
+        return Result_Type::Error;
+    }
+
+    return Result_Type::Success;
+
 }
 
 ///
@@ -122,9 +123,17 @@ bool Drive_Class::Make_Directory(const String &Path)
 /// @param Path Item path.
 /// @param Mode Open mode (read or write).
 /// @return File File instance.
-File Drive_Class::Open(const char *Path, const char *Mode)
+File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
 {
-    return SD_MMC.open(Path, Mode);
+    if (Write)
+    {
+        if (Append)
+        {
+            return SD_MMC.open(Path, FILE_APPEND);
+        }
+        return SD_MMC.open(Path, FILE_WRITE);
+    }
+    return SD_MMC.open(Path, FILE_READ);
 }
 
 ///
@@ -133,9 +142,9 @@ File Drive_Class::Open(const char *Path, const char *Mode)
 /// @param Path Item path.
 /// @param Mode Open mode (read or write).
 /// @return File File instance.
-File Drive_Class::Open(const String &Path, const char *Mode)
+File_Type Drive_Class::Open(const String &Path, bool Write, bool Append)
 {
-    return SD_MMC.open(Path, Mode);
+   return Open(Path.c_str(), Write, Append);
 }
 
 ///

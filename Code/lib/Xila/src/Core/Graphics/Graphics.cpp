@@ -16,32 +16,32 @@
 #include "lvgl.h"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
 Graphics_Type Graphics();
 
-Graphics_Class::Graphics_Class() : Task(this, Task_Function, "Graphics", 2048, NULL, Task_Type::Priority_Type::System)
+Graphics_Class::Graphics_Class() : Task(this)
 {
-
 }
 
-void Graphics_Class::Task_Function(void * Graphics)
+Graphics_Class::~Graphics_Class()
 {
-    while (true)
-    {
-        lv_tick_inc(6);
-        lv_timer_handler();
-        Task_Type::Delay_Static(6);
-    }
+    lv_deinit();
 }
 
-Result_Type Graphics_Class::Initialize()
+Result_Type Graphics_Class::Start()
 {
     lv_init();
 
-    // Draw buffer
+    while (!lv_is_initialized())
+    {
+        Task_Type::Delay_Static(10);
+    }
+
+    // - Set draw buffer
     lv_disp_draw_buf_init(&Draw_Buffer_Descriptor, Draw_Buffer, NULL, Display_Horizontal_Definition);
 
-    // Screen driver interface
+    // - Set screen driver interface
     lv_disp_drv_init(&Screen_Driver_Interface);
 
     Screen_Driver_Interface.hor_res = Display_Horizontal_Definition;
@@ -51,8 +51,7 @@ Result_Type Graphics_Class::Initialize()
 
     lv_disp_drv_register(&Screen_Driver_Interface);
 
-    // Touch pad driver interface
-
+    // - Set touch pad driver interface
     lv_indev_drv_init(&Input_Device_Driver_Interface);
 
     Input_Device_Driver_Interface.type = LV_INDEV_TYPE_POINTER;
@@ -60,9 +59,28 @@ Result_Type Graphics_Class::Initialize()
 
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
+    // - Set theme
     Theme.Initialize();
 
+    // - Set file system driver
+    Task.Create(Task_Start_Function, "Graphics", 2048, NULL, Task_Type::Priority_Type::System);
+
     return Result_Type::Success;
+}
+
+void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
+{
+    ((Graphics_Class *)Instance_Pointer)->Task_Function();
+}
+
+void Graphics_Class::Task_Function()
+{
+    while (true)
+    {
+        lv_tick_inc(6);
+        lv_timer_handler();
+        Task_Type::Delay_Static(6);
+    }
 }
 
 void Graphics_Class::Event_Handler(lv_event_t *Event)
@@ -71,7 +89,7 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     static Object_Type Object;
 
     Instruction.Set_Sender(&Graphics);
-    Instruction.Set_Receiver((Module_Class*)lv_event_get_user_data(Event));
+    Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));
 
     Instruction.Graphics.Set_Code(lv_event_get_code(Event));
 
@@ -80,10 +98,18 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
 
     Instruction.Graphics.Set_Object(Object);
 
-
     Instruction.Get_Receiver()->Send_Instruction(Instruction);
 }
 
+Object_Type Graphics_Type::Get_Top_Layer()
+{
+    return Object_Type(lv_layer_top());
+}
+
+Object_Type Graphics_Type::Get_Screen()
+{
+    return Object_Type(lv_scr_act());
+}
 
 /*
 
@@ -111,7 +137,7 @@ void *Display_Class::File_System_Open(lv_fs_drv_t *Driver, const char *Path, lv_
 
 static lv_fs_res_t Display_Class::File_System_Close(lv_fs_drv_t *Driver, void *File_Pointer)
 {
-    *(File *)File_Pointer.close();
+    *(File *)File_Pointer.Close();
     return LV_FS_RES_OK;
 }
 
@@ -153,15 +179,15 @@ static lv_fs_res_t Display_Class::File_System_Set_Position(lv_fs_drv_t *Driver, 
     switch (Whence)
     {
     case LV_FS_SEEK_SET:
-        File_To_Seek.seek(Position, SeekSet);
+        File_To_Seek.Seek(Position, SeekSet);
         break;
 
     case LV_FS_SEEK_CUR:
-        File_To_Seek.seek(Position, SeekCur);
+        File_To_Seek.Seek(Position, SeekCur);
         break;
 
     case LV_FS_SEEK_END:
-        File_To_Seek.seek(Position, SeekEnd);
+        File_To_Seek.Seek(Position, SeekEnd);
         break;
 
     default:
@@ -206,6 +232,6 @@ static lv_fs_res_t Display_Class::File_System_Directory_Read(lv_fs_drv_t *Driver
 static lv_fs_res_t Display_Class::File_System_Close_Directory(lv_fs_drv_t *Driver, void *Directory_Pointer)
 {
     File File_Pointer = *(File *)Directory_Pointer;
-    File_Pointer.close();
+    File_Pointer.Close();
     return LV_FS_RES_OK;
 }*/

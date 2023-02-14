@@ -46,13 +46,18 @@ namespace Xila_Namespace
 
         Task_Class(xTaskHandle Handle);
         // - Constructors / Destructors
-        Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
+        Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name,
+                   Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
+        Task_Class(Module_Class* Owner_Module);
+
         ~Task_Class();
 
         Result_Type Set_Priority(Priority_Type Priority);
 
+        Result_Type Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority);
         void Suspend();
         void Resume();
+        void Delete();
 
         State_Type Get_State();
         Priority_Type Get_Priority();
@@ -70,9 +75,12 @@ namespace Xila_Namespace
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
         static void Check_Watchdogs();
 
-    private:
         void Feed_Watchdog();
 
+        uint32_t Get_Watchdog_Timer();
+        uint32_t Get_Watchdog_Timeout();
+
+    private:
         xTaskHandle Task_Handle;
 
         uint32_t Watchdog_Timer;

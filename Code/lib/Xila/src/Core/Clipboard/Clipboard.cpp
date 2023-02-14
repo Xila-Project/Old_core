@@ -10,21 +10,19 @@
 
 #include "Core/Clipboard/Clipboard.hpp"
 
-#include "Core/Core.hpp"
-
 using namespace Xila_Namespace;
 
-///
-/// @brief Clear data of the clipboard.
-///
-/// @return Result_Type_Class
-Result_Type Xila_Namespace::Clipboard_Class::Clear()
+Clipboard_Type Clipboard();
+
+Clipboard_Class::Clipboard_Class()
 {
-  if (Drive.Remove(Clipboard_Path))
-  {
-    return Result_Type::Success;
-  }
-  return Result_Type::Error;
+  Clear();
+}
+
+/// @brief Clear data of the clipboard.
+void Clipboard_Class::Clear()
+{
+  memset(Char_Array, '\0', sizeof(Char_Array));
 }
 
 ///
@@ -32,27 +30,9 @@ Result_Type Xila_Namespace::Clipboard_Class::Clear()
 ///
 /// @param Value_To_Copy Data to push.
 /// @return Result_Type
-Result_Type Xila_Namespace::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
+void Clipboard_Class::Copy(uint64_t Value_To_Copy)
 {
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
-  {
-    return Result_Type::Error;
-  }
-  if (!Clipboard_File.seek(0))
-  {
-    return Result_Type::Error;
-  }
-  Split_Number[0] = (uint8_t)Value_To_Copy;
-  Split_Number[1] = (uint8_t)(Value_To_Copy << 8);
-  Split_Number[2] = (uint8_t)(Value_To_Copy << 16);
-  Split_Number[3] = (uint8_t)(Value_To_Copy << 24);
-  Split_Number[4] = (uint8_t)(Value_To_Copy << 32);
-  Split_Number[5] = (uint8_t)(Value_To_Copy << 40);
-  Split_Number[6] = (uint8_t)(Value_To_Copy << 48);
-  Split_Number[7] = (uint8_t)(Value_To_Copy << 56);
-  Clipboard_File.write(Split_Number, sizeof(Value_To_Copy));
-  return Result_Type::Success;
+  Number = Value_To_Copy;
 }
 
 ///
@@ -61,28 +41,9 @@ Result_Type Xila_Namespace::Clipboard_Class::Copy(uint64_t const &Value_To_Copy)
 /// @param Char_Array_To_Copy Data to push.
 /// @param Char_Array_Length Data size.
 /// @return Result_Type
-Result_Type Xila_Namespace::Clipboard_Class::Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length)
+void Clipboard_Class::Copy(const char *Char_Array_To_Copy, Size_Type Char_Array_Length)
 {
-  Drive.Remove(Clipboard_Path);
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
-  {
-    return Result_Type::Error;
-  }
-  if (!Clipboard_File.seek(0))
-  {
-    return Result_Type::Error;
-  }
-  if (Char_Array_Length == 0)
-  {
-    Clipboard_File.write((uint8_t *)Char_Array_To_Copy, strlen(Char_Array_To_Copy));
-  }
-  else
-  {
-    Clipboard_File.write((uint8_t *)Char_Array_To_Copy, Char_Array_Length);
-  }
-  Clipboard_File.close();
-  return Result_Type::Success;
+  strlcpy(Char_Array, Char_Array_To_Copy, sizeof(Char_Array));
 }
 
 ///
@@ -90,21 +51,21 @@ Result_Type Xila_Namespace::Clipboard_Class::Copy(const char *Char_Array_To_Copy
 ///
 /// @param String_To_Copy Data to push.
 /// @return Result_Type
-Result_Type Xila_Namespace::Clipboard_Class::Copy(String const &String_To_Copy)
+void Clipboard_Class::Copy(String String_To_Copy)
 {
-  Drive.Remove(Clipboard_Path);
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
+  strlcpy(Char_Array, String_To_Copy.c_str(), sizeof(Char_Array));
+}
+
+void Clipboard_Class::Copy(const void *Data, Size_Type Data_Size)
+{
+  if (Data_Size <= sizeof(Char_Array))
   {
-    return Result_Type::Error;
+    memcpy(Char_Array, Data, Data_Size);
   }
-  if (!Clipboard_File.seek(0))
+  else
   {
-    return Result_Type::Error;
+    memcpy(Char_Array, Data, sizeof(Char_Array));
   }
-  Clipboard_File.print(String_To_Copy);
-  Clipboard_File.close();
-  return Result_Type::Success;
 }
 
 ///
@@ -112,21 +73,9 @@ Result_Type Xila_Namespace::Clipboard_Class::Copy(String const &String_To_Copy)
 ///
 /// @param[out] Value_To_Paste Buffer reference to pull from.
 /// @return Result_Type
-Result_Type Xila_Namespace::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
+uint64_t Clipboard_Class::Paste() const
 {
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
-  {
-    return Result_Type::Error;
-  }
-  if (!Clipboard_File.seek(0))
-  {
-    return Result_Type::Error;
-  }
-  Clipboard_File.readBytes((char *)Split_Number, sizeof(Split_Number));
-  Value_To_Paste = (uint64_t)Split_Number << 56 | (uint64_t)Split_Number << 48 | (uint64_t)Split_Number << 40 | (uint64_t)Split_Number << 32 | (uint64_t)Split_Number << 24 | (uint64_t)Split_Number << 16 | (uint64_t)Split_Number << 8 | (uint64_t)Split_Number;
-  Clipboard_File.close();
-  return Result_Type::Success;
+  return Number;
 }
 
 ///
@@ -135,46 +84,7 @@ Result_Type Xila_Namespace::Clipboard_Class::Paste(uint64_t &Value_To_Paste)
 /// @param Char_Array_To_Paste Buffer reference to pull from.
 /// @param Char_Array_Length Buffer size.
 /// @return Result_Type
-Result_Type Xila_Namespace::Clipboard_Class::Paste(char *Char_Array_To_Paste, size_t Char_Array_Length)
+void Clipboard_Class::Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const
 {
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
-  {
-    return Result_Type::Error;
-  }
-  if (!Clipboard_File.seek(0))
-  {
-    return Result_Type::Error;
-  }
-  if (Char_Array_Length == 0)
-  {
-    Clipboard_File.readBytes(Char_Array_To_Paste, Clipboard_File.available());
-  }
-  else
-  {
-    Clipboard_File.readBytes(Char_Array_To_Paste, Char_Array_Length);
-  }
-  Clipboard_File.close();
-  return Result_Type::Success;
-}
-
-///
- /// @brief Pull data from the clipboard.
- /// 
- /// @param String_To_Paste Buffer reference to pull data from.
- /// @return Result_Type 
-Result_Type Xila_Namespace::Clipboard_Class::Paste(String &String_To_Paste)
-{
-  Clipboard_File = Drive.Open(Clipboard_Path, FILE_WRITE);
-  if (!Clipboard_File)
-  {
-    return Result_Type::Error;
-  }
-  if (!Clipboard_File.seek(0))
-  {
-    return Result_Type::Error;
-  }
-  String_To_Paste = Clipboard_File.readString();
-  Clipboard_File.close();
-  return Result_Type::Success;
+  strlcpy(Destination_Char_Array, Char_Array, Char_Array_Length);
 }

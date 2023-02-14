@@ -99,6 +99,7 @@ namespace Xila_Namespace
 
     protected:
         lv_color_t LVGL_Color;
+
     } Color_Type;
 }
 

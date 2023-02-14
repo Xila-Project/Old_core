@@ -173,29 +173,8 @@ namespace Xila_Namespace
 
     namespace Graphics_Types
     {
-        enum class State_Type
-        {
-            Default = LV_STATE_DEFAULT,
-            Checked = LV_STATE_CHECKED,
-            Focused = LV_STATE_FOCUSED,
-            Focus_Key = LV_STATE_FOCUS_KEY,
-            Edited = LV_STATE_EDITED,
-            Hovered = LV_STATE_HOVERED,
-            Pressed = LV_STATE_PRESSED,
-            Scrolled = LV_STATE_SCROLLED,
-            Disabled = LV_STATE_DISABLED,
-            Custom_1 = LV_STATE_USER_1,
-            Custom_2 = LV_STATE_USER_2,
-            Custom_3 = LV_STATE_USER_3,
-            Custom_4 = LV_STATE_USER_4,
-            Any = LV_STATE_ANY
-        };
-    }
 
-    class Types_Class
-    {
-    public:
-        enum Event_Code_Type : uint8_t
+        enum class Event_Code_Type : uint8_t
         {
             All = LV_EVENT_ALL,
             // -- Interaction related events
@@ -266,6 +245,48 @@ namespace Xila_Namespace
             Inactive
 
         };
+
+        enum class State_Type
+        {
+            Default = LV_STATE_DEFAULT,
+            Checked = LV_STATE_CHECKED,
+            Focused = LV_STATE_FOCUSED,
+            Focus_Key = LV_STATE_FOCUS_KEY,
+            Edited = LV_STATE_EDITED,
+            Hovered = LV_STATE_HOVERED,
+            Pressed = LV_STATE_PRESSED,
+            Scrolled = LV_STATE_SCROLLED,
+            Disabled = LV_STATE_DISABLED,
+            Custom_1 = LV_STATE_USER_1,
+            Custom_2 = LV_STATE_USER_2,
+            Custom_3 = LV_STATE_USER_3,
+            Custom_4 = LV_STATE_USER_4,
+            Any = LV_STATE_ANY
+        };
+
+        enum class Type_Type
+        {
+            Object,
+            Arc,
+            Bar,
+            Button,
+            Button_Matrix,
+            Calendar,
+            Canvas,
+            Chart,
+            Checkbox,
+            Colow_Wheel,
+            Dialog,
+            Drop_Down_List,
+            
+
+        };
+    }
+
+    class Types_Class
+    {
+    public:
+ 
 
         // - Types
 
@@ -370,6 +391,8 @@ namespace Xila_Namespace
             };
         };
     };
+
+    
 
 }
 

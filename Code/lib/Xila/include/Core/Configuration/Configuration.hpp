@@ -30,14 +30,11 @@
 
 #define Animations 1        // Enable animation
 #define USB_Serial 1        // Disable USB Serial
-#define Start_On_Power 1    // Start when Xila is powered up
-
 // -- Debug configuration
 #else
 
 #define Animations 0        // Disable animation
 #define USB_Serial 1        // Enable USB Serial
-#define Start_On_Power 1    // 
 
 #endif
 

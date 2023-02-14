@@ -37,7 +37,7 @@ namespace Xila_Namespace
         } Draw_Part_Type;
 
         // - Methods
-        void Create(Object_Class Parent_Object);
+        void Create(Object_Class Parent_Object) override;
 
         bool Is_Dragged();
 

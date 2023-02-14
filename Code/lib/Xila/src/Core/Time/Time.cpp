@@ -42,7 +42,7 @@ uint32_t IRAM_ATTR Time_Class::Get_Cycle_Count()
  /// @return Result_Type 
 Result_Type Time_Class::Save_Registry()
 {
-  File Temporary_File = Drive.Open(Registry("Time"), FILE_WRITE);
+  File_Type Temporary_File = Drive.Open(Registry("Time"), true);
   DynamicJsonDocument Time_Registry(512);
   Time_Registry["Registry"] = "Time";
   Time_Registry["GMT Offset"] = GMT_Offset;
@@ -51,10 +51,10 @@ Result_Type Time_Class::Save_Registry()
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);
   if (serializeJson(Time_Registry, Temporary_File) == 0)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   return Result_Type::Success;
 }
 
@@ -64,14 +64,14 @@ Result_Type Time_Class::Save_Registry()
  /// @return Result_Type 
 Result_Type Time_Class::Load_Registry()
 {
-  File Temporary_File = Drive.Open(Registry("Time"));
+  File_Type Temporary_File = Drive.Open(Registry("Time"));
   DynamicJsonDocument Time_Registry(512);
   if (deserializeJson(Time_Registry, Temporary_File) != DeserializationError::Ok)
   {
-    Temporary_File.close();
+    Temporary_File.Close();
     return Result_Type::Error;
   }
-  Temporary_File.close();
+  Temporary_File.Close();
   if (strcmp("Time", Time_Registry["Registry"] | "") != 0)
   {
     return Result_Type::Error;

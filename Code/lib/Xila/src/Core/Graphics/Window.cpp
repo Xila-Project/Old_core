@@ -12,6 +12,7 @@
 #include "Core/Core.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
 std::vector<Window_Class> Window_Class::Parent_List(2);
 
@@ -21,7 +22,9 @@ std::vector<Window_Class> Window_Class::Parent_List(2);
 //
 // ------------------------------------------------------------------------- //
 
-void Window_Class::Create(const Account_Class::User_Class* Owner_User)
+/// @brief A function that create a Parent_
+/// @param Owner_User
+void Window_Class::Create(const Account_Class::User_Class *Owner_User)
 {
     this->Set_Pointer(lv_obj_create(lv_scr_act()));
     this->Set_Owner_User(Owner_User);
@@ -53,7 +56,7 @@ void Window_Class::Create(Object_Class Parent_Object)
 /// @brief Function that return the user's parent window.
 /// @param Owner_User Owner user of the window.
 /// @return The parent window.
-Window_Type Window_Class::Get_User_Parent_Window_Index(const Account_Class::User_Type* Owner_User)
+Window_Type Window_Class::Get_User_Parent_Window_Index(const Account_Class::User_Type *Owner_User)
 {
     // ! : This function is not safe !
     for (Window_Type Window : Parent_List)
@@ -72,24 +75,35 @@ void Window_Class::Set_Interface()
     this->Set_Style_Pad_All(0, 0);
     this->Set_Style_Border_Width(0, 0);
     // - Header create.
+    static Style_Type Style_Window_Header;
+    Style_Window_Header.Set_Background_Color(Color_Type::Grey[6]);
+
     Header.Create(*this);
     Header.Set_Size(Percentage(100), 32);
-
-    static Style_Class Style_Window_Header;
-    Style_Window_Header.Set_Background_Color(Color_Type::Grey[6]);
+    Header.Add_Style(Style_Window_Header, 0);
 
     // - Left buttons.
     Close_Button.Create(Header);
     Close_Button.Set_Size(24, 24);
     Close_Button.Set_Alignment(Alignment_Type::Middle_Left);
+    Close_Button.Set_Style_Border_Color(Color_Type::Red[5], 0);
+    Close_Button.Set_Style_Border_Width(4, 0);
+    Close_Button.Set_Style_Radius(8, 0);
+
     Minimize_Button.Create(Header);
     Minimize_Button.Set_Size(24, 24);
+    Minimize_Button.Set_Style_Border_Color(Color_Type::Yellow[5], 0);
+    Minimize_Button.Set_Style_Border_Width(4, 0);
+    Minimize_Button.Set_Style_Radius(8, 0);
     Minimize_Button.Set_Alignment(Close_Button, Alignment_Type::Out_Right_Middle, 4, 0);
 
     // - Middle title.
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Enumeration::Long_Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
+
+
+
     Clock_Label.Create(Header);
     Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
 
@@ -111,27 +125,58 @@ void Window_Class::Set_Interface()
     Body.Set_Flex_Grow(1);
 }
 
-/// @brief Function that maximize the window.
-void Window_Class::Maximize() {
-    Clear_Flag(Flag_Type::Hidden);
-}
-
-/// @brief Function that minimize the window.
-void Window_Class::Minimize() {
-    Add_Flag(Flag_Type::Hidden);
+void Window_Class::Set_State(Window_State_Type State)
+{
+    switch (State)
+    {
+    case Window_State_Type::Maximized:
+        // - Set window visible
+        Clear_Flag(Flag_Type::Hidden);
+        // - Set window header visible
+        Get_Header().Clear_Flag(Flag_Type::Hidden);
+        // - Set window size to parent size
+        Set_Size(Percentage(100), Percentage(100));
+        // - Set parent window header hidden
+        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        break;
+    case Window_State_Type::Minimized:
+        // - Set window hidden
+        Add_Flag(Flag_Type::Hidden);
+        // - Set parent window header visible
+        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Clear_Flag(Flag_Type::Hidden);
+        break;
+    case Window_State_Type::Full_screen:
+        // - Set window visible
+        Clear_Flag(Flag_Type::Hidden);
+        // - Set window header hidden
+        Get_Header().Add_Flag(Flag_Type::Hidden);
+        // - Set window size to parent size
+        Set_Size(Percentage(100), Percentage(100));
+        // - Set parent window header hidden
+        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        break;
+    default:
+        break;
+    }
 }
 
 /// @brief Function that return if the window is maximized.
 /// @return true if the window is maximized.
-bool Window_Class::Is_Maximized() {
-    if (Has_Flag(Flag_Type::Hidden)) {
-        return false;
+Window_State_Type Window_Class::Get_State()
+{
+    if (Has_Flag(Flag_Type::Hidden))
+    {
+        return Window_State_Type::Minimized;
     }
-    else {
-        return true;
+    else if (Get_Header().Has_Flag(Flag_Type::Hidden))
+    {
+        return Window_State_Type::Full_screen;
+    }
+    else
+    {
+        return Window_State_Type::Maximized;
     }
 }
-
 
 // ------------------------------------------------------------------------- //
 //
