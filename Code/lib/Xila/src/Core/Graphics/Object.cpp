@@ -883,7 +883,7 @@ inline bool Object_Class::Get_Object_Visibility()
 
 Alignment_Type Object_Class::Get_Style_Alignment(Part_Type Part)
 {
-    return (Alignment_Type)lv_obj_get_style_align(Get_Pointer(), Part);
+    return (Alignment_Type)lv_obj_get_style_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 /*
@@ -897,49 +897,49 @@ const Animation_Class Object_Class::Get_Style_Animation(Part_Type Part)
 
 uint32_t Object_Class::Get_Style_Animation_Time(Part_Type Part)
 {
-    return lv_obj_get_style_anim_time(Get_Pointer(), Part);
+    return lv_obj_get_style_anim_time(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 uint32_t Object_Class::Get_Style_Animation_Speed(Part_Type Part)
 {
-    return lv_obj_get_style_anim_speed(Get_Pointer(), Part);
+    return lv_obj_get_style_anim_speed(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Arc_Color(Part_Type Part)
 {
-    Color_Type Color(lv_obj_get_style_arc_color(Get_Pointer(), Part));
+    Color_Type Color(lv_obj_get_style_arc_color(Get_Pointer(), static_cast<uint32_t>(Part)));
     return Color;
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Arc_Color_Filtered(Part_Type Part)
 {
-    Color_Type Color(lv_obj_get_style_arc_color_filtered(Get_Pointer(), Part));
+    Color_Type Color(lv_obj_get_style_arc_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part)));
     return Color;
 }
 
 const void *Object_Class::Get_Style_Arc_Image_Source(Part_Type Part)
 {
-    return lv_obj_get_style_arc_img_src(Get_Pointer(), Part);
+    return lv_obj_get_style_arc_img_src(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Arc_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_arc_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_arc_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 bool Object_Class::Get_Style_Arc_Rounded(Part_Type Part)
 {
-    return lv_obj_get_style_arc_rounded(Get_Pointer(), Part);
+    return lv_obj_get_style_arc_rounded(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Arc_Width(Part_Type Part)
 {
-    return lv_obj_get_style_arc_width(Get_Pointer(), Part);
+    return lv_obj_get_style_arc_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Base_Direction::Type Object_Class::Get_Style_Base_Direction(Part_Type Part)
 {
-    return lv_obj_get_style_base_dir(Get_Pointer(), Part);
+    return lv_obj_get_style_base_dir(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Color(Part_Type Part)
@@ -949,474 +949,474 @@ Object_Class::Color_Type Object_Class::Get_Style_Background_Color(Part_Type Part
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_bg_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Background_Opacity(Part_Type Part)
 {
-    return (Opacity_Type)lv_obj_get_style_bg_opa(Get_Pointer(), Part);
+    return (Opacity_Type)lv_obj_get_style_bg_opa(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Gradient_Color(Part_Type Part)
 {
-    return lv_obj_get_style_bg_grad_color(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_grad_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Gradient_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_bg_grad_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_grad_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Gradient::Direction_Type Object_Class::Get_Style_Background_Gradient_Direction(Part_Type Part)
 {
-    return lv_obj_get_style_bg_grad_dir(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_grad_dir(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Background_Main_Stop(Part_Type Part)
 {
-    return lv_obj_get_style_bg_main_stop(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_main_stop(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Background_Gradient_Stop(Part_Type Part)
 {
-    return lv_obj_get_style_bg_grad_stop(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_grad_stop(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Object_Class::Gradient::Descriptor_Type *Object_Class::Get_Style_Background_Gradient(Part_Type Part)
 {
-    return lv_obj_get_style_bg_grad(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_grad(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Dither_Mode::Type Object_Class::Get_Style_Background_Dither_Mode(Part_Type Part)
 {
-    return lv_obj_get_style_bg_dither_mode(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_dither_mode(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const void *Object_Class::Get_Style_Background_Image_Source(Part_Type Part)
 {
-    return lv_obj_get_style_bg_img_src(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_img_src(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Background_Image_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_bg_img_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_bg_img_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Image_Recolor(Part_Type Part)
 {
-    return lv_obj_get_style_bg_img_recolor(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_img_recolor(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Background_Image_Recolor_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_bg_img_recolor_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_img_recolor_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Background_Image_Recolor_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_bg_img_recolor_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_bg_img_recolor_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 bool Object_Class::Get_Style_Background_Image_Tiled(Part_Type Part)
 {
-    return lv_obj_get_style_bg_img_tiled(Get_Pointer(), Part);
+    return lv_obj_get_style_bg_img_tiled(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Blend::Mode_Type Object_Class::Get_Style_Blend_Mode(Part_Type Part)
 {
-    return lv_obj_get_style_blend_mode(Get_Pointer(), Part);
+    return lv_obj_get_style_blend_mode(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Border_Color(Part_Type Part)
 {
-    return lv_obj_get_style_border_color(Get_Pointer(), Part);
+    return lv_obj_get_style_border_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Border_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_border_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_border_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Border_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_border_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_border_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Border_Width(Part_Type Part)
 {
-    return lv_obj_get_style_border_width(Get_Pointer(), Part);
+    return lv_obj_get_style_border_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Border_Side_Type Object_Class::Get_Style_Border_Side(Part_Type Part)
 {
-    return static_cast<Border_Side_Type>(lv_obj_get_style_border_side(Get_Pointer(), Part));
+    return static_cast<Border_Side_Type>(lv_obj_get_style_border_side(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 bool Object_Class::Get_Style_Border_Post(Part_Type Part)
 {
-    return lv_obj_get_style_border_post(Get_Pointer(), Part);
+    return lv_obj_get_style_border_post(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 bool Object_Class::Get_Style_Clip_Corner(Part_Type Part)
 {
-    return lv_obj_get_style_clip_corner(Get_Pointer(), Part);
+    return lv_obj_get_style_clip_corner(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Object_Class::Color_Filter_Descriptor_Type Object_Class::Get_Style_Color_Filter_Descriptor(Part_Type Part)
 {
     Color_Filter_Descriptor_Type Color_Filter_Descriptor;
-    *Color_Filter_Descriptor.Get_Pointer() = *lv_obj_get_style_color_filter_dsc(Get_Pointer(), Part);
+    *Color_Filter_Descriptor.Get_Pointer() = *lv_obj_get_style_color_filter_dsc(Get_Pointer(), static_cast<uint32_t>(Part));
     return Color_Filter_Descriptor;
 }
 
 Opacity_Type Object_Class::Get_Style_Color_Filter_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_color_filter_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_color_filter_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Flex_Flow_Type Object_Class::Get_Style_Flex_Flow(Part_Type Part)
 {
-    return (Flex_Flow_Type)lv_obj_get_style_flex_flow(Get_Pointer(), Part);
+    return (Flex_Flow_Type)lv_obj_get_style_flex_flow(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Flex_Alignment_Type Object_Class::Get_Style_Flex_Main_Place(Part_Type Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_main_place(Get_Pointer(), Part);
+    return (Flex_Alignment_Type)lv_obj_get_style_flex_main_place(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Flex_Alignment_Type Object_Class::Get_Style_Flex_Cross_Place(Part_Type Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_cross_place(Get_Pointer(), Part);
+    return (Flex_Alignment_Type)lv_obj_get_style_flex_cross_place(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Flex_Alignment_Type Object_Class::Get_Style_Flex_Track_Place(Part_Type Part)
 {
-    return (Flex_Alignment_Type)lv_obj_get_style_flex_track_place(Get_Pointer(), Part);
+    return (Flex_Alignment_Type)lv_obj_get_style_flex_track_place(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 uint8_t Object_Class::Get_Style_Flex_Grow(Part_Type Part)
 {
-    return lv_obj_get_style_flex_grow(Get_Pointer(), Part);
+    return lv_obj_get_style_flex_grow(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_Column_Position(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_column_pos(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_column_pos(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_Column_Span(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_column_span(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_column_span(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_Row_Position(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_row_pos(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_row_pos(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_Row_Span(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_row_span(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_row_span(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_X_Alignment(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_x_align(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_x_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Grid_Cell_Y_Alignment(Part_Type Part)
 {
-    return lv_obj_get_style_grid_cell_y_align(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_cell_y_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Grid_Alignment_Type Object_Class::Get_Style_Grid_Column_Alignment(Part_Type Part)
 {
-    return (Grid_Alignment_Type)lv_obj_get_style_grid_column_align(Get_Pointer(), Part);
+    return (Grid_Alignment_Type)lv_obj_get_style_grid_column_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Coordinate_Type *Object_Class::Get_Style_Grid_Column_Descriptor_Array(Part_Type Part)
 {
-    return lv_obj_get_style_grid_column_dsc_array(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_column_dsc_array(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Grid_Alignment_Type Object_Class::Get_Style_Grid_Row_Alignment(Part_Type Part)
 {
-    return (Grid_Alignment_Type)lv_obj_get_style_grid_row_align(Get_Pointer(), Part);
+    return (Grid_Alignment_Type)lv_obj_get_style_grid_row_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Coordinate_Type *Object_Class::Get_Style_Grid_Row_Descriptor_Array(Part_Type Part)
 {
-    return lv_obj_get_style_grid_row_dsc_array(Get_Pointer(), Part);
+    return lv_obj_get_style_grid_row_dsc_array(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Height(Part_Type Part)
 {
-    return lv_obj_get_style_height(Get_Pointer(), Part);
+    return lv_obj_get_style_height(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Image_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_img_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_img_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Image_Recolor(Part_Type Part)
 {
-    return lv_obj_get_style_img_recolor(Get_Pointer(), Part);
+    return lv_obj_get_style_img_recolor(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Image_Recolor_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_img_recolor_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_img_recolor_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Image_Recolor_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_img_recolor_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_img_recolor_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 uint16_t Object_Class::Get_Style_Layout(Part_Type Part)
 {
-    return lv_obj_get_style_layout(Get_Pointer(), Part);
+    return lv_obj_get_style_layout(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 // - - - Line
 
 Object_Class::Color_Type Object_Class::Get_Style_Line_Color(Part_Type Part)
 {
-    return lv_obj_get_style_line_color(Get_Pointer(), Part);
+    return lv_obj_get_style_line_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Line_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_line_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_line_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Line_Dash_Gap(Part_Type Part)
 {
-    return lv_obj_get_style_line_dash_gap(Get_Pointer(), Part);
+    return lv_obj_get_style_line_dash_gap(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Line_Dash_Width(Part_Type Part)
 {
-    return lv_obj_get_style_line_dash_width(Get_Pointer(), Part);
+    return lv_obj_get_style_line_dash_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Line_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_line_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_line_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 bool Object_Class::Get_Style_Line_Rounded(Part_Type Part)
 {
-    return lv_obj_get_style_line_rounded(Get_Pointer(), Part);
+    return lv_obj_get_style_line_rounded(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Line_Width(Part_Type Part)
 {
-    return lv_obj_get_style_line_width(Get_Pointer(), Part);
+    return lv_obj_get_style_line_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Maximum_Height(Part_Type Part)
 {
-    return lv_obj_get_style_max_height(Get_Pointer(), Part);
+    return lv_obj_get_style_max_height(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Maximum_Width(Part_Type Part)
 {
-    return lv_obj_get_style_max_width(Get_Pointer(), Part);
+    return lv_obj_get_style_max_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Minimum_Height(Part_Type Part)
 {
-    return lv_obj_get_style_min_height(Get_Pointer(), Part);
+    return lv_obj_get_style_min_height(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Minimum_Width(Part_Type Part)
 {
-    return lv_obj_get_style_min_width(Get_Pointer(), Part);
+    return lv_obj_get_style_min_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Outline_Color(Part_Type Part)
 {
-    return lv_obj_get_style_outline_color(Get_Pointer(), Part);
+    return lv_obj_get_style_outline_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Outline_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_outline_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_outline_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Outline_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_outline_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_outline_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Outline_Pad(Part_Type Part)
 {
-    return lv_obj_get_style_outline_pad(Get_Pointer(), Part);
+    return lv_obj_get_style_outline_pad(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Outline_Width(Part_Type Part)
 {
-    return lv_obj_get_style_outline_width(Get_Pointer(), Part);
+    return lv_obj_get_style_outline_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Bottom(Part_Type Part)
 {
-    return lv_obj_get_style_pad_bottom(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_bottom(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Top(Part_Type Part)
 {
-    return lv_obj_get_style_pad_top(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_top(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Left(Part_Type Part)
 {
-    return lv_obj_get_style_pad_left(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_left(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Right(Part_Type Part)
 {
-    return lv_obj_get_style_pad_right(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_right(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Row(Part_Type Part)
 {
-    return lv_obj_get_style_pad_row(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_row(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Pad_Column(Part_Type Part)
 {
-    return lv_obj_get_style_pad_column(Get_Pointer(), Part);
+    return lv_obj_get_style_pad_column(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Radius(Part_Type Part)
 {
-    return lv_obj_get_style_radius(Get_Pointer(), Part);
+    return lv_obj_get_style_radius(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Shadow_Color(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_color(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Shadow_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Shadow_Offset_X(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_ofs_x(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_ofs_x(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Shadow_Offset_Y(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_ofs_y(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_ofs_y(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Shadow_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_shadow_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_shadow_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Shadow_Spread(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_spread(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_spread(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Shadow_Width(Part_Type Part)
 {
-    return lv_obj_get_style_shadow_width(Get_Pointer(), Part);
+    return lv_obj_get_style_shadow_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Text::Alignment_Type Object_Class::Get_Style_Text_Alignment(Part_Type Part)
 {
-    return lv_obj_get_style_text_align(Get_Pointer(), Part);
+    return lv_obj_get_style_text_align(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Text_Color(Part_Type Part)
 {
-    return lv_obj_get_style_text_color(Get_Pointer(), Part);
+    return lv_obj_get_style_text_color(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Color_Type Object_Class::Get_Style_Text_Color_Filtered(Part_Type Part)
 {
-    return lv_obj_get_style_text_color_filtered(Get_Pointer(), Part);
+    return lv_obj_get_style_text_color_filtered(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Object_Class::Text::Decor_Type Object_Class::Get_Style_Text_Decor(Part_Type Part)
 {
-    return lv_obj_get_style_text_decor(Get_Pointer(), Part);
+    return lv_obj_get_style_text_decor(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Object_Class::Font_Type *Object_Class::Get_Style_Text_Font(Part_Type Part)
 {
-    return lv_obj_get_style_text_font(Get_Pointer(), Part);
+    return lv_obj_get_style_text_font(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Text_Letter_Space(Part_Type Part)
 {
-    return lv_obj_get_style_text_letter_space(Get_Pointer(), Part);
+    return lv_obj_get_style_text_letter_space(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Text_Line_Space(Part_Type Part)
 {
-    return lv_obj_get_style_text_line_space(Get_Pointer(), Part);
+    return lv_obj_get_style_text_line_space(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Opacity_Type Object_Class::Get_Style_Text_Opacity(Part_Type Part)
 {
-    return static_cast<Opacity_Type>(lv_obj_get_style_text_opa(Get_Pointer(), Part));
+    return static_cast<Opacity_Type>(lv_obj_get_style_text_opa(Get_Pointer(), static_cast<uint32_t>(Part)));
 }
 
 Coordinate_Type Object_Class::Get_Style_Transform_Angle(Part_Type Part)
 {
-    return lv_obj_get_style_transform_angle(Get_Pointer(), Part);
+    return lv_obj_get_style_transform_angle(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Transform_Height(Part_Type Part)
 {
-    return lv_obj_get_style_transform_height(Get_Pointer(), Part);
+    return lv_obj_get_style_transform_height(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Transform_Width(Part_Type Part)
 {
-    return lv_obj_get_style_transform_width(Get_Pointer(), Part);
+    return lv_obj_get_style_transform_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Transform_Zoom(Part_Type Part)
 {
-    return lv_obj_get_style_transform_zoom(Get_Pointer(), Part);
+    return lv_obj_get_style_transform_zoom(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 const Style_Class::Transition_Descriptor_Type *Object_Class::Get_Style_Transition(Part_Type Part)
 {
-    return lv_obj_get_style_transition(Get_Pointer(), Part);
+    return lv_obj_get_style_transition(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Translate_X(Part_Type Part)
 {
-    return lv_obj_get_style_translate_x(Get_Pointer(), Part);
+    return lv_obj_get_style_translate_x(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Translate_Y(Part_Type Part)
 {
-    return lv_obj_get_style_translate_y(Get_Pointer(), Part);
+    return lv_obj_get_style_translate_y(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Width(Part_Type Part)
 {
-    return lv_obj_get_style_width(Get_Pointer(), Part);
+    return lv_obj_get_style_width(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_X(Part_Type Part)
 {
-    return lv_obj_get_style_x(Get_Pointer(), Part);
+    return lv_obj_get_style_x(Get_Pointer(), static_cast<uint32_t>(Part));
 }
 
 Coordinate_Type Object_Class::Get_Style_Y(Part_Type Part)
 {
-    return lv_obj_get_style_y(Get_Pointer(), Part);
+    return lv_obj_get_style_y(Get_Pointer(), static_cast<uint32_t>(Part));
 }

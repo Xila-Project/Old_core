@@ -25,9 +25,9 @@ void Dialog_Class::Create(Object_Class Parent_Object)
 
 }
 
-bool Dialog_Class::Is_Overlay() const
+bool Dialog_Class::Is_Overlay()
 {
-    return Overlay.Is_Valid();
+    return Overlay;
 }
 
 void Dialog_Class::Enable_Overlay(bool Enable)

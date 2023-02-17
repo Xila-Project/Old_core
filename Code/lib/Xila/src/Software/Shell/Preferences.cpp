@@ -158,7 +158,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
         
         Wireless_WiFi_Password_Text_Area.Create(Grid);
         Wireless_WiFi_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 4, 1);
-        Wireless_WiFi_Password_Text_Area.Set_Password(true);
+        Wireless_WiFi_Password_Text_Area.Set_Password_Mode(true);
         Wireless_WiFi_Password_Text_Area.Set_Placeholder_Text("Password");
         Wireless_WiFi_Password_Text_Area.Set_One_Line(true);        
     }
@@ -884,6 +884,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
 void Shell_Class::Preferences_Class::Refresh_Wireless()
 {
     uint16_t Access_Points_Number = WiFi.Scan_Networks();
+    
     char Networks_List[32 * (Access_Points_Number + 1)];
     for (uint8_t i = 0; i < Access_Points_Number; i++)
     {

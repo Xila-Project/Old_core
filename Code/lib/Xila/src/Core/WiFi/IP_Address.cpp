@@ -1,6 +1,30 @@
+///
+ /// @file IP_Address.cpp
+ /// @author Alix ANNERAUD (alix@anneraud.fr)
+ /// @brief 
+ /// @version 0.1.0
+ /// @date 16-02-2023
+ /// 
+ /// @copyright Copyright (c) 2023
+ /// 
+
 #include "Core/Communication/IP_Address.hpp"
 
+#include <WiFi.h>
+
 using namespace Xila_Namespace;
+
+IP_Address_Class::IP_Address_Class(const IPAddress& IP_Address)
+    : Is_IPv4(true)
+{
+    Address.DWord = IP_Address;
+}
+
+IP_Address_Class::IP_Address_Class(const IPv6Address& IP_Address)
+    : Is_IPv4(false)
+{
+    memcpy(Address.Bytes, (const uint8_t*)IP_Address, sizeof(Address.Bytes));
+}
 
 IP_Address_Class::IP_Address_Class(bool Is_IPv4)
     : Is_IPv4(Is_IPv4)
@@ -38,6 +62,16 @@ IP_Address_Class::IP_Address_Class(uint8_t Byte_1, uint8_t Byte_2, uint8_t Byte_
 IP_Address_Class::operator uint32_t() const
 {
     return Address.DWord;
+}
+
+IP_Address_Class::operator IPAddress() const
+{
+    return IPAddress(Address.DWord);
+}
+
+IP_Address_Class::operator IPv6Address() const
+{
+    return IPv6Address(Address.Bytes);
 }
 
 bool IP_Address_Class::operator==(const IP_Address_Class& IP_Address) const

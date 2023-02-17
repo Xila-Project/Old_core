@@ -45,10 +45,8 @@ namespace Xila_Namespace
     {
         Success,
         Invalid_Argument,
-        Error,       ///< Error event.
-        Warning,     ///< Warning event.
-        Information, ///< Information event.
-        Question,    ///< Question event.
+        Error,
+        Wait,
         None
     };
 

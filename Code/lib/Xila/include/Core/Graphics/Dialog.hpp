@@ -15,7 +15,7 @@ namespace Xila_Namespace {
 
         // - - Getters
 
-        bool Is_Overlay() const;
+        bool Is_Overlay();
 
         // - - Setters
 
@@ -57,9 +57,6 @@ namespace Xila_Namespace {
         virtual void Create(Object_Class Parent_Object) override;
 
     } Message_Dialog_Type;
-
-
-
 
 
 }

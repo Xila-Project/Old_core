@@ -55,7 +55,7 @@ void Instruction_Class::Set_Receiver(Module_Class* Receiver)
 // - - Constructor
 
 Instruction_Class::Graphics_Class::Graphics_Class()
-    : Code(0),
+    : Code(Graphics_Types::Event_Code_Type::All),
       Object_Pointer(NULL)
 {}
 
