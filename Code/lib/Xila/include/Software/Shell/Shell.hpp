@@ -262,6 +262,13 @@ private:
         void Refresh_Hardware();
         void Refresh_System();
 
+        void Execute_Personal_Instruction(const Instruction_Type& Instruction);
+        void Execute_Softwares_Instruction(const Instruction_Type& Instruction);
+        void Execute_Wireless_Instruction(const Instruction_Type& Instruction);
+        void Execute_Users_Instruction(const Instruction_Type& Instruction);
+        void Execute_Hardware_Instruction(const Instruction_Type& Instruction);
+        void Execute_System_Instruction(const Instruction_Type& Instruction);
+
         // -- Attributes
 
         IP_Address_Type Local_IP;
@@ -291,6 +298,7 @@ private:
 
         // - - Wireless
 
+        Switch_Type Wireless_WiFi_Switch;
         Button_Type Wireless_WiFi_Refresh_Button;
         Button_Type Wireless_WiFi_Informations_Button;
         Button_Type Wireless_WiFi_Connect_Button;
@@ -311,11 +319,10 @@ private:
         Slider_Type Hardware_Display_Brightness_Slider;
         Slider_Type Hardware_Sound_Volume_Slider;
         Label_Type Hardware_Battery_Level_Label;
-        Button_Type Hardware_Drive_Benchmark_Button;
+        Label_Type Hardware_Drive_Informations_Label;
         Roller_Type Hardware_Energy_Standby_Roller;
         Button_Type Hardware_Energy_Apply_Button;
         
-
         // - - Softwares
 
         Roller_Type Softwares_Roller;

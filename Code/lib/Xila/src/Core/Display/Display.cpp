@@ -14,6 +14,8 @@
 
 using namespace Xila_Namespace;
 
+Display_Type Display;
+
 // -- Constructors
 
 ///

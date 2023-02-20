@@ -91,7 +91,7 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     Instruction.Set_Sender(&Graphics);
     Instruction.Set_Receiver((Module_Class *)lv_event_get_user_data(Event));
 
-    Instruction.Graphics.Set_Code(lv_event_get_code(Event));
+    Instruction.Graphics.Set_Code(static_cast<Event_Code_Type>(lv_event_get_code(Event)));
 
     Object.Clear_Pointer();
     Object.Set_Pointer(lv_event_get_target(Event));

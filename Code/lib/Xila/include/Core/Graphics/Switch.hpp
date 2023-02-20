@@ -17,12 +17,13 @@ namespace Xila_Namespace
 {
     typedef class Switch_Class : public Object_Class
     {
+    public:
         // - Methods
 
         void Create(Object_Class Parent_Object) override;
 
         // - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
     } Switch_Type;
 }

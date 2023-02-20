@@ -15,6 +15,7 @@
 
 // -- Time library
 #include "time.h"
+#include "sntp.h"
 
 namespace Xila_Namespace
 {

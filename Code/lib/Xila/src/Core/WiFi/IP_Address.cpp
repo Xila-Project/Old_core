@@ -111,12 +111,43 @@ uint8_t& IP_Address_Class::operator[](uint8_t Index)
     return Address.Bytes[0];
 }
 
-void IP_Address_Class::Set_IP_Version(bool Is_IPv4)
+IP_Address_Class& IP_Address_Class::operator=(const uint8_t* Address)
 {
-    this->Is_IPv4 = Is_IPv4;
+    if (Is_IPv4)
+    {
+        memcpy(this->Address.Bytes, Address, sizeof(this->Address.Bytes)));
+    }
+    else
+    {
+        memcpy(this->Address.Bytes, Address, sizeof(this->Address.Bytes));
+    }
+    return *this;
+}
+
+IP_Address_Class& IP_Address_Class::operator=(const uint32_t Address)
+{
+    this->Address.DWord = Address;
+    return *this;
+}
+
+void IP_Address_Class::To(String_Class& String) const
+{
+    if (Is_IPv4)
+    {
+        String.Copy_Format("%d.%d.%d.%d", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3]);
+    }
+    else
+    {
+        String.Copy_Format("%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x:%x%x", Address.Bytes[0], Address.Bytes[1], Address.Bytes[2], Address.Bytes[3], Address.Bytes[4], Address.Bytes[5], Address.Bytes[6], Address.Bytes[7], Address.Bytes[8], Address.Bytes[9], Address.Bytes[10], Address.Bytes[11], Address.Bytes[12], Address.Bytes[13], Address.Bytes[14], Address.Bytes[15]);
+    }
 }
 
 bool IP_Address_Class::Get_IP_Version() const
 {
     return Is_IPv4;
+}
+
+void IP_Address_Class::Set_IP_Version(bool Is_IPv4)
+{
+    this->Is_IPv4 = Is_IPv4;
 }

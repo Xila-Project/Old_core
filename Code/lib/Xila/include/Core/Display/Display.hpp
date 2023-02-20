@@ -17,7 +17,7 @@
 
 namespace Xila_Namespace
 {
-    class Display_Class : Module_Class
+    typedef class Display_Class : Module_Class
     {
     public:
         // - Methods
@@ -59,7 +59,9 @@ namespace Xila_Namespace
         uint16_t Standby_Time;
         uint8_t Brightness;
 
-    } Display;
+    } Display_Type;
+
+    extern Display_Type Display;
 }
 
 #endif

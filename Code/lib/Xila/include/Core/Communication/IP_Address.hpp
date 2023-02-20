@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 
+#include "../Module/String.hpp"
+
 class IPv6Address;
 class IPAddress;
 
@@ -36,6 +38,10 @@ namespace Xila_Namespace
 
         IP_Address_Class &operator=(const uint8_t *Address);
         IP_Address_Class &operator=(uint32_t Address);
+
+        // - - Converssion
+
+        void To(String_Type& String) const;
 
         // - - Getters
         bool Get_IP_Version() const;

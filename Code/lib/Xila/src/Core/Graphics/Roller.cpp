@@ -91,7 +91,7 @@ uint16_t Roller_Class::Get_Selected()
     return lv_roller_get_selected(Get_Pointer());
 }
 
-void Roller_Class::Get_Selected_String(char* Buffer, size_t Size)
+void Roller_Class::Get_Selected_String(String_Type& String)
 {
-    return lv_roller_get_selected_str(Get_Pointer(), Buffer, Size);
+    return lv_roller_get_selected_str(Get_Pointer(), static_cast<char*>(String), String.Get_Size());
 }

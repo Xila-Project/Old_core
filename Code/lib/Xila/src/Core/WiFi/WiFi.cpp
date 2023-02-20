@@ -41,7 +41,7 @@ WiFi_Class::~WiFi_Class()
 /// @param Channel
 /// @param BSSID
 /// @return
-Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Password, int32_t Channel, const uint8_t *BSSID)
+Result_Type WiFi_Class::Station_Class::Add(const String_Type& SSID, const String_Type& Password, int32_t Channel, const uint8_t *BSSID)
 {
     // Add access point to registry
     DynamicJsonDocument WiFi_Registry(512);
@@ -65,14 +65,17 @@ Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Passwor
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (strcmp(Access_Point["SSID"] | "", SSID) == 0)
+        if (Access_Point["SSID"] == SSID)
         {
             if (Channel == 0)
             {
+                Registry_File.Close();
                 return Result_Type::Error;
             }
-            else (Access_Point["Channel"] == Channel)
+            else if (Access_Point["Channel"] == Channel)
             {
+
+                Registry_File.Close();
                 return Result_Type::Error;
             }
         }
@@ -83,7 +86,7 @@ Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Passwor
 
     Access_Point["SSID"] = SSID;
 
-    if (Password != NULL)
+    if (Password != "")
     {
         Access_Point["Password"] = Password;
     }
@@ -102,7 +105,7 @@ Result_Type WiFi_Class::Station_Class::Add(const char *SSID, const char *Passwor
     return Result_Type::Success;
 }
 
-Result_Type WiFi_Class::Station_Class::Remove(const char *SSID, int32_t Channel = 0)
+Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t Channel)
 {
     // Remove access point from registry
     DynamicJsonDocument Network_Registry(512);
@@ -130,13 +133,13 @@ Result_Type WiFi_Class::Station_Class::Remove(const char *SSID, int32_t Channel 
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (strcmp(Access_Point["SSID"] | "", SSID) == 0)
+        if (Access_Point["SSID"] = SSID)
         {
             if (Channel == 0)
             {
                 Access_Points.remove(Access_Point);
             }
-            else (Access_Point["Channel"] == Channel)
+            else if (Access_Point["Channel"] == Channel)
             {
                 Access_Points.remove(Access_Point);
             }
@@ -231,9 +234,9 @@ Result_Type WiFi_Class::Save_Registry()
 
     Station["IP Address"] = static_cast<uint32_t>(this->Station.IP_Address);
     Station["Subnet Mask"] = static_cast<uint32_t>(this->Station.Subnet_Mask);
-    Station["Gateway"] = static_cast<uint32_t>(this->Station.Gateway);
-    Station["DNS_1"] = static_cast<uint32_t>(this->Station.DNS_1);
-    Station["DNS_2"] = static_cast<uint32_t>(this->Station.DNS_2);
+    Station["Gateway"] = static_cast<uint32_t>(this->Station.Gateway_IP_Address);
+    Station["DNS_1"] = static_cast<uint32_t>(this->Station.DNS_1_IP_Address);
+    Station["DNS_2"] = static_cast<uint32_t>(this->Station.DNS_2_IP_Address);
     Station["IP v6"] = this->Station.IP_v6;
     Station["Automatic Reconnection"] = this->Station.Get_Automatic_Reconnection();
 
@@ -263,7 +266,7 @@ Result_Type WiFi_Class::Save_Registry()
 }
 
 
-Result_Type WiFi_Class::Station_Class::Connect(const char *SSID)
+Result_Type WiFi_Class::Station_Class::Connect(const String_Type& SSID)
 {
     File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     DynamicJsonDocument Network_Registry(512);
@@ -284,21 +287,19 @@ Result_Type WiFi_Class::Station_Class::Connect(const char *SSID)
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (strcmp(Access_Point["SSID"] | "", SSID) == 0)
+        if (Access_Point["SSID"] == SSID)
         {
-            Connect(Access_Point["SSID"] | "", Access_Point["Password"] | "", static_cast<int32_t>(Access_Point["Channel"] | 0));
+            Connect(SSID, Access_Point["Password"] | "", static_cast<int32_t>(Access_Point["Channel"] | 0));
             
             return Result_Type::Success;
         }
     }
 }
 
-WiFi_Class::Station_Class::Station_Class() : IP_v6(true), IP_Address(), Subnet_Mask(), Gateway(), DNS_1(), DNS_2()
+WiFi_Class::Station_Class::Station_Class() : IP_v6(true), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DNS_1_IP_Address(), DNS_2_IP_Address()
 {
 }
 
-WiFi_Class::Access_Point_Class::Access_Point_Class() : IP_v6(true), Channel(1), Hidden(false), Maximum_Stations(4), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DHCP_Lease_Start_IP_Address()
+WiFi_Class::Access_Point_Class::Access_Point_Class() : IP_v6(true), Channel(1), Hidden(false), Password(""), Maximum_Stations(4), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DHCP_Lease_Start_IP_Address()
 {
-    memset(Password, '\0', sizeof(Password));
-
 }

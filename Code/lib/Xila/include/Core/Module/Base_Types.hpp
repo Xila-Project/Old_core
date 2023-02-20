@@ -18,18 +18,23 @@
 namespace Xila_Namespace
 {
     typedef bool Boolean_Type;
-    typedef short Short_Integer;
-    typedef int Integer;
-    typedef long Long_Integer;
-    typedef long long Long_Long_Integer;
 
-    typedef short Unsigned_Short_Integer;
-    typedef int Unsigned_Integer;
-    typedef long Unsigned_Long_Integer;
-    typedef long long Unsigned_Long_Long_Integer;
+    typedef uint8_t Byte_Type;
+    typedef uint16_t Word_Type;
+    typedef uint32_t DWord_Type;
+    typedef uint64_t QWord_Type;
+    
+    typedef int16_t Short_Integer;
+    typedef int32_t Integer;
+    typedef int64_t Long_Integer;
 
-    typedef float Float;
-    typedef double Precision_Float;
+    typedef uint16_t Short_Natural;
+    typedef uint32_t Natural;
+    typedef uint64_t Long_Natural;
+
+    typedef float Real;
+    typedef double Long_Real;
+
     typedef char Character;
     // typedef String String;
 

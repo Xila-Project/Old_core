@@ -23,6 +23,7 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : 
 
     Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
     Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
+    Tabs.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
 
     {
         Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
@@ -46,32 +47,6 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : 
     Draw_Wireless();
     Draw_Users();
     Draw_System();
-
-    // -- Account
-    Autologin = false;
-    strlcpy(Username, Account.Get_Current_Username(), sizeof(Username));
-    memset(Password_1, '\0', sizeof(Password_1));
-    memset(Password_2, '\0', sizeof(Password_2));
-
-    memset(Target_Username, '\0', sizeof(Username));
-    memset(Name, '\0', sizeof(Name));
-    strlcpy(Name, System.Get_Device_Name(), sizeof(Name));
-
-    // -- Network
-    strlcpy(WiFi_Name, WiFi.Get_SSID().c_str(), sizeof(WiFi_Name));
-    memset(WiFi_Password, '\0', sizeof(WiFi_Password));
-
-    Local_IP = WiFi.Get_IP_Address();
-    Gateway_IP = WiFi.Get_Gateway_IP_Address();
-    Subnet_Mask = WiFi.Get_Subnet_Mask();
-    DNS[0] = WiFi.Get_DNS_IP_Address(0);
-    DNS[1] = WiFi.Get_DNS_IP_Address(1);
-
-    // -- Time
-    memset(NTP_Server, '\0', sizeof(NTP_Server));
-    strlcpy(NTP_Server, Time.NTP_Server, sizeof(NTP_Server));
-    GMT_Offset = Time.GMT_Offset;
-    Daylight_Offset = Time.Daylight_Offset;
 
     // -- Benchmark
     Write_Speed = 0;
@@ -100,6 +75,7 @@ bool Shell_Class::Preferences_Class::Is_Openned(Shell_Class *Shell_Pointer)
 
 void Shell_Class::Preferences_Class::Draw_Wireless()
 {
+
     Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Network_Tab.Set_Style_Pad_All(0, 0);
 
@@ -116,19 +92,25 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
     {
         Label_Type Label;
         Label.Create(Grid);
-        Label.Set_Text("WiFi");
+        Label.Set_Text("WiFi station");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
         Label.Clear_Pointer();
-    
+
+        // - WiFi switch
+        Wireless_WiFi_Switch.Create(Grid);
+        Wireless_WiFi_Switch.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
+        Wireless_WiFi_Switch.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
+
         // - Access point roller
         Wireless_WiFi_Access_Point_Roller.Create(Grid);
         Wireless_WiFi_Access_Point_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
-        
+
         // - Refresh button
 
         Wireless_WiFi_Refresh_Button.Create(Grid);
         Wireless_WiFi_Refresh_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
-        
+        Wireless_WiFi_Refresh_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+
         Label.Create(Wireless_WiFi_Refresh_Button);
         Label.Set_Alignment(Alignment_Type::Center);
         Label.Set_Text("Refresh");
@@ -138,7 +120,8 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
 
         Wireless_WiFi_Informations_Button.Create(Grid);
         Wireless_WiFi_Informations_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 2, 1);
-    
+        Wireless_WiFi_Informations_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+
         Label.Create(Wireless_WiFi_Informations_Button);
         Label.Set_Alignment(Alignment_Type::Center);
         Label.Set_Text("Informations");
@@ -148,6 +131,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
 
         Wireless_WiFi_Connect_Button.Create(Grid);
         Wireless_WiFi_Connect_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 3, 1);
+        Wireless_WiFi_Connect_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Wireless_WiFi_Connect_Button);
         Label.Set_Alignment(Alignment_Type::Center);
@@ -155,12 +139,12 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
         Label.Clear_Pointer();
 
         // - Password text area
-        
+
         Wireless_WiFi_Password_Text_Area.Create(Grid);
         Wireless_WiFi_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 4, 1);
         Wireless_WiFi_Password_Text_Area.Set_Password_Mode(true);
         Wireless_WiFi_Password_Text_Area.Set_Placeholder_Text("Password");
-        Wireless_WiFi_Password_Text_Area.Set_One_Line(true);        
+        Wireless_WiFi_Password_Text_Area.Set_One_Line(true);
     }
 
     const uint8_t Network_Section_Row = WiFi_Section_Row + 5;
@@ -205,21 +189,21 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
         Wireless_Network_Subnet_Mask_Text_Area.Set_One_Line(true);
 
         // - Gateway
-        
+
         Wireless_Network_Gateway_IP_Text_Area.Create(Grid);
         Wireless_Network_Gateway_IP_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 3, 1);
         Wireless_Network_Gateway_IP_Text_Area.Set_Placeholder_Text("Gateway");
         Wireless_Network_Gateway_IP_Text_Area.Set_One_Line(true);
 
         // - DNS 1
-        
+
         Wireless_Network_DNS_1_Text_Area.Create(Grid);
         Wireless_Network_DNS_1_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 4, 1);
         Wireless_Network_DNS_1_Text_Area.Set_Placeholder_Text("DNS 1");
         Wireless_Network_DNS_1_Text_Area.Set_One_Line(true);
-        
+
         // - DNS 2
-        
+
         Wireless_Network_DNS_2_Text_Area.Create(Grid);
         Wireless_Network_DNS_2_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 5, 1);
         Wireless_Network_DNS_2_Text_Area.Set_Placeholder_Text("DNS 2");
@@ -257,9 +241,11 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
         Hardware_Display_Brightness_Slider.Create(Grid);
         Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Hardware_Display_Brightness_Slider.Set_Range(0, 100);
+        Hardware_Display_Brightness_Slider.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
 
         Hardware_Display_Calibrate_Button.Create(Grid);
         Hardware_Display_Calibrate_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
+        Hardware_Display_Calibrate_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Hardware_Display_Calibrate_Button);
         Label.Set_Text("Calibrate");
@@ -313,33 +299,8 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Label.Create(Grid);
-        switch (Drive.Get_Type())
-        {
-        case Drive_Types::Type_Type::None:
-            Label.Set_Text("Type : None");
-            break;
-        case Drive_Types::Type_Type::MMC:
-            Label.Set_Text("Type : MMC");
-            break;
-        case Drive_Types::Type_Type::SD_SC:
-            Label.Set_Text("Type : SD SC");
-            break;
-        case Drive_Types::Type_Type::SD_HC:
-            Label.Set_Text("Type : SD HC");
-            break;
-        default:
-            Label.Set_Text("Type : Unknown");
-            break;
-        }
-
-        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 4, Grid_Alignment_Type::Center, Drive_Section_Row + 1, 1);
-        Label.Clear_Pointer();
-
-        Label.Create(Grid);
-        Label.Set_Text_Format("Size : %u", Drive.Get_Size());
-        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 4, 4, Grid_Alignment_Type::Center, Drive_Section_Row + 1, 1);
-        Label.Clear_Pointer();
+        Hardware_Drive_Informations_Label.Create(Grid);
+        Hardware_Drive_Informations_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row + 1, 1);
     }
 
     const uint8_t Energy_Section_Row = Drive_Section_Row + 2;
@@ -353,6 +314,7 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
 
         Hardware_Energy_Apply_Button.Create(Grid);
         Hardware_Energy_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Energy_Section_Row, 1);
+        Hardware_Energy_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Hardware_Energy_Apply_Button);
         Label.Set_Text("Apply");
@@ -363,14 +325,14 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
 
         Label.Create(Grid);
         Label.Set_Text("Standby :");
-        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 1);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 2);
         Label.Clear_Pointer();
 
         // - - - Standby roller
 
         Hardware_Energy_Standby_Roller.Create(Grid);
-        Hardware_Energy_Standby_Roller.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 1);
-        Hardware_Energy_Standby_Roller.Set_Options("1 min\n2 min\n3 min\n5 min\n10 min\n15 min\n20 min\n25 min\n30 min\n45 min\n1 h\n2 h\n3 h\n4 h\n5 h\nNever", Roller_Type::Mode_Type::Normal);
+        Hardware_Energy_Standby_Roller.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 2);
+        Hardware_Energy_Standby_Roller.Set_Options("30 seconds\n1 minute\n2 minutes\n3 mintes\n4 minutes\n5 minutes\n10 minutes\n20 minutes\nNever", Roller_Type::Mode_Type::Normal);
     }
 }
 
@@ -572,8 +534,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Time_Zone_Roller.Create(Grid);
         System_Time_Zone_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 2, 2);
-        // TODO : Set time zone options
-        // System_Time_Zone_Roller.Set_Options(Time_Zone_Options, );
+        System_Time_Zone_Roller.Set_Options("UTC - 12:00\nUTC -11:00\nUTC -10:00\nUTC -09:00\nUTC -08:00\nUTC -07:00\nUTC -06:00\nUTC -05:00\nUTC -04:30\nUTC -04:00\nUTC -03:30\nUTC -03:00\nUTC -02:00\nUTC -01:00\nUTC\nUTC +01:00\nUTC +02:00\nUTC +03:00\nUTC +03:30\nUTC +04:00\nUTC +04:30\nUTC +05:00\nUTC +05:30\nUTC +06:00\nUTC +06:30\nUTC +07:00\nUTC +08:00\nUTC +09:00\nUTC +09:30\nUTC +10:00\nUTC +11:00\nUTC +12:00\nUTC +13:00", Roller_Type::Mode_Type::Normal);
         System_Time_Zone_Roller.Set_Selected(0, true);
         System_Time_Zone_Roller.Set_Visible_Row_Count(3);
     }
@@ -670,19 +631,156 @@ void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instru
         switch (Instruction.Graphics.Get_Code())
         {
         case Graphics_Types::Event_Code_Type::Clicked:
-            // - Personnal
-            if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
+            // - Tabs
+            if (Instruction.Graphics.Get_Object() == Tabs)
             {
-                Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
-                Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+                switch (Tabs.Get_Tab_Active())
+                {
+                case 0:
+                    Refresh_Personal();
+                    break;
+                case 1:
+                    Refresh_Softwares();
+                    break;
+                case 2:
+                    Refresh_Hardware();
+                    break;
+                case 3:
+                    Refresh_Wireless();
+                    break;
+                case 4:
+                    Refresh_Users();
+                    break;
+                case 5:
+                    Refresh_System();
+                    break;
+                }
+                return;
             }
-            // - Softwares
-            else if (Instruction.Graphics.Get_Object() == Softwares_Delete_Button)
-            {
-                // TODO
-            }
-
             break;
+        }
+    }
+    // -
+    switch (Tabs.Get_Tab_Active())
+    {
+    case 0:
+        Execute_Personal_Instruction(Instruction);
+        break;
+    case 1:
+        Execute_Softwares_Instruction(Instruction);
+        break;
+    case 2:
+        Execute_Hardware_Instruction(Instruction);
+        break;
+    case 3:
+        Execute_Wireless_Instruction(Instruction);
+        break;
+    case 4:
+        Execute_Users_Instruction(Instruction);
+        break;
+    case 5:
+        Execute_System_Instruction(Instruction);
+        break;
+    }
+}
+
+void Shell_Class::Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
+{
+    if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
+    {
+        Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
+        Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+    }
+}
+
+void Shell_Class::Preferences_Class::Execute_Softwares_Instruction(const Instruction_Type &Instruction)
+{
+    if (Instruction.Graphics.Get_Object() == Softwares_Delete_Button)
+    {
+        // TODO
+    }
+}
+
+void Shell_Class::Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Instruction)
+{
+    if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Switch)
+    {
+        if (Wireless_WiFi_Switch.Has_State(Graphics_Types::State_Type::Checked))
+        {
+            // TODO
+        }
+        else
+        {
+            WiFi.Turn_Off();
+        }
+        Refresh_Wireless();
+    }
+    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Refresh_Button)
+    {
+        Refresh_Wireless();
+    }
+    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Informations_Button)
+    {
+        // TODO
+    }
+    else if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Connect_Button)
+    {
+        Static_String_Type<32> SSID;
+        Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID);
+
+        if (!WiFi.Station.Is_Known(SSID))
+        {
+            WiFi.Station.Add(SSID, Wireless_WiFi_Password_Text_Area.Get_Text());
+        }
+        WiFi.Station.Connect(SSID);
+    }
+}
+
+void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Instruction)
+{
+    if (Instruction.Graphics.Get_Object() == Hardware_Display_Brightness_Slider)
+    {
+        Display.Set_Brightness(Hardware_Display_Brightness_Slider.Get_Value());
+    }
+    else if (Instruction.Graphics.Get_Object() == Hardware_Display_Calibrate_Button)
+    {
+        Display.Calibrate();
+    }
+    else if (Instruction.Graphics.Get_Object() == Hardware_Sound_Volume_Slider)
+    {
+        Sound.Set_Volume(Hardware_Sound_Volume_Slider.Get_Value());
+    }
+    else if (Instruction.Graphics.Get_Object() == Hardware_Energy_Apply_Button)
+    {
+        switch (Hardware_Energy_Standby_Roller.Get_Selected())
+        {
+            case 0:
+                Display.Set_Standby_Time(30);
+                break;
+            case 1:
+                Display.Set_Standby_Time(1 * 60);
+                break;
+            case 2:
+                Display.Set_Standby_Time(2 * 60);
+                break;
+            case 3:
+                Display.Set_Standby_Time(3 * 60);
+                break;
+            case 4:
+                Display.Set_Standby_Time(4 * 60);
+                break;
+            case 5:
+                Display.Set_Standby_Time(5 * 60);
+                break;
+            case 6:
+                Display.Set_Standby_Time(10 * 60);
+                break;
+            case 7:
+                Display.Set_Standby_Time(20 * 60);
+                break;
+            default:
+                Display.Set_Standby_Time(0);
+                break;           
         }
     }
 }
@@ -735,39 +833,50 @@ void Shell_Class::Preferences_Class::Refresh_Softwares()
 
 void Shell_Class::Preferences_Class::Refresh_Hardware()
 {
-    char Temporary_String[40];
+    Hardware_Display_Brightness_Slider.Set_Value(Display.Get_Brightness(), false);
+    Hardware_Sound_Volume_Slider.Set_Value(Sound.Get_Volume(), false);
+    Hardware_Battery_Level_Label.Set_Text(Power.Get_Charge_Level() + " %");
 
-    Display.Set_Value(F("BRIGHTNESS_SLI"), Display.Brightness);
-    snprintf(Temporary_String, sizeof(Temporary_String), " Battery : %i %%", Power.Get_Charge_Level());
-    Display.Set_Text(F("BATTERY_TXT"), Temporary_String);
-    Display.Set_Value(F("VOLUME_SLI"), Sound.Get_Volume());
-    Display.Set_Value(F("STANDBY_NUM"), Display.Standby_Time);
-
-    switch (Drive.Type())
+    switch (Drive.Get_Type())
     {
-    case Drive.None:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : None | %i MB", (uint16_t)(Drive.Size() / (1024 * 1024)));
+    case Drive_Types::Drive_Type_Type::None:
+        Hardware_Drive_Type_Label.Set_Text_Format("Type : None - Size : %u", Drive.Get_Size());
         break;
-    case Drive.SD_SC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD SC | %i MB", (uint16_t)(Drive.Size() / (1024 * 1024)));
+    case Drive_Types::Drive_Type_Type::MMC:
+        Hardware_Drive_Type_Label.Set_Text_Format("Type : MMC - Size : %u", Drive.Get_Size());
         break;
-    case Drive.SD_HC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD HC | %i MB", (uint16_t)(Drive.Size() / (1024 * 1024)));
+    case Drive_Types::Drive_Type_Type::SD_SC:
+        Hardware_Drive_Type_Label.Set_Text_Format("Type : SD SC - Size : %u", Drive.Get_Size());
         break;
-    case Drive.MMC:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : SD MMC | %i MB", (uint16_t)(Drive.Size() / (1024 * 1024)));
+    case Drive_Types::Drive_Type_Type::SD_HC:
+        Hardware_Drive_Type_Label.Set_Text_Format("Type : SD HC - Size : %u", Drive.Get_Size());
         break;
-    case Drive.Unknow:
-        snprintf(Temporary_String, sizeof(Temporary_String), " Drive : Unknow | %i MB", (uint16_t)(Drive.Size() / (1024 * 1024)));
+    default:
+        Hardware_Drive_Type_Label.Set_Text_Format("Type : Unknown - Size : %u", Drive.Get_Size());
         break;
     }
-    Display.Set_Text(F("DRIVE_TXT"), Temporary_String);
 
-    sprintf(Temporary_String, " Speed: Read %i KB/s | Write %i KB/s", Read_Speed, Write_Speed);
-    Display.Set_Text(F("SPEED_TXT"), Temporary_String);
+    if ((Display.Get_Standby_Time() <= 30) && (Display.Get_Standby_Time() > 0))
+        Hardware_Energy_Standby_Roller.Set_Selected(0);
+    else if (Display.Get_Standby_Time() <= (1 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(1);
+    else if (Display.Get_Standby_Time() <= (2 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(2);
+    else if (Display.Get_Standby_Time() <= (3 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(3);
+    else if (Display.Get_Standby_Time() <= (4 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(4);
+    else if (Display.Get_Standby_Time() <= (5 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(5);
+    else if (Display.Get_Standby_Time() <= (10 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(6);
+    else if (Display.Get_Standby_Time() <= (20 * 60))
+        Hardware_Energy_Standby_Roller.Set_Selected(7);
+    else
+        Hardware_Energy_Standby_Roller.Set_Selected(8);
 }
 
-void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Instruction_Type Instruction)
 {
     switch (Instruction)
     {
@@ -883,52 +992,80 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Xila_Class::In
 
 void Shell_Class::Preferences_Class::Refresh_Wireless()
 {
-    uint16_t Access_Points_Number = WiFi.Scan_Networks();
-    
-    char Networks_List[32 * (Access_Points_Number + 1)];
-    for (uint8_t i = 0; i < Access_Points_Number; i++)
+    using namespace Xila_Namespace::WiFi_Types;
+
+    // - WiFi section
+
     {
-        strcat(Networks_List, WiFi.Get_SSID(i));
-        strcat(Networks_List, "\n");
+
+        if (WiFi.Get_Mode() == Mode_Type::Station)
+        {
+            Wireless_WiFi_Switch.Add_State(Graphics_Types::State_Type::Checked);
+            Wireless_WiFi_Access_Point_Roller.Clear_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Refresh_Button.Clear_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Informations_Button.Clear_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Connect_Button.Clear_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Password_Text_Area.Clear_State(Graphics_Types::State_Type::Disabled);
+
+            Static_String_Type<32> Connected_SSID;
+
+            if (WiFi.Station.Get_Status() == Status_Type::Connected)
+            {
+                WiFi.Station.Get_SSID(Connected_SSID);
+            }
+
+            uint16_t Access_Points_Number = WiFi.Scan.Start(false, true);
+
+            char Networks_List[33 * (Access_Points_Number)];
+            Static_String_Type<32> Temporary_SSID;
+
+            memset(Networks_List, '\0', sizeof(Networks_List));
+
+            for (uint8_t i = 0; i < Access_Points_Number; i++)
+            {
+                WiFi.Scan.Get_SSID(i, Temporary_SSID);
+                strlcat(Networks_List, Temporary_SSID, sizeof(Networks_List));
+
+                if (Temporary_SSID == Connected_SSID)
+                {
+                    strlcat(Networks_List, " (Connected)", sizeof(Networks_List[i]));
+                }
+
+                if (i < (Access_Points_Number - 1))
+                {
+                    strlcat(Networks_List, "\n", sizeof(Networks_List[i]));
+                }
+            }
+
+            Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Roller_Class::Mode_Type::Normal);
+
+            WiFi.Scan.Delete();
+        }
+        else
+        {
+            Wireless_WiFi_Switch.Clear_State(Graphics_Types::State_Type::Checked);
+            Wireless_WiFi_Access_Point_Roller.Add_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Refresh_Button.Add_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Informations_Button.Add_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Connect_Button.Add_State(Graphics_Types::State_Type::Disabled);
+            Wireless_WiFi_Password_Text_Area.Add_State(Graphics_Types::State_Type::Disabled);
+        }
     }
-    strcat(Networks_List, "Hidden\0");
-    Wireless_WiFi_Access_Point_Roller.Set_Options(Networks_List, Roller_Class::Mode_Type::Normal);
 
-    if 
+    // - Network section
 
-
-}
-
-void Shell_Class::Preferences_Class::Execute_Network_Instruction(Xila_Class::Instruction Instruction)
-{
-    switch (Instruction)
     {
-    case Instruction('C', 'l'):
-        SHELL->Send_Instruction('O', 'D');
-        Preferences_Class::Close();
-        break;
-    case Instruction('K', 'W'):
-        DIALOG.Keyboard(WiFi_Name, sizeof(WiFi_Name));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'w'):
-        DIALOG.Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('W', 'D'):
-        WiFi.disconnect();
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('W', 'C'):
-        WiFi.Set_Credentials(WiFi_Name, WiFi_Password);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('R', 'e'):
-        Refresh_Network();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
+        Static_String_Type<24> IP_Address;
+        WiFi.Station.Get_IP_Address().To(IP_Address);
+        Wireless_Network_Local_IP_Text_Area.Set_Text(IP_Address);
+        WiFi.Station.Get_Subnet_Mask().To(IP_Address);
+        Wireless_Network_Subnet_Mask_Text_Area.Set_Text(IP_Address);
+        WiFi.Station.Get_Gateway_IP_Address().To(IP_Address);
+        Wireless_Network_Gateway_IP_Text_Area.Set_Text(IP_Address);
+        WiFi.Station.Get_DNS_IP_Address(0).To(IP_Address);
+        Wireless_Network_DNS_1_Text_Area.Set_Text(IP_Address);
+        WiFi.Station.Get_DNS_IP_Address(1).To(IP_Address);
+        Wireless_Network_DNS_2_Text_Area.Set_Text(IP_Address);
     }
 }
 

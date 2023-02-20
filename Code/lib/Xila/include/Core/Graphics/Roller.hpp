@@ -42,7 +42,7 @@ namespace Xila_Namespace
         // -- Getters
 
         uint16_t Get_Selected();
-        void Get_Selected_String(char *Buffer, size_t Size);
+        void Get_Selected_String(String_Type& String);
         const char *Get_Options();
         uint16_t Get_Option_Count();
     } Roller_Type;
