@@ -35,7 +35,6 @@ public:
 
     static Software_Handle_Type Handle;
 
-
 private:
     static void Create_Instance()
     {
@@ -68,11 +67,11 @@ private:
 
         void Set_Background_Color(Color_Type Color);
         void Set_Foreground_Color(Color_Type Color);
-    
 
         // - - Constructors / destructor
         Desk_Class(Shell_Class *Shell_Pointer);
         ~Desk_Class();
+
     private:
         // - Methods
 
@@ -159,6 +158,7 @@ private:
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
+        void Execute_Instruction(Instruction_Type Instruction);
 
     private:
         // -- Attributes
@@ -177,7 +177,6 @@ private:
         void Disable_Selection_Mode();
         uint8_t Count_Selected_Items();
 
-        void Execute_Instruction(Instruction_Type Instruction);
 
         void Paste();
         void Details();
@@ -214,10 +213,7 @@ private:
 
         Shell_Class *Shell_Pointer;
 
-        friend class Shell_Class;
-
     } *File_Manager_Pointer;
-
 
     /// @brief Preferences class
     class Preferences_Class
@@ -240,6 +236,7 @@ private:
         static void Open(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
+        void Execute_Instruction(Instruction_Type Instruction);
 
     private:
         // - Methods
@@ -247,6 +244,7 @@ private:
         // - - Constructor
 
         Preferences_Class(Shell_Class *Shell_Pointer);
+        ~Preferences_Class();
 
         void Draw_Personal();
         void Draw_Softwares();
@@ -262,25 +260,12 @@ private:
         void Refresh_Hardware();
         void Refresh_System();
 
-        void Execute_Personal_Instruction(const Instruction_Type& Instruction);
-        void Execute_Softwares_Instruction(const Instruction_Type& Instruction);
-        void Execute_Wireless_Instruction(const Instruction_Type& Instruction);
-        void Execute_Users_Instruction(const Instruction_Type& Instruction);
-        void Execute_Hardware_Instruction(const Instruction_Type& Instruction);
-        void Execute_System_Instruction(const Instruction_Type& Instruction);
-
-        // -- Attributes
-
-        IP_Address_Type Local_IP;
-        IP_Address_Type Gateway_IP;
-        IP_Address_Type Subnet_Mask;
-        IP_Address_Type DNS[2];
-
-        uint16_t Write_Speed, Read_Speed; // -- Hardware
-
-        void Execute_Instruction(Instruction_Type Instruction);
-
-        inline void System_Update();
+        void Execute_Personal_Instruction(const Instruction_Type &Instruction);
+        void Execute_Softwares_Instruction(const Instruction_Type &Instruction);
+        void Execute_Wireless_Instruction(const Instruction_Type &Instruction);
+        void Execute_Users_Instruction(const Instruction_Type &Instruction);
+        void Execute_Hardware_Instruction(const Instruction_Type &Instruction);
+        void Execute_System_Instruction(const Instruction_Type &Instruction);
 
         // - Attributes
 
@@ -311,7 +296,7 @@ private:
         Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
         Text_Area_Type Wireless_Network_Subnet_Mask_Text_Area;
         Text_Area_Type Wireless_Network_DNS_1_Text_Area;
-        Text_Area_Type Wireless_Network_DNS_2_Text_Area;        
+        Text_Area_Type Wireless_Network_DNS_2_Text_Area;
 
         // - - Hardware
 
@@ -322,7 +307,7 @@ private:
         Label_Type Hardware_Drive_Informations_Label;
         Roller_Type Hardware_Energy_Standby_Roller;
         Button_Type Hardware_Energy_Apply_Button;
-        
+
         // - - Softwares
 
         Roller_Type Softwares_Roller;
@@ -331,12 +316,15 @@ private:
         // - - System
 
         Button_Type System_Device_Apply_Button;
+        Text_Area_Type System_Device_Name_Text_Area;
         Button_Type System_Update_Button;
         Button_Type System_Reboot_Loader_Button;
-        Button_Type System_Time_Apply_Button;
 
-        Text_Area_Type System_Device_Name_Text_Area;
-        Text_Area_Type System_NTP_Server_Text_Area;
+        Button_Type System_Time_Apply_Button;
+        Button_Type System_Time_Plus_Button;
+        Button_Type System_Time_Minus_Button;
+        Spinbox_Type System_Time_Daylight_Offset_Spinbox;
+        Text_Area_Type System_Time_NTP_Server_Text_Area;
         Roller_Type System_Time_Zone_Roller;
 
         Shell_Class *Shell_Pointer;
@@ -344,6 +332,28 @@ private:
         friend class Shell_Class;
 
     } *Preferences_Pointer;
+
+    class Installer_Class
+    {
+    public:
+        // - Methods
+
+        static void Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+
+    private:
+        // - Methods
+
+        // - - Constructor / destructor
+        Installer_Class(Shell_Class* Shell_Pointer);
+        ~Installer_Class();
+
+        
+
+
+
+    } *Installer_Pointer;
 
     // -- Attributes
 

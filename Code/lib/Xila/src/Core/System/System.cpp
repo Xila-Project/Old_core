@@ -15,8 +15,6 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
-#include "WiFi.h"
-
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::System_Types;
 
@@ -25,12 +23,32 @@ System_Type System();
 /// @brief Construct a new System_Class::System_Class object
 System_Class::System_Class() : Task(this)
 {
-  strlcpy(Device_Name, Stringizing(Default_Device_Name), sizeof(Device_Name));
+  Device_Name = Default_Device_Name;
 }
 
 /// @brief Destroy the System_Class object
 System_Class::~System_Class()
 {
+}
+
+Result_Type System_Class::Create_Registry()
+{
+  File_Type Temporary_File = Drive.Open(Registry("System"), true);
+  StaticJsonDocument<512> System_Registry;
+  System_Registry["Registry"] = "System";
+  System_Registry["Version"]["Major"] = Xila_Version_Major;
+  System_Registry["Version"]["Minor"] = Xila_Version_Minor;
+  System_Registry["Version"]["Revision"] = Xila_Version_Revision;
+  System_Registry["Device Name"] = Default_Device_Name;
+
+  if (serializeJson(System_Registry, Temporary_File) == 0)
+  {
+    Temporary_File.Close();
+    return Result_Type::Error;
+  }
+
+  Temporary_File.Close();
+  return Result_Type::Success;
 }
 
 /// @brief Load System registry.
@@ -39,7 +57,7 @@ System_Class::~System_Class()
 Result_Type System_Class::Load_Registry()
 {
   File_Type Temporary_File = Drive.Open((Registry("System")));
-  DynamicJsonDocument System_Registry(512);
+  StaticJsonDocument<1024> System_Registry;
   if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
   {
     Temporary_File.Close();
@@ -50,12 +68,18 @@ Result_Type System_Class::Load_Registry()
   {
     return Result_Type::Error;
   }
-  JsonObject Version = System_Registry["Version"];
+
+  {
+    JsonObject Version = System_Registry["Version"];
+
   if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
   {
-    Panic_Handler(Installation_Conflict);
+    return Result_Type::Error;
   }
-  strlcpy(System.Device_Name, System_Registry["Device Name"] | Stringizing(Default_Device_Name), sizeof(System.Device_Name));
+  }
+  
+  this->Device_Name = System_Registry["Device Name"] | Default_Device_Name;
+
   return Result_Type::Success;
 }
 
@@ -65,14 +89,27 @@ Result_Type System_Class::Load_Registry()
 /// @return Result_Type
 Result_Type System_Class::Save_Registry()
 {
+  // - Open current registry
   File_Type Temporary_File = Drive.Open(Registry("System"), true);
-  DynamicJsonDocument System_Registry(256);
-  System_Registry["Registry"] = "System";
-  System_Registry["Device Name"] = Device_Name;
-  JsonObject Version = System_Registry.createNestedObject("Version");
-  Version["Major"] = Xila_Version_Major;
-  Version["Minor"] = Xila_Version_Minor;
-  Version["Revision"] = Xila_Version_Revision;
+  StaticJsonDocument<512> System_Registry;
+
+  System_Registry["Device name"] = Device_Name;
+  
+  {
+    JsonObject Version = System_Registry.createNestedObject("Version");
+    Version["Major"] = Xila_Version_Major;
+    Version["Minor"] = Xila_Version_Minor;
+    Version["Revision"] = Xila_Version_Revision;
+  }
+
+  {
+    JsonObject Time = System_Registry.createNestedObject("Time");
+    Time["UTC Offset"] = this->UTC_Offset;
+    Time["Daylight Offset"] = this->Daylight_Offset;
+    Time["NTP Server"] = this->NTP_Server;
+  } 
+
+  // - Serialise
   if (serializeJson(System_Registry, Temporary_File) == 0)
   {
     Temporary_File.Close();
@@ -105,24 +142,93 @@ void System_Class::Task_Function()
     {
       System.Panic_Handler(System.System_Drive_Failure);
     }
-    // -- Check if running software is not frozen
+
+    // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
 
     // -- Check WiFi is connected
-    if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
-    {
-      WiFi.Load_Registry();
-    }
+    //if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
+    //{
+    //  WiFi.Load_Registry();
+    //}
     // -- Check available (prevent memory overflow)
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
       System.Panic_Handler(Low_Memory);
     }
-    // -- Syncronise time
-    Time.Synchronize();
 
     Task.Delay_Until(10000);
   }
+}
+
+Time_Type System_Class::Get_Time()
+{
+  struct tm Time_Info;
+  if (!getLocalTime(&Time_Info))
+  {
+    return Time_Type();
+  }
+  return Time_Type(Time_Info.tm_hour, Time_Info.tm_min, Time_Info.tm_sec, 0);
+}
+
+Date_Type System_Class::Get_Date()
+{
+  struct tm Time_Info;
+  if (!getLocalTime(&Time_Info))
+  {
+    return Date_Type();
+  }
+  return Date_Type(Time_Info.tm_year + 1900, Time_Info.tm_mon + 1, Time_Info.tm_mday);
+}
+
+Time_Type System_Class::Get_Up_Time()
+{
+  uint32_t Up_Time = millis();
+  return Time_Type(Up_Time / 3600000, (Up_Time % 3600000) / 60000, (Up_Time % 60000) / 1000, (Up_Time % 1000) * 1000);
+
+}
+
+uint64_t System_Class::Get_Up_Time_Microseconds()
+{
+  return micros();
+}
+
+uint32_t System_Class::Get_Up_Time_Milliseconds()
+{
+  return millis();
+}
+
+uint32_t System_Class::Get_Cycles_Count()
+{
+  return cpu_hal_get_cycle_count();
+}
+
+uint32_t System_Class::Get_UTC_Offset()
+{
+  return UTC_Offset;
+}
+
+uint16_t System_Class::Get_Daylight_Offset()
+{
+  return Daylight_Offset;
+}
+
+void System_Class::Get_NTP_Server(String_Type& NTP_Server)
+{
+  NTP_Server = this->NTP_Server;
+}
+
+void System_Class::Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset)
+{
+  this->UTC_Offset = UTC_Offset;
+  this->Daylight_Offset = Daylight_Offset;
+  configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
+}
+
+void System_Class::Set_NTP_Server(const String_Type& NTP_Server)
+{
+  this->NTP_Server = NTP_Server;
+  configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
 }
 
 /// @brief Update Xila on the MCU.
@@ -181,7 +287,6 @@ void System_Class::Panic_Handler(Panic_Code Panic_Code)
   abort();
 }
 
-///
 /// @brief Save system dump.
 ///
 /// @return Result_Type
@@ -284,9 +389,14 @@ Result_Type System_Class::Load_Dump()
 /// @brief Return device name.
 ///
 /// @return const char* Device name.
-const char *System_Class::Get_Device_Name()
+void System_Class::Get_Device_Name(String_Class& Device_Name)
 {
-  return System.Device_Name;
+  Device_Name = this->Device_Name;
+}
+
+void System_Class::Set_Device_Name(const String_Class& Device_Name)
+{
+  this->Device_Name = Device_Name;
 }
 
 /// @brief Function that start Xila.
@@ -454,11 +564,10 @@ void System_Class::Load()
 
   // - Sound
 
-  if (Sound.Load_Registry() != Result_Type::Success)
+  if (Sound.Start() != Result_Type::Success)
   {
-    Sound.Save_Registry();
+    Panic_Handler(Panic_Code::Failed_To_Start_Sound);
   }
-  Sound.Begin();
 
   Sound.Play(Sounds("Startup.wav"));
 

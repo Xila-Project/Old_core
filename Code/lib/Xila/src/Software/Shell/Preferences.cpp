@@ -48,9 +48,11 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : 
     Draw_Users();
     Draw_System();
 
-    // -- Benchmark
-    Write_Speed = 0;
-    Read_Speed = 0;
+}
+
+Shell_Class::Preferences_Class::~Preferences_Class()
+{
+    Window.Delete();
 }
 
 void Shell_Class::Preferences_Class::Open(Shell_Class *Shell_Pointer)
@@ -467,6 +469,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Device_Apply_Button.Create(Grid);
         System_Device_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
+        System_Device_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Device_Apply_Button);
         Label.Set_Text("Apply");
@@ -484,6 +487,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Update_Button.Create(Grid);
         System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
+        System_Update_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Update_Button);
         Label.Set_Text("Update system");
@@ -494,6 +498,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Reboot_Loader_Button.Create(Grid);
         System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
+        System_Reboot_Loader_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Reboot_Loader_Button);
         Label.Set_Text("Reboot to loader");
@@ -517,6 +522,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Time_Apply_Button.Create(Grid);
         System_Time_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
+        System_Time_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Time_Apply_Button);
         Label.Set_Text("Apply");
@@ -525,23 +531,71 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         // - - - NTP server text area
 
-        System_NTP_Server_Text_Area.Create(Grid);
-        System_NTP_Server_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
-        System_NTP_Server_Text_Area.Set_Placeholder_Text("N.T.P. server");
-        System_NTP_Server_Text_Area.Set_One_Line(true);
+        System_Time_NTP_Server_Text_Area.Create(Grid);
+        System_Time_NTP_Server_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 1, 1);
+        System_Time_NTP_Server_Text_Area.Set_Placeholder_Text("N.T.P. server");
+        System_Time_NTP_Server_Text_Area.Set_One_Line(true);
 
         // - - - UTC offset roller
 
         System_Time_Zone_Roller.Create(Grid);
-        System_Time_Zone_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Time_Section_Row + 2, 2);
-        System_Time_Zone_Roller.Set_Options("UTC - 12:00\nUTC -11:00\nUTC -10:00\nUTC -09:00\nUTC -08:00\nUTC -07:00\nUTC -06:00\nUTC -05:00\nUTC -04:30\nUTC -04:00\nUTC -03:30\nUTC -03:00\nUTC -02:00\nUTC -01:00\nUTC\nUTC +01:00\nUTC +02:00\nUTC +03:00\nUTC +03:30\nUTC +04:00\nUTC +04:30\nUTC +05:00\nUTC +05:30\nUTC +06:00\nUTC +06:30\nUTC +07:00\nUTC +08:00\nUTC +09:00\nUTC +09:30\nUTC +10:00\nUTC +11:00\nUTC +12:00\nUTC +13:00", Roller_Type::Mode_Type::Normal);
-        System_Time_Zone_Roller.Set_Selected(0, true);
+        System_Time_Zone_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 2, 4, Grid_Alignment_Type::Stretch, Time_Section_Row + 2, 2);
+        Static_String_Type<512> Options;
+        Static_String_Type<12> Option;
+
+        for (uint8_t i = -12; i <= 12; i++)
+        {
+            Option.Copy_Format("UTC %s%02u:00\n", i < 0 ? "-" : "+", i < 0 ? -i : i);
+            Options += Option;
+
+            if ((i == -4) || (i == -3) || (i == 3) || (i == 4) || (i == 5) || (i == 6) || (i == 9))
+            {
+                Options.Copy_Format("UTC %s%02u:30\n", i < 0 ? "-" : "+", i < 0 ? -i : i);
+                Options += Option;
+            }
+        }
+        System_Time_Zone_Roller.Set_Options(Options, Roller_Type::Mode_Type::Normal);
         System_Time_Zone_Roller.Set_Visible_Row_Count(3);
+
+        // - - - UTC offset label
+
+        Label.Create(Grid);
+        Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
+        Label.Set_Text("Daylight offset :");
+        Label.Clear_Pointer();
+
+        // - - - Minus button
+
+        System_Time_Minus_Button.Create(Grid);
+        System_Time_Minus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
+        System_Time_Minus_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::All);
+
+        Label.Create(System_Time_Minus_Button);
+        Label.Set_Text(LV_SYMBOL_MINUS);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
+
+        // - - - UTC offset spinbox
+
+        System_Time_Daylight_Offset_Spinbox.Create(Grid);
+        System_Time_Daylight_Offset_Spinbox.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
+        System_Time_Daylight_Offset_Spinbox.Set_Digit_Format(4, 0);
+
+        // - - - Plus button
+
+        System_Time_Plus_Button.Create(Grid);
+        System_Time_Plus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
+        System_Time_Plus_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::All);
+
+        Label.Create(System_Time_Plus_Button);
+        Label.Set_Text(LV_SYMBOL_PLUS);
+        Label.Set_Alignment(Alignment_Type::Center);
+        Label.Clear_Pointer();
     }
 
     // - - About section
 
-    const uint8_t About_Section_Row = Time_Section_Row + 3;
+    const uint8_t About_Section_Row = Time_Section_Row + 4;
 
     {
         // - - - About title label
@@ -568,71 +622,15 @@ void Shell_Class::Preferences_Class::Draw_System()
     }
 }
 
-// -- State management -- //
-
-void Shell_Class::Preferences_Class::Open(uint8_t Mode)
-{
-    DUMP("open preferences");
-    DUMP(Mode);
-    if (!State())
-    {
-        PREFERENCES = new Preferences_Class();
-    }
-    switch (Mode)
-    {
-    case Pages.Preferences_Personal:
-        Display.Set_Current_Page(Pages.Preferences_Personal);
-        break;
-    case Pages.Preferences_System:
-        Display.Set_Current_Page(Pages.Preferences_System);
-        break;
-    case Pages.Preferences_Network:
-        Display.Set_Current_Page(Pages.Preferences_Network);
-        break;
-
-    case Pages.Preferences_Hardware:
-        Display.Set_Current_Page(Pages.Preferences_Hardware);
-        break;
-    case Pages.Preferences_Install:
-        Display.Set_Current_Page(Pages.Preferences_Install);
-        break;
-    default:
-        break;
-    }
-    SHELL->Send_Instruction('R', 'e');
-}
-
-bool Shell_Class::Preferences_Class::State()
-{
-
-    if (PREFERENCES == NULL)
-    {
-        return false;
-    }
-    return true;
-}
-
-void Shell_Class::Preferences_Class::Close()
-{
-    DUMP("close preferences");
-    if (State())
-    {
-        delete PREFERENCES;
-        PREFERENCES = NULL;
-    }
-}
-
 // --
 
 void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
-        switch (Instruction.Graphics.Get_Code())
+        if (Instruction.Graphics.Get_Object() == Tabs)
         {
-        case Graphics_Types::Event_Code_Type::Clicked:
-            // - Tabs
-            if (Instruction.Graphics.Get_Object() == Tabs)
+            if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
             {
                 switch (Tabs.Get_Tab_Active())
                 {
@@ -657,7 +655,6 @@ void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instru
                 }
                 return;
             }
-            break;
         }
     }
     // -
@@ -754,33 +751,33 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(const Instruct
     {
         switch (Hardware_Energy_Standby_Roller.Get_Selected())
         {
-            case 0:
-                Display.Set_Standby_Time(30);
-                break;
-            case 1:
-                Display.Set_Standby_Time(1 * 60);
-                break;
-            case 2:
-                Display.Set_Standby_Time(2 * 60);
-                break;
-            case 3:
-                Display.Set_Standby_Time(3 * 60);
-                break;
-            case 4:
-                Display.Set_Standby_Time(4 * 60);
-                break;
-            case 5:
-                Display.Set_Standby_Time(5 * 60);
-                break;
-            case 6:
-                Display.Set_Standby_Time(10 * 60);
-                break;
-            case 7:
-                Display.Set_Standby_Time(20 * 60);
-                break;
-            default:
-                Display.Set_Standby_Time(0);
-                break;           
+        case 0:
+            Display.Set_Standby_Time(30);
+            break;
+        case 1:
+            Display.Set_Standby_Time(1 * 60);
+            break;
+        case 2:
+            Display.Set_Standby_Time(2 * 60);
+            break;
+        case 3:
+            Display.Set_Standby_Time(3 * 60);
+            break;
+        case 4:
+            Display.Set_Standby_Time(4 * 60);
+            break;
+        case 5:
+            Display.Set_Standby_Time(5 * 60);
+            break;
+        case 6:
+            Display.Set_Standby_Time(10 * 60);
+            break;
+        case 7:
+            Display.Set_Standby_Time(20 * 60);
+            break;
+        default:
+            Display.Set_Standby_Time(0);
+            break;
         }
     }
 }
@@ -840,152 +837,40 @@ void Shell_Class::Preferences_Class::Refresh_Hardware()
     switch (Drive.Get_Type())
     {
     case Drive_Types::Drive_Type_Type::None:
-        Hardware_Drive_Type_Label.Set_Text_Format("Type : None - Size : %u", Drive.Get_Size());
+        Hardware_Drive_Informations_Label.Set_Text_Format("Type : None - Size : %u", Drive.Get_Size());
         break;
     case Drive_Types::Drive_Type_Type::MMC:
-        Hardware_Drive_Type_Label.Set_Text_Format("Type : MMC - Size : %u", Drive.Get_Size());
+        Hardware_Drive_Informations_Label.Set_Text_Format("Type : MMC - Size : %u", Drive.Get_Size());
         break;
     case Drive_Types::Drive_Type_Type::SD_SC:
-        Hardware_Drive_Type_Label.Set_Text_Format("Type : SD SC - Size : %u", Drive.Get_Size());
+        Hardware_Drive_Informations_Label.Set_Text_Format("Type : SD SC - Size : %u", Drive.Get_Size());
         break;
     case Drive_Types::Drive_Type_Type::SD_HC:
-        Hardware_Drive_Type_Label.Set_Text_Format("Type : SD HC - Size : %u", Drive.Get_Size());
+        Hardware_Drive_Informations_Label.Set_Text_Format("Type : SD HC - Size : %u", Drive.Get_Size());
         break;
     default:
-        Hardware_Drive_Type_Label.Set_Text_Format("Type : Unknown - Size : %u", Drive.Get_Size());
+        Hardware_Drive_Informations_Label.Set_Text_Format("Type : Unknown - Size : %u", Drive.Get_Size());
         break;
     }
 
     if ((Display.Get_Standby_Time() <= 30) && (Display.Get_Standby_Time() > 0))
-        Hardware_Energy_Standby_Roller.Set_Selected(0);
+        Hardware_Energy_Standby_Roller.Set_Selected(0, false);
     else if (Display.Get_Standby_Time() <= (1 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(1);
+        Hardware_Energy_Standby_Roller.Set_Selected(1, false);
     else if (Display.Get_Standby_Time() <= (2 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(2);
+        Hardware_Energy_Standby_Roller.Set_Selected(2, false);
     else if (Display.Get_Standby_Time() <= (3 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(3);
+        Hardware_Energy_Standby_Roller.Set_Selected(3, false);
     else if (Display.Get_Standby_Time() <= (4 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(4);
+        Hardware_Energy_Standby_Roller.Set_Selected(4, false);
     else if (Display.Get_Standby_Time() <= (5 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(5);
+        Hardware_Energy_Standby_Roller.Set_Selected(5, false);
     else if (Display.Get_Standby_Time() <= (10 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(6);
+        Hardware_Energy_Standby_Roller.Set_Selected(6, false);
     else if (Display.Get_Standby_Time() <= (20 * 60))
-        Hardware_Energy_Standby_Roller.Set_Selected(7);
+        Hardware_Energy_Standby_Roller.Set_Selected(7, false);
     else
-        Hardware_Energy_Standby_Roller.Set_Selected(8);
-}
-
-void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(Instruction_Type Instruction)
-{
-    switch (Instruction)
-    {
-    case Instruction('C', 'l'):
-        SHELL->Send_Instruction('O', 'D');
-        Preferences_Class::Close();
-        break;
-    case Instruction('T', 'D'): // -- Drive testing
-    {
-        File_Type Test_File = Drive.Open(F(Test_Path), true);
-        if (!Test_File)
-        {
-            DIALOG.Event(F("Failed to start the write test."), Error);
-
-            SHELL->Send_Instruction('R', 'e');
-            break;
-        }
-        SHELL->Set_Watchdog_Timeout(15000);
-        static uint8_t Buffer[512] = {255};
-        uint16_t i;
-        double Time = Time.Milliseconds();
-
-        for (i = 0; i < 2048; i++)
-        {
-            Task_Type::Delay_Static(1);
-            Test_File.write(Buffer, sizeof(Buffer));
-        }
-
-        Time = Time.Milliseconds() - Time;
-        Time /= 1000;               // convert time in sec
-        Time = (2048 * 512) / Time; // divide quantity data copied by the time in sec
-        Write_Speed = Time / 1000;
-        Test_File.Close();
-        Test_File = Drive.Open(F(Test_Path));
-        SHELL->Set_Watchdog_Timeout();
-        if (!Test_File)
-        {
-            DIALOG.Event(F("Failed to start the read test."), Error);
-            SHELL->Send_Instruction('R', 'e');
-            break;
-        }
-
-        SHELL->Set_Watchdog_Timeout(15000);
-        size_t Length = Test_File.size();
-        Time = Time.Milliseconds();
-        while (Length)
-        {
-            if (Length > 512)
-            {
-                Test_File.read(Buffer, sizeof(Buffer));
-                Length -= sizeof(Buffer);
-            }
-            else
-            {
-                Test_File.read(Buffer, Length);
-                Length = 0;
-            }
-        }
-        Time = Time.Milliseconds() - Time;
-        Time /= 1000;
-        Time = Test_File.size() / Time;
-        Read_Speed = Time / 1000;
-        Test_File.Close();
-        Drive.Remove(F(Test_Path));
-        SHELL->Set_Watchdog_Timeout();
-        break;
-    }
-    case Instruction('V', '+'):
-        if (Sound.Get_Volume() <= 243)
-        {
-            Sound.Set_Volume(Sound.Get_Volume() + 12);
-            SHELL->Send_Instruction('R', 'e');
-        }
-        break;
-    case Instruction('V', '-'):
-        if (Sound.Get_Volume() >= 12)
-        {
-            Sound.Set_Volume(Sound.Get_Volume() - 12);
-            Instance_Pointer->Send_Instruction('R', 'e');
-        }
-        break;
-    case Instruction('S', '+'):
-        Display.Standby_Time += 5;
-        Display.Set_Standby_Touch_Timer(Display.Standby_Time);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('S', '-'):
-        if (Display.Standby_Time >= 5)
-        {
-            Display.Standby_Time -= 5;
-            Display.Set_Standby_Touch_Timer(Display.Standby_Time);
-        }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('D', 'S'):
-        Display.Standby_Time = 0;
-        Display.Set_Standby_Touch_Timer(Display.Standby_Time);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('R', 'e'):
-        Refresh_Hardware();
-        break;
-    case Instruction('D', 'C'):
-        Display.Calibrate();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
+        Hardware_Energy_Standby_Roller.Set_Selected(8, false);
 }
 
 // -- Network -- //
@@ -1071,130 +956,75 @@ void Shell_Class::Preferences_Class::Refresh_Wireless()
 
 // -- System -- //
 
-void Shell_Class::Preferences_Class::Execute_System_Instruction(Xila_Class::Instruction Instruction)
+void Shell_Class::Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instruction)
 {
-    switch (Instruction)
+    if (Instruction.Graphics.Get_Object() == System_Device_Apply_Button)
     {
-    case Instruction('C', 'l'):
-        SHELL->Send_Instruction('O', 'D');
-        Preferences_Class::Close();
-        break;
-    // -- Device name
-    case Instruction('K', 'N'):
-        DIALOG.Keyboard(Name, sizeof(Name));
-        Refresh_System();
-        break;
-    case Instruction('A', 'N'):
-        strlcpy(System.Device_Name, Name, sizeof(System.Device_Name));
-        System.Save_Registry();
-        DIALOG.Event(F("Please restart Xila to apply changes."), Information);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    // -- Time
-    case Instruction('K', 'n'):
-        DIALOG.Keyboard(NTP_Server, sizeof(NTP_Server));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('k', 'O'):
+        if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
+        {
+            Static_String_Type<32> Temporary_String = System_Device_Name_Text_Area.Get_Text();
+            System.Set_Device_Name(Temporary_String);
+        }
+    }
+    else if (Instruction.Graphics.Get_Object() == System_Time_Apply_Button)
     {
-        float Temporary_Float = GMT_Offset;
-        DIALOG.Keypad(Temporary_Float);
-        GMT_Offset = Temporary_Float;
-        SHELL->Send_Instruction('R', 'e');
-        break;
+        if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
+        {
+        Static_String_Type<32> Temporary_String = System_Time_NTP_Server_Text_Area.Get_Text();
+        System.Set_NTP_Server(Temporary_String);
+        // TODO : System.Set_Time_Zone(..);
+        }
     }
-    case Instruction('k', 'o'):
+    else if (Instruction.Graphics.Get_Object() == System_Time_Minus_Button)
     {
-        float Temporary_Float = Daylight_Offset;
-        DIALOG.Keypad(Temporary_Float);
-        Daylight_Offset = Temporary_Float;
-        SHELL->Send_Instruction('R', 'e');
-        break;
+        if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Short_Clicked || Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Long_Pressed_Repeat)
+        {
+            System_Time_Daylight_Offset_Spinbox.Decrement();
+        }
     }
-    case Instruction('A', 'T'):
-        Time.GMT_Offset = GMT_Offset;
-        Time.Daylight_Offset = Daylight_Offset;
-        strlcpy(Time.NTP_Server, NTP_Server, sizeof(Time.NTP_Server));
-        Time.Save_Registry();
-        DIALOG.Event(F("Please restart Xila to apply changes."), Information);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    // -- Add user
-    case Instruction('K', 'U'):
-        DIALOG.Keyboard(Username, sizeof(Username));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('A', 'U'):
-        if (Account.Add(Username, ""))
+    else if (Instruction.Graphics.Get_Object() == System_Time_Plus_Button)
+    {
+        if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Short_Clicked || Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Long_Pressed_Repeat)
         {
-            DIALOG.Event(F("Failed to add user."), Error);
+            System_Time_Daylight_Offset_Spinbox.Increment();
         }
-        else
-        {
-            DIALOG.Event(F("User successfully added."), Information);
-        }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('O', 'A'):
-        Display.Set_Current_Page(Pages.About);
-        break;
-    case Instruction('U', 'p'):
-        if (DIALOG.Event(F("Do you really want to update Xila ? That will make the system restart."), Warning) != Button_1)
-        {
-            SHELL->Send_Instruction('R', 'e');
-            return;
-        }
-        if (!Drive.Exists(Display_Executable_Path) || !Drive.Exists(Microcontroller_Executable_Path))
-        {
-            DIALOG.Event(F("Missing update files."), Error);
-            SHELL->Send_Instruction('R', 'e');
-            return;
-        }
-        else
-        {
-            Display.Set_Current_Page(Pages.Dialog_Load);
-            Display.Set_Text(F("MESSAGE_TXT"), F("Updating Xila"));
-            Display.Set_Text(F("SUBHEADER_TXT"), F("Update"));
-
-            File_Type Temporary_File = Drive.Open(Microcontroller_Executable_Path, true);
-            if (System.Load_Executable(Temporary_File) != Success)
-            {
-                System.Restart();
-                return;
-            }
-
-            Temporary_File = Drive.Open(Display_Executable_Path);
-            if (Display.Update(Temporary_File) != Success)
-            {
-                System.Restart();
-                return;
-            }
-
-            System.Restart();
-        }
-        break;
-    case Instruction('R', 'e'): // -- Refresh
-        Refresh_System();
-        break;
-
-    case Instruction('G', 'V'): // -- Current version (About)
-        Display.Set_Text(F("VERSION_TXT"), ("Version : " Xila_Version_Major_String "." Xila_Version_Minor_String "." Xila_Version_Revision_String));
-        break;
-
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
+    } 
 }
 
 void Shell_Class::Preferences_Class::Refresh_System()
 {
-    Display.Set_Text(F("NTPVAL_TXT"), NTP_Server);
-    Display.Set_Value(F("GMTOFFSET_NUM"), GMT_Offset);
-    Display.Set_Value(F("DAYLIGHTO_NUM"), Daylight_Offset);
+    Static_String_Type<32> Temporary_String;
+    System.Get_Device_Name(Temporary_String);
+    System_Device_Name_Text_Area.Set_Text(Temporary_String);
 
-    Display.Set_Text(F("DEVICEVAL_TXT"), Name);
-    Display.Set_Text(F("USERVAL_TXT"), Username);
+    Temporary_String = "";
+    Time.Get_NTP_Server(Temporary_String);
+    System_Time_NTP_Server_Text_Area.Set_Text(Temporary_String);
+
+    Temporary_String = "";
+
+    for (uint8_t i = -12; i <= 12; i++)
+    {
+
+        if ((i == -4) || (i == -3) || (i == 3) || (i == 4) || (i == 5) || (i == 6) || (i == 9))
+        {
+            if ((i * 60 * 60) >= (System.Get_UTC_Offset() - (30 * 60)))
+            {
+                System_Time_Zone_Roller.Set_Selected(i + 12, false);
+                break;
+            }
+        }
+        else
+        {
+            if ((i * 60 * 60) >= System.Get_UTC_Offset())
+            {
+                System_Time_Zone_Roller.Set_Selected(i + 12, false);
+                break;
+            }
+        }
+    }
+
+    System_Time_Daylight_Offset_Spinbox.Set_Value(Time.Get_Daylight_Offset());
 }
 
 void Shell_Class::Preferences_Class::Refresh_Install()

@@ -29,6 +29,8 @@
 #include "Semaphore.hpp"
 #include "Queue.hpp"
 #include "String.hpp"
+#include "Date.hpp"
+#include "Time.hpp"
 
 #include "../Configuration/Configuration.hpp"
 #include "../Configuration/Path.hpp"
@@ -37,33 +39,7 @@ namespace Xila_Namespace
 {
     typedef class Module_Class
     {
-    public:
-        /// @brief Time class.
-        class Time_Type
-        {
-        private:
-            uint8_t Second;
-            uint8_t Minute;
-            uint8_t Hour;
-
-            uint8_t Day;
-            uint8_t Month;
-            uint16_t Year;
-
-        public:
-            Time_Type();
-            Time_Type(uint8_t Second, uint8_t Minute, uint8_t Hour, uint8_t Day, uint8_t Month, uint16_t Year);
-
-            void Set(uint8_t Day, uint8_t Month, uint16_t Year);
-            void Set_Day(uint8_t Day);
-            void Set_Month(uint8_t Month);
-            void Set_Year(uint16_t Year);
-
-            uint8_t Get_Day();
-            uint8_t Get_Month();
-            uint16_t Get_Year();
-        };
-
+    public:  
         // - Methods
 
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);

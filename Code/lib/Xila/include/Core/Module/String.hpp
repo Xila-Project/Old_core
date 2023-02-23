@@ -1,3 +1,14 @@
+///
+ /// @file String.hpp
+ /// @author Alix ANNERAUD (alix@anneraud.fr)
+ /// @brief 
+ /// @version 0.1.0
+ /// @date 22-02-2023
+ /// 
+ /// @copyright Copyright (c) 2023
+ /// 
+
+ 
 #ifndef String_Hpp_Included
 #define String_Hpp_Included
 
@@ -169,6 +180,12 @@ namespace Xila_Namespace
             return *this;
         }
         
+        Static_String_Class& operator=(const char* String)
+        {
+            Copy(String);
+            return *this;
+        }
+
         Result_Type Set_Size(Size_Type Size) override {
             // Do nothing since we deal with a static buffer;
             return Result_Type::Error;

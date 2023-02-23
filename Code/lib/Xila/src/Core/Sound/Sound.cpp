@@ -30,8 +30,13 @@ Sound_Class::~Sound_Class()
 {
 }
 
-void Sound_Class::Begin()
+Result_Type Sound_Class::Start()
 {
+    if (Sound.Load_Registry() != Result_Type::Success)
+    {
+        Sound.Save_Registry();
+    }
+
     /*
     Audio_Driver.setBalance(0);
     Task.Create(Sound.Task, "Sound task", Memory_Chunk(6), NULL, Task.Driver_Task, &Sound.Task_Handle);
@@ -110,7 +115,7 @@ Result_Type Sound_Class::Save_Registry()
 /// @param Informations
 void audio_eof_mp3(const char *Informations)
 {
-    //Sound.Stop();
+    // Sound.Stop();
 }
 
 ///
@@ -331,7 +336,7 @@ uint8_t Sound_Class::Play(File_Type &File_To_Play)
     }
     return Result_Type::Success;
     */
-   return 0;
+    return 0;
 }
 
 ///
@@ -446,11 +451,11 @@ void Sound_Class::Set_Channels(uint8_t Channels)
 ///
 void Sound_Class::Resume()
 {
-   /* if (!Audio_Driver.isRunning())
-    {
-        Audio_Driver.pauseResume();
-    }
-    */
+    /* if (!Audio_Driver.isRunning())
+     {
+         Audio_Driver.pauseResume();
+     }
+     */
 }
 
 ///
@@ -471,7 +476,7 @@ void Sound_Class::Pause()
 ///
 void Sound_Class::Stop()
 {
-    //Audio_Driver.stopSong();
+    // Audio_Driver.stopSong();
 }
 
 ///
@@ -480,7 +485,7 @@ void Sound_Class::Stop()
 void Sound_Class::Mute()
 {
 
-    //Audio_Driver.setVolume(0);
+    // Audio_Driver.setVolume(0);
 }
 
 ///
@@ -495,7 +500,7 @@ void Sound_Class::Mute()
 bool Sound_Class::Set_Pinout(uint8_t Bit_Clock_Pin, uint8_t Frame_Clock_Pin, uint8_t Data_Out_Pin, uint8_t Data_In_Pin)
 {
     return true;
-    //return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
+    // return Audio_Driver.setPinout(Bit_Clock_Pin, Frame_Clock_Pin, Data_Out_Pin, Data_In_Pin);
 }
 
 ///

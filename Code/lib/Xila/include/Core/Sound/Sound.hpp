@@ -158,7 +158,7 @@ namespace Xila_Namespace
         Result_Type Save_Registry();
         Result_Type Load_Registry();
 
-        void Begin();
+        Result_Type Start();
     } Sound_Type;
 
     extern Sound_Type Sound;

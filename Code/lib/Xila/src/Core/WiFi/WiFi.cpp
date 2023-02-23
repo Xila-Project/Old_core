@@ -65,14 +65,14 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type& SSID, const String
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (Access_Point["SSID"] == SSID)
+        if (SSID == Access_Point["SSID"])
         {
             if (Channel == 0)
             {
                 Registry_File.Close();
                 return Result_Type::Error;
             }
-            else if (Access_Point["Channel"] == Channel)
+            else if (Channel == Access_Point["Channel"])
             {
 
                 Registry_File.Close();

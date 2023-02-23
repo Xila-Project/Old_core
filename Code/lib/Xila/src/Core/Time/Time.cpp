@@ -18,10 +18,10 @@ Time_Type Time();
  /// @brief Construct a new Time_Class::Time_Class object
  /// 
 Time_Class::Time_Class()
-    : GMT_Offset(Default_GMT_Offset),
+    : UTC_Offset(Default_UTC_Offset),
       Daylight_Offset(Default_Daylight_Offset)
 {
-  strlcpy(NTP_Server, Default_NTP_Server, sizeof(NTP_Server));
+  NTP_Server = Default_NTP_Server;
 }
 
 ///
@@ -45,7 +45,7 @@ Result_Type Time_Class::Save_Registry()
   File_Type Temporary_File = Drive.Open(Registry("Time"), true);
   DynamicJsonDocument Time_Registry(512);
   Time_Registry["Registry"] = "Time";
-  Time_Registry["GMT Offset"] = GMT_Offset;
+  Time_Registry["UTC Offset"] = UTC_Offset;
   Time_Registry["Daylight Offset"] = Daylight_Offset;
   Time_Registry["NTP Server"] = NTP_Server;
   configTime(GMT_Offset, Daylight_Offset, NTP_Server);

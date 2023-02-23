@@ -42,7 +42,7 @@ namespace Xila_Namespace
         bool Is_Dragged();
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Value(int32_t Value, bool Animation);
         void Set_Left_Value(int32_t Value, bool Animation);

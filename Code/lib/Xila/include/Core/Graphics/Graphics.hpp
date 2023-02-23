@@ -31,6 +31,7 @@
 #include "Label.hpp"
 #include "Roller.hpp"
 #include "Slider.hpp"
+#include "Spinbox.hpp"
 #include "Switch.hpp"
 #include "Table.hpp"
 #include "Text_Area.hpp"
