@@ -36,6 +36,7 @@ namespace Xila_Namespace
     typedef class Window_Class : public Object_Class
     {
     public:
+        // - Methods
 
         virtual void Create(Object_Class Parent_Object) override;
         // TODO : Make it protected.
@@ -44,7 +45,7 @@ namespace Xila_Namespace
 
         void Set_Title(const char *Title);
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_State(Graphics_Types::Window_State_Type State);        
         Graphics_Types::Window_State_Type Get_State();
@@ -52,16 +53,20 @@ namespace Xila_Namespace
         Object_Class Get_Body();
         Object_Class Get_Header();
 
+        bool Is_Focused();
+
         const Account_Class::User_Class* Get_Owner_User();
 
 
     protected:
+        // - Methods
     
         void Set_Interface();
         void Set_Owner_User(const Account_Class::User_Class* Owner_User);
 
         static Window_Class Get_User_Parent_Window_Index(const Account_Class::User_Type* Owner_User);
 
+        // - Attributes
         static std::vector<Window_Class> Parent_List;
 
         Account_Type::User_Type* Owner_User;
@@ -83,6 +88,15 @@ namespace Xila_Namespace
         Button_Class Minimize_Button;
 
     } Window_Type;
+
+    typedef class Root_Window_Class : public Window_Class
+    {
+        public:
+        // - Methods
+
+        private:
+        // - Methods
+    };
 
 }
 

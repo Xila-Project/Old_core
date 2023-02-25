@@ -8,22 +8,23 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Software/Shell/Shell.hpp"
-#include "Software/Shell/Translation.hpp"
+#include "Software/Preferences/Preferences.hpp"
+
+Software_Handle_Type Handle("Preferences", Preferences_Class::Create_Instance);
 
 const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
 
 // -- Constructor -- //
 
-Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
+Preferences_Class::Preferences_Class() : Software_Class(&Handle)
 {
     Window.Create();
     Window.Set_Title("Preferences");
 
     Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
     Tabs.Set_Style_Background_Opacity(Opacity_Type::Opacity_0_Percent, 0);
-    Tabs.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
+    Tabs.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
 
     {
         Object_Class Tab_Buttons = Tabs.Get_Tab_Buttons();
@@ -50,32 +51,29 @@ Shell_Class::Preferences_Class::Preferences_Class(Shell_Class *Shell_Pointer) : 
 
 }
 
-Shell_Class::Preferences_Class::~Preferences_Class()
+Preferences_Class::~Preferences_Class()
 {
     Window.Delete();
+    Main_Task.Delete();
 }
 
-void Shell_Class::Preferences_Class::Open(Shell_Class *Shell_Pointer)
+void Preferences_Class::Main_Task_Function()
 {
-    Shell_Pointer->Preferences_Pointer = new Preferences_Class(Shell_Pointer);
-}
 
-void Shell_Class::Preferences_Class::Close(Shell_Class *Shell_Pointer)
-{
-    delete Shell_Pointer->Preferences_Pointer;
-    Shell_Pointer->Preferences_Pointer = NULL;
-}
-
-bool Shell_Class::Preferences_Class::Is_Openned(Shell_Class *Shell_Pointer)
-{
-    if (Shell_Pointer->Preferences_Pointer == NULL)
+    while (true)
     {
-        return false;
+        if (this->Instruction_Available())
+        {
+            this->Execute_Instruction(this->Get_Instruction());
+        }
+        else
+        {
+            this->Main_Task.Delay(40);
+        }
     }
-    return true;
 }
 
-void Shell_Class::Preferences_Class::Draw_Wireless()
+void Preferences_Class::Draw_Wireless()
 {
 
     Network_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
@@ -101,7 +99,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
         // - WiFi switch
         Wireless_WiFi_Switch.Create(Grid);
         Wireless_WiFi_Switch.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
-        Wireless_WiFi_Switch.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
+        Wireless_WiFi_Switch.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
 
         // - Access point roller
         Wireless_WiFi_Access_Point_Roller.Create(Grid);
@@ -111,7 +109,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
 
         Wireless_WiFi_Refresh_Button.Create(Grid);
         Wireless_WiFi_Refresh_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
-        Wireless_WiFi_Refresh_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        Wireless_WiFi_Refresh_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Wireless_WiFi_Refresh_Button);
         Label.Set_Alignment(Alignment_Type::Center);
@@ -122,7 +120,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
 
         Wireless_WiFi_Informations_Button.Create(Grid);
         Wireless_WiFi_Informations_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 2, 1);
-        Wireless_WiFi_Informations_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        Wireless_WiFi_Informations_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Wireless_WiFi_Informations_Button);
         Label.Set_Alignment(Alignment_Type::Center);
@@ -133,7 +131,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
 
         Wireless_WiFi_Connect_Button.Create(Grid);
         Wireless_WiFi_Connect_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 3, 1);
-        Wireless_WiFi_Connect_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        Wireless_WiFi_Connect_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Wireless_WiFi_Connect_Button);
         Label.Set_Alignment(Alignment_Type::Center);
@@ -213,7 +211,7 @@ void Shell_Class::Preferences_Class::Draw_Wireless()
     }
 }
 
-void Shell_Class::Preferences_Class::Draw_Hardware()
+void Preferences_Class::Draw_Hardware()
 {
     Hardware_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Hardware_Tab.Set_Style_Pad_All(0, 0);
@@ -243,11 +241,11 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
         Hardware_Display_Brightness_Slider.Create(Grid);
         Hardware_Display_Brightness_Slider.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Hardware_Display_Brightness_Slider.Set_Range(0, 100);
-        Hardware_Display_Brightness_Slider.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Value_Changed);
+        Hardware_Display_Brightness_Slider.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
 
         Hardware_Display_Calibrate_Button.Create(Grid);
         Hardware_Display_Calibrate_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
-        Hardware_Display_Calibrate_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        Hardware_Display_Calibrate_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Hardware_Display_Calibrate_Button);
         Label.Set_Text("Calibrate");
@@ -316,7 +314,7 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
 
         Hardware_Energy_Apply_Button.Create(Grid);
         Hardware_Energy_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Energy_Section_Row, 1);
-        Hardware_Energy_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        Hardware_Energy_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(Hardware_Energy_Apply_Button);
         Label.Set_Text("Apply");
@@ -338,7 +336,7 @@ void Shell_Class::Preferences_Class::Draw_Hardware()
     }
 }
 
-void Shell_Class::Preferences_Class::Draw_Softwares()
+void Preferences_Class::Draw_Softwares()
 {
     Softwares_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Softwares_Tab.Set_Style_Pad_All(0, 0);
@@ -381,7 +379,7 @@ void Shell_Class::Preferences_Class::Draw_Softwares()
     Refresh_Softwares();
 }
 
-void Shell_Class::Preferences_Class::Draw_Personal()
+void Preferences_Class::Draw_Personal()
 {
     Personnal_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     Personnal_Tab.Set_Style_Pad_All(0, 0);
@@ -439,7 +437,7 @@ void Shell_Class::Preferences_Class::Draw_Personal()
     Refresh_Personal();
 }
 
-void Shell_Class::Preferences_Class::Draw_System()
+void Preferences_Class::Draw_System()
 {
     System_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
     System_Tab.Set_Style_Pad_All(0, 0);
@@ -469,7 +467,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Device_Apply_Button.Create(Grid);
         System_Device_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
-        System_Device_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        System_Device_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Device_Apply_Button);
         Label.Set_Text("Apply");
@@ -487,7 +485,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Update_Button.Create(Grid);
         System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
-        System_Update_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        System_Update_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Update_Button);
         Label.Set_Text("Update system");
@@ -498,7 +496,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Reboot_Loader_Button.Create(Grid);
         System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
-        System_Reboot_Loader_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        System_Reboot_Loader_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Reboot_Loader_Button);
         Label.Set_Text("Reboot to loader");
@@ -522,7 +520,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Time_Apply_Button.Create(Grid);
         System_Time_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
-        System_Time_Apply_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+        System_Time_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
         Label.Create(System_Time_Apply_Button);
         Label.Set_Text("Apply");
@@ -568,7 +566,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Time_Minus_Button.Create(Grid);
         System_Time_Minus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-        System_Time_Minus_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::All);
+        System_Time_Minus_Button.Add_Event(this, Graphics_Types::Event_Code_Type::All);
 
         Label.Create(System_Time_Minus_Button);
         Label.Set_Text(LV_SYMBOL_MINUS);
@@ -585,7 +583,7 @@ void Shell_Class::Preferences_Class::Draw_System()
 
         System_Time_Plus_Button.Create(Grid);
         System_Time_Plus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-        System_Time_Plus_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::All);
+        System_Time_Plus_Button.Add_Event(this, Graphics_Types::Event_Code_Type::All);
 
         Label.Create(System_Time_Plus_Button);
         Label.Set_Text(LV_SYMBOL_PLUS);
@@ -624,9 +622,17 @@ void Shell_Class::Preferences_Class::Draw_System()
 
 // --
 
-void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
+void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-    if (Instruction.Get_Sender() == &Graphics)
+    if (Instruction.Get_Sender() == &Softwares)
+    {
+        if (Instruction.Softwares.Get_Code() == Softwares_Types::Event_Code_Type::Close)
+        {
+            delete this;
+        }
+
+    } 
+    else if (Instruction.Get_Sender() == &Graphics)
     {
         if (Instruction.Graphics.Get_Object() == Tabs)
         {
@@ -681,7 +687,7 @@ void Shell_Class::Preferences_Class::Execute_Instruction(Instruction_Type Instru
     }
 }
 
-void Shell_Class::Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
+void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
     {
@@ -690,7 +696,7 @@ void Shell_Class::Preferences_Class::Execute_Personal_Instruction(const Instruct
     }
 }
 
-void Shell_Class::Preferences_Class::Execute_Softwares_Instruction(const Instruction_Type &Instruction)
+void Preferences_Class::Execute_Softwares_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == Softwares_Delete_Button)
     {
@@ -698,7 +704,7 @@ void Shell_Class::Preferences_Class::Execute_Softwares_Instruction(const Instruc
     }
 }
 
-void Shell_Class::Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Instruction)
+void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == Wireless_WiFi_Switch)
     {
@@ -733,7 +739,7 @@ void Shell_Class::Preferences_Class::Execute_Wireless_Instruction(const Instruct
     }
 }
 
-void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Instruction)
+void Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == Hardware_Display_Brightness_Slider)
     {
@@ -782,7 +788,7 @@ void Shell_Class::Preferences_Class::Execute_Hardware_Instruction(const Instruct
     }
 }
 
-void Shell_Class::Preferences_Class::Refresh_Personal()
+void Preferences_Class::Refresh_Personal()
 {
     Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
     Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
@@ -814,7 +820,7 @@ void Shell_Class::Preferences_Class::Refresh_Personal()
 }
 
 /// @brief Refresh software tab.
-void Shell_Class::Preferences_Class::Refresh_Softwares()
+void Preferences_Class::Refresh_Softwares()
 {
     char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
     memset(Software_Name, '\0', sizeof(Software_Name));
@@ -828,7 +834,7 @@ void Shell_Class::Preferences_Class::Refresh_Softwares()
 
 // -- Hardware -- //
 
-void Shell_Class::Preferences_Class::Refresh_Hardware()
+void Preferences_Class::Refresh_Hardware()
 {
     Hardware_Display_Brightness_Slider.Set_Value(Display.Get_Brightness(), false);
     Hardware_Sound_Volume_Slider.Set_Value(Sound.Get_Volume(), false);
@@ -875,7 +881,7 @@ void Shell_Class::Preferences_Class::Refresh_Hardware()
 
 // -- Network -- //
 
-void Shell_Class::Preferences_Class::Refresh_Wireless()
+void Preferences_Class::Refresh_Wireless()
 {
     using namespace Xila_Namespace::WiFi_Types;
 
@@ -956,7 +962,7 @@ void Shell_Class::Preferences_Class::Refresh_Wireless()
 
 // -- System -- //
 
-void Shell_Class::Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instruction)
+void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == System_Device_Apply_Button)
     {
@@ -991,7 +997,7 @@ void Shell_Class::Preferences_Class::Execute_System_Instruction(const Instructio
     } 
 }
 
-void Shell_Class::Preferences_Class::Refresh_System()
+void Preferences_Class::Refresh_System()
 {
     Static_String_Type<32> Temporary_String;
     System.Get_Device_Name(Temporary_String);
@@ -1025,157 +1031,4 @@ void Shell_Class::Preferences_Class::Refresh_System()
     }
 
     System_Time_Daylight_Offset_Spinbox.Set_Value(Time.Get_Daylight_Offset());
-}
-
-void Shell_Class::Preferences_Class::Refresh_Install()
-{
-    if (DESK.Background < 0)
-    {
-        Display.Set_Value(F("DEFAULTB_RAD"), 1);
-        Display.Set_Value(F("COLORB_RAD"), 0);
-    }
-    else
-    {
-        Display.Set_Value(F("DEFAULTB_RAD"), 0);
-        Display.Set_Value(F("COLORB_RAD"), 1);
-        Display.Set_Value(F("COLORB_NUM"), DESK.Background);
-    }
-    Display.Set_Value(F("GMTOFFSET_NUM"), GMT_Offset);
-    Display.Set_Value(F("DAYLIGHTO_NUM"), Daylight_Offset);
-    Display.Set_Text(F("DEVICEVAL_TXT"), Name);
-    Display.Set_Text(F("USERVAL_TXT"), Username);
-    Display.Set_Text(F("PASSVAL1_TXT"), Password_1);
-    Display.Set_Text(F("PASSVAL2_TXT"), Password_2);
-    Display.Set_Text(F("WNAMEVAL_TXT"), WiFi_Name);
-    Display.Set_Text(F("WPASSVAL_TXT"), WiFi_Password);
-    Display.Set_Value(F("AUTOLOGIN_CHE"), Autologin);
-}
-
-void Shell_Class::Preferences_Class::Execute_Install_Instruction(Xila_Class::Instruction Instruction)
-{
-    switch (Instruction)
-    {
-    case Instruction('C', 'l'):
-        if (DIALOG.Event(F("Are you sure to cancel the installation and shutdown Xila ?"), Question) == Default_Yes)
-        {
-            System.Shutdown();
-        }
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('C', 'o'):
-        if (strcmp(Password_1, Password_2) != 0)
-        {
-            DIALOG.Event(F("Passwords does not match."), Error);
-            return;
-        }
-
-        if (DIALOG.Event(F("Are you sure of these entries ?"), Question) == Default_Yes)
-        {
-            if (!Drive.Make_Directory(Users_Directory_Path))
-            {
-                DIALOG.Event(F("Cannot make users directory."), Error);
-            }
-            // -- Regional preferences
-            Time.GMT_Offset = GMT_Offset;
-            Time.Daylight_Offset = Daylight_Offset;
-
-            if (WiFi.Save_Registry() != Success)
-            {
-                DIALOG.Event(F("Cannot save network registry."), Error);
-            }
-
-            if (Time.Save_Registry() != Success)
-            {
-                DIALOG.Event(F("Cannot save regional registry."), Error);
-            }
-            // -- User account
-            if (Account.Add(Username, Password_1) != Success)
-            {
-                DIALOG.Event(F("Cannot create user account."), Error);
-            }
-            Account.Login(Username, Password_1);
-            Account.Set_Autologin(Autologin);
-            // -- Shell registry
-            SHELL->Save_Registry();
-
-            // -- Load
-#if Animations == 1
-            DIALOG.Load(F("Login"), F("Loading user data ..."), 4000);
-            DIALOG.Close_Load();
-#endif
-
-            DESK.Open(Pages.Desk);
-            Preferences_Class::Close();
-        }
-        break;
-    case Instruction('D', 'B'):
-        DESK.Background = -1;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('C', 'B'):
-    {
-        if (DESK.Background < 0 || DESK.Background > 0xFFFF)
-        {
-            DESK.Background = 16904;
-        }
-        uint16_t Temporary_Color = DESK.Background;
-        DIALOG.Color_Picker(Temporary_Color);
-        DESK.Background = Temporary_Color;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    }
-    case Instruction('k', 'O'): // -- Keypad for GMT Offset
-    {
-        float Temporary_Float = GMT_Offset;
-        DIALOG.Keypad(Temporary_Float);
-        GMT_Offset = (int32_t)Temporary_Float;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    }
-    case Instruction('k', 'o'): // -- Keypad for Daylight offset
-    {
-        float Temporary_Float = Daylight_Offset;
-        DIALOG.Keypad(Temporary_Float);
-        Daylight_Offset = (int16_t)Temporary_Float;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    }
-    case Instruction('K', 'N'): // -- Device name keyboard input
-        DIALOG.Keyboard(Name, sizeof(Name));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'U'): // -- Username keyboard input
-        DIALOG.Keyboard(Username, sizeof(Username));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'P'): // -- Password keyboard input
-        DIALOG.Keyboard(Password_1, sizeof(Password_1), true);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'p'): // -- Confirm password keyboard input
-        DIALOG.Keyboard(Password_2, sizeof(Password_2), true);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('A', 'u'): // -- Enable or disable autologin
-        Autologin = !Autologin;
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'W'): // -- WiFi name keyboard input
-        DIALOG.Keyboard(WiFi_Name, sizeof(WiFi_Name));
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('K', 'w'): // -- WiFi password keyboard input
-        DIALOG.Keyboard(WiFi_Password, sizeof(WiFi_Password), true);
-        SHELL->Send_Instruction('R', 'e');
-        break;
-    case Instruction('W', 'C'): // WiFi connect
-        WiFi.Set_Credentials(WiFi_Name, WiFi_Password);
-        break;
-    case Instruction('R', 'e'):
-        Refresh_Install();
-        break;
-    default:
-        SHELL->Execute_Instruction(Instruction);
-        break;
-    }
 }

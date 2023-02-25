@@ -226,6 +226,11 @@ const Color_Type Color_Class::Blue_Grey[10] = {
     Color_Type(0x37, 0x47, 0x4F),    
     Color_Type(0x26, 0x32, 0x38)};
 
+const Color_Type Color_Class::Xila_Red(0xe00000);
+const Color_Type Color_Class::Xila_Green(0x80c020);
+const Color_Type Color_Class::Xila_Blue(0x20a0a0);
+const Color_Type Color_Class::Xila_Yellow(0xffb000);
+
 // - Constructors.
 
 Color_Class::Color_Class()

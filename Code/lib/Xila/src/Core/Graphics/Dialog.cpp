@@ -30,7 +30,7 @@ bool Dialog_Class::Is_Overlay()
     return Overlay;
 }
 
-void Dialog_Class::Enable_Overlay(bool Enable)
+void Dialog_Class::Set_Overlay(bool Enable)
 {
     if (Enable)
     {

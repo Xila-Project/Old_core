@@ -35,7 +35,7 @@ namespace Xila_Namespace
         Checkbox_Class& operator=(const Object_Class& Object);
         // - - Setters.
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Text(const char *Text);
         void Set_Text_Static(const char *Text);

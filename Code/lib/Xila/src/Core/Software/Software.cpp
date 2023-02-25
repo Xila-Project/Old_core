@@ -42,6 +42,7 @@ Software_Class::~Software_Class() // Destructor : close
       break;
     }
   }
+  Main_Task.Delete();
 }
 
 /// @brief Start a software main task.
@@ -53,17 +54,9 @@ void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
   Local_Instance_Pointer->Main_Task_Function();
 }
 
-///
-/// @brief Function that close software.
-///
-void Software_Class::Close()
-{
-  Instruction_Type Instruction(this, this);
-  Instruction.Software.Set_Code((uint8_t)Event_Code_Type::Close);
-}
 
 void Software_Class::Main_Task_Function()
 {
   // If no function is defined, the software will be closed.
-  Close();
+  delete this;
 }

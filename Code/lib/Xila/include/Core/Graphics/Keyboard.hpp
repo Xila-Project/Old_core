@@ -40,7 +40,7 @@ namespace Xila_Namespace
         void Remove_Text_Area();
 
         // -- -- Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         void Set_Text_Area(Text_Area_Class &Text_Area);
         void Set_Mode(Mode_Type Mode);
         void Set_Pop_Overs(bool Enabled);

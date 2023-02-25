@@ -27,7 +27,7 @@ namespace Xila_Namespace
 
         // -- -- Setters.
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
         void Set_Showed_Date(uint32_t Year, uint32_t Month);

@@ -20,7 +20,7 @@ namespace Xila_Namespace
     typedef class Semaphore_Class
     {
     public:
-     
+             
         enum class Type_Type 
         {
             Binary,
@@ -29,12 +29,15 @@ namespace Xila_Namespace
             Recursive_Mutex
         };
 
+        // - Methods
+
+        // - - Constructors / destructors
+
         Semaphore_Class();
 
         Result_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
-        // Event_Type Create_Static()
-
         void Delete();
+
         Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);
         void Take_Recursive(Tick_Type Tick_To_Wait);
         void Give();

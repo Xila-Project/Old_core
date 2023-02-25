@@ -19,7 +19,7 @@ namespace Xila_Namespace {
 
         // - - Setters
 
-        void Enable_Overlay(bool Enable);
+        void Set_Overlay(bool Enable);
 
     private:
 

@@ -56,32 +56,14 @@
 #include "Power/Power.hpp"
 #include "Software/Software.hpp"
 #include "Software/Software_Handle.hpp"
+#include "Software/Softwares.hpp"
 #include "Sound/Sound.hpp"
 #include "System/System.hpp"
 
-
-///
-/// @class Xila_Class
-///
-/// @brief Core class.
-///
-/// @details Contain all core A.P.I. and modules to make the kernel working.
-///
+/// @brief Xila namespace
+/// @details Gather all the parts used by Xila core : modules, types, sub-namespaces etc.
 namespace Xila_Namespace
 {
-    //==============================================================================//
-    //                              Enumerations & Type definition                  //
-    //==============================================================================//
-
-    // - General types
-
-/*    typedef Size_Type Size_Type;
-    typedef Module_Class::Result Result;
-    typedef Module_Class::Module Module;
-    typedef Module_Class::Time_Type Time_Type;
-    typedef Module_Class::Instruction_Type Instruction_Type;
-    typedef Module_Class::Task_Class Task_Class;
-*/
 };
 
 namespace Xila = Xila_Namespace;

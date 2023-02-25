@@ -27,14 +27,9 @@ namespace Xila_Namespace
 {
     typedef class Software_Class : public Module_Class
     {
-    public:
-    
-        enum class Event_Code_Type : uint8_t
-        {
-            Open,
-            Close
-        };
 
+    protected:
+    
         // - Types
         typedef enum State_Enumeration
         {
@@ -50,19 +45,25 @@ namespace Xila_Namespace
         virtual ~Software_Class();
 
         /// @brief Software task handle.
-        Task_Type Main_Task;
 
+        const Software_Handle_Type* Get_Handle_Pointer();
+
+        // - - Task
 
         static void Start_Main_Task_Function(void* Instance_Pointer);
         virtual void Main_Task_Function();
 
         // Handler for external software.
         static void Create_Instance();
-        void Kill();
-        void Close();
 
-   // private:
         // - Attributes
+
+        /// @brief Software task handle.
+        Task_Type Main_Task;
+        
+   private:
+        // - Attributes
+        
         // - - Local attributes
         Software_Handle_Type *Handle_Pointer;
 
@@ -70,8 +71,8 @@ namespace Xila_Namespace
         /// @brief Openned software pointer array
         static std::vector<Software_Class *> List;
 
-        friend class System_Class;
-        friend class Shell_Class;
+        friend class Softwares_Class;
+
     } Software_Type;
 }
 

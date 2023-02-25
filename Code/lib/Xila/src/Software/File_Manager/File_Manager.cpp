@@ -8,11 +8,9 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Software/Shell/Shell.hpp"
-#include "Software/Shell/Translation.hpp"
+#include "Software/File_Manager/File_Manager.hpp"
 
-Shell_Class::File_Manager_Class::File_Manager_Class(Shell_Class *Shell_Pointer)
-    : Shell_Pointer(Shell_Pointer)
+File_Manager_Class::File_Manager_Class() : Software_Class(&Handle)
 {
     Window.Create();
     Window.Set_Title("File Manager");
@@ -44,38 +42,38 @@ Shell_Class::File_Manager_Class::File_Manager_Class(Shell_Class *Shell_Pointer)
 
     List.Add_Text("Browse");
     Parent_Folder_Button = List.Add_Button(LV_SYMBOL_UP, "Parent");
-    Parent_Folder_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Parent_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Refresh_Button = List.Add_Button(LV_SYMBOL_REFRESH, "Refresh");
-    Refresh_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Refresh_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Home_Folder_Button = List.Add_Button(LV_SYMBOL_DIRECTORY, "Home");
-    Home_Folder_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Home_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Root_Folder_Button = List.Add_Button(LV_SYMBOL_DRIVE, "Root");
-    Root_Folder_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Root_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
     List.Add_Text("Create");
     New_Folder_Button = List.Add_Button(LV_SYMBOL_DIRECTORY, "New folder");
-    New_Folder_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    New_Folder_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     New_File_Button = List.Add_Button(LV_SYMBOL_FILE, "New file");
-    New_File_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    New_File_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
     List.Add_Text("Selection");
     Select_Button = List.Add_Button(LV_SYMBOL_OK, "Select");
-    Select_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Select_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Deselect_Button = List.Add_Button(LV_SYMBOL_CLOSE, "Cancel");
-    Deselect_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Deselect_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Copy_Button = List.Add_Button(LV_SYMBOL_COPY, "Copy");
-    Copy_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Copy_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Cut_Button = List.Add_Button(LV_SYMBOL_CUT, "Cut");
-    Cut_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Cut_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Paste_Button = List.Add_Button(LV_SYMBOL_PASTE, "Paste");
-    Paste_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Paste_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Paste_Button.Add_Flag(Flag_Type::Hidden);
     Rename_Button = List.Add_Button(LV_SYMBOL_EDIT, "Rename");
-    Rename_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Rename_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Delete_Button = List.Add_Button(LV_SYMBOL_TRASH, "Delete");
-    Delete_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Delete_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
     Details_Button = List.Add_Button(LV_SYMBOL_EYE_OPEN, "Details");
-    Details_Button.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
+    Details_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
 
     Details_Dialog.Create(Window);
     Details_Dialog.Set_Title("Details");
@@ -88,7 +86,7 @@ Shell_Class::File_Manager_Class::File_Manager_Class(Shell_Class *Shell_Pointer)
     this->Refresh();
 }
 
-Shell_Class::File_Manager_Class::~File_Manager_Class()
+File_Manager_Class::~File_Manager_Class()
 {
     Flexbox.Delete();
     Path_Text_Area.Delete();
@@ -98,29 +96,28 @@ Shell_Class::File_Manager_Class::~File_Manager_Class()
     Window.Delete();
 }
 
-void Shell_Class::File_Manager_Class::Open(Shell_Class *Shell_Pointer)
+void File_Manager_Class::Main_Task_Function()
 {
-    Shell_Pointer->File_Manager_Pointer = new File_Manager_Class(Shell_Pointer);
-}
-
-void Shell_Class::File_Manager_Class::Close(Shell_Class *Shell_Pointer)
-{
-    delete Shell_Pointer->File_Manager_Pointer;
-    Shell_Pointer->File_Manager_Pointer = NULL;
-}
-
-bool Shell_Class::File_Manager_Class::Is_Openned(Shell_Class *Shell_Pointer)
-{
-    if (Shell_Pointer->File_Manager_Pointer == NULL)
+    uint32_t Next_Refresh = 0;
+    while (1)
     {
-        return false;
+        if (this->Instruction_Available())
+        {
+            this->Execute_Instruction(Get_Instruction());
+        }
+        else
+        {
+            if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
+            {
+                this->Refresh();
+                Next_Refresh = System.Get_Up_Time_Milliseconds() + 4000;
+            }
+            Main_Task.Delay(40);
+        }
     }
-    return true;
 }
 
-// -- File manager state -- //
-
-void Shell_Class::File_Manager_Class::Refresh()
+void File_Manager_Class::Refresh()
 {
     File_Type Folder = Drive.Open(Path_Text_Area.Get_Text());
 
@@ -136,7 +133,7 @@ void Shell_Class::File_Manager_Class::Refresh()
     File_Type File = Folder.Open_Next_File();
 
     Checkbox_Type Checkbox;
-    char Item_Name[33] = {0};
+    Static_String_Type<32> Item_Name;
 
     uint8_t i = 0;
     while (File)
@@ -148,25 +145,20 @@ void Shell_Class::File_Manager_Class::Refresh()
             Checkbox.Create(Flexbox);
             Checkbox.Set_Alignment(Alignment_Type::Out_Left_Middle);
             Checkbox.Add_State(Graphics_Types::State_Type::Disabled);
-            Checkbox.Add_Event(Shell_Pointer, Graphics_Type::Clicked);
-            Checkbox.Add_Event(Shell_Pointer, Graphics_Type::Long_Pressed);
+            Checkbox.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
+            Checkbox.Add_Event(this, Graphics_Types::Event_Code_Type::Long_Pressed);
         }
 
-        if (File.isDirectory())
+        if (File.Is_Directory())
         {
-            strlcat(Item_Name, LV_SYMBOL_DIRECTORY, sizeof(Item_Name));
+            Item_Name.Copy_Format("%s %s", LV_SYMBOL_DIRECTORY, File.Get_Name());
         }
         else
         {
-            strlcat(Item_Name, LV_SYMBOL_FILE, sizeof(Item_Name));
+            Item_Name.Copy_Format("%s %s", LV_SYMBOL_FILE, File.Get_Name());
         }
 
-        strlcat(Item_Name, " ", sizeof(Item_Name));
-        strlcat(Item_Name, File.name(), sizeof(Item_Name));
-
         Checkbox.Set_Text(Item_Name);
-
-        memset(Item_Name, '\0', sizeof(Item_Name));
         Checkbox.Clear_Pointer();
     }
 
@@ -178,7 +170,7 @@ void Shell_Class::File_Manager_Class::Refresh()
     Folder.Close();
 }
 
-void Shell_Class::File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
+void File_Manager_Class::Enable_Selection_Mode(bool Multiple = false)
 {
     if (Multiple)
     {
@@ -210,7 +202,7 @@ void Shell_Class::File_Manager_Class::Enable_Selection_Mode(bool Multiple = fals
     }
 }
 
-void Shell_Class::File_Manager_Class::Disable_Selection_Mode()
+void File_Manager_Class::Disable_Selection_Mode()
 {
     Select_Button.Clear_Flag(Flag_Type::Hidden);
     Deselect_Button.Add_Flag(Flag_Type::Hidden);
@@ -227,7 +219,7 @@ void Shell_Class::File_Manager_Class::Disable_Selection_Mode()
     }
 }
 
-uint8_t Shell_Class::File_Manager_Class::Count_Selected_Items()
+uint8_t File_Manager_Class::Count_Selected_Items()
 {
     uint8_t Selected_Item_Count = 0;
     for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
@@ -240,11 +232,11 @@ uint8_t Shell_Class::File_Manager_Class::Count_Selected_Items()
     return Selected_Item_Count;
 }
 
-void Shell_Class::File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
+void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
-        if (Instruction.Graphics.Get_Code() == Graphics_Type::Event_Code_Type::Clicked)
+        if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
         {
             if (Instruction.Graphics.Get_Object() == Parent_Folder_Button)
             {
@@ -326,7 +318,7 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Instruction_Type Instr
                 }
             }
         }
-        else if (Instruction.Graphics.Get_Code() == Graphics_Type::Event_Code_Type::Long_Pressed)
+        else if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Long_Pressed)
         {
             for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
             {
@@ -349,7 +341,7 @@ void Shell_Class::File_Manager_Class::Execute_Instruction(Instruction_Type Instr
     }
 }
 
-void Shell_Class::File_Manager_Class::Details()
+void File_Manager_Class::Details()
 {
     for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
     {
@@ -375,10 +367,10 @@ void Shell_Class::File_Manager_Class::Details()
             Details_Table.Set_Cell_Value(0, 1, "Value");
 
             Details_Table.Set_Cell_Value(1, 0, "Name");
-            Details_Table.Set_Cell_Value(1, 1, Item.name());
+            Details_Table.Set_Cell_Value(1, 1, Item.Get_Name());
 
             Details_Table.Set_Cell_Value(1, 0, "Type");
-            if (Item.isDirectory())
+            if (Item.Is_Directory())
             {
                 Details_Table.Set_Cell_Value(2, 1, "Directory");
             }
@@ -389,7 +381,7 @@ void Shell_Class::File_Manager_Class::Details()
 
             Details_Table.Set_Cell_Value(3, 0, "Size");
             // TODO : Replace with regular char.
-            Details_Table.Set_Cell_Value(3, 1, String(Item.size()).c_str());
+            Details_Table.Set_Cell_Value(3, 1, String(Item.Get_Size()).c_str());
 
             // TODO : Do creation date.
             // Details_Table.Set_Cell_Value(4, 0, "Last write");
@@ -407,7 +399,7 @@ void Shell_Class::File_Manager_Class::Details()
     }
 }
 
-void Shell_Class::File_Manager_Class::Rename()
+void File_Manager_Class::Rename()
 {
     for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
     {
@@ -420,7 +412,7 @@ void Shell_Class::File_Manager_Class::Rename()
             Checkbox_Type Checkbox = Flexbox.Get_Child(i);
             strlcat(Buffer, Checkbox.Get_Text(), sizeof(Buffer));
 
-            File Item = Drive.Open(Buffer);
+            File_Type Item = Drive.Open(Buffer);
 
             // TODO : Add dialog
 
@@ -432,7 +424,7 @@ void Shell_Class::File_Manager_Class::Rename()
     Refresh();
 }
 
-void Shell_Class::File_Manager_Class::Delete()
+void File_Manager_Class::Delete()
 {
 
     for (uint8_t i = 0; i < Flexbox.Get_Child_Count(); i++)
@@ -448,7 +440,7 @@ void Shell_Class::File_Manager_Class::Delete()
 
             if (Item)
             {
-                if (Item.isDirectory())
+                if (Item.Is_Directory())
                 {
                     Drive.Remove_Directory(Buffer);
                 }
@@ -462,7 +454,7 @@ void Shell_Class::File_Manager_Class::Delete()
     Refresh();
 }
 
-void Shell_Class::File_Manager_Class::Paste()
+void File_Manager_Class::Paste()
 {
     /*
         if (Selected_Item.isDirectory())
@@ -494,7 +486,7 @@ void Shell_Class::File_Manager_Class::Paste()
     }*/
 }
 
-void Shell_Class::File_Manager_Class::Create_File()
+void File_Manager_Class::Create_File()
 {
     memset(Buffer, '\0', sizeof(Buffer));
     strlcat(Buffer, Path_Text_Area.Get_Text(), sizeof(Buffer));
@@ -524,7 +516,7 @@ void Shell_Class::File_Manager_Class::Create_File()
     Refresh();
 }
 
-void Shell_Class::File_Manager_Class::Create_Folder()
+void File_Manager_Class::Create_Folder()
 {
     memset(Buffer, '\0', sizeof(Buffer));
     strlcat(Buffer, Path_Text_Area.Get_Text(), sizeof(Buffer));
@@ -555,7 +547,7 @@ void Shell_Class::File_Manager_Class::Create_Folder()
 }
 
 
-void Shell_Class::File_Manager_Class::Go_Parent_Folder()
+void File_Manager_Class::Go_Parent_Folder()
 {
     memset(Buffer, '\0', sizeof(Buffer));
     strlcpy(Buffer, Path_Text_Area.Get_Text(), sizeof(Buffer));

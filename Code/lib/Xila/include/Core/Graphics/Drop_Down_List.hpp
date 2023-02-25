@@ -34,7 +34,7 @@ namespace Xila_Namespace
         bool Is_Open();
 
         // - - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         void Set_Text(const char *Text);
         void Set_Options(const char *Options);
         void Set_Options_Static(const char *Options);

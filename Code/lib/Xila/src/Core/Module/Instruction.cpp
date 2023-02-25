@@ -20,32 +20,30 @@ Instruction_Class::Instruction_Class(Module_Class *Sender, Module_Class *Receive
     : Sender(Sender),
       Receiver(Receiver)
 {
-
 }
 
 Instruction_Class::Instruction_Class()
     : Sender(NULL),
       Receiver(NULL)
 {
-
 }
 
-Module_Class* Instruction_Class::Get_Sender() const
+Module_Class *Instruction_Class::Get_Sender() const
 {
     return Sender;
 }
 
-Module_Class* Instruction_Class::Get_Receiver() const
+Module_Class *Instruction_Class::Get_Receiver() const
 {
     return Receiver;
 }
 
-void Instruction_Class::Set_Sender(Module_Class* Sender)
+void Instruction_Class::Set_Sender(Module_Class *Sender)
 {
     this->Sender = Sender;
 }
 
-void Instruction_Class::Set_Receiver(Module_Class* Receiver)
+void Instruction_Class::Set_Receiver(Module_Class *Receiver)
 {
     this->Receiver = Receiver;
 }
@@ -54,10 +52,9 @@ void Instruction_Class::Set_Receiver(Module_Class* Receiver)
 
 // - - Constructor
 
-Instruction_Class::Graphics_Class::Graphics_Class()
-    : Code(Graphics_Types::Event_Code_Type::All),
-      Object_Pointer(NULL)
-{}
+Instruction_Class::Graphics_Class::Graphics_Class() : Object_Pointer(NULL)
+{
+}
 
 void Instruction_Class::Graphics_Class::Set_Code(Graphics_Types::Event_Code_Type Code)
 {
@@ -76,7 +73,6 @@ Graphics_Types::Event_Code_Type Instruction_Class::Graphics_Class::Get_Code() co
 
 Object_Type Instruction_Class::Graphics_Class::Get_Object() const
 {
-    Object_Type Object(static_cast<lv_obj_t*>(Object_Pointer));
+    Object_Type Object(static_cast<lv_obj_t *>(Object_Pointer));
     return Object;
 }
-

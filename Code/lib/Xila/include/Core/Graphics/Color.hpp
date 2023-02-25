@@ -58,6 +58,10 @@ namespace Xila_Namespace
         static const Color_Class Brown[10];
         static const Color_Class Blue_Grey[10];
         static const Color_Class Grey[10];
+        static const Color_Class Xila_Red;
+        static const Color_Class Xila_Green;
+        static const Color_Class Xila_Blue;
+        static const Color_Class Xila_Yellow;
 
         // - Methods
 

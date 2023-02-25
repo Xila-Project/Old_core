@@ -29,7 +29,7 @@ namespace Xila_Namespace
         void Rename_Tab(const char *Name);
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Active_Tab(uint16_t Identifier, bool Animation);
 

@@ -8,7 +8,6 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/System/System.hpp"
 #include "Core/Core.hpp"
 
 #include "soc/rtc_wdt.h"
@@ -78,7 +77,7 @@ Result_Type System_Class::Load_Registry()
   }
   }
   
-  this->Device_Name = System_Registry["Device Name"] | Default_Device_Name;
+  this->Device_Name = System_Registry["Device Name"].as<const char*>() | Default_Device_Name;
 
   return Result_Type::Success;
 }
@@ -131,6 +130,8 @@ void System_Class::Task_Function()
 {
   uint32_t Next_Refresh = 0;
   Power.Button_Counter = 0;
+
+  Load();
 
   while (1)
   {
@@ -402,7 +403,7 @@ void System_Class::Set_Device_Name(const String_Class& Device_Name)
 /// @brief Function that start Xila.
 void System_Class::Start()
 {
-
+  // Enable the power button.
   esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(Power_Button_Pin), LOW);
 
   if (Task.Get_State() != Task_Class::State_Type::Invalid) // Already started
@@ -430,10 +431,6 @@ void System_Class::Start()
 void System_Class::Load()
 {
 
-  // -- Set power button interrupts
-  Pin.Set_Mode(Power_Button_Pin, Pin_Types::Mode_Type::Input);
-  Pin.Attach_Interrupt(digitalPinToInterrupt(Power_Button_Pin), Power.Button_Interrupt_Handler, Pin_Types::Interrupt_Mode_Type::Change);
-
   // -- Increase esp32 hardware watchdog timeout
 
   if (esp_task_wdt_init(Maximum_Watchdog_Timeout / 1000, true) != ESP_OK)
@@ -459,10 +456,18 @@ void System_Class::Load()
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
   Log_Raw_Line("");
-  Log_Raw_Line(" > Version :" Stringizing(Xila_Version_Major) " . " Stringizing(Xila_Version_Minor) " . " Stringizing(Xila_Version_Revision) " - Alix ANNERAUD - MIT Licence - 2021");
+  Log_Raw_Line(" > Version :" Stringizing(Xila_Version_Major) " . " Stringizing(Xila_Version_Minor) " . " Stringizing(Xila_Version_Revision) " - Alix ANNERAUD - MIT Licence - 2023");
   Log_Raw_Line("");
   Log_Information("Starting Xila ...");
   Log_Verbose("First start routine.");
+
+  // - Power
+
+  while (Power.Start() != Result_Type::Success)
+  {
+    Log_Error("Failed to initialize power ...");
+    Task.Delay(200);
+  }
 
   // - Drive
 
@@ -497,8 +502,8 @@ void System_Class::Load()
   Logo.Create(Background);
   Logo.Set_Size(256, 256);
   Logo.Set_Alignment(Alignment_Type::Center);
-  Logo.Set_Style_Pad_All(0);
-  Logo.Set_Style_Background_Opacity(0);
+  Logo.Set_Style_Pad_All(0, 0);
+  Logo.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
   Logo.Set_Style_Shadow_Color(Color_Type::White, 0);
 
   Object_Type Red;
@@ -569,7 +574,7 @@ void System_Class::Load()
     Panic_Handler(Panic_Code::Failed_To_Start_Sound);
   }
 
-  Sound.Play(Sounds("Startup.wav"));
+  // Sound.Play(Sounds("Startup.wav"));
 
   // - Power
 
@@ -620,32 +625,8 @@ void System_Class::Load()
 
   Task_Type::Delay_Static(100);
 
-  Execute_Startup_Function();
-
-  // Delete main task.
-  vTaskDelete(NULL);
 }
 
-///
-/// @brief Execute software startup function.
-///
-void System_Class::Execute_Startup_Function()
-{
-
-  (*Shell_Handle.Startup_Function_Pointer)();
-
-  for (uint8_t i = 0; i < Maximum_Software; i++)
-  {
-
-    if (Software_Management.Handle[i] != NULL)
-    {
-      if (Software_Management.Handle[i]->Startup_Function_Pointer != NULL)
-      {
-        (*Software_Management.Handle[i]->Startup_Function_Pointer)();
-      }
-    }
-  }
-}
 
 ///
 /// @brief Shutdown

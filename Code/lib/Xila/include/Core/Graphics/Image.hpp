@@ -82,7 +82,7 @@ namespace Xila_Namespace
         void Create(Object_Class Parent_Object) override;
 
         // -- Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Source(const void *Source);
         void Set_Offset_X(Coordinate_Type X_Offset);

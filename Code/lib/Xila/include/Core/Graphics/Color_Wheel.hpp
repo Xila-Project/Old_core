@@ -48,7 +48,7 @@ namespace Xila_Namespace
         void Set_Mode(Mode::Type Mode);
         void Set_Mode_Fixed(bool Fixed);
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
     } Color_Wheel_Type;
 }
 

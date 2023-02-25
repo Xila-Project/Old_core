@@ -45,7 +45,7 @@ namespace Xila_Namespace
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
         ~Module_Class();
 
-        void Send_Instruction(const Instruction_Type &Instruction);
+        Result_Type Send_Instruction(const Instruction_Type &Instruction);
 
         Instruction_Type Get_Instruction();
         Size_Type Instruction_Available();
@@ -56,9 +56,6 @@ namespace Xila_Namespace
         static std::vector<Module_Class *> List; // - Module lists.
 
     } Module_Type;
-
-#define Instruction_Macro()
-
 }
 
 #endif

@@ -22,43 +22,53 @@
 
 namespace Xila_Namespace
 {
-    class Power_Class : public Module_Class, public Battery_Class
+    typedef class Power_Class : public Module_Class, public Battery_Class
     {
 
     public:
-        // -- Constructors / Destructors
+        // - Methods
+
+        // - - Constructors / Destructors
         Power_Class();
+        ~Power_Class();
 
-        // -- Methods
-
-        Result_Type Save_Registry();
-        Result_Type Load_Registry();
+        Result_Type Start();
+        Result_Type Stop();
 
         uint8_t Get_Battery_Charge_Level();
         uint16_t Get_Battery_Voltage();
 
-        // -- Attributes
-        ///
-        /// @brief Button press counter.
-        ///
-        volatile uint8_t Button_Counter;
-
-        ///
-        /// @brief Button press timer, used to differentiate a short press from a long press.
-        ///
-        volatile uint32_t Button_Timer;
-
-        ///
-        /// @brief Button interrupt mutex.
-        ///
-        portMUX_TYPE Button_Mutex;
-
-        // -- Methods -- //
-        void static IRAM_ATTR Button_Interrupt_Handler();
+        static void IRAM_ATTR Button_Interrupt_Handler();
 
         void Check_Button();
         void Deep_Sleep();
-    } Power;
+
+
+    private:
+        // - Methods
+
+        // - - Registry
+        Result_Type Create_Registry();
+        Result_Type Save_Registry();
+        Result_Type Load_Registry();
+
+        // - - Task
+        static void Task_Start_Function(void* Instance_Pointer);
+        void Task_Function();
+
+       // - Attributes
+
+        Task_Type Task;
+
+        /// @brief Button press counter.
+        volatile uint8_t Button_Counter;
+
+
+        /// @brief Button press timer, used to differentiate a short press from a long press.
+        volatile uint32_t Button_Timer;
+    } Power_Type;
+
+    extern Power_Type Power;
 }
 
 #endif

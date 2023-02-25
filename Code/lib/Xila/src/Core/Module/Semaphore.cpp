@@ -42,10 +42,7 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
     {
         return Result_Type::Error;
     }
-    else
-    {
-        return Result_Type::Success;
-    }
+    return Result_Type::Success;
 }
 
 /*

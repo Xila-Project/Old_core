@@ -44,7 +44,7 @@ namespace Xila_Namespace
         /// -- Methods -- //
         bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
 
-   // protected:
+    private:
         static std::vector<Software_Handle_Class *> List;
 
         // - Attributes
@@ -59,6 +59,8 @@ namespace Xila_Namespace
         /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
         ///
         void (*Create_Instance_Pointer)();
+
+        friend class Softwares_Class;
     } Software_Handle_Type;
 
     bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b);

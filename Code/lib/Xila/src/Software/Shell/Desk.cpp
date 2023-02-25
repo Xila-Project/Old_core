@@ -30,7 +30,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Battery_Button.Set_Alignment(Clock_Label, Alignment_Type::Out_Left_Middle, -4, 0);
     Battery_Button.Set_Size(24, 24);
     Battery_Button.Set_Style_Border_Width(0, 0);
-    Battery_Button.Add_Event(Shell_Pointer, Object_Type::Clicked);
+    Battery_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     Battery_Image.Create(Battery_Button);
     Battery_Image.Set_Source(LV_SYMBOL_BATTERY_FULL);
@@ -40,7 +40,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Sound_Button.Set_Alignment(Battery_Button, Alignment_Type::Out_Left_Middle, -4, 0);
     Sound_Button.Set_Size(24, 24);
     Sound_Button.Set_Style_Border_Width(0, 0);
-    Sound_Button.Add_Event(Shell_Pointer, Object_Type::Clicked);
+    Sound_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     Sound_Image.Create(Sound_Button);
     Sound_Image.Set_Source(LV_SYMBOL_AUDIO);
@@ -50,7 +50,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     WiFi_Button.Set_Alignment(Sound_Button, Alignment_Type::Out_Left_Middle, -4, 0);
     WiFi_Button.Set_Size(24, 24);
     WiFi_Button.Set_Style_Border_Width(0, 0);
-    WiFi_Button.Add_Event(Shell_Pointer, Object_Type::Clicked);
+    WiFi_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     WiFi_Image.Create(WiFi_Button);
     WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
@@ -103,8 +103,8 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
                 Label.Set_Grid_Cell(Grid_Alignment_Type::Center, (i % 5), 1, Grid_Alignment_Type::End, i / 5, 1);
             }
 
-            Icon.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
-            Label.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+            Icon.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+            Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
             Icon.Clear_Pointer();
             Label.Clear_Pointer();
@@ -161,7 +161,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Red_Part.Set_Alignment(Alignment_Type::Top_Left);
         Red_Part.Add_Style(Menu_Button_Part_Style, 0);
         Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Red_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+        Red_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
     }
     {
         Object_Type Blue_Part;
@@ -171,7 +171,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Blue_Part.Set_Alignment(Alignment_Type::Bottom_Left);
         Blue_Part.Add_Style(Menu_Button_Part_Style, 0);
         Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Blue_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+        Blue_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
     }
     {
         Object_Type Green_Part;
@@ -191,7 +191,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Yellow_Part.Set_Alignment(Alignment_Type::Top_Right);
         Yellow_Part.Add_Style(Menu_Button_Part_Style, 0);
         Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Yellow_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+        Yellow_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
     }
 
     Dock_List.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 1, Grid_Alignment_Type::Stretch, 0, 1);
@@ -241,7 +241,7 @@ void Shell_Class::Desk_Class::Refresh()
     // - Refresh dock software list.
 
     // If there are too many buttons, delete some.
-    while (Dock_List.Get_Child_Count() > (Software_Class::List.size() - 1))
+    while (Dock_List.Get_Child_Count() > (Softwares.Get_List().size() - 1))
     {
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
@@ -249,16 +249,16 @@ void Shell_Class::Desk_Class::Refresh()
     {
         Button_Type Button;
         Label_Type Label;
-        while (Dock_List.Get_Child_Count() < (Software_Class::List.size() - 1))
+        while (Dock_List.Get_Child_Count() < (Softwares.Get_List().size() - 1))
         {
             Button.Create(Dock_List);
             Button.Set_Size(40, 40);
             Button.Set_Style_Border_Width(0, 0);
-            Button.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+            Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
             Button.Clear_Pointer();
 
             Label.Create(Button);
-            Label.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+            Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
             Label.Set_Alignment(Alignment_Type::Center);
             Label.Clear_Pointer();
         }
@@ -268,13 +268,13 @@ void Shell_Class::Desk_Class::Refresh()
         Label_Type Label;
         char Text[3];
         uint8_t i = 0;
-        for (auto Software_Pointer : Software_Class::List)
+        for (auto Software_Pointer : Softwares.Get_List())
         {
             if (Software_Pointer == Shell_Pointer)
                 continue;
 
-            Text[0] = Software_Pointer->Handle_Pointer->Get_Name()[0];
-            Text[1] = Software_Pointer->Handle_Pointer->Get_Name()[1];
+            Text[0] = Software_Pointer->Get_Handle_Pointer()->Get_Name()[0];
+            Text[1] = Software_Pointer->Get_Handle_Pointer()->Get_Name()[1];
             Text[2] = '\0';
 
             Label = Dock_List.Get_Child(i);
@@ -291,17 +291,19 @@ void Shell_Class::Desk_Class::Refresh()
 void Shell_Class::Desk_Class::Refresh_Overlay()
 {
     // - Refresh clock
-    static tm Current_Time = Time.Get_Time();
+    static Time_Type Current_Time = System.Get_Time();
 
-    Clock_Label.Set_Text_Format("%02d:%02d", Current_Time.tm_hour, Current_Time.tm_min);
+    Clock_Label.Set_Text_Format("%02d:%02d", Current_Time.Get_Hours(), Current_Time.Get_Minutes());
 
+    if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
+    {
     // - Update WiFi signal strength
     // TODO : Add different WiFi signal strength icons.
-    if (WiFi.Get_RSSI() >= (-120 / 3))
+    if (WiFi.Station.Get_RSSI() >= (-120 / 3))
     {
         WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
     }
-    else if (WiFi.Get_RSSI() >= (-120 * 2 / 3))
+    else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
     {
         WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
     }
@@ -309,6 +311,16 @@ void Shell_Class::Desk_Class::Refresh_Overlay()
     {
         WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
     }
+    }
+    else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
+    {
+        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+    }
+    else
+    {
+        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+    }
+
 
     // - Update charge level
     if (Power.Get_Charge_Level() >= 85)
@@ -353,20 +365,20 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
     {
         switch (Instruction.Graphics.Get_Code())
         {
-        // TODO : Use implicit cast for enum
-        case Graphics_Type::Pressed:
+        case Graphics_Types::Event_Code_Type::Clicked:
         {
             // Check if dock button is pressed
             for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
             {
                 if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
                 {
-                    Instruction_Type Instruction(&Graphics, Software_Class::List[i]);
-                    Instruction.Graphics.Set_Code(Graphics_Type::Maximize);
-                    Software_Class::List[i]->Send_Instruction(Instruction);
+                    Instruction_Type Instruction(&Graphics, Softwares.Get_List()[i]);
+                    Instruction.Graphics.Set_Code(Graphics_Types::Event_Code_Type::Maximize);
+                    Softwares.Get_List()[i]->Send_Instruction(Instruction);
                     break;
                 }
             }
+            // TODO : Check also desk buttons
         }
         break;
         default:

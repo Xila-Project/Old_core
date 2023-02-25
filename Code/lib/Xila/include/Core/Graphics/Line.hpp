@@ -24,7 +24,7 @@ namespace Xila_Namespace
         void Create(Object_Class Parent_Object) override; 
 
         // - - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Points(const Point_Type *Points, uint16_t Number);
         void Set_Y_Inversion(bool Inversion);

@@ -115,6 +115,9 @@ namespace Xila_Namespace
         // - - System
 
         void Load();
+        void Start_Animation();
+        void Stop_Animation();
+        void Start_Modules();
 
         Result_Type Load_Registry();
         Result_Type Save_Registry();

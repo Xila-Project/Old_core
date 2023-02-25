@@ -16,9 +16,6 @@
 #define Button_Radius 4
 #define Slider_Radius 4
 
-#define Xila_Red LV_COLOR_MAKE(230, 0, 0)
-#define Xila_Blue LV_COLOR_MAKE(0, 0, 230)
-
 namespace Xila_Namespace
 {
     class Theme_Class

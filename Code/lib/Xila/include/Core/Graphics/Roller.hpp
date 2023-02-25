@@ -33,7 +33,7 @@ namespace Xila_Namespace
 
         // -- Setters
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer);
+        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Options(const char *Options, Mode_Type Mode);
         void Set_Selected(uint16_t Index, bool Animated);

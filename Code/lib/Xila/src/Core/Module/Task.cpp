@@ -56,7 +56,7 @@ void Task_Class::Delete()
 void Task_Class::Feed_Watchdog()
 {
     Watchdog_Timeout = Default_Watchdog_Timeout;
-    Watchdog_Timer = Time.Milliseconds();
+    Watchdog_Timer = System.Get_Up_Time_Milliseconds();
 }
 
 uint32_t Task_Class::Get_Watchdog_Timer()
@@ -76,7 +76,7 @@ void Task_Class::Check_Watchdogs()
     for (auto Task_Pointer : List)
     {
         // Check if a running or active task hasn't refresh its watchdog.
-        if (Task_Pointer->Get_State() == State_Type::Running && (Time.Milliseconds() - Task_Pointer->Get_Watchdog_Timer() > Task_Pointer->Get_Watchdog_Timeout()))
+        if (Task_Pointer->Get_State() == State_Type::Running && (System.Get_Up_Time_Milliseconds() - Task_Pointer->Get_Watchdog_Timer() > Task_Pointer->Get_Watchdog_Timeout()))
         {
             Task_Pointer->Suspend(); // Suspend task.
             // ? : Would it be safer to rather delete the task ?

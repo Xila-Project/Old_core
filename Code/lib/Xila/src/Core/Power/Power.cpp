@@ -16,14 +16,57 @@
 
 using namespace Xila_Namespace;
 
+Power_Type Power;
 
-///
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
-///
-Power_Class::Power_Class()
+Power_Class::Power_Class() : Button_Counter(0), Button_Timer(0), Task(this)
 {
-    Button_Mutex = portMUX_INITIALIZER_UNLOCKED;
-    Button_Counter = 0;
+}
+
+Power_Class::~Power_Class()
+{
+
+    
+}
+
+Result_Type Power_Class::Start()
+{
+    Pin.Set_Mode(Power_Button_Pin, Pin_Types::Mode_Type::Input);
+    Pin.Attach_Interrupt(Power_Button_Pin, Button_Interrupt_Handler,  Pin_Types::Interrupt_Mode_Type::Change);
+
+    if (Task.Get_State() == Task_Type::State_Type::Running)
+    {
+        return Result_Type::Success;
+    }
+
+    Task.Create(Task_Start_Function, "Power module", 2 * 1024, this, Task_Type::Priority_Type::System);
+
+
+    if (Load_Registry() != Result_Type::Success)
+    {
+        if (Create_Registry() != Result_Type::Success)
+        {
+            return Result_Type::Error;
+        }
+    }
+
+}
+
+
+Result_Type Power_Class::Stop()
+{
+    if (Task.Get_State() == Task_Type::State_Type::Running)
+    {
+        Task.Delete();
+    }
+
+
+    if (Save_Registry() != Result_Type::Success)
+    {
+        return Result_Type::Error;
+    }
+
+    return Result_Type::Success;
 }
 
 ///
@@ -72,16 +115,15 @@ Result_Type Power_Class::Save_Registry()
     return Result_Type::Success;
 }
 
-///
 /// @brief Handler of the power button interrupt.
-///
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
     using namespace Xila_Namespace::Pin_Types;
+    
     //vTaskEnterCritical(&Power.Button_Mutex);
     if (Pin.Digital_Read(Power_Button_Pin) == Digital_State_Type::High) // rise
     {
-        if (Power.Button_Timer != 0 && (Time.Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
+        if (Power.Button_Timer != 0 && (System.Get_Up_Time_Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
         {
             Power.Button_Counter = 0;
             Power.Deep_Sleep();
@@ -94,7 +136,7 @@ void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
     }
     else // falling
     {
-        Power.Button_Timer = Time.Milliseconds();
+        Power.Button_Timer = System.Get_Up_Time_Milliseconds();
         Power.Button_Counter = 0;
     }
 

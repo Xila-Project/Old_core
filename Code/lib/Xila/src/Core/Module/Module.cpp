@@ -8,25 +8,18 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Core/Module/Module.hpp"
+// - Includes
 
-#include "Core/Core.hpp"
+#include "Core/Module/Module.hpp"
+// - Namespaces
 
 using namespace Xila_Namespace;
 
-// ------------------------------------------------------------------------- //
-//
-//                               Variables
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
 std::vector<Module_Class*> Module_Class::List(40);
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Constructor
-//
-// ------------------------------------------------------------------------- //
+// - Methods
 
 Module_Class::Module_Class(Size_Type Queue_Size)
 {
@@ -45,36 +38,19 @@ Module_Class::~Module_Class()
     vQueueDelete(Instruction_Queue_Handle);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
-
-///
 /// @brief Used to send instructions to software.
 ///
 /// @param Instruction Instruction to send.
 ///
 /// @details It's used by Xila and the software itself to fill the instructions queue.
-void Module_Class::Send_Instruction(const Instruction_Type &Instruction)
+Result_Type Module_Class::Send_Instruction(const Instruction_Type &Instruction)
 {
-    xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, portMAX_DELAY);
+    if (xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, 0) != pdTRUE)
+    {
+        return Result_Type::Error;
+    }
+    return Result_Type::Success;
 }
-
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
-
-
-
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
 
 
 Size_Type Module_Class::Instruction_Available()
