@@ -268,7 +268,7 @@ void Shell_Class::Desk_Class::Refresh()
         Label_Type Label;
         char Text[3];
         uint8_t i = 0;
-        for (auto Software_Pointer : Softwares.Get_List())
+        for (auto & Software_Pointer : Softwares.Get_List())
         {
             if (Software_Pointer == Shell_Pointer)
                 continue;

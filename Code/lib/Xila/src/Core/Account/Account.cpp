@@ -99,6 +99,7 @@ Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const ch
 const char* Get_Autologin_User_Name()
 {
   // TODO : 
+  
 }
 
 /// @brief Return current session state.

@@ -17,9 +17,7 @@
 namespace Xila_Namespace
 {
 
-    ///
-    /// @brief Account management class
-    ///
+    /// @brief Account manager class
     typedef class Account_Class : public Module_Class
     {
     public:

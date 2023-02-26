@@ -34,9 +34,9 @@ Software_Class::Software_Class(Software_Handle_Type *Handle_Pointer, Size_Type M
 Software_Class::~Software_Class() // Destructor : close
 {
   // Don't forget to remove the software pointer from the software list.
-  for (auto Software_Pointer = List.begin(); Software_Pointer != List.end(); Software_Pointer++)
+  for (auto Software_Pointer = List.begin(); Software_Pointer < List.end(); Software_Pointer++)
   {
-    if (*Software_Pointer == this)
+    if ((*Software_Pointer) == this)
     {
       List.erase(Software_Pointer);
       break;

@@ -74,6 +74,7 @@ namespace Xila_Namespace
 
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
         static void Check_Watchdogs();
+        static void Suspend_All();
 
         void Feed_Watchdog();
 
@@ -81,6 +82,9 @@ namespace Xila_Namespace
         uint32_t Get_Watchdog_Timeout();
 
     private:
+
+        // - Attributes
+
         xTaskHandle Task_Handle;
 
         uint32_t Watchdog_Timer;

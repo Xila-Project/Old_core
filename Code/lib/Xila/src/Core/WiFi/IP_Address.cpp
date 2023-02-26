@@ -115,7 +115,7 @@ IP_Address_Class& IP_Address_Class::operator=(const uint8_t* Address)
 {
     if (Is_IPv4)
     {
-        memcpy(this->Address.Bytes, Address, sizeof(this->Address.Bytes)));
+        memcpy(this->Address.Bytes, Address, sizeof(this->Address.Bytes));
     }
     else
     {

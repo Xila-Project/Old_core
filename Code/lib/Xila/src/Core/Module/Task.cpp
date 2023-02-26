@@ -73,7 +73,7 @@ uint32_t Task_Class::Get_Watchdog_Timeout()
 void Task_Class::Check_Watchdogs()
 {
     // Iterate through all tasks.
-    for (auto Task_Pointer : List)
+    for (auto & Task_Pointer : List)
     {
         // Check if a running or active task hasn't refresh its watchdog.
         if (Task_Pointer->Get_State() == State_Type::Running && (System.Get_Up_Time_Milliseconds() - Task_Pointer->Get_Watchdog_Timer() > Task_Pointer->Get_Watchdog_Timeout()))
@@ -125,6 +125,11 @@ void Task_Class::Delay_Static(uint32_t Delay_In_Millisecond)
 void Task_Class::Delay_Until(TickType_t Time_Increment)
 {
     vTaskDelayUntil(&Previous_Wake_Time, Time_Increment);
+}
+
+void Task_Class::Suspend_All()
+{
+    vTaskSuspendAll();
 }
 
 Task_Class::State_Type Task_Class::Get_State()

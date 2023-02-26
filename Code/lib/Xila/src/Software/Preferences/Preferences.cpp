@@ -48,7 +48,6 @@ Preferences_Class::Preferences_Class() : Software_Class(&Handle)
     Draw_Wireless();
     Draw_Users();
     Draw_System();
-
 }
 
 Preferences_Class::~Preferences_Class()
@@ -356,10 +355,11 @@ void Preferences_Class::Draw_Softwares()
 
     {
         // - - - Software title label
-        Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
-
+        {
+            Label_Type Label;
+            Label.Create(Grid);
+            Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
+        }
         // - - - Softwares roller
 
         Softwares_Roller.Create(Grid);
@@ -369,11 +369,13 @@ void Preferences_Class::Draw_Softwares()
 
         Softwares_Delete_Button.Create(Grid);
         Softwares_Delete_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
-
-        Label_Type Label;
-        Label.Create(Softwares_Delete_Button);
-        Label.Set_Text("Delete");
-        Label.Set_Alignment(Alignment_Type::Center);
+     
+        {
+            Label_Type Label;
+            Label.Create(Softwares_Delete_Button);
+            Label.Set_Text("Delete");
+            Label.Set_Alignment(Alignment_Type::Center);
+        }
     }
 
     Refresh_Softwares();
@@ -629,9 +631,9 @@ void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
         if (Instruction.Softwares.Get_Code() == Softwares_Types::Event_Code_Type::Close)
         {
             delete this;
+            return;
         }
-
-    } 
+    }
     else if (Instruction.Get_Sender() == &Graphics)
     {
         if (Instruction.Graphics.Get_Object() == Tabs)
@@ -691,8 +693,9 @@ void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Ins
 {
     if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
     {
-        Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
-        Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+        // TODO : Send instruction to Shell to change style.
+        //Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
+        //Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
     }
 }
 
@@ -735,6 +738,7 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
         {
             WiFi.Station.Add(SSID, Wireless_WiFi_Password_Text_Area.Get_Text());
         }
+        
         WiFi.Station.Connect(SSID);
     }
 }
@@ -824,7 +828,7 @@ void Preferences_Class::Refresh_Softwares()
 {
     char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
     memset(Software_Name, '\0', sizeof(Software_Name));
-    for (auto Software_Handle : Software_Handle_Type::List)
+    for (auto & Software_Handle : Software_Handle_Type::List)
     {
         strlcat(Software_Name, Software_Handle->Get_Name(), sizeof(Software_Name));
         strcat(Software_Name, "\n");
@@ -976,9 +980,9 @@ void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instr
     {
         if (Instruction.Graphics.Get_Code() == Graphics_Types::Event_Code_Type::Clicked)
         {
-        Static_String_Type<32> Temporary_String = System_Time_NTP_Server_Text_Area.Get_Text();
-        System.Set_NTP_Server(Temporary_String);
-        // TODO : System.Set_Time_Zone(..);
+            Static_String_Type<32> Temporary_String = System_Time_NTP_Server_Text_Area.Get_Text();
+            System.Set_NTP_Server(Temporary_String);
+            // TODO : System.Set_Time_Zone(..);
         }
     }
     else if (Instruction.Graphics.Get_Object() == System_Time_Minus_Button)
@@ -994,7 +998,7 @@ void Preferences_Class::Execute_System_Instruction(const Instruction_Type &Instr
         {
             System_Time_Daylight_Offset_Spinbox.Increment();
         }
-    } 
+    }
 }
 
 void Preferences_Class::Refresh_System()

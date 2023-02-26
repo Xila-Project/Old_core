@@ -34,10 +34,11 @@ void Dialog_Class::Set_Overlay(bool Enable)
 {
     if (Enable)
     {
-        Overlay.Create(Get_Parent());
+        Overlay.Create(this->Get_Parent());
         Overlay.Set_Size(Percentage(100), Percentage(100));
         Overlay.Move_Foreground();
         Overlay.Add_Flag(Flag_Type::Clickable);
+        this->Move_Foreground();
 
         Move_Foreground();
     }

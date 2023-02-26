@@ -29,9 +29,8 @@ bool Shell_Class::Installer_Class::Is_Openned(Shell_Class *Shell_Pointer)
 Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     Dialog.Create(Graphics.Get_Top_Layer());
-    Dialog.Set_Overlay(true);
-
     Dialog.Set_Title("Installer");
+    Dialog.Set_Overlay(true);
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
     Dialog.Get_Body().Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
@@ -101,7 +100,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     Username_Text_Area.Set_One_Line(true);
     Username_Text_Area.Set_Maximum_Length(20);
     Username_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
-    Username_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Unfocused);
+    Username_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
     Username_Text_Area.Add_Flag(Flag_Type::Hidden);
 
     Password_Text_Area.Create(Dialog.Get_Body());
@@ -111,7 +110,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     Password_Text_Area.Set_One_Line(true);
     Password_Text_Area.Set_Maximum_Length(20);
     Password_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
-    Password_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Unfocused);
+    Password_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
     Create_Account_Button.Create(Dialog.Get_Body());
     Create_Account_Button.Set_Size(LV_PCT(80), 40);

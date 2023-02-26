@@ -24,7 +24,7 @@ namespace Xila_Namespace
     namespace System_Types
     {
         /// @brief Panic codes used by the panic handler.
-        enum class Panic_Code
+        enum class Panic_Type : uint32_t
         {
             Missing_System_Files,     ///< Missing system files (registries).
             Damaged_System_Registry,  ///< Damaged system registry.
@@ -129,7 +129,7 @@ namespace Xila_Namespace
         Result_Type Upgrade(File_Type Executable_File);
 
         void Second_Sleep_Routine();
-        void Panic_Handler(System_Types::Panic_Code Panic_Code);
+        void Panic_Handler(System_Types::Panic_Type Panic_Code);
         void Execute_Startup_Function();
 
         // - - Animation

@@ -106,24 +106,26 @@ private:
     class Drawer_Class
     {
     public:
+        // - Methods
         static void Open(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
 
-        void Execute_Instruction(Instruction_Type& Instruction);
+        void Execute_Instruction(const Instruction_Type& Instruction);
 
     private:
-        // - Attributes
-        Window_Type Window;
+
+        // - Methods
+
+        // - - Constructors / destructor
 
         Drawer_Class(Shell_Class *Shell_Pointer);
         ~Drawer_Class();
-
-        static const Instruction_Type Click_On_Item;
+    
+        // - Attributes
+        Window_Type Window;
 
         Shell_Class *Shell_Pointer;
-
-        friend class Shell_Class;
 
     } *Drawer_Pointer;
 
@@ -137,7 +139,7 @@ private:
         static void Close(Shell_Class *Shell_Pointer);
         static bool Is_Maximized(Shell_Class *Shell_Pointer);
 
-        void Execute_Instruction(Instruction_Type& Instruction);
+        void Execute_Instruction(const Instruction_Type& Instruction);
 
     private:
         // - Methods

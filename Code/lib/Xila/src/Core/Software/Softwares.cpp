@@ -28,7 +28,7 @@ Result_Type Softwares_Class::Open(Software_Handle_Type* Handle)
 
 Result_Type Softwares_Class::Open(String_Type& Name)
 {
-    for (auto Software_Handle : this->Get_Handle_List())
+    for (auto & Software_Handle : this->Get_Handle_List())
     {
         if (Software_Handle->Get_Name() == Name)
         {

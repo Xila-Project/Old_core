@@ -79,14 +79,12 @@ Software_Handle_Class::Create_Instance_Function_Pointer Software_Handle_Class::G
   return Create_Instance_Pointer;
 }
 
-///
-/// @brief Compare two software handle.
-///
-/// @param a 1st software handle to compare.
-/// @param b 2nd software handle to compare.
-/// @return true if software handle are identical
-/// @return false if software handle are different
-bool operator==(Software_Handle_Class const &a, Software_Handle_Class const &b)
+bool Software_Handle_Class::operator==(Software_Handle_Class const &Software_Handle_To_Compare) const
 {
-  return a.Is_Equal(b);
+  return Is_Equal(Software_Handle_To_Compare);
+}
+
+bool Software_Handle_Class::operator!=(Software_Handle_Class const &Software_Handle_To_Compare) const
+{
+  return !Is_Equal(Software_Handle_To_Compare);
 }

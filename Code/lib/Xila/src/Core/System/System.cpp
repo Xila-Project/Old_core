@@ -273,16 +273,38 @@ Result_Type System_Class::Upgrade(File_Type Executable_File)
 /// @brief Handle fatal events that the system cannot recover from.
 ///
 /// @param Panic_Code Panic code to handle.
-void System_Class::Panic_Handler(Panic_Code Panic_Code)
+void System_Class::Panic_Handler(Panic_Type Panic_Code)
 {
-  Log_Error("Panic handler triggered, error code : %X.", Panic_Code);
-  Display.Set_Current_Page(F("Core_Panic"));
+  Log_Error("Something went wrong ...");
+  Log_Error("Xila has encountered an unrecoverable error and must restart.\nPlease wait for the system to restart itself or press the power button for a few seconds.");
+  Log_Error("Error : %X.", Panic_Code);
+
+  Object_Type Background;
+  Background.Create(Graphics.Get_Screen());
+  Background.Set_Size(Percentage(100), Percentage(100));
+  Background.Set_Style_Background_Color(Color_Type::Black, 0);
+  Background.Set_Flex_Flow(Flex_Flow_Type::Column);
+  Background.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
+
+  Object_Type Logo;
+  Logo.Create(Background);
+  Logo.Set_Size(4 * 16, 4 * 16); 
+
+
+  Object_Type Background;
+  Background.Create(Graphics.Get_Screen());
+
+  Background.Set_Style_Background_Color(Color_Type::Black, 0);
+  
+
+  
+  
   char Temporary_String[32];
   snprintf(Temporary_String, sizeof(Temporary_String), "Error code : %X", Panic_Code);
   Display.Set_Text(F("ERRORCODE_TXT"), Temporary_String);
-  vTaskSuspendAll();
-  uint32_t Delay_Time = Time.Milliseconds();
-  while ((Time.Milliseconds() - Delay_Time) < 5000)
+  Task_Type::Suspend_All();
+  uint32_t Delay_Time = System.Get_Up_Time_Milliseconds();
+  while ((System.Get_Up_Time_Milliseconds() - Delay_Time) < 5000)
   {
   }
   abort();
@@ -361,7 +383,7 @@ Result_Type System_Class::Load_Dump()
     {
       memset(Temporary_Software_Name, '\0', sizeof(Temporary_Software_Name));
       strlcpy(Temporary_Software_Name, Software[i] | "", sizeof(Temporary_Software_Name));
-      for (auto Software_Handle : Software_Handle_Type::List)
+      for (auto & Software_Handle : Softwares.Get_Handle_List())
       {
         if (strcmp(Software_Handle->Get_Name(), Temporary_Software_Name) == 0)
         {
@@ -481,14 +503,14 @@ void System_Class::Load()
 
   if (Display.Start() != Result_Type::Success)
   {
-    Panic_Handler(Panic_Code::Failed_To_Start_Display);
+    Panic_Handler(Panic_Type::Failed_To_Start_Display);
   }
 
   // - Graphics
 
   if (Graphics.Start() != Result_Type::Success)
   {
-    Panic_Handler(Panic_Code::Failed_To_Start_Graphics);
+    Panic_Handler(Panic_Type::Failed_To_Start_Graphics);
   }
 
   Task.Delay(100);
@@ -571,7 +593,7 @@ void System_Class::Load()
 
   if (Sound.Start() != Result_Type::Success)
   {
-    Panic_Handler(Panic_Code::Failed_To_Start_Sound);
+    Panic_Handler(Panic_Type::Failed_To_Start_Sound);
   }
 
   // Sound.Play(Sounds("Startup.wav"));

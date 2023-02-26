@@ -63,5 +63,6 @@ Result_Type Cryptography_Class::Get_Hash(const char* Message, Size_Type Message_
     mbedtls_md_update(&Context, (const unsigned char*)Message, Message_Length);
     mbedtls_md_finish(&Context, (unsigned char*)Result);
     mbedtls_md_free(&Context); 
-    
+
+    return Result_Type::Success;   
 }

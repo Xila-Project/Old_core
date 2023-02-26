@@ -158,6 +158,41 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t C
     return Result_Type::Success;
 }
 
+bool WiFi_Class::Station_Class::Is_Known(const String_Type& SSID, int32_t Channel)
+{
+    File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
+    DynamicJsonDocument WiFi_Registry(8 * 128);
+
+    if (deserializeJson(WiFi_Registry, Registry_File) != DeserializationError::Ok)
+    {
+        return false;
+    }
+
+    JsonArray Access_Points = WiFi_Registry["Access_Points"];
+
+    if (Access_Points == NULL)
+    {
+        return false;
+    }
+
+    for (JsonObject Access_Point : Access_Points)
+    {
+        if (Access_Point["SSID"] == SSID)
+        {
+            if (Channel == 0)
+            {
+                return true;
+            }
+            else if (Access_Point["Channel"] == Channel)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
 /// @brief A function that create the structure of the WiFi registry.
 ///
 /// @return
@@ -189,7 +224,7 @@ Result_Type WiFi_Class::Create_Registry()
 Result_Type WiFi_Class::Load_Registry()
 {
     File_Type Temporary_File = Drive.Open(Registry("WiFi"), true);
-    DynamicJsonDocument Network_Registry(512);
+    DynamicJsonDocument Network_Registry(8 * 128);
     if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.Close();
@@ -269,17 +304,17 @@ Result_Type WiFi_Class::Save_Registry()
 Result_Type WiFi_Class::Station_Class::Connect(const String_Type& SSID)
 {
     File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
-    DynamicJsonDocument Network_Registry(512);
-    if (deserializeJson(Network_Registry, Registry_File))
+    DynamicJsonDocument WiFi_Registry(512);
+    if (deserializeJson(WiFi_Registry, Registry_File))
     {
         Registry_File.Close();
         return Result_Type::Error;
     }
     Registry_File.Close();
 
-    JsonArray Access_Points = Network_Registry["Access_Points"];
+    JsonArray Access_Points = WiFi_Registry["Access_Points"];
 
-    if ((strcmp(Network_Registry["Registry"] | "", "WiFi") != 0) || (Access_Points == NULL))
+    if ((strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0) || (Access_Points == NULL))
     {
 
         return Result_Type::Error;
