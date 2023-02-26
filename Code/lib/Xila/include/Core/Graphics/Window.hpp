@@ -17,7 +17,6 @@
 #include "Button.hpp"
 #include "Label.hpp"
 #include "Image.hpp"
-#include "../Account/Account.hpp"
 
 namespace Xila_Namespace
 {
@@ -41,7 +40,6 @@ namespace Xila_Namespace
         virtual void Create(Object_Class Parent_Object) override;
         // TODO : Make it protected.
         void Create();
-        void Create(const Account_Class::User_Class* Owner_User);
 
         void Set_Title(const char *Title);
 
@@ -53,23 +51,19 @@ namespace Xila_Namespace
         Object_Class Get_Body();
         Object_Class Get_Header();
 
-        bool Is_Focused();
-
-        const Account_Class::User_Class* Get_Owner_User();
+        const Accounts_Class::User_Class* Get_Owner_User();
 
 
     protected:
         // - Methods
     
         void Set_Interface();
-        void Set_Owner_User(const Account_Class::User_Class* Owner_User);
+        void Set_Owner_User(const Accounts_Class::User_Class* Owner_User);
 
-        static Window_Class Get_User_Parent_Window_Index(const Account_Class::User_Type* Owner_User);
+        static Window_Class Get_User_Parent_Window_Index(const Accounts_Class::User_Type* Owner_User);
 
         // - Attributes
         static std::vector<Window_Class> Parent_List;
-
-        Account_Type::User_Type* Owner_User;
 
         Object_Class Header;
         Object_Class Body;
@@ -88,15 +82,6 @@ namespace Xila_Namespace
         Button_Class Minimize_Button;
 
     } Window_Type;
-
-    typedef class Root_Window_Class : public Window_Class
-    {
-        public:
-        // - Methods
-
-        private:
-        // - Methods
-    };
 
 }
 

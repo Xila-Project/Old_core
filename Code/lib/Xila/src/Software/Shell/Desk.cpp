@@ -57,7 +57,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     WiFi_Image.Set_Alignment(Alignment_Type::Center);
 
     // Window
-    Window.Create(Account.Get_Logged_User());
+    Window.Create(Accounts.Get_Logged_User());
     Window.Set_Title("Desk");
 
     // Grid for icons

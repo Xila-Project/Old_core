@@ -120,7 +120,7 @@ Result_Type Shell_Class::Save_Registry()
 {
     Static_String_Type<64> Shell_Registry_Path = Users_Directory_Path;
     Shell_Registry_Path += "/";
-    Shell_Registry_Path += Account.Get_Current_Username();
+    Shell_Registry_Path += Accounts.Get_Current_Username();
     Shell_Registry_Path += "/Registry/Shell.xrf";
 
     File_Type Registry_File = Drive.Open(Shell_Registry_Path, true);

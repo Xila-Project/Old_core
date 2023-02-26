@@ -71,13 +71,13 @@ Result_Type System_Class::Load_Registry()
   {
     JsonObject Version = System_Registry["Version"];
 
-  if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
-  {
-    return Result_Type::Error;
+    if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
+    {
+      return Result_Type::Error;
+    }
   }
-  }
-  
-  this->Device_Name = System_Registry["Device Name"].as<const char*>() | Default_Device_Name;
+
+  this->Device_Name = System_Registry["Device Name"].as<const char *>() | Default_Device_Name;
 
   return Result_Type::Success;
 }
@@ -93,7 +93,7 @@ Result_Type System_Class::Save_Registry()
   StaticJsonDocument<512> System_Registry;
 
   System_Registry["Device name"] = Device_Name;
-  
+
   {
     JsonObject Version = System_Registry.createNestedObject("Version");
     Version["Major"] = Xila_Version_Major;
@@ -106,7 +106,7 @@ Result_Type System_Class::Save_Registry()
     Time["UTC Offset"] = this->UTC_Offset;
     Time["Daylight Offset"] = this->Daylight_Offset;
     Time["NTP Server"] = this->NTP_Server;
-  } 
+  }
 
   // - Serialise
   if (serializeJson(System_Registry, Temporary_File) == 0)
@@ -148,7 +148,7 @@ void System_Class::Task_Function()
     Task_Class::Check_Watchdogs();
 
     // -- Check WiFi is connected
-    //if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
+    // if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
     //{
     //  WiFi.Load_Registry();
     //}
@@ -186,7 +186,6 @@ Time_Type System_Class::Get_Up_Time()
 {
   uint32_t Up_Time = millis();
   return Time_Type(Up_Time / 3600000, (Up_Time % 3600000) / 60000, (Up_Time % 60000) / 1000, (Up_Time % 1000) * 1000);
-
 }
 
 uint64_t System_Class::Get_Up_Time_Microseconds()
@@ -214,7 +213,7 @@ uint16_t System_Class::Get_Daylight_Offset()
   return Daylight_Offset;
 }
 
-void System_Class::Get_NTP_Server(String_Type& NTP_Server)
+void System_Class::Get_NTP_Server(String_Type &NTP_Server)
 {
   NTP_Server = this->NTP_Server;
 }
@@ -226,7 +225,7 @@ void System_Class::Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset)
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
 }
 
-void System_Class::Set_NTP_Server(const String_Type& NTP_Server)
+void System_Class::Set_NTP_Server(const String_Type &NTP_Server)
 {
   this->NTP_Server = NTP_Server;
   configTime(this->UTC_Offset, this->Daylight_Offset, this->NTP_Server);
@@ -286,27 +285,79 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
   Background.Set_Flex_Flow(Flex_Flow_Type::Column);
   Background.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
-  Object_Type Logo;
-  Logo.Create(Background);
-  Logo.Set_Size(4 * 16, 4 * 16); 
+  {
+    Object_Type Logo;
+    Logo.Create(Background);
+    Logo.Set_Size(4 * 16, 4 * 16);
+    Logo.Set_Style_Pad_All(0, 0);
+    Logo.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
+    {
+      Object_Type Red;
+      Red.Create(Logo);
+      Red.Set_Size(4 * 5, 4 * 10);
+      Red.Set_Alignment(Alignment_Type::Top_Left);
+      Red.Set_Style_Pad_All(0, 0);
+      Red.Set_Style_Background_Color(Color_Type::White, 0);
+    }
 
-  Object_Type Background;
-  Background.Create(Graphics.Get_Screen());
+    {
+      Object_Type Green;
+      Green.Create(Logo);
+      Green.Set_Size(4 * 5, 4 * 10);
+      Green.Set_Alignment(Alignment_Type::Bottom_Right);
+      Green.Set_Style_Pad_All(0, 0);
+      Green.Set_Style_Background_Color(Color_Type::White, 0);
+    }
 
-  Background.Set_Style_Background_Color(Color_Type::Black, 0);
-  
+    {
+      Object_Type Blue;
+      Blue.Create(Logo);
+      Blue.Set_Size(4 * 10, 4 * 5);
+      Blue.Set_Alignment(Alignment_Type::Bottom_Left);
+      Blue.Set_Style_Pad_All(0, 0);
+      Blue.Set_Style_Background_Color(Color_Type::White, 0);
+    }
 
-  
-  
-  char Temporary_String[32];
-  snprintf(Temporary_String, sizeof(Temporary_String), "Error code : %X", Panic_Code);
-  Display.Set_Text(F("ERRORCODE_TXT"), Temporary_String);
+    {
+      Object_Type Yellow;
+      Yellow.Create(Logo);
+      Yellow.Set_Size(4 * 10, 4 * 5);
+      Yellow.Set_Alignment(Alignment_Type::Top_Right);
+      Yellow.Set_Style_Pad_All(0, 0);
+      Yellow.Set_Style_Background_Color(Color_Type::White, 0);
+    }
+  }
+
+  {
+    Label_Type Title;
+    Title.Create(Background);
+    Title.Set_Text("Something went wrong ...");
+    Title.Set_Style_Text_Color(Color_Type::White, 0);
+  }
+  {
+    Label_Type Text;
+    Text.Create(Background);
+    Text.Set_Text("Xila has encountered an unrecoverable error and must restart.\nPlease wait for the system to restart itself or press the power button for a few seconds.");
+    Text.Set_Width(Percentage(80));
+    Text.Set_Style_Text_Color(Color_Type::White, 0);
+    Text.Set_Long_Mode(Label_Type::Long_Mode_Type::Wrap);
+  }
+
+  Label_Type Error_Text;
+  Error_Text.Create(Background);
+  Error_Text.Set_Text_Format("Error : %X.", Panic_Code);
+  Error_Text.Set_Width(Percentage(80));
+  Error_Text.Set_Long_Mode(Label_Type::Long_Mode_Type::Wrap);
+  Error_Text.Set_Style_Text_Color(Color_Type::White, 0);
+
   Task_Type::Suspend_All();
-  uint32_t Delay_Time = System.Get_Up_Time_Milliseconds();
-  while ((System.Get_Up_Time_Milliseconds() - Delay_Time) < 5000)
+  uint32_t Timer = System.Get_Up_Time_Milliseconds() + 5000;
+  
+  while (Timer > System.Get_Up_Time_Milliseconds())
   {
   }
+
   abort();
 }
 
@@ -323,9 +374,9 @@ Result_Type System_Class::Save_Dump()
   {
     JsonArray Users = Dump_Registry.createNestedArray("Users");
 
-    for (uint8_t i = 0; i < Account.Get_User_Count(); i++)
+    for (uint8_t i = 0; i < Accounts.Get_User_Count(); i++)
     {
-      Users.add(Account.Get_User(i)->Get_Name());
+      Users.add(Accounts.Get_User(i)->Get_Name());
     }
   }
 
@@ -333,9 +384,9 @@ Result_Type System_Class::Save_Dump()
     JsonArray Openned_Software = Dump_Registry.createNestedArray("Software");
 
     // Iterate through opened software list
-    for (auto &Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Softwares.Get_List())
     {
-      Openned_Software.add(Software_Pointer->Handle_Pointer->Name);
+      Openned_Software.add(Software_Pointer->Get_Handle_Pointer()->Get_Name());
     }
   }
 
@@ -412,12 +463,12 @@ Result_Type System_Class::Load_Dump()
 /// @brief Return device name.
 ///
 /// @return const char* Device name.
-void System_Class::Get_Device_Name(String_Class& Device_Name)
+void System_Class::Get_Device_Name(String_Class &Device_Name)
 {
   Device_Name = this->Device_Name;
 }
 
-void System_Class::Set_Device_Name(const String_Class& Device_Name)
+void System_Class::Set_Device_Name(const String_Class &Device_Name)
 {
   this->Device_Name = Device_Name;
 }
@@ -620,9 +671,9 @@ void System_Class::Load()
 
   // - Account
 
-  if (Account.Load_Registry() != Result_Type::Success)
+  if (Accounts.Load_Registry() != Result_Type::Success)
   {
-    Account.Set_Autologin(false);
+    Accounts.Set_Autologin(false);
   }
 
   // - Keyboard
@@ -646,9 +697,7 @@ void System_Class::Load()
   System.Load_Dump();
 
   Task_Type::Delay_Static(100);
-
 }
-
 
 ///
 /// @brief Shutdown

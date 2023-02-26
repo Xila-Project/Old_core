@@ -9,17 +9,18 @@
 ///
 
 #include "Core/Account/Account.hpp"
+#include "Core/Cryptography/Cryptography.hpp"
 
 #include "Core/Core.hpp"
 
 using namespace Xila_Namespace;
 
-Account_Type Account();
+Accounts_Type Account();
 
 ///
 /// @brief Construct a new Account_Class::Account_Class object
 ///
-Account_Class::Account_Class()
+Accounts_Class::Accounts_Class()
 {
 }
 
@@ -27,7 +28,7 @@ Account_Class::Account_Class()
 /// @brief Load account registry.
 ///
 /// @return Result_Type
-Result_Type Account_Class::Load_Registry()
+Result_Type Accounts_Class::Load_Registry()
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"));
   DynamicJsonDocument Account_Registry(256);
@@ -61,7 +62,7 @@ Result_Type Account_Class::Load_Registry()
 ///
 /// @param Enable true to enable and false to disable autologin.
 /// @return Result_Type
-Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const char* Password)
+Result_Type Accounts_Class::Set_Autologin(bool Enable, const char* Name, const char* Password)
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"), true);
   DynamicJsonDocument Account_Registry(256);
@@ -96,41 +97,18 @@ Result_Type Account_Class::Set_Autologin(bool Enable, const char* Name, const ch
   return Result_Type::Success;
 }
 
-const char* Get_Autologin_User_Name()
+const char* Accounts_Class::Get_Autologin_User_Name()
 {
   // TODO : 
   
 }
 
-/// @brief Return current session state.
-///
-/// @return uint8_t return Acount_Class::Session_State.
-Account_Class::State_Type Account_Class::User_Class::Get_State() const
-{
-  return State;
-}
-
-const char* Account_Class::User_Class::Get_Name() const
-{
-  return Name;
-}
-
-const char* Account_Class::User_Class::Get_Home_Folder_Path() const
-{
-  // TODO :
-  
-}
-
-void Account_Class::User_Class::Set_State(State_Type State)
-{
-  this->State = State;
-}
 
 
 /// @brief 
 ///
 /// @return const char* Logged username (empty if there's no logged user).
-const Account_Class::User_Type* Account_Class::Get_Logged_User()
+const Accounts_Class::User_Type* Accounts_Class::Get_Logged_User()
 {
   for (auto &User : User_Class::List) 
   {
@@ -141,7 +119,7 @@ const Account_Class::User_Type* Account_Class::Get_Logged_User()
   }
 }
 
-const Account_Class::User_Type* Account_Class::Get_User(uint8_t Index)
+const Accounts_Class::User_Type* Accounts_Class::Get_User(uint8_t Index)
 {
   if (Index < User_Class::List.size())
   {
@@ -156,7 +134,7 @@ const Account_Class::User_Type* Account_Class::Get_User(uint8_t Index)
  /// @param Username Username of the new user.
  /// @param Password Password of the new user.
  /// @return Result_Type 
-Result_Type Account_Class::Create(const char *User_Name, const char *Password)
+Result_Type Accounts_Class::Create(const char *User_Name, const char *Password)
 {
   if (Drive.Exists(Users_Directory_Path "/" + String(User_Name)))
   {
@@ -214,7 +192,7 @@ Result_Type Account_Class::Create(const char *User_Name, const char *Password)
 ///
 /// @param Target_User User to delete.
 /// @return Result_Type
-Result_Type Account_Class::Delete(const char *User_Name, const char* Password)
+Result_Type Accounts_Class::Delete(const char *User_Name, const char* Password)
 {
   char Temporary_Path[20];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), User_Name);
@@ -231,7 +209,7 @@ Result_Type Account_Class::Delete(const char *User_Name, const char* Password)
 /// @param Target_User User to rename.
 /// @param New_Username New account name.
 /// @return Result_Type
-Result_Type Account_Class::Change_Name(const char *Current_Name, const char *New_Name, const char* Password)
+Result_Type Accounts_Class::Change_Name(const char *Current_Name, const char *New_Name, const char* Password)
 {
   if (strlen(New_Name) > sizeof(User_Type::Name))
   {
@@ -273,7 +251,7 @@ Result_Type Account_Class::Change_Name(const char *Current_Name, const char *New
 /// @param Target_User User to change password.
 /// @param Password_To_Set New password.
 /// @return Result_Type
-Result_Type Account_Class::Change_Password(const char *Name, const char *Current_Password, const char* New_Password)
+Result_Type Accounts_Class::Change_Password(const char *Name, const char *Current_Password, const char* New_Password)
 {
   if (Check_Credentials(Name, Current_Password) != Result_Type::Success)
   {
@@ -309,7 +287,7 @@ Result_Type Account_Class::Change_Password(const char *Name, const char *Current
 /// @brief Logout from the openned user session.
 ///
 /// @return Result_Type
-Result_Type Account_Class::Logout(const char* Name)
+Result_Type Accounts_Class::Logout(const char* Name)
 {
   // Iterate through the list of users by index.
   for (auto User = User_Class::List.begin(); User != User_Class::List.end(); User++)
@@ -336,7 +314,7 @@ Result_Type Account_Class::Logout(const char* Name)
 /// @brief Lock openned user session.
 ///
 /// @return Result_Type
-Result_Type Account_Class::Lock(const char* Name)
+Result_Type Accounts_Class::Lock(const char* Name)
 {
   // Iterate through the list of users by index.
   for (uint8_t i = 0; i < User_Class::List.size(); i++)
@@ -367,7 +345,7 @@ Result_Type Account_Class::Lock(const char* Name)
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
+Result_Type Accounts_Class::Check_Credentials(const char *Username_To_Check, const char *Password_To_Check)
 {
   char Temporary_Path[48];
   snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s/Registry/User.xrf"), Username_To_Check);
@@ -404,7 +382,7 @@ Result_Type Account_Class::Check_Credentials(const char *Username_To_Check, cons
  /// @param Username_To_Check User account name.
  /// @param Password_To_Check User account password.
  /// @return Result_Type 
-Result_Type Account_Class::Login(const char *Name, const char *Password, bool Lock_Other_User = true)
+Result_Type Accounts_Class::Login(const char *Name, const char *Password, bool Lock_Other_User = true)
 {
   // Check credentials
   if (Check_Credentials(Name, Password) != Result_Type::Success)
@@ -436,7 +414,6 @@ Result_Type Account_Class::Login(const char *Name, const char *Password, bool Lo
   return Result_Type::Success;
 }
 
-Account_Class::User_Class::User_Class(const char* Name, State_Type State = State_Type::Locked) : State(State)
+Accounts_Class::User_Class::User_Class(const char* Name, State_Type State = State_Type::Locked) : State(State), Name(Name)
 {
-  strlcpy(this->Name, Name, sizeof(Name));
 }

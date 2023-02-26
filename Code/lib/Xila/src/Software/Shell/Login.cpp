@@ -105,7 +105,7 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instr
         case Graphics_Types::Event_Code_Type::Clicked:
             if (Instruction.Graphics.Get_Object() == Login_Button)
             {
-                if (Account.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
+                if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
                     Shell_Class::Desk_Class::Open(Shell_Pointer);
                     Close(Shell_Pointer);

@@ -244,7 +244,7 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             }
             else if (Instruction.Graphics.Get_Object() == Home_Folder_Button)
             {
-                Path_Text_Area.Set_Text(Account.Get_Logged_User()->Get_Home_Folder_Path());
+                Path_Text_Area.Set_Text(Accounts.Get_Logged_User()->Get_Home_Folder_Path());
                 Refresh();
             }
             else if (Instruction.Graphics.Get_Object() == Root_Folder_Button)

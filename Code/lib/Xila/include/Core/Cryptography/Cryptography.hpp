@@ -16,10 +16,26 @@
 
 namespace Xila_Namespace
 {
+    namespace Cryptography_Types
+    {
+        enum class Hash_Type
+        {
+            MD_None,
+            MD_2,
+            MD_4,
+            MD_5,
+            SHA_1,
+            SHA_224,
+            SHA_256,
+            SHA_384,
+            SHA_512,
+            RIPEMD_160
+        };
+    }
+
     typedef class Cryptography_Class : Module_Class
     {
     public:
-
         enum class Hash_Type
         {
             MD_None,
@@ -34,7 +50,8 @@ namespace Xila_Namespace
             RIPEMD_160,
         };
 
-        Result_Type Get_Hash(const char* Message, Size_Type Message_Length, uint8_t* Result, Size_Type Result_Size, Hash_Type Type);
+        Result_Type Get_Hash(const char *Message, Size_Type Message_Length, uint8_t *Result, Size_Type Result_Size, Hash_Type Type);
+        Result_Type Get_Hash(const String_Type &Message, uint8_t *Result, Size_Type Result_Size, Hash_Type Type);
 
     } Cryptography_Type;
 

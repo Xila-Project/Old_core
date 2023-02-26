@@ -27,9 +27,10 @@ namespace Xila_Namespace
 {
     typedef class Software_Class : public Module_Class
     {
+    public:
+        const Software_Handle_Type *Get_Handle_Pointer();
 
     protected:
-    
         // - Types
         typedef enum State_Enumeration
         {
@@ -46,11 +47,9 @@ namespace Xila_Namespace
 
         /// @brief Software task handle.
 
-        const Software_Handle_Type* Get_Handle_Pointer();
-
         // - - Task
 
-        static void Start_Main_Task_Function(void* Instance_Pointer);
+        static void Start_Main_Task_Function(void *Instance_Pointer);
         virtual void Main_Task_Function();
 
         // Handler for external software.
@@ -60,10 +59,10 @@ namespace Xila_Namespace
 
         /// @brief Software task handle.
         Task_Type Main_Task;
-        
-   private:
+
+    private:
         // - Attributes
-        
+
         // - - Local attributes
         Software_Handle_Type *Handle_Pointer;
 

@@ -12,19 +12,25 @@
 #define Account_Hpp_Included
 
 #include "../Module/Module.hpp"
-#include "../Cryptography/Cryptography.hpp"
+
+#include "../Graphics/Window.hpp"
 
 namespace Xila_Namespace
 {
+    namespace Accounts_Types
+    {
+
+
+    };
 
     /// @brief Account manager class
-    typedef class Account_Class : public Module_Class
+    typedef class Accounts_Class : public Module_Class
     {
     public:
         // - Types
 
         /// @brief Account instruction code type enumeration.
-        enum class Instructions_Code
+        enum class Instructions_Code_Type
         {
             // - User specific instructions code.
             Locked,
@@ -51,26 +57,31 @@ namespace Xila_Namespace
             const char *Get_Name() const;
             const char* Get_Home_Folder_Path() const;
 
+            Window_Type Get_Parent_Window();
+
         private:
+            Window_Type Parent_Window;
+
             void Set_State(State_Type State);
             void Set_Name(const char *Name);
             void Set_Parent_Windows(Object_Type Parent);
 
             static std::vector<User_Class> List;
 
-            char Name[16];
+            Static_String_Type<16> Name;
             State_Type State;
 
-            friend class Account_Class;
+            friend class Accounts_Class;
         } User_Type;
 
         // -- Constructor
-        Account_Class();
+        Accounts_Class();
 
         // -- Methods
 
         Result_Type Create(const char *User_Name, const char *Password);
         Result_Type Delete(const char *User_Name, const char *Password);
+
         Result_Type Change_Name(const char *Current_Name, const char *New_Name, const char *Password);
         Result_Type Change_Password(const char *User_Name, const char *Old_Password, const char *New_Password);
 
@@ -94,10 +105,12 @@ namespace Xila_Namespace
         // -- Setter
 
         Result_Type Load_Registry();
-    } Account_Type;
+        Result_Type Save_Registry();
+        Result_Type Create_Registry();
+    } Accounts_Type;
 
 
-    extern Account_Type Account;
+    extern Accounts_Type Accounts;
 
 }
 
