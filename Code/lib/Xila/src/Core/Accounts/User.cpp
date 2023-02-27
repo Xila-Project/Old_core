@@ -11,28 +11,44 @@
  #include "Core/Account/Account.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Accounts_Types;
+
+/// @brief User class constructor.
+/// @param Name User name.
+/// @param State User state.
+User_Class::User_Class(const String_Type& Name, User_State_Type State) : Name(Name), State(State)
+{
+}
+
 
 
 /// @brief Return current session state.
 ///
 /// @return uint8_t return Acount_Class::Session_State.
-Accounts_Class::State_Type Accounts_Class::User_Class::Get_State() const
+User_State_Type User_Class::Get_State() const
 {
   return State;
 }
 
-const char* Accounts_Class::User_Class::Get_Name() const
+void User_Class::Get_Name(String_Type& Name) const
 {
-  return Name;
+  Name = this->Name;
 }
 
-const char* Accounts_Class::User_Class::Get_Home_Folder_Path() const
+void User_Class::Get_Home_Folder_Path(String_Type& Home_Folder_Path) const
 {
-  // TODO :
+  Home_Folder_Path = Users_Directory_Path;
+  Home_Folder_Path += "/";
+  Home_Folder_Path += this->Name;
   
 }
 
-void Accounts_Class::User_Class::Set_State(State_Type State)
+void User_Class::Set_State(User_State_Type State)
 {
   this->State = State;
+}
+
+void User_Class::Set_Name(const String_Type& Name)
+{
+  this->Name = Name;
 }

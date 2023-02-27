@@ -23,24 +23,23 @@ std::vector<Window_Class> Window_Class::Parent_List(2);
 // ------------------------------------------------------------------------- //
 
 /// @brief Function that create a window.
-void Window_Class::Create()
+void Window_Class::Create(Module_Type* Owner_Module) : Owner_Module(Owner_Module)
 {
     this->Set_Pointer(lv_obj_create(Accounts.Get_Logged_User()->Get_Parent_Window().Get_Pointer()));
-    this->Set_Owner_User(Get_User_Parent_Window_Index(Accounts.Get_Logged_User()).Get_Owner_User());
     this->Set_Interface();
+}
+
+void Window_Class::Create(Object_Class Parent_Object, Module_Type* Owner_Module) : Owner_Module(Owner_Module)
+{
+    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()))
+
+    this->Set_Interface()
 }
 
 /// @brief Function that create a window inside a parent object.
 /// @param Parent_Object Parent object.
 void Window_Class::Create(Object_Class Parent_Object)
 {
-    if (!Parent_Object)
-    {
-        return;
-    }
-
-    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
-    this->Set_Interface();
 }
 
 /// @brief Function that return the user's parent window.

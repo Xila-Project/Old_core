@@ -17,21 +17,27 @@ using namespace Xila;
 
 class Preferences_Class : public Software_Type
 {
-public:
+    // - Types
 
-    static Software_Handle_Type Handle;
-
-    static void Create_Instance()
+    static class Preferences_Handle_Class : public Software_Handle_Type
     {
-        new Preferences_Class();
-    };
+    public:
+        Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
 
-private:
+        void Create_Instance() override
+        {
+            new Preferences_Class();
+        };
+    } Handle;
+
+    // - Methods
+
+    // - - Constructors / destructor
 
     Preferences_Class();
     ~Preferences_Class();
 
-    // - Methods
+    // - - Management
 
     void Main_Task_Function() override;
     void Execute_Instruction(Instruction_Type Instruction);

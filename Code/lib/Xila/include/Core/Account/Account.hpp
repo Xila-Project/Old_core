@@ -13,22 +13,13 @@
 
 #include "../Module/Module.hpp"
 
-#include "../Graphics/Window.hpp"
-
 namespace Xila_Namespace
 {
+    // - Types
+
+    /// @brief Namespace that contains all accounts's types.
     namespace Accounts_Types
     {
-
-
-    };
-
-    /// @brief Account manager class
-    typedef class Accounts_Class : public Module_Class
-    {
-    public:
-        // - Types
-
         /// @brief Account instruction code type enumeration.
         enum class Instructions_Code_Type
         {
@@ -41,77 +32,82 @@ namespace Xila_Namespace
         };
 
         /// @brief Session state type enumeration.
-        enum class State_Type
+        enum class User_State_Type
         {
             Logged,
             Locked
         };
 
-        /// @brief User class.
+         /// @brief User class.
         typedef class User_Class
         {
         public:
-            User_Class(const char *Name, State_Type State);
+            // - Methods
+            // - - Constructor / destructor
+            User_Class(const String_Type& Name, User_State_Type State);
 
-            State_Type Get_State() const;
-            const char *Get_Name() const;
-            const char* Get_Home_Folder_Path() const;
+            // - - Getters
+            User_State_Type Get_State() const;
+            void Get_Name(String_Type& Name) const;
+            void Get_Home_Folder_Path(String_Type& Home_Folder_Path) const;
 
-            Window_Type Get_Parent_Window();
-
+            // - - Setters
+            void Set_State(User_State_Type State);
+            void Set_Name(const String_Type& Name);
+           
         private:
-            Window_Type Parent_Window;
-
-            void Set_State(State_Type State);
-            void Set_Name(const char *Name);
-            void Set_Parent_Windows(Object_Type Parent);
-
-            static std::vector<User_Class> List;
-
+            // - Attributes
             Static_String_Type<16> Name;
-            State_Type State;
-
-            friend class Accounts_Class;
+            User_State_Type State;
         } User_Type;
 
-        // -- Constructor
+    };
+
+    /// @brief Account manager class
+    typedef class Accounts_Class : public Module_Class
+    {
+    public:
+        // - Methods
+
+        // - - Constructor / destructor
         Accounts_Class();
 
-        // -- Methods
+        // - - Management
 
-        Result_Type Create(const char *User_Name, const char *Password);
-        Result_Type Delete(const char *User_Name, const char *Password);
+        Result_Type Create(const String_Type&User_Name, const String_Type&Password);
+        Result_Type Delete(const String_Type&User_Name, const String_Type&Password);
 
-        Result_Type Change_Name(const char *Current_Name, const char *New_Name, const char *Password);
-        Result_Type Change_Password(const char *User_Name, const char *Old_Password, const char *New_Password);
+        Result_Type Change_Name(const String_Type&Current_Name, const String_Type&New_Name, const String_Type&Password);
+        Result_Type Change_Password(const String_Type&User_Name, const String_Type&Old_Password, const String_Type&New_Password);
 
-        Result_Type Check_Credentials(const char *User_Name, const char *Password);
-        Result_Type Login(const char *Username, const char *Password, bool Lock_Other_User);
+        Result_Type Check_Credentials(const String_Type&User_Name, const String_Type&Password);
+        Result_Type Login(const String_Type&Username, const String_Type&Password, bool Lock_Other_User);
 
-        // - - - Getters
-        const User_Type *Get_Logged_User();
-        const User_Type *Get_User(uint8_t Index);
+        // - - Getters
+        const Accounts_Types::User_Type* Get_Logged_User();
+        const Accounts_Types::User_Type* Get_User(uint8_t Index);
+        uint8_t Get_User_Index(const String_Type& Name);
         uint8_t Get_User_Count();
 
-        // - - - Setters
+        // - - Setters
+        Result_Type Set_Autologin(bool Enable, const String_Type& Name, const String_Type& Password);
+        const String_Type& Get_Autologin_User_Name();
 
-        Result_Type Set_Autologin(bool Enable, const char *Name, const char *Password);
-        const char *Get_Autologin_User_Name();
+        Result_Type Login(const String_Type& Username_To_Check, const String_Type&Password_To_Check = "", bool Lock_Other_User = true);
+        Result_Type Logout(const String_Type&Name);
+        Result_Type Lock(const String_Type&Name);
 
-        Result_Type Login(const char *Username_To_Check = NULL, const char *Password_To_Check = NULL);
-        Result_Type Logout(const char *Name);
-        Result_Type Lock(const char *Name);
-
-        // -- Setter
-
+        // - - Registry
         Result_Type Load_Registry();
         Result_Type Save_Registry();
         Result_Type Create_Registry();
+    private:
+        // - Attributes
+        std::vector<Accounts_Types::User_Type*> User_List;
     } Accounts_Type;
 
 
     extern Accounts_Type Accounts;
-
 }
 
 #endif

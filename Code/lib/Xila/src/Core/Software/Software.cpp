@@ -10,14 +10,10 @@
 
 #include "Core/Software/Software.hpp"
 
-#include "Core/Core.hpp"
-
 using namespace Xila_Namespace;
 
 std::vector<Software_Class *> Software_Class::List(10);
 
-
-///
 /// @brief Construct a new Xila_Class::Software object
 ///
 /// @param Software_Handle Current software handle
@@ -43,18 +39,17 @@ Software_Class::~Software_Class() // Destructor : close
     }
   }
   Main_Task.Delete();
-}
+}const
 
 /// @brief Start a software main task.
 ///
 /// @param Instance_Pointer
 void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
 {
-  Software_Class* Local_Instance_Pointer = (Software_Class*)Instance_Pointer;
-  Local_Instance_Pointer->Main_Task_Function();
+  static_cast<Software_Class*>(Instance_Pointer)->Main_Task_Function();
 }
 
-
+/// @brief 
 void Software_Class::Main_Task_Function()
 {
   // If no function is defined, the software will be closed.

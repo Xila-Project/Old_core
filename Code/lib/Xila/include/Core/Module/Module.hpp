@@ -37,20 +37,25 @@
 
 namespace Xila_Namespace
 {
+    /// @brief Module type enumeration.
     typedef class Module_Class
     {
     public:  
         // - Methods
 
+        // - - Constructor / destructor
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
         ~Module_Class();
 
+        // - - Management
         Result_Type Send_Instruction(const Instruction_Type &Instruction);
-
-        Instruction_Type Get_Instruction();
         Size_Type Instruction_Available();
 
+        // - - Getters
+        Instruction_Type Get_Instruction();
+
     private:
+        // - Attributes
         QueueHandle_t Instruction_Queue_Handle;
 
         static std::vector<Module_Class *> List; // - Module lists.

@@ -13,7 +13,7 @@
 File_Manager_Class::File_Manager_Class() : Software_Class(&Handle)
 {
     Window.Create();
-    Window.Set_Title("File Manager");
+    Window.Set_Title("File manager");
 
     Grid.Create(Window);
     const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), 140, LV_GRID_TEMPLATE_LAST};
@@ -244,7 +244,9 @@ void File_Manager_Class::Execute_Instruction(Instruction_Type Instruction)
             }
             else if (Instruction.Graphics.Get_Object() == Home_Folder_Button)
             {
-                Path_Text_Area.Set_Text(Accounts.Get_Logged_User()->Get_Home_Folder_Path());
+                Static_String_Type<32> Home_Folder_Path;
+                Accounts.Get_Logged_User()->Get_Home_Folder_Path(Home_Folder_Path);
+                Path_Text_Area.Set_Text(Home_Folder_Path);
                 Refresh();
             }
             else if (Instruction.Graphics.Get_Object() == Root_Folder_Button)

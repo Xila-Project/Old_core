@@ -20,6 +20,7 @@
 
 namespace Xila_Namespace
 {
+
     namespace Graphics_Types
     {
         enum class Window_State_Type
@@ -38,32 +39,23 @@ namespace Xila_Namespace
         // - Methods
 
         virtual void Create(Object_Class Parent_Object) override;
-        // TODO : Make it protected.
-        void Create();
+        void Create(Object_Class Parent_Object, Module_Type* Owner_Module);
+        void Create(Module_Type* Owner_Module);
 
         void Set_Title(const char *Title);
 
         bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        void Set_State(Graphics_Types::Window_State_Type State);        
+        void Set_State(Graphics_Types::Window_State_Type State);
         Graphics_Types::Window_State_Type Get_State();
 
         Object_Class Get_Body();
         Object_Class Get_Header();
 
-        const Accounts_Class::User_Class* Get_Owner_User();
-
-
     protected:
         // - Methods
-    
+
         void Set_Interface();
-        void Set_Owner_User(const Accounts_Class::User_Class* Owner_User);
-
-        static Window_Class Get_User_Parent_Window_Index(const Accounts_Class::User_Type* Owner_User);
-
-        // - Attributes
-        static std::vector<Window_Class> Parent_List;
 
         Object_Class Header;
         Object_Class Body;
@@ -82,6 +74,22 @@ namespace Xila_Namespace
         Button_Class Minimize_Button;
 
     } Window_Type;
+
+    typedef class Parent_Window_Class : public Window_Class
+    {
+    public:
+        // - Methods
+
+
+        static Window_Class Get_User_Parent_Window_Index(const Accounts_Types::User_Type *Owner_User);
+
+    private:
+        // - Attributes
+        Accounts_Types::User_Type* Owner_User;
+        Module_Type* Owner_Module;
+        static std::vector<Window_Class> Parent_List;
+
+    } Parent_Window_Type;
 
 }
 

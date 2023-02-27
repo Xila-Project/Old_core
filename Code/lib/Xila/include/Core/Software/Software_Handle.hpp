@@ -28,42 +28,30 @@ namespace Xila_Namespace
     {
     public:
 
-        // - Types
+        // - Methods
 
-        typedef void (*Create_Instance_Function_Pointer)();
+        // - - Constructors / destructor
+        Software_Handle_Class(const String_Type& Software_Name);
+        ~Software_Handle_Class();
 
-        // -- Constructors / Destructor
-        Software_Handle_Class();
-        Software_Handle_Class(const char *Software_Name, void (*Create_Instance_Function)());
+        void Get_Name(String_Type& Name) const;
 
-        Result_Type Create_Instance();
-
-        const char *Get_Name() const;
-        Create_Instance_Function_Pointer Get_Pointer_Create_Instance() const;
+        virtual void Create_Instance();
 
         /// -- Methods -- //
-        bool Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const;
+        bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;
 
-        bool operator==(Software_Handle_Class const &Software_Handle_To_Compare) const;
+        bool operator==(const Software_Handle_Class &Software_Handle_To_Compare) const;
 
-        bool operator!=(Software_Handle_Class const &Software_Handle_To_Compare) const;
+        bool operator!=(const Software_Handle_Class &Software_Handle) const;
 
 
     private:
+        // - Attributes
         static std::vector<Software_Handle_Class *> List;
 
-        // - Attributes
-
-        ///
-        /// @brief Software string name.
-        ///
-        char Name[Default_Software_Name_Length]; // used to identify the software,
-
-        ///
-        /// @brief Function pointer called by Xila to load software.
-        /// @details Function allocate memory and return allocated software memory pointer and then send an "Open" instruction in the queue.
-        ///
-        void (*Create_Instance_Pointer)();
+        /// @brief Software string name.        
+        Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,
 
         friend class Softwares_Class;
     } Software_Handle_Type;

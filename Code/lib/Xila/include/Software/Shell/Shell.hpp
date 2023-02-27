@@ -30,23 +30,19 @@ using namespace Xila;
 /// @details Main inter
 class Shell_Class : public Software_Type
 {
-public:
     // - Types
 
-    static Software_Handle_Type Handle;
-
-    static void Create_Instance()
+    static class Shell_Handle_Class : public Software_Handle_Type
     {
-        new Shell_Class();
-    }
-private:
+    public:
+        Shell_Handle_Class() : Software_Handle_Type("Shell"){};
+        
+        void Create_Instance() override
+        {
+            new Shell_Class();
+        };
+    } Handle;
 
-    // -- Methods
-
-    Shell_Class();
-    ~Shell_Class();
-
-    // - Attributes
 
     // - Types
 
@@ -198,6 +194,13 @@ private:
     } *Installer_Pointer;
 
     // - Methods
+
+    // - - Constructors / destructor
+
+    Shell_Class();
+    ~Shell_Class();
+
+    // - - Others
 
     void Execute_Instruction(Instruction_Type Instruction);
 

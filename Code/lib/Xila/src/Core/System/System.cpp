@@ -141,7 +141,7 @@ void System_Class::Task_Function()
     // -- Check if drive is not disconnected.
     if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
     {
-      System.Panic_Handler(System.System_Drive_Failure);
+      System.Panic_Handler(Panic_Type::Drive_Failure);
     }
 
     // -- Check if running software is not frozen.
@@ -155,7 +155,7 @@ void System_Class::Task_Function()
     // -- Check available (prevent memory overflow)
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
-      System.Panic_Handler(Low_Memory);
+      System.Panic_Handler(Panic_Type::Low_Memory);
     }
 
     Task.Delay_Until(10000);
@@ -630,15 +630,15 @@ void System_Class::Load()
 
   if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
   {
-    System.Panic_Handler(System.Missing_System_Files);
+    System.Panic_Handler(Panic_Type::Missing_System_Files);
   }
 
   // -- Load system registry -- //
   if (System.Load_Registry() != Result_Type::Success)
   {
-    System.Panic_Handler(System.Damaged_System_Registry);
+    System.Panic_Handler(Panic_Type::Damaged_System_Registry);
   }
-  WiFi.Set_Hostname(System.Device_Name); // Set hostname
+  WiFi.Set_Host_Name(System.Device_Name); // Set hostname
 
   // - Sound
 
@@ -682,11 +682,11 @@ void System_Class::Load()
     Keyboard.Save_Registry(); // recreate a keyboard registry with default values
   }
 
-#if Animations == 1
+  // - Enable animation
+
+#if Release_Type != Debug
   Task_Type::Delay_Static(3000);
 #endif
-
-  Display.Set_Value(F("STATE_VAR"), 2);
 
 #if Animations == 1
   Task_Type::Delay_Static(3000);
@@ -704,99 +704,25 @@ void System_Class::Load()
 ///
 void System_Class::Shutdown()
 {
-  Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
+  #if Build_Type != Debug
+    Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
+  #endif
 
-  Software_Management.Shell_Maximize();
-  Software_Management.Shell_Send_Instruction(Shutdown);
-
-  for (uint8_t i = 2; i < 8; i++)
-  {
-    if (Software_Management.Openned[i] != NULL)
-    {
-      Software_Management.Openned[i]->Send_Instruction(Shutdown);
-      Task.Resume(Software_Management.Openned[i]->Task_Handle);
-      // -- Waiting for the software to close
-      for (uint8_t j = 0; j <= 200; j++)
-      {
-        if (Software_Management.Openned[i] == NULL)
-        {
-          break;
-        }
-        if (j == 200 && Software_Management.Openned[i] != NULL)
-        {
-          Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
-        }
-        Task_Type::Delay_Static(20);
-      }
-    }
-  }
-
-  Second_Sleep_Routine();
-  Power.Deep_Sleep();
-}
-
-///
-/// @brief Second sleep routine called in shutdown function.
-///
-void System_Class::Second_Sleep_Routine()
-{
-  Task.Delete(System.Task_Handle);
-
-  Display.Save_Registry();
-  Keyboard.Save_Registry();
-  Power.Save_Registry();
-  Sound.Save_Registry();
-  WiFi.Save_Registry();
-  Time.Save_Registry();
-  System.Save_Registry();
+  // TODO : open shutdown screen
 
   Sound.Play(Sounds("Shutdown.wav"));
 
-  Task_Type::Delay_Static(8000);
+  Task.Delete();
 
-  Task.Delete(Sound.Task_Handle);
+  Softwares.Stop();
+  Display.Stop();
+  Keyboard.Stop();
+  Power.Stop();
+  Sound.Stop();
+  WiFi.Stop();
+  Time.Stop();
+  System.Stop();
 
-  // Disconnect wifi
-  WiFi.disconnect();
-}
-
-///
-/// @brief Hibernate
-///
-void System_Class::Hibernate()
-{
-  Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
-
-  System.Save_Dump();
-
-  Software_Management.Shell_Maximize();
-  Software_Management.Shell_Send_Instruction(Hibernate);
-
-  for (uint8_t i = 2; i < 8; i++)
-  {
-    if (Software_Management.Openned[i] != NULL)
-    {
-      Software_Management.Openned[i]->Send_Instruction(Hibernate);
-      Task.Resume(Software_Management.Openned[i]->Task_Handle);
-      // -- Waiting for the software to close
-      for (uint8_t j = 0; j <= 200; j++)
-      {
-        if (Software_Management.Openned[i] == NULL)
-        {
-
-          break;
-        }
-        if (j == 200 && Software_Management.Openned[i] != NULL)
-        {
-
-          Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
-        }
-        Task_Type::Delay_Static(20);
-      }
-    }
-  }
-
-  Second_Sleep_Routine();
   Power.Deep_Sleep();
 }
 
@@ -832,8 +758,9 @@ void System_Class::Restart()
     }
   }
 
-  Second_Sleep_Routine();
-  ESP.restart();
+
+  Power.Restart();
+  
 }
 
 ///

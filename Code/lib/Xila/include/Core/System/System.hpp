@@ -26,13 +26,15 @@ namespace Xila_Namespace
         /// @brief Panic codes used by the panic handler.
         enum class Panic_Type : uint32_t
         {
-            Missing_System_Files,     ///< Missing system files (registries).
+            Missing_System_Registry,     ///< Missing system files (registries).
+            Failed_To_Update_Display, ///< Failed to update display.        
             Damaged_System_Registry,  ///< Damaged system registry.
-            Installation_Conflict,    ///< Installation conflict (between MCU and Display or Drive).
-            System_Drive_Failure,     ///< System drive failure (disconnected).
+            Installation_Conflict,    ///< Installation conflict (between MCU and Drive).
+            Drive_Failure,     ///< System drive failure (disconnected).
             Failed_To_Start_Display,  ///< Failed to start display.
             Failed_To_Start_Graphics,
-            Failed_To_Update_Display, ///< Failed to update display.
+            Failed_To_Start_Sound,
+
             Low_Memory,               ///< Low memory (fragmentation, too much software openned).
             Memory_Corruption,        ///< Memory corruption.
         };
@@ -84,7 +86,6 @@ namespace Xila_Namespace
 
         void Shutdown();
         void Restart();
-        void Hibernate();
 
         static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
@@ -128,9 +129,8 @@ namespace Xila_Namespace
 
         Result_Type Upgrade(File_Type Executable_File);
 
-        void Second_Sleep_Routine();
         void Panic_Handler(System_Types::Panic_Type Panic_Code);
-        void Execute_Startup_Function();
+ 
 
         // - - Animation
 

@@ -25,6 +25,11 @@
 
 namespace Xila_Namespace
 {
+    namespace Softwares_Types
+    {
+
+    };
+
     typedef class Software_Class : public Module_Class
     {
     public:
@@ -45,15 +50,10 @@ namespace Xila_Namespace
         Software_Class(Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
         virtual ~Software_Class();
 
-        /// @brief Software task handle.
-
         // - - Task
 
         static void Start_Main_Task_Function(void *Instance_Pointer);
         virtual void Main_Task_Function();
-
-        // Handler for external software.
-        static void Create_Instance();
 
         // - Attributes
 
@@ -62,12 +62,13 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
-
         // - - Local attributes
+        
+        /// @brief Software task handle.
         Software_Handle_Type *Handle_Pointer;
 
         // - - Static attributes
-        /// @brief Openned software pointer array
+        /// @brief Opened software pointer array
         static std::vector<Software_Class *> List;
 
         friend class Softwares_Class;

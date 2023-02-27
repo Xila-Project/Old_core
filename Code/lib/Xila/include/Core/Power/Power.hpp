@@ -42,6 +42,7 @@ namespace Xila_Namespace
 
         void Check_Button();
         void Deep_Sleep();
+        void Restart();
 
 
     private:

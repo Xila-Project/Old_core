@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Software/Softwares.hpp"
+#include "Core/System/System.hpp"
 
 using namespace Xila_Namespace;
 
@@ -76,4 +77,38 @@ const std::vector<Software_Handle_Type*> Softwares_Class::Get_Handle_List()
 const std::vector<Software_Type*> Softwares_Class::Get_List()
 {
     return Software_Class::List;
+}
+
+Result_Type Softwares_Class::Start()
+{
+    // - Start shell
+
+    for (auto& Software_Handle_Pointer : this->Get_Handle_List())
+    {
+        if (Software_Handle_Pointer->Get_Name())
+    }
+
+}
+
+Result_Type Softwares_Class::Stop()
+{
+    for (auto & Software_Pointer : Softwares.Get_List())
+    {
+        this->Close(Software_Pointer);
+    }
+
+    uint32_t Timeout = System.Get_Up_Time_Milliseconds() + 10000;
+
+    while (this->Get_List().size() != 0)
+    {
+        Task_Type::Delay_Static(100);
+    }
+
+    for (auto & Software_Pointer : Softwares.Get_List())
+    {
+        this->Kill(Software_Pointer);
+    }
+
+
+
 }

@@ -34,6 +34,9 @@ namespace Xila_Namespace
     public:
         // - Methods
 
+        Result_Type Start();
+        Result_Type Stop();
+
         Result_Type Open(Software_Handle_Type* Handle);
         Result_Type Open(String_Type& Name);
 

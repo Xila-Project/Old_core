@@ -16,41 +16,27 @@ std::vector<Software_Handle_Class *> Software_Handle_Class::List(10);
 
 // Software handle
 
-///
-/// @brief Construct a new Software_Handle::Software_Handle object
-///
-Software_Handle_Class::Software_Handle_Class()
-    : Create_Instance_Pointer(NULL)
-{
-  memset(Name, '\0', sizeof(Name));
-  List.push_back(this);
-}
-
-///
 /// @brief Construct and define a new Software_Handle::Software_Handle object
 ///
 /// @param Software_Name Software name
 /// @param Icon_ID Software icon
 /// @param Load_Function_Pointer Load function pointer
 /// @param Startup_Function_Pointer Startup function pointer (NULL by default)
-Software_Handle_Class::Software_Handle_Class(const char *Software_Name, void (*Load_Function_Pointer)())
-    : Create_Instance_Pointer(Load_Function_Pointer)
+Software_Handle_Class::Software_Handle_Class(const String_Type& Software_Name)
+    : Name(Name)
 {
-  memset(Name, '\0', sizeof(Name));
-  strlcpy(Name, Software_Name, sizeof(Name));
   List.push_back(this);
 }
 
-Result_Type Software_Handle_Class::Create_Instance()
+Software_Handle_Class::~Software_Handle_Class()
 {
-  if (Create_Instance_Pointer == NULL)
+  for (auto Software_Handle_Iterator = List.begin(); Software_Handle_Iterator < List.end(); Software_Handle_Iterator++)
   {
-    return Result_Type::Error;
-  }
-  else
-  {
-    Create_Instance_Pointer();
-    return Result_Type::Success;
+    if ((*Software_Handle_Iterator) == this)
+    {
+      List.erase(Software_Handle_Iterator);
+      break;
+    }
   }
 }
 
@@ -60,31 +46,31 @@ Result_Type Software_Handle_Class::Create_Instance()
 /// @param Software_Handle_To_Compare Software handle to compare
 /// @return true if software handle are identical
 /// @return false if software handle are different
-bool Software_Handle_Class::Is_Equal(Software_Handle_Class const &Software_Handle_To_Compare) const
+bool Software_Handle_Class::Is_Equal(const Software_Handle_Class &Software_Handle) const
 {
-  if ((strcmp(Name, Software_Handle_To_Compare.Name)) != 0 || (Software_Handle_To_Compare.Create_Instance_Pointer != Create_Instance_Pointer))
+  if (Software_Handle.Name == this->Name)
   {
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
-const char* Software_Handle_Class::Get_Name() const
+void Software_Handle_Class::Get_Name(String_Type& Name) const
 {
-  return Name;
+  Name = this->Name;
 }
 
-Software_Handle_Class::Create_Instance_Function_Pointer Software_Handle_Class::Get_Pointer_Create_Instance() const
+void Software_Handle_Class::Create_Instance()
 {
-  return Create_Instance_Pointer;
+  // 
 }
 
-bool Software_Handle_Class::operator==(Software_Handle_Class const &Software_Handle_To_Compare) const
+bool Software_Handle_Class::operator==(const Software_Handle_Class &Software_Handle_To_Compare) const
 {
   return Is_Equal(Software_Handle_To_Compare);
 }
 
-bool Software_Handle_Class::operator!=(Software_Handle_Class const &Software_Handle_To_Compare) const
+bool Software_Handle_Class::operator!=(const Software_Handle_Class &Software_Handle_To_Compare) const
 {
   return !Is_Equal(Software_Handle_To_Compare);
 }
