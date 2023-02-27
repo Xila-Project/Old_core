@@ -11,8 +11,6 @@
 #include "Software/Shell/Shell.hpp"
 #include "Software/Shell/Translation.hpp"
 
-Xila::Software_Handle_Type Shell_Class::Handle("Shell", Shell_Class::Create_Instance);
-
 /// @brief Shell constructor.
 Shell_Class::Shell_Class() : Software_Class(&Handle), Desk(this)
 {

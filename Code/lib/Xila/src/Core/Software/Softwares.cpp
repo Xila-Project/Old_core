@@ -15,35 +15,31 @@ using namespace Xila_Namespace;
 
 Softwares_Type Softwares;
 
-Result_Type Softwares_Class::Open(Software_Handle_Type* Handle)
+Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle)
 {
     if (Handle == NULL)
     {
         return Result_Type::Error;
     }
-    else
-    {
-        return Handle->Create_Instance();
-    }
+    Handle->Create_Instance();
+    return Result_Type::Success;
 }
 
-Result_Type Softwares_Class::Open(String_Type& Name)
+Result_Type Softwares_Class::Open(const String_Type &Name)
 {
-    for (auto & Software_Handle : this->Get_Handle_List())
+    const Software_Handle_Type *Handle = this->Find_Handle(Name);
+    if (Handle == NULL)
     {
-        if (Software_Handle->Get_Name() == Name)
-        {
-            return Software_Handle->Create_Instance();
-        }
+        return Result_Type::Error;
     }
-    return Result_Type::Error;
+    return this->Open(Handle);
 }
 
-/// @brief 
-/// @param Software 
-/// @param Timeout 
-/// @return 
-Result_Type Softwares_Class::Close(Software_Type* Software)
+/// @brief
+/// @param Software
+/// @param Timeout
+/// @return
+Result_Type Softwares_Class::Close(Software_Type *Software)
 {
     if (Software == NULL)
     {
@@ -57,7 +53,7 @@ Result_Type Softwares_Class::Close(Software_Type* Software)
     }
 }
 
-Result_Type Softwares_Class::Kill(Software_Type* Software)
+Result_Type Softwares_Class::Kill(Software_Type *Software)
 {
     if (Software == NULL)
     {
@@ -69,12 +65,12 @@ Result_Type Softwares_Class::Kill(Software_Type* Software)
     }
 }
 
-const std::vector<Software_Handle_Type*> Softwares_Class::Get_Handle_List()
+const std::vector<Software_Handle_Type *> Softwares_Class::Get_Handle_List()
 {
     return Software_Handle_Class::List;
 }
 
-const std::vector<Software_Type*> Softwares_Class::Get_List()
+const std::vector<Software_Type *> Softwares_Class::Get_List()
 {
     return Software_Class::List;
 }
@@ -82,17 +78,20 @@ const std::vector<Software_Type*> Softwares_Class::Get_List()
 Result_Type Softwares_Class::Start()
 {
     // - Start shell
-
-    for (auto& Software_Handle_Pointer : this->Get_Handle_List())
+    Static_String_Type<Default_Software_Name_Length> Software_Name;
+    for (auto &Software_Handle_Pointer : this->Get_Handle_List())
     {
-        if (Software_Handle_Pointer->Get_Name())
+        Software_Handle_Pointer->Get_Name(Software_Name);
+        if (Software_Name == "Shell")
+        {
+            return this->Open(Software_Handle_Pointer);
+        }
     }
-
 }
 
 Result_Type Softwares_Class::Stop()
 {
-    for (auto & Software_Pointer : Softwares.Get_List())
+    for (auto &Software_Pointer : Softwares.Get_List())
     {
         this->Close(Software_Pointer);
     }
@@ -104,11 +103,22 @@ Result_Type Softwares_Class::Stop()
         Task_Type::Delay_Static(100);
     }
 
-    for (auto & Software_Pointer : Softwares.Get_List())
+    for (auto &Software_Pointer : Softwares.Get_List())
     {
         this->Kill(Software_Pointer);
     }
+}
 
-
-
+const Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
+{
+    Static_String_Type<Default_Software_Name_Length> Software_Name;
+    for (auto &Software_Handle_Pointer : this->Get_Handle_List())
+    {
+        Software_Handle_Pointer->Get_Name(Software_Name);
+        if (Software_Name == Name)
+        {
+            return Software_Handle_Pointer;
+        }
+    }
+    return NULL;
 }

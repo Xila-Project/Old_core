@@ -60,7 +60,7 @@ void Software_Handle_Class::Get_Name(String_Type& Name) const
   Name = this->Name;
 }
 
-void Software_Handle_Class::Create_Instance()
+void Software_Handle_Class::Create_Instance() const
 {
   // 
 }

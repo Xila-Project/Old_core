@@ -34,7 +34,7 @@ stateDiagram-v2
     Software_Handle.hpp --> Software.hpp
 
     state Modules {
-        Account.hpp
+        Accounts.hpp
         Clipboard.hpp
         Display.hpp
         Drive.hpp

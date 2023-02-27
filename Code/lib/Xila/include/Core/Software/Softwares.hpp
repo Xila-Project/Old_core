@@ -37,14 +37,16 @@ namespace Xila_Namespace
         Result_Type Start();
         Result_Type Stop();
 
-        Result_Type Open(Software_Handle_Type* Handle);
-        Result_Type Open(String_Type& Name);
+        Result_Type Open(const Software_Handle_Type* Handle);
+        Result_Type Open(const String_Type& Name);
 
         Result_Type Close(Software_Type* Software);
         Result_Type Kill(Software_Type* Software);
 
         const std::vector<Software_Handle_Type*> Get_Handle_List();
         const std::vector<Software_Type*> Get_List();
+
+        const Software_Handle_Type* Find_Handle(const String_Type& Name);
 
     } Softwares_Type;
 

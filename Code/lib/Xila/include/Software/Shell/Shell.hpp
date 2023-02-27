@@ -37,7 +37,7 @@ class Shell_Class : public Software_Type
     public:
         Shell_Handle_Class() : Software_Handle_Type("Shell"){};
         
-        void Create_Instance() override
+        void Create_Instance() const override
         {
             new Shell_Class();
         };
@@ -86,7 +86,7 @@ class Shell_Class : public Software_Type
         Label_Type Clock_Label;
 
         // - - Parent window
-        Window_Type Window;
+        Parent_Window_Type Window;
         Object_Type Desk_Grid;
         Object_Type Dock;
         Object_Type Menu_Button;

@@ -41,7 +41,7 @@
 
 #include "Module/Module.hpp"
 
-#include "Account/Account.hpp"
+#include "Account/Accounts.hpp"
 #include "Clipboard/Clipboard.hpp"
 #include "Communication/Communication.hpp"
 #include "Display/Display.hpp"

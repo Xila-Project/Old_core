@@ -85,7 +85,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
 
             Label.Create(Desk_Grid);
             Label.Set_Text_Format("Item %u", i);
-            Label.Set_Long_Mode(Label_Type::Long_Dot);
+            Label.Set_Long_Mode(Label_Type::Long_Mode_Type::Dot);
 
             if (i == 15)
             {
@@ -181,7 +181,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Green_Part.Set_Alignment(Alignment_Type::Bottom_Right);
         Green_Part.Add_Style(Menu_Button_Part_Style, 0);
         Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Green_Part.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Pressed);
+        Green_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
     }
     {
         Object_Type Yellow_Part;

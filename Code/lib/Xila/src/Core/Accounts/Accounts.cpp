@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Account/Account.hpp"
+#include "Core/Account/Accounts.hpp"
 #include "Core/Cryptography/Cryptography.hpp"
 
 #include "Core/Core.hpp"
@@ -397,7 +397,7 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
 /// @param Username_To_Check User account name.
 /// @param Password_To_Check User account password.
 /// @return Result_Type
-Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Password, bool Lock_Other_User = true)
+Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Password, bool Lock_Other_User)
 {
   // Check credentials
   if (Check_Credentials(Name, Password) != Result_Type::Success)

@@ -1,5 +1,5 @@
 ///
-/// @file Account.hpp
+/// @file Accounts.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
 /// @version 0.1.0
@@ -80,8 +80,8 @@ namespace Xila_Namespace
         Result_Type Change_Name(const String_Type&Current_Name, const String_Type&New_Name, const String_Type&Password);
         Result_Type Change_Password(const String_Type&User_Name, const String_Type&Old_Password, const String_Type&New_Password);
 
-        Result_Type Check_Credentials(const String_Type&User_Name, const String_Type&Password);
-        Result_Type Login(const String_Type&Username, const String_Type&Password, bool Lock_Other_User);
+        Result_Type Check_Credentials(const String_Type&User_Name, const String_Type&Password = "");
+        Result_Type Login(const String_Type&Username, const String_Type&Password = "", bool Lock_Other_User = true);
 
         // - - Getters
         const Accounts_Types::User_Type* Get_Logged_User();
@@ -93,7 +93,6 @@ namespace Xila_Namespace
         Result_Type Set_Autologin(bool Enable, const String_Type& Name, const String_Type& Password);
         const String_Type& Get_Autologin_User_Name();
 
-        Result_Type Login(const String_Type& Username_To_Check, const String_Type&Password_To_Check = "", bool Lock_Other_User = true);
         Result_Type Logout(const String_Type&Name);
         Result_Type Lock(const String_Type&Name);
 

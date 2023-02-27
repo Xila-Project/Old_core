@@ -34,15 +34,14 @@ namespace Xila_Namespace
         Software_Handle_Class(const String_Type& Software_Name);
         ~Software_Handle_Class();
 
+        // - - Getters
         void Get_Name(String_Type& Name) const;
 
-        virtual void Create_Instance();
-
-        /// -- Methods -- //
+        virtual void Create_Instance() const;
         bool Is_Equal(const Software_Handle_Class &Software_Handle_To_Compare) const;
 
+        // - - Operators
         bool operator==(const Software_Handle_Class &Software_Handle_To_Compare) const;
-
         bool operator!=(const Software_Handle_Class &Software_Handle) const;
 
 

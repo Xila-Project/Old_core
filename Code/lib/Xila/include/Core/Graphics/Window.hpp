@@ -18,6 +18,8 @@
 #include "Label.hpp"
 #include "Image.hpp"
 
+#include "../Account/Accounts.hpp"
+
 namespace Xila_Namespace
 {
 
@@ -57,6 +59,9 @@ namespace Xila_Namespace
 
         void Set_Interface();
 
+        // - Attributes
+        Module_Type* Owner_Module;
+
         Object_Class Header;
         Object_Class Body;
 
@@ -79,16 +84,17 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
+        void Create(const Accounts_Types::User_Type* Owner_User);
+        const Accounts_Types::User_Type* Get_Owner_User();
 
-
-        static Window_Class Get_User_Parent_Window_Index(const Accounts_Types::User_Type *Owner_User);
+        static Parent_Window_Class Get_User_Parent_Window(const Accounts_Types::User_Type *Owner_User);
+        Parent_Window_Class Get_Parent_Window(uint16_t Index);
 
     private:
         // - Attributes
-        Accounts_Types::User_Type* Owner_User;
-        Module_Type* Owner_Module;
-        static std::vector<Window_Class> Parent_List;
+        const Accounts_Types::User_Type* Owner_User;
 
+        static std::vector<Parent_Window_Class> Parent_List;
     } Parent_Window_Type;
 
 }

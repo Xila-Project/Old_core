@@ -24,7 +24,7 @@ class Preferences_Class : public Software_Type
     public:
         Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
 
-        void Create_Instance() override
+        void Create_Instance() const override
         {
             new Preferences_Class();
         };

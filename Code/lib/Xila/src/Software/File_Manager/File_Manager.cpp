@@ -12,7 +12,7 @@
 
 File_Manager_Class::File_Manager_Class() : Software_Class(&Handle)
 {
-    Window.Create();
+    Window.Create(this);
     Window.Set_Title("File manager");
 
     Grid.Create(Window);

@@ -9,31 +9,26 @@
 ///
 
 #include "Core/Graphics/Window.hpp"
-#include "Core/Account/Account.hpp"
+#include "Core/Account/Accounts.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-std::vector<Window_Class> Window_Class::Parent_List(2);
+// - Methods
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - - Management
 
 /// @brief Function that create a window.
-void Window_Class::Create(Module_Type* Owner_Module) : Owner_Module(Owner_Module)
+void Window_Class::Create(Module_Type* Owner_Module)
 {
-    this->Set_Pointer(lv_obj_create(Accounts.Get_Logged_User()->Get_Parent_Window().Get_Pointer()));
-    this->Set_Interface();
+    this->Create(Parent_Window_Class::Get_User_Parent_Window(Accounts.Get_Logged_User()), Owner_Module);
 }
 
-void Window_Class::Create(Object_Class Parent_Object, Module_Type* Owner_Module) : Owner_Module(Owner_Module)
+void Window_Class::Create(Object_Class Parent_Object, Module_Type* Owner_Module)
 {
-    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()))
-
-    this->Set_Interface()
+    this->Owner_Module = Owner_Module;
+    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+    this->Set_Interface();
 }
 
 /// @brief Function that create a window inside a parent object.
@@ -42,20 +37,6 @@ void Window_Class::Create(Object_Class Parent_Object)
 {
 }
 
-/// @brief Function that return the user's parent window.
-/// @param Owner_User Owner user of the window.
-/// @return The parent window.
-Window_Type Window_Class::Get_User_Parent_Window_Index(const Accounts_Class::User_Type *Owner_User)
-{
-    // ! : This function is not safe !
-    for (Window_Type Window : Parent_List)
-    {
-        if (Window.Get_Owner_User() == Owner_User)
-        {
-            return Window;
-        }
-    }
-}
 
 void Window_Class::Set_Interface()
 {
@@ -88,7 +69,7 @@ void Window_Class::Set_Interface()
 
     // - Middle title.
     Title_Label.Create(Header);
-    Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Enumeration::Long_Dot);
+    Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Type::Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
 
 
@@ -126,13 +107,13 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
         break;
     case Window_State_Type::Minimized:
         // - Set window hidden
         Add_Flag(Flag_Type::Hidden);
         // - Set parent window header visible
-        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Clear_Flag(Flag_Type::Hidden);
+        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Clear_Flag(Flag_Type::Hidden);
         break;
     case Window_State_Type::Full_screen:
         // - Set window visible
@@ -142,9 +123,7 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Get_User_Parent_Window_Index(Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
-        break;
-    default:
+        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
         break;
     }
 }
@@ -167,11 +146,7 @@ Window_State_Type Window_Class::Get_State()
     }
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 /// @brief Set the lvgl pointer of the window object.
 /// @param LVGL_Object_Pointer Pointer to the lvgl object.
@@ -195,11 +170,7 @@ void Window_Class::Set_Title(const char *Title)
     Title_Label.Set_Text(Title);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 Object_Class Window_Class::Get_Body()
 {

@@ -24,7 +24,7 @@ class File_Manager_Class : public Software_Type
     public:
         File_Manager_Handle_Class() : Software_Handle_Class("File manager"){};
 
-        void Create_Instance() override
+        void Create_Instance() const override
         {
             new File_Manager_Class();
         };

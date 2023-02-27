@@ -10,8 +10,6 @@
 
 #include "Software/Preferences/Preferences.hpp"
 
-Software_Handle_Type Handle("Preferences", Preferences_Class::Create_Instance);
-
 const Coordinate_Type Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, 40, LV_GRID_TEMPLATE_LAST};
 
@@ -19,7 +17,7 @@ const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 
 Preferences_Class::Preferences_Class() : Software_Class(&Handle)
 {
-    Window.Create();
+    Window.Create(this);
     Window.Set_Title("Preferences");
 
     Tabs.Create(Window.Get_Body(), Direction_Type::Left, 80);
@@ -826,11 +824,13 @@ void Preferences_Class::Refresh_Personal()
 /// @brief Refresh software tab.
 void Preferences_Class::Refresh_Softwares()
 {
-    char Software_Name[Software_Handle_Type::List.size() * sizeof(Software_Handle_Type::Name)];
+    char Software_Name[Softwares.Get_Handle_List().size() * (sizeof(Default_Software_Name_Length) + 1) + 1];
     memset(Software_Name, '\0', sizeof(Software_Name));
-    for (auto & Software_Handle : Software_Handle_Type::List)
+    Static_String_Type<Default_Software_Name_Length> Software_Name_String;
+    for (auto & Software_Handle : Softwares.Get_Handle_List())
     {
-        strlcat(Software_Name, Software_Handle->Get_Name(), sizeof(Software_Name));
+        Software_Handle->Get_Name(Software_Name_String);
+        strlcat(Software_Name, Software_Name_String, sizeof(Software_Name));
         strcat(Software_Name, "\n");
     }
     Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
@@ -1008,7 +1008,7 @@ void Preferences_Class::Refresh_System()
     System_Device_Name_Text_Area.Set_Text(Temporary_String);
 
     Temporary_String = "";
-    Time.Get_NTP_Server(Temporary_String);
+    System.Get_NTP_Server(Temporary_String);
     System_Time_NTP_Server_Text_Area.Set_Text(Temporary_String);
 
     Temporary_String = "";
@@ -1034,5 +1034,5 @@ void Preferences_Class::Refresh_System()
         }
     }
 
-    System_Time_Daylight_Offset_Spinbox.Set_Value(Time.Get_Daylight_Offset());
+    System_Time_Daylight_Offset_Spinbox.Set_Value(System.Get_Daylight_Offset());
 }
