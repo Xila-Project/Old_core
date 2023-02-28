@@ -31,9 +31,7 @@ WiFi_Class::WiFi_Class() : Long_Range(true), Station(), Access_Point(), Scan()
 {
 }
 
-WiFi_Class::~WiFi_Class()
-{
-}
+
 
 /// @brief
 /// @param SSID

@@ -16,34 +16,62 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
 
-Accounts_Type Accounts();
+Accounts_Type Accounts;
 
-///
-/// @brief Construct a new Account_Class::Account_Class object
-///
-Accounts_Class::Accounts_Class()
+Result_Type Accounts_Class::Start()
 {
+  User_List.push_back(new User_Type("Xila", User_State_Type::Logged));
+  if (Load_Registry() != Result_Type::Success)
+  {
+    if (Create_Registry() != Result_Type::Success)
+    {
+      return Result_Type::Error;
+    }
+  }
+  return Result_Type::Success;
 }
 
-///
+Result_Type Accounts_Class::Stop()
+{
+  User_List.clear();
+  if (this->Save_Registry() != Result_Type::Success)
+  {
+    return Result_Type::Error;
+  }
+}
+
+Result_Type Accounts_Class::Create_Registry()
+{
+  StaticJsonDocument<256> Account_Registry;
+  Account_Registry["Registry"] = "Account";
+  // TODO : Change how to autologin.
+  File_Type Temporary_File = Drive.Open(Registry("Account"), true);
+  if (!Temporary_File || (serializeJson(Account_Registry, Temporary_File) == 0))
+  {
+    Temporary_File.Close();
+    return Result_Type::Error;
+  }
+  Temporary_File.Close();
+  return Result_Type::Success;
+}
+
 /// @brief Load account registry.
 ///
 /// @return Result_Type
 Result_Type Accounts_Class::Load_Registry()
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"));
-  DynamicJsonDocument Account_Registry(256);
+  StaticJsonDocument<256> Account_Registry;
 
-  if (deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+  if (!Temporary_File || deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
   {
-
     Temporary_File.Close();
     return Result_Type::Error;
   }
   Temporary_File.Close();
+
   if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
   {
-
     return Result_Type::Error;
   }
   // TODO : Change how to autologin.
@@ -55,7 +83,34 @@ Result_Type Accounts_Class::Load_Registry()
     State = Logged;
   }
   */
+  return Result_Type::Success;
+}
 
+Result_Type Accounts_Class::Save_Registry()
+{
+  File_Type Temporary_File = Drive.Open(Registry("Account"));
+  StaticJsonDocument<256> Account_Registry;
+
+  if (!Temporary_File || deserializeJson(Account_Registry, Temporary_File) != DeserializationError::Ok)
+  {
+    Temporary_File.Close();
+    return Result_Type::Error;
+  }
+  Temporary_File.Close();
+
+  if (strcmp(Account_Registry["Registry"] | "", "Account") != 0)
+  {
+    return Result_Type::Error;
+  }
+  // TODO : Change how to autologin.
+  /*
+  memset(Current_Username, '\0', sizeof(Current_Username));
+  strlcpy(Current_Username, Account_Registry["Autologin"] | "", sizeof(Current_Username));
+  if (Current_Username[0] != '\0')
+  {
+    State = Logged;
+  }
+  */
   return Result_Type::Success;
 }
 

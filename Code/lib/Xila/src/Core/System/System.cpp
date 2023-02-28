@@ -353,7 +353,7 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 
   Task_Type::Suspend_All();
   uint32_t Timer = System.Get_Up_Time_Milliseconds() + 5000;
-  
+
   while (Timer > System.Get_Up_Time_Milliseconds())
   {
   }
@@ -564,8 +564,84 @@ void System_Class::Load()
     Panic_Handler(Panic_Type::Failed_To_Start_Graphics);
   }
 
+  Object_Type Logo = this->Start_Load_Animation();
+
   Task.Delay(100);
 
+  // - Check system folders.
+
+  if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
+  {
+    System.Panic_Handler(Panic_Type::Missing_System_Files);
+  }
+
+  // - Load system registry
+  if (System.Load_Registry() != Result_Type::Success)
+  {
+    System.Panic_Handler(Panic_Type::Damaged_System_Registry);
+  }
+
+  WiFi.Set_Host_Name(System.Device_Name); // Set hostname
+
+  // - Sound
+
+  if (Sound.Start() != Result_Type::Success)
+  {
+    Panic_Handler(Panic_Type::Failed_To_Start_Sound);
+  }
+
+  // Sound.Play(Sounds("Startup.wav"));
+
+  // - Power
+
+  if (Power.Load_Registry() != Result_Type::Success)
+  {
+    Power.Save_Registry();
+  }
+
+  // - WiFi
+
+  if (WiFi.Load_Registry() != Result_Type::Success)
+  {
+    WiFi.Save_Registry();
+  }
+
+  // - Time
+  if (Time.Load_Registry() != Result_Type::Success)
+  {
+    Time.Save_Registry();
+  }
+
+  // - Account
+
+  if (Accounts.Load_Registry() != Result_Type::Success)
+  {
+    Accounts.Set_Autologin(false);
+  }
+
+  // - Keyboard
+  if (Keyboard.Load_Registry() != Result_Type::Success)
+  {
+    Keyboard.Save_Registry(); // recreate a keyboard registry with default values
+  }
+
+  // - Enable animation
+
+#if Release_Type != Debug
+  Task.Delay_Static(3000);
+#endif
+
+  Task_Type::Delay_Static(500);
+
+  // System.Load_Dump();
+
+  Task_Type::Delay_Static(100);
+
+  this->Stop_Load_Animation(&Logo);
+}
+
+Object_Type System_Class::Start_Load_Animation()
+{
   Object_Type Background;
   Background.Create(Graphics.Get_Screen());
   Background.Set_Size(Percentage(100), Percentage(100));
@@ -616,7 +692,7 @@ void System_Class::Load()
   Text.Set_Alignment(Alignment_Type::Center, 0, 256);
 
   Graphics_Types::Animation_Type Animation;
-  Animation.Initialize();
+  Animation.Create();
   Animation.Set_Variable(&Logo);
   Animation.Set_Values(64, 255);
   Animation.Set_Time(1000);
@@ -625,78 +701,77 @@ void System_Class::Load()
   Animation.Set_Repeat_Delay(0);
   Animation.Set_Repeat_Count(LV_ANIM_REPEAT_INFINITE); // TODO : Define a constant for this
   Animation.Set_Path_Callback(Graphics_Types::Animation_Type::Path_Ease_In_Out);
+  Animation.Set_Execution_Callback(this->Animation_Callback);
 
-  // - Check system folders.
+  // TODO : Change how anim is created / deleted
+  Animation.Delete();
 
-  if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
+  return Logo;
+}
+
+void System_Class::Stop_Load_Animation(Object_Type *Logo)
+{
+  Graphics_Types::Animation_Type::Delete(Logo, Animation_Callback);
+}
+
+void System_Class::Animation_Callback(void *Object, int32_t Value)
+{
+  // TODO : Optimize this : use animation timeline
+  static uint8_t Animated_Part = 2;
+
+  if ((Value) == 255 || (Value == 64))
   {
-    System.Panic_Handler(Panic_Type::Missing_System_Files);
+    if (Animated_Part == 4)
+    {
+      if (Value == 64)
+      {
+        Animated_Part = 1;
+      }
+      Animated_Part = 0;
+    }
+  }
+  else
+  {
+    Animated_Part++;
   }
 
-  // -- Load system registry -- //
-  if (System.Load_Registry() != Result_Type::Success)
+  Object_Type Logo;
+  Logo.Set_Pointer(static_cast<lv_obj_t *>(Object));
+  if ((Animated_Part % 2) == 0)
   {
-    System.Panic_Handler(Panic_Type::Damaged_System_Registry);
+    {
+      Object_Type Part = Logo.Get_Child(Animated_Part - 1);
+      Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      Part.Set_Style_Opacity(255 + 64 - static_cast<uint8_t>(Value), 0);
+    }
+
+    {
+      Object_Type Part = Logo.Get_Child(Animated_Part - 2);
+      Part.Set_Style_Shadow_Width(Value, 0);
+      Part.Set_Style_Opacity(static_cast<uint8_t>(Value), 0);
+    }
   }
-  WiFi.Set_Host_Name(System.Device_Name); // Set hostname
-
-  // - Sound
-
-  if (Sound.Start() != Result_Type::Success)
+  else
   {
-    Panic_Handler(Panic_Type::Failed_To_Start_Sound);
+    {
+      Object_Type Part = Logo.Get_Child(Animated_Part - 1);
+      Part.Set_Style_Shadow_Width(Value, 0);
+      Part.Set_Style_Opacity(static_cast<uint8_t>(Value), 0);
+    }
+
+    if (Animated_Part == 1)
+    {
+      Object_Type Part = Logo.Get_Child(Animated_Part - 2);
+      Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      Part.Set_Style_Opacity(255 + 64 - static_cast<uint8_t>(Value), 0);
+    }
+    else
+    {
+      Object_Type Part = Logo.Get_Child(Animated_Part - 2);
+      Part.Set_Style_Shadow_Width(255 + 64 - Value, 0);
+      Part.Set_Style_Opacity(255 + 64 - static_cast<uint8_t>(Value), 0);
+    }
   }
-
-  // Sound.Play(Sounds("Startup.wav"));
-
-  // - Power
-
-  if (Power.Load_Registry() != Result_Type::Success)
-  {
-    Power.Save_Registry();
-  }
-
-  // - WiFi
-
-  if (WiFi.Load_Registry() != Result_Type::Success)
-  {
-    WiFi.Save_Registry();
-  }
-
-  // - Time
-  if (Time.Load_Registry() != Result_Type::Success)
-  {
-    Time.Save_Registry();
-  }
-
-  // - Account
-
-  if (Accounts.Load_Registry() != Result_Type::Success)
-  {
-    Accounts.Set_Autologin(false);
-  }
-
-  // - Keyboard
-  if (Keyboard.Load_Registry() != Result_Type::Success)
-  {
-    Keyboard.Save_Registry(); // recreate a keyboard registry with default values
-  }
-
-  // - Enable animation
-
-#if Release_Type != Debug
-  Task_Type::Delay_Static(3000);
-#endif
-
-#if Animations == 1
-  Task_Type::Delay_Static(3000);
-#endif
-
-  Task_Type::Delay_Static(500);
-
-  System.Load_Dump();
-
-  Task_Type::Delay_Static(100);
 }
 
 ///
@@ -704,11 +779,11 @@ void System_Class::Load()
 ///
 void System_Class::Shutdown()
 {
-  #if Build_Type != Debug
-    Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
-  #endif
+#if Build_Type != Debug
+  Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
+#endif
 
-  // TODO : open shutdown screen
+  Object_Type Logo = this->Start_Load_Animation();
 
   Sound.Play(Sounds("Shutdown.wav"));
 
@@ -723,6 +798,8 @@ void System_Class::Shutdown()
   Time.Stop();
   System.Stop();
 
+  this->Stop_Load_Animation(&Logo);
+
   Power.Deep_Sleep();
 }
 
@@ -731,36 +808,28 @@ void System_Class::Shutdown()
 ///
 void System_Class::Restart()
 {
+#if Build_Type != Debug
   Flash.Set_Boot_Partition(Xila_Partition); // Set Xila as boot partition if xila is shutdown properly.
+#endif
 
-  Software_Management.Shell_Send_Instruction(Restart);
-  Software_Management.Shell_Maximize();
+  Object_Type Logo = this->Start_Load_Animation();
 
-  for (uint8_t i = 2; i < 8; i++)
-  {
-    if (Software_Management.Openned[i] != NULL)
-    {
-      Software_Management.Openned[i]->Send_Instruction(Restart);
-      Task.Resume(Software_Management.Openned[i]->Task_Handle);
-      // -- Waiting for the software to close
-      for (uint8_t j = 0; j <= 200; j++)
-      {
-        if (Software_Management.Openned[i] == NULL)
-        {
-          break;
-        }
-        if (j == 200 && Software_Management.Openned[i] != NULL)
-        {
-          Software_Management.Force_Close(*Software_Management.Openned[i]->Handle);
-        }
-        Task_Type::Delay_Static(20);
-      }
-    }
-  }
+  Sound.Play(Sounds("Shutdown.wav"));
 
+  Task.Delete();
 
-  Power.Restart();
-  
+  Softwares.Stop();
+  Display.Stop();
+  Keyboard.Stop();
+  Power.Stop();
+  Sound.Stop();
+  WiFi.Stop();
+  Time.Stop();
+  System.Stop();
+
+  this->Stop_Load_Animation(&Logo);
+
+  Power.Deep_Sleep();
 }
 
 ///

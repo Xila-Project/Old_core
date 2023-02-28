@@ -73,12 +73,12 @@ namespace Xila_Namespace
     {
     public:
 
-        // - Constructors / Destructors
-
-        WiFi_Class();
-        ~WiFi_Class();
-
         // - Methods
+        // - - Constructors / destructors
+        WiFi_Class();
+
+        Result_Type Start();
+        Result_Type Stop()
 
         // - - Managment
 
@@ -101,13 +101,10 @@ namespace Xila_Namespace
 
         // Result_Type Set_Antennas(uint8_t GPIO_1, uint8_t GPIO_2);
 
-        // - - Registry
-
-        Result_Type Create_Registry();
-        Result_Type Load_Registry();
         Result_Type Save_Registry();
         // - -
 
+     
 
         // - Sub class
 
@@ -254,6 +251,11 @@ namespace Xila_Namespace
 
      
     private:
+        // - Attributes
+           // - - Registry
+
+        Result_Type Create_Registry();
+        Result_Type Load_Registry();
 
         bool Long_Range;
 

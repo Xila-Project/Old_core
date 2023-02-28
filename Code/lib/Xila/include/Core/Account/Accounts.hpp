@@ -69,8 +69,8 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        // - - Constructor / destructor
-        Accounts_Class();
+        Result_Type Start();
+        Result_Type Stop();
 
         // - - Management
 
@@ -95,12 +95,12 @@ namespace Xila_Namespace
 
         Result_Type Logout(const String_Type&Name);
         Result_Type Lock(const String_Type&Name);
-
+    private:
+        // - Methods
         // - - Registry
         Result_Type Load_Registry();
         Result_Type Save_Registry();
         Result_Type Create_Registry();
-    private:
         // - Attributes
         std::vector<Accounts_Types::User_Type*> User_List;
     } Accounts_Type;

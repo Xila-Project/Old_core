@@ -12,11 +12,18 @@
 
 using namespace Xila_Namespace;
 
-Clipboard_Type Clipboard();
+Clipboard_Type Clipboard;
 
-Clipboard_Class::Clipboard_Class()
+Result_Type Clipboard_Class::Start()
 {
   Clear();
+  return Result_Type::Success;
+}
+
+Result_Type Clipboard_Class::Stop()
+{
+  Stop();
+  return Result_Type::Success;
 }
 
 /// @brief Clear data of the clipboard.
@@ -25,7 +32,6 @@ void Clipboard_Class::Clear()
   memset(Char_Array, '\0', sizeof(Char_Array));
 }
 
-///
 /// @brief Push data into the clipboard.
 ///
 /// @param Value_To_Copy Data to push.
@@ -35,7 +41,6 @@ void Clipboard_Class::Copy(uint64_t Value_To_Copy)
   Number = Value_To_Copy;
 }
 
-///
 /// @brief Push data into the clipboard.
 ///
 /// @param Char_Array_To_Copy Data to push.
@@ -43,28 +48,18 @@ void Clipboard_Class::Copy(uint64_t Value_To_Copy)
 /// @return Result_Type
 void Clipboard_Class::Copy(const char *Char_Array_To_Copy, Size_Type Char_Array_Length)
 {
-  strlcpy(Char_Array, Char_Array_To_Copy, sizeof(Char_Array));
-}
-
-///
-/// @brief Push data into the clipboard.
-///
-/// @param String_To_Copy Data to push.
-/// @return Result_Type
-void Clipboard_Class::Copy(String String_To_Copy)
-{
-  strlcpy(Char_Array, String_To_Copy.c_str(), sizeof(Char_Array));
+  String.Copy(Char_Array_To_Copy, Char_Array_Length + 1);
 }
 
 void Clipboard_Class::Copy(const void *Data, Size_Type Data_Size)
 {
-  if (Data_Size <= sizeof(Char_Array))
+  if (Data_Size <= sizeof(Data))
   {
-    memcpy(Char_Array, Data, Data_Size);
+    memcpy(this->Data, Data, Data_Size);
   }
   else
   {
-    memcpy(Char_Array, Data, sizeof(Char_Array));
+    memcpy(this->Data, Data, sizeof(Data));
   }
 }
 
@@ -78,7 +73,6 @@ uint64_t Clipboard_Class::Paste() const
   return Number;
 }
 
-///
 /// @brief Pull data from the clipboard.
 ///
 /// @param Char_Array_To_Paste Buffer reference to pull from.
@@ -86,5 +80,10 @@ uint64_t Clipboard_Class::Paste() const
 /// @return Result_Type
 void Clipboard_Class::Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const
 {
-  strlcpy(Destination_Char_Array, Char_Array, Char_Array_Length);
+  strlcpy(Destination_Char_Array, String, Char_Array_Length);
+}
+
+void Clipboard_Class::Paste(String_Type &Destination_String) const
+{
+  Destination_String.Copy(String);
 }

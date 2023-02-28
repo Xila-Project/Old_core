@@ -13,6 +13,8 @@
 
 #include "../Module/Module.hpp"
 
+#include "../Graphics/Graphics.hpp"
+
 //==============================================================================//
 
 ///
@@ -113,12 +115,16 @@ namespace Xila_Namespace
 
         // - Methods
 
-        // - - System
+        // - - Animation
+        Object_Type Start_Load_Animation();
+        static void Animation_Callback(void* Object, int32_t Value);
+        void Stop_Load_Animation(Object_Type* Logo);
 
-        void Load();
-        void Start_Animation();
-        void Stop_Animation();
+        // - - Modules
         void Start_Modules();
+
+        // - - System
+        void Load();
 
         Result_Type Load_Registry();
         Result_Type Save_Registry();

@@ -51,13 +51,15 @@ namespace Xila_Namespace
             static bool Delete(void *Variable, Execution_Callback_Type Execution_Callback);
             static void Delete_All();
 
-            static int32_t Path_Bounce(Animation_Class Animation);
-            static int32_t Path_Ease_In(Animation_Class Animation);
-            static int32_t Path_Ease_In_Out(Animation_Class Animation);
-            static int32_t Path_Ease_Out(Animation_Class Animation);
-            static int32_t Path_Linear(Animation_Class Animation);
-            static int32_t Path_Overshoot(Animation_Class Animation);
-            static int32_t Path_Step(Animation_Class Animation);
+            // - - Path
+
+            static int32_t Path_Bounce(const lv_anim_t* Animation);
+            static int32_t Path_Ease_In(const lv_anim_t* Animation);
+            static int32_t Path_Ease_In_Out(const lv_anim_t* Animation);
+            static int32_t Path_Ease_Out(const lv_anim_t* Animation);
+            static int32_t Path_Linear(const lv_anim_t* Animation);
+            static int32_t Path_Overshoot(const lv_anim_t* Animation);
+            static int32_t Path_Step(const lv_anim_t* Animation);
 
             static void Refresh_Now();
             static uint32_t Speed_To_Time(uint32_t Speed, int32_t Start, int32_t End);
@@ -74,7 +76,7 @@ namespace Xila_Namespace
             // - - Setters
             void Set_Pointer(lv_anim_t *Animation_Pointer);
 
-            void Set_Custom_Execution_Callback(Execution_Callback_Type Execution_Callback);
+            void Set_Execution_Callback(Execution_Callback_Type Execution_Callback);
             void Set_Delay(uint32_t Delay);
             void Set_Early_Apply(bool Enable);
             void Set_Get_Value_Callback(Get_Value_Callback_Type Get_Value_Callback);

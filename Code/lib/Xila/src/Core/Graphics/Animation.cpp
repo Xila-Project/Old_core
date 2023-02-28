@@ -33,6 +33,7 @@ void Animation_Class::Create()
 void Animation_Class::Delete()
 {
     delete LVGL_Animation_Pointer;
+
 }
 
 // ------------------------------------------------------------------------- //
@@ -73,39 +74,39 @@ void Animation_Class::Delete_All()
     lv_anim_del_all();
 }
 
-int32_t Animation_Class::Path_Bounce(Animation_Class Animation)
+int32_t Animation_Class::Path_Bounce(const lv_anim_t* Animation)
 {
-    return lv_anim_path_bounce(Animation.Get_Pointer());
+    return lv_anim_path_bounce(Animation);
 }
 
-int32_t Animation_Class::Path_Ease_In(Animation_Class Animation)
+int32_t Animation_Class::Path_Ease_In(const lv_anim_t* Animation)
 {
-    return lv_anim_path_ease_in(Animation.Get_Pointer());
+    return lv_anim_path_ease_in(Animation);
 }
 
-int32_t Animation_Class::Path_Ease_In_Out(Animation_Class Animation)
+int32_t Animation_Class::Path_Ease_In_Out(const lv_anim_t* Animation)
 {
-    return lv_anim_path_ease_in_out(Animation.Get_Pointer());
+    return lv_anim_path_ease_in_out(Animation);
 }
 
-int32_t Animation_Class::Path_Ease_Out(Animation_Class Animation)
+int32_t Animation_Class::Path_Ease_Out(const lv_anim_t* Animation)
 {
-    return lv_anim_path_ease_out(Animation.Get_Pointer());
+    return lv_anim_path_ease_out(Animation);
 }
 
-int32_t Animation_Class::Path_Linear(Animation_Class Animation)
+int32_t Animation_Class::Path_Linear(const lv_anim_t* Animation)
 {
-    return lv_anim_path_linear(Animation.Get_Pointer());
+    return lv_anim_path_linear(Animation);
 }
 
-int32_t Animation_Class::Path_Overshoot(Animation_Class Animation)
+int32_t Animation_Class::Path_Overshoot(const lv_anim_t* Animation)
 {
     return lv_anim_path_overshoot(Animation.Get_Pointer());
 }
 
-int32_t Animation_Class::Path_Step(Animation_Class Animation)
+int32_t Animation_Class::Path_Step(const lv_anim_t* Animation)
 {
-    return lv_anim_path_step(Animation.Get_Pointer());
+    return lv_anim_path_step(Animation);
 }
 
 void Animation_Class::Refresh_Now()
@@ -134,7 +135,7 @@ void Animation_Class::Set_Pointer(lv_anim_t* Animation_Pointer)
     LVGL_Animation_Pointer = Animation_Pointer;
 }
 
-void Animation_Class::Set_Custom_Execution_Callback(Execution_Callback_Type Execution_Callback)
+void Animation_Class::Set_Execution_Callback(Execution_Callback_Type Execution_Callback)
 {
     lv_anim_set_exec_cb(Get_Pointer(), Execution_Callback);
 }

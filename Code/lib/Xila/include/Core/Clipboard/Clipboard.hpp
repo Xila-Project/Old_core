@@ -27,32 +27,36 @@ namespace Xila_Namespace
     typedef class Clipboard_Class : public Module_Class
     {
     public:
-        Clipboard_Class();
+        // - Methods
+
+        Result_Type Start();
+        Result_Type Stop();
 
         void Clear();
 
-        void Copy(uint64_t Value_To_Copy);
+        void Copy(QWord_Type Value_To_Copy);
+        void Copy(const String_Type &String_To_Copy);
         void Copy(const char *Char_Array_To_Copy, size_t Char_Array_Length = 0);
-        void Copy(String String_To_Copy); // deprecated : only for compatibility purpose
         void Copy(const void *Data, Size_Type Data_Size);
 
-        uint64_t Paste() const;
+        QWord_Type Paste() const;
         void Paste(char *Destination_Char_Array, Size_Type Char_Array_Length) const;
-
+        void Paste(String_Type &Destination_String) const;
 
     protected:
-        ///
+        // - Attributes
+
         /// @brief Clipboard file.
-        ///
         File_Type Clipboard_File;
 
-        ///
         /// @brief Split number array.
-        ///
-        union {
+        union
+        {
             uint8_t Split_Number[8];
-            uint64_t Number;
-            char Char_Array[Xila_Clipboard_Size];
+            QWord_Type Number;
+            Static_String_Type<Xila_Clipboard_Size - 1> String;
+            Byte_Type Data[Xila_Clipboard_Size - 1];
+  
         };
 
     } Clipboard_Type;
