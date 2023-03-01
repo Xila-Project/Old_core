@@ -65,7 +65,7 @@ void Label_Class::Set_Text_Static(const char *Format)
 
 void Label_Class::Set_Long_Mode(Long_Mode_Type Long_Mode)
 {
-    lv_label_set_long_mode(Get_Pointer(), Long_Mode);
+    lv_label_set_long_mode(Get_Pointer(), static_cast<lv_label_long_mode_t>(Long_Mode));
 }
 
 void Label_Class::Set_Recolor(bool Recolor)
@@ -110,7 +110,7 @@ char *Label_Class::Get_Text()
 
 Label_Class::Long_Mode_Type Label_Class::Get_Long_Mode()
 {
-    return lv_label_get_long_mode(Get_Pointer());
+    return static_cast<Label_Class::Long_Mode_Type>(lv_label_get_long_mode(Get_Pointer()));
 }
 
 bool Label_Class::Get_Recolor()

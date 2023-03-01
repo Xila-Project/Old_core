@@ -12,7 +12,11 @@
 
 using namespace Xila_Namespace;
 
-Clipboard_Type Clipboard;
+Clipboard_Type Clipboard();
+
+Clipboard_Class::Clipboard_Class()
+{
+}
 
 Result_Type Clipboard_Class::Start()
 {
@@ -22,14 +26,15 @@ Result_Type Clipboard_Class::Start()
 
 Result_Type Clipboard_Class::Stop()
 {
-  Stop();
+  Clear();
   return Result_Type::Success;
 }
 
 /// @brief Clear data of the clipboard.
 void Clipboard_Class::Clear()
 {
-  memset(Char_Array, '\0', sizeof(Char_Array));
+
+  memset(Data, 0, sizeof(Data));
 }
 
 /// @brief Push data into the clipboard.

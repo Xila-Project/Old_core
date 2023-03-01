@@ -9,57 +9,76 @@
 ///
 
 #include "Core/Graphics/Theme.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object)
+
+
+void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
 {
+    static Object_Type Object;
+
     LV_UNUSED(Theme);
 
-    if (lv_obj_check_type(Object, &lv_obj_class))
+    Object.Clear_Pointer();
+    Object.Set_Pointer(LVGL_Object);
+
+    // - Apply theme's style
+
+    // - - Object
+    if (Object.Check_Type(&lv_obj_class))
     {
-        lv_obj_set_style_radius(Object, 0, 0);
-        lv_obj_set_style_border_width(Object, 0, 0);
+        Object.Set_Style_Radius(0, 0);
+        Object.Set_Style_Border_Width(0, 0);
     }
 
-    if (lv_obj_check_type(Object, &lv_btn_class))
+    // - - Button
+    else if (Object.Check_Type(&lv_btn_class))
     {
-        lv_obj_add_style(Object, &Style_Button, 0);
+        Object.Add_Style(&Style_Button, 0);
     }
 
-    else if (lv_obj_check_type(Object, &lv_label_class))
+    // - - Label
+    else if (Object.Check_Type(&lv_label_class))
     {
-        lv_obj_set_style_text_color(Object, lv_color_white(), 0);
+        Object.Set_Style_Text_Color(Color_Type::White, 0);
     }
 
-    else if (lv_obj_check_type(Object, &lv_checkbox_class))
+    // - - Checkbox
+    else if (Object.Check_Type(&lv_checkbox_class))
     {
         // Set label color
-        lv_obj_set_style_text_color(Object, lv_color_white(), LV_PART_MAIN | LV_STATE_DEFAULT);
+        Object.Set_Style_Text_Color(Color_Type::White, Part_Type::Main | State_Type::Default);
         // Add style for the indicator
-        lv_obj_add_style(Object, &Style_Checkbox, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+        Object.Add_Style(&Style_Checkbox, Part_Type::Indicator | State_Type::Default);
         // Set background color of the indicator
-        lv_obj_set_style_bg_color(Object, lv_palette_darken(LV_PALETTE_GREY, 3), LV_PART_INDICATOR | LV_STATE_CHECKED);
+        Object.Set_Style_Background_Color(Color_Type::White, Part_Type::Indicator | State_Type::Checked);
     }
 
-    else if (lv_obj_check_type(Object, &lv_slider_class))
+    // - - Slider
+    else if (Object.Check_Type(&lv_slider_class))
     {
-        lv_obj_add_style(Object, &Style_Slider_Main, LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_add_style(Object, &Style_Slider_Indicator, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-        lv_obj_add_style(Object, &Style_Slider_Knob, LV_PART_KNOB | LV_STATE_DEFAULT);
+        Object.Add_Style(&Style_Slider_Main, Part_Type::Main | State_Type::Default);
+        Object.Add_Style(&Style_Slider_Indicator, Part_Type::Indicator | State_Type::Default);
+        Object.Add_Style(&Style_Slider_Knob, Part_Type::Knob | State_Type::Default);
     }
 
-    else if (lv_obj_check_type(Object, &lv_textarea_class))
+    // - - Textarea
+    else if (Object.Check_Type(&lv_textarea_class))
     {
-        lv_obj_set_style_bg_color(Object, lv_palette_darken(LV_PALETTE_GREY, 3), 0);
-        lv_obj_set_style_border_side(Object, LV_BORDER_SIDE_BOTTOM, 0);
-
-        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_MAIN | LV_STATE_DEFAULT);
-        lv_obj_set_style_border_color(Object, lv_palette_main(LV_PALETTE_LIGHT_BLUE), LV_PART_MAIN | LV_STATE_FOCUSED);
-        lv_obj_set_style_border_color(Object, lv_palette_main(LV_PALETTE_LIGHT_BLUE), LV_PART_MAIN | LV_STATE_EDITED);
-        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_MAIN | LV_STATE_DISABLED);
-
-        lv_obj_set_style_border_color(Object, lv_color_white(), LV_PART_CURSOR | LV_STATE_FOCUSED);
+        Object.Set_Style_Background_Color(Color_Type::White, Part_Type::Main | State_Type::Default);
+        Object.Set_Style_Border_Side(Border_Side_Type::Bottom, Part_Type::Main | State_Type::Default);
+        Object.Set_Style_Border_Color(Color_Type::White, Part_Type::Main | State_Type::Default);
+        Object.Set_Style_Border_Color(Color_Type::White, Part_Type::Main | State_Type::Disabled);
+        Object.Set_Style_Border_Color(Color_Type::White, Part_Type::Main | State_Type::Edited);
+        Object.Set_Style_Border_Color(Color_Type::White, Part_Type::Main | State_Type::Focused);
+        Object.Set_Style_Border_Color(Color_Type::White, Part_Type::Cursor | State_Type::Focused);
+    
+        // TODO : Add object event to add keyboard
+        Object.Add_Event(&Graphics, Event_Code_Type::Focused);
+        Object.Add_Event(&Graphics, Event_Code_Type::Defocused);
     }
 }
 
@@ -67,6 +86,7 @@ void Theme_Class::Initialize()
 {
     /*Initialize the styles*/
     // Button style
+    
     lv_style_init(&Style_Button);
     lv_style_set_bg_color(&Style_Button, lv_palette_darken(LV_PALETTE_GREY, 3));
     lv_style_set_border_color(&Style_Button, lv_color_white());

@@ -13,10 +13,16 @@
 
 #include "Arduino.h"
 #include "../Module/Module.hpp"
+#include "Hash.hpp"
 
 namespace Xila_Namespace
 {
-    class Mathematics_Class : Module_Class
+    namespace Mathematics_Types
+    {
+
+    };
+
+    typedef class Mathematics_Class : Module_Class
     {
     public:
         ///
@@ -109,7 +115,9 @@ namespace Xila_Namespace
         uint32_t Random(uint32_t Upper_Bound);
         uint32_t Random(uint32_t Low_Bound, uint32_t Upper_Bound);
 
-    } Mathematics;
+    } Mathematics_Type;
+
+    extern Mathematics_Type Mathematics;
 }
 
 #endif

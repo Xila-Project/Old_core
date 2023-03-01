@@ -16,22 +16,33 @@ using namespace Xila_Namespace;
 
 Display_Type Display;
 
-// -- Constructors
+// - Methods
 
-///
-/// @brief Construct a new Xila_Class::Display_Class::Display_Class object
-///
-Display_Class::Display_Class()
-
+Result_Type Display_Class::Start()
 {
+    if (Load_Registry() != Result_Type::Success)
+    {
+        if (Create_Registry() != Result_Type::Success)
+        {
+            return Result_Type::Error;
+        }
+    }
+    this->Wake_Up();
+    if (this->Initialize() != Result_Type::Success)
+    {
+        return Result_Type::Error;
+    }
+    Set_Brightness(Default_Display_Brightness);
+    Set_Standby_Time(Default_Display_Standby_Time);
+    return Result_Type::Success;
+};
+
+Result_Type Display_Class::Stop()
+{
+    this->Sleep();
+    return Save_Registry();
 }
 
-///
-/// @brief Destroy the Xila_Class::Display_Display_Class::Display_Class object
-///
-Display_Class::~Display_Class()
-{
-}
 
 // -- Object's base class
 
@@ -63,8 +74,10 @@ uint16_t Display_Class::Get_Standby_Time()
 Result_Type Display_Class::Load_Registry()
 {
     using namespace Xila;
+
     File_Type Temporary_File = Drive.Open(Registry("Display"));
-    DynamicJsonDocument Display_Registry(256);
+
+    StaticJsonDocument<256> Display_Registry;
     if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.Close();
@@ -82,22 +95,41 @@ Result_Type Display_Class::Load_Registry()
     return Result_Type::Success;
 }
 
-///
 /// @brief Save display registry
 ///
 /// @return Result_Type
 Result_Type Display_Class::Save_Registry()
 {
-    using namespace Xila;
     File_Type Temporary_File = Drive.Open(Registry("Display"), true);
-    DynamicJsonDocument Display_Registry(256);
-    Display_Registry["Registry"] = "Display";
+    StaticJsonDocument<256> Display_Registry;
+    
+    if (!Temporary_File || deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok || strcmp("Display", Display_Registry["Registry"] | "") != 0)
+    {
+        Temporary_File.Close();
+        return Result_Type::Error;
+    }
+    
     Display_Registry["Brightness"] = Brightness;
     Display_Registry["Standby Time"] = Standby_Time;
+
     if (serializeJson(Display_Registry, Temporary_File) == 0)
     {
         Temporary_File.Close();
-        Log_Error("Failed to save display registry.");
+        return Result_Type::Error;
+    }
+    Temporary_File.Close();
+    return Result_Type::Success;
+}
+
+Result_Type Display_Class::Create_Registry()
+{
+    StaticJsonDocument<256> Display_Registry;
+    Display_Registry["Registry"] = "Display";
+    
+    File_Type Temporary_File = Drive.Open(Registry("Display"), true);
+    if (!Temporary_File || serializeJson(Display_Registry, Temporary_File) == 0)
+    {
+        Temporary_File.Close();
         return Result_Type::Error;
     }
     Temporary_File.Close();

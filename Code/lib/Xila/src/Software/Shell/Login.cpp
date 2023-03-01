@@ -12,7 +12,7 @@
 
 Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
-    Dialog.Create();
+    Dialog.Create(Shell_Pointer);
     Dialog.Set_Title("Login");
     Dialog.Set_Overlay(true);
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);
@@ -32,19 +32,19 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Password_Input.Set_Password_Mode(true);
     Password_Input.Set_One_Line(true);
     Password_Input.Set_Maximum_Length(Maximum_Password_Length);
-    Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type:Focused);
+    Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
     Password_Input.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
     Login_Button.Create(Dialog);
     Login_Button.Set_Size(Percentage(50), 40);
-    Login_Button.Add_Event(Shell_Pointer, Graphics_Type::Event_Code_Type::Clicked);
+    Login_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     Login_Label.Create(Login_Button);
     Login_Label.Set_Text("Login");
     Login_Label.Set_Alignment(Alignment_Type::Center);
 
     // TODO : 
-    Keyboard.Create();
+    Keyboard.Create(Desk.Get_Body());
     Keyboard.Add_Flag(Flag_Type::Hidden);
 }
 

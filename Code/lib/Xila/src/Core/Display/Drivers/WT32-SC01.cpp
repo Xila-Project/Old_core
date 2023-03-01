@@ -137,18 +137,18 @@ public:
 
             // ※ 以下の設定値はパネル毎に一般的な初期値が設定されていますので、不明な項目はコメントアウトして試してみてください。
 
-            cfg.panel_width = Display_Horizontal_Definition;    // 実際に表示可能な幅
-            cfg.panel_height = Display_Vertical_Definition;   // 実際に表示可能な高さ
-            cfg.offset_x = 0;         // パネルのX方向オフセット量
-            cfg.offset_y = 0;         // パネルのY方向オフセット量
-            cfg.offset_rotation = 0;  // 回転方向の値のオフセット 0~7 (4~7は上下反転)
-            cfg.dummy_read_pixel = 8; // ピクセル読出し前のダミーリードのビット数
-            cfg.dummy_read_bits = 1;  // ピクセル以外のデータ読出し前のダミーリードのビット数
-            cfg.readable = true;      // データ読出しが可能な場合 trueに設定
-            cfg.invert = false;       // パネルの明暗が反転してしまう場合 trueに設定
-            cfg.rgb_order = false;    // パネルの赤と青が入れ替わってしまう場合 trueに設定
-            cfg.dlen_16bit = false;   // 16bitパラレルやSPIでデータ長を16bit単位で送信するパネルの場合 trueに設定
-            cfg.bus_shared = false;   // SDカードとバスを共有している場合 trueに設定(drawJpgFile等でバス制御を行います)
+            cfg.panel_width = Display_Horizontal_Definition; // 実際に表示可能な幅
+            cfg.panel_height = Display_Vertical_Definition;  // 実際に表示可能な高さ
+            cfg.offset_x = 0;                                // パネルのX方向オフセット量
+            cfg.offset_y = 0;                                // パネルのY方向オフセット量
+            cfg.offset_rotation = 0;                         // 回転方向の値のオフセット 0~7 (4~7は上下反転)
+            cfg.dummy_read_pixel = 8;                        // ピクセル読出し前のダミーリードのビット数
+            cfg.dummy_read_bits = 1;                         // ピクセル以外のデータ読出し前のダミーリードのビット数
+            cfg.readable = true;                             // データ読出しが可能な場合 trueに設定
+            cfg.invert = false;                              // パネルの明暗が反転してしまう場合 trueに設定
+            cfg.rgb_order = false;                           // パネルの赤と青が入れ替わってしまう場合 trueに設定
+            cfg.dlen_16bit = false;                          // 16bitパラレルやSPIでデータ長を16bit単位で送信するパネルの場合 trueに設定
+            cfg.bus_shared = false;                          // SDカードとバスを共有している場合 trueに設定(drawJpgFile等でバス制御を行います)
 
             // 以下はST7735やILI9163のようにピクセル数が可変のドライバで表示がずれる場合にのみ設定してください。
             //    cfg.memory_width     =   240;  // ドライバICがサポートしている最大の幅
@@ -209,19 +209,24 @@ public:
 
 static WT32_SC01_Driver_Class WT32_SC01_Driver;
 
-Result_Type Display_Class::Start()
+Result_Type Display_Class::Initialize()
 {
-    if (Load_Registry() != Result_Type::Success)
-    {
-        Save_Registry();
-    }
-    
     if (WT32_SC01_Driver.init())
     {
         return Result_Type::Success;
     }
     return Result_Type::Error;
-};
+}
+
+void Display_Class::Sleep()
+{
+    WT32_SC01_Driver.sleep();
+}
+
+void Display_Class::Wake_Up()
+{
+    WT32_SC01_Driver.wakeup();
+}
 
 void Display_Class::Set_Brightness(uint8_t Brightness)
 {

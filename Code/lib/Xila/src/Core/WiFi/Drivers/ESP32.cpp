@@ -8,9 +8,7 @@
 /// @copyright Copyright (c) 2023
 ///
 
-// #if WiFi_Hardware == WiFi_Hardware_ESP32
-
-#if true
+#if WiFi_Hardware == WiFi_Hardware_ESP32
 
 #include <WiFi.h>
 

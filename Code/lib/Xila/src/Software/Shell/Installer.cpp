@@ -114,8 +114,12 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
 
     Create_Account_Button.Create(Dialog.Get_Body());
     Create_Account_Button.Set_Size(LV_PCT(80), 40);
-    Create_Account_Button.Set_Text("Create account");
+
+    {
+        Label_Type Create_Account_Label;
+        Create_Account_Label.Create(Create_Account_Button);
+        Create_Account_Label.Set_Text("Create account");
+        Create_Account_Label.Set_Alignment(Alignment_Type::Center);
+    }
     
-
-
 }

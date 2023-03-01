@@ -41,8 +41,8 @@ namespace Xila_Namespace
         Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);
         void Take_Recursive(Tick_Type Tick_To_Wait);
         void Give();
-        void Take_From_ISR(Integer *Higher_Priority_Task_Woken);
-        void Give_From_ISR(Integer *Higher_Priority_Task_Woken);
+        void Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
+        void Give_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
         void Take_Recursive();
         void Give_Recursive();
         // Task_Type Get_Mutex_Holder();

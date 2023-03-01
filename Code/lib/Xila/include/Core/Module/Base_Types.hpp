@@ -22,18 +22,18 @@ namespace Xila_Namespace
     typedef uint32_t DWord_Type;
     typedef uint64_t QWord_Type;
     
-    typedef int16_t Short_Integer;
-    typedef int32_t Integer;
-    typedef int64_t Long_Integer;
+    typedef int16_t Short_Integer_Type;
+    typedef int32_t Integer_Type;
+    typedef int64_t Long_Integer_Type;
 
-    typedef uint16_t Short_Natural;
-    typedef uint32_t Natural;
-    typedef uint64_t Long_Natural;
+    typedef uint16_t Short_Natural_Type;
+    typedef uint32_t Natural_Type;
+    typedef uint64_t Long_Natural_Type;
 
-    typedef float Real;
-    typedef double Long_Real;
+    typedef float Real_Type;
+    typedef double Long_Real_Type;
 
-    typedef char Character;
+    typedef char Character_Type;
     // typedef String String;
 
     typedef void Void;

@@ -12,7 +12,7 @@
 
 Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
-    Window.Create();
+    Window.Create(Shell_Pointer);
     Window.Set_Title("Drawer");
 
     // - Set flex container

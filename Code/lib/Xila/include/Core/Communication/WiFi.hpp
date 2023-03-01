@@ -78,7 +78,7 @@ namespace Xila_Namespace
         WiFi_Class();
 
         Result_Type Start();
-        Result_Type Stop()
+        Result_Type Stop();
 
         // - - Managment
 
@@ -100,8 +100,6 @@ namespace Xila_Namespace
         Result_Type Set_Host_Name(const String_Type& Host_Name);
 
         // Result_Type Set_Antennas(uint8_t GPIO_1, uint8_t GPIO_2);
-
-        Result_Type Save_Registry();
         // - -
 
      
@@ -256,6 +254,7 @@ namespace Xila_Namespace
 
         Result_Type Create_Registry();
         Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
         bool Long_Range;
 
@@ -263,7 +262,6 @@ namespace Xila_Namespace
     } WiFi_Type;
 
     extern WiFi_Type WiFi;
-
 }
 
 #endif

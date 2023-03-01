@@ -11,30 +11,32 @@
 #ifndef Theme_Hpp_Included
 #define Theme_Hpp_Included
 
-#include "lvgl.h"
-
 #define Button_Radius 4
 #define Slider_Radius 4
 
 namespace Xila_Namespace
 {
-    class Theme_Class
+    namespace Graphics_Types
     {
-    public:
-        void Initialize();
+        typedef class Theme_Class
+        {
+        public:
+            void Initialize();
 
-        static void Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object);
+            static void Apply_Callback(lv_theme_t *Theme, lv_obj_t *Object);
 
-        static lv_style_t 
-            Style_Button,
-            Style_Window,
-            Style_Checkbox,
-            Style_Slider_Main,
-            Style_Slider_Indicator,
-            Style_Slider_Knob;
+            static Style_Type
+                Style_Button,
+                Style_Window,
+                Style_Checkbox,
+                Style_Slider_Main,
+                Style_Slider_Indicator,
+                Style_Slider_Knob;
 
-    private:
-        static lv_theme_t LVGL_Theme;
+        private:
+            static lv_theme_t LVGL_Theme;
+            
+        } Theme_Type;
     };
 }
 

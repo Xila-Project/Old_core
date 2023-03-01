@@ -51,7 +51,6 @@
 //#include "Spinner.hpp"
 #include "Tabs.hpp"
 //#include "Tileview.hpp"
-#include "Window.hpp"
 
 #include "Theme.hpp"
 
@@ -59,10 +58,10 @@ namespace Xila_Namespace
 {
     namespace Graphics_Types
     {
-        
+
     };
 
-    typedef class Graphics_Class : public Types_Class, public Xila_Namespace::Module_Class
+    typedef class Graphics_Class : public Module_Class
     {
     public:
         
@@ -72,23 +71,28 @@ namespace Xila_Namespace
 
         // - Methods
         Result_Type Start();
+        Result_Type Stop();
 
+        // - - Task
         static void Task_Start_Function(void * Instance_Pointer);
         void Task_Function();
 
+        // - - Instruction
+        void Execute_Instruction(Instruction_Class Instruction);
         static void Event_Handler(lv_event_t *Event);
 
-        void Clear_Cache();
-
+    private:
+        // - Methods
         Object_Type Get_Top_Layer();
         Object_Type Get_Screen();
 
-    private:
         // - Attributes
         Task_Class Task;
 
-        Theme_Class Theme;
-        
+        Graphics_Types::Theme_Type Theme;
+
+        Keyboard_Type Keyboard;
+
         // - - Buffers
         lv_color_t Draw_Buffer[Display_Horizontal_Definition * 10];
 
@@ -96,9 +100,9 @@ namespace Xila_Namespace
         lv_disp_draw_buf_t Draw_Buffer_Descriptor;
         lv_disp_drv_t Screen_Driver_Interface;
         lv_indev_drv_t Input_Device_Driver_Interface;
+        lv_fs_drv_t File_System_Driver;
 
     /*
-        lv_fs_drv_t File_System_Driver;
 
         void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
         lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
@@ -110,6 +114,7 @@ namespace Xila_Namespace
         lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
         lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
     */
+
     } Graphics_Type;
 
     extern Graphics_Type Graphics;

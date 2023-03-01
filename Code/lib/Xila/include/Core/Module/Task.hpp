@@ -43,8 +43,7 @@ namespace Xila_Namespace
         };
 
         // - Methods
-
-        Task_Class(xTaskHandle Handle);
+        
         // - Constructors / Destructors
         Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name,
                    Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
@@ -82,9 +81,7 @@ namespace Xila_Namespace
         uint32_t Get_Watchdog_Timeout();
 
     private:
-
         // - Attributes
-
         xTaskHandle Task_Handle;
 
         uint32_t Watchdog_Timer;

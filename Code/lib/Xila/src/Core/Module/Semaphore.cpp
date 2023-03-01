@@ -100,12 +100,12 @@ Result_Type Semaphore_Class::Take(uint32_t Timeout)
     }
 }
 
-void Semaphore_Class::Give_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Semaphore_Class::Give_From_ISR(Integer_Type *Higher_Priority_Task_Woken)
 {
     xSemaphoreGiveFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Semaphore_Class::Take_From_ISR(Integer *Higher_Priority_Task_Woken)
+void Semaphore_Class::Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken)
 {
     xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }

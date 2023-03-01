@@ -250,7 +250,6 @@ Result_Type String_Class::Copy_Format(const char *Format, ...)
     
 }
 
-
 /// @brief
 /// @param String
 /// @param Size
@@ -287,27 +286,50 @@ Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool I
     return Result_Type::Success;
 }
 
+Result_Type String_Class::Concatenate(const String_Class &String, bool Increase_Size)
+{
+    return Concatenate(String.Characters_Pointer, String.Size, Increase_Size);
+}
+
 Result_Type String_Class::Concatenate(char Character, bool Increase_Size)
 {
-    if (!Is_Valid())
-    {
-        return Result_Type::Error;
-    }
+    char Character_Array[2] = {Character, '\0'};
+    return Concatenate(Character_Array, 2, Increase_Size);
+}
 
-    Size_Type Size = Get_Length() + 2;
+Result_Type String_Class::Concatenate(Short_Natural_Type Byte, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Short_Natural_Type)>)Byte, Increase_Size);
+}
 
-    if (Increase_Size && (Get_Size() < Size))
-    {
-        if (Set_Size(Size) != Result_Type::Success)
-        {
-            return Result_Type::Error;
-        }
-    }
+Result_Type String_Class::Concatenate(Integer_Type Integer, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Natural_Type)>)Integer, Increase_Size);
+}
 
-    Characters_Pointer[Get_Length()] = Character;
-    Characters_Pointer[Get_Size()] = '\0';
+Result_Type String_Class::Concatenate(Natural_Type Natural, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Natural_Type)>)Natural, Increase_Size);
+}
 
-    return Result_Type::Success;
+Result_Type String_Class::Concatenate(Long_Natural_Type Long_Natural, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Long_Natural_Type)>)Long_Natural, Increase_Size);
+}
+
+Result_Type String_Class::Concatenate(Long_Integer_Type Long_Integer, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Long_Integer_Type)>)Long_Integer, Increase_Size);
+}
+
+Result_Type String_Class::Concatenate(Real_Type Real, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Real_Type)>)Real, Increase_Size);
+}
+
+Result_Type String_Class::Concatenate(Long_Real_Type Long_Real, bool Increase_Size)
+{
+    return Concatenate((Static_String_Type<3*sizeof(Long_Real_Type)>)Long_Real, Increase_Size);
 }
 
 bool String_Class::Equals(const char *String, Size_Type Size) const
@@ -431,6 +453,16 @@ String_Class::operator const char *() const
     return Characters_Pointer;
 }
 
+String_Class::operator char* ()
+{
+    return Characters_Pointer;
+}
+
+String_Class::operator const Byte_Type*() const
+{
+    return (const uint8_t*)Characters_Pointer;
+}
+
 String_Class &String_Class::operator=(const char *String)
 {
     Copy(String);
@@ -466,6 +498,44 @@ String_Class &String_Class::operator+=(char Character)
     Concatenate(Character);
     return *this;
 }
+
+String_Class& String_Class::operator+=(Integer_Type Integer)
+{
+    Concatenate(Integer);
+    return *this;
+}
+
+String_Class& String_Class::operator+=(Long_Integer_Type Integer)
+{
+    Concatenate(Integer);
+    return *this;
+}
+
+String_Class& String_Class::operator+=(Short_Natural_Type Byte)
+{
+    Concatenate(Byte);
+    return *this;
+}
+
+String_Class& String_Class::operator+=(Natural_Type Natural)
+{
+    Concatenate(Natural);
+    return *this;
+}
+
+String_Class& String_Class::operator+=(Real_Type Real)
+{
+    Concatenate(Real);
+    return *this;
+}
+
+String_Class& String_Class::operator+=(Long_Real_Type Real)
+{
+    Concatenate(Real);
+    return *this;
+}
+
+
 
 bool String_Class::operator==(const char *String) const
 {

@@ -8,8 +8,8 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#ifndef DISPLAY_HPP_INCLUDED
-#define DISPLAY_HPP_INCLUDED
+#ifndef Display_Hpp_Included
+#define Display_Hpp_Included
 
 #include "../Module/Module.hpp"
 
@@ -21,40 +21,42 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
-
-        // - - Constructor / destructor
-        Display_Class();
-        ~Display_Class();
+        Result_Type Start();
+        Result_Type Stop();
 
         // - - Management
-        Result_Type Start();
         void Calibrate();
 
-        // - - Registry
-        Result_Type Load_Registry();
-        Result_Type Save_Registry();
-
+    
         uint16_t Get_Horizontal_Definition();
         uint16_t Get_Vertical_Definition();
 
-        // - - Setters
-
-        void Set_Brightness(uint8_t Brightness);
-        uint8_t Get_Brightness();
-
         // - - Getters
-
-        void Set_Standby_Time(uint16_t Standby_Time);
+        uint8_t Get_Brightness();
         uint16_t Get_Standby_Time();
+
+        // - - Setters
+        void Set_Brightness(uint8_t Brightness);
+        void Set_Standby_Time(uint16_t Standby_Time);
 
         // - - LVGL interface
 
         static IRAM_ATTR void Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer);
         static IRAM_ATTR void Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data);
         
+    private:
+
+        // - Methods
+        Result_Type Initialize();
+        void Sleep();
+        void Wake_Up();
+        
+        // - - Registry
+        Result_Type Create_Registry();
+        Result_Type Load_Registry();
+        Result_Type Save_Registry();
 
     
-    private:
         // - Attributes
         uint16_t Standby_Time;
         uint8_t Brightness;

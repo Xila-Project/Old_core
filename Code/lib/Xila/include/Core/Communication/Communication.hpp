@@ -12,6 +12,7 @@
 #define Communication_Hpp_Included
 
 #include "WiFi.hpp"
+#include "WiFiClient.h"
 
 namespace Xila_Namespace
 {

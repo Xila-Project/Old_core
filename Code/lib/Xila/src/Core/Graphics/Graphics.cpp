@@ -33,36 +33,38 @@ Result_Type Graphics_Class::Start()
 {
     lv_init();
 
-    while (!lv_is_initialized())
+    if (!lv_is_initialized())
     {
-        Task_Type::Delay_Static(10);
+       return Result_Type::Error;
     }
 
     // - Set draw buffer
-    lv_disp_draw_buf_init(&Draw_Buffer_Descriptor, Draw_Buffer, NULL, Display_Horizontal_Definition);
+    lv_disp_draw_buf_init(&Draw_Buffer_Descriptor, Draw_Buffer, NULL, Display.Get_Horizontal_Definition() * 10);
 
     // - Set screen driver interface
     lv_disp_drv_init(&Screen_Driver_Interface);
-
-    Screen_Driver_Interface.hor_res = Display_Horizontal_Definition;
-    Screen_Driver_Interface.ver_res = Display_Vertical_Definition;
+    Screen_Driver_Interface.hor_res = Display.Get_Horizontal_Definition();
+    Screen_Driver_Interface.ver_res = Display.Get_Vertical_Definition();
     Screen_Driver_Interface.flush_cb = Display_Class::Output_Flush;
     Screen_Driver_Interface.draw_buf = &Draw_Buffer_Descriptor;
-
     lv_disp_drv_register(&Screen_Driver_Interface);
 
     // - Set touch pad driver interface
     lv_indev_drv_init(&Input_Device_Driver_Interface);
-
     Input_Device_Driver_Interface.type = LV_INDEV_TYPE_POINTER;
     Input_Device_Driver_Interface.read_cb = Display_Class::Input_Read;
-
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
     // - Set theme
     Theme.Initialize();
 
     // - Set file system driver
+
+    // - Create keyboard
+    Keyboard.Create(Get_Top_Layer());
+    Keyboard.Add_Flag(Flag_Type::Hidden);
+
+    // - Create task
     Task.Create(Task_Start_Function, "Graphics", 2048, NULL, Task_Type::Priority_Type::System);
 
     return Result_Type::Success;
@@ -79,8 +81,42 @@ void Graphics_Class::Task_Function()
     {
         lv_tick_inc(6);
         lv_timer_handler();
-        Task_Type::Delay_Static(6);
+        Task.Delay(6);
+
+        while (this->Instruction_Available())
+        {
+            this->Execute_Instruction(this->Get_Instruction());
+        }
+
     }
+}
+
+void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
+{
+    if (Instruction.Graphics.Get_Object().Check_Type(&lv_textarea_class))
+    {
+        switch (Instruction.Graphics.Get_Code())
+        {
+            case Event_Code_Type::Focused:
+            {
+                Text_Area_Type Text_Area;
+                Text_Area.Set_Pointer(Instruction.Graphics.Get_Object().Get_Pointer());
+                Keyboard.Set_Text_Area(Text_Area);
+                Keyboard.Clear_Flag(Flag_Type::Hidden);
+                break;
+            }
+            case Event_Code_Type::Defocused:
+            {
+                Text_Area_Type Text_Area;
+                Text_Area.Set_Pointer(NULL);
+                Keyboard.Set_Text_Area(Text_Area);
+                Keyboard.Add_Flag(Flag_Type::Hidden);
+
+                break;
+            }
+        }
+    }
+
 }
 
 void Graphics_Class::Event_Handler(lv_event_t *Event)

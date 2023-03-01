@@ -8,7 +8,11 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Core.hpp"
+#include "Core/Mathematics/Mathematics.hpp"
+
+using namespace Xila_Namespace;
+
+Mathematics_Type Mathematics;
 
 ///
 /// @brief Check if a float is a number.

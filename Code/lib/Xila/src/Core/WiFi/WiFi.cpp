@@ -20,15 +20,31 @@ using namespace Xila_Namespace::WiFi_Types;
 
 // - Variables
 
-WiFi_Type WiFi();
+WiFi_Type WiFi;
 
 // - Methods
 
-// - - Constructors / Destructors
-
-/// @brief Construct a new WiFi_Class object
-WiFi_Class::WiFi_Class() : Long_Range(true), Station(), Access_Point(), Scan()
+WiFi_Class::WiFi_Class() : Station(), Access_Point(), Scan()
 {
+}
+
+Result_Type WiFi_Class::Start()
+{
+    if (this->Load_Registry() != Result_Type::Success)
+    {
+        if (this->Create_Registry() != Result_Type::Success)
+        {
+            return Result_Type::Error;
+        }
+
+    }
+    return Result_Type::Success;
+}
+
+Result_Type WiFi_Class::Stop()
+{
+    this->Turn_Off();
+    return this->Save_Registry();
 }
 
 
@@ -278,7 +294,9 @@ Result_Type WiFi_Class::Save_Registry()
     JsonObject Access_Point = WiFi_Registry["Access Point"];
 
     Access_Point["IP v6"] = this->Access_Point.IP_v6;
-    Access_Point["SSID"] = this->Access_Point.Get_SSID();
+    Static_String_Type<32> SSID;
+    this->Access_Point.Get_SSID(SSID);
+    Access_Point["SSID"] = SSID;
     Access_Point["Password"] = this->Access_Point.Password;
     Access_Point["Channel"] = this->Access_Point.Channel;
     Access_Point["Hidden"] = this->Access_Point.Hidden;

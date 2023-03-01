@@ -101,7 +101,7 @@ int32_t Animation_Class::Path_Linear(const lv_anim_t* Animation)
 
 int32_t Animation_Class::Path_Overshoot(const lv_anim_t* Animation)
 {
-    return lv_anim_path_overshoot(Animation.Get_Pointer());
+    return lv_anim_path_overshoot(Animation);
 }
 
 int32_t Animation_Class::Path_Step(const lv_anim_t* Animation)

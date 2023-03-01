@@ -9,7 +9,6 @@
 ///
 
 #include "Core/Account/Accounts.hpp"
-#include "Core/Cryptography/Cryptography.hpp"
 
 #include "Core/Core.hpp"
 
@@ -333,6 +332,8 @@ Result_Type Accounts_Class::Change_Name(const String_Type &Current_Name, const S
 /// @return Result_Type
 Result_Type Accounts_Class::Change_Password(const String_Type &Name, const String_Type &Current_Password, const String_Type &New_Password)
 {
+  using namespace Xila_Namespace::Mathematics_Types;
+
   if (Check_Credentials(Name, Current_Password) != Result_Type::Success)
   {
     return Result_Type::Error;
@@ -344,15 +345,18 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
   DynamicJsonDocument User_Registry(Default_Registry_Size);
   User_Registry["Registry"] = "User";
 
-  byte Hash[33] = {0};
-  Hash[32] = '\0';
+  Hash_Type Hash;
+  Hash.Create(Message_Digest_Type::SHA_256);
 
-  if (Cryptography.Get_Hash(Current_Password, strlen(Current_Password), Hash, (sizeof(Hash) - 1), Cryptography_Class::Hash_Type::SHA_256) != Result_Type::Success)
+  if (Hash.Add(Current_Password) != Result_Type::Success)
   {
     return Result_Type::Error;
   }
+  
+  Byte_Type Hash_Buffer[Hash.Get_Size()] = {0};
+  Hash.Delete(Hash_Buffer);
 
-  User_Registry["Password"] = (char *)Hash;
+  User_Registry["Password"] = (char*)Hash_Buffer;
 
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
@@ -412,6 +416,7 @@ Result_Type Accounts_Class::Lock(const String_Type &Name)
 /// @return Result_Type
 Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Check, const String_Type &Password_To_Check)
 {
+  using namespace Xila_Namespace::Mathematics_Types;
   Static_String_Type<48> Temporary_Path;
   Temporary_Path = Users_Directory_Path;
   Temporary_Path += "/";
@@ -432,14 +437,18 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
     return Result_Type::Error;
   }
 
-  uint8_t Hash[32] = {0};
-
-  if (Cryptography.Get_Hash(Password_To_Check, strlen(Password_To_Check), Hash, sizeof(Hash), Cryptography_Class::Hash_Type::SHA_256) != Result_Type::Success)
+  Hash_Type Hash;
+  Hash.Create(Message_Digest_Type::SHA_256);
+  
+  if (Hash.Add(Password_To_Check) != Result_Type::Success)
   {
     return Result_Type::Error;
   }
 
-  if (strcmp(User_Registry["Password"] | "", (char *)Hash) != 0)
+  uint8_t Hash_Buffer[Hash.Get_Size()] = {0};
+  Hash.Delete(Hash_Buffer);
+
+  if (strcmp(User_Registry["Password"] | "", (char *)Hash_Buffer) != 0)
   {
     return Result_Type::Error;
   }

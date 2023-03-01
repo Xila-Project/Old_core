@@ -210,20 +210,24 @@ public:
 
 static WT32_SC01_Plus_Driver_Class WT32_SC01_Plus_Driver;
 
-Result_Type Display_Class::Start()
+Result_Type Display_Class::Initialize()
 {
-    if (Load_Registry() != Result_Type::Success)
-    {
-        Save_Registry();
-    }
-
     if (WT32_SC01_Plus_Driver.init())
     {
         return Result_Type::Success;
     }
-
     return Result_Type::Error;
-};
+}
+
+void Display_Class::Sleep()
+{
+    WT32_SC01_Plus_Driver.sleep();
+}
+
+void Display_Class::Wake_Up()
+{
+    WT32_SC01_Plus_Driver.wakeup();
+}
 
 void Display_Class::Set_Brightness(uint8_t Brightness)
 {
