@@ -37,16 +37,29 @@ namespace Xila_Namespace
         Result_Type Start();
         Result_Type Stop();
 
-        Result_Type Open(const Software_Handle_Type* Handle);
-        Result_Type Open(const String_Type& Name);
+        // - - Operations
 
+        Result_Type Open(const Software_Handle_Type* Handle, const Accounts_Types::User_Type* Owner_User = NULL);
+        Result_Type Open(const String_Type& Name, const Accounts_Types::User_Type* Owner_User = NULL);
         Result_Type Close(Software_Type* Software);
         Result_Type Kill(Software_Type* Software);
 
-        const std::vector<Software_Handle_Type*> Get_Handle_List();
-        const std::vector<Software_Type*> Get_List();
+        Software_Type* Find(const Software_Handle_Type* Handle);
+        Software_Handle_Type* Find_Handle(const String_Type& Name);  
 
-        const Software_Handle_Type* Find_Handle(const String_Type& Name);
+        Software_Type* Get(uint8_t Index);
+        const Software_Handle_Type* Get_Handle(uint8_t Index);
+
+        uint8_t Get_Count();
+        uint8_t Get_Handle_Count();
+
+        void Close_User_Softwares(const Accounts_Types::User_Type* User);
+        void Kill_User_Softwares(const Accounts_Types::User_Type* User);
+        void Send_Instruction_User_Softwares(const Accounts_Types::User_Type* User, const Instruction_Type& Instruction);
+        uint8_t Get_User_Softwares_Count(const Accounts_Types::User_Type* User);
+        void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type& Instruction);
+
+    private:
 
     } Softwares_Type;
 

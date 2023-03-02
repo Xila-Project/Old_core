@@ -223,3 +223,19 @@ void Task_Class::Set_Watchdog_Timeout(uint16_t Watchdog_Timeout)
         this->Watchdog_Timeout = Watchdog_Timeout;
     }
 }
+
+const Module_Type* Task_Class::Get_Owner_Module()
+{
+    return Owner_Module;
+}
+
+void Task_Class::Delete_Module_Tasks(Module_Type* Module)
+{
+    for (auto & Task_Pointer : List)
+    {
+        if (Task_Pointer->Get_Owner_Module() == Module)
+        {
+            Task_Pointer->Delete();
+        }
+    }
+}

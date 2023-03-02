@@ -25,6 +25,8 @@
 
 namespace Xila_Namespace
 {
+    
+
     namespace Softwares_Types
     {
 
@@ -47,13 +49,17 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructor / Destructor
-        Software_Class(Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
+        Software_Class(const Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size = Default_Main_Task_Stack_Size, Size_Type Queue_Size = Default_Instruction_Queue_Size);
         virtual ~Software_Class();
 
         // - - Task
 
         static void Start_Main_Task_Function(void *Instance_Pointer);
         virtual void Main_Task_Function();
+
+        // - - Getters
+        const Software_Handle_Type* Get_Handle() const;
+        const Accounts_Types::User_Type* Get_Owner_User() const;
 
         // - Attributes
 
@@ -64,8 +70,9 @@ namespace Xila_Namespace
         // - Attributes
         // - - Local attributes
         
+        const Accounts_Types::User_Type* Owner_User;
         /// @brief Software task handle.
-        Software_Handle_Type *Handle_Pointer;
+        const Software_Handle_Type* Handle_Pointer;
 
         // - - Static attributes
         /// @brief Opened software pointer array

@@ -60,6 +60,7 @@ namespace Xila_Namespace
 
         State_Type Get_State();
         Priority_Type Get_Priority();
+        const Module_Type* Get_Owner_Module();
 
         /*
         static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
@@ -72,8 +73,10 @@ namespace Xila_Namespace
         void Delay_Until(TickType_t Time_Increment);
 
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
+
         static void Check_Watchdogs();
         static void Suspend_All();
+        static void Delete_Module_Tasks(Module_Class *Module);
 
         void Feed_Watchdog();
 

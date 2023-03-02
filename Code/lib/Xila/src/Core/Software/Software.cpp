@@ -10,18 +10,21 @@
 
 #include "Core/Software/Software.hpp"
 
+#include "Core/Account/Accounts.hpp"
+
 using namespace Xila_Namespace;
 
-std::vector<Software_Class *> Software_Class::List(10);
+std::vector<Software_Class *> Software_Class::List;
 
 /// @brief Construct a new Xila_Class::Software object
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
+Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
     : Module_Class(Queue_Size),
       Main_Task(this, Start_Main_Task_Function, "Software", Main_Task_Stack_Size, this),
       Handle_Pointer(Handle_Pointer)
+
 {
   List.push_back(this); // Add software to the list.
 }
@@ -39,7 +42,7 @@ Software_Class::~Software_Class() // Destructor : close
     }
   }
   Main_Task.Delete();
-}const
+}
 
 /// @brief Start a software main task.
 ///
@@ -54,4 +57,14 @@ void Software_Class::Main_Task_Function()
 {
   // If no function is defined, the software will be closed.
   delete this;
+}
+
+const Software_Handle_Type* Software_Class::Get_Handle() const
+{
+  return this->Handle_Pointer;
+}
+
+const Accounts_Types::User_Type* Software_Class::Get_Owner_User() const
+{
+  return this->Owner_User;
 }

@@ -15,6 +15,7 @@
 #include "soc/rtc_wdt.h"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Power_Types;
 
 Power_Type Power;
 
@@ -75,21 +76,23 @@ Result_Type Power_Class::Stop()
 /// @return Result_Type
 Result_Type Power_Class::Load_Registry()
 {
-    File_Type Temporary_File = Drive.Open(Registry("Power"));
-    DynamicJsonDocument Power_Registry(256);
-    if (deserializeJson(Power_Registry, Temporary_File) != DeserializationError::Ok)
+    // - Open registry file
+    File_Type Registry_File = Drive.Open(Registry("Power"));
+
+    // - Load registry
+    StaticJsonDocument<256> Power_Registry;
+    if (!Registry_File || (deserializeJson(Power_Registry, Registry_File) != DeserializationError::Ok) || (strcmp(Power_Registry["Registry"] | "", "Power") != 0))
     {
-        Temporary_File.Close();
+        Registry_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.Close();
-    if (strcmp(Power_Registry["Registry"] | "", "Power") != 0)
-    {
-        return Result_Type::Error;
-    }
+    Registry_File.Close();
+
+    // - Get values from registry
     Set_Sessing_Pin(Power_Registry["Sensing Pin"] | Default_Battery_Sensing_Pin);
     Set_Voltages(Power_Registry["Minimum Voltage"] | Default_Battery_Minimum_Voltage, Power_Registry["Maximum Voltage"] | Default_Battery_Maximum_Voltage);
     Set_Conversion_Factor(Power_Registry["Conversion Factor"] | Default_Battery_Conversion_Factor);
+    
     return Result_Type::Success;
 }
 
@@ -97,21 +100,58 @@ Result_Type Power_Class::Load_Registry()
 /// @brief Save power registry.
 ///
 /// @return Result_Type
+Result_Type Power_Class::Create_Registry()
+{
+    // - Open registry file
+    StaticJsonDocument<256> Power_Registry;
+
+    // - Set values in registry
+    Power_Registry["Registry"] = "Power";
+
+    // - Open registry file
+    File_Type Registry_File = Drive.Open(Registry("Power"), true);
+    
+    // - Write registry
+    if (!Registry_File || (serializeJson(Power_Registry, Registry_File) == 0))
+    {
+        Registry_File.Close();
+        return Result_Type::Error;
+    }
+
+    // - Close registry file
+    Registry_File.Close();
+    return Result_Type::Success;
+}
+
 Result_Type Power_Class::Save_Registry()
 {
-    DynamicJsonDocument Power_Registry(Default_Registry_Size);
-    Power_Registry["Registry"] = "Power";
+    // - Open registry file
+    File_Type Registry_File = Drive.Open(Registry("Power"));
+
+    // - Load registry
+    StaticJsonDocument<256> Power_Registry;
+    if (!Registry_File || (deserializeJson(Power_Registry, Registry_File) != DeserializationError::Ok) || (strcmp(Power_Registry["Registry"] | "", "Power") != 0))
+    {
+        Registry_File.Close();
+        return Result_Type::Error;
+    }
+    Registry_File.Close();
+
+    // - Set values in registry
     Power_Registry["Minimum Voltage"] = Get_Minimum_Voltage();
     Power_Registry["Maximum Voltage"] = Get_Maximum_Voltage();
     Power_Registry["Sensing Pin"] = Get_Sensing_Pin();
     Power_Registry["Conversion Factor"] = Get_Conversion_Factor();
-    File_Type Temporary_File = Drive.Open(Registry("Power"), true);
-    if (serializeJson(Power_Registry, Temporary_File) == 0)
+
+    // - Write registry
+    if (serializeJson(Power_Registry, Registry_File) == 0)
     {
-        Temporary_File.Close();
+        Registry_File.Close();
         return Result_Type::Error;
     }
-    Temporary_File.Close();
+
+    // - Close registry file
+    Registry_File.Close();
     return Result_Type::Success;
 }
 
@@ -121,22 +161,27 @@ void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
     using namespace Xila_Namespace::Pin_Types;
     
     //vTaskEnterCritical(&Power.Button_Mutex);
+
+    // - Rising edge
     if (Pin.Digital_Read(Power_Button_Pin) == Digital_State_Type::High) // rise
     {
-        if (Power.Button_Timer != 0 && (System.Get_Up_Time_Milliseconds() - Power.Button_Timer) > Default_Button_Long_Press)
+        // - If button is long pressed.
+        if (Power.Button_Timer != 0 && Power.Button_Timer < System.Get_Up_Time_Milliseconds())
         {
             Power.Button_Counter = 0;
             Power.Deep_Sleep();
         }
+        // - If button is pressed.
         else
         {
             Power.Button_Timer = 0;
             Power.Button_Counter = 1;
         }
     }
-    else // falling
+    // - Released button (Falling edge )
+    else
     {
-        Power.Button_Timer = System.Get_Up_Time_Milliseconds();
+        Power.Button_Timer = System.Get_Up_Time_Milliseconds() + Default_Button_Long_Press;
         Power.Button_Counter = 0;
     }
 
@@ -150,7 +195,9 @@ void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
-        //Dialog.Power();
+        Instruction_Type Instruction(&this, NULL);
+        Softwares.Power.Set_Code(Event_Code_Type::Power_Button_Pressed);
+    
         Button_Counter = 0;
     }
 }

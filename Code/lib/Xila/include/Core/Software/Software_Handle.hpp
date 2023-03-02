@@ -24,6 +24,12 @@
 
 namespace Xila_Namespace
 {
+    // - Forward declaration
+    namespace Accounts_Types
+    {
+        typedef class User_Class User_Type;
+    };
+
     typedef class Software_Handle_Class : public Module_Class
     {
     public:

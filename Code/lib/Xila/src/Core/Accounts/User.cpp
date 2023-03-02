@@ -9,6 +9,7 @@
  /// 
 
  #include "Core/Account/Accounts.hpp"
+ #include "Core/Software/Softwares.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
@@ -51,4 +52,39 @@ void User_Class::Set_State(User_State_Type State)
 void User_Class::Set_Name(const String_Type& Name)
 {
   this->Name = Name;
+}
+
+bool User_Class::operator==(const User_Class& User) const
+{
+  return (Name == User.Name);
+}
+
+
+/// @brief Logout from the openned user session.
+///
+/// @return Result_Type
+void User_Class::Logout()
+{
+  // Iterate through the list of users by index.
+  User_Type User(Name);
+
+  Static_String_Type<16> User_Name;
+
+  for (auto User = User_List.begin(); User != User_List.end(); User++)
+  {
+    User->Get_Name(User_Name);
+    if ((User_Name == Name) && User->Get_State() == User_State_Type::Logged)
+    {
+      // 
+      User->Set_State(User_State_Type::Logged);
+
+      // Close all user softwares.
+      Softwares.Close_User_Softwares(this);
+      Task_Type::Delay_Static(5000);
+      Softwares.Kill_User_Softwares(this);
+      // Remove user from the list.
+      User_List.erase(User);
+      break;
+    }
+  }
 }

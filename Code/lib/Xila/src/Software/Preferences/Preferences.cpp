@@ -15,7 +15,7 @@ const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 
 // -- Constructor -- //
 
-Preferences_Class::Preferences_Class() : Software_Class(&Handle)
+Preferences_Class::Preferences_Class(const Accounts_Types::User_Type* Owner) : Software_Class(&Handle, Owner)
 {
     Window.Create(this);
     Window.Set_Title("Preferences");

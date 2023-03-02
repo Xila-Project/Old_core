@@ -79,6 +79,20 @@ namespace Xila_Namespace
             Softwares_Types::Event_Code_Type Code;
         } Softwares_Type;
 
+        typedef class Power_Class
+        {
+        public:
+            inline Power_Class() : Code(0) {}
+            inline Power_Class(uint8_t Code) : Code(Code) {}
+            // - - Setter
+            inline void Set_Code(uint8_t Code) { this->Code = Code; }
+            // - - Getter
+            inline uint8_t Get_Code() const { return Code; }
+
+        private:
+            uint8_t Code;
+        } Power_Type;
+
         /// @brief Custom instruction arguments.
         typedef class Custom_Class
         {
@@ -103,6 +117,7 @@ namespace Xila_Namespace
         {
             Graphics_Type Graphics;
             Softwares_Type Softwares;
+            Power_Type Power;
             Custom_Type Custom;
         };
 

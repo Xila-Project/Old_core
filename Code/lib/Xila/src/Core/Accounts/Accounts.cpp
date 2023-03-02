@@ -19,7 +19,7 @@ Accounts_Type Accounts;
 
 Result_Type Accounts_Class::Start()
 {
-  User_List.push_back(new User_Type("Xila", User_State_Type::Logged));
+  User_List.push_back(User_Type("Xila", User_State_Type::Logged));
   if (Load_Registry() != Result_Type::Success)
   {
     if (Create_Registry() != Result_Type::Success)
@@ -37,6 +37,7 @@ Result_Type Accounts_Class::Stop()
   {
     return Result_Type::Error;
   }
+  return Result_Type::Success;
 }
 
 Result_Type Accounts_Class::Create_Registry()
@@ -164,9 +165,9 @@ const User_Type *Accounts_Class::Get_Logged_User()
 {
   for (auto &User_Pointer : User_List)
   {
-    if (User_Pointer->Get_State() == User_State_Type::Logged)
+    if (User_Pointer.Get_State() == User_State_Type::Logged)
     {
-      return User_Pointer;
+      return &User_Pointer;
     }
   }
   return nullptr;
@@ -174,11 +175,19 @@ const User_Type *Accounts_Class::Get_Logged_User()
 
 const Accounts_Types::User_Type *Accounts_Class::Get_User(uint8_t Index)
 {
-  if (Index < User_List.size())
+  if (Index >= User_List.size())
   {
-    return User_List[Index];
+    return nullptr;
   }
-  return nullptr;
+
+  auto User_Iterator = User_List.begin();
+
+  for (uint8_t i = 0; i < Index; i++)
+  {
+    User_Iterator++;
+  }
+  
+  return &(*User_Iterator);
 }
 
 ///
@@ -252,21 +261,27 @@ Result_Type Accounts_Class::Create(const String_Type &User_Name, const String_Ty
 /// @return Result_Type
 Result_Type Accounts_Class::Delete(const String_Type &User_Name, const String_Type &Password)
 {
-  char Temporary_Path[20];
-  snprintf(Temporary_Path, sizeof(Temporary_Path), (Users_Directory_Path "/%s"), User_Name);
-
-  // - Check if user is connected
-  Static_String_Type<16> Temporary_User_Name;
-  for (auto &User_Pointer : User_List)
+  if (Check_Credentials(User_Name, Password) != Result_Type::Success)
   {
-    User_Pointer->Get_Name(Temporary_User_Name);
-    if (Temporary_User_Name == User_Name)
+    return Result_Type::Error;
+  }
+
+  User_Type User_To_Delete(User_Name);
+
+  for (auto &User : User_List)
+  {
+    if (User == User_To_Delete)
     {
       return Result_Type::Error;
     }
   }
 
-  if (!Drive.Remove_Directory(Temporary_Path))
+  Static_String_Type<64> Path;
+  Path = Users_Directory_Path;
+  Path += "/";
+  Path += User_Name;
+
+  if (!Drive.Remove_Directory(Path))
   {
     return Result_Type::Error;
   }
@@ -274,7 +289,6 @@ Result_Type Accounts_Class::Delete(const String_Type &User_Name, const String_Ty
   return Result_Type::Success;
 }
 
-///
 /// @brief Change user account name.
 ///
 /// @param Target_User User to rename.
@@ -310,13 +324,12 @@ Result_Type Accounts_Class::Change_Name(const String_Type &Current_Name, const S
   }
 
   {
-    Static_String_Class<16> User_Name;
-    for (auto &User : User_List)
+    User_Type User_To_Rename(Current_Name);
+    for (auto & User : User_List)
     {
-      User->Get_Name(User_Name);
-      if (User_Name == Current_Name)
+      if (User == User_To_Rename)
       {
-        User->Set_Name(New_Name);
+        User.Set_Name(New_Name);
         break;
       }
     }
@@ -367,35 +380,14 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
   return Result_Type::Success;
 }
 
-///
-/// @brief Logout from the openned user session.
-///
-/// @return Result_Type
-Result_Type Accounts_Class::Logout(const String_Type &Name)
-{
-  // Iterate through the list of users by index.
-  Static_String_Type<16> User_Name;
-  for (auto User = User_List.begin(); User != User_List.end(); User++)
-  {
-    *User->Get_Name(User_Name);
-    if ((User_Name == Name) && (*User->Get_State() == User_State_Type::Logged))
-    {
-      *User->Set_State(User_State_Type::Logged);
-      // TODO : Close all user software.
-      // Remove user from the list.
-      User_List.erase(User);
-      return Result_Type::Success;
-    }
-  }
-  return Result_Type::Error;
-}
-
 /// @brief Lock openned user session.
 ///
 /// @return Result_Type
 Result_Type Accounts_Class::Lock(const String_Type &Name)
 {
   // Iterate through the list of users by index.
+  User_Type User(Name);
+
   Static_String_Type<16> User_Name;
   for (auto &User_Pointer : User_List)
   {
@@ -469,29 +461,51 @@ Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Pa
     return Result_Type::Error;
   }
 
-  Static_String_Type<16> User_Name;
+  User_Type User_To_Log(Name);
+
   for (auto &User : User_List)
   {
-    if ((User->Get_State() == User_State_Type::Logged) && Lock_Other_User)
+    if ((User.Get_State() == User_State_Type::Logged) && Lock_Other_User)
     {
-      User->Set_State(User_State_Type::Locked);
+      User.Set_State(User_State_Type::Locked);
     }
 
-    User->Get_Name(User_Name);
-
-    if (User_Name == Name)
+    if (User_To_Log == User)
     {
-      User->Set_State(User_State_Type::Logged);
+      User.Set_State(User_State_Type::Logged);
       return Result_Type::Success;
     }
   }
 
-  User_Type* User_Pointer = new User_Type(Name, User_State_Type::Locked);
   if (Lock_Other_User)
   {
-    User_Pointer->Set_State(User_State_Type::Logged);
+    User_To_Log.Set_State(User_State_Type::Logged);
   }
-  User_List.push_back(User_Pointer);
-
+  else
+  {
+    User_To_Log.Set_State(User_State_Type::Locked);
+  }
+  User_List.push_back(User_To_Log);
   return Result_Type::Success;
+}
+
+uint8_t Accounts_Class::Find_User(const String_Type& Name)
+{
+  User_Type User(Name);
+  
+  uint8_t Index = 0;
+
+  for (auto User_Iterator : User_List)
+  {
+    if (User_Iterator == User)
+    {
+      return Index;
+    }
+    Index++;
+  }
+}
+
+uint8_t Accounts_Class::Get_User_Count()
+{
+  return User_List.size();
 }

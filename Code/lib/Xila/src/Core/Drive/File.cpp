@@ -187,15 +187,18 @@ uint16_t File_Class::Count_Items()
     
     Rewind_Directory();
     File_Type Temporary_File = Open_Next_File();
-    for (uint16_t i = 0; i < 0xFFFF; i++)
+    uint16_t i;
+    for (i = 0; i < 0xFFFF; i++)
     {
         if (!Temporary_File)
         {
             Temporary_File.Close();
-            return i;
+            break;
         }
 
         Temporary_File.Close();
         Temporary_File = Open_Next_File();
     }
+
+    return i;
 }

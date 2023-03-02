@@ -15,24 +15,55 @@ using namespace Xila_Namespace;
 
 Softwares_Type Softwares;
 
-Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle)
+Result_Type Softwares_Class::Start()
+{
+    // - Start shell
+    this->Open("Shell", Accounts.Get_Logged_User());
+}
+
+Result_Type Softwares_Class::Stop()
+{
+    for (auto &Software_Pointer : Software_Class::List)
+    {
+        this->Close(Software_Pointer);
+    }
+
+    uint32_t Timeout = System.Get_Up_Time_Milliseconds() + 10000;
+
+    while (Software_Class::List.size() != 0 && System.Get_Up_Time_Milliseconds() < Timeout)
+    {
+        Task_Type::Delay_Static(100);
+    }
+
+    for (auto &Software_Pointer : Software_Class::List)
+    {
+        this->Kill(Software_Pointer);
+    }
+}
+
+Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Accounts_Types::User_Type *Owner_User)
 {
     if (Handle == NULL)
     {
         return Result_Type::Error;
     }
-    Handle->Create_Instance();
+    Software_Type* Software_Pointer = Handle->Create_Instance();
+    if (Owner_User == NULL)
+    {
+        Software_Pointer->Owner_User = Accounts.Get_Logged_User();
+    }
+    else
+    {
+        Software_Pointer->Owner_User = Owner_User;
+    }
+    
     return Result_Type::Success;
 }
 
-Result_Type Softwares_Class::Open(const String_Type &Name)
+Result_Type Softwares_Class::Open(const String_Type &Name, const Accounts_Types::User_Type *Owner_User)
 {
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
-    if (Handle == NULL)
-    {
-        return Result_Type::Error;
-    }
-    return this->Open(Handle);
+    return this->Open(Handle, Owner_User);
 }
 
 /// @brief
@@ -61,58 +92,27 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
     }
     else
     {
+        Task_Type::Delete_Module_Tasks(Software);
         delete Software;
     }
 }
 
-const std::vector<Software_Handle_Type *> Softwares_Class::Get_Handle_List()
+Software_Type* Softwares_Class::Find(const Software_Handle_Type *Handle)
 {
-    return Software_Handle_Class::List;
-}
-
-const std::vector<Software_Type *> Softwares_Class::Get_List()
-{
-    return Software_Class::List;
-}
-
-Result_Type Softwares_Class::Start()
-{
-    // - Start shell
-    Static_String_Type<Default_Software_Name_Length> Software_Name;
-    for (auto &Software_Handle_Pointer : this->Get_Handle_List())
+    for (auto &Software_Pointer : Software_Class::List)
     {
-        Software_Handle_Pointer->Get_Name(Software_Name);
-        if (Software_Name == "Shell")
+        if (Software_Pointer->Get_Handle() == Handle)
         {
-            return this->Open(Software_Handle_Pointer);
+            return Software_Pointer;
         }
     }
+    return NULL;
 }
 
-Result_Type Softwares_Class::Stop()
-{
-    for (auto &Software_Pointer : Softwares.Get_List())
-    {
-        this->Close(Software_Pointer);
-    }
-
-    uint32_t Timeout = System.Get_Up_Time_Milliseconds() + 10000;
-
-    while (this->Get_List().size() != 0)
-    {
-        Task_Type::Delay_Static(100);
-    }
-
-    for (auto &Software_Pointer : Softwares.Get_List())
-    {
-        this->Kill(Software_Pointer);
-    }
-}
-
-const Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
+Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
 {
     Static_String_Type<Default_Software_Name_Length> Software_Name;
-    for (auto &Software_Handle_Pointer : this->Get_Handle_List())
+    for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
     {
         Software_Handle_Pointer->Get_Name(Software_Name);
         if (Software_Name == Name)
@@ -122,3 +122,88 @@ const Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name
     }
     return NULL;
 }
+
+const Software_Handle_Type* Softwares_Class::Get_Handle(uint8_t Index)
+{
+    if (Index < Software_Handle_Class::List.size())
+    {
+        return Software_Handle_Class::List[Index];
+    }
+        return NULL;
+}
+
+Software_Type* Softwares_Class::Get(uint8_t Index)
+{
+    if (Index < Software_Class::List.size())
+    {
+        return Software_Class::List[Index];
+    }
+    return NULL;
+}
+
+uint8_t Softwares_Class::Get_Count()
+{
+    return Software_Class::List.size();
+}
+
+uint8_t Softwares_Class::Get_Handle_Count()
+{
+    return Software_Handle_Class::List.size();
+}
+
+void Softwares_Class::Close_User_Softwares(const Accounts_Types::User_Type *User)
+{
+    for (auto &Software_Pointer : Software_Class::List)
+    {
+        if (Software_Pointer->Get_Owner_User() == User)
+        {
+            this->Close(Software_Pointer);
+        }
+    }
+}
+
+void Softwares_Class::Kill_User_Softwares(const Accounts_Types::User_Type* User)
+{
+    for (auto& Software_Pointer : Software_Class::List)
+    {
+        if (Software_Pointer->Get_Owner_User() == User)
+        {
+            this->Kill(Software_Pointer);
+        }
+    }
+}
+
+void Softwares_Class::Send_Instruction_User_Softwares(const Accounts_Types::User_Type* User, const Instruction_Type& Instruction)
+{
+    for (auto& Software_Pointer : Software_Class::List)
+    {
+        if (Software_Pointer->Get_Owner_User() == User)
+        {
+            Software_Pointer->Send_Instruction(Instruction);
+        }
+    }
+}
+
+uint8_t Softwares_Class::Get_User_Softwares_Count(const Accounts_Types::User_Type* User)
+{
+    uint8_t Count = 0;
+    for (auto& Software_Pointer : Software_Class::List)
+    {
+        if (Software_Pointer->Get_Owner_User() == User)
+        {
+            Count++;
+        }
+    }
+    return Count;
+}
+
+void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type& Instruction)
+{
+    Instruction_Type Copy_Instruction = Instruction;
+    for (auto& Software_Pointer : Software_Class::List)
+    {
+        Copy_Instruction.Set_Receiver(Software_Pointer));   
+        Software_Pointer->Send_Instruction(Copy_Instruction);
+    }
+}
+
