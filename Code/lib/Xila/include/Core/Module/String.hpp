@@ -169,9 +169,8 @@ namespace Xila_Namespace
         bool operator<=(const String_Class& String) const;
 
         // - - - Access
-
-        char operator[](const Size_Type Index) const;
-        char& operator[](const Size_Type Index);        
+        char operator[](Size_Type Index) const;
+        char& operator[](Size_Type Index);        
 
     protected:
 

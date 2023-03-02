@@ -48,8 +48,7 @@ namespace Xila_Namespace
 
         // -- Types and enumerations
 
-     
-        typedef lv_obj_class_t Class_Type;
+
         typedef lv_style_selector_t Style_Selector_Type;
 
         class Draw_Part
@@ -119,9 +118,7 @@ namespace Xila_Namespace
 
         void Allocate_Special_Data();
 
-        bool Check_Type(const Class_Type *Class);
-        bool Has_Class(const Class_Type *Class);
-
+        bool Has_Class(const Graphics_Types::Class_Type *Class);
         bool Is_Valid();
 
         void Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector);
@@ -305,9 +302,9 @@ namespace Xila_Namespace
         void Set_Tile(Object_Class Tile, bool Animation);
         void Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_Identifier, bool Animation);
 
-        // - - Getters values.
+        // - - Getters.
 
-        const Class_Type *Get_Class();
+        virtual const Graphics_Types::Class_Type *Get_Class() const;
 
         Graphics_Types::State_Type Get_State();
 
@@ -481,9 +478,17 @@ namespace Xila_Namespace
             LVGL_Object_Pointer = NULL;
         };
 
+        // - Attributes
+
+        static Graphics_Types::Class_Type Class;
+
         lv_obj_t *LVGL_Object_Pointer;
 
     protected:
+
+    
+        
+
     } Object_Type;
 
     Object_Type::Style_Selector_Type operator |(Part_Type Part, Graphics_Types::State_Type State)

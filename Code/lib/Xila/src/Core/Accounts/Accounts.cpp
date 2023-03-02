@@ -15,7 +15,9 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
 
+
 Accounts_Type Accounts;
+
 
 Result_Type Accounts_Class::Start()
 {
@@ -153,11 +155,6 @@ Result_Type Accounts_Class::Set_Autologin(bool Enable, const String_Type &Name, 
   return Result_Type::Success;
 }
 
-const String_Type &Accounts_Class::Get_Autologin_User_Name()
-{
-  // TODO :
-}
-
 /// @brief
 ///
 /// @return  const String_Type& Logged username (empty if there's no logged user).
@@ -170,14 +167,14 @@ const User_Type *Accounts_Class::Get_Logged_User()
       return &User_Pointer;
     }
   }
-  return nullptr;
+  return NULL;
 }
 
 const Accounts_Types::User_Type *Accounts_Class::Get_User(uint8_t Index)
 {
   if (Index >= User_List.size())
   {
-    return nullptr;
+    return NULL;
   }
 
   auto User_Iterator = User_List.begin();
@@ -380,26 +377,6 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
   return Result_Type::Success;
 }
 
-/// @brief Lock openned user session.
-///
-/// @return Result_Type
-Result_Type Accounts_Class::Lock(const String_Type &Name)
-{
-  // Iterate through the list of users by index.
-  User_Type User(Name);
-
-  Static_String_Type<16> User_Name;
-  for (auto &User_Pointer : User_List)
-  {
-    User_Pointer->Get_Name(User_Name);
-    if ((User_Name == Name) && (User_Pointer->Get_State() == User_State_Type::Logged))
-    {
-      User_Pointer->Set_State(User_State_Type::Locked);
-      return Result_Type::Success;
-    }
-  }
-  return Result_Type::Error;
-}
 
 /// @brief Check user credentials.
 ///
@@ -455,37 +432,26 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
 /// @return Result_Type
 Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Password, bool Lock_Other_User)
 {
+  if (Name == "Xila")
+  {
+    return Result_Type::Error;
+  }
+
   // Check credentials
   if (Check_Credentials(Name, Password) != Result_Type::Success)
   {
     return Result_Type::Error;
   }
 
-  User_Type User_To_Log(Name);
+  User_Type User_To_Log(Name, User_State_Type::Locked);
 
-  for (auto &User : User_List)
-  {
-    if ((User.Get_State() == User_State_Type::Logged) && Lock_Other_User)
-    {
-      User.Set_State(User_State_Type::Locked);
-    }
-
-    if (User_To_Log == User)
-    {
-      User.Set_State(User_State_Type::Logged);
-      return Result_Type::Success;
-    }
-  }
+  User_List.push_back(User_To_Log);
 
   if (Lock_Other_User)
   {
-    User_To_Log.Set_State(User_State_Type::Logged);
+    User_To_Log.Login();
   }
-  else
-  {
-    User_To_Log.Set_State(User_State_Type::Locked);
-  }
-  User_List.push_back(User_To_Log);
+
   return Result_Type::Success;
 }
 
@@ -503,6 +469,8 @@ uint8_t Accounts_Class::Find_User(const String_Type& Name)
     }
     Index++;
   }
+
+  return 0xFF;
 }
 
 uint8_t Accounts_Class::Get_User_Count()

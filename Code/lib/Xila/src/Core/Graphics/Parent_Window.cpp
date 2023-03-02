@@ -11,36 +11,48 @@
 #include "Core/Graphics/Window.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
+// - Attributes
 
-void Parent_Window_Class::Create(const Accounts_Types::User_Type* Owner_User)
+Class_Type Parent_Window_Class::Class(Window_Class::Class);
+
+// - Methods
+
+Parent_Window_Class::~Parent_Window_Class()
 {
-    this->Owner_User = Owner_User; 
+    if (this->Is_Valid())
+    {
+        this->Delete();
+    }
+}
+
+void Parent_Window_Class::Create(const Software_Type* Owner_Module)
+{
+    this->Owner_Software = Owner_Software; 
     this->Set_Pointer(lv_obj_create(lv_scr_act()));
     this->Set_Interface();
+
+    List.push_back(this);
 }
 
-const Accounts_Types::User_Type* Parent_Window_Class::Get_Owner_User()
+void Parent_Window_Class::Delete()
 {
-    return Owner_User;
+    List.remove(this);
 }
 
-Parent_Window_Class Parent_Window_Class::Get_User_Parent_Window(const Accounts_Types::User_Type* Owner_User)
+Parent_Window_Class Parent_Window_Class::Get_User_Parent_Window(const Accounts_Types::User_Type* User)
 {
-    for (Parent_Window_Class Parent_Window : Parent_List)
+    for (auto& Parent_Window : List)
     {
-        if (Parent_Window.Get_Owner_User() == Owner_User)
+        if (Parent_Window->Owner_Software->Get_Owner_User() == User)
         {
-            return Parent_Window;
+            return *Parent_Window;
         }
     }
 }
 
-Parent_Window_Class Parent_Window_Class::Get_Parent_Window(uint16_t Index)
+const Class_Type* Parent_Window_Class::Get_Class() const
 {
-    if (Index <= Parent_List.size())
-    {
-        return Parent_List[Index];
-    }
-    return Parent_Window_Class();
+    return &Class;
 }

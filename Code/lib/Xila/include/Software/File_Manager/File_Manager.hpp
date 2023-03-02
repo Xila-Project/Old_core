@@ -60,7 +60,7 @@ class File_Manager_Class : public Software_Type
 
     bool Cut;
 
-    Window_Type Window;
+    Graphics_Types::Window_Type Window;
 
     Object_Type Grid;
     Object_Type Flexbox;

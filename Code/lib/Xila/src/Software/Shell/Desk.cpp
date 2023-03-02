@@ -15,9 +15,13 @@
 
 Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
+    // Window
+    Window.Create(Shell_Pointer);
+    Window.Set_Title("Desk");
+
     // Overlay
 
-    Overlay.Create(Graphics.Get_Top_Layer());
+    Overlay.Create(Window);
     Overlay.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Overlay.Set_Size(18 * 8, 32);
     Overlay.Set_Alignment(Alignment_Type::Top_Right);
@@ -55,10 +59,6 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     WiFi_Image.Create(WiFi_Button);
     WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
     WiFi_Image.Set_Alignment(Alignment_Type::Center);
-
-    // Window
-    Window.Create(Accounts.Get_Logged_User());
-    Window.Set_Title("Desk");
 
     // Grid for icons
     const Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
@@ -206,10 +206,6 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
 
 Shell_Class::Desk_Class::~Desk_Class()
 {
-    Desk_Grid.Delete();
-    Dock.Delete();
-    Menu_Button.Delete();
-    Window.Delete();
 }
 
 Color_Type Shell_Class::Desk_Class::Get_Foreground_Color() const
@@ -224,14 +220,11 @@ Color_Type Shell_Class::Desk_Class::Get_Background_Color() const
 
 void Shell_Class::Desk_Class::Set_Foreground_Color(Color_Type Color)
 {
-
 }
 
 void Shell_Class::Desk_Class::Set_Background_Color(Color_Type Color)
 {
-
 }
-
 
 void Shell_Class::Desk_Class::Refresh()
 {
@@ -241,7 +234,7 @@ void Shell_Class::Desk_Class::Refresh()
     // - Refresh dock software list.
 
     // If there are too many buttons, delete some.
-    while (Dock_List.Get_Child_Count() > (Softwares.Get_List().size() - 1))
+    while (Dock_List.Get_Child_Count() > Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
     {
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
@@ -249,7 +242,7 @@ void Shell_Class::Desk_Class::Refresh()
     {
         Button_Type Button;
         Label_Type Label;
-        while (Dock_List.Get_Child_Count() < (Softwares.Get_List().size() - 1))
+        while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
         {
             Button.Create(Dock_List);
             Button.Set_Size(40, 40);
@@ -266,23 +259,21 @@ void Shell_Class::Desk_Class::Refresh()
     // - - Set dock software icons.
     {
         Label_Type Label;
-        char Text[3];
-        uint8_t i = 0;
-        for (auto & Software_Pointer : Softwares.Get_List())
+        const Software_Type *Software_Pointer;
+        Static_String_Type<24> Name;
+
+        for (uint8_t i = 0; i < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()); i++)
         {
-            if (Software_Pointer == Shell_Pointer)
-                continue;
+            Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
+            if (Software_Pointer != Shell_Pointer)
+            {
+                Software_Pointer->Get_Handle_Pointer()->Get_Name(Name);
+                Name[2] = '\0';
 
-            Text[0] = Software_Pointer->Get_Handle_Pointer()->Get_Name()[0];
-            Text[1] = Software_Pointer->Get_Handle_Pointer()->Get_Name()[1];
-            Text[2] = '\0';
-
-            Label = Dock_List.Get_Child(i);
-
-            Label.Set_Text(Text);
-            Label.Clear_Pointer();
-
-            i++;
+                Label = Dock_List.Get_Child(i);
+                Label.Set_Text(Name);
+                Label.Clear_Pointer();
+            }
         }
     }
 }
@@ -297,20 +288,20 @@ void Shell_Class::Desk_Class::Refresh_Overlay()
 
     if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
     {
-    // - Update WiFi signal strength
-    // TODO : Add different WiFi signal strength icons.
-    if (WiFi.Station.Get_RSSI() >= (-120 / 3))
-    {
-        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    }
-    else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
-    {
-        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    }
-    else
-    {
-        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    }
+        // - Update WiFi signal strength
+        // TODO : Add different WiFi signal strength icons.
+        if (WiFi.Station.Get_RSSI() >= (-120 / 3))
+        {
+            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+        }
+        else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
+        {
+            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+        }
+        else
+        {
+            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+        }
     }
     else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
     {
@@ -320,7 +311,6 @@ void Shell_Class::Desk_Class::Refresh_Overlay()
     {
         WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
     }
-
 
     // - Update charge level
     if (Power.Get_Charge_Level() >= 85)
@@ -361,24 +351,31 @@ void Shell_Class::Desk_Class::Refresh_Overlay()
 
 void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {
+    using namespace Graphics_Types;
     if (Instruction.Get_Sender() == &Graphics)
     {
         switch (Instruction.Graphics.Get_Code())
         {
-        case Graphics_Types::Event_Code_Type::Clicked:
+        case Event_Code_Type::Clicked:
         {
             // Check if dock button is pressed
             for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
             {
                 if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
                 {
-                    Instruction_Type Instruction(&Graphics, Softwares.Get_List()[i]);
-                    Instruction.Graphics.Set_Code(Graphics_Types::Event_Code_Type::Maximize);
-                    Softwares.Get_List()[i]->Send_Instruction(Instruction);
-                    break;
+                    const Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
+                    Window_Type Child_Window;
+                    for (uint8_t j = 0; j < Window.Get_Child_Count(); j++)
+                    {
+                        Child_Window = Window.Get_Child(j);
+                        if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
+                        {
+                            Child_Window.Set_State(Window_State_Type::Maximized);
+                        }
+                        Child_Window.Clear_Pointer();
+                    }
                 }
             }
-            // TODO : Check also desk buttons
         }
         break;
         default:

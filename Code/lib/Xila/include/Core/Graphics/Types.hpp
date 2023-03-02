@@ -173,6 +173,15 @@ namespace Xila_Namespace
 
     namespace Graphics_Types
     {
+        /// @brief Class type to define hertiage betweens types.
+        typedef class Class_Class{
+        public:
+            Class_Class(const Class_Class* Parent) : Parent(Parent) {};
+            const Class_Class* Get_Parent() const { return Parent; }
+        private:
+            const Class_Class* Parent;
+
+        } Class_Type;
 
         enum class Event_Code_Type : uint8_t
         {

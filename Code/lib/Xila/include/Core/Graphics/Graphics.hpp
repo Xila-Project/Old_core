@@ -82,6 +82,7 @@ namespace Xila_Namespace
         static void Event_Handler(lv_event_t *Event);
 
     private:
+    
         // - Methods
         Object_Type Get_Top_Layer();
         Object_Type Get_Screen();

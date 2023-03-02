@@ -98,10 +98,14 @@ Size_Type Hash_Class::Get_Size() const
 
 Result_Type Hash_Class::Add(const Byte_Type *Data, Size_Type Size)
 {
-    mbedtls_md_update(static_cast<mbedtls_md_context_t*>(this->Data), Data, Size);
+    if (mbedtls_md_update(static_cast<mbedtls_md_context_t*>(this->Data), Data, Size) == 0)
+    {
+        return Result_Type::Success;
+    }
+    return Result_Type::Error;
 }
 
 Result_Type Hash_Class::Add(const String_Type &Data)
 {
-    this->Add((const Byte_Type*)Data, Data.Get_Length());
+    return this->Add((const Byte_Type*)Data, Data.Get_Length());
 }

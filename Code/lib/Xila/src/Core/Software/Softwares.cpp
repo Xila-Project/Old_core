@@ -197,6 +197,23 @@ uint8_t Softwares_Class::Get_User_Softwares_Count(const Accounts_Types::User_Typ
     return Count;
 }
 
+const Software_Type* Softwares_Class::Get_User_Softwares(const Accounts_Types::User_Type* User, uint8_t Index)
+{
+    uint8_t Count = 0;
+    for (auto& Software_Pointer : Software_Class::List)
+    {
+        if (Software_Pointer->Get_Owner_User() == User)
+        {
+            if (Count == Index)
+            {
+                return Software_Pointer;
+            }
+            Count++;
+        }
+    }
+    return NULL;
+}
+
 void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type& Instruction)
 {
     Instruction_Type Copy_Instruction = Instruction;

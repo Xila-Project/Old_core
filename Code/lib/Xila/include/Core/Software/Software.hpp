@@ -35,7 +35,13 @@ namespace Xila_Namespace
     typedef class Software_Class : public Module_Class
     {
     public:
-        const Software_Handle_Type *Get_Handle_Pointer();
+     
+        // - Methods
+
+        // - Getters
+        
+        const Software_Handle_Type *Get_Handle_Pointer() const;
+         const Accounts_Types::User_Type* Get_Owner_User() const;
 
     protected:
         // - Types
@@ -56,10 +62,6 @@ namespace Xila_Namespace
 
         static void Start_Main_Task_Function(void *Instance_Pointer);
         virtual void Main_Task_Function();
-
-        // - - Getters
-        const Software_Handle_Type* Get_Handle() const;
-        const Accounts_Types::User_Type* Get_Owner_User() const;
 
         // - Attributes
 

@@ -65,7 +65,7 @@ class Preferences_Class : public Software_Type
 
     // - Attributes
 
-    Window_Type Window;
+    Graphics_Types::Window_Type Window;
     Tabs_Type Tabs;
     Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
 

@@ -5,59 +5,66 @@
 #include "Color_Wheel.hpp"
 #include "Object.hpp"
 
+namespace Xila_Namespace
+{
 
-namespace Xila_Namespace {
-    typedef class Dialog_Class : public Window_Class {
-    public:
-        // - Methods
+    namespace Graphics_Types
+    {
+        typedef class Dialog_Class : public Window_Class
+        {
+        public:
+            // - Methods
 
-        virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(const Software_Type* Owner_Software) override;
+            virtual void Create(Object_Class Parent_Object) override;
 
-        // - - Getters
+            // - - Getters
 
-        bool Is_Overlay();
+            bool Is_Overlay();
 
-        // - - Setters
+            // - - Setters
 
-        void Set_Overlay(bool Enable);
+            void Set_Overlay(bool Enable);
 
-    private:
+        private:
+            Object_Type Overlay;
 
-        Object_Type Overlay;
+        } Dialog_Type;
 
-    } Dialog_Type;
+        typedef class Color_Dialog_Class : public Dialog_Class
+        {
+        public:
+            // - Methods
+            virtual void Create(Object_Class Parent_Object) override;
 
-    typedef class Color_Dialog_Class : public Dialog_Class {
-    public:
-        // - Methods
-        virtual void Create(Object_Class Parent_Object) override;
+            // - - Getters
 
-        // - - Getters
+            Color_Type Get_Color();
 
-        Color_Type Get_Color();
+            // - - Setters
 
-        // - - Setters
+            void Set_Color(Color_Type Color);
 
-        void Set_Color(Color_Type Color);
+        private:
+            Color_Wheel_Type Color_Wheel;
 
-    private:
+        } Color_Dialog_Type;
 
-        Color_Wheel_Type Color_Wheel;
+        typedef class Progress_Dialog_Class : public Dialog_Class
+        {
+        public:
+            virtual void Create(Object_Class Parent_Object) override;
 
-    } Color_Dialog_Type;
+        } Progress_Dialog_Type;
 
-    typedef class Progress_Dialog_Class : public Dialog_Class {
-    public:
-        virtual void Create(Object_Class Parent_Object) override;
+        typedef class Message_Dialog_Class : public Dialog_Class
+        {
+        public:
+            virtual void Create(Object_Class Parent_Object) override;
 
-    } Progress_Dialog_Type;
+        } Message_Dialog_Type;
 
-    typedef class Message_Dialog_Class : public Dialog_Class {
-    public:
-        virtual void Create(Object_Class Parent_Object) override;
-
-    } Message_Dialog_Type;
-
+    };
 
 }
 

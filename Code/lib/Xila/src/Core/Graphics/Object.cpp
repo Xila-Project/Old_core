@@ -16,6 +16,10 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
+// - Attributes
+
+Class_Type Object_Class::Class(NULL);   // Root class, so no parent class.
+
 bool operator==(const Object_Type &Object_1, const Object_Type &Object_2)
 {
     return Object_1.Get_Pointer() == Object_2.Get_Pointer();
@@ -165,14 +169,18 @@ void Object_Class::Move_Background()
     lv_obj_move_background(Get_Pointer());
 }
 
-bool Object_Class::Check_Type(const Class_Type *Class_To_Check)
-{
-    return lv_obj_check_type(Get_Pointer(), Class_To_Check);
-}
-
 bool Object_Class::Has_Class(const Class_Type *Class_To_Check)
 {
-    return lv_obj_has_class(Get_Pointer(), Class_To_Check);
+    const Class_Type* Temporary_Class = this->Get_Class();
+    while (Temporary_Class != NULL)
+    {
+        if (Class_To_Check == Temporary_Class)
+        {
+            return true;
+        }
+        Temporary_Class = Temporary_Class->Get_Parent();
+    }
+    return false;
 }
 
 bool Object_Class::Is_Valid()
@@ -869,9 +877,9 @@ void *Object_Class::Get_Group()
     return lv_obj_get_group(Get_Pointer());
 }
 
-const Object_Class::Class_Type *Object_Class::Get_Class()
+const Class_Type * Object_Class::Get_Class() const
 {
-    return lv_obj_get_class(Get_Pointer());
+    return &Object_Type::Class;
 }
 
 inline bool Object_Class::Get_Object_Visibility()

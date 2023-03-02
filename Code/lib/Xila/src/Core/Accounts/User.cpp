@@ -44,11 +44,6 @@ void User_Class::Get_Home_Folder_Path(String_Type& Home_Folder_Path) const
   
 }
 
-void User_Class::Set_State(User_State_Type State)
-{
-  this->State = State;
-}
-
 void User_Class::Set_Name(const String_Type& Name)
 {
   this->Name = Name;
@@ -59,32 +54,62 @@ bool User_Class::operator==(const User_Class& User) const
   return (Name == User.Name);
 }
 
-
-/// @brief Logout from the openned user session.
-///
-/// @return Result_Type
-void User_Class::Logout()
+bool User_Class::operator!=(const User_Class& User) const
 {
-  // Iterate through the list of users by index.
-  User_Type User(Name);
+  return (Name != User.Name);
+}
 
-  Static_String_Type<16> User_Name;
-
-  for (auto User = User_List.begin(); User != User_List.end(); User++)
+/// @brief Lock the current session and (re)login system account.
+void User_Class::Lock()
+{
+  if (State == User_State_Type::Locked)
   {
-    User->Get_Name(User_Name);
-    if ((User_Name == Name) && User->Get_State() == User_State_Type::Logged)
-    {
-      // 
-      User->Set_State(User_State_Type::Logged);
+    return;
+  }
 
-      // Close all user softwares.
-      Softwares.Close_User_Softwares(this);
-      Task_Type::Delay_Static(5000);
-      Softwares.Kill_User_Softwares(this);
-      // Remove user from the list.
-      User_List.erase(User);
-      break;
+  this->State = User_State_Type::Locked;
+
+  User_Class Xila_User("Xila");
+
+  for (auto& User : Accounts.User_List)
+  {
+    if (User != Xila_User)
+    {
+      User.State = User_State_Type::Locked;
+    }
+    else
+    {
+      User.State = User_State_Type::Logged;
     }
   }
+}
+
+/// @brief Re-login the user and lock the previous one.
+void User_Class::Login()
+{
+  if (State == User_State_Type::Logged)
+  {
+    return;
+  }
+
+  for (auto& User : Accounts.User_List)
+  {
+    User.State = User_State_Type::Locked;
+  }
+
+  this->State = User_State_Type::Logged;
+}
+
+/// @brief Logout from the openned user session and (re)login system account.
+void User_Class::Logout()
+{
+  this->Login();
+
+  Softwares.Close_User_Softwares(this);
+  Task_Type::Delay_Static(5000);
+  Softwares.Kill_User_Softwares(this);
+
+  this->Lock();
+
+  Accounts.User_List.remove(*this);
 }

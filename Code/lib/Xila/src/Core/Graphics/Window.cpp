@@ -10,33 +10,42 @@
 
 #include "Core/Graphics/Window.hpp"
 #include "Core/Account/Accounts.hpp"
+#include "Core/Software/Softwares.hpp"
+
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
+// - Attributes
+
+Class_Type Window_Class::Class(Object_Class::Class);
+
 // - Methods
+
+Window_Class::~Window_Class()
+{
+    if (this->Is_Valid())
+    {
+        this->Delete();
+    }
+}
 
 // - - Management
 
 /// @brief Function that create a window.
-void Window_Class::Create(Module_Type* Owner_Module)
+void Window_Class::Create(const Software_Type* Owner_Software)
 {
-    this->Create(Parent_Window_Class::Get_User_Parent_Window(Accounts.Get_Logged_User()), Owner_Module);
-}
-
-void Window_Class::Create(Object_Class Parent_Object, Module_Type* Owner_Module)
-{
-    this->Owner_Module = Owner_Module;
-    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+    this->Owner_Software = Owner_Software;
+    this->Set_Pointer(lv_obj_create(Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User()).Get_Pointer()));
     this->Set_Interface();
 }
 
-/// @brief Function that create a window inside a parent object.
-/// @param Parent_Object Parent object.
 void Window_Class::Create(Object_Class Parent_Object)
 {
+    this->Owner_Software = NULL;
+    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+    this->Set_Interface();
 }
-
 
 void Window_Class::Set_Interface()
 {
@@ -71,24 +80,6 @@ void Window_Class::Set_Interface()
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Type::Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
-
-
-
-    Clock_Label.Create(Header);
-    Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
-
-    // - Right buttons.
-    Battery_Button.Create(Header);
-    Battery_Button.Set_Size(24, Percentage(100));
-    Battery_Button.Set_Alignment(Clock_Label, Alignment_Type::Out_Left_Middle, -4, 0);
-
-    Network_Button.Create(Header);
-    Network_Button.Set_Size(24, Percentage(100));
-    Network_Button.Set_Alignment(Battery_Button, Alignment_Type::Out_Left_Middle, 0, 0);
-
-    Sound_Button.Create(Header);
-    Sound_Button.Set_Size(24, Percentage(100));
-    Sound_Button.Set_Alignment(Network_Button, Alignment_Type::Out_Left_Middle, 0, 0);
 
     // - Body.
     Body.Create(*this);
@@ -180,4 +171,9 @@ Object_Class Window_Class::Get_Body()
 Object_Class Window_Class::Get_Header()
 {
     return Header;
+}
+
+const Class_Type* Window_Class::Get_Class() const
+{
+    return &Class;
 }

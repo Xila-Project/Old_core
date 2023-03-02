@@ -36,15 +36,12 @@ class Shell_Class : public Software_Type
     {
     public:
         Shell_Handle_Class() : Software_Handle_Type("Shell"){};
-        
+
         void Create_Instance() const override
         {
             new Shell_Class();
         };
     } Handle;
-
-
-    // - Types
 
     /// @brief Desk class
     class Desk_Class
@@ -68,6 +65,8 @@ class Shell_Class : public Software_Type
         void Set_Background_Color(Color_Type Color);
         void Set_Foreground_Color(Color_Type Color);
 
+        // - Attributes
+        Graphics_Types::Parent_Window_Class Window;
 
     private:
         // - Methods
@@ -86,7 +85,6 @@ class Shell_Class : public Software_Type
         Label_Type Clock_Label;
 
         // - - Parent window
-        Parent_Window_Type Window;
         Object_Type Desk_Grid;
         Object_Type Dock;
         Object_Type Menu_Button;
@@ -107,19 +105,20 @@ class Shell_Class : public Software_Type
         static void Close(Shell_Class *Shell_Pointer);
         static bool Is_Openned(Shell_Class *Shell_Pointer);
 
-        void Execute_Instruction(const Instruction_Type& Instruction);
+        void Execute_Instruction(const Instruction_Type &Instruction);
+
+        // - Attributes
+        Graphics_Types::Window_Type Window;
 
     private:
-
         // - Methods
 
         // - - Constructors / destructor
 
         Drawer_Class(Shell_Class *Shell_Pointer);
         ~Drawer_Class();
-    
+
         // - Attributes
-        Window_Type Window;
 
         Shell_Class *Shell_Pointer;
 
@@ -135,7 +134,7 @@ class Shell_Class : public Software_Type
         static void Close(Shell_Class *Shell_Pointer);
         static bool Is_Maximized(Shell_Class *Shell_Pointer);
 
-        void Execute_Instruction(const Instruction_Type& Instruction);
+        void Execute_Instruction(const Instruction_Type &Instruction);
 
     private:
         // - Methods
@@ -147,7 +146,7 @@ class Shell_Class : public Software_Type
         // - - Managment
 
         // - Attributes
-        Dialog_Type Dialog;
+        Graphics_Types::Dialog_Type Dialog;
 
         Text_Area_Type Name_Input;
         Text_Area_Type Password_Input;
@@ -157,7 +156,6 @@ class Shell_Class : public Software_Type
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;
-
 
     class Installer_Class
     {
@@ -169,21 +167,21 @@ class Shell_Class : public Software_Type
         static bool Is_Maximized(Shell_Class *Shell_Pointer);
         static void Close(Shell_Class *Shell_Pointer);
 
-        void Execute_Instruction(const Instruction_Type& Instruction);
+        void Execute_Instruction(const Instruction_Type &Instruction);
 
         // - Attributes
 
-        Dialog_Type Dialog;
+        Graphics_Types::Dialog_Type Dialog;
 
     private:
         // - Methods
 
         // - - Constructor / destructor
-        Installer_Class(Shell_Class* Shell_Pointer);
+        Installer_Class(Shell_Class *Shell_Pointer);
         ~Installer_Class();
 
         // - Attributes
-        
+
         Button_Type Setup_Button;
         Button_Type Create_Account_Button;
         Text_Area_Type Username_Text_Area;
@@ -193,12 +191,35 @@ class Shell_Class : public Software_Type
         Shell_Class *Shell_Pointer;
     } *Installer_Pointer;
 
+    class Power_CLass
+    {
+    public:
+        // - Methods
+
+        static void Open(Shell_Class *Shell_Pointer);
+        static bool Is_Openned(Shell_Class *Shell_Pointer);
+        static bool Is_Maximized(Shell_Class *Shell_Pointer);
+        static void Close(Shell_Class *Shell_Pointer);
+
+        void Execute_Instruction(const Instruction_Type &Instruction);
+    
+    private:
+        // - Methods
+
+        // - Attributes
+
+        Graphics_Types::Dialog_Type Dialog;
+
+        Shell_Class *Shell_Pointer;
+
+    } *Power_Pointer;
+
     // - Methods
 
     // - - Constructors / destructor
 
     Shell_Class();
-    ~Shell_Class();
+    ~Shell_Class() override;
 
     // - - Others
 

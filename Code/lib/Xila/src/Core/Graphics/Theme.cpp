@@ -14,7 +14,7 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-
+// TODO : Integrate directly into object creation (useless to use a callback)
 
 void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
 {
@@ -28,7 +28,7 @@ void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
     // - Apply theme's style
 
     // - - Object
-    if (Object.Check_Type(&lv_obj_class))
+    if (Object.Get (&lv_obj_class))
     {
         Object.Set_Style_Radius(0, 0);
         Object.Set_Style_Border_Width(0, 0);
@@ -37,7 +37,7 @@ void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
     // - - Button
     else if (Object.Check_Type(&lv_btn_class))
     {
-        Object.Add_Style(&Style_Button, 0);
+        Object.Add_Style(Style_Button, 0);
     }
 
     // - - Label
@@ -52,7 +52,7 @@ void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
         // Set label color
         Object.Set_Style_Text_Color(Color_Type::White, Part_Type::Main | State_Type::Default);
         // Add style for the indicator
-        Object.Add_Style(&Style_Checkbox, Part_Type::Indicator | State_Type::Default);
+        Object.Add_Style(Style_Checkbox, Part_Type::Indicator | State_Type::Default);
         // Set background color of the indicator
         Object.Set_Style_Background_Color(Color_Type::White, Part_Type::Indicator | State_Type::Checked);
     }
@@ -60,9 +60,9 @@ void Theme_Class::Apply_Callback(lv_theme_t *Theme, lv_obj_t *LVGL_Object)
     // - - Slider
     else if (Object.Check_Type(&lv_slider_class))
     {
-        Object.Add_Style(&Style_Slider_Main, Part_Type::Main | State_Type::Default);
-        Object.Add_Style(&Style_Slider_Indicator, Part_Type::Indicator | State_Type::Default);
-        Object.Add_Style(&Style_Slider_Knob, Part_Type::Knob | State_Type::Default);
+        Object.Add_Style(Style_Slider_Main, Part_Type::Main | State_Type::Default);
+        Object.Add_Style(Style_Slider_Indicator, Part_Type::Indicator | State_Type::Default);
+        Object.Add_Style(Style_Slider_Knob, Part_Type::Knob | State_Type::Default);
     }
 
     // - - Textarea
@@ -86,48 +86,46 @@ void Theme_Class::Initialize()
 {
     /*Initialize the styles*/
     // Button style
-    
-    lv_style_init(&Style_Button);
-    lv_style_set_bg_color(&Style_Button, lv_palette_darken(LV_PALETTE_GREY, 3));
-    lv_style_set_border_color(&Style_Button, lv_color_white());
-    lv_style_set_border_width(&Style_Button, 1);
-    lv_style_set_radius(&Style_Button, Button_Radius);
-    lv_style_set_shadow_width(&Style_Button, 0);
+
+    Style_Button.Initialize();
+    Style_Button.Set_Background_Color(Color_Type::White);
+    Style_Button.Set_Border_Color(Color_Type::White);
+    Style_Button.Set_Border_Width(1);
+    Style_Button.Set_Radius(Button_Radius);
+    Style_Button.Set_Shadow_Width(0);
 
     // Checkbox style
-    lv_style_init(&Style_Checkbox);
-    lv_style_set_border_color(&Style_Checkbox, lv_palette_darken(LV_PALETTE_GREY, 3));
+    Style_Button.Initialize();
+    Style_Button.Set_Background_Color(Color_Type::Grey[2]);
 
     // Slider style
 
     // -- Main
-    lv_style_init(&Style_Slider_Main);
-    lv_style_set_bg_color(&Style_Slider_Main, lv_palette_darken(LV_PALETTE_GREY, 2));
 
-    lv_style_set_border_color(&Style_Slider_Main, lv_color_white());
-    lv_style_set_border_width(&Style_Slider_Main, 1);
-
-    lv_style_set_radius(&Style_Slider_Main, Slider_Radius);
+    Style_Slider_Main.Initialize();
+    Style_Slider_Main.Set_Background_Color(Color_Type::Grey[2]);
+    Style_Slider_Main.Set_Border_Color(Color_Type::White);
+    Style_Slider_Main.Set_Border_Width(1);
+    Style_Slider_Main.Set_Radius(Slider_Radius);
 
     // -- Indicator
-    lv_style_init(&Style_Slider_Indicator);
-    lv_style_set_bg_color(&Style_Slider_Indicator, lv_palette_darken(LV_PALETTE_GREY, 3));
-
-    lv_style_set_radius(&Style_Slider_Indicator, Slider_Radius);
-
-    lv_style_set_border_color(&Style_Slider_Indicator, lv_color_white());
-    lv_style_set_border_width(&Style_Slider_Indicator, 1);
-    lv_style_set_border_side(&Style_Slider_Indicator, LV_BORDER_SIDE_FULL);
+    Style_Slider_Indicator.Initialize();
+    Style_Slider_Indicator.Set_Background_Color(Color_Type::Grey[3]);
+    Style_Slider_Indicator.Set_Radius(Slider_Radius);
+    Style_Slider_Indicator.Set_Border_Color(Color_Type::White);
+    Style_Slider_Indicator.Set_Border_Width(1);
+    Style_Slider_Indicator.Set_Border_Side(Border_Side_Type::Full);
 
     // -- Knob
-    lv_style_init(&Style_Slider_Knob);
-    lv_style_set_radius(&Style_Slider_Knob, Slider_Radius);
-    lv_style_set_width(&Style_Slider_Knob, LV_PCT(100));
-    lv_style_set_height(&Style_Slider_Knob, LV_PCT(100));
-
-    lv_style_set_opa(&Style_Slider_Knob, LV_OPA_0); // Delete knob
+    Style_Slider_Knob.Initialize();
+    Style_Slider_Knob.Set_Background_Color(Color_Type::White);
+    Style_Slider_Knob.Set_Radius(Slider_Radius);
+    Style_Slider_Knob.Set_Width(Percentage(100));
+    Style_Slider_Knob.Set_Height(Percentage(100));
+    Style_Slider_Knob.Set_Opacity(Opacity_Type::Transparent);
 
     /*Initialize the new theme from the current theme*/
+
     lv_theme_t *Default_Theme = lv_disp_get_theme(NULL);
     LVGL_Theme = *Default_Theme; // Copy default material theme
 
