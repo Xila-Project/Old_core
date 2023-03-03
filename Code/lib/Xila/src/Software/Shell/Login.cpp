@@ -44,7 +44,7 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Login_Label.Set_Alignment(Alignment_Type::Center);
 
     // TODO : 
-    Keyboard.Create(Desk.Get_Body());
+    Keyboard.Create(Window.Get_Body());
     Keyboard.Add_Flag(Flag_Type::Hidden);
 }
 

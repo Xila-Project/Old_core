@@ -482,12 +482,9 @@ namespace Xila_Namespace
 
         static Graphics_Types::Class_Type Class;
 
-        lv_obj_t *LVGL_Object_Pointer;
-
     protected:
 
-    
-        
+        lv_obj_t *LVGL_Object_Pointer;        
 
     } Object_Type;
 

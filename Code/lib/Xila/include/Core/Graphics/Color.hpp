@@ -101,6 +101,9 @@ namespace Xila_Namespace
         lv_color_t Get_LVGL_Color() const;
         lv_color_hsv_t Get_LVGL_HSV_Color() const;
 
+        // - - Operators
+        operator uint32_t() const;
+
     protected:
         lv_color_t LVGL_Color;
 

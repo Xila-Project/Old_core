@@ -15,7 +15,7 @@ const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 
 // -- Constructor -- //
 
-Preferences_Class::Preferences_Class(const Accounts_Types::User_Type* Owner) : Software_Class(&Handle, Owner)
+Preferences_Class::Preferences_Class() : Software_Class(&Handle)
 {
     Window.Create(this);
     Window.Set_Title("Preferences");
@@ -46,6 +46,10 @@ Preferences_Class::Preferences_Class(const Accounts_Types::User_Type* Owner) : S
     Draw_Wireless();
     Draw_Users();
     Draw_System();
+
+    Keyboard.Create(Window.Get_Body());
+    Keyboard.Add_Flag(Flag_Type::Hidden);
+
 }
 
 Preferences_Class::~Preferences_Class()
@@ -792,8 +796,9 @@ void Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Ins
 
 void Preferences_Class::Refresh_Personal()
 {
-    Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
-    Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
+    // TODO : Implement with instruction system
+    //Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
+    //Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
 
     /*
     switch (Keyboard.Layout)
@@ -824,15 +829,20 @@ void Preferences_Class::Refresh_Personal()
 /// @brief Refresh software tab.
 void Preferences_Class::Refresh_Softwares()
 {
-    char Software_Name[Softwares.Get_Handle_List().size() * (sizeof(Default_Software_Name_Length) + 1) + 1];
+    char Software_Name[Softwares.Get_Handle_Count() * (sizeof(Default_Software_Name_Length) + 1) + 1];
     memset(Software_Name, '\0', sizeof(Software_Name));
     Static_String_Type<Default_Software_Name_Length> Software_Name_String;
-    for (auto & Software_Handle : Softwares.Get_Handle_List())
+
+    for (uint8_t i = 0; i < Softwares.Get_Handle_Count(); i++)
     {
-        Software_Handle->Get_Name(Software_Name_String);
+        Softwares.Get_Handle(i)->Get_Name(Software_Name_String);
         strlcat(Software_Name, Software_Name_String, sizeof(Software_Name));
-        strcat(Software_Name, "\n");
+        if (i < Softwares.Get_Handle_Count() - 1)
+        {
+            strlcat(Software_Name, "\n", sizeof(Software_Name));
+        }
     }
+
     Softwares_Roller.Set_Options(Software_Name, Roller_Type::Mode_Type::Normal);
 }
 

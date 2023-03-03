@@ -11,12 +11,13 @@
 #include "Core/Graphics/Text_Area.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
+
+Class_Type Text_Area_Class::Class(&Object_Class::Class);
+
+// - Methods
 
 void Text_Area_Class::Create(Object_Class Parent_Object)
 {
@@ -212,4 +213,9 @@ const char* Text_Area_Class::Get_Text()
 bool Text_Area_Class::Get_Text_Selection()
 {
     return lv_textarea_get_text_selection(Get_Pointer());
+}
+
+const Class_Type* Text_Area_Class::Get_Class() const
+{
+    return &Class;
 }

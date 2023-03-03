@@ -40,7 +40,7 @@ namespace Xila_Namespace
 
         // - Getters
         
-        const Software_Handle_Type *Get_Handle_Pointer() const;
+        const Software_Handle_Type *Get_Handle() const;
          const Accounts_Types::User_Type* Get_Owner_User() const;
 
     protected:

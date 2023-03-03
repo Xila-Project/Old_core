@@ -13,7 +13,6 @@
 
 #include <vector>
 #include "Arduino.h"
-#include "ArduinoJson.h"
 #include "FS.h"
 #include "ArduinoTrace.h"
 
@@ -31,6 +30,7 @@
 #include "String.hpp"
 #include "Date.hpp"
 #include "Time.hpp"
+#include "Registry.hpp"
 
 #include "../Configuration/Configuration.hpp"
 #include "../Configuration/Path.hpp"

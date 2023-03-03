@@ -64,7 +64,7 @@ class File_Manager_Class : public Software_Type
 
     Object_Type Grid;
     Object_Type Flexbox;
-    Text_Area_Type Path_Text_Area;
+    Graphics_Types::Text_Area_Type Path_Text_Area;
     List_Type List;
     Button_Type Parent_Folder_Button;
     Button_Type Home_Folder_Button;
@@ -81,7 +81,7 @@ class File_Manager_Class : public Software_Type
     Button_Type Paste_Button;
     Button_Type Details_Button;
 
-    Dialog_Type Details_Dialog;
+    Graphics_Types::Dialog_Type Details_Dialog;
     Table_Type Details_Table;
 };
 

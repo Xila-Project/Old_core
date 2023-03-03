@@ -19,16 +19,16 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
     Window.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column_Wrap);
     Window.Get_Body().Set_Style_Pad_Row(5, 0);
     Window.Get_Body().Set_Style_Pad_Column(5, 0);
-     
 
     {
         Object_Type Container;
         Button_Type Icon;
         Label_Type Label;
+        Static_String_Class<Default_Software_Name_Length> Name;
 
-        for (auto & Software_Handle_Pointer : Softwares.Get_Handle_List())
+        for (Byte_Type i; i < Softwares.Get_Handle_Count(); i++)
         {
-            if (Shell_Class::Handle != (*Software_Handle_Pointer))
+            if (&Shell_Class::Handle != Softwares.Get_Handle(i))
             {
                 Container.Create(Window.Get_Body());
                 Container.Set_Size(10 * 8, 9 * 8);
@@ -45,9 +45,10 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
                 Label.Create(Container);
                 Label.Set_Size(Percentage(100), 32);
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
-                Label.Set_Long_Mode(Label_Type::Long_Dot);
+                Label.Set_Long_Mode(Long_Mode_Type::Long_Dot);
                 Label.Add_Flag(Flag_Type::Event_Bubble);
-                Label.Set_Text(Software_Handle_Pointer->Get_Name());
+                Softwares.Get_Handle(i)->Get_Name(Name);
+                Label.Set_Text(Name);
                 Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
                 Container.Clear_Pointer();
@@ -63,18 +64,18 @@ Shell_Class::Drawer_Class::~Drawer_Class()
     Window.Delete();
 }
 
-void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type& Instruction)
+void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
         switch (Instruction.Graphics.Get_Code())
         {
-        case Graphics_Types::Event_Code_Type::Clicked :
+        case Graphics_Types::Event_Code_Type::Clicked:
             for (uint8_t i = 0; i < Window.Get_Body().Get_Child_Count(); i++)
             {
                 if (Instruction.Graphics.Get_Object() == Window.Get_Body().Get_Child(i))
                 {
-                    Softwares.Get_List()[i]->Create_Instance();
+                    Softwares.Get_Handle(i)->Create_Instance();
                     break;
                 }
             }
@@ -84,7 +85,6 @@ void Shell_Class::Drawer_Class::Execute_Instruction(const Instruction_Type& Inst
         }
     }
 }
-
 
 void Shell_Class::Drawer_Class::Open(Shell_Class *Shell_Pointer)
 {

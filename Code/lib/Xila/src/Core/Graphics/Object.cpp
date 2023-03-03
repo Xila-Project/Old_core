@@ -68,6 +68,7 @@ void Object_Class::Create(Object_Class Parent_Object)
     {
         Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
     }
+    
 }
 
 void Object_Class::Delete()

@@ -267,7 +267,7 @@ void Shell_Class::Desk_Class::Refresh()
             Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
             if (Software_Pointer != Shell_Pointer)
             {
-                Software_Pointer->Get_Handle_Pointer()->Get_Name(Name);
+                Software_Pointer->Get_Handle()->Get_Name(Name);
                 Name[2] = '\0';
 
                 Label = Dock_List.Get_Child(i);

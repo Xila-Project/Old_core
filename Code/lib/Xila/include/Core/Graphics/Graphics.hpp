@@ -36,23 +36,21 @@
 #include "Table.hpp"
 #include "Text_Area.hpp"
 // Extra widgets
-//#include "Animaton_Image.hpp"
+// #include "Animaton_Image.hpp"
 #include "Calendar.hpp"
 #include "Chart.hpp"
 #include "Color_Wheel.hpp"
-//#include "Image_Button.hpp"
+// #include "Image_Button.hpp"
 #include "Keyboard.hpp"
 #include "List.hpp"
 #include "Menu.hpp"
 #include "Meter.hpp"
-//#include "Message_Box.hpp"
-//#include "Span.hpp"
-//#include "Spinbox.hpp"
-//#include "Spinner.hpp"
+// #include "Message_Box.hpp"
+// #include "Span.hpp"
+// #include "Spinbox.hpp"
+// #include "Spinner.hpp"
 #include "Tabs.hpp"
-//#include "Tileview.hpp"
-
-#include "Theme.hpp"
+// #include "Tileview.hpp"
 
 namespace Xila_Namespace
 {
@@ -64,7 +62,6 @@ namespace Xila_Namespace
     typedef class Graphics_Class : public Module_Class
     {
     public:
-        
         // - Constructor
         Graphics_Class();
         ~Graphics_Class();
@@ -74,7 +71,7 @@ namespace Xila_Namespace
         Result_Type Stop();
 
         // - - Task
-        static void Task_Start_Function(void * Instance_Pointer);
+        static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
 
         // - - Instruction
@@ -82,17 +79,12 @@ namespace Xila_Namespace
         static void Event_Handler(lv_event_t *Event);
 
     private:
-    
         // - Methods
         Object_Type Get_Top_Layer();
         Object_Type Get_Screen();
 
         // - Attributes
         Task_Class Task;
-
-        Graphics_Types::Theme_Type Theme;
-
-        Keyboard_Type Keyboard;
 
         // - - Buffers
         lv_color_t Draw_Buffer[Display_Horizontal_Definition * 10];
@@ -103,19 +95,21 @@ namespace Xila_Namespace
         lv_indev_drv_t Input_Device_Driver_Interface;
         lv_fs_drv_t File_System_Driver;
 
-    /*
+        /*
 
-        void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
-        lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
-        lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
-        lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
-        lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
-        lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
-        void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
-        lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
-        lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
-    */
+            void *File_System_Open(lv_fs_drv_t *, const char *, lv_fs_mode_t);
+            lv_fs_res_t File_System_Close(lv_fs_drv_t *, void *);
+            lv_fs_res_t File_System_Read(lv_fs_drv_t *, void *, void *, uint32_t, uint32_t *);
+            lv_fs_res_t File_System_Write(lv_fs_drv_t *, void *, const void *, uint32_t, uint32_t *);
+            lv_fs_res_t File_System_Set_Position(lv_fs_drv_t *, void *, uint32_t, lv_fs_whence_t);
+            lv_fs_res_t File_System_Get_Position(lv_fs_drv_t *, void *, uint32_t *);
+            void *File_System_Open_Directory(lv_fs_drv_t *, const char *);
+            lv_fs_res_t File_System_Directory_Read(lv_fs_drv_t *, void *, char *);
+            lv_fs_res_t File_System_Close_Directory(lv_fs_drv_t *, void *);
+        */
 
+        // - Friendships
+        friend class System_Class;
     } Graphics_Type;
 
     extern Graphics_Type Graphics;

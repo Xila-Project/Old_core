@@ -69,7 +69,7 @@ class Preferences_Class : public Software_Type
     Tabs_Type Tabs;
     Object_Type Personnal_Tab, Softwares_Tab, Hardware_Tab, Network_Tab, Users_Tab, System_Tab;
 
-    Keyboard_Type Keyboard;
+    Graphics_Types::Keyboard_Type Keyboard;
 
     // - - Personnal
 
@@ -84,15 +84,15 @@ class Preferences_Class : public Software_Type
     Button_Type Wireless_WiFi_Informations_Button;
     Button_Type Wireless_WiFi_Connect_Button;
     Roller_Type Wireless_WiFi_Access_Point_Roller;
-    Text_Area_Type Wireless_WiFi_Password_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_WiFi_Password_Text_Area;
 
     Button_Type Wireless_Network_Apply_Button;
     Checkbox_Type Wireless_Network_DHCP_Checkbox;
-    Text_Area_Type Wireless_Network_Local_IP_Text_Area;
-    Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
-    Text_Area_Type Wireless_Network_Subnet_Mask_Text_Area;
-    Text_Area_Type Wireless_Network_DNS_1_Text_Area;
-    Text_Area_Type Wireless_Network_DNS_2_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_Network_Local_IP_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_Network_Gateway_IP_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_Network_Subnet_Mask_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_Network_DNS_1_Text_Area;
+    Graphics_Types::Text_Area_Type Wireless_Network_DNS_2_Text_Area;
 
     // - - Hardware
 
@@ -112,7 +112,7 @@ class Preferences_Class : public Software_Type
     // - - System
 
     Button_Type System_Device_Apply_Button;
-    Text_Area_Type System_Device_Name_Text_Area;
+    Graphics_Types::Text_Area_Type System_Device_Name_Text_Area;
     Button_Type System_Update_Button;
     Button_Type System_Reboot_Loader_Button;
 
@@ -120,7 +120,7 @@ class Preferences_Class : public Software_Type
     Button_Type System_Time_Plus_Button;
     Button_Type System_Time_Minus_Button;
     Spinbox_Type System_Time_Daylight_Offset_Spinbox;
-    Text_Area_Type System_Time_NTP_Server_Text_Area;
+    Graphics_Types::Text_Area_Type System_Time_NTP_Server_Text_Area;
     Roller_Type System_Time_Zone_Roller;
 };
 

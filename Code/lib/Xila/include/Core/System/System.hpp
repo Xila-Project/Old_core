@@ -28,17 +28,21 @@ namespace Xila_Namespace
         /// @brief Panic codes used by the panic handler.
         enum class Panic_Type : uint32_t
         {
-            Missing_System_Registry,     ///< Missing system files (registries).
-            Failed_To_Update_Display, ///< Failed to update display.        
+            Missing_System_Files,  ///< Missing system files (registries).
+            Failed_To_Update_Display, ///< Failed to update display.
             Damaged_System_Registry,  ///< Damaged system registry.
             Installation_Conflict,    ///< Installation conflict (between MCU and Drive).
-            Drive_Failure,     ///< System drive failure (disconnected).
+            Drive_Failure,            ///< System drive failure (disconnected).
             Failed_To_Start_Display,  ///< Failed to start display.
             Failed_To_Start_Graphics,
             Failed_To_Start_Sound,
+            Failed_To_Start_Power,
+            Failed_To_Start_WiFi,
+            Failed_To_Start_Accounts,
+            
 
-            Low_Memory,               ///< Low memory (fragmentation, too much software openned).
-            Memory_Corruption,        ///< Memory corruption.
+            Low_Memory,        ///< Low memory (fragmentation, too much software openned).
+            Memory_Corruption, ///< Memory corruption.
         };
     };
 
@@ -46,14 +50,14 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
-         
+
         // - - Constructor / Destructor
         System_Class();
         ~System_Class();
 
         // - - Device
 
-        void Get_Device_Name(String_Type& Device_Name);
+        void Get_Device_Name(String_Type &Device_Name);
         uint64_t Get_eFuse_MAC();
         uint8_t Get_Chip_Revision();
         const char *Get_Chip_Model();
@@ -61,7 +65,7 @@ namespace Xila_Namespace
         uint32_t Get_CPU_Frequency();
         const char *Get_SDK_Version();
 
-        void Set_Device_Name(const String_Type& Device_Name);
+        void Set_Device_Name(const String_Type &Device_Name);
 
         // - - Time
 
@@ -75,11 +79,11 @@ namespace Xila_Namespace
 
         uint32_t Get_UTC_Offset();
         uint16_t Get_Daylight_Offset();
-        void Get_NTP_Server(String_Type& NTP_Server);
-        
+        void Get_NTP_Server(String_Type &NTP_Server);
+
         // - - - Setters
         void Set_Time_Zone(uint32_t UTC_Offset, uint16_t Daylight_Offset);
-        void Set_NTP_Server(const String_Type& NTP_Server);
+        void Set_NTP_Server(const String_Type &NTP_Server);
 
         // - - System
 
@@ -112,13 +116,12 @@ namespace Xila_Namespace
         /// @brief NTP server name.
         Static_String_Class<32> NTP_Server;
 
-
         // - Methods
 
         // - - Animation
         Object_Type Start_Load_Animation();
-        static void Animation_Callback(void* Object, int32_t Value);
-        void Stop_Load_Animation(Object_Type* Logo);
+        static void Animation_Callback(void *Object, int32_t Value);
+        void Stop_Load_Animation(Object_Type *Logo);
 
         // - - Modules
         void Start_Modules();
@@ -136,16 +139,15 @@ namespace Xila_Namespace
         Result_Type Upgrade(File_Type Executable_File);
 
         void Panic_Handler(System_Types::Panic_Type Panic_Code);
- 
 
         // - - Animation
 
-        static void Logo_Annimation_Callback(void* Object, int32_t Value);
+        static void Logo_Annimation_Callback(void *Object, int32_t Value);
 
-    
     } System_Type;
 
     extern System_Type System;
+
 }
 
 #endif

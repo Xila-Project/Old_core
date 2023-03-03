@@ -22,6 +22,14 @@
 
 namespace Xila_Namespace
 {
+    namespace Power_Types
+    {
+        enum class Event_Code_Type : Byte_Type
+        {
+            Power_Button_Pressed
+        };
+    }
+
     typedef class Power_Class : public Module_Class, public Battery_Class
     {
 

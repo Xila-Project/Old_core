@@ -148,11 +148,11 @@ class Shell_Class : public Software_Type
         // - Attributes
         Graphics_Types::Dialog_Type Dialog;
 
-        Text_Area_Type Name_Input;
-        Text_Area_Type Password_Input;
+        Graphics_Types::Text_Area_Type Name_Input;
+        Graphics_Types::Text_Area_Type Password_Input;
         Button_Type Login_Button;
         Label_Type Login_Label;
-        Keyboard_Type Keyboard;
+        Graphics_Types::Keyboard_Type Keyboard;
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;
@@ -184,9 +184,9 @@ class Shell_Class : public Software_Type
 
         Button_Type Setup_Button;
         Button_Type Create_Account_Button;
-        Text_Area_Type Username_Text_Area;
-        Text_Area_Type Password_Text_Area;
-        Keyboard_Type Keyboard;
+        Graphics_Types::Text_Area_Type Username_Text_Area;
+        Graphics_Types::Text_Area_Type Password_Text_Area;
+        Graphics_Types::Keyboard_Type Keyboard;
 
         Shell_Class *Shell_Pointer;
     } *Installer_Pointer;

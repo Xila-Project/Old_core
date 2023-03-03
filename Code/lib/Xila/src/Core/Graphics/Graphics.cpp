@@ -18,7 +18,7 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-Graphics_Type Graphics();
+Graphics_Type Graphics;
 
 Graphics_Class::Graphics_Class() : Task(this)
 {
@@ -55,15 +55,8 @@ Result_Type Graphics_Class::Start()
     Input_Device_Driver_Interface.read_cb = Display_Class::Input_Read;
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
-    // - Set theme
-    Theme.Initialize();
-
     // - Set file system driver
-
-    // - Create keyboard
-    Keyboard.Create(Get_Top_Layer());
-    Keyboard.Add_Flag(Flag_Type::Hidden);
-
+    
     // - Create task
     Task.Create(Task_Start_Function, "Graphics", 2048, NULL, Task_Type::Priority_Type::System);
 
@@ -93,29 +86,6 @@ void Graphics_Class::Task_Function()
 
 void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
 {
-    if (Instruction.Graphics.Get_Object().Check_Type(&lv_textarea_class))
-    {
-        switch (Instruction.Graphics.Get_Code())
-        {
-            case Event_Code_Type::Focused:
-            {
-                Text_Area_Type Text_Area;
-                Text_Area.Set_Pointer(Instruction.Graphics.Get_Object().Get_Pointer());
-                Keyboard.Set_Text_Area(Text_Area);
-                Keyboard.Clear_Flag(Flag_Type::Hidden);
-                break;
-            }
-            case Event_Code_Type::Defocused:
-            {
-                Text_Area_Type Text_Area;
-                Text_Area.Set_Pointer(NULL);
-                Keyboard.Set_Text_Area(Text_Area);
-                Keyboard.Add_Flag(Flag_Type::Hidden);
-
-                break;
-            }
-        }
-    }
 
 }
 

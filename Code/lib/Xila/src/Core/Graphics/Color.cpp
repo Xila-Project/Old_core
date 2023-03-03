@@ -381,3 +381,10 @@ uint32_t Color_Class::Get_RGB_32_Bits() const
 {
     return lv_color_to32(LVGL_Color);
 }
+
+// - Operators.
+
+Color_Type::operator uint32_t() const
+{
+    return Get_RGB_32_Bits();
+}

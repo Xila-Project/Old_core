@@ -25,12 +25,17 @@ namespace Xila_Namespace
     typedef Object_Class Object_Type;
     namespace Graphics_Types
     {
-        enum class Event_Code_Type : uint8_t;
+        enum class Event_Code_Type : Byte_Type;
     };
 
     namespace Softwares_Types
     {
-        enum class Event_Code_Type : uint8_t;
+        enum class Event_Code_Type : Byte_Type;
+    };
+
+    namespace Power_Types
+    {
+        enum class Event_Code_Type : Byte_Type;
     };
 
     /// @brief Xila instruction type.
@@ -42,12 +47,6 @@ namespace Xila_Namespace
         /// @brief Graphics instruction arguments.
         typedef class Graphics_Class
         {
-        private:
-            // - Attributes
-            Graphics_Types::Event_Code_Type Code;
-
-            void *Object_Pointer;
-
         public:
             // - Methods
             // - - Constructor
@@ -59,6 +58,11 @@ namespace Xila_Namespace
             Graphics_Types::Event_Code_Type Get_Code() const;
             Object_Type Get_Object() const;
 
+        private:
+            // - Attributes
+            Graphics_Types::Event_Code_Type Code;
+
+            void *Object_Pointer;
         } Graphics_Type;
 
         /// @brief Software instruction arguments.
@@ -68,7 +72,6 @@ namespace Xila_Namespace
             // - Methods
             // - - Constructors
             inline Softwares_Class() {}
-            inline Softwares_Class(Softwares_Types::Event_Code_Type Code) : Code(Code) {}
             // - - Setter
             inline void Set_Code(Softwares_Types::Event_Code_Type Code) { this->Code = Code; }
             // - - Getter
@@ -82,15 +85,14 @@ namespace Xila_Namespace
         typedef class Power_Class
         {
         public:
-            inline Power_Class() : Code(0) {}
-            inline Power_Class(uint8_t Code) : Code(Code) {}
+            inline Power_Class() {}
             // - - Setter
-            inline void Set_Code(uint8_t Code) { this->Code = Code; }
+            inline void Set_Code(Power_Types::Event_Code_Type Code) { this->Code = Code; }
             // - - Getter
-            inline uint8_t Get_Code() const { return Code; }
+            inline Power_Types::Event_Code_Type Get_Code() const { return Code; }
 
         private:
-            uint8_t Code;
+            Power_Types::Event_Code_Type Code;
         } Power_Type;
 
         /// @brief Custom instruction arguments.

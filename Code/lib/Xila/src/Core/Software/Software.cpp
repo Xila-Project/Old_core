@@ -14,7 +14,7 @@
 
 using namespace Xila_Namespace;
 
-std::vector<Software_Class *> Software_Class::List;
+std::vector<Software_Class *> Software_Class::List(10);
 
 /// @brief Construct a new Xila_Class::Software object
 ///

@@ -77,7 +77,7 @@ Result_Type System_Class::Load_Registry()
     }
   }
 
-  this->Device_Name = System_Registry["Device Name"].as<const char *>() | Default_Device_Name;
+  this->Device_Name = System_Registry["Device Name"] | Default_Device_Name;
 
   return Result_Type::Success;
 }
@@ -129,8 +129,7 @@ void System_Class::Task_Start_Function(void *Instance_Pointer)
 void System_Class::Task_Function()
 {
   uint32_t Next_Refresh = 0;
-  Power.Button_Counter = 0;
-
+  
   Load();
 
   while (1)
@@ -366,7 +365,7 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 /// @return Result_Type
 Result_Type System_Class::Save_Dump()
 {
-
+  /*
   DynamicJsonDocument Dump_Registry(Default_Registry_Size);
 
   Dump_Registry["Registry"] = "Dump";
@@ -398,6 +397,7 @@ Result_Type System_Class::Save_Dump()
   }
   Dump_File.Close();
   return Result_Type::Success;
+  */
 }
 
 ///
@@ -594,36 +594,27 @@ void System_Class::Load()
 
   // - Power
 
-  if (Power.Load_Registry() != Result_Type::Success)
+  if (Power.Start() != Result_Type::Success)
   {
-    Power.Save_Registry();
+    Panic_Handler(Panic_Type::Failed_To_Start_Power);
   }
 
   // - WiFi
 
-  if (WiFi.Load_Registry() != Result_Type::Success)
+  if (WiFi.Start() != Result_Type::Success)
   {
-    WiFi.Save_Registry();
+    Panic_Handler(Panic_Type::Failed_To_Start_WiFi);
   }
 
-  // - Time
-  if (Time.Load_Registry() != Result_Type::Success)
-  {
-    Time.Save_Registry();
-  }
 
   // - Account
-
-  if (Accounts.Load_Registry() != Result_Type::Success)
+  if (Accounts.Start() != Result_Type::Success)
   {
-    Accounts.Set_Autologin(false);
+    Panic_Handler(Panic_Type::Failed_To_Start_Accounts);
   }
 
   // - Keyboard
-  if (Keyboard.Load_Registry() != Result_Type::Success)
-  {
-    Keyboard.Save_Registry(); // recreate a keyboard registry with default values
-  }
+  Keyboard.Start();
 
   // - Enable animation
 
@@ -631,11 +622,9 @@ void System_Class::Load()
   Task.Delay_Static(3000);
 #endif
 
-  Task_Type::Delay_Static(500);
+  Task.Delay(500);
 
-  // System.Load_Dump();
-
-  Task_Type::Delay_Static(100);
+  Task.Delay(100);
 
   this->Stop_Load_Animation(&Logo);
 }
@@ -824,7 +813,6 @@ void System_Class::Restart()
   Power.Stop();
   Sound.Stop();
   WiFi.Stop();
-  Time.Stop();
   System.Stop();
 
   this->Stop_Load_Animation(&Logo);

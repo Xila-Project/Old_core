@@ -47,14 +47,14 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
     {
         return Result_Type::Error;
     }
-    Software_Type* Software_Pointer = Handle->Create_Instance();
+    Handle->Create_Instance();
     if (Owner_User == NULL)
     {
-        Software_Pointer->Owner_User = Accounts.Get_Logged_User();
+        Software_Type::List.back()->Owner_User = Accounts.Get_Logged_User();
     }
     else
     {
-        Software_Pointer->Owner_User = Owner_User;
+        Software_Type::List.back()->Owner_User = Owner_User;
     }
     
     return Result_Type::Success;
@@ -219,7 +219,7 @@ void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type& Instruc
     Instruction_Type Copy_Instruction = Instruction;
     for (auto& Software_Pointer : Software_Class::List)
     {
-        Copy_Instruction.Set_Receiver(Software_Pointer));   
+        Copy_Instruction.Set_Receiver(Software_Pointer);   
         Software_Pointer->Send_Instruction(Copy_Instruction);
     }
 }

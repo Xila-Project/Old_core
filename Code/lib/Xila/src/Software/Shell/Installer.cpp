@@ -28,7 +28,7 @@ bool Shell_Class::Installer_Class::Is_Openned(Shell_Class *Shell_Pointer)
 
 Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
-    Dialog.Create(Graphics.Get_Top_Layer());
+    Dialog.Create(Shell_Pointer->Desk.Window);
     Dialog.Set_Title("Installer");
     Dialog.Set_Overlay(true);
     Dialog.Get_Body().Set_Flex_Flow(Flex_Flow_Type::Column);

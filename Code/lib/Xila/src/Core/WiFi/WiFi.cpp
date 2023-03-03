@@ -147,7 +147,7 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t C
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (Access_Point["SSID"] = SSID)
+        if (SSID == Access_Point["SSID"])
         {
             if (Channel == 0)
             {
@@ -191,7 +191,7 @@ bool WiFi_Class::Station_Class::Is_Known(const String_Type& SSID, int32_t Channe
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (Access_Point["SSID"] == SSID)
+        if (SSID == Access_Point["SSID"])
         {
             if (Channel == 0)
             {
@@ -338,7 +338,7 @@ Result_Type WiFi_Class::Station_Class::Connect(const String_Type& SSID)
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (Access_Point["SSID"] == SSID)
+        if (SSID == Access_Point["SSID"])
         {
             Connect(SSID, Access_Point["Password"] | "", static_cast<int32_t>(Access_Point["Channel"] | 0));
             
