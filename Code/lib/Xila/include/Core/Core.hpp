@@ -29,18 +29,12 @@
 
 #endif
 
-//============================================================================//
-//                          Include required libraries                        //
-//============================================================================//
+// - Include all the required dependencies
 
-// -- C++ standard library
-#include <stdint.h>
-
-// -- Arduino framework
+// -  Arduino framework
 #include "Arduino.h"
 
-#include "Module/Module.hpp"
-
+// - Xila's modules
 #include "Account/Accounts.hpp"
 #include "Clipboard/Clipboard.hpp"
 #include "Communication/Communication.hpp"
@@ -49,7 +43,6 @@
 #include "Flash/Flash.hpp"
 #include "Graphics/Graphics.hpp"
 #include "Keyboard/Keyboard.hpp"
-#include "Log/Log.hpp"
 #include "Mathematics/Mathematics.hpp"
 #include "Memory/Memory.hpp"
 #include "Pin/Pin.hpp"

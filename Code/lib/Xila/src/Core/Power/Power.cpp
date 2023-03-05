@@ -12,12 +12,12 @@
 
 #include "Core/Power/Power.hpp"
 
-#include "soc/rtc_wdt.h"
+
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Power_Types;
 
-Power_Type Power;
+Power_Type Xila_Namespace::Power;
 
 /// @brief Construct a new Xila_Class::Power_Class::Power_Class object
 Power_Class::Power_Class() : Button_Counter(0), Button_Timer(0), Task(this)
@@ -32,6 +32,7 @@ Power_Class::~Power_Class()
 
 Result_Type Power_Class::Start()
 {
+    Log_Information("Power", "Start power module...");
     Pin.Set_Mode(Power_Button_Pin, Pin_Types::Mode_Type::Input);
     Pin.Attach_Interrupt(Power_Button_Pin, Button_Interrupt_Handler,  Pin_Types::Interrupt_Mode_Type::Change);
 
@@ -40,7 +41,6 @@ Result_Type Power_Class::Start()
         return Result_Type::Success;
     }
 
-    Task.Create(Task_Start_Function, "Power module", 1024, this, Task_Type::Priority_Type::System);
 
 
     if (Load_Registry() != Result_Type::Success)
@@ -50,6 +50,8 @@ Result_Type Power_Class::Start()
             return Result_Type::Error;
         }
     }
+
+    return Task.Create(Task_Start_Function, "Power module", 8*1024, this, Task_Type::Priority_Type::System);;
 }
 
 void Power_Class::Task_Start_Function(void* Instance_Pointer)
@@ -218,7 +220,7 @@ void Power_Class::Check_Button()
 /// @brief Make the board go in deep sleep.
 void Power_Class::Deep_Sleep()
 {
-    Log_Information("Going into deep-sleep.");
+    Log_Information("Power", "Going into deep-sleep.");
     
     /*Display.Set_Serial_Wake_Up(true);
     Display.Set_Touch_Wake_Up(false);

@@ -39,6 +39,7 @@ namespace Xila_Namespace
             Failed_To_Start_Power,
             Failed_To_Start_WiFi,
             Failed_To_Start_Accounts,
+            Failed_To_Start_Drive,
             
 
             Low_Memory,        ///< Low memory (fragmentation, too much software openned).
@@ -63,7 +64,6 @@ namespace Xila_Namespace
         const char *Get_Chip_Model();
         uint32_t Get_Chip_Cores();
         uint32_t Get_CPU_Frequency();
-        const char *Get_SDK_Version();
 
         void Set_Device_Name(const String_Type &Device_Name);
 
@@ -120,7 +120,7 @@ namespace Xila_Namespace
 
         // - - Animation
         Object_Type Start_Load_Animation();
-        static void Animation_Callback(void *Object, int32_t Value);
+        static void Load_Animation_Callback(void *Object, int32_t Value);
         void Stop_Load_Animation(Object_Type *Logo);
 
         // - - Modules
@@ -142,7 +142,6 @@ namespace Xila_Namespace
 
         // - - Animation
 
-        static void Logo_Annimation_Callback(void *Object, int32_t Value);
 
     } System_Type;
 

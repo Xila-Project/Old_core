@@ -14,6 +14,15 @@
 #include "../Module/Module.hpp"
 #include <list>
 
+// - Constants
+
+#ifndef Maximum_Password_Length
+    #define Maximum_Password_Length 32
+#endif
+#ifndef Maximum_Username_Length
+    #define Maximum_Username_Length 16
+#endif
+
 namespace Xila_Namespace
 {
     // - Types

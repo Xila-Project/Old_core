@@ -11,6 +11,7 @@
 #include "Core/Graphics/List.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
 // ------------------------------------------------------------------------- //
 //

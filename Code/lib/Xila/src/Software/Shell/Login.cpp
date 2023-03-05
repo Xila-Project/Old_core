@@ -43,15 +43,11 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Login_Label.Set_Text("Login");
     Login_Label.Set_Alignment(Alignment_Type::Center);
 
-    // TODO : 
-    Keyboard.Create(Window.Get_Body());
-    Keyboard.Add_Flag(Flag_Type::Hidden);
 }
 
 Shell_Class::Login_Class::~Login_Class()
 {
     Dialog.Delete();
-    Keyboard.Delete();
 }
 
 void Shell_Class::Login_Class::Open(Shell_Class *Shell_Pointer)
@@ -86,20 +82,17 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instr
         case Graphics_Types::Event_Code_Type::Focused:
             if (Instruction.Graphics.Get_Object() == Name_Input)
             {
-                Keyboard.Clear_Flag(Flag_Type::Hidden);
-                Keyboard.Set_Text_Area(Name_Input);
+                Graphics.Set_Keyboard_Text_Area(Name_Input);                
             }
             else if (Instruction.Graphics.Get_Object() == Password_Input)
             {
-                Keyboard.Clear_Flag(Flag_Type::Hidden);
-                Keyboard.Set_Text_Area(Password_Input);
+                Graphics.Set_Keyboard_Text_Area(Password_Input);
             }
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
             if ((Instruction.Graphics.Get_Object() == Name_Input) || (Instruction.Graphics.Get_Object() == Password_Input))
             {
-                Keyboard.Remove_Text_Area();
-                Keyboard.Add_Flag(Flag_Type::Hidden);
+                Graphics.Remove_Keyboard_Text_Area();
             }
             break;
         case Graphics_Types::Event_Code_Type::Clicked:
@@ -107,8 +100,7 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instr
             {
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
-                    Shell_Class::Desk_Class::Open(Shell_Pointer);
-                    Close(Shell_Pointer);
+                    Softwares.Open(&Shell_Class::Handle, Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));
                 }
                 else
                 {

@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Drive_Hardware == Drive_SD_MMC
+#ifdef Xila_Drive_Hardware_SD_MMC
 
 #include "Core/Drive/Drive.hpp"
 
@@ -129,9 +129,9 @@ File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
     {
         if (Append)
         {
-            return SD_MMC.open(Path, FILE_APPEND);
+            return SD_MMC.open(Path, FILE_APPEND, true);
         }
-        return SD_MMC.open(Path, FILE_WRITE);
+        return SD_MMC.open(Path, FILE_WRITE, true);
     }
     return SD_MMC.open(Path, FILE_READ);
 }

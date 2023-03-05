@@ -20,10 +20,11 @@ using namespace Xila_Namespace::Graphics_Types;
 
 Class_Type Object_Class::Class(NULL);   // Root class, so no parent class.
 
-bool operator==(const Object_Type &Object_1, const Object_Type &Object_2)
+Object_Type::Style_Selector_Type Xila_Namespace::operator |(Part_Type Part, Graphics_Types::State_Type State)
 {
-    return Object_1.Get_Pointer() == Object_2.Get_Pointer();
+        return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
 }
+
 
 // ------------------------------------------------------------------------- //
 //
@@ -186,7 +187,7 @@ bool Object_Class::Has_Class(const Class_Type *Class_To_Check)
 
 bool Object_Class::Is_Valid()
 {
-    if (Get_Pointer() != NULL)
+    if (Get_Pointer() == NULL)
     {
         return false;
     }

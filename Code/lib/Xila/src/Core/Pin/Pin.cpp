@@ -13,6 +13,8 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Pin_Types;
 
+Pin_Type Xila_Namespace::Pin;
+
 ///
 /// @brief Set GPIO mode.
 ///
@@ -133,15 +135,6 @@ uint32_t Xila_Namespace::Pin_Class::Analog_Read_Milli_Volts(uint8_t Pin)
 }
 
 ///
-/// @brief Set voltage reference pin for for ADC measurements.
-///
-/// @param Pin Involved GPIO.
-void Xila_Namespace::Pin_Class::Set_Voltage_Reference_Pin(uint8_t Pin)
-{
-    analogSetVRefPin(Pin);
-}
-
-///
 /// @brief Set GPIO attenuation for ADC measurements.
 ///
 /// @param Pin Involved GPIO.
@@ -207,7 +200,7 @@ void Xila_Namespace::Pin_Class::Set_Clock_Divider(uint8_t Clock_Divider)
 /// @param Bits_Width Bit width.
 void Xila_Namespace::Pin_Class::Set_Width(uint8_t Bits_Width)
 {
-    analogSetWidth(Bits_Width);
+    //analogSetWidth(Bits_Width);
 }
 
 ///

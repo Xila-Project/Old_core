@@ -11,6 +11,10 @@
 #ifndef Clipboard_Hpp_Included
 #define Clipboard_Hpp_Included
 
+#ifndef Xila_Default_Clipboard_Size
+    #define Xila_Default_Clipboard_Size 256
+#endif
+
 #include "Arduino.h"
 
 #include "../Module/Module.hpp"
@@ -55,8 +59,8 @@ namespace Xila_Namespace
         {
             uint8_t Split_Number[8];
             QWord_Type Number;
-            Static_String_Type<Xila_Clipboard_Size> String;
-            Byte_Type Data[Xila_Clipboard_Size + 1];
+            Static_String_Type<Xila_Default_Clipboard_Size> String;
+            Byte_Type Data[Xila_Default_Clipboard_Size + 1];
   
         };
 

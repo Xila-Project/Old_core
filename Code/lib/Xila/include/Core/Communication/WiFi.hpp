@@ -13,14 +13,8 @@
 
 #include "../Module/Module.hpp"
 
-//==============================================================================//
-///
-/// @brief WiFi class
-///
-
 namespace Xila_Namespace
 {
-
     /// @brief WiFi types
     namespace WiFi_Types
     {
@@ -102,9 +96,7 @@ namespace Xila_Namespace
         // Result_Type Set_Antennas(uint8_t GPIO_1, uint8_t GPIO_2);
         // - -
 
-     
-
-        // - Sub class
+        // - Sub classes
 
         /// @brief Station class
         class Station_Class
@@ -113,10 +105,6 @@ namespace Xila_Namespace
 
             Station_Class();
 
-            // From saved SSID
-            Result_Type Connect(const String_Type& SSID);
-
-            // From unknown SSID
             void Connect(const String_Type& SSID, const String_Type& Password = "", int32_t Channel = 0, const uint8_t *BSSID = NULL);
 
 
@@ -127,8 +115,8 @@ namespace Xila_Namespace
             // - Registry
 
             Result_Type Remove(const String_Type& SSID, int32_t Channel = 0);
-            Result_Type Add(const String_Type& SSID, const String_Type& Password = "", int32_t Channel = 0, const uint8_t *BSSID = NULL);
-            bool Is_Known(const String_Type& SSID, int32_t Channel = 0);
+            Result_Type Add(const String_Type& SSID, const String_Type& Password, int32_t Channel = 0, const uint8_t *BSSID = NULL);
+            bool Is_Known(const String_Type& SSID, const String_Type& Password = String_Type(), int32_t Channel = 0);
 
             // - - Getters
 
@@ -227,8 +215,6 @@ namespace Xila_Namespace
         class Scan_Class
         {
         public:
-
-            Scan_Class();
 
             int16_t Start(bool Asynchronous = false, bool Show_Hidden = false, bool Passive = false, uint32_t Maximum_Milliseconds_Per_Channel = 300, uint8_t Channel = 0, const String_Type& SSID = NULL, const uint8_t *BSSID = NULL);
 

@@ -9,12 +9,15 @@
 ///
 
 #include "Core/Module/Module.hpp"
-
 #include "Core/Module/Task.hpp"
-
-#include "Core/Core.hpp"
+#include "Core/System/System.hpp"
 
 using namespace Xila_Namespace;
+
+// - Attributes
+
+std::list<Task_Class *> Task_Class::List;
+
 
 /// @brief Construct a new Task_Class object (without creating a task)
 ///

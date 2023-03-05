@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2023
 ///
 
-#if WiFi_Hardware == WiFi_Hardware_ESP32
+#if Xila_WiFi_Hardware_ESP32
 
 #include <WiFi.h>
 
@@ -245,11 +245,11 @@ Result_Type WiFi_Class::Set_Host_Name(const String_Type& Host_Name)
 /// @param BSSID BSSID of the access point.
 void WiFi_Class::Station_Class::Connect(const String_Type& SSID, const String_Type& Password, int32_t Channel, const uint8_t *BSSID)
 {
-    if (Password == "")
+    if (this->Is_Known(SSID, Password, Channel))
     {
-        ESP32_WiFi.begin(SSID, NULL, Channel, BSSID, true);
+        ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
     }
-    else
+    else if (this->Add(SSID, Password, Channel, BSSID) == Result_Type::Success)
     {
         ESP32_WiFi.begin(SSID, Password, Channel, BSSID, true);
     }

@@ -11,6 +11,7 @@
 #include "Core/Graphics/Label.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
 // ------------------------------------------------------------------------- //
 //
@@ -63,7 +64,7 @@ void Label_Class::Set_Text_Static(const char *Format)
     lv_label_set_text_static(Get_Pointer(), Format);
 }
 
-void Label_Class::Set_Long_Mode(Long_Mode_Type Long_Mode)
+void Label_Class::Set_Long_Mode(Long_Type Long_Mode)
 {
     lv_label_set_long_mode(Get_Pointer(), static_cast<lv_label_long_mode_t>(Long_Mode));
 }
@@ -108,9 +109,9 @@ char *Label_Class::Get_Text()
     return lv_label_get_text(Get_Pointer());
 }
 
-Label_Class::Long_Mode_Type Label_Class::Get_Long_Mode()
+Long_Type Label_Class::Get_Long_Mode()
 {
-    return static_cast<Label_Class::Long_Mode_Type>(lv_label_get_long_mode(Get_Pointer()));
+    return static_cast<Long_Type>(lv_label_get_long_mode(Get_Pointer()));
 }
 
 bool Label_Class::Get_Recolor()

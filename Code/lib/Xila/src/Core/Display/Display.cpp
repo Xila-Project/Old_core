@@ -8,32 +8,49 @@
 /// @copyright Copyright (c) 2021
 ///
 
-#include "Core/Display/Display.hpp"
+#ifndef Default_Display_Brightness
+    #define Default_Display_Brightness 100
+#endif
+#ifndef Default_Display_Standby_Time
+    #define Default_Display_Standby_Time 30000
+#endif
 
-#include "Core/Core.hpp"
+#include "Core/Display/Display.hpp"
+#include "Core/Drive/Drive.hpp"
 
 using namespace Xila_Namespace;
 
-Display_Type Display;
+Display_Type Xila_Namespace::Display;
 
 // - Methods
 
 Result_Type Display_Class::Start()
 {
-    if (Load_Registry() != Result_Type::Success)
+    // - Define default values
+    this->Brightness = Default_Display_Brightness;
+    this->Standby_Time = Default_Display_Standby_Time;
+
+    // - Load registry
+    if (this->Load_Registry() != Result_Type::Success)
     {
-        if (Create_Registry() != Result_Type::Success)
+        // - If the registry doesn't exist, create it.
+        if(this->Create_Registry() != Result_Type::Success)
         {
             return Result_Type::Error;
         }
     }
-    this->Wake_Up();
+
+    // - Initialize display
     if (this->Initialize() != Result_Type::Success)
     {
         return Result_Type::Error;
     }
-    Set_Brightness(Default_Display_Brightness);
-    Set_Standby_Time(Default_Display_Standby_Time);
+    this->Wake_Up();
+
+    // - Apply values.
+    this->Set_Brightness(this->Get_Brightness());
+    this->Set_Standby_Time(this->Get_Standby_Time());
+
     return Result_Type::Success;
 };
 
@@ -42,20 +59,6 @@ Result_Type Display_Class::Stop()
     this->Sleep();
     return Save_Registry();
 }
-
-
-// -- Object's base class
-
-uint16_t Display_Class::Get_Horizontal_Definition()
-{
-    return Display_Horizontal_Definition;
-}
-
-uint16_t Display_Class::Get_Vertical_Definition()
-{
-    return Display_Vertical_Definition;
-}
-
 
 void Display_Class::Set_Standby_Time(uint16_t Standby_Time)
 {
@@ -73,25 +76,19 @@ uint16_t Display_Class::Get_Standby_Time()
 /// @return Xila_Class::Success or Xila_Class::Error
 Result_Type Display_Class::Load_Registry()
 {
-    using namespace Xila;
-
     File_Type Temporary_File = Drive.Open(Registry("Display"));
 
     StaticJsonDocument<256> Display_Registry;
-    if (deserializeJson(Display_Registry, Temporary_File) != DeserializationError::Ok)
+    if (!Temporary_File || deserializeJson(Display_Registry, Temporary_File) || strcmp("Display", Display_Registry["Registry"] | "") != 0)
     {
         Temporary_File.Close();
-        Log_Error("Failed to load display registry.");
         return Result_Type::Error;
     }
     Temporary_File.Close();
-    if (strcmp("Display", Display_Registry["Registry"] | "") != 0)
-    {
-        Log_Error("Failed to load display registry.");
-        return Result_Type::Error;
-    }
-    Set_Standby_Time(Display_Registry["Standby Time"] | Default_Display_Standby_Time);
-    Set_Brightness(Display_Registry["Brightness"] | Default_Display_Brightness);
+
+    Set_Standby_Time(Display_Registry["Standby time"] | Get_Standby_Time());
+    Set_Brightness(Display_Registry["Brightness"] | Get_Brightness());
+
     return Result_Type::Success;
 }
 
@@ -110,7 +107,7 @@ Result_Type Display_Class::Save_Registry()
     }
     
     Display_Registry["Brightness"] = Brightness;
-    Display_Registry["Standby Time"] = Standby_Time;
+    Display_Registry["Standby time"] = Standby_Time;
 
     if (serializeJson(Display_Registry, Temporary_File) == 0)
     {

@@ -22,6 +22,7 @@
 
 // - - Other types
 
+#include "../Log/Log.hpp"
 #include "../Communication/IP_Address.hpp"
 #include "Task.hpp"
 #include "Instruction.hpp"

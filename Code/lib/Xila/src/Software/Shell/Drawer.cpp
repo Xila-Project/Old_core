@@ -23,7 +23,7 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
     {
         Object_Type Container;
         Button_Type Icon;
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Static_String_Class<Default_Software_Name_Length> Name;
 
         for (Byte_Type i; i < Softwares.Get_Handle_Count(); i++)
@@ -45,7 +45,7 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
                 Label.Create(Container);
                 Label.Set_Size(Percentage(100), 32);
                 Label.Set_Alignment(Alignment_Type::Bottom_Middle);
-                Label.Set_Long_Mode(Long_Mode_Type::Long_Dot);
+                Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
                 Label.Add_Flag(Flag_Type::Event_Bubble);
                 Softwares.Get_Handle(i)->Get_Name(Name);
                 Label.Set_Text(Name);

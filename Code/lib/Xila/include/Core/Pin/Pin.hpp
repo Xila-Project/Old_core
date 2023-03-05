@@ -60,7 +60,7 @@ namespace Xila_Namespace
 
     };
 
-    class Pin_Class : public Module_Class
+    typedef class Pin_Class : public Module_Class
     {
     public:
         // TODO : Transform into a full Object Oriented Object.
@@ -96,7 +96,9 @@ namespace Xila_Namespace
         void Detach_Interrupt(uint8_t Pin);
     
     private:
-    } Pin;
+    } Pin_Type;
+
+    extern Pin_Type Pin;
 
 }
 

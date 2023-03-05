@@ -82,7 +82,7 @@ class Shell_Class : public Software_Type
         Image_Type WiFi_Image;
         Button_Type Sound_Button;
         Image_Type Sound_Image;
-        Label_Type Clock_Label;
+        Graphics_Types::Label_Type Clock_Label;
 
         // - - Parent window
         Object_Type Desk_Grid;
@@ -151,8 +151,7 @@ class Shell_Class : public Software_Type
         Graphics_Types::Text_Area_Type Name_Input;
         Graphics_Types::Text_Area_Type Password_Input;
         Button_Type Login_Button;
-        Label_Type Login_Label;
-        Graphics_Types::Keyboard_Type Keyboard;
+        Graphics_Types::Label_Type Login_Label;
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;
@@ -186,7 +185,6 @@ class Shell_Class : public Software_Type
         Button_Type Create_Account_Button;
         Graphics_Types::Text_Area_Type Username_Text_Area;
         Graphics_Types::Text_Area_Type Password_Text_Area;
-        Graphics_Types::Keyboard_Type Keyboard;
 
         Shell_Class *Shell_Pointer;
     } *Installer_Pointer;

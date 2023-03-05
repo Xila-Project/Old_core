@@ -79,7 +79,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     }
 
     {
-        Label_Type Welcome_Label;
+        Graphics_Types::Label_Type Welcome_Label;
         Welcome_Label.Create(Dialog.Get_Body());
         Welcome_Label.Set_Text("Welcome to Xila OS installer!");
     }
@@ -88,7 +88,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     Setup_Button.Set_Size(LV_PCT(100), 40);
 
     {
-        Label_Type Setup_Label;
+        Graphics_Types::Label_Type Setup_Label;
         Setup_Label.Create(Setup_Button);
         Setup_Label.Set_Text("Setup");
         Setup_Label.Set_Alignment(Alignment_Type::Center);
@@ -116,7 +116,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     Create_Account_Button.Set_Size(LV_PCT(80), 40);
 
     {
-        Label_Type Create_Account_Label;
+        Graphics_Types::Label_Type Create_Account_Label;
         Create_Account_Label.Create(Create_Account_Button);
         Create_Account_Label.Set_Text("Create account");
         Create_Account_Label.Set_Alignment(Alignment_Type::Center);

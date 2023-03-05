@@ -91,7 +91,7 @@ void Preferences_Class::Draw_Wireless()
     const uint8_t WiFi_Section_Row = 0;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("WiFi station");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
@@ -153,7 +153,7 @@ void Preferences_Class::Draw_Wireless()
     {
         // - Title label
 
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Network");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Network_Section_Row, 1);
@@ -228,7 +228,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Display_Section_Row = 0;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Display");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Display_Section_Row, 1);
@@ -257,7 +257,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Sound_Section_Row = Display_Section_Row + 2;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Sound");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Sound_Section_Row, 1);
@@ -276,7 +276,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Battery_Section_Row = Sound_Section_Row + 2;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Battery");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Battery_Section_Row, 1);
@@ -294,7 +294,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Drive_Section_Row = Battery_Section_Row + 2;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Drive");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row, 1);
@@ -307,7 +307,7 @@ void Preferences_Class::Draw_Hardware()
     const uint8_t Energy_Section_Row = Drive_Section_Row + 2;
 
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Text("Energy");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Energy_Section_Row, 1);
@@ -358,7 +358,7 @@ void Preferences_Class::Draw_Softwares()
     {
         // - - - Software title label
         {
-            Label_Type Label;
+            Graphics_Types::Label_Type Label;
             Label.Create(Grid);
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
         }
@@ -373,7 +373,7 @@ void Preferences_Class::Draw_Softwares()
         Softwares_Delete_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
      
         {
-            Label_Type Label;
+            Graphics_Types::Label_Type Label;
             Label.Create(Softwares_Delete_Button);
             Label.Set_Text("Delete");
             Label.Set_Alignment(Alignment_Type::Center);
@@ -403,7 +403,7 @@ void Preferences_Class::Draw_Personal()
     {
         // - - - Style title label
 
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
         Label.Set_Text("Style");
@@ -461,7 +461,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - Device title label
 
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid),
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Device_Section_Row, 1);
         Label.Set_Text("Device");
@@ -514,7 +514,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - Time title label
 
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Time_Section_Row, 1);
         Label.Set_Text("Time");
@@ -602,7 +602,7 @@ void Preferences_Class::Draw_System()
     {
         // - - - About title label
 
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Label.Create(Grid);
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row, 1);
         Label.Set_Text("About");
@@ -736,11 +736,6 @@ void Preferences_Class::Execute_Wireless_Instruction(const Instruction_Type &Ins
         Static_String_Type<32> SSID;
         Wireless_WiFi_Access_Point_Roller.Get_Selected_String(SSID);
 
-        if (!WiFi.Station.Is_Known(SSID))
-        {
-            WiFi.Station.Add(SSID, Wireless_WiFi_Password_Text_Area.Get_Text());
-        }
-        
         WiFi.Station.Connect(SSID);
     }
 }

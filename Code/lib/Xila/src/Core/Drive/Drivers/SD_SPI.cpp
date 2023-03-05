@@ -8,7 +8,7 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Drive_Hardware == Drive_SD_SPI
+#ifdef Xila_Drive_Hardware_SD_SPI
 
 #include "SD.h"
 
@@ -18,7 +18,13 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Drive_Types;
 
-SPIClass SD_SPI(VSPI);
+#ifdef Xila_Board_Hardware_Wireless_Tag_WT32_SC01_Plus
+    SPIClass& SD_SPI = SPI;
+#endif
+#ifdef Xila_Board_Hardware_Wireless_Tag_WT32_SC01
+    SPIClass SD_SPI(VSPI);
+#endif 
+
 
 /*
 File_Class::File_Class()
@@ -48,14 +54,14 @@ Size_Type File_Class::Write(uint8_t Byte)
 /// @return false if the initalization failed.
 Result_Type Drive_Class::Start()
 {
+    Log_Information("Drive", "Start drive module...");
     using namespace Xila_Namespace::Pin_Types;
-    Pin.Set_Mode(14, Mode_Type::Input_Pull_Up);
-    Pin.Set_Mode(2, Mode_Type::Input_Pull_Up);
-    Pin.Set_Mode(4, Mode_Type::Input_Pull_Up);
-    Pin.Set_Mode(12, Mode_Type::Input_Pull_Up);
-    Pin.Set_Mode(13, Mode_Type::Input_Pull_Up);
+    //Pin.Set_Mode(SD_SPI_Clock_Pin, Mode_Type::Input_Pull_Up);
+    //Pin.Set_Mode(SD_SPI_Master_In, Mode_Type::Input_Pull_Up);
+    //Pin.Set_Mode(SD_SPI_Master_Out, Mode_Type::Input_Pull_Up);
+    //Pin.Set_Mode(SD_SPI_Select_Pin, Mode_Type::Input_Pull_Up);
     
-    SPI.begin(SD_SPI_Clock_Pin, SD_SPI_Master_In, SD_SPI_Master_Out, SD_SPI_Select_Pin);
+    SPI.begin(SD_SPI_Clock_Pin, SD_SPI_Master_In, SD_SPI_Master_Out, SD_SPI_Clock_Pin);
     if (!SD.begin(SD_SPI_Select_Pin, SD_SPI, SD_SPI_Frequency) || Get_Type() == Drive_Type_Type::None)
     {
         End();
@@ -78,26 +84,19 @@ Size_Type Drive_Class::Get_Size()
 /// @brief A method that return the drive type
 ///
 /// @return Drive_Class::Sd_Card_Type
-Drive_Class::Type_Type Drive_Class::Type()
+Drive_Type_Type Drive_Class::Get_Type()
 {
     switch (SD.cardType())
     {
-    case sdcard_type_t::CARD_NONE:
-        return None;
-        break;
     case sdcard_type_t::CARD_MMC:
-        return MMC;
-        break;
+        return Drive_Type_Type::MMC;
     case sdcard_type_t::CARD_SD:
-        return SD_SC;
-        break;
+        return Drive_Type_Type::SD_SC;
     case sdcard_type_t::CARD_SDHC:
-        return SD_HC;
-        break;
+        return Drive_Type_Type::SD_HC;
     default:
-        break;
+        return Drive_Type_Type::None;
     }
-    return Unknow;
 }
 
 ///
@@ -164,9 +163,9 @@ File_Type Drive_Class::Open(const char *Path, bool Write, bool Append)
     {
         if (Append)
         {
-            return SD.open(Path, FILE_APPEND);
+            return SD.open(Path, FILE_APPEND, true);
         }
-        return SD.open(Path, FILE_WRITE);
+        return SD.open(Path, FILE_WRITE, true);
     }
     return SD.open(Path, FILE_READ);
 }

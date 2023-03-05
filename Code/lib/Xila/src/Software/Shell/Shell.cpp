@@ -164,8 +164,8 @@ Result_Type Shell_Class::Save_Registry()
     }
 
     // - Save registry values
-    Shell_Registry["Background color"] = Desk.Get_Background_Color();
-    Shell_Registry["Foreground color"] = Desk.Get_Foreground_Color();
+    Shell_Registry["Background color"] = static_cast<uint32_t>(Desk.Get_Background_Color());
+    Shell_Registry["Foreground color"] = static_cast<uint32_t>(Desk.Get_Foreground_Color());
 
     // - Write registry
     if (serializeJson(Shell_Registry, Registry_File) == 0)

@@ -10,6 +10,10 @@
 
 #include "Core/Memory/Memory.hpp"
 
+using namespace Xila_Namespace;
+
+Memory_Type Xila_Namespace::Memory;
+
 ///
 /// @brief Return the amount of free heap.
 ///

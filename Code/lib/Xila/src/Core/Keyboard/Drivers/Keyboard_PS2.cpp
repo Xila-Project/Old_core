@@ -8,21 +8,12 @@
  /// @copyright Copyright (c) 2023
  /// 
 
- ///
-/// @file Keyboard.cpp
-/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
-/// @brief
-/// @version 0.1
-/// @date 11-07-2021
-///
-/// @copyright Copyright (c) 2021
-///
+#ifdef Xila_Keyboard_Hardware_PS2
 
-#if Keyboard_Hardware == Keyboard_Hardware_PS2
+#include "Core/Keyboard/Keyboard.hpp"
 
-#include "Core/Core.hpp"
-
-using namespace Xila_Namespace::Input;
+using namespace Xila_Namespace;
+using namespace Xila_Namespace::Keyboard_Types;
 
 #include <PS2Keyboard.h>
 
@@ -31,8 +22,8 @@ PS2Keyboard PS2_Keyboard();
 ///
 /// @brief Construct a new Input_Class::Input_Class object
 ///
-Input_Class::Input_Class()
-    : Layout(Default_Keyboard_Layout),
+Keyboard_Class::Keyboard_Class()
+    : Layout(Layout_Type::American),
       Data_Pin(Default_Keyboard_Data_Pin),
       Clock_Pin(Default_Keyboard_Clock_Pin)
 {
@@ -41,26 +32,26 @@ Input_Class::Input_Class()
 ///
 /// @brief Initialize the communication with the keyboard.
 ///
-void Input_Class::Begin()
+void Keyboard_Class::Begin()
 {
     switch (Layout)
     {
-    case American:
+    case Layout_Type::American:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_US);
         break;
-    case German:
+    case Layout_Type::German:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_German);
         break;
-    case French:
+    case Layout_Type::French:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_French);
         break;
-    case Spanish:
+    case Layout_Type::Spanish:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_Spanish);
         break;
-    case Italian:
+    case Layout_Type::Italian:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_Italian);
         break;
-    case English:
+    case Layout_Type::English:
         PS2Keyboard::begin(Data_Pin, Clock_Pin, PS2Keymap_UK);
         break;
     }
@@ -70,7 +61,7 @@ void Input_Class::Begin()
 /// @brief Read character from the keyboard.
 ///
 /// @return unsigned char Input character.
-unsigned char Input_Class::Read()
+unsigned char Keyboard_Class::Read()
 {
     return PS2Keyboard::read();
 }
@@ -79,7 +70,7 @@ unsigned char Input_Class::Read()
 /// @brief Check if any character is availble.
 ///
 /// @return uint8_t The amount of character available in the buffer.
-uint8_t Input_Class::Available()
+uint8_t Keyboard_Class::Available()
 {
     return PS2Keyboard::available();
 }
@@ -88,7 +79,7 @@ uint8_t Input_Class::Available()
 /// @brief Read character from the keyboard.
 ///
 /// @return uint8_t The amount of character available in the buffer.
-uint8_t Input_Class::Read_Raw()
+uint8_t Keyboard_Class::Read_Raw()
 {
     return PS2Keyboard::readScanCode();
 }
@@ -96,7 +87,7 @@ uint8_t Input_Class::Read_Raw()
 ///
 /// @brief Clear the character buffer.
 ///
-void Input_Class::Clear()
+void Keyboard_Class::Clear()
 {
     PS2Keyboard::clear();
 }

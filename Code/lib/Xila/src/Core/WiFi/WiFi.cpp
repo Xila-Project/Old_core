@@ -20,7 +20,7 @@ using namespace Xila_Namespace::WiFi_Types;
 
 // - Variables
 
-WiFi_Type WiFi;
+WiFi_Type Xila_Namespace::WiFi;
 
 // - Methods
 
@@ -30,13 +30,13 @@ WiFi_Class::WiFi_Class() : Station(), Access_Point(), Scan()
 
 Result_Type WiFi_Class::Start()
 {
+    Log_Information("WiFi", "Start WiFi module...");
     if (this->Load_Registry() != Result_Type::Success)
     {
         if (this->Create_Registry() != Result_Type::Success)
         {
             return Result_Type::Error;
         }
-
     }
     return Result_Type::Success;
 }
@@ -47,39 +47,28 @@ Result_Type WiFi_Class::Stop()
     return this->Save_Registry();
 }
 
-
-
-/// @brief
-/// @param SSID
-/// @param Password
-/// @param Channel
-/// @param BSSID
-/// @return
-Result_Type WiFi_Class::Station_Class::Add(const String_Type& SSID, const String_Type& Password, int32_t Channel, const uint8_t *BSSID)
+/// @brief Add an access point to the registry.
+/// @param SSID SSID of the access point.
+/// @param Password Password of the access point.
+/// @param Channel Channel of the access point.
+/// @param BSSID BSSID of the access point.
+/// @return Result_Type::Success if the access point has been added to the registry, Result_Type::Error otherwise (doublon, failed to open the registry or save it ...).
+Result_Type WiFi_Class::Station_Class::Add(const String_Type &SSID, const String_Type &Password, int32_t Channel, const uint8_t *BSSID)
 {
-    // Add access point to registry
-    DynamicJsonDocument WiFi_Registry(512);
-
+    // - Open registry
+    DynamicJsonDocument WiFi_Registry(8 * 128);
     File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
-
-    if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
+    // - Check if registry is valid
+    if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0) || WiFi_Registry["Access points"] == NULL)
     {
         Registry_File.Close();
         return Result_Type::Error;
     }
-
-    JsonArray Access_Points = WiFi_Registry["Access_Points"];
-
-    if (Access_Points == NULL)
-    {
-        return Result_Type::Error;
-    }
-
-    // Check for doublon
-
+    // - Check if access point is already in registry
+    JsonArray Access_Points = WiFi_Registry["Access points"];
     for (JsonObject Access_Point : Access_Points)
     {
-        if (SSID == Access_Point["SSID"])
+        if (SSID == Access_Point["SSID"].as<const char*>())
         {
             if (Channel == 0)
             {
@@ -93,13 +82,10 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type& SSID, const String
                 return Result_Type::Error;
             }
         }
-            
     }
-
+    // - Add access point to registry
     JsonObject Access_Point = Access_Points.createNestedObject();
-
     Access_Point["SSID"] = SSID;
-
     if (Password != "")
     {
         Access_Point["Password"] = Password;
@@ -108,37 +94,34 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type& SSID, const String
     {
         Access_Point["Channel"] = Channel;
     }
-
+    //  - Save registry
     if (serializeJson(WiFi_Registry, Registry_File) == 0)
     {
         Registry_File.Close();
         return Result_Type::Error;
     }
-
+    // - Close registry
     Registry_File.Close();
     return Result_Type::Success;
 }
 
-Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t Channel)
+/// @brief Remove an access point from the registry.
+/// @param SSID SSID of the access point.
+/// @param Channel Channel of the access point.
+/// @return Result_Type::Success if the access point has been removed from the registry, Result_Type::Error otherwise (not found, failed to open the registry or save it ...).
+Result_Type WiFi_Class::Station_Class::Remove(const String_Type &SSID, int32_t Channel)
 {
-    // Remove access point from registry
+    // - Open registry
     DynamicJsonDocument Network_Registry(512);
-
     File_Type Registry_File = Drive.Open(Registry("WiFi"));
-
-    if (deserializeJson(Network_Registry, Registry_File))
+    if (!Registry_File || deserializeJson(Network_Registry, Registry_File) || (strcmp(Network_Registry["Registry"] | "", "WiFi") != 0))
     {
         Registry_File.Close();
         return Result_Type::Error;
     }
     Registry_File.Close();
 
-    if (strcmp(Network_Registry["Registry"] | "", "WiFi") != 0)
-    {
-        return Result_Type::Error;
-    }
-
-    JsonArray Access_Points = Network_Registry["Access_Points"];
+    JsonArray Access_Points = Network_Registry["Access points"];
 
     if (Access_Points == NULL)
     {
@@ -147,7 +130,7 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t C
 
     for (JsonObject Access_Point : Access_Points)
     {
-        if (SSID == Access_Point["SSID"])
+        if (SSID == Access_Point["SSID"].as<const char*>())
         {
             if (Channel == 0)
             {
@@ -158,7 +141,6 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t C
                 Access_Points.remove(Access_Point);
             }
         }
-            
     }
 
     Registry_File = Drive.Open(Registry("WiFi"), true);
@@ -172,39 +154,58 @@ Result_Type WiFi_Class::Station_Class::Remove(const String_Type& SSID, int32_t C
     return Result_Type::Success;
 }
 
-bool WiFi_Class::Station_Class::Is_Known(const String_Type& SSID, int32_t Channel)
+/// @brief Check if an access point is known in the registry.
+/// @param SSID SSID of the access point.
+/// @param Channel Channel of the access point.
+/// @return true if the access point is known in the registry, false otherwise.
+bool WiFi_Class::Station_Class::Is_Known(const String_Type &SSID, const String_Type& Password, int32_t Channel)
 {
+    // - Create filter
+    StaticJsonDocument<32> Filter;
+    Filter["Station"]["Access points"] = true;
+    // - Open registry
     File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     DynamicJsonDocument WiFi_Registry(8 * 128);
 
-    if (deserializeJson(WiFi_Registry, Registry_File) != DeserializationError::Ok)
+    if (!Registry_File || deserializeJson(WiFi_Registry, Registry_File, DeserializationOption::Filter(Filter)) || (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0))
     {
+        Registry_File.Close();
         return false;
     }
+  
 
-    JsonArray Access_Points = WiFi_Registry["Access_Points"];
+    JsonArray Access_Points = WiFi_Registry["Access points"];
 
     if (Access_Points == NULL)
     {
+        Registry_File.Close();
         return false;
     }
 
+    // - Check if access point data matches.
+    Boolean_Type Match = true;
     for (JsonObject Access_Point : Access_Points)
     {
-        if (SSID == Access_Point["SSID"])
+        if (SSID != Access_Point["SSID"].as<const char*>())
         {
-            if (Channel == 0)
-            {
-                return true;
-            }
-            else if (Access_Point["Channel"] == Channel)
-            {
-                return true;
-            }
+            Match = false;
+            break;
+        }
+
+        if (Channel != 0 && Access_Point["Channel"] != Channel)
+        {
+            Match = false;
+            break;
+        }
+     
+        if (Password.Is_Valid() && Password != Access_Point["Password"].as<const char*>())
+        {
+            Match = false;
+            break;
         }
     }
 
-    return false;
+    return Match;
 }
 
 /// @brief A function that create the structure of the WiFi registry.
@@ -212,14 +213,10 @@ bool WiFi_Class::Station_Class::Is_Known(const String_Type& SSID, int32_t Channe
 /// @return
 Result_Type WiFi_Class::Create_Registry()
 {
-    DynamicJsonDocument WiFi_Registry(512);
-    WiFi_Registry["Registry"] = "WiFi";
+    StaticJsonDocument<2 * 128> WiFi_Registry;
 
-    WiFi_Registry.createNestedObject("Station").createNestedArray("Access Points");
-    
-    WiFi_Registry.createNestedObject("Access Point");
-    
-    JsonArray Access_Points = WiFi_Registry.createNestedArray("Access_Points");  
+    WiFi_Registry["Registry"] = "WiFi";
+    WiFi_Registry.createNestedObject("Station").createNestedArray("Access points");
 
     File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
     if (!Registry_File || (serializeJson(WiFi_Registry, Registry_File) == 0))
@@ -238,36 +235,35 @@ Result_Type WiFi_Class::Create_Registry()
 Result_Type WiFi_Class::Load_Registry()
 {
     File_Type Temporary_File = Drive.Open(Registry("WiFi"), true);
-    DynamicJsonDocument Network_Registry(8 * 128);
-    if (deserializeJson(Network_Registry, Temporary_File) != DeserializationError::Ok)
+    DynamicJsonDocument WiFi_Registry(8 * 128);
+    if (deserializeJson(WiFi_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.Close();
         return Result_Type::Error;
     }
     Temporary_File.Close();
-    if (strcmp(Network_Registry["Registry"] | "", "WiFi") != 0)
+    if (strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0)
     {
         return Result_Type::Error;
     }
 
+
     return Result_Type::Success;
 }
 
-///
 /// @brief Save WiFi registry.
 ///
 /// @return Result_Type
-///
 Result_Type WiFi_Class::Save_Registry()
 {
     DynamicJsonDocument WiFi_Registry(8 * 128);
-    WiFi_Registry["Registry"] = "Network";  
-   
-    File_Type Temporary_File = Drive.Open(Registry("Network"), true);
+    WiFi_Registry["Registry"] = "Network";
 
-    if (!Temporary_File || deserializeJson(WiFi_Registry, Temporary_File))
+    File_Type Regisitry_File = Drive.Open(Registry("Network"), true);
+
+    if (!Regisitry_File || deserializeJson(WiFi_Registry, Regisitry_File))
     {
-        Temporary_File.Close();
+        Regisitry_File.Close();
         return Result_Type::Error;
     }
 
@@ -305,46 +301,15 @@ Result_Type WiFi_Class::Save_Registry()
     Access_Point["Subnet Mask"] = static_cast<uint32_t>(this->Access_Point.Subnet_Mask);
     Access_Point["Gateway"] = static_cast<uint32_t>(this->Access_Point.Gateway_IP_Address);
     Access_Point["DHCP Lease Start IP Address"] = static_cast<uint32_t>(this->Access_Point.DHCP_Lease_Start_IP_Address);
-   
-    if (serializeJson(WiFi_Registry, Temporary_File) == 0)
-    {
-        Temporary_File.Close();
-        return Result_Type::Error;
-    }   
 
-    Temporary_File.Close();
+    if (serializeJson(WiFi_Registry, Regisitry_File) == 0)
+    {
+        Regisitry_File.Close();
+        return Result_Type::Error;
+    }
+
+    Regisitry_File.Close();
     return Result_Type::Success;
-}
-
-
-Result_Type WiFi_Class::Station_Class::Connect(const String_Type& SSID)
-{
-    File_Type Registry_File = Drive.Open(Registry("WiFi"), true);
-    DynamicJsonDocument WiFi_Registry(512);
-    if (deserializeJson(WiFi_Registry, Registry_File))
-    {
-        Registry_File.Close();
-        return Result_Type::Error;
-    }
-    Registry_File.Close();
-
-    JsonArray Access_Points = WiFi_Registry["Access_Points"];
-
-    if ((strcmp(WiFi_Registry["Registry"] | "", "WiFi") != 0) || (Access_Points == NULL))
-    {
-
-        return Result_Type::Error;
-    }
-
-    for (JsonObject Access_Point : Access_Points)
-    {
-        if (SSID == Access_Point["SSID"])
-        {
-            Connect(SSID, Access_Point["Password"] | "", static_cast<int32_t>(Access_Point["Channel"] | 0));
-            
-            return Result_Type::Success;
-        }
-    }
 }
 
 WiFi_Class::Station_Class::Station_Class() : IP_v6(true), IP_Address(), Subnet_Mask(), Gateway_IP_Address(), DNS_1_IP_Address(), DNS_2_IP_Address()

@@ -404,6 +404,19 @@ Result_Type String_Class::Remove(Size_Type Position, Size_Type Size)
     return Result_Type::Success;
 }
 
+Result_Type String_Class::Set_Character(Size_Type Position, char Character)
+{
+    if (Position >= Get_Size() || !Is_Valid())
+    {
+        return Result_Type::Error;
+    }
+
+    Characters_Pointer[Position] = Character;
+    Characters_Pointer[Get_Size()] = '\0';
+
+    return Result_Type::Success;
+}
+
 Result_Type String_Class::To_Char_Array(char *Array, Size_Type Size, Size_Type Offset_Position) const
 {
     if (Array == NULL || Size == 0 || !Is_Valid())

@@ -13,12 +13,12 @@
 
 using namespace Xila_Namespace;
 
-Softwares_Type Softwares;
+Softwares_Type Xila_Namespace::Softwares;
 
 Result_Type Softwares_Class::Start()
 {
     // - Start shell
-    this->Open("Shell", Accounts.Get_Logged_User());
+    return this->Open("Shell", Accounts.Get_Logged_User());
 }
 
 Result_Type Softwares_Class::Stop()
@@ -39,6 +39,7 @@ Result_Type Softwares_Class::Stop()
     {
         this->Kill(Software_Pointer);
     }
+    return Result_Type::Success;
 }
 
 Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Accounts_Types::User_Type *Owner_User)
@@ -95,6 +96,7 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
         Task_Type::Delete_Module_Tasks(Software);
         delete Software;
     }
+    return Result_Type::Success;
 }
 
 Software_Type* Softwares_Class::Find(const Software_Handle_Type *Handle)

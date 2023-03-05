@@ -21,19 +21,11 @@ namespace Xila_Namespace
     typedef class Sound_Class : public Module_Class
     {
     public:
-        Sound_Class();
-        ~Sound_Class();
-
-        void Set_Channels(uint8_t Channels);
-
-        void Set_Volume(uint8_t Volume);
-        uint8_t Get_Volume();
-
-        uint8_t Play(File_Type &File_To_Play);
-        uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
-
-        void Set_Loop(bool Loop);
-
+        // - Methods
+        Result_Type Start();
+        Result_Type Stop();
+        
+        // - - Getters
         uint32_t Get_File_Size();
         uint32_t Get_File_Position();
         bool Set_File_Position(uint32_t Position);
@@ -44,9 +36,23 @@ namespace Xila_Namespace
         uint8_t Get_Channels();
         uint32_t Get_Bit_Rate();
 
+        // - - Setters
+        void Set_Channels(uint8_t Channels);
+        void Set_Volume(uint8_t Volume);
+        uint8_t Get_Volume();
+
+
+        void Set_Loop(bool Loop);
+
+
         void Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t Gain_High_Pass);
 
         void Set_Output(uint8_t Output);
+
+        // - - Operations
+
+        uint8_t Play(File_Type &File_To_Play);
+        uint8_t Play(const char *File_Path_Or_Host, const char *User = "", const char *Password = "");
 
         ///
         /// @brief Output DAC.
@@ -60,7 +66,7 @@ namespace Xila_Namespace
         void Resume();
         void Pause();
         void Mute();
-        void Stop();
+        void Break();
 
         void Set_Current_Time(uint16_t Time);
         uint32_t Get_Current_Time();
@@ -157,8 +163,8 @@ namespace Xila_Namespace
         // -- Methods -- //
         Result_Type Save_Registry();
         Result_Type Load_Registry();
+        Result_Type Create_Registry();
 
-        Result_Type Start();
     } Sound_Type;
 
     extern Sound_Type Sound;

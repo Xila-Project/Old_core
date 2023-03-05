@@ -37,11 +37,8 @@ extern "C"
 
 namespace Xila_Namespace
 {
-    class Flash_Class : public Module_Class
+    namespace Flash_Types
     {
-    public:
-        // - Types
-
         typedef enum Partition_Subtype_Enumeration
         {
             Bootloader_Partition = ESP_PARTITION_SUBTYPE_APP_FACTORY, //!< Factory application partition
@@ -79,23 +76,27 @@ namespace Xila_Namespace
 
             Any = ESP_PARTITION_SUBTYPE_ANY, //!< Used to search for partitions with any subtype
         } Partition_Subtype_Type;
+    }
 
-        // -- Methods
+    typedef class Flash_Class : public Module_Class
+    {
+    public:   
+
+        // - Methods
+
+        // - - Getters
         uint32_t Get_Size();
         uint32_t Get_Speed();
         FlashMode_t Get_Mode();
-
         Result_Type Read(uint32_t Offset, uint32_t *Data, size_t Size);
-
         Result_Type Partition_Read(const esp_partition_t *Partition, uint32_t Offset, uint32_t *Data, size_t Size);
-
         uint32_t Get_Sketch_Size();
         String Get_Sketch_MD5();
         uint32_t Get_Sketch_Free_Space();
 
     private:
         // -- Methods
-        Result_Type Set_Boot_Partition(Partition_Subtype_Type Partition_Subtype);
+        Result_Type Set_Boot_Partition(Flash_Types::Partition_Subtype_Type Partition_Subtype);
 
         Result_Type Erase_Sector(uint32_t Sector);
         Result_Type Write(uint32_t Offset, uint32_t *Data, size_t Size);
@@ -108,10 +109,10 @@ namespace Xila_Namespace
         uint32_t Magic_Speed(uint8_t Byte);
         FlashMode_t Magic_Mode(uint8_t Byte);
 
-        friend class Xila_Class;
-        friend class Shell_Class;
-        friend class Unit_Test_Class;
-    } Flash;
+        friend class System_Class;
+    } Flash_Type;
+
+    extern Flash_Type Flash;
 
 }
 

@@ -1,26 +1,24 @@
 ///
- /// @file Registry.hpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 03-03-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @file Registry.hpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 03-03-2023
+///
+/// @copyright Copyright (c) 2023
+///
 
- #ifndef Registry_Hpp_Included
-    #define Registry_Hpp_Included
+#ifndef Registry_Hpp_Included
+#define Registry_Hpp_Included
 
+#include "String.hpp"
 #include "Arduino.h"
 #include "ArduinoJson.h"
 
 namespace Xila_Namespace
 {
+    bool convertToJson(const String_Type &String, JsonVariant variant);
 
-    bool convertToJson(const String_Type& String, JsonVariant variant)
-    {
-        return variant.set(String);
-    }
 }
 
-    #endif
+#endif

@@ -8,16 +8,23 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#if Display_Hardware == Display_Wireless_Tag_WT32_SC01
+#ifdef Xila_Display_Hardware_Wireless_Tag_WT32_SC01
 
+// - Constants
+
+#define Display_Horizontal_Definition   480
+#define Display_Vertical_Definition     320
+
+// - Include header
+#include "Core/Display/Display.hpp"
+
+// - Include library
 #define LGFX_USE_V1
 #include "LovyanGFX.hpp"
 
-#include "Core/Display/Display.hpp"
-
 using namespace Xila_Namespace;
 
-class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
+static class WT32_SC01_Driver_Class : public lgfx::LGFX_Device
 {
     /*
      クラス名は"LGFX"から別の名前に変更しても構いません。
@@ -205,13 +212,11 @@ public:
 
         setPanel(&_panel_instance); // 使用するパネルをセットします。
     }
-};
-
-static WT32_SC01_Driver_Class WT32_SC01_Driver;
+} Driver;
 
 Result_Type Display_Class::Initialize()
 {
-    if (WT32_SC01_Driver.init())
+    if (Driver.init())
     {
         return Result_Type::Success;
     }
@@ -220,24 +225,34 @@ Result_Type Display_Class::Initialize()
 
 void Display_Class::Sleep()
 {
-    WT32_SC01_Driver.sleep();
+    Driver.sleep();
 }
 
 void Display_Class::Wake_Up()
 {
-    WT32_SC01_Driver.wakeup();
+    Driver.wakeup();
 }
 
 void Display_Class::Set_Brightness(uint8_t Brightness)
 {
-    WT32_SC01_Driver.setBrightness(Brightness);
+    Driver.setBrightness(Brightness);
     this->Brightness = Brightness;
-};
+}
 
 uint8_t Display_Class::Get_Brightness()
 {
     return Brightness;
-};
+}
+
+uint16_t Display_Class::Get_Horizontal_Definition()
+{
+    return Driver.width();
+}
+
+uint16_t Display_Class::Get_Vertical_Definition()
+{
+    return Driver.height();
+}
 
 void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const lv_area_t *Area, lv_color_t *Buffer)
 {
@@ -246,20 +261,20 @@ void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const 
     Width = (Area->x2 - Area->x1 + 1);
     Height = (Area->y2 - Area->y1 + 1);
 
-    WT32_SC01_Driver.startWrite();
-    WT32_SC01_Driver.setAddrWindow(Area->x1, Area->y1, Width, Height);
+    Driver.startWrite();
+    Driver.setAddrWindow(Area->x1, Area->y1, Width, Height);
     // tft.pushColors((uint16_t *)&color_p->full, w * h, true);
-    WT32_SC01_Driver.writePixels((lgfx::rgb565_t *)&Buffer->full, Width * Height);
-    WT32_SC01_Driver.endWrite();
+    Driver.writePixels((lgfx::rgb565_t *)&Buffer->full, Width * Height);
+    Driver.endWrite();
 
     lv_disp_flush_ready(Display_Driver_Interface);
-};
+}
 
 void Display_Class::Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv_indev_data_t *Data)
 {
     static int32_t Input_X, Input_Y;
 
-    if (WT32_SC01_Driver.getTouch(&Input_X, &Input_Y))
+    if (Driver.getTouch(&Input_X, &Input_Y))
     {
         Data->state = LV_INDEV_STATE_PR;
         /*Set the coordinates*/
@@ -270,33 +285,33 @@ void Display_Class::Input_Read(lv_indev_drv_t *Input_Device_Driver_Interface, lv
     {
         Data->state = LV_INDEV_STATE_REL;
     }
-};
+}
 
 void Display_Class::Calibrate()
 {
-    WT32_SC01_Driver.setTextSize((std::max(WT32_SC01_Driver.width(), WT32_SC01_Driver.height()) + 255) >> 8);
+    Driver.setTextSize((std::max(Driver.width(), Driver.height()) + 255) >> 8);
 
     // Calibration
-    if (WT32_SC01_Driver.touch())
+    if (Driver.touch())
     {
-        if (WT32_SC01_Driver.width() < WT32_SC01_Driver.height())
+        if (Driver.width() < Driver.height())
         {
-            WT32_SC01_Driver.setRotation(WT32_SC01_Driver.getRotation() ^ 1);
+            Driver.setRotation(Driver.getRotation() ^ 1);
         }
         // 画面に案内文章を描画します。
-        WT32_SC01_Driver.setTextDatum(textdatum_t::middle_center);
-        WT32_SC01_Driver.drawString("Touch the arrow marker.", WT32_SC01_Driver.width() >> 1, WT32_SC01_Driver.height() >> 1);
-        WT32_SC01_Driver.setTextDatum(textdatum_t::top_left);
+        Driver.setTextDatum(textdatum_t::middle_center);
+        Driver.drawString("Touch the arrow marker.", Driver.width() >> 1, Driver.height() >> 1);
+        Driver.setTextDatum(textdatum_t::top_left);
 
         // タッチを使用する場合、キャリブレーションを行います。画面の四隅に表示される矢印の先端を順にタッチしてください。
         std::uint16_t fg = TFT_WHITE;
         std::uint16_t bg = TFT_BLACK;
-        if (WT32_SC01_Driver.isEPD())
+        if (Driver.isEPD())
         {
             std::swap(fg, bg);
         }
-        WT32_SC01_Driver.calibrateTouch(nullptr, fg, bg, std::max(WT32_SC01_Driver.width(), WT32_SC01_Driver.height()) >> 3);
+        Driver.calibrateTouch(nullptr, fg, bg, std::max(Driver.width(), Driver.height()) >> 3);
     }
-};
+}
 
 #endif

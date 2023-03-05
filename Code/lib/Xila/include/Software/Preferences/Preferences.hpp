@@ -99,8 +99,8 @@ class Preferences_Class : public Software_Type
     Button_Type Hardware_Display_Calibrate_Button;
     Slider_Type Hardware_Display_Brightness_Slider;
     Slider_Type Hardware_Sound_Volume_Slider;
-    Label_Type Hardware_Battery_Level_Label;
-    Label_Type Hardware_Drive_Informations_Label;
+    Graphics_Types::Label_Type Hardware_Battery_Level_Label;
+    Graphics_Types::Label_Type Hardware_Drive_Informations_Label;
     Roller_Type Hardware_Energy_Standby_Roller;
     Button_Type Hardware_Energy_Apply_Button;
 

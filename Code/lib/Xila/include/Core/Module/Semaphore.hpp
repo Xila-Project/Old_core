@@ -35,7 +35,7 @@ namespace Xila_Namespace
 
         Semaphore_Class();
 
-        Result_Type Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count);
+        Result_Type Create(Type_Type Type, unsigned int Initial_Count = 0, unsigned int Maximum_Count = 1);
         void Delete();
 
         Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);

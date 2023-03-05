@@ -21,7 +21,7 @@
 
 namespace Xila_Namespace
 {
-    class Memory_Class : public Module_Class
+    typedef class Memory_Class : public Module_Class
     {
     public:
         // -- Methods
@@ -35,7 +35,9 @@ namespace Xila_Namespace
         uint32_t Get_Free_PSRAM();
         uint32_t Get_Minimum_Free_PSRAM();
         uint32_t Get_Maximum_Allocated_PSRAM();
-    } Memory;
+    } Memory_Type;
+
+    extern Memory_Type Memory;
 }
 
 #endif

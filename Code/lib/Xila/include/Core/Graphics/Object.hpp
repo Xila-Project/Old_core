@@ -488,11 +488,7 @@ namespace Xila_Namespace
 
     } Object_Type;
 
-    Object_Type::Style_Selector_Type operator |(Part_Type Part, Graphics_Types::State_Type State)
-    {
-        return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
-    }
-
+    Object_Type::Style_Selector_Type operator |(Part_Type Part, Graphics_Types::State_Type State);
 }
 
 // -- Management -- //

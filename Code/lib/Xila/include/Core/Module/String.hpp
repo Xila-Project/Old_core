@@ -110,6 +110,7 @@ namespace Xila_Namespace
         // - - Edition
 
         Result_Type Remove(Size_Type Position, Size_Type Size = 1);
+        Result_Type Set_Character(Size_Type Position, char Character);
 
         // - - Conversion
 

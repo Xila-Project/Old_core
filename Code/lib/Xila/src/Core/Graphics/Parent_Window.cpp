@@ -50,6 +50,7 @@ Parent_Window_Class Parent_Window_Class::Get_User_Parent_Window(const Accounts_T
             return *Parent_Window;
         }
     }
+    return Parent_Window_Class();
 }
 
 const Class_Type* Parent_Window_Class::Get_Class() const

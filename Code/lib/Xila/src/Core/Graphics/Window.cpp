@@ -78,7 +78,7 @@ void Window_Class::Set_Interface()
 
     // - Middle title.
     Title_Label.Create(Header);
-    Title_Label.Set_Long_Mode(Label_Class::Long_Mode_Type::Dot);
+    Title_Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
 
     // - Body.

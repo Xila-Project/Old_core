@@ -12,7 +12,7 @@
 
 using namespace Xila_Namespace;
 
-Mathematics_Type Mathematics;
+Mathematics_Type Xila_Namespace::Mathematics;
 
 ///
 /// @brief Check if a float is a number.

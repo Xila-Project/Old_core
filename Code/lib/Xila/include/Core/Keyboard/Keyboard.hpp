@@ -21,17 +21,13 @@
 namespace Xila_Namespace
 {
 
-    typedef class Input_Class : public Module_Class
+    namespace Keyboard_Types
     {
-    public:
-        // -- Keyboard constructor / destructor
-
-        Input_Class();
 
         ///
         /// @brief Keyboard available layout.
         ///
-        enum Layouts
+        enum class Layout_Type
         {
             American, ///< American QWERTY layout.
             German,   ///< German QWERTY layout.
@@ -44,7 +40,7 @@ namespace Xila_Namespace
         ///
         /// @brief Special keys enumeration.
         ///
-        enum Special_Keys
+        enum class Special_Keys_Type
         {
             Tab = 9,
             Enter = 13,
@@ -171,6 +167,14 @@ namespace Xila_Namespace
             thorn,
             y_Diaeresis
         };
+    }
+
+    typedef class Keyboard_Class : public Module_Class
+    {
+    public:
+        // -- Keyboard constructor / destructor
+
+        Keyboard_Class();
 
         // -- Methods
         uint8_t Read();
@@ -185,16 +189,16 @@ namespace Xila_Namespace
         Result_Type Load_Registry();
         Result_Type Save_Registry();
 
-        uint8_t Layout;
+        Keyboard_Types::Layout_Type Layout;
 
         uint8_t Data_Pin;
         uint8_t Clock_Pin;
 
         void Begin();
 
-    } Input_Type;
+    } Keyboard_Type;
 
-    extern Input_Type Keyboard;
+    extern Keyboard_Type Keyboard;
 
 }
 

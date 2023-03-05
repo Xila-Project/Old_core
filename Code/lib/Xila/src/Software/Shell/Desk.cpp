@@ -75,7 +75,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
 
     // - Desk icons
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         Object_Type Icon;
 
         for (uint8_t i = 0; i < 17; i++)
@@ -85,7 +85,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
 
             Label.Create(Desk_Grid);
             Label.Set_Text_Format("Item %u", i);
-            Label.Set_Long_Mode(Label_Type::Long_Mode_Type::Dot);
+            Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
 
             if (i == 15)
             {
@@ -241,7 +241,7 @@ void Shell_Class::Desk_Class::Refresh()
     // If there is not enough buttons, create more.
     {
         Button_Type Button;
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
         {
             Button.Create(Dock_List);
@@ -258,7 +258,7 @@ void Shell_Class::Desk_Class::Refresh()
     }
     // - - Set dock software icons.
     {
-        Label_Type Label;
+        Graphics_Types::Label_Type Label;
         const Software_Type *Software_Pointer;
         Static_String_Type<24> Name;
 
@@ -268,7 +268,7 @@ void Shell_Class::Desk_Class::Refresh()
             if (Software_Pointer != Shell_Pointer)
             {
                 Software_Pointer->Get_Handle()->Get_Name(Name);
-                Name[2] = '\0';
+                Name.Set_Character(2, '\0');
 
                 Label = Dock_List.Get_Child(i);
                 Label.Set_Text(Name);

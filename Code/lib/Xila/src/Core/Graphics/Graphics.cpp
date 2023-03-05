@@ -18,19 +18,15 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-Graphics_Type Graphics;
+Graphics_Type Xila_Namespace::Graphics;
 
 Graphics_Class::Graphics_Class() : Task(this)
 {
 }
 
-Graphics_Class::~Graphics_Class()
-{
-    lv_deinit();
-}
-
 Result_Type Graphics_Class::Start()
 {
+    Log_Information("Graphics", "Start graphics module...");
     lv_init();
 
     if (!lv_is_initialized())
@@ -55,12 +51,42 @@ Result_Type Graphics_Class::Start()
     Input_Device_Driver_Interface.read_cb = Display_Class::Input_Read;
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
+    // - Set keyboard
+    Keyboard.Create(this->Get_Screen());
+    Keyboard.Add_Flag(Flag_Type::Hidden);
+
     // - Set file system driver
     
+    Log_Verbose("Graphics", "Create semaphore...");
+    if (Semaphore.Create(Semaphore_Type::Type_Type::Mutex) != Result_Type::Success)
+    {
+        Log_Verbose("Graphics", "Error while creating semaphore");
+        return Result_Type::Error;
+    }
+
     // - Create task
-    Task.Create(Task_Start_Function, "Graphics", 2048, NULL, Task_Type::Priority_Type::System);
+    Log_Verbose("Graphics", "Create task...");
+    return Task.Create(Task_Start_Function, "Graphics", 8 * 1024, NULL, Task_Type::Priority_Type::System);;
+}
+
+Result_Type Graphics_Class::Stop()
+{
+    lv_deinit();
+    
+    Keyboard.Delete();
+    Task.Delete();
 
     return Result_Type::Success;
+}
+
+void Graphics_Class::Set_Keyboard_Text_Area(Text_Area_Type& Text_Area)
+{
+    Keyboard.Set_Text_Area(Text_Area);
+}
+
+void Graphics_Class::Remove_Keyboard_Text_Area()
+{
+    Keyboard.Remove_Text_Area();
 }
 
 void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
@@ -72,9 +98,16 @@ void Graphics_Class::Task_Function()
 {
     while (true)
     {
-        lv_tick_inc(6);
+        Log_Verbose("Graphics", "Task function");
+        this->Take_Semaphore();
+        Log_Verbose("Graphics", "Task function 2");
         lv_timer_handler();
+        Log_Verbose("Graphics", "Task function 3");
+        this->Give_Semaphore();
+        Log_Verbose("Graphics", "Task function 4");
+        lv_tick_inc(6);
         Task.Delay(6);
+
 
         while (this->Instruction_Available())
         {

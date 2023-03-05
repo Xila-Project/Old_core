@@ -16,18 +16,18 @@ using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
 
 
-Accounts_Type Accounts;
+Accounts_Type Xila_Namespace::Accounts;
 
 
 Result_Type Accounts_Class::Start()
 {
+  Log_Information("Account", "Start account module...");
   User_List.push_back(User_Type("Xila", User_State_Type::Logged));
-  if (Load_Registry() != Result_Type::Success)
+
+  if (this->Load_Registry() != Result_Type::Success)
   {
-    if (Create_Registry() != Result_Type::Success)
-    {
-      return Result_Type::Error;
-    }
+    return this->Create_Registry();
+
   }
   return Result_Type::Success;
 }
@@ -123,7 +123,7 @@ Result_Type Accounts_Class::Save_Registry()
 Result_Type Accounts_Class::Set_Autologin(bool Enable, const String_Type &Name, const String_Type &Password)
 {
   File_Type Temporary_File = Drive.Open(Registry("Account"), true);
-  DynamicJsonDocument Account_Registry(256);
+  StaticJsonDocument<256> Account_Registry;
   Account_Registry["Registry"] = "Account";
   if (Enable)
   {
@@ -352,7 +352,7 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Name);
   File_Type Temporary_File = Drive.Open(Temporary_Char, true);
-  DynamicJsonDocument User_Registry(Default_Registry_Size);
+  StaticJsonDocument<256> User_Registry;
   User_Registry["Registry"] = "User";
 
   Hash_Type Hash;

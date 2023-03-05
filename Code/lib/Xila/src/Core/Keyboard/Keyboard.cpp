@@ -8,22 +8,28 @@
  /// @copyright Copyright (c) 2023
  /// 
 
-#include "Core/Core.hpp"
 #include "Core/Keyboard/Keyboard.hpp"
+#include "Core/Drive/Drive.hpp"
 
+// - Constants
+#ifndef Xila_Keyboard_Default_Layout
+    #define Xila_Keyboard_Default_Layout Layout_Type::American
+#endif
+
+// - Import namespaces
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Keyboard_Types;
 
-Input_Type Keyboard();
+Keyboard_Type Xila_Namespace::Keyboard;
 
 /// @brief Load keyboard registry.
 ///
 /// @return Result_Type
-Result_Type Input_Class::Load_Registry()
+Result_Type Keyboard_Class::Load_Registry()
 {
-    using namespace Xila;
 
     File_Type Temporary_File = Drive.Open(Registry("Keyboard"));
-    DynamicJsonDocument Keyboard_Registry(512);
+    StaticJsonDocument<256> Keyboard_Registry;
     if (deserializeJson(Keyboard_Registry, Temporary_File) != DeserializationError::Ok)
     {
         Temporary_File.Close();
@@ -34,27 +40,25 @@ Result_Type Input_Class::Load_Registry()
     {
         return Result_Type::Error;
     }
-    Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
-    Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
-    Layout = Keyboard_Registry["Layout"] | Default_Keyboard_Layout;
+    //Data_Pin = Keyboard_Registry["Data Pin"] | Default_Keyboard_Data_Pin;
+    //Clock_Pin = Keyboard_Registry["Clock Pin"] | Default_Keyboard_Clock_Pin;
+    //Layout = static_cast<Layout_Type>(Keyboard_Registry["Layout"] | static_cast<uint8_t>(Xila_Keyboard_Default_Layout));
 
-    Begin();
+    //Begin();
     return Result_Type::Success;
 }
 
 /// @brief Save keyboard registry.
 ///
 /// @return Result_Type
-Result_Type Input_Class::Save_Registry()
+Result_Type Keyboard_Class::Save_Registry()
 {
-    using namespace Xila;
-
     File_Type Temporary_File = Drive.Open(Registry("Keyboard"), true);
-    DynamicJsonDocument Keyboard_Registry(512);
+    StaticJsonDocument<256> Keyboard_Registry;
     Keyboard_Registry["Registry"] = "Keyboard";
     Keyboard_Registry["Data Pin"] = Data_Pin;
     Keyboard_Registry["Clock Pin"] = Clock_Pin;
-    Keyboard_Registry["Layout"] = Layout;
+    Keyboard_Registry["Layout"] = static_cast<Byte_Type>(Layout);
     if (serializeJson(Keyboard_Registry, Temporary_File) == 0)
     {
         Temporary_File.Close();

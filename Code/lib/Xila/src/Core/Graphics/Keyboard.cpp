@@ -62,9 +62,13 @@ void Keyboard_Class::Set_Pop_Overs(bool Enabled)
     lv_keyboard_set_popovers(Get_Pointer(), Enabled);
 }
 
-void Keyboard_Class::Set_Text_Area(Text_Area_Class& Text_Area)
+void Keyboard_Class::Set_Text_Area(Text_Area_Class& Text_Area, bool Show)
 {
     lv_keyboard_set_textarea(Get_Pointer(), Text_Area.Get_Pointer());
+    if (Show)
+    {
+        this->Clear_Flag(Flag_Type::Hidden);
+    }
 }
 
 // ------------------------------------------------------------------------- //
@@ -100,7 +104,11 @@ Text_Area_Class Keyboard_Class::Get_Text_Area()
     return Text_Area;
 }
 
-void Keyboard_Class::Remove_Text_Area()
+void Keyboard_Class::Remove_Text_Area(bool Hide)
 {
     lv_keyboard_set_textarea(Get_Pointer(), NULL);
+    if (Hide)
+    {
+        this->Add_Flag(Flag_Type::Hidden);
+    }
 }

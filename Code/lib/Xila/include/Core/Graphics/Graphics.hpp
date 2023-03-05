@@ -64,7 +64,7 @@ namespace Xila_Namespace
     public:
         // - Constructor
         Graphics_Class();
-        ~Graphics_Class();
+
 
         // - Methods
         Result_Type Start();
@@ -78,16 +78,40 @@ namespace Xila_Namespace
         void Execute_Instruction(Instruction_Class Instruction);
         static void Event_Handler(lv_event_t *Event);
 
+        // - - - Keyboard
+        void Set_Keyboard_Text_Area(Graphics_Types::Text_Area_Type& Text_Area);
+        void Remove_Keyboard_Text_Area();
+
+        // - - Semaphore
+        inline void Take_Semaphore()
+        {
+            Log_Verbose("Graphics", "Take semaphore");
+            if (Semaphore.Take() != Result_Type::Success)
+            {
+                Log_Verbose("Graphics", "Semaphore take error");
+            }
+            Log_Verbose("Graphics", "Semaphore taken");
+        };
+
+        inline void Give_Semaphore()
+        {
+            Semaphore.Give();
+        };
+
     private:
         // - Methods
         Object_Type Get_Top_Layer();
         Object_Type Get_Screen();
 
         // - Attributes
+        Semaphore_Type Semaphore;
+
+        Graphics_Types::Keyboard_Type Keyboard;        
+        
         Task_Class Task;
 
         // - - Buffers
-        lv_color_t Draw_Buffer[Display_Horizontal_Definition * 10];
+        lv_color_t Draw_Buffer[480 * 10];
 
         // - - Drivers
         lv_disp_draw_buf_t Draw_Buffer_Descriptor;

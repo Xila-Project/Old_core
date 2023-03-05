@@ -8,39 +8,38 @@
 /// @copyright Copyright (c) 2021
 ///
 
+#ifndef Xila_Default_Sound_Volume
+    #define Xila_Default_Sound_Volume 255
+#endif
+
 #include "Core/Sound/Sound.hpp"
 #include "Core/Drive/Drive.hpp"
 
 using namespace Xila_Namespace;
 
-Sound_Type Sound;
-
-///
-/// @brief Construct a new Xila_Class::Sound_Class::Sound_Class object
-///
-Sound_Class::Sound_Class() : Custom_Pin(0xFF)
-{
-    Set_Volume(Default_Sound_Volume);
-}
-
-///
-/// @brief Destroy the Sound_Class::Sound_Class object
-///
-Sound_Class::~Sound_Class()
-{
-}
+Sound_Type Xila_Namespace::Sound;
 
 Result_Type Sound_Class::Start()
 {
-    if (Sound.Load_Registry() != Result_Type::Success)
-    {
-        Sound.Save_Registry();
-    }
+    Log_Information("Sound", "Starting sound module...");
+    
+    this->Set_Volume(Xila_Default_Sound_Volume);
 
-    /*
-    Audio_Driver.setBalance(0);
-    Task.Create(Sound.Task, "Sound task", Memory_Chunk(6), NULL, Task.Driver_Task, &Sound.Task_Handle);
-    */
+    if (this->Load_Registry() != Result_Type::Success)
+    {
+        return this->Create_Registry();
+    }
+    return Result_Type::Success;
+}
+
+Result_Type Sound_Class::Stop()
+{
+    return this->Save_Registry();
+}
+
+Result_Type Sound_Class::Create_Registry()
+{
+    return Result_Type::Success;
 }
 
 ///
@@ -80,8 +79,8 @@ Result_Type Sound_Class::Load_Registry()
         Set_Channels(2);
     }
     Set_Volume(Sound_Registry["Volume"] | Default_Sound_Volume);
-    return Result_Type::Success;
     */
+    return Result_Type::Success;
 }
 
 ///
@@ -105,8 +104,8 @@ Result_Type Sound_Class::Save_Registry()
         return Result_Type::Error;
     }
     Temporary_File.Close();
-    return Result_Type::Success;
     */
+    return Result_Type::Success;
 }
 
 ///
@@ -187,6 +186,7 @@ void Sound_Class::Set_Balance(int8_t Balance)
 /// @return false if audio is not playing.
 uint8_t Sound_Class::Get_State()
 {
+    return 0;
     // return Audio_Driver.isRunning();
 }
 
@@ -207,6 +207,7 @@ void Sound_Class::Set_Tone(int8_t Gain_Low_Pass, int8_t Gain_Band_Pass, int8_t G
 /// @return uint32_t Current playing time in seconds.
 uint32_t Sound_Class::Get_Current_Time()
 {
+    return 0;
     // return Audio_Driver.getAudioCurrentTime();
 }
 
@@ -365,7 +366,7 @@ uint32_t Sound_Class::Get_File_Size()
 /// @return uint32_t File position in bytes.
 uint32_t Sound_Class::Get_File_Position()
 {
-
+    return 0;
     // return Audio_Driver.getFilePos();
 }
 
@@ -474,7 +475,7 @@ void Sound_Class::Pause()
 ///
 /// @brief Stop playback.
 ///
-void Sound_Class::Stop()
+void Sound_Class::Break()
 {
     // Audio_Driver.stopSong();
 }
