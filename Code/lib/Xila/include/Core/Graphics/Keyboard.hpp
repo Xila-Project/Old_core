@@ -38,7 +38,7 @@ namespace Xila_Namespace
             };
 
             // - Methods
-            void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class Parent_Object) override;
             void Remove_Text_Area(bool Hide = true);
 
             // - - Getters
@@ -47,13 +47,17 @@ namespace Xila_Namespace
             const char **Get_Map_Array();
             uint16_t Get_Selected_Button();
             const char *Get_Button_Text(uint16_t Button_Identifier);
+            virtual const Graphics_Types::Class_Type* Get_Class() const override;
 
             // - - Setters
-            bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
             void Set_Text_Area(Text_Area_Class &Text_Area, bool Show = true);
             void Set_Mode(Mode_Type Mode);
             void Set_Pop_Overs(bool Enabled);
             void Set_Map(Mode_Type Mode, const char *Map[], const Button_Matrix_Class::Control::Type Control_Map[]);
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
         } Keyboard_Type;
     }
 }

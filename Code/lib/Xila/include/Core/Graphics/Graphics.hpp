@@ -83,14 +83,14 @@ namespace Xila_Namespace
         void Remove_Keyboard_Text_Area();
 
         // - - Semaphore
+        inline Auto_Semaphore_Type Take_Semaphore_Auto()
+        {
+            return Semaphore.Take_Auto();
+        };
+
         inline void Take_Semaphore()
         {
-            Log_Verbose("Graphics", "Take semaphore");
-            if (Semaphore.Take() != Result_Type::Success)
-            {
-                Log_Verbose("Graphics", "Semaphore take error");
-            }
-            Log_Verbose("Graphics", "Semaphore taken");
+            Semaphore.Take();       
         };
 
         inline void Give_Semaphore()

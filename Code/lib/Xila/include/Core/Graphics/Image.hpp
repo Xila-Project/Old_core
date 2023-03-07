@@ -79,10 +79,10 @@ namespace Xila_Namespace
         };
 
         // -- Methods
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         // -- Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Source(const void *Source);
         void Set_Offset_X(Coordinate_Type X_Offset);
@@ -102,6 +102,11 @@ namespace Xila_Namespace
         const void *Get_Source();
         bool Get_Antialias();
         Size_Mode_Type Get_Size_Mode();
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
+
     } Image_Type;
 }
 

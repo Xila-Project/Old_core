@@ -31,9 +31,9 @@ namespace Xila_Namespace
 
         // - Methods
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
-        // - Management
+        // - - Manipulation
 
         void Copy_Buffer(const void *Buffer_To_Copy, Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Width, Coordinate_Type Height);
 
@@ -51,7 +51,7 @@ namespace Xila_Namespace
 
         // - - Setters
 
-        bool Set_Pointer(lv_obj_t *Pointer);
+        virtual bool Set_Pointer(lv_obj_t *Pointer) override;
 
         void Set_Pixel(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
         void Set_Pixel_Color(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
@@ -63,6 +63,10 @@ namespace Xila_Namespace
 
         Color_Type Get_Pixel(Coordinate_Type X, Coordinate_Type Y);
         Image_Descriptor_Type *Get_Image();
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
     } Canvas_Type;
 }
 

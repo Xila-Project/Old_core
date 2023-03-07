@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Graphics/Roller.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 
@@ -34,7 +35,7 @@ void Roller_Class::Create(Object_Class Parent_Object)
 
 bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
@@ -46,13 +47,15 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Roller_Class::Set_Options(const char* Options, Mode_Type Mode)
+void Roller_Class::Set_Options(const char *Options, Mode_Type Mode)
 {
+    Graphics.Take_Semaphore_Auto();
     lv_roller_set_options(Get_Pointer(), Options, static_cast<lv_roller_mode_t>(Mode));
 }
 
 void Roller_Class::Set_Selected(uint16_t Index, bool Animated)
 {
+    Graphics.Take_Semaphore_Auto();
     if (Animated)
     {
         lv_roller_set_selected(Get_Pointer(), Index, LV_ANIM_ON);
@@ -65,10 +68,9 @@ void Roller_Class::Set_Selected(uint16_t Index, bool Animated)
 
 void Roller_Class::Set_Visible_Row_Count(uint8_t Count)
 {
+    Graphics.Take_Semaphore_Auto();
     lv_roller_set_visible_row_count(Get_Pointer(), Count);
 }
-
-
 
 // ------------------------------------------------------------------------- //
 //
@@ -78,20 +80,24 @@ void Roller_Class::Set_Visible_Row_Count(uint8_t Count)
 
 uint16_t Roller_Class::Get_Option_Count()
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_roller_get_option_cnt(Get_Pointer());
 }
 
 const char *Roller_Class::Get_Options()
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_roller_get_options(Get_Pointer());
 }
 
 uint16_t Roller_Class::Get_Selected()
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_roller_get_selected(Get_Pointer());
 }
 
-void Roller_Class::Get_Selected_String(String_Type& String)
+void Roller_Class::Get_Selected_String(String_Type &String)
 {
-    return lv_roller_get_selected_str(Get_Pointer(), static_cast<char*>(String), String.Get_Size());
+    Graphics.Take_Semaphore_Auto();
+    return lv_roller_get_selected_str(Get_Pointer(), static_cast<char *>(String), String.Get_Size());
 }

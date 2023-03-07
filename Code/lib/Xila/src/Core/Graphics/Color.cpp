@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Graphics/Color.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 
@@ -182,20 +183,20 @@ const Color_Type Color_Class::Orange[10] = {
     Color_Type(0xEF, 0x6C, 0x00),
     Color_Type(0xE6, 0x51, 0x00)};
 const Color_Type Color_Class::Deep_Orange[10] = {
-    Color_Type(0xFB, 0xE9, 0xE7), 
-    Color_Type(0xFF, 0xCC, 0xBC), 
-    Color_Type(0xFF, 0xAB, 0x91),   
-    Color_Type(0xFF, 0x8A, 0x65),   
-    Color_Type(0xFF, 0x70, 0x43),   
-    Color_Type(0xFF, 0x57, 0x22),   
-    Color_Type(0xF4, 0x51, 0x1E),     
-    Color_Type(0xE6, 0x4A, 0x19),   
-    Color_Type(0xD8, 0x43, 0x15),    
-    Color_Type(0xBF, 0x36, 0x0C)};  
+    Color_Type(0xFB, 0xE9, 0xE7),
+    Color_Type(0xFF, 0xCC, 0xBC),
+    Color_Type(0xFF, 0xAB, 0x91),
+    Color_Type(0xFF, 0x8A, 0x65),
+    Color_Type(0xFF, 0x70, 0x43),
+    Color_Type(0xFF, 0x57, 0x22),
+    Color_Type(0xF4, 0x51, 0x1E),
+    Color_Type(0xE6, 0x4A, 0x19),
+    Color_Type(0xD8, 0x43, 0x15),
+    Color_Type(0xBF, 0x36, 0x0C)};
 const Color_Type Color_Class::Brown[10] = {
-    Color_Type(0xEF, 0xEB, 0xE9), 
-    Color_Type(0xD7, 0xCC, 0xC8), 
-    Color_Type(0xBC, 0xAA, 0xA4),   
+    Color_Type(0xEF, 0xEB, 0xE9),
+    Color_Type(0xD7, 0xCC, 0xC8),
+    Color_Type(0xBC, 0xAA, 0xA4),
     Color_Type(0xA1, 0x88, 0x7F),
     Color_Type(0x8D, 0x6E, 0x63),
     Color_Type(0x79, 0x55, 0x48),
@@ -204,26 +205,26 @@ const Color_Type Color_Class::Brown[10] = {
     Color_Type(0x4E, 0x34, 0x2E),
     Color_Type(0x3E, 0x27, 0x23)};
 const Color_Type Color_Class::Grey[10] = {
-    Color_Type(0xFA, 0xFA, 0xFA), 
-    Color_Type(0xF5, 0xF5, 0xF5), 
-    Color_Type(0xEE, 0xEE, 0xEE),   
-    Color_Type(0xE0, 0xE0, 0xE0),   
-    Color_Type(0xBD, 0xBD, 0xBD),   
-    Color_Type(0x9E, 0x9E, 0x9E),   
-    Color_Type(0x75, 0x75, 0x75),     
-    Color_Type(0x61, 0x61, 0x61),   
-    Color_Type(0x42, 0x42, 0x42),    
+    Color_Type(0xFA, 0xFA, 0xFA),
+    Color_Type(0xF5, 0xF5, 0xF5),
+    Color_Type(0xEE, 0xEE, 0xEE),
+    Color_Type(0xE0, 0xE0, 0xE0),
+    Color_Type(0xBD, 0xBD, 0xBD),
+    Color_Type(0x9E, 0x9E, 0x9E),
+    Color_Type(0x75, 0x75, 0x75),
+    Color_Type(0x61, 0x61, 0x61),
+    Color_Type(0x42, 0x42, 0x42),
     Color_Type(0x21, 0x21, 0x21)};
 const Color_Type Color_Class::Blue_Grey[10] = {
-    Color_Type(0xEC, 0xEF, 0xF1), 
-    Color_Type(0xCF, 0xD8, 0xDC), 
-    Color_Type(0xB0, 0xBE, 0xC5),   
-    Color_Type(0x90, 0xA4, 0xAE),   
-    Color_Type(0x78, 0x90, 0x9C),   
-    Color_Type(0x60, 0x7D, 0x8B),   
-    Color_Type(0x54, 0x6E, 0x7A),     
-    Color_Type(0x45, 0x5A, 0x64),   
-    Color_Type(0x37, 0x47, 0x4F),    
+    Color_Type(0xEC, 0xEF, 0xF1),
+    Color_Type(0xCF, 0xD8, 0xDC),
+    Color_Type(0xB0, 0xBE, 0xC5),
+    Color_Type(0x90, 0xA4, 0xAE),
+    Color_Type(0x78, 0x90, 0x9C),
+    Color_Type(0x60, 0x7D, 0x8B),
+    Color_Type(0x54, 0x6E, 0x7A),
+    Color_Type(0x45, 0x5A, 0x64),
+    Color_Type(0x37, 0x47, 0x4F),
     Color_Type(0x26, 0x32, 0x38)};
 
 const Color_Type Color_Class::Xila_Red(0xe00000);
@@ -267,11 +268,13 @@ Color_Class::Color_Class(uint32_t Hex, bool Hex_3)
 
 void Color_Filter_Descriptor_Class::Set_Callback(Callback_Type Callback)
 {
+    Graphics.Take_Semaphore_Auto();
     lv_color_filter_dsc_init(Get_Pointer(), Callback);
 }
 
 void Color_Class::Change_Lightness(Opacity_Type Opacity)
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_change_lightness(LVGL_Color, static_cast<lv_opa_t>(Opacity));
 }
 
@@ -288,11 +291,13 @@ void Color_Class::Set_LVGL_Color(lv_color_t LVGL_Color)
 
 void Color_Class::Set_RGB(uint8_t Red, uint8_t Green, uint8_t Blue)
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_make(Red, Green, Blue);
 }
 
 void Color_Class::Set_RGB(uint32_t Hex, bool Hex_3)
 {
+    Graphics.Take_Semaphore_Auto();
     if (Hex_3)
     {
         LVGL_Color = lv_color_hex3(Hex);
@@ -305,26 +310,31 @@ void Color_Class::Set_RGB(uint32_t Hex, bool Hex_3)
 
 void Color_Class::Set_HSV(uint16_t Hue, uint8_t Saturation, uint8_t Value)
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_hsv_to_rgb(Hue, Saturation, Value);
 }
 
 void Color_Class::Set_To_Black()
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_black();
 }
 
 void Color_Class::Set_To_White()
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_white();
 }
 
 void Color_Class::Set_Darker(Opacity_Type Opacity)
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_darken(LVGL_Color, static_cast<lv_opa_t>(Opacity));
 }
 
 void Color_Class::Set_Lighter(Opacity_Type Opacity)
 {
+    Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_lighten(LVGL_Color, static_cast<lv_opa_t>(Opacity));
 }
 
@@ -341,6 +351,7 @@ lv_color_filter_dsc_t *Color_Filter_Descriptor_Class::Get_Pointer()
 
 uint8_t Color_Class::Get_Brightness() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_brightness(LVGL_Color);
 }
 
@@ -351,11 +362,13 @@ lv_color_t Color_Class::Get_LVGL_Color() const
 
 lv_color_hsv_t Color_Class::Get_LVGL_HSV_Color() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_to_hsv(LVGL_Color);
 }
 
 void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value) const
 {
+    Graphics.Take_Semaphore_Auto();
     lv_color_hsv_t HSV_Color = lv_color_to_hsv(LVGL_Color);
     Hue = HSV_Color.h;
     Saturation = HSV_Color.s;
@@ -364,21 +377,25 @@ void Color_Class::Get_HSV(uint16_t &Hue, uint8_t &Saturation, uint8_t &Value) co
 
 uint8_t Color_Class::Get_RGB_1_Bit() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_to1(LVGL_Color);
 }
 
 uint8_t Color_Class::Get_RGB_8_Bits() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_to8(LVGL_Color);
 }
 
 uint16_t Color_Class::Get_RGB_16_Bits() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_to16(LVGL_Color);
 }
 
 uint32_t Color_Class::Get_RGB_32_Bits() const
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_color_to32(LVGL_Color);
 }
 

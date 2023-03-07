@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Graphics/Tabs.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 
@@ -24,7 +25,6 @@ void Tabs_Class::Create(Object_Class Parent_Object)
     {
         Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction_Type::Top), 20));
     }
-
 }
 
 void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size)
@@ -48,9 +48,9 @@ Object_Class Tabs_Class::Add_Tab(const char *Name)
 //
 // ------------------------------------------------------------------------- //
 
-bool Tabs_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
@@ -64,6 +64,7 @@ bool Tabs_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 
 void Tabs_Class::Set_Active_Tab(uint16_t Identifier, bool Animation)
 {
+    Graphics.Take_Semaphore_Auto();
     if (Animation)
     {
         lv_tabview_set_act(Get_Pointer(), Identifier, LV_ANIM_ON);
@@ -89,6 +90,7 @@ Object_Class Tabs_Class::Get_Content()
 
 uint16_t Tabs_Class::Get_Tab_Active()
 {
+    Graphics.Take_Semaphore_Auto();
     return lv_tabview_get_tab_act(Get_Pointer());
 }
 

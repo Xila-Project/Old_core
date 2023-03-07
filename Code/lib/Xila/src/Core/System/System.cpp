@@ -22,7 +22,6 @@
 #include "esp_task_wdt.h"
 #include "Update.h"
 
-
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::System_Types;
 
@@ -142,8 +141,8 @@ void System_Class::Task_Function()
 
   while (1)
   {
-    // -- Check power button interrupt
-    Power.Check_Button();
+
+    Log_Verbose("System", "System task is running...");
 
     // -- Check if drive is not disconnected.
     if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
@@ -151,8 +150,12 @@ void System_Class::Task_Function()
       System.Panic_Handler(Panic_Type::Drive_Failure);
     }
 
+    Log_Verbose("System", "System task is running 2...");
+
     // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
+
+    Log_Verbose("System", "System task is running 3...");
 
     // -- Check WiFi is connected
     // if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)
@@ -160,6 +163,9 @@ void System_Class::Task_Function()
     //  WiFi.Load_Registry();
     //}
     // - Check available memory (prevent stack / heap collision)
+
+  
+
     if (Memory.Get_Free_Heap() < Low_Memory_Threshold)
     {
       System.Panic_Handler(Panic_Type::Low_Memory);
@@ -427,7 +433,6 @@ void System_Class::Start()
     Log_Error("System", "Failed to create system task.");
     return;
   }
-
 }
 
 void System_Class::Load()
@@ -492,11 +497,23 @@ void System_Class::Load()
 
   Object_Type Logo = this->Start_Load_Animation();
 
-  Task.Delay(100);
+  Task.Delay(20000);
+
+  Log_Information("System", "Load animation done.");
 
   // - Check system folders.
 
   Log_Information("System", "Checking system folders ...");
+
+  if (!Drive.Exists(Users_Directory_Path))
+  {
+    Drive.Make_Directory(Users_Directory_Path);
+  }
+
+  if (!Drive.Exists(Software_Directory_Path))
+  {
+    Drive.Make_Directory(Software_Directory_Path);
+  }
 
   if (!Drive.Exists(Users_Directory_Path) || !Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
   {
@@ -508,7 +525,10 @@ void System_Class::Load()
 
   if (System.Load_Registry() != Result_Type::Success)
   {
-    System.Panic_Handler(Panic_Type::Damaged_System_Registry);
+     if (System.Create_Registry() != Result_Type::Success)
+     {
+       System.Panic_Handler(Panic_Type::Damaged_System_Registry);
+     }
   }
 
   // - Sound

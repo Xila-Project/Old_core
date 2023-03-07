@@ -71,6 +71,10 @@ namespace Xila_Namespace
         int32_t Get_Minimum_Value();
         int32_t Get_Maximum_Value();
         Mode::Type Get_Mode();
+        virtual const Graphics_Types::Class_Type *Get_Class() const override;                
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class;
     } Bar_Type;
 }
 

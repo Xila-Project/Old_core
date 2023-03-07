@@ -41,8 +41,6 @@ Result_Type Power_Class::Start()
         return Result_Type::Success;
     }
 
-
-
     if (Load_Registry() != Result_Type::Success)
     {
         if (Create_Registry() != Result_Type::Success)
@@ -51,7 +49,9 @@ Result_Type Power_Class::Start()
         }
     }
 
-    return Task.Create(Task_Start_Function, "Power module", 8*1024, this, Task_Type::Priority_Type::System);;
+    return Result_Type::Success;
+
+    return Task.Create(Task_Start_Function, "Power module", 8 * 1024, this, Task_Type::Priority_Type::System);;
 }
 
 void Power_Class::Task_Start_Function(void* Instance_Pointer)
@@ -63,7 +63,9 @@ void Power_Class::Task_Function()
 {
     while (true)
     {
+        Log_Verbose("Power", "Check button...");
         Check_Button();
+        Log_Verbose("Power", "Check button 2...");
         Task.Delay(40);
     }
 }
@@ -209,6 +211,7 @@ void Power_Class::Check_Button()
 {
     if (Button_Counter != 0)
     {
+        Log_Verbose("Power", "Button pressed.");
         Instruction_Type Instruction(this, NULL);
         Instruction.Power.Set_Code(Event_Code_Type::Power_Button_Pressed);
         Softwares.Send_Instruction_User_Softwares(Accounts.Get_Logged_User(), Instruction);

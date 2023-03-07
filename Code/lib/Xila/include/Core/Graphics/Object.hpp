@@ -480,7 +480,7 @@ namespace Xila_Namespace
 
         // - Attributes
 
-        static Graphics_Types::Class_Type Class;
+        static const Graphics_Types::Class_Type Class;
 
     protected:
 

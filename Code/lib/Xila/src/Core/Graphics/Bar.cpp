@@ -9,15 +9,19 @@
 ///
 
 #include "Core/Graphics/Bar.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
+
+Class_Type Bar_Class::Class(&Object_Type::Class);
+
+// - Methods
+
+// - - Manipulation
 
 void Bar_Class::Create(Object_Class Parent_Object)
 {
@@ -73,12 +77,12 @@ void Bar_Class::Set_Start_Value(int32_t Start_Value, bool Enable_Animation)
 }
 
 void Bar_Class::Set_Range(int32_t Minimum_Value, int32_t Maximum_Value)
-{
+{ Graphics.Take_Semaphore_Auto();
     lv_bar_set_range(Get_Pointer(), Minimum_Value, Maximum_Value);
 }
 
 void Bar_Class::Set_Mode(Mode::Type Mode)
-{
+{ Graphics.Take_Semaphore_Auto();
     lv_bar_set_mode(Get_Pointer(), Mode);
 }
 
@@ -89,26 +93,31 @@ void Bar_Class::Set_Mode(Mode::Type Mode)
 // ------------------------------------------------------------------------- //
 
 int32_t Bar_Class::Get_Value()
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_bar_get_value(Get_Pointer());
 }
 
 int32_t Bar_Class::Get_Start_Value()
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_bar_get_start_value(Get_Pointer());
 }
 
 int32_t Bar_Class::Get_Minimum_Value()
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_bar_get_min_value(Get_Pointer());
 }
 
 int32_t Bar_Class::Get_Maximum_Value()
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_bar_get_max_value(Get_Pointer());
 }
 
 Bar_Class::Mode::Type Bar_Class::Get_Mode()
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_bar_get_mode(Get_Pointer());
+}
+
+const Class_Type* Bar_Class::Get_Class() const
+{
+    return &Class;
 }

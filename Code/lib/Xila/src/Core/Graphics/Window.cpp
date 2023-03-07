@@ -36,14 +36,14 @@ Window_Class::~Window_Class()
 void Window_Class::Create(const Software_Type* Owner_Software)
 {
     this->Owner_Software = Owner_Software;
-    this->Set_Pointer(lv_obj_create(Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User()).Get_Pointer()));
+    this->Create(Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User()));
     this->Set_Interface();
 }
 
 void Window_Class::Create(Object_Class Parent_Object)
 {
     this->Owner_Software = NULL;
-    this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+    this->Create(Parent_Object);
     this->Set_Interface();
 }
 

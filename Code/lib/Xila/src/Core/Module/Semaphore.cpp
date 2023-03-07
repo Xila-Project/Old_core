@@ -9,7 +9,6 @@
 ///
 
 #include "Core/Module/Semaphore.hpp"
-#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
@@ -34,7 +33,6 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
         break;
     case Type_Type::Mutex:
         Semaphore_Handle = xSemaphoreCreateMutex();
-        this->Give();
         break;
     default:
         return Result_Type::Error;
@@ -79,22 +77,17 @@ void Semaphore_Class::Give()
 
 Result_Type Semaphore_Class::Take(uint32_t Timeout)
 {
-    Log_Verbose("Semaphore", "Try semaphore");
     if (Timeout == 0xFFFFFFFF)
     {
-        Log_Verbose("Semaphore", "Wait forever");
-        if (xSemaphoreTake(Semaphore_Handle, 0) == pdFALSE)
+        if (xSemaphoreTake(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
         {
-            Log_Verbose("Semaphore", "Wait failed");
             return Result_Type::Error;
         }
-        Log_Verbose("Semaphore", "Wait ended");
     }
     else if (xSemaphoreTake(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
     {
         return Result_Type::Error;
     }
-    Log_Verbose("Semaphore", "Semaphore taken");
     return Result_Type::Success;
 }
 
@@ -128,4 +121,9 @@ Task_Type Semaphore_Class::Get_Mutex_Holder()
 unsigned int Semaphore_Class::Get_Count()
 {
     return uxSemaphoreGetCount(Semaphore_Handle);
+}
+
+Auto_Semaphore_Type Semaphore_Class::Take_Auto(uint32_t Timeout)
+{
+    return Auto_Semaphore_Type(*this, Timeout);
 }

@@ -26,6 +26,7 @@ Display_Type Xila_Namespace::Display;
 
 Result_Type Display_Class::Start()
 {
+    Log_Information("Display", "Start display module...");
     // - Define default values
     this->Brightness = Default_Display_Brightness;
     this->Standby_Time = Default_Display_Standby_Time;

@@ -23,7 +23,7 @@ namespace Xila_Namespace
 
         // - - Management
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         void Add_Option(const char *Option, uint32_t Position);
         void Clear_Options();
@@ -34,7 +34,7 @@ namespace Xila_Namespace
         bool Is_Open();
 
         // - - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         void Set_Text(const char *Text);
         void Set_Options(const char *Options);
         void Set_Options_Static(const char *Options);
@@ -53,6 +53,11 @@ namespace Xila_Namespace
         const char *Get_Symbol();
         bool Get_Selected_Highlight();
         Direction_Type Get_Direction();
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
+
 
     } Drop_Down_List_Type;
 }

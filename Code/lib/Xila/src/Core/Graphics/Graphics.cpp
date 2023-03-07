@@ -51,9 +51,6 @@ Result_Type Graphics_Class::Start()
     Input_Device_Driver_Interface.read_cb = Display_Class::Input_Read;
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
-    // - Set keyboard
-    Keyboard.Create(this->Get_Screen());
-    Keyboard.Add_Flag(Flag_Type::Hidden);
 
     // - Set file system driver
     
@@ -64,13 +61,27 @@ Result_Type Graphics_Class::Start()
         return Result_Type::Error;
     }
 
+    Log_Verbose("Graphics", "Create task...");
+
+    Task.Create(Task_Start_Function, "Graphics", 8 * 1024, this, Task_Type::Priority_Type::System);
+    
+    Log_Verbose("Graphics", "Task created");
+
+    // - Set keyboard
+    
+    this->Take_Semaphore();
+    Keyboard.Create(this->Get_Screen());
+    Keyboard.Add_Flag(Flag_Type::Hidden);
+    this->Get_Screen().Set_Style_Pad_All(0, 0);
+    this->Give_Semaphore();
     // - Create task
     Log_Verbose("Graphics", "Create task...");
-    return Task.Create(Task_Start_Function, "Graphics", 8 * 1024, NULL, Task_Type::Priority_Type::System);;
+    
+    return Result_Type::Success;
 }
 
 Result_Type Graphics_Class::Stop()
-{
+{ Graphics.Take_Semaphore_Auto();
     lv_deinit();
     
     Keyboard.Delete();
@@ -98,22 +109,11 @@ void Graphics_Class::Task_Function()
 {
     while (true)
     {
-        Log_Verbose("Graphics", "Task function");
         this->Take_Semaphore();
-        Log_Verbose("Graphics", "Task function 2");
         lv_timer_handler();
-        Log_Verbose("Graphics", "Task function 3");
         this->Give_Semaphore();
-        Log_Verbose("Graphics", "Task function 4");
         lv_tick_inc(6);
         Task.Delay(6);
-
-
-        while (this->Instruction_Available())
-        {
-            this->Execute_Instruction(this->Get_Instruction());
-        }
-
     }
 }
 
@@ -264,8 +264,8 @@ static void *Display_Class::File_System_Open_Directory(lv_fs_drv_t *Driver, cons
 }
 
 static lv_fs_res_t Display_Class::File_System_Directory_Read(lv_fs_drv_t *Driver, void *Directory_Pointer, char *File_Name)
-{
-    return LV_FS_RES_NOT_IMP;
+{ Graphics.Take_Semaphore_Auto();
+    return lv_FS_RES_NOT_IMP;
 }
 
 static lv_fs_res_t Display_Class::File_System_Close_Directory(lv_fs_drv_t *Driver, void *Directory_Pointer)

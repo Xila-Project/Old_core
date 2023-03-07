@@ -16,11 +16,13 @@
 
 namespace Xila_Namespace
 {
+
+    typedef class Auto_Semaphore_Class Auto_Semaphore_Type;
+    
     /// @brief Xila Semaphore type.
     typedef class Semaphore_Class
     {
     public:
-             
         enum class Type_Type 
         {
             Binary,
@@ -30,15 +32,14 @@ namespace Xila_Namespace
         };
 
         // - Methods
-
         // - - Constructors / destructors
-
         Semaphore_Class();
 
         Result_Type Create(Type_Type Type, unsigned int Initial_Count = 0, unsigned int Maximum_Count = 1);
         void Delete();
 
         Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);
+        Auto_Semaphore_Type Take_Auto(uint32_t Timeout = 0xFFFFFFFF);
         void Take_Recursive(Tick_Type Tick_To_Wait);
         void Give();
         void Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
@@ -49,8 +50,19 @@ namespace Xila_Namespace
         unsigned int Get_Count();
 
     private:
+        // - Attributes
         SemaphoreHandle_t Semaphore_Handle;
     } Semaphore_Type;
+
+    typedef class Auto_Semaphore_Class
+    {
+    public:
+        // - Methods
+        Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout = 0xFFFFFFFF);
+        ~Auto_Semaphore_Class();
+    public:
+        Semaphore_Type &Semaphore;
+    } Auto_Semaphore_Type;
 
 }
 

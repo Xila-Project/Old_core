@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Graphics/Button.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 
@@ -34,10 +35,11 @@ void Button_Class::Create(Object_Class Parent_Object)
 
 bool Button_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
+    Graphics.Take_Semaphore_Auto();
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_btn_class))
     {
         return false;

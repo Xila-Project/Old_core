@@ -23,11 +23,18 @@ namespace Xila_Namespace
 
         // - - Management
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         // - - Setters
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+
+        // - - Getters
+    
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
     } Button_Type;
 }
 

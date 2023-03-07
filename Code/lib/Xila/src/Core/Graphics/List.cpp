@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Graphics/List.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
@@ -69,6 +70,6 @@ bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 // ------------------------------------------------------------------------- //
 
 const char* List_Class::Get_Button_Text(Button_Class& Button)
-{
+{ Graphics.Take_Semaphore_Auto();
     return lv_list_get_btn_text(Get_Pointer(), Button.Get_Pointer());
 }

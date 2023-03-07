@@ -1,5 +1,4 @@
 #include "Xila.hpp"
-#include "esp_log.h"
 
 void setup()
 {

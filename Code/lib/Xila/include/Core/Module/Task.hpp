@@ -61,6 +61,9 @@ namespace Xila_Namespace
         State_Type Get_State();
         Priority_Type Get_Priority();
         const Module_Type* Get_Owner_Module();
+        Size_Type Get_Lowest_Free_Stack();
+
+        void Delay(uint32_t Delay_In_Millisecond);
 
         /*
         static void Give_Notification(Task_Class& Task, unsigned int Index = 0);
@@ -68,7 +71,6 @@ namespace Xila_Namespace
         static void Take_Notification(Task_Class& Task);
         */
 
-        void Delay(uint32_t Delay_In_Millisecond);
         static void Delay_Static(uint32_t Delay_In_Millisecond);
         void Delay_Until(TickType_t Time_Increment);
 

@@ -23,11 +23,11 @@ namespace Xila_Namespace
 
         // -- Methods
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         // -- -- Setters.
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day);
         void Set_Showed_Date(uint32_t Year, uint32_t Month);
@@ -43,6 +43,11 @@ namespace Xila_Namespace
         Date_Type *Get_Highlighted_Dates();
         uint16_t Get_Highlighted_Dates_Number();
         bool Get_Pressed_Date(Date_Type *Date);
+
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
     } Calendar_Type;
 }
 

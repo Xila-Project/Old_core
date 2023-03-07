@@ -85,7 +85,12 @@ namespace Xila_Namespace
 
         Mode::Type Get_Mode();
 
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+        static const Graphics_Types::Class_Type Class;
+
     protected:
+
+
     } Arc_Type;
 }
 

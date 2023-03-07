@@ -9,6 +9,7 @@
  /// 
 
  #include "Core/Graphics/Switch.hpp"
+ #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
 

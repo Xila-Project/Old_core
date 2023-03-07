@@ -106,11 +106,41 @@ public:
 
 Result_Type Display_Class::Initialize()
 {
-    if (Driver.init())
+    if (!Driver.init())
     {
-        return Result_Type::Success;
+        return Result_Type::Error;
     }
-    return Result_Type::Error;
+
+    if (Driver.width() < Driver.height())
+    {
+        Driver.setRotation(Driver.getRotation() ^ 1);
+    }
+
+    //Driver.setTextSize((std::max(Driver.width(), Driver.height()) + 255) >> 8);
+//
+    //// Calibration
+    //if (Driver.touch())
+    //{
+    //    if (Driver.width() < Driver.height())
+    //    {
+    //        Driver.setRotation(Driver.getRotation() ^ 1);
+    //    }
+    //    // 画面に案内文章を描画します。
+    //    Driver.setTextDatum(textdatum_t::middle_center);
+    //    Driver.drawString("touch the arrow marker.", Driver.width() >> 1, Driver.height() >> 1);
+    //    Driver.setTextDatum(textdatum_t::top_left);
+//
+    //    // タッチを使用する場合、キャリブレーションを行います。画面の四隅に表示される矢印の先端を順にタッチしてください。
+    //    std::uint16_t fg = TFT_WHITE;
+    //    std::uint16_t bg = TFT_BLACK;
+    //    if (Driver.isEPD())
+    //    {
+    //        std::swap(fg, bg);
+    //    }
+    //    Driver.calibrateTouch(nullptr, fg, bg, std::max(Driver.width(), Driver.height()) >> 3);
+    //}
+//
+    return Result_Type::Success;
 }
 
 void Display_Class::Sleep()

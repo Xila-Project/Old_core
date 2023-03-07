@@ -53,20 +53,20 @@ namespace Xila_Namespace
             } Type;
         };
 
-        // -- Methods
+        // - Methods
 
-        // -- -- Constructor
+        // - - Constructor
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
-        // -- -- Action methods
+        // - - Manipulation
         void Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control);
         void Clear_All_Buttons_Control(Control::Type Control);
         bool Has_Button_Control(uint16_t Button_Identifier, Control::Type Control);
 
         // - - Setters.
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Button_Width(uint16_t Button_Identifier, uint8_t Width);
 
@@ -78,13 +78,18 @@ namespace Xila_Namespace
 
         void Set_One_Checked(bool Enabled);
 
-        // -- -- Get attributes values.
+        // - - Getters
         const char **Get_Map();
         uint16_t Get_Selected_Button();
 
         const char *Get_Button_Text(uint16_t Button_Identifier);
         bool Get_Popovers();
         bool Get_One_Checked();
+        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Graphics_Types::Class_Type Class_Type;
+
     } Button_Matrix_Type;
 }
 
