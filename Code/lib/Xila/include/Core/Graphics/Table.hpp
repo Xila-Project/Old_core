@@ -46,6 +46,9 @@ namespace Xila_Namespace
 
         // - Methods
 
+        // - - Constructors / Destructors
+        Table_Class(const Object_Class &Object);
+
         // - - Management
         void Create(Object_Class Parent_Object) override;
 
@@ -59,6 +62,7 @@ namespace Xila_Namespace
         uint16_t Get_Column_Count();
         Coordinate_Type Get_Column_Width(uint16_t Column);
         void Get_Selected_Cell(uint16_t *Row, uint16_t *Column);
+        virtual const Class_Type *Get_Class() const override;
 
         // - - Setters.
         bool Set_Pointer(lv_obj_t *Object);
@@ -69,6 +73,9 @@ namespace Xila_Namespace
         void Set_Column_Count(uint16_t Column_Count);
         void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
         
+        // - Attributes
+        static const Class_Type Class;
+
     } Table_Type;
 }
 

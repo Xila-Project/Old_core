@@ -12,6 +12,23 @@
  #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
+
+// - Attributes
+
+const Class_Type Switch_Class::Class(&Object_Class::Class);
+
+// - Methods
+
+// - - Constructors / Destructors
+
+Switch_Class::Switch_Class(const Object_Class &Object) : Object_Class()
+{
+    if (Object.Get_Class() == &Class)
+    {
+        Set_Pointer(Object.Get_Pointer());
+    }
+}
 
 // ------------------------------------------------------------------------- //
 //

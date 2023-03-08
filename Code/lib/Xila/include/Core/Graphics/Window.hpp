@@ -39,40 +39,35 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
-
             virtual ~Window_Class();
-
             virtual void Create(Object_Class Parent_Object) override;
             virtual void Create(const Software_Type *Owner_Module);
 
-            // - Setters
+            // - - Setters
             void Set_Title(const char *Title);
             bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
             void Set_State(Window_State_Type State);
             Window_State_Type Get_State();
 
-            // - Getters
+            // - - Getters
             Object_Class Get_Body();
             Object_Class Get_Header();
 
             virtual const Class_Type* Get_Class() const override;
             const Software_Type *Get_Owner_Software() const;
 
-            // - Operators
+            // - - Operators
 
-            Window_Class& operator=(const Object_Class& Object)
-            {
-                Set_Pointer(Object.Get_Pointer());
-                return *this;
-            }
+            Window_Class& operator=(const Object_Class& Object);
 
+            // - Attributes
+            static const Class_Type Class;
         protected:
             // - Methods
 
             void Set_Interface();
 
             // - Attributes
-            static Class_Type Class;
 
             const Software_Type *Owner_Software;
 
@@ -99,10 +94,8 @@ namespace Xila_Namespace
 
             static Parent_Window_Class Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
 
-        protected:
-            // - Methods
-            static Class_Type Class;
-
+            // - Attributes
+            static const Class_Type Class;
         private:
             // - Attributes
             static std::list <Parent_Window_Class*> List;

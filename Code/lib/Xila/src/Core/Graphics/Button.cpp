@@ -39,7 +39,7 @@ bool Button_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_btn_class))
     {
         return false;

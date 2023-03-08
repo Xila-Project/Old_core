@@ -70,6 +70,6 @@ bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 // ------------------------------------------------------------------------- //
 
 const char* List_Class::Get_Button_Text(Button_Class& Button)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_list_get_btn_text(Get_Pointer(), Button.Get_Pointer());
 }

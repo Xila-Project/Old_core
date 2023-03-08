@@ -39,7 +39,7 @@ void Checkbox_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
-        Graphics.Take_Semaphore_Auto();
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Set_Pointer(lv_checkbox_create(Parent_Object.Get_Pointer()));
     }
 }
@@ -56,7 +56,7 @@ bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     {
         return false;
     }
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_checkbox_class))
     {
         return false;
@@ -66,12 +66,12 @@ bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 }
 
 void Checkbox_Class::Set_Text(const char *Text)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_checkbox_set_text(Get_Pointer(), Text);
 }
 
 void Checkbox_Class::Set_Text_Static(const char *Text)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_checkbox_set_text_static(Get_Pointer(), Text);
 }
 
@@ -84,6 +84,6 @@ void Checkbox_Class::Set_Text_Static(const char *Text)
 // ------------------------------------------------------------------------- //
 
 const char *Checkbox_Class::Get_Text()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_checkbox_get_text(Get_Pointer());
 }

@@ -12,12 +12,23 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+const Class_Type Tabs_Class::Class(&Object_Class::Class);
+
+// - Methods
+
+// - - Constructors / Destructors
+
+Tabs_Class::Tabs_Class(const Object_Class &Object) : Object_Class()
+{
+    if (Object.Get_Class() == &Class)
+    {
+        Set_Pointer(Object.Get_Pointer());
+    }
+}
+
+// - - Manipulation
 
 void Tabs_Class::Create(Object_Class Parent_Object)
 {
@@ -64,7 +75,7 @@ bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 
 void Tabs_Class::Set_Active_Tab(uint16_t Identifier, bool Animation)
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Animation)
     {
         lv_tabview_set_act(Get_Pointer(), Identifier, LV_ANIM_ON);
@@ -90,7 +101,7 @@ Object_Class Tabs_Class::Get_Content()
 
 uint16_t Tabs_Class::Get_Tab_Active()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_tabview_get_tab_act(Get_Pointer());
 }
 
@@ -99,4 +110,9 @@ Button_Class Tabs_Class::Get_Tab_Buttons()
     Button_Class Button;
     Button.Set_Pointer(lv_tabview_get_tab_btns(Get_Pointer()));
     return Button;
+}
+
+const Class_Type *Tabs_Class::Get_Class() const
+{
+    return &Class;
 }

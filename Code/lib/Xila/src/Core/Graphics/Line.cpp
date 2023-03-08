@@ -41,7 +41,7 @@ bool Line_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_line_class))
     {
         return false;
@@ -51,12 +51,12 @@ bool Line_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 }
 
 void Line_Class::Set_Points(const Point_Type* Points, uint16_t Number)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_line_set_points(Get_Pointer(), Points, Number);
 }
 
 void Line_Class::Set_Y_Inversion(bool Inversion)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_line_set_y_invert(Get_Pointer(), Inversion);
 }
 
@@ -68,6 +68,6 @@ void Line_Class::Set_Y_Inversion(bool Inversion)
 
 
 bool Line_Class::Get_Y_Inversion()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_line_get_y_invert(Get_Pointer());
 }

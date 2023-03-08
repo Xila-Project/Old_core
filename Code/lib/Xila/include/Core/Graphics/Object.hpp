@@ -28,6 +28,10 @@
 namespace Xila_Namespace
 {
 
+    // - Forward declarations
+
+
+
     /// @brief Object class.
     typedef class Object_Class : public Types_Class
     {
@@ -74,6 +78,8 @@ namespace Xila_Namespace
 
         // - - Operators
 
+        // - - - Comparison
+
         bool operator==(const Object_Class &Other) const
         {
             if (this->Get_Pointer() == nullptr || Other.Get_Pointer() == nullptr)
@@ -92,7 +98,15 @@ namespace Xila_Namespace
             return (this->Get_Pointer() != Other.Get_Pointer());
         }
 
-        // - Management
+        // - - - Cast
+
+        template<typename Type>
+        operator Type()
+        {
+            return Type(*this);
+        }
+
+        // - - Manipulation
         virtual void Create(Object_Class Parent_Object);
         void Delete();
         void Clean();

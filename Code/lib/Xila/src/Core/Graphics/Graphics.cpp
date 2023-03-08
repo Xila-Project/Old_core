@@ -81,7 +81,7 @@ Result_Type Graphics_Class::Start()
 }
 
 Result_Type Graphics_Class::Stop()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_deinit();
     
     Keyboard.Delete();
@@ -264,7 +264,7 @@ static void *Display_Class::File_System_Open_Directory(lv_fs_drv_t *Driver, cons
 }
 
 static lv_fs_res_t Display_Class::File_System_Directory_Read(lv_fs_drv_t *Driver, void *Directory_Pointer, char *File_Name)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_FS_RES_NOT_IMP;
 }
 

@@ -19,6 +19,12 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
+        
+        // - - Constructors / destructors
+
+        Spinbox_Class(const Object_Class &Object);
+
+        // - - Manipulation
         void Create(Object_Class Parent_Object) override;
 
         // - - Manipulation.
@@ -41,6 +47,9 @@ namespace Xila_Namespace
         void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
         void Set_Cursor_Position(uint8_t Cursor_Position);
         void Set_Digit_Step_Direction(Direction_Type Direction);
+
+        // - Attributes
+        static const Class_Type Class;
 
     } Spinbox_Type;
 }

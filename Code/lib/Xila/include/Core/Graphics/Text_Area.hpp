@@ -29,6 +29,8 @@ namespace Xila_Namespace
 
             // - Methods
 
+            Text_Area_Class(const Object_Class& Object);
+
             void Create(Object_Class Parent_Object) override;
 
             void Add_Char(uint32_t Character);
@@ -78,7 +80,7 @@ namespace Xila_Namespace
 
             // - Attributes
 
-            static Class_Type Class;
+            static const Class_Type Class;
 
         } Text_Area_Type;
     }

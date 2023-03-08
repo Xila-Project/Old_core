@@ -177,3 +177,9 @@ const Class_Type* Window_Class::Get_Class() const
 {
     return &Class;
 }
+
+Window_Class& Window_Class::operator=(const Object_Class& Object)
+{
+    this->Set_Pointer(Object.Get_Pointer());
+    return *this;
+}

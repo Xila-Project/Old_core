@@ -19,9 +19,12 @@ namespace Xila_Namespace
     typedef class Tabs_Class : public Object_Class
     {
     public:
-        // -- Types
-
         // - Methods
+
+        // - - Constructors / destructors
+        Tabs_Class(const Object_Class &Object);
+
+        // - - Manipulation
         void Create(Object_Class Parent_Object) override;
         void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
@@ -41,6 +44,10 @@ namespace Xila_Namespace
         Button_Class Get_Tab_Buttons();
 
         uint16_t Get_Animation_Time();
+        virtual const Class_Type* Get_Class() const override;
+
+        // - Attributes
+        static const Class_Type Class;
     } Tabs_Type;
 }
 

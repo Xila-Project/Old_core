@@ -48,42 +48,42 @@ bool Image_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 }
 
 void Image_Class::Set_Source(const void* Source)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_src(Get_Pointer(), Source);
 }
 
 void Image_Class::Set_Angle(int16_t Angle)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_angle(Get_Pointer(), Angle);
 }
 
 void Image_Class::Set_Antialias(bool Enable)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_antialias(Get_Pointer(), Enable);
 }
 
 void Image_Class::Set_Offset_X(Coordinate_Type X_Offset)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_offset_x(Get_Pointer(), X_Offset);
 }
 
 void Image_Class::Set_Offset_Y(Coordinate_Type Y_Offset)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_offset_y(Get_Pointer(), Y_Offset);
 }
 
 void Image_Class::Set_Pivot(Coordinate_Type X, Coordinate_Type Y)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_pivot(Get_Pointer(), X, Y);
 }
 
 void Image_Class::Set_Size_Mode(Size_Mode_Type Mode)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_size_mode(Get_Pointer(), Mode);
 }
 
 void Image_Class::Set_Zoom(uint16_t Zoom)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_img_set_zoom(Get_Pointer(), Zoom);
 }
 
@@ -94,41 +94,41 @@ void Image_Class::Set_Zoom(uint16_t Zoom)
 // ------------------------------------------------------------------------- //
 
 uint16_t Image_Class::Get_Angle()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_angle(Get_Pointer());
 }
 
 bool Image_Class::Get_Antialias()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_antialias(Get_Pointer());
 }
 
 Coordinate_Type Image_Class::Get_Offset_X()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_offset_x(Get_Pointer());
 }
 
 Coordinate_Type Image_Class::Get_Offset_Y()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_offset_y(Get_Pointer());
 }
 
 void Image_Class::Get_Pivot(Point_Type& Pivot)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_pivot(Get_Pointer(), &Pivot);
 }
 
 Image_Class::Size_Mode_Type Image_Class::Get_Size_Mode()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_size_mode(Get_Pointer());
 }
 
 const void* Image_Class::Get_Source()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_src(Get_Pointer());
 }
 
 uint16_t Image_Class::Get_Zoom()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_img_get_zoom(Get_Pointer());
 }

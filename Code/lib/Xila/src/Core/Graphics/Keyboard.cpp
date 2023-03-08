@@ -40,7 +40,7 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_keyboard_class))
     {
         return false;
@@ -50,22 +50,22 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 }
 
 void Keyboard_Class::Set_Map(Mode_Type Mode, const char* Map[], const Button_Matrix_Class::Control::Type Control_Map[])
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_map(Get_Pointer(), Mode, Map, Control_Map);
 }
 
 void Keyboard_Class::Set_Mode(Mode_Type Mode)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_mode(Get_Pointer(), Mode);
 }
 
 void Keyboard_Class::Set_Pop_Overs(bool Enabled)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_popovers(Get_Pointer(), Enabled);
 }
 
 void Keyboard_Class::Set_Text_Area(Text_Area_Class& Text_Area, bool Show)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_textarea(Get_Pointer(), Text_Area.Get_Pointer());
     if (Show)
     {
@@ -80,35 +80,35 @@ void Keyboard_Class::Set_Text_Area(Text_Area_Class& Text_Area, bool Show)
 // ------------------------------------------------------------------------- //
 
 const char* Keyboard_Class::Get_Button_Text(uint16_t Button_Identifier)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_keyboard_get_btn_text(Get_Pointer(), Button_Identifier);
 }
 
 const char** Keyboard_Class::Get_Map_Array()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_keyboard_get_map_array(Get_Pointer());
 }
 
 Keyboard_Class::Mode_Type Keyboard_Class::Get_Mode()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_keyboard_get_mode(Get_Pointer());
 }
 
 uint16_t Keyboard_Class::Get_Selected_Button()
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_keyboard_get_selected_btn(Get_Pointer());
 }
 
 Text_Area_Class Keyboard_Class::Get_Text_Area()
 {
     Text_Area_Class Text_Area;
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     Text_Area.Set_Pointer(lv_keyboard_get_textarea(Get_Pointer()));
     return Text_Area;
 }
 
 void Keyboard_Class::Remove_Text_Area(bool Hide)
-{ Graphics.Take_Semaphore_Auto();
+{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_keyboard_set_textarea(Get_Pointer(), NULL);
     if (Hide)
     {

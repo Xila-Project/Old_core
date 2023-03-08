@@ -29,7 +29,7 @@ void Slider_Class::Create(Object_Class Parent_Object)
 
 bool Slider_Class::Is_Dragged()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_is_dragged(Get_Pointer());
 }
 
@@ -55,7 +55,7 @@ bool Slider_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 
 void Slider_Class::Set_Value(int32_t Value, bool Animation)
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Animation)
     {
         lv_slider_set_value(Get_Pointer(), Value, LV_ANIM_ON);
@@ -68,7 +68,7 @@ void Slider_Class::Set_Value(int32_t Value, bool Animation)
 
 void Slider_Class::Set_Left_Value(int32_t Value, bool Animation)
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Animation)
     {
         lv_slider_set_left_value(Get_Pointer(), Value, LV_ANIM_ON);
@@ -81,13 +81,13 @@ void Slider_Class::Set_Left_Value(int32_t Value, bool Animation)
 
 void Slider_Class::Set_Range(int32_t Minimum_Value, int32_t Maximum_Value)
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_slider_set_range(Get_Pointer(), Minimum_Value, Maximum_Value);
 }
 
 void Slider_Class::Set_Mode(Mode_Type Mode)
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_slider_set_mode(Get_Pointer(), Mode);
 }
 
@@ -99,30 +99,30 @@ void Slider_Class::Set_Mode(Mode_Type Mode)
 
 int32_t Slider_Class::Get_Value()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_get_value(Get_Pointer());
 }
 
 int32_t Slider_Class::Get_Left_Value()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_get_left_value(Get_Pointer());
 }
 
 int32_t Slider_Class::Get_Minimum_Value()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_get_min_value(Get_Pointer());
 }
 
 int32_t Slider_Class::Get_Maximum_Value()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_get_max_value(Get_Pointer());
 }
 
 Slider_Class::Mode_Type Slider_Class::Get_Mode()
 {
-    Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_slider_get_mode(Get_Pointer());
 }

@@ -20,10 +20,20 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        void Create(Object_Class Parent_Object) override;
+        // - - Constructors / destructors
+        Switch_Class(const Object_Class &Object);
 
-        // - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        // - - Manipulation
+        virtual void Create(Object_Class Parent_Object) override;
+
+        // - - Getters.
+        virtual const Class_Type *Get_Class() const override;
+
+        // - - Setters
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+
+        // - Attributes
+        static const Class_Type Class;
 
     } Switch_Type;
 }
