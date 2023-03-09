@@ -1,12 +1,12 @@
 ///
- /// @file Parent_Window.cpp
- /// @author Alix ANNERAUD (alix@anneraud.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 27-02-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @file Parent_Window.cpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 27-02-2023
+///
+/// @copyright Copyright (c) 2023
+///
 
 #include "Core/Graphics/Window.hpp"
 #include "Core/Graphics/Graphics.hpp"
@@ -14,42 +14,50 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
+// - Attributes
+
+/// @brief Custom LVGL class for Parent window (almost identical to object class).
+const Class_Type Parent_Window_Class::Class = Window_Class::Class;
+
 // - Methods
 
-Parent_Window_Class::~Parent_Window_Class()
+// - - Constructors / destructors
+
+Parent_Window_Class::Parent_Window_Class() : Window_Class()
 {
-    this->Delete();
 }
 
-void Parent_Window_Class::Create(const Software_Type* Owner_Module)
+Parent_Window_Class::Parent_Window_Class(const Object_Class &Object_To_Copy) : Window_Class(Object_To_Copy)
 {
-    this->Owner_Software = Owner_Software; 
-    this->Set_Pointer(lv_obj_create(lv_scr_act()));
-    this->Set_Interface();
-
-    List.push_back(this);
 }
 
-void Parent_Window_Class::Delete()
+void Parent_Window_Class::Create(const Software_Type *Owner_Module)
 {
-    List.remove(this);
-    if (!this->Is_Valid())
+    if (Owner_Module == NULL)
     {
         return;
     }
-    Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_del_async(this->Get_Pointer());
+    {
+        Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_obj_create(lv_scr_act());
+        this->LVGL_Object_Pointer->class_p = &Parent_Window_Class::Class;
+    }
+    this->Owner_Software = Owner_Software;
+    this->Set_Interface();
 }
 
-Parent_Window_Class* Parent_Window_Class::Get_User_Parent_Window(const Accounts_Types::User_Type* User)
+Parent_Window_Class Parent_Window_Class::Get_User_Parent_Window(const Accounts_Types::User_Type *User)
 {
-    for (auto& Parent_Window : List)
+    for (uint8_t i = 0; i < Graphics.Get_Screen().Get_Child_Count(); i--)
     {
-        if (Parent_Window->Owner_Software->Get_Owner_User() == User)
+        Parent_Window_Type Parent_Window = Graphics.Get_Screen().Get_Child(i);
+        if (Parent_Window.Is_Valid())
         {
-            return &(*Parent_Window);
+            if (Parent_Window.Owner_Software->Get_Owner_User() == User)
+            {
+                return Parent_Window;
+            }
         }
     }
-    return NULL;
+    return Parent_Window_Class();
 }
-

@@ -22,10 +22,11 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        Drop_Down_List_Class();
         Drop_Down_List_Class(const Object_Class &Object_To_Copy);
 
         // - - Management
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         void Add_Option(const char *Option, uint32_t Position);
         void Clear_Options();

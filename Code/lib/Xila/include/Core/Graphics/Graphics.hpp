@@ -134,6 +134,7 @@ namespace Xila_Namespace
 
         // - Friendships
         friend class System_Class;
+        friend class Graphics_Types::Parent_Window_Class;
     } Graphics_Type;
 
     extern Graphics_Type Graphics;

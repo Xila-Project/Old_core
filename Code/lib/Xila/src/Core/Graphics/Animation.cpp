@@ -40,7 +40,6 @@ void Animation_Class::Delete()
 void Animation_Class::Initialize()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-
     lv_anim_init(Get_Pointer());
 }
 
@@ -144,7 +143,6 @@ void Animation_Class::Start()
 
 void Animation_Class::Set_Pointer(lv_anim_t *Animation_Pointer)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     LVGL_Animation_Pointer = Animation_Pointer;
 }
 
@@ -251,6 +249,7 @@ lv_anim_t *Animation_Class::Get_Pointer()
 
 Animation_Class Animation_Class::Get(void *Variable, Execution_Callback_Type Execution_Callback)
 {
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     Animation_Class Animation;
     Animation.Set_Pointer(lv_anim_get(Variable, Execution_Callback));
     return Animation;

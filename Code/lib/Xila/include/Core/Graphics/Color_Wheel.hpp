@@ -36,10 +36,12 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        Color_Wheel_Class();
         Color_Wheel_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object, bool Knob_Recolor);
 
         // - - Getters
         Mode::Type Get_Mode();

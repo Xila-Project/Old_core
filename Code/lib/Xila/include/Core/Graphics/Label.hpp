@@ -35,11 +35,11 @@ namespace Xila_Namespace
             // - Methods
 
             // - - Constructors / destructors
-
+            Label_Class();
             Label_Class(const Object_Class &Object_To_Copy);
 
             // - - Manipulation
-            virtual void Create(Object_Class& Parent_Object) override;
+            virtual void Create(Object_Class Parent_Object) override;
             void Insert_Text(uint32_t Position, const char *Text);
             void Cut_Text(uint32_t Position, uint32_t Length);
             bool Is_Char_Under_Position(Point_Type *Position);

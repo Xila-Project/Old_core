@@ -22,6 +22,10 @@ const Class_Type &Text_Area_Class::Class = lv_textarea_class;
 
 // - - Constructors / Destructors
 
+Text_Area_Class::Text_Area_Class() : Object_Class()
+{
+}
+
 /// @brief Copy constructor from object.
 /// @param Object_To_Copy 
 Text_Area_Class::Text_Area_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
@@ -30,7 +34,7 @@ Text_Area_Class::Text_Area_Class(const Object_Class &Object_To_Copy) : Object_Cl
 
 // - - Manipulation
 
-void Text_Area_Class::Create(Object_Class& Parent_Object)
+void Text_Area_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -101,7 +105,8 @@ bool Text_Area_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_textarea_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_textarea_class))
     {
         return false;
     }

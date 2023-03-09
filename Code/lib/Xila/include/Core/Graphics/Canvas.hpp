@@ -31,11 +31,11 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
-
+        Canvas_Class();
         Canvas_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         // - - Manipulation
 

@@ -22,11 +22,12 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        Tabs_Class();
         Tabs_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object) override;
-        virtual void Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size);
+        virtual void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
         Object_Class Add_Tab(const String_Type& Name);
         void Rename_Tab(uint32_t Index, const String_Type &New_name);

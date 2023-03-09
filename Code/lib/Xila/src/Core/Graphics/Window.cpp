@@ -8,50 +8,77 @@
 /// @copyright Copyright (c) 2022
 ///
 
+//
+
 #include "Core/Graphics/Window.hpp"
 #include "Core/Account/Accounts.hpp"
 #include "Core/Software/Softwares.hpp"
+#include "Core/Graphics/Graphics.hpp"
 
-
+// - Namespaces
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
+
+// - Attributes
+
+const Class_Type Window_Class::Class = {
+    .base_class = &lv_obj_class,
+    .constructor_cb = lv_obj_class.constructor_cb,
+    .destructor_cb = lv_obj_class.destructor_cb,
+    .event_cb = lv_obj_class.event_cb,
+    .width_def = lv_obj_class.width_def,
+    .height_def = lv_obj_class.height_def,
+    .editable = lv_obj_class.editable,
+    .group_def = lv_obj_class.group_def,
+    .instance_size = sizeof(lv_obj_t),
+};
 
 // - Methods
 
 // - - Constructors / Destructors
 
 // TODO : Implement copy constructor (have to copy header and body childs object into the right place).
-//Window_Class::Window_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
-//{
-//}
 
-/// @brief 
-/// @details This destructor is defined explicitly to delete the window if the software lose the scope of the window.
-/// Indeed, all of the child objects are deleted b
-Window_Class::~Window_Class()
+Window_Class::Window_Class() : Object_Class()
 {
-    this->Delete();
+}
+
+Window_Class::Window_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+{
 }
 
 // - - Manipulation
 
 /// @brief Function that create a window.
-void Window_Class::Create(const Software_Type* Owner_Software)
+void Window_Class::Create(const Software_Type *Owner_Software)
 {
-    Parent_Window_Type* Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
+    if (Owner_Software == NULL)
+    {
+        return;
+    }
+    Parent_Window_Type *Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
     if (Parent_Window == NULL)
     {
         return;
+    }
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Window->Get_Pointer());
+        this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
     }
     this->Owner_Software = Owner_Software;
     this->Set_Interface();
 }
 
-void Window_Class::Create(Object_Class& Parent_Object)
+void Window_Class::Create(Object_Class Parent_Object)
 {
     this->Owner_Software = NULL;
-    this->Create(Parent_Object);
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+        this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
+    }
     this->Set_Interface();
 }
 
@@ -106,13 +133,19 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Add_Flag(Flag_Type::Hidden);
+        if (this->Get_Owner_Software() != NULL)
+        {
+            Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        }
         break;
     case Window_State_Type::Minimized:
         // - Set window hidden
         Add_Flag(Flag_Type::Hidden);
         // - Set parent window header visible
-        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Clear_Flag(Flag_Type::Hidden);
+        if (this->Get_Owner_Software() != NULL)
+        {
+            Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User()).Get_Header().Clear_Flag(Flag_Type::Hidden);
+        }
         break;
     case Window_State_Type::Full_screen:
         // - Set window visible
@@ -122,7 +155,10 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Add_Flag(Flag_Type::Hidden);
+        if (this->Get_Owner_Software() != NULL)
+        {
+            Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        }
         break;
     }
 }
@@ -156,7 +192,8 @@ bool Window_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class( &lv_obj_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&Window_Class::Class))
     {
         return false;
     }
@@ -179,4 +216,9 @@ Object_Class Window_Class::Get_Body()
 Object_Class Window_Class::Get_Header()
 {
     return Header;
+}
+
+const Software_Type* Window_Class::Get_Owner_Software() const
+{
+    return Owner_Software;
 }

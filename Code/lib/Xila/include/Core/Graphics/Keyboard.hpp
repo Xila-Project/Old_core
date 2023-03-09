@@ -40,10 +40,11 @@ namespace Xila_Namespace
             // - Methods
 
             // - - Constructors / destructors
+            Keyboard_Class();
             Keyboard_Class(const Object_Class &Object_To_Copy);
 
             // - - Manipulation
-            virtual void Create(Object_Class& Parent_Object) override;
+            virtual void Create(Object_Class Parent_Object) override;
             void Remove_Text_Area(bool Hide = true);
 
             // - - Getters

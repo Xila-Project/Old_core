@@ -22,13 +22,17 @@ const Class_Type& Roller_Class::Class = lv_roller_class;
 
 // - - Constructors / destructors
 
+Roller_Class::Roller_Class() : Object_Class()
+{
+}
+
 Roller_Class::Roller_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Roller_Class::Create(Object_Class& Parent_Object)
+void Roller_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -45,7 +49,8 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class( &lv_roller_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_roller_class))
     {
         return false;
     }

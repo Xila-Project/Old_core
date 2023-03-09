@@ -22,13 +22,17 @@ const Class_Type& List_Class::Class = lv_list_class;
 
 // - - Constructors / destructors
 
+List_Class::List_Class() : Object_Class()
+{
+}
+
 List_Class::List_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void List_Class::Create(Object_Class& Parent_Object)
+void List_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -70,7 +74,8 @@ bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class( &lv_list_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_list_class))
     {
         return false;
     }

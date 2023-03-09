@@ -49,11 +49,12 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        Arc_Class();
         Arc_Class(const Object_Class &Object_To_Copy);
 
         // - - Management
 
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         // - - Setters.
 

@@ -23,13 +23,17 @@ const Class_Type& Line_Class::Class = lv_line_class;
 
 // - - Constructors / destructors
 
+Line_Class::Line_Class() : Object_Class()
+{
+}
+
 Line_Class::Line_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Line_Class::Create(Object_Class& Parent_Object)
+void Line_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -51,7 +55,8 @@ bool Line_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-   if (!Has_Class( &lv_line_class))
+   Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_line_class))
     {
         return false;
     }

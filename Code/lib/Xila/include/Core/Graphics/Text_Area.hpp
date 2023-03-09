@@ -28,10 +28,10 @@ namespace Xila_Namespace
             };
 
             // - Methods
-
+            Text_Area_Class();
             Text_Area_Class(const Object_Class& Object_To_Copy);
 
-            virtual void Create(Object_Class& Parent_Object) override;
+            virtual void Create(Object_Class Parent_Object) override;
 
             void Add_Char(uint32_t Character);
             void Add_Text(const char *Text);

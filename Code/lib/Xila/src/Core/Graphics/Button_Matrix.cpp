@@ -22,13 +22,17 @@ const Class_Type &Button_Matrix_Class::Class = lv_btnmatrix_class;
 
 // - - Constructors / destructors
 
+Button_Matrix_Class::Button_Matrix_Class() : Object_Class()
+{
+}
+
 Button_Matrix_Class::Button_Matrix_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Button_Matrix_Class::Create(Object_Class& Parent_Object)
+void Button_Matrix_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -67,7 +71,8 @@ bool Button_Matrix_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_btnmatrix_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_btnmatrix_class))
     {
         return false;
     }

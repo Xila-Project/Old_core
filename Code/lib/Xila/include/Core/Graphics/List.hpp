@@ -24,10 +24,11 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        List_Class();
         List_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         Graphics_Types::Label_Class Add_Text(const char *Text);
         Button_Class Add_Button(const char *Icon, const char *Text);

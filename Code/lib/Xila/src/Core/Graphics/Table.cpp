@@ -22,13 +22,17 @@ const Class_Type &Table_Class::Class = lv_table_class;
 
 // - - Constructors / Destructors
 
+Table_Class::Table_Class() : Object_Class()
+{
+}
+
 Table_Class::Table_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Table_Class::Create(Object_Class& Parent_Object)
+void Table_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -89,13 +93,14 @@ void Table_Class::Get_Selected_Cell(uint16_t *Row, uint16_t *Column)
 
 // - - Setters
 
-bool Table_Class::Set_Pointer(lv_obj_t *Object)
+bool Table_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (Get_Pointer() != NULL)
     {
         return false;
     }
-    if (!Has_Class( &lv_table_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_table_class))
     {
         return false;
     }

@@ -56,12 +56,12 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructor
-
+        Button_Matrix_Class();
         Button_Matrix_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
 
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         void Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control);
         void Clear_All_Buttons_Control(Control::Type Control);

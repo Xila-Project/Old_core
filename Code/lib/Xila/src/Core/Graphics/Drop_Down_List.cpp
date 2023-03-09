@@ -22,13 +22,17 @@ const Class_Type &Drop_Down_List_Class::Class = lv_dropdown_class;
 
 // - - Constructors / destructors
 
+Drop_Down_List_Class::Drop_Down_List_Class() : Object_Class()
+{
+}
+
 Drop_Down_List_Class::Drop_Down_List_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Drop_Down_List_Class::Create(Object_Class& Parent_Object)
+void Drop_Down_List_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -75,7 +79,8 @@ bool Drop_Down_List_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_dropdown_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_dropdown_class))
     {
         return false;
     }

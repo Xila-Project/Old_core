@@ -13,7 +13,7 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-void Color_Dialog_Class::Create(Object_Class& Parent_Object)
+void Color_Dialog_Class::Create(Object_Class Parent_Object)
 {
     if (!Parent_Object)
     {

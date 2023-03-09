@@ -47,10 +47,11 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / Destructors
+        Table_Class();
         Table_Class(const Object_Class &Object_To_Copy);
 
         // - - Management
-        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class Parent_Object) override;
 
         void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
         void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
@@ -65,7 +66,7 @@ namespace Xila_Namespace
         
 
         // - - Setters.
-        virtual bool Set_Pointer(lv_obj_t *Object) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Cell_Value(uint16_t Row, uint16_t Column, const char *Value);
         void Set_Cell_Value_Format(uint16_t Row, uint16_t Column, const char *Formated_Value, ...);

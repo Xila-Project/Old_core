@@ -47,18 +47,19 @@ void Shell_Class::Main_Task_Function()
         }
         else
         {
-            if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
-            {
-                Desk.Refresh_Overlay();
-                Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
-            }
-            else if (this->Get_Owner_User()->Get_State() == Accounts_Types::User_State_Type::Locked)
+            if (this->Get_Owner_User()->Get_State() == Accounts_Types::User_State_Type::Locked)
             {
                 if (Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Minimized)
                 {
                     Desk.Window.Set_State(Graphics_Types::Window_State_Type::Minimized);
                 }
             }
+            else if (System.Get_Up_Time_Milliseconds() > Next_Refresh)
+            {
+                Desk.Refresh_Overlay();
+                Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
+            }
+            
             Main_Task.Delay(40);
         }
     }
@@ -80,7 +81,7 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 
     else if (Drawer_Class::Is_Openned(this) && (Drawer_Pointer->Window.Get_State() == Graphics_Types::Window_State_Type::Maximized))
     {
-            Drawer_Pointer->Execute_Instruction(Instruction);
+        Drawer_Pointer->Execute_Instruction(Instruction);
     }
     else if (Installer_Class::Is_Openned(this) && (Installer_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized))
     {

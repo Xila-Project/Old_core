@@ -39,10 +39,12 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
-            //Window_Class(const Object_Class &Object_To_Copy);
+            // - - Constructors / destructors
+            Window_Class();
+            Window_Class(const Object_Class &Object_To_Copy);
 
-            virtual ~Window_Class();
-            virtual void Create(Object_Class& Parent_Object) override;
+            // - - Manipulation
+            virtual void Create(Object_Class Parent_Object) override;
             virtual void Create(const Software_Type *Owner_Module);
 
             // - - Setters
@@ -54,18 +56,18 @@ namespace Xila_Namespace
             // - - Getters
             Object_Class Get_Body();
             Object_Class Get_Header();
-
             const Software_Type *Get_Owner_Software() const;
 
             // - Attributes
-            static const Graphics_Types::Class_Type& Class;
+
+            /// @brief Custom LVGL class for Window (almost identical to object class).
+            static const Graphics_Types::Class_Type Class;
         protected:
             // - Methods
-
+            // - - Setters
             void Set_Interface();
 
             // - Attributes
-
             const Software_Type *Owner_Software;
 
             Object_Class Header;
@@ -82,26 +84,19 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
+            Parent_Window_Class();
             Parent_Window_Class(const Object_Type& Object_To_Copy);
 
-            ~Parent_Window_Class();
-
             virtual void Create(const Software_Type *Owner_Module) override;
-            virtual void Delete() override;
 
-            static Parent_Window_Class* Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
+            static Parent_Window_Class Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
 
             // - Attributes
-            static const Graphics_Types::Class_Type& Class;
-        private:
-            // - Attributes
-            static std::list <Parent_Window_Class*> List;
 
-        } Parent_Window_Type;
-
-      
+            /// @brief Custom LVGL class for Parent window (almost identical to object class).
+            static const Graphics_Types::Class_Type Class;
+        } Parent_Window_Type;      
     };
-
 }
 
 #endif

@@ -23,13 +23,17 @@ const Class_Type& Bar_Class::Class = lv_bar_class;
 
 // - - Constructors / destructors
 
+Bar_Class::Bar_Class() : Object_Class()
+{
+}
+
 Bar_Class::Bar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Bar_Class::Create(Object_Class& Parent_Object)
+void Bar_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -50,7 +54,8 @@ bool Bar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_bar_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_bar_class))
     {
         return false;
     }

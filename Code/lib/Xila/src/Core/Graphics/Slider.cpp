@@ -22,13 +22,17 @@ const Class_Type& Slider_Class::Class = lv_slider_class;
 
 // - - Constructors / destructors
 
+Slider_Class::Slider_Class() : Object_Class()
+{
+}
+
 Slider_Class::Slider_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Slider_Class::Create(Object_Class& Parent_Object)
+void Slider_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -55,7 +59,8 @@ bool Slider_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class( &lv_slider_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_slider_class))
     {
         return false;
     }

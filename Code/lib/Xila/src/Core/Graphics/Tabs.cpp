@@ -18,22 +18,22 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - - Constructors / Destructors
 
+Tabs_Class::Tabs_Class() : Object_Class()
+{
+}
+
 Tabs_Class::Tabs_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Tabs_Class::Create(Object_Class& Parent_Object)
+void Tabs_Class::Create(Object_Class Parent_Object)
 {
-    if (Parent_Object)
-    {
-        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction_Type::Top), 20);
-    }
+    this->Create(Parent_Object, Direction_Type::Top, 20);
 }
 
-void Tabs_Class::Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size)
+void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size)
 {
     if (Parent_Object)
     {
@@ -66,7 +66,8 @@ bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_tabview_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_tabview_class))
     {
         return false;
     }

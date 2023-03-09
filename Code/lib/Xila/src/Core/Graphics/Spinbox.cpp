@@ -22,13 +22,17 @@ const Class_Type& Spinbox_Class::Class = lv_spinbox_class;
 
 // - - Constructors / Destructors.
 
+Spinbox_Class::Spinbox_Class() : Object_Class()
+{
+}
+
 Spinbox_Class::Spinbox_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation.
 
-void Spinbox_Class::Create(Object_Class& Parent_Object)
+void Spinbox_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -91,7 +95,8 @@ bool Spinbox_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_spinbox_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_spinbox_class))
     {
         return false;
     }

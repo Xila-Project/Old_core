@@ -22,13 +22,17 @@ const Class_Type &Keyboard_Class::Class = lv_keyboard_class;
 
 // - - Constructors / destructors
 
+Keyboard_Class::Keyboard_Class() : Object_Class()
+{
+}
+
 Keyboard_Class::Keyboard_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Keyboard_Class::Create(Object_Class& Parent_Object)
+void Keyboard_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -49,7 +53,8 @@ bool Keyboard_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_keyboard_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_keyboard_class))
     {
         return false;
     }

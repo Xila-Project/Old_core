@@ -22,15 +22,28 @@ const Class_Type &Color_Wheel_Class::Class = lv_colorwheel_class;
 
 // - - Constructors / destructors
 
+Color_Wheel_Class::Color_Wheel_Class() : Object_Class()
+{
+}
+
 Color_Wheel_Class::Color_Wheel_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Color_Wheel_Class::Create(Object_Class& Parent_Object)
+void Color_Wheel_Class::Create(Object_Class Parent_Object)
 {
-    Set_Pointer(lv_colorwheel_create(Parent_Object.Get_Pointer(), true));
+    this->Create(Parent_Object, true);
+}
+
+void Color_Wheel_Class::Create(Object_Class Parent_Object, bool Knob_Recolor)
+{
+    if (Parent_Object)
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_colorwheel_create(Parent_Object.Get_Pointer(), Knob_Recolor);
+    }
 }
 
 // - - Getters
@@ -61,7 +74,8 @@ bool Color_Wheel_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_colorwheel_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_colorwheel_class))
     {
         return false;
     }

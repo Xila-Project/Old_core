@@ -22,17 +22,22 @@ const Class_Type &Image_Class::Class = lv_img_class;
 
 // - - Constructors / destructors
 
+Image_Class::Image_Class() : Object_Class()
+{
+}
+
 Image_Class::Image_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Image_Class::Create(Object_Class& Parent_Object)
+void Image_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_img_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_img_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -43,7 +48,8 @@ bool Image_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_img_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_img_class))
     {
         return false;
     }

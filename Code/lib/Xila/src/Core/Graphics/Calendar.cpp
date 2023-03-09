@@ -22,13 +22,17 @@ const Class_Type &Calendar_Class::Class = lv_calendar_class;
 
 // - - Constructors / destructors
 
+Calendar_Class::Calendar_Class() : Object_Class()
+{
+}
+
 Calendar_Class::Calendar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Calendar_Class::Create(Object_Class& Parent_Object)
+void Calendar_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -49,7 +53,8 @@ bool Calendar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_calendar_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_calendar_class))
     {
         return false;
     }

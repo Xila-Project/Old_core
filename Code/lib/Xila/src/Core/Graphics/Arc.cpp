@@ -18,13 +18,19 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Methods
 
+// - - Constructors / destructors
+
+Arc_Class::Arc_Class() : Object_Class()
+{
+}
+
 Arc_Class::Arc_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Arc_Class::Create(Object_Class& Parent_Object)
+void Arc_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -41,7 +47,8 @@ bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class(&lv_arc_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class(&lv_arc_class))
     {
         return false;
     }

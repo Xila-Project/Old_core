@@ -22,10 +22,11 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+        Line_Class();
         Line_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object) override; 
+        virtual void Create(Object_Class Parent_Object) override; 
 
         // - - Setters
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;

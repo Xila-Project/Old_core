@@ -12,7 +12,7 @@
 
 using namespace Xila_Namespace;
 
-Auto_Semaphore_Class::Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout = 0xFFFFFFFF) : Semaphore(Semaphore)
+Auto_Semaphore_Class::Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout) : Semaphore(Semaphore)
 {
     Semaphore.Take(Timeout);
 }

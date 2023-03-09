@@ -107,7 +107,7 @@ namespace Xila_Namespace
         }
 
         // - - Manipulation
-        virtual void Create(Object_Class& Parent_Object);
+        virtual void Create(Object_Class Parent_Object);
         virtual void Delete();
         void Clean();
         // - - Flags
@@ -135,6 +135,7 @@ namespace Xila_Namespace
 
         const Graphics_Types::Class_Type *Get_Class() const;
         bool Has_Class(const Graphics_Types::Class_Type *Class) const;
+        bool Check_Class(const Graphics_Types::Class_Type *Class) const;
         bool Is_Valid();
 
         void Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector);

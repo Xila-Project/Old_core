@@ -361,18 +361,19 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
             // Check if dock button is pressed
             for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
             {
+                // If one of the dock button is pressed, maximize the windows of corresponding software.
                 if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
                 {
                     const Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
-                    Window_Type Child_Window;
+                    // Iterate through all children windows of the parent window.
                     for (uint8_t j = 0; j < Window.Get_Child_Count(); j++)
                     {
-                        Child_Window = Window.Get_Child(j);
+                        Window_Type Child_Window = Window.Get_Child(j);
+                        // If the window is valid and owned by the software, maximize it.
                         if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
                         {
                             Child_Window.Set_State(Window_State_Type::Maximized);
                         }
-                        Child_Window.Clear_Pointer();
                     }
                 }
             }

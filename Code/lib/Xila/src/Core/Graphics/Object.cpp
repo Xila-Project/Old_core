@@ -16,16 +16,10 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-Object_Type::Style_Selector_Type Xila_Namespace::operator|(Part_Type Part, Graphics_Types::State_Type State)
-{
-    return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
-}
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Constructor
-//
-// ------------------------------------------------------------------------- //
+// - Methods
+
+// - - Constructors / destructors
 
 Object_Class::Object_Class() : LVGL_Object_Pointer(NULL)
 {
@@ -43,24 +37,21 @@ Object_Class::Object_Class(const Object_Class &Object_To_Copy)
     this->Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Operators
-//
-// ------------------------------------------------------------------------- //
+// - - Operators
+
+Object_Type::Style_Selector_Type Xila_Namespace::operator|(Part_Type Part, Graphics_Types::State_Type State)
+{
+    return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
+}
 
 Object_Class::operator bool()
 {
     return Is_Valid();
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - - Manipulation
 
-void Object_Class::Create(Object_Class& Parent_Object)
+void Object_Class::Create(Object_Class Parent_Object)
 {
     // Parent object is required (windows, containers, etc.)
     if (Parent_Object)
@@ -199,6 +190,11 @@ bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 {
     Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_has_class(Get_Pointer(), Class_To_Check);
+}
+
+bool Object_Class::Check_Class(const Class_Type* Class_To_Check) const
+{
+    return (this->Get_Class() == Class_To_Check);
 }
 
 const Class_Type *Object_Class::Get_Class() const

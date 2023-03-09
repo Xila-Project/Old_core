@@ -22,13 +22,17 @@ const Class_Type& Label_Class::Class = lv_label_class;
 
 // - - Constructors / destructors
 
+Label_Class::Label_Class() : Object_Class()
+{
+}
+
 Label_Class::Label_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
 // - - Manipulation
 
-void Label_Class::Create(Object_Class& Parent_Object)
+void Label_Class::Create(Object_Class Parent_Object)
 {
     if (Parent_Object)
     {
@@ -107,7 +111,8 @@ bool Label_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!Has_Class( &lv_label_class))
+    Object_Type Object(LVGL_Object_Pointer);
+    if (!Object.Check_Class( &lv_label_class))
     {
         return false;
     }
