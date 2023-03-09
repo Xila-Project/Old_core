@@ -14,32 +14,47 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void List_Class::Create(Object_Class Parent_Object)
+const Class_Type& List_Class::Class = lv_list_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+List_Class::List_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void List_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_list_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_list_create(Parent_Object.Get_Pointer());
     }
 }
 
 Button_Class List_Class::Add_Button(const char* Icon, const char* Text)
 {
-    Button_Class Button;
-    Button.Set_Pointer(lv_list_add_btn(Get_Pointer(), Icon, Text));
-    return Button;
+    lv_obj_t* Button_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Button_Pointer = lv_list_add_btn(Get_Pointer(), Icon, Text);
+    }
+    return Button_Type(Object_Type(Button_Pointer));
 }
 
 Label_Class List_Class::Add_Text(const char* Text)
 {
-    Label_Class Label;
-    Label.Set_Pointer(lv_list_add_text(Get_Pointer(), Text));
-    return Label;
+    lv_obj_t* Label_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Label_Pointer = lv_list_add_text(Get_Pointer(), Text);
+    }
+    return List_Class(Object_Type(Label_Pointer));
 }
 
 
@@ -55,7 +70,7 @@ bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_list_class))
+    if (!Has_Class( &lv_list_class))
     {
         return false;
     }

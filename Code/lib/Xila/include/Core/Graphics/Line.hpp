@@ -21,16 +21,23 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        void Create(Object_Class Parent_Object) override; 
+        // - - Constructors / destructors
+        Line_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override; 
 
         // - - Setters
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Points(const Point_Type *Points, uint16_t Number);
         void Set_Y_Inversion(bool Inversion);
 
         // - - Getters
         bool Get_Y_Inversion();
+
+        // - - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Line_Type;
 }
 

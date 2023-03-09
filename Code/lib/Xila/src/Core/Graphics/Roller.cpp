@@ -12,26 +12,32 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void Roller_Class::Create(Object_Class Parent_Object)
+const Class_Type& Roller_Class::Class = lv_roller_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+Roller_Class::Roller_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void Roller_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_roller_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_roller_create(Parent_Object.Get_Pointer());
     }
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
@@ -39,7 +45,7 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_roller_class))
+    if (!Has_Class( &lv_roller_class))
     {
         return false;
     }
@@ -72,11 +78,7 @@ void Roller_Class::Set_Visible_Row_Count(uint8_t Count)
     lv_roller_set_visible_row_count(Get_Pointer(), Count);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 uint16_t Roller_Class::Get_Option_Count()
 {

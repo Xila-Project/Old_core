@@ -26,12 +26,16 @@ namespace Xila_Namespace
         typedef lv_draw_img_dsc_t Draw_Image_Descriptor_Type;
         typedef lv_draw_line_dsc_t Draw_Line_Descriptor_Type;
         typedef lv_draw_rect_dsc_t Draw_Rectangle_Descriptor_Type;
-
         typedef lv_img_dsc_t Image_Descriptor_Type;
 
         // - Methods
 
-        virtual void Create(Object_Class Parent_Object) override;
+        // - - Constructors / destructors
+
+        Canvas_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // - - Manipulation
 
@@ -50,7 +54,6 @@ namespace Xila_Namespace
         void Draw_Arc(Coordinate_Type X, Coordinate_Type Y, Coordinate_Type Radius, int32_t Start_Angle, int32_t End_Angle, const Draw_Arc_Descriptor_Type *Draw_Arc_Descriptor);
 
         // - - Setters
-
         virtual bool Set_Pointer(lv_obj_t *Pointer) override;
 
         void Set_Pixel(Coordinate_Type X, Coordinate_Type Y, Color_Type Color);
@@ -60,13 +63,12 @@ namespace Xila_Namespace
         void Set_Buffer(void *Buffer, Coordinate_Type Width, Coordinate_Type Height, Image_Class::Color_Format_Type Color_Format);
 
         // - - Getters
-
         Color_Type Get_Pixel(Coordinate_Type X, Coordinate_Type Y);
         Image_Descriptor_Type *Get_Image();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
-
-        // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
+        
+        // - - Attributes
+        static const Graphics_Types::Class_Type &Class;
+            
     } Canvas_Type;
 }
 

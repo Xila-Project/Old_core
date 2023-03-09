@@ -14,17 +14,26 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void Label_Class::Create(Object_Class Parent_Object)
+const Class_Type& Label_Class::Class = lv_label_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+Label_Class::Label_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void Label_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_label_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_label_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -98,8 +107,7 @@ bool Label_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_label_class))
+    if (!Has_Class( &lv_label_class))
     {
         return false;
     }

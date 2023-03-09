@@ -78,8 +78,13 @@ namespace Xila_Namespace
             Real = LV_IMG_SIZE_MODE_REAL
         };
 
-        // -- Methods
-        virtual void Create(Object_Class Parent_Object) override;
+        // - Methods
+        
+        // - - Constructors
+        Image_Class(const Object_Type& Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // -- Setters
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
@@ -102,11 +107,10 @@ namespace Xila_Namespace
         const void *Get_Source();
         bool Get_Antialias();
         Size_Mode_Type Get_Size_Mode();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+        
 
         // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
-
+        static const Graphics_Types::Class_Type& Class;
     } Image_Type;
 }
 

@@ -29,9 +29,9 @@ namespace Xila_Namespace
 
             // - Methods
 
-            Text_Area_Class(const Object_Class& Object);
+            Text_Area_Class(const Object_Class& Object_To_Copy);
 
-            void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
 
             void Add_Char(uint32_t Character);
             void Add_Text(const char *Text);
@@ -48,7 +48,7 @@ namespace Xila_Namespace
 
             // - - Setters
 
-            bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
             void Set_Text(const char *Text);
             void Set_Placeholder_Text(const char *Text);
@@ -76,11 +76,10 @@ namespace Xila_Namespace
             uint32_t Get_Maximum_Length();
             bool Get_Text_Selection();
             uint16_t Get_Password_Show_Time();
-            virtual const Class_Type* Get_Class() const override;
 
             // - Attributes
 
-            static const Class_Type Class;
+            static const Graphics_Types::Class_Type& Class;
 
         } Text_Area_Type;
     }

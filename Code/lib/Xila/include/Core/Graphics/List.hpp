@@ -23,18 +23,23 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        void Create(Object_Class Parent_Object) override;
+        // - - Constructors / destructors
+        List_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
         Graphics_Types::Label_Class Add_Text(const char *Text);
         Button_Class Add_Button(const char *Icon, const char *Text);
 
         // - - Setters
-
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         // - - Getters
-
         const char *Get_Button_Text(Button_Class &Button);
+
+        // - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } List_Type;
 }
 

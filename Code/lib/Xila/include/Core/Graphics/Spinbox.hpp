@@ -21,11 +21,10 @@ namespace Xila_Namespace
         // - Methods
         
         // - - Constructors / destructors
-
-        Spinbox_Class(const Object_Class &Object);
+        Spinbox_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // - - Manipulation.
         void Step_Next();
@@ -39,7 +38,7 @@ namespace Xila_Namespace
         int32_t Get_Step();
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         void Set_Value(int32_t Value);
         void Set_Rollover(bool Rollover);
         void Set_Digit_Format(uint8_t Digit_Count, uint8_t DecimalSeparator_Position_Point_Position);
@@ -49,8 +48,7 @@ namespace Xila_Namespace
         void Set_Digit_Step_Direction(Direction_Type Direction);
 
         // - Attributes
-        static const Class_Type Class;
-
+        static const Graphics_Types::Class_Type& Class;
     } Spinbox_Type;
 }
 

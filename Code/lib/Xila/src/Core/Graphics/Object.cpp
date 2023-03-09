@@ -16,10 +16,6 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-// - Attributes
-
-const Class_Type Object_Class::Class(NULL); // Root class, so no parent class.
-
 Object_Type::Style_Selector_Type Xila_Namespace::operator|(Part_Type Part, Graphics_Types::State_Type State)
 {
     return static_cast<lv_part_t>(Part) | static_cast<lv_state_t>(State);
@@ -39,6 +35,9 @@ Object_Class::Object_Class(lv_obj_t *Object_Pointer) : LVGL_Object_Pointer(Objec
 {
 }
 
+/// @brief Copy constructor.
+/// @details This is called recursively by all children classes since Set_Pointer() is virtual.
+/// @param Object_To_Copy Object to copy.
 Object_Class::Object_Class(const Object_Class &Object_To_Copy)
 {
     this->Set_Pointer(Object_To_Copy.Get_Pointer());
@@ -61,13 +60,15 @@ Object_Class::operator bool()
 //
 // ------------------------------------------------------------------------- //
 
-void Object_Class::Create(Object_Class Parent_Object)
+void Object_Class::Create(Object_Class& Parent_Object)
 {
     // Parent object is required (windows, containers, etc.)
     if (Parent_Object)
     {
-        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
+        {
+            Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+            this->LVGL_Object_Pointer = lv_obj_create(Parent_Object.Get_Pointer());
+        }
 
         this->Set_Style_Radius(0, 0);
         this->Set_Style_Border_Width(0, 0);
@@ -76,10 +77,13 @@ void Object_Class::Create(Object_Class Parent_Object)
 
 void Object_Class::Delete()
 {
+    if (!this->Is_Valid())
+    {
+        return;
+    }
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_obj_del_async(Get_Pointer());
-
-    Set_Pointer(NULL);
+    this->Clear_Pointer();
 }
 
 void Object_Class::Clean()
@@ -191,28 +195,24 @@ void Object_Class::Move_Background()
     lv_obj_move_background(Get_Pointer());
 }
 
-bool Object_Class::Has_Class(const Class_Type *Class_To_Check)
+bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    const Class_Type *Temporary_Class = this->Get_Class();
-    while (Temporary_Class != NULL)
-    {
-        if (Class_To_Check == Temporary_Class)
-        {
-            return true;
-        }
-        Temporary_Class = Temporary_Class->Get_Parent();
-    }
-    return false;
+    Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
+    return lv_obj_has_class(Get_Pointer(), Class_To_Check);
+}
+
+const Class_Type *Object_Class::Get_Class() const
+{
+    return lv_obj_get_class(Get_Pointer());
 }
 
 bool Object_Class::Is_Valid()
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Get_Pointer() == NULL)
     {
         return false;
     }
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_is_valid(Get_Pointer());
 }
 
@@ -1001,10 +1001,7 @@ State_Type Object_Class::Get_State()
 
 Object_Class Object_Class::Get_Child(uint16_t Index)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    Object_Class Child_Object;
-    Child_Object.Set_Pointer(lv_obj_get_child(Get_Pointer(), Index));
-    return Child_Object;
+    return Object_Class(lv_obj_get_child(Get_Pointer(), Index));
 }
 
 /// @brief Get the number of children objects of an object.
@@ -1025,11 +1022,6 @@ void *Object_Class::Get_Group()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_group(Get_Pointer());
-}
-
-const Class_Type *Object_Class::Get_Class() const
-{
-    return &Object_Type::Class;
 }
 
 inline bool Object_Class::Get_Object_Visibility()

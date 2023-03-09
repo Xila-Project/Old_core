@@ -39,13 +39,15 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
+            //Window_Class(const Object_Class &Object_To_Copy);
+
             virtual ~Window_Class();
-            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
             virtual void Create(const Software_Type *Owner_Module);
 
             // - - Setters
             void Set_Title(const char *Title);
-            bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
             void Set_State(Window_State_Type State);
             Window_State_Type Get_State();
 
@@ -53,15 +55,10 @@ namespace Xila_Namespace
             Object_Class Get_Body();
             Object_Class Get_Header();
 
-            virtual const Class_Type* Get_Class() const override;
             const Software_Type *Get_Owner_Software() const;
 
-            // - - Operators
-
-            Window_Class& operator=(const Object_Class& Object);
-
             // - Attributes
-            static const Class_Type Class;
+            static const Graphics_Types::Class_Type& Class;
         protected:
             // - Methods
 
@@ -85,17 +82,17 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
+            Parent_Window_Class(const Object_Type& Object_To_Copy);
+
             ~Parent_Window_Class();
 
-            void Create(const Software_Type *Owner_Module) override;
-            void Delete();
+            virtual void Create(const Software_Type *Owner_Module) override;
+            virtual void Delete() override;
 
-            virtual const Class_Type* Get_Class() const override;
-
-            static Parent_Window_Class Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
+            static Parent_Window_Class* Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
 
             // - Attributes
-            static const Class_Type Class;
+            static const Graphics_Types::Class_Type& Class;
         private:
             // - Attributes
             static std::list <Parent_Window_Class*> List;

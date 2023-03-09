@@ -16,27 +16,26 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type Text_Area_Class::Class(&Object_Class::Class);
+const Class_Type &Text_Area_Class::Class = lv_textarea_class;
 
 // - Methods
 
 // - - Constructors / Destructors
 
-Text_Area_Class::Text_Area_Class(const Object_Class &Object) : Object_Class()
+/// @brief Copy constructor from object.
+/// @param Object_To_Copy 
+Text_Area_Class::Text_Area_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
-    if (Object.Get_Class() == &Class)
-    {
-        Set_Pointer(Object.Get_Pointer());
-    }
 }
 
 // - - Manipulation
 
-void Text_Area_Class::Create(Object_Class Parent_Object)
+void Text_Area_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_textarea_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_textarea_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -94,11 +93,7 @@ void Text_Area_Class::Delete_Character_Forward()
     lv_textarea_del_char_forward(Get_Pointer());
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 bool Text_Area_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
@@ -106,7 +101,7 @@ bool Text_Area_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_textarea_class))
+    if (!Has_Class(&lv_textarea_class))
     {
         return false;
     }
@@ -186,11 +181,7 @@ void Text_Area_Class::Set_Text_Selection(bool Enabled)
     lv_textarea_set_text_selection(Get_Pointer(), Enabled);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 const char *Text_Area_Class::Get_Accepted_Characters()
 {
@@ -212,9 +203,12 @@ uint32_t Text_Area_Class::Get_Cursor_Position()
 
 Label_Class Text_Area_Class::Get_Label()
 {
-    Label_Class Label;
-    Label.Set_Pointer(lv_textarea_get_label(Get_Pointer()));
-    return Label;
+    lv_obj_t* Label_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Label_Pointer = lv_textarea_get_label(Get_Pointer());
+    }
+    return Label_Class(Object_Type(Label_Pointer));
 }
 
 uint32_t Text_Area_Class::Get_Maximum_Length()
@@ -257,9 +251,4 @@ bool Text_Area_Class::Get_Text_Selection()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_textarea_get_text_selection(Get_Pointer());
-}
-
-const Class_Type *Text_Area_Class::Get_Class() const
-{
-    return &Class;
 }

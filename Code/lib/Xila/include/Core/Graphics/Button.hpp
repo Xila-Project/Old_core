@@ -21,20 +21,17 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        // - - Management
+        // - - Constructors / destructors
+        Button_Class(const Object_Class &Object_To_Copy);
 
-        virtual void Create(Object_Class Parent_Object) override;
+        // - - Management
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // - - Setters
-
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        // - - Getters
-    
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
-
-        // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
+        // - - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Button_Type;
 }
 

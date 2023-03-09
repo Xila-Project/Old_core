@@ -47,10 +47,10 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / Destructors
-        Table_Class(const Object_Class &Object);
+        Table_Class(const Object_Class &Object_To_Copy);
 
         // - - Management
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class& Parent_Object) override;
 
         void Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
         void Clear_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control);
@@ -62,10 +62,10 @@ namespace Xila_Namespace
         uint16_t Get_Column_Count();
         Coordinate_Type Get_Column_Width(uint16_t Column);
         void Get_Selected_Cell(uint16_t *Row, uint16_t *Column);
-        virtual const Class_Type *Get_Class() const override;
+        
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *Object);
+        virtual bool Set_Pointer(lv_obj_t *Object) override;
 
         void Set_Cell_Value(uint16_t Row, uint16_t Column, const char *Value);
         void Set_Cell_Value_Format(uint16_t Row, uint16_t Column, const char *Formated_Value, ...);
@@ -74,7 +74,7 @@ namespace Xila_Namespace
         void Set_Column_Width(uint16_t Column_Identifier, Coordinate_Type Width);
         
         // - Attributes
-        static const Class_Type Class;
+        static const Graphics_Types::Class_Type& Class;
 
     } Table_Type;
 }

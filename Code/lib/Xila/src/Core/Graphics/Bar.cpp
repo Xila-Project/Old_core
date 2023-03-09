@@ -17,17 +17,24 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-Class_Type Bar_Class::Class(&Object_Type::Class);
+const Class_Type& Bar_Class::Class = lv_bar_class;
 
 // - Methods
 
+// - - Constructors / destructors
+
+Bar_Class::Bar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
 // - - Manipulation
 
-void Bar_Class::Create(Object_Class Parent_Object)
+void Bar_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_bar_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_bar_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -43,7 +50,7 @@ bool Bar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_bar_class))
+    if (!Has_Class(&lv_bar_class))
     {
         return false;
     }
@@ -117,7 +124,3 @@ Bar_Class::Mode::Type Bar_Class::Get_Mode()
     return lv_bar_get_mode(Get_Pointer());
 }
 
-const Class_Type* Bar_Class::Get_Class() const
-{
-    return &Class;
-}

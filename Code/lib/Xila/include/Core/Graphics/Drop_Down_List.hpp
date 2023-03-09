@@ -21,9 +21,11 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        // - - Management
+        // - - Constructors / destructors
+        Drop_Down_List_Class(const Object_Class &Object_To_Copy);
 
-        virtual void Create(Object_Class Parent_Object) override;
+        // - - Management
+        virtual void Create(Object_Class& Parent_Object) override;
 
         void Add_Option(const char *Option, uint32_t Position);
         void Clear_Options();
@@ -53,12 +55,9 @@ namespace Xila_Namespace
         const char *Get_Symbol();
         bool Get_Selected_Highlight();
         Direction_Type Get_Direction();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
 
         // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
-
-
+        static const Graphics_Types::Class_Type& Class;
     } Drop_Down_List_Type;
 }
 

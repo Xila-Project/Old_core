@@ -34,14 +34,18 @@ namespace Xila_Namespace
             
             // - Methods
 
-            void Create(Object_Class Parent_Object) override;
+            // - - Constructors / destructors
 
+            Label_Class(const Object_Class &Object_To_Copy);
+
+            // - - Manipulation
+            virtual void Create(Object_Class& Parent_Object) override;
             void Insert_Text(uint32_t Position, const char *Text);
             void Cut_Text(uint32_t Position, uint32_t Length);
             bool Is_Char_Under_Position(Point_Type *Position);
 
             // - - Setters
-            bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+            virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
             void Set_Text(const char *Text);
             void Set_Text_Format(const char *Format, ...);
@@ -59,14 +63,11 @@ namespace Xila_Namespace
             uint32_t Get_Letter_On(Point_Type *Position_In);
             uint32_t Get_Selection_Start();
             uint32_t Get_Selection_End();
+            
+            // - - Attributes
+            static const Graphics_Types::Class_Type &Class;
 
-            // - - Operators
-
-            Label_Class &operator=(const Object_Class &Object)
-            {
-                Set_Pointer(Object.Get_Pointer());
-                return *this;
-            }
+        
         } Label_Type;
     }
 }

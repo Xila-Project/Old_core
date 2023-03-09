@@ -53,28 +53,34 @@ namespace Xila_Namespace
             } Type;
         };
 
-        // -- Methods
-        void Create(Object_Class Parent_Object) override;
+        // - Methods
 
-        // -- Set attributes values.
+        // - - Constructors / destructors
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        Bar_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
+
+        // - - Setters.
+
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Value(int32_t Value, bool Enable_Animation = true);
         void Set_Start_Value(int32_t Value, bool Enable_Animation = true);
         void Set_Range(int32_t Minimum_Value, int32_t Maximum_Value);
         void Set_Mode(Mode::Type Mode);
 
-        // -- Get attributes values.
+        // - - Getters.
         int32_t Get_Value();
         int32_t Get_Start_Value();
         int32_t Get_Minimum_Value();
         int32_t Get_Maximum_Value();
         Mode::Type Get_Mode();
-        virtual const Graphics_Types::Class_Type *Get_Class() const override;                
 
-        // - Attributes
-        static const Graphics_Types::Class_Type Class;
+        // - - Attributes
+        static const Graphics_Types::Class_Type &Class;
+
     } Bar_Type;
 }
 

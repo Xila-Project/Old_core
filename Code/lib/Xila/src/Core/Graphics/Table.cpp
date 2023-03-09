@@ -16,25 +16,25 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type Table_Class::Class(&Object_Class::Class);
+const Class_Type &Table_Class::Class = lv_table_class;
 
 // - Methods
 
 // - - Constructors / Destructors
 
-Table_Class::Table_Class(const Object_Class &Object) : Object_Class()
+Table_Class::Table_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
-    if (Object.Get_Class() == &Class)
-    {
-        Set_Pointer(Object.Get_Pointer());
-    }
 }
 
 // - - Manipulation
 
-void Table_Class::Create(Object_Class Parent_Object)
+void Table_Class::Create(Object_Class& Parent_Object)
 {
-    Set_Pointer(lv_table_create(Parent_Object.Get_Pointer()));
+    if (Parent_Object)
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_table_create(Parent_Object.Get_Pointer());
+    }
 }
 
 void Table_Class::Add_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::Type Cell_Control)
@@ -55,11 +55,7 @@ bool Table_Class::Has_Cell_Control(uint16_t Row, uint16_t Column, Cell_Control::
     return lv_table_has_cell_ctrl(Get_Pointer(), Row, Column, Cell_Control);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 const char *Table_Class::Get_Cell_Value(uint16_t Row, uint16_t Column)
 {
@@ -91,11 +87,7 @@ void Table_Class::Get_Selected_Cell(uint16_t *Row, uint16_t *Column)
     lv_table_get_selected_cell(Get_Pointer(), Row, Column);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 bool Table_Class::Set_Pointer(lv_obj_t *Object)
 {
@@ -103,7 +95,7 @@ bool Table_Class::Set_Pointer(lv_obj_t *Object)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_table_class))
+    if (!Has_Class( &lv_table_class))
     {
         return false;
     }

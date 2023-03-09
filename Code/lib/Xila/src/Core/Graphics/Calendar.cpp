@@ -12,18 +12,28 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void Calendar_Class::Create(Object_Class Parent_Object)
+const Class_Type &Calendar_Class::Class = lv_calendar_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+Calendar_Class::Calendar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void Calendar_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_calendar_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_calendar_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -35,12 +45,11 @@ void Calendar_Class::Create(Object_Class Parent_Object)
 
 bool Calendar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_calendar_class))
+    if (!Has_Class(&lv_calendar_class))
     {
         return false;
     }
@@ -48,50 +57,57 @@ bool Calendar_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Calendar_Class::Set_Days_Names(const char** Day_Names)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+void Calendar_Class::Set_Days_Names(const char **Day_Names)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_calendar_set_day_names(Get_Pointer(), Day_Names);
 }
 
-void Calendar_Class::Set_Highlighted_Dates(Date_Type* Date, uint16_t Number)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+void Calendar_Class::Set_Highlighted_Dates(Date_Type *Date, uint16_t Number)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_calendar_set_highlighted_dates(Get_Pointer(), Date, Number);
 }
 
 void Calendar_Class::Set_Showed_Date(uint32_t Year, uint32_t Month)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_calendar_set_showed_date(Get_Pointer(), Year, Month);
 }
 
 void Calendar_Class::Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_calendar_set_today_date(Get_Pointer(), Year, Month, Day);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 Button_Matrix_Class Calendar_Class::Get_Button_Matrix()
 {
-    Button_Matrix_Class Button_Matrix;
-    Button_Matrix.Set_Pointer(lv_calendar_get_btnmatrix(Get_Pointer()));
-    return Button_Matrix;
+    lv_obj_t *Button_Matrix;
+
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Button_Matrix = lv_calendar_get_btnmatrix(Get_Pointer());
+    };
+
+    return Button_Matrix_Type(Object_Type(Button_Matrix));
 }
 
-Calendar_Class::Date_Type* Calendar_Class::Get_Highlighted_Dates()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+Calendar_Class::Date_Type *Calendar_Class::Get_Highlighted_Dates()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_calendar_get_highlighted_dates(Get_Pointer());
 }
 
 uint16_t Calendar_Class::Get_Highlighted_Dates_Number()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_calendar_get_highlighted_dates_num(Get_Pointer());
 }
 
-bool Calendar_Class::Get_Pressed_Date(Date_Type* Date)
+bool Calendar_Class::Get_Pressed_Date(Date_Type *Date)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (lv_calendar_get_pressed_date(Get_Pointer(), Date) == LV_RES_INV)
@@ -101,12 +117,14 @@ bool Calendar_Class::Get_Pressed_Date(Date_Type* Date)
     return true;
 }
 
-const Calendar_Class::Date_Type* Calendar_Class::Get_Showed_Dates()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+const Calendar_Class::Date_Type *Calendar_Class::Get_Showed_Dates()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_calendar_get_showed_date(Get_Pointer());
 }
 
-const Calendar_Class::Date_Type* Calendar_Class::Get_Today_Date()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+const Calendar_Class::Date_Type *Calendar_Class::Get_Today_Date()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_calendar_get_today_date(Get_Pointer());
 }

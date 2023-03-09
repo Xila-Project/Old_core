@@ -14,50 +14,51 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-const Class_Type Tabs_Class::Class(&Object_Class::Class);
-
 // - Methods
 
 // - - Constructors / Destructors
 
-Tabs_Class::Tabs_Class(const Object_Class &Object) : Object_Class()
+Tabs_Class::Tabs_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
-    if (Object.Get_Class() == &Class)
-    {
-        Set_Pointer(Object.Get_Pointer());
-    }
 }
 
 // - - Manipulation
 
-void Tabs_Class::Create(Object_Class Parent_Object)
+void Tabs_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction_Type::Top), 20));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction_Type::Top), 20);
     }
 }
 
-void Tabs_Class::Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size)
+void Tabs_Class::Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction), Size));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_tabview_create(Parent_Object.Get_Pointer(), static_cast<lv_dir_t>(Direction), Size);
     }
 }
 
-Object_Class Tabs_Class::Add_Tab(const char *Name)
+Object_Class Tabs_Class::Add_Tab(const String_Type &Name)
 {
-    Object_Class Object;
-    Object.Set_Pointer(lv_tabview_add_tab(Get_Pointer(), Name));
-    return Object;
+    lv_obj_t* Tab_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Tab_Pointer = lv_tabview_add_tab(Get_Pointer(), Name);
+    }
+    return Object_Class(Tab_Pointer);
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+void Tabs_Class::Rename_Tab(uint32_t Index, const String_Type &New_name)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_tabview_rename_tab(Get_Pointer(), Index, New_name);
+}
+
+// - - Setters
 
 bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
@@ -65,7 +66,7 @@ bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_tabview_class))
+    if (!Has_Class(&lv_tabview_class))
     {
         return false;
     }
@@ -73,7 +74,7 @@ bool Tabs_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     return true;
 }
 
-void Tabs_Class::Set_Active_Tab(uint16_t Identifier, bool Animation)
+void Tabs_Class::Set_Active_Tab(uint32_t Identifier, bool Animation)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Animation)
@@ -86,17 +87,16 @@ void Tabs_Class::Set_Active_Tab(uint16_t Identifier, bool Animation)
     }
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 Object_Class Tabs_Class::Get_Content()
 {
-    Object_Class Object;
-    Object.Set_Pointer(lv_tabview_get_content(Get_Pointer()));
-    return Object;
+    lv_obj_t *Object_Type;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Object_Type = lv_tabview_get_content(Get_Pointer());
+    }
+    return Object_Class(Object_Type);
 }
 
 uint16_t Tabs_Class::Get_Tab_Active()
@@ -107,12 +107,10 @@ uint16_t Tabs_Class::Get_Tab_Active()
 
 Button_Class Tabs_Class::Get_Tab_Buttons()
 {
-    Button_Class Button;
-    Button.Set_Pointer(lv_tabview_get_tab_btns(Get_Pointer()));
-    return Button;
-}
-
-const Class_Type *Tabs_Class::Get_Class() const
-{
-    return &Class;
+    lv_obj_t *Button_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Button_Pointer = lv_tabview_get_tab_btns(Get_Pointer());
+    }
+    return Button_Class(Object_Type(Button_Pointer));
 }

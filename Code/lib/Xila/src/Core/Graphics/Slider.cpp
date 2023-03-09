@@ -12,18 +12,28 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void Slider_Class::Create(Object_Class Parent_Object)
+const Class_Type& Slider_Class::Class = lv_slider_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+Slider_Class::Slider_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void Slider_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_slider_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_slider_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -45,7 +55,7 @@ bool Slider_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_slider_class))
+    if (!Has_Class( &lv_slider_class))
     {
         return false;
     }

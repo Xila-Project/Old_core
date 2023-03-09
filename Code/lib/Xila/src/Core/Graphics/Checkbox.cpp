@@ -12,35 +12,28 @@
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
+// - Attributes
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+const Class_Type& Checkbox_Class::Class = lv_checkbox_class;
 
-Checkbox_Class::Checkbox_Class() : Object_Class()
+// - Methods
+
+// - - Constructors / destructors
+
+Checkbox_Class::Checkbox_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
 }
 
-Checkbox_Class::Checkbox_Class(const Object_Class &Object_To_Copy) 
-{
-    Set_Pointer(Object_To_Copy.Get_Pointer());
-}
+// - - Manipulation
 
-Checkbox_Class& Checkbox_Class::operator=(const Object_Class& Object)
-{
-    Set_Pointer(Object.Get_Pointer());
-    return *this;
-}
-
-void Checkbox_Class::Create(Object_Class Parent_Object)
+void Checkbox_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        Set_Pointer(lv_checkbox_create(Parent_Object.Get_Pointer()));
+        this->LVGL_Object_Pointer = lv_checkbox_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -56,8 +49,7 @@ bool Checkbox_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     {
         return false;
     }
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_checkbox_class))
+   if (!Has_Class( &lv_checkbox_class))
     {
         return false;
     }

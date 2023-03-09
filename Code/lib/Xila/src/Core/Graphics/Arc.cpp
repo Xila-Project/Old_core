@@ -16,17 +16,20 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-Class_Type Arc_Class::Class(&Object_Type::Class);
-
 // - Methods
+
+Arc_Class::Arc_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
 
 // - - Manipulation
 
-void Arc_Class::Create(Object_Class Parent_Object)
+void Arc_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_arc_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Auto_Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_arc_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -38,7 +41,7 @@ bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_arc_class))
+    if (!Has_Class(&lv_arc_class))
     {
         return false;
     }
@@ -160,9 +163,4 @@ Arc_Class::Mode::Type Arc_Class::Get_Mode()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_arc_get_mode(Get_Pointer());
-}
-
-const Class_Type* Arc_Class::Get_Class() const
-{
-    return &Arc_Class::Class;
 }

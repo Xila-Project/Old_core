@@ -16,27 +16,24 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type Spinbox_Class::Class(&Object_Class::Class);
+const Class_Type& Spinbox_Class::Class = lv_spinbox_class;
 
 // - Methods
 
 // - - Constructors / Destructors.
 
-Spinbox_Class::Spinbox_Class(const Object_Class &Object) : Object_Class()
+Spinbox_Class::Spinbox_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
-    if (Object.Get_Class() == &Class)
-    {
-        Set_Pointer(Object.Get_Pointer());
-    }
 }
 
 // - - Manipulation.
 
-void Spinbox_Class::Create(Object_Class Parent_Object)
+void Spinbox_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_spinbox_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_spinbox_create(Parent_Object.Get_Pointer());
     }
 }
 
@@ -46,7 +43,6 @@ void Spinbox_Class::Step_Next()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_spinbox_step_next(Get_Pointer());
-    lv_spinbox_class
 }
 
 void Spinbox_Class::Step_Previous()
@@ -95,7 +91,7 @@ bool Spinbox_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_spinbox_class))
+    if (!Has_Class(&lv_spinbox_class))
     {
         return false;
     }

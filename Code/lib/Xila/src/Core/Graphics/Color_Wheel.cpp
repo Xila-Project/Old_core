@@ -1,42 +1,49 @@
 ///
- /// @file Color_Wheel.cpp
- /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 17-07-2022
- /// 
- /// @copyright Copyright (c) 2022
- /// 
+/// @file Color_Wheel.cpp
+/// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 17-07-2022
+///
+/// @copyright Copyright (c) 2022
+///
 
- #include "Core/Graphics/Color_Wheel.hpp"
+#include "Core/Graphics/Color_Wheel.hpp"
 #include "Core/Graphics/Graphics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Graphics_Types;
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - Attributes
 
-void Color_Wheel_Class::Create(Object_Class Parent_Object)
+const Class_Type &Color_Wheel_Class::Class = lv_colorwheel_class;
+
+// - Methods
+
+// - - Constructors / destructors
+
+Color_Wheel_Class::Color_Wheel_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+{
+}
+
+// - - Manipulation
+
+void Color_Wheel_Class::Create(Object_Class& Parent_Object)
 {
     Set_Pointer(lv_colorwheel_create(Parent_Object.Get_Pointer(), true));
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //
+// - - Getters
 
 Color_Wheel_Class::Mode::Type Color_Wheel_Class::Get_Mode()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_colorwheel_get_color_mode(Get_Pointer());
 }
 
 bool Color_Wheel_Class::Get_Mode_Fixed()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_colorwheel_get_color_mode_fixed(Get_Pointer());
 }
 
@@ -46,20 +53,15 @@ Object_Class::Color_Type Color_Wheel_Class::Get_Color()
     return Color;
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
-bool Color_Wheel_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+bool Color_Wheel_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_colorwheel_class))
+    if (!Has_Class(&lv_colorwheel_class))
     {
         return false;
     }
@@ -68,16 +70,19 @@ bool Color_Wheel_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 }
 
 bool Color_Wheel_Class::Set_Color(Color_Type Color)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_colorwheel_set_rgb(Get_Pointer(), Color.Get_LVGL_Color());
 }
 
 void Color_Wheel_Class::Set_Mode(Mode::Type Mode)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_colorwheel_set_mode(Get_Pointer(), Mode);
 }
 
 void Color_Wheel_Class::Set_Mode_Fixed(bool Fixed)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_colorwheel_set_mode_fixed(Get_Pointer(), Fixed);
 }

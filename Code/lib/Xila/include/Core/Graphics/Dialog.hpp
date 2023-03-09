@@ -15,8 +15,9 @@ namespace Xila_Namespace
         public:
             // - Methods
 
+
             virtual void Create(const Software_Type* Owner_Software) override;
-            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
 
             // - - Getters
 
@@ -35,7 +36,7 @@ namespace Xila_Namespace
         {
         public:
             // - Methods
-            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
 
             // - - Getters
 
@@ -53,14 +54,14 @@ namespace Xila_Namespace
         typedef class Progress_Dialog_Class : public Dialog_Class
         {
         public:
-            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
 
         } Progress_Dialog_Type;
 
         typedef class Message_Dialog_Class : public Dialog_Class
         {
         public:
-            virtual void Create(Object_Class Parent_Object) override;
+            virtual void Create(Object_Class& Parent_Object) override;
 
         } Message_Dialog_Type;
 

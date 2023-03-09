@@ -18,11 +18,11 @@ namespace Xila_Namespace
     typedef class Button_Matrix_Class : public Object_Class
     {
     public:
-        // -- Types
+        // - Types
 
         typedef lv_btnmatrix_btn_draw_cb_t Button_Draw_Callback_Type;
 
-        // -- Enumerations
+        // - Enumerations
 
         class Control
         {
@@ -57,9 +57,12 @@ namespace Xila_Namespace
 
         // - - Constructor
 
-        virtual void Create(Object_Class Parent_Object) override;
+        Button_Matrix_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
+
+        virtual void Create(Object_Class& Parent_Object) override;
+
         void Clear_Button_Control(uint16_t Button_Identifier, Control::Type Control);
         void Clear_All_Buttons_Control(Control::Type Control);
         bool Has_Button_Control(uint16_t Button_Identifier, Control::Type Control);
@@ -84,12 +87,10 @@ namespace Xila_Namespace
 
         const char *Get_Button_Text(uint16_t Button_Identifier);
         bool Get_Popovers();
-        bool Get_One_Checked();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
+        bool Get_One_Checked();    
 
-        // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
-
+        // - - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Button_Matrix_Type;
 }
 

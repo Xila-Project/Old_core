@@ -13,34 +13,42 @@
 #include "Core/Software/Softwares.hpp"
 
 
+
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-// - Attributes
-
-Class_Type Window_Class::Class(Object_Class::Class);
-
 // - Methods
 
+// - - Constructors / Destructors
+
+// TODO : Implement copy constructor (have to copy header and body childs object into the right place).
+//Window_Class::Window_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+//{
+//}
+
+/// @brief 
+/// @details This destructor is defined explicitly to delete the window if the software lose the scope of the window.
+/// Indeed, all of the child objects are deleted b
 Window_Class::~Window_Class()
 {
-    if (this->Is_Valid())
-    {
-        this->Delete();
-    }
+    this->Delete();
 }
 
-// - - Management
+// - - Manipulation
 
 /// @brief Function that create a window.
 void Window_Class::Create(const Software_Type* Owner_Software)
 {
+    Parent_Window_Type* Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
+    if (Parent_Window == NULL)
+    {
+        return;
+    }
     this->Owner_Software = Owner_Software;
-    this->Create(Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User()));
     this->Set_Interface();
 }
 
-void Window_Class::Create(Object_Class Parent_Object)
+void Window_Class::Create(Object_Class& Parent_Object)
 {
     this->Owner_Software = NULL;
     this->Create(Parent_Object);
@@ -98,13 +106,13 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Add_Flag(Flag_Type::Hidden);
         break;
     case Window_State_Type::Minimized:
         // - Set window hidden
         Add_Flag(Flag_Type::Hidden);
         // - Set parent window header visible
-        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Clear_Flag(Flag_Type::Hidden);
+        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Clear_Flag(Flag_Type::Hidden);
         break;
     case Window_State_Type::Full_screen:
         // - Set window visible
@@ -114,7 +122,7 @@ void Window_Class::Set_State(Window_State_Type State)
         // - Set window size to parent size
         Set_Size(Percentage(100), Percentage(100));
         // - Set parent window header hidden
-        Parent_Window_Type::Get_User_Parent_Window(Accounts.Get_Logged_User()).Get_Header().Add_Flag(Flag_Type::Hidden);
+        Parent_Window_Type::Get_User_Parent_Window(this->Get_Owner_Software()->Get_Owner_User())->Get_Header().Add_Flag(Flag_Type::Hidden);
         break;
     }
 }
@@ -148,7 +156,7 @@ bool Window_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_obj_class))
+    if (!Has_Class( &lv_obj_class))
     {
         return false;
     }
@@ -171,15 +179,4 @@ Object_Class Window_Class::Get_Body()
 Object_Class Window_Class::Get_Header()
 {
     return Header;
-}
-
-const Class_Type* Window_Class::Get_Class() const
-{
-    return &Class;
-}
-
-Window_Class& Window_Class::operator=(const Object_Class& Object)
-{
-    this->Set_Pointer(Object.Get_Pointer());
-    return *this;
 }

@@ -27,11 +27,9 @@ namespace Xila_Namespace
 
         // - Methods
 
-
-        Checkbox_Class();
         Checkbox_Class(const Object_Class &Object_To_Copy);
 
-        virtual void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class& Parent_Object) override;
         // - - Setters.
 
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
@@ -41,13 +39,10 @@ namespace Xila_Namespace
 
         // - - Getters.
         const char *Get_Text();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
-
-        // - - Operators
-        Checkbox_Class& operator=(const Object_Class& Object);
-
+    
         // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
+        static const Graphics_Types::Class_Type& Class;
+        
     } Checkbox_Type;
 }
 

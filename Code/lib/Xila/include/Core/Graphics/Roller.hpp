@@ -27,24 +27,29 @@ namespace Xila_Namespace
             Infinite = LV_ROLLER_MODE_INFINITE
         };
 
-        // -- Methods
+        // - Methods
 
-        void Create(Object_Class Parent_Object) override;
+        // - - Constructors / destructors
+        Roller_Class(const Object_Class &Object_To_Copy);
 
-        // -- Setters
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        // - - Setters
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Options(const char *Options, Mode_Type Mode);
         void Set_Selected(uint16_t Index, bool Animated);
         void Set_Visible_Row_Count(uint8_t Row_Count);
 
-        // -- Getters
-
+        // - - Getters
         uint16_t Get_Selected();
         void Get_Selected_String(String_Type& String);
         const char *Get_Options();
         uint16_t Get_Option_Count();
+
+        // - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Roller_Type;
 }
 

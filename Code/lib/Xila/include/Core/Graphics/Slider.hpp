@@ -18,11 +18,11 @@ namespace Xila_Namespace
     typedef class Slider_Class : public Object_Class
     {
     public:
-        // -- Types
+        // - Types
 
         typedef lv_slider_mode_t Mode_Type;
 
-        // -- Enumerations
+        // - - Enumerations
         enum Mode_Enumeration
         {
             Normal = LV_SLIDER_MODE_NORMAL,
@@ -37,12 +37,17 @@ namespace Xila_Namespace
         } Draw_Part_Type;
 
         // - Methods
-        void Create(Object_Class Parent_Object) override;
+
+        // - - Constructors / destructors
+        Slider_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
         bool Is_Dragged();
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
         void Set_Value(int32_t Value, bool Animation);
         void Set_Left_Value(int32_t Value, bool Animation);
@@ -55,6 +60,9 @@ namespace Xila_Namespace
         int32_t Get_Minimum_Value();
         int32_t Get_Maximum_Value();
         Mode_Type Get_Mode();
+
+        // - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Slider_Type;
 }
 

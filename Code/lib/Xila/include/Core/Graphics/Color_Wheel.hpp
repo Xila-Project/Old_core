@@ -35,14 +35,17 @@ namespace Xila_Namespace
 
         // - Methods
 
-        virtual void Create(Object_Class Parent_Object) override;
+        // - - Constructors / destructors
+        Color_Wheel_Class(const Object_Class &Object_To_Copy);
+
+        // - - Manipulation
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // - - Getters
         Mode::Type Get_Mode();
         bool Get_Mode_Fixed();
         Color_Type Get_Color();
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
-
+        
         // - - Setters
         bool Set_Color(Color_Type Color);
         void Set_Mode(Mode::Type Mode);
@@ -50,7 +53,8 @@ namespace Xila_Namespace
         virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
         
         // - Attributes
-        static const Graphics_Types::Class_Type Class_Type;
+        static const Graphics_Types::Class_Type& Class;
+        
     } Color_Wheel_Type;
 }
 

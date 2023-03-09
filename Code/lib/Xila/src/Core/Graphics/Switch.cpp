@@ -16,42 +16,28 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type Switch_Class::Class(&Object_Class::Class);
+const Class_Type& Switch_Class::Class = lv_switch_class;
 
 // - Methods
 
 // - - Constructors / Destructors
 
-Switch_Class::Switch_Class(const Object_Class &Object) : Object_Class()
+Switch_Class::Switch_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
 {
-    if (Object.Get_Class() == &Class)
-    {
-        Set_Pointer(Object.Get_Pointer());
-    }
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                  Management
-//
-// ------------------------------------------------------------------------- //
+// - - Manipulation
 
-void Switch_Class::Create(Object_Class Parent_Object)
+void Switch_Class::Create(Object_Class& Parent_Object)
 {
     if (Parent_Object)
     {
-        Set_Pointer(lv_switch_create(Parent_Object.Get_Pointer()));
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        this->LVGL_Object_Pointer = lv_switch_create(Parent_Object.Get_Pointer());
     }
-
-
-
 }
 
-// ------------------------------------------------------------------------- //
-//
-//                                    Setters
-//
-// ------------------------------------------------------------------------- //
+// - - Setters
 
 bool Switch_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 {
@@ -59,16 +45,10 @@ bool Switch_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
     {
         return false;
     }
-    if (!lv_obj_has_class(LVGL_Object_Pointer, &lv_switch_class))
+    if (!Has_Class( &lv_switch_class))
     {
         return false;
     }
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
     return true;
 }
-
-// ------------------------------------------------------------------------- //
-//
-//                                    Getters
-//
-// ------------------------------------------------------------------------- //

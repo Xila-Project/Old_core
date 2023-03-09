@@ -48,13 +48,16 @@ namespace Xila_Namespace
 
         // - Methods
 
+        // - - Constructors / destructors
+        Arc_Class(const Object_Class &Object_To_Copy);
+
         // - - Management
 
-        void Create(Object_Class Parent_Object) override;
+        virtual void Create(Object_Class& Parent_Object) override;
 
         // - - Setters.
 
-        bool Set_Pointer(lv_obj_t *Object_Pointer);
+        virtual bool Set_Pointer(lv_obj_t *Object_Pointer) override;
 
         // - - - Angles
         void Set_Start_Angle(uint16_t Start_Angle);
@@ -85,12 +88,8 @@ namespace Xila_Namespace
 
         Mode::Type Get_Mode();
 
-        virtual const Graphics_Types::Class_Type* Get_Class() const override;
-        static const Graphics_Types::Class_Type Class;
-
-    protected:
-
-
+        // - - Attributes
+        static const Graphics_Types::Class_Type& Class;
     } Arc_Type;
 }
 

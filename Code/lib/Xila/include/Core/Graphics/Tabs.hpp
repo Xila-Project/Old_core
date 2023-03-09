@@ -22,19 +22,19 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
-        Tabs_Class(const Object_Class &Object);
+        Tabs_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
-        void Create(Object_Class Parent_Object) override;
-        void Create(Object_Class Parent_Object, Direction_Type Direction, Coordinate_Type Size);
+        virtual void Create(Object_Class& Parent_Object) override;
+        virtual void Create(Object_Class& Parent_Object, Direction_Type Direction, Coordinate_Type Size);
 
-        Object_Class Add_Tab(const char *Name);
-        void Rename_Tab(const char *Name);
+        Object_Class Add_Tab(const String_Type& Name);
+        void Rename_Tab(uint32_t Index, const String_Type &New_name);
 
         // - - Setters.
-        bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+        virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
-        void Set_Active_Tab(uint16_t Identifier, bool Animation);
+        void Set_Active_Tab(uint32_t Identifier, bool Animation);
 
         // - - Getters.
         uint16_t Get_Tab_Active();
@@ -44,10 +44,9 @@ namespace Xila_Namespace
         Button_Class Get_Tab_Buttons();
 
         uint16_t Get_Animation_Time();
-        virtual const Class_Type* Get_Class() const override;
 
         // - Attributes
-        static const Class_Type Class;
+        static const Graphics_Types::Class_Type& Class;
     } Tabs_Type;
 }
 
