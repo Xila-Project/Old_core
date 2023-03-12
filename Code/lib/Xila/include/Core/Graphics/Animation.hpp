@@ -38,13 +38,8 @@ namespace Xila_Namespace
         public:
             // - Methods
 
-            // - - Management
             Animation_Class();
-
-            void Create();
-            void Delete();
-            void Initialize();
-
+            
             static uint16_t Count_Running();
             static bool Custom_Delete(void *Variable, Execution_Callback_Type Execution_Callback);
             static Animation_Class Custom_Get(void *Variable, Execution_Callback_Type Execution_Callback);
@@ -66,16 +61,12 @@ namespace Xila_Namespace
             void Start();
 
             // - - Getters
-            lv_anim_t *Get_Pointer();
-
             Animation_Class Get(void *Variable, Execution_Callback_Type Execution_Callback);
             uint32_t Get_Delay();
             uint32_t Get_Playtime();
             void *Get_User_Data();
 
             // - - Setters
-            void Set_Pointer(lv_anim_t *Animation_Pointer);
-
             void Set_Execution_Callback(Execution_Callback_Type Execution_Callback);
             void Set_Delay(uint32_t Delay);
             void Set_Early_Apply(bool Enable);
@@ -93,7 +84,7 @@ namespace Xila_Namespace
             void Set_Variable(void *Variable);
 
         private:
-            lv_anim_t *LVGL_Animation_Pointer;
+            lv_anim_t LVGL_Animation;
         } Animation_Type;
 
     }

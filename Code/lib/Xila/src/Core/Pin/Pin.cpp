@@ -274,10 +274,3 @@ void Xila_Namespace::Pin_Class::Detach_Interrupt(uint8_t Pin)
 {
     detachInterrupt(Pin);
 }
-
-///
-/// @brief Construct a new GPIO_Class::GPIO_Class object
-///
-Xila_Namespace::Pin_Class::Pin_Class()
-{
-}

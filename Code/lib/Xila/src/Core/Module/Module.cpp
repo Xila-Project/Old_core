@@ -17,7 +17,7 @@ using namespace Xila_Namespace;
 
 // - Attributes
 
-std::vector<Module_Class*> Module_Class::List(40);
+std::vector<Module_Class*> Module_Class::List;
 
 // - Methods
 
@@ -30,7 +30,7 @@ Module_Class::Module_Class(Size_Type Queue_Size)
             delete this;
         }
     }
-    vTaskDelay(pdMS_TO_TICKS(5));
+
 }
 
 Module_Class::~Module_Class()

@@ -3,7 +3,6 @@
 
 #include "Xila.hpp"
 #include "unity.h"
-#include "Unit_Test_Configuration.hpp"
 
 class Unit_Test_Class : public Xila_Class::Software
 {

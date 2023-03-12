@@ -26,10 +26,6 @@ void Xila_Loader_Class::Start()
     Display.Set_Callback_Function_String_Data(Xila_Loader.Display_String_Data_Handler);
     Display.Set_Callback_Function_Event(Xila_Loader.Display_Event_Handler);
 
-#if USB_Serial == 1
-    Serial.begin(Default_USB_Serial_Speed);
-#endif
-
 }
 
 void Xila_Loader_Class::Loop(void*)

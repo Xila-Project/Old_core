@@ -57,7 +57,7 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
     {
         Software_Type::List.back()->Owner_User = Owner_User;
     }
-    
+
     return Result_Type::Success;
 }
 
@@ -99,7 +99,7 @@ Result_Type Softwares_Class::Kill(Software_Type *Software)
     return Result_Type::Success;
 }
 
-Software_Type* Softwares_Class::Find(const Software_Handle_Type *Handle)
+Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
 {
     for (auto &Software_Pointer : Software_Class::List)
     {
@@ -125,20 +125,32 @@ Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
     return NULL;
 }
 
-const Software_Handle_Type* Softwares_Class::Get_Handle(uint8_t Index)
+const Software_Handle_Type *Softwares_Class::Get_Handle(uint8_t Index)
 {
-    if (Index < Software_Handle_Class::List.size())
+    // Not optimized at all, but better than returning the whole list.
+    uint8_t i = 0;
+    for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
     {
-        return Software_Handle_Class::List[Index];
+        if (i == Index)
+        {
+            return Software_Handle_Pointer;
+        }
+        i++;
     }
-        return NULL;
+    return NULL;
 }
 
-Software_Type* Softwares_Class::Get(uint8_t Index)
+Software_Type *Softwares_Class::Get(uint8_t Index)
 {
-    if (Index < Software_Class::List.size())
+
+    uint8_t i = 0;
+    for (auto &Software_Pointer : Software_Class::List)
     {
-        return Software_Class::List[Index];
+        if (i == Index)
+        {
+            return Software_Pointer;
+        }
+        i++;
     }
     return NULL;
 }
@@ -164,9 +176,9 @@ void Softwares_Class::Close_User_Softwares(const Accounts_Types::User_Type *User
     }
 }
 
-void Softwares_Class::Kill_User_Softwares(const Accounts_Types::User_Type* User)
+void Softwares_Class::Kill_User_Softwares(const Accounts_Types::User_Type *User)
 {
-    for (auto& Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Software_Class::List)
     {
         if (Software_Pointer->Get_Owner_User() == User)
         {
@@ -175,9 +187,9 @@ void Softwares_Class::Kill_User_Softwares(const Accounts_Types::User_Type* User)
     }
 }
 
-void Softwares_Class::Send_Instruction_User_Softwares(const Accounts_Types::User_Type* User, const Instruction_Type& Instruction)
+void Softwares_Class::Send_Instruction_User_Softwares(const Accounts_Types::User_Type *User, const Instruction_Type &Instruction)
 {
-    for (auto& Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Software_Class::List)
     {
         if (Software_Pointer->Get_Owner_User() == User)
         {
@@ -186,10 +198,10 @@ void Softwares_Class::Send_Instruction_User_Softwares(const Accounts_Types::User
     }
 }
 
-uint8_t Softwares_Class::Get_User_Softwares_Count(const Accounts_Types::User_Type* User)
+uint8_t Softwares_Class::Get_User_Softwares_Count(const Accounts_Types::User_Type *User)
 {
     uint8_t Count = 0;
-    for (auto& Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Software_Class::List)
     {
         if (Software_Pointer->Get_Owner_User() == User)
         {
@@ -199,10 +211,10 @@ uint8_t Softwares_Class::Get_User_Softwares_Count(const Accounts_Types::User_Typ
     return Count;
 }
 
-const Software_Type* Softwares_Class::Get_User_Softwares(const Accounts_Types::User_Type* User, uint8_t Index)
+const Software_Type *Softwares_Class::Get_User_Softwares(const Accounts_Types::User_Type *User, uint8_t Index)
 {
     uint8_t Count = 0;
-    for (auto& Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Software_Class::List)
     {
         if (Software_Pointer->Get_Owner_User() == User)
         {
@@ -216,13 +228,12 @@ const Software_Type* Softwares_Class::Get_User_Softwares(const Accounts_Types::U
     return NULL;
 }
 
-void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type& Instruction)
+void Softwares_Class::Send_Instruction_Softwares(const Instruction_Type &Instruction)
 {
     Instruction_Type Copy_Instruction = Instruction;
-    for (auto& Software_Pointer : Software_Class::List)
+    for (auto &Software_Pointer : Software_Class::List)
     {
-        Copy_Instruction.Set_Receiver(Software_Pointer);   
+        Copy_Instruction.Set_Receiver(Software_Pointer);
         Software_Pointer->Send_Instruction(Copy_Instruction);
     }
 }
-

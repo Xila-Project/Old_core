@@ -12,7 +12,7 @@
 
 using namespace Xila_Namespace;
 
-std::vector<Software_Handle_Class *> Software_Handle_Class::List(10);
+std::list<Software_Handle_Class *> Software_Handle_Class::List(10);
 
 // Software handle
 
@@ -30,14 +30,7 @@ Software_Handle_Class::Software_Handle_Class(const String_Type& Software_Name)
 
 Software_Handle_Class::~Software_Handle_Class()
 {
-  for (auto Software_Handle_Iterator = List.begin(); Software_Handle_Iterator < List.end(); Software_Handle_Iterator++)
-  {
-    if ((*Software_Handle_Iterator) == this)
-    {
-      List.erase(Software_Handle_Iterator);
-      break;
-    }
-  }
+      List.remove(this);
 }
 
 ///

@@ -15,12 +15,6 @@ using namespace Xila_Namespace::Drive_Types;
 
 Drive_Type Xila_Namespace::Drive;
 
-///
- /// @brief Construct a new Drive_Class::Drive_Class object
- /// 
-Drive_Class::Drive_Class()
-{
-}
 
 // Custom methods
 

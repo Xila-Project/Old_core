@@ -38,7 +38,7 @@ void Parent_Window_Class::Create(const Software_Type *Owner_Module)
         return;
     }
     {
-        Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         this->LVGL_Object_Pointer = lv_obj_create(lv_scr_act());
         this->LVGL_Object_Pointer->class_p = &Parent_Window_Class::Class;
     }

@@ -144,8 +144,8 @@ public:
 
             // ※ 以下の設定値はパネル毎に一般的な初期値が設定されていますので、不明な項目はコメントアウトして試してみてください。
 
-            cfg.panel_width = Display_Horizontal_Definition; // 実際に表示可能な幅
-            cfg.panel_height = Display_Vertical_Definition;  // 実際に表示可能な高さ
+            cfg.panel_width = Display_Vertical_Definition; // 実際に表示可能な幅
+            cfg.panel_height = Display_Horizontal_Definition;  // 実際に表示可能な高さ
             cfg.offset_x = 0;                                // パネルのX方向オフセット量
             cfg.offset_y = 0;                                // パネルのY方向オフセット量
             cfg.offset_rotation = 0;                         // 回転方向の値のオフセット 0~7 (4~7は上下反転)
@@ -216,11 +216,16 @@ public:
 
 Result_Type Display_Class::Initialize()
 {
-    if (Driver.init())
+    if (!Driver.init())
     {
-        return Result_Type::Success;
+        return Result_Type::Error;
     }
-    return Result_Type::Error;
+    if (Driver.width() < Driver.height())
+    {
+        Driver.setRotation(Driver.getRotation() ^ 1);
+    }
+
+    return Result_Type::Success;
 }
 
 void Display_Class::Sleep()
@@ -265,7 +270,6 @@ void Display_Class::Output_Flush(lv_disp_drv_t *Display_Driver_Interface, const 
     Driver.setAddrWindow(Area->x1, Area->y1, Width, Height);
     // tft.pushColors((uint16_t *)&color_p->full, w * h, true);
     Driver.writePixels((lgfx::rgb565_t *)&Buffer->full, Width * Height);
-    Driver.endWrite();
 
     lv_disp_flush_ready(Display_Driver_Interface);
 }

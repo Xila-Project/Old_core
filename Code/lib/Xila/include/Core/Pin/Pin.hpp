@@ -65,8 +65,6 @@ namespace Xila_Namespace
     public:
         // TODO : Transform into a full Object Oriented Object.
 
-        Pin_Class();
-
         // -- Pin mode
         void Set_Mode(uint8_t Pin, Pin_Types::Mode_Type Mode);
 

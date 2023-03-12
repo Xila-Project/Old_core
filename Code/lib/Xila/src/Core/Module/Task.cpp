@@ -22,9 +22,8 @@ std::list<Task_Class *> Task_Class::List;
 /// @brief Construct a new Task_Class object (without creating a task)
 ///
 /// @param Owner_Module Owner module / software of the task.
-Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module)
+Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module), Task_Handle(NULL)
 {
-    Task_Handle = NULL;
 }
 
 /// @brief Construct a new Task_Class object, and create a task.

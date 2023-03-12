@@ -33,8 +33,9 @@
 #include "Time.hpp"
 #include "Registry.hpp"
 
-#include "../Configuration/Configuration.hpp"
 #include "../Configuration/Path.hpp"
+
+#define Stringizing(x) #x
 
 namespace Xila_Namespace
 {

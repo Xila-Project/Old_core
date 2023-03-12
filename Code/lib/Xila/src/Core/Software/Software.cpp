@@ -14,7 +14,7 @@
 
 using namespace Xila_Namespace;
 
-std::vector<Software_Class *> Software_Class::List(10);
+std::list<Software_Class *> Software_Class::List;
 
 /// @brief Construct a new Xila_Class::Software object
 ///
@@ -33,14 +33,9 @@ Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_
 Software_Class::~Software_Class() // Destructor : close
 {
   // Don't forget to remove the software pointer from the software list.
-  for (auto Software_Pointer = List.begin(); Software_Pointer < List.end(); Software_Pointer++)
-  {
-    if ((*Software_Pointer) == this)
-    {
-      List.erase(Software_Pointer);
-      break;
-    }
-  }
+    List.remove(this);
+ 
+
   Main_Task.Delete();
 }
 

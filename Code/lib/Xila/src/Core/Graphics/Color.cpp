@@ -291,13 +291,11 @@ void Color_Class::Set_LVGL_Color(lv_color_t LVGL_Color)
 
 void Color_Class::Set_RGB(uint8_t Red, uint8_t Green, uint8_t Blue)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_make(Red, Green, Blue);
 }
 
 void Color_Class::Set_RGB(uint32_t Hex, bool Hex_3)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     if (Hex_3)
     {
         LVGL_Color = lv_color_hex3(Hex);
@@ -310,19 +308,16 @@ void Color_Class::Set_RGB(uint32_t Hex, bool Hex_3)
 
 void Color_Class::Set_HSV(uint16_t Hue, uint8_t Saturation, uint8_t Value)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_hsv_to_rgb(Hue, Saturation, Value);
 }
 
 void Color_Class::Set_To_Black()
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_black();
 }
 
 void Color_Class::Set_To_White()
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     LVGL_Color = lv_color_white();
 }
 

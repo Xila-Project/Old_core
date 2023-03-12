@@ -410,6 +410,8 @@ void System_Class::Start()
 { 
   Task_Class::Delay_Static(5000);
 
+  Log_Information("System", "Starting Xila ...");
+
   // Enable the power button.
   esp_sleep_enable_ext0_wakeup(static_cast<gpio_num_t>(Power_Button_Pin), LOW);
 
@@ -425,6 +427,7 @@ void System_Class::Start()
   if (Wakeup_Cause != ESP_SLEEP_WAKEUP_EXT0 && Wakeup_Cause != ESP_SLEEP_WAKEUP_UNDEFINED)
   {
     Log_Information("System", "Wakeup cause : %X. Go into deep sleep", Wakeup_Cause);
+    Task_Class::Delay_Static(10000);
     Power.Deep_Sleep();
   }
 
@@ -443,16 +446,9 @@ void System_Class::Load()
   if (esp_task_wdt_init(Maximum_Watchdog_Timeout / 1000, true) != ESP_OK)
   {
     Log_Error("System", "Failed to set watchdog timeout. Trying to reboot.");
-    ESP.restart();
+    Power.Restart();
   }
 
- 
-
-  // - Serial
-
-#if USB_Serial == 1
-  Serial.begin(Default_USB_Serial_Speed);
-#endif
 
   Log_Raw_Line("");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
@@ -495,7 +491,9 @@ void System_Class::Load()
 
   Log_Information("System", "Start load animation ...");
 
-  Object_Type Logo = this->Start_Load_Animation();
+  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Object_Type Logo;
+  this->Start_Load_Animation(Logo, Animation);
 
   Task.Delay(20000);
 
@@ -580,9 +578,11 @@ void System_Class::Load()
 ///
 void System_Class::Shutdown()
 {
-  Object_Type Logo = this->Start_Load_Animation();
+  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Object_Type Logo;
+  this->Start_Load_Animation(Logo, Animation);
 
-  Sound.Play(Sounds("Shutdown.wav"));
+  //Sound.Play(Sounds("Shutdown.wav"));
 
   Task.Delete();
 
@@ -603,9 +603,11 @@ void System_Class::Shutdown()
 ///
 void System_Class::Restart()
 {
-  Object_Type Logo = this->Start_Load_Animation();
+  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Object_Type Logo;
+  this->Start_Load_Animation(Logo, Animation);
 
-  Sound.Play(Sounds("Shutdown.wav"));
+  //Sound.Play(Sounds("Shutdown.wav"));
 
   Task.Delete();
 
@@ -618,6 +620,6 @@ void System_Class::Restart()
 
   this->Stop_Load_Animation(&Logo);
 
-  Power.Deep_Sleep();
+  Power.Restart();
 }
 

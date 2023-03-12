@@ -69,11 +69,10 @@ Result_Type Graphics_Class::Start()
 
     // - Set keyboard
     
-    this->Take_Semaphore();
     Keyboard.Create(this->Get_Screen());
     Keyboard.Add_Flag(Flag_Type::Hidden);
     this->Get_Screen().Set_Style_Pad_All(0, 0);
-    this->Give_Semaphore();
+    
     // - Create task
     Log_Verbose("Graphics", "Create task...");
     

@@ -106,10 +106,6 @@ namespace Xila_Namespace
     {
     public:
         // - Methods
-
-        // - - Constructor
-        Drive_Class();
-
         // - - Drive informations
         Size_Type Get_Size();
         Drive_Types::Drive_Type_Type Get_Type();

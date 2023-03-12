@@ -34,7 +34,7 @@ Object_Class::Object_Class(lv_obj_t *Object_Pointer) : LVGL_Object_Pointer(Objec
 /// @param Object_To_Copy Object to copy.
 Object_Class::Object_Class(const Object_Class &Object_To_Copy)
 {
-    this->Set_Pointer(Object_To_Copy.Get_Pointer());
+    this->LVGL_Object_Pointer = Object_To_Copy.Get_Pointer();
 }
 
 // - - Operators
@@ -188,7 +188,7 @@ void Object_Class::Move_Background()
 
 bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
 {
-    Auto_Semaphore_Class Semaphore = Graphics.Take_Semaphore_Auto();
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_has_class(Get_Pointer(), Class_To_Check);
 }
 
@@ -253,7 +253,7 @@ void Object_Class::Set_Alignment(Alignment_Type Alignment)
 void Object_Class::Set_Alignment(Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_align(Get_Pointer(), (lv_align_t)Alignment, X_Offset, Y_Offset);
+    lv_obj_align(Get_Pointer(), static_cast<lv_align_t>(Alignment), X_Offset, Y_Offset);
 }
 
 void Object_Class::Set_Alignment(Object_Class Object_To_Align_With, Alignment_Type Alignment, Coordinate_Type X_Offset, Coordinate_Type Y_Offset)
@@ -997,7 +997,12 @@ State_Type Object_Class::Get_State()
 
 Object_Class Object_Class::Get_Child(uint16_t Index)
 {
-    return Object_Class(lv_obj_get_child(Get_Pointer(), Index));
+    lv_obj_t* Child_Pointer;
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        Child_Pointer = lv_obj_get_child(Get_Pointer(), Index);
+    }
+    return Object_Class(Child_Pointer);
 }
 
 /// @brief Get the number of children objects of an object.

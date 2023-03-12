@@ -15,7 +15,7 @@
 
 #include "Software_Handle.hpp"
 
-#include <vector>
+#include <list>
 
 /*
 ///
@@ -78,7 +78,7 @@ namespace Xila_Namespace
 
         // - - Static attributes
         /// @brief Opened software pointer array
-        static std::vector<Software_Class *> List;
+        static std::list<Software_Class *> List;
 
         friend class Softwares_Class;
 

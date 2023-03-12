@@ -44,7 +44,7 @@ namespace Xila_Namespace
         All = LV_DIR_ALL,
     };
 
-    enum class Alignment_Type
+    enum class Alignment_Type : uint8_t
     {
         Default = LV_ALIGN_DEFAULT,
         Top_Left = LV_ALIGN_TOP_LEFT,

@@ -11,8 +11,7 @@
 #ifndef Software_Handle_Hpp_Included
 #define Software_Handle_Hpp_Included
 
-#include "../Configuration/Configuration.hpp"
-#include <vector>
+#include <list>
 #include "../Module/Module.hpp"
 
 //==============================================================================//
@@ -53,7 +52,7 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
-        static std::vector<Software_Handle_Class *> List;
+        static std::list<Software_Handle_Class *> List;
 
         /// @brief Software string name.        
         Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,
