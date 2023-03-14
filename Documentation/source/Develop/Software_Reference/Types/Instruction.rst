@@ -16,12 +16,12 @@ API Reference
 
 .. doxygendefine:: Instruction
 
-.. doxygentypedef:: Xila_Class::Instruction
+.. doxygentypedef:: Xila_Namespace::Instruction
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     void My_Software::Main_Task(void*)
     {

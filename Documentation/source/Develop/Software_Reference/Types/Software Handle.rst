@@ -11,18 +11,18 @@ They are in a way the identity cards of the software.
 API Reference
 =============
 
-.. doxygenclass:: Xila_Class::Software_Handle
+.. doxygenclass:: Xila_Namespace::Software_Handle
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
 
-    Xila_Class::Software_Handle My_Software_Handle_1("My Software 1", 44, My_Software_1::Load); // -- Create a software handle for "My Software 1"
+    Xila_Namespace::Software_Handle My_Software_Handle_1("My Software 1", 44, My_Software_1::Load); // -- Create a software handle for "My Software 1"
     
-    Xila_Class::Software_Handle My_Software_Handle_2("My Software 2", 45, My_Software_2::Load); // -- Create a software handle for "My Software 2"
+    Xila_Namespace::Software_Handle My_Software_Handle_2("My Software 2", 45, My_Software_2::Load); // -- Create a software handle for "My Software 2"
 
     if (My_Software_Handle_1 != Software_Handle_2)  // -- Check if software handle are different.
     {

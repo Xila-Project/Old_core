@@ -1,5 +1,5 @@
 ***********************************
-Getting Started With The Repository
+Getting Started with the repository
 ***********************************
 
 Here you will find instructions on how to setup the repository.

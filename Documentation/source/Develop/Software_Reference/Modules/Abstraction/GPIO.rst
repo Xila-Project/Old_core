@@ -7,13 +7,13 @@ Here you will find a full description of the GPIO library.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::GPIO_Class
+.. doxygenclass::   Xila_Namespace::GPIO_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     void Interrupt_Handler()
     {

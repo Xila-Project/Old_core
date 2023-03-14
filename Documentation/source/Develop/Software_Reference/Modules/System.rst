@@ -15,7 +15,7 @@ API Reference
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
 
     #include "Xila.hpp"
 

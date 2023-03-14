@@ -1,14 +1,3 @@
 {
-    "restructuredtext.builtDocumentationPath": "${workspaceRoot}\\source\\_build\\html",
-    "restructuredtext.updateOnTextChanged"    : "true",
-    "restructuredtext.updateDelay"            : 500,
-    "restructuredtext.sphinxBuildPath": null,
-    "cSpell.enableFiletypes": [
-        "csv",
-        "csv (double quote)",
-        "csv (semicolon)"
-    ],
-    "restructuredtext.confPath": "${workspaceFolder}\\source",
-    "esbonio.sphinx.buildDir": "${workspaceRoot}\\source\\_build",
-    "esbonio.sphinx.confDir": "${workspaceFolder}\\source"
+    "esbonio.sphinx.confDir": "${workspaceFolder}/source"
 }

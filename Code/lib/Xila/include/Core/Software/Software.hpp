@@ -61,7 +61,7 @@ namespace Xila_Namespace
         // - - Task
 
         static void Start_Main_Task_Function(void *Instance_Pointer);
-        virtual void Main_Task_Function();
+        virtual void Main_Task_Function();  // ? : Instead of virtual function, use lambda function in constructor ?
 
         // - Attributes
 

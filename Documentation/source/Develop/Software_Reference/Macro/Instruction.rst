@@ -14,7 +14,7 @@ API Reference
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
 
     void My_Software::My_Methods()
     {

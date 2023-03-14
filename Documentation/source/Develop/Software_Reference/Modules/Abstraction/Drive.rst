@@ -11,15 +11,15 @@ Thus, the API of Xila is analogous to the API offered by these two libraries.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Drive_Class
+.. doxygenclass::   Xila_Namespace::Drive_Class
     :members:
 
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
 
-    Xila_Class::Drive_Class::Sd_Card_Type Card_Type = Xila.Drive.Type();    // -- Get card type.
+    Xila_Namespace::Drive_Class::Sd_Card_Type Card_Type = Xila.Drive.Type();    // -- Get card type.
     uint64_t Card_Size = Xila.Drive.Size();     // -- Get card size.
     uint64_t Available_Bytes = Xila.Drive.Total_Bytes();    // -- Get current partition available space.
     uint64_t Used_Bytes = Xila.Drive.Used_Bytes();          // -- Get current partition used space.

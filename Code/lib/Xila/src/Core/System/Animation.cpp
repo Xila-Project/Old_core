@@ -21,8 +21,6 @@ void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Anima
 {
   Log_Verbose("System", "Starting load animation");
   Object_Type Background(Graphics.Get_Screen().Get_Pointer());
-  Background.Set_Size(Percentage(100), Percentage(100));
-  Background.Set_Alignment(Alignment_Type::Center);
   Background.Set_Style_Background_Color(Color_Type::Black, 0);
   Background.Set_Style_Pad_All(0, 0);
 

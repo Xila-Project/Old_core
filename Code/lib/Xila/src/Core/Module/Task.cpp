@@ -35,7 +35,7 @@ Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module),
 /// @param Stack_Size Task stack size.
 /// @param Data Data to pass to the task.
 /// @param Priority Task priority.
-Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module)
+Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module), Task_Handle(NULL)
 {
     Create(Task_Function, Name, Stack_Size, Data, Priority);
 }

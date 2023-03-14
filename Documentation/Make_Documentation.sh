@@ -1,4 +1,4 @@
-sh ./Doxygen/Make Doxygen.sh
+sh ./Doxygen/Make_Doxygen.sh
 
-sh ./Make Sphinx.sh
+sh ./Make_Sphinx.sh
 

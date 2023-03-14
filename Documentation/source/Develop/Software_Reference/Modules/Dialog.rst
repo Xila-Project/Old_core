@@ -13,13 +13,13 @@ When a dialog box is called, the context is then saved, and restored as soon as 
 API Reference
 =============
 
-.. doxygenclass:: Xila_Class::Dialog_Class
+.. doxygenclass:: Xila_Namespace::Dialog_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     if (Xila.Dialog.Login() == Xila.Success)    // -- Open a login dialog and check if the user has successfully logged in.
     {

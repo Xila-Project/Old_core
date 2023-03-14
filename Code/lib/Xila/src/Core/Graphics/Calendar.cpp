@@ -68,7 +68,7 @@ void Calendar_Class::Set_Days_Names(const char **Day_Names)
     lv_calendar_set_day_names(Get_Pointer(), Day_Names);
 }
 
-void Calendar_Class::Set_Highlighted_Dates(Date_Type *Date, uint16_t Number)
+void Calendar_Class::Set_Highlighted_Dates(lv_calendar_date_t *Date, uint16_t Number)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_calendar_set_highlighted_dates(Get_Pointer(), Date, Number);
@@ -80,10 +80,10 @@ void Calendar_Class::Set_Showed_Date(uint32_t Year, uint32_t Month)
     lv_calendar_set_showed_date(Get_Pointer(), Year, Month);
 }
 
-void Calendar_Class::Set_Today_Date(uint32_t Year, uint32_t Month, uint32_t Day)
+void Calendar_Class::Set_Today_Date(Date_Type Date)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_calendar_set_today_date(Get_Pointer(), Year, Month, Day);
+    lv_calendar_set_today_date(Get_Pointer(), Date.Get_Year(), Date.Get_Month(), Date.Get_Day());
 }
 
 // - - Getters
@@ -100,7 +100,7 @@ Button_Matrix_Class Calendar_Class::Get_Button_Matrix()
     return Button_Matrix_Type(Object_Type(Button_Matrix));
 }
 
-Calendar_Class::Date_Type *Calendar_Class::Get_Highlighted_Dates()
+lv_calendar_date_t *Calendar_Class::Get_Highlighted_Dates()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_calendar_get_highlighted_dates(Get_Pointer());
@@ -112,24 +112,28 @@ uint16_t Calendar_Class::Get_Highlighted_Dates_Number()
     return lv_calendar_get_highlighted_dates_num(Get_Pointer());
 }
 
-bool Calendar_Class::Get_Pressed_Date(Date_Type *Date)
+bool Calendar_Class::Get_Pressed_Date(Date_Type& Date)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    if (lv_calendar_get_pressed_date(Get_Pointer(), Date) == LV_RES_INV)
+    lv_calendar_date_t* Date_Pointer;
+    if (lv_calendar_get_pressed_date(Get_Pointer(), Date_Pointer) == LV_RES_INV)
     {
         return false;
     }
+    Date.Set(Date_Pointer->year, Date_Pointer->month, Date_Pointer->day);
     return true;
 }
 
-const Calendar_Class::Date_Type *Calendar_Class::Get_Showed_Dates()
+Date_Type Calendar_Class::Get_Showed_Date()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_calendar_get_showed_date(Get_Pointer());
+    const lv_calendar_date_t* Date = lv_calendar_get_showed_date(Get_Pointer());
+    return Date_Type(Date->year, Date->month, Date->day);;
 }
 
-const Calendar_Class::Date_Type *Calendar_Class::Get_Today_Date()
+Date_Type Calendar_Class::Get_Today_Date()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return lv_calendar_get_today_date(Get_Pointer());
+    const lv_calendar_date_t* Date = lv_calendar_get_today_date(Get_Pointer());
+    return Date_Type(Date->year, Date->month, Date->day);;
 }

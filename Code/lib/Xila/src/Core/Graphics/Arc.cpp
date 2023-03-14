@@ -40,7 +40,7 @@ void Arc_Class::Create(Object_Class Parent_Object)
 }
 
 // - - Setters
-
+ 
 bool Arc_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (Get_Pointer() != NULL)

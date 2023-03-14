@@ -16,17 +16,17 @@ Xila uses this API also to communicate with the software (send instructions, var
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Software
+.. doxygenclass::   Xila_Namespace::Software
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
-    Xila_Class::Software_Handle My_Software_Handle;
+    Xila_Namespace::Software_Handle My_Software_Handle;
 
-    class My_Software : public Xila_Class::Software
+    class My_Software : public Xila_Namespace::Software
     {
     private:
         static My_Software* Instance_Pointer;   // -- Instance pointer for static function like tasks.
@@ -60,7 +60,7 @@ Example
             }
         }
 
-        static Xila_Class::Software* Load()
+        static Xila_Namespace::Software* Load()
         {
             if (Instance_Pointer != NULL)
             {
@@ -70,7 +70,7 @@ Example
             return Instance_Pointer;
         }
 
-        My_Software() : Xila_Class::Software(My_Software_Handle)    // -- Constructor
+        My_Software() : Xila_Namespace::Software(My_Software_Handle)    // -- Constructor
         {
             Xila.Task.Create(Main_Task, "My Software Task", Memory_Chunk(4), NULL, &Task_Handle);
         }
@@ -86,6 +86,6 @@ Example
        
     }
 
-    Xila_Class::Software_Handle My_Software_Handle("My Software", 44, My_Software::Load);
+    Xila_Namespace::Software_Handle My_Software_Handle("My Software", 44, My_Software::Load);
 
     

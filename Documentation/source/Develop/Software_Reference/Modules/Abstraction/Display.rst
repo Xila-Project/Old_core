@@ -15,13 +15,13 @@ This API rest upon the Nextion Library. For the full API, please visit the libra
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Display_Class
+.. doxygenclass::   Xila_Namespace::Display_Class
     :members:
 
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
 
     Xila.Display.Begin(921600, 16, 17); // -- Initialize communication with the screen to 921600 baud at pin 16 and 17.
     Xila.Display.Set_Current_Page(39);  // -- Change page to 39.

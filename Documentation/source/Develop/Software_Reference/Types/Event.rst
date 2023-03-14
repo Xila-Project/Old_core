@@ -9,12 +9,12 @@ The various functions (for example: event dialogs, file management etc.) of Xila
 API Reference
 ===============
 
-.. doxygenenum:: Xila_Class::Event
+.. doxygenenum:: Xila_Namespace::Event
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     if (Xila.Dialog.Event("Event dialog test", Xila.Information) == Xila.Default_Button_Yes)
     {

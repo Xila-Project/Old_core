@@ -11,7 +11,6 @@ You will need the following parts in order to start develop third party software
 
 * A ``computer``.
 * The latest version of `Platform IO IDE <https://platformio.org/platformio-ide>`_.
-* The latest version of the `Nextion editor <https://nextion.tech/nextion-editor/>`_.
 
 Instructions
 ============
@@ -26,7 +25,7 @@ Then, add the following line to the ``platformio.ini`` file.
 
 You can test your installation with the following sketch :
 
-.. code-block:: c
+.. code-block:: cpp
 
     #include "Xila.hpp"
 

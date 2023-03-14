@@ -111,10 +111,12 @@ void Graphics_Class::Task_Function()
     while (true)
     {
         this->Take_Semaphore();
+        Log_Verbose("Graphics", "Semaphore taken");
         lv_timer_handler();
         Log_Verbose("Graphics", "Tick");
         this->Give_Semaphore();
         lv_tick_inc(6);
+        
         Task.Delay(6);
     }
 }

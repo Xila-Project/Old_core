@@ -12,7 +12,7 @@ Contents
 .. toctree::
    :caption:   Introduction
 
-   Presentation <Introduction/Presentation>
+   Introduction <Introduction>
 
 .. toctree::
    :caption:   Use   

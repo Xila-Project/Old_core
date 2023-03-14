@@ -7,5 +7,5 @@ Here you will find a complete description of the WiFi abstraction layer.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::WiFi_Class
+.. doxygenclass::   Xila_Namespace::WiFi_Class
     :members:

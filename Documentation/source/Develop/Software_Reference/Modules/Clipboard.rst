@@ -10,13 +10,13 @@ It only offers an API, the graphical implementation remains the responsibility o
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Clipboard_Class
+.. doxygenclass::   Xila_Namespace::Clipboard_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     void Function_A()
     {

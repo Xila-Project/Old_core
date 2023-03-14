@@ -17,13 +17,13 @@ The identifiers are stored in a register specific to each user.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Account_Class
+.. doxygenclass::   Xila_Namespace::Account_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     if (Xila.Account.Check_Credentials("User", "Password") == Xila.Success) // -- Check if the credentials are correct.
     {

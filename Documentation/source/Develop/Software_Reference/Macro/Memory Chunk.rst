@@ -14,7 +14,7 @@ API Reference
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
 
     // -- Main software task
     My_Software::Main_Task(void*)

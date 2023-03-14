@@ -11,4 +11,4 @@ A page has an 8-bit stored address, so this type is used to store this identifie
 API Reference
 ===============
 
-.. doxygentypedef:: Xila_Class::Page
+.. doxygentypedef:: Xila_Namespace::Page

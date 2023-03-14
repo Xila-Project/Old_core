@@ -19,6 +19,7 @@ namespace Xila_Namespace
     typedef class Canvas_Class : public Object_Class
     {
     public:
+
         // - Types
 
         typedef lv_draw_label_dsc_t Draw_Label_Descriptor_Type;
@@ -31,10 +32,18 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructors / destructors
+
+        /// @brief Default constructor.
         Canvas_Class();
+
+        /// @brief Copy constructor to allow conversion from object.
+        /// @param Object_To_Copy Object to copy from.
         Canvas_Class(const Object_Class &Object_To_Copy);
 
         // - - Manipulation
+
+        /// @brief Create a new canvas.
+        /// @param Parent Parent object of the new canvas.
         virtual void Create(Object_Class Parent_Object) override;
 
         // - - Manipulation

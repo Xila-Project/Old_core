@@ -14,11 +14,11 @@ API Reference
 Example
 =======
 
-.. code-block:: c
+.. code-block:: cpp
     
     double My_Variable;
 
-    void My_Software::Set_Variable(Xila_Class::Address Address, Xila_Class::Type Type, const void *Data)
+    void My_Software::Set_Variable(Xila_Namespace::Address Address, Xila_Namespace::Type Type, const void *Data)
     {
         // -- Binds "MV" (0x4D56) address with My_Variable.
         if (Address == Address('M', 'V'))

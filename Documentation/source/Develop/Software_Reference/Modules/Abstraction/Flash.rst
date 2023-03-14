@@ -7,13 +7,13 @@ Here you will find a full description of the flash abstraction layer.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Flash_Class
+.. doxygenclass::   Xila_Namespace::Flash_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     uint32_t Free_Flash_Space = Xila.Flash.Get_Sketch_Free_Space(); // -- Get flash free space in bytes.
     String MD5_Checksum = Xila.Flash.Get_Sketch_MD5();              // -- Get sketch MD5 checksum.

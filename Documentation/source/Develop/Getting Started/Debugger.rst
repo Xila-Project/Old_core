@@ -46,7 +46,7 @@ After, add the following line to the ``platformio.ini`` file.
 
 You can test your installation with the following sketch :
 
-.. code-block:: c
+.. code-block:: cpp
     
     #include "Xila.hpp"
     

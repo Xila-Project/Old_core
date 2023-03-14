@@ -9,13 +9,13 @@ This module is responsible for everything related to software management, such a
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Software_Management_Class
+.. doxygenclass::   Xila_Namespace::Software_Management_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
     
     extern Software_Handle My_Software_Handle;
 

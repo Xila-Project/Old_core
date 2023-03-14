@@ -14,13 +14,13 @@ This API is based on the `AudioI2S <https://github.com/schreibfaul1/ESP32-audioI
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Sound_Class
+.. doxygenclass::   Xila_Namespace::Sound_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     if (Xila.Sound.Get_Volume() > 128)  // -- Check if the volume is greater than half.
     {

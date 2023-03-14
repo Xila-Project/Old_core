@@ -66,7 +66,7 @@ namespace Xila_Namespace
 
 #if Log_Level > 0
 
-#define Log_Raw(Format, ...)        Log.Semaphore.Take(); log_printf(Format, ##__VA_ARGS__); Log.Semaphore.Give();
+#define Log_Raw(Format, ...)        log_printf(Format, ##__VA_ARGS__);
 #define Log_Raw_Line(Format, ...)   Log_Raw(Format "\r\n", ##__VA_ARGS__)
 #define Log_Format(Module_Name, Type, Format) "| %6u ms | %s.%s() | (%s:%u) |  %s | " Format "\r\n", (unsigned long)(esp_timer_get_time() / 1000ULL), Module_Name, __FUNCTION__, pathToFileName(__FILE__), __LINE__, Type
 #define Log_All(Module_Name, Type, Format, ...) Log_Raw(Log_Format(Module_Name, Type, Format), ##__VA_ARGS__)

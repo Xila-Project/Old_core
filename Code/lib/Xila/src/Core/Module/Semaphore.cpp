@@ -14,10 +14,16 @@
 
 using namespace Xila_Namespace;
 
+/// @brief Construct a new Semaphore object.
 Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
+/// @brief Create a new Semaphore.
+/// @param Type Semaphore type (Binary, Counting, Mutex, Recursive_Mutex).
+/// @param Initial_Count Initial count (for Counting semaphore).
+/// @param Maximum_Count Maximum count (for Counting semaphore).
+/// @return `Result_Type::Success` if the semaphore was created, Result_Type::Error otherwise.
 Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
@@ -113,9 +119,14 @@ Result_Type Semaphore_Class::Take_Recursive(uint32_t Timeout)
     {
         Log_Verbose("Semaphore", "Currently taken by : %s", this->Get_Mutex_Holder().Get_Name());
     }
+    else
+    {
+        Log_Verbose("Semaphore", "Currently taken by : None");
+    }
 
     if (Timeout == 0xFFFFFFFF)
     {
+        Log_Verbose("Semaphore", "Waiting for semaphore...")
         if (xSemaphoreTakeRecursive(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
         {
             return Result_Type::Error;
@@ -124,6 +135,7 @@ Result_Type Semaphore_Class::Take_Recursive(uint32_t Timeout)
     }
     else if (xSemaphoreTakeRecursive(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
     {
+
         return Result_Type::Error;
     }
     return Result_Type::Success;

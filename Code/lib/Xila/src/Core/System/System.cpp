@@ -625,7 +625,7 @@ void System_Class::Restart()
   System.Stop();
 
   this->Stop_Load_Animation(&Logo);
-
+esp_rom_delay_us(3546);
   Power.Restart();
 }
 

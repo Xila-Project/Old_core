@@ -9,13 +9,13 @@ This module is responsible for everything related to time.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Time_Class
+.. doxygenclass::   Xila_Namespace::Time_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     Xila.Time.Synchronize();    // -- Ask Xila to synchronize time (not necessary, done by the core every 10 seconds).
     tm Current_Time = Xila.Time.Get_Time(); // -- Get time.

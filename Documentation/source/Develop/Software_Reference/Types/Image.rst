@@ -10,4 +10,4 @@ This type then makes it possible to manipulate the images by passing the values 
 API Reference
 ===============
 
-.. doxygentypedef:: Xila_Class::Image
+.. doxygentypedef:: Xila_Namespace::Image

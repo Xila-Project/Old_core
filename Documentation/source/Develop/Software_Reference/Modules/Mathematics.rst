@@ -11,13 +11,13 @@ Thus, almost any calculations can be performed using this module.
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Mathematics_Class
+.. doxygenclass::   Xila_Namespace::Mathematics_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     char String_To_Convert[] = "-3.14";
     double Number_1 = Xila.Mathematics.String_To_Float(String_To_Convert);

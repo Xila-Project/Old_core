@@ -9,13 +9,13 @@ The latter is based on the `PS2Keyboard <https://github.com/PaulStoffregen/PS2Ke
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::Keyboard_Class
+.. doxygenclass::   Xila_Namespace::Keyboard_Class
     :members:
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
     Xila.Keyboard.Clear();                  // -- Clear all registered keystrokes in the buffer.
     if (Xila.Keyboard.Available())          // -- Check if any keystroke is available in the buffer.

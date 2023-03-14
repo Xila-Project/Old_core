@@ -40,22 +40,52 @@ namespace Xila_Namespace
         public:
             // - Methods
             // - - Constructors / destructors
+
+            /// @brief Default constructor.
             Window_Class();
+
+            /// @brief Copy constructor to allow conversion from object.
             Window_Class(const Object_Class &Object_To_Copy);
 
             // - - Manipulation
+
+            /// @brief Create a new window with a parent object.
             virtual void Create(Object_Class Parent_Object) override;
+
+            /// @brief Create a new parent window for software.
             virtual void Create(const Software_Type *Owner_Module);
 
             // - - Setters
+
+            /// @brief Set the title of the window.
+            /// @param Title Title of the window.
             void Set_Title(const char *Title);
+
+            /// @brief Set the pointer of the object.
+            /// @param LVGL_Object_Pointer
+            /// @return 
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
+
+            /// @brief Set the state of the window.
+            /// @param State State of the window.
             void Set_State(Window_State_Type State);
-            Window_State_Type Get_State();
 
             // - - Getters
+
+            /// @brief Get the state of the window.
+            /// @return State of the window.
+            Window_State_Type Get_State();
+
+            /// @brief Get the body of the window.
+            /// @return Body of the window.
             Object_Class Get_Body();
+
+            /// @brief Get the header of the window.
+            /// @return Header of the window.
             Object_Class Get_Header();
+
+            /// @brief Get the title label of the window.
+            /// @return Title label of the window.
             const Software_Type *Get_Owner_Software() const;
 
             // - Attributes

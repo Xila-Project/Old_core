@@ -7,14 +7,14 @@ Here you will find a full description of task function type.
 API Reference
 =============
 
-.. doxygentypedef::   Xila_Class::Task_Function
+.. doxygentypedef::   Xila_Namespace::Task_Function
 
 Example
 =======
 
-.. code-block:: C
+.. code-block:: cpp
 
-    Xila_Class::Task_Function My_Software::Main_Task(void*)
+    Xila_Namespace::Task_Function My_Software::Main_Task(void*)
     {
         while (1)
         {
@@ -23,7 +23,7 @@ Example
         }
     }
 
-    My_Software::My_Software() : Xila_Class::Software(My_Software_Handle)
+    My_Software::My_Software() : Xila_Namespace::Software(My_Software_Handle)
     {
         Xila.Task.Create(Main_Task, "My Software Task", Memory_Chunk(4), NULL, &Task_Handle);   // -- Create task.
     }
