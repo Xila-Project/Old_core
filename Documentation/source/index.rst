@@ -1,8 +1,8 @@
 ##################
-Xila Documentation
+Xila documentation
 ##################
-  
-Xila is an operating system for embedded devices.
+
+Welcome on Xila documentation Xila is an operating system for embedded devices.
 
 This documentation describes how to use, develop and contribute to the project.
 
@@ -37,7 +37,7 @@ Contents
    :caption:   Miscellaneous
    :maxdepth:  2
 
-   Release notes <Miscellaneous/Release notes>
+   Changelog <Miscellaneous/Changelog>
    About <Miscellaneous/About>
    
 

@@ -1,18 +1,12 @@
 Introduction To Xila
 ====================
 
-Xila is a lightweight operating system for embedded devices.
+Xila is an open-source operating system aimed at embedded systems that provides a user-friendly interface with powerful features.
+It is designed to run on microcontrollers and microprocessors with limited resources while providing efficient and scalable performance.
+The project aims to provide a fully functional operating system that can perform tasks such as multitasking, memory management, input-output handling, and file system management in constrained environments.
 
-Its goal is to offer a simple standardized API for developer.
-In this way, that allows the integration of different software in one unique ecosystem.
+With Xila, developers can build applications for all sorts of end-devices like robotics, smart home automation, wearables, and much more.
+Xila provides its users with a structured API, a high-level programming language, powerful tools, and clear documentation for ease of use and integration.
 
-In addition to that, software written for Xila are easier to port.
-Indeed, for any new board / chips, only Xila's Hardware Abstraction Layer needs to be changed.
-Thus, it's long-term objective is to expand to other platforms like the Teensy, ESP8266, ARM based MCU ...
-
-Then, Xila is highly configurable, which makes it possible tight integration to any embedded application.
-
-Finally, this project aim is to give the best experience, both to the developer and to the users.
-So I strongly encourage you to participate by contributing directly to the project (report bugs, add feature, write documentation ...).
-But also by creating third-party software that will give meaning to Xila's existence.
-As this project is under an MIT license, your projects will then benefit from a great flexibility in licencing.
+The key objective of the project is to make development faster by leveraging Xila’s modular architecture, expandable library of drivers and libraries, and well-documented codebase.
+By utilizing these tools, developers can rapidly prototype and deploy new products without worrying about lower-level details.

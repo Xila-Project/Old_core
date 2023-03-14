@@ -24,6 +24,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add mathematic features to the API.
 - Add support for external D.A.C.
 - Add Load and Power dialog to the API.
+- Add integrated graphics rendering with LVGL.
+- Add hash support for password.
+- Add hash API to Mathematics module.
 
 ### Changed
 
@@ -42,6 +45,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Removed
 
+- Remove Nextion support.
 - Remove patch : WiFi power sleep mode (power button interrupt conflict).
 
 

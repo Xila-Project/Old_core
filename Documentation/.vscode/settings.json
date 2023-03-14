@@ -8,5 +8,7 @@
         "csv (double quote)",
         "csv (semicolon)"
     ],
-    "restructuredtext.confPath": "${workspaceFolder}\\source"
+    "restructuredtext.confPath": "${workspaceFolder}\\source",
+    "esbonio.sphinx.buildDir": "${workspaceRoot}\\source\\_build",
+    "esbonio.sphinx.confDir": "${workspaceFolder}\\source"
 }

@@ -1,6 +1,6 @@
-*************
-Release notes
-*************
+*********
+Changelog
+*********
 
 Here you will find all the notes concerning the releases.
 
