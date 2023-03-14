@@ -14,6 +14,8 @@
 
 #include "Core/Drive/Drive.hpp"
 #include "Core/Pin/Pin.hpp"
+#include "Core/System/System.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Drive_Types;

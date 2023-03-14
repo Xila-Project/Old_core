@@ -17,6 +17,8 @@
 
 #include "Core/Display/Display.hpp"
 #include "Core/Drive/Drive.hpp"
+#include "Core/System/System.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 

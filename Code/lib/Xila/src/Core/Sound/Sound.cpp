@@ -14,6 +14,7 @@
 
 #include "Core/Sound/Sound.hpp"
 #include "Core/Drive/Drive.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 

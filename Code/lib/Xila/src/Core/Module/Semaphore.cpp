@@ -9,6 +9,8 @@
 ///
 
 #include "Core/Module/Semaphore.hpp"
+#include "Core/Module/Task.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
@@ -33,6 +35,9 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
         break;
     case Type_Type::Mutex:
         Semaphore_Handle = xSemaphoreCreateMutex();
+        break;
+    case Type_Type::Recursive_Mutex:
+        Semaphore_Handle = xSemaphoreCreateRecursiveMutex();
         break;
     default:
         return Result_Type::Error;
@@ -101,14 +106,35 @@ void Semaphore_Class::Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken)
     xSemaphoreTakeFromISR(Semaphore_Handle, Higher_Priority_Task_Woken);
 }
 
-void Semaphore_Class::Take_Recursive(Tick_Type Ticks_To_Wait)
+Result_Type Semaphore_Class::Take_Recursive(uint32_t Timeout)
 {
-    xSemaphoreTakeRecursive(Semaphore_Handle, Ticks_To_Wait);
+    Log_Verbose("Semaphore", "Current task try to take : %s", Task_Type(xTaskGetCurrentTaskHandle()).Get_Name());
+    if (this->Get_Mutex_Holder().Get_State() != Task_Type::State_Type::Invalid)
+    {
+        Log_Verbose("Semaphore", "Currently taken by : %s", this->Get_Mutex_Holder().Get_Name());
+    }
+
+    if (Timeout == 0xFFFFFFFF)
+    {
+        if (xSemaphoreTakeRecursive(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
+        {
+            return Result_Type::Error;
+        }
+        Log_Verbose("Semaphore", "Taken by : %s", this->Get_Mutex_Holder().Get_Name());
+    }
+    else if (xSemaphoreTakeRecursive(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
+    {
+        return Result_Type::Error;
+    }
+    return Result_Type::Success;
 }
 
 void Semaphore_Class::Give_Recursive()
 {
+
     xSemaphoreGiveRecursive(Semaphore_Handle);
+
+    Log_Verbose("Semaphore", "Given by : %s", this->Get_Mutex_Holder().Get_Name());
 }
 
 /*
@@ -126,4 +152,14 @@ unsigned int Semaphore_Class::Get_Count()
 Auto_Semaphore_Type Semaphore_Class::Take_Auto(uint32_t Timeout)
 {
     return Auto_Semaphore_Type(*this, Timeout);
+}
+
+Task_Type Semaphore_Class::Get_Mutex_Holder()
+{
+    return Task_Type(xSemaphoreGetMutexHolder(Semaphore_Handle));
+}
+
+bool Semaphore_Class::Is_Valid()
+{
+    return Semaphore_Handle != NULL;
 }

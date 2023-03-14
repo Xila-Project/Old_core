@@ -10,6 +10,7 @@
 
 #include "Core/Module/Module.hpp"
 #include "Core/Module/Task.hpp"
+#include "Core/Log/Log.hpp"
 #include "Core/System/System.hpp"
 
 using namespace Xila_Namespace;
@@ -37,6 +38,12 @@ Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module),
 Task_Class::Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority) : Owner_Module(Owner_Module)
 {
     Create(Task_Function, Name, Stack_Size, Data, Priority);
+}
+
+/// @brief Kind of "move" constructor (for compatibility purpose with other FreeRTOS components).
+/// @param Task_Handle Task handle.
+Task_Class::Task_Class(xTaskHandle Task_Handle) : Task_Handle(Task_Handle)
+{
 }
 
 /// @brief Destroy the Task_Class object and delete the task.
@@ -115,6 +122,11 @@ uint32_t Task_Class::Get_Watchdog_Timer()
 uint32_t Task_Class::Get_Watchdog_Timeout()
 {
     return Watchdog_Timeout;
+}
+
+char* Task_Class::Get_Name()
+{
+    return pcTaskGetName(Task_Handle);
 }
 
 /// @brief  Check if one task is frozen (watchdog timeout).

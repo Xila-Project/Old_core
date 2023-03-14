@@ -10,7 +10,7 @@
 
 #include "Core/Graphics/Graphics.hpp"
 #include "Core/Display/Display.hpp"
-
+#include "Core/Log/Log.hpp"
 #include "Core/Core.hpp"
 
 #include "lvgl.h"
@@ -55,7 +55,7 @@ Result_Type Graphics_Class::Start()
     // - Set file system driver
     
     Log_Verbose("Graphics", "Create semaphore...");
-    if (Semaphore.Create(Semaphore_Type::Type_Type::Mutex) != Result_Type::Success)
+    if (Semaphore.Create(Semaphore_Type::Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
         Log_Verbose("Graphics", "Error while creating semaphore");
         return Result_Type::Error;
@@ -63,7 +63,7 @@ Result_Type Graphics_Class::Start()
 
     Log_Verbose("Graphics", "Create task...");
 
-    Task.Create(Task_Start_Function, "Graphics", 8 * 1024, this, Task_Type::Priority_Type::System);
+    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
     
     Log_Verbose("Graphics", "Task created");
 
@@ -80,7 +80,9 @@ Result_Type Graphics_Class::Start()
 }
 
 Result_Type Graphics_Class::Stop()
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+{ 
+    
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_deinit();
     
     Keyboard.Delete();
@@ -110,6 +112,7 @@ void Graphics_Class::Task_Function()
     {
         this->Take_Semaphore();
         lv_timer_handler();
+        Log_Verbose("Graphics", "Tick");
         this->Give_Semaphore();
         lv_tick_inc(6);
         Task.Delay(6);

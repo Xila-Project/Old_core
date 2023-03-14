@@ -90,12 +90,13 @@ namespace Xila_Namespace
 
         inline void Take_Semaphore()
         {
-            Semaphore.Take();       
+            Semaphore.Take_Recursive();       
         };
 
         inline void Give_Semaphore()
         {
-            Semaphore.Give();
+        
+            Semaphore.Give_Recursive();
         };
 
     private:

@@ -40,6 +40,7 @@ namespace Xila_Namespace
             Failed_To_Start_WiFi,
             Failed_To_Start_Accounts,
             Failed_To_Start_Drive,
+            Failed_To_Start_Softwares,
             
 
             Low_Memory,        ///< Low memory (fragmentation, too much software openned).
@@ -102,6 +103,9 @@ namespace Xila_Namespace
         /// @brief Task used to run the system.
         Task_Type Task;
 
+        // - - Log
+        Semaphore_Type Log_Semaphore;
+
         // - - Device
 
         /// @brief Device name used as Network hostname ...
@@ -119,7 +123,7 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Animation
-        void Start_Load_Animation(Object_Type&, Graphics_Types::Animation_Type*);
+        void Start_Load_Animation(Object_Type*, Graphics_Types::Animation_Type*);
         static void Load_Animation_Callback(void *Object, int32_t Value);
         void Stop_Load_Animation(Object_Type *Logo);
 

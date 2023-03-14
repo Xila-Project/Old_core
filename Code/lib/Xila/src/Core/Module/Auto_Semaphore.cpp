@@ -9,15 +9,16 @@
 ///
 
 #include "Core/Module/Semaphore.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
 Auto_Semaphore_Class::Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout) : Semaphore(Semaphore)
 {
-    Semaphore.Take(Timeout);
+    Semaphore.Take_Recursive(Timeout);
 }
 
 Auto_Semaphore_Class::~Auto_Semaphore_Class()
 {
-    Semaphore.Give();
+    Semaphore.Give_Recursive();
 }

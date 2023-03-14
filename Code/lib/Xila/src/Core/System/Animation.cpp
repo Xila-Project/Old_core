@@ -10,29 +10,31 @@
 
 #include "Core/System/System.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
 // - Methods
 
-void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Animation_Type* Animation)
+void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Animation_Type* Animation)
 {
-  Object_Type Background = Graphics.Get_Screen();
+  Log_Verbose("System", "Starting load animation");
+  Object_Type Background(Graphics.Get_Screen().Get_Pointer());
   Background.Set_Size(Percentage(100), Percentage(100));
   Background.Set_Alignment(Alignment_Type::Center);
   Background.Set_Style_Background_Color(Color_Type::Black, 0);
   Background.Set_Style_Pad_All(0, 0);
 
-  Logo.Create(Background);
-  Logo.Set_Size(256, 256);
-  Logo.Set_Alignment(Alignment_Type::Center);
-  Logo.Set_Style_Pad_All(0, 0);
-  Logo.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+  Logo->Create(Background);
+  Logo->Set_Size(256, 256);
+  Logo->Set_Alignment(Alignment_Type::Center);
+  Logo->Set_Style_Pad_All(0, 0);
+  Logo->Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
   {
     Object_Type Red;
-    Red.Create(Logo);
+    Red.Create(*Logo);
     Red.Set_Size(40, 84);
     Red.Set_Alignment(Alignment_Type::Top_Left, 64, 64);
     Red.Set_Style_Background_Color(Color_Type::White, 0);
@@ -42,7 +44,7 @@ void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Anima
 
   {
     Object_Type Blue;
-    Blue.Create(Logo);
+    Blue.Create(*Logo);
     Blue.Set_Size(84, 40);
     Blue.Set_Alignment(Alignment_Type::Bottom_Left, 64, -64);
     Blue.Set_Style_Background_Color(Color_Type::White, 0);
@@ -52,7 +54,7 @@ void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Anima
 
   {
     Object_Type Green;
-    Green.Create(Logo);
+    Green.Create(*Logo);
     Green.Set_Size(40, 84);
     Green.Set_Alignment(Alignment_Type::Bottom_Right, -64, -64);
     Green.Set_Style_Background_Color(Color_Type::White, 0);
@@ -62,7 +64,7 @@ void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Anima
 
   {
     Object_Type Yellow;
-    Yellow.Create(Logo);
+    Yellow.Create(*Logo);
     Yellow.Set_Size(84, 40);
     Yellow.Set_Alignment(Alignment_Type::Top_Right, -64, 64);
     Yellow.Set_Style_Background_Color(Color_Type::White, 0);
@@ -72,7 +74,7 @@ void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Anima
 
   Log_Verbose("System", "Create logo animation...");
 
-  Animation->Set_Variable(&Logo);
+  Animation->Set_Variable(Logo);
   Animation->Set_Values(64, 255);
   Animation->Set_Time(1000);
   Animation->Set_Playback_Delay(0);
@@ -80,7 +82,7 @@ void System_Class::Start_Load_Animation(Object_Type& Logo, Graphics_Types::Anima
   Animation->Set_Repeat_Delay(0);
   Animation->Set_Repeat_Count(LV_ANIM_REPEAT_INFINITE); // TODO : Define a constant for this
   Animation->Set_Path_Callback(Graphics_Types::Animation_Type::Path_Ease_In_Out);
-  Animation->Set_Execution_Callback(this->Load_Animation_Callback);
+  Animation->Set_Execution_Callback(Load_Animation_Callback);
   Animation->Start();
   Log_Verbose("System", "Finish logo animation...");
 
@@ -95,7 +97,6 @@ void System_Class::Stop_Load_Animation(Object_Type *Logo)
 void System_Class::Load_Animation_Callback(void *Object, int32_t Value)
 {
   Log_Verbose("System", "Load animation callback...");
-  Graphics.Give_Semaphore();  // Since this function is called from the Graphics task, we need to give back the semaphore to allow following function to execute.
 
   static uint8_t Animated_Part = 2;
 

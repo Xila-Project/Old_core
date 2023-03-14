@@ -16,6 +16,8 @@
 
 namespace Xila_Namespace
 {
+    // - Forward declarations
+    typedef class Task_Class Task_Type;
 
     typedef class Auto_Semaphore_Class Auto_Semaphore_Type;
     
@@ -40,15 +42,16 @@ namespace Xila_Namespace
 
         Result_Type Take(uint32_t Timeout = 0xFFFFFFFF);
         Auto_Semaphore_Type Take_Auto(uint32_t Timeout = 0xFFFFFFFF);
-        void Take_Recursive(Tick_Type Tick_To_Wait);
         void Give();
         void Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
         void Give_From_ISR(Integer_Type *Higher_Priority_Task_Woken);
-        void Take_Recursive();
+        Result_Type Take_Recursive(uint32_t Timeout = 0xFFFFFFFF);
         void Give_Recursive();
-        // Task_Type Get_Mutex_Holder();
+        Task_Type Get_Mutex_Holder();
         unsigned int Get_Count();
 
+        bool Is_Valid();
+        
     private:
         // - Attributes
         SemaphoreHandle_t Semaphore_Handle;

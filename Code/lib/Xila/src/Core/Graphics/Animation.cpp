@@ -10,6 +10,8 @@
 
 #include "Core/Graphics/Animation.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/System/System.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
@@ -21,7 +23,6 @@ using namespace Xila_Namespace::Graphics_Types;
 Animation_Class::Animation_Class()
 {
     {
-        Log_Verbose("Animation", "Creating animation");
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         lv_anim_init(&LVGL_Animation);
     }
@@ -108,6 +109,7 @@ uint32_t Animation_Class::Speed_To_Time(uint32_t Speed, int32_t Start, int32_t E
 
 void Animation_Class::Start()
 {
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_anim_start(&LVGL_Animation); // No semaphore needed
 }
 

@@ -12,6 +12,7 @@
 
 #include "Core/Communication/WiFi.hpp"
 #include "Core/Drive/Drive.hpp"
+#include "Core/Log/Log.hpp"
 
 // - Namespaces
 

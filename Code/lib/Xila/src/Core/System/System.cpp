@@ -18,7 +18,7 @@
 #endif
 
 #include "Core/Core.hpp"
-
+#include "Core/Log/Log.hpp"
 #include "esp_task_wdt.h"
 #include "Update.h"
 
@@ -491,9 +491,10 @@ void System_Class::Load()
 
   Log_Information("System", "Start load animation ...");
 
-  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type;
+  Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type();
   Object_Type Logo;
-  this->Start_Load_Animation(Logo, Animation);
+
+  this->Start_Load_Animation(&Logo, Animation);
 
   Task.Delay(20000);
 
@@ -558,6 +559,11 @@ void System_Class::Load()
   if (Accounts.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Accounts);
+  }
+
+  if (Softwares.Start() != Result_Type::Success)
+  {
+    Panic_Handler(Panic_Type::Failed_To_Start_Softwares);
   }
 
   // - Enable animation

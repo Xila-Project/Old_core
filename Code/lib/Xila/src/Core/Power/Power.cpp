@@ -11,7 +11,7 @@
 #include "Core/Core.hpp"
 
 #include "Core/Power/Power.hpp"
-
+#include "Core/Log/Log.hpp"
 
 
 using namespace Xila_Namespace;

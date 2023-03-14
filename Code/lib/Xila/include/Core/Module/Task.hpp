@@ -48,6 +48,8 @@ namespace Xila_Namespace
         Task_Class(Module_Class *Owner_Module, Function_Type Task_Function, const char *Name,
                    Size_Type Stack_Size, void *Data = NULL, Priority_Type Priority = Priority_Type::Normal);
         Task_Class(Module_Class* Owner_Module);
+        Task_Class(const Task_Class& Task);
+        Task_Class(xTaskHandle Task_Handle);
 
         ~Task_Class();
 
@@ -62,6 +64,7 @@ namespace Xila_Namespace
         Priority_Type Get_Priority();
         const Module_Type* Get_Owner_Module();
         Size_Type Get_Lowest_Free_Stack();
+        char* Get_Name();
 
         void Delay(uint32_t Delay_In_Millisecond);
 
