@@ -9,7 +9,7 @@ The system module is responsible for managing everything that is critical to the
 API Reference
 =============
 
-.. doxygenclass::   Xila_Class::System_Class
+.. doxygenclass::   Xila_Namespace::System_Class
     :members:
 
 Example
