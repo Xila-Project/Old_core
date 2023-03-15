@@ -34,6 +34,14 @@ String_Class::String_Class(const char *String, Size_Type Size) : String_Class()
     Copy(String, Size, true);
 }
 
+String_Class::String_Class(String_Class&& String) : String_Class()
+{
+    Characters_Pointer = String.Characters_Pointer;
+    Size = String.Size;
+    String.Characters_Pointer = NULL;
+    String.Size = 0;
+}
+
 String_Class::~String_Class()
 {
     Set_Size(0);

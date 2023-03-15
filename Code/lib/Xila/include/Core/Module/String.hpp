@@ -28,12 +28,35 @@ namespace Xila_Namespace
 
         // - - Constructors / Destructors
 
+        /// @brief Default constructor.
         String_Class();
+
+        /// @brief Copy constructor.
+        /// @param String String to copy.
         String_Class(const String_Class& String);
+
+        /// @brief Constructor from character array.
         String_Class(const char* String);
+
+        /// @brief Constructor from character array.
+        /// @param String Character array to copy.
+        /// @param Size Character array size.
         String_Class(const char* String, Size_Type Size);
+
+        /// @brief Copy constructor from String.
+        /// @param String 
         String_Class(const String& String);
+
+        /// @brief Move constructor.
+        /// @param String String to move.
+        String_Class(String_Class&& String);
+
+        /// @brief Constructor from character.
         explicit String_Class(char Character);
+
+        /// @brief Constructor from integer.
+        /// @param Integer Integer to convert.
+        /// @param Base Integer base.
         explicit String_Class(Integer_Type Integer, Short_Integer_Type Base = 10);
         explicit String_Class(Long_Integer_Type Integer, Short_Integer_Type Base = 10);
         explicit String_Class(Short_Natural_Type Natural, Short_Integer_Type Base = 10);
@@ -58,17 +81,41 @@ namespace Xila_Namespace
 
         // - - Setters
 
+        /// @brief Set the allocated size of the string (length + 1).
+        /// @param Size Size to set.
+        /// @return Result of the operation.
         virtual Result_Type Set_Size(Size_Type Size);
+
+        /// @brief Set the allocated capacity of the string (maximum length).
+        /// @param Capacity Capacity to set.
+        /// @return Result of the operation.
         Result_Type Set_Capacity(Size_Type Capacity);
+
+        /// @brief Set the buffer of the string.
+        /// @param Buffer Buffer to set.
+        /// @param Size Buffer size.
         void Set_Buffer(char* Buffer, Size_Type Size);
+
+        /// @brief Set a character at a specific position.
+        /// @param Character Character to set.
+        /// @param Position Position of the character.
         void Set_Character(char Character, Size_Type Position);
 
         // - - Managment
 
+        /// @brief Clear the string (do not deallocate it).
         void Clear();
+
+        /// @brief Fit the allocated size to string lenght + 1.
+        /// @return Result of the operation.
         Result_Type Fit();
 
+        /// @brief Check if the string is empty.
+        /// @return true if the string is empty, false otherwise.
         bool Is_Empty() const;
+
+        /// @brief Check if the string is valid (allocated).
+        /// @return true if the string is valid, false otherwise.
         bool Is_Valid() const;
 
         // - - Copy
