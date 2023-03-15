@@ -16,18 +16,21 @@ String_Class::String_Class() : Characters_Pointer(NULL), Size(0)
 {
 }
 
-String_Class::String_Class(const String_Class &String) : Characters_Pointer(NULL), Size(0)
+String_Class::String_Class(const String_Class &String) : String_Class()
 {
+    Set_Size(String.Get_Size());
     Copy(String, true);
 }
 
-String_Class::String_Class(const char *String) : Characters_Pointer(NULL), Size(0)
+String_Class::String_Class(const char *String) : String_Class()
 {
+    Set_Size(strlen(String) + 1);
     Copy(String, 0, true);
 }
 
-String_Class::String_Class(const char *String, Size_Type Size) : Characters_Pointer(NULL), Size(0)
+String_Class::String_Class(const char *String, Size_Type Size) : String_Class()
 {
+    Set_Size(Size);
     Copy(String, Size, true);
 }
 
@@ -91,6 +94,7 @@ Result_Type String_Class::Set_Size(Size_Type Size)
             char *New_Buffer = (char *)realloc(Characters_Pointer, Size);
             if (New_Buffer == NULL)
             {
+                this->Size = 0;
                 return Result_Type::Error;
             }
             else

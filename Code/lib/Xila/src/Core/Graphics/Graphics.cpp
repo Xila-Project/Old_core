@@ -60,21 +60,19 @@ Result_Type Graphics_Class::Start()
         Log_Verbose("Graphics", "Error while creating semaphore");
         return Result_Type::Error;
     }
+        
+    Log_Verbose("Graphics", "Create keyboard...");
 
-    Log_Verbose("Graphics", "Create task...");
-
-    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
-    
-    Log_Verbose("Graphics", "Task created");
-
-    // - Set keyboard
-    
     Keyboard.Create(this->Get_Screen());
     Keyboard.Add_Flag(Flag_Type::Hidden);
     this->Get_Screen().Set_Style_Pad_All(0, 0);
-    
+
     // - Create task
     Log_Verbose("Graphics", "Create task...");
+    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
+    Log_Verbose("Graphics", "Task created...");
+
+   
     
     return Result_Type::Success;
 }
@@ -82,8 +80,10 @@ Result_Type Graphics_Class::Start()
 Result_Type Graphics_Class::Stop()
 { 
     
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_deinit();
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        lv_deinit();
+    }
     
     Keyboard.Delete();
     Task.Delete();
@@ -109,14 +109,11 @@ void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
 void Graphics_Class::Task_Function()
 {
     while (true)
-    {
+    { 
         this->Take_Semaphore();
-        Log_Verbose("Graphics", "Semaphore taken");
         lv_timer_handler();
-        Log_Verbose("Graphics", "Tick");
         this->Give_Semaphore();
-        lv_tick_inc(6);
-        
+        lv_tick_inc(6); 
         Task.Delay(6);
     }
 }
@@ -146,11 +143,13 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
 
 Object_Type Graphics_Type::Get_Top_Layer()
 {
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return Object_Type(lv_layer_top());
 }
 
 Object_Type Graphics_Type::Get_Screen()
 {
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return Object_Type(lv_scr_act());
 }
 

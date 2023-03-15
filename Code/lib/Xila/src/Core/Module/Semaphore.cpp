@@ -14,16 +14,20 @@
 
 using namespace Xila_Namespace;
 
+// - Methods
+
+// - - Constructors
+
 /// @brief Construct a new Semaphore object.
 Semaphore_Class::Semaphore_Class() : Semaphore_Handle(NULL)
 {
 }
 
-/// @brief Create a new Semaphore.
-/// @param Type Semaphore type (Binary, Counting, Mutex, Recursive_Mutex).
-/// @param Initial_Count Initial count (for Counting semaphore).
-/// @param Maximum_Count Maximum count (for Counting semaphore).
-/// @return `Result_Type::Success` if the semaphore was created, Result_Type::Error otherwise.
+Semaphore_Class::Semaphore_Class(const Semaphore_Class& Semaphore_To_Copy) : Semaphore_Handle(Semaphore_To_Copy.Semaphore_Handle)
+{
+    Log_Verbose("Semaphore", "Semaphore copied");
+}
+
 Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, unsigned int Maximum_Count)
 {
     if (Semaphore_Handle != NULL)
@@ -44,6 +48,7 @@ Result_Type Semaphore_Class::Create(Type_Type Type, unsigned int Initial_Count, 
         break;
     case Type_Type::Recursive_Mutex:
         Semaphore_Handle = xSemaphoreCreateRecursiveMutex();
+        Log_Verbose("Semaphore", "Recursive mutex created");
         break;
     default:
         return Result_Type::Error;
@@ -114,24 +119,12 @@ void Semaphore_Class::Take_From_ISR(Integer_Type *Higher_Priority_Task_Woken)
 
 Result_Type Semaphore_Class::Take_Recursive(uint32_t Timeout)
 {
-    Log_Verbose("Semaphore", "Current task try to take : %s", Task_Type(xTaskGetCurrentTaskHandle()).Get_Name());
-    if (this->Get_Mutex_Holder().Get_State() != Task_Type::State_Type::Invalid)
-    {
-        Log_Verbose("Semaphore", "Currently taken by : %s", this->Get_Mutex_Holder().Get_Name());
-    }
-    else
-    {
-        Log_Verbose("Semaphore", "Currently taken by : None");
-    }
-
     if (Timeout == 0xFFFFFFFF)
     {
-        Log_Verbose("Semaphore", "Waiting for semaphore...")
         if (xSemaphoreTakeRecursive(Semaphore_Handle, portMAX_DELAY) == pdFALSE)
         {
             return Result_Type::Error;
         }
-        Log_Verbose("Semaphore", "Taken by : %s", this->Get_Mutex_Holder().Get_Name());
     }
     else if (xSemaphoreTakeRecursive(Semaphore_Handle, pdMS_TO_TICKS(Timeout)) == pdFALSE)
     {
@@ -143,18 +136,8 @@ Result_Type Semaphore_Class::Take_Recursive(uint32_t Timeout)
 
 void Semaphore_Class::Give_Recursive()
 {
-
     xSemaphoreGiveRecursive(Semaphore_Handle);
-
-    Log_Verbose("Semaphore", "Given by : %s", this->Get_Mutex_Holder().Get_Name());
 }
-
-/*
-Task_Type Semaphore_Class::Get_Mutex_Holder()
-{
-    // TODO : Implement
-
-}*/
 
 unsigned int Semaphore_Class::Get_Count()
 {
@@ -163,6 +146,7 @@ unsigned int Semaphore_Class::Get_Count()
 
 Auto_Semaphore_Type Semaphore_Class::Take_Auto(uint32_t Timeout)
 {
+    //return Auto_Semaphore_Type(*this, Timeout);
     return Auto_Semaphore_Type(*this, Timeout);
 }
 

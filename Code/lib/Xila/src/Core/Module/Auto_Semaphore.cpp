@@ -13,12 +13,21 @@
 
 using namespace Xila_Namespace;
 
-Auto_Semaphore_Class::Auto_Semaphore_Class(Semaphore_Type &Semaphore, uint32_t Timeout) : Semaphore(Semaphore)
+Auto_Semaphore_Class::Auto_Semaphore_Class(Semaphore_Type& Semaphore, uint32_t Timeout) : Semaphore_Handle(Semaphore.Semaphore_Handle)
 {
-    Semaphore.Take_Recursive(Timeout);
+    xSemaphoreTakeRecursive(Semaphore_Handle, Timeout);
 }
+
+Auto_Semaphore_Class::Auto_Semaphore_Class(const Auto_Semaphore_Type &Auto_Semaphore) : //Semaphore(Auto_Semaphore.Semaphore)
+Semaphore_Handle(Auto_Semaphore.Semaphore_Handle)
+{
+    xSemaphoreTakeRecursive(Semaphore_Handle, portMAX_DELAY);
+    Log_Verbose("Auto_Semaphore", "Auto_Semaphore copied");
+    // Do take the semaphore since it's supposed to be already taken since an Auto_Semaphore_Class is invoked.
+}
+
 
 Auto_Semaphore_Class::~Auto_Semaphore_Class()
 {
-    Semaphore.Give_Recursive();
+    xSemaphoreGiveRecursive(Semaphore_Handle);
 }

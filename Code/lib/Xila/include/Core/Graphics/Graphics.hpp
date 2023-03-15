@@ -52,6 +52,8 @@
 #include "Tabs.hpp"
 // #include "Tileview.hpp"
 
+#include <atomic>
+
 namespace Xila_Namespace
 {
     namespace Graphics_Types
@@ -85,7 +87,7 @@ namespace Xila_Namespace
         // - - Semaphore
         inline Auto_Semaphore_Type Take_Semaphore_Auto()
         {
-            return Semaphore.Take_Auto();
+            return Auto_Semaphore_Type(Semaphore);
         };
 
         inline void Take_Semaphore()

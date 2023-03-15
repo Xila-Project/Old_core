@@ -491,9 +491,10 @@ void System_Class::Load()
 
   Log_Information("System", "Start load animation ...");
 
+  //Task.Delay(1000);
+
   Graphics_Types::Animation_Type* Animation = new Graphics_Types::Animation_Type();
   Object_Type Logo;
-
   this->Start_Load_Animation(&Logo, Animation);
 
   Task.Delay(20000);
@@ -576,7 +577,7 @@ void System_Class::Load()
 
   Task.Delay(100);
 
-  this->Stop_Load_Animation(&Logo);
+  //this->Stop_Load_Animation(&Logo);
 }
 
 ///

@@ -10,6 +10,7 @@
 
 #include "Core/Software/Softwares.hpp"
 #include "Core/System/System.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
@@ -18,7 +19,8 @@ Softwares_Type Xila_Namespace::Softwares;
 Result_Type Softwares_Class::Start()
 {
     // - Start shell
-    return this->Open("Shell", Accounts.Get_Logged_User());
+    Static_String_Type<24> Shell_Name("Shell");
+    return this->Open(Shell_Name, Accounts.Get_Logged_User());
 }
 
 Result_Type Softwares_Class::Stop()
@@ -113,6 +115,9 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
 
 Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
 {
+    Log_Verbose("Softwares", "Searching for software handle: %s", (const char*)Name);
+    Log_Verbose("Softwares", "Software handle list size: %s", String(Software_Handle_Class::List.size()));
+    
     Static_String_Type<Default_Software_Name_Length> Software_Name;
     for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
     {
