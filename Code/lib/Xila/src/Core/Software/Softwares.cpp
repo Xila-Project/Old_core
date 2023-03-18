@@ -19,7 +19,7 @@ Softwares_Type Xila_Namespace::Softwares;
 Result_Type Softwares_Class::Start()
 {
     // - Start shell
-    Static_String_Type<24> Shell_Name("Shell");
+    Static_String_Type<5> Shell_Name("Shell");
     return this->Open(Shell_Name, Accounts.Get_Logged_User());
 }
 

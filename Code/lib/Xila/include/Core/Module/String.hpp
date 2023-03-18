@@ -149,9 +149,9 @@ namespace Xila_Namespace
 
         // - - Comparison
 
-        bool Equals(const char* String, Size_Type Size) const;
+        bool Equals(const char* String) const;
         bool Equals(const String_Class& String) const;
-        int8_t Compare(const char* String, Size_Type Size) const;
+        int8_t Compare(const char* String) const;
         int8_t Compare(const String_Class& String) const;
 
         // - - Edition
@@ -228,7 +228,7 @@ namespace Xila_Namespace
     } String_Type;
 
 
-    /// @brief Template class derivated from String_Class to create a static string.
+    /// @brief Template class derivated from String_Class to create a static string (stack allocated).
     /// @tparam Buffer_Size Size of the static buffer.
     template <Size_Type Length>
     class Static_String_Class : public String_Class

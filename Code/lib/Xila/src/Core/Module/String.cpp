@@ -9,6 +9,7 @@
 ///
 
 #include "Core/Module/String.hpp"
+#include <cstring>
 
 using namespace Xila_Namespace;
 
@@ -24,7 +25,7 @@ String_Class::String_Class(const String_Class &String) : String_Class()
 
 String_Class::String_Class(const char *String) : String_Class()
 {
-    Set_Size(strlen(String) + 1);
+    Set_Size(std::strlen(String) + 1);
     Copy(String, 0, true);
 }
 
@@ -34,7 +35,7 @@ String_Class::String_Class(const char *String, Size_Type Size) : String_Class()
     Copy(String, Size, true);
 }
 
-String_Class::String_Class(String_Class&& String) : String_Class()
+String_Class::String_Class(String_Class &&String) : String_Class()
 {
     Characters_Pointer = String.Characters_Pointer;
     Size = String.Size;
@@ -51,7 +52,7 @@ Size_Type String_Class::Get_Length() const
 {
     if (Is_Valid())
     {
-        return strnlen(Characters_Pointer, Get_Size());
+        return std::strlen(Characters_Pointer);
     }
     else
     {
@@ -61,11 +62,7 @@ Size_Type String_Class::Get_Length() const
 
 Size_Type String_Class::Get_Size() const
 {
-    if (Is_Valid())
-    {
-        return Size;
-    }
-    return 0;
+    return Size;
 }
 
 Size_Type String_Class::Get_Capacity() const
@@ -75,10 +72,10 @@ Size_Type String_Class::Get_Capacity() const
 
 /// @brief
 /// @param Position
-/// @return
+/// @return 
 char String_Class::Get_Character(Size_Type Position) const
 {
-    if (Position < Size && Is_Valid())
+    if ((Position < Get_Size()) && Is_Valid())
     {
         return Characters_Pointer[Position];
     }
@@ -90,16 +87,19 @@ char String_Class::Get_Character(Size_Type Position) const
 
 Result_Type String_Class::Set_Size(Size_Type Size)
 {
+    // If the String is valid.
     if (Is_Valid())
     {
+        // If the String is set to be empty.
         if (Size == 0)
         {
             free(Characters_Pointer);
-            Characters_Pointer = NULL;
+            this->Characters_Pointer = NULL;
         }
+        // Change size
         else if (Size != Get_Size())
         {
-            char *New_Buffer = (char *)realloc(Characters_Pointer, Size);
+            char *New_Buffer = (char *)realloc(Characters_Pointer, Size * sizeof(char));
             if (New_Buffer == NULL)
             {
                 this->Size = 0;
@@ -107,20 +107,22 @@ Result_Type String_Class::Set_Size(Size_Type Size)
             }
             else
             {
-                Characters_Pointer = New_Buffer;
+                this->Characters_Pointer = New_Buffer;
             }
         }
     }
+    // If the String is not valid.
     else
     {
+
         if (Size == 0)
         {
             Characters_Pointer = NULL;
         }
         else
         {
-            Characters_Pointer = (char *)malloc(Size);
-            if (Characters_Pointer == NULL)
+            this->Characters_Pointer = (char *)malloc(Size * sizeof(char));
+            if (this->Characters_Pointer == NULL)
             {
                 this->Size = 0;
                 return Result_Type::Error;
@@ -215,7 +217,7 @@ Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_S
 
     if (Size == 0)
     {
-        Size = strlen(String) + 1;
+        Size = std::strlen(String) + 1;
     }
 
     if (Change_Size)
@@ -225,13 +227,13 @@ Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_S
             return Result_Type::Error;
         }
 
-        if (Get_Size() <= Size)
+        if (Get_Size() < Size)
         {
-            strlcpy(Characters_Pointer, String, Get_Size());
+            std::strncpy(Characters_Pointer, String, Get_Size());
         }
         else
         {
-            strlcpy(Characters_Pointer, String, Size);
+            std::strncpy(Characters_Pointer, String, Size);
         }
     }
     Characters_Pointer[Get_Size()] = '\0';
@@ -243,7 +245,7 @@ Result_Type String_Class::Copy(const String_Class &String, bool Change_Size)
     return Copy(String.Characters_Pointer, String.Size, Change_Size);
 }
 
-Result_Type String_Class::Copy(const String& String, bool Change_Size)
+Result_Type String_Class::Copy(const String &String, bool Change_Size)
 {
     return Copy(String.c_str(), String.length() + 1, Change_Size);
 }
@@ -259,7 +261,6 @@ Result_Type String_Class::Copy_Format(const char *Format, ...)
     va_start(Arguments, Format);
     vsnprintf(Characters_Pointer, Get_Size(), Format, Arguments);
     va_end(Arguments);
-    
 }
 
 /// @brief
@@ -276,12 +277,9 @@ Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool I
 
     if (Size == 0)
     {
-        Size = strlen(String);
+        Size = std::strlen(String);
     }
-    else
-    {
-        Size = strnlen(String, Size);
-    }
+
     Size += Get_Length() + 1;
 
     if (Increase_Size && (Get_Size() < Size))
@@ -292,7 +290,7 @@ Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool I
         }
     }
 
-    strlcat(Characters_Pointer, String, Get_Size());
+    std::strncat(Characters_Pointer, String, Get_Size());
     Characters_Pointer[Get_Size()] = '\0';
 
     return Result_Type::Success;
@@ -311,44 +309,44 @@ Result_Type String_Class::Concatenate(char Character, bool Increase_Size)
 
 Result_Type String_Class::Concatenate(Short_Natural_Type Byte, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Short_Natural_Type)>)Byte, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Short_Natural_Type)>)Byte, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Integer_Type Integer, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Natural_Type)>)Integer, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Natural_Type)>)Integer, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Natural_Type Natural, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Natural_Type)>)Natural, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Natural_Type)>)Natural, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Long_Natural_Type Long_Natural, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Long_Natural_Type)>)Long_Natural, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Long_Natural_Type)>)Long_Natural, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Long_Integer_Type Long_Integer, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Long_Integer_Type)>)Long_Integer, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Long_Integer_Type)>)Long_Integer, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Real_Type Real, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Real_Type)>)Real, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Real_Type)>)Real, Increase_Size);
 }
 
 Result_Type String_Class::Concatenate(Long_Real_Type Long_Real, bool Increase_Size)
 {
-    return Concatenate((Static_String_Type<3*sizeof(Long_Real_Type)>)Long_Real, Increase_Size);
+    return Concatenate((Static_String_Type<3 * sizeof(Long_Real_Type)>)Long_Real, Increase_Size);
 }
 
-bool String_Class::Equals(const char *String, Size_Type Size) const
+bool String_Class::Equals(const char *String) const
 {
     if (String != NULL || Is_Valid())
     {
-        if (Compare(String, Size) == 0)
+        if (Compare(String) == 0)
         {
             return true;
         }
@@ -368,28 +366,19 @@ bool String_Class::Equals(const String_Class &String) const
     return false;
 }
 
-int8_t String_Class::Compare(const char *String, Size_Type Size) const
+int8_t String_Class::Compare(const char *String) const
 {
     if (String == NULL || !Is_Valid())
     {
         return 0;
     }
 
-    if (Size == 0)
-    {
-        Size = strlen(String);
-    }
-    else
-    {
-        Size = strnlen(String, Size);
-    }
-
-    return strncmp(Characters_Pointer, String, Size);
+    return std::strncmp(Characters_Pointer, String, Get_Size());
 }
 
 int8_t String_Class::Compare(const String_Class &String) const
 {
-    return Compare(String.Characters_Pointer, String.Size);
+    return Compare(String.Characters_Pointer);
 }
 
 Result_Type String_Class::Remove(Size_Type Position, Size_Type Size)
@@ -478,14 +467,14 @@ String_Class::operator const char *() const
     return Characters_Pointer;
 }
 
-String_Class::operator char* ()
+String_Class::operator char *()
 {
     return Characters_Pointer;
 }
 
-String_Class::operator const Byte_Type*() const
+String_Class::operator const Byte_Type *() const
 {
-    return (const uint8_t*)Characters_Pointer;
+    return (const uint8_t *)Characters_Pointer;
 }
 
 String_Class &String_Class::operator=(const char *String)
@@ -500,7 +489,7 @@ String_Class &String_Class::operator=(const String_Class &String)
     return *this;
 }
 
-String_Class& String_Class::operator=(const String& String)
+String_Class &String_Class::operator=(const String &String)
 {
     Copy(String);
     return *this;
@@ -524,43 +513,41 @@ String_Class &String_Class::operator+=(char Character)
     return *this;
 }
 
-String_Class& String_Class::operator+=(Integer_Type Integer)
+String_Class &String_Class::operator+=(Integer_Type Integer)
 {
     Concatenate(Integer);
     return *this;
 }
 
-String_Class& String_Class::operator+=(Long_Integer_Type Integer)
+String_Class &String_Class::operator+=(Long_Integer_Type Integer)
 {
     Concatenate(Integer);
     return *this;
 }
 
-String_Class& String_Class::operator+=(Short_Natural_Type Byte)
+String_Class &String_Class::operator+=(Short_Natural_Type Byte)
 {
     Concatenate(Byte);
     return *this;
 }
 
-String_Class& String_Class::operator+=(Natural_Type Natural)
+String_Class &String_Class::operator+=(Natural_Type Natural)
 {
     Concatenate(Natural);
     return *this;
 }
 
-String_Class& String_Class::operator+=(Real_Type Real)
+String_Class &String_Class::operator+=(Real_Type Real)
 {
     Concatenate(Real);
     return *this;
 }
 
-String_Class& String_Class::operator+=(Long_Real_Type Real)
+String_Class &String_Class::operator+=(Long_Real_Type Real)
 {
     Concatenate(Real);
     return *this;
 }
-
-
 
 bool String_Class::operator==(const char *String) const
 {
