@@ -19,7 +19,12 @@ Softwares_Type Xila_Namespace::Softwares;
 Result_Type Softwares_Class::Start()
 {
     // - Start shell
-    Static_String_Type<5> Shell_Name("Shell");
+    Log_Verbose("Softwares", "Starting shell");
+
+    Static_String_Type<24> Shell_Name("Shell");
+
+    Log_Verbose("Softwares", "Starting shell: %s", (const char*)Shell_Name);
+
     return this->Open(Shell_Name, Accounts.Get_Logged_User());
 }
 
@@ -65,7 +70,11 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
 
 Result_Type Softwares_Class::Open(const String_Type &Name, const Accounts_Types::User_Type *Owner_User)
 {
+    Log_Verbose("Softwares", "Opening software: %s", (const char*)Name);
+    
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
+   
+    Log_Verbose("Softwares", "Software handle: %p", Handle);
     return this->Open(Handle, Owner_User);
 }
 
@@ -116,14 +125,23 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
 Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
 {
     Log_Verbose("Softwares", "Searching for software handle: %s", (const char*)Name);
-    Log_Verbose("Softwares", "Software handle list size: %s", String(Software_Handle_Class::List.size()));
+    Log_Verbose("Softwares", "Software handle list size: %u", this->Get_Handle_Count());
     
     Static_String_Type<Default_Software_Name_Length> Software_Name;
+    
     for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
     {
+        if (Software_Handle_Pointer == NULL)
+            break;
+
+        Log_Verbose("Softwares", "Software handle: %p", *Software_Handle_Pointer);
         Software_Handle_Pointer->Get_Name(Software_Name);
+
+        Log_Verbose("Softwares", "Software name: %s", (const char*)Software_Name);
+
         if (Software_Name == Name)
         {
+            Log_Verbose("Softwares", "Software handle found: %s", (const char*)Software_Name);
             return Software_Handle_Pointer;
         }
     }
@@ -132,17 +150,12 @@ Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
 
 const Software_Handle_Type *Softwares_Class::Get_Handle(uint8_t Index)
 {
-    // Not optimized at all, but better than returning the whole list.
-    uint8_t i = 0;
-    for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
+    if (Index >= Software_Handle_Class::List.size())
     {
-        if (i == Index)
-        {
-            return Software_Handle_Pointer;
-        }
-        i++;
+        return NULL;
     }
-    return NULL;
+
+    return Software_Handle_Class::List[Index];
 }
 
 Software_Type *Softwares_Class::Get(uint8_t Index)
@@ -167,7 +180,14 @@ uint8_t Softwares_Class::Get_Count()
 
 uint8_t Softwares_Class::Get_Handle_Count()
 {
-    return Software_Handle_Class::List.size();
+    uint8_t i = 0;
+    for (auto Software_Handle_Pointer : Software_Handle_Class::List)
+    {
+        if (Software_Handle_Pointer == NULL)
+            return i;
+
+        i++;
+    }
 }
 
 void Softwares_Class::Close_User_Softwares(const Accounts_Types::User_Type *User)

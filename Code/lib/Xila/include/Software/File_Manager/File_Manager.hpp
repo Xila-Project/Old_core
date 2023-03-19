@@ -17,18 +17,6 @@ using namespace Xila;
 
 class File_Manager_Class : public Software_Type
 {
-    // - Types
-
-    static class File_Manager_Handle_Class : public Software_Handle_Class
-    {
-    public:
-        File_Manager_Handle_Class() : Software_Handle_Class("File manager"){};
-
-        void Create_Instance() const override
-        {
-            new File_Manager_Class();
-        };
-    } Handle;
 
     // - Methods
 
@@ -83,6 +71,21 @@ class File_Manager_Class : public Software_Type
 
     Graphics_Types::Dialog_Type Details_Dialog;
     Table_Type Details_Table;
+
+    friend class File_Manager_Handle_Class;
 };
+
+// - Types
+
+static class File_Manager_Handle_Class : public Software_Handle_Class
+{
+public:
+    File_Manager_Handle_Class() : Software_Handle_Class("File manager"){};
+
+    void Create_Instance() const override
+    {
+        new File_Manager_Class();
+    };
+} File_Manager_Handle;
 
 #endif

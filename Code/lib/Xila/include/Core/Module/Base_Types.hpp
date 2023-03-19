@@ -46,9 +46,9 @@ namespace Xila_Namespace
     /// @brief Result type.
     enum class Result_Type
     {
-        Success,
-        Invalid_Argument,
         Error,
+        Success = true,
+        Invalid_Argument,
         Wait,
         None
     };

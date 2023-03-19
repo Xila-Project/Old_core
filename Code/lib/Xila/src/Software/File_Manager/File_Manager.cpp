@@ -10,7 +10,7 @@
 
 #include "Software/File_Manager/File_Manager.hpp"
 
-File_Manager_Class::File_Manager_Class() : Software_Class(&Handle)
+File_Manager_Class::File_Manager_Class() : Software_Class(&File_Manager_Handle)
 {
     Window.Create(this);
     Window.Set_Title("File manager");

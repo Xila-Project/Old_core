@@ -14,5 +14,5 @@ using namespace Xila_Namespace;
 
 bool convertToJson(const String_Type &String, JsonVariant variant)
 {
-    return variant.set(String);
+    return variant.set((const char*)String);
 }

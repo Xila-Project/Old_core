@@ -28,7 +28,7 @@ Shell_Class::Drawer_Class::Drawer_Class(Shell_Class *Shell_Pointer) : Shell_Poin
 
         for (Byte_Type i; i < Softwares.Get_Handle_Count(); i++)
         {
-            if (&Shell_Class::Handle != Softwares.Get_Handle(i))
+            if (&Shell_Handle != Softwares.Get_Handle(i))
             {
                 Container.Create(Window.Get_Body());
                 Container.Set_Size(10 * 8, 9 * 8);

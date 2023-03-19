@@ -10,6 +10,7 @@
 
  #include "Core/Account/Accounts.hpp"
  #include "Core/Software/Softwares.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
@@ -19,9 +20,18 @@ using namespace Xila_Namespace::Accounts_Types;
 /// @param State User state.
 User_Class::User_Class(const String_Type& Name, User_State_Type State) : Name(Name), State(State)
 {
+  Log_Verbose("User", "Constructor");
 }
 
+User_Class::User_Class(const User_Class& User) : Name(User.Name), State(User.State)
+{
+  Log_Verbose("User", "Copy constructor");
+}
 
+User_Class::User_Class(User_Class&& User) : User_Class(User.Name, User.State)
+{
+  Log_Verbose("User", "Move constructor");
+}
 
 /// @brief Return current session state.
 ///

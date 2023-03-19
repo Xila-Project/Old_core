@@ -41,6 +41,22 @@ void Label_Class::Create(Object_Class Parent_Object)
     }
 }
 
+void Label_Class::Create(Object_Class Parent_Object, const String_Type& Text, Coordinate_Type Width, Coordinate_Type Height)
+{
+    if (Parent_Object)
+    {
+        this->Create(Parent_Object);
+        if (Width != 0)
+            this->Set_Width(Width);
+
+        if (Height != 0)
+            this->Set_Height(Height);
+
+        if (Text != "")
+            this->Set_Text(Text);
+    }
+}
+
 void Label_Class::Insert_Text(uint32_t Position, const char *Text)
 { Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     lv_label_ins_text(Get_Pointer(), Position, Text);

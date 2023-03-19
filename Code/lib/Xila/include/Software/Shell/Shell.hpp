@@ -30,18 +30,6 @@ using namespace Xila;
 /// @details Main inter
 class Shell_Class : public Software_Type
 {
-    // - Types
-
-    static class Shell_Handle_Class : public Software_Handle_Type
-    {
-    public:
-        Shell_Handle_Class() : Software_Handle_Type("Shell"){};
-
-        void Create_Instance() const override
-        {
-            new Shell_Class();
-        };
-    } Handle;
 
     /// @brief Desk class
     class Desk_Class
@@ -200,7 +188,7 @@ class Shell_Class : public Software_Type
         static void Close(Shell_Class *Shell_Pointer);
 
         void Execute_Instruction(const Instruction_Type &Instruction);
-    
+
     private:
         // - Methods
 
@@ -231,6 +219,25 @@ class Shell_Class : public Software_Type
     Result_Type Load_Registry();
 
     Software_Type *Open_Shell();
+
+    friend class Shell_Handle_Class;
 };
+
+// - Types
+
+static class Shell_Handle_Class : public Software_Handle_Type
+{
+public:
+    Shell_Handle_Class() : Software_Handle_Type("Shell")
+    {
+        log_printf("Test", "Test");
+    };
+
+    void Create_Instance() const override
+    {
+        new Shell_Class();
+    };
+
+} Shell_Handle;
 
 #endif

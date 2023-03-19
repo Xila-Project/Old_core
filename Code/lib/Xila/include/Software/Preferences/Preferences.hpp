@@ -17,18 +17,6 @@ using namespace Xila;
 
 class Preferences_Class : public Software_Type
 {
-    // - Types
-
-    static class Preferences_Handle_Class : public Software_Handle_Type
-    {
-    public:
-        Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
-
-        void Create_Instance() const override
-        {
-            new Preferences_Class();
-        };
-    } Handle;
 
     // - Methods
 
@@ -94,6 +82,22 @@ class Preferences_Class : public Software_Type
     Graphics_Types::Text_Area_Type Wireless_Network_DNS_1_Text_Area;
     Graphics_Types::Text_Area_Type Wireless_Network_DNS_2_Text_Area;
 
+    // - - Users
+    Button_Type Users_Apply_Button;
+    Button_Type Users_Delete_Your_Account_Button;
+    Button_Type Users_Delete_User_Button;
+    Button_Type Users_Add_User_Button;
+
+    Roller_Type Users_Roller;
+
+    Graphics_Types::Text_Area_Type Users_Add_User_Name_Text_Area;
+    Graphics_Types::Text_Area_Type Users_Add_User_Password_Text_Area;
+
+    Graphics_Types::Text_Area_Type Users_Your_Account_Password_Text_Area;
+    Graphics_Types::Text_Area_Type Users_Your_Account_New_Name_Text_Area;
+    Graphics_Types::Text_Area_Type Users_Your_Account_New_Password_Text_Area;
+    Graphics_Types::Text_Area_Type Users_Your_Account_New_Password_Confirmation_Text_Area;
+
     // - - Hardware
 
     Button_Type Hardware_Display_Calibrate_Button;
@@ -122,6 +126,21 @@ class Preferences_Class : public Software_Type
     Spinbox_Type System_Time_Daylight_Offset_Spinbox;
     Graphics_Types::Text_Area_Type System_Time_NTP_Server_Text_Area;
     Roller_Type System_Time_Zone_Roller;
+
+    friend class Preferences_Handle_Class;
 };
+
+// - Types
+
+static class Preferences_Handle_Class : public Software_Handle_Type
+{
+public:
+    Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
+
+    void Create_Instance() const override
+    {
+        new Preferences_Class();
+    };
+} Preferences_Handle;
 
 #endif

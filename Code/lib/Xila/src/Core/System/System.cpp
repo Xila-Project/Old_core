@@ -37,94 +37,6 @@ System_Class::~System_Class()
 {
 }
 
-Result_Type System_Class::Create_Registry()
-{
-  File_Type Temporary_File = Drive.Open(Registry("System"), true);
-  StaticJsonDocument<512> System_Registry;
-  System_Registry["Registry"] = "System";
-  System_Registry["Version"]["Major"] = Xila_Version_Major;
-  System_Registry["Version"]["Minor"] = Xila_Version_Minor;
-  System_Registry["Version"]["Revision"] = Xila_Version_Revision;
-
-  if (serializeJson(System_Registry, Temporary_File) == 0)
-  {
-    Temporary_File.Close();
-    return Result_Type::Error;
-  }
-
-  Temporary_File.Close();
-  return Result_Type::Success;
-}
-
-/// @brief Load System registry.
-///
-/// @return Result_Type
-Result_Type System_Class::Load_Registry()
-{
-  Log_Information("System", "Load system registry...");
-  File_Type Temporary_File = Drive.Open((Registry("System")));
-  StaticJsonDocument<1024> System_Registry;
-  if (deserializeJson(System_Registry, Temporary_File)) // error while deserialising
-  {
-    Temporary_File.Close();
-    return Result_Type::Error;
-  }
-  Temporary_File.Close();
-  if (strcmp("System", System_Registry["Registry"] | "") != 0)
-  {
-    return Result_Type::Error;
-  }
-
-  {
-    JsonObject Version = System_Registry["Version"];
-
-    if (Version["Major"] != Xila_Version_Major || Version["Minor"] != Xila_Version_Minor || Version["Revision"] != Xila_Version_Revision)
-    {
-      return Result_Type::Error;
-    }
-  }
-
-  this->Device_Name = System_Registry["Device Name"] | static_cast<const char*>(this->Device_Name);
-
-  return Result_Type::Success;
-}
-
-///
-/// @brief Save System registry.
-///
-/// @return Result_Type
-Result_Type System_Class::Save_Registry()
-{
-  // - Open current registry
-  File_Type Temporary_File = Drive.Open(Registry("System"), true);
-  StaticJsonDocument<512> System_Registry;
-
-  System_Registry["Device name"] = Device_Name;
-
-  {
-    JsonObject Version = System_Registry.createNestedObject("Version");
-    Version["Major"] = Xila_Version_Major;
-    Version["Minor"] = Xila_Version_Minor;
-    Version["Revision"] = Xila_Version_Revision;
-  }
-
-  {
-    JsonObject Time = System_Registry.createNestedObject("Time");
-    Time["UTC Offset"] = this->UTC_Offset;
-    Time["Daylight Offset"] = this->Daylight_Offset;
-    Time["NTP Server"] = static_cast<const char*>(this->NTP_Server);
-  }
-
-  // - Serialise
-  if (serializeJson(System_Registry, Temporary_File) == 0)
-  {
-    Temporary_File.Close();
-    return Result_Type::Error;
-  }
-  Temporary_File.Close();
-  return Result_Type::Success;
-}
-
 /// @brief
 /// @param Instance_Pointer
 void System_Class::Task_Start_Function(void *Instance_Pointer)
@@ -226,8 +138,10 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
   Background.Create(Graphics.Get_Screen());
   Background.Set_Size(Percentage(100), Percentage(100));
   Background.Set_Style_Background_Color(Color_Type::Black, 0);
+  Background.Set_Style_Pad_All(0, 0);
   Background.Set_Flex_Flow(Flex_Flow_Type::Column);
   Background.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
+
 
   {
     Object_Type Logo;
@@ -290,10 +204,16 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 
   Graphics_Types::Label_Type Error_Text;
   Error_Text.Create(Background);
-  Error_Text.Set_Text_Format("Error : %X.", Panic_Code);
+  Error_Text.Set_Text_Format("Error : 0x%X.", Panic_Code);
   Error_Text.Set_Width(Percentage(80));
   Error_Text.Set_Long_Mode(Graphics_Types::Long_Type::Wrap);
   Error_Text.Set_Style_Text_Color(Color_Type::White, 0);
+
+  Background.Move_Foreground();
+
+  Log_Verbose("System", "Panic handler started.");
+
+  Task_Type::Delay_Static(50); // Small delay to let the system refresh the screen.
 
   Task_Type::Suspend_All();
   uint32_t Timer = System.Get_Up_Time_Milliseconds() + 5000;
@@ -304,106 +224,6 @@ void System_Class::Panic_Handler(Panic_Type Panic_Code)
 
   abort();
 }
-
-/// @brief Save system dump.
-///
-/// @return Result_Type
-Result_Type System_Class::Save_Dump()
-{
-  /*
-  DynamicJsonDocument Dump_Registry(Default_Registry_Size);
-
-  Dump_Registry["Registry"] = "Dump";
-
-  {
-    JsonArray Users = Dump_Registry.createNestedArray("Users");
-
-    for (uint8_t i = 0; i < Accounts.Get_User_Count(); i++)
-    {
-      Users.add(Accounts.Get_User(i)->Get_Name());
-    }
-  }
-
-  {
-    JsonArray Openned_Software = Dump_Registry.createNestedArray("Software");
-
-    // Iterate through opened software list
-    for (auto &Software_Pointer : Softwares.Get_List())
-    {
-      Openned_Software.add(Software_Pointer->Get_Handle_Pointer()->Get_Name());
-    }
-  }
-
-  File_Type Dump_File = Drive.Open(Dump_Registry_Path, true);
-  if (serializeJson(Dump_Registry, Dump_File) == 0)
-  {
-    Dump_File.Close();
-    return Result_Type::Error;
-  }
-  Dump_File.Close();
-  */
-  return Result_Type::Success;
-}
-
-///
-/// @brief Load system dump.
-///
-/// @return Result_Type
-Result_Type System_Class::Load_Dump()
-{
-  /*
-  if (Drive.Exists(Dump_Registry_Path))
-  {
-    File_Type Dump_File = Drive.Open((Dump_Registry_Path));
-    DynamicJsonDocument Dump_Registry(Default_Registry_Size);
-
-    if (deserializeJson(Dump_Registry, Dump_File) != DeserializationError::Ok)
-    {
-      Dump_File.Close();
-      Drive.Remove(Dump_Registry_Path);
-      return Result_Type::Error;
-    }
-    Dump_File.Close();
-    Drive.Remove(Dump_Registry_Path);
-
-    if (strcmp(Dump_Registry["Registry"] | "", "Dump") != 0)
-    {
-      return Result_Type::Error;
-    }
-
-    char Temporary_Software_Name[sizeof(Software_Handle_Type::Name)];
-
-    JsonArray Software = Dump_Registry["Software"];
-
-    for (uint8_t i = 0; i < 6; i++)
-    {
-      memset(Temporary_Software_Name, '\0', sizeof(Temporary_Software_Name));
-      strlcpy(Temporary_Software_Name, Software[i] | "", sizeof(Temporary_Software_Name));
-      for (auto & Software_Handle : Softwares.Get_Handle_List())
-      {
-        if (strcmp(Software_Handle->Get_Name(), Temporary_Software_Name) == 0)
-        {
-          Software_Handle->Create_Instance();
-        }
-      }
-    }
-
-    strlcpy(Account.Get_Logged_User()., Dump_Registry["User"] | "", sizeof(Account.Current_Username));
-    if (Account.Current_Username[0] != '\0')
-    {
-      Account.Set_State(Account.Locked);
-    }
-
-    return Result_Type::Success;
-  }
-  else
-  {
-    return Result_Type::Error;
-  }
-  */
-  return Result_Type::Success;
-}
-
 
 /// @brief Function that start Xila.
 void System_Class::Start()
@@ -497,7 +317,7 @@ void System_Class::Load()
   Object_Type Logo;
   this->Start_Load_Animation(&Logo, Animation);
 
-  Task.Delay(20000);
+  Task.Delay(2000);
 
   Log_Information("System", "Load animation done.");
 
@@ -562,6 +382,8 @@ void System_Class::Load()
     Panic_Handler(Panic_Type::Failed_To_Start_Accounts);
   }
 
+  Log_Verbose("System", "Checking if there is an account ...");
+
   if (Softwares.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Softwares);
@@ -592,7 +414,6 @@ void System_Class::Shutdown()
   //Sound.Play(Sounds("Shutdown.wav"));
 
   Task.Delete();
-
   Softwares.Stop();
   Display.Stop();
   Power.Stop();
@@ -626,7 +447,7 @@ void System_Class::Restart()
   System.Stop();
 
   this->Stop_Load_Animation(&Logo);
-esp_rom_delay_us(3546);
+
   Power.Restart();
 }
 

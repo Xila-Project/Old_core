@@ -100,7 +100,7 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instr
             {
                 if (Accounts.Login(Name_Input.Get_Text(), Password_Input.Get_Text()) == Result_Type::Success)
                 {
-                    Softwares.Open(&Shell_Class::Handle, Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));
+                    Softwares.Open(&Shell_Handle, Accounts.Get_User(Accounts.Find_User(Name_Input.Get_Text())));
                 }
                 else
                 {

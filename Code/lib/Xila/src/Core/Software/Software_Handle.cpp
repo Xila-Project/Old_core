@@ -9,10 +9,11 @@
 ///
 
 #include "Core/Software/Software_Handle.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
-std::list<Software_Handle_Class *> Software_Handle_Class::List(10);
+std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = {NULL};
 
 // Software handle
 
@@ -25,12 +26,26 @@ std::list<Software_Handle_Class *> Software_Handle_Class::List(10);
 Software_Handle_Class::Software_Handle_Class(const String_Type& Software_Name)
     : Name(Name)
 {
-  List.push_back(this);
+  log_printf("Software_Handle construcotr \n");
+
+  for (auto& Software_Handle_Pointer : List)
+  {
+    if (Software_Handle_Pointer == nullptr)
+    {
+      Software_Handle_Pointer = this;
+    }
+  }
 }
 
 Software_Handle_Class::~Software_Handle_Class()
 {
-      List.remove(this);
+  for (auto &Software_Handle_Pointer : List)
+  {
+    if (Software_Handle_Pointer == this)
+    {
+      Software_Handle_Pointer = nullptr;
+    }
+  }
 }
 
 ///

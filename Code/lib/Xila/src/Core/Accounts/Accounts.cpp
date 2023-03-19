@@ -15,20 +15,15 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Accounts_Types;
 
-
 Accounts_Type Xila_Namespace::Accounts;
-
 
 Result_Type Accounts_Class::Start()
 {
   Log_Information("Account", "Start account module...");
-  User_List.push_back(User_Type("Xila", User_State_Type::Logged));
 
-  if (this->Load_Registry() != Result_Type::Success)
-  {
-    return this->Create_Registry();
+  User_Type Xila_User("Xila", User_State_Type::Logged);
+  User_List.push_back(Xila_User);
 
-  }
   return Result_Type::Success;
 }
 
@@ -160,6 +155,9 @@ Result_Type Accounts_Class::Set_Autologin(bool Enable, const String_Type &Name, 
 /// @return  const String_Type& Logged username (empty if there's no logged user).
 const User_Type *Accounts_Class::Get_Logged_User()
 {
+  Log_Verbose("Account", "Get logged user...");
+  Log_Verbose("Account", "User list size : %u", User_List.size());
+
   for (auto &User_Pointer : User_List)
   {
     if (User_Pointer.Get_State() == User_State_Type::Logged)
@@ -183,7 +181,7 @@ const Accounts_Types::User_Type *Accounts_Class::Get_User(uint8_t Index)
   {
     User_Iterator++;
   }
-  
+
   return &(*User_Iterator);
 }
 
@@ -237,12 +235,29 @@ Result_Type Accounts_Class::Create(const String_Type &User_Name, const String_Ty
   {
     return Result_Type::Error;
   }
+
+  uint8_t Hashed_Password[65];
+
+  {
+    // - Create a salted and peppered password.
+    Static_String_Type<69> Salted_Password = Password;
+    this->Salt_Password(Salted_Password, static_cast<char>(Mathematics.Random(0x000000FF)));
+    // Hash the salted and peppered password.
+    if (this->Hash_Password(Salted_Password, Hashed_Password) != Result_Type::Success)
+    {
+      return Result_Type::Error;
+    }
+    // Add null terminator in order to handle it as a regular character array.
+    Hashed_Password[64] = '\0';
+  }
+
   snprintf(Temporary_Path, sizeof(Temporary_Path), Users_Directory_Path "/%s/Registry/User.xrf", User_Name);
   File_Type Temporary_File = Drive.Open(Temporary_Path, true);
   StaticJsonDocument<256> User_Registry;
 
   User_Registry["Registry"] = "User";
-  User_Registry["Password"] = Password;
+  User_Registry["Password"] = (char *)Hashed_Password;
+
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
     Temporary_File.Close();
@@ -322,7 +337,7 @@ Result_Type Accounts_Class::Change_Name(const String_Type &Current_Name, const S
 
   {
     User_Type User_To_Rename(Current_Name);
-    for (auto & User : User_List)
+    for (auto &User : User_List)
     {
       if (User == User_To_Rename)
       {
@@ -349,24 +364,29 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
     return Result_Type::Error;
   }
 
+  uint8_t Hashed_Password[65];
+
+  {
+    // - Create a salted and peppered password.
+    Static_String_Type<69> Salted_Password = New_Password;
+    this->Salt_Password(Salted_Password, static_cast<char>(Mathematics.Random(0x000000FF)));
+    // Hash the salted and peppered password.
+    if (this->Hash_Password(Salted_Password, Hashed_Password) != Result_Type::Success)
+    {
+      return Result_Type::Error;
+    }
+    // Add null terminator in order to handle it as a regular character array.
+    Hashed_Password[64] = '\0';
+  }
+
+
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Name);
   File_Type Temporary_File = Drive.Open(Temporary_Char, true);
   StaticJsonDocument<256> User_Registry;
   User_Registry["Registry"] = "User";
 
-  Hash_Type Hash;
-  Hash.Create(Message_Digest_Type::SHA_256);
-
-  if (Hash.Add(Current_Password) != Result_Type::Success)
-  {
-    return Result_Type::Error;
-  }
-  
-  Byte_Type Hash_Buffer[Hash.Get_Size()] = {0};
-  Hash.Delete(Hash_Buffer);
-
-  User_Registry["Password"] = (char*)Hash_Buffer;
+  User_Registry["Password"] = (char *)Hashed_Password;
 
   if (serializeJson(User_Registry, Temporary_File) == 0)
   {
@@ -376,7 +396,6 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
   Temporary_File.Close();
   return Result_Type::Success;
 }
-
 
 /// @brief Check user credentials.
 ///
@@ -391,7 +410,7 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
   Temporary_Path += "/";
   Temporary_Path += Username_To_Check;
   Temporary_Path += "/Registry/User.xrf";
-  
+
   File_Type Temporary_File = Drive.Open(Temporary_Path);
   StaticJsonDocument<256> User_Registry;
   if (deserializeJson(User_Registry, Temporary_File) != DeserializationError::Ok)
@@ -400,28 +419,31 @@ Result_Type Accounts_Class::Check_Credentials(const String_Type &Username_To_Che
     return Result_Type::Error;
   }
   Temporary_File.Close();
-  
+
   if (strcmp("User", User_Registry["Registry"] | "") != 0)
   {
     return Result_Type::Error;
   }
 
-  Hash_Type Hash;
-  Hash.Create(Message_Digest_Type::SHA_256);
-  
-  if (Hash.Add(Password_To_Check) != Result_Type::Success)
+  uint8_t Hashed_Password[65];
+  Static_String_Type<69> Salted_Password; // Nice
+
+  for (uint8_t i = 0; i < 0xFF; i++)
   {
-    return Result_Type::Error;
+    // Create a copy of password
+    Salted_Password = Password_To_Check;
+    // Salt password
+    this->Salt_Password(Salted_Password, static_cast<char>(i));
+    // Hash password
+    this->Hash_Password(Salted_Password, Hashed_Password);
+    // - Check if password is correct
+    if (strcmp(User_Registry["Password"] | "", (const char *)Hashed_Password) == 0)
+    {
+      return Result_Type::Success;
+    }
   }
 
-  uint8_t Hash_Buffer[Hash.Get_Size()] = {0};
-  Hash.Delete(Hash_Buffer);
-
-  if (strcmp(User_Registry["Password"] | "", (char *)Hash_Buffer) != 0)
-  {
-    return Result_Type::Error;
-  }
-  return Result_Type::Success;
+  return Result_Type::Error;
 }
 
 ///
@@ -455,10 +477,10 @@ Result_Type Accounts_Class::Login(const String_Type &Name, const String_Type &Pa
   return Result_Type::Success;
 }
 
-uint8_t Accounts_Class::Find_User(const String_Type& Name)
+uint8_t Accounts_Class::Find_User(const String_Type &Name)
 {
   User_Type User(Name);
-  
+
   uint8_t Index = 0;
 
   for (auto User_Iterator : User_List)
@@ -476,4 +498,41 @@ uint8_t Accounts_Class::Find_User(const String_Type& Name)
 uint8_t Accounts_Class::Get_User_Count()
 {
   return User_List.size();
+}
+
+Result_Type Accounts_Type::Hash_Password(const String_Type &Password, uint8_t *Hash_Buffer)
+{
+  using namespace Xila_Namespace::Mathematics_Types;
+
+  if (Hash_Buffer == NULL)
+    return Result_Type::Error;
+
+  Hash_Type Hash;
+  if (Hash.Create(Message_Digest_Type::SHA_512) != Result_Type::Success)
+    return Result_Type::Error;
+
+  if (Hash.Add(Password) != Result_Type::Success)
+    return Result_Type::Error;
+
+  Hash.Delete(Hash_Buffer);
+
+  // In order to make the password more secure, we hash it 10 times.
+  for (uint8_t i = 0; i < 10; i++)
+  {
+    if (Hash.Create(Message_Digest_Type::SHA_512) != Result_Type::Success)
+      return Result_Type::Error;
+
+    if (Hash.Add(Hash_Buffer, Hash.Get_Size()) != Result_Type::Success)
+      return Result_Type::Error;
+
+    Hash.Delete(Hash_Buffer);
+  }
+
+  return Result_Type::Success;
+}
+
+void Accounts_Type::Salt_Password(String_Type &Password, char Pepper_Character)
+{
+  Password += Pepper_Character;
+  Password += "Xila";
 }

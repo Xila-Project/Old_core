@@ -37,6 +37,7 @@ namespace Xila_Namespace
         public:
             // - Methods
             Hash_Class();
+            ~Hash_Class();
 
             Result_Type Create(Message_Digest_Type Type);
             void Delete(Byte_Type *Result);

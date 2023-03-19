@@ -64,7 +64,7 @@ namespace Xila_Namespace
         explicit String_Class(Long_Natural_Type Natural, Short_Integer_Type Base = 10);
         explicit String_Class(Real_Type Real, Short_Integer_Type Decimals = 2);
         explicit String_Class(Long_Real_Type Real, Short_Integer_Type Decimals = 2);
-        ~String_Class();
+        virtual ~String_Class();
         
 
         // - - Getters
@@ -236,60 +236,92 @@ namespace Xila_Namespace
     public:
         // - Methods
 
-        Static_String_Class() : String_Class()
+        Static_String_Class()
         {
-            Set_Buffer(Buffer, Length + 1);
+            log_printf("Static_String_Class::Static_String_Class() - Length = %d \n", Length);
+            Set_Buffer(this->Buffer, Length);
             Clear();
         }
 
-        Static_String_Class(const char* String) : String_Class(String)
+        Static_String_Class(const char* String) : Static_String_Class()
+        {
+            Copy(String);
+        }
+
+        Static_String_Class(const char* String, Size_Type Size) : Static_String_Class()
+        {
+            Copy(String, Size);
+        }
+
+        Static_String_Class(const Static_String_Class& String) : Static_String_Class()
+        {
+            log_printf("Static_String_Class::Static_String_Class(const Static_String_Class& String) - String = %s \n", (const char*)String);
+
+            Copy(String);
+        }
+
+        Static_String_Class(const String_Class& String) : Static_String_Class()
+        {
+            
+           log_printf("Static_String_Class::Static_String_Class(const String_Class& String) - String = %s \n", (const char*)String);
+
+            Copy(String);
+        }
+
+        Static_String_Class(String_Class&& String) : Static_String_Class()
+        {
+            log_printf("Static_String_Class::Static_String_Class(String_Class&& String) - String = %s \n", (const char*)String);
+            
+            Set_Buffer(this->Buffer, Length);
+            String.Characters_Pointer = NULL;
+            String.Size = 0;
+        }
+
+        Static_String_Class(const String& String) : Static_String_Class()
+        {
+            Copy(String);
+        }
+
+        explicit Static_String_Class(char Character) : Static_String_Class()
+        {
+            Copy(Character);
+        }
+
+        explicit Static_String_Class(Short_Natural_Type Byte, Short_Natural_Type Base = 10) : Static_String_Class()
         {
         }
 
-        Static_String_Class(const char* String, Size_Type Size) : String_Class(String, Size)
+        explicit Static_String_Class(Integer_Type Integer, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        Static_String_Class(const String_Class& String) : String_Class(String)
+        explicit Static_String_Class(Natural_Type Natural, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        Static_String_Class(const String& String) : String_Class(String)
+        explicit Static_String_Class(Long_Integer_Type Real, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        explicit Static_String_Class(char Character) : String_Class(Character)
+        explicit Static_String_Class(Long_Natural_Type Real, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        explicit Static_String_Class(Short_Natural_Type Byte, Short_Natural_Type Base = 10) : String_Class(Byte, Base)
+        explicit Static_String_Class(Real_Type Real, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        explicit Static_String_Class(Integer_Type Integer, Short_Integer_Type Base = 10) : String_Class(Integer, Base)
+        explicit Static_String_Class(Long_Real_Type Real, Short_Integer_Type Base = 10) : Static_String_Class()
         {
         }
 
-        explicit Static_String_Class(Natural_Type Natural, Short_Integer_Type Base = 10) : String_Class(Natural, Base)
+        ~Static_String_Class() override
         {
+            Size = 0;
+            Characters_Pointer = NULL;
+            
+            log_printf("Static_String_Class::~Static_String_Class() - Static string destroyed. \n");
         }
-
-        explicit Static_String_Class(Long_Integer_Type Real, Short_Integer_Type Base = 10) : String_Class(Real, Base)
-        {
-        }
-
-        explicit Static_String_Class(Long_Natural_Type Real, Short_Integer_Type Base = 10) : String_Class(Real, Base)
-        {
-        }
-
-        explicit Static_String_Class(Real_Type Real, Short_Integer_Type Base = 10) : String_Class(Real, Base)
-        {
-        }
-
-        explicit Static_String_Class(Long_Real_Type Real, Short_Integer_Type Base = 10) : String_Class(Real, Base)
-        {
-        }
-
 
         Static_String_Class& operator=(const String_Class& String)
         {
@@ -303,7 +335,35 @@ namespace Xila_Namespace
             return *this;
         }
 
+        Static_String_Class& operator=(char Character)
+        {
+            Copy(Character);
+            return *this;
+        }
+
+        Static_String_Class& operator+=(char Character)
+        {
+            Concatenate(Character);
+            return *this;
+        }
+
+        Static_String_Class& operator+=(const char* String)
+        {
+            Concatenate(String);
+            return *this;
+        }
+
+        Static_String_Class& operator+=(const String_Class& String)
+        {
+            Concatenate(String);
+            return *this;
+        }
+
+        
+
         Result_Type Set_Size(Size_Type Size) override {
+            
+            ESP_LOGI("Static_String", "Static_String_Class::Set_Size()");
             // Do nothing since we deal with a static buffer;
             return Result_Type::Error;
         };

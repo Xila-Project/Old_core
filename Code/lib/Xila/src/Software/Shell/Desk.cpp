@@ -201,6 +201,25 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Dock_List.Set_Style_Pad_All(0, 0);
     Dock_List.Set_Content_Height(40);
 
+    {
+        Static_String_Type<24> User;
+        Shell_Pointer->Get_Owner_User()->Get_Name(User);
+        if (User == "Xila")
+        {
+            File_Type Users_Folder = Drive.Open(Users_Directory_Path);
+            if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
+            {
+                Shell_Class::Login_Class::Open(Shell_Pointer);
+            }
+            else
+            {
+                Shell_Class::Installer_Class::Open(Shell_Pointer);
+            }
+            // Hide dock since current user is system user (Xila).
+            Dock.Add_Flag(Flag_Type::Hidden);
+        }
+    }
+
     Refresh();
 }
 
@@ -231,6 +250,11 @@ void Shell_Class::Desk_Class::Refresh()
     // TODO : Refresh desk icons and dock software
     // Delete grid items except the dock.
 
+    // - If the dock is hidden, do nothing.
+    if (Dock.Has_Flag(Flag_Type::Hidden))
+    {
+        return;
+    }
     // - Refresh dock software list.
 
     // If there are too many buttons, delete some.

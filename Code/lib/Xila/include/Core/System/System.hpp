@@ -137,9 +137,6 @@ namespace Xila_Namespace
         Result_Type Save_Registry();
         Result_Type Create_Registry();
 
-        Result_Type Save_Dump();
-        Result_Type Load_Dump();
-
         Result_Type Upgrade(File_Type Executable_File);
 
         void Panic_Handler(System_Types::Panic_Type Panic_Code);

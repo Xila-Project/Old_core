@@ -15,7 +15,7 @@ const Coordinate_Type Row_Descriptor[] = {40, 40, 40, 40, 40, 40, 40, 40, 40, 40
 
 // -- Constructor -- //
 
-Preferences_Class::Preferences_Class() : Software_Class(&Handle)
+Preferences_Class::Preferences_Class() : Software_Class(&Preferences_Handle)
 {
     Window.Create(this);
     Window.Set_Title("Preferences");
@@ -49,7 +49,6 @@ Preferences_Class::Preferences_Class() : Software_Class(&Handle)
 
     Keyboard.Create(Window.Get_Body());
     Keyboard.Add_Flag(Flag_Type::Hidden);
-
 }
 
 Preferences_Class::~Preferences_Class()
@@ -92,8 +91,7 @@ void Preferences_Class::Draw_Wireless()
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("WiFi station");
+        Label.Create(Grid, "WiFi station");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, WiFi_Section_Row, 1);
         Label.Clear_Pointer();
 
@@ -108,36 +106,18 @@ void Preferences_Class::Draw_Wireless()
 
         // - Refresh button
 
-        Wireless_WiFi_Refresh_Button.Create(Grid);
+        Wireless_WiFi_Refresh_Button.Create(Grid, "Refresh", 0, 0, this);
         Wireless_WiFi_Refresh_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 1, 1);
-        Wireless_WiFi_Refresh_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(Wireless_WiFi_Refresh_Button);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Set_Text("Refresh");
-        Label.Clear_Pointer();
 
         // - Informations button
 
-        Wireless_WiFi_Informations_Button.Create(Grid);
+        Wireless_WiFi_Informations_Button.Create(Grid, "Informations", 0, 0, this);
         Wireless_WiFi_Informations_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 2, 1);
-        Wireless_WiFi_Informations_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(Wireless_WiFi_Informations_Button);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Set_Text("Informations");
-        Label.Clear_Pointer();
 
         // - Connect button
 
-        Wireless_WiFi_Connect_Button.Create(Grid);
+        Wireless_WiFi_Connect_Button.Create(Grid, "Connect", 0, 0, this);
         Wireless_WiFi_Connect_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, WiFi_Section_Row + 3, 1);
-        Wireless_WiFi_Connect_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(Wireless_WiFi_Connect_Button);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Set_Text("Connect");
-        Label.Clear_Pointer();
 
         // - Password text area
 
@@ -154,62 +134,52 @@ void Preferences_Class::Draw_Wireless()
         // - Title label
 
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Network");
+        Label.Create(Grid, "Network");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Network_Section_Row, 1);
         Label.Clear_Pointer();
 
         // - Apply button
 
-        Wireless_Network_Apply_Button.Create(Grid);
+        Wireless_Network_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         Wireless_Network_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Network_Section_Row, 1);
 
-        Label.Create(Wireless_Network_Apply_Button);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Set_Text("Apply");
-        Label.Clear_Pointer();
-
         // - Local IP
-
         Wireless_Network_Local_IP_Text_Area.Create(Grid);
         Wireless_Network_Local_IP_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 1, 1);
         Wireless_Network_Local_IP_Text_Area.Set_Placeholder_Text("Local IP");
         Wireless_Network_Local_IP_Text_Area.Set_One_Line(true);
 
         // - DHCP checkbox
-
         Wireless_Network_DHCP_Checkbox.Create(Grid);
         Wireless_Network_DHCP_Checkbox.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Network_Section_Row + 1, 1);
         Wireless_Network_DHCP_Checkbox.Set_Text("DHCP");
 
         // - Subnet mask
-
         Wireless_Network_Subnet_Mask_Text_Area.Create(Grid);
         Wireless_Network_Subnet_Mask_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 2, 1);
         Wireless_Network_Subnet_Mask_Text_Area.Set_Placeholder_Text("Subnet mask");
         Wireless_Network_Subnet_Mask_Text_Area.Set_One_Line(true);
 
         // - Gateway
-
         Wireless_Network_Gateway_IP_Text_Area.Create(Grid);
         Wireless_Network_Gateway_IP_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 3, 1);
         Wireless_Network_Gateway_IP_Text_Area.Set_Placeholder_Text("Gateway");
         Wireless_Network_Gateway_IP_Text_Area.Set_One_Line(true);
 
         // - DNS 1
-
         Wireless_Network_DNS_1_Text_Area.Create(Grid);
         Wireless_Network_DNS_1_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 4, 1);
         Wireless_Network_DNS_1_Text_Area.Set_Placeholder_Text("DNS 1");
         Wireless_Network_DNS_1_Text_Area.Set_One_Line(true);
 
         // - DNS 2
-
         Wireless_Network_DNS_2_Text_Area.Create(Grid);
         Wireless_Network_DNS_2_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Network_Section_Row + 5, 1);
         Wireless_Network_DNS_2_Text_Area.Set_Placeholder_Text("DNS 2");
         Wireless_Network_DNS_2_Text_Area.Set_One_Line(true);
     }
+
+    Refresh_Wireless();
 }
 
 void Preferences_Class::Draw_Hardware()
@@ -229,13 +199,11 @@ void Preferences_Class::Draw_Hardware()
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Display");
+        Label.Create(Grid, "Display");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Display_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Label.Create(Grid);
-        Label.Set_Text("Brightness :");
+        Label.Create(Grid, "Brightness");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
@@ -244,27 +212,19 @@ void Preferences_Class::Draw_Hardware()
         Hardware_Display_Brightness_Slider.Set_Range(0, 100);
         Hardware_Display_Brightness_Slider.Add_Event(this, Graphics_Types::Event_Code_Type::Value_Changed);
 
-        Hardware_Display_Calibrate_Button.Create(Grid);
+        Hardware_Display_Calibrate_Button.Create(Grid, "Calibrate", 0, 0, this);
         Hardware_Display_Calibrate_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Display_Section_Row + 1, 1);
-        Hardware_Display_Calibrate_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(Hardware_Display_Calibrate_Button);
-        Label.Set_Text("Calibrate");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
     }
 
     const uint8_t Sound_Section_Row = Display_Section_Row + 2;
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Sound");
+        Label.Create(Grid, "Sound");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Sound_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Label.Create(Grid);
-        Label.Set_Text("Volume :");
+        Label.Create(Grid, "Volume :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Sound_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
@@ -277,13 +237,11 @@ void Preferences_Class::Draw_Hardware()
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Battery");
+        Label.Create(Grid, "Battery");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Battery_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Label.Create(Grid);
-        Label.Set_Text("Level :");
+        Label.Create(Grid, "Level :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Battery_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
@@ -295,8 +253,7 @@ void Preferences_Class::Draw_Hardware()
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Drive");
+        Label.Create(Grid, "Drive");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Drive_Section_Row, 1);
         Label.Clear_Pointer();
 
@@ -308,24 +265,16 @@ void Preferences_Class::Draw_Hardware()
 
     {
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
-        Label.Set_Text("Energy");
+        Label.Create(Grid, "Energy");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Energy_Section_Row, 1);
         Label.Clear_Pointer();
 
-        Hardware_Energy_Apply_Button.Create(Grid);
+        Hardware_Energy_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         Hardware_Energy_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Energy_Section_Row, 1);
-        Hardware_Energy_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(Hardware_Energy_Apply_Button);
-        Label.Set_Text("Apply");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
 
         // - - - Standby label
 
-        Label.Create(Grid);
-        Label.Set_Text("Standby :");
+        Label.Create(Grid, "Standby :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 2, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 2);
         Label.Clear_Pointer();
 
@@ -334,6 +283,94 @@ void Preferences_Class::Draw_Hardware()
         Hardware_Energy_Standby_Roller.Create(Grid);
         Hardware_Energy_Standby_Roller.Set_Grid_Cell(Grid_Alignment_Type::Center, 2, 4, Grid_Alignment_Type::Center, Energy_Section_Row + 1, 2);
         Hardware_Energy_Standby_Roller.Set_Options("30 seconds\n1 minute\n2 minutes\n3 mintes\n4 minutes\n5 minutes\n10 minutes\n20 minutes\nNever", Roller_Type::Mode_Type::Normal);
+    }
+}
+
+void Preferences_Class::Draw_Users()
+{
+    Users_Tab.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Users_Tab.Set_Style_Pad_All(0, 0);
+
+    // - Grid layout
+
+    Object_Type Grid;
+    Grid.Create(Users_Tab);
+    Grid.Set_Size(Percentage(100), Percentage(100));
+    Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Grid.Set_Grid_Descriptor_Array(Column_Descriptor, Row_Descriptor);
+    Grid.Set_Style_Pad_All(10, 0);
+
+    // - - Your account section
+
+    const uint8_t Your_Account_Section_Row = 0;
+
+    {
+        Graphics_Types::Label_Type Title_Label;
+        Title_Label.Create(Grid, "Your account");
+        Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Your_Account_Section_Row, 1);
+        
+        Users_Apply_Button.Create(Grid, "Apply", 0, 0, this);
+        Users_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Your_Account_Section_Row, 1);
+
+        Users_Your_Account_Password_Text_Area.Create(Grid);
+        Users_Your_Account_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 1, 1);
+        Users_Your_Account_Password_Text_Area.Set_Placeholder_Text("Password");
+        Users_Your_Account_Password_Text_Area.Set_Password_Mode(true);
+
+        Users_Your_Account_New_Name_Text_Area.Create(Grid);
+        Users_Your_Account_New_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 2, 1);
+        Users_Your_Account_New_Name_Text_Area.Set_Placeholder_Text("New name");
+
+        Users_Your_Account_New_Password_Text_Area.Create(Grid);
+        Users_Your_Account_New_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 3, 1);
+        Users_Your_Account_New_Password_Text_Area.Set_Placeholder_Text("New password");
+        Users_Your_Account_New_Password_Text_Area.Set_Password_Mode(true);
+
+        Users_Your_Account_New_Password_Confirmation_Text_Area.Create(Grid);
+        Users_Your_Account_New_Password_Confirmation_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 4, 1);
+        Users_Your_Account_New_Password_Confirmation_Text_Area.Set_Placeholder_Text("New password confirmation");
+        Users_Your_Account_New_Password_Confirmation_Text_Area.Set_Password_Mode(true);
+
+        Users_Delete_Your_Account_Button.Create(Grid, "Delete", 0, 0, this);
+        Users_Delete_Your_Account_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 5, 2, Grid_Alignment_Type::Stretch, Your_Account_Section_Row + 5, 1);        
+    }
+
+    // - - Other accounts section
+
+    const uint8_t Other_Accounts_Section_Row = Your_Account_Section_Row + 6;
+
+    {
+        Graphics_Types::Label_Type Title_Label;
+        Title_Label.Create(Grid, "Other accounts");
+        Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Other_Accounts_Section_Row, 1);
+    
+        Users_Roller.Create(Grid);
+        Users_Roller.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 2);
+    
+        Users_Delete_User_Button.Create(Grid, "Delete", 0, 0, this);
+        Users_Delete_User_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Other_Accounts_Section_Row + 1, 1);
+    }
+
+    // - - Add user section
+
+    const uint8_t Add_User_Section_Row = Other_Accounts_Section_Row + 3;
+
+    {
+        Graphics_Types::Label_Type Title_Label;
+        Title_Label.Create(Grid, "Add user");
+        Title_Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Add_User_Section_Row, 1);
+    
+        Users_Add_User_Name_Text_Area.Create(Grid);
+        Users_Add_User_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Add_User_Section_Row + 1, 1);
+        Users_Add_User_Name_Text_Area.Set_Placeholder_Text("Name");
+
+        Users_Add_User_Password_Text_Area.Create(Grid);
+        Users_Add_User_Password_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Add_User_Section_Row + 2, 1);
+        Users_Add_User_Password_Text_Area.Set_Placeholder_Text("Password");
+        Users_Add_User_Password_Text_Area.Set_Password_Mode(true);
+
+        Users_Add_User_Button.Create(Grid, "Add", 0, 0, this);
+        Users_Add_User_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 5, 2, Grid_Alignment_Type::Stretch, Add_User_Section_Row + 1, 1);
     }
 }
 
@@ -359,7 +396,7 @@ void Preferences_Class::Draw_Softwares()
         // - - - Software title label
         {
             Graphics_Types::Label_Type Label;
-            Label.Create(Grid);
+            Label.Create(Grid, "Softwares");
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Software_Section_Row, 1);
         }
         // - - - Softwares roller
@@ -369,15 +406,8 @@ void Preferences_Class::Draw_Softwares()
 
         // - - - Delete button
 
-        Softwares_Delete_Button.Create(Grid);
+        Softwares_Delete_Button.Create(Grid, "Delete", 0, 0, this);
         Softwares_Delete_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 6, 2, Grid_Alignment_Type::Center, Software_Section_Row + 1, 1);
-     
-        {
-            Graphics_Types::Label_Type Label;
-            Label.Create(Softwares_Delete_Button);
-            Label.Set_Text("Delete");
-            Label.Set_Alignment(Alignment_Type::Center);
-        }
     }
 
     Refresh_Softwares();
@@ -404,23 +434,16 @@ void Preferences_Class::Draw_Personal()
         // - - - Style title label
 
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
+        Label.Create(Grid, "Style");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Style_Section_Row, 1);
-        Label.Set_Text("Style");
         Label.Clear_Pointer();
 
-        Personnal_Style_Apply_Button.Create(Grid);
+        Personnal_Style_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         Personnal_Style_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Style_Section_Row, 1);
-
-        Label.Create(Personnal_Style_Apply_Button);
-        Label.Set_Text("Apply");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
 
         // - - - Color
 
-        Label.Create(Grid);
-        Label.Set_Text("Foreground :");
+        Label.Create(Grid, "Foreground :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 1, 1);
         Label.Clear_Pointer();
 
@@ -429,8 +452,7 @@ void Preferences_Class::Draw_Personal()
 
         // - - - Background
 
-        Label.Create(Grid);
-        Label.Set_Text("Background :");
+        Label.Create(Grid, "Background :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Center, Style_Section_Row + 2, 1);
         Label.Clear_Pointer();
 
@@ -460,51 +482,29 @@ void Preferences_Class::Draw_System()
 
     {
         // - - - Device title label
-
-        Graphics_Types::Label_Type Label;
-        Label.Create(Grid),
+        {
+            Graphics_Types::Label_Type Label;
+            Label.Create(Grid, "Device");
             Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Device_Section_Row, 1);
-        Label.Set_Text("Device");
-        Label.Clear_Pointer();
+        }
 
         // - - - Apply button
-
-        System_Device_Apply_Button.Create(Grid);
+        System_Device_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         System_Device_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Device_Section_Row, 1);
-        System_Device_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(System_Device_Apply_Button);
-        Label.Set_Text("Apply");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
 
         // - - - Device name text area
-
         System_Device_Name_Text_Area.Create(Grid);
-        System_Device_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 6, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
+        System_Device_Name_Text_Area.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 6, Grid_Alignment_Type::Stretch, Device_Section_Row + 1, 1);
         System_Device_Name_Text_Area.Set_Placeholder_Text("Device name");
         System_Device_Name_Text_Area.Set_One_Line(true);
 
         // - - - System update button
-
-        System_Update_Button.Create(Grid);
+        System_Update_Button.Create(Grid, "Update system", 0, 0, this);
         System_Update_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 0, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
-        System_Update_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(System_Update_Button);
-        Label.Set_Text("Update system");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
 
         // - - - System reboot to loader button
-
-        System_Reboot_Loader_Button.Create(Grid);
+        System_Reboot_Loader_Button.Create(Grid, "Reboot to loader", 0, 0, this);
         System_Reboot_Loader_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 4, 4, Grid_Alignment_Type::Stretch, Device_Section_Row + 2, 1);
-        System_Reboot_Loader_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(System_Reboot_Loader_Button);
-        Label.Set_Text("Reboot to loader");
-        Label.Set_Alignment(Alignment_Type::Center);
     }
 
     // - - Time section
@@ -515,22 +515,15 @@ void Preferences_Class::Draw_System()
         // - - - Time title label
 
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
+        Label.Create(Grid, "Time");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, Time_Section_Row, 1);
-        Label.Set_Text("Time");
         Label.Clear_Pointer();
 
         // - - - Apply time button
 
-        System_Time_Apply_Button.Create(Grid);
+        System_Time_Apply_Button.Create(Grid, "Apply", 0, 0, this);
         System_Time_Apply_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 6, 2, Grid_Alignment_Type::Stretch, Time_Section_Row, 1);
-        System_Time_Apply_Button.Add_Event(this, Graphics_Types::Event_Code_Type::Clicked);
-
-        Label.Create(System_Time_Apply_Button);
-        Label.Set_Text("Apply");
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
-
+      
         // - - - NTP server text area
 
         System_Time_NTP_Server_Text_Area.Create(Grid);
@@ -561,21 +554,15 @@ void Preferences_Class::Draw_System()
 
         // - - - UTC offset label
 
-        Label.Create(Grid);
+        Label.Create(Grid, "Daylight offset :");
         Label.Set_Grid_Cell(Grid_Alignment_Type::End, 0, 3, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-        Label.Set_Text("Daylight offset :");
         Label.Clear_Pointer();
 
         // - - - Minus button
 
-        System_Time_Minus_Button.Create(Grid);
+        System_Time_Minus_Button.Create(Grid, LV_SYMBOL_MINUS, 0, 0, this, Graphics_Types::Event_Code_Type::All);
         System_Time_Minus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-        System_Time_Minus_Button.Add_Event(this, Graphics_Types::Event_Code_Type::All);
 
-        Label.Create(System_Time_Minus_Button);
-        Label.Set_Text(LV_SYMBOL_MINUS);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
 
         // - - - UTC offset spinbox
 
@@ -585,14 +572,8 @@ void Preferences_Class::Draw_System()
 
         // - - - Plus button
 
-        System_Time_Plus_Button.Create(Grid);
+        System_Time_Plus_Button.Create(Grid, LV_SYMBOL_PLUS, 0, 0, this, Graphics_Types::Event_Code_Type::All);
         System_Time_Plus_Button.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 3, 1, Grid_Alignment_Type::Stretch, Time_Section_Row + 3, 1);
-        System_Time_Plus_Button.Add_Event(this, Graphics_Types::Event_Code_Type::All);
-
-        Label.Create(System_Time_Plus_Button);
-        Label.Set_Text(LV_SYMBOL_PLUS);
-        Label.Set_Alignment(Alignment_Type::Center);
-        Label.Clear_Pointer();
     }
 
     // - - About section
@@ -603,25 +584,27 @@ void Preferences_Class::Draw_System()
         // - - - About title label
 
         Graphics_Types::Label_Type Label;
-        Label.Create(Grid);
+        Label.Create(Grid, "About");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row, 1);
-        Label.Set_Text("About");
         Label.Clear_Pointer();
 
         // - - - Author label
 
-        Label.Create(Grid);
+        Label.Create(Grid, "Author : Alix ANNERAUD");
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row + 1, 1);
-        Label.Set_Text_Format("Author : Alix ANNERAUD");
         Label.Clear_Pointer();
 
         // - - - About version
 
-        Label.Create(Grid);
+        Label.Create(Grid, "Version : " Stringizing(Xila_Version_Major) "." Stringizing(Xila_Version_Minor) "." Stringizing(Xila_Version_Revision));
         Label.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 8, Grid_Alignment_Type::Center, About_Section_Row + 2, 1);
-        Label.Set_Text("Version : " Stringizing(Xila_Version_Major) "." Stringizing(Xila_Version_Minor) "." Stringizing(Xila_Version_Revision));
         Label.Clear_Pointer();
     }
+}
+
+void Preferences_Class::Refresh_Users()
+{
+    // TODO : Refresh user roller
 }
 
 // --
@@ -691,13 +674,67 @@ void Preferences_Class::Execute_Instruction(Instruction_Type Instruction)
     }
 }
 
+void Preferences_Class::Execute_Users_Instruction(const Instruction_Type &Instruction)
+{
+    if (Instruction.Graphics.Get_Object() == Users_Add_User_Button)
+    {
+        if (Accounts.Create(Users_Add_User_Name_Text_Area.Get_Text(), Users_Add_User_Password_Text_Area.Get_Text()) != Result_Type::Success)
+        {
+            // TODO : Display error message
+        }
+    }
+    else if (Instruction.Graphics.Get_Object() == Users_Delete_User_Button)
+    {
+        // TODO :
+        //if (Accounts.Delete(Users_Delete_User_Name_Text_Area.Get_Text()) != Result_Type::Success)
+        //{
+        //    // TODO : Display error message
+        //}
+    }
+    else if (Instruction.Graphics.Get_Object() == Users_Apply_Button)
+    {
+        if (strcmp(Users_Your_Account_New_Name_Text_Area.Get_Text(), "") != 0)
+        {
+            Static_String_Type<24> Name;
+            this->Get_Owner_User()->Get_Name(Name);
+            if (Accounts.Change_Name(Name, Users_Your_Account_New_Name_Text_Area.Get_Text(), Users_Your_Account_Password_Text_Area.Get_Text()) != Result_Type::Success)
+            {
+                // TODO : Display error message
+            }
+            Users_Your_Account_New_Name_Text_Area.Set_Text("");
+            Users_Your_Account_Password_Text_Area.Set_Text("");
+        }
+        else if (strcmp(Users_Your_Account_New_Password_Text_Area.Get_Text(), "") != 0 && strcmp(Users_Your_Account_Password_Text_Area.Get_Text(), "") != 0)
+        {
+            Static_String_Type<24> Name;
+            this->Get_Owner_User()->Get_Name(Name);
+            if (Accounts.Change_Password(Name, Users_Your_Account_New_Password_Text_Area.Get_Text(), Users_Your_Account_Password_Text_Area.Get_Text()) != Result_Type::Success)
+            {
+                // TODO : Display error message
+            }
+            Users_Your_Account_New_Password_Text_Area.Set_Text("");
+            Users_Your_Account_Password_Text_Area.Set_Text("");
+        }
+    }
+    else if (Instruction.Graphics.Get_Object() == Users_Delete_Your_Account_Button)
+    {
+        Static_String_Type<24> Name;
+        this->Get_Owner_User()->Get_Name(Name);
+        if (Accounts.Delete(Name, Users_Your_Account_Password_Text_Area.Get_Text()) != Result_Type::Success)
+        {
+                // TODO : Display error message
+        }
+        Users_Your_Account_Password_Text_Area.Set_Text("");
+    }
+}
+
 void Preferences_Class::Execute_Personal_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Graphics.Get_Object() == Personnal_Style_Apply_Button)
     {
         // TODO : Send instruction to Shell to change style.
-        //Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
-        //Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
+        // Shell_Pointer->Desk.Set_Foreground_Color(Personnal_Style_Foreground_Button.Get_Style_Background_Color(Part_Type::Main));
+        // Shell_Pointer->Desk.Set_Background_Color(Personnal_Style_Background_Button.Get_Style_Background_Color(Part_Type::Main));
     }
 }
 
@@ -792,8 +829,8 @@ void Preferences_Class::Execute_Hardware_Instruction(const Instruction_Type &Ins
 void Preferences_Class::Refresh_Personal()
 {
     // TODO : Implement with instruction system
-    //Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
-    //Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
+    // Personnal_Style_Foreground_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Foreground_Color(), 0);
+    // Personnal_Style_Background_Button.Set_Style_Background_Color(Shell_Pointer->Desk.Get_Background_Color(), 0);
 
     /*
     switch (Keyboard.Layout)

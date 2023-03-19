@@ -58,6 +58,9 @@ namespace Xila_Namespace
             // - Methods
             // - - Constructor / destructor
             User_Class(const String_Type &Name, User_State_Type State = User_State_Type::Undefined);
+            User_Class(const User_Class &User);
+            User_Class(User_Class&& User);
+
 
             // - - Getters
             User_State_Type Get_State() const;
@@ -118,6 +121,20 @@ namespace Xila_Namespace
 
     private:
         // - Methods
+        // - - Encryption
+
+        /// @brief Function that hash a password 10 times in SHA-512 format.
+        /// @param Password Password to hash.
+        /// @param Hash Hash output (must have a size of 64 bytes).
+        /// @return 'Result_Type::Success' if the password has been hashed, 'Result_Type::Error' otherwise.
+        Result_Type Hash_Password(const String_Type &Password, uint8_t* Hash);
+       
+        /// @brief A method that salt a password (add a pepper character and a string at it's end).
+        /// @param Password Password input and output string.
+        /// @param Pepper_Character Pepper character that will be added at the end of the password.
+        /// @return 'Result_Type::Success' if the password has been salted, 'Result_Type::Error' if the password is too long.
+        void Salt_Password(String_Type &Password, char Pepper_Character);
+
         // - - Registry
         Result_Type Load_Registry();
         Result_Type Save_Registry();

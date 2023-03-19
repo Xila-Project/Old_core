@@ -12,7 +12,7 @@
 #include "Software/Shell/Translation.hpp"
 
 /// @brief Shell constructor.
-Shell_Class::Shell_Class() : Software_Class(&Handle), Desk(this)
+Shell_Class::Shell_Class() : Software_Class(&Shell_Handle), Desk(this)
 {
     if (this->Load_Registry() != Result_Type::Success)
     {
@@ -78,7 +78,6 @@ void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
                 break;
         }
     }
-
     else if (Drawer_Class::Is_Openned(this) && (Drawer_Pointer->Window.Get_State() == Graphics_Types::Window_State_Type::Maximized))
     {
         Drawer_Pointer->Execute_Instruction(Instruction);

@@ -11,7 +11,7 @@
 #ifndef Software_Handle_Hpp_Included
 #define Software_Handle_Hpp_Included
 
-#include <list>
+#include <array>
 #include "../Module/Module.hpp"
 
 //==============================================================================//
@@ -52,7 +52,10 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
-        static std::list<Software_Handle_Class *> List;
+
+        /// @brief Array containing all of the software handles.
+        /// @details This is a static array in order to avoid dynamic allocation since it's modified at early startup (when static Software handle constructor are called) before dynamic allocation system is initialized. 
+        static std::array<Software_Handle_Class*, 40> List;
 
         /// @brief Software string name.        
         Static_String_Type<Default_Software_Name_Length> Name; // used to identify the software,

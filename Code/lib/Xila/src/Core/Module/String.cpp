@@ -9,43 +9,56 @@
 ///
 
 #include "Core/Module/String.hpp"
+#include "Core/Log/Log.hpp"
 #include <cstring>
 
 using namespace Xila_Namespace;
 
 String_Class::String_Class() : Characters_Pointer(NULL), Size(0)
 {
+    Log_Verbose("String", "Default constructor");
 }
 
 String_Class::String_Class(const String_Class &String) : String_Class()
 {
+    Log_Verbose("String", "Copy constructor from String_Class");
     Set_Size(String.Get_Size());
-    Copy(String, true);
+    Copy(String);
 }
 
 String_Class::String_Class(const char *String) : String_Class()
 {
+    Log_Verbose("String", "Constructor from const char*");
     Set_Size(std::strlen(String) + 1);
-    Copy(String, 0, true);
+    Copy(String);
 }
 
 String_Class::String_Class(const char *String, Size_Type Size) : String_Class()
 {
+    Log_Verbose("String", "Constructor from const char* and size");
     Set_Size(Size);
-    Copy(String, Size, true);
+    Copy(String, Size);
 }
 
 String_Class::String_Class(String_Class &&String) : String_Class()
 {
+    Log_Verbose("String", "Move constructor from String_Class");
     Characters_Pointer = String.Characters_Pointer;
     Size = String.Size;
     String.Characters_Pointer = NULL;
     String.Size = 0;
 }
 
+String_Class::String_Class(char Character)
+{
+    Log_Verbose("String", "Constructor from char");
+    Set_Size(2);
+    Copy(Character);
+}
+
 String_Class::~String_Class()
 {
-    Set_Size(0);
+    this->Set_Size(0);
 }
 
 Size_Type String_Class::Get_Length() const
@@ -72,7 +85,7 @@ Size_Type String_Class::Get_Capacity() const
 
 /// @brief
 /// @param Position
-/// @return 
+/// @return
 char String_Class::Get_Character(Size_Type Position) const
 {
     if ((Position < Get_Size()) && Is_Valid())
@@ -87,12 +100,16 @@ char String_Class::Get_Character(Size_Type Position) const
 
 Result_Type String_Class::Set_Size(Size_Type Size)
 {
+    Log_Verbose("String", "String set size %u", Size);
+
     // If the String is valid.
     if (Is_Valid())
     {
         // If the String is set to be empty.
         if (Size == 0)
         {
+            Log_Verbose("String", "Freeing memory");
+            Log_Verbose("String", "Memory pointer : %p", Characters_Pointer);
             free(Characters_Pointer);
             this->Characters_Pointer = NULL;
         }
@@ -210,6 +227,15 @@ bool String_Class::Is_Valid() const
 /// @return Result_Type::Success if the string was copied, Result_Type::Error otherwise.
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
 {
+    Log_Verbose("String", "Copy from const char*");
+    Log_Verbose("String", "Char pointer : %p", String);
+    Log_Verbose("String", "Char size : %u", Size);
+    Log_Verbose("String", "To copy : %s", String);
+
+    Log_Verbose("String", "Dest pointer : %p", this->Characters_Pointer);
+    Log_Verbose("String", "Dest size : %u", this->Size);
+    
+
     if (String == NULL || !Is_Valid())
     {
         return Result_Type::Error;
@@ -220,23 +246,26 @@ Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_S
         Size = std::strlen(String) + 1;
     }
 
+    Log_Information("String", "New size : %u", Size);
+
     if (Change_Size)
     {
         if (Set_Size(Size) != Result_Type::Success)
         {
             return Result_Type::Error;
         }
-
-        if (Get_Size() < Size)
-        {
-            std::strncpy(Characters_Pointer, String, Get_Size());
-        }
-        else
-        {
-            std::strncpy(Characters_Pointer, String, Size);
-        }
     }
-    Characters_Pointer[Get_Size()] = '\0';
+
+    if (Get_Size() <= Size)
+    {
+        std::strncpy(Characters_Pointer, String, Get_Size());
+    }
+    else
+    {
+        std::strncpy(Characters_Pointer, String, Size);
+    }
+
+    Characters_Pointer[Get_Size() - 1] = '\0';
     return Result_Type::Success;
 }
 
@@ -248,6 +277,12 @@ Result_Type String_Class::Copy(const String_Class &String, bool Change_Size)
 Result_Type String_Class::Copy(const String &String, bool Change_Size)
 {
     return Copy(String.c_str(), String.length() + 1, Change_Size);
+}
+
+Result_Type String_Class::Copy(char Character, bool Change_Size)
+{
+    char String[2] = {Character, '\0'};
+    return Copy(String, 2, Change_Size);
 }
 
 Result_Type String_Class::Copy_Format(const char *Format, ...)
@@ -291,7 +326,7 @@ Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool I
     }
 
     std::strncat(Characters_Pointer, String, Get_Size());
-    Characters_Pointer[Get_Size()] = '\0';
+    Characters_Pointer[Get_Size() - 1] = '\0';
 
     return Result_Type::Success;
 }
@@ -400,7 +435,7 @@ Result_Type String_Class::Remove(Size_Type Position, Size_Type Size)
 
     memmove(Characters_Pointer + Position, Characters_Pointer + Position + Size, Get_Length() - Position - Size + 1);
 
-    Characters_Pointer[Get_Size()] = '\0';
+    Characters_Pointer[Get_Size() - 1] = '\0';
 
     return Result_Type::Success;
 }
@@ -413,7 +448,7 @@ Result_Type String_Class::Set_Character(Size_Type Position, char Character)
     }
 
     Characters_Pointer[Position] = Character;
-    Characters_Pointer[Get_Size()] = '\0';
+    Characters_Pointer[Get_Size() - 1] = '\0';
 
     return Result_Type::Success;
 }

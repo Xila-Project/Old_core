@@ -64,6 +64,15 @@ Hash_Class::Hash_Class() : Data(NULL)
 {
 }
 
+Hash_Class::~Hash_Class()
+{
+    if (Data != NULL)
+    {
+        mbedtls_md_free(static_cast<mbedtls_md_context_t*>(Data));
+        delete static_cast<mbedtls_md_context_t*>(Data);
+    }
+}
+
 Result_Type Hash_Class::Create(Message_Digest_Type Type)
 {
     Data = new mbedtls_md_context_t;

@@ -30,6 +30,8 @@ namespace Xila_Namespace
         private:
             Object_Type Overlay;
 
+            /// @brief Custom LVGL class for Window (almost identical to object class).
+            static const Graphics_Types::Class_Type Class;
         } Dialog_Type;
 
         typedef class Color_Dialog_Class : public Dialog_Class

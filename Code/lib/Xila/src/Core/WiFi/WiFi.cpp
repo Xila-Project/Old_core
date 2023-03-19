@@ -86,14 +86,14 @@ Result_Type WiFi_Class::Station_Class::Add(const String_Type &SSID, const String
     }
     // - Add access point to registry
     JsonObject Access_Point = Access_Points.createNestedObject();
-    Access_Point["SSID"] = SSID;
+    Access_Point["SSID"] = (const char*)SSID;
     if (Password != "")
     {
-        Access_Point["Password"] = Password;
+        Access_Point["Password"] = (const char*)Password;
     }
     if (Channel != 0)
     {
-        Access_Point["Channel"] = Channel;
+        Access_Point["Channel"] = (const char*)Channel;
     }
     //  - Save registry
     if (serializeJson(WiFi_Registry, Registry_File) == 0)
