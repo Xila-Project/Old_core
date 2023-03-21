@@ -33,9 +33,9 @@ Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_
 Software_Class::~Software_Class() // Destructor : close
 {
   // Don't forget to remove the software pointer from the software list.
-    List.remove(this);
+  List.remove(this);
  
-
+  // Delete the main task of software at the end to allow the software to close itself.
   Main_Task.Delete();
 }
 

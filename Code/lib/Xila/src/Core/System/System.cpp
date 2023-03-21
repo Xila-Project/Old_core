@@ -280,8 +280,8 @@ void System_Class::Load()
   Log_Raw_Line("||              |___|______|  /_/ \\_\\ |_____| |______| /_/    \\_\\             ||");
   Log_Raw_Line("||                                                                            ||");
   Log_Raw_Line("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-  Log_Information("System", "Version : %u.%u.%u", Xila_Version_Major, Xila_Version_Minor,Xila_Version_Revision);
-  Log_Information("System", "Alix ANNERAUD - MIT Licence - 2023");
+  Log_Information("System", "Version : %u.%u.%u build on %s at %s.", Xila_Version_Major, Xila_Version_Minor,Xila_Version_Revision,__DATE__, __TIME__);
+  Log_Information("System", "Alix ANNERAUD - MIT Licence");
 
   Log_Information("System", "Starting Xila ...");
 

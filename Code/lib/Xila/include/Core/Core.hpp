@@ -52,6 +52,7 @@
 #include "Software/Softwares.hpp"
 #include "Sound/Sound.hpp"
 #include "System/System.hpp"
+#include "Log/Log.hpp"
 
 /// @brief Xila namespace
 /// @details Gather all the parts used by Xila core : modules, types, sub-namespaces etc.
