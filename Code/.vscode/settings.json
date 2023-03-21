@@ -323,6 +323,7 @@
     "streambuf": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp",
-    "lv_arc.h": "c"
+    "lv_arc.h": "c",
+    "berry_conf.h": "c"
   }
 }

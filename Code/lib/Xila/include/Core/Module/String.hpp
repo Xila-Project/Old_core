@@ -12,7 +12,6 @@
 #ifndef String_Hpp_Included
 #define String_Hpp_Included
 
-#include "Arduino.h"
 #include <vector>
 
 #include "Base_Types.hpp"
