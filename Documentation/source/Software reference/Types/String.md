@@ -25,4 +25,4 @@ Similar to `String_Type`, `Static_String_Type` (inherited from `String_Type`) is
 
 
 
-## API Reference
+## API reference

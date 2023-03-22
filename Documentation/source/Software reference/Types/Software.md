@@ -89,7 +89,7 @@ Xila uses this API also to communicate with the software (send instructions, var
     Xila_Namespace::Software_Handle My_Software_Handle("My Software", 44, My_Software::Load);
 ```
 
-## API Reference
+## API reference
 
 ```{eval-rst}
 .. doxygenclass::   Xila_Namespace::Software

@@ -8,6 +8,7 @@ In order to allow the entire system to perform multiple tasks at the same time, 
 
 :::{important}
     By default, each software have a main task that is automatically created when the software is loaded. This task is the one that will be executed when the software is running. If you want to create a second task, you will have to create it yourself.
+:::
 
 ## Example
 
@@ -52,8 +53,9 @@ In order to allow the entire system to perform multiple tasks at the same time, 
     }
 ```
 
-## API Reference
-```
+## API reference
+
+```{eval-rst}
 .. doxygentypedef:: Xila_Namespace::Task_Type
 
 .. doxygenclass:: Xila_Namespace::Task

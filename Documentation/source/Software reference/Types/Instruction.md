@@ -1,6 +1,6 @@
 # Instruction (Instruction_Type)
 
-Here you will find a full descrption of the `Instruciton_Type`.
+Here you will find a full description of the `Instruciton_Type`.
 
 ## Description
 
@@ -27,11 +27,11 @@ To allow modules and software to communicate with each other, Xila uses Queue sy
     }
 ```
 
-## API Reference
+## API reference
 
 ```{eval-rst}
-.. doxygendefine:: Instruction
+.. doxygentypedef:: Xila_Namespace::Instruction_Type
 
-.. doxygentypedef:: Xila_Namespace::Instruction
+.. doxygenclass::   Xila_Namespace::Instruction_Class
 
 ```

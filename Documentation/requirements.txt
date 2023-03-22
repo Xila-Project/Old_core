@@ -1,5 +1,1 @@
 breathe
-myst
-sphinx
-doxygen
-sphinx_rtd_theme
