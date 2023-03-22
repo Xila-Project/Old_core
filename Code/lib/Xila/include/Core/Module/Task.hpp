@@ -1,8 +1,6 @@
 #ifndef Task_Hpp_Included
 #define Task_Hpp_Included
 
-#include "Arduino.h"
-
 #include "Base_Types.hpp"
 
 #include <list>

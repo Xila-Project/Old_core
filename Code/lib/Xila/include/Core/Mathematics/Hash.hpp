@@ -11,7 +11,6 @@
 #ifndef Cryptography_Hpp_Included
 #define Cryptography_Hpp_Included
 
-#include "Arduino.h"
 #include "../Module/Module.hpp"
 
 namespace Xila_Namespace

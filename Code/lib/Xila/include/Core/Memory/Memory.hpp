@@ -11,7 +11,6 @@
 #ifndef Memory_Hpp_Included
 #define Memory_Hpp_Included
 
-#include "Arduino.h"
 #include "../Module/Module.hpp"
 
 //==============================================================================//

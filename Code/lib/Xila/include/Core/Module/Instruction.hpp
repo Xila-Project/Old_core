@@ -11,7 +11,6 @@
 #ifndef Instruction_Hpp_Included
 #define Instruction_Hpp_Included
 
-#include "Arduino.h"
 #include "Base_Types.hpp"
 
 namespace Xila_Namespace

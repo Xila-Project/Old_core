@@ -12,7 +12,6 @@
 #define Style_Hpp_Included
 
 #include "lvgl.h"
-#include "Arduino.h"
 #include "Animation.hpp"
 
 #include "Types.hpp"

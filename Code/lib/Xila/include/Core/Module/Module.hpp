@@ -12,7 +12,6 @@
 #define Modules_Hpp_Included
 
 #include <vector>
-#include "Arduino.h"
 #include "FS.h"
 #include "ArduinoTrace.h"
 

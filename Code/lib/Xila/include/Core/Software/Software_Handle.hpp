@@ -29,14 +29,14 @@ namespace Xila_Namespace
         typedef class User_Class User_Type;
     };
 
-    typedef class Software_Handle_Class : public Module_Class
+    typedef class Software_Handle_Class
     {
     public:
 
         // - Methods
 
         // - - Constructors / destructor
-        Software_Handle_Class(const String_Type& Software_Name);
+        Software_Handle_Class(const char* Name);
         ~Software_Handle_Class();
 
         // - - Getters

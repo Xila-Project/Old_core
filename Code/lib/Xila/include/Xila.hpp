@@ -1,7 +1,6 @@
 #ifndef GALAXOS_H_INCLUDED
 #define GALAXOS_H_INCLUDED
 
-#include "Arduino.h"
 #include "Core/Core.hpp"                                 
 
 /*||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||

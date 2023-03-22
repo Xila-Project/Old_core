@@ -249,7 +249,9 @@ namespace Xila_Namespace
 
         Static_String_Class(const char* String, Size_Type Size) : Static_String_Class()
         {
+            log_printf("Static_String_Class::Static_String_Class(const char* String, Size_Type Size) - String = %s \n", String);
             Copy(String, Size);
+            log_printf("Static_String_Class::Static_String_Class(const char* String, Size_Type Size) - String = %s \n", (const char*)*this);
         }
 
         Static_String_Class(const Static_String_Class& String) : Static_String_Class()
@@ -324,6 +326,7 @@ namespace Xila_Namespace
 
         Static_String_Class& operator=(const String_Class& String)
         {
+            log_printf("Static_String_Class::operator=(const String_Class& String) - String = %s \n", (const char*)String);
             Copy(String);
             return *this;
         }

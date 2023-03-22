@@ -8,6 +8,9 @@
 /// @copyright Copyright (c) 2023
 ///
 
+#ifndef Xila_Log_Hpp
+#define Xila_Log_Hpp
+
 #include "../Module/Module.hpp"
 
 #include "esp_log.h"
@@ -107,3 +110,5 @@ namespace Xila_Namespace
 #else
 #define Log_Verbose(Module_Name, Format, ...)
 #endif
+
+#endif  // Xila_Log_Hpp

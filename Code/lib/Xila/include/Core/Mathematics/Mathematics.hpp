@@ -11,7 +11,6 @@
 #ifndef MATHEMATICS_HPP_INCLUDED
 #define MATHEMATICS_HPP_INCLUDED
 
-#include "Arduino.h"
 #include "../Module/Module.hpp"
 #include "Hash.hpp"
 

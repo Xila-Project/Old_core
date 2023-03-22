@@ -16,6 +16,8 @@
 
 #ifdef Native
     #include <iostream>
+    #include <stdio.h>
+    #include <stdint.h>
 #endif
 
 

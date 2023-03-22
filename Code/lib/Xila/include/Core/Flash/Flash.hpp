@@ -11,8 +11,6 @@
 #ifndef Flash_Hpp_Included
 #define Flash_Hpp_Included
 
-#include "Arduino.h"
-
 #include "Esp.h"
 #include "rom/spi_flash.h"
 #include "esp_sleep.h"

@@ -12,7 +12,6 @@
 #define Color_Hpp_Included
 
 #include "lvgl.h"
-#include "Arduino.h"
 
 // - Basic types inclusion
 #include "Types.hpp"

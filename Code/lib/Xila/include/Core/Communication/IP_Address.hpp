@@ -1,8 +1,6 @@
 #ifndef IP_Address_Hpp_Included
 #define IP_Address_Hpp_Included
 
-#include "Arduino.h"
-
 #include "../Module/String.hpp"
 
 class IPv6Address;

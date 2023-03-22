@@ -9,7 +9,6 @@
 ///
 
 #include "Core/Account/Accounts.hpp"
-#include "Core/Log/Log.hpp"
 #include "Core/Core.hpp"
 
 using namespace Xila_Namespace;

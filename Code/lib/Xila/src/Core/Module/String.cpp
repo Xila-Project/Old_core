@@ -16,33 +16,28 @@ using namespace Xila_Namespace;
 
 String_Class::String_Class() : Characters_Pointer(NULL), Size(0)
 {
-    Log_Verbose("String", "Default constructor");
 }
 
 String_Class::String_Class(const String_Class &String) : String_Class()
 {
-    Log_Verbose("String", "Copy constructor from String_Class");
     Set_Size(String.Get_Size());
     Copy(String);
 }
 
 String_Class::String_Class(const char *String) : String_Class()
 {
-    Log_Verbose("String", "Constructor from const char*");
     Set_Size(std::strlen(String) + 1);
     Copy(String);
 }
 
 String_Class::String_Class(const char *String, Size_Type Size) : String_Class()
 {
-    Log_Verbose("String", "Constructor from const char* and size");
     Set_Size(Size);
     Copy(String, Size);
 }
 
 String_Class::String_Class(String_Class &&String) : String_Class()
 {
-    Log_Verbose("String", "Move constructor from String_Class");
     Characters_Pointer = String.Characters_Pointer;
     Size = String.Size;
     String.Characters_Pointer = NULL;
@@ -51,7 +46,6 @@ String_Class::String_Class(String_Class &&String) : String_Class()
 
 String_Class::String_Class(char Character)
 {
-    Log_Verbose("String", "Constructor from char");
     Set_Size(2);
     Copy(Character);
 }
@@ -100,16 +94,12 @@ char String_Class::Get_Character(Size_Type Position) const
 
 Result_Type String_Class::Set_Size(Size_Type Size)
 {
-    Log_Verbose("String", "String set size %u", Size);
-
     // If the String is valid.
     if (Is_Valid())
     {
         // If the String is set to be empty.
         if (Size == 0)
         {
-            Log_Verbose("String", "Freeing memory");
-            Log_Verbose("String", "Memory pointer : %p", Characters_Pointer);
             free(Characters_Pointer);
             this->Characters_Pointer = NULL;
         }
@@ -227,45 +217,43 @@ bool String_Class::Is_Valid() const
 /// @return Result_Type::Success if the string was copied, Result_Type::Error otherwise.
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
 {
-    Log_Verbose("String", "Copy from const char*");
-    Log_Verbose("String", "Char pointer : %p", String);
-    Log_Verbose("String", "Char size : %u", Size);
-    Log_Verbose("String", "To copy : %s", String);
-
-    Log_Verbose("String", "Dest pointer : %p", this->Characters_Pointer);
-    Log_Verbose("String", "Dest size : %u", this->Size);
-    
-
+    Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)");
     if (String == NULL || !Is_Valid())
     {
+        Log_Trace();
         return Result_Type::Error;
     }
-
+    Log_Trace();
     if (Size == 0)
     {
+        Log_Trace();
         Size = std::strlen(String) + 1;
     }
-
-    Log_Information("String", "New size : %u", Size);
-
+    Log_Trace();
     if (Change_Size)
     {
+        Log_Trace();
         if (Set_Size(Size) != Result_Type::Success)
         {
             return Result_Type::Error;
         }
     }
+    Log_Trace();
 
     if (Get_Size() <= Size)
     {
+        Log_Trace();
         std::strncpy(Characters_Pointer, String, Get_Size());
     }
     else
-    {
+    {  
+        Log_Trace();
         std::strncpy(Characters_Pointer, String, Size);
     }
 
+    Log_Trace();
     Characters_Pointer[Get_Size() - 1] = '\0';
+    Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size) - Success");
     return Result_Type::Success;
 }
 

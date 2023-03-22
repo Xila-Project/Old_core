@@ -10,7 +10,6 @@
 
 #include "Core/Graphics/Graphics.hpp"
 #include "Core/Display/Display.hpp"
-#include "Core/Log/Log.hpp"
 #include "Core/Core.hpp"
 
 #include "lvgl.h"

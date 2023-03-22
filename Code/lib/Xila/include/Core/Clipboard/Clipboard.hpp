@@ -15,8 +15,6 @@
     #define Xila_Default_Clipboard_Size 256
 #endif
 
-#include "Arduino.h"
-
 #include "../Module/Module.hpp"
 
 #include "Core/Drive/Drive.hpp"

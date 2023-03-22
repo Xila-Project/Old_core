@@ -11,7 +11,6 @@
 #ifndef Semaphore_Hpp_Included
 #define Semaphore_Hpp_Included
 
-#include "Arduino.h"
 #include "Base_Types.hpp"
 
 #include <mutex>

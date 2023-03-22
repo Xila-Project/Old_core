@@ -31,9 +31,6 @@
 
 // - Include all the required dependencies
 
-// -  Arduino framework
-#include "Arduino.h"
-
 // - Xila's modules
 #include "Account/Accounts.hpp"
 #include "Clipboard/Clipboard.hpp"

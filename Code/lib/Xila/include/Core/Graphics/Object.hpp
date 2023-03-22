@@ -8,8 +8,6 @@
 /// @copyright Copyright (c) 2022
 ///
 
-#include "Arduino.h"
-
 #include "lvgl.h"
 
 #include "Area.hpp"

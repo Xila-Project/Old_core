@@ -129,12 +129,13 @@ Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
     
     Static_String_Type<Default_Software_Name_Length> Software_Name;
     
-    for (auto &Software_Handle_Pointer : Software_Handle_Class::List)
+    for (auto Software_Handle_Pointer : Software_Handle_Class::List)
     {
         if (Software_Handle_Pointer == NULL)
             break;
 
         Log_Verbose("Softwares", "Software handle: %p", *Software_Handle_Pointer);
+
         Software_Handle_Pointer->Get_Name(Software_Name);
 
         Log_Verbose("Softwares", "Software name: %s", (const char*)Software_Name);
@@ -184,10 +185,12 @@ uint8_t Softwares_Class::Get_Handle_Count()
     for (auto Software_Handle_Pointer : Software_Handle_Class::List)
     {
         if (Software_Handle_Pointer == NULL)
-            return i;
-
-        i++;
+            break;
+        else
+            i++;
+        Log_Verbose("Softwares", "Software handle: %p", *Software_Handle_Pointer);
     }
+    return i;
 }
 
 void Softwares_Class::Close_User_Softwares(const Accounts_Types::User_Type *User)

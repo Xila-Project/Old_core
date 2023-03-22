@@ -13,8 +13,15 @@
 
 using namespace Xila_Namespace;
 
-std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = {NULL};
+template<typename T, size_t N>
+std::array<T, N> Init_Array(const T& value) {
+  std::array<T, N> result;
+  std::generate(result.begin(), result.end(), [&value]() { return value; });
+  return result;
+}
 
+/// Fill array with nullptr
+std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = Init_Array<Software_Handle_Class*, 40>(NULL);
 // Software handle
 
 /// @brief Construct and define a new Software_Handle::Software_Handle object
@@ -23,7 +30,7 @@ std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = {NULL};
 /// @param Icon_ID Software icon
 /// @param Load_Function_Pointer Load function pointer
 /// @param Startup_Function_Pointer Startup function pointer (NULL by default)
-Software_Handle_Class::Software_Handle_Class(const String_Type& Software_Name)
+Software_Handle_Class::Software_Handle_Class(const char* Name)
     : Name(Name)
 {
   log_printf("Software_Handle construcotr \n");
@@ -33,6 +40,7 @@ Software_Handle_Class::Software_Handle_Class(const String_Type& Software_Name)
     if (Software_Handle_Pointer == nullptr)
     {
       Software_Handle_Pointer = this;
+      break;
     }
   }
 }

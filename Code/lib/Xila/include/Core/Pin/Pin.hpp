@@ -11,7 +11,6 @@
 #ifndef Pin_Hpp_Included
 #define Pin_Hpp_Included
 
-#include "Arduino.h"
 #include "../Module/Module.hpp"
 
 //==============================================================================//

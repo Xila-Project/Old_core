@@ -12,7 +12,6 @@
 #define Registry_Hpp_Included
 
 #include "String.hpp"
-#include "Arduino.h"
 #include "ArduinoJson.h"
 
 namespace Xila_Namespace
