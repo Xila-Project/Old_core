@@ -1,28 +1,28 @@
-*************
-Software Type
-*************
+# Software (Software_Type)
 
-Here you will find a full description of the software type.
+Here you will find a full description of the `Software_Type`.
+
+## Description
+
+`Software_Type` is an alias of the class `Software_Class` which is the base class of all software.
+It's itself derived from `Module_Class` class which is the base class of all modules (like `System_Class`, `Accounts_Class`, `Graphics_Class` ...). This was done for the sake of standardization and ease of use.
+
+
+Here, the software class allows the software developer to derive the software class and implement the methods and functions necessary for its proper functioning. This then makes it possible to contain the variables and functions of the software in a class. Thus, when the software is started, an instance of the class of the software in question is created. Once the software is closed, this same instance is freed. Xila also uses this API to communicate with the software (send instructions, variables etc.).
 
 In order to facilitate software management and dynamic memory allocation (avoid fragmentation), the functions and methods of the software are stored in a class..
 Thus, when software is booted, an instance of the class of the software in question is created.
 Once the software is closed, this same instance is released.
 Xila uses this API also to communicate with the software (send instructions, variables etc.).
 
-.. warning::
+:::{warning}
     Using global space in places of this class results in reduced memory available at startup.
     Indeed, this type of allocation block a part of the memory and will never be deallocated.
+:::
 
-API Reference
-=============
+## Example
 
-.. doxygenclass::   Xila_Namespace::Software
-    :members:
-
-Example
-=======
-
-.. code-block:: cpp
+```cpp
 
     Xila_Namespace::Software_Handle My_Software_Handle;
 
@@ -87,5 +87,11 @@ Example
     }
 
     Xila_Namespace::Software_Handle My_Software_Handle("My Software", 44, My_Software::Load);
+```
 
-    
+## API Reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::Software
+    :members:
+```

@@ -1,5 +1,4 @@
-Introduction
-************
+# 📚️ Introduction
 
 Xila is an open-source operating system aimed at embedded systems that provides a user-friendly interface with powerful features.
 It is designed to run on microcontrollers and microprocessors with limited resources while providing efficient and scalable performance.
@@ -11,8 +10,7 @@ Xila provides its users with a structured API, a high-level programming language
 The key objective of the project is to make development faster by leveraging Xila’s modular architecture, expandable library of drivers and libraries, and well-documented codebase.
 By utilizing these tools, developers can rapidly prototype and deploy new products without worrying about lower-level details.
 
-Key features
-------------
+## ➕ Key features
 
     - Multitasking
     - Memory management
@@ -25,8 +23,7 @@ Key features
     - Expandable library of drivers and libraries
     - Well-documented codebase
 
-Requirements
-------------
+## ✅ Requirements
 
 Currently, Xila is compatible with all types of microcontrollers, provided that they have the following characteristics
 
@@ -36,16 +33,13 @@ Currently, Xila is compatible with all types of microcontrollers, provided that 
     - At least 1 MB of flash memory.
     - At least 128 KB of RAM.
 
-Supported architecture
-^^^^^^^^^^^^^^^^^^^^^^
+### Supported architecture
 
 However, Xila needs drivers for Hardware related function in order to work. Here are the architectures :
 
     - Wireless Tag WT32-SC01 / WT32-SC01 Plus
 
-Road map
---------
-
+### 🛤️ Road map
 
 
 

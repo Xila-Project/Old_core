@@ -19,7 +19,7 @@
 
 
 project = 'Xila'
-copyright = '2021, Alix ANNERAUD'
+copyright = '2023, Alix ANNERAUD'
 author = 'Alix ANNERAUD'
 
 
@@ -31,15 +31,43 @@ author = 'Alix ANNERAUD'
 
 import subprocess, os
 
-read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+#read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
 
 
-subprocess.call('cd ../Doxygen; doxygen', shell=True)
+#subprocess.call('cd ../Doxygen; doxygen', shell=True)
 
 
 extensions = [
-    'breathe'
+    'breathe',
+    'myst_parser'
 ]
+
+myst_enable_extensions = [
+    "amsmath",
+    "attrs_inline",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist",
+]
+
+
+# Sources
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.txt': 'markdown',
+    '.md': 'markdown',
+}
+
 
 # Breathe configuration
 

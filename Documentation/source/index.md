@@ -1,21 +1,19 @@
-##################
-Xila documentation
-##################
+# Xila documentation
 
 Welcome on Xila documentation Xila is an operating system for embedded devices.
 
 This documentation describes how to use, develop and contribute to the project.
 
-Contents
-========
+## Contents
 
+```{eval-rst}
 .. toctree::
    :caption:   Introduction
 
    Introduction <Introduction>
 
 .. toctree::
-   :caption:   Use   
+   :caption:   Software reference   
    :maxdepth:  2
 
    Setup <Use/Getting Started>
@@ -39,6 +37,5 @@ Contents
 
    Changelog <Miscellaneous/Changelog>
    About <Miscellaneous/About>
-   
-
+```
 
