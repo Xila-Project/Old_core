@@ -31,10 +31,10 @@ author = 'Alix ANNERAUD'
 
 import subprocess, os
 
-#read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
+read_the_docs_build = os.environ.get('READTHEDOCS', None) == 'True'
 
 
-#subprocess.call('cd ../Doxygen; doxygen', shell=True)
+subprocess.call('cd ../Doxygen; doxygen', shell=True)
 
 
 extensions = [
