@@ -381,8 +381,6 @@ void System_Class::Load()
     Panic_Handler(Panic_Type::Failed_To_Start_Accounts);
   }
 
-  Log_Verbose("System", "Checking if there is an account ...");
-
   if (Softwares.Start() != Result_Type::Success)
   {
     Panic_Handler(Panic_Type::Failed_To_Start_Softwares);

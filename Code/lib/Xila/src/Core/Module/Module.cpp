@@ -11,22 +11,21 @@
 // - Includes
 
 #include "Core/Module/Module.hpp"
+#include "Core/Log/Log.hpp"
+
 // - Namespaces
-
 using namespace Xila_Namespace;
-
-// - Attributes
-
-std::vector<Module_Class*> Module_Class::List;
 
 // - Methods
 
-Module_Class::Module_Class(Size_Type Queue_Size)
+Module_Class::Module_Class(Size_Type Queue_Size) : Instruction_Queue_Handle(NULL)
 {
     if (Queue_Size != 0)
     {
-        if (xQueueCreate(Queue_Size, sizeof(Instruction_Type)) == NULL)
+        Instruction_Queue_Handle = xQueueCreate(Queue_Size, sizeof(Instruction_Type));
+        if (Instruction_Queue_Handle == NULL)
         {
+            Log_Error("Module", "Failed to create instruction queue ! Deleting module...");
             delete this;
         }
     }
@@ -38,11 +37,6 @@ Module_Class::~Module_Class()
     vQueueDelete(Instruction_Queue_Handle);
 }
 
-/// @brief Used to send instructions to software.
-///
-/// @param Instruction Instruction to send.
-///
-/// @details It's used by Xila and the software itself to fill the instructions queue.
 Result_Type Module_Class::Send_Instruction(const Instruction_Type &Instruction)
 {
     if (xQueueSendToBack(Instruction_Queue_Handle, (void *)&Instruction, 0) != pdTRUE)

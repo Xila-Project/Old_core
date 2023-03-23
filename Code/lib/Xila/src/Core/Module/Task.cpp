@@ -17,7 +17,7 @@ using namespace Xila_Namespace;
 
 // - Attributes
 
-std::list<Task_Class *> Task_Class::List;
+std::vector<Task_Class *> Task_Class::List;
 
 
 /// @brief Construct a new Task_Class object (without creating a task)
@@ -25,6 +25,7 @@ std::list<Task_Class *> Task_Class::List;
 /// @param Owner_Module Owner module / software of the task.
 Task_Class::Task_Class(Module_Class *Owner_Module) : Owner_Module(Owner_Module), Task_Handle(NULL)
 {
+    
 }
 
 /// @brief Construct a new Task_Class object, and create a task.
@@ -63,6 +64,9 @@ Task_Class::~Task_Class()
 /// @return Result_Type::Success if the task has been created, Result_Type::Error otherwise.
 Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Size_Type Stack_Size, void *Data, Priority_Type Priority)
 {
+    // Not ideal but it's the only way to allocate static vector.
+    List.reserve(40);
+
     if ((Priority > Priority_Type::Idle) || (Priority <= Priority_Type::Driver))
     {
         Priority = Priority_Type::Normal;
@@ -177,6 +181,15 @@ void Task_Type::Delay(uint32_t Delay_In_Millisecond)
 void Task_Class::Delay_Static(uint32_t Delay_In_Millisecond)
 {
     vTaskDelay(pdMS_TO_TICKS(Delay_In_Millisecond));
+
+    for (auto Task_Pointer : List)
+    {
+        if (Task_Pointer->Task_Handle == xTaskGetCurrentTaskHandle())
+        {
+            Task_Pointer->Feed_Watchdog();
+            break;
+        }
+    }
 }
 
 /// @brief Method that delay the execution of the following instruction.

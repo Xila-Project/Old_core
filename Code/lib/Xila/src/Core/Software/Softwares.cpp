@@ -18,18 +18,14 @@ Softwares_Type Xila_Namespace::Softwares;
 
 Result_Type Softwares_Class::Start()
 {
-    // - Start shell
-    Log_Verbose("Softwares", "Starting shell");
-
     Static_String_Type<24> Shell_Name("Shell");
 
-    Log_Verbose("Softwares", "Starting shell: %s", (const char*)Shell_Name);
-
-    return this->Open(Shell_Name, Accounts.Get_Logged_User());
+    return this->Open(Shell_Name);
 }
 
 Result_Type Softwares_Class::Stop()
 {
+    // - Close all software
     for (auto &Software_Pointer : Software_Class::List)
     {
         this->Close(Software_Pointer);
@@ -37,11 +33,13 @@ Result_Type Softwares_Class::Stop()
 
     uint32_t Timeout = System.Get_Up_Time_Milliseconds() + 10000;
 
+    // - Wait for all software to close
     while (Software_Class::List.size() != 0 && System.Get_Up_Time_Milliseconds() < Timeout)
     {
         Task_Type::Delay_Static(100);
     }
 
+    // - Kill all remaining software
     for (auto &Software_Pointer : Software_Class::List)
     {
         this->Kill(Software_Pointer);
@@ -51,11 +49,16 @@ Result_Type Softwares_Class::Stop()
 
 Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Accounts_Types::User_Type *Owner_User)
 {
+    // - Check if handle is valid
     if (Handle == NULL)
     {
         return Result_Type::Error;
     }
+
     Handle->Create_Instance();
+
+    Log_Verbose("Softwares", "List size : %d", Software_Class::List.size());
+
     if (Owner_User == NULL)
     {
         Software_Type::List.back()->Owner_User = Accounts.Get_Logged_User();
@@ -64,17 +67,16 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
     {
         Software_Type::List.back()->Owner_User = Owner_User;
     }
+    
+    Log_Verbose("Softwares", "Software opened : %s | by user: %s", (const char*)Handle->Name, Owner_User->Name);
 
     return Result_Type::Success;
 }
 
 Result_Type Softwares_Class::Open(const String_Type &Name, const Accounts_Types::User_Type *Owner_User)
-{
-    Log_Verbose("Softwares", "Opening software: %s", (const char*)Name);
-    
+{   
     const Software_Handle_Type *Handle = this->Find_Handle(Name);
-   
-    Log_Verbose("Softwares", "Software handle: %p", Handle);
+
     return this->Open(Handle, Owner_User);
 }
 
@@ -123,10 +125,7 @@ Software_Type *Softwares_Class::Find(const Software_Handle_Type *Handle)
 }
 
 Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
-{
-    Log_Verbose("Softwares", "Searching for software handle: %s", (const char*)Name);
-    Log_Verbose("Softwares", "Software handle list size: %u", this->Get_Handle_Count());
-    
+{    
     Static_String_Type<Default_Software_Name_Length> Software_Name;
     
     for (auto Software_Handle_Pointer : Software_Handle_Class::List)
@@ -134,15 +133,10 @@ Software_Handle_Type *Softwares_Class::Find_Handle(const String_Type &Name)
         if (Software_Handle_Pointer == NULL)
             break;
 
-        Log_Verbose("Softwares", "Software handle: %p", *Software_Handle_Pointer);
-
         Software_Handle_Pointer->Get_Name(Software_Name);
-
-        Log_Verbose("Softwares", "Software name: %s", (const char*)Software_Name);
 
         if (Software_Name == Name)
         {
-            Log_Verbose("Softwares", "Software handle found: %s", (const char*)Software_Name);
             return Software_Handle_Pointer;
         }
     }
@@ -161,7 +155,6 @@ const Software_Handle_Type *Softwares_Class::Get_Handle(uint8_t Index)
 
 Software_Type *Softwares_Class::Get(uint8_t Index)
 {
-
     uint8_t i = 0;
     for (auto &Software_Pointer : Software_Class::List)
     {
@@ -188,7 +181,6 @@ uint8_t Softwares_Class::Get_Handle_Count()
             break;
         else
             i++;
-        Log_Verbose("Softwares", "Software handle: %p", *Software_Handle_Pointer);
     }
     return i;
 }

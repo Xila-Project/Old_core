@@ -3,7 +3,7 @@
 
 #include "Base_Types.hpp"
 
-#include <list>
+#include <vector>
 
 namespace Xila_Namespace
 {
@@ -97,7 +97,7 @@ namespace Xila_Namespace
 
         Module_Class *Owner_Module;
 
-        static std::list<Task_Class *> List; // - Task lists.
+        static std::vector<Task_Class *> List; // - Task lists.
 
     } Task_Type;
 

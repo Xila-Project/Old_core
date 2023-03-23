@@ -90,6 +90,7 @@ void Window_Class::Set_Interface()
     this->Set_Style_Border_Width(0, 0);
     // - Header create.
     static Style_Type Style_Window_Header;
+    Style_Window_Header.Initialize();
     Style_Window_Header.Set_Background_Color(Color_Type::Grey[6]);
 
     Header.Create(*this);
@@ -103,6 +104,7 @@ void Window_Class::Set_Interface()
     Close_Button.Set_Style_Border_Color(Color_Type::Red[5], 0);
     Close_Button.Set_Style_Border_Width(4, 0);
     Close_Button.Set_Style_Radius(8, 0);
+    Close_Button.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
     Minimize_Button.Create(Header);
     Minimize_Button.Set_Size(24, 24);
@@ -110,11 +112,13 @@ void Window_Class::Set_Interface()
     Minimize_Button.Set_Style_Border_Width(4, 0);
     Minimize_Button.Set_Style_Radius(8, 0);
     Minimize_Button.Set_Alignment(Close_Button, Alignment_Type::Out_Right_Middle, 4, 0);
+    Minimize_Button.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
     // - Middle title.
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
+    Title_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
     // - Body.
     Body.Create(*this);

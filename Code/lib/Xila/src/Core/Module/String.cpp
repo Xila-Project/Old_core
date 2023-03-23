@@ -142,17 +142,11 @@ Result_Type String_Class::Set_Size(Size_Type Size)
     return Result_Type::Success;
 }
 
-/// @brief
-/// @param Capacity
-/// @return
 Result_Type String_Class::Set_Capacity(Size_Type Capacity)
 {
     return Set_Size(Capacity + 1);
 }
 
-/// @brief Set custom buffer.
-/// @param Buffer
-/// @param Size
 void String_Class::Set_Buffer(char *Buffer, Size_Type Size)
 {
     if (Is_Valid())
@@ -163,9 +157,6 @@ void String_Class::Set_Buffer(char *Buffer, Size_Type Size)
     this->Size = Size;
 }
 
-/// @brief
-/// @param Character
-/// @param Position
 void String_Class::Set_Character(char Character, Size_Type Position)
 {
     if (Position < Size && Is_Valid())
@@ -210,48 +201,44 @@ bool String_Class::Is_Valid() const
     return (Characters_Pointer != NULL) && (Size > 0);
 }
 
-/// @brief A function that copy a string into the current string.
-/// @param String The string to copy.
-/// @param Size The size of the string to copy. If 0, the size will be calculated according to the length of the text (must be null terminated).
-/// @param Change_Size Does the string size must be changed to fit the new string.
-/// @return Result_Type::Success if the string was copied, Result_Type::Error otherwise.
+
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
 {
     Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)");
     if (String == NULL || !Is_Valid())
     {
-        Log_Trace();
+        
         return Result_Type::Error;
     }
-    Log_Trace();
+    
     if (Size == 0)
     {
-        Log_Trace();
+        
         Size = std::strlen(String) + 1;
     }
-    Log_Trace();
+    
     if (Change_Size)
     {
-        Log_Trace();
+        
         if (Set_Size(Size) != Result_Type::Success)
         {
             return Result_Type::Error;
         }
     }
-    Log_Trace();
+    
 
     if (Get_Size() <= Size)
     {
-        Log_Trace();
+        
         std::strncpy(Characters_Pointer, String, Get_Size());
     }
     else
     {  
-        Log_Trace();
+        
         std::strncpy(Characters_Pointer, String, Size);
     }
 
-    Log_Trace();
+    
     Characters_Pointer[Get_Size() - 1] = '\0';
     Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size) - Success");
     return Result_Type::Success;
@@ -286,13 +273,16 @@ Result_Type String_Class::Copy_Format(const char *Format, ...)
     va_end(Arguments);
 }
 
-/// @brief
-/// @param String
-/// @param Size
-/// @param Increase_Size
-/// @return
 Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool Increase_Size)
 {
+    
+    Log_Verbose("String", "Char pointer : %p", String);
+    Log_Verbose("String", "Size : %d", Size);
+    Log_Verbose("String", "Increase_Size : %d", Increase_Size);
+
+    Log_Verbose("String", "String pointer : %p", Characters_Pointer);
+    Log_Verbose("String", "Size : %d", Size);
+
     if (String == NULL || !Is_Valid())
     {
         return Result_Type::Error;

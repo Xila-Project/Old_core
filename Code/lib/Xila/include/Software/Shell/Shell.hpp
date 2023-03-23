@@ -63,13 +63,12 @@ class Shell_Class : public Software_Type
 
         // - Attributes
         // - - Overlay
+        Style_Type Status_Buttons_Style;
         Object_Type Overlay;
         Button_Type Battery_Button;
-        Image_Type Battery_Image;
         Button_Type WiFi_Button;
-        Image_Type WiFi_Image;
         Button_Type Sound_Button;
-        Image_Type Sound_Image;
+        
         Graphics_Types::Label_Type Clock_Label;
 
         // - - Parent window
@@ -140,6 +139,7 @@ class Shell_Class : public Software_Type
         Graphics_Types::Text_Area_Type Password_Input;
         Button_Type Login_Button;
         Graphics_Types::Label_Type Login_Label;
+
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;

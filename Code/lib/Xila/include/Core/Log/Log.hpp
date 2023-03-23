@@ -30,15 +30,15 @@ namespace Xila_Namespace
            //     return;
            // }
            // Print_Static("Wait semaphore...\r\n");
-           // Semaphore.Take();
+
+           //xSemaphoreTake(Semaphore_Handle, portMAX_DELAY);
+           //Semaphore.Take();
             va_list Arguments;
             va_start(Arguments, Format);
             log_printf(Format, Arguments);
             va_end(Arguments);
-           // Semaphore.Give();
-           // Print_Static("Semaphore taken !\r\n");
-           // Print_Static("Wait to give semaphore...\r\n");
-           // Print_Static("Semaphore given !\r\n");
+            //Semaphore.Give();
+            //xSemaphoreGive(Semaphore_Handle);
         };
 
         static inline void Print_Static(const char *Format, ...)
@@ -49,8 +49,10 @@ namespace Xila_Namespace
             va_end(Arguments);
         };
 
-        Semaphore_Type Semaphore;
+
     private:
+        xSemaphoreHandle Semaphore_Handle;
+        StaticSemaphore_t Semaphore_Buffer;
 
     } Log_Type;
 

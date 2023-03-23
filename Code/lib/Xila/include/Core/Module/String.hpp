@@ -1,14 +1,13 @@
 ///
- /// @file String.hpp
- /// @author Alix ANNERAUD (alix@anneraud.fr)
- /// @brief 
- /// @version 0.1.0
- /// @date 22-02-2023
- /// 
- /// @copyright Copyright (c) 2023
- /// 
+/// @file String.hpp
+/// @author Alix ANNERAUD (alix@anneraud.fr)
+/// @brief
+/// @version 0.1.0
+/// @date 22-02-2023
+///
+/// @copyright Copyright (c) 2023
+///
 
- 
 #ifndef String_Hpp_Included
 #define String_Hpp_Included
 
@@ -32,23 +31,23 @@ namespace Xila_Namespace
 
         /// @brief Copy constructor.
         /// @param String String to copy.
-        String_Class(const String_Class& String);
+        String_Class(const String_Class &String);
 
         /// @brief Constructor from character array.
-        String_Class(const char* String);
+        String_Class(const char *String);
 
         /// @brief Constructor from character array.
         /// @param String Character array to copy.
         /// @param Size Character array size.
-        String_Class(const char* String, Size_Type Size);
+        String_Class(const char *String, Size_Type Size);
 
         /// @brief Copy constructor from String.
-        /// @param String 
-        String_Class(const String& String);
+        /// @param String
+        String_Class(const String &String);
 
         /// @brief Move constructor.
         /// @param String String to move.
-        String_Class(String_Class&& String);
+        String_Class(String_Class &&String);
 
         /// @brief Constructor from character.
         explicit String_Class(char Character);
@@ -64,7 +63,6 @@ namespace Xila_Namespace
         explicit String_Class(Real_Type Real, Short_Integer_Type Decimals = 2);
         explicit String_Class(Long_Real_Type Real, Short_Integer_Type Decimals = 2);
         virtual ~String_Class();
-        
 
         // - - Getters
 
@@ -74,9 +72,8 @@ namespace Xila_Namespace
         char Get_Character(Size_Type Position) const;
 
         Size_Type Get_Position(char Character, Size_Type Offset_Position = 0) const;
-        Size_Type Get_Position(const char* String, Size_Type Position = 0) const;
-        Size_Type Get_Position(const String_Class& String, Size_Type Position = 0) const;
-        
+        Size_Type Get_Position(const char *String, Size_Type Position = 0) const;
+        Size_Type Get_Position(const String_Class &String, Size_Type Position = 0) const;
 
         // - - Setters
 
@@ -93,7 +90,7 @@ namespace Xila_Namespace
         /// @brief Set the buffer of the string.
         /// @param Buffer Buffer to set.
         /// @param Size Buffer size.
-        void Set_Buffer(char* Buffer, Size_Type Size);
+        void Set_Buffer(char *Buffer, Size_Type Size);
 
         /// @brief Set a character at a specific position.
         /// @param Character Character to set.
@@ -119,9 +116,16 @@ namespace Xila_Namespace
 
         // - - Copy
 
-        Result_Type Copy(const char* String, Size_Type Size = 0, bool Change_Size = false);
-        Result_Type Copy(const String_Class& String, bool Change_Size = false);
-        Result_Type Copy(const String& String, bool Change_Size = false);
+        /// @brief A function that copy a string into the current string.
+        /// @param String The string to copy.
+        /// @param Size The size of the string to copy. If 0, the size will be calculated according to the length of the text (must be null terminated).
+        /// @param Change_Size Does the string size must be changed to fit the new string.
+        /// @return Result_Type::Success if the string was copied, Result_Type::Error otherwise.
+        Result_Type Copy(const char *String, Size_Type Size = 0, bool Change_Size = false);
+       
+        
+        Result_Type Copy(const String_Class &String, bool Change_Size = false);
+        Result_Type Copy(const String &String, bool Change_Size = false);
         Result_Type Copy(char Character, bool Change_Size = false);
         Result_Type Copy(Integer_Type Integer, bool Change_Size = false);
         Result_Type Copy(Long_Integer_Type Natural, bool Change_Size = false);
@@ -131,12 +135,12 @@ namespace Xila_Namespace
         Result_Type Copy(Real_Type Real, bool Change_Size = false);
         Result_Type Copy(Long_Real_Type Real, bool Change_Size = false);
 
-        Result_Type Copy_Format(const char* Format, ...);
+        Result_Type Copy_Format(const char *Format, ...);
 
         // - - Concatenation
 
-        Result_Type Concatenate(const char* String, Size_Type Size = 0, bool Increase_Size = false);
-        Result_Type Concatenate(const String_Class& String, bool Increase_Size = false);
+        Result_Type Concatenate(const char *String, Size_Type Size = 0, bool Increase_Size = false);
+        Result_Type Concatenate(const String_Class &String, bool Increase_Size = false);
         Result_Type Concatenate(char Character, bool Increase_Size = false);
         Result_Type Concatenate(Short_Natural_Type Byte, bool Increase_Size = false);
         Result_Type Concatenate(Integer_Type Integer, bool Increase_Size = false);
@@ -148,10 +152,10 @@ namespace Xila_Namespace
 
         // - - Comparison
 
-        bool Equals(const char* String) const;
-        bool Equals(const String_Class& String) const;
-        int8_t Compare(const char* String) const;
-        int8_t Compare(const String_Class& String) const;
+        bool Equals(const char *String) const;
+        bool Equals(const String_Class &String) const;
+        int8_t Compare(const char *String) const;
+        int8_t Compare(const String_Class &String) const;
 
         // - - Edition
 
@@ -160,10 +164,10 @@ namespace Xila_Namespace
 
         // - - Conversion
 
-        Result_Type To_Char_Array(char* Array, Size_Type Size, Size_Type Offset_Position = 0) const;
+        Result_Type To_Char_Array(char *Array, Size_Type Size, Size_Type Offset_Position = 0) const;
         Result_Type To_Lower_Case();
         Result_Type To_Upper_Case();
-        
+
         // - - Operators
 
         // - - - Conversion
@@ -172,60 +176,57 @@ namespace Xila_Namespace
         operator uint64_t() const;
         operator double() const;
         operator bool() const;
-        operator const char*() const;
-        explicit operator char*();
-        explicit operator const Byte_Type*() const;
+        operator const char *() const;
+        explicit operator char *();
+        explicit operator const Byte_Type *() const;
 
         // - - - Assignment
 
-        String_Class& operator=(const char* String);
-        String_Class& operator=(const String_Class& String);
-        String_Class& operator=(const String& String);
-        String_Class& operator=(char Character);
-        String_Class& operator=(int64_t Integer);
-        String_Class& operator=(uint64_t Natural);
-        String_Class& operator=(double Real);
-        
+        String_Class &operator=(const char *String);
+        String_Class &operator=(const String_Class &String);
+        String_Class &operator=(const String &String);
+        String_Class &operator=(char Character);
+        String_Class &operator=(int64_t Integer);
+        String_Class &operator=(uint64_t Natural);
+        String_Class &operator=(double Real);
+
         // - - - Concatenation
 
-        String_Class& operator+=(const char* String);
-        String_Class& operator+=(const String_Class& String);
-        String_Class& operator+=(char Character);
-        String_Class& operator+=(Integer_Type Integer);
-        String_Class& operator+=(Long_Integer_Type Integer);
-        String_Class& operator+=(Short_Natural_Type Byte);
-        String_Class& operator+=(Natural_Type Natural);
-        String_Class& operator+=(Long_Natural_Type Natural);
-        String_Class& operator+=(Real_Type Real);
-        String_Class& operator+=(Long_Real_Type Real);
+        String_Class &operator+=(const char *String);
+        String_Class &operator+=(const String_Class &String);
+        String_Class &operator+=(char Character);
+        String_Class &operator+=(Integer_Type Integer);
+        String_Class &operator+=(Long_Integer_Type Integer);
+        String_Class &operator+=(Short_Natural_Type Byte);
+        String_Class &operator+=(Natural_Type Natural);
+        String_Class &operator+=(Long_Natural_Type Natural);
+        String_Class &operator+=(Real_Type Real);
+        String_Class &operator+=(Long_Real_Type Real);
 
-    
         // - - - Comparison
 
-        bool operator==(const char* String) const;
-        bool operator==(const String_Class& String) const;
-        bool operator!=(const char* String) const;
-        bool operator!=(const String_Class& String) const;
-        bool operator>(const char* String) const;
-        bool operator>(const String_Class& String) const;
-        bool operator<(const char* String) const;
-        bool operator<(const String_Class& String) const;
-        bool operator>=(const char* String) const;
-        bool operator>=(const String_Class& String) const;
-        bool operator<=(const char* String) const;
-        bool operator<=(const String_Class& String) const;
+        bool operator==(const char *String) const;
+        bool operator==(const String_Class &String) const;
+        bool operator!=(const char *String) const;
+        bool operator!=(const String_Class &String) const;
+        bool operator>(const char *String) const;
+        bool operator>(const String_Class &String) const;
+        bool operator<(const char *String) const;
+        bool operator<(const String_Class &String) const;
+        bool operator>=(const char *String) const;
+        bool operator>=(const String_Class &String) const;
+        bool operator<=(const char *String) const;
+        bool operator<=(const String_Class &String) const;
 
         // - - - Access
         char operator[](Size_Type Index) const;
-        char& operator[](Size_Type Index);        
+        char &operator[](Size_Type Index);
 
     protected:
-
-        char* Characters_Pointer;
+        char *Characters_Pointer;
         Size_Type Size;
 
     } String_Type;
-
 
     /// @brief Template class derivated from String_Class to create a static string (stack allocated).
     /// @tparam Buffer_Size Size of the static buffer.
@@ -242,43 +243,43 @@ namespace Xila_Namespace
             Clear();
         }
 
-        Static_String_Class(const char* String) : Static_String_Class()
+        Static_String_Class(const char *String) : Static_String_Class()
         {
             Copy(String);
         }
 
-        Static_String_Class(const char* String, Size_Type Size) : Static_String_Class()
+        Static_String_Class(const char *String, Size_Type Size) : Static_String_Class()
         {
             log_printf("Static_String_Class::Static_String_Class(const char* String, Size_Type Size) - String = %s \n", String);
             Copy(String, Size);
-            log_printf("Static_String_Class::Static_String_Class(const char* String, Size_Type Size) - String = %s \n", (const char*)*this);
+            log_printf("Static_String_Class::Static_String_Class(const char* String, Size_Type Size) - String = %s \n", (const char *)*this);
         }
 
-        Static_String_Class(const Static_String_Class& String) : Static_String_Class()
+        Static_String_Class(const Static_String_Class &String) : Static_String_Class()
         {
-            log_printf("Static_String_Class::Static_String_Class(const Static_String_Class& String) - String = %s \n", (const char*)String);
+            log_printf("Static_String_Class::Static_String_Class(const Static_String_Class& String) - String = %s \n", (const char *)String);
 
             Copy(String);
         }
 
-        Static_String_Class(const String_Class& String) : Static_String_Class()
+        Static_String_Class(const String_Class &String) : Static_String_Class()
         {
-            
-           log_printf("Static_String_Class::Static_String_Class(const String_Class& String) - String = %s \n", (const char*)String);
+
+            log_printf("Static_String_Class::Static_String_Class(const String_Class& String) - String = %s \n", (const char *)String);
 
             Copy(String);
         }
 
-        Static_String_Class(String_Class&& String) : Static_String_Class()
+        Static_String_Class(String_Class &&String) : Static_String_Class()
         {
-            log_printf("Static_String_Class::Static_String_Class(String_Class&& String) - String = %s \n", (const char*)String);
-            
+            log_printf("Static_String_Class::Static_String_Class(String_Class&& String) - String = %s \n", (const char *)String);
+
             Set_Buffer(this->Buffer, Length);
             String.Characters_Pointer = NULL;
             String.Size = 0;
         }
 
-        Static_String_Class(const String& String) : Static_String_Class()
+        Static_String_Class(const String &String) : Static_String_Class()
         {
             Copy(String);
         }
@@ -320,56 +321,54 @@ namespace Xila_Namespace
         {
             Size = 0;
             Characters_Pointer = NULL;
-            
+
             log_printf("Static_String_Class::~Static_String_Class() - Static string destroyed. \n");
         }
 
-        Static_String_Class& operator=(const String_Class& String)
+        Static_String_Class &operator=(const String_Class &String)
         {
-            log_printf("Static_String_Class::operator=(const String_Class& String) - String = %s \n", (const char*)String);
+            log_printf("Static_String_Class::operator=(const String_Class& String) - String = %s \n", (const char *)String);
             Copy(String);
             return *this;
         }
-        
-        Static_String_Class& operator=(const char* String)
+
+        Static_String_Class &operator=(const char *String)
         {
             Copy(String);
             return *this;
         }
 
-        Static_String_Class& operator=(char Character)
+        Static_String_Class &operator=(char Character)
         {
             Copy(Character);
             return *this;
         }
 
-        Static_String_Class& operator+=(char Character)
+        Static_String_Class &operator+=(char Character)
         {
             Concatenate(Character);
             return *this;
         }
 
-        Static_String_Class& operator+=(const char* String)
+        Static_String_Class &operator+=(const char *String)
         {
             Concatenate(String);
             return *this;
         }
 
-        Static_String_Class& operator+=(const String_Class& String)
+        Static_String_Class &operator+=(const String_Class &String)
         {
             Concatenate(String);
             return *this;
         }
 
-        
+        Result_Type Set_Size(Size_Type Size) override
+        {
 
-        Result_Type Set_Size(Size_Type Size) override {
-            
             ESP_LOGI("Static_String", "Static_String_Class::Set_Size()");
             // Do nothing since we deal with a static buffer;
             return Result_Type::Error;
         };
-
 
     protected:
         char Buffer[Length + 1];

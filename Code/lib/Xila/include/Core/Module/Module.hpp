@@ -44,22 +44,34 @@ namespace Xila_Namespace
         // - Methods
 
         // - - Constructor / destructor
+
+        /// @brief Module constructor.
+        /// @param Queue_Size Set a custom size the instruction queue (default : `Default_Instruction_Queue_Size`).
         Module_Class(Size_Type Queue_Size = Default_Instruction_Queue_Size);
         ~Module_Class();
 
         // - - Management
+
+        /// @brief Send instruction to the module.
+        /// @param Instruction Instruction to send.
+        /// @return `Result_Type::Success` if the instruction has been sent, `Result_Type::Error` otherwise.
         Result_Type Send_Instruction(const Instruction_Type &Instruction);
+        
+        /// @brief Return the number of instructions available in the instruction queue.
+        /// @return Number of instructions available.
         Size_Type Instruction_Available();
 
         // - - Getters
+
+        /// @brief Return last instruction from the instructions queue.
+        /// @return Instruction Software instruction.
         Instruction_Type Get_Instruction();
 
     private:
         // - Attributes
+
+        /// @brief Instruction queue handle.
         QueueHandle_t Instruction_Queue_Handle;
-
-        static std::vector<Module_Class *> List; // - Module lists.
-
     } Module_Type;
 }
 

@@ -53,25 +53,19 @@ Result_Type Graphics_Class::Start()
 
     // - Set file system driver
     
-    Log_Verbose("Graphics", "Create semaphore...");
     if (Semaphore.Create(Semaphore_Type::Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
-        Log_Verbose("Graphics", "Error while creating semaphore");
         return Result_Type::Error;
     }
-        
-    Log_Verbose("Graphics", "Create keyboard...");
+
+    // - Create keyboard
 
     Keyboard.Create(this->Get_Screen());
     Keyboard.Add_Flag(Flag_Type::Hidden);
     this->Get_Screen().Set_Style_Pad_All(0, 0);
 
     // - Create task
-    Log_Verbose("Graphics", "Create task...");
-    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
-    Log_Verbose("Graphics", "Task created...");
-
-   
+    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);   
     
     return Result_Type::Success;
 }

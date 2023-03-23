@@ -77,13 +77,13 @@ namespace Xila_Namespace
             bool operator==(const User_Class &User) const;
             bool operator!=(const User_Class &User) const;
 
+            Static_String_Type<16> Name;
         private:
             // - Methods
 
             void Set_Name(const String_Type &Name);
 
             // - Attributes
-            Static_String_Type<16> Name;
             User_State_Type State;
 
             friend class Xila_Namespace::Accounts_Class;

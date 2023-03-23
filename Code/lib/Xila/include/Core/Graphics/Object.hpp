@@ -39,9 +39,6 @@ namespace Xila_Namespace
         /// @brief Point type.
         typedef lv_point_t Point_Type;
 
-        /// @brief Style type.
-        typedef Style_Class Style_Type;
-
         /// @brief Color type.
         typedef Color_Class Color_Type;
 

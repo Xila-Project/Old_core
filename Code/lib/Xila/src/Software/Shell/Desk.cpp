@@ -19,6 +19,9 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Window.Create(Shell_Pointer);
     Window.Set_Title("Desk");
 
+
+    Log_Trace();
+
     // Overlay
 
     Overlay.Create(Window);
@@ -26,43 +29,47 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Overlay.Set_Size(18 * 8, 32);
     Overlay.Set_Alignment(Alignment_Type::Top_Right);
 
+
+    Log_Trace();
+
+    // - Style
+    Status_Buttons_Style.Set_Background_Opacity(Opacity_Type::Transparent);
+    Status_Buttons_Style.Set_Pad_All(0);
+
+
+    Log_Trace();
+
     Clock_Label.Create(Overlay);
     Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
     Clock_Label.Set_Text("00:00");
 
-    Battery_Button.Create(Overlay);
-    Battery_Button.Set_Alignment(Clock_Label, Alignment_Type::Out_Left_Middle, -4, 0);
-    Battery_Button.Set_Size(24, 24);
-    Battery_Button.Set_Style_Border_Width(0, 0);
-    Battery_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
-    Battery_Image.Create(Battery_Button);
-    Battery_Image.Set_Source(LV_SYMBOL_BATTERY_FULL);
-    Battery_Image.Set_Alignment(Alignment_Type::Center);
+    Log_Trace();
 
-    Sound_Button.Create(Overlay);
-    Sound_Button.Set_Alignment(Battery_Button, Alignment_Type::Out_Left_Middle, -4, 0);
-    Sound_Button.Set_Size(24, 24);
-    Sound_Button.Set_Style_Border_Width(0, 0);
-    Sound_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+    Battery_Button.Create(Overlay, LV_SYMBOL_BATTERY_FULL, 24, 24, Shell_Pointer);
+    Battery_Button.Add_Style(Status_Buttons_Style, 0);
 
-    Sound_Image.Create(Sound_Button);
-    Sound_Image.Set_Source(LV_SYMBOL_AUDIO);
-    Sound_Image.Set_Alignment(Alignment_Type::Center);
 
-    WiFi_Button.Create(Overlay);
-    WiFi_Button.Set_Alignment(Sound_Button, Alignment_Type::Out_Left_Middle, -4, 0);
-    WiFi_Button.Set_Size(24, 24);
-    WiFi_Button.Set_Style_Border_Width(0, 0);
-    WiFi_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
+    Log_Trace();
 
-    WiFi_Image.Create(WiFi_Button);
-    WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    WiFi_Image.Set_Alignment(Alignment_Type::Center);
+    Sound_Button.Create(Overlay, LV_SYMBOL_VOLUME_MAX, 24, 24, Shell_Pointer);
+    Sound_Button.Add_Style(Status_Buttons_Style, 0);
+
+
+    Log_Trace();
+
+    WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, Shell_Pointer);
+    WiFi_Button.Add_Style(Status_Buttons_Style, 0);
+
+
+    Log_Trace();
 
     // Grid for icons
-    const Coordinate_Type Grid_Column_Descriptor[6] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Coordinate_Type Grid_Row_Descriptor[5] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Grid_Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+    const Coordinate_Type Grid_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
+
+
+    Log_Trace();
 
     // Create grid
     Desk_Grid.Create(Window.Get_Body());
@@ -72,6 +79,9 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Desk_Grid.Set_Size(LV_PCT(100), LV_PCT(100));
     Desk_Grid.Set_Layout(LV_LAYOUT_GRID);
     Desk_Grid.Move_Background();
+
+
+    Log_Trace();
 
     // - Desk icons
     {
@@ -111,6 +121,9 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         }
     }
 
+
+    Log_Trace();
+
     // - Dock
     Dock.Create(Desk_Grid);
     // - - Dock's style
@@ -121,36 +134,42 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Dock.Set_Style_Pad_Right(10, 0);
     Dock.Set_Style_Shadow_Width(20, 0);
     Dock.Set_Style_Shadow_Color(Color_Type::White, 0);
-    Dock.Set_Style_Background_Color(lv_palette_darken(LV_PALETTE_GREY, 3), 0);
+    Dock.Set_Style_Background_Color(Color_Type::Grey[7], 0);
     Dock.Set_Style_Radius(8, 8);
     // - - Dock's grid layout
-    const Coordinate_Type Dock_Column_Descriptor[] = {32, LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    const Coordinate_Type Dock_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
-    Dock.Set_Layout(LV_LAYOUT_GRID);
-    Dock.Set_Grid_Descriptor_Array(Dock_Column_Descriptor, Dock_Row_Descriptor);
+    Dock.Set_Flex_Flow(Flex_Flow_Type::Row);
+
+
+    Log_Trace();
 
     // - Menu button
+    static Style_Type Menu_Button_Style;
+    Menu_Button_Style.Initialize();
+    Menu_Button_Style.Set_Pad_All(0);
+    Menu_Button_Style.Set_Background_Opacity(Opacity_Type::Transparent);
+
     Menu_Button.Create(Dock);
     Menu_Button.Set_Size(32, 32);
-    Menu_Button.Set_Grid_Cell(Grid_Alignment_Type::Center, 0, 1, Grid_Alignment_Type::Center, 0, 1);
-    Menu_Button.Set_Style_Background_Color(Color_Type::Grey[2], 0);
-    Menu_Button.Set_Style_Radius(0, 0);
-    Menu_Button.Set_Style_Pad_All(0, 0);
-    Menu_Button.Set_Style_Shadow_Width(20, LV_STATE_PRESSED);
-    Menu_Button.Set_Style_Shadow_Color(lv_color_white(), 0);
+    Menu_Button.Add_Style(Menu_Button_Style, 0);
 
-    Object_Type::Style_Type Menu_Button_Part_Style;
+    Log_Trace();
+
+    static Style_Type Menu_Button_Part_Style;
     Menu_Button_Part_Style.Initialize();
     Menu_Button_Part_Style.Set_Pad_All(0);
     Menu_Button_Part_Style.Set_Radius(0);
     Menu_Button_Part_Style.Set_Outline_Width(0);
     Menu_Button_Part_Style.Set_Border_Width(0);
 
-    Object_Type::Style_Type Menu_Button_Part_Pressed_Style;
+    Log_Trace();
+
+    static Style_Type Menu_Button_Part_Pressed_Style;
     Menu_Button_Part_Pressed_Style.Initialize();
     Menu_Button_Part_Pressed_Style.Set_Background_Color(Color_Type::White);
     Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
     Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Color_Type::White);
+
+    Log_Trace();
 
     {
         Object_Type Red_Part;
@@ -194,18 +213,30 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Yellow_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
     }
 
-    Dock_List.Set_Grid_Cell(Grid_Alignment_Type::Stretch, 1, 1, Grid_Alignment_Type::Stretch, 0, 1);
+    Log_Trace();
+
+    Dock_List.Create(Dock);
+    Dock_List.Set_Flex_Grow(1);
     Dock_List.Set_Flex_Flow(Flex_Flow_Type::Row);
     Dock_List.Set_Style_Background_Color(Color_Type::Grey[6], 0);
     Dock_List.Set_Style_Border_Width(0, 0);
     Dock_List.Set_Style_Pad_All(0, 0);
     Dock_List.Set_Content_Height(40);
 
+    Log_Verbose("Shell", "Dock created.");
+
     {
         Static_String_Type<24> User;
+
         Shell_Pointer->Get_Owner_User()->Get_Name(User);
+
+        Log_Verbose("Shell", "Current user is \"%s\".", (const char*)User);
+
+        Task_Type::Delay_Static(1000);
+
         if (User == "Xila")
         {
+            Log_Verbose("Shell", "System user detected, opening login screen / installer.");
             File_Type Users_Folder = Drive.Open(Users_Directory_Path);
             if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
             {
@@ -305,71 +336,88 @@ void Shell_Class::Desk_Class::Refresh()
 /// @brief Refresh the header overlay.
 void Shell_Class::Desk_Class::Refresh_Overlay()
 {
+    using namespace Xila::Graphics_Types;
+
     // - Refresh clock
     static Time_Type Current_Time = System.Get_Time();
 
     Clock_Label.Set_Text_Format("%02d:%02d", Current_Time.Get_Hours(), Current_Time.Get_Minutes());
 
-    if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
     {
-        // - Update WiFi signal strength
-        // TODO : Add different WiFi signal strength icons.
-        if (WiFi.Station.Get_RSSI() >= (-120 / 3))
+        Label_Type WiFi_Label = Label_Type(WiFi_Button.Get_Child(0)); // Casting
+        if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
         {
-            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+            // - Update WiFi signal strength
+            // TODO : Add different WiFi signal strength icons.
+            if (!WiFi_Label.Is_Valid())
+            {
+            }
+            else if (WiFi.Station.Get_RSSI() >= (-120 / 3))
+            {
+                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
+            }
+            else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
+            {
+                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
+            }
+            else
+            {
+                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
+            }
         }
-        else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
+        else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
         {
-            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+            WiFi_Label.Set_Text("");
         }
         else
         {
-            WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
+            WiFi_Label.Set_Text("");
         }
     }
-    else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
-    {
-        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    }
-    else
-    {
-        WiFi_Image.Set_Source(LV_SYMBOL_WIFI);
-    }
 
-    // - Update charge level
-    if (Power.Get_Charge_Level() >= 85)
     {
-        Battery_Image.Set_Source(LV_SYMBOL_BATTERY_FULL);
+        Label_Type Battery_Label = Label_Type(Battery_Button.Get_Child(0)); // Casting
+        // - Update charge level
+        if (!Battery_Label.Is_Valid())
+        {
+        }
+        else if (Power.Get_Charge_Level() >= 85)
+        {
+            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_FULL);
+        }
+        else if (Power.Get_Charge_Level() >= 60)
+        {
+            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_3);
+        }
+        else if (Power.Get_Charge_Level() >= 35)
+        {
+            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_2);
+        }
+        else if (Power.Get_Charge_Level() >= 10)
+        {
+            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_1);
+        }
+        else
+        {
+            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_EMPTY);
+        }
     }
-    else if (Power.Get_Charge_Level() >= 60)
     {
-        Battery_Image.Set_Source(LV_SYMBOL_BATTERY_3);
-    }
-    else if (Power.Get_Charge_Level() >= 35)
-    {
-        Battery_Image.Set_Source(LV_SYMBOL_BATTERY_2);
-    }
-    else if (Power.Get_Charge_Level() >= 10)
-    {
-        Battery_Image.Set_Source(LV_SYMBOL_BATTERY_1);
-    }
-    else
-    {
-        Battery_Image.Set_Source(LV_SYMBOL_BATTERY_EMPTY);
-    }
-
-    // -- Update sound
-    if (Sound.Get_Volume() >= (255 * 2 / 3))
-    {
-        Sound_Image.Set_Source(LV_SYMBOL_VOLUME_MAX);
-    }
-    else if (Sound.Get_Volume() >= (255 / 3))
-    {
-        Sound_Image.Set_Source(LV_SYMBOL_VOLUME_MID);
-    }
-    else
-    {
-        Sound_Image.Set_Source(LV_SYMBOL_MUTE);
+        Label_Type Sound_Label = Label_Type(Sound_Button.Get_Child(0)); // Casting
+        if (!Sound_Label.Is_Valid()) {}
+        // -- Update sound
+        else if (Sound.Get_Volume() >= (255 * 2 / 3))
+        {
+            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MAX);
+        }
+        else if (Sound.Get_Volume() >= (255 / 3))
+        {
+            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MID);
+        }
+        else
+        {
+            Sound_Label.Set_Text(LV_SYMBOL_MUTE);
+        }
     }
 }
 

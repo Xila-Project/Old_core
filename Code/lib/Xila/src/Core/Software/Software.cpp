@@ -9,12 +9,12 @@
 ///
 
 #include "Core/Software/Software.hpp"
-
 #include "Core/Account/Accounts.hpp"
+#include "Core/Log/Log.hpp"
 
 using namespace Xila_Namespace;
 
-std::list<Software_Class *> Software_Class::List;
+std::vector<Software_Class *> Software_Class::List;
 
 /// @brief Construct a new Xila_Class::Software object
 ///
@@ -26,6 +26,8 @@ Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_
       Handle_Pointer(Handle_Pointer)
 
 {
+  Log_Verbose("Software", "Software constructor");
+  List.reserve(40);
   List.push_back(this); // Add software to the list.
 }
 
@@ -33,8 +35,8 @@ Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_
 Software_Class::~Software_Class() // Destructor : close
 {
   // Don't forget to remove the software pointer from the software list.
-  List.remove(this);
- 
+  List.erase(std::remove(List.begin(), List.end(), this), List.end());
+
   // Delete the main task of software at the end to allow the software to close itself.
   Main_Task.Delete();
 }
