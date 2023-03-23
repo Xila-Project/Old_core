@@ -71,6 +71,8 @@ source_suffix = {
 
 myst_number_code_blocks = ["cpp"]
 
+html_favicon = 'color.svg'
+
 # Breathe configuration
 
 breathe_projects = { "Xila": "../Doxygen/xml" }
