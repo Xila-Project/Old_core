@@ -1,1 +1,4 @@
 breathe
+myst-parser
+linkify-it-py
+sphinx-book-theme
