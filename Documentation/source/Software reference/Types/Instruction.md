@@ -1,6 +1,6 @@
-# Instruction (Instruction_Type)
+# ✉️ Instruction (`Instruction_Type`)
 
-Here you will find a full description of the `Instruciton_Type`.
+Here you will find a full description of the `Instruction_Type`.
 
 ## Description
 
