@@ -4,20 +4,16 @@ Xila provides a set of base types that can be used to create new types. They are
 
 ## Description
 
-### Boolean_Type
-
-The `Boolean_Type` is a boolean type that can be either `true` or `false`.
-
 ### Fixed data types
 
 | Type | Size | Range |
 | --- | --- | --- |
-| `Byte_Type` | 8 bits | 0 to 255 |
-| `Word_Type` | 16 bits | 0 to 65 535 |
-| `DWord_Type` | 32 bits | 0 to 4 294 967 295 |
-| `QWord_Type` | 64 bits | 0 to 18 446 744 073 709 551 615 |
+| `Byte_Type` | 1 byte | 0 to 255 |
+| `Word_Type` | 2 bytes | 0 to 65 535 |
+| `DWord_Type` | 4 bytes | 0 to 4 294 967 295 |
+| `QWord_Type` | 8 bytes | 0 to 18 446 744 073 709 551 615 |
 
-### Naturals
+### Natural
 
 | Type | Size |
 | --- | --- |
@@ -26,10 +22,10 @@ The `Boolean_Type` is a boolean type that can be either `true` or `false`.
 | `Long_Natural_Type` | Twice the register size |
 
 :::{tip}
-    For example on a 32-bit system, a `Natural_Type` is a 32-bits unsigned integer.
+    For example on a 32-bit system, a `Natural_Type` is a 4 bytes unsigned integer.
 :::
 
-### Integers
+### Integer
 
 | Type | Size |
 | --- | --- |
@@ -38,10 +34,10 @@ The `Boolean_Type` is a boolean type that can be either `true` or `false`.
 | `Long_Integer_Type` | Twice the register size |
 
 :::{tip}
-    For example on a 32-bit system, an `Integer_Type` is a 32-bits signed integer.
+    For example on a 32-bit system, an `Integer_Type` is a 4 byte signed integer.
 :::
 
-### Floating point
+### Real
 
 | Type | Size |
 | --- | --- |
@@ -49,8 +45,16 @@ The `Boolean_Type` is a boolean type that can be either `true` or `false`.
 | `Long_Float_Type` | Twice the registers size |
 
 :::{tip}
-    For example on a 32-bit system, a `Float_Type` is a 32-bits floating point number.
+    For example on a 32-bit system, a `Float_Type` is a 4 byte floating point number.
 :::
+
+### Other
+
+| Type | Size |
+| --- | --- |
+| `Boolean_Type` | 1 byte |
+| `Character_Type` | 1 byte |
+| `Result_Type` | 1 byte |
 
 ## Example
 
