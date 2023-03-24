@@ -1,5 +1,9 @@
 # Xila
 
+<p align="center">
+<a href="https://xila.dev">🖥️ xila.dev 🖥️</a>
+</p>
+
 ## 📰 Introduction
 
 Xila is a lightweight operating system (like [Contiki](https://github.com/contiki-os/contiki "Contiki") or [TinyOS](https://github.com/tinyos/tinyos-main "TinyOS")) for embedded devices (currently only the ESP32 is supported). Its goal is to offer a simple standardized API. In this way, that allows the integration of different software in one unique ecosystem, which is easy to port (only the HAL of Xila needs to be rewrite). I hope you would like it !
@@ -12,12 +16,21 @@ Xila is a lightweight operating system (like [Contiki](https://github.com/contik
 
 ## 📖 Table of contents
 
-- [Introduction](#introduction)
-- [Table of contents](#table-of-contents)
-- [Status](#status)
-- [Quick Start](#quick-start)
-- [Features](#features)
-- [About](#about)
+- [Xila](#xila)
+  - [📰 Introduction](#-introduction)
+  - [📖 Table of contents](#-table-of-contents)
+  - [🚦 Status](#-status)
+  - [⏩ Quick start](#-quick-start)
+    - [🔰 Using](#-using)
+    - [💻 Develop](#-develop)
+    - [🔬 Contribute](#-contribute)
+  - [📄 Support](#-support)
+  - [✅ Features](#-features)
+    - [⭕ Core](#-core)
+    - [🟠 Software](#-software)
+  - [❓ About](#-about)
+    - [🖋️ Credits](#️-credits)
+    - [🧾 Licence](#-licence)
 
 ## 🚦 Status
 
@@ -27,26 +40,25 @@ Xila is a lightweight operating system (like [Contiki](https://github.com/contik
 
 ### 🔰 Using
 
-Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-use "Start to use") to start using Xila.
+Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Use.html) to start using Xila.
 
 ### 💻 Develop
 
-Check [here the documentation](https://xila.alixfaitgrr.fr/en/latest/Get%20Started.html#start-to-developp "Start to develop") to start to develop software for Xila.
+Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Developpment.html) to start to develop software with Xila.
 
 ### 🔬 Contribute
 
-This project is open to contributions of any kinds.
+This project is open to contributions of any kinds. Feel free to open an issue or a pull request.
 
 ## 📄 Support
 
-Check here the whole documenation of Xila : [xila.alixfaitgrr.fr](https://xila.alixfaitgrr.fr/).
+The documentation is available here [documentation.xila.dev](https://documentation.xila.dev/).
 
-If you have any questions or propositions, you can contact me :
-- 📫 by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
+If you have any questions or propositions, you can contact me by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
 
 ## ✅ Features
 
-### ⭕ Core :
+### ⭕ Core
 
 Here are the feature that are implemented in the core :
 
@@ -56,7 +68,7 @@ Here are the feature that are implemented in the core :
 - **Display**, **drive**, **GPIO**, **keyboard**, **network**, **power**, **sounds** and **time** abstraction layers.
 - A simple **dialog box** API (keyboards, events, file, color picker ...).
 
-### 🟠 Software :
+### 🟠 Software
 
 Here is a list of included software :
 
@@ -79,29 +91,11 @@ It's [up to you](#develop) to make this list longer 😉.
 
 ## ❓ About
 
-### 🔗 Dependencies :
+### 🖋️ Credits
 
-Here are dependencies of the project :
+You can find the dependencies and reused code [here](https://xila.alixfaitgrr.fr/en/latest/Credits.html "Credits").
 
-- [Benjamin MASTRIPOLITO](https://benpm.github.io "Benjamin MASTRIPOLITO") - [Floating synth melody](https://freeSound.org/people/Lemoncreme/sounds/231578 "Floating synth melody")
-- [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32 "ESP32 Arduino Core") - [Espressif](https://github.com/espressif/)
-- [Audio I2S](https://github.com/schreibfaul1/ESP32-audioI2S "ESP32 Audio I2S") - [schreibfaul1](https://github.com/schreibfaul1)
-- [PS2Keyboard](https://github.com/PaulStoffregen/PS2Keyboard "PS2Keyboard") - [Paul STOFFREGEN](https://github.com/PaulStoffregen/ "Paul STOFFREGEN")
-- [ArduinoJson](https://github.com/bblanchon/ArduinoJson "ArduinoJson") - [Benoît BLANCHON](https://github.com/bblanchon/)
-- [StreamUtils](https://github.com/bblanchon/ArduinoStreamUtils/ "StreamUtils") - [Benoît BLANCHON](https://github.com/bblanchon/)
-- [Periodic Table JSON](https://github.com/Bowserinator/Periodic-Table-JSON "Periodic Table JSON") - [Bowserinator](https://github.com/Bowserinator/ "Bowserinator")
-- [Nextion library](https://github.com/AlixANNERAUD/Nextion-Library "Nextion library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
-- [Battery library](https://github.com/AlixANNERAUD/Battery-Library "Battery library") - [Alix ANNERAUD](https://github.com/AlixANNERAUD/ "Alix ANNERAUD")
-
-### 👓 Reused Code :
-
-Here are credits to sources where I borrow code :
-
-- [PIP Internet Browser](https://github.com/zigwart/PIP-Arduino-Web-Browser "PIP Internet Browser") - [Chris ANDERSON](https://github.com/zigwart/ "Chris ANDERSON") - CC 4.0
-- [ESP32 Oscilloscope](https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope) - [Botofancalin](https://github.com/botofancalin/) - MIT Licence
-- [TinyBasic Plus](https://github.com/BleuLlama/TinyBasicPlus "TinyBasic Plus") - [Scott Lawrence](https://github.com/BleuLlama "Scott Lawrence") / Michael FIELD / Gordon BRANDLY / Jurg WULLSCHLEGER - MIT Licence
-
-### 🧾 Licence :
+### 🧾 Licence
 
 This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/ "M.I.T. licence").
 
