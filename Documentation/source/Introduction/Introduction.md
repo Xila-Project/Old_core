@@ -9,7 +9,7 @@ Xila provides its users with a structured API, a high-level programming language
 
 The key objective of the project is to make development faster by leveraging Xila’s modular architecture, expandable library of drivers and libraries, and well-documented codebase.
 By utilizing these tools, developers can rapidly prototype and deploy new products without worrying about lower-level details.
-started
+
 ## 🏃 Getting started
 
 [Get started](Get_started/Using) to use Xila.
@@ -29,17 +29,6 @@ started
 
 ## ✅ Requirements
 
-Currently, Xila is compatible with all types of microcontrollers, provided that they have the following characteristics
+Currently, Xila doesn't support a lot of board, but this list can easily be extended by adding drivers for new boards which is easy do. See [Supported hardware](../Hardware%20reference/Supported%20hardware) section for more information.
 
-    - 32-bits or 64-bits architecture.
-    - Supported by the Arduino framework.
-    - Writable file system.
-    - At least 1 MB of flash memory.
-    - At least 128 KB of RAM.
-
-### Supported architecture
-
-However, Xila needs drivers for Hardware related function in order to work. Here are the architectures :
-
-    - Wireless Tag WT32-SC01 / WT32-SC01 Plus
 

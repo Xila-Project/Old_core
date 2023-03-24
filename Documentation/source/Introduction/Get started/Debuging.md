@@ -1,4 +1,4 @@
-# Getting Started With A Debugger
+# 🔬 Getting Started With A Debugger
 
 Here you will find how to start with a debugger.
 

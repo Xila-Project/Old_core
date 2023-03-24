@@ -13,7 +13,7 @@ In order to allow the entire system to perform multiple tasks at the same time, 
 ## Example
 
 ```cpp
-    using namespace Xila_Namespace;
+    using namespace Xila;
 
     class My_Software : public Software_Class
     {

@@ -21,7 +21,7 @@ The identifiers are stored in a register specific to each user.
 ## Example
 
 ```cpp
-    using namepsace Xila_Namespace;
+    using namespace Xila;
 
     if (Xila.Account.Check_Credentials("User", "Password") == Xila.Success) // -- Check if the credentials are correct.
     {

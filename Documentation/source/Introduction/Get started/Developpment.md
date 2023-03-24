@@ -1,4 +1,4 @@
-# Getting started with Developpment
+# 🖥️ Getting started with Developpment
 
 Here you will find how to set up the necessary development hardware and software.
 

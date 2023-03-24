@@ -77,15 +77,6 @@ Here is a list of included software :
 
 It's [up to you](#develop) to make this list longer 😉.
 
-### 🚆 Roadmap
-
-- Finish the documentation.
-- Comment properly the code.
-- Support LVGL graphics which would allow more flexibility, animations etc. But maybe require a more powerfull board with more memory/flash and ram (ESP32-WROVER or Teensy ?).
-- Port to ESP8266, ESP32-S3, Teensy ...
-- Change how registries works (JSON is handy but inappropriate for this project).
-- Allow software to be removed or added on the fly without any recompilation.
-
 ## ❓ About
 
 ### 🔗 Dependencies :

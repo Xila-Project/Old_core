@@ -5,7 +5,7 @@ Xila provides a set of base types that can be used to create new types. They are
 ## Example
 
 ```cpp
-    using namespace Xila_Namespace;             // - - Import Xila namespace.
+    using namespace Xila;             // - - Import Xila namespace.
     //
     Boolean_Type My_Boolean = true;             // - - Create a boolean variable.
     // -  
