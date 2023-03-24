@@ -1,8 +1,10 @@
 # Xila
 
+<h2>
 <p align="center">
 <a href="https://xila.dev">🖥️ xila.dev 🖥️</a>
 </p>
+</h2>
 
 ## 📰 Introduction
 
@@ -20,41 +22,46 @@ Xila is a lightweight operating system (like [Contiki](https://github.com/contik
   - [📰 Introduction](#-introduction)
   - [📖 Table of contents](#-table-of-contents)
   - [🚦 Status](#-status)
-  - [⏩ Quick start](#-quick-start)
-    - [🔰 Using](#-using)
-    - [💻 Develop](#-develop)
-    - [🔬 Contribute](#-contribute)
   - [📄 Support](#-support)
+    - [⏩ Quick start](#-quick-start)
+      - [🔰 Using](#-using)
+      - [💻 Develop](#-develop)
+      - [🔬 Contribute](#-contribute)
   - [✅ Features](#-features)
     - [⭕ Core](#-core)
     - [🟠 Software](#-software)
   - [❓ About](#-about)
     - [🖋️ Credits](#️-credits)
-    - [🧾 Licence](#-licence)
+    - [🧾 License](#-license)
 
 ## 🚦 Status
 
-[![Build Status](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)     [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest)
-
-## ⏩ Quick start
-
-### 🔰 Using
-
-Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Use.html) to start using Xila.
-
-### 💻 Develop
-
-Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Developpment.html) to start to develop software with Xila.
-
-### 🔬 Contribute
-
-This project is open to contributions of any kinds. Feel free to open an issue or a pull request.
+|  |  |
+| :--- | :---: |
+| Code | [![Build Status](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master) |
+| Documentation | [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest) |
 
 ## 📄 Support
 
-The documentation is available here [documentation.xila.dev](https://documentation.xila.dev/).
+The documentation is available here [documentation.xila.dev](https://documentation.xila.dev/ "Xila documentation").
 
 If you have any questions or propositions, you can contact me by mail : [alix.anneraud@outlook.fr](mailto:alix.anneraud@outlook.fr) 
+
+### ⏩ Quick start
+
+#### 🔰 Using
+
+Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Use.html) to start using Xila.
+
+#### 💻 Develop
+
+Check [here the documentation](https://documentation.xila.dev/en/latest/Introduction/Get%20started/Developpment.html) to start to develop software with Xila.
+
+#### 🔬 Contribute
+
+This project is open to contributions of any kinds. Feel free to open an issue or a pull request.
+
+
 
 ## ✅ Features
 
@@ -95,8 +102,8 @@ It's [up to you](#develop) to make this list longer 😉.
 
 You can find the dependencies and reused code [here](https://xila.alixfaitgrr.fr/en/latest/Credits.html "Credits").
 
-### 🧾 Licence
+### 🧾 License
 
-This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/ "M.I.T. licence").
+This software is under [M.I.T. license](https://alix-anneraud.mit-license.org/ "M.I.T. licence").
 
-Alix ANNERAUD - [alixfaitgrr.fr](https://alixfaitgrr.fr "alixfaitgrr.fr")
+Alix ANNERAUD
