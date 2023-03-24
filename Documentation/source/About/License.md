@@ -1,8 +1,4 @@
-# About
-
-Xila is maintained by Alix ANNERAUD.
-
-## Licence
+## 📜 License
 
 This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/).
 

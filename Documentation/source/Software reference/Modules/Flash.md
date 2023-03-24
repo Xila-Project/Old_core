@@ -1,11 +1,6 @@
-# Flash
+#  Flash
 
 Here you will find a full description of the flash abstraction layer.
-
-## API reference
-
-.. doxygenclass::   Xila_Namespace::Flash_Class
-    :members:
 
 ## Example
 
@@ -27,4 +22,10 @@ Here you will find a full description of the flash abstraction layer.
     {
         // -- Do stuff when the operation succeed.
     } 
+```
+## API reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::Flash_Class
+    :members:
 ```

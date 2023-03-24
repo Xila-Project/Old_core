@@ -12,6 +12,3 @@
 - [WT32-SC01](http://www.wireless-tag.com/portfolio/wt32-sc01/)
 - [WT32-SC01-Plus](https://www.wirelesstag.net/products/wt32-sc01-plus)
 
-### Suton
-
-

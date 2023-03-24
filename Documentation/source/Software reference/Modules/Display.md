@@ -23,6 +23,8 @@ This API rest upon the Nextion Library. For the full API, please visit the libra
 
 ## API reference
 
+```{eval-rst}
 .. doxygenclass::   Xila_Namespace::Display_Class
     :members:
+```
 

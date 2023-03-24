@@ -1,15 +1,10 @@
-# Input / Output
+# 🔛 Input / Output
 
 Here you will find a full description of the GPIO library.
 
 ## Description
 
-## API reference
-
-```{eval-rst}
-.. doxygenclass::   Xila_Namespace::GPIO_Class
-    :members:
-```
+The GPIO library is a wrapper for the Arduino implementation of the GPIO.
 
 ## Example
 
@@ -32,4 +27,11 @@ Here you will find a full description of the GPIO library.
         Xila.GPIO.Attach_Interrupt(12, Interrupt_Handler, Xila.GPIO.Rising);   // -- Attach an the Interrupt_Handler() function to the pin twelve when the pin signal rise.
         Xila.GPIO.Detach_Interrupt(12); // -- Disable interrupt on pin 12.
     }
+```
+
+## API reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::Pin_Class
+    :members:
 ```

@@ -1,19 +1,12 @@
-*************
-System Module
-*************
+#  System
 
 Here you will find a full description of the system module.
 
+## Description
+
 The system module is responsible for managing everything that is critical to the system.
 
-API reference
-=============
-
-.. doxygenclass::   Xila_Namespace::System_Class
-    :members:
-
-Example
-=======
+## Example
 
 ```cpp
 
@@ -40,3 +33,11 @@ Example
     void loop()
     {
     }
+```
+
+## API reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::System_Class
+    :members:
+```

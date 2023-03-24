@@ -22,6 +22,7 @@ Software reference/Softwares/Softwares
    :caption:   🔌 Hardware reference
    :maxdepth:  2
 Hardware reference/Supported hardware
+Hardware reference/Reference kit
 ```
 
 ```{toctree}
@@ -30,7 +31,7 @@ Hardware reference/Supported hardware
 
 About/Changelog
 About/Roadmap
-About/About
+About/License
 About/Credits
 ```
 

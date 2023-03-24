@@ -1,19 +1,17 @@
-**************************
-Software Management Module
-**************************
+## Softwares
 
 Here you will find a full description of the software management API.
 
 This module is responsible for everything related to software management, such as booting, minimization, closing, watchdog etc.
 
-API reference
-=============
+## API reference
 
+```{eval-rst}
 .. doxygenclass::   Xila_Namespace::Software_Management_Class
     :members:
+```
 
-Example
-=======
+## Example
 
 ```cpp
     
@@ -59,3 +57,4 @@ Example
             }
         }
     }
+```

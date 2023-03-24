@@ -28,3 +28,11 @@ Similar to `String_Type`, `Static_String_Type` (inherited from `String_Type`) is
 
 
 ## API reference
+
+```{eval-rst}
+.. doxygenclass:: Xila_Namespace::String_Class
+    :members:
+
+.. doxygenclass:: Xila_Namespace::Static_String_Class
+    :members:
+```{eval-rst}

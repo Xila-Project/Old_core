@@ -1,6 +1,8 @@
-# Software handle (Software_Handle_Type)
+# Software handle (`Software_Handle_Type`)
  
 Here you will find a full description of the `Software_Handle_Type`.
+
+## Description
 
 In order to facilitate software management, Xila uses software handles.
 The latter contains the basic information of the software in question (Name, Icon) and pointers to a function that to boot the software.

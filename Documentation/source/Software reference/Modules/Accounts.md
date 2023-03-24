@@ -1,4 +1,4 @@
-# Accounts
+# 👥 Accounts
 
 Here you will find a full description of the account management module.
 
@@ -9,13 +9,6 @@ The identifiers are stored in a register specific to each user.
 
 ```{caution}
     In spite that credentials are hashed, salted and peppered, this module cannot be considered as secure.
-```
-
-## API reference
-
-```{eval-rst}
-.. doxygenclass::   Xila_Namespace::Accounts_Class
-    :members:
 ```
 
 ## Example
@@ -45,4 +38,11 @@ The identifiers are stored in a register specific to each user.
     {
         // -- Do stuff when no user is connected.
     }
+```
+
+## API reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::Accounts_Class
+    :members:
 ```

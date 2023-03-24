@@ -1,4 +1,4 @@
-# Software (Software_Type)
+# Software (`Software_Type`)
 
 Here you will find a full description of the `Software_Type`.
 
@@ -92,6 +92,6 @@ Xila uses this API also to communicate with the software (send instructions, var
 ## API reference
 
 ```{eval-rst}
-.. doxygenclass::   Xila_Namespace::Software
+.. doxygenclass::   Xila_Namespace::Software_Class
     :members:
 ```

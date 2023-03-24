@@ -1,4 +1,4 @@
-# Mathematics
+# ✖️ Mathematics
 
 Here you will find a full description of the mathematics module.
 

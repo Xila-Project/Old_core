@@ -61,8 +61,6 @@ Check [here the documentation](https://documentation.xila.dev/en/latest/Introduc
 
 This project is open to contributions of any kinds. Feel free to open an issue or a pull request.
 
-
-
 ## ✅ Features
 
 ### ⭕ Core

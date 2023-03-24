@@ -2,14 +2,9 @@
 
 Here you will find a full description of the drive abstraction layer.
 
+## Description
+
 This module is an abstranction layer for the drive and its file system.
-
-## API reference
-
-```{eval-rst}
-.. doxygenclass::   Xila_Namespace::Drive_Class
-    :members:
-```
 
 ## Example
 
@@ -33,3 +28,9 @@ This module is an abstranction layer for the drive and its file system.
     Xila.Drive.Remove("/New_File");             // -- Delete "New_File".
 ```
     
+## API reference
+
+```{eval-rst}
+.. doxygenclass::   Xila_Namespace::Drive_Class
+    :members:
+```
