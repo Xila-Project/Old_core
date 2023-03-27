@@ -1,5 +1,5 @@
-#ifndef GALAXOS_H_INCLUDED
-#define GALAXOS_H_INCLUDED
+#ifndef Xila_Hpp_Included
+#define Xila_Hpp_Included
 
 #include "Core/Core.hpp"                                 
 

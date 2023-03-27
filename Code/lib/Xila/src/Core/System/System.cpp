@@ -396,7 +396,7 @@ void System_Class::Load()
 
   Task.Delay(100);
 
-  //this->Stop_Load_Animation(&Logo);
+  this->Stop_Load_Animation(&Logo, Animation);
 }
 
 ///
@@ -418,7 +418,7 @@ void System_Class::Shutdown()
   WiFi.Stop();
   System.Stop();
 
-  this->Stop_Load_Animation(&Logo);
+  this->Stop_Load_Animation(&Logo, Animation);
 
   Power.Deep_Sleep();
 }
@@ -443,7 +443,7 @@ void System_Class::Restart()
   WiFi.Stop();
   System.Stop();
 
-  this->Stop_Load_Animation(&Logo);
+  this->Stop_Load_Animation(&Logo, Animation);
 
   Power.Restart();
 }

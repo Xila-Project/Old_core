@@ -38,30 +38,34 @@ namespace Xila_Namespace
         public:
             // - Methods
 
+            // - - Manipulation
+
             Animation_Class();
-            
+            Animation_Class(lv_anim_t *Animation_To_Copy);
+            ~Animation_Class();
+
+            void Start();
+
             static uint16_t Count_Running();
             static bool Custom_Delete(void *Variable, Execution_Callback_Type Execution_Callback);
-            static Animation_Class Custom_Get(void *Variable, Execution_Callback_Type Execution_Callback);
             static bool Delete(void *Variable, Execution_Callback_Type Execution_Callback);
             static void Delete_All();
+            static void Refresh_Now();
+            static uint32_t Speed_To_Time(uint32_t Speed, int32_t Start, int32_t End);
 
             // - - Path
 
-            static int32_t Path_Bounce(const lv_anim_t* Animation);
-            static int32_t Path_Ease_In(const lv_anim_t* Animation);
-            static int32_t Path_Ease_In_Out(const lv_anim_t* Animation);
-            static int32_t Path_Ease_Out(const lv_anim_t* Animation);
-            static int32_t Path_Linear(const lv_anim_t* Animation);
-            static int32_t Path_Overshoot(const lv_anim_t* Animation);
-            static int32_t Path_Step(const lv_anim_t* Animation);
-
-            static void Refresh_Now();
-            static uint32_t Speed_To_Time(uint32_t Speed, int32_t Start, int32_t End);
-            void Start();
+            static int32_t Path_Bounce(const lv_anim_t *Animation);
+            static int32_t Path_Ease_In(const lv_anim_t *Animation);
+            static int32_t Path_Ease_In_Out(const lv_anim_t *Animation);
+            static int32_t Path_Ease_Out(const lv_anim_t *Animation);
+            static int32_t Path_Linear(const lv_anim_t *Animation);
+            static int32_t Path_Overshoot(const lv_anim_t *Animation);
+            static int32_t Path_Step(const lv_anim_t *Animation);
 
             // - - Getters
-            Animation_Class Get(void *Variable, Execution_Callback_Type Execution_Callback);
+            static Animation_Class Get(void *Variable, Execution_Callback_Type Execution_Callback);
+            static Animation_Class Custom_Get(void *Variable, Execution_Callback_Type Execution_Callback);
             uint32_t Get_Delay();
             uint32_t Get_Playtime();
             void *Get_User_Data();
@@ -85,6 +89,8 @@ namespace Xila_Namespace
 
         private:
             lv_anim_t LVGL_Animation;
+
+            Execution_Callback_Type Execution_Callback;
         } Animation_Type;
 
     }

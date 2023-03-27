@@ -83,9 +83,16 @@ void System_Class::Start_Load_Animation(Object_Type* Logo, Graphics_Types::Anima
   Animation->Start();
 }
 
-void System_Class::Stop_Load_Animation(Object_Type *Logo)
+void System_Class::Stop_Load_Animation(Object_Type *Logo, Graphics_Types::Animation_Type *Animation)
 {
-  Graphics_Types::Animation_Type::Delete(&Logo, this->Load_Animation_Callback);
+  if (Animation != NULL)
+  {
+    delete Animation;
+  }
+  if (Logo != NULL)
+  {
+    Logo->Delete();
+  }
 }
 
 void System_Class::Load_Animation_Callback(void *Object, int32_t Value)

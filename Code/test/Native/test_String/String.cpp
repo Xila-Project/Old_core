@@ -33,9 +33,6 @@ void Test_String_Capacity()
 }
 
 
-
-
-
 void setup()
 {
     UNITY_BEGIN();

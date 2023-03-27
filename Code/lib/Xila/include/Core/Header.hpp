@@ -20,5 +20,6 @@
     #include <stdint.h>
 #endif
 
+#include <memory>
 
  #endif

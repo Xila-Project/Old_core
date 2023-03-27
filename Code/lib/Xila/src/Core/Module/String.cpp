@@ -249,11 +249,6 @@ Result_Type String_Class::Copy(const String_Class &String, bool Change_Size)
     return Copy(String.Characters_Pointer, String.Size, Change_Size);
 }
 
-Result_Type String_Class::Copy(const String &String, bool Change_Size)
-{
-    return Copy(String.c_str(), String.length() + 1, Change_Size);
-}
-
 Result_Type String_Class::Copy(char Character, bool Change_Size)
 {
     char String[2] = {Character, '\0'};
@@ -497,12 +492,6 @@ String_Class &String_Class::operator=(const char *String)
 }
 
 String_Class &String_Class::operator=(const String_Class &String)
-{
-    Copy(String);
-    return *this;
-}
-
-String_Class &String_Class::operator=(const String &String)
 {
     Copy(String);
     return *this;

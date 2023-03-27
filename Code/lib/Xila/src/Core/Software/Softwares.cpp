@@ -55,20 +55,27 @@ Result_Type Softwares_Class::Open(const Software_Handle_Type *Handle, const Acco
         return Result_Type::Error;
     }
 
+
+
     Handle->Create_Instance();
 
     Log_Verbose("Softwares", "List size : %d", Software_Class::List.size());
 
     if (Owner_User == NULL)
     {
-        Software_Type::List.back()->Owner_User = Accounts.Get_Logged_User();
+        Owner_User = Accounts.Get_Logged_User();
+        if (Owner_User == NULL)
+        {
+            return Result_Type::Error;
+        }
+
     }
-    else
-    {
-        Software_Type::List.back()->Owner_User = Owner_User;
-    }
-    
-    Log_Verbose("Softwares", "Software opened : %s | by user: %s", (const char*)Handle->Name, Owner_User->Name);
+
+    Log_Verbose("Softwares", "User ptr  : %p", Owner_User);
+    Log_Verbose("Softwares", "Opening software for user: %s", (const char*)Owner_User->Name);
+    Software_Type::List.back()->Owner_User = Owner_User;
+
+    Log_Verbose("Softwares", "Software opened : %s | by user: %s", (const char*)Handle->Name, (const char*)Owner_User->Name);
 
     return Result_Type::Success;
 }

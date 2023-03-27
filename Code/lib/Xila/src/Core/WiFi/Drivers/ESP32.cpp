@@ -290,14 +290,14 @@ WiFi_Types::Status_Type WiFi_Class::Station_Class::Get_Status(bool Wait_For_Conn
 /// @return Pointer to a null-terminated string containing the SSID.
 void WiFi_Class::Station_Class::Get_SSID(String_Type& SSID)
 {
-    SSID = ESP32_WiFi.SSID();
+    SSID = ESP32_WiFi.SSID().c_str();
 }
 
 /// @brief Get the current Pre-Shared Key (PSK) of the connected AP.
 /// @return Pointer to a null-terminated string containing the PSK.
 void WiFi_Class::Station_Class::Get_Pre_Shared_Key(String_Type& Pre_Shared_Key)
 {
-    Pre_Shared_Key = ESP32_WiFi.psk();
+    Pre_Shared_Key = ESP32_WiFi.psk().c_str();
 }
 
 /// @brief Get the current BSSID (Basic Service Set Identifier) of the connected AP.
@@ -455,7 +455,7 @@ Result_Type WiFi_Class::Access_Point_Class::Create(const String_Type& SSID, cons
 
 void WiFi_Class::Access_Point_Class::Get_SSID(String_Type& SSID)
 {
-    SSID = ESP32_WiFi.softAPSSID();
+    SSID = ESP32_WiFi.softAPSSID().c_str();
 }
 
 void WiFi_Class::Access_Point_Class::Get_Password(String_Type& Password)
@@ -602,7 +602,7 @@ Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type&
     String SSID_String = "";
     if (ESP32_WiFi.getNetworkInfo(Index, SSID_String, Encryption_Type, RSSI, BSSID, Channel))
     {
-        SSID = SSID_String;
+        SSID = SSID_String.c_str();
         return Result_Type::Success;
     }
     return Result_Type::Error;
@@ -610,7 +610,7 @@ Result_Type WiFi_Class::Scan_Class::Get_Informations(uint8_t Index, String_Type&
 
 void WiFi_Class::Scan_Class::Get_SSID(uint8_t Index, String_Type& SSID)
 {
-    SSID = ESP32_WiFi.SSID(Index);
+    SSID = ESP32_WiFi.SSID(Index).c_str();
 }
 
 Authentification_Mode_Type WiFi_Class::Scan_Class::Get_Encryption(uint8_t Index)

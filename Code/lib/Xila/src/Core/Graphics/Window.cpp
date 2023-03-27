@@ -122,6 +122,7 @@ void Window_Class::Set_Interface()
 
     // - Body.
     Body.Create(*this);
+    Body.Set_Width(Percentage(100));
     Body.Set_Flex_Grow(1);
 }
 

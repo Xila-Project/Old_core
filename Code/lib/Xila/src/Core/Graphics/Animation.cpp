@@ -28,6 +28,16 @@ Animation_Class::Animation_Class()
     }
 }
 
+Animation_Class::Animation_Class(lv_anim_t *Animation_To_Copy) : LVGL_Animation(*Animation_To_Copy)
+{
+}
+
+Animation_Class::~Animation_Class()
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+    lv_anim_del(LVGL_Animation.var, LVGL_Animation.exec_cb);
+}
+
 uint16_t Animation_Class::Count_Running()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
@@ -62,7 +72,7 @@ void Animation_Class::Delete_All()
 
 int32_t Animation_Class::Path_Bounce(const lv_anim_t *Animation)
 {
-    return lv_anim_path_bounce(Animation);  // No semaphore needed since it's only calculus and no display
+    return lv_anim_path_bounce(Animation); // No semaphore needed since it's only calculus and no display
 }
 
 int32_t Animation_Class::Path_Ease_In(const lv_anim_t *Animation)
@@ -117,8 +127,11 @@ void Animation_Class::Start()
 
 void Animation_Class::Set_Execution_Callback(Execution_Callback_Type Execution_Callback)
 {
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_anim_set_exec_cb(&LVGL_Animation, Execution_Callback);
+    {
+        Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+        lv_anim_set_exec_cb(&LVGL_Animation, Execution_Callback);
+    }
+    this->Execution_Callback = Execution_Callback;
 }
 
 void Animation_Class::Set_Delay(uint32_t Delay)
@@ -210,8 +223,7 @@ void Animation_Class::Set_Variable(void *Variable)
 Animation_Class Animation_Class::Get(void *Variable, Execution_Callback_Type Execution_Callback)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    Animation_Class Animation;
-    // Animation.Set_Pointer(lv_anim_get(Variable, Execution_Callback));
+    Animation_Class Animation(lv_anim_get(Variable, Execution_Callback));
     return Animation;
 }
 

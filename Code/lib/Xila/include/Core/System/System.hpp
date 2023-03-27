@@ -125,7 +125,7 @@ namespace Xila_Namespace
         // - - Animation
         void Start_Load_Animation(Object_Type*, Graphics_Types::Animation_Type*);
         static void Load_Animation_Callback(void *Object, int32_t Value);
-        void Stop_Load_Animation(Object_Type *Logo);
+        void Stop_Load_Animation(Object_Type *, Graphics_Types::Animation_Type *);
 
         // - - Modules
         void Start_Modules();

@@ -41,10 +41,6 @@ namespace Xila_Namespace
         /// @param Size Character array size.
         String_Class(const char *String, Size_Type Size);
 
-        /// @brief Copy constructor from String.
-        /// @param String
-        String_Class(const String &String);
-
         /// @brief Move constructor.
         /// @param String String to move.
         String_Class(String_Class &&String);
@@ -125,7 +121,6 @@ namespace Xila_Namespace
        
         
         Result_Type Copy(const String_Class &String, bool Change_Size = false);
-        Result_Type Copy(const String &String, bool Change_Size = false);
         Result_Type Copy(char Character, bool Change_Size = false);
         Result_Type Copy(Integer_Type Integer, bool Change_Size = false);
         Result_Type Copy(Long_Integer_Type Natural, bool Change_Size = false);
@@ -184,7 +179,6 @@ namespace Xila_Namespace
 
         String_Class &operator=(const char *String);
         String_Class &operator=(const String_Class &String);
-        String_Class &operator=(const String &String);
         String_Class &operator=(char Character);
         String_Class &operator=(int64_t Integer);
         String_Class &operator=(uint64_t Natural);
@@ -278,12 +272,7 @@ namespace Xila_Namespace
             String.Characters_Pointer = NULL;
             String.Size = 0;
         }
-
-        Static_String_Class(const String &String) : Static_String_Class()
-        {
-            Copy(String);
-        }
-
+        
         explicit Static_String_Class(char Character) : Static_String_Class()
         {
             Copy(Character);

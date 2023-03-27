@@ -68,8 +68,10 @@ source_suffix = {
     '.md': 'markdown',
 }
 
+# Myst configuration
 
 myst_number_code_blocks = ["cpp"]
+myst_heading_anchors = 3
 
 html_favicon = 'color.svg'
 
@@ -95,7 +97,6 @@ exclude_patterns = []
 html_theme = 'sphinx_book_theme'
 html_logo = 'Xila.png'
 html_theme_options = {
-    'logo_only': True,
     'display_version': False,
 }
 

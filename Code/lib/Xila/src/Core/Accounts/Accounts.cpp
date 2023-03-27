@@ -21,7 +21,22 @@ Result_Type Accounts_Class::Start()
   Log_Information("Account", "Start account module...");
 
   User_Type Xila_User("Xila", User_State_Type::Logged);
+  {
+    Static_String_Type<32> Account_Name;
+    Xila_User.Get_Name(Account_Name);
+    Log_Verbose("Account", "Create account : %s with state %u", (const char *)Account_Name, (uint8_t)Xila_User.Get_State());
+  }
   User_List.push_back(Xila_User);
+
+  Log_Verbose("Account", "List accounts : ");
+  {
+    Static_String_Type<32> Account_Name;
+    for (auto User : User_List)
+    {
+      User.Get_Name(Account_Name);
+      Log_Verbose("Account", "Account : %s", (const char *)Account_Name);
+    }
+  }
 
   return Result_Type::Success;
 }
@@ -157,13 +172,18 @@ const User_Type *Accounts_Class::Get_Logged_User()
   Log_Verbose("Account", "Get logged user...");
   Log_Verbose("Account", "User list size : %u", User_List.size());
 
-  for (auto &User_Pointer : User_List)
+  for (auto &User : User_List)
   {
-    if (User_Pointer.Get_State() == User_State_Type::Logged)
+    Log_Verbose("Account", "User found : %s", (const char *)User.Name);
+    Log_Verbose("Account", "User state : %u", (uint8_t)User.Get_State());
+    if (User.Get_State() == User_State_Type::Logged)
     {
-      return &User_Pointer;
+      Log_Verbose("Account", "Returning user with ptr : %p", &User);
+      Log_Verbose("Account", "Returning user with name : %s", (const char*)(&User)->Name);
+      return &User;
     }
   }
+  Log_Verbose("Account", "No user found !");
   return NULL;
 }
 
@@ -377,7 +397,6 @@ Result_Type Accounts_Class::Change_Password(const String_Type &Name, const Strin
     // Add null terminator in order to handle it as a regular character array.
     Hashed_Password[64] = '\0';
   }
-
 
   char Temporary_Char[48];
   snprintf(Temporary_Char, sizeof(Temporary_Char), (Users_Directory_Path "/%s/Registry/User.xrf"), Name);

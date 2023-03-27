@@ -74,10 +74,10 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     // Create grid
     Desk_Grid.Create(Window.Get_Body());
     Desk_Grid.Set_Style_Pad_All(10, 0);
-    Desk_Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+   // Desk_Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
+    Desk_Grid.Set_Style_Background_Color(Color_Type::Purple[5], 0);
+    Desk_Grid.Set_Size(Percentage(100), Percentage(100));
     Desk_Grid.Set_Grid_Descriptor_Array(Grid_Column_Descriptor, Grid_Row_Descriptor);
-    Desk_Grid.Set_Size(LV_PCT(100), LV_PCT(100));
-    Desk_Grid.Set_Layout(LV_LAYOUT_GRID);
     Desk_Grid.Move_Background();
 
 
@@ -228,6 +228,9 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     {
         Static_String_Type<24> User;
 
+        Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
+        Log_Verbose("Shell", "Shell pointer owner : %p", Shell_Pointer->Get_Owner_User());
+
         Shell_Pointer->Get_Owner_User()->Get_Name(User);
 
         Log_Verbose("Shell", "Current user is \"%s\".", (const char*)User);
@@ -278,6 +281,8 @@ void Shell_Class::Desk_Class::Set_Background_Color(Color_Type Color)
 
 void Shell_Class::Desk_Class::Refresh()
 {
+    Log_Trace();
+
     // TODO : Refresh desk icons and dock software
     // Delete grid items except the dock.
 
@@ -296,19 +301,11 @@ void Shell_Class::Desk_Class::Refresh()
     // If there is not enough buttons, create more.
     {
         Button_Type Button;
-        Graphics_Types::Label_Type Label;
         while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
         {
-            Button.Create(Dock_List);
-            Button.Set_Size(40, 40);
+            Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
+            Button.Create(Dock_List, " ", 40, 40, Shell_Pointer);   // Adding a space to force the button to create a label.
             Button.Set_Style_Border_Width(0, 0);
-            Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
-            Button.Clear_Pointer();
-
-            Label.Create(Button);
-            Label.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
-            Label.Set_Alignment(Alignment_Type::Center);
-            Label.Clear_Pointer();
         }
     }
     // - - Set dock software icons.
