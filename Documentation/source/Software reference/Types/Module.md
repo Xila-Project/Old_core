@@ -1,4 +1,4 @@
-# 🧩 Module (`Module_Type`)
+# 🧩 `Module_Type`
 
 Here you will find a full description of `Module_Type`.
 

@@ -53,32 +53,32 @@ namespace Xila_Namespace
     /// @brief Long real type (double register size).
     typedef double Long_Real_Type;
 
-    // - Character types
+    // - Others
+
+    /// @brief Character type.
     typedef char Character_Type;
 
+    /// @brief Void type.
     typedef void Void;
 
-    typedef uint32_t Tick_Type;
-
-    // - Special types
-
-    /// @brief Size Type;
+    /// @brief Size Type (register size).
     typedef size_t Size_Type;
 
     /// @brief Result type.
     enum class Result_Type
     {
-        Error,
+        Error = false,
         Success = true,
         Invalid_Argument,
         Wait,
         None
     };
 
+    /// @brief File type.
     typedef class File_Class File_Type;
 
+    /// @brief Null pointer.
     extern void* Null;
-
 }
 
 #endif

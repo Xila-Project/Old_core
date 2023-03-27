@@ -1,4 +1,4 @@
-# Software (`Software_Type`)
+# `Software_Type`
 
 Here you will find a full description of the `Software_Type`.
 

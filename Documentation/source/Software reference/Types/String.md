@@ -1,4 +1,4 @@
-# 🔡 String and static string (`String_Type` / `Static_String_Type`)
+# 🔡 `String_Type` / `Static_String_Type`
 
 
 ## Description

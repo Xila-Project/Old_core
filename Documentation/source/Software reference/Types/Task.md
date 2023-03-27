@@ -1,4 +1,4 @@
-# Task (`Task_Type`)
+# ⚙️ `Task_Type`
 
 Here you will find a full description of `Task_Type`.
 

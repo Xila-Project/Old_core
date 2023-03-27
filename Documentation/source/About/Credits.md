@@ -30,6 +30,10 @@ Here are credits to sources where I borrow code :
 - [ESP32 Oscilloscope](https://github.com/botofancalin/M5Stack-ESP32-Oscilloscope) - [Botofancalin](https://github.com/botofancalin/) - MIT Licence
 - [TinyBasic Plus](https://github.com/BleuLlama/TinyBasicPlus) - [Scott Lawrence](https://github.com/BleuLlama) / Michael FIELD / Gordon BRANDLY / Jurg WULLSCHLEGER - MIT Licence
 
+### Reused circuit design
+
+- [LiPo Charge/Protect/5V Boost Circuit](https://www.youtube.com/watch?v=Fj0XuYiE7HU) - [Great Scott](https://www.youtube.com/channel/UC6mIxFTvXkWQVEHPsEdflzQ)
+
 ## 🛠️ Tools
 
 ### 🖥️ Development
@@ -56,3 +60,5 @@ Here are credits to sources where I borrow code :
 
 - [GIMP](https://www.gimp.org/)
 - [Inkscape](https://inkscape.org/)
+
+

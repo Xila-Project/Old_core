@@ -1,4 +1,4 @@
-# Software handle (`Software_Handle_Type`)
+# 🤏 `Software_Handle_Type`
  
 Here you will find a full description of the `Software_Handle_Type`.
 

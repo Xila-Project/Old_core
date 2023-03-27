@@ -21,11 +21,28 @@ namespace Xila_Namespace
     public:
         // - Methods
         // - - Constructor / Destructor
+
+        /// @brief Default constructor.
         Time_Class();
+
+        /// @brief Constructor with parameters.
+        /// @param Hours Hours of the time (0 - 23).
+        /// @param Minutes Minutes of the time (0 - 59).
+        /// @param Seconds Seconds of the time (0 - 59).
+        /// @param Milliseconds Milliseconds of the time (0 - 999).
         Time_Class(uint8_t Hours, uint8_t Minutes, uint8_t Seconds, uint16_t Milliseconds);
 
         // - - Setters
+
+        /// @brief Set the time.
+        /// @param Hours Hours of the time (0 - 23).
+        /// @param Minutes Minutes of the time (0 - 59).
+        /// @param Seconds Seconds of the time (0 - 59).
+        /// @param Milliseconds Milliseconds of the time (0 - 999).
         void Set(uint8_t Hours, uint8_t Minutes, uint8_t Seconds, uint16_t Milliseconds);
+        
+        /// @brief Set the hours of the time.
+        
         void Set_Hours(uint8_t Hours);
         void Set_Minutes(uint8_t Minutes);
         void Set_Seconds(uint8_t Seconds);

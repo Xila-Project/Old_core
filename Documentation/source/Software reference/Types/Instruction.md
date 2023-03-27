@@ -1,4 +1,4 @@
-# ✉️ Instruction (`Instruction_Type`)
+# ✉️ `Instruction_Type`
 
 Here you will find a full description of the `Instruction_Type`.
 
