@@ -17,8 +17,6 @@
 
 #include "../Module/Module.hpp"
 
-#include "Core/Drive/Drive.hpp"
-
 //==============================================================================//
 ///
 /// @brief Clipboard module

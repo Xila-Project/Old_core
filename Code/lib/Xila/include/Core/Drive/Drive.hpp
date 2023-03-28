@@ -14,7 +14,10 @@
 #include "../Module/Module.hpp"
 
 // TODO : create own FS management.
+
+#ifdef Arduino
 #include "FS.h"
+#endif
 
 namespace Xila_Namespace
 {
@@ -39,17 +42,20 @@ namespace Xila_Namespace
         };
     }
 
+    template <typename T>
     typedef class File_Class : public Stream
     {
     public:
         // - Methods
 
         // - - Constructors / destructor
+
+        /// @brief Default constructor.
         File_Class();
         File_Class(fs::File File);
-        ~File_Class();
 
         // - - Stream methods override
+
         size_t write(uint8_t) override;
         size_t write(const uint8_t *Buffer, size_t Size) override;
         int available() override;
@@ -59,7 +65,11 @@ namespace Xila_Namespace
 
         // - - File methods
 
+        /// @brief Write a byte to the file.
+        /// @param Data Byte to write.
+        /// @return Number of bytes written.
         Size_Type Write(uint8_t);
+
         Size_Type Write(const uint8_t *buf, Size_Type Size);
 
         int Available();
@@ -67,7 +77,6 @@ namespace Xila_Namespace
         int Peek();
         void Flush();
         bool Is_Valid() const;
-
 
         Size_Type Read(uint8_t *Buffer, Size_Type Size);
         Size_Type Read_Bytes(char *Buffer, Size_Type Length);
@@ -99,8 +108,12 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
-        fs::File File;
-    } File_Type;
+        T File;
+    };
+
+#ifdef Arduino
+    typedef File_Class<fs::File> File_Type;
+#endif
 
     typedef class Drive_Class : public Module_Class
     {

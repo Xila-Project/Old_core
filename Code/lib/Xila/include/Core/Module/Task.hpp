@@ -102,7 +102,8 @@ namespace Xila_Namespace
         /// @param Time_Increment Time in ticks.
         void Delay_Until(TickType_t Time_Increment);
 
-        /// @brief Delay the task until a specific time (static method).
+        /// @brief Feed the watchdog and add an extra delay.
+        /// @param Delay_In_Millisecond Delay in milliseconds (maximum).
         void Set_Watchdog_Timeout(uint16_t Watchdog_Timeout = Default_Watchdog_Timeout);
 
         /// @brief Feed the task watchdog (check if a task is not frozen).
@@ -149,10 +150,16 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
+
+        /// @brief Task handle.
         xTaskHandle Task_Handle;
-        uint32_t Watchdog_Timer;
+
+        /// @brief Task watchdog timeout (time when the task is considered as frozen).
         uint32_t Watchdog_Timeout;
+        
         TickType_t Previous_Wake_Time;
+
+        /// @brief Task owner module.
         Module_Class *Owner_Module;
 
         static std::vector<Task_Class *> List; // - Task lists.

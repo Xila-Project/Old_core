@@ -11,7 +11,7 @@
 #ifndef Types_Hpp_Included
 #define Types_Hpp_Included
 
-#include "Arduino.h"
+#include "../Module/Base_Types.hpp"
 #include "lvgl.h"
 
 namespace Xila_Namespace

@@ -12,8 +12,6 @@
 #define Modules_Hpp_Included
 
 #include <vector>
-#include "FS.h"
-#include "ArduinoTrace.h"
 
 // - - Base types
 

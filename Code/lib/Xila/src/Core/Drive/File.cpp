@@ -22,10 +22,6 @@ File_Class::File_Class(fs::File File) : File(File)
 {
 }
 
-File_Class::~File_Class()
-{
-}
-
 size_t File_Class::write(uint8_t Data)
 {
     return File.write(Data);

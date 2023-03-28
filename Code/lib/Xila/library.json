@@ -1,11 +1,11 @@
 {
     "name": "Xila",
     "version": "0.1.0",
-    "decription": "A graphical operating system for embedded devices.",
+    "description": "A graphical operating system for embedded devices.",
     "keywords": "operating system, user interface, freertos, shell, esp32",
     "repository": {
         "type": "git",
-        "url": "https://github.com/AlixFaitGrr/git"
+        "url": "https://github.com/AlixANNERAUD/Xila"
     },
     "authors": {
         "name": "Alix ANNERAUD",
@@ -14,46 +14,8 @@
         "maintainer": "true"
     },
     "license": "MIT",
-    "homepage": "https://alixfaitgrr.fr/",
+    "homepage": "https://xila.dev/",
     "dependencies": [
-        {
-            "owner": "bblanchon",
-            "name": "ArduinoJson",
-            "version": "^6.17.3"
-        },
-        {
-            "owner": "bblanchon",
-            "name": "StreamUtils",
-            "version": "^1.6.1"
-        },
-        {
-            "owner": "bblanchon",
-            "name": "ArduinoTrace",
-            "version": "^1.2.0"
-        },
-        {
-            "owner": "lvgl",
-            "name": "lvgl",
-            "versions": "^8.2.0"
-        },
-        {
-            "name": "ESP32-audioI2S",
-            "version": "https://github.com/schreibfaul1/ESP32-audioI2S.git"
-        },
-        {
-            "name": "PS2 Keyboard",
-            "version": "https://github.com/PaulStoffregen/PS2Keyboard.git"
-        },
-        {
-            "owner": "alix-anneraud",
-            "name": "Battery Library",
-            "version": "^1.0.0"
-        },
-        {
-            "owner": "alix-anneraud",
-            "name": "Nextion Library",
-            "version": "^1.0.0"
-        }
     ],
     "examples": [
         {
@@ -69,8 +31,8 @@
     ],
     "build":
     {
-        "libLDFMode": "deep"
+       
     },
     "frameworks": "arduino",
-    "platforms": "espressif32"
+    "platforms": ["espressif32", "linux_x86_64"]
 }

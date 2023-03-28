@@ -138,19 +138,19 @@ public:
     uint8_t Get_State();
 
     /**
-     * @brief A function that set current time of playing file.
+     * @brief  that set current time of playing file.
      * @param Time Time to set in millisecond.
      */
     void Set_Time(uint32_t Time);
 
     /**
-     * @brief A function that return the current file playing time.
+     * @brief  that return the current file playing time.
      * @return Current file playling time in millisecond.
      */
     uint32_t Get_Time();
 
     /**
-     * @brief A function that return the current file playing total time.
+     * @brief  that return the current file playing total time.
      * @return Current file playing total time in millisecond.
      */
     uint32_t Get_Total_Time();

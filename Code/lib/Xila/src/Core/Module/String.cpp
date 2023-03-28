@@ -144,6 +144,10 @@ Result_Type String_Class::Set_Size(Size_Type Size)
 
 Result_Type String_Class::Set_Capacity(Size_Type Capacity)
 {
+    if (Capacity == 0)
+    {
+        return Set_Size(0);
+    }
     return Set_Size(Capacity + 1);
 }
 
