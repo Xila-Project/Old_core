@@ -88,7 +88,7 @@ double Xila_Namespace::Mathematics_Class::Sine(double Number)
 }
 
 ///
-/// @brief Calculate the consine of a number in radians.
+/// @brief Calculate the cosine of a number in radians.
 ///
 /// @param Number Number to calculate in radians.
 /// @return double Cosine of the number.
