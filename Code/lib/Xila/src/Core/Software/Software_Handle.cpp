@@ -33,8 +33,6 @@ std::array<Software_Handle_Class*, 40> Software_Handle_Class::List = Init_Array<
 Software_Handle_Class::Software_Handle_Class(const char* Name)
     : Name(Name)
 {
-  log_printf("Software_Handle construcotr \n");
-
   for (auto& Software_Handle_Pointer : List)
   {
     if (Software_Handle_Pointer == nullptr)

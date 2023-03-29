@@ -41,7 +41,6 @@ void Shell_Class::Main_Task_Function()
         }
         else
         {
-            Log_Verbose("Shell", "No instruction available");
             if (this->Get_Owner_User()->Get_State() == Accounts_Types::User_State_Type::Locked)
             {
                 if (Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Minimized)

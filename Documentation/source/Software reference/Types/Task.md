@@ -58,6 +58,6 @@ In order to allow the entire system to perform multiple tasks at the same time, 
 ```{eval-rst}
 .. doxygentypedef:: Xila_Namespace::Task_Type
 
-.. doxygenclass:: Xila_Namespace::Task
+.. doxygenclass:: Xila_Namespace::Task_Class
     :members:
 ```

@@ -101,10 +101,12 @@ namespace Xila_Namespace
 
 #if Log_Level >= 4
 #define Log_Debug(Module_Name, Format, ...) Log_All(Module_Name, "Debug", Format, ##__VA_ARGS__)
-#define Log_Trace() Log_All("Trace", "Trace", "Trace");
+#define Log_Trace() Log_All("Trace", "Debug", " - ");
+#define Log_Dump(Variable) Log_All("Dump", "Debug", #Variable)
 #else
 #define Log_Debug(Module_Name, Format, ...)
 #define Log_Trace()
+#define Log_Dump(Variable)
 #endif
 
 #if Log_Level >= 5

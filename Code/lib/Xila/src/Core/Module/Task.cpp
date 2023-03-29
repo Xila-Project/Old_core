@@ -59,10 +59,11 @@ Result_Type Task_Class::Create(Function_Type Task_Function, const char *Name, Si
         return Result_Type::Error;
     }
 
-    if (!xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) == pdPASS)
+    if (xTaskCreatePinnedToCore(Task_Function, Name, Stack_Size, Data, (UBaseType_t)Priority, &Task_Handle, tskNO_AFFINITY) != pdPASS)
     {
         return Result_Type::Error;
     }
+
     Feed_Watchdog();
     List.push_back(this);
     return Result_Type::Success;
@@ -110,8 +111,11 @@ void Task_Class::Check_Watchdogs()
         // Check if a running or active task hasn't refresh its watchdog.
         if (Task_Pointer->Get_State() == State_Type::Running)
         {
-            if (Task_Pointer->Get_Watchdog_Timeout() > System.Get_Up_Time_Milliseconds())
+            if (Task_Pointer->Get_Watchdog_Timeout() < System.Get_Up_Time_Milliseconds())
+            {
+                Log_Warning("System", "A task (%s) seems to be frozen, suspend it !", Task_Pointer->Get_Name());
                 Task_Pointer->Suspend(); // Suspend task.
+            }
             // ? : Would it be safer to rather delete the task ?
         }
     }

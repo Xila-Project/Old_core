@@ -115,16 +115,22 @@ namespace Xila_Namespace
         public:
             // - Methods
             Parent_Window_Class();
+            Parent_Window_Class(Parent_Window_Class& Object_To_Copy);
             Parent_Window_Class(const Object_Type& Object_To_Copy);
 
             virtual void Create(const Software_Type *Owner_Module) override;
+            virtual void Delete() override;
 
-            static Parent_Window_Class Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
+            static Parent_Window_Class* Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
 
             // - Attributes
 
             /// @brief Custom LVGL class for Parent window (almost identical to object class).
             static const Graphics_Types::Class_Type Class;
+
+        private:
+
+            static std::list<Parent_Window_Class*> List;
         } Parent_Window_Type;      
     };
 }

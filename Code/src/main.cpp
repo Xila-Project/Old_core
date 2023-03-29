@@ -11,5 +11,5 @@ void setup()
 
 void loop()
 {
-  //vTaskDelete(NULL);
+  vTaskDelete(NULL);
 }

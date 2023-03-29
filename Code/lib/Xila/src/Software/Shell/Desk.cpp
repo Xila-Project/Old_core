@@ -32,6 +32,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     // - Style
     Status_Buttons_Style.Set_Background_Opacity(Opacity_Type::Transparent);
     Status_Buttons_Style.Set_Pad_All(0);
+    Status_Buttons_Style.Set_Shadow_Width(0);
 
     WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, Shell_Pointer);
     WiFi_Button.Add_Style(Status_Buttons_Style, 0);
@@ -49,6 +50,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
     Clock_Label.Set_Text("00:00");
     Clock_Label.Set_Style_Text_Color(Color_Type::White, 0);
+
 
     // Grid for icons
     const Coordinate_Type Grid_Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};

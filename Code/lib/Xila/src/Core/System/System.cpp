@@ -53,20 +53,15 @@ void System_Class::Task_Function()
   while (1)
   {
 
-    Log_Verbose("System", "System task is running...");
-
     // -- Check if drive is not disconnected.
     if (!Drive.Exists(Xila_Directory_Path) || !Drive.Exists(Software_Directory_Path))
     {
       System.Panic_Handler(Panic_Type::Drive_Failure);
     }
 
-    Log_Verbose("System", "System task is running 2...");
 
     // -- Check if running software is not frozen.
     Task_Class::Check_Watchdogs();
-
-    Log_Verbose("System", "System task is running 3...");
 
     // -- Check WiFi is connected
     // if (WiFi.Get_Status() != WiFi_Type::Status_Type::Connected)

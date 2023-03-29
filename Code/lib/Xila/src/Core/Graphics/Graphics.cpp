@@ -11,6 +11,7 @@
 #include "Core/Graphics/Graphics.hpp"
 #include "Core/Display/Display.hpp"
 #include "Core/Core.hpp"
+#include "Core/Log/Log.hpp"
 
 #include "lvgl.h"
 
@@ -127,11 +128,13 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     Instruction.Graphics.Set_Code(static_cast<Event_Code_Type>(lv_event_get_code(Event)));
 
     Object.Clear_Pointer();
-    Object.Set_Pointer(lv_event_get_target(Event));
+    Object.Set_Pointer(lv_event_get_current_target(Event));
 
     Instruction.Graphics.Set_Object(Object);
 
     Instruction.Get_Receiver()->Send_Instruction(Instruction);
+
+    Log_Verbose("Graphics", "Event sent");
 }
 
 Object_Type Graphics_Type::Get_Top_Layer()
