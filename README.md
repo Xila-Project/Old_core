@@ -38,6 +38,7 @@ Xila is a lightweight operating system (like [Contiki](https://github.com/contik
 
 |  |  |
 | :--- | :---: |
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8cf13ff996fa494d9b7c08baaf549f83)](https://app.codacy.com/gh/AlixANNERAUD/Xila?utm_source=github.com&utm_medium=referral&utm_content=AlixANNERAUD/Xila&utm_campaign=Badge_Grade)
 | Code | [![Build Status](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master)](https://travis-ci.com/AlixANNERAUD/Xila.svg?branch=master) |
 | Documentation | [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest) |
 
