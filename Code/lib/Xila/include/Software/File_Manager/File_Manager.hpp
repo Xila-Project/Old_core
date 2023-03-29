@@ -22,7 +22,7 @@ class File_Manager_Class : public Software_Type
 
     // - - Constructors / destructor
 
-    File_Manager_Class();
+    File_Manager_Class(const Accounts_Types::User_Type *Owner_User);
     ~File_Manager_Class();
 
     void Main_Task_Function() override;
@@ -82,9 +82,9 @@ static class File_Manager_Handle_Class : public Software_Handle_Class
 public:
     File_Manager_Handle_Class() : Software_Handle_Class("File manager"){};
 
-    void Create_Instance() const override
+    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {
-        new File_Manager_Class();
+        new File_Manager_Class(Owner_User);
     };
 } File_Manager_Handle;
 

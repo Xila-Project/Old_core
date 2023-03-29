@@ -492,6 +492,8 @@ namespace Xila_Namespace
 
         /// @brief Size of the buffer.
         Size_Type Size;
+
+        friend class Unit_Test_Class;
     } String_Type;
 
     /// @brief Template, child of `String_Class`, that uses a static buffer (stack allocated) instead of a dynamic one (heap allocated).
@@ -632,6 +634,9 @@ namespace Xila_Namespace
 
     protected:
         char Buffer[Length + 1];
+
+
+        friend class Unit_Test_Class;
     };
 
     template <Size_Type Length>

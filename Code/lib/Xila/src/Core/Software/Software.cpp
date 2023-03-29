@@ -20,12 +20,19 @@ std::vector<Software_Class *> Software_Class::List;
 ///
 /// @param Software_Handle Current software handle
 /// @param Queue_Size Instructions queue size (default : )
-Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
+Software_Class::Software_Class(const Software_Handle_Type *Handle_Pointer, const Accounts_Types::User_Type* Owner_User, Size_Type Main_Task_Stack_Size, Size_Type Queue_Size)
     : Module_Class(Queue_Size),
       Main_Task(this, Start_Main_Task_Function, "Software", Main_Task_Stack_Size, this),
-      Handle_Pointer(Handle_Pointer)
+      Handle_Pointer(Handle_Pointer),
+      Owner_User(Owner_User)
 
 {
+  if (Handle_Pointer == NULL || Owner_User == NULL)
+  {
+    delete this;
+    return;
+  }
+  
   Log_Verbose("Software", "Software constructor");
   List.reserve(40);
   List.push_back(this); // Add software to the list.
@@ -46,6 +53,7 @@ Software_Class::~Software_Class() // Destructor : close
 /// @param Instance_Pointer
 void Software_Class::Start_Main_Task_Function(void *Instance_Pointer)
 {
+  static_cast<Software_Class*>(Instance_Pointer)->Main_Task.Delay(100);
   static_cast<Software_Class*>(Instance_Pointer)->Main_Task_Function();
 }
 

@@ -11,7 +11,7 @@
 
 bool Berry_Class::Softwares_Handles_Loaded = false;
 
-Berry_Class::Berry_Class() : Software_Type(&Berry_Handle), Window()
+Berry_Class::Berry_Class(const Accounts_Types::User_Type* Owner_User) : Software_Type(&Berry_Handle, Owner_User), Window()
 {
     Window.Create(this);
 

@@ -325,5 +325,6 @@
     "typeinfo": "cpp",
     "lv_arc.h": "c",
     "berry_conf.h": "c"
-  }
+  },
+  "commentTranslate.source": "intellsmi.deepl-translate-deepl"
 }

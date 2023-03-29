@@ -22,7 +22,7 @@ class Preferences_Class : public Software_Type
 
     // - - Constructors / destructor
 
-    Preferences_Class();
+    Preferences_Class(const Accounts_Types::User_Type *Owner_User);
     ~Preferences_Class();
 
     // - - Management
@@ -137,9 +137,9 @@ static class Preferences_Handle_Class : public Software_Handle_Type
 public:
     Preferences_Handle_Class() : Software_Handle_Type("Preferences"){};
 
-    void Create_Instance() const override
+    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {
-        new Preferences_Class();
+        new Preferences_Class(Owner_User);
     };
 } Preferences_Handle;
 

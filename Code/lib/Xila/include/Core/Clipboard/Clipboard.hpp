@@ -1,4 +1,3 @@
-///
 /// @file Clipboard.hpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 20-07-2022
 ///
 /// @copyright Copyright (c) 2022
-///
 
 #ifndef Clipboard_Hpp_Included
 #define Clipboard_Hpp_Included
@@ -46,9 +44,6 @@ namespace Xila_Namespace
 
     protected:
         // - Attributes
-
-        /// @brief Clipboard file.
-        File_Type Clipboard_File;
 
         /// @brief Split number array.
         union

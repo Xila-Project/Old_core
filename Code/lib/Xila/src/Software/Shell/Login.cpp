@@ -42,7 +42,6 @@ Shell_Class::Login_Class::Login_Class(Shell_Class *Shell_Pointer) : Shell_Pointe
     Login_Label.Create(Login_Button);
     Login_Label.Set_Text("Login");
     Login_Label.Set_Alignment(Alignment_Type::Center);
-
 }
 
 Shell_Class::Login_Class::~Login_Class()
@@ -52,7 +51,8 @@ Shell_Class::Login_Class::~Login_Class()
 
 void Shell_Class::Login_Class::Open(Shell_Class *Shell_Pointer)
 {
-    Shell_Pointer->Login_Pointer = new Login_Class(Shell_Pointer);
+    if (!Is_Openned(Shell_Pointer))
+        Shell_Pointer->Login_Pointer = new Login_Class(Shell_Pointer);
 }
 
 void Shell_Class::Login_Class::Close(Shell_Class *Shell_Pointer)
@@ -63,17 +63,10 @@ void Shell_Class::Login_Class::Close(Shell_Class *Shell_Pointer)
 
 bool Shell_Class::Login_Class::Is_Openned(Shell_Class *Shell_Pointer)
 {
-    if (Shell_Pointer->Login_Pointer != NULL)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return Shell_Pointer->Login_Pointer != NULL;
 }
 
-void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instruction)
+void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {
@@ -82,7 +75,7 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type& Instr
         case Graphics_Types::Event_Code_Type::Focused:
             if (Instruction.Graphics.Get_Object() == Name_Input)
             {
-                Graphics.Set_Keyboard_Text_Area(Name_Input);                
+                Graphics.Set_Keyboard_Text_Area(Name_Input);
             }
             else if (Instruction.Graphics.Get_Object() == Password_Input)
             {

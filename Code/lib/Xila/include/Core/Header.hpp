@@ -10,7 +10,7 @@
 #define Header_Hpp_Included
 
 #ifdef ARDUINO
-#define Arduino
+//    #define Arduino
 #endif
 
 #ifdef Arduino

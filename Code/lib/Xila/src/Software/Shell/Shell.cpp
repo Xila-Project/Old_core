@@ -12,7 +12,7 @@
 #include "Software/Shell/Translation.hpp"
 
 /// @brief Shell constructor.
-Shell_Class::Shell_Class() : Software_Class(&Shell_Handle), Desk(this)
+Shell_Class::Shell_Class(const Accounts_Types::User_Type *Owner_User) : Software_Class(&Shell_Handle, Owner_User), Desk(this), Installer_Pointer(NULL), Login_Pointer(NULL), Drawer_Pointer(NULL)
 {
     if (this->Load_Registry() != Result_Type::Success)
     {
@@ -29,12 +29,6 @@ Shell_Class::~Shell_Class()
     Installer_Class::Close(this);
 }
 
-
-Software_Type *Shell_Class::Open_Shell()
-{
-    return new Shell_Class();
-}
-
 /// @brief Shell main task.
 void Shell_Class::Main_Task_Function()
 {
@@ -47,6 +41,7 @@ void Shell_Class::Main_Task_Function()
         }
         else
         {
+            Log_Verbose("Shell", "No instruction available");
             if (this->Get_Owner_User()->Get_State() == Accounts_Types::User_State_Type::Locked)
             {
                 if (Desk.Window.Get_State() != Graphics_Types::Window_State_Type::Minimized)
@@ -59,44 +54,61 @@ void Shell_Class::Main_Task_Function()
                 Desk.Refresh_Overlay();
                 Next_Refresh = System.Get_Up_Time_Milliseconds() + 5000;
             }
-            
+
             Main_Task.Delay(40);
         }
     }
 }
 
-/// @brief 
-/// @param Instruction 
+/// @brief
+/// @param Instruction
 void Shell_Class::Execute_Instruction(Instruction_Type Instruction)
 {
     if (Instruction.Get_Sender() == &Softwares)
     {
         switch (Instruction.Softwares.Get_Code())
         {
-            case Softwares_Types::Event_Code_Type::Close:
-                delete this;
-                break;
+        case Softwares_Types::Event_Code_Type::Close:
+            delete this;
+            break;
         }
-    }
-    else if (Drawer_Class::Is_Openned(this) && (Drawer_Pointer->Window.Get_State() == Graphics_Types::Window_State_Type::Maximized))
-    {
-        Drawer_Pointer->Execute_Instruction(Instruction);
-    }
-    else if (Installer_Class::Is_Openned(this) && (Installer_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized))
-    {
-        Installer_Pointer->Execute_Instruction(Instruction);
-    }
-    else
-    {
-        Desk.Execute_Instruction(Instruction);
+        return;
     }
 
+    if (Drawer_Class::Is_Openned(this))
+    {
+        if (Drawer_Pointer->Window.Get_State() == Graphics_Types::Window_State_Type::Maximized)
+        {
+            Drawer_Pointer->Execute_Instruction(Instruction);
+            return;
+        }
+    }
+    if (Installer_Class::Is_Openned(this))
+    {
+        if (Installer_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
+        {
+            Installer_Pointer->Execute_Instruction(Instruction);
+            return;
+        }
+    }
+    if (Login_Class::Is_Openned(this) && (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized))
+    {
+        if (Login_Pointer->Dialog.Get_State() == Graphics_Types::Window_State_Type::Maximized)
+        {
+            Login_Pointer->Execute_Instruction(Instruction);
+            return;
+        }
+    }
+
+    Log_Verbose("Shell", "Instruction received");
+    Desk.Execute_Instruction(Instruction);
+    return;
 }
 
 // -- Shell registry management -- //
 
 /// @brief Load shell registry.
-/// @return 
+/// @return
 Result_Type Shell_Class::Load_Registry()
 {
     // - Open registry file
@@ -117,13 +129,13 @@ Result_Type Shell_Class::Load_Registry()
     // - Load registry values
     this->Desk.Set_Background_Color(Color_Type(Shell_Registry["Desk"]["Background color"] | Shell_Default_Background_Color));
     this->Desk.Set_Foreground_Color(Color_Type(Shell_Registry["Desk"]["Foreground color"] | Shell_Default_Foreground_Color));
-    
+
     return Result_Type::Success;
 }
 
 Result_Type Shell_Class::Create_Registry()
 {
-    // - 
+    // -
     StaticJsonDocument<256> Shell_Registry;
     Shell_Registry["Registry"] = "Shell";
     Shell_Registry.createNestedObject("Desk");
@@ -146,7 +158,7 @@ Result_Type Shell_Class::Create_Registry()
 }
 
 /// @brief Save shell registry.
-/// @return 
+/// @return
 Result_Type Shell_Class::Save_Registry()
 {
     // - Open registry file

@@ -42,8 +42,7 @@ namespace Xila_Namespace
         };
     }
 
-    template <typename T>
-    typedef class File_Class : public Stream
+    class File_Class : public Stream
     {
     public:
         // - Methods
@@ -108,12 +107,8 @@ namespace Xila_Namespace
 
     private:
         // - Attributes
-        T File;
+        fs::File File;
     };
-
-#ifdef Arduino
-    typedef File_Class<fs::File> File_Type;
-#endif
 
     typedef class Drive_Class : public Module_Class
     {

@@ -1,4 +1,3 @@
-///
 /// @file Clipboard.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
 /// @brief Xila clipboard source file.
@@ -6,7 +5,6 @@
 /// @date 08-04-2021
 ///
 /// @copyright Copyright (c) 2021
-///
 
 #include "Core/Clipboard/Clipboard.hpp"
 

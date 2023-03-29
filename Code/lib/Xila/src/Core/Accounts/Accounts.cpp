@@ -28,6 +28,9 @@ Result_Type Accounts_Class::Start()
   }
   User_List.push_back(Xila_User);
 
+  Log_Verbose("Account", "User ptr : %p", &User_List.front());
+  
+
   Log_Verbose("Account", "List accounts : ");
   {
     Static_String_Type<32> Account_Name;

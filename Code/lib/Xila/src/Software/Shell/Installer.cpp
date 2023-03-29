@@ -67,7 +67,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
         Welcome_Label.Create(Dialog.Get_Body());
         Welcome_Label.Set_Text("Welcome to Xila OS installer!");
     }
-    
+
     Setup_Button.Create(Dialog.Get_Body());
     Setup_Button.Set_Size(LV_PCT(100), 40);
 
@@ -96,7 +96,7 @@ Shell_Class::Installer_Class::Installer_Class(Shell_Class *Shell_Pointer) : Shel
     Password_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Focused);
     Password_Text_Area.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Defocused);
 
-    Create_Account_Button.Create(Dialog.Get_Body(), "Create account", LV_PCT(80), 40, Shell_Pointer);    
+    Create_Account_Button.Create(Dialog.Get_Body(), "Create account", LV_PCT(80), 40, Shell_Pointer);
 }
 
 Shell_Class::Installer_Class::~Installer_Class()
@@ -105,7 +105,8 @@ Shell_Class::Installer_Class::~Installer_Class()
 
 void Shell_Class::Installer_Class::Open(Shell_Class *Shell_Pointer)
 {
-    Shell_Pointer->Installer_Pointer = new Installer_Class(Shell_Pointer);
+    if (Is_Openned(Shell_Pointer))
+        Shell_Pointer->Installer_Pointer = new Installer_Class(Shell_Pointer);
 }
 
 void Shell_Class::Installer_Class::Close(Shell_Class *Shell_Pointer)
@@ -119,7 +120,7 @@ bool Shell_Class::Installer_Class::Is_Openned(Shell_Class *Shell_Pointer)
     return (Shell_Pointer->Installer_Pointer != NULL);
 }
 
-void Shell_Class::Installer_Class::Execute_Instruction(const Instruction_Type& Instruction)
+void Shell_Class::Installer_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {
     if (Instruction.Get_Sender() == &Graphics)
     {

@@ -14,6 +14,7 @@
 #include "Core/Account/Accounts.hpp"
 #include "Core/Software/Softwares.hpp"
 #include "Core/Graphics/Graphics.hpp"
+#include "Core/Log/Log.hpp"
 
 // - Namespaces
 
@@ -57,16 +58,19 @@ void Window_Class::Create(const Software_Type *Owner_Software)
     {
         return;
     }
-    Parent_Window_Type *Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
-    if (Parent_Window == NULL)
+    Parent_Window_Type Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
+    if (!Parent_Window)
     {
         return;
     }
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-        this->LVGL_Object_Pointer = lv_obj_create(Parent_Window->Get_Pointer());
+        this->LVGL_Object_Pointer = lv_obj_create(Parent_Window.Get_Pointer());
         this->LVGL_Object_Pointer->class_p = &Window_Class::Class; // Set the custom class.
     }
+
+    Log_Trace();
+
     this->Owner_Software = Owner_Software;
     this->Set_Interface();
 }
@@ -84,18 +88,31 @@ void Window_Class::Create(Object_Class Parent_Object)
 
 void Window_Class::Set_Interface()
 {
+    Log_Trace();
+
     this->Set_Size(Percentage(100), Percentage(100));
     this->Set_Flex_Flow(Flex_Flow_Type::Column);
     this->Set_Style_Pad_All(0, 0);
     this->Set_Style_Border_Width(0, 0);
+
+
+    Log_Trace();
+
     // - Header create.
     static Style_Type Style_Window_Header;
     Style_Window_Header.Initialize();
-    Style_Window_Header.Set_Background_Color(Color_Type::Grey[6]);
+    Style_Window_Header.Set_Background_Color(Color_Type::Grey[8]);
+
+
+    Log_Trace();
 
     Header.Create(*this);
     Header.Set_Size(Percentage(100), 32);
     Header.Add_Style(Style_Window_Header, 0);
+
+
+
+    Log_Trace();
 
     // - Left buttons.
     Close_Button.Create(Header);
@@ -106,6 +123,9 @@ void Window_Class::Set_Interface()
     Close_Button.Set_Style_Radius(8, 0);
     Close_Button.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
+
+    Log_Trace();
+
     Minimize_Button.Create(Header);
     Minimize_Button.Set_Size(24, 24);
     Minimize_Button.Set_Style_Border_Color(Color_Type::Yellow[5], 0);
@@ -114,14 +134,21 @@ void Window_Class::Set_Interface()
     Minimize_Button.Set_Alignment(Close_Button, Alignment_Type::Out_Right_Middle, 4, 0);
     Minimize_Button.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
 
+
+    Log_Trace();
+
     // - Middle title.
     Title_Label.Create(Header);
     Title_Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
     Title_Label.Set_Alignment(Alignment_Type::Center);
     Title_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
+
+    Log_Trace();
+
     // - Body.
     Body.Create(*this);
+    Body.Set_Style_Pad_All(0, 0);
     Body.Set_Width(Percentage(100));
     Body.Set_Flex_Grow(1);
 }

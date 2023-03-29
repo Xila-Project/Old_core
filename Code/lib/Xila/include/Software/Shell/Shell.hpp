@@ -123,6 +123,8 @@ class Shell_Class : public Software_Type
 
         void Execute_Instruction(const Instruction_Type &Instruction);
 
+        // - Attributes
+        Graphics_Types::Dialog_Type Dialog;
     private:
         // - Methods
 
@@ -133,7 +135,6 @@ class Shell_Class : public Software_Type
         // - - Managment
 
         // - Attributes
-        Graphics_Types::Dialog_Type Dialog;
 
         Graphics_Types::Text_Area_Type Name_Input;
         Graphics_Types::Text_Area_Type Password_Input;
@@ -204,7 +205,7 @@ class Shell_Class : public Software_Type
 
     // - - Constructors / destructor
 
-    Shell_Class();
+    Shell_Class(const Accounts_Types::User_Type* Owner_User);
     ~Shell_Class() override;
 
     // - - Others
@@ -217,9 +218,7 @@ class Shell_Class : public Software_Type
     Result_Type Save_Registry();
     Result_Type Create_Registry();
     Result_Type Load_Registry();
-
-    Software_Type *Open_Shell();
-
+    
     friend class Shell_Handle_Class;
 };
 
@@ -233,9 +232,9 @@ public:
         log_printf("Test", "Test");
     };
 
-    void Create_Instance() const override
+    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {
-        new Shell_Class();
+        new Shell_Class(Owner_User);
     };
 
 } Shell_Handle;

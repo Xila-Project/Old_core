@@ -82,7 +82,7 @@ void System_Class::Task_Function()
       System.Panic_Handler(Panic_Type::Low_Memory);
     }
 
-    Task.Delay_Until(10000);
+    Task.Delay(500);
   }
 }
 

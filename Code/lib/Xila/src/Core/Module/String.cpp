@@ -208,7 +208,6 @@ bool String_Class::Is_Valid() const
 
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
 {
-    Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)");
     if (String == NULL || !Is_Valid())
     {
         
@@ -217,7 +216,6 @@ Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_S
     
     if (Size == 0)
     {
-        
         Size = std::strlen(String) + 1;
     }
     
@@ -244,7 +242,6 @@ Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_S
 
     
     Characters_Pointer[Get_Size() - 1] = '\0';
-    Log_Verbose("String", "String_Class::Copy(const char *String, Size_Type Size, bool Change_Size) - Success");
     return Result_Type::Success;
 }
 
@@ -274,14 +271,6 @@ Result_Type String_Class::Copy_Format(const char *Format, ...)
 
 Result_Type String_Class::Concatenate(const char *String, Size_Type Size, bool Increase_Size)
 {
-    
-    Log_Verbose("String", "Char pointer : %p", String);
-    Log_Verbose("String", "Size : %d", Size);
-    Log_Verbose("String", "Increase_Size : %d", Increase_Size);
-
-    Log_Verbose("String", "String pointer : %p", Characters_Pointer);
-    Log_Verbose("String", "Size : %d", Size);
-
     if (String == NULL || !Is_Valid())
     {
         return Result_Type::Error;

@@ -19,69 +19,48 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Window.Create(Shell_Pointer);
     Window.Set_Title("Desk");
 
-
-    Log_Trace();
-
     // Overlay
 
-    Overlay.Create(Window);
+    Overlay.Create(Window.Get_Header());
     Overlay.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-    Overlay.Set_Size(18 * 8, 32);
+    Overlay.Set_Size(18 * 8, Percentage(100));
     Overlay.Set_Alignment(Alignment_Type::Top_Right);
-
-
-    Log_Trace();
+    Overlay.Set_Flex_Flow(Flex_Flow_Type::Row);
+    Overlay.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
+    Overlay.Set_Style_Pad_All(0, 0);
 
     // - Style
     Status_Buttons_Style.Set_Background_Opacity(Opacity_Type::Transparent);
     Status_Buttons_Style.Set_Pad_All(0);
 
+    WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, Shell_Pointer);
+    WiFi_Button.Add_Style(Status_Buttons_Style, 0);
+    WiFi_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
 
-    Log_Trace();
+    Sound_Button.Create(Overlay, LV_SYMBOL_VOLUME_MAX, 24, 24, Shell_Pointer);
+    Sound_Button.Add_Style(Status_Buttons_Style, 0);
+    Sound_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
+
+    Battery_Button.Create(Overlay, LV_SYMBOL_BATTERY_FULL, 24, 24, Shell_Pointer);
+    Battery_Button.Add_Style(Status_Buttons_Style, 0);
+    Battery_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
 
     Clock_Label.Create(Overlay);
     Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
     Clock_Label.Set_Text("00:00");
-
-
-    Log_Trace();
-
-    Battery_Button.Create(Overlay, LV_SYMBOL_BATTERY_FULL, 24, 24, Shell_Pointer);
-    Battery_Button.Add_Style(Status_Buttons_Style, 0);
-
-
-    Log_Trace();
-
-    Sound_Button.Create(Overlay, LV_SYMBOL_VOLUME_MAX, 24, 24, Shell_Pointer);
-    Sound_Button.Add_Style(Status_Buttons_Style, 0);
-
-
-    Log_Trace();
-
-    WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, Shell_Pointer);
-    WiFi_Button.Add_Style(Status_Buttons_Style, 0);
-
-
-    Log_Trace();
+    Clock_Label.Set_Style_Text_Color(Color_Type::White, 0);
 
     // Grid for icons
     const Coordinate_Type Grid_Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
     const Coordinate_Type Grid_Row_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
 
-
-    Log_Trace();
-
     // Create grid
     Desk_Grid.Create(Window.Get_Body());
     Desk_Grid.Set_Style_Pad_All(10, 0);
-   // Desk_Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-    Desk_Grid.Set_Style_Background_Color(Color_Type::Purple[5], 0);
+    Desk_Grid.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Desk_Grid.Set_Size(Percentage(100), Percentage(100));
     Desk_Grid.Set_Grid_Descriptor_Array(Grid_Column_Descriptor, Grid_Row_Descriptor);
     Desk_Grid.Move_Background();
-
-
-    Log_Trace();
 
     // - Desk icons
     {
@@ -94,7 +73,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
             Icon.Set_Size(40, 40);
 
             Label.Create(Desk_Grid);
-            Label.Set_Text_Format("Item %u", i);
+            Label.Set_Text_Format("Item", i);
             Label.Set_Long_Mode(Graphics_Types::Long_Type::Dot);
 
             if (i == 15)
@@ -121,9 +100,6 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         }
     }
 
-
-    Log_Trace();
-
     // - Dock
     Dock.Create(Desk_Grid);
     // - - Dock's style
@@ -134,13 +110,12 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Dock.Set_Style_Pad_Right(10, 0);
     Dock.Set_Style_Shadow_Width(20, 0);
     Dock.Set_Style_Shadow_Color(Color_Type::White, 0);
-    Dock.Set_Style_Background_Color(Color_Type::Grey[7], 0);
-    Dock.Set_Style_Radius(8, 8);
+    Dock.Set_Style_Background_Color(Color_Type::Grey[8], 0);
+    Dock.Set_Style_Radius(8, 0);
+
     // - - Dock's grid layout
     Dock.Set_Flex_Flow(Flex_Flow_Type::Row);
-
-
-    Log_Trace();
+    Dock.Set_Flex_Alignment(Flex_Alignment_Type::Center, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
 
     // - Menu button
     static Style_Type Menu_Button_Style;
@@ -151,8 +126,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Menu_Button.Create(Dock);
     Menu_Button.Set_Size(32, 32);
     Menu_Button.Add_Style(Menu_Button_Style, 0);
-
-    Log_Trace();
+    Menu_Button.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Clicked);
 
     static Style_Type Menu_Button_Part_Style;
     Menu_Button_Part_Style.Initialize();
@@ -161,15 +135,12 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
     Menu_Button_Part_Style.Set_Outline_Width(0);
     Menu_Button_Part_Style.Set_Border_Width(0);
 
-    Log_Trace();
 
     static Style_Type Menu_Button_Part_Pressed_Style;
     Menu_Button_Part_Pressed_Style.Initialize();
     Menu_Button_Part_Pressed_Style.Set_Background_Color(Color_Type::White);
     Menu_Button_Part_Pressed_Style.Set_Shadow_Width(15);
     Menu_Button_Part_Pressed_Style.Set_Shadow_Color(Color_Type::White);
-
-    Log_Trace();
 
     {
         Object_Type Red_Part;
@@ -180,7 +151,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Red_Part.Set_Alignment(Alignment_Type::Top_Left);
         Red_Part.Add_Style(Menu_Button_Part_Style, 0);
         Red_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Red_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
+        Red_Part.Add_Flag(Flag_Type::Event_Bubble);
     }
     {
         Object_Type Blue_Part;
@@ -190,7 +161,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Blue_Part.Set_Alignment(Alignment_Type::Bottom_Left);
         Blue_Part.Add_Style(Menu_Button_Part_Style, 0);
         Blue_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Blue_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
+        Blue_Part.Add_Flag(Flag_Type::Event_Bubble);
     }
     {
         Object_Type Green_Part;
@@ -200,7 +171,7 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Green_Part.Set_Alignment(Alignment_Type::Bottom_Right);
         Green_Part.Add_Style(Menu_Button_Part_Style, 0);
         Green_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Green_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
+        Green_Part.Add_Flag(Flag_Type::Event_Bubble);
     }
     {
         Object_Type Yellow_Part;
@@ -210,47 +181,36 @@ Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(
         Yellow_Part.Set_Alignment(Alignment_Type::Top_Right);
         Yellow_Part.Add_Style(Menu_Button_Part_Style, 0);
         Yellow_Part.Add_Style(Menu_Button_Part_Pressed_Style, Part_Type::Main | Graphics_Types::State_Type::Pressed);
-        Yellow_Part.Add_Event(Shell_Pointer, Graphics_Types::Event_Code_Type::Pressed);
+        Yellow_Part.Add_Flag(Flag_Type::Event_Bubble);
     }
-
-    Log_Trace();
 
     Dock_List.Create(Dock);
     Dock_List.Set_Flex_Grow(1);
     Dock_List.Set_Flex_Flow(Flex_Flow_Type::Row);
-    Dock_List.Set_Style_Background_Color(Color_Type::Grey[6], 0);
+    Dock_List.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
     Dock_List.Set_Style_Border_Width(0, 0);
     Dock_List.Set_Style_Pad_All(0, 0);
     Dock_List.Set_Content_Height(40);
 
-    Log_Verbose("Shell", "Dock created.");
-
     {
         Static_String_Type<24> User;
 
-        Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
-        Log_Verbose("Shell", "Shell pointer owner : %p", Shell_Pointer->Get_Owner_User());
-
         Shell_Pointer->Get_Owner_User()->Get_Name(User);
-
-        Log_Verbose("Shell", "Current user is \"%s\".", (const char*)User);
-
-        Task_Type::Delay_Static(1000);
 
         if (User == "Xila")
         {
-            Log_Verbose("Shell", "System user detected, opening login screen / installer.");
-            File_Type Users_Folder = Drive.Open(Users_Directory_Path);
-            if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
-            {
-                Shell_Class::Login_Class::Open(Shell_Pointer);
-            }
-            else
-            {
-                Shell_Class::Installer_Class::Open(Shell_Pointer);
-            }
-            // Hide dock since current user is system user (Xila).
-            Dock.Add_Flag(Flag_Type::Hidden);
+            //    Log_Verbose("Shell", "System user detected, opening login screen / installer.");
+            //    File_Type Users_Folder = Drive.Open(Users_Directory_Path);
+            //    if (Users_Folder && Users_Folder.Is_Directory() && (Users_Folder.Count_Items() > 0))
+            //    {
+            //        Shell_Class::Login_Class::Open(Shell_Pointer);
+            //    }
+            //    else
+            //    {
+            //        Shell_Class::Installer_Class::Open(Shell_Pointer);
+            //    }
+            //    // Hide dock since current user is system user (Xila).
+            //    Dock.Add_Flag(Flag_Type::Hidden);
         }
     }
 
@@ -294,17 +254,17 @@ void Shell_Class::Desk_Class::Refresh()
     // - Refresh dock software list.
 
     // If there are too many buttons, delete some.
-    while (Dock_List.Get_Child_Count() > Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
+    while (Dock_List.Get_Child_Count() > Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User() - 1))
     {
         Dock_List.Get_Child(Dock_List.Get_Child_Count() - 1).Delete();
     }
     // If there is not enough buttons, create more.
     {
         Button_Type Button;
-        while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User()))
+        while (Dock_List.Get_Child_Count() < Softwares.Get_User_Softwares_Count(Shell_Pointer->Get_Owner_User() - 1))
         {
             Log_Verbose("Shell", "Shell pointer : %p", Shell_Pointer);
-            Button.Create(Dock_List, " ", 40, 40, Shell_Pointer);   // Adding a space to force the button to create a label.
+            Button.Create(Dock_List, " ", 40, 40, Shell_Pointer); // Adding a space to force the button to create a label.
             Button.Set_Style_Border_Width(0, 0);
         }
     }
@@ -401,7 +361,9 @@ void Shell_Class::Desk_Class::Refresh_Overlay()
     }
     {
         Label_Type Sound_Label = Label_Type(Sound_Button.Get_Child(0)); // Casting
-        if (!Sound_Label.Is_Valid()) {}
+        if (!Sound_Label.Is_Valid())
+        {
+        }
         // -- Update sound
         else if (Sound.Get_Volume() >= (255 * 2 / 3))
         {
@@ -427,21 +389,29 @@ void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instru
         {
         case Event_Code_Type::Clicked:
         {
-            // Check if dock button is pressed
-            for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
+            if (Instruction.Graphics.Get_Object() == Menu_Button)
             {
-                // If one of the dock button is pressed, maximize the windows of corresponding software.
-                if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
+                Log_Verbose("Shell", "Menu button clicked");
+                Shell_Class::Drawer_Class::Open(Shell_Pointer);
+            }
+            else
+            {
+                // Check if dock button is pressed
+                for (uint8_t i = 0; i < Dock_List.Get_Child_Count(); i++)
                 {
-                    const Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
-                    // Iterate through all children windows of the parent window.
-                    for (uint8_t j = 0; j < Window.Get_Child_Count(); j++)
+                    // If one of the dock button is pressed, maximize the windows of corresponding software.
+                    if (Desk_Grid.Get_Child(i) == Instruction.Graphics.Get_Object())
                     {
-                        Window_Type Child_Window = Window.Get_Child(j);
-                        // If the window is valid and owned by the software, maximize it.
-                        if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
+                        const Software_Type *Software_Pointer = Softwares.Get_User_Softwares(Shell_Pointer->Get_Owner_User(), i);
+                        // Iterate through all children windows of the parent window.
+                        for (uint8_t j = 0; j < Window.Get_Child_Count(); j++)
                         {
-                            Child_Window.Set_State(Window_State_Type::Maximized);
+                            Window_Type Child_Window = Window.Get_Child(j);
+                            // If the window is valid and owned by the software, maximize it.
+                            if (Child_Window && (Child_Window.Get_Owner_Software() == Software_Pointer))
+                            {
+                                Child_Window.Set_State(Window_State_Type::Maximized);
+                            }
                         }
                     }
                 }

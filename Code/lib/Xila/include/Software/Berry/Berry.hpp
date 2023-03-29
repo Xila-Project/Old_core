@@ -25,7 +25,7 @@ class Berry_Class : public Software_Type
     // - Methods
 
     // - - Constructors / destructor
-    Berry_Class();
+    Berry_Class(const Accounts_Types::User_Type* Owner_User);
     ~Berry_Class();
 
     // - - Task
@@ -61,9 +61,9 @@ static class Berry_Handle_Class : public Software_Handle_Type
 public:
     Berry_Handle_Class() : Software_Handle_Type("Berry"){};
 
-    void Create_Instance() const override
+    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {
-        new Berry_Class();
+        new Berry_Class(Owner_User);
     }
 
 } Berry_Handle;
@@ -73,9 +73,9 @@ class Berry_Softwares_Handle_Class : public Software_Handle_Type
 public:
     Berry_Softwares_Handle_Class(const char* Name) : Software_Handle_Type(Name){};
 
-    void Create_Instance() const override
+    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
     {
-        new Berry_Class();
+        new Berry_Class(Owner_User);
     }
 };
 
