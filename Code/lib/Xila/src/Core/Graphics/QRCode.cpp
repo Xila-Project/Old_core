@@ -27,8 +27,9 @@ QRCode_Class::QRCode_Class() : Object_Class()
 {
 }
 
-QRCode_Class::QRCode_Class(const Object_Class &Object) : Object_Class(Object)
+QRCode_Class::QRCode_Class(const Object_Class &Object)
 {
+    this->Set_Pointer(Object.Get_Pointer());
 }
 
 QRCode_Class::~QRCode_Class()

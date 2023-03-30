@@ -16,7 +16,7 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type& Roller_Class::Class = lv_roller_class;
+const Class_Type &Roller_Class::Class = lv_roller_class;
 
 // - Methods
 
@@ -26,8 +26,9 @@ Roller_Class::Roller_Class() : Object_Class()
 {
 }
 
-Roller_Class::Roller_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+Roller_Class::Roller_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation
@@ -50,7 +51,7 @@ bool Roller_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
         return false;
     }
     Object_Type Object(LVGL_Object_Pointer);
-    if (!Object.Check_Class( &lv_roller_class))
+    if (!Object.Check_Class(&lv_roller_class))
     {
         return false;
     }

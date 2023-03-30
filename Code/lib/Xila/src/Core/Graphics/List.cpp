@@ -16,7 +16,7 @@ using namespace Xila_Namespace::Graphics_Types;
 
 // - Attributes
 
-const Class_Type& List_Class::Class = lv_list_class;
+const Class_Type &List_Class::Class = lv_list_class;
 
 // - Methods
 
@@ -26,8 +26,9 @@ List_Class::List_Class() : Object_Class()
 {
 }
 
-List_Class::List_Class(const Object_Class& Object_To_Copy) : Object_Class(Object_To_Copy)
+List_Class::List_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation
@@ -41,9 +42,9 @@ void List_Class::Create(Object_Class Parent_Object)
     }
 }
 
-Button_Class List_Class::Add_Button(const char* Icon, const char* Text)
+Button_Class List_Class::Add_Button(const char *Icon, const char *Text)
 {
-    lv_obj_t* Button_Pointer;
+    lv_obj_t *Button_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Button_Pointer = lv_list_add_btn(Get_Pointer(), Icon, Text);
@@ -51,9 +52,9 @@ Button_Class List_Class::Add_Button(const char* Icon, const char* Text)
     return Button_Type(Object_Type(Button_Pointer));
 }
 
-Label_Class List_Class::Add_Text(const char* Text)
+Label_Class List_Class::Add_Text(const char *Text)
 {
-    lv_obj_t* Label_Pointer;
+    lv_obj_t *Label_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Label_Pointer = lv_list_add_text(Get_Pointer(), Text);
@@ -61,21 +62,20 @@ Label_Class List_Class::Add_Text(const char* Text)
     return List_Class(Object_Type(Label_Pointer));
 }
 
-
 // ------------------------------------------------------------------------- //
 //
 //                                    Setters
 //
 // ------------------------------------------------------------------------- //
 
-bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
+bool List_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
-     if (Get_Pointer() != NULL)
+    if (Get_Pointer() != NULL)
     {
         return false;
     }
     Object_Type Object(LVGL_Object_Pointer);
-    if (!Object.Check_Class( &lv_list_class))
+    if (!Object.Check_Class(&lv_list_class))
     {
         return false;
     }
@@ -89,7 +89,8 @@ bool List_Class::Set_Pointer(lv_obj_t* LVGL_Object_Pointer)
 //
 // ------------------------------------------------------------------------- //
 
-const char* List_Class::Get_Button_Text(Button_Class& Button)
-{ Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
+const char *List_Class::Get_Button_Text(Button_Class &Button)
+{
+    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_list_get_btn_text(Get_Pointer(), Button.Get_Pointer());
 }

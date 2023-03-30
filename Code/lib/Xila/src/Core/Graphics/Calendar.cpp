@@ -26,8 +26,9 @@ Calendar_Class::Calendar_Class() : Object_Class()
 {
 }
 
-Calendar_Class::Calendar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Calendar_Class::Calendar_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

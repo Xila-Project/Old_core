@@ -22,8 +22,9 @@ Tabs_Class::Tabs_Class() : Object_Class()
 {
 }
 
-Tabs_Class::Tabs_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Tabs_Class::Tabs_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

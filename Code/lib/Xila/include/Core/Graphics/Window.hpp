@@ -21,7 +21,6 @@
 #include "Core/Software/Software.hpp"
 #include "Core/Account/Accounts.hpp"
 
-
 namespace Xila_Namespace
 {
 
@@ -55,6 +54,9 @@ namespace Xila_Namespace
             /// @brief Create a new parent window for software.
             virtual void Create(const Software_Type *Owner_Module);
 
+
+            virtual void Delete() override;
+
             // - - Setters
 
             /// @brief Set the title of the window.
@@ -63,7 +65,7 @@ namespace Xila_Namespace
 
             /// @brief Set the pointer of the object.
             /// @param LVGL_Object_Pointer
-            /// @return 
+            /// @return
             virtual bool Set_Pointer(lv_obj_t *LVGL_Object_Pointer) override;
 
             /// @brief Set the state of the window.
@@ -88,50 +90,33 @@ namespace Xila_Namespace
             /// @return Title label of the window.
             const Software_Type *Get_Owner_Software() const;
 
+            static void Event_Callback(lv_event_t* Event);
+
             // - Attributes
 
             /// @brief Custom LVGL class for Window (almost identical to object class).
             static const Graphics_Types::Class_Type Class;
+
+
         protected:
             // - Methods
             // - - Setters
             void Set_Interface();
 
-            // - Attributes
-            const Software_Type *Owner_Software;
+            typedef struct Data_Structure
+            {
+                Object_Type Header;
+                Object_Type Body;
+                Label_Type Title_Label;
+                Button_Type Close_Button;
+                Button_Type Minimize_Button;
+                const Software_Type *Owner_Software;
+            } Data_Type;
 
-            Object_Class Header;
-            Object_Class Body;
-
-            Label_Class Title_Label;
-
-            Button_Class Close_Button;
-            Button_Class Minimize_Button;
+            Data_Type* Data;
 
         } Window_Type;
 
-        typedef class Parent_Window_Class : public Window_Class
-        {
-        public:
-            // - Methods
-            Parent_Window_Class();
-            Parent_Window_Class(Parent_Window_Class& Object_To_Copy);
-            Parent_Window_Class(const Object_Type& Object_To_Copy);
-
-            virtual void Create(const Software_Type *Owner_Module) override;
-            virtual void Delete() override;
-
-            static Parent_Window_Class* Get_User_Parent_Window(const Accounts_Types::User_Type* User); 
-
-            // - Attributes
-
-            /// @brief Custom LVGL class for Parent window (almost identical to object class).
-            static const Graphics_Types::Class_Type Class;
-
-        private:
-
-            static std::list<Parent_Window_Class*> List;
-        } Parent_Window_Type;      
     };
 }
 

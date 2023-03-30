@@ -26,8 +26,9 @@ Keyboard_Class::Keyboard_Class() : Object_Class()
 {
 }
 
-Keyboard_Class::Keyboard_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Keyboard_Class::Keyboard_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

@@ -28,8 +28,9 @@ Text_Area_Class::Text_Area_Class() : Object_Class()
 
 /// @brief Copy constructor from object.
 /// @param Object_To_Copy 
-Text_Area_Class::Text_Area_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Text_Area_Class::Text_Area_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

@@ -31,7 +31,7 @@ Result_Type Graphics_Class::Start()
 
     if (!lv_is_initialized())
     {
-       return Result_Type::Error;
+        return Result_Type::Error;
     }
 
     // - Set draw buffer
@@ -51,48 +51,31 @@ Result_Type Graphics_Class::Start()
     Input_Device_Driver_Interface.read_cb = Display_Class::Input_Read;
     lv_indev_drv_register(&Input_Device_Driver_Interface);
 
-
     // - Set file system driver
-    
+
     if (Semaphore.Create(Semaphore_Type::Type_Type::Recursive_Mutex) != Result_Type::Success)
     {
         return Result_Type::Error;
     }
 
-    // - Create keyboard
-
-    Keyboard.Create(this->Get_Screen());
-    Keyboard.Add_Flag(Flag_Type::Hidden);
-    this->Get_Screen().Set_Style_Pad_All(0, 0);
-
     // - Create task
-    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);   
-    
+    Task.Create(Task_Start_Function, "Graphics task", 8 * 1024, this, Task_Type::Priority_Type::System);
+
     return Result_Type::Success;
 }
 
 Result_Type Graphics_Class::Stop()
-{ 
-    
+{
+
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         lv_deinit();
     }
-    
+
     Keyboard.Delete();
     Task.Delete();
 
     return Result_Type::Success;
-}
-
-void Graphics_Class::Set_Keyboard_Text_Area(Text_Area_Type& Text_Area)
-{
-    Keyboard.Set_Text_Area(Text_Area);
-}
-
-void Graphics_Class::Remove_Keyboard_Text_Area()
-{
-    Keyboard.Remove_Text_Area();
 }
 
 void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
@@ -103,18 +86,42 @@ void Graphics_Class::Task_Start_Function(void *Instance_Pointer)
 void Graphics_Class::Task_Function()
 {
     while (true)
-    { 
+    {
         this->Take_Semaphore();
         lv_timer_handler();
         this->Give_Semaphore();
-        lv_tick_inc(6); 
+        lv_tick_inc(6);
+        while (Instruction_Available())
+            Execute_Instruction(Get_Instruction());
+
         Task.Delay(6);
     }
 }
 
 void Graphics_Class::Execute_Instruction(Instruction_Type Instruction)
 {
+    // TODO : Move this in shell instead 
+    if (Instruction.Get_Sender() == this)
+    {
+        switch (Instruction.Graphics.Get_Code())
+        {
+        case Event_Code_Type::Minimize:
+        {
 
+            Window_Type Window = Instruction.Graphics.Get_Object();
+            if (Window.Is_Valid())
+                Window.Set_State(Window_State_Type::Minimized);
+            break;
+        }
+        case Event_Code_Type::Close:
+        {
+            Window_Type Window = Instruction.Graphics.Get_Object();
+            if (Window.Is_Valid())
+                Softwares.Close(const_cast<Software_Type*>(Window.Get_Owner_Software()));
+                break;
+        }
+        }
+    }
 }
 
 void Graphics_Class::Event_Handler(lv_event_t *Event)
@@ -133,20 +140,12 @@ void Graphics_Class::Event_Handler(lv_event_t *Event)
     Instruction.Graphics.Set_Object(Object);
 
     Instruction.Get_Receiver()->Send_Instruction(Instruction);
-
-    Log_Verbose("Graphics", "Event sent");
 }
 
 Object_Type Graphics_Type::Get_Top_Layer()
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return Object_Type(lv_layer_top());
-}
-
-Object_Type Graphics_Type::Get_Screen()
-{
-    Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    return Object_Type(lv_scr_act());
 }
 
 /*

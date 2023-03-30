@@ -27,8 +27,9 @@ Bar_Class::Bar_Class() : Object_Class()
 {
 }
 
-Bar_Class::Bar_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Bar_Class::Bar_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

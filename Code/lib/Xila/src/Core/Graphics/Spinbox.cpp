@@ -26,8 +26,9 @@ Spinbox_Class::Spinbox_Class() : Object_Class()
 {
 }
 
-Spinbox_Class::Spinbox_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Spinbox_Class::Spinbox_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation.

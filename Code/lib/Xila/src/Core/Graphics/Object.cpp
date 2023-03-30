@@ -16,7 +16,6 @@
 using namespace Xila_Namespace;
 using namespace Xila_Namespace::Graphics_Types;
 
-
 // - Methods
 
 // - - Constructors / destructors
@@ -25,16 +24,14 @@ Object_Class::Object_Class() : LVGL_Object_Pointer(NULL)
 {
 }
 
-Object_Class::Object_Class(lv_obj_t *Object_Pointer) : LVGL_Object_Pointer(Object_Pointer)
+Object_Class::Object_Class(lv_obj_t *LVGL_Object_Pointer) : Object_Class()
 {
+    Set_Pointer(LVGL_Object_Pointer);
 }
 
-/// @brief Copy constructor.
-/// @details This is called recursively by all children classes since Set_Pointer() is virtual.
-/// @param Object_To_Copy Object to copy.
-Object_Class::Object_Class(const Object_Class &Object_To_Copy)
+Object_Class::Object_Class(const Object_Class &Object_To_Copy) : Object_Class()
 {
-    this->LVGL_Object_Pointer = Object_To_Copy.Get_Pointer();
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Operators
@@ -137,10 +134,15 @@ void Object_Class::Swap(Object_Class Object_To_Swap_With)
     lv_obj_swap(Get_Pointer(), Object_To_Swap_With.Get_Pointer());
 }
 
-void Object_Class::Add_Event(Module_Class *Module_Pointer, Event_Code_Type Event_Code)
+void Object_Class::Add_Event(lv_event_cb_t Event_Callback, Event_Code_Type Event_Code, void* User_Data)
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
-    lv_obj_add_event_cb(Get_Pointer(), Graphics_Class::Event_Handler, (lv_event_code_t)Event_Code, (void *)Module_Pointer); // Use user data pointer to store argument of the event.
+    lv_obj_add_event_cb(Get_Pointer(), Event_Callback, (lv_event_code_t)Event_Code, User_Data); // Use user data pointer to store argument of the event.
+}
+
+void Object_Class::Add_Event(Module_Class *Module_Pointer, Event_Code_Type Event_Code)
+{
+    this->Add_Event(Graphics_Class::Event_Handler, Event_Code, Module_Pointer);
 }
 
 bool Object_Class::Remove_Event(Module_Class *Module_Pointer)
@@ -192,7 +194,7 @@ bool Object_Class::Has_Class(const Class_Type *Class_To_Check) const
     return lv_obj_has_class(Get_Pointer(), Class_To_Check);
 }
 
-bool Object_Class::Check_Class(const Class_Type* Class_To_Check) const
+bool Object_Class::Check_Class(const Class_Type *Class_To_Check) const
 {
     return (this->Get_Class() == Class_To_Check);
 }
@@ -202,7 +204,7 @@ const Class_Type *Object_Class::Get_Class() const
     return lv_obj_get_class(Get_Pointer());
 }
 
-bool Object_Class::Is_Valid()
+bool Object_Class::Is_Valid() const
 {
     if (Get_Pointer() == NULL)
     {
@@ -308,9 +310,8 @@ void Object_Class::Set_Content_Height(Coordinate_Type Content_Height)
 bool Object_Class::Set_Pointer(lv_obj_t *LVGL_Object_Pointer)
 {
     if (Get_Pointer() != NULL)
-    {
         return false;
-    }
+
     this->LVGL_Object_Pointer = LVGL_Object_Pointer;
     return true;
 }
@@ -983,7 +984,7 @@ void Object_Class::Set_Tile_Identifier(uint16_t Column_Identifier, uint16_t Row_
 //
 // ------------------------------------------------------------------------- //
 
-void *Object_Class::Get_User_Data()
+void *Object_Class::Get_User_Data() const
 {
     Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
     return lv_obj_get_user_data(Get_Pointer());
@@ -997,7 +998,7 @@ State_Type Object_Class::Get_State()
 
 Object_Class Object_Class::Get_Child(uint16_t Index)
 {
-    lv_obj_t* Child_Pointer;
+    lv_obj_t *Child_Pointer;
     {
         Auto_Semaphore_Type Semaphore = Graphics.Take_Semaphore_Auto();
         Child_Pointer = lv_obj_get_child(Get_Pointer(), Index);

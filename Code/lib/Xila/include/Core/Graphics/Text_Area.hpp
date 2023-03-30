@@ -29,10 +29,10 @@ namespace Xila_Namespace
 
             // - Methods
             Text_Area_Class();
-            Text_Area_Class(const Object_Class& Object_To_Copy);
+            Text_Area_Class(const Object_Class &Object_To_Copy);
 
             virtual void Create(Object_Class Parent_Object) override;
-            
+
             void Add_Char(uint32_t Character);
             void Add_Text(const char *Text);
             void Delete_Character();
@@ -79,7 +79,7 @@ namespace Xila_Namespace
 
             // - Attributes
 
-            static const Graphics_Types::Class_Type& Class;
+            static const Graphics_Types::Class_Type &Class;
 
         } Text_Area_Type;
     }

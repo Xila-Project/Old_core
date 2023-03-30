@@ -24,8 +24,9 @@ Canvas_Class::Canvas_Class() : Object_Class()
 {
 }
 
-Canvas_Class::Canvas_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Canvas_Class::Canvas_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Constructors / destructors

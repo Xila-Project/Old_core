@@ -26,8 +26,9 @@ Button_Matrix_Class::Button_Matrix_Class() : Object_Class()
 {
 }
 
-Button_Matrix_Class::Button_Matrix_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Button_Matrix_Class::Button_Matrix_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

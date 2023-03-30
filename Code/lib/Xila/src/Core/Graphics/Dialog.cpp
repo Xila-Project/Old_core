@@ -28,12 +28,13 @@ const Class_Type Dialog_Class::Class = {
 
 void Dialog_Class::Create(const Software_Type* Owner_Software)
 {
-    if (Owner_Software == NULL)
+ 
+ /*   if (Owner_Software == NULL)
     {
         return;
     }
 
-    Parent_Window_Type* Parent_Window = Parent_Window_Type::Get_User_Parent_Window(Owner_Software->Get_Owner_User());
+    Screen_Type User_Screen = Screen_Type::Get_User_Screen(Owner_Software->Get_Owner_User());
 
     if (Parent_Window == NULL)
     {
@@ -49,6 +50,7 @@ void Dialog_Class::Create(const Software_Type* Owner_Software)
     this->Owner_Software = Owner_Software;
     this->Set_Interface();
     this->Set_Size(Percentage(75), Percentage(75));
+*/
 }
 
 void Dialog_Class::Create(Object_Class Parent_Object)
@@ -61,7 +63,6 @@ void Dialog_Class::Create(Object_Class Parent_Object)
     this->Set_Pointer(lv_obj_create(Parent_Object.Get_Pointer()));
     this->Set_Interface();
     this->Set_Size(Percentage(75), Percentage(75));
-
 }
 
 bool Dialog_Class::Is_Overlay()

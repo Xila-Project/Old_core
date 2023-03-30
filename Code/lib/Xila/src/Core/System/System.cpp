@@ -126,10 +126,11 @@ Result_Type System_Class::Upgrade(File_Type Executable_File)
 /// @param Panic_Code Panic code to handle.
 void System_Class::Panic_Handler(Panic_Type Panic_Code)
 {
+  using namespace Graphics_Types;
   Log_Error("System", "Something went wrong...\r\nXila has encountered an unrecoverable error and must restart.\r\nPlease wait for the system to restart itself or press the power button for a few seconds.\r\nError : %X.", Panic_Code);
 
   Object_Type Background;
-  Background.Create(Graphics.Get_Screen());
+  Background.Create(Screen_Type::Get_Active());
   Background.Set_Size(Percentage(100), Percentage(100));
   Background.Set_Style_Background_Color(Color_Type::Black, 0);
   Background.Set_Style_Pad_All(0, 0);

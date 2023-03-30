@@ -30,6 +30,21 @@ using namespace Xila;
 /// @details Main inter
 class Shell_Class : public Software_Type
 {
+    // - Atributes
+
+    // - - Graphics
+
+    // - - - Overlay
+
+    Style_Type Status_Buttons_Style;
+    Object_Type Overlay;
+    Button_Type Battery_Button;
+    Button_Type WiFi_Button;
+    Button_Type Sound_Button;
+    Graphics_Types::Label_Type Clock_Label;
+
+    Graphics_Types::Screen_Type Screen; // ! : Must be declared before desk (due to the order of construction) since desk needs screen to create a window.
+    Graphics_Types::Keyboard_Type Keyboard;
 
     /// @brief Desk class
     class Desk_Class
@@ -43,7 +58,6 @@ class Shell_Class : public Software_Type
 
         // - - Others
         void Execute_Instruction(const Instruction_Type &Instruction);
-        void Refresh_Overlay();
 
         // - -  Getters
         Color_Type Get_Background_Color() const;
@@ -54,7 +68,7 @@ class Shell_Class : public Software_Type
         void Set_Foreground_Color(Color_Type Color);
 
         // - Attributes
-        Graphics_Types::Parent_Window_Class Window;
+        Graphics_Types::Window_Type Window;
 
     private:
         // - Methods
@@ -62,14 +76,6 @@ class Shell_Class : public Software_Type
         void Refresh();
 
         // - Attributes
-        // - - Overlay
-        Style_Type Status_Buttons_Style;
-        Object_Type Overlay;
-        Button_Type Battery_Button;
-        Button_Type WiFi_Button;
-        Button_Type Sound_Button;
-        
-        Graphics_Types::Label_Type Clock_Label;
 
         // - - Parent window
         Object_Type Desk_Grid;
@@ -125,6 +131,7 @@ class Shell_Class : public Software_Type
 
         // - Attributes
         Graphics_Types::Dialog_Type Dialog;
+
     private:
         // - Methods
 
@@ -140,7 +147,6 @@ class Shell_Class : public Software_Type
         Graphics_Types::Text_Area_Type Password_Input;
         Button_Type Login_Button;
         Graphics_Types::Label_Type Login_Label;
-
 
         Shell_Class *Shell_Pointer;
     } *Login_Pointer;
@@ -205,20 +211,20 @@ class Shell_Class : public Software_Type
 
     // - - Constructors / destructor
 
-    Shell_Class(const Accounts_Types::User_Type* Owner_User);
+    Shell_Class(const Accounts_Types::User_Type *Owner_User);
     ~Shell_Class() override;
 
     // - - Others
 
     void Execute_Instruction(Instruction_Type Instruction);
-
     void Main_Task_Function() override;
+    void Refresh_Overlay();
 
     // - - Registry
     Result_Type Save_Registry();
     Result_Type Create_Registry();
     Result_Type Load_Registry();
-    
+
     friend class Shell_Handle_Class;
 };
 
@@ -232,7 +238,7 @@ public:
         log_printf("Test", "Test");
     };
 
-    void Create_Instance(const Accounts_Types::User_Type* Owner_User) const override
+    void Create_Instance(const Accounts_Types::User_Type *Owner_User) const override
     {
         new Shell_Class(Owner_User);
     };

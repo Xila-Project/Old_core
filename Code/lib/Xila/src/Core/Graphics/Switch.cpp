@@ -26,8 +26,9 @@ Switch_Class::Switch_Class() : Object_Class()
 {
 }
 
-Switch_Class::Switch_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Switch_Class::Switch_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

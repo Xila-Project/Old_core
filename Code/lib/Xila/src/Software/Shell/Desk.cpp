@@ -16,41 +16,11 @@
 Shell_Class::Desk_Class::Desk_Class(Shell_Class *Shell_Pointer) : Shell_Pointer(Shell_Pointer)
 {
     // Window
-    Window.Create(Shell_Pointer);
+    Shell_Pointer->Screen.Load();
+    Window.Create(Shell_Pointer->Screen);
+    Task_Type::Delay_Static(100);
+    Log_Verbose("Desk", "Desk window created : %p", Window.Get_Pointer());
     Window.Set_Title("Desk");
-
-    // Overlay
-
-    Overlay.Create(Window.Get_Header());
-    Overlay.Set_Style_Background_Opacity(Opacity_Type::Transparent, 0);
-    Overlay.Set_Size(18 * 8, Percentage(100));
-    Overlay.Set_Alignment(Alignment_Type::Top_Right);
-    Overlay.Set_Flex_Flow(Flex_Flow_Type::Row);
-    Overlay.Set_Flex_Alignment(Flex_Alignment_Type::Space_Evenly, Flex_Alignment_Type::Center, Flex_Alignment_Type::Center);
-    Overlay.Set_Style_Pad_All(0, 0);
-
-    // - Style
-    Status_Buttons_Style.Set_Background_Opacity(Opacity_Type::Transparent);
-    Status_Buttons_Style.Set_Pad_All(0);
-    Status_Buttons_Style.Set_Shadow_Width(0);
-
-    WiFi_Button.Create(Overlay, LV_SYMBOL_WIFI, 24, 24, Shell_Pointer);
-    WiFi_Button.Add_Style(Status_Buttons_Style, 0);
-    WiFi_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
-
-    Sound_Button.Create(Overlay, LV_SYMBOL_VOLUME_MAX, 24, 24, Shell_Pointer);
-    Sound_Button.Add_Style(Status_Buttons_Style, 0);
-    Sound_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
-
-    Battery_Button.Create(Overlay, LV_SYMBOL_BATTERY_FULL, 24, 24, Shell_Pointer);
-    Battery_Button.Add_Style(Status_Buttons_Style, 0);
-    Battery_Button.Get_Child(0).Set_Style_Text_Color(Color_Type::White, 0);
-
-    Clock_Label.Create(Overlay);
-    Clock_Label.Set_Alignment(Alignment_Type::Middle_Right);
-    Clock_Label.Set_Text("00:00");
-    Clock_Label.Set_Style_Text_Color(Color_Type::White, 0);
-
 
     // Grid for icons
     const Coordinate_Type Grid_Column_Descriptor[] = {LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_FR(1), LV_GRID_TEMPLATE_LAST};
@@ -292,95 +262,6 @@ void Shell_Class::Desk_Class::Refresh()
     }
 }
 
-/// @brief Refresh the header overlay.
-void Shell_Class::Desk_Class::Refresh_Overlay()
-{
-    using namespace Xila::Graphics_Types;
-
-    // - Refresh clock
-    static Time_Type Current_Time = System.Get_Time();
-
-    Clock_Label.Set_Text_Format("%02d:%02d", Current_Time.Get_Hours(), Current_Time.Get_Minutes());
-
-    {
-        Label_Type WiFi_Label = Label_Type(WiFi_Button.Get_Child(0)); // Casting
-        if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Station && WiFi.Station.Get_Status() == WiFi_Types::Status_Type::Connected)
-        {
-            // - Update WiFi signal strength
-            // TODO : Add different WiFi signal strength icons.
-            if (!WiFi_Label.Is_Valid())
-            {
-            }
-            else if (WiFi.Station.Get_RSSI() >= (-120 / 3))
-            {
-                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
-            }
-            else if (WiFi.Station.Get_RSSI() >= (-120 * 2 / 3))
-            {
-                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
-            }
-            else
-            {
-                WiFi_Label.Set_Text(LV_SYMBOL_WIFI);
-            }
-        }
-        else if (WiFi.Get_Mode() == WiFi_Types::Mode_Type::Access_Point)
-        {
-            WiFi_Label.Set_Text("");
-        }
-        else
-        {
-            WiFi_Label.Set_Text("");
-        }
-    }
-
-    {
-        Label_Type Battery_Label = Label_Type(Battery_Button.Get_Child(0)); // Casting
-        // - Update charge level
-        if (!Battery_Label.Is_Valid())
-        {
-        }
-        else if (Power.Get_Charge_Level() >= 85)
-        {
-            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_FULL);
-        }
-        else if (Power.Get_Charge_Level() >= 60)
-        {
-            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_3);
-        }
-        else if (Power.Get_Charge_Level() >= 35)
-        {
-            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_2);
-        }
-        else if (Power.Get_Charge_Level() >= 10)
-        {
-            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_1);
-        }
-        else
-        {
-            Battery_Label.Set_Text(LV_SYMBOL_BATTERY_EMPTY);
-        }
-    }
-    {
-        Label_Type Sound_Label = Label_Type(Sound_Button.Get_Child(0)); // Casting
-        if (!Sound_Label.Is_Valid())
-        {
-        }
-        // -- Update sound
-        else if (Sound.Get_Volume() >= (255 * 2 / 3))
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MAX);
-        }
-        else if (Sound.Get_Volume() >= (255 / 3))
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_VOLUME_MID);
-        }
-        else
-        {
-            Sound_Label.Set_Text(LV_SYMBOL_MUTE);
-        }
-    }
-}
 
 void Shell_Class::Desk_Class::Execute_Instruction(const Instruction_Type &Instruction)
 {

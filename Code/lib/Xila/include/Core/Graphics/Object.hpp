@@ -68,7 +68,7 @@ namespace Xila_Namespace
         // -- Constructors
 
         Object_Class();
-        Object_Class(lv_obj_t *Object_Pointer);
+        Object_Class(lv_obj_t *LVGL_Object_Pointer);
         Object_Class(const Object_Class &Object_To_Copy);
 
         // - - Operators
@@ -117,6 +117,7 @@ namespace Xila_Namespace
         // - - Swap
         void Swap(Object_Class Object_To_Swap_With);
         // - - Events
+        void Add_Event(lv_event_cb_t Event_Callback, Graphics_Types::Event_Code_Type Event_Code, void* User_Data = NULL);
         void Add_Event(Module_Class *Module_Pointer, Graphics_Types::Event_Code_Type Event_Code);
         bool Remove_Event(Module_Class *Module_Pointer);
         bool Remove_All_Events();
@@ -131,7 +132,7 @@ namespace Xila_Namespace
         const Graphics_Types::Class_Type *Get_Class() const;
         bool Has_Class(const Graphics_Types::Class_Type *Class) const;
         bool Check_Class(const Graphics_Types::Class_Type *Class) const;
-        bool Is_Valid();
+        bool Is_Valid() const;
 
         void Add_Style(Style_Type &Style, Style_Selector_Type Style_Selector);
 
@@ -320,7 +321,7 @@ namespace Xila_Namespace
         Graphics_Types::State_Type Get_State();
 
         void *Get_Group();
-        void *Get_User_Data();
+        void *Get_User_Data() const;
 
         bool Get_Object_Visibility();
 

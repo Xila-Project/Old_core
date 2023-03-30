@@ -43,7 +43,6 @@ User_State_Type User_Class::Get_State() const
 
 void User_Class::Get_Name(String_Type& Name) const
 {
-  Log_Verbose("User", "Get_Name : %s", (const char*)this->Name);
   Name = this->Name;
 }
 

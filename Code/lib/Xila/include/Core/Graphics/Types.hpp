@@ -240,11 +240,9 @@ namespace Xila_Namespace
 
             Last_Event = _LV_EVENT_LAST,
 
-            // - - Other events
-            Minimize,
-            Maximize,
-            Active,
-            Inactive
+            // - - Window events
+            Minimize,  
+            Close,
 
         };
 

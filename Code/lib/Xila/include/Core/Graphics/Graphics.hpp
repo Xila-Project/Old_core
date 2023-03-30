@@ -46,11 +46,13 @@
 #include "Menu.hpp"
 #include "Meter.hpp"
 // #include "Message_Box.hpp"
+#include "Screen.hpp"
 // #include "Span.hpp"
 // #include "Spinbox.hpp"
 // #include "Spinner.hpp"
 #include "Tabs.hpp"
 // #include "Tileview.hpp"
+
 
 #include <atomic>
 
@@ -72,6 +74,8 @@ namespace Xila_Namespace
         Result_Type Start();
         Result_Type Stop();
 
+        Object_Type Get_Top_Layer();
+
         // - - Task
         static void Task_Start_Function(void *Instance_Pointer);
         void Task_Function();
@@ -79,10 +83,6 @@ namespace Xila_Namespace
         // - - Instruction
         void Execute_Instruction(Instruction_Class Instruction);
         static void Event_Handler(lv_event_t *Event);
-
-        // - - - Keyboard
-        void Set_Keyboard_Text_Area(Graphics_Types::Text_Area_Type& Text_Area);
-        void Remove_Keyboard_Text_Area();
 
         // - - Semaphore
         inline Auto_Semaphore_Type Take_Semaphore_Auto()
@@ -102,10 +102,6 @@ namespace Xila_Namespace
         };
 
     private:
-        // - Methods
-        Object_Type Get_Top_Layer();
-        Object_Type Get_Screen();
-
         // - Attributes
         Semaphore_Type Semaphore;
 
@@ -137,7 +133,6 @@ namespace Xila_Namespace
 
         // - Friendships
         friend class System_Class;
-        friend class Graphics_Types::Parent_Window_Class;
     } Graphics_Type;
 
     extern Graphics_Type Graphics;

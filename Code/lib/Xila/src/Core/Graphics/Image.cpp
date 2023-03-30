@@ -26,8 +26,9 @@ Image_Class::Image_Class() : Object_Class()
 {
 }
 
-Image_Class::Image_Class(const Object_Class &Object_To_Copy) : Object_Class(Object_To_Copy)
+Image_Class::Image_Class(const Object_Class &Object_To_Copy)
 {
+    Set_Pointer(Object_To_Copy.Get_Pointer());
 }
 
 // - - Manipulation

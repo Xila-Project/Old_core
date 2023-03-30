@@ -75,17 +75,17 @@ void Shell_Class::Login_Class::Execute_Instruction(const Instruction_Type &Instr
         case Graphics_Types::Event_Code_Type::Focused:
             if (Instruction.Graphics.Get_Object() == Name_Input)
             {
-                Graphics.Set_Keyboard_Text_Area(Name_Input);
+                Shell_Pointer->Keyboard.Set_Text_Area(Name_Input);
             }
             else if (Instruction.Graphics.Get_Object() == Password_Input)
             {
-                Graphics.Set_Keyboard_Text_Area(Password_Input);
+                Shell_Pointer->Keyboard.Set_Text_Area(Password_Input);
             }
             break;
         case Graphics_Types::Event_Code_Type::Defocused:
             if ((Instruction.Graphics.Get_Object() == Name_Input) || (Instruction.Graphics.Get_Object() == Password_Input))
             {
-                Graphics.Remove_Keyboard_Text_Area();
+                Shell_Pointer->Keyboard.Remove_Text_Area();
             }
             break;
         case Graphics_Types::Event_Code_Type::Clicked:
