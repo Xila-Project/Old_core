@@ -40,6 +40,7 @@ Xila is a lightweight operating system (like [Contiki](https://github.com/contik
 | :--- | :---: |
 | Code - Build | [![PlatformIO CI](https://github.com/AlixANNERAUD/Xila/actions/workflows/build_code.yml/badge.svg)](https://github.com/AlixANNERAUD/Xila/actions/workflows/build_code.yml) |
 | Code - Quality | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/793e3ff4ec7c4fb78254cb5bc4b0eb20)](https://app.codacy.com/gh/AlixANNERAUD/Xila/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) |
+| Code - Test coverage | [![Coverage Status](https://coveralls.io/repos/github/AlixANNERAUD/Xila/badge.svg?branch=main)](https://coveralls.io/github/AlixANNERAUD/Xila?branch=main) |
 | Documentation - Build | [![Documentation Status](https://readthedocs.org/projects/xila/badge/?version=latest)](https://xila.readthedocs.io/en/latest/?badge=latest) |
 | Site - Build| [![Deploy Hugo site to Pages](https://github.com/AlixANNERAUD/Xila_Site/actions/workflows/hugo.yml/badge.svg)](https://github.com/AlixANNERAUD/Xila_Site/actions/workflows/hugo.yml) |
 
