@@ -1,4 +1,4 @@
-## 📜 License
+# 📜 License
 
 This software is under [M.I.T. licence](https://alix-anneraud.mit-license.org/).
 

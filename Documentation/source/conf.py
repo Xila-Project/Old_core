@@ -39,7 +39,10 @@ subprocess.call('cd ../Doxygen; doxygen', shell=True)
 
 extensions = [
     'breathe',
-    'myst_parser'
+    'myst_parser',
+    'sphinx_copybutton',
+    'sphinxcontrib.mermaid',
+    "sphinx_design",
 ]
 
 myst_enable_extensions = [
@@ -97,7 +100,7 @@ exclude_patterns = []
 html_theme = 'sphinx_book_theme'
 html_logo = 'Xila.png'
 html_theme_options = {
-    'display_version': False,
+
 }
 
 

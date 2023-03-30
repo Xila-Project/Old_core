@@ -16,6 +16,8 @@ Introduction/Get started/Get started
 Software reference/Modules/Modules
 Software reference/Types/Types
 Software reference/Softwares/Softwares
+Software reference/Registries/Registries
+Software reference/Dependencies
 ```
 
 ```{toctree}

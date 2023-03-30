@@ -171,7 +171,6 @@ Result_Type Power_Class::Save_Registry()
     return Result_Type::Success;
 }
 
-/// @brief Handler of the power button interrupt.
 void IRAM_ATTR Power_Class::Button_Interrupt_Handler()
 {
     using namespace Xila_Namespace::Pin_Types;

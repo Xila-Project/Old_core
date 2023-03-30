@@ -1,4 +1,8 @@
-```mermaid
+# 🌳 Dependencies
+
+Here is a graph representing all of the dependencies between the different files of Xila.
+
+```{mermaid}
 
 stateDiagram-v2
 

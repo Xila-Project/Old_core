@@ -16,5 +16,5 @@ Power
 Softwares
 Sound
 System
-WiFiClipboard
+WiFi
 ```

@@ -1,4 +1,4 @@
-# Registries
+# 📜 Registries
 
 Here you will find how Xila stores its configuration.
 
