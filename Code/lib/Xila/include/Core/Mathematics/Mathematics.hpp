@@ -13,36 +13,25 @@
 
 #include "../Module/Module.hpp"
 #include "Hash.hpp"
+#include "Rational.hpp"
 
 namespace Xila_Namespace
 {
     namespace Mathematics_Types
     {
 
+
     };
 
     typedef class Mathematics_Class : Module_Class
     {
     public:
-        ///
-        /// @brief Archimedes constant.
-        ///
-        const double Pi = 3.1415926535897932384626433832795;
 
-        ///
+        /// @brief Pi constant.
+        static const Mathematics_Types::Rational_Type Pi;
+
         /// @brief Euler constant.
-        ///
-        const double Euler = 2.718281828459045235360287471352;
-
-        ///
-        /// @brief Degrees to radian coefficient.
-        ///
-        const double Degrees_To_Radians = 0.017453292519943295769236907684886;
-
-        ///
-        /// @brief Radian to degrees coefficient.
-        ///
-        const double Radians_To_Degrees = 57.295779513082320876798154814105;
+        static const Mathematics_Types::Rational_Type Euler;
 
         // -- Methods -- //
         double String_To_Float(const char *String); // --
@@ -54,18 +43,12 @@ namespace Xila_Namespace
         double Copy_Sign(double Number_1, double Number_2);
         double Floor(double Number);
         double Modulo(double Number_1, double Number_2);
-        double Greatest_Common_Divisor(double Number_1, double Number_2);
-        double Least_Common_Multiple(double Number_1, double Number_2);
 
-        double Radians(double Degrees);
-        double Degrees(double Radians);
+        Mathematics_Types::Rational_Type Radians(Mathematics_Types::Rational_Type Degrees);
+        Mathematics_Types::Rational_Type Degrees(Mathematics_Types::Rational_Type Radians);
 
-        double Factorial(double Number);
-        double Absolute(double Number);
-        double Inverse(double Number);
-
-        double Combination(double n, double k);
-        double Permutation(double n, double k);
+        Mathematics_Types::Rational_Type Combination(double n, double k);
+        Mathematics_Types::Rational_Type Permutation(double n, double k);
 
         double Sine(double Number);
         double Cosine(double Number);
@@ -95,20 +78,6 @@ namespace Xila_Namespace
         double Arc_Hyperbolic_Cosecant(double Number);
         double Arc_Hyperbolic_Cotangent(double Number);
 
-        double Power(double Base, double Exponent);
-        double Square(double Number);
-        double Cube(double Number);
-
-        double Root(double Base, double Exponent);
-        double Square_Root(double Number);
-        double Cubic_Root(double Number);
-
-        double Exponential(double Number);
-
-        double Logarithm(double Base, double Number);
-        double Binary_Logarithm(double Number);
-        double Natural_Logarithm(double Number);
-        double Decimal_Logarithm(double Number);
 
         uint32_t Random();
         uint32_t Random(uint32_t Upper_Bound);

@@ -6,6 +6,8 @@
 
 #include "unity.h"
 
+using namespace Xila_Namespace;
+
 char Test_Character_Array[] = "Hello World!";
 String_Type Test_String("Hello World!");
 
@@ -13,9 +15,6 @@ namespace Xila_Namespace
 {
     class Unit_Test_Class
     {
-    private:
-
-
     public:
         void Constructor()
         {

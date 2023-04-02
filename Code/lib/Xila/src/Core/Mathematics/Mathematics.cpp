@@ -1,18 +1,23 @@
 ///
 /// @file Mathematics.cpp
 /// @author Alix ANNERAUD (alix.anneraud@outlook.fr)
-/// @brief File to declare mathmetics methods.
+/// @brief File to declare mathematics methods.
 /// @version 0.2
 /// @date 11-07-2021
 ///
 /// @copyright Copyright (c) 2021
-///
 
 #include "Core/Mathematics/Mathematics.hpp"
 
 using namespace Xila_Namespace;
+using namespace Xila_Namespace::Mathematics_Types;
 
 Mathematics_Type Xila_Namespace::Mathematics;
+
+// - Attributes
+
+static const Mathematics_Types::Rational_Type Pi(355, 113);
+static const Mathematics_Types::Rational_Type Euler(2718281828459045, 1000000000000000);
 
 ///
 /// @brief Check if a float is a number.
@@ -62,9 +67,10 @@ double Xila_Namespace::Mathematics_Class::Modulo(double Number_1, double Number_
 ///
 /// @param Degrees Angle to convert in degrees.
 /// @return double Converted angle in radians.
-double Xila_Namespace::Mathematics_Class::Radians(double Degrees)
+Rational_Type Xila_Namespace::Mathematics_Class::Radians(Rational_Type Degrees)
 {
-    return Degrees * Degrees_To_Radians;
+    using namespace Xila_Namespace::Mathematics_Types;
+    return Rational_Type(Pi, Rational_Type(360)) * Degrees;
 }
 
 ///
@@ -72,9 +78,10 @@ double Xila_Namespace::Mathematics_Class::Radians(double Degrees)
 ///
 /// @param Radians Angle to convert in radians.
 /// @return double Converted angle in degrees.
-double Xila_Namespace::Mathematics_Class::Degrees(double Radians)
+Rational_Type Xila_Namespace::Mathematics_Class::Degrees(Rational_Type Radians)
 {
-    return Radians * Radians_To_Degrees;
+    using namespace Xila_Namespace::Mathematics_Types;
+    return Radians * Rational_Type(Rational_Type(360), Pi);
 }
 
 ///
@@ -194,7 +201,7 @@ double Xila_Namespace::Mathematics_Class::Arc_Cosecant(double Number)
 /// @return double Arc cotangent of the number.
 double Xila_Namespace::Mathematics_Class::Arc_Cotangent(double Number)
 {
-    return (Pi / 2) - Arc_Tangent(Number);
+    return static_cast<Long_Real_Type>((Pi / 2) - Arc_Tangent(Number));
 }
 
 ///
@@ -273,82 +280,6 @@ double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Cosecant(double Number)
 double Xila_Namespace::Mathematics_Class::Arc_Hyperbolic_Cotangent(double Number)
 {
     return 1 / Hyperbolic_Cotangent(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Absolute(double Number)
-{
-    return abs(Number);
-}
-
-///
-/// @brief Calculates the power of a number.
-///
-/// @param Base Base number.
-/// @param Exponent Exponent to apply.
-/// @return double Power of the number.
-double Xila_Namespace::Mathematics_Class::Power(double Base, double Exponent)
-{
-    return pow(Base, Exponent);
-}
-
-///
-/// @brief Calculate the square of a number.
-///
-/// @param Number Number to calculate.
-/// @return double Square of the number.
-double Xila_Namespace::Mathematics_Class::Square(double Number)
-{
-    return Number * Number;
-}
-
-double Xila_Namespace::Mathematics_Class::Cube(double Number)
-{
-    return Number * Number * Number;
-}
-
-double Xila_Namespace::Mathematics_Class::Root(double Base, double Exponent)
-{
-    return Power(Base, 1 / Exponent);
-}
-
-double Xila_Namespace::Mathematics_Class::Square_Root(double Number)
-{
-    return sqrt(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Cubic_Root(double Number)
-{
-    return cbrt(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Exponential(double Number)
-{
-    return exp(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Logarithm(double Base, double Number)
-{
-    return Natural_Logarithm(Number) / Natural_Logarithm(Base);
-}
-
-double Xila_Namespace::Mathematics_Class::Binary_Logarithm(double Number)
-{
-    return log2(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Natural_Logarithm(double Number)
-{
-    return log(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Decimal_Logarithm(double Number)
-{
-    return log10(Number);
-}
-
-double Xila_Namespace::Mathematics_Class::Inverse(double Number)
-{
-    return 1 / Number;
 }
 
 uint32_t Xila_Namespace::Mathematics_Class::Random()
@@ -430,63 +361,12 @@ char *Xila_Namespace::Mathematics_Class::Float_To_String(double Number, int8_t W
     return String;
 }
 
-///
-/// @brief Calculate the greated common divisor of two number.
-///
-/// @param Number_1
-/// @param Number_2
-/// @return double Greatest common divisor.
-double Xila_Namespace::Mathematics_Class::Greatest_Common_Divisor(double Number_1, double Number_2)
+Rational_Type Xila_Namespace::Mathematics_Class::Combination(double n, double k)
 {
-    if (Number_1 == 0 || Number_2 == 0)
-    {
-        return 0;
-    }
-    else if (Number_1 == Number_2)
-    {
-        return Number_1;
-    }
-    else if (Number_1 > Number_2)
-    {
-        return Greatest_Common_Divisor(Number_1 - Number_2, Number_2);
-    }
-    else
-    {
-        return Greatest_Common_Divisor(Number_1, Number_2 - Number_1);
-    }
+    return Rational_Type(n).Factorial() / Rational_Type(n - k).Factorial() * Rational_Type(k).Factorial();
 }
 
-///
-/// @brief Calculate the least common multiple of two number.
-///
-/// @param Number_1
-/// @param Number_2
-/// @return double Least common divisor.
-double Xila_Namespace::Mathematics_Class::Least_Common_Multiple(double Number_1, double Number_2)
+Rational_Type Xila_Namespace::Mathematics_Class::Permutation(double n, double k)
 {
-    return ((Number_1 * Number_2) / Greatest_Common_Divisor(Number_1, Number_2));
-}
-
-///
-/// @brief Calculate the factorial of a number.
-///
-/// @param Number Number to calculte the factorial from.
-/// @return double Factorial.
-double Xila_Namespace::Mathematics_Class::Factorial(double Number)
-{
-    for (uint8_t i = Number - 1; i > 0; i--)
-    {
-        Number *= i;
-    }
-    return Number;
-}
-
-double Xila_Namespace::Mathematics_Class::Combination(double n, double k)
-{
-    return Factorial(n) / (Factorial(n - k) * Factorial(k));
-}
-
-double Xila_Namespace::Mathematics_Class::Permutation(double n, double k)
-{
-    return Factorial(n) / Factorial(n - k);
+    return Rational_Type(n).Factorial() / Rational_Type(n - k).Factorial();
 }
