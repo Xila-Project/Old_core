@@ -61,10 +61,7 @@ Size_Type String_Class::Get_Length() const
     {
         return std::strlen(Characters_Pointer);
     }
-    else
-    {
-        return 0;
-    }
+    return 0;
 }
 
 Size_Type String_Class::Get_Size() const
@@ -74,7 +71,11 @@ Size_Type String_Class::Get_Size() const
 
 Size_Type String_Class::Get_Capacity() const
 {
-    return Get_Size() - 1;
+    if (Size > 0)
+    {
+        return Get_Size() - 1;
+    }
+    return 0;
 }
 
 /// @brief
@@ -134,6 +135,7 @@ Result_Type String_Class::Set_Size(Size_Type Size)
                 this->Size = 0;
                 return Result_Type::Error;
             }
+            this->Size = Size;
             Clear();
         }
     }
@@ -205,42 +207,39 @@ bool String_Class::Is_Valid() const
     return (Characters_Pointer != NULL) && (Size > 0);
 }
 
-
 Result_Type String_Class::Copy(const char *String, Size_Type Size, bool Change_Size)
 {
     if (String == NULL || !Is_Valid())
     {
-        
+
         return Result_Type::Error;
     }
-    
+
     if (Size == 0)
     {
         Size = std::strlen(String) + 1;
     }
-    
+
     if (Change_Size)
     {
-        
+
         if (Set_Size(Size) != Result_Type::Success)
         {
             return Result_Type::Error;
         }
     }
-    
 
     if (Get_Size() <= Size)
     {
-        
+
         std::strncpy(Characters_Pointer, String, Get_Size());
     }
     else
-    {  
-        
+    {
+
         std::strncpy(Characters_Pointer, String, Size);
     }
 
-    
     Characters_Pointer[Get_Size() - 1] = '\0';
     return Result_Type::Success;
 }
