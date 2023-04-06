@@ -62,9 +62,11 @@ namespace Xila_Namespace
         /// @brief Get the year of the date.
         uint16_t Get_Year();
 
+        /// @brief Check if the date is valid.
+        /// @return `true` if the date is valid, `false` otherwise.
         bool Is_Valid();
 
-        /// @brief Check if the date is valid.
+        /// @brief Check if a date is valid.
         /// @param Day Day of the date (1 - 31).
         /// @param Month Month of the date (1 - 12).
         /// @param Year Year of the date (0 - 65 535).

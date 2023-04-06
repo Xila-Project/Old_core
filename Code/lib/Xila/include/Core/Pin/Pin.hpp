@@ -65,31 +65,87 @@ namespace Xila_Namespace
         // TODO : Transform into a full Object Oriented Object.
 
         // -- Pin mode
+
+        /// @brief Set pin mode.
+        /// @param Pin Pin to set.
+        /// @param Mode Mode to set.
         void Set_Mode(uint8_t Pin, Pin_Types::Mode_Type Mode);
 
+        /// @brief Check if a pin is valid for output purpose.
+        /// @param Pin Pin to check.
+        /// @return `Result_Type::Success` if the pin is valid, `Result_Type::Error` otherwise.
         Result_Type Valid_Output_Pin(uint8_t Pin);
 
         // -- Digital
+
+        /// @brief Set a digital state to a pin.
+        /// @param Pin Pin to set.
+        /// @param State State to set.
         void Digital_Write(uint8_t Pin, Pin_Types::Digital_State_Type State);
+
+        /// @brief Read the digital state from a pin.
+        /// @param Pin Pin to read.
+        /// @return Pin state.
         Pin_Types::Digital_State_Type Digital_Read(uint8_t Pin);
 
+        /// @brief Check if a pin is valid for digital purpose.
+        /// @param Pin Pin to check.
+        /// @return `Result_Type::Success` if the pin is valid, `Result_Type::Error` otherwise.
         Result_Type Valid_Digital_Pin(uint8_t Pin);
 
         // -- Analog
+
+        /// @brief Set a analog value to a pin.
+        /// @param Pin Pin to set.
+        /// @param Value Value to set.
         uint16_t Analog_Read(uint8_t Pin);
+
+        /// @brief Read the analog value from a pin.
+        /// @param Pin Pin to read.
+        /// @return Pin value.
         uint32_t Analog_Read_Milli_Volts(uint8_t Pin);
 
+        /// @brief Set the voltage reference pin.
+        /// @param Pin Pin to set.
         void Set_Voltage_Reference_Pin(uint8_t Pin);
+
+        /// @brief Set the read resolution.
+        /// @param Bits_Resolution Bits resolution to set.
         void Set_Read_Resolutions(uint8_t Bits_Resolution);
+
+        /// @brief
+        /// @param Bits_Width
         void Set_Width(uint8_t Bits_Width);
+
+        /// @brief Set the clock divider.
+        /// @param Clock_Divider Clock divider to set. 
         void Set_Clock_Divider(uint8_t Clock_Divider);
 
+        /// @brief Set the attenuation of all pins.
+        /// @param Attenuation Attenuation to set.
         void Set_Attenuation(uint8_t Attenuation);
+
+        /// @brief Set the attenuation of a pin.
+        /// @param Pin Pin to set.
         void Set_Attenuation(uint8_t Pin, uint8_t Attenuation);
 
         // -- Interrupts
+
+        /// @brief Attach an interrupt to a pin.
+        /// @param Pin Pin to attach.
+        /// @param Function_Pointer Function to call when the interrupt is triggered.
+        /// @param Mode Interrupt mode.
         void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void), Pin_Types::Interrupt_Mode_Type Mode);
+
+        /// @brief Attach an interrupt to a pin.
+        /// @param Pin Pin to attach.
+        /// @param Function_Pointer Function to call when the interrupt is triggered.
+        /// @param Argument Argument to pass to the function.  
+        /// @param Mode Interrupt mode.
         void Attach_Interrupt(uint8_t Pin, void (*Function_Pointer)(void *), void *Argument, Pin_Types::Interrupt_Mode_Type Mode);
+
+        /// @brief Detach an interrupt from a pin.
+        /// @param Pin Pin to detach.
         void Detach_Interrupt(uint8_t Pin);
     
     private:

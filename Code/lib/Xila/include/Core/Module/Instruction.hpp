@@ -1,4 +1,3 @@
-///
 /// @file Instruction.hpp
 /// @author Alix ANNERAUD (alix@anneraud.fr)
 /// @brief
@@ -6,7 +5,6 @@
 /// @date 25-02-2023
 ///
 /// @copyright Copyright (c) 2023
-///
 
 #ifndef Instruction_Hpp_Included
 #define Instruction_Hpp_Included
